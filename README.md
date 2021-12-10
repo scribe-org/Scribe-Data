@@ -9,9 +9,9 @@
 
 ### Public domain device mockups for all to use
 
-**CC0 Mockups** is a [Creative Commons Zero](https://creativecommons.org/share-your-work/public-domain/cc0/) licensed repository of files providing professional device images to speed up release cycles. Mockups are true to original designs and fit together perfectly for cross device media. Feel free to use any of the files included with the assurance that you are safe from copyright infringement.
+**CC0 Mockups** is a [Creative Commons Zero](https://creativecommons.org/share-your-work/public-domain/cc0/) licensed repository providing professional device images and design files to speed up releases. Use the included files with the assurance that you are safe from copyright infringement and that your media will pass the necessary distribution reviews.
 
-Current mockups include minimalist white versions of all devices needed for an iOS app release. Contributions are more than welcome!
+Mockups are true to original designs and fit together perfectly for cross device productions. Current mockups include minimalist white versions of all devices needed for an iOS app release. Contributions are more than welcome!
 
 # **Contents**<a id="contents"></a>
 
