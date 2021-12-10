@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://github.com/andrewtavis/cc0_mockups"><img src="https://raw.githubusercontent.com/andrewtavis/cc0_mockups/main/Resources/cc0_mockups_logo_transparent.png" width=628 height=332 alt="cc0_mockups Logo"></a>
+  <a href="https://github.com/andrewtavis/cc0_mockups"><img src="https://raw.githubusercontent.com/andrewtavis/cc0_mockups/main/Resources/cc0_mockups_logo_transparent.png" width=418 height=221 alt="cc0_mockups Logo"></a>
 </div>
 
 ---
