@@ -50,7 +50,7 @@ Versions of the iPad Pro 2nd generation and iPad Pro 4th generation:
 
 # To-Do [`⇧`](#contents) <a id="to-do"></a>
 
-Work that is in progress or could be implemented is tracked in the [Issues](https://github.com/andrewtavis/CC0_mockups/issues). Please see the [contribution guidelines](https://github.com/andrewtavis/CC0_mockups/blob/main/CONTRIBUTING.md) if you are interested in contributing to CCO Mockups. Work that is in progress or could be implemented includes:
+Please see the [contribution guidelines](https://github.com/andrewtavis/CC0_mockups/blob/main/CONTRIBUTING.md) if you are interested in contributing to CCO Mockups and the [Issues](https://github.com/andrewtavis/CC0_mockups/issues) for work that's currently in progress. Work that could be implemented includes:
 
 - Creating minimalist black versions of all current mockups
 
