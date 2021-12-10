@@ -1,4 +1,4 @@
-# Contributing to CC0_mockups
+# Contributing to CC0 Mockups
 
 Thank you for your consideration in contributing to this project!
 
@@ -8,7 +8,7 @@ Following these guidelines helps to communicate that you respect the time of the
 
 ## Using the issue tracker
 
-The [issue tracker for CC0_mockups](https://github.com/andrewtavis/CC0_mockups/issues) is the preferred channel for [features requests](#feature-requests) and [submitting pull requests](#pull-requests).
+The [issue tracker for CC0 Mockups](https://github.com/andrewtavis/CC0_mockups/issues) is the preferred channel for [features requests](#feature-requests) and [submitting pull requests](#pull-requests).
 
 <a name="feature-requests"></a>
 
