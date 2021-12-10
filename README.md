@@ -9,7 +9,7 @@
 
 ### Public domain device mockups for all to use
 
-**CCO Mockups** is a [Creative Commons Zero](https://creativecommons.org/share-your-work/public-domain/cc0/) licensed repository of files providing professional device images to speed up release cycles. Mockups are true to original designs and fit together perfectly for cross device media. Feel free to use any of the files included with the assurance that you are safe from copyright infringement.
+**CC0 Mockups** is a [Creative Commons Zero](https://creativecommons.org/share-your-work/public-domain/cc0/) licensed repository of files providing professional device images to speed up release cycles. Mockups are true to original designs and fit together perfectly for cross device media. Feel free to use any of the files included with the assurance that you are safe from copyright infringement.
 
 Current mockups include minimalist white versions of all devices needed for an iOS app release. Contributions are more than welcome!
 
@@ -22,7 +22,7 @@ Current mockups include minimalist white versions of all devices needed for an i
 
 # Apple [`⇧`](#contents) <a id="apple"></a>
 
-Apple's official device mockups can be found on their [Design Resources](https://developer.apple.com/design/resources/) page. CCO Mockups' current mockups include:
+Apple's official device mockups can be found on their [Design Resources](https://developer.apple.com/design/resources/) page. CC0 Mockups' current mockups include:
 
 ## iPhone [`⇧`](#contents) <a id="iphone"></a>
 
@@ -50,7 +50,7 @@ Versions of the iPad Pro 2nd generation and iPad Pro 4th generation:
 
 # To-Do [`⇧`](#contents) <a id="to-do"></a>
 
-Please see the [contribution guidelines](https://github.com/andrewtavis/CC0-Mockups/blob/main/CONTRIBUTING.md) if you are interested in contributing to CCO Mockups and the [Issues](https://github.com/andrewtavis/CC0-Mockups/issues) for work that's currently in progress. Work that could be implemented includes:
+Please see the [contribution guidelines](https://github.com/andrewtavis/CC0-Mockups/blob/main/CONTRIBUTING.md) if you are interested in contributing to CC0 Mockups and the [Issues](https://github.com/andrewtavis/CC0-Mockups/issues) for work that's currently in progress. Work that could be implemented includes:
 
 - Improving current minimalist white mockups
 
