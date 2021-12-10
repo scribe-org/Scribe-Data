@@ -52,6 +52,8 @@ Versions of the iPad Pro 2nd generation and iPad Pro 4th generation:
 
 Please see the [contribution guidelines](https://github.com/andrewtavis/CC0_mockups/blob/main/CONTRIBUTING.md) if you are interested in contributing to CCO Mockups and the [Issues](https://github.com/andrewtavis/CC0_mockups/issues) for work that's currently in progress. Work that could be implemented includes:
 
+- Improving current minimalist white mockups
+
 - Creating minimalist black versions of all current mockups
 
 - Adding to the [Apple](https://github.com/andrewtavis/CC0_mockups/blob/main/Sketch/Apple) [Sketch](https://www.sketch.com/) mockup library
