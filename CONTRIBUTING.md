@@ -1,14 +1,14 @@
-# Contributing to cc0_mockups
+# Contributing to CC0_mockups
 
 Thank you for your consideration in contributing to this project!
 
 Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
 
-Following these guidelines helps to communicate that you respect the time of the contributors managing and developing this open source project. In return, and in accordance with this project's [code of conduct](https://github.com/andrewtavis/cc0_mockups/blob/main/.github/CODE_OF_CONDUCT.md), other contributors will reciprocate that respect in addressing your issue or assessing patches and features.
+Following these guidelines helps to communicate that you respect the time of the contributors managing and developing this open source project. In return, and in accordance with this project's [code of conduct](https://github.com/andrewtavis/CC0_mockups/blob/main/.github/CODE_OF_CONDUCT.md), other contributors will reciprocate that respect in addressing your issue or assessing patches and features.
 
 ## Using the issue tracker
 
-The [issue tracker for cc0_mockups](https://github.com/andrewtavis/cc0_mockups/issues) is the preferred channel for [features requests](#feature-requests) and [submitting pull requests](#pull-requests).
+The [issue tracker for CC0_mockups](https://github.com/andrewtavis/CC0_mockups/issues) is the preferred channel for [features requests](#feature-requests) and [submitting pull requests](#pull-requests).
 
 <a name="feature-requests"></a>
 
@@ -20,7 +20,7 @@ Feature requests are more than welcome! Please take a moment to find out whether
 
 ## Pull requests
 
-Good pull requests - patches, improvements and new features - are a fantastic help. They should remain focused in scope and avoid containing unrelated commits. Note that all contributions to this project will be made under [the specified license](https://github.com/andrewtavis/cc0_mockups/blob/main/LICENSE.txt).
+Good pull requests - patches, improvements and new features - are a fantastic help. They should remain focused in scope and avoid containing unrelated commits. Note that all contributions to this project will be made under [the specified license](https://github.com/andrewtavis/CC0_mockups/blob/main/LICENSE.txt).
 
 **Please ask first** before embarking on any significant pull request, otherwise you risk spending a lot of time working on something that the contributors might not want to merge into the project. With that being said, major additions are very appreciated!
 
