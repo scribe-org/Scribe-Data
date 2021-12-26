@@ -38,7 +38,7 @@ Versions of the iPhone 13 and iPhone 8:
 
 ## iPad [`⇧`](#contents) <a id="ipad"></a>
 
-Versions of the iPad Pro 2nd generation and iPad Pro 4th generation:
+Versions of the iPad Pro 4th generation and iPad Pro 2nd generation:
 
 <div align="center">
 <br>
