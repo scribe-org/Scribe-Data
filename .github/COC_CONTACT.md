@@ -1,3 +1,1 @@
-Issues pertaining to this project's [code of conduct](https://github.com/andrewtavis/CC0-Mockups/blob/main/.github/CODE_OF_CONDUCT.md) can be reported to:
-
-Andrew Tavis McAllister (andrew.t.mcallister@gmail<nolink>.com)
+Issues pertaining to this project's [code of conduct](https://github.com/scribe-org/Scribe-Data/blob/main/.github/CODE_OF_CONDUCT.md) can be reported to the Scribe team at scribe.language@gmail<nolink>.com.

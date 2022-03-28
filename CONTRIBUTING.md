@@ -1,14 +1,42 @@
-# Contributing to CC0 Mockups
+# Contributing to Scribe-Data
 
 Thank you for your consideration in contributing to this project!
 
 Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
 
-Following these guidelines helps to communicate that you respect the time of the contributors managing and developing this open source project. In return, and in accordance with this project's [code of conduct](https://github.com/andrewtavis/CC0-Mockups/blob/main/.github/CODE_OF_CONDUCT.md), other contributors will reciprocate that respect in addressing your issue or assessing patches and features.
+Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, and in accordance with this project's [code of conduct](https://github.com/scribe-org/Scribe-Data/blob/main/.github/CODE_OF_CONDUCT.md), other contributors will reciprocate that respect in addressing your issue or assessing patches and features.
+
+## Branding
+
+All branding elements such as logos, icons, colors and fonts should follow those that are set out in [scribe-org/Organization](https://github.com/scribe-org/Organization). As the project is fully open source, these elements are also open for discussion. Your efforts in making Scribe products professional with a distinct and cohesive identity are much appreciated.
 
 ## Using the issue tracker
 
-The [issue tracker for CC0 Mockups](https://github.com/andrewtavis/CC0-Mockups/issues) is the preferred channel for [features requests](#feature-requests) and [submitting pull requests](#pull-requests).
+The [issue tracker for Scribe-Data](https://github.com/scribe-org/Scribe-Data/issues) is the preferred channel for [bug reports](#bug-reports), [features requests](#feature-requests) and [submitting pull requests](#pull-requests).
+
+<a name="bug-reports"></a>
+
+## Bug reports
+
+A bug is a _demonstrable problem_ that is caused by the code in the repository. Good bug reports are extremely helpful - thank you!
+
+Guidelines for bug reports:
+
+1. **Use the GitHub issue search** to check if the issue has already been reported.
+
+2. **Check if the issue has been fixed** by trying to reproduce it using the latest `main` or development branch in the repository.
+
+3. **Isolate the problem** to make sure that the code in the repository is _definitely_ responsible for the issue.
+
+**Great Bug Reports** tend to have:
+
+- A quick summary
+- Steps to reproduce
+- What you expected would happen
+- What actually happens
+- Notes (why this might be happening, things tried that didn't work, etc)
+
+Again, thank you for your time in reporting issues!
 
 <a name="feature-requests"></a>
 
@@ -20,9 +48,9 @@ Feature requests are more than welcome! Please take a moment to find out whether
 
 ## Pull requests
 
-Good pull requests - patches, improvements and new features - are a fantastic help. They should remain focused in scope and avoid containing unrelated commits. Note that all contributions to this project will be made under [the specified license](https://github.com/andrewtavis/CC0-Mockups/blob/main/LICENSE.txt).
+Good pull requests - patches, improvements and new features - are a fantastic help. They should remain focused in scope and avoid containing unrelated commits. Note that all contributions to this project will be made under [the specified license](https://github.com/scribe-org/Scribe-Data/blob/main/LICENSE.txt) and should follow the coding indentation and style standards (contact us if unsure).
 
-**Please ask first** before embarking on any significant pull request, otherwise you risk spending a lot of time working on something that the contributors might not want to merge into the project. With that being said, major additions are very appreciated!
+**Please ask first** before embarking on any significant pull request (implementing features, refactoring code, etc), otherwise you risk spending a lot of time working on something that the developers might not want to merge into the project. With that being said, major additions are very appreciated!
 
 When making a contribution, adhering to the [GitHub flow](https://guides.github.com/introduction/flow/index.html) process is the best way to get your work merged:
 
