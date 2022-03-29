@@ -1,0 +1,11 @@
+name: scribe-data-dev
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - black>=19.10b0
+  - transformers>=4.12
+  - sentencepiece>=0.1.95
+  - pip:
+      - wikidataintegrator>=0.9.22
+      - python-dateutil>=2.8.2
