@@ -16,7 +16,12 @@ This repository contains the scripts for extracting and formatting data from [Wi
 
 # **Contents**<a id="contents"></a>
 
+- [Process](#process)
 - [Supported Languages](#supported-languages)
+
+# Process [`⇧`](#contents) <a id="process"></a>
+
+[Data/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/Data/update_data.py) is used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active. The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data, with these packs then being available to download by users of Scribe applications.
 
 # Supported Languages [`⇧`](#contents) <a id="supported-languages"></a>
 
