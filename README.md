@@ -13,7 +13,7 @@
 
 ### Data extraction and formatting for Scribe applications
 
-This repository contains the scripts for extracting and formatting data from [Wikidata](https://www.wikidata.org/) for Scribe keyboards. Updates to the language keyboard data can be done using [data/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/data/update_data.py).
+This repository contains the scripts for extracting and formatting data from [Wikidata](https://www.wikidata.org/) for Scribe applications. Updates to the language keyboard and interface data can be done using [data/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/data/update_data.py).
 
 # **Contents**<a id="contents"></a>
 
@@ -27,7 +27,7 @@ This repository contains the scripts for extracting and formatting data from [Wi
 
 # Supported Languages [`⇧`](#contents) <a id="supported-languages"></a>
 
-Scribe's goal is functional, feature-rich keyboards for all languages. Check the [data](https://github.com/scribe-org/Scribe-Data/tree/main/data) directory for queries for currently supported languages and those that have substantial data on [Wikidata](https://www.wikidata.org/).
+Scribe's goal is functional, feature-rich keyboards and interfaces for all languages. Check the [data](https://github.com/scribe-org/Scribe-Data/tree/main/data) directory for queries for currently supported languages and those that have substantial data on [Wikidata](https://www.wikidata.org/).
 
 The following table shows the supported languages and the amount of data available for each on [Wikidata](https://www.wikidata.org/):
 
