@@ -13,7 +13,7 @@
 
 ### Data extraction and formatting for Scribe applications
 
-This repository contains the scripts for extracting and formatting data from [Wikidata](https://www.wikidata.org/) for Scribe keyboards. Updates to the language keyboard data can be done using [Data/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/Data/update_data.py).
+This repository contains the scripts for extracting and formatting data from [Wikidata](https://www.wikidata.org/) for Scribe keyboards. Updates to the language keyboard data can be done using [data/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/data/update_data.py).
 
 # **Contents**<a id="contents"></a>
 
@@ -23,11 +23,11 @@ This repository contains the scripts for extracting and formatting data from [Wi
 
 # Process [`⇧`](#contents) <a id="process"></a>
 
-[Data/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/Data/update_data.py) is used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active. The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data, with these packs then being available to download by users of Scribe applications.
+[data/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/data/update_data.py) is used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active. The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data, with these packs then being available to download by users of Scribe applications.
 
 # Supported Languages [`⇧`](#contents) <a id="supported-languages"></a>
 
-Scribe's goal is functional, feature-rich keyboards for all languages. Check the [Data](https://github.com/scribe-org/Scribe-Data/tree/main/Data) directory for queries for currently supported languages and those that have substantial data on [Wikidata](https://www.wikidata.org/).
+Scribe's goal is functional, feature-rich keyboards for all languages. Check the [data](https://github.com/scribe-org/Scribe-Data/tree/main/data) directory for queries for currently supported languages and those that have substantial data on [Wikidata](https://www.wikidata.org/).
 
 The following table shows the supported languages and the amount of data available for each on [Wikidata](https://www.wikidata.org/):
 
