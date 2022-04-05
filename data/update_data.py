@@ -17,8 +17,10 @@ Usage
     python update_data.py '[languages_in_quotes]' '[word_types_in_quotes]'
 """
 
+# pylint: disable=invalid-name
 
 import ast
+import itertools
 import json
 import os
 import sys
@@ -32,7 +34,7 @@ from wikidataintegrator.wdi_config import config as wdi_config
 # Prevents WikidataIntegrator from infinitely trying queries.
 wdi_config["BACKOFF_MAX_TRIES"] = 1
 
-with open("./_update_files/total_data.json") as f:
+with open("./_update_files/total_data.json", encoding="utf-8") as f:
     current_data = json.load(f)
 
 current_languages = list(current_data.keys())
@@ -53,13 +55,13 @@ if len(sys.argv) == 2:
 
     try:
         arg = ast.literal_eval(arg)
-    except:
+    except ValueError as invalid_arg:
         raise ValueError(
             f"""The argument type of '{arg}' passed to update_data.py is invalid.
             Only lists are allowed, and can be passed via:
             python update_data.py '[args_in_quotes]'
             """
-        )
+        ) from invalid_arg
 
     if not isinstance(arg, list):
         raise ValueError(
@@ -167,7 +169,7 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
     query_name = "query" + target_type.title() + ".sparql"
     query_path = f"./{q}/{query_name}"
 
-    with open(query_path) as file:
+    with open(query_path, encoding="utf-8") as file:
         query_lines = file.readlines()
 
     # First format the lines into a multi-line string and then pass this to wikidataintegrator.
@@ -192,19 +194,21 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
             results_formatted.append(r_dict)
 
         with open(
-            f"./{lang}/{target_type}/{target_type}Queried.json", "w", encoding="utf-8",
+            f"./{lang}/{target_type}/{target_type}_queried.json", "w", encoding="utf-8"
         ) as f:
             json.dump(results_formatted, f, ensure_ascii=False, indent=2)
 
         # Call the corresponding formatting file and update data changes.
         os.system(f"python ./{lang}/{target_type}/format_{target_type}.py")
 
+        # Use Scribe-iOS as the basis of checking the new data.
         with open(
-            f"./../Keyboards/LanguageKeyboards/{lang}/Data/{target_type}.json"
-        ) as f:
-            new_keyboard_data = json.load(f)
+            f"./../../Scribe-iOS/Keyboards/LanguageKeyboards/{lang}/Data/{target_type}.json",
+            encoding="utf-8",
+        ) as json_file:
+            new_keyboard_data = json.load(json_file)
 
-        if lang not in data_added_dict.keys():
+        if lang not in data_added_dict:
             data_added_dict[lang] = {}
         data_added_dict[lang][target_type] = (
             len(new_keyboard_data) - current_data[lang][target_type]
@@ -213,7 +217,7 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
         current_data[lang][target_type] = len(new_keyboard_data)
 
 # Update total_data.json.
-with open("./_update_files/total_data.json", "w", encoding="utf-8",) as f:
+with open("./_update_files/total_data.json", "w", encoding="utf-8") as f:
     json.dump(current_data, f, ensure_ascii=False, indent=2)
 
 
@@ -250,16 +254,17 @@ current_data_df = pd.DataFrame(
     index=sorted(list(current_data.keys())),
     columns=["nouns", "verbs", "translations", "adjectives", "prepositions"],
 )
-for lang in list(current_data_df.index):
-    for wt in list(current_data_df.columns):
-        if wt in current_data[lang].keys():
-            current_data_df.loc[lang, wt] = num_add_commas(current_data[lang][wt])
-        elif wt == "translations":
-            current_data_df.loc[lang, wt] = num_add_commas(67652)
+for lang, wt in itertools.product(
+    list(current_data_df.index), list(current_data_df.columns)
+):
+    if wt in current_data[lang].keys():
+        current_data_df.loc[lang, wt] = num_add_commas(current_data[lang][wt])
+    elif wt == "translations":
+        current_data_df.loc[lang, wt] = num_add_commas(67652)
 
 current_data_df.index.name = "Languages"
 current_data_df.columns = [c.capitalize() for c in current_data_df.columns]
-with open("./_update_files/data_table.txt", "w+") as f:
+with open("./_update_files/data_table.txt", "w+", encoding="utf-8") as f:
     table_string = str(current_data_df.to_markdown()).replace(" nan ", "   - ")
     # Right justify the data and left justify the language indexes.
     table_string = (
@@ -297,5 +302,5 @@ for l in language_keys:
 
     data_added_string = data_added_string[:-1]  # remove the last comma
 
-with open("./_update_files/data_updates.txt", "w+") as f:
+with open("./_update_files/data_updates.txt", "w+", encoding="utf-8") as f:
     f.writelines(data_added_string)

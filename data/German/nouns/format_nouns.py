@@ -2,20 +2,49 @@
 Format Nouns
 ------------
 
-Formats the nouns queried from Wikidata using queryNouns.sparql.
+Formats the nouns queried from Wikidata using query_nouns.sparql.
 """
+
+# pylint: disable=invalid-name
 
 import collections
 import json
 import sys
 
+from data.data_utils import (
+    get_android_data_path,
+    get_desktop_data_path,
+    get_ios_data_path,
+    get_path_from_format_file,
+    get_path_from_update_data,
+)
+
 file_path = sys.argv[0]
+
+update_data_in_use = False  # check if update_data.py is being used
 if "German/nouns/" not in file_path:
-    with open("nounsQueried.json") as f:
+    with open("nouns_queried.json", encoding="utf-8") as f:
         nouns_list = json.load(f)
-else:  # is being called by update_data.py
-    with open("./German/nouns/nounsQueried.json") as f:
+else:
+    with open("./German/nouns/nouns_queried.json", encoding="utf-8") as f:
         nouns_list = json.load(f)
+        update_data_in_use = True
+
+path_from_file = get_path_from_format_file()
+path_from_update_data = get_path_from_update_data()
+ios_data_dir_from_org = get_ios_data_path("German", "nouns")
+android_data_dir_from_org = get_android_data_path("German", "nouns")
+desktop_data_dir_from_org = get_desktop_data_path("German", "nouns")
+
+ios_output_path = f"{path_from_file}{ios_data_dir_from_org}"
+android_output_path = f"{path_from_file}{android_data_dir_from_org}"
+desktop_output_path = f"{path_from_file}{desktop_data_dir_from_org}"
+if update_data_in_use:
+    ios_output_path = f"{path_from_update_data}{ios_data_dir_from_org}"
+    android_output_path = f"{path_from_update_data}{android_data_dir_from_org}"
+    desktop_output_path = f"{path_from_update_data}{desktop_data_dir_from_org}"
+
+all_output_paths = [ios_output_path, android_output_path, desktop_output_path]
 
 
 def map_genders(wikidata_gender):
@@ -144,7 +173,7 @@ for noun_vals in nouns_list:
                     "form": map_genders(noun_vals["gender"]),
                 }
 
-        # The singular already exists and there might be another gender of it for a different meaning.
+        # The singular already exists - there might be another gender of it for a different meaning.
         else:
             if (
                 "gender" in noun_vals.keys()
@@ -174,22 +203,13 @@ for noun_vals in nouns_list:
             elif nouns_formatted[noun_vals["plural"]]["form"] == "":
                 nouns_formatted[noun_vals["plural"]]["form"] = "PL"
 
-for k in nouns_formatted.keys():
+for k in nouns_formatted:
     nouns_formatted[k]["form"] = order_annotations(nouns_formatted[k]["form"])
 
 nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
-if "German/nouns/" not in file_path:
-    with open(
-        "../../../Keyboards/LanguageKeyboards/German/Data/nouns.json",
-        "w",
-        encoding="utf-8",
-    ) as f:
-        json.dump(nouns_formatted, f, ensure_ascii=False, indent=2)
-else:  # is being called by update_data.py
-    with open(
-        "../Keyboards/LanguageKeyboards/German/Data/nouns.json", "w", encoding="utf-8",
-    ) as f:
-        json.dump(nouns_formatted, f, ensure_ascii=False, indent=2)
+for output_path in all_output_paths:
+    with open(output_path, "w", encoding="utf-8",) as file:
+        json.dump(nouns_formatted, file, ensure_ascii=False, indent=2)
 
 print(f"Wrote file nouns.json with {len(nouns_formatted)} nouns.")

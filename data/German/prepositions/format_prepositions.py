@@ -2,20 +2,49 @@
 Format Prepositions
 -------------------
 
-Formats the prepositions queried from Wikidata using queryPrepositions.sparql.
+Formats the prepositions queried from Wikidata using query_prepositions.sparql.
 """
+
+# pylint: disable=invalid-name
 
 import collections
 import json
 import sys
 
+from data.data_utils import (
+    get_android_data_path,
+    get_desktop_data_path,
+    get_ios_data_path,
+    get_path_from_format_file,
+    get_path_from_update_data,
+)
+
 file_path = sys.argv[0]
+
+update_data_in_use = False  # check if update_data.py is being used
 if "German/prepositions/" not in file_path:
-    with open("prepositionsQueried.json") as f:
+    with open("prepositions_queried.json", encoding="utf-8") as f:
         prepositions_list = json.load(f)
-else:  # is being called by update_data.py
-    with open("./German/prepositions/prepositionsQueried.json") as f:
+else:
+    with open("./German/prepositions/prepositions_queried.json", encoding="utf-8") as f:
         prepositions_list = json.load(f)
+        update_data_in_use = True
+
+path_from_file = get_path_from_format_file()
+path_from_update_data = get_path_from_update_data()
+ios_data_dir_from_org = get_ios_data_path("German", "prepositions")
+android_data_dir_from_org = get_android_data_path("German", "prepositions")
+desktop_data_dir_from_org = get_desktop_data_path("German", "prepositions")
+
+ios_output_path = f"{path_from_file}{ios_data_dir_from_org}"
+android_output_path = f"{path_from_file}{android_data_dir_from_org}"
+desktop_output_path = f"{path_from_file}{desktop_data_dir_from_org}"
+if update_data_in_use:
+    ios_output_path = f"{path_from_update_data}{ios_data_dir_from_org}"
+    android_output_path = f"{path_from_update_data}{android_data_dir_from_org}"
+    desktop_output_path = f"{path_from_update_data}{desktop_data_dir_from_org}"
+
+all_output_paths = [ios_output_path, android_output_path, desktop_output_path]
 
 
 def convert_cases(case):
@@ -76,19 +105,8 @@ for k in prepositions_formatted:
 
 prepositions_formatted = collections.OrderedDict(sorted(prepositions_formatted.items()))
 
-if "German/prepositions/" not in file_path:
-    with open(
-        "../../../Keyboards/LanguageKeyboards/German/Data/prepositions.json",
-        "w",
-        encoding="utf-8",
-    ) as f:
-        json.dump(prepositions_formatted, f, ensure_ascii=False, indent=2)
-else:  # is being called by update_data.py
-    with open(
-        "../Keyboards/LanguageKeyboards/German/Data/prepositions.json",
-        "w",
-        encoding="utf-8",
-    ) as f:
-        json.dump(prepositions_formatted, f, ensure_ascii=False, indent=2)
+for output_path in all_output_paths:
+    with open(output_path, "w", encoding="utf-8",) as file:
+        json.dump(prepositions_formatted, file, ensure_ascii=False, indent=2)
 
 print(f"Wrote file prepositions.json with {len(prepositions_formatted)} prepositions.")

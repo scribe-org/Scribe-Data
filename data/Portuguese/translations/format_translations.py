@@ -2,8 +2,10 @@
 Format Translations
 -------------------
 
-Formats and translates the words queried from Wikidata using queryTranslations.sparql.
+Formats and translates the words queried from Wikidata using query_translations.sparql.
 """
+
+# pylint: disable=invalid-name
 
 import collections
 import json
@@ -11,7 +13,7 @@ import json
 from tqdm.auto import tqdm
 from transformers import MarianMTModel, MarianTokenizer
 
-with open("../../translationsQueried.json") as f:
+with open("../../translations_queried.json", encoding="utf-8") as f:
     translations_list = json.load(f)
 
 words = [translation_vals["word"] for translation_vals in translations_list]
@@ -25,7 +27,7 @@ model = MarianMTModel.from_pretrained(MODEL_NAME)
 
 for w in tqdm(words, desc="Words translated", unit="word",):
     translated = model.generate(
-        **tokenizer(">>por<< " + w, return_tensors="pt", padding=True)
+        **tokenizer(f">>por<< {w}", return_tensors="pt", padding=True)
     )
     translations_formatted[w] = tokenizer.decode(
         translated[0], skip_special_tokens=True
