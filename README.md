@@ -7,13 +7,15 @@
 [![issues](https://img.shields.io/github/issues/scribe-org/Scribe-Data)](https://github.com/scribe-org/Scribe-Data/issues)
 [![discussions](https://img.shields.io/github/discussions/scribe-org/Scribe-Data)](https://github.com/scribe-org/Scribe-Data/discussions)
 [![language](https://img.shields.io/badge/Python-3-306998.svg?logo=python&logoColor=ffffff)](https://github.com/scribe-org/Scribe-Data/blob/main/CONTRIBUTING.md)
+[![pypi](https://img.shields.io/pypi/v/scribe-data.svg?color=4B8BBE)](https://pypi.org/project/scribe-data/)
+[![pypistatus](https://img.shields.io/pypi/status/scribe-data.svg)](https://pypi.org/project/scribe-data/)
 [![license](https://img.shields.io/github/license/scribe-org/Scribe-Data.svg)](https://github.com/scribe-org/Scribe-Data/blob/main/LICENSE.txt)
 [![coc](https://img.shields.io/badge/coc-Contributor%20Covenant-ff69b4.svg)](https://github.com/scribe-org/Scribe-Data/blob/main/.github/CODE_OF_CONDUCT.md)
 [![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ### Data extraction and formatting for Scribe applications
 
-This repository contains the scripts for extracting and formatting data from [Wikidata](https://www.wikidata.org/) for Scribe applications. Updates to the language keyboard and interface data can be done using [data/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/data/update_data.py).
+This repository contains the scripts for extracting and formatting data from [Wikidata](https://www.wikidata.org/) for Scribe applications. Updates to the language keyboard and interface data can be done using [scribe_data/load/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load/update_data.py).
 
 # **Contents**<a id="contents"></a>
 
@@ -24,7 +26,7 @@ This repository contains the scripts for extracting and formatting data from [Wi
 
 # Process [`⇧`](#contents) <a id="process"></a>
 
-[data/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/data/update_data.py) is used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active. The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data, with these packs then being available to download by users of Scribe applications.
+[scribe_data/load/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load/update_data.py) is used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active. The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data, with these packs then being available to download by users of Scribe applications.
 
 # Supported Languages [`⇧`](#contents) <a id="supported-languages"></a>
 

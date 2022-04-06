@@ -1,0 +1,4 @@
+include CHANGELOG.* LICENSE.*
+graft src
+global-exclude *.py[cod]
+global-exclude .DS_Store
