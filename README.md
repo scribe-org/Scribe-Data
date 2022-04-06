@@ -19,6 +19,7 @@ This repository contains the scripts for extracting and formatting data from [Wi
 
 - [Process](#process)
 - [Supported Languages](#supported-languages)
+- [Contributing](#contributing)
 - [Featured By](#featured-by)
 
 # Process [`⇧`](#contents) <a id="process"></a>
@@ -46,6 +47,22 @@ The following table shows the supported languages and the amount of data availab
 `†` Adjective-preposition support is in progress [(see issue)](https://github.com/scribe-org/Scribe-iOS/issues/86).
 
 `‡` Only for languages for which preposition annotation is needed.
+
+# Contributing [`⇧`](#contents) <a id="contributing"></a>
+
+Work that is in progress or could be implemented is tracked in the [Issues](https://github.com/scribe-org/Scribe-Data/issues). Please see the [contribution guidelines](https://github.com/scribe-org/Scribe-Data/blob/main/CONTRIBUTING.md) if you are interested in contributing to Scribe-Data. Also check the [`-priority-`](https://github.com/scribe-org/Scribe-Data/labels/-priority-) labels in the [Issues](https://github.com/scribe-org/Scribe-Data/issues) for those that are most important, as well as those marked [`good first issue`](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) that are tailored for first time contributors.
+
+### Ways to Help
+
+- Join us in the [Discussions](https://github.com/scribe-org/Scribe-Data/discussions) 👋
+- [Reporting bugs](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=bug&template=bug_report.yml) as they're found
+- Working on [new features](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3Afeature)
+- [Documentation](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3Adocumentation) for onboarding and project cohesion
+- Adding language data to [Scribe-Data](https://github.com/scribe-org/Scribe-Data/issues) via [Wikidata](https://www.wikidata.org/)!
+
+### Data Edits
+
+Scribe does not accept direct edits to the grammar JSON files as they are sourced from [Wikidata](https://www.wikidata.org/). Edits can be discussed and the queries themselves will be changed and ran before an update. If there is a problem with one of the files, then the fix should be made on [Wikidata](https://www.wikidata.org/) and not on Scribe. Feel free to let us know that edits have been made by [opening a data issue](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=data&template=data_wikidata.yml) or contacting us in the [issues for Scribe-Data](https://github.com/scribe-org/Scribe-Data/issues) and we'll be happy to integrate them!
 
 # Featured By [`⇧`](#contents) <a id="featured-by"></a>
 
