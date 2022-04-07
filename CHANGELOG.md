@@ -13,6 +13,8 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 ### 🐞 Bug Fixes
 
 - The data update process has been fixed to work for all queries.
+- Hard coded strings for Spanish formatting files were fixed.
+- The paths of update_data.py were changed to match the new structure.
 
 # Scribe-Data 1.0.0
 
