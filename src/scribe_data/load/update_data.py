@@ -17,6 +17,7 @@ Usage
     python update_data.py '[languages_in_quotes]' '[word_types_in_quotes]'
 """
 
+
 # pylint: disable=invalid-name, wrong-import-position
 
 import ast
@@ -24,12 +25,11 @@ import itertools
 import json
 import os
 import sys
+from urllib.error import HTTPError
 
 import pandas as pd
-from requests.exceptions import HTTPError
+from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
-from wikidataintegrator import wdi_core
-from wikidataintegrator.wdi_config import config as wdi_config
 
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
@@ -40,8 +40,10 @@ from scribe_data.load.update_utils import (  # isort:skip
     get_path_from_update_data,
 )
 
-# Prevents WikidataIntegrator from infinitely trying queries.
-wdi_config["BACKOFF_MAX_TRIES"] = 1
+# Set SPARQLWrapper query conditions.
+sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
+sparql.setReturnFormat(JSON)
+sparql.setMethod(POST)
 
 PATH_TO_ET_FILES = "../extract_transform/"
 
@@ -190,24 +192,29 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
     query_name = f"query_{target_type}.sparql"
     query_path = f"{q}/{query_name}"
 
+    print(f"Querying {lang} {target_type}")
+    # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
     with open(query_path, encoding="utf-8") as file:
         query_lines = file.readlines()
+    sparql.setQuery("".join(query_lines))
 
-    # First format the lines into a multi-line string and then pass this to wikidataintegrator.
-    print(f"Querying {lang} {target_type}")
-    query = None
+    results = None
     try:
-        query = wdi_core.WDFunctionsEngine.execute_sparql_query("".join(query_lines))
+        results = sparql.query().convert()
     except HTTPError as err:
         print(f"HTTPError with {query_path}: {err}")
 
-    if query is None:
+    if results is None:
         print(f"Nothing returned by the WDQS server for {query_path}")
 
-    else:
-        query_results = query["results"]["bindings"]
+        # Allow for a query to be reran up to two times.
+        if queries_to_run.count(q) < 3:
+            queries_to_run.append(q)
 
-        # Format and save the resulting JSON.
+    else:
+        # Subset the returned JSON and the individual results before saving.
+        query_results = results["results"]["bindings"]
+
         results_formatted = []
         for r in query_results:  # query_results is also a list
             r_dict = {k: r[k]["value"] for k in r.keys()}

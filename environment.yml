@@ -8,5 +8,5 @@ dependencies:
   - tabulate>=0.8.9
   - transformers>=4.12
   - pip:
-      - wikidataintegrator>=0.9.22
       - python-dateutil>=2.8.2
+      - SPARQLWrapper>=2.0.0
