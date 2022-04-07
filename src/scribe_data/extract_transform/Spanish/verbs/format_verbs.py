@@ -34,7 +34,7 @@ if f"{LANGUAGE}/verbs/" not in file_path:
 else:
     update_data_in_use = True
     with open(
-        f"../extract_transform/{LANGUAGE}/verbs/verbsQueried.json", encoding="utf-8"
+        f"../extract_transform/{LANGUAGE}/verbs/verbs_queried.json", encoding="utf-8"
     ) as f:
         verbs_list = json.load(f)
 

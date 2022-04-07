@@ -17,7 +17,7 @@ Usage
     python update_data.py '[languages_in_quotes]' '[word_types_in_quotes]'
 """
 
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name, wrong-import-position
 
 import ast
 import itertools
@@ -31,10 +31,21 @@ from tqdm.auto import tqdm
 from wikidataintegrator import wdi_core
 from wikidataintegrator.wdi_config import config as wdi_config
 
+PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
+PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
+sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
+
+from scribe_data.load.update_utils import (  # isort:skip
+    get_ios_data_path,
+    get_path_from_update_data,
+)
+
 # Prevents WikidataIntegrator from infinitely trying queries.
 wdi_config["BACKOFF_MAX_TRIES"] = 1
 
-with open("./_update_files/total_data.json", encoding="utf-8") as f:
+PATH_TO_ET_FILES = "../extract_transform/"
+
+with open("_update_files/total_data.json", encoding="utf-8") as f:
     current_data = json.load(f)
 
 current_languages = list(current_data.keys())
@@ -89,15 +100,20 @@ elif len(sys.argv) == 3:
 # Derive Data directory elements for potential queries.
 data_dir_elements = []
 
-for path, _, files in os.walk("."):
+for path, _, files in os.walk(PATH_TO_ET_FILES):
     data_dir_elements.extend(os.path.join(path, name) for name in files)
-data_dir_files = [f for f in os.listdir(".") if os.path.isfile(os.path.join(".", f))]
+data_dir_files = [
+    f
+    for f in os.listdir(PATH_TO_ET_FILES)
+    if os.path.isfile(os.path.join(PATH_TO_ET_FILES, f))
+]
 
 data_dir_dirs = list(
     {
-        f.split("./")[1].split("/")[0]
+        f.split(PATH_TO_ET_FILES)[1].split("/")[0]
         for f in data_dir_elements
-        if f.split("./")[1] not in data_dir_files
+        if f.split(PATH_TO_ET_FILES)[1] not in data_dir_files
+        and f.split(PATH_TO_ET_FILES)[1][0] != "_"
     }
 )
 
@@ -148,14 +164,19 @@ for lang in languages_update:
 possible_queries = []
 for d in data_dir_dirs:
     possible_queries.extend(
-        f"{d}/{target_type}"
+        f"{PATH_TO_ET_FILES}{d}/{target_type}"
         for target_type in word_types_update
-        if f"./{d}/{target_type}"
-        in [e[: len(f"./{d}/{target_type}")] for e in data_dir_elements]
+        if f"{PATH_TO_ET_FILES}{d}/{target_type}"
+        in [e[: len(f"{PATH_TO_ET_FILES}{d}/{target_type}")] for e in data_dir_elements]
     )
 
 queries_to_run_lists = [
-    [q for q in possible_queries if q[: len(lang)] in languages_update]
+    [
+        q
+        for q in possible_queries
+        if q[len(PATH_TO_ET_FILES) : len(PATH_TO_ET_FILES) + len(lang)]
+        in languages_update
+    ]
     for lang in languages_update
 ]
 
@@ -164,10 +185,10 @@ queries_to_run = list({q for sub in queries_to_run_lists for q in sub})
 data_added_dict = {}
 
 for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
-    lang = q.split("/")[0]
-    target_type = q.split("/")[1]
-    query_name = "query" + target_type.title() + ".sparql"
-    query_path = f"./{q}/{query_name}"
+    lang = q.split("/")[2]
+    target_type = q.split("/")[3]
+    query_name = f"query_{target_type}.sparql"
+    query_path = f"{q}/{query_name}"
 
     with open(query_path, encoding="utf-8") as file:
         query_lines = file.readlines()
@@ -194,17 +215,22 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
             results_formatted.append(r_dict)
 
         with open(
-            f"./{lang}/{target_type}/{target_type}_queried.json", "w", encoding="utf-8"
+            f"{PATH_TO_ET_FILES}{lang}/{target_type}/{target_type}_queried.json",
+            "w",
+            encoding="utf-8",
         ) as f:
             json.dump(results_formatted, f, ensure_ascii=False, indent=2)
 
         # Call the corresponding formatting file and update data changes.
-        os.system(f"python ./{lang}/{target_type}/format_{target_type}.py")
+        os.system(
+            f"python {PATH_TO_ET_FILES}{lang}/{target_type}/format_{target_type}.py"
+        )
 
         # Use Scribe-iOS as the basis of checking the new data.
+        PATH_TO_SCRIBE_ORG = get_path_from_update_data()
+        PATH_TO_DATA_JSON = get_ios_data_path(lang, target_type)
         with open(
-            f"./../../Scribe-iOS/Keyboards/LanguageKeyboards/{lang}/Data/{target_type}.json",
-            encoding="utf-8",
+            f"{PATH_TO_SCRIBE_ORG}{PATH_TO_DATA_JSON}", encoding="utf-8",
         ) as json_file:
             new_keyboard_data = json.load(json_file)
 
