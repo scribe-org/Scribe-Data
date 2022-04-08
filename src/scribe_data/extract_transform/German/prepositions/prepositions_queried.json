@@ -350,6 +350,54 @@
     "case": "Q146078"
   },
   {
+    "preposition": "von",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "diesseits",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "jenseits",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "trotz",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "nebst",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "per",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "per",
+    "case": "Q146078"
+  },
+  {
+    "preposition": "unbeschadet",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "nahe",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "zusamt",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "abseits",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "beidseits",
+    "case": "Q146233"
+  },
+  {
     "preposition": "zwischen",
     "case": "Q145599"
   },
@@ -368,6 +416,18 @@
   {
     "preposition": "nach",
     "case": "Q145599"
+  },
+  {
+    "preposition": "gegenwarts",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "zwecks",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "aufgrund",
+    "case": "Q146233"
   },
   {
     "preposition": "zuungunsten",
@@ -415,110 +475,6 @@
   },
   {
     "preposition": "infolge",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "gegenwarts",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "zwecks",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "aufgrund",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "oberhalb",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "bis",
-    "case": "Q146078"
-  },
-  {
-    "preposition": "unerachtet",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "exklusive",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "zunächst",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "anlässlich",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "kontra",
-    "case": "Q146078"
-  },
-  {
-    "preposition": "fernab",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "hindurch",
-    "case": "Q146078"
-  },
-  {
-    "preposition": "ober",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "oberkant",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "vorgängig",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "vorgängig",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "westlich",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "zu Lasten",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "zu Ungunsten",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "zulasten",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "ungerechnet",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "vermittels",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "vermittelst",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "um",
-    "case": "Q146078"
-  },
-  {
-    "preposition": "längsseits",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "nordwestlich",
     "case": "Q146233"
   },
   {
@@ -672,51 +628,95 @@
     "case": "Q146078"
   },
   {
-    "preposition": "von",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "diesseits",
+    "preposition": "oberhalb",
     "case": "Q146233"
   },
   {
-    "preposition": "jenseits",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "trotz",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "nebst",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "per",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "per",
+    "preposition": "bis",
     "case": "Q146078"
   },
   {
-    "preposition": "unbeschadet",
+    "preposition": "unerachtet",
     "case": "Q146233"
   },
   {
-    "preposition": "nahe",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "zusamt",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "abseits",
+    "preposition": "exklusive",
     "case": "Q146233"
   },
   {
-    "preposition": "beidseits",
+    "preposition": "zunächst",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "anlässlich",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "kontra",
+    "case": "Q146078"
+  },
+  {
+    "preposition": "fernab",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "hindurch",
+    "case": "Q146078"
+  },
+  {
+    "preposition": "ober",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "oberkant",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "vorgängig",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "vorgängig",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "westlich",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "zu Lasten",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "zu Ungunsten",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "zulasten",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "ungerechnet",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "vermittels",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "vermittelst",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "um",
+    "case": "Q146078"
+  },
+  {
+    "preposition": "längsseits",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "nordwestlich",
     "case": "Q146233"
   },
   {
