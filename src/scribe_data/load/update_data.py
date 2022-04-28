@@ -62,7 +62,7 @@ if len(sys.argv) == 2:
         raise ValueError(
             f"""The argument type of '{arg}' passed to update_data.py is invalid.
             Only lists are allowed, and can be passed via:
-            python update_data.py '[args_in_quotes]'
+            python update_data.py '[comma_separated_args_in_quotes]'
             """
         )
 
@@ -72,7 +72,7 @@ if len(sys.argv) == 2:
         raise ValueError(
             f"""The argument type of '{arg}' passed to update_data.py is invalid.
             Only lists are allowed, and can be passed via:
-            python update_data.py '[args_in_quotes]'
+            python update_data.py '[comma_separated_args_in_quotes]'
             """
         ) from invalid_arg
 
@@ -80,7 +80,7 @@ if len(sys.argv) == 2:
         raise ValueError(
             f"""The argument type of '{arg}' passed to update_data.py is invalid.
             Only lists are allowed, and can be passed via:
-            python update_data.py '[args_in_quotes]'
+            python update_data.py '[comma_separated_args_in_quotes]'
             """
         )
 
