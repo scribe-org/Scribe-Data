@@ -1,13 +1,46 @@
 [
   {
-    "presFPS": "abandonne",
-    "infinitive": "abandonner"
+    "infinitive": "mourir"
+  },
+  {
+    "infinitive": "fumer"
+  },
+  {
+    "infinitive": "abandonner",
+    "presFPS": "abandonne"
+  },
+  {
+    "infinitive": "planter"
+  },
+  {
+    "infinitive": "regarder"
+  },
+  {
+    "infinitive": "aider"
+  },
+  {
+    "infinitive": "concevoir"
   },
   {
     "infinitive": "regretter"
   },
   {
+    "infinitive": "envoyer"
+  },
+  {
+    "infinitive": "conclure"
+  },
+  {
+    "infinitive": "affirmer"
+  },
+  {
     "infinitive": "abreuver"
+  },
+  {
+    "infinitive": "brûler"
+  },
+  {
+    "infinitive": "choisir"
   },
   {
     "infinitive": "prêter"
@@ -103,6 +136,9 @@
     "infinitive": "vouloir"
   },
   {
+    "infinitive": "falloir"
+  },
+  {
     "infinitive": "contraindre"
   },
   {
@@ -187,8 +223,8 @@
     "infinitive": "mordre"
   },
   {
-    "presFPS": "aime",
     "infinitive": "aimer",
+    "presFPS": "aime",
     "impTPP": "aimaient",
     "impSPP": "aimiez",
     "impFPP": "aimions",
@@ -207,8 +243,8 @@
     "presSPS": "aimez"
   },
   {
-    "presFPS": "aime",
     "infinitive": "aimer",
+    "presFPS": "aime",
     "impTPP": "aimaient",
     "impSPP": "aimiez",
     "impFPP": "aimions",
@@ -227,13 +263,34 @@
     "presSPS": "aimes"
   },
   {
-    "presFPS": "tiens",
+    "infinitive": "oublier"
+  },
+  {
+    "infinitive": "prendre"
+  },
+  {
     "infinitive": "tenir",
+    "presFPS": "tiens",
     "presTPP": "tiennent",
     "presFPP": "tenons",
     "presTPS": "tient",
     "presSPS": "tiens",
     "presSPP": "tenez"
+  },
+  {
+    "infinitive": "jeter"
+  },
+  {
+    "infinitive": "entretenir"
+  },
+  {
+    "infinitive": "remuer"
+  },
+  {
+    "infinitive": "réveiller"
+  },
+  {
+    "infinitive": "briser"
   },
   {
     "infinitive": "saluer"
@@ -251,13 +308,40 @@
     "infinitive": "béatifier"
   },
   {
+    "infinitive": "assommer"
+  },
+  {
+    "infinitive": "désoler"
+  },
+  {
+    "infinitive": "figurer"
+  },
+  {
     "infinitive": "se figurer"
+  },
+  {
+    "infinitive": "valoir"
+  },
+  {
+    "infinitive": "redéconstitutionnaliser"
+  },
+  {
+    "infinitive": "supplier"
+  },
+  {
+    "infinitive": "reconduire"
+  },
+  {
+    "infinitive": "tracasser"
   },
   {
     "infinitive": "prévoir"
   },
   {
     "infinitive": "démasquer"
+  },
+  {
+    "infinitive": "réformer"
   },
   {
     "infinitive": "oppresser"
@@ -273,6 +357,15 @@
   },
   {
     "infinitive": "imputer"
+  },
+  {
+    "infinitive": "écraser"
+  },
+  {
+    "infinitive": "mander"
+  },
+  {
+    "infinitive": "garnir"
   },
   {
     "infinitive": "prédéfinir"
@@ -305,6 +398,12 @@
     "infinitive": "grouper"
   },
   {
+    "infinitive": "entourer"
+  },
+  {
+    "infinitive": "reporter"
+  },
+  {
     "infinitive": "sanctionner"
   },
   {
@@ -324,6 +423,9 @@
   },
   {
     "infinitive": "implémenter"
+  },
+  {
+    "infinitive": "naitre"
   },
   {
     "infinitive": "allier"
@@ -458,6 +560,9 @@
     "infinitive": "infecter"
   },
   {
+    "infinitive": "trancher"
+  },
+  {
     "infinitive": "autoriser"
   },
   {
@@ -467,6 +572,12 @@
     "infinitive": "déconstitutionnaliser"
   },
   {
+    "infinitive": "habituer"
+  },
+  {
+    "infinitive": "gâter"
+  },
+  {
     "infinitive": "recoucher"
   },
   {
@@ -474,6 +585,15 @@
   },
   {
     "infinitive": "étrier"
+  },
+  {
+    "infinitive": "attaquer"
+  },
+  {
+    "infinitive": "retrancher"
+  },
+  {
+    "infinitive": "imprimer"
   },
   {
     "infinitive": "réimprimer"
@@ -515,6 +635,9 @@
     "infinitive": "varier"
   },
   {
+    "infinitive": "manœuvrer"
+  },
+  {
     "infinitive": "déshonorer"
   },
   {
@@ -525,6 +648,9 @@
   },
   {
     "infinitive": "recaler"
+  },
+  {
+    "infinitive": "révolutionner"
   },
   {
     "infinitive": "commenter"
@@ -668,7 +794,25 @@
     "infinitive": "abonder"
   },
   {
+    "infinitive": "connaitre"
+  },
+  {
+    "infinitive": "connaître"
+  },
+  {
+    "infinitive": "réciter"
+  },
+  {
+    "infinitive": "trinquer"
+  },
+  {
+    "infinitive": "garantir"
+  },
+  {
     "infinitive": "rebâtir"
+  },
+  {
+    "infinitive": "estropier"
   },
   {
     "infinitive": "se marier"
@@ -872,7 +1016,13 @@
     "infinitive": "embaucher"
   },
   {
+    "infinitive": "expérimenter"
+  },
+  {
     "infinitive": "voici"
+  },
+  {
+    "infinitive": "rattacher"
   },
   {
     "infinitive": "éternuer"
@@ -905,19 +1055,43 @@
     "infinitive": "masser"
   },
   {
+    "infinitive": "embaufumer"
+  },
+  {
+    "infinitive": "tâcher"
+  },
+  {
     "infinitive": "gouverner"
+  },
+  {
+    "infinitive": "seoir"
+  },
+  {
+    "infinitive": "dispenser"
   },
   {
     "infinitive": "périr"
   },
   {
+    "infinitive": "sacrifier"
+  },
+  {
     "infinitive": "retoucher"
+  },
+  {
+    "infinitive": "renvoyer"
+  },
+  {
+    "infinitive": "replâtrer"
   },
   {
     "infinitive": "s'obstiner"
   },
   {
     "infinitive": "prétendre"
+  },
+  {
+    "infinitive": "encourager"
   },
   {
     "infinitive": "déclamer"
@@ -989,6 +1163,9 @@
     "infinitive": "parcourir"
   },
   {
+    "infinitive": "coopérer"
+  },
+  {
     "infinitive": "grever"
   },
   {
@@ -999,6 +1176,9 @@
   },
   {
     "infinitive": "émaner"
+  },
+  {
+    "infinitive": "assimiler"
   },
   {
     "infinitive": "diversifier"
@@ -1127,7 +1307,20 @@
     "infinitive": "interpeler"
   },
   {
+    "infinitive": "gamahucher",
+    "presFPS": "gamahuche"
+  },
+  {
     "infinitive": "mener"
+  },
+  {
+    "infinitive": "dégoûter"
+  },
+  {
+    "infinitive": "goûter"
+  },
+  {
+    "infinitive": "souffrir"
   },
   {
     "infinitive": "abriter"
@@ -1157,13 +1350,31 @@
     "infinitive": "patienter"
   },
   {
+    "infinitive": "intituler"
+  },
+  {
     "infinitive": "grogner"
+  },
+  {
+    "infinitive": "exister"
+  },
+  {
+    "infinitive": "trahir"
+  },
+  {
+    "infinitive": "développer"
   },
   {
     "infinitive": "enchifrener"
   },
   {
+    "infinitive": "jetter"
+  },
+  {
     "infinitive": "reconstruire"
+  },
+  {
+    "infinitive": "déconseiller"
   },
   {
     "infinitive": "exercer"
@@ -1340,6 +1551,9 @@
     "infinitive": "recomprimer"
   },
   {
+    "infinitive": "expédier"
+  },
+  {
     "infinitive": "congédier"
   },
   {
@@ -1367,13 +1581,25 @@
     "infinitive": "épiloguer"
   },
   {
+    "infinitive": "honorer"
+  },
+  {
+    "infinitive": "braquer"
+  },
+  {
     "infinitive": "souper"
   },
   {
     "infinitive": "appuyer"
   },
   {
+    "infinitive": "coqueter"
+  },
+  {
     "infinitive": "singer"
+  },
+  {
+    "infinitive": "égayer"
   },
   {
     "infinitive": "s'asseoir"
@@ -1389,6 +1615,15 @@
   },
   {
     "infinitive": "remédier"
+  },
+  {
+    "infinitive": "attester"
+  },
+  {
+    "infinitive": "désespérer"
+  },
+  {
+    "infinitive": "redemander"
   },
   {
     "infinitive": "faciliter"
@@ -1440,6 +1675,12 @@
   },
   {
     "infinitive": "atteigner"
+  },
+  {
+    "infinitive": "apparaitre"
+  },
+  {
+    "infinitive": "apparaître"
   },
   {
     "infinitive": "oeuvrer"
@@ -1583,7 +1824,13 @@
     "infinitive": "neiger"
   },
   {
+    "infinitive": "bénir"
+  },
+  {
     "infinitive": "veiller"
+  },
+  {
+    "infinitive": "disséquer"
   },
   {
     "infinitive": "abdiquer"
@@ -1634,7 +1881,19 @@
     "infinitive": "s’allonger"
   },
   {
+    "infinitive": "pardonner"
+  },
+  {
     "infinitive": "se plaindre"
+  },
+  {
+    "infinitive": "rompre"
+  },
+  {
+    "infinitive": "dessiner"
+  },
+  {
+    "infinitive": "obstiner"
   },
   {
     "infinitive": "écolier"
@@ -1835,6 +2094,12 @@
     "infinitive": "ennuyer"
   },
   {
+    "infinitive": "mûrir"
+  },
+  {
+    "infinitive": "rebuter"
+  },
+  {
     "infinitive": "orner"
   },
   {
@@ -1856,6 +2121,12 @@
     "infinitive": "amputer"
   },
   {
+    "infinitive": "reconnaître"
+  },
+  {
+    "infinitive": "reconnaitre"
+  },
+  {
     "infinitive": "charmer"
   },
   {
@@ -1865,10 +2136,322 @@
     "infinitive": "constitutionnaliser"
   },
   {
+    "infinitive": "retrouver"
+  },
+  {
+    "infinitive": "barbouiller"
+  },
+  {
+    "infinitive": "rimer"
+  },
+  {
     "infinitive": "assister"
   },
   {
+    "infinitive": "dévorer"
+  },
+  {
+    "infinitive": "assouvir"
+  },
+  {
+    "infinitive": "concourir"
+  },
+  {
+    "infinitive": "résigner"
+  },
+  {
+    "infinitive": "heurter"
+  },
+  {
+    "infinitive": "affamer"
+  },
+  {
+    "infinitive": "déclencher"
+  },
+  {
+    "infinitive": "emprisonner"
+  },
+  {
+    "infinitive": "fausser"
+  },
+  {
+    "infinitive": "influer"
+  },
+  {
+    "infinitive": "additionner"
+  },
+  {
+    "infinitive": "surpasser"
+  },
+  {
+    "infinitive": "abrutir"
+  },
+  {
+    "infinitive": "altérer"
+  },
+  {
+    "infinitive": "reparaître"
+  },
+  {
+    "infinitive": "tolérer"
+  },
+  {
+    "infinitive": "miauler"
+  },
+  {
+    "infinitive": "ronronner"
+  },
+  {
+    "infinitive": "labourer"
+  },
+  {
+    "infinitive": "semer"
+  },
+  {
+    "infinitive": "abasourdir"
+  },
+  {
+    "infinitive": "garder"
+  },
+  {
+    "infinitive": "apercevoir"
+  },
+  {
+    "infinitive": "définir"
+  },
+  {
+    "infinitive": "commencer"
+  },
+  {
+    "infinitive": "préférer"
+  },
+  {
+    "infinitive": "étonner"
+  },
+  {
+    "infinitive": "répéter"
+  },
+  {
+    "infinitive": "convaincre"
+  },
+  {
+    "infinitive": "défendre"
+  },
+  {
+    "infinitive": "effacer"
+  },
+  {
+    "infinitive": "rappeler"
+  },
+  {
+    "infinitive": "pendre"
+  },
+  {
+    "infinitive": "revenir"
+  },
+  {
+    "infinitive": "arrêter"
+  },
+  {
+    "infinitive": "presser"
+  },
+  {
+    "infinitive": "traiter"
+  },
+  {
+    "infinitive": "retenir"
+  },
+  {
+    "infinitive": "comparer"
+  },
+  {
+    "infinitive": "fâcher"
+  },
+  {
+    "infinitive": "suivre"
+  },
+  {
+    "infinitive": "composer"
+  },
+  {
+    "infinitive": "nuire"
+  },
+  {
+    "infinitive": "demeurer"
+  },
+  {
+    "infinitive": "respecter"
+  },
+  {
+    "infinitive": "obliger"
+  },
+  {
+    "infinitive": "forger"
+  },
+  {
+    "infinitive": "justifier"
+  },
+  {
+    "infinitive": "consulter"
+  },
+  {
+    "infinitive": "parer"
+  },
+  {
+    "infinitive": "déballer"
+  },
+  {
+    "infinitive": "accéder"
+  },
+  {
+    "infinitive": "charger"
+  },
+  {
+    "infinitive": "imiter"
+  },
+  {
+    "infinitive": "décréter"
+  },
+  {
+    "infinitive": "comporter"
+  },
+  {
+    "infinitive": "ranger"
+  },
+  {
+    "infinitive": "combattre"
+  },
+  {
+    "infinitive": "reprocher"
+  },
+  {
+    "infinitive": "repousser"
+  },
+  {
+    "infinitive": "haïr"
+  },
+  {
+    "infinitive": "observer"
+  },
+  {
+    "infinitive": "évanouir"
+  },
+  {
+    "infinitive": "accuser"
+  },
+  {
+    "infinitive": "refaire"
+  },
+  {
+    "infinitive": "siéger"
+  },
+  {
+    "infinitive": "réclamer"
+  },
+  {
+    "infinitive": "accélérer"
+  },
+  {
+    "infinitive": "renfermer"
+  },
+  {
+    "infinitive": "dérouler"
+  },
+  {
+    "infinitive": "border"
+  },
+  {
+    "infinitive": "dénoncer"
+  },
+  {
+    "infinitive": "fréquenter"
+  },
+  {
+    "infinitive": "crever"
+  },
+  {
+    "infinitive": "suggérer"
+  },
+  {
+    "infinitive": "décliner"
+  },
+  {
+    "infinitive": "démolir"
+  },
+  {
+    "infinitive": "insulter"
+  },
+  {
+    "infinitive": "inaugurer"
+  },
+  {
+    "infinitive": "traduire"
+  },
+  {
+    "infinitive": "arranger"
+  },
+  {
+    "infinitive": "laisser"
+  },
+  {
+    "infinitive": "passer"
+  },
+  {
+    "infinitive": "attacher"
+  },
+  {
+    "infinitive": "étrangler"
+  },
+  {
+    "infinitive": "cracher"
+  },
+  {
+    "infinitive": "masser"
+  },
+  {
+    "infinitive": "émouvoir"
+  },
+  {
+    "infinitive": "prouver"
+  },
+  {
+    "infinitive": "intégrer"
+  },
+  {
+    "infinitive": "renouveler"
+  },
+  {
+    "infinitive": "surveiller"
+  },
+  {
+    "infinitive": "inviter"
+  },
+  {
+    "infinitive": "évoluer"
+  },
+  {
+    "infinitive": "marcher"
+  },
+  {
+    "infinitive": "témoigner"
+  },
+  {
+    "infinitive": "pleuvoir"
+  },
+  {
+    "infinitive": "évaluer"
+  },
+  {
+    "infinitive": "frotter"
+  },
+  {
+    "infinitive": "perfectionner"
+  },
+  {
     "infinitive": "bâtir"
+  },
+  {
+    "infinitive": "délibérer"
   },
   {
     "infinitive": "déroger"
@@ -2054,6 +2637,9 @@
     "infinitive": "recueillir"
   },
   {
+    "infinitive": "rééditer"
+  },
+  {
     "infinitive": "revitaliser"
   },
   {
@@ -2070,6 +2656,15 @@
   },
   {
     "infinitive": "endommager"
+  },
+  {
+    "infinitive": "recouvrir"
+  },
+  {
+    "infinitive": "instruire"
+  },
+  {
+    "infinitive": "soulager"
   },
   {
     "infinitive": "avoisiner"
@@ -2094,6 +2689,9 @@
   },
   {
     "infinitive": "polluer"
+  },
+  {
+    "infinitive": "diluer"
   },
   {
     "infinitive": "galoper"
@@ -2135,217 +2733,19 @@
     "infinitive": "muser"
   },
   {
-    "infinitive": "abasourdir"
+    "infinitive": "camper"
   },
   {
-    "infinitive": "garder"
+    "infinitive": "primer"
   },
   {
-    "infinitive": "apercevoir"
+    "infinitive": "susciter"
   },
   {
-    "infinitive": "définir"
+    "infinitive": "secourir"
   },
   {
-    "infinitive": "commencer"
-  },
-  {
-    "infinitive": "préférer"
-  },
-  {
-    "infinitive": "étonner"
-  },
-  {
-    "infinitive": "répéter"
-  },
-  {
-    "infinitive": "défendre"
-  },
-  {
-    "infinitive": "effacer"
-  },
-  {
-    "infinitive": "rappeler"
-  },
-  {
-    "infinitive": "arrêter"
-  },
-  {
-    "infinitive": "presser"
-  },
-  {
-    "infinitive": "traiter"
-  },
-  {
-    "infinitive": "retenir"
-  },
-  {
-    "infinitive": "comparer"
-  },
-  {
-    "infinitive": "fâcher"
-  },
-  {
-    "infinitive": "suivre"
-  },
-  {
-    "infinitive": "composer"
-  },
-  {
-    "infinitive": "nuire"
-  },
-  {
-    "infinitive": "respecter"
-  },
-  {
-    "infinitive": "obliger"
-  },
-  {
-    "infinitive": "forger"
-  },
-  {
-    "infinitive": "justifier"
-  },
-  {
-    "infinitive": "consulter"
-  },
-  {
-    "infinitive": "parer"
-  },
-  {
-    "infinitive": "accéder"
-  },
-  {
-    "infinitive": "charger"
-  },
-  {
-    "infinitive": "imiter"
-  },
-  {
-    "infinitive": "décréter"
-  },
-  {
-    "infinitive": "comporter"
-  },
-  {
-    "infinitive": "ranger"
-  },
-  {
-    "infinitive": "combattre"
-  },
-  {
-    "infinitive": "reprocher"
-  },
-  {
-    "infinitive": "repousser"
-  },
-  {
-    "infinitive": "haïr"
-  },
-  {
-    "infinitive": "observer"
-  },
-  {
-    "infinitive": "évanouir"
-  },
-  {
-    "infinitive": "accuser"
-  },
-  {
-    "infinitive": "refaire"
-  },
-  {
-    "infinitive": "siéger"
-  },
-  {
-    "infinitive": "réclamer"
-  },
-  {
-    "infinitive": "accélérer"
-  },
-  {
-    "infinitive": "renfermer"
-  },
-  {
-    "infinitive": "dérouler"
-  },
-  {
-    "infinitive": "border"
-  },
-  {
-    "infinitive": "dénoncer"
-  },
-  {
-    "infinitive": "fréquenter"
-  },
-  {
-    "infinitive": "crever"
-  },
-  {
-    "infinitive": "suggérer"
-  },
-  {
-    "infinitive": "décliner"
-  },
-  {
-    "infinitive": "démolir"
-  },
-  {
-    "infinitive": "insulter"
-  },
-  {
-    "infinitive": "inaugurer"
-  },
-  {
-    "infinitive": "traduire"
-  },
-  {
-    "infinitive": "laisser"
-  },
-  {
-    "infinitive": "attacher"
-  },
-  {
-    "infinitive": "cracher"
-  },
-  {
-    "infinitive": "masser"
-  },
-  {
-    "infinitive": "émouvoir"
-  },
-  {
-    "infinitive": "prouver"
-  },
-  {
-    "infinitive": "intégrer"
-  },
-  {
-    "infinitive": "renouveler"
-  },
-  {
-    "infinitive": "surveiller"
-  },
-  {
-    "infinitive": "inviter"
-  },
-  {
-    "infinitive": "évoluer"
-  },
-  {
-    "infinitive": "marcher"
-  },
-  {
-    "infinitive": "témoigner"
-  },
-  {
-    "infinitive": "évaluer"
-  },
-  {
-    "infinitive": "frotter"
-  },
-  {
-    "infinitive": "perfectionner"
+    "infinitive": "discerner"
   },
   {
     "infinitive": "louer"
@@ -2387,6 +2787,9 @@
     "infinitive": "redescendre"
   },
   {
+    "infinitive": "ouvrir"
+  },
+  {
     "infinitive": "remonter"
   },
   {
@@ -2406,13 +2809,37 @@
     "infinitive": "dormir"
   },
   {
+    "infinitive": "donner"
+  },
+  {
+    "infinitive": "survivre"
+  },
+  {
+    "infinitive": "employer"
+  },
+  {
+    "infinitive": "tuer"
+  },
+  {
     "infinitive": "perdre"
+  },
+  {
+    "infinitive": "douter"
+  },
+  {
+    "infinitive": "imaginer"
   },
   {
     "infinitive": "recommencer"
   },
   {
+    "infinitive": "raconter"
+  },
+  {
     "infinitive": "présider"
+  },
+  {
+    "infinitive": "tromper"
   },
   {
     "infinitive": "féliciter"
@@ -2443,6 +2870,9 @@
   },
   {
     "infinitive": "importer"
+  },
+  {
+    "infinitive": "devenir"
   },
   {
     "infinitive": "coucher"
@@ -2527,18 +2957,18 @@
   },
   {
     "infinitive": "être",
-    "impTPP": "étaient",
     "presFPS": "suis",
-    "impSPP": "étiez",
-    "impFPP": "étions",
-    "impTPS": "était",
-    "impSPS": "étais",
-    "impFPS": "étais",
     "presTPP": "sont",
     "presFPP": "sommes",
     "presTPS": "est",
     "presSPS": "es",
-    "presSPP": "êtes"
+    "presSPP": "êtes",
+    "impTPP": "étaient",
+    "impSPP": "étiez",
+    "impFPP": "étions",
+    "impTPS": "était",
+    "impSPS": "étais",
+    "impFPS": "étais"
   },
   {
     "infinitive": "anticiper"
@@ -2625,7 +3055,26 @@
     "infinitive": "arriver"
   },
   {
+    "infinitive": "reprendre"
+  },
+  {
+    "infinitive": "recevoir",
+    "presFPS": "reçois"
+  },
+  {
     "infinitive": "causer"
+  },
+  {
+    "infinitive": "tarir"
+  },
+  {
+    "infinitive": "rester"
+  },
+  {
+    "infinitive": "frapper"
+  },
+  {
+    "infinitive": "travailler"
   },
   {
     "infinitive": "paraitre"
@@ -2635,6 +3084,9 @@
   },
   {
     "infinitive": "achever"
+  },
+  {
+    "infinitive": "renverser"
   },
   {
     "infinitive": "rire"
@@ -2679,7 +3131,13 @@
     "infinitive": "célébrer"
   },
   {
+    "infinitive": "éprouver"
+  },
+  {
     "infinitive": "adresser"
+  },
+  {
+    "infinitive": "guérir"
   },
   {
     "infinitive": "assurer"
@@ -2697,6 +3155,9 @@
     "infinitive": "débrouiller"
   },
   {
+    "infinitive": "obtenir"
+  },
+  {
     "infinitive": "sembler"
   },
   {
@@ -2709,6 +3170,9 @@
     "infinitive": "ôter"
   },
   {
+    "infinitive": "armer"
+  },
+  {
     "infinitive": "rêver"
   },
   {
@@ -2716,6 +3180,9 @@
   },
   {
     "infinitive": "communiquer"
+  },
+  {
+    "infinitive": "remettre"
   },
   {
     "infinitive": "plaindre"
@@ -2740,6 +3207,9 @@
   },
   {
     "infinitive": "menacer"
+  },
+  {
+    "infinitive": "étaler"
   },
   {
     "infinitive": "corriger"
@@ -2868,7 +3338,16 @@
     "infinitive": "écouter"
   },
   {
+    "infinitive": "dire"
+  },
+  {
+    "infinitive": "lire"
+  },
+  {
     "infinitive": "savoir"
+  },
+  {
+    "infinitive": "partir"
   },
   {
     "infinitive": "espérer"
@@ -2910,7 +3389,13 @@
     "infinitive": "entendre"
   },
   {
+    "infinitive": "gagner"
+  },
+  {
     "infinitive": "séparer"
+  },
+  {
+    "infinitive": "aborder"
   },
   {
     "infinitive": "engager"
@@ -3076,6 +3561,9 @@
     "infinitive": "souffler"
   },
   {
+    "infinitive": "convertir"
+  },
+  {
     "infinitive": "durer"
   },
   {
@@ -3136,10 +3624,19 @@
     "infinitive": "avertir"
   },
   {
+    "infinitive": "repartir"
+  },
+  {
     "infinitive": "amasser"
   },
   {
     "infinitive": "salir"
+  },
+  {
+    "infinitive": "endormir"
+  },
+  {
+    "infinitive": "accompagner"
   },
   {
     "infinitive": "éduquer"
@@ -3169,13 +3666,43 @@
     "infinitive": "sucer"
   },
   {
+    "infinitive": "destiner"
+  },
+  {
+    "infinitive": "crier"
+  },
+  {
     "infinitive": "jouir"
+  },
+  {
+    "infinitive": "réussir"
+  },
+  {
+    "infinitive": "bouger",
+    "presFPS": "bouge",
+    "pretTPP": "bougèrent",
+    "pretSPP": "bougeâtes",
+    "pretFPP": "bougeâmes",
+    "pretTPS": "bougea",
+    "pretSPS": "bougeas",
+    "pretFPS": "bougeai",
+    "presTPP": "bougent",
+    "presFPP": "bougeons",
+    "presTPS": "bouge",
+    "presSPS": "bouges",
+    "presSPP": "bougez"
   },
   {
     "infinitive": "raisonner"
   },
   {
+    "infinitive": "sortir"
+  },
+  {
     "infinitive": "bâiller"
+  },
+  {
+    "infinitive": "glisser"
   },
   {
     "infinitive": "apprendre"
@@ -3193,16 +3720,49 @@
     "infinitive": "allonger"
   },
   {
+    "infinitive": "tousser"
+  },
+  {
+    "infinitive": "plaisanter"
+  },
+  {
     "infinitive": "constituer"
+  },
+  {
+    "infinitive": "comprendre"
   },
   {
     "infinitive": "remercier"
   },
   {
+    "infinitive": "convenir"
+  },
+  {
+    "infinitive": "détruire"
+  },
+  {
     "infinitive": "jouer"
   },
   {
+    "infinitive": "admirer"
+  },
+  {
+    "infinitive": "soigner"
+  },
+  {
+    "infinitive": "dégager"
+  },
+  {
+    "infinitive": "soumettre"
+  },
+  {
+    "infinitive": "contourner"
+  },
+  {
     "infinitive": "distinguer"
+  },
+  {
+    "infinitive": "résoudre"
   },
   {
     "infinitive": "insister"
@@ -3221,6 +3781,12 @@
   },
   {
     "infinitive": "opposer"
+  },
+  {
+    "infinitive": "mépriser"
+  },
+  {
+    "infinitive": "coûter"
   },
   {
     "infinitive": "connecter"
@@ -3307,6 +3873,10 @@
     "infinitive": "négocier"
   },
   {
+    "infinitive": "parler",
+    "presTPS": "parle"
+  },
+  {
     "infinitive": "invoquer"
   },
   {
@@ -3357,15 +3927,21 @@
   {
     "infinitive": "faire",
     "presFPS": "fais",
-    "impTPS": "faisait",
     "presTPP": "font",
     "presFPP": "faisons",
     "presTPS": "fait",
     "presSPS": "fais",
-    "presSPP": "faites"
+    "presSPP": "faites",
+    "impTPS": "faisait"
   },
   {
     "infinitive": "manquer"
+  },
+  {
+    "infinitive": "éloigner"
+  },
+  {
+    "infinitive": "rencontrer"
   },
   {
     "infinitive": "venir"
@@ -3374,7 +3950,22 @@
     "infinitive": "répandre"
   },
   {
+    "infinitive": "quitter"
+  },
+  {
+    "infinitive": "couler"
+  },
+  {
+    "infinitive": "sentir"
+  },
+  {
+    "infinitive": "prier"
+  },
+  {
     "infinitive": "animer"
+  },
+  {
+    "infinitive": "tomber"
   },
   {
     "infinitive": "calculer"
@@ -3389,10 +3980,16 @@
     "infinitive": "cogiter"
   },
   {
+    "infinitive": "pondre"
+  },
+  {
     "infinitive": "habiliter"
   },
   {
     "infinitive": "refondre"
+  },
+  {
+    "infinitive": "devoir"
   },
   {
     "infinitive": "ajouter"
@@ -3401,7 +3998,22 @@
     "infinitive": "occuper"
   },
   {
+    "infinitive": "asseoir"
+  },
+  {
     "infinitive": "parier"
+  },
+  {
+    "infinitive": "confesser"
+  },
+  {
+    "infinitive": "promettre"
+  },
+  {
+    "infinitive": "consoler"
+  },
+  {
+    "infinitive": "permettre"
   },
   {
     "infinitive": "compter",
@@ -3411,7 +4023,22 @@
     "infinitive": "nommer"
   },
   {
+    "infinitive": "empêcher"
+  },
+  {
     "infinitive": "contrevenir"
+  },
+  {
+    "infinitive": "plonger"
+  },
+  {
+    "infinitive": "hésiter"
+  },
+  {
+    "infinitive": "battre"
+  },
+  {
+    "infinitive": "finir"
   },
   {
     "infinitive": "conseiller"
@@ -3424,6 +4051,9 @@
     "presTPS": "sert"
   },
   {
+    "infinitive": "hâter"
+  },
+  {
     "infinitive": "siffler"
   },
   {
@@ -3431,6 +4061,9 @@
   },
   {
     "infinitive": "lutter"
+  },
+  {
+    "infinitive": "déclarer"
   },
   {
     "infinitive": "prononcer"
@@ -3517,6 +4150,12 @@
     "infinitive": "contracter"
   },
   {
+    "infinitive": "réaliser"
+  },
+  {
+    "infinitive": "mettre"
+  },
+  {
     "infinitive": "évoquer"
   },
   {
@@ -3571,19 +4210,52 @@
     "infinitive": "tordre"
   },
   {
+    "infinitive": "lancer"
+  },
+  {
+    "infinitive": "trouver"
+  },
+  {
+    "infinitive": "favoriser"
+  },
+  {
     "infinitive": "couvrir"
+  },
+  {
+    "infinitive": "retourner"
+  },
+  {
+    "infinitive": "établir"
+  },
+  {
+    "infinitive": "présenter"
   },
   {
     "infinitive": "étendre"
   },
   {
+    "infinitive": "réfléchir"
+  },
+  {
+    "infinitive": "éteindre"
+  },
+  {
     "infinitive": "agir"
+  },
+  {
+    "infinitive": "lier"
+  },
+  {
+    "infinitive": "applaudir"
   },
   {
     "infinitive": "assumer"
   },
   {
     "infinitive": "agresser"
+  },
+  {
+    "infinitive": "suspendre"
   },
   {
     "infinitive": "afficher"
@@ -3604,13 +4276,55 @@
     "infinitive": "tourner"
   },
   {
+    "infinitive": "souhaiter"
+  },
+  {
     "infinitive": "vivre"
+  },
+  {
+    "infinitive": "discuter"
+  },
+  {
+    "infinitive": "rentrer"
+  },
+  {
+    "infinitive": "rendre"
+  },
+  {
+    "infinitive": "alimenter"
+  },
+  {
+    "infinitive": "sonner"
+  },
+  {
+    "infinitive": "amuser"
   },
   {
     "infinitive": "monter"
   },
   {
+    "infinitive": "montrer"
+  },
+  {
     "infinitive": "arracher"
+  },
+  {
+    "infinitive": "supposer"
+  },
+  {
+    "infinitive": "approuver"
+  },
+  {
+    "infinitive": "dégourdir"
+  },
+  {
+    "infinitive": "présumer"
+  },
+  {
+    "infinitive": "signifier"
+  },
+  {
+    "infinitive": "contenir"
   },
   {
     "infinitive": "renoncer"
@@ -3619,13 +4333,31 @@
     "infinitive": "changer"
   },
   {
+    "infinitive": "proposer"
+  },
+  {
+    "infinitive": "songer"
+  },
+  {
     "infinitive": "lever"
+  },
+  {
+    "infinitive": "fournir"
+  },
+  {
+    "infinitive": "engloutir"
   },
   {
     "infinitive": "emporter"
   },
   {
     "infinitive": "craindre"
+  },
+  {
+    "infinitive": "toucher"
+  },
+  {
+    "infinitive": "marier"
   },
   {
     "infinitive": "préserver"
@@ -3641,6 +4373,9 @@
   },
   {
     "infinitive": "indiquer"
+  },
+  {
+    "infinitive": "ordonner"
   },
   {
     "infinitive": "posséder"
@@ -3725,6 +4460,9 @@
   },
   {
     "infinitive": "émettre"
+  },
+  {
+    "infinitive": "pouvoir"
   },
   {
     "infinitive": "suffire"
@@ -3816,16 +4554,40 @@
     "infinitive": "répondre"
   },
   {
+    "infinitive": "demander"
+  },
+  {
+    "infinitive": "croire"
+  },
+  {
+    "infinitive": "courir"
+  },
+  {
     "infinitive": "amener"
   },
   {
     "infinitive": "annoncer"
   },
   {
+    "infinitive": "plaire"
+  },
+  {
+    "infinitive": "produire"
+  },
+  {
+    "infinitive": "adorer"
+  },
+  {
     "infinitive": "fermer"
   },
   {
     "infinitive": "porter"
+  },
+  {
+    "infinitive": "publier"
+  },
+  {
+    "infinitive": "éclairer"
   },
   {
     "infinitive": "peser"
@@ -3837,6 +4599,6 @@
     "infinitive": "éditer"
   },
   {
-    "infinitive": "alimenter"
+    "infinitive": "affecter"
   }
 ]
