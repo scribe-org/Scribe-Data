@@ -1,5 +1,21 @@
 [
   {
+    "preposition": "из",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "по",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "по",
+    "case": "Q146078"
+  },
+  {
+    "preposition": "по",
+    "case": "Q2114906"
+  },
+  {
     "preposition": "в"
   },
   {
@@ -22,22 +38,6 @@
   },
   {
     "preposition": "минус"
-  },
-  {
-    "preposition": "из",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "по",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "по",
-    "case": "Q146078"
-  },
-  {
-    "preposition": "по",
-    "case": "Q2114906"
   },
   {
     "preposition": "после",

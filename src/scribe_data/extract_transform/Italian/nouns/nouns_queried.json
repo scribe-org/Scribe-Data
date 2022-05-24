@@ -327,11 +327,6 @@
     "gender": "Q1775415"
   },
   {
-    "plural": "tubini",
-    "singular": "tubino",
-    "gender": "Q499327"
-  },
-  {
     "plural": "licheni",
     "singular": "lichene",
     "gender": "Q499327"
@@ -377,11 +372,6 @@
     "gender": "Q1775415"
   },
   {
-    "plural": "camicie",
-    "singular": "camicia",
-    "gender": "Q1775415"
-  },
-  {
     "plural": "concetti",
     "singular": "concetto",
     "gender": "Q499327"
@@ -392,18 +382,8 @@
     "gender": "Q1775415"
   },
   {
-    "plural": "macchine",
-    "singular": "macchina",
-    "gender": "Q1775415"
-  },
-  {
     "plural": "genitori",
     "singular": "genitore",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "tripudi",
-    "singular": "tripudio",
     "gender": "Q499327"
   },
   {
@@ -471,11 +451,6 @@
     "gender": "Q1775415"
   },
   {
-    "plural": "pozioni",
-    "singular": "pozione",
-    "gender": "Q1775415"
-  },
-  {
     "plural": "collaboratori",
     "singular": "collaboratore",
     "gender": "Q499327"
@@ -496,11 +471,6 @@
     "gender": "Q1775415"
   },
   {
-    "plural": "montonaioli",
-    "singular": "montonaiolo",
-    "gender": "Q499327"
-  },
-  {
     "plural": "lanci",
     "singular": "lancio",
     "gender": "Q499327"
@@ -513,11 +483,6 @@
   {
     "plural": "valigie",
     "singular": "valigia",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "tartuchine",
-    "singular": "tartuchina",
     "gender": "Q1775415"
   },
   {
@@ -541,11 +506,6 @@
     "gender": "Q499327"
   },
   {
-    "plural": "rivestimenti",
-    "singular": "rivestimento",
-    "gender": "Q499327"
-  },
-  {
     "plural": "amori",
     "gender": "Q499327"
   },
@@ -557,11 +517,6 @@
     "plural": "mecenati",
     "singular": "mecenate",
     "gender": "Q499327"
-  },
-  {
-    "plural": "citazioni",
-    "singular": "citazione",
-    "gender": "Q1775415"
   },
   {
     "plural": "tomi",
@@ -642,11 +597,6 @@
     "gender": "Q499327"
   },
   {
-    "plural": "chirurgie",
-    "singular": "chirurgia",
-    "gender": "Q1775415"
-  },
-  {
     "plural": "birre",
     "singular": "birra",
     "gender": "Q1775415"
@@ -654,11 +604,6 @@
   {
     "plural": "gattopardi",
     "singular": "gattopardo",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "panterini",
-    "singular": "panterino",
     "gender": "Q499327"
   },
   {
@@ -692,653 +637,6 @@
     "gender": "Q1775415"
   },
   {
-    "plural": "acciai",
-    "singular": "acciaio",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "inscatolamenti",
-    "singular": "inscatolamento",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "animali",
-    "singular": "animale",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "pitture",
-    "singular": "pittura",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "letti",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "pozzi",
-    "singular": "pozzo",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "cuscini",
-    "singular": "cuscino",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "nicchiaiole",
-    "singular": "nicchiaiola",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "ocaiole",
-    "singular": "ocaiola",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "studenti",
-    "singular": "studente",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "giocattoli",
-    "singular": "giocattolo",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "disposizioni",
-    "singular": "disposizione",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "gonne",
-    "singular": "gonna",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "castelli",
-    "singular": "castello",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "colleghi",
-    "singular": "collega",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "dipendenti",
-    "singular": "dipendente",
-    "gender": "Q499327"
-  },
-  {
-    "singular": "destra",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "tutrici",
-    "singular": "tutrice",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "brucaiole",
-    "singular": "brucaiola",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "mele",
-    "singular": "mela",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "corsetti",
-    "singular": "corsetto",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "fini",
-    "singular": "fine",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "vite",
-    "singular": "vita",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "coinquiline",
-    "singular": "coinquilina",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "cose",
-    "singular": "cosa",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "capodanni",
-    "singular": "capodanno",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "figliastri",
-    "singular": "figliastro",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "trucchi",
-    "singular": "trucco",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "colazioni",
-    "singular": "colazione",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "palagi",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "annate",
-    "singular": "annata",
-    "gender": "Q1775415"
-  },
-  {
-    "singular": "sinistra",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "bacchette",
-    "singular": "bacchetta",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "bacchettine",
-    "singular": "bacchetta",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "bacchette",
-    "singular": "bacchettina",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "bacchettine",
-    "singular": "bacchettina",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "mascherine",
-    "singular": "mascherina",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "matrigne",
-    "singular": "matrigna",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "montonaiole",
-    "singular": "montonaiola",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "madrine",
-    "singular": "madrina",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "nipoti",
-    "singular": "nipote",
-    "gender": "Q499327"
-  },
-  {
-    "singular": "libro",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "bluse",
-    "singular": "blusa",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "universi",
-    "singular": "universo",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "tartuchini",
-    "singular": "tartuchino",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "cure",
-    "singular": "cura",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "allenamenti",
-    "singular": "allenamento",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "piste",
-    "singular": "pista",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "corrispondente",
-    "singular": "corrispondente",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "stringhe",
-    "singular": "stringa",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "cognati",
-    "singular": "cognato",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "cognate",
-    "singular": "cognata",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "dirigenti",
-    "singular": "dirigente",
-    "gender": "Q1305037"
-  },
-  {
-    "plural": "cinghie",
-    "singular": "cinghia",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "botteghe",
-    "singular": "bottega",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "ritratti",
-    "singular": "ritratto",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "applicazioni",
-    "singular": "applicazione",
-    "gender": "Q1775415"
-  },
-  {
-    "singular": "gioia",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "farfalle",
-    "singular": "farfalla",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "ritorni",
-    "singular": "ritorno",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "padrini",
-    "singular": "padrino",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "discendenti",
-    "singular": "discendente",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "diti",
-    "singular": "dito",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "botteghette",
-    "singular": "bottega",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "muse",
-    "singular": "musa",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "coniugi",
-    "singular": "coniuge",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "cuoi",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "medaglie",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "giraffine",
-    "singular": "giraffina",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "panterine",
-    "singular": "panterina",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "torraiole",
-    "singular": "torraiola",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "torraioli",
-    "singular": "torraiolo",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "amici",
-    "singular": "amico",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "chioccioline",
-    "singular": "chiocciolina",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "cerbottane",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "amiche",
-    "singular": "amica",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "mappe",
-    "singular": "mappa",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "ascelle",
-    "singular": "ascella",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "autunni",
-    "singular": "autunno",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "cacche",
-    "singular": "cacca",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "forme",
-    "singular": "forma",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "padri",
-    "singular": "padre",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "sogni",
-    "singular": "sogno",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "botteghe",
-    "singular": "botteghetta",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "momenti",
-    "singular": "momento",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "cappotti",
-    "singular": "cappotto",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "signori",
-    "singular": "segnore",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "corde",
-    "singular": "corda",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "botteghette",
-    "singular": "botteghetta",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "ammutinamenti",
-    "singular": "ammutinamento",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "maglioni",
-    "singular": "maglione",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "Propulsioni a curvatura",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "Nanosonde",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "appartamenti",
-    "singular": "appartamento",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "scope",
-    "singular": "scopa",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "signori",
-    "singular": "signore",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "collere",
-    "singular": "collera",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "parti",
-    "singular": "parte",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "salotti",
-    "singular": "salotto",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "modi",
-    "singular": "modo",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "misure",
-    "singular": "misura",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "schermi",
-    "singular": "schermo",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "banane",
-    "singular": "banana",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "scosse",
-    "singular": "scossa",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "memorie",
-    "singular": "memoria",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "zenzeri",
-    "singular": "zenzero",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "cerotti",
-    "singular": "cerotto",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "parole",
-    "singular": "parola",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "teletrasporti",
-    "singular": "teletrasporto",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "terre",
-    "singular": "terra",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "pesche",
-    "singular": "pesca",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "ruoli",
-    "singular": "ruolo",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "erbe",
-    "singular": "erba",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "cappuccini",
-    "singular": "cappuccino",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "cucine",
-    "singular": "cucina",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "cappucci",
-    "singular": "cappuccio",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "anche",
-    "singular": "anca",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "trasporti",
-    "singular": "trasporto",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "compresse",
-    "singular": "compressa",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "altoparlanti",
-    "singular": "altoparlante",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "capi",
-    "singular": "capo",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "paesi",
-    "singular": "paese",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "energie",
-    "singular": "energia",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "occhi",
-    "singular": "occhio",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "ore",
-    "singular": "ora",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "mani",
-    "singular": "mano",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "gelatine",
-    "singular": "gelatina",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "cittadini",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "linguette",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "stati",
-    "singular": "stato",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "giorni",
-    "singular": "giorno",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "pompe",
-    "singular": "pompa",
-    "gender": "Q1775415"
-  },
-  {
     "plural": "probiviri",
     "singular": "probiviro",
     "gender": "Q499327"
@@ -1352,16 +650,6 @@
     "plural": "costruzioni",
     "singular": "costruzione",
     "gender": "Q1775415"
-  },
-  {
-    "plural": "spiaggie",
-    "singular": "spiaggia",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "flussi",
-    "singular": "flusso",
-    "gender": "Q499327"
   },
   {
     "plural": "palme",
@@ -1384,11 +672,6 @@
     "gender": "Q499327"
   },
   {
-    "plural": "capezzoli",
-    "singular": "capezzolo",
-    "gender": "Q499327"
-  },
-  {
     "plural": "prove",
     "singular": "prova",
     "gender": "Q1775415"
@@ -1401,11 +684,6 @@
   {
     "plural": "terrazzi",
     "singular": "terrazzo",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "torrioni",
-    "singular": "torrione",
     "gender": "Q499327"
   },
   {
@@ -1494,11 +772,6 @@
     "gender": "Q1775415"
   },
   {
-    "plural": "perni",
-    "singular": "perno",
-    "gender": "Q499327"
-  },
-  {
     "plural": "equipaggi",
     "singular": "equipaggio",
     "gender": "Q499327"
@@ -1507,11 +780,6 @@
     "plural": "gole",
     "singular": "gola",
     "gender": "Q1775415"
-  },
-  {
-    "plural": "fiocchi",
-    "singular": "fiocco",
-    "gender": "Q499327"
   },
   {
     "plural": "teste",
@@ -1527,11 +795,6 @@
     "plural": "istriciaioli",
     "singular": "istriciaiolo",
     "gender": "Q499327"
-  },
-  {
-    "plural": "colombe",
-    "singular": "colomba",
-    "gender": "Q1775415"
   },
   {
     "plural": "versamenti",
@@ -1553,19 +816,9 @@
     "gender": "Q499327"
   },
   {
-    "plural": "pelliccie",
-    "singular": "pelliccia",
-    "gender": "Q1775415"
-  },
-  {
     "plural": "lanterne",
     "singular": "lanterna",
     "gender": "Q1775415"
-  },
-  {
-    "plural": "rilassamenti",
-    "singular": "rilassamento",
-    "gender": "Q499327"
   },
   {
     "plural": "effetti",
@@ -1632,11 +885,6 @@
     "gender": "Q499327"
   },
   {
-    "plural": "esercitazioni",
-    "singular": "esercitazione",
-    "gender": "Q1775415"
-  },
-  {
     "plural": "giraffini",
     "singular": "giraffino",
     "gender": "Q499327"
@@ -1644,11 +892,6 @@
   {
     "plural": "fontane",
     "singular": "fontana",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "storie",
-    "singular": "storia",
     "gender": "Q1775415"
   },
   {
@@ -1665,6 +908,833 @@
     "plural": "cappelli",
     "singular": "cappello",
     "gender": "Q499327"
+  },
+  {
+    "plural": "forme",
+    "singular": "forma",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "acciai",
+    "singular": "acciaio",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "animali",
+    "singular": "animale",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "pitture",
+    "singular": "pittura",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "spiaggie",
+    "singular": "spiaggia",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "flussi",
+    "singular": "flusso",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "padri",
+    "singular": "padre",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "studenti",
+    "singular": "studente",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "sogni",
+    "singular": "sogno",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "botteghe",
+    "singular": "botteghetta",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "giocattoli",
+    "singular": "giocattolo",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "momenti",
+    "singular": "momento",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "cappotti",
+    "singular": "cappotto",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "capezzoli",
+    "singular": "capezzolo",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "signori",
+    "singular": "segnore",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "corde",
+    "singular": "corda",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "torrioni",
+    "singular": "torrione",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "botteghette",
+    "singular": "botteghetta",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "gonne",
+    "singular": "gonna",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "ammutinamenti",
+    "singular": "ammutinamento",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "castelli",
+    "singular": "castello",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "maglioni",
+    "singular": "maglione",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "colleghi",
+    "singular": "collega",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "dipendenti",
+    "singular": "dipendente",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "Propulsioni a curvatura",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "Nanosonde",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "mele",
+    "singular": "mela",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "corsetti",
+    "singular": "corsetto",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "appartamenti",
+    "singular": "appartamento",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "scope",
+    "singular": "scopa",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "perni",
+    "singular": "perno",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "trucchi",
+    "singular": "trucco",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "signori",
+    "singular": "signore",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "colazioni",
+    "singular": "colazione",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "annate",
+    "singular": "annata",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "collere",
+    "singular": "collera",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "parti",
+    "singular": "parte",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "salotti",
+    "singular": "salotto",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "modi",
+    "singular": "modo",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "misure",
+    "singular": "misura",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "schermi",
+    "singular": "schermo",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "fiocchi",
+    "singular": "fiocco",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "matrigne",
+    "singular": "matrigna",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "colombe",
+    "singular": "colomba",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "banane",
+    "singular": "banana",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "madrine",
+    "singular": "madrina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "scosse",
+    "singular": "scossa",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "pelliccie",
+    "singular": "pelliccia",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "memorie",
+    "singular": "memoria",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "zenzeri",
+    "singular": "zenzero",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "cerotti",
+    "singular": "cerotto",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "parole",
+    "singular": "parola",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "teletrasporti",
+    "singular": "teletrasporto",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "corrispondente",
+    "singular": "corrispondente",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "terre",
+    "singular": "terra",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "pesche",
+    "singular": "pesca",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "ruoli",
+    "singular": "ruolo",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "erbe",
+    "singular": "erba",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "rilassamenti",
+    "singular": "rilassamento",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "cappuccini",
+    "singular": "cappuccino",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "cucine",
+    "singular": "cucina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "cappucci",
+    "singular": "cappuccio",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "anche",
+    "singular": "anca",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "trasporti",
+    "singular": "trasporto",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "compresse",
+    "singular": "compressa",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "altoparlanti",
+    "singular": "altoparlante",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "capi",
+    "singular": "capo",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "paesi",
+    "singular": "paese",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "botteghe",
+    "singular": "bottega",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "energie",
+    "singular": "energia",
+    "gender": "Q1775415"
+  },
+  {
+    "singular": "gioia",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "farfalle",
+    "singular": "farfalla",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "ritorni",
+    "singular": "ritorno",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "padrini",
+    "singular": "padrino",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "discendenti",
+    "singular": "discendente",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "diti",
+    "singular": "dito",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "botteghette",
+    "singular": "bottega",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "occhi",
+    "singular": "occhio",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "coniugi",
+    "singular": "coniuge",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "esercitazioni",
+    "singular": "esercitazione",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "ore",
+    "singular": "ora",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "mani",
+    "singular": "mano",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "gelatine",
+    "singular": "gelatina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "cittadini",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "linguette",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "storie",
+    "singular": "storia",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "stati",
+    "singular": "stato",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "giorni",
+    "singular": "giorno",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "pompe",
+    "singular": "pompa",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "inscatolamenti",
+    "singular": "inscatolamento",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "senni",
+    "singular": "senno",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "tubini",
+    "singular": "tubino",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "letti",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "pozzi",
+    "singular": "pozzo",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "cuscini",
+    "singular": "cuscino",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "nicchiaiole",
+    "singular": "nicchiaiola",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "ocaiole",
+    "singular": "ocaiola",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "camicie",
+    "singular": "camicia",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "disposizioni",
+    "singular": "disposizione",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "macchine",
+    "singular": "macchina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "poli",
+    "singular": "polo",
+    "gender": "Q499327"
+  },
+  {
+    "singular": "destra",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "tutrici",
+    "singular": "tutrice",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "brucaiole",
+    "singular": "brucaiola",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "tripudi",
+    "singular": "tripudio",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "fini",
+    "singular": "fine",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "vite",
+    "singular": "vita",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "coinquiline",
+    "singular": "coinquilina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "cose",
+    "singular": "cosa",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "capodanni",
+    "singular": "capodanno",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "figliastri",
+    "singular": "figliastro",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "palagi",
+    "gender": "Q499327"
+  },
+  {
+    "singular": "sinistra",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "bacchette",
+    "singular": "bacchetta",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "bacchettine",
+    "singular": "bacchetta",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "bacchette",
+    "singular": "bacchettina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "bacchettine",
+    "singular": "bacchettina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "pozioni",
+    "singular": "pozione",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "mascherine",
+    "singular": "mascherina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "montonaiole",
+    "singular": "montonaiola",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "montonaioli",
+    "singular": "montonaiolo",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "nipoti",
+    "singular": "nipote",
+    "gender": "Q499327"
+  },
+  {
+    "singular": "libro",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "bluse",
+    "singular": "blusa",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "universi",
+    "singular": "universo",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "tartuchine",
+    "singular": "tartuchina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "tartuchini",
+    "singular": "tartuchino",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "cure",
+    "singular": "cura",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "latti",
+    "singular": "latte",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "barche",
+    "singular": "barca",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "allenamenti",
+    "singular": "allenamento",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "piste",
+    "singular": "pista",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "stringhe",
+    "singular": "stringa",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "cognati",
+    "singular": "cognato",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "cognate",
+    "singular": "cognata",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "sigari",
+    "singular": "sigaro",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "dirigenti",
+    "singular": "dirigente",
+    "gender": "Q1305037"
+  },
+  {
+    "plural": "rivestimenti",
+    "singular": "rivestimento",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "cinghie",
+    "singular": "cinghia",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "citazioni",
+    "singular": "citazione",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "ritratti",
+    "singular": "ritratto",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "applicazioni",
+    "singular": "applicazione",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "imbarcazioni",
+    "singular": "imbarcazione",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "bussole",
+    "singular": "bussoletta",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "bussole",
+    "singular": "bussolina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "dogi",
+    "singular": "doge",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "bariste",
+    "singular": "barista",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "chirurgie",
+    "singular": "chirurgia",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "muse",
+    "singular": "musa",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "cuoi",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "medaglie",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "sale",
+    "singular": "sala",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "giraffine",
+    "singular": "giraffina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "panterine",
+    "singular": "panterina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "panterini",
+    "singular": "panterino",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "torraiole",
+    "singular": "torraiola",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "torraioli",
+    "singular": "torraiolo",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "amici",
+    "singular": "amico",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "chioccioline",
+    "singular": "chiocciolina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "cerbottane",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "amiche",
+    "singular": "amica",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "sale",
+    "singular": "saletta",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "sale",
+    "singular": "salettina",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "mappe",
+    "singular": "mappa",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "bussole",
+    "singular": "bussola",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "ascelle",
+    "singular": "ascella",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "autunni",
+    "singular": "autunno",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "cacche",
+    "singular": "cacca",
+    "gender": "Q1775415"
   },
   {
     "plural": "piante",
@@ -1804,6 +1874,10 @@
     "singular": "confessora"
   },
   {
+    "plural": "salcicce",
+    "singular": "salciccia"
+  },
+  {
     "singular": "scacchisti"
   },
   {
@@ -1871,11 +1945,6 @@
     "gender": "Q499327"
   },
   {
-    "plural": "senni",
-    "singular": "senno",
-    "gender": "Q499327"
-  },
-  {
     "plural": "insiemi",
     "singular": "insieme",
     "gender": "Q499327"
@@ -1911,6 +1980,11 @@
     "gender": "Q499327"
   },
   {
+    "plural": "rami",
+    "singular": "ramo",
+    "gender": "Q499327"
+  },
+  {
     "plural": "olfatti",
     "singular": "olfatto",
     "gender": "Q499327"
@@ -1931,6 +2005,11 @@
     "gender": "Q499327"
   },
   {
+    "plural": "viste",
+    "singular": "vista",
+    "gender": "Q1775415"
+  },
+  {
     "plural": "numeri",
     "singular": "numero",
     "gender": "Q499327"
@@ -1941,13 +2020,18 @@
     "gender": "Q499327"
   },
   {
+    "plural": "santoregge",
+    "singular": "santoreggia",
+    "gender": "Q1775415"
+  },
+  {
     "plural": "ambienti",
     "singular": "ambiente",
     "gender": "Q499327"
   },
   {
-    "plural": "poli",
-    "singular": "polo",
+    "plural": "petti",
+    "singular": "petto",
     "gender": "Q499327"
   },
   {
@@ -1988,6 +2072,11 @@
     "plural": "sicurezze",
     "singular": "sicurezza",
     "gender": "Q1775415"
+  },
+  {
+    "plural": "bozzetti",
+    "singular": "bozzetto",
+    "gender": "Q499327"
   },
   {
     "plural": "linimenti",
@@ -2090,13 +2179,8 @@
     "gender": "Q499327"
   },
   {
-    "plural": "latti",
-    "singular": "latte",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "barche",
-    "singular": "barca",
+    "plural": "aquile",
+    "singular": "aquila",
     "gender": "Q1775415"
   },
   {
@@ -2116,12 +2200,17 @@
   },
   {
     "plural": "frasi",
+    "singular": "frasuccia",
+    "gender": "Q1775415"
+  },
+  {
+    "plural": "frasi",
     "singular": "frasina",
     "gender": "Q1775415"
   },
   {
     "plural": "frasi",
-    "singular": "frasuccia",
+    "singular": "frasetta",
     "gender": "Q1775415"
   },
   {
@@ -2130,9 +2219,9 @@
     "gender": "Q1775415"
   },
   {
-    "plural": "frasi",
-    "singular": "frasetta",
-    "gender": "Q1775415"
+    "plural": "salmoni",
+    "singular": "salmone",
+    "gender": "Q499327"
   },
   {
     "plural": "calorie",
@@ -2147,11 +2236,6 @@
   {
     "plural": "insiemi",
     "singular": "inseme",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "sigari",
-    "singular": "sigaro",
     "gender": "Q499327"
   },
   {
@@ -2170,13 +2254,13 @@
     "gender": "Q499327"
   },
   {
-    "plural": "frasi",
-    "singular": "frase",
+    "plural": "grotte",
+    "singular": "grotta",
     "gender": "Q1775415"
   },
   {
-    "plural": "imbarcazioni",
-    "singular": "imbarcazione",
+    "plural": "frasi",
+    "singular": "frase",
     "gender": "Q1775415"
   },
   {
@@ -2185,44 +2269,14 @@
     "gender": "Q1775415"
   },
   {
-    "plural": "bussole",
-    "singular": "bussoletta",
+    "plural": "loggie",
+    "singular": "loggia",
     "gender": "Q1775415"
-  },
-  {
-    "plural": "bussole",
-    "singular": "bussolina",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "dogi",
-    "singular": "doge",
-    "gender": "Q499327"
-  },
-  {
-    "plural": "bariste",
-    "singular": "barista",
-    "gender": "Q499327"
   },
   {
     "plural": "pani",
     "singular": "pane",
     "gender": "Q499327"
-  },
-  {
-    "plural": "sale",
-    "singular": "sala",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "sale",
-    "singular": "saletta",
-    "gender": "Q1775415"
-  },
-  {
-    "plural": "sale",
-    "singular": "salettina",
-    "gender": "Q1775415"
   },
   {
     "plural": "apicoltori",
@@ -2235,14 +2289,19 @@
     "gender": "Q1775415"
   },
   {
-    "plural": "bussole",
-    "singular": "bussola",
-    "gender": "Q1775415"
-  },
-  {
     "plural": "pacchi",
     "singular": "pacco",
     "gender": "Q499327"
+  },
+  {
+    "plural": "bozzi",
+    "singular": "bozzo",
+    "gender": "Q499327"
+  },
+  {
+    "plural": "fave",
+    "singular": "fava",
+    "gender": "Q1775415"
   },
   {
     "plural": "contatti",
