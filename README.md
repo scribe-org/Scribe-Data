@@ -17,18 +17,24 @@
 
 This repository contains the scripts for extracting and formatting data from [Wikidata](https://www.wikidata.org/) for Scribe applications. Updates to the language keyboard and interface data can be done using [scribe_data/load/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load/update_data.py).
 
-# **Contents**<a id="contents"></a>
+<a id="contents"></a>
+
+# **Contents**
 
 - [Process](#process)
 - [Supported Languages](#supported-languages)
 - [Contributing](#contributing)
 - [Featured By](#featured-by)
 
-# Process [`⇧`](#contents) <a id="process"></a>
+<a id="process"></a>
+
+# Process [`⇧`](#contents)
 
 [scribe_data/load/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load/update_data.py) is used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active. The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data, with these packs then being available to download by users of Scribe applications.
 
-# Supported Languages [`⇧`](#contents) <a id="supported-languages"></a>
+<a id="supported-languages"></a>
+
+# Supported Languages [`⇧`](#contents)
 
 Scribe's goal is functional, feature-rich keyboards and interfaces for all languages. Check the [data](https://github.com/scribe-org/Scribe-Data/tree/main/data) directory for queries for currently supported languages and those that have substantial data on [Wikidata](https://www.wikidata.org/).
 
@@ -50,7 +56,9 @@ The following table shows the supported languages and the amount of data availab
 
 `‡` Only for languages for which preposition annotation is needed.
 
-# Contributing [`⇧`](#contents) <a id="contributing"></a>
+<a id="contributing"></a>
+
+# Contributing [`⇧`](#contents)
 
 Work that is in progress or could be implemented is tracked in the [issues](https://github.com/scribe-org/Scribe-Data/issues). Please see the [contribution guidelines](https://github.com/scribe-org/Scribe-Data/blob/main/CONTRIBUTING.md) if you are interested in contributing to Scribe-Data. Also check the [`-priority-`](https://github.com/scribe-org/Scribe-Data/labels/-priority-) labels in the [issues](https://github.com/scribe-org/Scribe-Data/issues) for those that are most important, as well as those marked [`good first issue`](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) that are tailored for first time contributors.
 
@@ -66,7 +74,9 @@ Work that is in progress or could be implemented is tracked in the [issues](http
 
 Scribe does not accept direct edits to the grammar JSON files as they are sourced from [Wikidata](https://www.wikidata.org/). Edits can be discussed and the queries themselves will be changed and ran before an update. If there is a problem with one of the files, then the fix should be made on [Wikidata](https://www.wikidata.org/) and not on Scribe. Feel free to let us know that edits have been made by [opening a data issue](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=data&template=data_wikidata.yml) and we'll be happy to integrate them!
 
-# Featured By [`⇧`](#contents) <a id="featured-by"></a>
+<a id="featured-by"></a>
+
+# Featured By [`⇧`](#contents)
 
 <details><summary><strong>List of articles featuring Scribe</strong></summary>
 <p>
