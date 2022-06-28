@@ -1,5 +1,25 @@
 [
   {
+    "impTPP": "ricordavano",
+    "infinitive": "ricordare",
+    "impTPS": "ricordava",
+    "impSPP": "ricordavate",
+    "impFPP": "ricordavamo",
+    "impSPS": "ricordavi",
+    "impFPS": "ricordavo",
+    "pretTPP": "ricordarono",
+    "pretSPP": "ricordaste",
+    "pretFPP": "ricordammo",
+    "pretSPS": "ricordasti",
+    "pretFPS": "ricordai",
+    "presTPP": "ricordano",
+    "presSPP": "ricordate",
+    "presFPP": "ricordiamo",
+    "presTPS": "ricorda",
+    "presSPS": "ricordi",
+    "presFPS": "ricordo"
+  },
+  {
     "impTPP": "correvano",
     "infinitive": "correre",
     "pretTPS": "corse",
@@ -19,26 +39,6 @@
     "presTPS": "corre",
     "presSPS": "corri",
     "presFPS": "corro"
-  },
-  {
-    "impTPP": "ricordavano",
-    "infinitive": "ricordare",
-    "impTPS": "ricordava",
-    "impSPP": "ricordavate",
-    "impFPP": "ricordavamo",
-    "impSPS": "ricordavi",
-    "impFPS": "ricordavo",
-    "pretTPP": "ricordarono",
-    "pretSPP": "ricordaste",
-    "pretFPP": "ricordammo",
-    "pretSPS": "ricordasti",
-    "pretFPS": "ricordai",
-    "presTPP": "ricordano",
-    "presSPP": "ricordate",
-    "presFPP": "ricordiamo",
-    "presTPS": "ricorda",
-    "presSPS": "ricordi",
-    "presFPS": "ricordo"
   },
   {
     "infinitive": "commentare"

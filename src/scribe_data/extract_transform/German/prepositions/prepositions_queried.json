@@ -398,6 +398,137 @@
     "case": "Q146233"
   },
   {
+    "preposition": "eingedenk",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "nid",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "östlich",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "seitwärts",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "vorbehältlich",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "zuhanden",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "getreu",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "abseiten",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "näher",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "gegenüber",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "außerhalb",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "binnen",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "zulieb"
+  },
+  {
+    "preposition": "zuliebe",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "betreffend",
+    "case": "Q146078"
+  },
+  {
+    "preposition": "entgegen",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "samt",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "ausgangs",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "ausweislich",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "eingangs",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "mittels",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "punkto",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "sonder",
+    "case": "Q146078"
+  },
+  {
+    "preposition": "anhand",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "unangesehen",
+    "case": "Q146078"
+  },
+  {
+    "preposition": "unangesehen",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "unterkant",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "nordöstlich",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "südwestlich",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "seitab",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "voll",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "bar",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "einbezüglich",
+    "case": "Q146233"
+  },
+  {
     "preposition": "zwischen",
     "case": "Q145599"
   },
@@ -416,6 +547,18 @@
   {
     "preposition": "nach",
     "case": "Q145599"
+  },
+  {
+    "preposition": "gegenwarts",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "zwecks",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "aufgrund",
+    "case": "Q146233"
   },
   {
     "preposition": "zuungunsten",
@@ -463,18 +606,6 @@
   },
   {
     "preposition": "infolge",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "gegenwarts",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "zwecks",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "aufgrund",
     "case": "Q146233"
   },
   {
@@ -718,136 +849,5 @@
   {
     "preposition": "lang",
     "case": "Q146078"
-  },
-  {
-    "preposition": "eingedenk",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "nid",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "östlich",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "seitwärts",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "vorbehältlich",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "zuhanden",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "getreu",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "abseiten",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "näher",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "gegenüber",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "außerhalb",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "binnen",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "zulieb"
-  },
-  {
-    "preposition": "zuliebe",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "betreffend",
-    "case": "Q146078"
-  },
-  {
-    "preposition": "entgegen",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "samt",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "ausgangs",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "ausweislich",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "eingangs",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "mittels",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "punkto",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "sonder",
-    "case": "Q146078"
-  },
-  {
-    "preposition": "anhand",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "unangesehen",
-    "case": "Q146078"
-  },
-  {
-    "preposition": "unangesehen",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "unterkant",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "nordöstlich",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "südwestlich",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "seitab",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "voll",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "bar",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "einbezüglich",
-    "case": "Q146233"
   }
 ]
