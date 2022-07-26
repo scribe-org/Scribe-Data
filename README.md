@@ -5,7 +5,6 @@
 <ol></ol>
 
 [![issues](https://img.shields.io/github/issues/scribe-org/Scribe-Data)](https://github.com/scribe-org/Scribe-Data/issues)
-[![discussions](https://img.shields.io/github/discussions/scribe-org/Scribe-Data)](https://github.com/scribe-org/Scribe-Data/discussions)
 [![language](https://img.shields.io/badge/Python-3-306998.svg?logo=python&logoColor=ffffff)](https://github.com/scribe-org/Scribe-Data/blob/main/CONTRIBUTING.md)
 [![pypi](https://img.shields.io/pypi/v/scribe-data.svg?color=4B8BBE)](https://pypi.org/project/scribe-data/)
 [![pypistatus](https://img.shields.io/pypi/status/scribe-data.svg)](https://pypi.org/project/scribe-data/)
@@ -64,7 +63,6 @@ Work that is in progress or could be implemented is tracked in the [issues](http
 
 ### Ways to Help
 
-- Join us in the [Discussions](https://github.com/scribe-org/Scribe-Data/discussions) 👋
 - [Reporting bugs](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=bug&template=bug_report.yml) as they're found
 - Working on [new features](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3Afeature)
 - [Documentation](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3Adocumentation) for onboarding and project cohesion
