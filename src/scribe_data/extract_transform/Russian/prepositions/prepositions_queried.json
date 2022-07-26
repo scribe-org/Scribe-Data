@@ -40,6 +40,22 @@
     "preposition": "минус"
   },
   {
+    "preposition": "с",
+    "case": "Q192997"
+  },
+  {
+    "preposition": "съ",
+    "case": "Q192997"
+  },
+  {
+    "preposition": "для",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "к",
+    "case": "Q145599"
+  },
+  {
     "preposition": "после",
     "case": "Q146233"
   },
@@ -58,21 +74,5 @@
   {
     "preposition": "вокруг",
     "case": "Q146233"
-  },
-  {
-    "preposition": "с",
-    "case": "Q192997"
-  },
-  {
-    "preposition": "съ",
-    "case": "Q192997"
-  },
-  {
-    "preposition": "для",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "к",
-    "case": "Q145599"
   }
 ]

@@ -1,19 +1,19 @@
 {
   "French": {
-    "nouns": 16233,
-    "verbs": 1501
+    "nouns": 16374,
+    "verbs": 1506
   },
   "German": {
-    "nouns": 28745,
-    "verbs": 3381,
+    "nouns": 28948,
+    "verbs": 3469,
     "prepositions": 187
   },
   "Italian": {
-    "nouns": 847,
+    "nouns": 4163,
     "verbs": 73
   },
   "Portuguese": {
-    "nouns": 5109,
+    "nouns": 5112,
     "verbs": 495
   },
   "Russian": {
@@ -22,11 +22,11 @@
     "prepositions": 12
   },
   "Spanish": {
-    "nouns": 20987,
-    "verbs": 3717
+    "nouns": 23269,
+    "verbs": 3783
   },
   "Swedish": {
-    "nouns": 42002,
-    "verbs": 4160
+    "nouns": 42016,
+    "verbs": 4274
   }
 }
