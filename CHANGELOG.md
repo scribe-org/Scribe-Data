@@ -1,5 +1,7 @@
 # Changelog
 
+See the [releases for Scribe-Data](https://github.com/scribe-org/Scribe-Data/releases) for an up to date list of versions and their release dates.
+
 Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.MINOR.PATCH version where increments are made of the:
 
 - MAJOR version when we make incompatible API changes
