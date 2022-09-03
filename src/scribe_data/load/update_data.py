@@ -285,7 +285,7 @@ def num_add_commas(num):
 # Update data_table.txt
 current_data_df = pd.DataFrame(
     index=sorted(list(current_data.keys())),
-    columns=["nouns", "verbs", "translations", "adjectives", "prepositions"],
+    columns=["nouns", "verbs", "translations", "prepositions"],
 )
 for lang, wt in itertools.product(
     list(current_data_df.index), list(current_data_df.columns)

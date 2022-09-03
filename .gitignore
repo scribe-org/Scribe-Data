@@ -3,6 +3,9 @@
 .DS_Store
 .vscode
 .ipynb_checkpoints
+*wiki_dump
+*wiki_partitions
+*wiki.ndjson
 
 # Python files
 ##############

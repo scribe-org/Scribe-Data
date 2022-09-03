@@ -32,7 +32,7 @@ def get_ios_data_path(language: str, word_type: str):
         word_type : str
             The type of word that should be accessed in the path.
 
-    Retruns
+    Returns
     -------
         The path to the data json for the given language and word type.
     """
@@ -51,7 +51,7 @@ def get_android_data_path(language: str, word_type: str):
         word_type : str
             The type of word that should be accessed in the path.
 
-    Retruns
+    Returns
     -------
         The path to the data json for the given language and word type.
     """
@@ -72,7 +72,7 @@ def get_desktop_data_path(language: str, word_type: str):
         word_type : str
             The type of word that should be accessed in the path.
 
-    Retruns
+    Returns
     -------
         The path to the data json for the given language and word type.
     """
