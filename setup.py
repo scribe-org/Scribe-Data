@@ -41,7 +41,7 @@ setup_args = dict(
     ],
     python_requires=">=3.6",
     install_requires=requirements,
-    description="Data extraction and formatting for Scribe applications",
+    description="Wikidata and Wikipedia data extraction for Scribe applications",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/scribe-org/Scribe-Data",
