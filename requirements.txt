@@ -1,8 +1,13 @@
+beautifulsoup4==4.9.3
 black>=19.10b0
 certifi>=2020.12.5
+defusedxml==0.7.1
+mwparserfromhell==0.6
 packaging>=20.9
+python-dateutil>=2.8.2
 sentencepiece>=0.1.95
 SPARQLWrapper>=2.0.0
 tabulate>=0.8.9
+tensorflow>=2.5.1
+tqdm==4.56.1
 transformers>=4.12
-python-dateutil>=2.8.2
