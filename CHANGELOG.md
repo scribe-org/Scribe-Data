@@ -10,7 +10,13 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
-# Next release
+# Scribe-Data 1.1.0
+
+### ✨ Features
+
+<!-- - Scribe-Data now has the ability to download Wikipedia dumps of any language.
+- Processes have been added to parse and clean the above dumps.
+- Autosuggestions are generated from the cleaned texts by deriving most common words and those words that most commonly follow them. -->
 
 ### ♻️ Code Refactoring
 

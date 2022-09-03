@@ -263,7 +263,7 @@ def num_add_commas(num):
         num : int
             An int to have commas added to.
 
-    Retruns
+    Returns
     -------
         str_with_commas : str
             The original number with commas to make it more readable.
