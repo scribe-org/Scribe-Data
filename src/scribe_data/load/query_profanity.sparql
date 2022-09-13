@@ -1,0 +1,22 @@
+# All profane words from a given language to be removed from autosuggest options.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT DISTINCT ?lemma
+WHERE {
+  ?lexemeId dct:language wd:LANGUAGE_QID; # replaced language qid here
+            wikibase:lemma ?lemma;
+            ontolex:sense ?sense.
+
+  VALUES ?filter {
+    wd:Q8102
+    wd:Q545779
+    wd:Q1521634
+    wd:Q184439
+  }.
+  FILTER EXISTS {?sense wdt:P6191 ?filter.}.
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+  }
+}
+ORDER BY lcase(?lemma)
