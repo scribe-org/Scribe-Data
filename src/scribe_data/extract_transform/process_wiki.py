@@ -14,17 +14,25 @@ import re
 import warnings
 from collections import Counter
 from itertools import chain
+from urllib.error import HTTPError
 
 import numpy as np
 from scribe_data.load.update_utils import (
     get_android_data_path,
     get_desktop_data_path,
     get_ios_data_path,
+    get_language_qid,
     get_path_from_update_data,
 )
+from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
 
 warnings.filterwarnings("ignore", message=r"Passing", category=FutureWarning)
+
+# Set SPARQLWrapper query conditions.
+sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
+sparql.setReturnFormat(JSON)
+sparql.setMethod(POST)
 
 
 def clean(
@@ -163,6 +171,41 @@ def gen_autosuggestions(
 
     top_words = [item[0] for item in counter_obj.most_common()][:num_words]
 
+    print("Querying profanities to remove from suggestions.")
+    # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
+    with open("../extract_transform/query_profanity.sparql", encoding="utf-8") as file:
+        query_lines = file.readlines()
+
+    query = "".join(query_lines).replace(
+        "LANGUAGE_QID", get_language_qid(language=language)
+    )
+    sparql.setQuery(query)
+
+    results = None
+    try:
+        results = sparql.query().convert()
+    except HTTPError as err:
+        print(f"HTTPError with query_profanity.sparql: {err}")
+
+    profanities = []
+
+    if results is None:
+        print("Nothing returned by the WDQS server for query_profanity.sparql")
+    else:
+        # Subset the returned JSON and the individual results before saving.
+        query_results = results["results"][  # pylint: disable=unsubscriptable-object
+            "bindings"
+        ]
+
+        for r in query_results:  # query_results is also a list
+            r_dict = {k: r[k]["value"] for k in r.keys()}
+            profanities.append(r_dict["lemma"])
+
+        print(
+            f"Queried {len(profanities)} words to be removed from autosuggest options."
+        )
+
+    print("Generating autosuggestions.")
     autosuggest_dict = {}
     for w in top_words:
         words_after_w = [
@@ -171,9 +214,14 @@ def gen_autosuggestions(
         ]
 
         flat_words_after_w = [item for sublist in words_after_w for item in sublist]
-        autosuggestions = [
-            tup[0] for tup in Counter(flat_words_after_w).most_common()[:3]
-        ]
+
+        autosuggestions = []
+        for tup in Counter(flat_words_after_w).most_common():
+            if tup[0] not in profanities:
+                autosuggestions.append(tup[0])
+
+            if len(autosuggestions) == 3:
+                break
 
         autosuggest_dict[w] = autosuggestions
 
