@@ -29,7 +29,9 @@ This repository contains the scripts for extracting and formatting data from [Wi
 
 # Process [`⇧`](#contents)
 
-[scribe_data/load/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load/update_data.py) is used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active. The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data, with these packs then being available to download by users of Scribe applications. The autosuggestion process further derives popular words from Wikipedia as well as those words that normally follow them for an effective baseline until natural language processing techniques are employed.
+[scribe_data/load/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load/update_data.py) is used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active. The autosuggestion process further derives popular words from Wikipedia as well as those words that normally follow them for an effective baseline feature until natural language processing techniques are employed. Functions to generate autosuggestions are ran in [scribe_data/load/gen_autosuggestions.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/load/gen_autosuggestions.ipynb).
+
+The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data, with these packs then being available to download by users of Scribe applications.
 
 <a id="contributing"></a>
 
