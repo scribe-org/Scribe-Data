@@ -17,13 +17,14 @@ from itertools import chain
 from urllib.error import HTTPError
 
 import numpy as np
-from scribe_data.load.update_utils import (
-    get_android_data_path,
-    get_desktop_data_path,
-    get_ios_data_path,
-    get_language_qid,
-    get_path_from_update_data,
-)
+import regex
+from scribe_data.load.update_utils import (add_num_commas,
+                                           get_android_data_path,
+                                           get_desktop_data_path,
+                                           get_ios_data_path, get_language_qid,
+                                           get_language_words_to_ignore,
+                                           get_language_words_to_remove,
+                                           get_path_from_process_wiki)
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
 
@@ -36,7 +37,7 @@ sparql.setMethod(POST)
 
 
 def clean(
-    texts, ignore_words=None, sample_size=1, verbose=True,
+    texts, language="English", remove_words=None, sample_size=1, verbose=True,
 ):
     """
     Cleans text body to prepare it for analysis.
@@ -46,14 +47,17 @@ def clean(
         texts : str or list
             The texts to be cleaned and tokenized.
 
-        ignore_words : str or list (default=None)
+        language : string (default=en)
+            The language of the texts being cleaned.
+
+        remove_words : str or list (default=None)
             Strings that should be removed from the text body.
 
         sample_size : float (default=1)
             The amount of data to be randomly sampled.
 
         verbose : bool (default=True)
-            Whether to show a tqdm progress bar for the query.
+            Whether to show a tqdm progress bar for the process.
 
     Returns
     -------
@@ -63,28 +67,95 @@ def clean(
     if isinstance(texts, str):
         texts = [texts]
 
-    if isinstance(ignore_words, str):
-        words_to_ignore = [ignore_words]
-    elif ignore_words is None:
-        words_to_ignore = []
+    language = language.lower()
+
+    if isinstance(remove_words, str):
+        words_to_remove = [remove_words]
+    elif remove_words is None:
+        words_to_remove = []
+
+    # Add words that are common in Wikipedia article markdown.
+    words_to_remove += [
+        "nbsp",
+        "ISBN",
+        "Chr",
+        "Nr",
+        "PAGENAME",
+        "REDIRECT",
+        "REDIRECTION",
+        "WEITERLEITUNG",
+        "SORTIERUNG",
+        "REDIRECIONAMENTO",
+        "REDIRECCIÓN",
+        "OMDIRIGERING",
+        "VOLUME",
+        "fontsizeS",
+        "RINVIA",
+        "LINEAR",
+        "DateFormat",
+        "pxlink",
+        "ddmmyyyy",
+        "TimeAxis",
+        "ScaleMajor",
+        "ScaleMinor",
+        "PlotData",
+        "PlotArea",
+        "BarData",
+        "BackgroundColors",
+        "AlignBars",
+        "TextData",
+        "ImageSize",
+        "LepIndex",
+        "ITIS",
+        "INSEE",
+        "WCSP",
+        "NODC",
+        "colorblack",
+        "colorbars",
+        "alignright",
+        "alignleft",
+        "hmin",
+        "hmax",
+        "bgcolor",
+        "xy",
+        "centerpx",
+        "px",
+        "cdot",
+        "UTC",
+        "EuroMed",
+        "msg",
+        "WPProject",
+        "WPProjekt",
+    ]
+    words_to_remove += get_language_words_to_remove(language)
+
+    if sample_size < 1:
+        idxs = range(len(texts))
+        selected_idxs = np.random.choice(
+            a=idxs, size=int(sample_size * len(texts)), replace=False
+        )
+
+        print(
+            f"Randomly sampling {add_num_commas(len(selected_idxs))} {language.capitalize()} Wikipedia articles..."
+        )
+        texts = [texts[i] for i in selected_idxs]
+        print("Random sampling finished.")
 
     cleaned_texts = []
-    for t in tqdm(texts, desc="Articles cleaned", unit="article", disable=not verbose):
-        # Remove words that should be ignored.
-        for w in words_to_ignore:
-            t = t.replace(w, "")
-
+    for t in tqdm(texts, desc="Articles cleaned", unit="articles", disable=not verbose):
         # Remove all websites and new line markers.
         websites = [word for word in t.split() if word[:4] == "http"]
         for w in websites:
             t = t.replace(w, "")
 
-        t = t.replace("\n", "")
-
-        # Remove all text between parentheses, brackets and braces.
+        # Remove all text between parentheses, brackets, braces and multiple equal signs.
         t = re.sub(r"\([^)]*\)", "", t)
         t = re.sub(r"\[.*?\]", "", t)
         t = re.sub(r"<[^>]+>", "", t)
+        t = re.sub(r"===[^>]+===", "", t)
+        t = re.sub(r"==[^>]+==", "", t)
+        t = re.sub(r"{{[^>]+}}", "", t)
+        t = re.sub(r"{[^>]+}", "", t)
 
         # Remove numbers and symbols.
         t = "".join(c for c in t if not c.isdigit())
@@ -98,7 +169,8 @@ def clean(
             "^",
             "&",
             "*",
-            "",
+            "–",
+            # "-", we do hyphenated words later
             "_",
             "+",
             "=",
@@ -115,9 +187,87 @@ def clean(
             "/",
             ",",
             ".",
+            "·",
+            "«",
+            "»",
+            "(",
+            ")",
+            "[",
+            "]",
+            "{",
+            "}",
+            "\n",
         ]
-        for s in symbols_to_remove:
+
+        wikipedia_namespaces = [
+            # English
+            "Talk:",
+            "User:",
+            "Wikipedia:",
+            "File:",
+            "MediaWiki:",
+            "Template:",
+            "Help:",
+            "Category:",
+            "Portal:",
+            "Draft:",
+            "Topic:",
+            # French
+            "Discussion:",
+            "Utilisateur:",
+            "Catégorie:",
+            "Aide:",
+            "Portail:",
+            # German
+            "Diskussion:",
+            "Benutzer:",
+            "Kategorie:",
+            "Hilfe:",
+            # Italian
+            "Discussioni:",
+            "Discussione:",
+            "Utente:",
+            "Aiuto:",
+            "Categoria:",
+            "Portale:",
+            # Portuguese
+            "Wikipédia:",
+            "Discussão:",
+            "Usuário(a):",
+            "Ficheiro:",
+            "Predefinição:",
+            "Ajuda:",
+            "Tópico:",
+            # Russian
+            "Обсуждение:",
+            "Участник:",
+            "Википедия:",
+            "Категория:",
+            "Портал:",
+            # Spanish
+            "Discusión:",
+            "Usuario:",
+            "Archivo:",
+            "Plantilla:",
+            "Ayuda:",
+            "Categoría:",
+            # Swedish
+            "Diskussion:",
+            "Användare:",
+            "Kategori",
+            "Fil:",
+            "Mall:",
+            "Hjälp:",
+        ]
+
+        # Remove namespaces before symbols as ":" is in the symbols.
+        wikipedia_namespaces += symbols_to_remove
+        for s in wikipedia_namespaces:
             t = t.replace(s, "")
+
+        if language == "russian":
+            # Remove Latin characters that aren't in Cyrillic.
+            t = regex.sub(r"[+/p{Latin}]", "", t)
 
         # Remove all spaces that are larger than one in length.
         for i in range(
@@ -130,21 +280,41 @@ def clean(
         if t not in ["", " "]:
             cleaned_texts.append(t)
 
-    # Randomly sample texts if necessary.
-    original_len = len(texts)
-    if sample_size == 1 or len(cleaned_texts) <= int(sample_size * original_len):
-        return [t.split() for t in cleaned_texts]
+    single_letter_words_dict = {
+        "french": ["a", "à", "y"],
+        "german": ["à"],
+        "italian": ["a", "e", "è", "i", "o"],
+        "portuguese": ["a", "e", "é", "o"],
+        "russian": ["а", "б", "в", "ж", "и", "к", "о", "с", "у", "я"],
+        "spanish": ["a", "e", "o", "u", "y"],
+        "swedish": ["à", "å", "i", "ö"],
+    }
 
-    idxs = range(len(cleaned_texts))
-    selected_idxs = np.random.choice(
-        a=idxs, size=int(sample_size * original_len), replace=False
-    )
-
-    return [cleaned_texts[i].split() for i in selected_idxs]
+    return [
+        [
+            w
+            for w in text.split()
+            if (len(w) != 1 or w in single_letter_words_dict[language])
+            and w not in words_to_remove
+            and "nbsp" not in w
+            and "-" not in w
+            and "Wikipedia" not in w
+            and w != "-"
+        ]
+        for text in tqdm(
+            cleaned_texts, desc="Articles checked", unit="articles", disable=not verbose
+        )
+        if text != ""
+    ]
 
 
 def gen_autosuggestions(
-    text_corpus, language="English", num_words=500, update_scribe_apps=False
+    text_corpus,
+    language="English",
+    num_words=500,
+    ignore_words=None,
+    update_scribe_apps=False,
+    verbose=True,
 ):
     """
     Generates a dictionary of common words (keys) and those that most commonly follow them (values).
@@ -160,8 +330,14 @@ def gen_autosuggestions(
         num_words: int (default=500)
             The number of words that autosuggestions should be generated for.
 
+        ignore_words : str or list (default=None)
+            Strings that should be removed from the text body.
+
         update_scribe : bool (default=False)
             Saves the created dictionaries as JSONs in Scribe app directories.
+
+        verbose : bool (default=True)
+            Whether to show a tqdm progress bar for the process.
 
     Returns
     -------
@@ -170,6 +346,12 @@ def gen_autosuggestions(
     counter_obj = Counter(chain.from_iterable(text_corpus))
 
     top_words = [item[0] for item in counter_obj.most_common()][:num_words]
+
+    if isinstance(ignore_words, str):
+        words_to_ignore = [ignore_words]
+    elif ignore_words is None:
+        words_to_ignore = []
+    words_to_ignore += get_language_words_to_ignore(language)
 
     print("Querying profanities to remove from suggestions.")
     # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
@@ -205,9 +387,10 @@ def gen_autosuggestions(
             f"Queried {len(profanities)} words to be removed from autosuggest options."
         )
 
-    print("Generating autosuggestions.")
     autosuggest_dict = {}
-    for w in top_words:
+    for w in tqdm(
+        top_words, desc="Autosuggestions generated", unit="word", disable=not verbose
+    ):
         words_after_w = [
             [tup[1] for tup in zip(text, text[1:]) if w == tup[0]]
             for text in text_corpus
@@ -217,7 +400,15 @@ def gen_autosuggestions(
 
         autosuggestions = []
         for tup in Counter(flat_words_after_w).most_common():
-            if tup[0] not in profanities:
+            if (
+                tup[0] != w
+                and tup[0].lower() not in w.lower()
+                and tup[0] not in profanities
+                and tup[0] not in words_to_ignore
+                # Lots of detailed articles on WWII on Wikipedia.
+                and tup[0].lower()[:4] != "nazi"
+                and tup[0].lower()[:4] != "наци"
+            ):
                 autosuggestions.append(tup[0])
 
             if len(autosuggestions) == 3:
@@ -225,9 +416,12 @@ def gen_autosuggestions(
 
         autosuggest_dict[w] = autosuggestions
 
+    if not verbose:
+        print(f"Autosuggestions for {language} generated.")
+
     if update_scribe_apps:
         # Get paths to load formatted data into.
-        path_to_scribe_org = get_path_from_update_data()
+        path_to_scribe_org = get_path_from_process_wiki()
         ios_data_dir_from_org = get_ios_data_path(language, "autosuggestions")
         android_data_dir_from_org = get_android_data_path(language, "autosuggestions")
         desktop_data_dir_from_org = get_desktop_data_path(language, "autosuggestions")
@@ -244,6 +438,6 @@ def gen_autosuggestions(
 
         print(f"Autosuggestions for {language} saved to Scribe app directories.")
 
-        return
+        return autosuggest_dict
 
     return autosuggest_dict

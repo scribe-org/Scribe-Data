@@ -32,10 +32,11 @@ import mwparserfromhell
 import requests
 import tensorflow as tf
 from bs4 import BeautifulSoup
+from scribe_data.load.update_utils import get_language_iso
 from tqdm.auto import tqdm
 
 
-def download_wiki(language="en", target_dir="wiki_dump", file_limit=-1, dump_id=False):
+def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_id=None):
     """
     Downloads the most recent stable dump of a language's Wikipedia if it is not already present.
 
@@ -47,42 +48,50 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=-1, dump_id=
         target_dir : str (default=wiki_dump)
             The directory in the pwd into which files should be downloaded.
 
-        file_limit : int (default=-1, all files)
+        file_limit : int (default=None, all files)
             The limit for the number of files to download.
 
-        dump_id : str (default=False)
+        dump_id : str (default=None)
             The id of an explicit Wikipedia dump that the user wants to download.
 
-            Note: a value of False will select the third from the last (latest stable dump).
+            Note: a value of None will select the third from the last (latest stable dump).
 
     Returns
     -------
         file_info : list of lists
             Information on the downloaded Wikipedia dump files.
     """
-    assert isinstance(
-        file_limit, int
-    ), "The 'file_limit' argument must be an integer to subset the available file list"
+    if file_limit is not None:
+        assert isinstance(
+            file_limit, int
+        ), "The 'file_limit' argument must be 'None' or an integer to subset the available file list"
+    else:
+        file_limit = -1
 
     if not os.path.exists(target_dir):
         print(f"Making {target_dir} directory")
         os.makedirs(target_dir)
 
-    base_url = f"https://dumps.wikimedia.org/{language}wiki/"
+    base_url = f"https://dumps.wikimedia.org/{get_language_iso(language)}wiki/"
     index = requests.get(base_url).text
     soup_index = BeautifulSoup(index, "html.parser")
 
     all_dumps = [a["href"] for a in soup_index.find_all("a") if a.has_attr("href")]
     target_dump = all_dumps[-3]
-    if dump_id != False and dump_id in all_dumps:
-        target_dump = dump_id
+    if dump_id != None:
+        if dump_id[-1] != "/":
+            dump_id += "/"
+
+        if dump_id in all_dumps:
+            target_dump = dump_id
 
     dump_url = base_url + target_dump
     dump_html = requests.get(dump_url).text
     soup_dump = BeautifulSoup(dump_html, "html.parser")
 
-    files = []
+    print(f"Downloading Wikipedia dump found at {dump_url} ...")
 
+    files = []
     for file in soup_dump.find_all("li", {"class": "file"}):
         text = file.text
         if "pages-articles-multistream" in text:
@@ -186,7 +195,7 @@ def iterate_and_parse_file(args):
         article_limit : int optional (default=None)
             An optional article_limit of the number of articles to find.
 
-        verbose : bool
+        verbose : bool (default=True)
             Whether to show a tqdm progress bar for the processes.
 
     Returns
@@ -198,8 +207,6 @@ def iterate_and_parse_file(args):
     if not os.path.exists(partitions_dir):
         print(f"Making {partitions_dir} directory for the partitions")
         os.makedirs(partitions_dir)
-
-    print("here0")
 
     handler = WikiXmlHandler()
     parser = defusedxml.sax.make_parser()
@@ -363,7 +370,6 @@ def parse_to_ndjson(
         )
 
         if __name__ == "scribe_data.extract_transform.extract_wiki":
-            print("here1")
             with Pool(processes=num_cores) as pool:
                 for _ in tqdm(
                     pool.imap_unordered(iterate_and_parse_file, parse_inputs),
@@ -394,7 +400,6 @@ def parse_to_ndjson(
         ]
 
         if __name__ == "scribe_data.extract_transform.extract_wiki":
-            print("here2")
             results = threadpool.map(read_and_combine_json, partition_files)
 
         file_list = list(chain(*results))
