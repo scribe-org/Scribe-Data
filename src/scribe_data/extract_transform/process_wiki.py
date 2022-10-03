@@ -18,13 +18,16 @@ from urllib.error import HTTPError
 
 import numpy as np
 import regex
-from scribe_data.load.update_utils import (add_num_commas,
-                                           get_android_data_path,
-                                           get_desktop_data_path,
-                                           get_ios_data_path, get_language_qid,
-                                           get_language_words_to_ignore,
-                                           get_language_words_to_remove,
-                                           get_path_from_process_wiki)
+from scribe_data.load.update_utils import (
+    add_num_commas,
+    get_android_data_path,
+    get_desktop_data_path,
+    get_ios_data_path,
+    get_language_qid,
+    get_language_words_to_ignore,
+    get_language_words_to_remove,
+    get_path_from_process_wiki,
+)
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
 
@@ -405,6 +408,7 @@ def gen_autosuggestions(
                 and tup[0].lower() not in w.lower()
                 and tup[0] not in profanities
                 and tup[0] not in words_to_ignore
+                and tup[0] != tup[0].upper()  # no upper case suggestions
                 # Lots of detailed articles on WWII on Wikipedia.
                 and tup[0].lower()[:4] != "nazi"
                 and tup[0].lower()[:4] != "наци"

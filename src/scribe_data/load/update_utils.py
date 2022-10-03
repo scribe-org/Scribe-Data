@@ -103,7 +103,7 @@ def get_language_words_to_ignore(language):
     language = language.lower()
     language_iso_dict = {
         "french": ["XXe",],
-        "german": ["USA", "Gemeinde", "Familienname"],
+        "german": ["Gemeinde", "Familienname"],
         "italian": ["The", "ATP"],
         "portuguese": [],
         "russian": [],
