@@ -14,7 +14,7 @@
 
 ## Wikidata and Wikipedia data extraction for Scribe applications
 
-This repository contains the scripts for extracting and formatting data from [Wikidata](https://www.wikidata.org/) for Scribe applications. Updates to the language keyboard and interface data can be done using [scribe_data/load/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load/update_data.py).
+This repository contains the scripts for extracting and formatting data from [Wikidata](https://www.wikidata.org/) and [Wikipedia](https://www.wikipedia.org/) for Scribe applications. Updates to the language keyboard and interface data can be done using [scribe_data/load/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load/update_data.py).
 
 <a id="contents"></a>
 
@@ -29,7 +29,7 @@ This repository contains the scripts for extracting and formatting data from [Wi
 
 # Process [`⇧`](#contents)
 
-[scribe_data/load/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load/update_data.py) is used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active. The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data, with these packs then being available to download by users of Scribe applications.
+[scribe_data/load/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load/update_data.py) is used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active. The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data, with these packs then being available to download by users of Scribe applications. The autosuggestion process further derives popular words from Wikipedia as well as those words that normally follow them for an effective baseline until natural language processing techniques are employed.
 
 <a id="contributing"></a>
 
@@ -56,21 +56,19 @@ Scribe's goal is functional, feature-rich keyboards and interfaces for all langu
 
 The following table shows the supported languages and the amount of data available for each on [Wikidata](https://www.wikidata.org/):
 
-| Languages  |   Nouns | Verbs | Translations\* | Adjectives† | Prepositions‡ |
-| :--------- | ------: | ----: | -------------: | ----------: | ------------: |
-| French     |  16,374 | 1,506 |         67,652 |           - |             - |
-| German     |  28,948 | 3,469 |         67,652 |           - |           187 |
-| Italian    |   4,163 |    73 |         67,652 |           - |             - |
-| Portuguese |   5,112 |   495 |         67,652 |           - |             - |
-| Russian    | 194,401 |    11 |         67,652 |           - |            12 |
-| Spanish    |  23,269 | 3,783 |         67,652 |           - |             - |
-| Swedish    |  42,016 | 4,274 |         67,652 |           - |             - |
+| Languages  |   Nouns | Verbs | Translations\* | Prepositions† |
+| :--------- | ------: | ----: | -------------: | ------------: |
+| French     |  16,374 | 1,506 |         67,652 |             - |
+| German     |  28,948 | 3,469 |         67,652 |           187 |
+| Italian    |   4,163 |    73 |         67,652 |             - |
+| Portuguese |   5,112 |   495 |         67,652 |             - |
+| Russian    | 194,401 |    11 |         67,652 |            12 |
+| Spanish    |  23,269 | 3,783 |         67,652 |             - |
+| Swedish    |  42,016 | 4,274 |         67,652 |             - |
 
 `*` Given the current **`beta`** status where words are machine translated.
 
-`†` Adjective-preposition support is in progress [(see issue)](https://github.com/scribe-org/Scribe-iOS/issues/86).
-
-`‡` Only for languages for which preposition annotation is needed.
+`†` Only for languages for which preposition annotation is needed.
 
 <a id="featured-by"></a>
 
