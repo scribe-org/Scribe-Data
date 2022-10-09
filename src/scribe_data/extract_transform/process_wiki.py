@@ -18,10 +18,8 @@ from urllib.error import HTTPError
 
 import numpy as np
 import regex
-from scribe_data.load.update_utils import (
+from scribe_data.load.update_utils import (  # get_android_data_path, get_desktop_data_path,
     add_num_commas,
-    get_android_data_path,
-    get_desktop_data_path,
     get_ios_data_path,
     get_language_qid,
     get_language_words_to_ignore,
@@ -427,14 +425,14 @@ def gen_autosuggestions(
         # Get paths to load formatted data into.
         path_to_scribe_org = get_path_from_process_wiki()
         ios_data_dir_from_org = get_ios_data_path(language, "autosuggestions")
-        android_data_dir_from_org = get_android_data_path(language, "autosuggestions")
-        desktop_data_dir_from_org = get_desktop_data_path(language, "autosuggestions")
+        # android_data_dir_from_org = get_android_data_path(language, "autosuggestions")
+        # desktop_data_dir_from_org = get_desktop_data_path(language, "autosuggestions")
 
         ios_output_path = f"{path_to_scribe_org}{ios_data_dir_from_org}"
-        android_output_path = f"{path_to_scribe_org}{android_data_dir_from_org}"
-        desktop_output_path = f"{path_to_scribe_org}{desktop_data_dir_from_org}"
+        # android_output_path = f"{path_to_scribe_org}{android_data_dir_from_org}"
+        # desktop_output_path = f"{path_to_scribe_org}{desktop_data_dir_from_org}"
 
-        all_output_paths = [ios_output_path, android_output_path, desktop_output_path]
+        all_output_paths = [ios_output_path]  # android_output_path, desktop_output_path
 
         for output_path in all_output_paths:
             with open(output_path, "w", encoding="utf-8",) as file:
