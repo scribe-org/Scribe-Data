@@ -1,21 +1,5 @@
 [
   {
-    "preposition": "из",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "по",
-    "case": "Q145599"
-  },
-  {
-    "preposition": "по",
-    "case": "Q146078"
-  },
-  {
-    "preposition": "по",
-    "case": "Q2114906"
-  },
-  {
     "preposition": "в"
   },
   {
@@ -33,6 +17,22 @@
     "preposition": "за"
   },
   {
+    "preposition": "из",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "по",
+    "case": "Q145599"
+  },
+  {
+    "preposition": "по",
+    "case": "Q146078"
+  },
+  {
+    "preposition": "по",
+    "case": "Q2114906"
+  },
+  {
     "preposition": "около",
     "case": "Q146233"
   },
@@ -40,20 +40,11 @@
     "preposition": "минус"
   },
   {
-    "preposition": "с",
-    "case": "Q192997"
+    "preposition": "между"
   },
   {
-    "preposition": "съ",
-    "case": "Q192997"
-  },
-  {
-    "preposition": "для",
-    "case": "Q146233"
-  },
-  {
-    "preposition": "к",
-    "case": "Q145599"
+    "preposition": "через",
+    "case": "Q146078"
   },
   {
     "preposition": "после",
@@ -74,5 +65,21 @@
   {
     "preposition": "вокруг",
     "case": "Q146233"
+  },
+  {
+    "preposition": "с",
+    "case": "Q192997"
+  },
+  {
+    "preposition": "съ",
+    "case": "Q192997"
+  },
+  {
+    "preposition": "для",
+    "case": "Q146233"
+  },
+  {
+    "preposition": "к",
+    "case": "Q145599"
   }
 ]
