@@ -18,7 +18,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - Functions have been added to parse and clean the above dumps.
 - Autosuggestions are generated from the cleaned texts by deriving most common words and those words that most commonly follow them.
 - A query for profane words has been added and integrated into the autosuggest flow to make sure that inappropriate words are not included.
-  <!-- - The adjectives column has been removed from Scribe data tables until support is offered. -->
+  - The adjectives column has been removed from Scribe data tables until support is offered.
 
 ### ♻️ Code Refactoring
 
