@@ -27,7 +27,7 @@ file_path = sys.argv[0]
 
 update_data_in_use = False  # check if update_data.py is being used
 if f"{LANGUAGE}/verbs/" not in file_path:
-    with open("verbsQueried.json", encoding="utf-8") as f:
+    with open("verbs_queried.json", encoding="utf-8") as f:
         verbs_list = json.load(f)
 else:
     update_data_in_use = True
