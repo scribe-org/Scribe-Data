@@ -239,6 +239,6 @@ nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
 for output_path in all_output_paths:
     with open(output_path, "w", encoding="utf-8",) as file:
-        json.dump(nouns_formatted, file, ensure_ascii=False, indent=2)
+        json.dump(nouns_formatted, file, ensure_ascii=False, indent=0)
 
 print(f"Wrote file nouns.json with {len(nouns_formatted)} nouns.")

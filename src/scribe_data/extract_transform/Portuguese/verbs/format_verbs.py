@@ -113,6 +113,6 @@ verbs_formatted = collections.OrderedDict(sorted(verbs_formatted.items()))
 
 for output_path in all_output_paths:
     with open(output_path, "w", encoding="utf-8",) as file:
-        json.dump(verbs_formatted, file, ensure_ascii=False, indent=2)
+        json.dump(verbs_formatted, file, ensure_ascii=False, indent=0)
 
 print(f"Wrote file verbs.json with {len(verbs_formatted)} verbs.")

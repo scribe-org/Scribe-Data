@@ -436,7 +436,7 @@ def gen_autosuggestions(
 
         for output_path in all_output_paths:
             with open(output_path, "w", encoding="utf-8",) as file:
-                json.dump(autosuggest_dict, file, ensure_ascii=False, indent=2)
+                json.dump(autosuggest_dict, file, ensure_ascii=False, indent=0)
 
         print(f"Autosuggestions for {language} saved to Scribe app directories.")
 

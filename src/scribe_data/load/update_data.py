@@ -226,7 +226,7 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
             "w",
             encoding="utf-8",
         ) as f:
-            json.dump(results_formatted, f, ensure_ascii=False, indent=2)
+            json.dump(results_formatted, f, ensure_ascii=False, indent=0)
 
         # Call the corresponding formatting file and update data changes.
         os.system(
@@ -251,7 +251,7 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
 
 # Update total_data.json.
 with open("./_update_files/total_data.json", "w", encoding="utf-8") as f:
-    json.dump(current_data, f, ensure_ascii=False, indent=2)
+    json.dump(current_data, f, ensure_ascii=False, indent=0)
 
 
 def num_add_commas(num):

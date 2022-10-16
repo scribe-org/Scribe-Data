@@ -40,6 +40,6 @@ with open(
     "w",
     encoding="utf-8",
 ) as f:
-    json.dump(translations_formatted, f, ensure_ascii=False, indent=2)
+    json.dump(translations_formatted, f, ensure_ascii=False, indent=0)
 
 print(f"Wrote file translations.json with {len(translations_formatted)} translations.")

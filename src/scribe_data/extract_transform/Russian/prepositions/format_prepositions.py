@@ -132,6 +132,6 @@ prepositions_formatted = collections.OrderedDict(sorted(prepositions_formatted.i
 
 for output_path in all_output_paths:
     with open(output_path, "w", encoding="utf-8",) as file:
-        json.dump(prepositions_formatted, file, ensure_ascii=False, indent=2)
+        json.dump(prepositions_formatted, file, ensure_ascii=False, indent=0)
 
 print(f"Wrote file prepositions.json with {len(prepositions_formatted)} prepositions.")
