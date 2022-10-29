@@ -92,6 +92,12 @@ all_keys = [
     "impFPP",
     "impSPP",
     "impTPP",
+    "futFPS",
+    "futSPS",
+    "futTPS",
+    "futFPP",
+    "futSPP",
+    "futTPP",
 ]
 
 for verb_vals in verbs_list:
