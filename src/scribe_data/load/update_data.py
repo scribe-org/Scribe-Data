@@ -12,9 +12,9 @@ Parameters
     word_types : list of strings (default=None)
         A subset of nouns, verbs, and prepositions that currently can be updated with this fie.
 
-Usage
------
-    python update_data.py '[languages_in_quotes]' '[word_types_in_quotes]'
+Example
+-------
+    python update_data.py '["French", "German"]' '["nouns", "verbs"]'
 """
 
 
