@@ -51,7 +51,7 @@ with open("_update_files/total_data.json", encoding="utf-8") as f:
     current_data = json.load(f)
 
 current_languages = list(current_data.keys())
-updateable_word_types = ["nouns", "verbs", "prepositions"]
+word_types_to_update = ["nouns", "verbs", "prepositions"]
 
 # Check whether arguments have been passed to only update a subset of the data.
 languages = None
@@ -86,7 +86,7 @@ if len(sys.argv) == 2:
 
     if set(arg).issubset(current_languages):
         languages = arg
-    elif set(arg).issubset(updateable_word_types):
+    elif set(arg).issubset(word_types_to_update):
         word_types = arg
     else:
         raise ValueError(
@@ -110,7 +110,7 @@ data_dir_files = [
     if os.path.isfile(os.path.join(PATH_TO_ET_FILES, f))
 ]
 
-data_dir_dirs = list(
+data_dir_directories = list(
     {
         f.split(PATH_TO_ET_FILES)[1].split("/")[0]
         for f in data_dir_elements
@@ -119,7 +119,7 @@ data_dir_dirs = list(
     }
 )
 
-# Subset current_languages and updateable_word_types if arguments have been passed.
+# Subset current_languages and word_types_to_update if arguments have been passed.
 languages_update = []
 if languages is None:
     languages_update = current_languages
@@ -139,12 +139,12 @@ else:
     )
 word_types_update = []
 if word_types is None:
-    word_types_update = updateable_word_types
+    word_types_update = word_types_to_update
 
 elif (
     not isinstance(ast.literal_eval(word_types), str)
     and isinstance(ast.literal_eval(word_types), list)
-    and set(ast.literal_eval(word_types)).issubset(updateable_word_types)
+    and set(ast.literal_eval(word_types)).issubset(word_types_to_update)
 ):
     word_types_update = ast.literal_eval(word_types)
 else:
@@ -164,7 +164,7 @@ for lang in languages_update:
 
 # Derive queries to be ran.
 possible_queries = []
-for d in data_dir_dirs:
+for d in data_dir_directories:
     possible_queries.extend(
         f"{PATH_TO_ET_FILES}{d}/{target_type}"
         for target_type in word_types_update
@@ -191,6 +191,10 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
     target_type = q.split("/")[3]
     query_name = f"query_{target_type}.sparql"
     query_path = f"{q}/{query_name}"
+
+    if not os.path.exists(query_path):
+        # There are multiple queries for a given target_type, so start by running the first.
+        query_path = query_path[: -len(".sparql")] + "_1" + ".sparql"
 
     print(f"Querying {lang} {target_type}")
     # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
@@ -227,6 +231,44 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
             encoding="utf-8",
         ) as f:
             json.dump(results_formatted, f, ensure_ascii=False, indent=0)
+
+        if "_1" in query_path:
+            # note: Only the first query was ran, so we need to run the second and append the json.
+
+            query_path = query_path.replace("_1", "_2")
+            with open(query_path, encoding="utf-8") as file:
+                query_lines = file.readlines()
+                sparql.setQuery("".join(query_lines))
+
+                results = None
+                try:
+                    results = sparql.query().convert()
+                except HTTPError as err:
+                    print(f"HTTPError with {query_path}: {err}")
+
+                if results is None:
+                    print(f"Nothing returned by the WDQS server for {query_path}")
+
+                    # Allow for a query to be reran up to two times.
+                    if queries_to_run.count(q) < 3:
+                        queries_to_run.append(q)
+
+                else:
+                    # Subset the returned JSON and the individual results before saving.
+                    query_results = results["results"]["bindings"]
+
+                    # note: Don't rewrite results_formatted as we want to extend the json and combine in formatting.
+                    for r in query_results:  # query_results is also a list
+                        r_dict = {k: r[k]["value"] for k in r.keys()}
+
+                        results_formatted.append(r_dict)
+
+                    with open(
+                        f"{PATH_TO_ET_FILES}{lang}/{target_type}/{target_type}_queried.json",
+                        "w",
+                        encoding="utf-8",
+                    ) as f:
+                        json.dump(results_formatted, f, ensure_ascii=False, indent=0)
 
         # Call the corresponding formatting file and update data changes.
         os.system(

@@ -86,28 +86,34 @@ all_keys = [
     "pretFPP",
     "pretSPP",
     "pretTPP",
-    # "impFPS",
-    # "impSPS",
-    # "impTPS",
-    # "impFPP",
-    # "impSPP",
-    # "impTPP",
-    # "futFPS",
-    # "futSPS",
-    # "futTPS",
-    # "futFPP",
-    # "futSPP",
-    # "futTPP",
+    "impFPS",
+    "impSPS",
+    "impTPS",
+    "impFPP",
+    "impSPP",
+    "impTPP",
+    "futFPS",
+    "futSPS",
+    "futTPS",
+    "futFPP",
+    "futSPP",
+    "futTPP",
 ]
 
 for verb_vals in verbs_list:
-    verbs_formatted[verb_vals["infinitive"]] = {}
+    if verb_vals["infinitive"] not in verbs_formatted:
+        verbs_formatted[verb_vals["infinitive"]] = {}
 
-    for conj in [c for c in all_keys if c != "infinitive"]:
-        if conj in verb_vals.keys():
-            verbs_formatted[verb_vals["infinitive"]][conj] = verb_vals[conj]
-        else:
-            verbs_formatted[verb_vals["infinitive"]][conj] = ""
+        for conj in [c for c in all_keys if c != "infinitive"]:
+            if conj in verb_vals.keys():
+                verbs_formatted[verb_vals["infinitive"]][conj] = verb_vals[conj]
+            else:
+                verbs_formatted[verb_vals["infinitive"]][conj] = ""
+
+    else:
+        for conj in [c for c in all_keys if c != "infinitive"]:
+            if conj in verb_vals.keys():
+                verbs_formatted[verb_vals["infinitive"]][conj] = verb_vals[conj]
 
 verbs_formatted = collections.OrderedDict(sorted(verbs_formatted.items()))
 
