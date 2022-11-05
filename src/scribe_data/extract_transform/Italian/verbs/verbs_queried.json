@@ -1,275 +1,275 @@
 [
-  {
-    "impTPP": "correvano",
-    "infinitive": "correre",
-    "pretTPS": "corse",
-    "impTPS": "correva",
-    "impSPP": "correvate",
-    "impFPP": "correvamo",
-    "impSPS": "correvi",
-    "impFPS": "correvo",
-    "pretTPP": "corsero",
-    "pretSPP": "correste",
-    "pretFPP": "corremmo",
-    "pretSPS": "corresti",
-    "pretFPS": "corsi",
-    "presTPP": "corrono",
-    "presSPP": "correte",
-    "presFPP": "corriamo",
-    "presTPS": "corre",
-    "presSPS": "corri",
-    "presFPS": "corro"
-  },
-  {
-    "impTPP": "ricordavano",
-    "infinitive": "ricordare",
-    "impTPS": "ricordava",
-    "impSPP": "ricordavate",
-    "impFPP": "ricordavamo",
-    "impSPS": "ricordavi",
-    "impFPS": "ricordavo",
-    "pretTPP": "ricordarono",
-    "pretSPP": "ricordaste",
-    "pretFPP": "ricordammo",
-    "pretSPS": "ricordasti",
-    "pretFPS": "ricordai",
-    "presTPP": "ricordano",
-    "presSPP": "ricordate",
-    "presFPP": "ricordiamo",
-    "presTPS": "ricorda",
-    "presSPS": "ricordi",
-    "presFPS": "ricordo"
-  },
-  {
-    "infinitive": "commentare"
-  },
-  {
-    "infinitive": "ricominciare"
-  },
-  {
-    "infinitive": "solfeggiare"
-  },
-  {
-    "infinitive": "emettere"
-  },
-  {
-    "infinitive": "dormire"
-  },
-  {
-    "infinitive": "trovare"
-  },
-  {
-    "infinitive": "venire"
-  },
-  {
-    "infinitive": "fare",
-    "pretTPS": "fu"
-  },
-  {
-    "infinitive": "sollevare"
-  },
-  {
-    "infinitive": "rigare"
-  },
-  {
-    "infinitive": "essere",
-    "impTPS": "era"
-  },
-  {
-    "infinitive": "piacere"
-  },
-  {
-    "infinitive": "andare"
-  },
-  {
-    "infinitive": "sovrapporre"
-  },
-  {
-    "infinitive": "pagare"
-  },
-  {
-    "infinitive": "ricevere"
-  },
-  {
-    "infinitive": "farneticare"
-  },
-  {
-    "infinitive": "gonfiare"
-  },
-  {
-    "infinitive": "scavare"
-  },
-  {
-    "infinitive": "cercare"
-  },
-  {
-    "infinitive": "mangiare"
-  },
-  {
-    "infinitive": "vedere"
-  },
-  {
-    "infinitive": "acquistare",
-    "presSPS": "acquisti",
-    "presFPS": "acquisto"
-  },
-  {
-    "infinitive": "acquistare",
-    "presSPS": "acquista",
-    "presFPS": "acquisto"
-  },
-  {
-    "infinitive": "pertenere"
-  },
-  {
-    "infinitive": "tenere"
-  },
-  {
-    "infinitive": "morire"
-  },
-  {
-    "infinitive": "avere"
-  },
-  {
-    "infinitive": "sette"
-  },
-  {
-    "infinitive": "trarre"
-  },
-  {
-    "infinitive": "piantare"
-  },
-  {
-    "infinitive": "isolare"
-  },
-  {
-    "infinitive": "volere",
-    "presFPS": "voglio"
-  },
-  {
-    "infinitive": "richiedere"
-  },
-  {
-    "infinitive": "portare"
-  },
-  {
-    "infinitive": "percuotere"
-  },
-  {
-    "infinitive": "dipendere"
-  },
-  {
-    "infinitive": "prorogare"
-  },
-  {
-    "infinitive": "contenere"
-  },
-  {
-    "infinitive": "scogliere"
-  },
-  {
-    "infinitive": "dire"
-  },
-  {
-    "infinitive": "modificare"
-  },
-  {
-    "infinitive": "stare",
-    "presFPS": "stia"
-  },
-  {
-    "infinitive": "attaccare"
-  },
-  {
-    "infinitive": "enfiare"
-  },
-  {
-    "infinitive": "stupire"
-  },
-  {
-    "infinitive": "migliorare",
-    "presFPS": "miglioro"
-  },
-  {
-    "infinitive": "truccare"
-  },
-  {
-    "infinitive": "governare"
-  },
-  {
-    "infinitive": "riservare"
-  },
-  {
-    "infinitive": "bagnare"
-  },
-  {
-    "infinitive": "perdere"
-  },
-  {
-    "infinitive": "imbarcare"
-  },
-  {
-    "infinitive": "ammettere"
-  },
-  {
-    "infinitive": "escludere"
-  },
-  {
-    "infinitive": "agire"
-  },
-  {
-    "infinitive": "impaccare"
-  },
-  {
-    "infinitive": "imbevere"
-  },
-  {
-    "infinitive": "abbondare"
-  },
-  {
-    "infinitive": "calarsi"
-  },
-  {
-    "infinitive": "attingere"
-  },
-  {
-    "infinitive": "procurare"
-  },
-  {
-    "infinitive": "abbandonare"
-  },
-  {
-    "infinitive": "dovere"
-  },
-  {
-    "infinitive": "festeggiare"
-  },
-  {
-    "infinitive": "nascere"
-  },
-  {
-    "infinitive": "parlare"
-  },
-  {
-    "infinitive": "cominciare"
-  },
-  {
-    "infinitive": "chiamare"
-  },
-  {
-    "infinitive": "abalienare",
-    "presSPS": "abalieni",
-    "presFPS": "abalieno",
-    "presTPP": "abalienano",
-    "presSPP": "abalienate",
-    "presFPP": "abalieniamo",
-    "presTPS": "abaliena"
-  },
-  {
-    "infinitive": "banalizzare"
-  },
-  {
-    "infinitive": "amare",
-    "presFPS": "amo"
-  }
+{
+"impTPP": "correvano",
+"infinitive": "correre",
+"pretTPS": "corse",
+"impTPS": "correva",
+"impSPP": "correvate",
+"impFPP": "correvamo",
+"impSPS": "correvi",
+"impFPS": "correvo",
+"pretTPP": "corsero",
+"pretSPP": "correste",
+"pretFPP": "corremmo",
+"pretSPS": "corresti",
+"pretFPS": "corsi",
+"presTPP": "corrono",
+"presSPP": "correte",
+"presFPP": "corriamo",
+"presTPS": "corre",
+"presSPS": "corri",
+"presFPS": "corro"
+},
+{
+"impTPP": "ricordavano",
+"infinitive": "ricordare",
+"impTPS": "ricordava",
+"impSPP": "ricordavate",
+"impFPP": "ricordavamo",
+"impSPS": "ricordavi",
+"impFPS": "ricordavo",
+"pretTPP": "ricordarono",
+"pretSPP": "ricordaste",
+"pretFPP": "ricordammo",
+"pretSPS": "ricordasti",
+"pretFPS": "ricordai",
+"presTPP": "ricordano",
+"presSPP": "ricordate",
+"presFPP": "ricordiamo",
+"presTPS": "ricorda",
+"presSPS": "ricordi",
+"presFPS": "ricordo"
+},
+{
+"infinitive": "commentare"
+},
+{
+"infinitive": "ricominciare"
+},
+{
+"infinitive": "solfeggiare"
+},
+{
+"infinitive": "emettere"
+},
+{
+"infinitive": "dormire"
+},
+{
+"infinitive": "trovare"
+},
+{
+"infinitive": "venire"
+},
+{
+"infinitive": "fare",
+"pretTPS": "fu"
+},
+{
+"infinitive": "sollevare"
+},
+{
+"infinitive": "rigare"
+},
+{
+"infinitive": "essere",
+"impTPS": "era"
+},
+{
+"infinitive": "piacere"
+},
+{
+"infinitive": "andare"
+},
+{
+"infinitive": "sovrapporre"
+},
+{
+"infinitive": "pagare"
+},
+{
+"infinitive": "ricevere"
+},
+{
+"infinitive": "farneticare"
+},
+{
+"infinitive": "gonfiare"
+},
+{
+"infinitive": "scavare"
+},
+{
+"infinitive": "cercare"
+},
+{
+"infinitive": "mangiare"
+},
+{
+"infinitive": "vedere"
+},
+{
+"infinitive": "acquistare",
+"presSPS": "acquisti",
+"presFPS": "acquisto"
+},
+{
+"infinitive": "acquistare",
+"presSPS": "acquista",
+"presFPS": "acquisto"
+},
+{
+"infinitive": "pertenere"
+},
+{
+"infinitive": "tenere"
+},
+{
+"infinitive": "morire"
+},
+{
+"infinitive": "avere"
+},
+{
+"infinitive": "sette"
+},
+{
+"infinitive": "trarre"
+},
+{
+"infinitive": "piantare"
+},
+{
+"infinitive": "isolare"
+},
+{
+"infinitive": "volere",
+"presFPS": "voglio"
+},
+{
+"infinitive": "richiedere"
+},
+{
+"infinitive": "portare"
+},
+{
+"infinitive": "percuotere"
+},
+{
+"infinitive": "dipendere"
+},
+{
+"infinitive": "prorogare"
+},
+{
+"infinitive": "contenere"
+},
+{
+"infinitive": "scogliere"
+},
+{
+"infinitive": "dire"
+},
+{
+"infinitive": "modificare"
+},
+{
+"infinitive": "stare",
+"presFPS": "stia"
+},
+{
+"infinitive": "attaccare"
+},
+{
+"infinitive": "enfiare"
+},
+{
+"infinitive": "stupire"
+},
+{
+"infinitive": "migliorare",
+"presFPS": "miglioro"
+},
+{
+"infinitive": "truccare"
+},
+{
+"infinitive": "governare"
+},
+{
+"infinitive": "riservare"
+},
+{
+"infinitive": "bagnare"
+},
+{
+"infinitive": "perdere"
+},
+{
+"infinitive": "imbarcare"
+},
+{
+"infinitive": "ammettere"
+},
+{
+"infinitive": "escludere"
+},
+{
+"infinitive": "agire"
+},
+{
+"infinitive": "impaccare"
+},
+{
+"infinitive": "imbevere"
+},
+{
+"infinitive": "abbondare"
+},
+{
+"infinitive": "calarsi"
+},
+{
+"infinitive": "attingere"
+},
+{
+"infinitive": "procurare"
+},
+{
+"infinitive": "abbandonare"
+},
+{
+"infinitive": "dovere"
+},
+{
+"infinitive": "festeggiare"
+},
+{
+"infinitive": "nascere"
+},
+{
+"infinitive": "parlare"
+},
+{
+"infinitive": "cominciare"
+},
+{
+"infinitive": "chiamare"
+},
+{
+"infinitive": "abalienare",
+"presSPS": "abalieni",
+"presFPS": "abalieno",
+"presTPP": "abalienano",
+"presSPP": "abalienate",
+"presFPP": "abalieniamo",
+"presTPS": "abaliena"
+},
+{
+"infinitive": "banalizzare"
+},
+{
+"infinitive": "amare",
+"presFPS": "amo"
+}
 ]
