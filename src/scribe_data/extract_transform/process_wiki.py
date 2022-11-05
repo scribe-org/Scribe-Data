@@ -334,7 +334,7 @@ def gen_autosuggestions(
         ignore_words : str or list (default=None)
             Strings that should be removed from the text body.
 
-        update_scribe : bool (default=False)
+        update_scribe_apps : bool (default=False)
             Saves the created dictionaries as JSONs in Scribe app directories.
 
         verbose : bool (default=True)
