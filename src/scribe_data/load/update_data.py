@@ -95,6 +95,7 @@ if len(sys.argv) == 2:
                 For grammatical types, please choose from nouns, verbs or prepositions.
                 """
         )
+
 elif len(sys.argv) == 3:
     languages = sys.argv[1]
     word_types = sys.argv[2]
@@ -137,6 +138,7 @@ else:
             Pass arguments via: python update_data.py '[languages_in_quotes]'
             """
     )
+
 word_types_update = []
 if word_types is None:
     word_types_update = word_types_to_update
@@ -154,6 +156,7 @@ else:
             Pass arguments via: python update_data.py '[word_types_in_quotes]'
             """
     )
+
 # Check to see if the language has all zeroes for its data, meaning it's been added.
 new_language_list = []
 for lang in languages_update:
