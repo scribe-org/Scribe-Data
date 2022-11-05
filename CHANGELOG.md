@@ -10,6 +10,12 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+# Scribe-Data 2.1.0
+
+### ✨ Features
+
+- Scribe-Data can now split Wikidata queries into multiple stages to break up those that were too large to run.
+
 # Scribe-Data 2.0.0
 
 ### ✨ Features
