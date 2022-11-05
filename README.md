@@ -46,6 +46,34 @@ Work that is in progress or could be implemented is tracked in the [issues](http
 - [Documentation](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3Adocumentation) for onboarding and project cohesion 📝
 - Adding language data to [Scribe-Data](https://github.com/scribe-org/Scribe-Data/issues) via [Wikidata](https://www.wikidata.org/)! 🗃️
 
+### Road Map
+
+<details><summary><strong>Click here to see the current Scribe road map 🗺️</strong></summary>
+<p>
+
+The following outlines the plan for Scribe's development, which includes steps across applications and data solutions.
+
+- Scribe-iOS v2.2.0
+  - Rework the data solution to use SQLite
+  - Main issue: [Scribe-iOS #96](https://github.com/scribe-org/Scribe-iOS/issues/96)
+- Scribe-iOS v2.3.0
+  - Rework iOS app interface and add menu
+  - Main issue: [Scribe-iOS #16](https://github.com/scribe-org/Scribe-iOS/issues/16)
+- Scribe-iOS v2.4.0 and Scribe-Data v2.2.0
+  - Expand translation data and add English keyboard
+  - Main issues: [Scribe-iOS #7](https://github.com/scribe-org/Scribe-iOS/issues/7) and [Scribe-Data #23](https://github.com/scribe-org/Scribe-Data/issues/23)
+- Scribe-Android v1.0.0
+  - Release an MVP for [Scribe-Android](https://github.com/scribe-org/Scribe-Android)
+- Scribe-iOS v3.0.0 and Scribe-Data v3.0.0
+  - Downloadable language packs for Scribe keyboards
+  - Main issue: [Scribe-iOS #89](https://github.com/scribe-org/Scribe-iOS/issues/89)
+- Scribe-iOS v4.0.0
+  - Machine learning based autosuggest and adding autocorrect
+  - Main issue: [Scribe-iOS #2](https://github.com/scribe-org/Scribe-iOS/issues/2)
+
+</p>
+</details>
+
 ### Data Edits
 
 Scribe does not accept direct edits to the grammar JSON files as they are sourced from [Wikidata](https://www.wikidata.org/). Edits can be discussed and the queries themselves will be changed and ran before an update. If there is a problem with one of the files, then the fix should be made on [Wikidata](https://www.wikidata.org/) and not on Scribe. Feel free to let us know that edits have been made by [opening a data issue](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=data&template=data_wikidata.yml) and we'll be happy to integrate them!
