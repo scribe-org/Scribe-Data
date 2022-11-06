@@ -12,6 +12,7 @@ import json
 
 from scribe_data.load.update_utils import get_language_iso
 
+
 def gen_emoji_autosuggestions(
     language="English",
     num_emojis=500,
@@ -48,14 +49,14 @@ def gen_emoji_autosuggestions(
 
     ### TODO further updates - here for data loading illustration
 
-    language = get_language_iso(language)
+    iso = get_language_iso(language)
 
-    cldr_file_path = f'node_modules/cldr-annotations-derived-full/annotationsDerived/{language}/annotations.json'
+    cldr_file_path = f"node_modules/cldr-annotations-derived-full/annotationsDerived/{iso}/annotations.json"
 
-    with open(cldr_file_path, 'r') as file:
+    with open(cldr_file_path, "r") as file:
         cldr_data = json.load(file)
 
-    emoji_dict = cldr_data['annotationsDerived']['annotations']
+    emoji_dict = cldr_data["annotationsDerived"]["annotations"]
 
     print("Number of emojis loaded:", len(emoji_dict))
 
