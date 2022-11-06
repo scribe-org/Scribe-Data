@@ -7,7 +7,7 @@
 *wiki_partitions
 *wiki.ndjson
 
-# Python files
+# Python Files
 ##############
 # setup.py working directory
 build
@@ -18,7 +18,7 @@ dist
 # Caches
 __pycache__
 
-# NPM files
+# NPM Files
 ###########
 node_modules
 package-lock.json
