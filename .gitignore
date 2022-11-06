@@ -17,3 +17,8 @@ dist
 *.egg-info
 # Caches
 __pycache__
+
+# NPM files
+###########
+node_modules
+package-lock.json
