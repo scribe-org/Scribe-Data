@@ -20,6 +20,7 @@ def get_language_qid(language):
         The Wikidata QID for the language as a value of a dictionary.
     """
     language = language.lower()
+
     language_qid_dict = {
         "french": "Q150",
         "german": "Q188",
@@ -29,6 +30,11 @@ def get_language_qid(language):
         "spanish": "Q1321",
         "swedish": "Q9027",
     }
+
+    if language not in language_qid_dict:
+        raise ValueError(
+            f"{language.upper()} is not currently not a supported language for QID conversion."
+        )
 
     return language_qid_dict[language]
 
@@ -47,6 +53,7 @@ def get_language_iso(language):
         The ISO code for the language as a value of a dictionary.
     """
     language = language.lower()
+
     language_iso_dict = {
         "french": "fr",
         "german": "de",
@@ -56,6 +63,11 @@ def get_language_iso(language):
         "spanish": "es",
         "swedish": "sv",
     }
+
+    if language not in language_iso_dict:
+        raise ValueError(
+            f"{language.upper()} is not currently not a supported language for ISO conversion."
+        )
 
     return language_iso_dict[language]
 
