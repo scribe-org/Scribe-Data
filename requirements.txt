@@ -2,6 +2,7 @@ beautifulsoup4==4.9.3
 black>=19.10b0
 certifi>=2020.12.5
 defusedxml==0.7.1
+emoji>=2.2.0
 mwparserfromhell==0.6
 packaging>=20.9
 pytest-cov>=3.0.0
