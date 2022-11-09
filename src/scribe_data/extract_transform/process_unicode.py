@@ -11,7 +11,7 @@ Contents:
 import emoji
 import json
 
-from scribe_data.load.update_utils import get_language_iso
+from scribe_data.load.update_utils import get_language_iso, get_path_from_process_unicode
 
 
 def gen_emoji_autosuggestions(
@@ -52,7 +52,8 @@ def gen_emoji_autosuggestions(
 
     iso = get_language_iso(language)
 
-    cldr_file_path = f"node_modules/cldr-annotations-full/annotations/{iso}/annotations.json"
+    path_to_scribe_org = get_path_from_process_unicode()
+    cldr_file_path = f"{path_to_scribe_org}/Scribe-Data/node_modules/cldr-annotations-full/annotations/{iso}/annotations.json"
 
     with open(cldr_file_path, "r") as file:
         cldr_data = json.load(file)
