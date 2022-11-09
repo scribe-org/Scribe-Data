@@ -74,6 +74,13 @@ def gen_emoji_autosuggestions(
 
     print("Number of trigger keywords found:", len(autosuggest_dict))
 
+    output_path = f"tmp_{iso}_emojisuggestions.json"
+
+    with open(output_path, "w", encoding="utf-8") as file:
+        json.dump(autosuggest_dict, file, ensure_ascii=False, indent=0)
+
+    print(f"Emoji autosuggestions for '{language}' generated and saved to '{output_path}'.")
+
     ###
 
     return autosuggest_dict

@@ -22,3 +22,8 @@ __pycache__
 ###########
 node_modules
 package-lock.json
+
+# Temporary to test
+# TODO remove later
+###################
+tmp_*.json
