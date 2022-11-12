@@ -53,33 +53,40 @@ def gen_emoji_autosuggestions(
     iso = get_language_iso(language)
 
     path_to_scribe_org = get_path_from_process_unicode()
-    cldr_file_path = f"{path_to_scribe_org}/Scribe-Data/node_modules/cldr-annotations-full/annotations/{iso}/annotations.json"
+    annotations_file_path = f"{path_to_scribe_org}/Scribe-Data/node_modules/cldr-annotations-full/annotations/{iso}/annotations.json"
+    annotations_derived_file_path = f"{path_to_scribe_org}/Scribe-Data/node_modules/cldr-annotations-derived-full/annotationsDerived/{iso}/annotations.json"
 
-    with open(cldr_file_path, "r") as file:
-        cldr_data = json.load(file)
+    cldr_file_paths = {
+        "annotations": annotations_file_path, 
+        "annotationsDerived": annotations_derived_file_path
+    }
 
-    cldr_dict = cldr_data["annotations"]["annotations"]
+    for cldr_file_key, cldr_file_path in cldr_file_paths.items():
+        with open(cldr_file_path, "r") as file:
+            cldr_data = json.load(file)
 
-    print("Number of characters loaded:", len(cldr_dict))
+        cldr_dict = cldr_data[cldr_file_key]["annotations"]
 
-    for cldr_char in cldr_dict:
-        # Filter CLDR data for emoji characters
-        if cldr_char in emoji.EMOJI_DATA:
-            emoji_annotations = cldr_dict[cldr_char]
-            
-            for emoji_keyword in emoji_annotations["default"]:
-                # Use single-word annotations as keywords
-                if len(emoji_keyword.split()) == 1:
-                    autosuggest_dict.setdefault(emoji_keyword, []).append(cldr_char)
+        print(f"Number of characters loaded for CLDR '{cldr_file_key}' for {language}: {len(cldr_dict)}")
 
-    print("Number of trigger keywords found:", len(autosuggest_dict))
+        for cldr_char in cldr_dict:
+            # Filter CLDR data for emoji characters
+            if cldr_char in emoji.EMOJI_DATA:
+                emoji_annotations = cldr_dict[cldr_char]
+                
+                for emoji_keyword in emoji_annotations["default"]:
+                    # Use single-word annotations as keywords
+                    if len(emoji_keyword.split()) == 1:
+                        autosuggest_dict.setdefault(emoji_keyword, []).append(cldr_char)
+
+    print(f"Number of emoji trigger keywords found for {language}: {len(autosuggest_dict)}")
 
     output_path = f"tmp_{iso}_emojisuggestions.json"
 
     with open(output_path, "w", encoding="utf-8") as file:
         json.dump(autosuggest_dict, file, ensure_ascii=False, indent=0)
 
-    print(f"Emoji autosuggestions for '{language}' generated and saved to '{output_path}'.")
+    print(f"Emoji autosuggestions for {language} generated and saved to '{output_path}'.")
 
     ###
 
