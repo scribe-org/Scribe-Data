@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "cldr-annotations-derived-full": "latest"
+    "cldr-annotations-derived-full": "latest",
+    "cldr-annotations-full": "latest"
   }
 }

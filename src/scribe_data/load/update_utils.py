@@ -140,6 +140,13 @@ def get_path_from_update_data():
     return "../../../.."
 
 
+def get_path_from_process_unicode():
+    """
+    Returns the directory path from process_unicode.py to scribe-org.
+    """
+    return "../../../.."
+
+
 def get_path_from_process_wiki():
     """
     Returns the directory path from process_wiki.py to scribe-org.
