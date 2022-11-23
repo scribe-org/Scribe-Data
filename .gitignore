@@ -26,4 +26,4 @@ package-lock.json
 # Temporary to test
 # TODO remove later
 ###################
-tmp_*.json
+*_emoji_suggestions.json
