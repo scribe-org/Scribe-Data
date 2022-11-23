@@ -32,7 +32,7 @@ def gen_emoji_autosuggestions(
     verbose=True,
 ):
     """
-    Generates a dictionary of keywords (keys) and emoji unicodes(s) associated with them (values).
+    Generates a dictionary of keywords (keys) and emoji unicode(s) associated with them (values).
 
     Parameters
     ----------
@@ -105,11 +105,7 @@ def gen_emoji_autosuggestions(
                 ):
                     emoji_annotations = cldr_dict[cldr_char]
 
-                    if cldr_char in popularity_dict:
-                        emoji_rank = popularity_dict[cldr_char]
-                    else:
-                        emoji_rank = None
-
+                    emoji_rank = popularity_dict.get(cldr_char)
                     for emoji_keyword in emoji_annotations["default"]:
                         # Use single-word annotations as keywords.
                         if len(emoji_keyword.split()) == 1:
