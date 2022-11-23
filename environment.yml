@@ -3,6 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - python=3.9
   - black>=19.10b0
   - defusedxml=0.7.1
   - pytest-cov>=3.0.0
@@ -12,7 +13,9 @@ dependencies:
   - tqdm=4.59.0
   - pip:
       - beautifulsoup4==4.9.3
+      - emoji>=2.2.0
       - mwparserfromhell==0.6
+      - PyICU>=2.10.2
       - python-dateutil>=2.8.2
       - SPARQLWrapper>=2.0.0
       - tensorflow>=2.5.1
