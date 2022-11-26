@@ -26,7 +26,7 @@ from . import _resources
 
 def gen_emoji_autosuggestions(
     language="English",
-    num_emojis=500,
+    num_emojis=None,
     ignore_keywords=None,
     update_scribe_apps=False,
     verbose=True,
@@ -39,8 +39,8 @@ def gen_emoji_autosuggestions(
         language : string (default=en)
             The language autosuggestions are being generated for.
 
-        num_emojis: int (default=500)
-            The number of emojis that autosuggestions should be generated from.
+        num_emojis: int (default=None)
+            The limit for number of emojis that autosuggestions should be generated from.
 
         ignore_keywords : str or list (default=None)
             Keywords that should be ignored.
@@ -58,14 +58,14 @@ def gen_emoji_autosuggestions(
 
     autosuggest_dict = {}
 
+    iso = get_language_iso(language)
+
     if isinstance(ignore_keywords, str):
         keywords_to_ignore = [ignore_keywords]
     elif isinstance(ignore_keywords, list):
         keywords_to_ignore = ignore_keywords
     else:
         keywords_to_ignore = []
-
-    iso = get_language_iso(language)
 
     # Pre-set up the emoji popularity data.
     popularity_dict = {}
@@ -97,6 +97,15 @@ def gen_emoji_autosuggestions(
         for cldr_char in cldr_dict:
             # Filter CLDR data for emoji characters.
             if cldr_char in emoji.EMOJI_DATA:
+                emoji_rank = popularity_dict.get(cldr_char)
+
+                # If number limit specified, filter for the highest-ranked emojis.
+                if num_emojis and (
+                    emoji_rank is None
+                    or emoji_rank > num_emojis
+                ):
+                    continue
+
                 # Process for emoji variants.
                 has_modifier_base = Char.hasBinaryProperty(
                     cldr_char, UProperty.EMOJI_MODIFIER_BASE
@@ -112,7 +121,6 @@ def gen_emoji_autosuggestions(
                 ):
                     emoji_annotations = cldr_dict[cldr_char]
 
-                    emoji_rank = popularity_dict.get(cldr_char)
                     for emoji_keyword in emoji_annotations["default"]:
                         if (
                             # Use single-word annotations as keywords.
