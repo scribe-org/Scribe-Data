@@ -58,6 +58,13 @@ def gen_emoji_autosuggestions(
 
     autosuggest_dict = {}
 
+    if isinstance(ignore_keywords, str):
+        keywords_to_ignore = [ignore_keywords]
+    elif isinstance(ignore_keywords, list):
+        keywords_to_ignore = ignore_keywords
+    else:
+        keywords_to_ignore = []
+
     iso = get_language_iso(language)
 
     # Pre-set up the emoji popularity data.
@@ -107,8 +114,11 @@ def gen_emoji_autosuggestions(
 
                     emoji_rank = popularity_dict.get(cldr_char)
                     for emoji_keyword in emoji_annotations["default"]:
-                        # Use single-word annotations as keywords.
-                        if len(emoji_keyword.split()) == 1:
+                        if (
+                            # Use single-word annotations as keywords.
+                            len(emoji_keyword.split()) == 1
+                            and emoji_keyword not in keywords_to_ignore
+                        ):
                             autosuggest_dict.setdefault(emoji_keyword, []).append(
                                 {
                                     "emoji": cldr_char,
