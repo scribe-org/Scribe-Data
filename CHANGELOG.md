@@ -10,6 +10,12 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+# Scribe-Data 2.2.0
+
+### ✨ Features
+
+- Scribe-Data now allows the user to create JSONs of word-emoji key-value pairs.
+
 # Scribe-Data 2.1.0
 
 ### ✨ Features
