@@ -9,8 +9,7 @@
 [![pypistatus](https://img.shields.io/pypi/status/scribe-data.svg?label=%20)](https://pypi.org/project/scribe-data/)
 [![license](https://img.shields.io/github/license/scribe-org/Scribe-Data.svg?label=%20)](https://github.com/scribe-org/Scribe-Data/blob/main/LICENSE.txt)
 [![coc](https://img.shields.io/badge/Contributor%20Covenant-ff69b4.svg)](https://github.com/scribe-org/Scribe-Data/blob/main/.github/CODE_OF_CONDUCT.md)
-[![codestyle](https://img.shields.io/badge/black-000000.svg#only-light)](https://github.com/psf/black)
-[![codestyle](https://img.shields.io/badge/black-ffffff.svg#only-dark)](https://github.com/psf/black)
+[![codestyle](https://img.shields.io/badge/black-000000.svg)](https://github.com/psf/black)
 
 ## Wikidata and Wikipedia data extraction for Scribe applications
 
