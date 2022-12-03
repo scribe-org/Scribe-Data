@@ -14,6 +14,7 @@ from importlib.resources import files
 
 import emoji
 from icu import Char, UProperty
+from tqdm.auto import tqdm
 
 from scribe_data.load.update_utils import (
     get_language_iso,
@@ -90,11 +91,12 @@ def gen_emoji_autosuggestions(
 
         cldr_dict = cldr_data[cldr_file_key]["annotations"]
 
-        print(
-            f"Number of characters loaded for CLDR '{cldr_file_key}' for {language}: {len(cldr_dict)}"
-        )
-
-        for cldr_char in cldr_dict:
+        for cldr_char in tqdm(
+            iterable=cldr_dict, 
+            desc=f"Characters processed from '{cldr_file_key}' CLDR file for {language}", 
+            unit="cldr characters", 
+            disable=not verbose,
+        ):
             # Filter CLDR data for emoji characters.
             if cldr_char in emoji.EMOJI_DATA:
                 emoji_rank = popularity_dict.get(cldr_char)
@@ -135,9 +137,10 @@ def gen_emoji_autosuggestions(
                                 }
                             )
 
-    print(
-        f"Number of emoji trigger keywords found for {language}: {len(autosuggest_dict)}"
-    )
+    if verbose:
+        print(
+            f"Number of emoji trigger keywords found for {language}: {len(autosuggest_dict)}"
+        )
 
     if update_scribe_apps:
         output_path = f"{get_path_from_update_data()}/Scribe-iOS/Keyboards/LanguageKeyboards/{language.capitalize()}/Data/emoji_suggestions.json"
