@@ -40,30 +40,18 @@ Work that is in progress or could be implemented is tracked in the [issues](http
 
 After your first few pull requests organization members would be happy to discuss granting you further rights as a contributor, with a maintainer role then being possible after continued interest in the project. Scribe seeks to be an inclusive and supportive organization. We'd love to have you on the team!
 
-### Ways to Help
+### • Ways to Help [`⇧`](#contents)
 
 - [Reporting bugs](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=bug&template=bug_report.yml) as they're found 🐞
 - Working on [new features](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3Afeature) ✨
 - [Documentation](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3Adocumentation) for onboarding and project cohesion 📝
 - Adding language data to [Scribe-Data](https://github.com/scribe-org/Scribe-Data/issues) via [Wikidata](https://www.wikidata.org/)! 🗃️
 
-### Road Map
+### • Road Map [`⇧`](#contents)
 
-<details><summary><strong>Click here to see the current Scribe road map 🗺️</strong></summary>
-<p>
+Scribe organizes its issues into a [main project](https://github.com/orgs/scribe-org/projects/1) and [branch projects](https://github.com/orgs/scribe-org/projects?query=is%3Aopen). The Scribe road map can be followed in the [main project](https://github.com/orgs/scribe-org/projects/1) where we list the most important issues along with their priority, status and an indication of which branch projects they're included in if applicable.
 
-The following outlines the plan for Scribe's development as detailed in its [projects](https://github.com/orgs/scribe-org/projects) including steps across applications and data solutions. The projects listed in order of importance are:
-
-1. [Update Scribe's Data Solution](https://github.com/orgs/scribe-org/projects/3)
-2. [Add Emoji Autosuggestions](https://github.com/orgs/scribe-org/projects/2)
-3. [Scribe-iOS App Revamp](https://github.com/orgs/scribe-org/projects/1)
-4. [Expand Translation and Add English Keyboard](https://github.com/orgs/scribe-org/projects/1)
-5. [Scribe-Android MVP](https://github.com/orgs/scribe-org/projects/5)
-
-</p>
-</details>
-
-### Data Edits
+### • Data Edits [`⇧`](#contents)
 
 Scribe does not accept direct edits to the grammar JSON files as they are sourced from [Wikidata](https://www.wikidata.org/). Edits can be discussed and the queries themselves will be changed and ran before an update. If there is a problem with one of the files, then the fix should be made on [Wikidata](https://www.wikidata.org/) and not on Scribe. Feel free to let us know that edits have been made by [opening a data issue](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=data&template=data_wikidata.yml) and we'll be happy to integrate them!
 
