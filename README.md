@@ -109,7 +109,17 @@ The following table shows the supported languages and the amount of data availab
 
 # Powered By
 
-<details><summary><strong>List of references</strong></summary>
+### Contributors
+
+Many thanks to all the [Scribe-Data contributors](https://github.com/scribe-org/Scribe-Data/graphs/contributors)! 🚀
+
+<a href="https://github.com/scribe-org/Scribe-Data/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=scribe-org/Scribe-Data" />
+</a>
+
+### Blog posts
+
+<details><summary><strong>List of referenced posts</strong></summary>
 <p>
 
 - [Building a Recommendation System Using Neural Network Embeddings](https://towardsdatascience.com/building-a-recommendation-system-using-neural-network-embeddings-1ef92e5c80c9) by [WillKoehrsen](https://github.com/WillKoehrsen)
@@ -118,6 +128,8 @@ The following table shows the supported languages and the amount of data availab
 
 </p>
 </details>
+
+### Wikimedia Communities
 
 <div align="center">
   <br>
