@@ -141,6 +141,16 @@ def gen_emoji_autosuggestions(
                                 }
                             )
 
+    # Sort by rank after all emojis already found per keyword.
+    for suggestions in autosuggest_dict.values():
+        suggestions.sort(
+            key=lambda suggestion: float('inf') if suggestion["rank"] is None else suggestion["rank"]
+        )
+
+        # If specified, enforce limit of emojis per keyword.
+        if num_per_keyword and len(suggestions) > num_per_keyword:
+            suggestions[:] = suggestions[:num_per_keyword]
+
     if verbose:
         print(
             f"Number of emoji trigger keywords found for {language}: {len(autosuggest_dict)}"
