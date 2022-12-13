@@ -28,6 +28,7 @@ from . import _resources
 def gen_emoji_autosuggestions(
     language="English",
     num_emojis=None,
+    num_per_keyword=None,
     ignore_keywords=None,
     update_scribe_apps=False,
     verbose=True,
@@ -40,8 +41,11 @@ def gen_emoji_autosuggestions(
         language : string (default=en)
             The language autosuggestions are being generated for.
 
-        num_emojis: int (default=None)
+        num_emojis : int (default=None)
             The limit for number of emojis that autosuggestions should be generated from.
+
+        num_per_keyword : int (default=None)
+            The limit for number of emoji autosuggestions that should be generated per keyword.
 
         ignore_keywords : str or list (default=None)
             Keywords that should be ignored.
