@@ -14,6 +14,7 @@ from importlib.resources import files
 
 import emoji
 from icu import Char, UProperty
+from tqdm.auto import tqdm
 
 from scribe_data.load.update_utils import (
     get_language_iso,
@@ -26,7 +27,8 @@ from . import _resources
 
 def gen_emoji_autosuggestions(
     language="English",
-    num_emojis=500,
+    num_emojis=None,
+    num_per_keyword=None,
     ignore_keywords=None,
     update_scribe_apps=False,
     verbose=True,
@@ -39,8 +41,11 @@ def gen_emoji_autosuggestions(
         language : string (default=en)
             The language autosuggestions are being generated for.
 
-        num_emojis: int (default=500)
-            The number of emojis that autosuggestions should be generated from.
+        num_emojis : int (default=None)
+            The limit for number of emojis that autosuggestions should be generated from.
+
+        num_per_keyword : int (default=None)
+            The limit for number of emoji autosuggestions that should be generated per keyword.
 
         ignore_keywords : str or list (default=None)
             Keywords that should be ignored.
@@ -59,6 +64,13 @@ def gen_emoji_autosuggestions(
     autosuggest_dict = {}
 
     iso = get_language_iso(language)
+
+    if isinstance(ignore_keywords, str):
+        keywords_to_ignore = [ignore_keywords]
+    elif isinstance(ignore_keywords, list):
+        keywords_to_ignore = ignore_keywords
+    else:
+        keywords_to_ignore = []
 
     # Pre-set up the emoji popularity data.
     popularity_dict = {}
@@ -83,13 +95,23 @@ def gen_emoji_autosuggestions(
 
         cldr_dict = cldr_data[cldr_file_key]["annotations"]
 
-        print(
-            f"Number of characters loaded for CLDR '{cldr_file_key}' for {language}: {len(cldr_dict)}"
-        )
-
-        for cldr_char in cldr_dict:
+        for cldr_char in tqdm(
+            iterable=cldr_dict, 
+            desc=f"Characters processed from '{cldr_file_key}' CLDR file for {language}", 
+            unit="cldr characters", 
+            disable=not verbose,
+        ):
             # Filter CLDR data for emoji characters.
             if cldr_char in emoji.EMOJI_DATA:
+                emoji_rank = popularity_dict.get(cldr_char)
+
+                # If number limit specified, filter for the highest-ranked emojis.
+                if num_emojis and (
+                    emoji_rank is None
+                    or emoji_rank > num_emojis
+                ):
+                    continue
+
                 # Process for emoji variants.
                 has_modifier_base = Char.hasBinaryProperty(
                     cldr_char, UProperty.EMOJI_MODIFIER_BASE
@@ -105,10 +127,12 @@ def gen_emoji_autosuggestions(
                 ):
                     emoji_annotations = cldr_dict[cldr_char]
 
-                    emoji_rank = popularity_dict.get(cldr_char)
                     for emoji_keyword in emoji_annotations["default"]:
-                        # Use single-word annotations as keywords.
-                        if len(emoji_keyword.split()) == 1:
+                        if (
+                            # Use single-word annotations as keywords.
+                            len(emoji_keyword.split()) == 1
+                            and emoji_keyword not in keywords_to_ignore
+                        ):
                             autosuggest_dict.setdefault(emoji_keyword, []).append(
                                 {
                                     "emoji": cldr_char,
@@ -117,9 +141,20 @@ def gen_emoji_autosuggestions(
                                 }
                             )
 
-    print(
-        f"Number of emoji trigger keywords found for {language}: {len(autosuggest_dict)}"
-    )
+    # Sort by rank after all emojis already found per keyword.
+    for suggestions in autosuggest_dict.values():
+        suggestions.sort(
+            key=lambda suggestion: float('inf') if suggestion["rank"] is None else suggestion["rank"]
+        )
+
+        # If specified, enforce limit of emojis per keyword.
+        if num_per_keyword and len(suggestions) > num_per_keyword:
+            suggestions[:] = suggestions[:num_per_keyword]
+
+    if verbose:
+        print(
+            f"Number of emoji trigger keywords found for {language}: {len(autosuggest_dict)}"
+        )
 
     if update_scribe_apps:
         output_path = f"{get_path_from_update_data()}/Scribe-iOS/Keyboards/LanguageKeyboards/{language.capitalize()}/Data/emoji_suggestions.json"
