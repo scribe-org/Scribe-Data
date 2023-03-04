@@ -10,6 +10,13 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+# Scribe-Data 2.2.1
+
+### ✨ Features
+
+- The number of suggested emojis for words can now be limited.
+- The total number of emojis that suggestions can be made for can now be limited.
+
 # Scribe-Data 2.2.0
 
 ### ✨ Features
