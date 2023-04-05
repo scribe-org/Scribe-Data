@@ -1,4 +1,13 @@
-<!--- Thank you for your pull request! 🚀 -->
+<!---
+Thank you for your pull request! 🚀
+
+If you're not already a member of our public Matrix community, please consider joining via the following link:
+https://matrix.to/#/#scribe_community:matrix.org
+
+It'd be great to have you!
+
+Also if you're new to open source, check that the email you use for GitHub (https://github.com/settings/emails) is the same the one you have for git. You can see your git email by typing `git config user.email` and set it with `git config --global user.email "your_email@email.com"`.
+-->
 
 ### Contributor checklist
 
