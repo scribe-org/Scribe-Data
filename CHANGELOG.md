@@ -10,6 +10,16 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+# Scribe-Data 2.2.2
+
+### ✨ Features
+
+- An option to remove the `is_base` and `rank` sub keys was added.
+
+### ♻️ Code Refactoring
+
+- The export filenames for emoji keywords were renamed to reflect their usage in autosuggestions and soon autocompletions as well.
+
 # Scribe-Data 2.2.1
 
 ### ✨ Features
