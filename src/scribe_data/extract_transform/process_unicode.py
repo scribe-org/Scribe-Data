@@ -2,10 +2,10 @@
 Process Unicode
 ------------
 
-Module for processing Unicode based corpuses for autosuggestion generation.
+Module for processing Unicode based corpuses for autosuggestion and autocompletion generation.
 
 Contents:
-    gen_emoji_autosuggestions
+    gen_emoji_keywords
 """
 
 import csv
@@ -25,11 +25,12 @@ from scribe_data.load.update_utils import (
 from . import _resources
 
 
-def gen_emoji_autosuggestions(
+def gen_emoji_keywords(
     language="English",
     num_emojis=None,
-    num_per_keyword=None,
+    emojis_per_keyword=None,
     ignore_keywords=None,
+    export_base_rank=False,
     update_scribe_apps=False,
     verbose=True,
 ):
@@ -39,16 +40,19 @@ def gen_emoji_autosuggestions(
     Parameters
     ----------
         language : string (default=en)
-            The language autosuggestions are being generated for.
+            The language keywords are being generated for.
 
         num_emojis : int (default=None)
-            The limit for number of emojis that autosuggestions should be generated from.
+            The limit for number of emojis that keywords should be generated from.
 
-        num_per_keyword : int (default=None)
-            The limit for number of emoji autosuggestions that should be generated per keyword.
+        emojis_per_keyword : int (default=None)
+            The limit for number of emoji keywords that should be generated per keyword.
 
         ignore_keywords : str or list (default=None)
             Keywords that should be ignored.
+
+        export_base_rank : bool (default=False)
+            Whether to export whether the emojis is a base character as well as its rank.
 
         update_scribe_apps : bool (default=False)
             Saves the created dictionaries as JSONs in Scribe app directories.
@@ -58,10 +62,10 @@ def gen_emoji_autosuggestions(
 
     Returns
     -------
-        Autosuggestions dictionaries for emoji keywords-to-unicode are saved locally or uploaded to Scribe apps.
+        Keywords dictionary for emoji keywords-to-unicode are saved locally or uploaded to Scribe apps.
     """
 
-    autosuggest_dict = {}
+    keyword_dict = {}
 
     iso = get_language_iso(language)
 
@@ -71,6 +75,8 @@ def gen_emoji_autosuggestions(
         keywords_to_ignore = ignore_keywords
     else:
         keywords_to_ignore = []
+
+    keywords_to_ignore = [k.lower() for k in keywords_to_ignore]
 
     # Pre-set up the emoji popularity data.
     popularity_dict = {}
@@ -96,9 +102,9 @@ def gen_emoji_autosuggestions(
         cldr_dict = cldr_data[cldr_file_key]["annotations"]
 
         for cldr_char in tqdm(
-            iterable=cldr_dict, 
-            desc=f"Characters processed from '{cldr_file_key}' CLDR file for {language}", 
-            unit="cldr characters", 
+            iterable=cldr_dict,
+            desc=f"Characters processed from '{cldr_file_key}' CLDR file for {language}",
+            unit="cldr characters",
             disable=not verbose,
         ):
             # Filter CLDR data for emoji characters.
@@ -106,10 +112,7 @@ def gen_emoji_autosuggestions(
                 emoji_rank = popularity_dict.get(cldr_char)
 
                 # If number limit specified, filter for the highest-ranked emojis.
-                if num_emojis and (
-                    emoji_rank is None
-                    or emoji_rank > num_emojis
-                ):
+                if num_emojis and (emoji_rank is None or emoji_rank > num_emojis):
                     continue
 
                 # Process for emoji variants.
@@ -128,12 +131,13 @@ def gen_emoji_autosuggestions(
                     emoji_annotations = cldr_dict[cldr_char]
 
                     for emoji_keyword in emoji_annotations["default"]:
+                        emoji_keyword = emoji_keyword.lower()  # lower case the key
                         if (
                             # Use single-word annotations as keywords.
                             len(emoji_keyword.split()) == 1
                             and emoji_keyword not in keywords_to_ignore
                         ):
-                            autosuggest_dict.setdefault(emoji_keyword, []).append(
+                            keyword_dict.setdefault(emoji_keyword, []).append(
                                 {
                                     "emoji": cldr_char,
                                     "is_base": has_modifier_base,
@@ -142,30 +146,37 @@ def gen_emoji_autosuggestions(
                             )
 
     # Sort by rank after all emojis already found per keyword.
-    for suggestions in autosuggest_dict.values():
-        suggestions.sort(
-            key=lambda suggestion: float('inf') if suggestion["rank"] is None else suggestion["rank"]
+    for keywords in keyword_dict.values():
+        keywords.sort(
+            key=lambda suggestion: float("inf")
+            if suggestion["rank"] is None
+            else suggestion["rank"]
         )
 
         # If specified, enforce limit of emojis per keyword.
-        if num_per_keyword and len(suggestions) > num_per_keyword:
-            suggestions[:] = suggestions[:num_per_keyword]
+        if emojis_per_keyword and len(keywords) > emojis_per_keyword:
+            keywords[:] = keywords[:emojis_per_keyword]
 
     if verbose:
         print(
-            f"Number of emoji trigger keywords found for {language}: {len(autosuggest_dict)}"
+            f"Number of emoji trigger keywords found for {language}: {len(keyword_dict)}"
         )
 
+    # Remove base status and rank if not needed.
+    if not export_base_rank:
+        keyword_dict = {
+            k: [{"emoji": emoji_options["emoji"]} for emoji_options in v]
+            for k, v in keyword_dict.items()
+        }
+
     if update_scribe_apps:
-        output_path = f"{get_path_from_update_data()}/Scribe-iOS/Keyboards/LanguageKeyboards/{language.capitalize()}/Data/emoji_suggestions.json"
+        output_path = f"{get_path_from_update_data()}/Scribe-iOS/Keyboards/LanguageKeyboards/{language.capitalize()}/Data/emoji_keywords.json"
     else:
-        output_path = f"{language.lower()}_emoji_suggestions.json"
+        output_path = f"{language.lower()}_emoji_keywords.json"
 
     with open(output_path, "w", encoding="utf-8") as file:
-        json.dump(autosuggest_dict, file, ensure_ascii=False, indent=0)
+        json.dump(keyword_dict, file, ensure_ascii=False, indent=0)
 
-    print(
-        f"Emoji autosuggestions for {language} generated and saved to '{output_path}'."
-    )
+    print(f"Emoji keywords for {language} generated and saved to '{output_path}'.")
 
-    return autosuggest_dict
+    return keyword_dict

@@ -32,8 +32,9 @@ import mwparserfromhell
 import requests
 import tensorflow as tf
 from bs4 import BeautifulSoup
-from scribe_data.load.update_utils import get_language_iso
 from tqdm.auto import tqdm
+
+from scribe_data.load.update_utils import get_language_iso
 
 
 def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_id=None):

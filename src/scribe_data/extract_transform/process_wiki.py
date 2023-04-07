@@ -18,6 +18,9 @@ from urllib.error import HTTPError
 
 import numpy as np
 import regex
+from SPARQLWrapper import JSON, POST, SPARQLWrapper
+from tqdm.auto import tqdm
+
 from scribe_data.load.update_utils import (  # get_android_data_path, get_desktop_data_path,
     add_num_commas,
     get_ios_data_path,
@@ -26,8 +29,6 @@ from scribe_data.load.update_utils import (  # get_android_data_path, get_deskto
     get_language_words_to_remove,
     get_path_from_process_wiki,
 )
-from SPARQLWrapper import JSON, POST, SPARQLWrapper
-from tqdm.auto import tqdm
 
 warnings.filterwarnings("ignore", message=r"Passing", category=FutureWarning)
 
