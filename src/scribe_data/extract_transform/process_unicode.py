@@ -5,7 +5,7 @@ Process Unicode
 Module for processing Unicode based corpuses for autosuggestion and autocompletion generation.
 
 Contents:
-    gen_emoji_keywords
+    gen_emoji_lexicon
 """
 
 import csv
@@ -25,7 +25,7 @@ from scribe_data.load.update_utils import (
 from . import _resources
 
 
-def gen_emoji_keywords(
+def gen_emoji_lexicon(
     language="English",
     num_emojis=None,
     emojis_per_keyword=None,
