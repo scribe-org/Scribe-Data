@@ -5,7 +5,7 @@ Format Verbs
 Formats the verbs queried from Wikidata using query_verbs.sparql.
 """
 
-# pylint: disable=invalid-name, wrong-import-position
+# pylint: disable=invalid-name
 
 import collections
 import json
@@ -20,7 +20,7 @@ sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 from scribe_data.load.update_utils import (  # get_android_data_path, get_desktop_data_path,
     get_ios_data_path,
     get_path_from_format_file,
-    get_path_from_update_data,
+    get_path_from_load_dir,
 )
 
 file_path = sys.argv[0]
@@ -38,7 +38,7 @@ else:
 
 # Get paths to load formatted data into.
 path_from_file = get_path_from_format_file()
-path_from_update_data = get_path_from_update_data()
+path_from_update_data = get_path_from_load_dir()
 ios_data_dir_from_org = get_ios_data_path(LANGUAGE, "verbs")
 # android_data_dir_from_org = get_android_data_path(LANGUAGE, "verbs")
 # desktop_data_dir_from_org = get_desktop_data_path(LANGUAGE, "verbs")
@@ -111,8 +111,7 @@ for verb_vals in verbs_list:
 
 verbs_formatted = collections.OrderedDict(sorted(verbs_formatted.items()))
 
-for output_path in all_output_paths:
-    with open(output_path, "w", encoding="utf-8",) as file:
-        json.dump(verbs_formatted, file, ensure_ascii=False, indent=0)
+with open("../formatted_data/verbs.json", "w", encoding="utf-8",) as file:
+    json.dump(verbs_formatted, file, ensure_ascii=False, indent=0)
 
 print(f"Wrote file verbs.json with {len(verbs_formatted)} verbs.")

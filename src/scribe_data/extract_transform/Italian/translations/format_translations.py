@@ -13,7 +13,7 @@ import json
 from tqdm.auto import tqdm
 from transformers import MarianMTModel, MarianTokenizer
 
-with open("../../translations_queried.json", encoding="utf-8") as f:
+with open("../../_translations/translations_queried.json", encoding="utf-8") as f:
     translations_list = json.load(f)
 
 words = [translation_vals["word"] for translation_vals in translations_list]
@@ -35,11 +35,7 @@ for w in tqdm(words, desc="Words translated", unit="word",):
 
 translations_formatted = collections.OrderedDict(sorted(translations_formatted.items()))
 
-with open(
-    "../../../Keyboards/LanguageKeyboards/Italian/Data/translations.json",
-    "w",
-    encoding="utf-8",
-) as f:
+with open("../formatted_data/translations.json", "w", encoding="utf-8",) as f:
     json.dump(translations_formatted, f, ensure_ascii=False, indent=0)
 
 print(f"Wrote file translations.json with {len(translations_formatted)} translations.")

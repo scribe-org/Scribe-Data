@@ -5,7 +5,7 @@ Format Nouns
 Formats the nouns queried from Wikidata using query_nouns.sparql.
 """
 
-# pylint: disable=invalid-name, wrong-import-position
+# pylint: disable=invalid-name
 
 import collections
 import json
@@ -16,12 +16,6 @@ LANGUAGE = "Portuguese"
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
-
-from scribe_data.load.update_utils import (  # get_android_data_path, get_desktop_data_path,
-    get_ios_data_path,
-    get_path_from_format_file,
-    get_path_from_update_data,
-)
 
 file_path = sys.argv[0]
 
@@ -35,40 +29,6 @@ else:
         f"../extract_transform/{LANGUAGE}/nouns/nouns_queried.json", encoding="utf-8"
     ) as f:
         nouns_list = json.load(f)
-
-# Get paths to load formatted data into.
-path_from_file = get_path_from_format_file()
-path_from_update_data = get_path_from_update_data()
-ios_data_dir_from_org = get_ios_data_path(LANGUAGE, "nouns")
-# android_data_dir_from_org = get_android_data_path(LANGUAGE, "nouns")
-# desktop_data_dir_from_org = get_desktop_data_path(LANGUAGE, "nouns")
-
-ios_output_path = f"{path_from_file}{ios_data_dir_from_org}"
-# android_output_path = f"{path_from_file}{android_data_dir_from_org}"
-# desktop_output_path = f"{path_from_file}{desktop_data_dir_from_org}"
-if update_data_in_use:
-    ios_output_path = f"{path_from_update_data}{ios_data_dir_from_org}"
-    # android_output_path = f"{path_from_update_data}{android_data_dir_from_org}"
-    # desktop_output_path = f"{path_from_update_data}{desktop_data_dir_from_org}"
-
-all_output_paths = [ios_output_path]  # android_output_path, desktop_output_path
-
-# Check to make sure that Scribe application directories are present for data updates.
-if not os.path.isdir(f"{PATH_TO_SCRIBE_ORG}Scribe-iOS"):
-    all_output_paths = [p for p in all_output_paths if p != ios_output_path]
-
-# if not os.path.isdir(f"{PATH_TO_SCRIBE_ORG}Scribe-Android"):
-#     all_output_paths = [p for p in all_output_paths if p != android_output_path]
-
-# if not os.path.isdir(f"{PATH_TO_SCRIBE_ORG}Scribe-Desktop"):
-#     all_output_paths = [p for p in all_output_paths if p != desktop_output_path]
-
-if not all_output_paths:
-    raise OSError(
-        """No Scribe project directories have been found to update.
-        Scribe-Data should be in the same directory as applications that data should be updated for.
-        """
-    )
 
 
 def map_genders(wikidata_gender):
@@ -164,8 +124,7 @@ for k in nouns_formatted:
 
 nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
-for output_path in all_output_paths:
-    with open(output_path, "w", encoding="utf-8",) as file:
-        json.dump(nouns_formatted, file, ensure_ascii=False, indent=0)
+with open("../formatted_data/nouns.json", "w", encoding="utf-8",) as file:
+    json.dump(nouns_formatted, file, ensure_ascii=False, indent=0)
 
 print(f"Wrote file nouns.json with {len(nouns_formatted)} nouns.")

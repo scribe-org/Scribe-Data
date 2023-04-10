@@ -18,8 +18,8 @@ from tqdm.auto import tqdm
 
 from scribe_data.load.update_utils import (
     get_language_iso,
-    get_path_from_process_unicode,
-    get_path_from_update_data,
+    get_path_from_et_dir,
+    get_path_from_load_dir,
 )
 
 from . import _resources
@@ -31,7 +31,7 @@ def gen_emoji_lexicon(
     emojis_per_keyword=None,
     ignore_keywords=None,
     export_base_rank=False,
-    update_scribe_apps=False,
+    update_local_data=False,
     verbose=True,
 ):
     """
@@ -54,8 +54,8 @@ def gen_emoji_lexicon(
         export_base_rank : bool (default=False)
             Whether to export whether the emojis is a base character as well as its rank.
 
-        update_scribe_apps : bool (default=False)
-            Saves the created dictionaries as JSONs in Scribe app directories.
+        update_local_data : bool (default=False)
+            Saves the created dictionaries as JSONs in the local formatted_data directories.
 
         verbose : bool (default=True)
             Whether to show a tqdm progress bar for the process.
@@ -86,7 +86,7 @@ def gen_emoji_lexicon(
         for tsv_row in tsv_reader:
             popularity_dict[tsv_row["Emoji"]] = int(tsv_row["Rank"])
 
-    path_to_scribe_org = get_path_from_process_unicode()
+    path_to_scribe_org = get_path_from_et_dir()
     annotations_file_path = f"{path_to_scribe_org}/Scribe-Data/node_modules/cldr-annotations-full/annotations/{iso}/annotations.json"
     annotations_derived_file_path = f"{path_to_scribe_org}/Scribe-Data/node_modules/cldr-annotations-derived-full/annotationsDerived/{iso}/annotations.json"
 
@@ -169,14 +169,17 @@ def gen_emoji_lexicon(
             for k, v in keyword_dict.items()
         }
 
-    if update_scribe_apps:
-        output_path = f"{get_path_from_update_data()}/Scribe-iOS/Keyboards/LanguageKeyboards/{language.capitalize()}/Data/emoji_keywords.json"
-    else:
-        output_path = f"{language.lower()}_emoji_keywords.json"
+    if update_local_data:
+        path_to_formatted_data = (
+            get_path_from_load_dir()
+            + f"/Scribe-Data/src/scribe_data/extract_transform/{language.capitalize()}/formatted_data/emoji_keywords.json"
+        )
 
-    with open(output_path, "w", encoding="utf-8") as file:
-        json.dump(keyword_dict, file, ensure_ascii=False, indent=0)
+        with open(path_to_formatted_data, "w", encoding="utf-8") as file:
+            json.dump(keyword_dict, file, ensure_ascii=False, indent=0)
 
-    print(f"Emoji keywords for {language} generated and saved to '{output_path}'.")
+        print(
+            f"Emoji keywords for {language} generated and saved to '{path_to_formatted_data}'."
+        )
 
     return keyword_dict

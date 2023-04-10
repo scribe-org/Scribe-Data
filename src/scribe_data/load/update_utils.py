@@ -3,6 +3,20 @@ Update Utils
 ------------
 
 Utility functions for data updates.
+
+Contents:
+    get_language_qid,
+    get_language_iso,
+    get_language_from_iso,
+    get_language_words_to_remove,
+    get_language_words_to_ignore,
+    get_path_from_format_file,
+    get_path_from_load_dir,
+    get_path_from_et_dir,
+    get_ios_data_path,
+    get_android_data_path,
+    get_desktop_data_path,
+    add_num_commas
 """
 
 
@@ -66,10 +80,43 @@ def get_language_iso(language):
 
     if language not in language_iso_dict:
         raise ValueError(
-            f"{language.upper()} is not currently not a supported language for ISO conversion."
+            f"{language.capitalize()} is not currently not a supported language for ISO conversion."
         )
 
     return language_iso_dict[language]
+
+
+def get_language_from_iso(iso):
+    """
+    Returns the language name for the given ISO.
+
+    Parameters
+    ----------
+        iso : str
+            The ISO the language name should be returned for.
+
+    Returns
+    -------
+        The name for the language as a value of a dictionary.
+    """
+    iso = iso.lower()
+
+    iso_language_dict = {
+        "fr": "French",
+        "de": "German",
+        "it": "Italian",
+        "pt": "Portuguese",
+        "ru": "Russian",
+        "es": "Spanish",
+        "sv": "Swedish",
+    }
+
+    if iso not in iso_language_dict:
+        raise ValueError(
+            f"{iso.upper()} is not currently not a supported ISO for language conversion."
+        )
+
+    return iso_language_dict[iso]
 
 
 def get_language_words_to_remove(language):
@@ -133,82 +180,66 @@ def get_path_from_format_file():
     return "../../../../../.."
 
 
-def get_path_from_update_data():
+def get_path_from_load_dir():
     """
-    Returns the directory path from update_data.py to scribe-org.
-    """
-    return "../../../.."
-
-
-def get_path_from_process_unicode():
-    """
-    Returns the directory path from process_unicode.py to scribe-org.
+    Returns the directory path from the load directory to scribe-org.
     """
     return "../../../.."
 
 
-def get_path_from_process_wiki():
+def get_path_from_et_dir():
     """
-    Returns the directory path from process_wiki.py to scribe-org.
+    Returns the directory path from the extract_transform directory to scribe-org.
     """
     return "../../../.."
 
 
-def get_ios_data_path(language: str, word_type: str):
+def get_ios_data_path(language: str):
     """
-    Returns the path to the data json of the iOS app given a language and word type.
+    Returns the path to the data json of the iOS app given a language.
 
     Parameters
     ----------
         language : str
             The language the path should be returned for.
 
-        word_type : str
-            The type of word that should be accessed in the path.
-
     Returns
     -------
-        The path to the data json for the given language and word type.
+        The path to the data json for the given language.
     """
-    return f"/Scribe-iOS/Keyboards/LanguageKeyboards/{language}/Data/{word_type}.json"
+    return f"/Scribe-iOS/Keyboards/LanguageKeyboards/{language}"
 
 
-def get_android_data_path(language: str, word_type: str):
+def get_android_data_path(language: str):
     """
-    Returns the path to the data json of the Android app given a language and word type.
+    Returns the path to the data json of the Android app given a language.
 
     Parameters
     ----------
         language : str
             The language the path should be returned for.
 
-        word_type : str
-            The type of word that should be accessed in the path.
-
     Returns
     -------
-        The path to the data json for the given language and word type.
+        The path to the data json for the given language.
     """
-    return f"/Scribe-Android/app/src/main/LanguageKeyboards/{language}/Data/{word_type}.json"
+    return f"/Scribe-Android/app/src/main/LanguageKeyboards/{language}"
 
 
-def get_desktop_data_path(language: str, word_type: str):
+def get_desktop_data_path(language: str):
     """
-    Returns the path to the data json of the desktop app given a language and word type.
+    Returns the path to the data json of the desktop app given a language.
 
     Parameters
     ----------
         language : str
             The language the path should be returned for.
 
-        word_type : str
-            The type of word that should be accessed in the path.
-
     Returns
     -------
-        The path to the data json for the given language and word type.
+        The path to the data json for the given language.
     """
-    return f"/Scribe-Desktop/scribe/language_guis/{language}/data/{word_type}.json"
+    return f"/Scribe-Desktop/scribe/language_guis/{language}"
 
 
 def add_num_commas(num):

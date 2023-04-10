@@ -27,7 +27,7 @@ from scribe_data.load.update_utils import (  # get_android_data_path, get_deskto
     get_language_qid,
     get_language_words_to_ignore,
     get_language_words_to_remove,
-    get_path_from_process_wiki,
+    get_path_from_et_dir,
 )
 
 warnings.filterwarnings("ignore", message=r"Passing", category=FutureWarning)
@@ -315,7 +315,7 @@ def gen_autosuggestions(
     language="English",
     num_words=500,
     ignore_words=None,
-    update_scribe_apps=False,
+    update_local_data=False,
     verbose=True,
 ):
     """
@@ -335,8 +335,8 @@ def gen_autosuggestions(
         ignore_words : str or list (default=None)
             Strings that should be removed from the text body.
 
-        update_scribe_apps : bool (default=False)
-            Saves the created dictionaries as JSONs in Scribe app directories.
+        update_local_data : bool (default=False)
+            Saves the created dictionaries as JSONs in the local formatted_data directories.
 
         verbose : bool (default=True)
             Whether to show a tqdm progress bar for the process.
@@ -422,24 +422,18 @@ def gen_autosuggestions(
     if not verbose:
         print(f"Autosuggestions for {language} generated.")
 
-    if update_scribe_apps:
-        # Get paths to load formatted data into.
-        path_to_scribe_org = get_path_from_process_wiki()
-        ios_data_dir_from_org = get_ios_data_path(language, "autosuggestions")
-        # android_data_dir_from_org = get_android_data_path(language, "autosuggestions")
-        # desktop_data_dir_from_org = get_desktop_data_path(language, "autosuggestions")
+    if update_local_data:
+        path_to_formatted_data = (
+            get_path_from_load_dir()
+            + f"/Scribe-Data/src/scribe_data/extract_transform/{language.capitalize()}/formatted_data/autosuggestions.json"
+        )
 
-        ios_output_path = f"{path_to_scribe_org}{ios_data_dir_from_org}"
-        # android_output_path = f"{path_to_scribe_org}{android_data_dir_from_org}"
-        # desktop_output_path = f"{path_to_scribe_org}{desktop_data_dir_from_org}"
+        with open(path_to_formatted_data, "w", encoding="utf-8",) as file:
+            json.dump(autosuggest_dict, file, ensure_ascii=False, indent=0)
 
-        all_output_paths = [ios_output_path]  # android_output_path, desktop_output_path
-
-        for output_path in all_output_paths:
-            with open(output_path, "w", encoding="utf-8",) as file:
-                json.dump(autosuggest_dict, file, ensure_ascii=False, indent=0)
-
-        print(f"Autosuggestions for {language} saved to Scribe app directories.")
+        print(
+            f"Autosuggestions for {language} generated and saved to '{path_to_formatted_data}'."
+        )
 
         return autosuggest_dict
 

@@ -35,17 +35,14 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.load.update_utils import (  # isort:skip
-    get_ios_data_path,
-    get_path_from_update_data,
-)
+from scribe_data.load.update_utils import get_ios_data_path, get_path_from_load_dir
+
+PATH_TO_ET_FILES = "../extract_transform/"
 
 # Set SPARQLWrapper query conditions.
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 sparql.setReturnFormat(JSON)
 sparql.setMethod(POST)
-
-PATH_TO_ET_FILES = "../extract_transform/"
 
 with open("_update_files/total_data.json", encoding="utf-8") as f:
     current_data = json.load(f)
@@ -53,18 +50,11 @@ with open("_update_files/total_data.json", encoding="utf-8") as f:
 current_languages = list(current_data.keys())
 word_types_to_update = ["nouns", "verbs", "prepositions"]
 
-# Check whether arguments have been passed to only update a subset of the data.
+# Note: Check whether arguments have been passed to only update a subset of the data.
 languages = None
 word_types = None
 if len(sys.argv) == 2:
     arg = sys.argv[1]
-    if isinstance(arg, str):
-        raise ValueError(
-            f"""The argument type of '{arg}' passed to update_data.py is invalid.
-            Only lists are allowed, and can be passed via:
-            python update_data.py '[comma_separated_args_in_quotes]'
-            """
-        )
 
     try:
         arg = ast.literal_eval(arg)
@@ -157,6 +147,7 @@ else:
             """
     )
 
+# Note: Prepare data paths running scripts and formatting outputs.
 # Check to see if the language has all zeroes for its data, meaning it's been added.
 new_language_list = []
 for lang in languages_update:
@@ -187,8 +178,8 @@ queries_to_run_lists = [
 
 queries_to_run = list({q for sub in queries_to_run_lists for q in sub})
 
+# Note: Run queries and format data.
 data_added_dict = {}
-
 for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
     lang = q.split("/")[2]
     target_type = q.split("/")[3]
@@ -236,7 +227,7 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
             json.dump(results_formatted, f, ensure_ascii=False, indent=0)
 
         if "_1" in query_path:
-            # note: Only the first query was ran, so we need to run the second and append the json.
+            # Note: Only the first query was ran, so we need to run the second and append the json.
 
             query_path = query_path.replace("_1", "_2")
             with open(query_path, encoding="utf-8") as file:
@@ -260,7 +251,7 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
                     # Subset the returned JSON and the individual results before saving.
                     query_results = results["results"]["bindings"]
 
-                    # note: Don't rewrite results_formatted as we want to extend the json and combine in formatting.
+                    # Note: Don't rewrite results_formatted as we want to extend the json and combine in formatting.
                     for r in query_results:  # query_results is also a list
                         r_dict = {k: r[k]["value"] for k in r.keys()}
 
@@ -279,7 +270,7 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
         )
 
         # Use Scribe-iOS as the basis of checking the new data.
-        PATH_TO_SCRIBE_ORG = get_path_from_update_data()
+        PATH_TO_SCRIBE_ORG = get_path_from_load_dir()
         PATH_TO_DATA_JSON = get_ios_data_path(lang, target_type)
         with open(
             f"{PATH_TO_SCRIBE_ORG}{PATH_TO_DATA_JSON}", encoding="utf-8",
