@@ -10,6 +10,32 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+# [Unreleased] Scribe-Data 3.0.0
+
+### ✨ Features
+
+- Scribe-Data now has the ability to generate SQLite databases from formatted language data.
+  - `data_to_sqlite.py` is used to read available JSON files and input their information into the databases.
+- These databases are now sent to Scribe apps via defined paths.
+  - `send_dbs_to_scribe.py` finds all available language databases and copies them.
+  - Separating this step from the data update is in preparation for data import in the future where this will be an individual step.
+- JSON data is no longer able to be uploaded to Scribe app directories directly, with the SQLite directories now being exported instead.
+
+### ♻️ Code Refactoring
+
+- Massive amounts of refactoring happened to achieve the shift in the data export method:
+  - `format_WORD_TYPE.py` files export to a `formatted_data` directory within `extract_transform`.
+  - Copies of all data JSONs that were originally in Scribe apps are now in the `formatted_data` directories.
+  - Functions in `update_utils.py` were switched given that data is no longer uploaded into a `Data` directory within the language keyboard directories within Scribe apps.
+  - Lots of functions and variables were renamed to make them more understandable.
+  - Code to derive appropriate export locations within `format_WORD_TYPE.py` files was removed in favor of a language `formatted_data` directory.
+  - regex was added as a dependency.
+  - pylint comments were removed.
+
+### 🐞 Bug Fixes
+
+- The statements in translation files have been fixed as they were improperly defined after a file was moved.
+
 # Scribe-Data 2.2.2
 
 ### ✨ Features
