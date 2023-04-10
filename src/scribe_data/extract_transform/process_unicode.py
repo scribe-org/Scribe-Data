@@ -141,17 +141,31 @@ def gen_emoji_lexicon(
                                 }
                             )
 
+    # Check nouns files for plurals and update their data with the emojis for their singular forms.
+    with open(f"./{language}/formatted_data/nouns.json", encoding="utf-8") as f:
+        noun_data = json.load(f)
+
+    plurals_to_singulars_dict = {
+        noun_data[row]["plural"].lower(): row.lower()
+        for row in noun_data
+        if noun_data[row]["plural"] != "isPlural"
+    }
+
+    for plural, singular in plurals_to_singulars_dict.items():
+        if plural not in keyword_dict and singular in keyword_dict:
+            keyword_dict[plural] = keyword_dict[singular]
+
     # Sort by rank after all emojis already found per keyword.
-    for keywords in keyword_dict.values():
-        keywords.sort(
+    for emojis in keyword_dict.values():
+        emojis.sort(
             key=lambda suggestion: float("inf")
             if suggestion["rank"] is None
             else suggestion["rank"]
         )
 
         # If specified, enforce limit of emojis per keyword.
-        if emojis_per_keyword and len(keywords) > emojis_per_keyword:
-            keywords[:] = keywords[:emojis_per_keyword]
+        if emojis_per_keyword and len(emojis) > emojis_per_keyword:
+            emojis[:] = emojis[:emojis_per_keyword]
 
     if verbose:
         print(
@@ -161,7 +175,7 @@ def gen_emoji_lexicon(
     # Remove base status and rank if not needed.
     if not export_base_rank:
         keyword_dict = {
-            k: [{"emoji": emoji_options["emoji"]} for emoji_options in v]
+            k: [{"emoji": emoji_keys["emoji"]} for emoji_keys in v]
             for k, v in keyword_dict.items()
         }
 
