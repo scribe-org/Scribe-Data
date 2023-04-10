@@ -16,11 +16,7 @@ import emoji
 from icu import Char, UProperty
 from tqdm.auto import tqdm
 
-from scribe_data.load.update_utils import (
-    get_language_iso,
-    get_path_from_et_dir,
-    get_path_from_load_dir,
-)
+from scribe_data.load.update_utils import get_language_iso, get_path_from_et_dir
 
 from . import _resources
 
@@ -171,7 +167,7 @@ def gen_emoji_lexicon(
 
     if update_local_data:
         path_to_formatted_data = (
-            get_path_from_load_dir()
+            get_path_from_et_dir()
             + f"/Scribe-Data/src/scribe_data/extract_transform/{language.capitalize()}/formatted_data/emoji_keywords.json"
         )
 

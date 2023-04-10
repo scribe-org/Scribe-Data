@@ -25,9 +25,7 @@ if f"{LANGUAGE}/verbs/" not in file_path:
         verbs_list = json.load(f)
 else:
     update_data_in_use = True
-    with open(
-        f"../extract_transform/{LANGUAGE}/verbs/verbs_queried.json", encoding="utf-8"
-    ) as f:
+    with open(f"./{LANGUAGE}/verbs/verbs_queried.json", encoding="utf-8") as f:
         verbs_list = json.load(f)
 
 verbs_formatted = {}

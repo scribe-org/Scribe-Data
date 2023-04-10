@@ -35,16 +35,16 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.load.update_utils import get_ios_data_path, get_path_from_load_dir
+from scribe_data.load.update_utils import get_ios_data_path, get_path_from_et_dir
 
-PATH_TO_ET_FILES = "../extract_transform/"
+PATH_TO_ET_FILES = "./"
 
 # Set SPARQLWrapper query conditions.
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 sparql.setReturnFormat(JSON)
 sparql.setMethod(POST)
 
-with open("_update_files/total_data.json", encoding="utf-8") as f:
+with open("../load/_update_files/total_data.json", encoding="utf-8") as f:
     current_data = json.load(f)
 
 current_languages = list(current_data.keys())
@@ -269,11 +269,10 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
             f"python {PATH_TO_ET_FILES}{lang}/{target_type}/format_{target_type}.py"
         )
 
-        # Use Scribe-iOS as the basis of checking the new data.
-        PATH_TO_SCRIBE_ORG = get_path_from_load_dir()
-        PATH_TO_DATA_JSON = get_ios_data_path(lang, target_type)
+        # Check current data within for formatted_data directories.
         with open(
-            f"{PATH_TO_SCRIBE_ORG}{PATH_TO_DATA_JSON}", encoding="utf-8",
+            f"{PATH_TO_ET_FILES}{lang.capitalize()}/formatted_data/{target_type}.json",
+            encoding="utf-8",
         ) as json_file:
             new_keyboard_data = json.load(json_file)
 
@@ -286,7 +285,7 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
         current_data[lang][target_type] = len(new_keyboard_data)
 
 # Update total_data.json.
-with open("./_update_files/total_data.json", "w", encoding="utf-8") as f:
+with open("../load/_update_files/total_data.json", "w", encoding="utf-8") as f:
     json.dump(current_data, f, ensure_ascii=False, indent=0)
 
 
@@ -333,7 +332,7 @@ for lang, wt in itertools.product(
 
 current_data_df.index.name = "Languages"
 current_data_df.columns = [c.capitalize() for c in current_data_df.columns]
-with open("./_update_files/data_table.txt", "w+", encoding="utf-8") as f:
+with open("../load/_update_files/data_table.txt", "w+", encoding="utf-8") as f:
     table_string = str(current_data_df.to_markdown()).replace(" nan ", "   - ")
     # Right justify the data and left justify the language indexes.
     table_string = (
@@ -371,5 +370,5 @@ for l in language_keys:
 
     data_added_string = data_added_string[:-1]  # remove the last comma
 
-with open("./_update_files/data_updates.txt", "w+", encoding="utf-8") as f:
+with open("../load/_update_files/data_updates.txt", "w+", encoding="utf-8") as f:
     f.writelines(data_added_string)

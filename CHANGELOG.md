@@ -23,6 +23,8 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ### ♻️ Code Refactoring
 
+- The Jupyter notebooks for autosuggestions and emojis as well as `update_data.py` were moved to the `extract_transform` directory given that they're not used to load data anymore.
+  - Their code was refactored to reflect their new locations.
 - Massive amounts of refactoring happened to achieve the shift in the data export method:
   - `format_WORD_TYPE.py` files export to a `formatted_data` directory within `extract_transform`.
   - Copies of all data JSONs that were originally in Scribe apps are now in the `formatted_data` directories.

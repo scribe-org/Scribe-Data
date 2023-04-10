@@ -26,8 +26,7 @@ if f"{LANGUAGE}/prepositions/" not in file_path:
 else:
     update_data_in_use = True
     with open(
-        f"../extract_transform/{LANGUAGE}/prepositions/prepositions_queried.json",
-        encoding="utf-8",
+        f"./{LANGUAGE}/prepositions/prepositions_queried.json", encoding="utf-8",
     ) as f:
         prepositions_list = json.load(f)
 

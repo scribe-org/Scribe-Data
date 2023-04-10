@@ -26,9 +26,7 @@ if f"{LANGUAGE}/nouns/" not in file_path:
         nouns_list = json.load(f)
 else:
     update_data_in_use = True
-    with open(
-        f"../extract_transform/{LANGUAGE}/nouns/nouns_queried.json", encoding="utf-8"
-    ) as f:
+    with open(f"./{LANGUAGE}/nouns/nouns_queried.json", encoding="utf-8") as f:
         nouns_list = json.load(f)
 
 
