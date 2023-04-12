@@ -10,6 +10,7 @@ Contents:
 
 import csv
 import json
+import re
 from importlib.resources import files
 
 import emoji
@@ -82,6 +83,11 @@ def gen_emoji_lexicon(
         for tsv_row in tsv_reader:
             popularity_dict[tsv_row["Emoji"]] = int(tsv_row["Rank"])
 
+    # Pre-set up handling flags and tags (subdivision flags).
+    emoji_flags = Char.getBinaryPropertySet(UProperty.RGI_EMOJI_FLAG_SEQUENCE)
+    emoji_tags = Char.getBinaryPropertySet(UProperty.RGI_EMOJI_TAG_SEQUENCE)
+    regexp_flag_keyword = re.compile(r'.*\: (?P<flag_keyword>.*)')
+
     path_to_scribe_org = get_path_from_et_dir()
     annotations_file_path = f"{path_to_scribe_org}/Scribe-Data/node_modules/cldr-annotations-full/annotations/{iso}/annotations.json"
     annotations_derived_file_path = f"{path_to_scribe_org}/Scribe-Data/node_modules/cldr-annotations-derived-full/annotationsDerived/{iso}/annotations.json"
@@ -125,6 +131,18 @@ def gen_emoji_lexicon(
                     == emoji.STATUS["fully_qualified"]
                 ):
                     emoji_annotations = cldr_dict[cldr_char]
+
+                    # Process for flag keywords.
+                    if cldr_char in emoji_flags or cldr_char in emoji_tags:
+                        flag_keyword_match = regexp_flag_keyword.match(emoji_annotations["tts"][0])
+                        flag_keyword = flag_keyword_match.group("flag_keyword")
+                        keyword_dict.setdefault(flag_keyword, []).append(
+                            {
+                                "emoji": cldr_char,
+                                "is_base": has_modifier_base,
+                                "rank": emoji_rank,
+                            }
+                        )
 
                     for emoji_keyword in emoji_annotations["default"]:
                         emoji_keyword = emoji_keyword.lower()  # lower case the key
