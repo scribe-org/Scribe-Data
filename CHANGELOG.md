@@ -21,6 +21,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - Separating this step from the data update is in preparation for data import in the future where this will be an individual step.
 - JSON data is no longer able to be uploaded to Scribe app directories directly, with the SQLite directories now being exported instead.
 - Emojis of singular nouns are now also linked to their plural counterparts if the plural isn't present in the emoji keyword outputs.
+- The emoji process also now updates a column to the `data_table.txt` file for sharing on readmes with `update_data.py` maintaining it in the data update process.
 
 ### ♻️ Code Refactoring
 

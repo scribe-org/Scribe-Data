@@ -9,6 +9,7 @@ Contents:
 """
 
 import csv
+import fileinput
 import json
 import re
 from importlib.resources import files
@@ -17,7 +18,11 @@ import emoji
 from icu import Char, UProperty
 from tqdm.auto import tqdm
 
-from scribe_data.load.update_utils import get_language_iso, get_path_from_et_dir
+from scribe_data.load.update_utils import (
+    add_num_commas,
+    get_language_iso,
+    get_path_from_et_dir,
+)
 
 from . import _resources
 
@@ -84,9 +89,9 @@ def gen_emoji_lexicon(
             popularity_dict[tsv_row["Emoji"]] = int(tsv_row["Rank"])
 
     # Pre-set up handling flags and tags (subdivision flags).
-    emoji_flags = Char.getBinaryPropertySet(UProperty.RGI_EMOJI_FLAG_SEQUENCE)
-    emoji_tags = Char.getBinaryPropertySet(UProperty.RGI_EMOJI_TAG_SEQUENCE)
-    regexp_flag_keyword = re.compile(r'.*\: (?P<flag_keyword>.*)')
+    # emoji_flags = Char.getBinaryPropertySet(UProperty.RGI_EMOJI_FLAG_SEQUENCE)
+    # emoji_tags = Char.getBinaryPropertySet(UProperty.RGI_EMOJI_TAG_SEQUENCE)
+    # regexp_flag_keyword = re.compile(r".*\: (?P<flag_keyword>.*)")
 
     path_to_scribe_org = get_path_from_et_dir()
     annotations_file_path = f"{path_to_scribe_org}/Scribe-Data/node_modules/cldr-annotations-full/annotations/{iso}/annotations.json"
@@ -132,17 +137,19 @@ def gen_emoji_lexicon(
                 ):
                     emoji_annotations = cldr_dict[cldr_char]
 
-                    # Process for flag keywords.
-                    if cldr_char in emoji_flags or cldr_char in emoji_tags:
-                        flag_keyword_match = regexp_flag_keyword.match(emoji_annotations["tts"][0])
-                        flag_keyword = flag_keyword_match.group("flag_keyword")
-                        keyword_dict.setdefault(flag_keyword, []).append(
-                            {
-                                "emoji": cldr_char,
-                                "is_base": has_modifier_base,
-                                "rank": emoji_rank,
-                            }
-                        )
+                    # # Process for flag keywords.
+                    # if cldr_char in emoji_flags or cldr_char in emoji_tags:
+                    #     flag_keyword_match = regexp_flag_keyword.match(
+                    #         emoji_annotations["tts"][0]
+                    #     )
+                    #     flag_keyword = flag_keyword_match.group("flag_keyword")
+                    #     keyword_dict.setdefault(flag_keyword, []).append(
+                    #         {
+                    #             "emoji": cldr_char,
+                    #             "is_base": has_modifier_base,
+                    #             "rank": emoji_rank,
+                    #         }
+                    #     )
 
                     for emoji_keyword in emoji_annotations["default"]:
                         emoji_keyword = emoji_keyword.lower()  # lower case the key
@@ -185,9 +192,11 @@ def gen_emoji_lexicon(
         if emojis_per_keyword and len(emojis) > emojis_per_keyword:
             emojis[:] = emojis[:emojis_per_keyword]
 
+    total_keywords = add_num_commas(num=len(keyword_dict))
+
     if verbose:
         print(
-            f"Number of emoji trigger keywords found for {language}: {len(keyword_dict)}"
+            f"Number of emoji trigger keywords found for {language}: {total_keywords}"
         )
 
     # Remove base status and rank if not needed.
@@ -209,5 +218,33 @@ def gen_emoji_lexicon(
         print(
             f"Emoji keywords for {language} generated and saved to '{path_to_formatted_data}'."
         )
+
+        path_to_data_table = (
+            get_path_from_et_dir()
+            + "/Scribe-Data/src/scribe_data/load/_update_files/data_table.txt"
+        )
+
+        for line in fileinput.input(path_to_data_table, inplace=True):
+            if line.split("|")[1].strip() == language.capitalize():
+                line = (
+                    "|".join(line.split("|")[:-2])
+                    + "|"
+                    + total_keywords.rjust(len(" Emoji Keywords") - 1, " ")
+                    + " |\n"
+                )
+
+            print(line, end="")
+
+        path_to_total_data = (
+            get_path_from_et_dir()
+            + "/Scribe-Data/src/scribe_data/load/_update_files/total_data.json"
+        )
+
+        with open(path_to_total_data, encoding="utf-8") as f:
+            current_data = json.load(f)
+
+        current_data[language.capitalize()]["emoji_keywords"] = len(keyword_dict)
+        with open(path_to_total_data, "w+", encoding="utf-8") as f:
+            json.dump(current_data, f, ensure_ascii=False, indent=0)
 
     return keyword_dict
