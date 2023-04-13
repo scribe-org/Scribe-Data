@@ -1,4 +1,4 @@
-| Languages   | Nouns   | Verbs   | Translations   |   Prepositions | Emoji Keywords|
+| Languages   | Nouns   | Verbs   | Translations*  |  Prepositions† | Emoji Keywords|
 |:------------|--------:|--------:|---------------:|---------------:|--------------:|
 | French      | 16,815  | 5,450   | 67,652         |              - |         2,493 |
 | German      | 29,272  | 3,557   | 67,652         |            187 |         2,901 |
