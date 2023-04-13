@@ -35,6 +35,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - Code to derive appropriate export locations within `format_WORD_TYPE.py` files was removed in favor of a language `formatted_data` directory.
   - regex was added as a dependency.
   - pylint comments were removed.
+- Verb SPARQL query scripts for Spanish and Italian were simplified to remove unneeded repeat conditions.
 
 ### 🐞 Bug Fixes
 
