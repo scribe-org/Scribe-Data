@@ -15,7 +15,7 @@ dependencies:
       - beautifulsoup4==4.9.3
       - emoji>=2.2.0
       - mwparserfromhell>=0.6
-      - PyICU>=2.10.2
+      - PyICU>=2.10.2 # Make sure to fulfill PyICU dependencies, see https://gitlab.pyicu.org/main/pyicu#installing-pyicu
       - python-dateutil>=2.8.2
       - regex>=2023.3.23
       - SPARQLWrapper>=2.0.0
