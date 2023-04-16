@@ -181,8 +181,8 @@ queries_to_run = list({q for sub in queries_to_run_lists for q in sub})
 # Note: Run queries and format data.
 data_added_dict = {}
 for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
-    lang = q.split("/")[2]
-    target_type = q.split("/")[3]
+    lang = q.split("/")[1]
+    target_type = q.split("/")[2]
     query_name = f"query_{target_type}.sparql"
     query_path = f"{q}/{query_name}"
 
