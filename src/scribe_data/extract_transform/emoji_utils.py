@@ -10,7 +10,7 @@ Contents:
 
 
 # See: https://getemoji.com/
-# Note: you likely will need to save without formatting for this string.
+# Attn: you likely will need to save without formatting for this file (the string formatting will break emojis).
 def get_emojis_to_ignore():
     """
     Returns a list of emojis based on relationships that we want to remove from autosuggestions.
