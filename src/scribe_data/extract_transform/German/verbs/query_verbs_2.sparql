@@ -1,82 +1,33 @@
-# All French (Q150) verbs and a portion of the currently implemented tenses for each.
+# All German (Q188) verbs and a portion of the currently implemented tenses for each.
 # Enter this query at https://query.wikidata.org/.
 
+# Not SELECT DISTINCT as we want to get verbs with both sein and haben as auxiliaries
 SELECT
-  ?infinitive
-  ?presFPS ?presSPS ?presTPS
-  ?presFPP ?presSPP ?presTPP
+  ?infinitive ?pastParticiple ?auxiliaryVerb
   ?pretFPS ?pretSPS ?pretTPS
   ?pretFPP ?pretSPP ?pretTPP WHERE {
 
   ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q150 ;
+    dct:language wd:Q188 ;
     wikibase:lexicalCategory wd:Q24905 .
 
-  # Infinitive (required)
+  # Infinitive (required), past participle and the auxiliary verb(s)
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
   ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature wd:Q179230 ;
+    wikibase:grammaticalFeature wd:Q179230 .
 
-  # Indicative Present
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 ;
+  } .
 
-  # FPS
+  # WIP: select select only auxiliary or both sein and haben and convert to labels
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presFPSForm .
-    ?presFPSForm ontolex:representation ?presFPS ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-  } .
-  # SPS
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSPSForm .
-    ?presSPSForm ontolex:representation ?presSPS ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-  } .
-  # TPS
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presTPSForm .
-    ?presTPSForm ontolex:representation ?presTPS ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-  } .
-  # FPP
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presFPPForm .
-    ?presFPPForm ontolex:representation ?presFPP ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-  } .
-  # SPP
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSPPForm .
-    ?presSPPForm ontolex:representation ?presSPP ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-  } .
-  # TPP
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presTPPForm .
-    ?presTPPForm ontolex:representation ?presTPP ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
+    ?lexeme wdt:P5401 ?auxiliaryVerbFrom ;
   } .
 
   # Indicative Preterite
-
-  # FPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretFPSForm .
     ?pretFPSForm ontolex:representation ?pretFPS ;
@@ -85,7 +36,6 @@ SELECT
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q442485 ;
   } .
-  # SPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretSPSForm .
     ?pretSPSForm ontolex:representation ?pretSPS ;
@@ -94,7 +44,6 @@ SELECT
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q442485 ;
   } .
-  # TPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretTPSForm .
     ?pretTPSForm ontolex:representation ?pretTPS ;
@@ -103,7 +52,6 @@ SELECT
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q442485 ;
   } .
-  # FPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretFPPForm .
     ?pretFPPForm ontolex:representation ?pretFPP ;
@@ -112,7 +60,6 @@ SELECT
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q442485 ;
   } .
-  # SPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretSPPForm .
     ?pretSPPForm ontolex:representation ?pretSPP ;
@@ -121,7 +68,6 @@ SELECT
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q442485 ;
   } .
-  # TPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretTPPForm .
     ?pretTPPForm ontolex:representation ?pretTPP ;
@@ -130,4 +76,9 @@ SELECT
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q442485 ;
   } .
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+    ?auxiliaryVerbFrom rdfs:label ?auxiliaryVerb .
+  }
 }
