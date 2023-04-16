@@ -1,12 +1,13 @@
 """
 Process Unicode
-------------
+---------------
 
 Module for processing Unicode based corpuses for autosuggestion and autocompletion generation.
 
 Contents:
     gen_emoji_lexicon
 """
+
 
 import csv
 import fileinput
@@ -18,6 +19,7 @@ import emoji
 from icu import Char, UProperty
 from tqdm.auto import tqdm
 
+from scribe_data.extract_transform.emoji_utils import get_emojis_to_ignore
 from scribe_data.load.update_utils import (
     add_num_commas,
     get_language_iso,
@@ -25,6 +27,8 @@ from scribe_data.load.update_utils import (
 )
 
 from . import _resources
+
+emojis_to_ignore = get_emojis_to_ignore()
 
 
 def gen_emoji_lexicon(
@@ -115,7 +119,7 @@ def gen_emoji_lexicon(
             disable=not verbose,
         ):
             # Filter CLDR data for emoji characters.
-            if cldr_char in emoji.EMOJI_DATA:
+            if cldr_char in emoji.EMOJI_DATA and cldr_char not in emojis_to_ignore:
                 emoji_rank = popularity_dict.get(cldr_char)
 
                 # If number limit specified, filter for the highest-ranked emojis.
