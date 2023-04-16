@@ -63,7 +63,7 @@ def assign_past_participle(verb, tense):
     """
     Assigns the past participle after the auxiliary verb or by itself.
     """
-    if verbs_formatted[verb["infinitive"]][tense] != "":
+    if verbs_formatted[verb["infinitive"]][tense] not in ["", verb["pastParticiple"]]:
         verbs_formatted[verb["infinitive"]][tense] += " " + verb["pastParticiple"]
     else:
         verbs_formatted[verb["infinitive"]][tense] = verb["pastParticiple"]
