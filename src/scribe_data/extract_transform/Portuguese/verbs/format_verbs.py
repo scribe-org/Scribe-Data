@@ -12,6 +12,8 @@ import json
 import os
 import sys
 
+from scribe_data.load.update_utils import get_path_from_et_dir
+
 LANGUAGE = "Portuguese"
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
@@ -69,7 +71,12 @@ for verb_vals in verbs_list:
 
 verbs_formatted = collections.OrderedDict(sorted(verbs_formatted.items()))
 
-with open("../formatted_data/verbs.json", "w", encoding="utf-8",) as file:
+org_path = get_path_from_et_dir()
+export_path = "../formatted_data/verbs.json"
+if update_data_in_use:
+    export_path = f"{org_path}/Scribe-Data/src/scribe_data/extract_transform/{LANGUAGE}/formatted_data/verbs.json"
+
+with open(export_path, "w", encoding="utf-8",) as file:
     json.dump(verbs_formatted, file, ensure_ascii=False, indent=0)
 
 print(f"Wrote file verbs.json with {len(verbs_formatted)} verbs.")

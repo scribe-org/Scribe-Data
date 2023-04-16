@@ -12,6 +12,8 @@ import json
 import os
 import sys
 
+from scribe_data.load.update_utils import get_path_from_et_dir
+
 LANGUAGE = "German"
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
@@ -89,7 +91,12 @@ for k in prepositions_formatted:
 
 prepositions_formatted = collections.OrderedDict(sorted(prepositions_formatted.items()))
 
-with open("../formatted_data/prepositions.json", "w", encoding="utf-8",) as file:
+org_path = get_path_from_et_dir()
+export_path = "../formatted_data/prepositions.json"
+if update_data_in_use:
+    export_path = f"{org_path}/Scribe-Data/src/scribe_data/extract_transform/{LANGUAGE}/formatted_data/prepositions.json"
+
+with open(export_path, "w", encoding="utf-8",) as file:
     json.dump(prepositions_formatted, file, ensure_ascii=False, indent=0)
 
 print(f"Wrote file prepositions.json with {len(prepositions_formatted)} prepositions.")
