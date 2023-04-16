@@ -260,7 +260,7 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
                         if lang == "German":
                             r_dict_keys = list(r_dict.keys())
                             if "auxiliaryVerb" not in r_dict_keys:
-                                r_dict_keys["auxiliaryVerb"] = ""
+                                r_dict["auxiliaryVerb"] = ""
 
                         results_formatted.append(r_dict)
 
