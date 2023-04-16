@@ -12,12 +12,12 @@ import json
 import os
 import sys
 
-from scribe_data.load.update_utils import get_path_from_et_dir
-
 LANGUAGE = "Spanish"
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
+
+from scribe_data.load.update_utils import get_path_from_et_dir
 
 file_path = sys.argv[0]
 
