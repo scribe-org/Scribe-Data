@@ -103,8 +103,6 @@ for verb_vals in verbs_list:
                 verbs_formatted[verb_vals["infinitive"]]["perfSPP"] += "habt"
                 verbs_formatted[verb_vals["infinitive"]]["perfTPP"] += "haben"
 
-    elif:
-
     # The verb has two entries and thus has forms with both sein and haben.
     elif (
         "auxiliaryVerb" in verb_vals.keys()
