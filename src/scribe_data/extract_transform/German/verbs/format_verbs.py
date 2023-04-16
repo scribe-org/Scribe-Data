@@ -70,6 +70,9 @@ def assign_past_participle(verb, tense):
 
 
 for verb_vals in verbs_list:
+    if verb_vals["infinitive"] not in verbs_formatted.keys():
+        verbs_formatted[verb_vals["infinitive"]] = {}
+
     # Note: query_verbs_1 result - we want all values.
     if "auxiliaryVerb" not in verb_vals.keys():
         for k in all_query_1_conjugations:
