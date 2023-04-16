@@ -32,8 +32,7 @@ else:
 
 verbs_formatted = {}
 
-all_keys = [
-    "infinitive",
+all_conjugations = [
     "presFPS",
     "presSPS",
     "presTPS",
@@ -64,14 +63,14 @@ for verb_vals in verbs_list:
     if verb_vals["infinitive"] not in verbs_formatted:
         verbs_formatted[verb_vals["infinitive"]] = {}
 
-        for conj in [c for c in all_keys if c != "infinitive"]:
+        for conj in all_conjugations:
             if conj in verb_vals.keys():
                 verbs_formatted[verb_vals["infinitive"]][conj] = verb_vals[conj]
             else:
                 verbs_formatted[verb_vals["infinitive"]][conj] = ""
 
     else:
-        for conj in [c for c in all_keys if c != "infinitive"]:
+        for conj in all_conjugations:
             if conj in verb_vals.keys():
                 verbs_formatted[verb_vals["infinitive"]][conj] = verb_vals[conj]
 

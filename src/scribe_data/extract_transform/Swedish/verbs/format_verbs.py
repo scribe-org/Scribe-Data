@@ -32,12 +32,10 @@ else:
 
 verbs_formatted = {}
 
-# Currently there is a large problem with Swedish verbs not have needed features
-# See: https://www.wikidata.org/wiki/Lexeme:L38389
-# Any verbs occuring more than once will for now be deleted
+# Any verbs occurring more than once will for now be deleted.
 verbs_not_included = []
 
-all_keys = [
+all_conjugations = [
     "activeInfinitive",
     "imperative",
     "activeSupine",
@@ -56,7 +54,7 @@ for verb_vals in verbs_list:
     ):
         verbs_formatted[verb_vals["activeInfinitive"]] = {
             conj: verb_vals[conj] if conj in verb_vals.keys() else ""
-            for conj in [c for c in all_keys if c != "activeInfinitive"]
+            for conj in [c for c in all_conjugations if c != "activeInfinitive"]
         }
 
     elif verb_vals["activeInfinitive"] in verbs_formatted:

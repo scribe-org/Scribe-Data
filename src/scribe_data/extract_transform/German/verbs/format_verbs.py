@@ -3,6 +3,11 @@ Format Verbs
 ------------
 
 Formats the verbs queried from Wikidata using query_verbs.sparql.
+
+Attn: The formatting in the file is significantly more complex than for other verbs.
+    - We have two queries: query_verbs_1 and query_verbs_2.
+    - For the second query we could get two different auxiliary verbs (could be sein and haben).
+    - We thus need to get the results for the first and then check if we need to combine the second.
 """
 
 # pylint: disable=invalid-name
@@ -32,27 +37,25 @@ else:
 
 verbs_formatted = {}
 
-all_keys = [
-    "pastParticiple",
-    "auxiliaryVerb",
+# Note: The following are combined later: perfFPS, perfSPS, perfTPS, perfFPP, perfSPP, perfTPP
+all_query_1_conjugations = [
     "presFPS",
     "presSPS",
     "presTPS",
     "presFPP",
     "presSPP",
     "presTPP",
+]
+
+all_query_2_conjugations = [
+    "pastParticiple",
+    "auxiliaryVerb",
     "pretFPS",
     "pretSPS",
     "pretTPS",
     "pretFPP",
     "pretSPP",
     "pretTPP",
-    "perfFPS",
-    "perfSPS",
-    "perfTPS",
-    "perfFPP",
-    "perfSPP",
-    "perfTPP",
 ]
 
 
@@ -60,54 +63,69 @@ def assign_past_participle(verb, tense):
     """
     Assigns the past participle after the auxiliary verb or by itself.
     """
-    if verbs_formatted[verb["infinitive"]][tense] not in ["", verb["pastParticiple"]]:
+    if verbs_formatted[verb["infinitive"]][tense] != "":
         verbs_formatted[verb["infinitive"]][tense] += " " + verb["pastParticiple"]
     else:
         verbs_formatted[verb["infinitive"]][tense] = verb["pastParticiple"]
 
 
 for verb_vals in verbs_list:
-    if (
-        "infinitive" in verb_vals.keys()
-        and verb_vals["infinitive"] not in verbs_formatted
-    ):
-        non_infinitive_conjugations = {
-            k: v for k, v in verb_vals.items() if k != "infinitive"
-        }
-        verbs_formatted[verb_vals["infinitive"]] = non_infinitive_conjugations
-
-        for k in all_keys:
-            if k not in verbs_formatted[verb_vals["infinitive"]].keys():
+    # Note: query_verbs_1 result - we want all values.
+    if "auxiliaryVerb" not in verb_vals.keys():
+        for k in all_query_1_conjugations:
+            if k in verb_vals.keys():
+                verbs_formatted[verb_vals["infinitive"]][k] = verb_vals[k]
+            else:
                 verbs_formatted[verb_vals["infinitive"]][k] = ""
 
-        if "auxiliaryVerb" in verb_vals.keys():
-            # Note: Sein
-            if verb_vals["auxiliaryVerb"] == "L1761":
-                verbs_formatted[verb_vals["infinitive"]]["auxiliaryVerb"] = "sein"
-
-                verbs_formatted[verb_vals["infinitive"]]["perfFPS"] += "bin"
-                verbs_formatted[verb_vals["infinitive"]]["perfSPS"] += "bist"
-                verbs_formatted[verb_vals["infinitive"]]["perfTPS"] += "ist"
-                verbs_formatted[verb_vals["infinitive"]]["perfFPP"] += "sind"
-                verbs_formatted[verb_vals["infinitive"]]["perfSPP"] += "seid"
-                verbs_formatted[verb_vals["infinitive"]]["perfTPP"] += "sind"
-
-            # Note: Haben
-            elif verb_vals["auxiliaryVerb"] == "L4179":
-                verbs_formatted[verb_vals["infinitive"]]["auxiliaryVerb"] = "haben"
-
-                verbs_formatted[verb_vals["infinitive"]]["perfFPS"] += "habe"
-                verbs_formatted[verb_vals["infinitive"]]["perfSPS"] += "hast"
-                verbs_formatted[verb_vals["infinitive"]]["perfTPS"] += "hat"
-                verbs_formatted[verb_vals["infinitive"]]["perfFPP"] += "haben"
-                verbs_formatted[verb_vals["infinitive"]]["perfSPP"] += "habt"
-                verbs_formatted[verb_vals["infinitive"]]["perfTPP"] += "haben"
-
-    # The verb has two entries and thus has forms with both sein and haben.
+    # Note: query_verbs_2 first time seeing verb - we want all values.
     elif (
         "auxiliaryVerb" in verb_vals.keys()
-        and verbs_formatted[verb_vals["infinitive"]]["auxiliaryVerb"]
-        != verb_vals["auxiliaryVerb"]
+        and verb_vals["infinitive"] not in verbs_formatted
+    ):
+        for k in all_query_2_conjugations:
+            if k in verb_vals.keys():
+                verbs_formatted[verb_vals["infinitive"]][k] = verb_vals[k]
+            else:
+                verbs_formatted[verb_vals["infinitive"]][k] = ""
+
+        # Note: Sein
+        if verb_vals["auxiliaryVerb"] == "L1761":
+            verbs_formatted[verb_vals["infinitive"]]["auxiliaryVerb"] = "sein"
+
+            verbs_formatted[verb_vals["infinitive"]]["perfFPS"] = "bin"
+            verbs_formatted[verb_vals["infinitive"]]["perfSPS"] = "bist"
+            verbs_formatted[verb_vals["infinitive"]]["perfTPS"] = "ist"
+            verbs_formatted[verb_vals["infinitive"]]["perfFPP"] = "sind"
+            verbs_formatted[verb_vals["infinitive"]]["perfSPP"] = "seid"
+            verbs_formatted[verb_vals["infinitive"]]["perfTPP"] = "sind"
+
+        # Note: Haben
+        elif verb_vals["auxiliaryVerb"] == "L4179":
+            verbs_formatted[verb_vals["infinitive"]]["auxiliaryVerb"] = "haben"
+
+            verbs_formatted[verb_vals["infinitive"]]["perfFPS"] = "habe"
+            verbs_formatted[verb_vals["infinitive"]]["perfSPS"] = "hast"
+            verbs_formatted[verb_vals["infinitive"]]["perfTPS"] = "hat"
+            verbs_formatted[verb_vals["infinitive"]]["perfFPP"] = "haben"
+            verbs_formatted[verb_vals["infinitive"]]["perfSPP"] = "habt"
+            verbs_formatted[verb_vals["infinitive"]]["perfTPP"] = "haben"
+
+        # Note: No auxiliaryVerb for this verb.
+        elif verb_vals["auxiliaryVerb"] == "":
+            verbs_formatted[verb_vals["infinitive"]]["auxiliaryVerb"] = ""
+
+            verbs_formatted[verb_vals["infinitive"]]["perfFPS"] = ""
+            verbs_formatted[verb_vals["infinitive"]]["perfSPS"] = ""
+            verbs_formatted[verb_vals["infinitive"]]["perfTPS"] = ""
+            verbs_formatted[verb_vals["infinitive"]]["perfFPP"] = ""
+            verbs_formatted[verb_vals["infinitive"]]["perfSPP"] = ""
+            verbs_formatted[verb_vals["infinitive"]]["perfTPP"] = ""
+
+    # Note: query_verbs_2 second time seeing verb - we now assign both auxiliary verbs.
+    elif (
+        "auxiliaryVerb" in verb_vals.keys()
+        and verb_vals["infinitive"] in verbs_formatted
     ):
         verbs_formatted[verb_vals["infinitive"]]["auxiliaryVerb"] = "sein/haben"
 
@@ -118,13 +136,14 @@ for verb_vals in verbs_list:
         verbs_formatted[verb_vals["infinitive"]]["perfSPP"] = "seid/habt"
         verbs_formatted[verb_vals["infinitive"]]["perfTPP"] = "sind/haben"
 
+for k in verbs_formatted.keys():
     if "pastParticiple" in verb_vals.keys():
-        assign_past_participle(verb=verb_vals, tense="perfFPS")
-        assign_past_participle(verb=verb_vals, tense="perfSPS")
-        assign_past_participle(verb=verb_vals, tense="perfTPS")
-        assign_past_participle(verb=verb_vals, tense="perfFPP")
-        assign_past_participle(verb=verb_vals, tense="perfSPP")
-        assign_past_participle(verb=verb_vals, tense="perfTPP")
+        assign_past_participle(verb=k, tense="perfFPS")
+        assign_past_participle(verb=k, tense="perfSPS")
+        assign_past_participle(verb=k, tense="perfTPS")
+        assign_past_participle(verb=k, tense="perfFPP")
+        assign_past_participle(verb=k, tense="perfSPP")
+        assign_past_participle(verb=k, tense="perfTPP")
 
 verbs_formatted = collections.OrderedDict(sorted(verbs_formatted.items()))
 

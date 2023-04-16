@@ -255,6 +255,13 @@ for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
                     for r in query_results:  # query_results is also a list
                         r_dict = {k: r[k]["value"] for k in r.keys()}
 
+                        # Note: The following is so we have a breakdown of queries for German later.
+                        # Note: We need auxiliary verbs to be present as we loop to get both sein and haben forms.
+                        if lang == "German":
+                            r_dict_keys = list(r_dict.keys())
+                            if "auxiliaryVerb" not in r_dict_keys:
+                                r_dict_keys["auxiliaryVerb"] = ""
+
                         results_formatted.append(r_dict)
 
                     with open(
