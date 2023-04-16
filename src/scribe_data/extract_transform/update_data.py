@@ -332,6 +332,16 @@ for lang, wt in itertools.product(
 
 current_data_df.index.name = "Languages"
 current_data_df.columns = [c.capitalize() for c in current_data_df.columns]
+
+# Get the current emoji data so that it can be appended at the end of the table.
+current_emoji_data_strings = []
+with open("../load/_update_files/data_table.txt", encoding="utf-8") as f:
+    old_table_values = f.read()
+
+for l in old_table_values.splitlines():
+    current_emoji_data_strings.append(l.split("|")[-2] + "|")
+
+# Write the new values to the table, which overwrites the emoji keyword values.
 with open("../load/_update_files/data_table.txt", "w+", encoding="utf-8") as f:
     table_string = str(current_data_df.to_markdown()).replace(" nan ", "   - ")
     # Right justify the data and left justify the language indexes.
@@ -341,6 +351,18 @@ with open("../load/_update_files/data_table.txt", "w+", encoding="utf-8") as f:
         .replace(":|-", "-|-", 1)
     )
     f.writelines(table_string)
+
+# Get the new table values and then rewrite the file with the full table.
+new_table_value_strings = []
+with open("../load/_update_files/data_table.txt", encoding="utf-8") as f:
+    new_table_values = f.read()
+
+for l in new_table_values.splitlines():
+    new_table_value_strings.append(l)
+
+with open("../load/_update_files/data_table.txt", "w+", encoding="utf-8") as f:
+    for i in range(len(new_table_value_strings)):
+        f.writelines(new_table_value_strings[i] + current_emoji_data_strings[i])
 
 # Update data_updates.txt.
 data_added_string = ""
