@@ -2,38 +2,38 @@
 "French": {
 "nouns": 16815,
 "verbs": 5450,
-"emoji_keywords": 2485
+"emoji_keywords": 2488
 },
 "German": {
 "nouns": 29272,
 "verbs": 3557,
 "prepositions": 187,
-"emoji_keywords": 2892
+"emoji_keywords": 2898
 },
 "Italian": {
 "nouns": 8646,
 "verbs": 73,
-"emoji_keywords": 2451
+"emoji_keywords": 2457
 },
 "Portuguese": {
 "nouns": 5191,
 "verbs": 495,
-"emoji_keywords": 2320
+"emoji_keywords": 2327
 },
 "Russian": {
 "nouns": 194419,
 "verbs": 11,
 "prepositions": 13,
-"emoji_keywords": 3816
+"emoji_keywords": 3827
 },
 "Spanish": {
 "nouns": 27128,
 "verbs": 4036,
-"emoji_keywords": 3126
+"emoji_keywords": 3134
 },
 "Swedish": {
 "nouns": 42807,
 "verbs": 4394,
-"emoji_keywords": 2901
+"emoji_keywords": 2913
 }
 }

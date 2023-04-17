@@ -19,7 +19,7 @@ import emoji
 from icu import Char, UProperty
 from tqdm.auto import tqdm
 
-from scribe_data.extract_transform.emoji_utils import get_emojis_to_ignore
+from scribe_data.extract_transform.emoji_utils import get_emoji_codes_to_ignore
 from scribe_data.load.update_utils import (
     add_num_commas,
     get_language_iso,
@@ -28,7 +28,7 @@ from scribe_data.load.update_utils import (
 
 from . import _resources
 
-emojis_to_ignore = get_emojis_to_ignore()
+emoji_codes_to_ignore = get_emoji_codes_to_ignore()
 
 
 def gen_emoji_lexicon(
@@ -118,8 +118,11 @@ def gen_emoji_lexicon(
             unit="cldr characters",
             disable=not verbose,
         ):
-            # Filter CLDR data for emoji characters.
-            if cldr_char in emoji.EMOJI_DATA and cldr_char not in emojis_to_ignore:
+            # Filter CLDR data for emoji characters while not including certain emojis.
+            if (
+                cldr_char in emoji.EMOJI_DATA
+                and cldr_char.encode("utf-8") not in emoji_codes_to_ignore
+            ):
                 emoji_rank = popularity_dict.get(cldr_char)
 
                 # If number limit specified, filter for the highest-ranked emojis.

@@ -5,7 +5,8 @@ Emoji Utilities
 Module for a function to get emojis we want to filter from suggestions.
 
 Contents:
-    get_emojis_to_ignore
+    get_emojis_to_ignore,
+    get_emoji_codes_to_ignore
 """
 
 
@@ -26,3 +27,11 @@ def get_emojis_to_ignore():
     """
 
     return emojis_to_ignore
+
+
+def get_emoji_codes_to_ignore():
+    """
+    Returns a list of emojis codes based on relationships that we want to remove from autosuggestions.
+    """
+    emojis_to_ignore = get_emojis_to_ignore()
+    return [e.encode("utf-8") for e in emojis_to_ignore.split(" ") if e != ""]
