@@ -369,7 +369,7 @@ for l in new_table_values.splitlines():
 
 with open("../load/_update_files/data_table.txt", "w+", encoding="utf-8") as f:
     for i in range(len(new_table_value_strings)):
-        f.writelines(new_table_value_strings[i] + current_emoji_data_strings[i])
+        f.writelines(new_table_value_strings[i] + current_emoji_data_strings[i] + "\n")
 
 # Update data_updates.txt.
 data_added_string = ""
