@@ -63,10 +63,10 @@ def assign_past_participle(verb, tense):
     """
     Assigns the past participle after the auxiliary verb or by itself.
     """
-    if verbs_formatted[verb["infinitive"]][tense] not in ["", verb["pastParticiple"]]:
-        verbs_formatted[verb["infinitive"]][tense] += " " + verb["pastParticiple"]
+    if verbs_formatted[verb][tense] == "":
+        verbs_formatted[verb][tense] = verbs_formatted[verb]["pastParticiple"]
     else:
-        verbs_formatted[verb["infinitive"]][tense] = verb["pastParticiple"]
+        verbs_formatted[verb][tense] += f" {verbs_formatted[verb]['pastParticiple']}"
 
 
 for verb_vals in verbs_list:
@@ -116,8 +116,6 @@ for verb_vals in verbs_list:
 
         # Note: No auxiliaryVerb for this verb.
         elif verb_vals["auxiliaryVerb"] == "":
-            verbs_formatted[verb_vals["infinitive"]]["auxiliaryVerb"] = ""
-
             verbs_formatted[verb_vals["infinitive"]]["perfFPS"] = ""
             verbs_formatted[verb_vals["infinitive"]]["perfSPS"] = ""
             verbs_formatted[verb_vals["infinitive"]]["perfTPS"] = ""
@@ -132,11 +130,11 @@ for verb_vals in verbs_list:
     ):
         # Note: Neither is "" and they're not the same, so we have the same verb with two different auxiliaries.
         if (
-            verbs_formatted[verb_vals["infinitive"]]["auxiliaryVerb"]
-            != verb_vals["auxiliaryVerb"]
-        ) and (
             verbs_formatted[verb_vals["infinitive"]]["auxiliaryVerb"] != ""
             and verb_vals["auxiliaryVerb"] != ""
+        ) and (
+            verbs_formatted[verb_vals["infinitive"]]["auxiliaryVerb"]
+            != verb_vals["auxiliaryVerb"]
         ):
             verbs_formatted[verb_vals["infinitive"]]["auxiliaryVerb"] = "sein/haben"
 
@@ -148,13 +146,12 @@ for verb_vals in verbs_list:
             verbs_formatted[verb_vals["infinitive"]]["perfTPP"] = "sind/haben"
 
 for k in verbs_formatted.keys():
-    if "pastParticiple" in verb_vals.keys():
-        assign_past_participle(verb=k, tense="perfFPS")
-        assign_past_participle(verb=k, tense="perfSPS")
-        assign_past_participle(verb=k, tense="perfTPS")
-        assign_past_participle(verb=k, tense="perfFPP")
-        assign_past_participle(verb=k, tense="perfSPP")
-        assign_past_participle(verb=k, tense="perfTPP")
+    assign_past_participle(verb=k, tense="perfFPS")
+    assign_past_participle(verb=k, tense="perfSPS")
+    assign_past_participle(verb=k, tense="perfTPS")
+    assign_past_participle(verb=k, tense="perfFPP")
+    assign_past_participle(verb=k, tense="perfSPP")
+    assign_past_participle(verb=k, tense="perfTPP")
 
 verbs_formatted = collections.OrderedDict(sorted(verbs_formatted.items()))
 
