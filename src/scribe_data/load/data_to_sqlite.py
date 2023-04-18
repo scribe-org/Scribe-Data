@@ -107,13 +107,14 @@ for l in tqdm(language_word_type_dict, desc="Databases created", unit="dbs",):
 
         def create_table(word_type, cols):
             cursor.execute(
-                f"CREATE TABLE IF NOT EXISTS {word_type} ({' Text, '.join(cols)} Text)"
+                f"CREATE TABLE IF NOT EXISTS {word_type} ({' Text, '.join(cols)} Text, UNIQUE({cols[0]}))"
             )
 
         def table_insert(word_type, keys):
             insert_question_marks = ", ".join(["?"] * len(keys))
             cursor.execute(
-                f"INSERT INTO {word_type} values({insert_question_marks})", keys,
+                f"INSERT OR IGNORE INTO {word_type} values({insert_question_marks})",
+                keys,
             )
 
         print(f"Database for {l} {maybe_over}written and connection made.")
