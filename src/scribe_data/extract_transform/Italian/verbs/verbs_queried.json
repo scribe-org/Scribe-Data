@@ -1,46 +1,5 @@
 [
 {
-"impTPP": "correvano",
-"infinitive": "correre",
-"pretTPS": "corse",
-"impTPS": "correva",
-"impSPP": "correvate",
-"impFPP": "correvamo",
-"impSPS": "correvi",
-"impFPS": "correvo",
-"pretTPP": "corsero",
-"pretSPP": "correste",
-"pretFPP": "corremmo",
-"pretSPS": "corresti",
-"pretFPS": "corsi",
-"presTPP": "corrono",
-"presSPP": "correte",
-"presFPP": "corriamo",
-"presTPS": "corre",
-"presSPS": "corri",
-"presFPS": "corro"
-},
-{
-"impTPP": "ricordavano",
-"infinitive": "ricordare",
-"impTPS": "ricordava",
-"impSPP": "ricordavate",
-"impFPP": "ricordavamo",
-"impSPS": "ricordavi",
-"impFPS": "ricordavo",
-"pretTPP": "ricordarono",
-"pretSPP": "ricordaste",
-"pretFPP": "ricordammo",
-"pretSPS": "ricordasti",
-"pretFPS": "ricordai",
-"presTPP": "ricordano",
-"presSPP": "ricordate",
-"presFPP": "ricordiamo",
-"presTPS": "ricorda",
-"presSPS": "ricordi",
-"presFPS": "ricordo"
-},
-{
 "infinitive": "commentare"
 },
 {
@@ -62,8 +21,7 @@
 "infinitive": "venire"
 },
 {
-"infinitive": "fare",
-"pretTPS": "fu"
+"infinitive": "fare"
 },
 {
 "infinitive": "sollevare"
@@ -72,14 +30,31 @@
 "infinitive": "rigare"
 },
 {
-"infinitive": "essere",
-"impTPS": "era"
+"infinitive": "festeggiare"
+},
+{
+"infinitive": "avere"
+},
+{
+"infinitive": "perdere"
+},
+{
+"infinitive": "escludere"
 },
 {
 "infinitive": "piacere"
 },
 {
+"infinitive": "essere"
+},
+{
+"infinitive": "correre"
+},
+{
 "infinitive": "andare"
+},
+{
+"infinitive": "modificare"
 },
 {
 "infinitive": "sovrapporre"
@@ -88,10 +63,19 @@
 "infinitive": "pagare"
 },
 {
-"infinitive": "ricevere"
+"infinitive": "farneticare"
 },
 {
-"infinitive": "farneticare"
+"infinitive": "governare"
+},
+{
+"infinitive": "riservare"
+},
+{
+"infinitive": "imbevere"
+},
+{
+"infinitive": "ricevere"
 },
 {
 "infinitive": "gonfiare"
@@ -106,17 +90,13 @@
 "infinitive": "mangiare"
 },
 {
+"infinitive": "procurare"
+},
+{
 "infinitive": "vedere"
 },
 {
-"infinitive": "acquistare",
-"presSPS": "acquisti",
-"presFPS": "acquisto"
-},
-{
-"infinitive": "acquistare",
-"presSPS": "acquista",
-"presFPS": "acquisto"
+"infinitive": "acquistare"
 },
 {
 "infinitive": "pertenere"
@@ -126,9 +106,6 @@
 },
 {
 "infinitive": "morire"
-},
-{
-"infinitive": "avere"
 },
 {
 "infinitive": "sette"
@@ -143,8 +120,13 @@
 "infinitive": "isolare"
 },
 {
-"infinitive": "volere",
-"presFPS": "voglio"
+"infinitive": "bagnare"
+},
+{
+"infinitive": "imbarcare"
+},
+{
+"infinitive": "volere"
 },
 {
 "infinitive": "richiedere"
@@ -162,20 +144,47 @@
 "infinitive": "prorogare"
 },
 {
+"infinitive": "truccare"
+},
+{
+"infinitive": "agire"
+},
+{
+"infinitive": "calarsi"
+},
+{
+"infinitive": "abbandonare"
+},
+{
+"infinitive": "nascere"
+},
+{
+"infinitive": "migliorare",
+"presFPS": "miglioro"
+},
+{
 "infinitive": "contenere"
 },
 {
 "infinitive": "scogliere"
 },
 {
+"infinitive": "abbondare"
+},
+{
+"infinitive": "attingere"
+},
+{
+"infinitive": "dovere"
+},
+{
+"infinitive": "ricordare"
+},
+{
 "infinitive": "dire"
 },
 {
-"infinitive": "modificare"
-},
-{
-"infinitive": "stare",
-"presFPS": "stia"
+"infinitive": "stare"
 },
 {
 "infinitive": "attaccare"
@@ -187,65 +196,10 @@
 "infinitive": "stupire"
 },
 {
-"infinitive": "migliorare",
-"presFPS": "miglioro"
-},
-{
-"infinitive": "truccare"
-},
-{
-"infinitive": "governare"
-},
-{
-"infinitive": "riservare"
-},
-{
-"infinitive": "bagnare"
-},
-{
-"infinitive": "perdere"
-},
-{
-"infinitive": "imbarcare"
-},
-{
 "infinitive": "ammettere"
 },
 {
-"infinitive": "escludere"
-},
-{
-"infinitive": "agire"
-},
-{
 "infinitive": "impaccare"
-},
-{
-"infinitive": "imbevere"
-},
-{
-"infinitive": "abbondare"
-},
-{
-"infinitive": "calarsi"
-},
-{
-"infinitive": "attingere"
-},
-{
-"infinitive": "procurare"
-},
-{
-"infinitive": "abbandonare"
-},
-{
-"infinitive": "dovere"
-},
-{
-"infinitive": "festeggiare"
-},
-{
-"infinitive": "nascere"
 },
 {
 "infinitive": "parlare"
@@ -257,13 +211,7 @@
 "infinitive": "chiamare"
 },
 {
-"infinitive": "abalienare",
-"presSPS": "abalieni",
-"presFPS": "abalieno",
-"presTPP": "abalienano",
-"presSPP": "abalienate",
-"presFPP": "abalieniamo",
-"presTPS": "abaliena"
+"infinitive": "abalienare"
 },
 {
 "infinitive": "banalizzare"

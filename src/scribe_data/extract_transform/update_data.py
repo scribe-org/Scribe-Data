@@ -35,7 +35,11 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.load.update_utils import get_ios_data_path, get_path_from_et_dir
+from scribe_data.load.update_utils import (
+    add_num_commas,
+    get_ios_data_path,
+    get_path_from_et_dir,
+)
 
 PATH_TO_ET_FILES = "./"
 
@@ -365,6 +369,9 @@ with open("../load/_update_files/data_table.txt", encoding="utf-8") as f:
     new_table_values = f.read()
 
 for l in new_table_values.splitlines():
+    # Replace headers while translation is still in beta and always for prepositions to annotate missing values.
+    l = l.replace("Translations", "Translations\*")
+    l = l.replace("Prepositions", "Prepositions†")
     new_table_value_strings.append(l)
 
 with open("../load/_update_files/data_table.txt", "w+", encoding="utf-8") as f:
@@ -395,7 +402,7 @@ for l in language_keys:
             elif data_added_dict[l][wt] == 1:  # remove the s for label
                 data_added_string += f" {data_added_dict[l][wt]} {wt[:-1]},"
             else:
-                data_added_string += f" {data_added_dict[l][wt]} {wt},"
+                data_added_string += f" {add_num_commas(data_added_dict[l][wt])} {wt},"
 
     data_added_string = data_added_string[:-1]  # remove the last comma
 

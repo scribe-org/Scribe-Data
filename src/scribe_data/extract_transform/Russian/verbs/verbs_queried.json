@@ -1,23 +1,23 @@
 [
 {
-"pastPlural": "пошли́",
-"pastNeutral": "пошло́",
-"pastMasculine": "пошёл",
-"pastFeminine": "пошла́",
-"infinitive": "пойти́"
-},
-{
 "pastPlural": "шли",
 "pastNeutral": "шло",
 "pastMasculine": "шёл",
 "pastFeminine": "шла",
-"infinitive": "идти",
 "presTPP": "идут",
 "presSPP": "идёте",
 "presFPP": "идём",
 "presTPS": "идёт",
 "presSPS": "идёшь",
-"presFPS": "иду"
+"presFPS": "иду",
+"infinitive": "идти"
+},
+{
+"pastPlural": "пошли́",
+"pastNeutral": "пошло́",
+"pastMasculine": "пошёл",
+"pastFeminine": "пошла́",
+"infinitive": "пойти́"
 },
 {
 "infinitive": "бездельничать"
@@ -30,6 +30,9 @@
 },
 {
 "infinitive": "быть"
+},
+{
+"infinitive": "стать"
 },
 {
 "infinitive": "сачкова́ть"

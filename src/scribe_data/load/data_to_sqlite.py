@@ -107,13 +107,13 @@ for l in tqdm(language_word_type_dict, desc="Databases created", unit="dbs",):
 
         def create_table(word_type, cols):
             cursor.execute(
-                f"Create Table if not exists {word_type} ({' Text, '.join(cols)} Text)"
+                f"CREATE TABLE IF NOT EXISTS {word_type} ({' Text, '.join(cols)} Text)"
             )
 
         def table_insert(word_type, keys):
             insert_question_marks = ", ".join(["?"] * len(keys))
             cursor.execute(
-                f"insert into {word_type} values({insert_question_marks})", keys,
+                f"INSERT INTO {word_type} values({insert_question_marks})", keys,
             )
 
         print(f"Database for {l} {maybe_over}written and connection made.")
@@ -184,6 +184,83 @@ for l in tqdm(language_word_type_dict, desc="Databases created", unit="dbs",):
                     table_insert(word_type=wt, keys=keys)
 
                 connection.commit()
+
+        wt = "autocomplete_lexicon"
+        print(f"Creating {l} {wt} table...")
+        cols = ["word"]
+        create_table(word_type=wt, cols=cols)
+
+        cursor.execute(
+            """
+            INSERT INTO autocomplete_lexicon (word)
+
+            WITH full_lexicon AS (
+                SELECT
+                noun AS word
+                FROM
+                nouns
+                WHERE
+                LENGTH(noun) > 2
+
+                UNION
+
+                SELECT
+                preposition AS word
+                FROM
+                prepositions
+                WHERE
+                LENGTH(preposition) > 2
+
+                UNION
+
+                SELECT DISTINCT
+                -- For autosuggestion keys we want lower case versions.
+                -- The SELECT DISTINCT cases later will make sure that nouns are appropriately selected.
+                LOWER(word) AS word
+                FROM
+                autosuggestions
+                WHERE
+                LENGTH(word) > 2
+
+                UNION
+
+                SELECT
+                word AS word
+                FROM
+                emoji_keywords
+            )
+
+            SELECT DISTINCT
+                -- Select an upper case noun if it's available.
+                CASE
+                WHEN
+                    UPPER(SUBSTR(lex.word, 1, 1)) || SUBSTR(lex.word, 2) = nouns_cap.noun
+                THEN
+                    nouns_cap.noun
+
+                ELSE
+                    lex.word
+                END
+
+            FROM
+                full_lexicon AS lex
+
+            LEFT JOIN
+                nouns AS nouns_cap
+
+            ON
+                UPPER(SUBSTR(lex.word, 1, 1)) || SUBSTR(lex.word, 2) = nouns_cap.noun
+
+            WHERE
+                LENGTH(lex.word) > 1
+                AND lex.word NOT LIKE '%-%'
+                AND lex.word NOT LIKE '%/%'
+                AND lex.word NOT LIKE '%(%'
+                AND lex.word NOT LIKE '%)%'
+            """
+        )
+
+        connection.commit()
 
         print(f"{l} database created.")
 

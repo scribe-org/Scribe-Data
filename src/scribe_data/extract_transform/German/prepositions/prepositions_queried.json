@@ -1,5 +1,446 @@
 [
 {
+"preposition": "gegenwarts",
+"case": "Q146233"
+},
+{
+"preposition": "voll",
+"case": "Q146233"
+},
+{
+"preposition": "unterhalb",
+"case": "Q146233"
+},
+{
+"preposition": "angesichts",
+"case": "Q146233"
+},
+{
+"preposition": "mithilfe",
+"case": "Q146233"
+},
+{
+"preposition": "inmitten",
+"case": "Q146233"
+},
+{
+"preposition": "halben",
+"case": "Q146233"
+},
+{
+"preposition": "zweng"
+},
+{
+"preposition": "zwecks",
+"case": "Q146233"
+},
+{
+"preposition": "aufgrund",
+"case": "Q146233"
+},
+{
+"preposition": "an",
+"case": "Q145599"
+},
+{
+"preposition": "an",
+"case": "Q146078"
+},
+{
+"preposition": "ausschließlich",
+"case": "Q146233"
+},
+{
+"preposition": "während",
+"case": "Q146233"
+},
+{
+"preposition": "abzüglich",
+"case": "Q146233"
+},
+{
+"preposition": "halber",
+"case": "Q146233"
+},
+{
+"preposition": "beziehentlich",
+"case": "Q146233"
+},
+{
+"preposition": "hinsichtlich",
+"case": "Q146233"
+},
+{
+"preposition": "an Stelle",
+"case": "Q146233"
+},
+{
+"preposition": "anstelle",
+"case": "Q146233"
+},
+{
+"preposition": "benebst",
+"case": "Q145599"
+},
+{
+"preposition": "gemäß",
+"case": "Q145599"
+},
+{
+"preposition": "angelegentlich",
+"case": "Q146233"
+},
+{
+"preposition": "gleich",
+"case": "Q145599"
+},
+{
+"preposition": "zu Seiten",
+"case": "Q146233"
+},
+{
+"preposition": "zuseiten",
+"case": "Q146233"
+},
+{
+"preposition": "durch",
+"case": "Q146078"
+},
+{
+"preposition": "aus",
+"case": "Q145599"
+},
+{
+"preposition": "neben",
+"case": "Q145599"
+},
+{
+"preposition": "neben",
+"case": "Q146078"
+},
+{
+"preposition": "pro",
+"case": "Q145599"
+},
+{
+"preposition": "pro",
+"case": "Q146078"
+},
+{
+"preposition": "seitwärts",
+"case": "Q146233"
+},
+{
+"preposition": "inwährend",
+"case": "Q145599"
+},
+{
+"preposition": "längs",
+"case": "Q146233"
+},
+{
+"preposition": "einbezüglich",
+"case": "Q146233"
+},
+{
+"preposition": "für",
+"case": "Q146078"
+},
+{
+"preposition": "wider",
+"case": "Q146078"
+},
+{
+"preposition": "wegen",
+"case": "Q146233"
+},
+{
+"preposition": "links",
+"case": "Q146233"
+},
+{
+"preposition": "einschließlich",
+"case": "Q146233"
+},
+{
+"preposition": "zuwider",
+"case": "Q145599"
+},
+{
+"preposition": "ungeachtet",
+"case": "Q146233"
+},
+{
+"preposition": "analog",
+"case": "Q145599"
+},
+{
+"preposition": "mit Hilfe",
+"case": "Q146233"
+},
+{
+"preposition": "zzgl.",
+"case": "Q146233"
+},
+{
+"preposition": "zuzüglich",
+"case": "Q146233"
+},
+{
+"preposition": "antwortlich",
+"case": "Q146233"
+},
+{
+"preposition": "ennet",
+"case": "Q145599"
+},
+{
+"preposition": "ennet",
+"case": "Q146233"
+},
+{
+"preposition": "gelegentlich",
+"case": "Q146233"
+},
+{
+"preposition": "je",
+"case": "Q146078"
+},
+{
+"preposition": "kraft",
+"case": "Q146233"
+},
+{
+"preposition": "rücksichtlich",
+"case": "Q146233"
+},
+{
+"preposition": "südlich",
+"case": "Q146233"
+},
+{
+"preposition": "versus",
+"case": "Q146078"
+},
+{
+"preposition": "vorbehaltlich",
+"case": "Q146233"
+},
+{
+"preposition": "zeit",
+"case": "Q146233"
+},
+{
+"preposition": "aufseiten",
+"case": "Q146233"
+},
+{
+"preposition": "auf Seiten",
+"case": "Q146233"
+},
+{
+"preposition": "uneingedenk",
+"case": "Q146233"
+},
+{
+"preposition": "gegenüber",
+"case": "Q145599"
+},
+{
+"preposition": "inklusive",
+"case": "Q146233"
+},
+{
+"preposition": "entgegen",
+"case": "Q145599"
+},
+{
+"preposition": "nördlich",
+"case": "Q146233"
+},
+{
+"preposition": "östlich",
+"case": "Q146233"
+},
+{
+"preposition": "hinum",
+"case": "Q146078"
+},
+{
+"preposition": "halb"
+},
+{
+"preposition": "anhand",
+"case": "Q146233"
+},
+{
+"preposition": "zu",
+"case": "Q145599"
+},
+{
+"preposition": "seit",
+"case": "Q145599"
+},
+{
+"preposition": "laut",
+"case": "Q145599"
+},
+{
+"preposition": "laut",
+"case": "Q146233"
+},
+{
+"preposition": "ob",
+"case": "Q145599"
+},
+{
+"preposition": "ob",
+"case": "Q146233"
+},
+{
+"preposition": "via",
+"case": "Q146078"
+},
+{
+"preposition": "mangels",
+"case": "Q146233"
+},
+{
+"preposition": "seitlich",
+"case": "Q146233"
+},
+{
+"preposition": "vermöge",
+"case": "Q146233"
+},
+{
+"preposition": "willen",
+"case": "Q146233"
+},
+{
+"preposition": "südöstlich",
+"case": "Q146233"
+},
+{
+"preposition": "samt",
+"case": "Q145599"
+},
+{
+"preposition": "a"
+},
+{
+"preposition": "namens",
+"case": "Q146233"
+},
+{
+"preposition": "südwestlich",
+"case": "Q146233"
+},
+{
+"preposition": "rechts",
+"case": "Q146233"
+},
+{
+"preposition": "anstatt",
+"case": "Q146233"
+},
+{
+"preposition": "à",
+"case": "Q146078"
+},
+{
+"preposition": "betreffs",
+"case": "Q146233"
+},
+{
+"preposition": "minus",
+"case": "Q145599"
+},
+{
+"preposition": "minus",
+"case": "Q146078"
+},
+{
+"preposition": "minus",
+"case": "Q146233"
+},
+{
+"preposition": "gen",
+"case": "Q146078"
+},
+{
+"preposition": "mitsamt",
+"case": "Q145599"
+},
+{
+"preposition": "seitens",
+"case": "Q146233"
+},
+{
+"preposition": "unfern",
+"case": "Q146233"
+},
+{
+"preposition": "mang",
+"case": "Q145599"
+},
+{
+"preposition": "mang",
+"case": "Q146078"
+},
+{
+"preposition": "jenseits",
+"case": "Q146233"
+},
+{
+"preposition": "in puncto",
+"case": "Q146233"
+},
+{
+"preposition": "lang",
+"case": "Q146078"
+},
+{
+"preposition": "innerhalb",
+"case": "Q146233"
+},
+{
+"preposition": "diesseits",
+"case": "Q146233"
+},
+{
+"preposition": "exklusive",
+"case": "Q146233"
+},
+{
+"preposition": "zuungunsten",
+"case": "Q146233"
+},
+{
+"preposition": "unter",
+"case": "Q145599"
+},
+{
+"preposition": "unter",
+"case": "Q146078"
+},
+{
+"preposition": "nacher",
+"case": "Q145599"
+},
+{
+"preposition": "behufs",
+"case": "Q146233"
+},
+{
+"preposition": "auf",
+"case": "Q145599"
+},
+{
+"preposition": "auf",
+"case": "Q146078"
+},
+{
 "preposition": "zwischen",
 "case": "Q145599"
 },
@@ -20,6 +461,42 @@
 "case": "Q145599"
 },
 {
+"preposition": "von",
+"case": "Q145599"
+},
+{
+"preposition": "gegen",
+"case": "Q146078"
+},
+{
+"preposition": "über",
+"case": "Q145599"
+},
+{
+"preposition": "über",
+"case": "Q146078"
+},
+{
+"preposition": "zufolge",
+"case": "Q145599"
+},
+{
+"preposition": "mit",
+"case": "Q145599"
+},
+{
+"preposition": "vor",
+"case": "Q145599"
+},
+{
+"preposition": "vor",
+"case": "Q146078"
+},
+{
+"preposition": "infolge",
+"case": "Q146233"
+},
+{
 "preposition": "oberhalb",
 "case": "Q146233"
 },
@@ -29,10 +506,6 @@
 },
 {
 "preposition": "unerachtet",
-"case": "Q146233"
-},
-{
-"preposition": "exklusive",
 "case": "Q146233"
 },
 {
@@ -116,15 +589,15 @@
 "case": "Q145599"
 },
 {
-"preposition": "beiderseits",
-"case": "Q146233"
-},
-{
 "preposition": "außer",
 "case": "Q145599"
 },
 {
 "preposition": "statt",
+"case": "Q146233"
+},
+{
+"preposition": "beiderseits",
 "case": "Q146233"
 },
 {
@@ -255,565 +728,11 @@
 "case": "Q146078"
 },
 {
-"preposition": "in puncto",
-"case": "Q146233"
-},
-{
-"preposition": "lang",
-"case": "Q146078"
-},
-{
-"preposition": "gegenwarts",
-"case": "Q146233"
-},
-{
-"preposition": "zwecks",
-"case": "Q146233"
-},
-{
-"preposition": "aufgrund",
-"case": "Q146233"
-},
-{
-"preposition": "zuungunsten",
-"case": "Q146233"
-},
-{
-"preposition": "nacher",
-"case": "Q145599"
-},
-{
-"preposition": "gegen",
-"case": "Q146078"
-},
-{
-"preposition": "über",
-"case": "Q145599"
-},
-{
-"preposition": "über",
-"case": "Q146078"
-},
-{
-"preposition": "zufolge",
-"case": "Q145599"
-},
-{
-"preposition": "mit",
-"case": "Q145599"
-},
-{
-"preposition": "unter",
-"case": "Q145599"
-},
-{
-"preposition": "unter",
-"case": "Q146078"
-},
-{
-"preposition": "vor",
-"case": "Q145599"
-},
-{
-"preposition": "vor",
-"case": "Q146078"
-},
-{
-"preposition": "infolge",
-"case": "Q146233"
-},
-{
-"preposition": "binnen",
-"case": "Q145599"
-},
-{
-"preposition": "zulieb",
-"case": "Q145599"
-},
-{
-"preposition": "zuliebe",
-"case": "Q145599"
-},
-{
-"preposition": "betreffend",
-"case": "Q146078"
-},
-{
-"preposition": "entgegen",
-"case": "Q145599"
-},
-{
-"preposition": "samt",
-"case": "Q145599"
-},
-{
-"preposition": "ausgangs",
-"case": "Q146233"
-},
-{
-"preposition": "ausweislich",
-"case": "Q146233"
-},
-{
-"preposition": "eingangs",
-"case": "Q146233"
-},
-{
-"preposition": "mittels",
-"case": "Q146233"
-},
-{
-"preposition": "punkto",
-"case": "Q146233"
-},
-{
-"preposition": "sonder",
-"case": "Q146078"
-},
-{
-"preposition": "anhand",
-"case": "Q146233"
-},
-{
-"preposition": "unangesehen",
-"case": "Q146078"
-},
-{
-"preposition": "unangesehen",
-"case": "Q146233"
-},
-{
-"preposition": "unterkant",
-"case": "Q146233"
-},
-{
 "preposition": "nordöstlich",
 "case": "Q146233"
 },
 {
-"preposition": "südwestlich",
-"case": "Q146233"
-},
-{
-"preposition": "seitab",
-"case": "Q146233"
-},
-{
-"preposition": "voll",
-"case": "Q146233"
-},
-{
 "preposition": "bar",
-"case": "Q146233"
-},
-{
-"preposition": "einbezüglich",
-"case": "Q146233"
-},
-{
-"preposition": "eingedenk",
-"case": "Q146233"
-},
-{
-"preposition": "nid",
-"case": "Q145599"
-},
-{
-"preposition": "östlich",
-"case": "Q146233"
-},
-{
-"preposition": "seitwärts",
-"case": "Q146233"
-},
-{
-"preposition": "vorbehältlich",
-"case": "Q146233"
-},
-{
-"preposition": "zuhanden",
-"case": "Q146233"
-},
-{
-"preposition": "getreu",
-"case": "Q145599"
-},
-{
-"preposition": "abseiten",
-"case": "Q146233"
-},
-{
-"preposition": "näher",
-"case": "Q145599"
-},
-{
-"preposition": "gegenüber",
-"case": "Q145599"
-},
-{
-"preposition": "außerhalb",
-"case": "Q146233"
-},
-{
-"preposition": "an",
-"case": "Q145599"
-},
-{
-"preposition": "an",
-"case": "Q146078"
-},
-{
-"preposition": "innerhalb",
-"case": "Q146233"
-},
-{
-"preposition": "ausschließlich",
-"case": "Q146233"
-},
-{
-"preposition": "während",
-"case": "Q146233"
-},
-{
-"preposition": "abzüglich",
-"case": "Q146233"
-},
-{
-"preposition": "halber",
-"case": "Q146233"
-},
-{
-"preposition": "beziehentlich",
-"case": "Q146233"
-},
-{
-"preposition": "hinsichtlich",
-"case": "Q146233"
-},
-{
-"preposition": "an Stelle",
-"case": "Q146233"
-},
-{
-"preposition": "anstelle",
-"case": "Q146233"
-},
-{
-"preposition": "benebst",
-"case": "Q145599"
-},
-{
-"preposition": "gemäß",
-"case": "Q145599"
-},
-{
-"preposition": "angelegentlich",
-"case": "Q146233"
-},
-{
-"preposition": "behufs",
-"case": "Q146233"
-},
-{
-"preposition": "gleich",
-"case": "Q145599"
-},
-{
-"preposition": "zu Seiten",
-"case": "Q146233"
-},
-{
-"preposition": "zuseiten",
-"case": "Q146233"
-},
-{
-"preposition": "durch",
-"case": "Q146078"
-},
-{
-"preposition": "aus",
-"case": "Q145599"
-},
-{
-"preposition": "neben",
-"case": "Q145599"
-},
-{
-"preposition": "neben",
-"case": "Q146078"
-},
-{
-"preposition": "inwährend",
-"case": "Q145599"
-},
-{
-"preposition": "für",
-"case": "Q146078"
-},
-{
-"preposition": "wider",
-"case": "Q146078"
-},
-{
-"preposition": "wegen",
-"case": "Q146233"
-},
-{
-"preposition": "links",
-"case": "Q146233"
-},
-{
-"preposition": "unterhalb",
-"case": "Q146233"
-},
-{
-"preposition": "pro",
-"case": "Q145599"
-},
-{
-"preposition": "pro",
-"case": "Q146078"
-},
-{
-"preposition": "einschließlich",
-"case": "Q146233"
-},
-{
-"preposition": "zuwider",
-"case": "Q145599"
-},
-{
-"preposition": "ungeachtet",
-"case": "Q146233"
-},
-{
-"preposition": "analog",
-"case": "Q145599"
-},
-{
-"preposition": "angesichts",
-"case": "Q146233"
-},
-{
-"preposition": "mit Hilfe",
-"case": "Q146233"
-},
-{
-"preposition": "mithilfe",
-"case": "Q146233"
-},
-{
-"preposition": "zzgl.",
-"case": "Q146233"
-},
-{
-"preposition": "zuzüglich",
-"case": "Q146233"
-},
-{
-"preposition": "antwortlich",
-"case": "Q146233"
-},
-{
-"preposition": "ennet",
-"case": "Q145599"
-},
-{
-"preposition": "ennet",
-"case": "Q146233"
-},
-{
-"preposition": "gelegentlich",
-"case": "Q146233"
-},
-{
-"preposition": "je",
-"case": "Q146078"
-},
-{
-"preposition": "kraft",
-"case": "Q146233"
-},
-{
-"preposition": "rücksichtlich",
-"case": "Q146233"
-},
-{
-"preposition": "südlich",
-"case": "Q146233"
-},
-{
-"preposition": "versus",
-"case": "Q146078"
-},
-{
-"preposition": "vorbehaltlich",
-"case": "Q146233"
-},
-{
-"preposition": "zeit",
-"case": "Q146233"
-},
-{
-"preposition": "aufseiten",
-"case": "Q146233"
-},
-{
-"preposition": "auf Seiten",
-"case": "Q146233"
-},
-{
-"preposition": "uneingedenk",
-"case": "Q146233"
-},
-{
-"preposition": "auf",
-"case": "Q145599"
-},
-{
-"preposition": "auf",
-"case": "Q146078"
-},
-{
-"preposition": "hinum",
-"case": "Q146078"
-},
-{
-"preposition": "halb"
-},
-{
-"preposition": "seit",
-"case": "Q145599"
-},
-{
-"preposition": "laut",
-"case": "Q145599"
-},
-{
-"preposition": "laut",
-"case": "Q146233"
-},
-{
-"preposition": "inklusive",
-"case": "Q146233"
-},
-{
-"preposition": "ob",
-"case": "Q145599"
-},
-{
-"preposition": "ob",
-"case": "Q146233"
-},
-{
-"preposition": "längs",
-"case": "Q146233"
-},
-{
-"preposition": "via",
-"case": "Q146078"
-},
-{
-"preposition": "inmitten",
-"case": "Q146233"
-},
-{
-"preposition": "mangels",
-"case": "Q146233"
-},
-{
-"preposition": "nördlich",
-"case": "Q146233"
-},
-{
-"preposition": "seitlich",
-"case": "Q146233"
-},
-{
-"preposition": "vermöge",
-"case": "Q146233"
-},
-{
-"preposition": "willen",
-"case": "Q146233"
-},
-{
-"preposition": "zu",
-"case": "Q145599"
-},
-{
-"preposition": "südöstlich",
-"case": "Q146233"
-},
-{
-"preposition": "a"
-},
-{
-"preposition": "namens",
-"case": "Q146233"
-},
-{
-"preposition": "rechts",
-"case": "Q146233"
-},
-{
-"preposition": "anstatt",
-"case": "Q146233"
-},
-{
-"preposition": "à",
-"case": "Q146078"
-},
-{
-"preposition": "betreffs",
-"case": "Q146233"
-},
-{
-"preposition": "minus",
-"case": "Q145599"
-},
-{
-"preposition": "minus",
-"case": "Q146078"
-},
-{
-"preposition": "minus",
-"case": "Q146233"
-},
-{
-"preposition": "gen",
-"case": "Q146078"
-},
-{
-"preposition": "mitsamt",
-"case": "Q145599"
-},
-{
-"preposition": "seitens",
-"case": "Q146233"
-},
-{
-"preposition": "unfern",
-"case": "Q146233"
-},
-{
-"preposition": "mang",
-"case": "Q145599"
-},
-{
-"preposition": "mang",
-"case": "Q146078"
-},
-{
-"preposition": "von",
-"case": "Q145599"
-},
-{
-"preposition": "diesseits",
-"case": "Q146233"
-},
-{
-"preposition": "jenseits",
 "case": "Q146233"
 },
 {
@@ -851,5 +770,96 @@
 {
 "preposition": "beidseits",
 "case": "Q146233"
+},
+{
+"preposition": "eingedenk",
+"case": "Q146233"
+},
+{
+"preposition": "nid",
+"case": "Q145599"
+},
+{
+"preposition": "vorbehältlich",
+"case": "Q146233"
+},
+{
+"preposition": "zuhanden",
+"case": "Q146233"
+},
+{
+"preposition": "getreu",
+"case": "Q145599"
+},
+{
+"preposition": "eingangs",
+"case": "Q146233"
+},
+{
+"preposition": "abseiten",
+"case": "Q146233"
+},
+{
+"preposition": "näher",
+"case": "Q145599"
+},
+{
+"preposition": "seitab",
+"case": "Q146233"
+},
+{
+"preposition": "außerhalb",
+"case": "Q146233"
+},
+{
+"preposition": "binnen",
+"case": "Q145599"
+},
+{
+"preposition": "zulieb",
+"case": "Q145599"
+},
+{
+"preposition": "zuliebe",
+"case": "Q145599"
+},
+{
+"preposition": "betreffend",
+"case": "Q146078"
+},
+{
+"preposition": "ausgangs",
+"case": "Q146233"
+},
+{
+"preposition": "ausweislich",
+"case": "Q146233"
+},
+{
+"preposition": "mittels",
+"case": "Q146233"
+},
+{
+"preposition": "punkto",
+"case": "Q146233"
+},
+{
+"preposition": "sonder",
+"case": "Q146078"
+},
+{
+"preposition": "unangesehen",
+"case": "Q146078"
+},
+{
+"preposition": "unangesehen",
+"case": "Q146233"
+},
+{
+"preposition": "unterkant",
+"case": "Q146233"
+},
+{
+"preposition": "zwengs"
 }
 ]

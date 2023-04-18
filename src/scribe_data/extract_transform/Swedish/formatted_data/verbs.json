@@ -95,7 +95,7 @@
 "activePresent": "accepterar",
 "activePreterite": "accepterade",
 "passiveInfinitive": "accepteras",
-"passiveSupine": "accepteras",
+"passiveSupine": "accepterats",
 "passivePresent": "accepteras",
 "passivePreterite": "accepterades"
 },
@@ -1619,6 +1619,16 @@
 "passivePresent": "asas",
 "passivePreterite": "asades"
 },
+"asbestsanera": {
+"imperative": "asbestsanera",
+"activeSupine": "asbestsanerat",
+"activePresent": "asbestsanerar",
+"activePreterite": "asbestsanerade",
+"passiveInfinitive": "asbestsaneras",
+"passiveSupine": "asbestsanerats",
+"passivePresent": "asbestsaneras",
+"passivePreterite": "asbestsanerades"
+},
 "asfaltera": {
 "imperative": "asfaltera",
 "activeSupine": "asfalterat",
@@ -1899,6 +1909,16 @@
 "passivePresent": "avfolkas",
 "passivePreterite": "avfolkades"
 },
+"avfrosta": {
+"imperative": "avfrosta",
+"activeSupine": "avfrostat",
+"activePresent": "avfrostar",
+"activePreterite": "avfrostade",
+"passiveInfinitive": "avfrostas",
+"passiveSupine": "avfrostats",
+"passivePresent": "avfrostas",
+"passivePreterite": "avfrostades"
+},
 "avfyra": {
 "imperative": "avfyra",
 "activeSupine": "avfyrat",
@@ -1938,6 +1958,16 @@
 "passiveSupine": "avgiftats",
 "passivePresent": "avgiftas",
 "passivePreterite": "avgiftades"
+},
+"avgiftsbelägga": {
+"imperative": "avgiftsbelägg",
+"activeSupine": "avgiftsbelagt",
+"activePresent": "avgiftsbelägger",
+"activePreterite": "avgiftsbelade",
+"passiveInfinitive": "avgiftsbeläggas",
+"passiveSupine": "avgiftsbelagts",
+"passivePresent": "avgiftsbeläggs",
+"passivePreterite": "avgiftsbelades"
 },
 "avgiva": {
 "imperative": "avgiv",
@@ -1998,6 +2028,16 @@
 "passiveSupine": "avhjälpts",
 "passivePresent": "avhjälps",
 "passivePreterite": "avhjälptes"
+},
+"avhumanisera": {
+"imperative": "avhumanisera",
+"activeSupine": "avhumaniserat",
+"activePresent": "avhumaniserar",
+"activePreterite": "avhumaniserade",
+"passiveInfinitive": "avhumaniseras",
+"passiveSupine": "avhumaniserats",
+"passivePresent": "avhumaniseras",
+"passivePreterite": "avhumaniserades"
 },
 "avhysa": {
 "imperative": "avhys",
@@ -2289,6 +2329,16 @@
 "passivePresent": "avlöses",
 "passivePreterite": "avlöstes"
 },
+"avmarkera": {
+"imperative": "avmarkera",
+"activeSupine": "avmarkerat",
+"activePresent": "avmarkerar",
+"activePreterite": "avmarkerade",
+"passiveInfinitive": "avmarkeras",
+"passiveSupine": "avmarkerats",
+"passivePresent": "avmarkeras",
+"passivePreterite": "avmarkerades"
+},
 "avmaska": {
 "imperative": "avmaska",
 "activeSupine": "avmaskat",
@@ -2308,6 +2358,16 @@
 "passiveSupine": "avnjutits",
 "passivePresent": "avnjuts",
 "passivePreterite": "avnjöts"
+},
+"avpolitisera": {
+"imperative": "avpolitisera",
+"activeSupine": "avpolitiserat",
+"activePresent": "avpolitiserar",
+"activePreterite": "avpolitiserade",
+"passiveInfinitive": "avpolitiseras",
+"passiveSupine": "avpolitiserats",
+"passivePresent": "avpolitiseras",
+"passivePreterite": "avpolitiserades"
 },
 "avpublicera": {
 "imperative": "avpublicera",
@@ -2760,14 +2820,14 @@
 "passivePreterite": "avvisades"
 },
 "avväga": {
-"imperative": "",
-"activeSupine": "",
-"activePresent": "",
-"activePreterite": "",
-"passiveInfinitive": "",
-"passiveSupine": "",
-"passivePresent": "",
-"passivePreterite": ""
+"imperative": "avväg",
+"activeSupine": "avvägt",
+"activePresent": "avväger",
+"activePreterite": "avvägde",
+"passiveInfinitive": "avvägas",
+"passiveSupine": "avvägts",
+"passivePresent": "avvägs",
+"passivePreterite": "avvägdes"
 },
 "avvärja": {
 "imperative": "",
@@ -3269,6 +3329,16 @@
 "passivePresent": "befästs",
 "passivePreterite": "befästes"
 },
+"begagna": {
+"imperative": "begagna",
+"activeSupine": "begagnat",
+"activePresent": "begagnar",
+"activePreterite": "begagnade",
+"passiveInfinitive": "begagnas",
+"passiveSupine": "begagnats",
+"passivePresent": "begagnas",
+"passivePreterite": "begagnades"
+},
 "bege": {
 "imperative": "bege",
 "activeSupine": "begett",
@@ -3578,6 +3648,16 @@
 "passiveSupine": "bemannats",
 "passivePresent": "bemannas",
 "passivePreterite": "bemannades"
+},
+"bemyndiga": {
+"imperative": "bemyndiga",
+"activeSupine": "bemyndigat",
+"activePresent": "bemyndigar",
+"activePreterite": "bemyndigade",
+"passiveInfinitive": "bemyndigas",
+"passiveSupine": "bemyndigats",
+"passivePresent": "bemyndigas",
+"passivePreterite": "bemyndigades"
 },
 "bemästra": {
 "imperative": "bemästra",
@@ -4279,6 +4359,16 @@
 "passivePresent": "binds",
 "passivePreterite": "bands"
 },
+"bistå": {
+"imperative": "",
+"activeSupine": "",
+"activePresent": "",
+"activePreterite": "",
+"passiveInfinitive": "",
+"passiveSupine": "",
+"passivePresent": "",
+"passivePreterite": ""
+},
 "bita": {
 "imperative": "bit",
 "activeSupine": "bitit",
@@ -4548,6 +4638,16 @@
 "passiveSupine": "blottats",
 "passivePresent": "blottas",
 "passivePreterite": "blottades"
+},
+"blottlägga": {
+"imperative": "blottlägg",
+"activeSupine": "blottlagt",
+"activePresent": "blottlägger",
+"activePreterite": "blottlade",
+"passiveInfinitive": "blottläggas",
+"passiveSupine": "blottlagts",
+"passivePresent": "blottläggs",
+"passivePreterite": "blottlades"
 },
 "bluddra": {
 "imperative": "bluddra",
@@ -5219,6 +5319,16 @@
 "passivePresent": "brusas",
 "passivePreterite": "brusades"
 },
+"brutalisera": {
+"imperative": "brutalisera",
+"activeSupine": "brutaliserat",
+"activePresent": "brutaliserar",
+"activePreterite": "brutaliserade",
+"passiveInfinitive": "brutaliseras",
+"passiveSupine": "brutaliserats",
+"passivePresent": "brutaliseras",
+"passivePreterite": "brutaliserades"
+},
 "bry": {
 "imperative": "bry",
 "activeSupine": "bry",
@@ -5679,6 +5789,16 @@
 "passivePresent": "börja",
 "passivePreterite": "börjades"
 },
+"börsintroducera": {
+"imperative": "börsintroducera",
+"activeSupine": "börsintroducerat",
+"activePresent": "börsintroducerar",
+"activePreterite": "börsintroducerade",
+"passiveInfinitive": "börsintroduceras",
+"passiveSupine": "börsintroducerats",
+"passivePresent": "börsintroduceras",
+"passivePreterite": "börsintroducerades"
+},
 "börsnotera": {
 "imperative": "börsnotera",
 "activeSupine": "börsnoterat",
@@ -5849,6 +5969,16 @@
 "passivePresent": "civiliseras",
 "passivePreterite": "civiliserades"
 },
+"coacha": {
+"imperative": "coacha",
+"activeSupine": "coachat",
+"activePresent": "coachar",
+"activePreterite": "coachade",
+"passiveInfinitive": "coachas",
+"passiveSupine": "coachats",
+"passivePresent": "coachas",
+"passivePreterite": "coachades"
+},
 "coronaanpassa": {
 "imperative": "coronaanpassa",
 "activeSupine": "coronaanpassat",
@@ -5918,6 +6048,16 @@
 "passiveSupine": "dallrats",
 "passivePresent": "dallras",
 "passivePreterite": "dallrades"
+},
+"dalta": {
+"imperative": "dalta",
+"activeSupine": "daltat",
+"activePresent": "daltar",
+"activePreterite": "daltade",
+"passiveInfinitive": "daltas",
+"passiveSupine": "daltats",
+"passivePresent": "daltas",
+"passivePreterite": "daltades"
 },
 "damma": {
 "imperative": "damma",
@@ -6239,6 +6379,16 @@
 "passivePresent": "demas",
 "passivePreterite": "demades"
 },
+"demokratisera": {
+"imperative": "demokratisera",
+"activeSupine": "demokratiserat",
+"activePresent": "demokratiserar",
+"activePreterite": "demokratiserade",
+"passiveInfinitive": "demokratiseras",
+"passiveSupine": "demokratiserats",
+"passivePresent": "demokratiseras",
+"passivePreterite": "demokratiserades"
+},
 "demolera": {
 "imperative": "demolera",
 "activeSupine": "demolerat",
@@ -6268,6 +6418,16 @@
 "passiveSupine": "demonterats",
 "passivePresent": "demonteras",
 "passivePreterite": "demonterades"
+},
+"demoralisera": {
+"imperative": "demoralisera",
+"activeSupine": "demoraliserat",
+"activePresent": "demoraliserar",
+"activePreterite": "demoraliserade",
+"passiveInfinitive": "demoraliseras",
+"passiveSupine": "demoraliserats",
+"passivePresent": "demoraliseras",
+"passivePreterite": "demoraliserades"
 },
 "denazifiera": {
 "imperative": "denazifiera",
@@ -6359,6 +6519,16 @@
 "passivePresent": "destileras",
 "passivePreterite": "destilerades"
 },
+"destillera": {
+"imperative": "destillera",
+"activeSupine": "destillerat",
+"activePresent": "destillerar",
+"activePreterite": "destillerade",
+"passiveInfinitive": "destilleras",
+"passiveSupine": "destillerats",
+"passivePresent": "destilleras",
+"passivePreterite": "destillerades"
+},
 "detaljgranska": {
 "imperative": "detaljgranska",
 "activeSupine": "detaljgranskat",
@@ -6384,6 +6554,26 @@
 "activeSupine": "",
 "activePresent": "",
 "activePreterite": "",
+"passiveInfinitive": "",
+"passiveSupine": "",
+"passivePresent": "",
+"passivePreterite": ""
+},
+"determinera": {
+"imperative": "determinera",
+"activeSupine": "determinerat",
+"activePresent": "determinerar",
+"activePreterite": "determinerade",
+"passiveInfinitive": "determineras",
+"passiveSupine": "determinerats",
+"passivePresent": "determineras",
+"passivePreterite": "determinerades"
+},
+"detonera": {
+"imperative": "detonera",
+"activeSupine": "detonerat",
+"activePresent": "detonerar",
+"activePreterite": "detonerade",
 "passiveInfinitive": "",
 "passiveSupine": "",
 "passivePresent": "",
@@ -7449,6 +7639,16 @@
 "passivePresent": "dödförklaras",
 "passivePreterite": "dödförklarades"
 },
+"dödshota": {
+"imperative": "dödshota",
+"activeSupine": "dödshotat",
+"activePresent": "dödshotar",
+"activePreterite": "dödshotade",
+"passiveInfinitive": "dödshotas",
+"passiveSupine": "dödshotats",
+"passivePresent": "dödshotas",
+"passivePreterite": "dödshotades"
+},
 "dölja": {
 "imperative": "dölj",
 "activeSupine": "dolt",
@@ -7879,6 +8079,16 @@
 "passivePresent": "erkänns",
 "passivePreterite": "erkändes"
 },
+"erodera": {
+"imperative": "erodera",
+"activeSupine": "eroderat",
+"activePresent": "eroderar",
+"activePreterite": "eroderade",
+"passiveInfinitive": "eroderas",
+"passiveSupine": "eroderats",
+"passivePresent": "eroderas",
+"passivePreterite": "eroderades"
+},
 "ersätta": {
 "imperative": "ersätt",
 "activeSupine": "ersatt",
@@ -7928,6 +8138,16 @@
 "passiveSupine": "eskorterats",
 "passivePresent": "eskorteras",
 "passivePreterite": "eskorterades"
+},
+"essentialisera": {
+"imperative": "essentialisera",
+"activeSupine": "essentialiserat",
+"activePresent": "essentialiserar",
+"activePreterite": "essentialiserade",
+"passiveInfinitive": "essentialiseras",
+"passiveSupine": "essentialiserats",
+"passivePresent": "essentialiseras",
+"passivePreterite": "essentialiserades"
 },
 "etablera": {
 "imperative": "etablera",
@@ -7988,6 +8208,16 @@
 "passiveSupine": "exemplifierats",
 "passivePresent": "exemplifieras",
 "passivePreterite": "exemplifierades"
+},
+"exfoliera": {
+"imperative": "exfoliera",
+"activeSupine": "exfolierat",
+"activePresent": "exfolierar",
+"activePreterite": "exfolierade",
+"passiveInfinitive": "exfolieras",
+"passiveSupine": "exfolierats",
+"passivePresent": "exfolieras",
+"passivePreterite": "exfolierades"
 },
 "exhumera": {
 "imperative": "exhumera",
@@ -8098,6 +8328,16 @@
 "passiveSupine": "extraknäckts",
 "passivePresent": "extraknäcks",
 "passivePreterite": "extraknäcktes"
+},
+"fabricera": {
+"imperative": "fabricera",
+"activeSupine": "fabricerat",
+"activePresent": "fabricerar",
+"activePreterite": "fabricerade",
+"passiveInfinitive": "fabriceras",
+"passiveSupine": "fabricerats",
+"passivePresent": "fabriceras",
+"passivePreterite": "fabricerades"
 },
 "fabulera": {
 "imperative": "fabulera",
@@ -8309,6 +8549,16 @@
 "passivePresent": "faxas",
 "passivePreterite": "faxades"
 },
+"federera": {
+"imperative": "federera",
+"activeSupine": "federerat",
+"activePresent": "federerar",
+"activePreterite": "federerade",
+"passiveInfinitive": "federeras",
+"passiveSupine": "federerats",
+"passivePresent": "federeras",
+"passivePreterite": "federerades"
+},
 "feja": {
 "imperative": "feja",
 "activeSupine": "fejat",
@@ -8398,6 +8648,16 @@
 "passiveSupine": "felsökts",
 "passivePresent": "felsöks",
 "passivePreterite": "felsöktes"
+},
+"feltolka": {
+"imperative": "feltolka",
+"activeSupine": "feltolkat",
+"activePresent": "feltolkar",
+"activePreterite": "feltolkade",
+"passiveInfinitive": "feltolkas",
+"passiveSupine": "feltolkats",
+"passivePresent": "feltolkas",
+"passivePreterite": "feltolkades"
 },
 "feminisera": {
 "imperative": "feminisera",
@@ -9039,6 +9299,16 @@
 "passivePresent": "flygs",
 "passivePreterite": "flögs"
 },
+"flygbomba": {
+"imperative": "flygbomba",
+"activeSupine": "flygbombat",
+"activePresent": "flygbombar",
+"activePreterite": "flygbombade",
+"passiveInfinitive": "flygbombas",
+"passiveSupine": "flygbombats",
+"passivePresent": "flygbombas",
+"passivePreterite": "flygbombades"
+},
 "flykta": {
 "imperative": "flykta",
 "activeSupine": "flyktat",
@@ -9468,6 +9738,16 @@
 "passiveSupine": "fotats",
 "passivePresent": "fotas",
 "passivePreterite": "fotades"
+},
+"fotodokumentera": {
+"imperative": "fotodokumentera",
+"activeSupine": "fotodokumenterat",
+"activePresent": "fotodokumenterar",
+"activePreterite": "fotodokumenterade",
+"passiveInfinitive": "fotodokumenteras",
+"passiveSupine": "fotodokumenterats",
+"passivePresent": "fotodokumenteras",
+"passivePreterite": "fotodokumenterades"
 },
 "fotografera": {
 "imperative": "fotografera",
@@ -10162,7 +10442,7 @@
 "frysa": {
 "imperative": "frys",
 "activeSupine": "frusit",
-"activePresent": "frös",
+"activePresent": "fryser",
 "activePreterite": "frös",
 "passiveInfinitive": "frysas",
 "passiveSupine": "frusits",
@@ -13659,6 +13939,16 @@
 "passivePresent": "gentas",
 "passivePreterite": "gentogs"
 },
+"genuscertifiera": {
+"imperative": "genuscertifiera",
+"activeSupine": "genuscertifierat",
+"activePresent": "genuscertifierar",
+"activePreterite": "genuscertifierade",
+"passiveInfinitive": "genuscertifieras",
+"passiveSupine": "genuscertifierats",
+"passivePresent": "genuscertifieras",
+"passivePreterite": "genuscertifierades"
+},
 "geometrisera": {
 "imperative": "geometrisera",
 "activeSupine": "geometriserat",
@@ -15610,10 +15900,10 @@
 "passivePreterite": "hattades"
 },
 "haverera": {
-"imperative": "",
-"activeSupine": "",
-"activePresent": "",
-"activePreterite": "",
+"imperative": "haverera",
+"activeSupine": "havererat",
+"activePresent": "havererar",
+"activePreterite": "havererade",
 "passiveInfinitive": "",
 "passiveSupine": "",
 "passivePresent": "",
@@ -15778,6 +16068,16 @@
 "passiveSupine": "hetsats",
 "passivePresent": "hetsas",
 "passivePreterite": "hetsades"
+},
+"hetsäta": {
+"imperative": "hetsät",
+"activeSupine": "hetsätit",
+"activePresent": "hetsäter",
+"activePreterite": "hetsåt",
+"passiveInfinitive": "hetsätas",
+"passiveSupine": "hetsätits",
+"passivePresent": "hetsäts",
+"passivePreterite": "hetsåts"
 },
 "hetta": {
 "imperative": "hetta",
@@ -16090,14 +16390,14 @@
 "passivePreterite": "hugsvalades"
 },
 "huka": {
-"imperative": "",
-"activeSupine": "",
+"imperative": "huka",
+"activeSupine": "hukat",
 "activePresent": "hukar",
-"activePreterite": "",
-"passiveInfinitive": "",
-"passiveSupine": "",
-"passivePresent": "",
-"passivePreterite": ""
+"activePreterite": "hukade",
+"passiveInfinitive": "hukas",
+"passiveSupine": "hukats",
+"passivePresent": "hukas",
+"passivePreterite": "hukades"
 },
 "hulka": {
 "imperative": "hulka",
@@ -17799,6 +18099,16 @@
 "passivePresent": "inkluderas",
 "passivePreterite": "inkluderades"
 },
+"inkomma": {
+"imperative": "inkom",
+"activeSupine": "inkommat",
+"activePresent": "inkommer",
+"activePreterite": "inkom",
+"passiveInfinitive": "inkommas",
+"passiveSupine": "inkommits",
+"passivePresent": "inkommas",
+"passivePreterite": "inkom"
+},
 "inkompetensförklara": {
 "imperative": "inkompetensförklara",
 "activeSupine": "inkompetensförklarat",
@@ -17988,6 +18298,16 @@
 "passiveSupine": "insetts",
 "passivePresent": "inses",
 "passivePreterite": "insågs"
+},
+"inseminera": {
+"imperative": "inseminera",
+"activeSupine": "inseminerat",
+"activePresent": "inseminerar",
+"activePreterite": "inseminerade",
+"passiveInfinitive": "insemineras",
+"passiveSupine": "inseminerats",
+"passivePresent": "insemineras",
+"passivePreterite": "inseminerades"
 },
 "insinuera": {
 "imperative": "insinuera",
@@ -18768,6 +19088,16 @@
 "passiveSupine": "jävats",
 "passivePresent": "jävas",
 "passivePreterite": "jävades"
+},
+"k*ulla": {
+"imperative": "knulla",
+"activeSupine": "knullat",
+"activePresent": "knullar",
+"activePreterite": "knullade",
+"passiveInfinitive": "knullas",
+"passiveSupine": "knullats",
+"passivePresent": "knullas",
+"passivePreterite": "knullades"
 },
 "kabla": {
 "imperative": "kabla",
@@ -20819,6 +21149,16 @@
 "passivePresent": "kontrolleras",
 "passivePreterite": "kontrollerades"
 },
+"kontrollgranska": {
+"imperative": "kontrollgranska",
+"activeSupine": "kontrollgranskat",
+"activePresent": "kontrollgranskar",
+"activePreterite": "kontrollgranskade",
+"passiveInfinitive": "kontrollgranskas",
+"passiveSupine": "kontrollgranskats",
+"passivePresent": "kontrollgranskas",
+"passivePreterite": "kontrollgranskades"
+},
 "konturera": {
 "imperative": "konturera",
 "activeSupine": "konturerat",
@@ -20938,6 +21278,16 @@
 "passiveSupine": "korresponderats",
 "passivePresent": "korresponderas",
 "passivePreterite": "korresponderades"
+},
+"korrigera": {
+"imperative": "korrigera",
+"activeSupine": "korrigerat",
+"activePresent": "korrigerar",
+"activePreterite": "korrigerade",
+"passiveInfinitive": "korrigeras",
+"passiveSupine": "korrigerats",
+"passivePresent": "korrigeras",
+"passivePreterite": "korrigerades"
 },
 "korsa": {
 "imperative": "korsa",
@@ -22039,6 +22389,16 @@
 "passivePresent": "könas",
 "passivePreterite": "könades"
 },
+"könsanpassa": {
+"imperative": "könsanpassa",
+"activeSupine": "könsanpassat",
+"activePresent": "könsanpassar",
+"activePreterite": "könsanpassade",
+"passiveInfinitive": "könsanpassas",
+"passiveSupine": "könsanpassats",
+"passivePresent": "könsanpassas",
+"passivePreterite": "könsanpassades"
+},
 "könskvotera": {
 "imperative": "könskvotera",
 "activeSupine": "könskvoterat",
@@ -22048,6 +22408,16 @@
 "passiveSupine": "könskvoterats",
 "passivePresent": "könskvoteras",
 "passivePreterite": "könskvoterades"
+},
+"könsstympa": {
+"imperative": "könsstympa",
+"activeSupine": "könsstympat",
+"activePresent": "könsstympar",
+"activePreterite": "könsstympade",
+"passiveInfinitive": "könsstympas",
+"passiveSupine": "könsstympats",
+"passivePresent": "könsstympas",
+"passivePreterite": "könsstympades"
 },
 "köpa": {
 "imperative": "köp",
@@ -22509,6 +22879,16 @@
 "passivePresent": "letas",
 "passivePreterite": "letades"
 },
+"levandegöra": {
+"imperative": "levandegör",
+"activeSupine": "levandegjort",
+"activePresent": "levandegör",
+"activePreterite": "levandegjorde",
+"passiveInfinitive": "levandegöras",
+"passiveSupine": "levandegjorts",
+"passivePresent": "levandegörs",
+"passivePreterite": "levandegjordes"
+},
 "leverera": {
 "imperative": "leverera",
 "activeSupine": "levererat",
@@ -22541,7 +22921,7 @@
 },
 "lida": {
 "imperative": "lid",
-"activeSupine": "lidits",
+"activeSupine": "lidit",
 "activePresent": "lider",
 "activePreterite": "led",
 "passiveInfinitive": "lidas",
@@ -23889,6 +24269,16 @@
 "passivePresent": "maskindiskas",
 "passivePreterite": "maskindiskades"
 },
+"maskulinisera": {
+"imperative": "maskulinisera",
+"activeSupine": "maskuliniserat",
+"activePresent": "maskuliniserar",
+"activePreterite": "maskuliniserade",
+"passiveInfinitive": "maskuliniseras",
+"passiveSupine": "maskuliniserats",
+"passivePresent": "maskuliniseras",
+"passivePreterite": "maskuliniserades"
+},
 "massakrera": {
 "imperative": "massakrera",
 "activeSupine": "massakrerat",
@@ -23898,6 +24288,16 @@
 "passiveSupine": "massakrerats",
 "passivePresent": "massakreras",
 "passivePreterite": "massakrerades"
+},
+"massdeportera": {
+"imperative": "massdeportera",
+"activeSupine": "massdeporterat",
+"activePresent": "massdeporterar",
+"activePreterite": "massdeporterade",
+"passiveInfinitive": "massdeporteras",
+"passiveSupine": "massdeporterats",
+"passivePresent": "massdeporteras",
+"passivePreterite": "massdeporterades"
 },
 "massera": {
 "imperative": "massera",
@@ -23918,6 +24318,16 @@
 "passiveSupine": "massproducerats",
 "passivePresent": "massproduceras",
 "passivePreterite": "massproducerades"
+},
+"massregistrera": {
+"imperative": "massregistrera",
+"activeSupine": "massregistrerat",
+"activePresent": "massregistrerar",
+"activePreterite": "massregistrerade",
+"passiveInfinitive": "massregistreras",
+"passiveSupine": "massregistrerats",
+"passivePresent": "massregistreras",
+"passivePreterite": "massregistrerades"
 },
 "masturbera": {
 "imperative": "masturbera",
@@ -23998,6 +24408,16 @@
 "passiveSupine": "meddelats",
 "passivePresent": "meddelas",
 "passivePreterite": "meddelades"
+},
+"medfinansiera": {
+"imperative": "medfinansiera",
+"activeSupine": "medfinansierat",
+"activePresent": "medfinansierar",
+"activePreterite": "medfinansierade",
+"passiveInfinitive": "medfinansieras",
+"passiveSupine": "medfinansierats",
+"passivePresent": "medfinansieras",
+"passivePreterite": "medfinansierades"
 },
 "medfölja": {
 "imperative": "medfölj",
@@ -24849,6 +25269,16 @@
 "passivePresent": "muddras",
 "passivePreterite": "muddrades"
 },
+"mula": {
+"imperative": "mula",
+"activeSupine": "mulat",
+"activePresent": "mular",
+"activePreterite": "mulade",
+"passiveInfinitive": "mulas",
+"passiveSupine": "mulats",
+"passivePresent": "mulas",
+"passivePreterite": "mulades"
+},
 "mullra": {
 "imperative": "mullra",
 "activeSupine": "mullrat",
@@ -25039,6 +25469,16 @@
 "passivePresent": "myss",
 "passivePreterite": "mystes"
 },
+"mystifiera": {
+"imperative": "mystifiera",
+"activeSupine": "mystifierat",
+"activePresent": "mystifierar",
+"activePreterite": "mystifierade",
+"passiveInfinitive": "mystifieras",
+"passiveSupine": "mystifierats",
+"passivePresent": "mystifieras",
+"passivePreterite": "mystifierades"
+},
 "mäkla": {
 "imperative": "mäkla",
 "activeSupine": "mäklat",
@@ -25128,6 +25568,16 @@
 "passiveSupine": "målats",
 "passivePresent": "målas",
 "passivePreterite": "målades"
+},
+"mångdubbla": {
+"imperative": "mångdubbla",
+"activeSupine": "mångdubblat",
+"activePresent": "mångdubblar",
+"activePreterite": "mångdubblade",
+"passiveInfinitive": "mångdubblas",
+"passiveSupine": "mångdubblats",
+"passivePresent": "mångdubblas",
+"passivePreterite": "mångdubblades"
 },
 "mångfaldiga": {
 "imperative": "mångfaldiga",
@@ -25459,6 +25909,16 @@
 "passivePresent": "nedläggs",
 "passivePreterite": "nedlas"
 },
+"nedmontera": {
+"imperative": "nedmontera",
+"activeSupine": "nedmonterat",
+"activePresent": "nedmonterar",
+"activePreterite": "nedmonterade",
+"passiveInfinitive": "nedmonteras",
+"passiveSupine": "nedmonterats",
+"passivePresent": "nedmonteras",
+"passivePreterite": "nedmonterades"
+},
 "nedprioritera": {
 "imperative": "nedprioritera",
 "activeSupine": "nedprioriterat",
@@ -25478,6 +25938,16 @@
 "passiveSupine": "nedslagits",
 "passivePresent": "nedslås",
 "passivePreterite": "nedslogs"
+},
+"nedtona": {
+"imperative": "nedtona",
+"activeSupine": "nedtonat",
+"activePresent": "nedtonar",
+"activePreterite": "nedtonade",
+"passiveInfinitive": "nedtonas",
+"passiveSupine": "nedtonats",
+"passivePresent": "nedtonas",
+"passivePreterite": "nedtonades"
 },
 "negligera": {
 "imperative": "negligera",
@@ -25609,6 +26079,16 @@
 "passivePresent": "nomineras",
 "passivePreterite": "nominerades"
 },
+"nonchalera": {
+"imperative": "nonchalera",
+"activeSupine": "nonchalerat",
+"activePresent": "nonchalerar",
+"activePreterite": "nonchalerade",
+"passiveInfinitive": "nonchaleras",
+"passiveSupine": "nonchalerats",
+"passivePresent": "nonchaleras",
+"passivePreterite": "nonchalerades"
+},
 "noppa": {
 "imperative": "noppa",
 "activeSupine": "noppat",
@@ -25718,6 +26198,16 @@
 "passiveSupine": "nybildats",
 "passivePresent": "nybildas",
 "passivePreterite": "nybildades"
+},
+"nyetablera": {
+"imperative": "nyetablera",
+"activeSupine": "nyetablerat",
+"activePresent": "nyetablerar",
+"activePreterite": "nyetablerade",
+"passiveInfinitive": "nyetableras",
+"passiveSupine": "nyetablerats",
+"passivePresent": "nyetableras",
+"passivePreterite": "nyetablerades"
 },
 "nynna": {
 "imperative": "nynna",
@@ -25898,6 +26388,16 @@
 "passiveSupine": "nöjesjagats",
 "passivePresent": "nöjesjagas",
 "passivePreterite": "nöjesjagades"
+},
+"objektifiera": {
+"imperative": "objektifiera",
+"activeSupine": "objektifierat",
+"activePresent": "objektifierar",
+"activePreterite": "objektifierade",
+"passiveInfinitive": "objektifieras",
+"passiveSupine": "objektifierats",
+"passivePresent": "objektifieras",
+"passivePreterite": "objektifierades"
 },
 "observera": {
 "imperative": "observera",
@@ -26309,6 +26809,16 @@
 "passivePresent": "omtalas",
 "passivePreterite": "omtalades"
 },
+"omtolka": {
+"imperative": "omtolka",
+"activeSupine": "omtolkat",
+"activePresent": "omtolkar",
+"activePreterite": "omtolkade",
+"passiveInfinitive": "omtolkas",
+"passiveSupine": "omtolkats",
+"passivePresent": "omtolkas",
+"passivePreterite": "omtolkades"
+},
 "omvandla": {
 "imperative": "omvandla",
 "activeSupine": "omvandlat",
@@ -26629,6 +27139,16 @@
 "passivePresent": "pallas",
 "passivePreterite": "pallades"
 },
+"palpera": {
+"imperative": "palpera",
+"activeSupine": "palperat",
+"activePresent": "palperar",
+"activePreterite": "palperade",
+"passiveInfinitive": "palperas",
+"passiveSupine": "palperats",
+"passivePresent": "palperas",
+"passivePreterite": "palperades"
+},
 "panera": {
 "imperative": "panera",
 "activeSupine": "panerat",
@@ -26839,6 +27359,16 @@
 "passivePresent": "pensioneras",
 "passivePreterite": "pensionerades"
 },
+"pensionsspara": {
+"imperative": "pensionsspara",
+"activeSupine": "pensionssparat",
+"activePresent": "pensionssparar",
+"activePreterite": "pensionssparade",
+"passiveInfinitive": "pensionssparas",
+"passiveSupine": "pensionssparats",
+"passivePresent": "pensionssparas",
+"passivePreterite": "pensionssparades"
+},
 "pensla": {
 "imperative": "pensla",
 "activeSupine": "penslat",
@@ -26849,6 +27379,16 @@
 "passivePresent": "penslas",
 "passivePreterite": "penslades"
 },
+"peppa": {
+"imperative": "peppa",
+"activeSupine": "peppat",
+"activePresent": "peppar",
+"activePreterite": "peppade",
+"passiveInfinitive": "peppas",
+"passiveSupine": "peppats",
+"passivePresent": "peppas",
+"passivePreterite": "peppades"
+},
 "peppra": {
 "imperative": "peppra",
 "activeSupine": "pepprat",
@@ -26858,6 +27398,16 @@
 "passiveSupine": "pepprats",
 "passivePresent": "peppras",
 "passivePreterite": "pepprades"
+},
+"periodisera": {
+"imperative": "periodisera",
+"activeSupine": "periodiserat",
+"activePresent": "periodiserar",
+"activePreterite": "periodiserade",
+"passiveInfinitive": "periodiseras",
+"passiveSupine": "periodiserats",
+"passivePresent": "periodiseras",
+"passivePreterite": "periodiserades"
 },
 "permittera": {
 "imperative": "permittera",
@@ -27449,6 +27999,16 @@
 "passivePresent": "polisanmäls",
 "passivePreterite": "polisanmäldes"
 },
+"politisera": {
+"imperative": "politisera",
+"activeSupine": "politiserat",
+"activePresent": "politiserar",
+"activePreterite": "politiserade",
+"passiveInfinitive": "politiseras",
+"passiveSupine": "politiserats",
+"passivePresent": "politiseras",
+"passivePreterite": "politiserades"
+},
 "pollettera": {
 "imperative": "pollettera",
 "activeSupine": "polletterat",
@@ -27638,6 +28198,16 @@
 "passiveSupine": "premierats",
 "passivePresent": "premieras",
 "passivePreterite": "premierades"
+},
+"premiärsända": {
+"imperative": "premiärsänd",
+"activeSupine": "premiärsänt",
+"activePresent": "premiärsänder",
+"activePreterite": "premiärsände",
+"passiveInfinitive": "premiärsändas",
+"passiveSupine": "premiärsänts",
+"passivePresent": "premiärsänds",
+"passivePreterite": "premiärsändes"
 },
 "premiärvisa": {
 "imperative": "premiärvisa",
@@ -27918,6 +28488,16 @@
 "passiveSupine": "proklamerats",
 "passivePresent": "proklameras",
 "passivePreterite": "proklamerades"
+},
+"proletarisera": {
+"imperative": "proletarisera",
+"activeSupine": "proletariserat",
+"activePresent": "proletariserar",
+"activePreterite": "proletariserade",
+"passiveInfinitive": "proletariseras",
+"passiveSupine": "proletariserats",
+"passivePresent": "proletariseras",
+"passivePreterite": "proletariserades"
 },
 "promenera": {
 "imperative": "promenera",
@@ -29079,6 +29659,16 @@
 "passivePresent": "recirkuleras",
 "passivePreterite": "recirkulerades"
 },
+"recitera": {
+"imperative": "recitera",
+"activeSupine": "reciterat",
+"activePresent": "reciterar",
+"activePreterite": "reciterade",
+"passiveInfinitive": "reciteras",
+"passiveSupine": "reciterats",
+"passivePresent": "reciteras",
+"passivePreterite": "reciterades"
+},
 "reda": {
 "imperative": "red",
 "activeSupine": "rett",
@@ -29248,6 +29838,16 @@
 "passiveSupine": "rehabiliterats",
 "passivePresent": "rehabiliteras",
 "passivePreterite": "rehabiliterades"
+},
+"reifiera": {
+"imperative": "reifiera",
+"activeSupine": "reifierat",
+"activePresent": "reifierar",
+"activePreterite": "reifierade",
+"passiveInfinitive": "reifieras",
+"passiveSupine": "reifierats",
+"passivePresent": "reifieras",
+"passivePreterite": "reifierades"
 },
 "reka": {
 "imperative": "reka",
@@ -29708,6 +30308,16 @@
 "passiveSupine": "reviderats",
 "passivePresent": "revideras",
 "passivePreterite": "reviderades"
+},
+"revitalisera": {
+"imperative": "revitalisera",
+"activeSupine": "revitaliserat",
+"activePresent": "revitaliserar",
+"activePreterite": "revitaliserade",
+"passiveInfinitive": "revitaliseras",
+"passiveSupine": "revitaliserats",
+"passivePresent": "revitaliseras",
+"passivePreterite": "revitaliserades"
 },
 "revoltera": {
 "imperative": "revoltera",
@@ -31499,6 +32109,16 @@
 "passivePresent": "simuleras",
 "passivePreterite": "simulerades"
 },
+"simultantolka": {
+"imperative": "simultantolka",
+"activeSupine": "simultantolkat",
+"activePresent": "simultantolkar",
+"activePreterite": "simultantolkade",
+"passiveInfinitive": "simultantolkas",
+"passiveSupine": "simultantolkats",
+"passivePresent": "simultantolkas",
+"passivePreterite": "simultantolkades"
+},
 "singla": {
 "imperative": "singla",
 "activeSupine": "singlat",
@@ -31619,6 +32239,16 @@
 "passivePresent": "sjukdomsförklaras",
 "passivePreterite": "sjukdomsförklarades"
 },
+"sjukdomsklassa": {
+"imperative": "sjukdomsklassa",
+"activeSupine": "sjukdomsklassat",
+"activePresent": "sjukdomsklassar",
+"activePreterite": "sjukdomsklassade",
+"passiveInfinitive": "sjukdomsklassas",
+"passiveSupine": "sjukdomsklassats",
+"passivePresent": "sjukdomsklassas",
+"passivePreterite": "sjukdomsklassades"
+},
 "sjukförklara": {
 "imperative": "sjukförklara",
 "activeSupine": "sjukförklarat",
@@ -31669,6 +32299,16 @@
 "passivePresent": "självläks",
 "passivePreterite": "självläktes"
 },
+"självskada": {
+"imperative": "",
+"activeSupine": "",
+"activePresent": "",
+"activePreterite": "",
+"passiveInfinitive": "",
+"passiveSupine": "",
+"passivePresent": "",
+"passivePreterite": ""
+},
 "självskatta": {
 "imperative": "självskatta",
 "activeSupine": "självskattat",
@@ -31708,16 +32348,6 @@
 "passiveSupine": "sjösatts",
 "passivePresent": "sjösätts",
 "passivePreterite": "sjösattes"
-},
-"ska": {
-"imperative": "",
-"activeSupine": "skolat",
-"activePresent": "skall",
-"activePreterite": "skulle",
-"passiveInfinitive": "",
-"passiveSupine": "",
-"passivePresent": "",
-"passivePreterite": ""
 },
 "skada": {
 "imperative": "skada",
@@ -31798,6 +32428,16 @@
 "passiveSupine": "skalperats",
 "passivePresent": "skalperas",
 "passivePreterite": "skalperades"
+},
+"skambelägga": {
+"imperative": "skambelägg",
+"activeSupine": "skambelagt",
+"activePresent": "skambelägger",
+"activePreterite": "skambelade",
+"passiveInfinitive": "skambeläggas",
+"passiveSupine": "skambelagts",
+"passivePresent": "skambeläggs",
+"passivePreterite": "skambelades"
 },
 "skamfila": {
 "imperative": "skamfila",
@@ -32159,16 +32799,6 @@
 "passivePresent": "skojas",
 "passivePreterite": "skojades"
 },
-"skola": {
-"imperative": "",
-"activeSupine": "skolat",
-"activePresent": "skall",
-"activePreterite": "skulle",
-"passiveInfinitive": "",
-"passiveSupine": "",
-"passivePresent": "",
-"passivePreterite": ""
-},
 "skolka": {
 "imperative": "skolka",
 "activeSupine": "skolkat",
@@ -32508,6 +33138,16 @@
 "passiveSupine": "skuffats",
 "passivePresent": "skuffas",
 "passivePreterite": "skuffades"
+},
+"skuldbelägga": {
+"imperative": "skuldbelägg",
+"activeSupine": "skuldbelagt",
+"activePresent": "skuldbelägger",
+"activePreterite": "skuldbelade",
+"passiveInfinitive": "skuldbeläggas",
+"passiveSupine": "skuldbelagts",
+"passivePresent": "skuldbeläggs",
+"passivePreterite": "skuldbelades"
 },
 "skulptera": {
 "imperative": "skulptera",
@@ -34298,6 +34938,16 @@
 "passiveSupine": "snörvlats",
 "passivePresent": "snörvlas",
 "passivePreterite": "snörvlades"
+},
+"socialisera": {
+"imperative": "socialisera",
+"activeSupine": "socialiserat",
+"activePresent": "socialiserar",
+"activePreterite": "socialiserade",
+"passiveInfinitive": "socialiseras",
+"passiveSupine": "socialiserats",
+"passivePresent": "socialiseras",
+"passivePreterite": "socialiserades"
 },
 "sockra": {
 "imperative": "sockra",
@@ -36429,6 +37079,16 @@
 "passivePresent": "svaras",
 "passivePreterite": "svarades"
 },
+"svartlista": {
+"imperative": "svartlista",
+"activeSupine": "svartlistat",
+"activePresent": "svartlistar",
+"activePreterite": "svartlistade",
+"passiveInfinitive": "svartlistas",
+"passiveSupine": "svartlistats",
+"passivePresent": "svartlistas",
+"passivePreterite": "svartlistades"
+},
 "svartna": {
 "imperative": "svartna",
 "activeSupine": "svartnat",
@@ -38279,6 +38939,16 @@
 "passivePresent": "totalförbjuds",
 "passivePreterite": "totalförbjöds"
 },
+"totalförstöra": {
+"imperative": "totalförstör",
+"activeSupine": "totalförstört",
+"activePresent": "totalförstör",
+"activePreterite": "totalförstörde",
+"passiveInfinitive": "totalförstöras",
+"passiveSupine": "totalförstörts",
+"passivePresent": "totalförstörs",
+"passivePreterite": "totalförstördes"
+},
 "totalrenovera": {
 "imperative": "totalrenovera",
 "activeSupine": "totalrenoverat",
@@ -38549,6 +39219,16 @@
 "passivePresent": "trotsas",
 "passivePreterite": "trotsades"
 },
+"trumfa": {
+"imperative": "trumfa",
+"activeSupine": "trumfat",
+"activePresent": "trumfar",
+"activePreterite": "trumfade",
+"passiveInfinitive": "trumfas",
+"passiveSupine": "trumfats",
+"passivePresent": "trumfas",
+"passivePreterite": "trumfades"
+},
 "trumma": {
 "imperative": "trumma",
 "activeSupine": "trummat",
@@ -38558,16 +39238,6 @@
 "passiveSupine": "trummats",
 "passivePresent": "trummas",
 "passivePreterite": "trummades"
-},
-"trycka": {
-"imperative": "tryck",
-"activeSupine": "tryckt",
-"activePresent": "trycker",
-"activePreterite": "tryckte",
-"passiveInfinitive": "tryckas",
-"passiveSupine": "tryckts",
-"passivePresent": "trycks",
-"passivePreterite": "trycktes"
 },
 "tryta": {
 "imperative": "tryt",
@@ -39209,6 +39879,16 @@
 "passivePresent": "ugnsbakas",
 "passivePreterite": "ugnsbakades"
 },
+"ugnsgratinera": {
+"imperative": "ugnsgratinera",
+"activeSupine": "ugnsgratinerat",
+"activePresent": "ugnsgratinerar",
+"activePreterite": "ugnsgratinerade",
+"passiveInfinitive": "ugnsgratineras",
+"passiveSupine": "ugnsgratinerats",
+"passivePresent": "ugnsgratineras",
+"passivePreterite": "ugnsgratinerades"
+},
 "ugnsgrädda": {
 "imperative": "ugnsgrädda",
 "activeSupine": "ugnsgräddat",
@@ -39419,6 +40099,16 @@
 "passivePresent": "underpresteras",
 "passivePreterite": "underpresterades"
 },
+"underrapportera": {
+"imperative": "underrapportera",
+"activeSupine": "underrapporterat",
+"activePresent": "underrapporterar",
+"activePreterite": "underrapporterade",
+"passiveInfinitive": "underrapporteras",
+"passiveSupine": "underrapporterats",
+"passivePresent": "underrapporteras",
+"passivePreterite": "underrapporterades"
+},
 "underrätta": {
 "imperative": "underrätta",
 "activeSupine": "underrättat",
@@ -39518,6 +40208,16 @@
 "passiveSupine": "undflytts",
 "passivePresent": "undflys",
 "passivePreterite": "undflyddes"
+},
+"undkomma": {
+"imperative": "",
+"activeSupine": "",
+"activePresent": "",
+"activePreterite": "",
+"passiveInfinitive": "",
+"passiveSupine": "",
+"passivePresent": "",
+"passivePreterite": ""
 },
 "undskylla": {
 "imperative": "undskyll",
@@ -39859,6 +40559,16 @@
 "passivePresent": "uppnås",
 "passivePreterite": "uppnåddes"
 },
+"uppoffra": {
+"imperative": "uppoffra",
+"activeSupine": "uppoffrat",
+"activePresent": "uppoffrar",
+"activePreterite": "uppoffrade",
+"passiveInfinitive": "uppoffras",
+"passiveSupine": "uppoffrats",
+"passivePresent": "uppoffras",
+"passivePreterite": "uppoffrades"
+},
 "upprepa": {
 "imperative": "upprepa",
 "activeSupine": "upprepat",
@@ -40039,6 +40749,16 @@
 "passivePresent": "urartas",
 "passivePreterite": "urartades"
 },
+"urbanisera": {
+"imperative": "urbanisera",
+"activeSupine": "urbaniserat",
+"activePresent": "urbaniserar",
+"activePreterite": "urbaniserade",
+"passiveInfinitive": "urbaniseras",
+"passiveSupine": "urbaniserats",
+"passivePresent": "urbaniseras",
+"passivePreterite": "urbaniserades"
+},
 "urholka": {
 "imperative": "urholka",
 "activeSupine": "urholkat",
@@ -40118,6 +40838,16 @@
 "passiveSupine": "ursäktats",
 "passivePresent": "ursäktas",
 "passivePreterite": "ursäktades"
+},
+"urvattna": {
+"imperative": "urvattna",
+"activeSupine": "urvattnat",
+"activePresent": "urvattnar",
+"activePreterite": "urvattnade",
+"passiveInfinitive": "urvattnas",
+"passiveSupine": "urvattnats",
+"passivePresent": "urvattnas",
+"passivePreterite": "urvattnades"
 },
 "utackordera": {
 "imperative": "utackordera",
@@ -40788,6 +41518,16 @@
 "passiveSupine": "utvidgats",
 "passivePresent": "utvidgas",
 "passivePreterite": "utvidgades"
+},
+"utvinna": {
+"imperative": "",
+"activeSupine": "",
+"activePresent": "",
+"activePreterite": "",
+"passiveInfinitive": "",
+"passiveSupine": "",
+"passivePresent": "",
+"passivePreterite": ""
 },
 "utvisa": {
 "imperative": "utvisa",
@@ -42759,6 +43499,16 @@
 "passivePresent": "åldersbestäms",
 "passivePreterite": "åldersbestämdes"
 },
+"åldras": {
+"imperative": "åldras",
+"activeSupine": "åldrats",
+"activePresent": "åldras",
+"activePreterite": "åldrades",
+"passiveInfinitive": "",
+"passiveSupine": "",
+"passivePresent": "",
+"passivePreterite": ""
+},
 "ånga": {
 "imperative": "ånga",
 "activeSupine": "ångat",
@@ -42782,7 +43532,7 @@
 "ångkoka": {
 "imperative": "ångkok",
 "activeSupine": "ångkokt",
-"activePresent": "ångkoker",
+"activePresent": "ångkokar",
 "activePreterite": "ångkokte",
 "passiveInfinitive": "ångkokas",
 "passiveSupine": "ångkokts",
@@ -42998,6 +43748,16 @@
 "passiveSupine": "återfunnits",
 "passivePresent": "återfinns",
 "passivePreterite": "återfanns"
+},
+"återfukta": {
+"imperative": "återfukta",
+"activeSupine": "återfuktat",
+"activePresent": "återfuktar",
+"activePreterite": "återfuktade",
+"passiveInfinitive": "återfuktas",
+"passiveSupine": "återfuktats",
+"passivePresent": "återfuktas",
+"passivePreterite": "återfuktades"
 },
 "återfå": {
 "imperative": "återfå",
@@ -43228,6 +43988,26 @@
 "passiveSupine": "återupplivats",
 "passivePresent": "återupplivas",
 "passivePreterite": "återupplivades"
+},
+"återupprepa": {
+"imperative": "återupprepa",
+"activeSupine": "återupprepat",
+"activePresent": "återupprepar",
+"activePreterite": "återupprepade",
+"passiveInfinitive": "återupprepas",
+"passiveSupine": "återupprepats",
+"passivePresent": "återupprepas",
+"passivePreterite": "återupprepades"
+},
+"återupprätta": {
+"imperative": "återupprätta",
+"activeSupine": "återupprättat",
+"activePresent": "återupprättar",
+"activePreterite": "återupprättade",
+"passiveInfinitive": "återupprättas",
+"passiveSupine": "återupprättats",
+"passivePresent": "återupprättas",
+"passivePreterite": "återupprättades"
 },
 "återuppstå": {
 "imperative": "återuppstå",
@@ -43539,6 +44319,16 @@
 "passivePresent": "överblickas",
 "passivePreterite": "överblickades"
 },
+"överbrygga": {
+"imperative": "överbrygga",
+"activeSupine": "överbryggat",
+"activePresent": "överbryggar",
+"activePreterite": "överbryggade",
+"passiveInfinitive": "överbryggas",
+"passiveSupine": "överbryggats",
+"passivePresent": "överbryggas",
+"passivePreterite": "överbryggades"
+},
 "överdosera": {
 "imperative": "överdosera",
 "activeSupine": "överdoserat",
@@ -43849,15 +44639,25 @@
 "passivePresent": "övertolkas",
 "passivePreterite": "övertolkades"
 },
+"övertrumfa": {
+"imperative": "övertrumfa",
+"activeSupine": "övertrumfat",
+"activePresent": "övertrumfar",
+"activePreterite": "övertrumfade",
+"passiveInfinitive": "övertrumfas",
+"passiveSupine": "övertrumfats",
+"passivePresent": "övertrumfas",
+"passivePreterite": "övertrumfades"
+},
 "överträffa": {
-"imperative": "",
-"activeSupine": "",
-"activePresent": "",
-"activePreterite": "",
-"passiveInfinitive": "",
-"passiveSupine": "",
-"passivePresent": "",
-"passivePreterite": ""
+"imperative": "överträffa",
+"activeSupine": "överträffat",
+"activePresent": "överträffar",
+"activePreterite": "överträffade",
+"passiveInfinitive": "överträffas",
+"passiveSupine": "överträffats",
+"passivePresent": "överträffas",
+"passivePreterite": "överträffades"
 },
 "övertyga": {
 "imperative": "övertyga",

@@ -3,11 +3,27 @@
 "plural": "",
 "form": ""
 },
+"Laotiani": {
+"plural": "isPlural",
+"form": "PL"
+},
 "Nanosonde": {
 "plural": "isPlural",
 "form": "PL"
 },
 "Propulsioni a curvatura": {
+"plural": "isPlural",
+"form": "PL"
+},
+"Rumeni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"Serbi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"Slovacchi": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -1261,7 +1277,7 @@
 },
 "ambientaccio": {
 "plural": "ambienti",
-"form": "M/PL"
+"form": "M"
 },
 "ambientazione": {
 "plural": "ambientazioni",
@@ -1273,7 +1289,7 @@
 },
 "ambiente": {
 "plural": "ambienti",
-"form": "M"
+"form": "M/PL"
 },
 "ambienti": {
 "plural": "isPlural",
@@ -2264,7 +2280,7 @@
 "form": "PL"
 },
 "arma": {
-"plural": "arme",
+"plural": "armi",
 "form": "F"
 },
 "armadi": {
@@ -2299,7 +2315,7 @@
 "plural": "isPlural",
 "form": "PL"
 },
-"arme": {
+"armi": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -3415,6 +3431,14 @@
 "plural": "bagagli",
 "form": "M"
 },
+"bagatella": {
+"plural": "bagatelle",
+"form": "F"
+},
+"bagatelle": {
+"plural": "isPlural",
+"form": "PL"
+},
 "baghetta": {
 "plural": "baghette",
 "form": "F"
@@ -4396,8 +4420,8 @@
 "form": "PL"
 },
 "bottega": {
-"plural": "botteghe",
-"form": "F/PL"
+"plural": "botteghette",
+"form": "F"
 },
 "botteghe": {
 "plural": "isPlural",
@@ -4406,6 +4430,10 @@
 "botteghetta": {
 "plural": "botteghe",
 "form": "F"
+},
+"botteghette": {
+"plural": "isPlural",
+"form": "PL"
 },
 "botteghini": {
 "plural": "isPlural",
@@ -4905,7 +4933,7 @@
 },
 "cagnetta": {
 "plural": "cagne",
-"form": "M"
+"form": "M/PL"
 },
 "cagnetto": {
 "plural": "cagne",
@@ -5285,7 +5313,7 @@
 },
 "cane": {
 "plural": "cagne",
-"form": "M/PL"
+"form": "M"
 },
 "canguri": {
 "plural": "isPlural",
@@ -6142,6 +6170,14 @@
 "cava": {
 "plural": "cave",
 "form": "F"
+},
+"cavalcata": {
+"plural": "cavalcate",
+"form": "F"
+},
+"cavalcate": {
+"plural": "isPlural",
+"form": "PL"
 },
 "cavallerizzi": {
 "plural": "isPlural",
@@ -7193,7 +7229,7 @@
 },
 "cocchio": {
 "plural": "cocchi",
-"form": "M/PL"
+"form": "M"
 },
 "cocciniglia": {
 "plural": "cocciniglie",
@@ -7205,7 +7241,7 @@
 },
 "cocco": {
 "plural": "cocchi",
-"form": "M"
+"form": "M/PL"
 },
 "coccodrilli": {
 "plural": "isPlural",
@@ -8024,11 +8060,7 @@
 "form": "PL"
 },
 "confeditrice": {
-"plural": "confeditrici",
-"form": ""
-},
-"confeditrici": {
-"plural": "isPlural",
+"plural": "confessore",
 "form": "PL"
 },
 "conferenza": {
@@ -8057,10 +8089,10 @@
 },
 "confessora": {
 "plural": "confessore",
-"form": ""
+"form": "PL"
 },
 "confessore": {
-"plural": "isPlural",
+"plural": "confessore",
 "form": "PL"
 },
 "confetti": {
@@ -12057,15 +12089,11 @@
 },
 "fama": {
 "plural": "fame",
-"form": "F/PL"
-},
-"fame": {
-"plural": "fami",
 "form": "F"
 },
-"fami": {
+"fame": {
 "plural": "isPlural",
-"form": "PL"
+"form": "F/PL"
 },
 "famiglia": {
 "plural": "famiglie",
@@ -13703,12 +13731,8 @@
 "plural": "isPlural",
 "form": "PL"
 },
-"fuochetti": {
-"plural": "isPlural",
-"form": "PL"
-},
 "fuochetto": {
-"plural": "fuochetti",
+"plural": "fuochi",
 "form": "M"
 },
 "fuochi": {
@@ -13716,12 +13740,12 @@
 "form": "PL"
 },
 "fuochino": {
-"plural": "fuochetti",
+"plural": "fuochi",
 "form": "M/PL"
 },
 "fuoco": {
 "plural": "fuochi",
-"form": "M"
+"form": "M/PL"
 },
 "furetti": {
 "plural": "isPlural",
@@ -16993,17 +17017,21 @@
 },
 "latta": {
 "plural": "latte",
-"form": "F"
+"form": "F/PL"
 },
 "latte": {
-"plural": "isPlural",
-"form": "M/PL"
+"plural": "latti",
+"form": "M"
 },
 "latteria": {
 "plural": "latterie",
 "form": "F"
 },
 "latterie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"latti": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -17930,6 +17958,14 @@
 "maccarello": {
 "plural": "maccarelli",
 "form": "M"
+},
+"maccarone": {
+"plural": "maccaroni",
+"form": "M"
+},
+"maccaroni": {
+"plural": "isPlural",
+"form": "PL"
 },
 "macchia": {
 "plural": "macchie",
@@ -19851,6 +19887,14 @@
 "plural": "monosillabi",
 "form": "M"
 },
+"monsignore": {
+"plural": "monsignori",
+"form": "M"
+},
+"monsignori": {
+"plural": "isPlural",
+"form": "PL"
+},
 "montaggi": {
 "plural": "isPlural",
 "form": "PL"
@@ -21039,6 +21083,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"ometti": {
+"plural": "isPlural",
+"form": "PL"
+},
+"ometto": {
+"plural": "ometti",
+"form": ""
+},
 "omicidi": {
 "plural": "isPlural",
 "form": "PL"
@@ -21092,6 +21144,14 @@
 "form": "PL"
 },
 "opere": {
+"plural": "isPlural",
+"form": "PL"
+},
+"operetta": {
+"plural": "operette",
+"form": "F"
+},
+"operette": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -21859,6 +21919,14 @@
 "plural": "panelli",
 "form": "M"
 },
+"panettone": {
+"plural": "panettoni",
+"form": "M"
+},
+"panettoni": {
+"plural": "isPlural",
+"form": "PL"
+},
 "pangrattati": {
 "plural": "isPlural",
 "form": "PL"
@@ -22419,6 +22487,14 @@
 "plural": "patrimoni",
 "form": "M"
 },
+"patta": {
+"plural": "patte",
+"form": "F"
+},
+"patte": {
+"plural": "isPlural",
+"form": "PL"
+},
 "patti": {
 "plural": "isPlural",
 "form": "PL"
@@ -22629,7 +22705,7 @@
 },
 "pena": {
 "plural": "pene",
-"form": "F"
+"form": "F/PL"
 },
 "pendi": {
 "plural": "isPlural",
@@ -22648,8 +22724,8 @@
 "form": "M"
 },
 "pene": {
-"plural": "isPlural",
-"form": "M/PL"
+"plural": "peni",
+"form": "M"
 },
 "peneri": {
 "plural": "isPlural",
@@ -22658,6 +22734,10 @@
 "penero": {
 "plural": "peneri",
 "form": "M"
+},
+"peni": {
+"plural": "isPlural",
+"form": "PL"
 },
 "penicillina": {
 "plural": "",
@@ -23664,16 +23744,16 @@
 "form": "PL"
 },
 "poeta": {
-"plural": "poeti",
+"plural": "poete",
+"form": "PL"
+},
+"poete": {
+"plural": "isPlural",
 "form": "PL"
 },
 "poetessa": {
-"plural": "poeti",
+"plural": "poete",
 "form": ""
-},
-"poeti": {
-"plural": "isPlural",
-"form": "PL"
 },
 "poggi": {
 "plural": "isPlural",
@@ -25071,6 +25151,10 @@
 "plural": "quarzi",
 "form": "M"
 },
+"querce": {
+"plural": "isPlural",
+"form": "PL"
+},
 "querceti": {
 "plural": "isPlural",
 "form": "PL"
@@ -25080,12 +25164,8 @@
 "form": "M"
 },
 "quercia": {
-"plural": "quercie",
+"plural": "querce",
 "form": "F"
-},
-"quercie": {
-"plural": "isPlural",
-"form": "PL"
 },
 "questione": {
 "plural": "questioni",
@@ -26489,7 +26569,7 @@
 },
 "risaccio": {
 "plural": "risi",
-"form": "M/PL"
+"form": "M"
 },
 "risaia": {
 "plural": "risaie",
@@ -26577,7 +26657,7 @@
 },
 "riso": {
 "plural": "risi",
-"form": "M"
+"form": "M/PL"
 },
 "risoluzione": {
 "plural": "risoluzioni",
@@ -27181,7 +27261,7 @@
 },
 "sala": {
 "plural": "sale",
-"form": "F"
+"form": "F/PL"
 },
 "salacca": {
 "plural": "salacche",
@@ -27237,7 +27317,7 @@
 },
 "saletta": {
 "plural": "sale",
-"form": "F/PL"
+"form": "F"
 },
 "salettina": {
 "plural": "sale",
@@ -28337,11 +28417,11 @@
 },
 "secchiaccio": {
 "plural": "secchi",
-"form": "M/PL"
+"form": "M"
 },
 "secchiello": {
 "plural": "secchi",
-"form": "M"
+"form": "M/PL"
 },
 "secchietto": {
 "plural": "secchi",
@@ -29695,6 +29775,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"spaghetti": {
+"plural": "isPlural",
+"form": "PL"
+},
+"spaghetto": {
+"plural": "spaghetti",
+"form": "M"
+},
 "spalla": {
 "plural": "spalle",
 "form": "F"
@@ -29737,7 +29825,7 @@
 },
 "sparviere": {
 "plural": "sparvieri",
-"form": "M"
+"form": "M/PL"
 },
 "sparvieri": {
 "plural": "isPlural",
@@ -29745,7 +29833,7 @@
 },
 "sparviero": {
 "plural": "sparvieri",
-"form": "M/PL"
+"form": "M"
 },
 "spasmi": {
 "plural": "isPlural",
@@ -31729,11 +31817,15 @@
 },
 "tendina": {
 "plural": "tendine",
-"form": "F"
+"form": "F/PL"
 },
 "tendine": {
+"plural": "tendini",
+"form": "M"
+},
+"tendini": {
 "plural": "isPlural",
-"form": "M/PL"
+"form": "PL"
 },
 "tenore": {
 "plural": "tenori",

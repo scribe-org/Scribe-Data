@@ -1,10 +1,18 @@
 [
 {
-"preposition": "около",
-"case": "Q146233"
+"preposition": "на",
+"case": "Q146078"
 },
 {
-"preposition": "минус"
+"preposition": "на",
+"case": "Q2114906"
+},
+{
+"preposition": "за"
+},
+{
+"preposition": "около",
+"case": "Q146233"
 },
 {
 "preposition": "из",
@@ -29,25 +37,30 @@
 "preposition": "въ"
 },
 {
-"preposition": "на",
-"case": "Q146078"
-},
-{
-"preposition": "на",
-"case": "Q2114906"
-},
-{
-"preposition": "за"
-},
-{
-"preposition": "между"
+"preposition": "к",
+"case": "Q145599"
 },
 {
 "preposition": "через",
 "case": "Q146078"
 },
 {
+"preposition": "около",
+"case": "Q146233"
+},
+{
+"preposition": "минус"
+},
+{
+"preposition": "среди",
+"case": "Q146233"
+},
+{
 "preposition": "после",
+"case": "Q146233"
+},
+{
+"preposition": "против",
 "case": "Q146233"
 },
 {
@@ -67,6 +80,9 @@
 "case": "Q146233"
 },
 {
+"preposition": "между"
+},
+{
 "preposition": "с",
 "case": "Q192997"
 },
@@ -77,9 +93,5 @@
 {
 "preposition": "для",
 "case": "Q146233"
-},
-{
-"preposition": "к",
-"case": "Q145599"
 }
 ]
