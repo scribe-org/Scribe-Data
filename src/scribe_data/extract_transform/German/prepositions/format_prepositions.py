@@ -89,6 +89,34 @@ for prep_vals in prepositions_list:
 for k in prepositions_formatted:
     prepositions_formatted[k] = order_annotations(prepositions_formatted[k])
 
+    # Contracted versions of German prepositions (ex: an + dem = am).
+contractedGermanPrepositions = {
+    "am": "Acc/Dat",
+    "ans": "Acc/Dat",
+    "aufs": "Acc/Dat",
+    "beim": "Dat",
+    "durchs": "Acc",
+    "fürs": "Acc",
+    "hinters": "Acc/Dat",
+    "hinterm": "Acc/Dat",
+    "ins": "Acc/Dat",
+    "im": "Acc/Dat",
+    "übers": "Acc/Dat",
+    "überm": "Acc/Dat",
+    "ums": "Acc",
+    "unters": "Acc/Dat",
+    "unterm": "Acc/Dat",
+    "vom": "Dat",
+    "vors": "Acc/Dat",
+    "vorm": "Acc/Dat",
+    "zum": "Dat",
+    "zur": "Dat",
+}
+
+for p in contractedGermanPrepositions:
+    if p not in prepositions_formatted:
+        prepositions_formatted[p] = contractedGermanPrepositions[p]
+
 prepositions_formatted = collections.OrderedDict(sorted(prepositions_formatted.items()))
 
 org_path = get_path_from_et_dir()
