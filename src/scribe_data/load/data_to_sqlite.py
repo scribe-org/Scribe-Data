@@ -131,6 +131,11 @@ for l in tqdm(language_word_type_dict, desc="Databases created", unit="dbs",):
                     keys = [row, json_data[row]["plural"], json_data[row]["form"]]
                     table_insert(word_type=wt, keys=keys)
 
+                if "Scribe" not in json_data and l != "Russian":
+                    table_insert(word_type=wt, keys=["Scribe", "Scribes", ""])
+                # elif "Писец" not in json_data and l == "Russian":
+                #     table_insert(word_type=wt, keys=["Писец", "Писцы", ""])
+
                 connection.commit()
 
             elif wt == "verbs":

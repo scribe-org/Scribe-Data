@@ -10,7 +10,14 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
-# [Unreleased] Scribe-Data 3.0.0
+# [Unreleased] Scribe-Data 3.1.0
+
+### ✨ Features
+
+- The word "Scribe" is now added to language database nouns files if it's not already present.
+- German contracted prepositions have been added to the German prepositions formatting process.
+
+# Scribe-Data 3.0.0
 
 ### ✨ Features
 
