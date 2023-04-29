@@ -11,8 +11,8 @@
 [![coc](https://img.shields.io/badge/Contributor%20Covenant-ff69b4.svg)](https://github.com/scribe-org/Scribe-Data/blob/main/.github/CODE_OF_CONDUCT.md)
 [![mastodon](https://img.shields.io/badge/Mastodon-6364FF.svg?logo=mastodon&logoColor=ffffff)](https://wikis.world/@scribe)
 [![twitter](https://img.shields.io/badge/Twitter-1DA1F2.svg?logo=twitter&logoColor=ffffff)](https://twitter.com/scribe_org)
-[![codestyle](https://img.shields.io/badge/black-000000.svg)](https://github.com/psf/black)
 [![matrix](https://img.shields.io/badge/Matrix-000000.svg?logo=matrix&logoColor=ffffff)](https://matrix.to/#/#scribe_community:matrix.org)
+[![codestyle](https://img.shields.io/badge/black-000000.svg)](https://github.com/psf/black)
 
 ## Wikidata and Wikipedia data extraction for Scribe applications
 
