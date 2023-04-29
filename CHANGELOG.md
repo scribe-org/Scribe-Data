@@ -18,6 +18,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - German contracted prepositions have been added to the German prepositions formatting process.
 - Words that are upper case are now better included in the autocomplete lexicon with their lower case equivalents being removed.
 - Autosuggestions are now capitalized or upper case if they're capitalized or upper case in the nouns table.
+- Words with apostrophes have been removed from the autocomplete lexicon.
 
 ### ♻️ Code Refactoring
 

@@ -422,6 +422,7 @@ for l in tqdm(language_word_type_dict, desc="Databases created", unit="dbs",):
                 AND lex.word NOT LIKE '%“%'
                 AND lex.word NOT LIKE '%„%'
                 AND lex.word NOT LIKE '%”%'
+                AND lex.word NOT LIKE "%'%"
             """
         )
 
