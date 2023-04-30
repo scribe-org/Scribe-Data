@@ -337,60 +337,36 @@
 "case": "Q146233"
 },
 {
-"preposition": "rechts",
+"preposition": "behufs",
 "case": "Q146233"
 },
 {
-"preposition": "anstatt",
-"case": "Q146233"
-},
-{
-"preposition": "à",
-"case": "Q146078"
-},
-{
-"preposition": "betreffs",
-"case": "Q146233"
-},
-{
-"preposition": "minus",
+"preposition": "auf",
 "case": "Q145599"
 },
 {
-"preposition": "minus",
+"preposition": "auf",
 "case": "Q146078"
 },
 {
-"preposition": "minus",
-"case": "Q146233"
-},
-{
-"preposition": "gen",
-"case": "Q146078"
-},
-{
-"preposition": "mitsamt",
+"preposition": "zwischen",
 "case": "Q145599"
 },
 {
-"preposition": "seitens",
-"case": "Q146233"
-},
-{
-"preposition": "unfern",
-"case": "Q146233"
-},
-{
-"preposition": "mang",
-"case": "Q145599"
-},
-{
-"preposition": "mang",
+"preposition": "zwischen",
 "case": "Q146078"
 },
 {
-"preposition": "jenseits",
-"case": "Q146233"
+"preposition": "ohne",
+"case": "Q146078"
+},
+{
+"preposition": "bei",
+"case": "Q145599"
+},
+{
+"preposition": "nach",
+"case": "Q145599"
 },
 {
 "preposition": "in puncto",
@@ -429,38 +405,6 @@
 "case": "Q145599"
 },
 {
-"preposition": "behufs",
-"case": "Q146233"
-},
-{
-"preposition": "auf",
-"case": "Q145599"
-},
-{
-"preposition": "auf",
-"case": "Q146078"
-},
-{
-"preposition": "zwischen",
-"case": "Q145599"
-},
-{
-"preposition": "zwischen",
-"case": "Q146078"
-},
-{
-"preposition": "ohne",
-"case": "Q146078"
-},
-{
-"preposition": "bei",
-"case": "Q145599"
-},
-{
-"preposition": "nach",
-"case": "Q145599"
-},
-{
 "preposition": "von",
 "case": "Q145599"
 },
@@ -494,94 +438,6 @@
 },
 {
 "preposition": "infolge",
-"case": "Q146233"
-},
-{
-"preposition": "oberhalb",
-"case": "Q146233"
-},
-{
-"preposition": "bis",
-"case": "Q146078"
-},
-{
-"preposition": "unerachtet",
-"case": "Q146233"
-},
-{
-"preposition": "zunächst",
-"case": "Q145599"
-},
-{
-"preposition": "anlässlich",
-"case": "Q146233"
-},
-{
-"preposition": "kontra",
-"case": "Q146078"
-},
-{
-"preposition": "fernab",
-"case": "Q146233"
-},
-{
-"preposition": "hindurch",
-"case": "Q146078"
-},
-{
-"preposition": "ober",
-"case": "Q145599"
-},
-{
-"preposition": "oberkant",
-"case": "Q146233"
-},
-{
-"preposition": "vorgängig",
-"case": "Q145599"
-},
-{
-"preposition": "vorgängig",
-"case": "Q146233"
-},
-{
-"preposition": "westlich",
-"case": "Q146233"
-},
-{
-"preposition": "zu Lasten",
-"case": "Q146233"
-},
-{
-"preposition": "zu Ungunsten",
-"case": "Q146233"
-},
-{
-"preposition": "zulasten",
-"case": "Q146233"
-},
-{
-"preposition": "ungerechnet",
-"case": "Q146233"
-},
-{
-"preposition": "vermittels",
-"case": "Q146233"
-},
-{
-"preposition": "vermittelst",
-"case": "Q146233"
-},
-{
-"preposition": "um",
-"case": "Q146078"
-},
-{
-"preposition": "längsseits",
-"case": "Q146233"
-},
-{
-"preposition": "nordwestlich",
 "case": "Q146233"
 },
 {
@@ -728,6 +584,205 @@
 "case": "Q146078"
 },
 {
+"preposition": "oberhalb",
+"case": "Q146233"
+},
+{
+"preposition": "bis",
+"case": "Q146078"
+},
+{
+"preposition": "unerachtet",
+"case": "Q146233"
+},
+{
+"preposition": "zunächst",
+"case": "Q145599"
+},
+{
+"preposition": "anlässlich",
+"case": "Q146233"
+},
+{
+"preposition": "kontra",
+"case": "Q146078"
+},
+{
+"preposition": "fernab",
+"case": "Q146233"
+},
+{
+"preposition": "hindurch",
+"case": "Q146078"
+},
+{
+"preposition": "ober",
+"case": "Q145599"
+},
+{
+"preposition": "oberkant",
+"case": "Q146233"
+},
+{
+"preposition": "vorgängig",
+"case": "Q145599"
+},
+{
+"preposition": "vorgängig",
+"case": "Q146233"
+},
+{
+"preposition": "westlich",
+"case": "Q146233"
+},
+{
+"preposition": "zu Lasten",
+"case": "Q146233"
+},
+{
+"preposition": "zu Ungunsten",
+"case": "Q146233"
+},
+{
+"preposition": "zulasten",
+"case": "Q146233"
+},
+{
+"preposition": "ungerechnet",
+"case": "Q146233"
+},
+{
+"preposition": "vermittels",
+"case": "Q146233"
+},
+{
+"preposition": "vermittelst",
+"case": "Q146233"
+},
+{
+"preposition": "um",
+"case": "Q146078"
+},
+{
+"preposition": "längsseits",
+"case": "Q146233"
+},
+{
+"preposition": "nordwestlich",
+"case": "Q146233"
+},
+{
+"preposition": "außerhalb",
+"case": "Q146233"
+},
+{
+"preposition": "binnen",
+"case": "Q145599"
+},
+{
+"preposition": "zulieb",
+"case": "Q145599"
+},
+{
+"preposition": "zuliebe",
+"case": "Q145599"
+},
+{
+"preposition": "betreffend",
+"case": "Q146078"
+},
+{
+"preposition": "ausgangs",
+"case": "Q146233"
+},
+{
+"preposition": "ausweislich",
+"case": "Q146233"
+},
+{
+"preposition": "mittels",
+"case": "Q146233"
+},
+{
+"preposition": "punkto",
+"case": "Q146233"
+},
+{
+"preposition": "sonder",
+"case": "Q146078"
+},
+{
+"preposition": "unangesehen",
+"case": "Q146078"
+},
+{
+"preposition": "unangesehen",
+"case": "Q146233"
+},
+{
+"preposition": "unterkant",
+"case": "Q146233"
+},
+{
+"preposition": "zwengs"
+},
+{
+"preposition": "rechts",
+"case": "Q146233"
+},
+{
+"preposition": "anstatt",
+"case": "Q146233"
+},
+{
+"preposition": "à",
+"case": "Q146078"
+},
+{
+"preposition": "betreffs",
+"case": "Q146233"
+},
+{
+"preposition": "minus",
+"case": "Q145599"
+},
+{
+"preposition": "minus",
+"case": "Q146078"
+},
+{
+"preposition": "minus",
+"case": "Q146233"
+},
+{
+"preposition": "gen",
+"case": "Q146078"
+},
+{
+"preposition": "mitsamt",
+"case": "Q145599"
+},
+{
+"preposition": "seitens",
+"case": "Q146233"
+},
+{
+"preposition": "unfern",
+"case": "Q146233"
+},
+{
+"preposition": "mang",
+"case": "Q145599"
+},
+{
+"preposition": "mang",
+"case": "Q146078"
+},
+{
+"preposition": "jenseits",
+"case": "Q146233"
+},
+{
 "preposition": "nordöstlich",
 "case": "Q146233"
 },
@@ -806,60 +861,5 @@
 {
 "preposition": "seitab",
 "case": "Q146233"
-},
-{
-"preposition": "außerhalb",
-"case": "Q146233"
-},
-{
-"preposition": "binnen",
-"case": "Q145599"
-},
-{
-"preposition": "zulieb",
-"case": "Q145599"
-},
-{
-"preposition": "zuliebe",
-"case": "Q145599"
-},
-{
-"preposition": "betreffend",
-"case": "Q146078"
-},
-{
-"preposition": "ausgangs",
-"case": "Q146233"
-},
-{
-"preposition": "ausweislich",
-"case": "Q146233"
-},
-{
-"preposition": "mittels",
-"case": "Q146233"
-},
-{
-"preposition": "punkto",
-"case": "Q146233"
-},
-{
-"preposition": "sonder",
-"case": "Q146078"
-},
-{
-"preposition": "unangesehen",
-"case": "Q146078"
-},
-{
-"preposition": "unangesehen",
-"case": "Q146233"
-},
-{
-"preposition": "unterkant",
-"case": "Q146233"
-},
-{
-"preposition": "zwengs"
 }
 ]

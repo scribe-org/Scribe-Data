@@ -4958,10 +4958,10 @@
 "impFPP": "aiguayions",
 "impSPP": "aiguayiez",
 "impTPP": "aiguayaient",
-"futFPS": "aiguaierai",
+"futFPS": "aiguayerai",
 "futSPS": "aiguaieras",
-"futTPS": "aiguaiera",
-"futFPP": "aiguayerons",
+"futTPS": "aiguayera",
+"futFPP": "aiguaierons",
 "futSPP": "aiguayerez",
 "futTPP": "aiguaieront"
 },
@@ -13911,7 +13911,7 @@
 },
 "balayer": {
 "presFPS": "balaye",
-"presSPS": "balaies",
+"presSPS": "balayes",
 "presTPS": "balaye",
 "presFPP": "balayons",
 "presSPP": "balayez",
@@ -15280,10 +15280,10 @@
 "impFPP": "bayions",
 "impSPP": "bayiez",
 "impTPP": "bayaient",
-"futFPS": "baierai",
-"futSPS": "bayeras",
+"futFPS": "bayerai",
+"futSPS": "baieras",
 "futTPS": "bayera",
-"futFPP": "bayerons",
+"futFPP": "baierons",
 "futSPP": "bayerez",
 "futTPP": "baieront"
 },
@@ -20307,15 +20307,15 @@
 },
 "bruler": {
 "presFPS": "brûle",
-"presSPS": "brûles",
+"presSPS": "brules",
 "presTPS": "brûle",
-"presFPP": "brûlons",
-"presSPP": "brulez",
-"presTPP": "brûlent",
+"presFPP": "brulons",
+"presSPP": "brûlez",
+"presTPP": "brulent",
 "pretFPS": "brûlai",
-"pretSPS": "brûlas",
+"pretSPS": "brulas",
 "pretTPS": "brûla",
-"pretFPP": "brûlâmes",
+"pretFPP": "brulâmes",
 "pretSPP": "brulâtes",
 "pretTPP": "brulèrent",
 "impFPS": "brûlais",
@@ -21087,7 +21087,7 @@
 },
 "bégayer": {
 "presFPS": "bégaye",
-"presSPS": "bégayes",
+"presSPS": "bégaies",
 "presTPS": "bégaye",
 "presFPP": "bégayons",
 "presSPP": "bégayez",
@@ -54523,7 +54523,7 @@
 },
 "dérayer": {
 "presFPS": "déraye",
-"presSPS": "déraies",
+"presSPS": "dérayes",
 "presTPS": "déraye",
 "presFPP": "dérayons",
 "presSPP": "dérayez",
@@ -54542,10 +54542,10 @@
 "impTPP": "dérayaient",
 "futFPS": "dérayerai",
 "futSPS": "déraieras",
-"futTPS": "dérayera",
-"futFPP": "déraierons",
+"futTPS": "déraiera",
+"futFPP": "dérayerons",
 "futSPP": "dérayerez",
-"futTPP": "déraieront"
+"futTPP": "dérayeront"
 },
 "dérider": {
 "presFPS": "déride",
@@ -59385,7 +59385,7 @@
 },
 "effrayer": {
 "presFPS": "effraye",
-"presSPS": "effrayes",
+"presSPS": "effraies",
 "presTPS": "effraye",
 "presFPP": "effrayons",
 "presSPP": "effrayez",
@@ -60399,7 +60399,7 @@
 },
 "embrayer": {
 "presFPS": "embraye",
-"presSPS": "embraies",
+"presSPS": "embrayes",
 "presTPS": "embraye",
 "presFPP": "embrayons",
 "presSPP": "embrayez",
@@ -60416,9 +60416,9 @@
 "impFPP": "embrayions",
 "impSPP": "embrayiez",
 "impTPP": "embrayaient",
-"futFPS": "embraierai",
+"futFPS": "embrayerai",
 "futSPS": "embraieras",
-"futTPS": "embraiera",
+"futTPS": "embrayera",
 "futFPP": "embraierons",
 "futSPP": "embrayerez",
 "futTPP": "embraieront"
@@ -74027,13 +74027,13 @@
 "presTPS": "flute",
 "presFPP": "flûtons",
 "presSPP": "flutez",
-"presTPP": "flutent",
+"presTPP": "flûtent",
 "pretFPS": "flutai",
 "pretSPS": "flûtas",
 "pretTPS": "fluta",
 "pretFPP": "flûtâmes",
 "pretSPP": "flutâtes",
-"pretTPP": "flûtèrent",
+"pretTPP": "flutèrent",
 "impFPS": "flutais",
 "impSPS": "flûtais",
 "impTPS": "flutait",
@@ -106445,7 +106445,7 @@
 },
 "pagayer": {
 "presFPS": "pagaye",
-"presSPS": "pagayes",
+"presSPS": "pagaies",
 "presTPS": "pagaye",
 "presFPP": "pagayons",
 "presSPP": "pagayez",
@@ -127245,7 +127245,7 @@
 },
 "relayer": {
 "presFPS": "relaye",
-"presSPS": "relayes",
+"presSPS": "relaies",
 "presTPS": "relaye",
 "presFPP": "relayons",
 "presSPP": "relayez",
@@ -127738,7 +127738,7 @@
 "futTPP": "rembarreront"
 },
 "remblayer": {
-"presFPS": "remblaie",
+"presFPS": "remblaye",
 "presSPS": "remblayes",
 "presTPS": "remblaye",
 "presFPP": "remblayons",
@@ -130183,7 +130183,7 @@
 },
 "repayer": {
 "presFPS": "repaye",
-"presSPS": "repaies",
+"presSPS": "repayes",
 "presTPS": "repaye",
 "presFPP": "repayons",
 "presSPP": "repayez",
@@ -130200,12 +130200,12 @@
 "impFPP": "repayions",
 "impSPP": "repayiez",
 "impTPP": "repayaient",
-"futFPS": "repaierai",
-"futSPS": "repaieras",
+"futFPS": "repayerai",
+"futSPS": "repayeras",
 "futTPS": "repaiera",
 "futFPP": "repaierons",
 "futSPP": "repaierez",
-"futTPP": "repayeront"
+"futTPP": "repaieront"
 },
 "repeigner": {
 "presFPS": "repeigne",
@@ -137563,7 +137563,7 @@
 "futTPS": "réessayera",
 "futFPP": "réessaierons",
 "futSPP": "réessayerez",
-"futTPP": "réessaieront"
+"futTPP": "réessayeront"
 },
 "réexaminer": {
 "presFPS": "réexamine",
@@ -150385,7 +150385,7 @@
 },
 "surpayer": {
 "presFPS": "surpaye",
-"presSPS": "surpaies",
+"presSPS": "surpayes",
 "presTPS": "surpaye",
 "presFPP": "surpayons",
 "presSPP": "surpayez",
@@ -163697,7 +163697,7 @@
 },
 "zézayer": {
 "presFPS": "zézaye",
-"presSPS": "zézaies",
+"presSPS": "zézayes",
 "presTPS": "zézaye",
 "presFPP": "zézayons",
 "presSPP": "zézayez",

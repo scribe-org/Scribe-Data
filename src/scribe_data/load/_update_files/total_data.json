@@ -1,17 +1,17 @@
 {
 "French": {
-"nouns": 17070,
+"nouns": 17072,
 "verbs": 6572,
 "emoji_keywords": 2488
 },
 "German": {
-"nouns": 102789,
-"verbs": 3592,
-"prepositions": 190,
+"nouns": 102833,
+"verbs": 3593,
+"prepositions": 210,
 "emoji_keywords": 2898
 },
 "Italian": {
-"nouns": 8669,
+"nouns": 8671,
 "verbs": 73,
 "emoji_keywords": 2457
 },
@@ -27,13 +27,13 @@
 "emoji_keywords": 3827
 },
 "Spanish": {
-"nouns": 38755,
-"verbs": 4828,
+"nouns": 39105,
+"verbs": 4930,
 "emoji_keywords": 3134
 },
 "Swedish": {
-"nouns": 44624,
-"verbs": 4474,
+"nouns": 45259,
+"verbs": 4501,
 "emoji_keywords": 2913
 }
 }

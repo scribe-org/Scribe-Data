@@ -1205,7 +1205,7 @@
 },
 "Cie": {
 "plural": "compagnies",
-"form": "F"
+"form": "F/PL"
 },
 "Cité du Vatican": {
 "plural": "",
@@ -2873,7 +2873,7 @@
 },
 "Louvre": {
 "plural": "Louvres",
-"form": ""
+"form": "M"
 },
 "Louvres": {
 "plural": "isPlural",
@@ -4041,7 +4041,7 @@
 },
 "Philippine": {
 "plural": "Philippines",
-"form": "F/PL"
+"form": "F"
 },
 "Philippines": {
 "plural": "isPlural",
@@ -19017,7 +19017,7 @@
 },
 "compagnie": {
 "plural": "compagnies",
-"form": "F/PL"
+"form": "F"
 },
 "compagnies": {
 "plural": "isPlural",
@@ -22620,6 +22620,10 @@
 "form": "F/M"
 },
 "céroplastes": {
+"plural": "isPlural",
+"form": "PL"
+},
+"cérumens": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -29673,7 +29677,7 @@
 },
 "foi": {
 "plural": "fois",
-"form": "F/PL"
+"form": "F"
 },
 "foie": {
 "plural": "foies",
@@ -29700,7 +29704,7 @@
 "form": "PL"
 },
 "fois": {
-"plural": "fois",
+"plural": "isPlural",
 "form": "F/PL"
 },
 "folie": {
@@ -31908,7 +31912,7 @@
 "form": "F"
 },
 "goëlette": {
-"plural": "goélette",
+"plural": "goëlettes",
 "form": "F/PL"
 },
 "goëlettes": {
@@ -36667,13 +36671,9 @@
 "plural": "isPlural",
 "form": "PL"
 },
-"joaillers": {
-"plural": "isPlural",
-"form": "PL"
-},
 "joaillier": {
-"plural": "joaillers",
-"form": "M"
+"plural": "joailliers",
+"form": "M/PL"
 },
 "joailliers": {
 "plural": "isPlural",
@@ -39088,16 +39088,16 @@
 "form": "PL"
 },
 "maire": {
-"plural": "maires",
-"form": "F/M/PL"
-},
-"maires": {
-"plural": "isPlural",
-"form": "PL"
+"plural": "mairesses",
+"form": "F/M"
 },
 "mairesse": {
-"plural": "maires",
-"form": "F/M"
+"plural": "mairesses",
+"form": "F/M/PL"
+},
+"mairesses": {
+"plural": "isPlural",
+"form": "PL"
 },
 "mairie": {
 "plural": "mairies",
@@ -41740,6 +41740,14 @@
 "form": "M"
 },
 "morcèlements": {
+"plural": "isPlural",
+"form": "PL"
+},
+"morinom": {
+"plural": "morinoms",
+"form": ""
+},
+"morinoms": {
 "plural": "isPlural",
 "form": "PL"
 },

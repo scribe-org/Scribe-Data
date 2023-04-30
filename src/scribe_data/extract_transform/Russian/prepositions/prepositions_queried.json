@@ -1,16 +1,5 @@
 [
 {
-"preposition": "на",
-"case": "Q146078"
-},
-{
-"preposition": "на",
-"case": "Q2114906"
-},
-{
-"preposition": "за"
-},
-{
 "preposition": "около",
 "case": "Q146233"
 },
@@ -29,6 +18,29 @@
 {
 "preposition": "по",
 "case": "Q2114906"
+},
+{
+"preposition": "на",
+"case": "Q146078"
+},
+{
+"preposition": "на",
+"case": "Q2114906"
+},
+{
+"preposition": "за"
+},
+{
+"preposition": "с",
+"case": "Q192997"
+},
+{
+"preposition": "съ",
+"case": "Q192997"
+},
+{
+"preposition": "для",
+"case": "Q146233"
 },
 {
 "preposition": "в"
@@ -81,17 +93,5 @@
 },
 {
 "preposition": "между"
-},
-{
-"preposition": "с",
-"case": "Q192997"
-},
-{
-"preposition": "съ",
-"case": "Q192997"
-},
-{
-"preposition": "для",
-"case": "Q146233"
 }
 ]

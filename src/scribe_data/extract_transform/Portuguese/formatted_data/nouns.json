@@ -1048,12 +1048,8 @@
 "form": "PL"
 },
 "animálculo": {
-"plural": "animálculos",
-"form": "M"
-},
-"animálculos": {
-"plural": "isPlural",
-"form": "PL"
+"plural": "animais",
+"form": "M/PL"
 },
 "aniversário": {
 "plural": "aniversários",
@@ -1468,8 +1464,8 @@
 "form": "PL"
 },
 "asa": {
-"plural": "asões",
-"form": "F"
+"plural": "asas",
+"form": "F/PL"
 },
 "asas": {
 "plural": "isPlural",
@@ -1484,16 +1480,16 @@
 "form": "F/PL"
 },
 "aspecto": {
-"plural": "aspetos",
-"form": "M/PL"
-},
-"aspeto": {
-"plural": "aspetos",
+"plural": "aspectos",
 "form": "M"
 },
-"aspetos": {
+"aspectos": {
 "plural": "isPlural",
 "form": "PL"
+},
+"aspeto": {
+"plural": "aspectos",
+"form": "M/PL"
 },
 "aspirador": {
 "plural": "aspiradores",
@@ -1545,7 +1541,7 @@
 },
 "assembleia": {
 "plural": "assembleias",
-"form": "F/PL"
+"form": "F"
 },
 "assembleias": {
 "plural": "isPlural",
@@ -1553,7 +1549,7 @@
 },
 "assembléia": {
 "plural": "assembleias",
-"form": "F"
+"form": "F/PL"
 },
 "assentamento": {
 "plural": "assentamentos",
@@ -1654,10 +1650,6 @@
 "asão": {
 "plural": "asas",
 "form": "F"
-},
-"asões": {
-"plural": "isPlural",
-"form": "PL"
 },
 "ataque": {
 "plural": "ataques",
@@ -1788,8 +1780,8 @@
 "form": "PL"
 },
 "aula": {
-"plural": "aulas",
-"form": "F/PL"
+"plural": "aulinhas",
+"form": "F"
 },
 "aulas": {
 "plural": "isPlural",
@@ -1798,6 +1790,10 @@
 "aulinha": {
 "plural": "aulas",
 "form": "F/PL"
+},
+"aulinhas": {
+"plural": "isPlural",
+"form": "PL"
 },
 "aulona": {
 "plural": "aulas",
@@ -2368,8 +2364,8 @@
 "form": "PL"
 },
 "barulhinho": {
-"plural": "barulhões",
-"form": "M"
+"plural": "barulhinhos",
+"form": "M/PL"
 },
 "barulhinhos": {
 "plural": "isPlural",
@@ -2377,15 +2373,11 @@
 },
 "barulho": {
 "plural": "barulhinhos",
-"form": "M"
+"form": "M/PL"
 },
 "barulhão": {
 "plural": "barulhinhos",
-"form": "M/PL"
-},
-"barulhões": {
-"plural": "isPlural",
-"form": "PL"
+"form": "M"
 },
 "barão": {
 "plural": "barões",
@@ -3948,12 +3940,16 @@
 "form": "F/PL"
 },
 "cartão": {
-"plural": "cartas",
-"form": "F/M/PL"
+"plural": "cartões",
+"form": "F/M"
 },
 "cartícula": {
 "plural": "cartas",
 "form": "F/PL"
+},
+"cartões": {
+"plural": "isPlural",
+"form": "PL"
 },
 "caráter": {
 "plural": "caráteres",
@@ -4839,10 +4835,6 @@
 "plural": "coleções",
 "form": "F"
 },
-"colecções": {
-"plural": "isPlural",
-"form": "PL"
-},
 "colega": {
 "plural": "colegas",
 "form": ""
@@ -4868,8 +4860,8 @@
 "form": "PL"
 },
 "coleção": {
-"plural": "colecções",
-"form": "F"
+"plural": "coleções",
+"form": "F/PL"
 },
 "coleções": {
 "plural": "isPlural",
@@ -6165,15 +6157,19 @@
 },
 "cunhada": {
 "plural": "cunhadas",
-"form": "PL"
+"form": ""
 },
 "cunhadas": {
 "plural": "isPlural",
 "form": "PL"
 },
 "cunhado": {
-"plural": "cunhadas",
+"plural": "cunhados",
 "form": ""
+},
+"cunhados": {
+"plural": "isPlural",
+"form": "PL"
 },
 "curiosidade": {
 "plural": "curiosidades",
@@ -7009,7 +7005,7 @@
 },
 "dinossaurinho": {
 "plural": "dinossauros",
-"form": "M"
+"form": "M/PL"
 },
 "dinossauro": {
 "plural": "dinossauros",
@@ -7021,7 +7017,7 @@
 },
 "dinossaurão": {
 "plural": "dinossauros",
-"form": "M/PL"
+"form": "M"
 },
 "dinâmica": {
 "plural": "dinâmicas",
@@ -9015,17 +9011,13 @@
 "plural": "festaças",
 "form": "F/PL"
 },
-"festazinhas": {
-"plural": "isPlural",
-"form": "PL"
-},
 "festazona": {
-"plural": "festazinhas",
-"form": "F"
+"plural": "festaças",
+"form": "F/PL"
 },
 "festaça": {
 "plural": "festaças",
-"form": "F/PL"
+"form": "F"
 },
 "festaças": {
 "plural": "isPlural",
@@ -9033,7 +9025,7 @@
 },
 "festaço": {
 "plural": "festaças",
-"form": "F"
+"form": "F/PL"
 },
 "festinha": {
 "plural": "festaças",
@@ -9092,8 +9084,12 @@
 "form": "F/PL"
 },
 "figuraça": {
-"plural": "figurinhas",
-"form": "F/PL"
+"plural": "figuraças",
+"form": "F"
+},
+"figuraças": {
+"plural": "isPlural",
+"form": "PL"
 },
 "figurinha": {
 "plural": "figurinhas",
@@ -9720,10 +9716,14 @@
 "form": "F/PL"
 },
 "funçãozona": {
-"plural": "funções",
-"form": "F/PL"
+"plural": "funçõezonas",
+"form": "F"
 },
 "funções": {
+"plural": "isPlural",
+"form": "PL"
+},
+"funçõezonas": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -10892,12 +10892,12 @@
 "form": "F/PL"
 },
 "ilhota": {
-"plural": "ilhetas",
-"form": "F"
-},
-"ilhéu": {
 "plural": "ilhas",
 "form": "F/PL"
+},
+"ilhéu": {
+"plural": "ilhetas",
+"form": "F"
 },
 "ilustração": {
 "plural": "ilustrações",
@@ -11876,8 +11876,12 @@
 "form": "PL"
 },
 "laranjinha": {
-"plural": "laranjas",
-"form": "F/PL"
+"plural": "laranjinhas",
+"form": "F"
+},
+"laranjinhas": {
+"plural": "isPlural",
+"form": "PL"
 },
 "laranjona": {
 "plural": "laranjas",
@@ -13957,7 +13961,7 @@
 },
 "mãe": {
 "plural": "mães",
-"form": "F/PL"
+"form": "F"
 },
 "mães": {
 "plural": "isPlural",
@@ -13965,7 +13969,7 @@
 },
 "mãezinha": {
 "plural": "mães",
-"form": "F"
+"form": "F/PL"
 },
 "mãezona": {
 "plural": "mães",
@@ -15285,7 +15289,7 @@
 },
 "património": {
 "plural": "patrimónios",
-"form": "M/PL"
+"form": "M"
 },
 "patrimónios": {
 "plural": "isPlural",
@@ -15293,7 +15297,7 @@
 },
 "patrimônio": {
 "plural": "patrimónios",
-"form": "M"
+"form": "M/PL"
 },
 "patriota": {
 "plural": "patriotas",
@@ -15397,23 +15401,19 @@
 },
 "peixe": {
 "plural": "peixes",
-"form": "M"
+"form": "M/PL"
 },
 "peixes": {
 "plural": "isPlural",
 "form": "PL"
 },
 "peixinho": {
-"plural": "peixinhos",
-"form": "M"
-},
-"peixinhos": {
-"plural": "isPlural",
-"form": "PL"
+"plural": "peixes",
+"form": "M/PL"
 },
 "peixão": {
 "plural": "peixes",
-"form": "M/PL"
+"form": "M"
 },
 "pele": {
 "plural": "peles",
@@ -15528,7 +15528,7 @@
 "form": "PL"
 },
 "perereca": {
-"plural": "pererecas",
+"plural": "pererecões",
 "form": "F"
 },
 "pererecas": {
@@ -15536,15 +15536,19 @@
 "form": "PL"
 },
 "pererecona": {
-"plural": "pererecas",
+"plural": "pererecões",
 "form": "F/PL"
 },
 "pererecão": {
 "plural": "pererecas",
-"form": "F/PL"
+"form": "F"
+},
+"pererecões": {
+"plural": "isPlural",
+"form": "PL"
 },
 "pererequinha": {
-"plural": "pererecas",
+"plural": "pererecões",
 "form": "F/PL"
 },
 "perfeição": {
@@ -15573,7 +15577,7 @@
 },
 "perna": {
 "plural": "pernas",
-"form": "F"
+"form": "F/PL"
 },
 "pernas": {
 "plural": "isPlural",
@@ -15593,7 +15597,7 @@
 },
 "pernão": {
 "plural": "pernas",
-"form": "F/PL"
+"form": "F"
 },
 "personagem": {
 "plural": "personagens",
@@ -17388,7 +17392,7 @@
 "form": "PL"
 },
 "ratoeira": {
-"plural": "ratoeironas",
+"plural": "ratoeiras",
 "form": "F"
 },
 "ratoeiras": {
@@ -17397,15 +17401,11 @@
 },
 "ratoeirinha": {
 "plural": "ratoeiras",
-"form": "F"
+"form": "F/PL"
 },
 "ratoeirona": {
 "plural": "ratoeiras",
 "form": "F/PL"
-},
-"ratoeironas": {
-"plural": "isPlural",
-"form": "PL"
 },
 "razão": {
 "plural": "razões",
@@ -17729,15 +17729,19 @@
 },
 "registo": {
 "plural": "registos",
-"form": "M/PL"
+"form": "M"
 },
 "registos": {
 "plural": "isPlural",
 "form": "PL"
 },
 "registro": {
-"plural": "registos",
+"plural": "registros",
 "form": "M"
+},
+"registros": {
+"plural": "isPlural",
+"form": "PL"
 },
 "região": {
 "plural": "regiões",
@@ -21221,7 +21225,7 @@
 },
 "vida": {
 "plural": "vidas",
-"form": "F"
+"form": "F/PL"
 },
 "vidas": {
 "plural": "isPlural",
@@ -21236,8 +21240,8 @@
 "form": "PL"
 },
 "vidinha": {
-"plural": "vidões",
-"form": "F"
+"plural": "vidas",
+"form": "F/PL"
 },
 "vidona": {
 "plural": "vidas",
@@ -21261,11 +21265,7 @@
 },
 "vidão": {
 "plural": "vidas",
-"form": "F/PL"
-},
-"vidões": {
-"plural": "isPlural",
-"form": "PL"
+"form": "F"
 },
 "vigor": {
 "plural": "vigores",

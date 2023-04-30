@@ -7229,7 +7229,7 @@
 },
 "cocchio": {
 "plural": "cocchi",
-"form": "M"
+"form": "M/PL"
 },
 "cocciniglia": {
 "plural": "cocciniglie",
@@ -7241,7 +7241,7 @@
 },
 "cocco": {
 "plural": "cocchi",
-"form": "M/PL"
+"form": "M"
 },
 "coccodrilli": {
 "plural": "isPlural",
@@ -12089,11 +12089,15 @@
 },
 "fama": {
 "plural": "fame",
-"form": "F"
+"form": "F/PL"
 },
 "fame": {
+"plural": "fami",
+"form": "F"
+},
+"fami": {
 "plural": "isPlural",
-"form": "F/PL"
+"form": "PL"
 },
 "famiglia": {
 "plural": "famiglie",
@@ -15310,6 +15314,14 @@
 "iconografie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"identificativi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"identificativo": {
+"plural": "identificativi",
+"form": "M"
 },
 "ideologia": {
 "plural": "ideologie",
@@ -19029,15 +19041,11 @@
 },
 "menta": {
 "plural": "mente",
-"form": "F/PL"
-},
-"mente": {
-"plural": "menti",
 "form": "F"
 },
-"menti": {
+"mente": {
 "plural": "isPlural",
-"form": "PL"
+"form": "F/PL"
 },
 "mentoli": {
 "plural": "isPlural",
