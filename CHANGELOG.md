@@ -10,7 +10,7 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
-# [Unreleased] Scribe-Data 3.1.0
+# Scribe-Data 3.1.0
 
 ### ✨ Features
 
