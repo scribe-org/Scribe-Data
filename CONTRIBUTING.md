@@ -8,13 +8,41 @@ Following these guidelines helps to communicate that you respect the time of the
 
 If you have questions or would like to communicate with the team, please [join us in our public Matrix chat rooms](https://matrix.to/#/#scribe_community:matrix.org). We'd be happy to hear from you!
 
-## Using the issue tracker
+<a id="contents"></a>
 
-The [issue tracker for Scribe-Data](https://github.com/scribe-org/Scribe-Data/issues) is the preferred channel for [bug reports](#bug-reports), [features requests](#feature-requests) and [submitting pull requests](#pull-requests).
+# **Contents**
 
-<a name="bug-reports"></a>
+- [Development environment](#dev-env)
+- [Issues and projects](#issues-projects)
+- [Bug reports](#bug-reports)
+- [Feature requests](#feature-requests)
+- [Pull requests](#pull-requests)
+- [Data edits](#data-edits)
+- [Documentation](#documentation)
 
-## Bug reports
+<a id="dev-env"></a>
+
+# Development environment [`⇧`](#contents)
+
+The development environment for Scribe-Data can be installed via the following command with [Anaconda](https://www.anaconda.com/) in the root directory of your local copy of the project:
+
+```bash
+conda env create -f environment.yml
+```
+
+<a id="issues-projects"></a>
+
+# Issues and projects [`⇧`](#contents)
+
+The [issue tracker for Scribe-Data](https://github.com/scribe-org/Scribe-Data/issues) is the preferred channel for [bug reports](#bug-reports), [features requests](#feature-requests) and [submitting pull requests](#pull-requests). Scribe also organizes related issues into [projects](https://github.com/scribe-org/Scribe-Data/projects).
+
+> **Note**: Just because an issue is assigned on GitHub doesn't mean that the team isn't interested in your contribution! Feel free to write [in the issues](https://github.com/scribe-org/Scribe-Data/issues) and we can potentially reassign it to you.
+
+Be sure to check the [`-next release-`](https://github.com/scribe-org/Scribe-Data/labels/-next%20release-) and [`-priority-`](https://github.com/scribe-org/Scribe-Data/labels/-priority-) labels in the [issues](https://github.com/scribe-org/Scribe-Data/issues) for those that are most important, as well as those marked [`good first issue`](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) that are tailored for first time contributors.
+
+<a id="bug-reports"></a>
+
+# Bug reports [`⇧`](#contents)
 
 A bug is a _demonstrable problem_ that is caused by the code in the repository. Good bug reports are extremely helpful - thank you!
 
@@ -36,15 +64,15 @@ Guidelines for bug reports:
 
 Again, thank you for your time in reporting issues!
 
-<a name="feature-requests"></a>
+<a id="feature-requests"></a>
 
-## Feature requests
+# Feature requests [`⇧`](#contents)
 
 Feature requests are more than welcome! Please take a moment to find out whether your idea fits with the scope and aims of the project. When making a suggestion, provide as much detail and context as possible, and further make clear the degree to which you would like to contribute in its development.
 
-<a name="pull-requests"></a>
+<a id="pull-requests"></a>
 
-## Pull requests
+# Pull requests [`⇧`](#contents)
 
 Good pull requests - patches, improvements and new features - are a fantastic help. They should remain focused in scope and avoid containing unrelated commits. Note that all contributions to this project will be made under [the specified license](https://github.com/scribe-org/Scribe-Data/blob/main/LICENSE.txt) and should follow the coding indentation and style standards (contact us if unsure).
 
@@ -94,6 +122,14 @@ When making a contribution, adhering to the [GitHub flow](https://guides.github.
 
 Thank you in advance for your contributions!
 
-## Branding
+<a id="data-edits"></a>
 
-All branding elements such as logos, icons, colors and fonts should follow those that are set out in [scribe-org/Organization](https://github.com/scribe-org/Organization). As the project is fully open source, these elements are also open for discussion. Efforts in making Scribe products professional with a distinct and cohesive identity are much appreciated!
+# Data edits [`⇧`](#contents)
+
+Scribe does not accept direct edits to the grammar JSON files as they are sourced from [Wikidata](https://www.wikidata.org/). Edits can be discussed and the [Scribe-Data](https://github.com/scribe-org/Scribe-Data) queries will be changed and ran before an update. If there is a problem with one of the files, then the fix should be made on [Wikidata](https://www.wikidata.org/) and not on Scribe. Feel free to let us know that edits have been made by [opening an issue](https://github.com/scribe-org/Scribe-Data/issues) and we'll be happy to integrate them!
+
+<a id="documentation"></a>
+
+# Documentation [`⇧`](#contents)
+
+Documentation is an invaluable way to contribute to coding projects as it allows others to more easily understand the project structure and contribute. Issues related to documentation are marked with the [`documentation`](https://github.com/scribe-org/Scribe-Data/labels/documentation) label.
