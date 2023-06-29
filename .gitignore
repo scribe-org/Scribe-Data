@@ -17,6 +17,8 @@ dist
 *.egg-info
 # Caches
 __pycache__
+# Test coverage output
+.coverage
 
 # NPM Files
 ###########
