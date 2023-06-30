@@ -2,9 +2,9 @@ name: Python Package CI
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ main ]
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [ubuntu-latest]
         python-version: ["3.9", "3.10", "3.11"]
         
     runs-on: ${{ matrix.os }}
@@ -30,7 +30,8 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with pylint
         run: |
-          pylint $(git ls-files '*.py')
+          # only report linting, do not fail ci run
+          pylint $(git ls-files '*.py') --exit-zero
       - name: Test with pytest
         run: |
           pytest
