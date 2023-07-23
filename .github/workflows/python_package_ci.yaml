@@ -32,8 +32,8 @@ jobs:
           echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/icu4c/lib/pkgconfig" >> $GITHUB_ENV
       - name: Install Python dependencies
         run: |
-          python -m pip3 install --upgrade pip
-          python -m pip install pylint pytest pytest-cov
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pylint pytest pytest-cov
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Lint with pylint
         run: |
