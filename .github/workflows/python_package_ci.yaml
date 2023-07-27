@@ -28,6 +28,8 @@ jobs:
       - name: Install PyICU dependencies
         run: |
           brew bundle install --file=Brewfile
+          # configure PATH & PKG_CONFIG_PATH as per 
+          # https://gitlab.pyicu.org/main/pyicu#installing-pyicu
           echo "/usr/local/opt/icu4c/bin:/usr/local/opt/icu4c/sbin" >> $GITHUB_PATH
           echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/icu4c/lib/pkgconfig" >> $GITHUB_ENV
       - name: Install Python dependencies
