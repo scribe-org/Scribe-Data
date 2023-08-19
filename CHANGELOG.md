@@ -10,6 +10,16 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+# [Upcoming] Scribe-Data 3.2.0
+
+### ✨ Features
+
+- The data and process needed for an English keyboard has been added.
+  - The Wikidata queries for English have been updated to get all nouns and verbs.
+  <!-- - Formatting scripts have been written to prepare the queried data and load it into an SQLite database.
+  - English has been added to the data ETL process. -->
+- The data update process has been cleaned up in preparation for future changes to Scribe-Data and to implement better practices.
+
 # Scribe-Data 3.1.0
 
 ### ✨ Features
