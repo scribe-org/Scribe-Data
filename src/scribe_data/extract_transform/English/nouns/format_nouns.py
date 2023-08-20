@@ -31,8 +31,6 @@ else:
         nouns_list = json.load(f)
 
 
-# No need to map genders so far because queried nouns don't have that.
-
 def order_annotations(annotation):
     """
     Standardizes the annotations that are presented to users where more than one is applicable.
