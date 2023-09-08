@@ -16,9 +16,12 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - The data and process needed for an English keyboard has been added.
   - The Wikidata queries for English have been updated to get all nouns and verbs.
-  <!-- - Formatting scripts have been written to prepare the queried data and load it into an SQLite database.
-  - English has been added to the data ETL process. -->
+  - Formatting scripts have been written to prepare the queried data and load it into an SQLite database.
+  <!-- - English has been added to the data ETL process. -->
 - The data update process has been cleaned up in preparation for future changes to Scribe-Data and to implement better practices.
+- The translation process has been updated to allow for translations from non-English languages.
+  <!-- - Scribe-Data now outputs an SQLite table that has keys for target languages for each base language. -->
+  - A process has been created to check and update words that can be translated for each Scribe language.
 
 # Scribe-Data 3.1.0
 
