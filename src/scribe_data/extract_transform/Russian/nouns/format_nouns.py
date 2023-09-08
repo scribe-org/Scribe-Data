@@ -5,8 +5,6 @@ Format Nouns
 Formats the nouns queried from Wikidata using query_nouns.sparql.
 """
 
-# pylint: disable=invalid-name
-
 import collections
 import json
 import os
@@ -17,7 +15,7 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.load.update_utils import get_path_from_et_dir
+from scribe_data.utils import get_path_from_et_dir
 
 file_path = sys.argv[0]
 
@@ -197,7 +195,11 @@ export_path = "../formatted_data/nouns.json"
 if update_data_in_use:
     export_path = f"{org_path}/Scribe-Data/src/scribe_data/extract_transform/{LANGUAGE}/formatted_data/nouns.json"
 
-with open(export_path, "w", encoding="utf-8",) as file:
+with open(
+    export_path,
+    "w",
+    encoding="utf-8",
+) as file:
     json.dump(nouns_formatted, file, ensure_ascii=False, indent=0)
 
 print(f"Wrote file nouns.json with {len(nouns_formatted)} nouns.")

@@ -17,10 +17,6 @@ Example
     python update_data.py '["French", "German"]' '["nouns", "verbs"]'
 """
 
-
-# pylint: disable=invalid-name, wrong-import-position
-
-import ast
 import itertools
 import json
 import os
@@ -35,8 +31,9 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.load.update_utils import (
+from scribe_data.utils import (
     add_num_commas,
+    check_and_return_command_line_args,
     get_ios_data_path,
     get_path_from_et_dir,
 )
@@ -52,47 +49,23 @@ with open("../load/_update_files/total_data.json", encoding="utf-8") as f:
     current_data = json.load(f)
 
 current_languages = list(current_data.keys())
-word_types_to_update = ["nouns", "verbs", "prepositions"]
+current_word_types = ["nouns", "verbs", "prepositions"]
 
 # Note: Check whether arguments have been passed to only update a subset of the data.
-languages = None
-word_types = None
-if len(sys.argv) == 2:
-    arg = sys.argv[1]
+languages, word_types = check_and_return_command_line_args(
+    all_args=sys.argv,
+    first_args_check=current_languages,
+    second_args_check=current_word_types,
+)
 
-    try:
-        arg = ast.literal_eval(arg)
-    except ValueError as invalid_arg:
-        raise ValueError(
-            f"""The argument type of '{arg}' passed to update_data.py is invalid.
-            Only lists are allowed, and can be passed via:
-            python update_data.py '[comma_separated_args_in_quotes]'
-            """
-        ) from invalid_arg
+# Assign current_languages and current_word_types if no arguments have been passed.
+languages_update = []
+if languages is None:
+    languages_update = current_languages
 
-    if not isinstance(arg, list):
-        raise ValueError(
-            f"""The argument type of '{arg}' passed to update_data.py is invalid.
-            Only lists are allowed, and can be passed via:
-            python update_data.py '[comma_separated_args_in_quotes]'
-            """
-        )
-
-    if set(arg).issubset(current_languages):
-        languages = arg
-    elif set(arg).issubset(word_types_to_update):
-        word_types = arg
-    else:
-        raise ValueError(
-            f"""An invalid argument '{arg}' was specified.
-                For languages, please choose from those found as keys in total_data.json.
-                For grammatical types, please choose from nouns, verbs or prepositions.
-                """
-        )
-
-elif len(sys.argv) == 3:
-    languages = sys.argv[1]
-    word_types = sys.argv[2]
+word_types_update = []
+if word_types is None:
+    word_types_update = current_word_types
 
 # Derive Data directory elements for potential queries.
 data_dir_elements = []
@@ -113,43 +86,6 @@ data_dir_directories = list(
         and f.split(PATH_TO_ET_FILES)[1][0] != "_"
     }
 )
-
-# Subset current_languages and word_types_to_update if arguments have been passed.
-languages_update = []
-if languages is None:
-    languages_update = current_languages
-
-elif (
-    not isinstance(ast.literal_eval(languages), str)
-    and isinstance(ast.literal_eval(languages), list)
-    and set(ast.literal_eval(languages)).issubset(current_languages)
-):
-    languages_update = ast.literal_eval(languages)
-else:
-    raise ValueError(
-        f"""Invalid languages '{languages}' were specified.
-            Please choose from those found as keys in total_data.json.
-            Pass arguments via: python update_data.py '[languages_in_quotes]'
-            """
-    )
-
-word_types_update = []
-if word_types is None:
-    word_types_update = word_types_to_update
-
-elif (
-    not isinstance(ast.literal_eval(word_types), str)
-    and isinstance(ast.literal_eval(word_types), list)
-    and set(ast.literal_eval(word_types)).issubset(word_types_to_update)
-):
-    word_types_update = ast.literal_eval(word_types)
-else:
-    raise ValueError(
-        f"""Invalid grammatical types '{word_types}' were specified.
-            Please choose from nouns, verbs or prepositions.
-            Pass arguments via: python update_data.py '[word_types_in_quotes]'
-            """
-    )
 
 # Note: Prepare data paths running scripts and formatting outputs.
 # Check to see if the language has all zeroes for its data, meaning it's been added.
@@ -184,7 +120,11 @@ queries_to_run = list({q for sub in queries_to_run_lists for q in sub})
 
 # Note: Run queries and format data.
 data_added_dict = {}
-for q in tqdm(queries_to_run, desc="Data updated", unit="dirs",):
+for q in tqdm(
+    queries_to_run,
+    desc="Data updated",
+    unit="dirs",
+):
     lang = q.split("/")[1]
     target_type = q.split("/")[2]
     query_name = f"query_{target_type}.sparql"

@@ -5,8 +5,6 @@ Format Nouns
 Formats the nouns queried from Wikidata using query_nouns.sparql.
 """
 
-# pylint: disable=invalid-name
-
 import collections
 import json
 import os
@@ -17,7 +15,7 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.load.update_utils import get_path_from_et_dir
+from scribe_data.utils import get_path_from_et_dir
 
 file_path = sys.argv[0]
 
@@ -29,24 +27,6 @@ else:
     update_data_in_use = True
     with open(f"./{LANGUAGE}/nouns/nouns_queried.json", encoding="utf-8") as f:
         nouns_list = json.load(f)
-
-
-def order_annotations(annotation):
-    """
-    Standardizes the annotations that are presented to users where more than one is applicable.
-
-    Parameters
-    ----------
-        annotation : str
-            The annotation to be returned to the user in the command bar.
-    """
-    single_annotations = ["PL"] # Gender annotations added here when genders are added.
-    if annotation in single_annotations:
-        return annotation
-
-    annotation_split = sorted([a for a in set(annotation.split("/")) if a != ""])
-
-    return "/".join(annotation_split)
 
 nouns_formatted = {}
 
@@ -74,15 +54,7 @@ for noun_vals in nouns_list:
                         }
                 else:
                     # Mark plural as a possible form if it isn't already.
-                    if (
-                        "PL" not in nouns_formatted[noun_vals["plural"]]["form"]
-                        and nouns_formatted[noun_vals["plural"]]["form"] != ""
-                    ):
-                        nouns_formatted[noun_vals["plural"]]["form"] = (
-                            nouns_formatted[noun_vals["plural"]]["form"] + "/PL"
-                        )
-
-                    elif nouns_formatted[noun_vals["plural"]]["form"] == "":
+                    if nouns_formatted[noun_vals["plural"]]["form"] == "":
                         nouns_formatted[noun_vals["plural"]]["form"] = "PL"
 
                     # Assign itself as a plural if possible (maybe wasn't for prior versions).
@@ -95,12 +67,14 @@ for noun_vals in nouns_list:
                     "plural": "",
                     "form": "",
                 }
+
     elif "plural" in noun_vals.keys():
         if noun_vals["plural"] not in nouns_formatted:
             nouns_formatted[noun_vals["plural"]] = {
                 "plural": "isPlural",
                 "form": "PL",
             }
+
         else:
             # Mark plural as a possible form if it isn't already.
             if (
@@ -113,9 +87,6 @@ for noun_vals in nouns_list:
 
             elif nouns_formatted[noun_vals["plural"]]["form"] == "":
                 nouns_formatted[noun_vals["plural"]]["form"] = "PL"
-
-for k in nouns_formatted:
-    nouns_formatted[k]["form"] = order_annotations(nouns_formatted[k]["form"])
 
 nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 

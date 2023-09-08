@@ -21,14 +21,10 @@ import regex
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
 
-from scribe_data.load.update_utils import (  # get_android_data_path, get_desktop_data_path,
-    add_num_commas,
-    get_ios_data_path,
-    get_language_qid,
-    get_language_words_to_ignore,
-    get_language_words_to_remove,
-    get_path_from_et_dir,
-)
+from scribe_data.utils import (  # get_android_data_path, get_desktop_data_path,
+    add_num_commas, get_ios_data_path, get_language_qid,
+    get_language_words_to_ignore, get_language_words_to_remove,
+    get_path_from_et_dir)
 
 warnings.filterwarnings("ignore", message=r"Passing", category=FutureWarning)
 

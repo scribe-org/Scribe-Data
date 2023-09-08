@@ -5,8 +5,6 @@ Format Verbs
 Formats the verbs queried from Wikidata using query_verbs.sparql.
 """
 
-# pylint: disable=invalid-name
-
 import collections
 import json
 import os
@@ -17,7 +15,7 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.load.update_utils import get_path_from_et_dir
+from scribe_data.utils import get_path_from_et_dir
 
 file_path = sys.argv[0]
 
@@ -49,7 +47,7 @@ all_conjugations = [
 ]
 
 for verb_vals in verbs_list:
-    # if infinitive is available add to formatted verbs, else no entry created
+    # If infinitive is available add to formatted verbs, else no entry created.
     if verb_vals["infinitive"] not in verbs_formatted.keys():
         verbs_formatted[verb_vals["infinitive"]] = {}
 
@@ -61,12 +59,12 @@ for verb_vals in verbs_list:
         # presTPS
         verbs_formatted[infinitive_key]["presTPS"] = verb_vals.get("presTPS", "")
 
-        # copying over presFPS to remaining present cases
+        # Copying over presFPS to remaining present cases.
         verbs_formatted[infinitive_key]["presFPP"] = verb_vals.get("presFPS", "")
         verbs_formatted[infinitive_key]["presSPP"] = verb_vals.get("presFPS", "")
         verbs_formatted[infinitive_key]["presTPP"] = verb_vals.get("presFPS", "")
 
-        # assigning simpPast to all past keys if available
+        # Assigning simpPast to all past keys if available.
         verbs_formatted[infinitive_key]["pastFPS"] = verb_vals.get("simpPast", "")
         verbs_formatted[infinitive_key]["pastSPS"] = verb_vals.get("simpPast", "")
         verbs_formatted[infinitive_key]["pastTPS"] = verb_vals.get("simpPast", "")
@@ -88,7 +86,11 @@ if update_data_in_use:
 if not os.path.exists(export_dir):
     os.makedirs(export_dir)
 
-with open(export_path, "w", encoding="utf-8",) as file:
+with open(
+    export_path,
+    "w",
+    encoding="utf-8",
+) as file:
     json.dump(verbs_formatted, file, ensure_ascii=False, indent=0)
 
 print(f"Wrote file verbs.json with {len(verbs_formatted)} verbs.")

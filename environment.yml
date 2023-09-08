@@ -4,20 +4,20 @@ channels:
   - defaults
 dependencies:
   - python=3.9
-  - black>=19.10b0
+  - beautifulsoup4>=4.12.0
   - defusedxml=0.7.1
-  - pandas>=1.5.3
-  - pytest-cov>=3.0.0
-  - sentencepiece>=0.1.95
-  - tabulate>=0.8.9
-  - transformers>=4.12
-  - tqdm=4.59.0
+  - pandas>=2.0.3
+  - pytest-cov>=4.0.0
+  - sentencepiece>=0.1.99
+  - tabulate>=0.8.10
+  - transformers>=4.24.0
+  - tqdm=4.65.0
   - pip:
-      - beautifulsoup4==4.9.3
-      - emoji>=2.2.0
-      - mwparserfromhell>=0.6
+      - black>=23.7.0
+      - emoji>=2.8.0
+      - mwparserfromhell>=0.6.5
       - PyICU>=2.10.2 # Make sure to fulfill PyICU dependencies, see https://gitlab.pyicu.org/main/pyicu#installing-pyicu
       - python-dateutil>=2.8.2
-      - regex>=2023.3.23
+      - regex>=2023.8.8
       - SPARQLWrapper>=2.0.0
-      - tensorflow>=2.5.1
+      - tensorflow>=2.11.0
