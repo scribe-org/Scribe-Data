@@ -90,9 +90,12 @@ language_word_type_dict = {
 print(
     f"Creating SQLite databases for the following languages: {', '.join(languages_update)}"
 )
-for l in tqdm(language_word_type_dict, desc="Databases created", unit="dbs",):
+for l in tqdm(
+    language_word_type_dict,
+    desc="Databases created",
+    unit="dbs",
+):
     if language_word_type_dict[l] != []:
-
         maybe_over = ""  # output string formatting variable (see below)
         if os.path.exists(
             f"databases/{get_language_iso(l).upper()}LanguageData.sqlite"

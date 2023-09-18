@@ -22,9 +22,13 @@ from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
 
 from scribe_data.utils import (  # get_android_data_path, get_desktop_data_path,
-    add_num_commas, get_ios_data_path, get_language_qid,
-    get_language_words_to_ignore, get_language_words_to_remove,
-    get_path_from_et_dir)
+    add_num_commas,
+    get_ios_data_path,
+    get_language_qid,
+    get_language_words_to_ignore,
+    get_language_words_to_remove,
+    get_path_from_et_dir,
+)
 
 warnings.filterwarnings("ignore", message=r"Passing", category=FutureWarning)
 
@@ -35,7 +39,11 @@ sparql.setMethod(POST)
 
 
 def clean(
-    texts, language="English", remove_words=None, sample_size=1, verbose=True,
+    texts,
+    language="English",
+    remove_words=None,
+    sample_size=1,
+    verbose=True,
 ):
     """
     Cleans text body to prepare it for analysis.
@@ -424,7 +432,11 @@ def gen_autosuggestions(
             + f"/Scribe-Data/src/scribe_data/extract_transform/{language.capitalize()}/formatted_data/autosuggestions.json"
         )
 
-        with open(path_to_formatted_data, "w", encoding="utf-8",) as file:
+        with open(
+            path_to_formatted_data,
+            "w",
+            encoding="utf-8",
+        ) as file:
             json.dump(autosuggest_dict, file, ensure_ascii=False, indent=0)
 
         print(
