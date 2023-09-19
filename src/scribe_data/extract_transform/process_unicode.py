@@ -21,7 +21,6 @@ from tqdm.auto import tqdm
 
 from scribe_data.extract_transform.emoji_utils import get_emoji_codes_to_ignore
 from scribe_data.load.update_utils import (
-    add_num_commas,
     get_language_iso,
     get_path_from_et_dir,
 )
@@ -199,7 +198,7 @@ def gen_emoji_lexicon(
         if emojis_per_keyword and len(emojis) > emojis_per_keyword:
             emojis[:] = emojis[:emojis_per_keyword]
 
-    total_keywords = add_num_commas(num=len(keyword_dict))
+    total_keywords = f"{len(keyword_dict):,}"
 
     if verbose:
         print(

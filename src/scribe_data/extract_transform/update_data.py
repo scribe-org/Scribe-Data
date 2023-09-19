@@ -32,7 +32,6 @@ PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
 from scribe_data.utils import (
-    add_num_commas,
     check_and_return_command_line_args,
     get_ios_data_path,
     get_path_from_et_dir,
@@ -240,34 +239,6 @@ with open("../load/_update_files/total_data.json", "w", encoding="utf-8") as f:
     json.dump(current_data, f, ensure_ascii=False, indent=0)
 
 
-def num_add_commas(num):
-    """
-    Adds commas to a numeric string for readability.
-
-    Parameters
-    ----------
-        num : int
-            An int to have commas added to.
-
-    Returns
-    -------
-        str_with_commas : str
-            The original number with commas to make it more readable.
-    """
-    num_str = str(num)
-
-    str_list = list(num_str)
-    str_list = str_list[::-1]
-
-    str_list_with_commas = [
-        f"{s}," if i % 3 == 0 and i != 0 else s for i, s in enumerate(str_list)
-    ]
-
-    str_list_with_commas = str_list_with_commas[::-1]
-
-    return "".join(str_list_with_commas)
-
-
 # Update data_table.txt
 current_data_df = pd.DataFrame(
     index=sorted(list(current_data.keys())),
@@ -277,9 +248,9 @@ for lang, wt in itertools.product(
     list(current_data_df.index), list(current_data_df.columns)
 ):
     if wt in current_data[lang].keys():
-        current_data_df.loc[lang, wt] = num_add_commas(current_data[lang][wt])
+        current_data_df.loc[lang, wt] = f"{current_data[lang][wt]:,}"
     elif wt == "translations":
-        current_data_df.loc[lang, wt] = num_add_commas(67652)
+        current_data_df.loc[lang, wt] = f"{67652:,}"
 
 current_data_df.index.name = "Languages"
 current_data_df.columns = [c.capitalize() for c in current_data_df.columns]
@@ -342,7 +313,7 @@ for l in language_keys:
             elif data_added_dict[l][wt] == 1:  # remove the s for label
                 data_added_string += f" {data_added_dict[l][wt]} {wt[:-1]},"
             else:
-                data_added_string += f" {add_num_commas(data_added_dict[l][wt])} {wt},"
+                data_added_string += f" {data_added_dict[l][wt]:,} {wt},"
 
     data_added_string = data_added_string[:-1]  # remove the last comma
 

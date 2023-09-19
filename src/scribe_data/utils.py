@@ -17,8 +17,7 @@ Contents:
     get_ios_data_path,
     get_android_data_path,
     get_desktop_data_path,
-    check_command_line_args,
-    add_num_commas
+    check_command_line_args
 """
 
 import ast
@@ -390,32 +389,3 @@ def check_and_return_command_line_args(
             python {all_args[0]} '["comma_separated_sets_in_quotes"]'
             """
         )
-
-
-def add_num_commas(num):
-    """
-    Adds commas to a numeric string for readability.
-
-    Parameters
-    ----------
-        num : int or float
-            A number to have commas added to.
-
-    Returns
-    -------
-        str_with_commas : str
-            The original number with commas to make it more readable.
-    """
-    num_str = str(num)
-    num_str_no_decimal = num_str.split(".")[0]
-    decimal = num_str.split(".")[1] if "." in num_str else None
-
-    str_list = num_str_no_decimal[::-1]
-    str_list_with_commas = [
-        f"{s}," if i % 3 == 0 and i != 0 else s for i, s in enumerate(str_list)
-    ]
-
-    str_list_with_commas = str_list_with_commas[::-1]
-    str_with_commas = "".join(str_list_with_commas)
-
-    return str_with_commas if decimal is None else f"{str_with_commas}.{decimal}"
