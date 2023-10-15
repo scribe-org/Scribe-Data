@@ -22,7 +22,6 @@ from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
 
 from scribe_data.utils import (  # get_android_data_path, get_desktop_data_path,
-    add_num_commas,
     get_ios_data_path,
     get_language_qid,
     get_language_words_to_ignore,
@@ -142,7 +141,7 @@ def clean(
         )
 
         print(
-            f"Randomly sampling {add_num_commas(len(selected_idxs))} {language.capitalize()} Wikipedia articles..."
+            f"Randomly sampling {len(selected_idxs):,} {language.capitalize()} Wikipedia articles..."
         )
         texts = [texts[i] for i in selected_idxs]
         print("Random sampling finished.")

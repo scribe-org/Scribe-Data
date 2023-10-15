@@ -18,13 +18,14 @@ Contents:
     get_android_data_path,
     get_desktop_data_path,
     check_command_line_args,
-    add_num_commas
+    check_and_return_command_line_args
 """
 
 import ast
+from typing import Any
 
 
-def get_scribe_languages():
+def get_scribe_languages() -> list[str]:
     """
     Returns the list of currently implemented Scribe languages.
     """
@@ -40,7 +41,7 @@ def get_scribe_languages():
     ]
 
 
-def get_language_qid(language):
+def get_language_qid(language: str) -> str:
     """
     Returns the QID of the given language.
 
@@ -68,13 +69,13 @@ def get_language_qid(language):
 
     if language not in language_qid_dict:
         raise ValueError(
-            f"{language.upper()} is not currently not a supported language for QID conversion."
+            f"{language.upper()} is currently not a supported language for QID conversion."
         )
 
     return language_qid_dict[language]
 
 
-def get_language_iso(language):
+def get_language_iso(language: str) -> str:
     """
     Returns the ISO code of the given language.
 
@@ -102,13 +103,13 @@ def get_language_iso(language):
 
     if language not in language_iso_dict:
         raise ValueError(
-            f"{language.capitalize()} is not currently not a supported language for ISO conversion."
+            f"{language.capitalize()} is currently not a supported language for ISO conversion."
         )
 
     return language_iso_dict[language]
 
 
-def get_language_from_iso(iso):
+def get_language_from_iso(iso: str) -> str:
     """
     Returns the language name for the given ISO.
 
@@ -135,14 +136,12 @@ def get_language_from_iso(iso):
     }
 
     if iso not in iso_language_dict:
-        raise ValueError(
-            f"{iso.upper()} is not currently not a supported ISO for language conversion."
-        )
+        raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
 
     return iso_language_dict[iso]
 
 
-def get_language_words_to_remove(language):
+def get_language_words_to_remove(language: str) -> list[str]:
     """
     Returns the words that should not be included as autosuggestions for the given language.
 
@@ -156,7 +155,7 @@ def get_language_words_to_remove(language):
         The words that should not be included as autosuggestions for the given language as values of a dictionary.
     """
     language = language.lower()
-    language_iso_dict = {
+    words_to_remove: dict[str, list[str]] = {
         "english": [
             "of",
             "the",
@@ -182,10 +181,15 @@ def get_language_words_to_remove(language):
         "swedish": ["of", "the", "The", "and", "Checklist", "Catalogue"],
     }
 
-    return language_iso_dict[language]
+    if language not in words_to_remove:
+        raise ValueError(
+            f"{language.capitalize()} is currently not a supported language."
+        )
+
+    return words_to_remove[language]
 
 
-def get_language_words_to_ignore(language):
+def get_language_words_to_ignore(language: str) -> list[str]:
     """
     Returns the words that should not be included as autosuggestions for the given language.
 
@@ -199,7 +203,7 @@ def get_language_words_to_ignore(language):
         The words that should not be included as autosuggestions for the given language as values of a dictionary.
     """
     language = language.lower()
-    language_iso_dict = {
+    words_to_ignore: dict[str, list[str]] = {
         "french": [
             "XXe",
         ],
@@ -211,31 +215,36 @@ def get_language_words_to_ignore(language):
         "swedish": ["databasdump"],
     }
 
-    return language_iso_dict[language]
+    if language not in words_to_ignore:
+        raise ValueError(
+            f"{language.capitalize()} is currently not a supported language."
+        )
+
+    return words_to_ignore[language]
 
 
-def get_path_from_format_file():
+def get_path_from_format_file() -> str:
     """
     Returns the directory path from a data formatting file to scribe-org.
     """
     return "../../../../../.."
 
 
-def get_path_from_load_dir():
+def get_path_from_load_dir() -> str:
     """
     Returns the directory path from the load directory to scribe-org.
     """
     return "../../../.."
 
 
-def get_path_from_et_dir():
+def get_path_from_et_dir() -> str:
     """
     Returns the directory path from the extract_transform directory to scribe-org.
     """
     return "../../../.."
 
 
-def get_ios_data_path(language: str):
+def get_ios_data_path(language: str) -> str:
     """
     Returns the path to the data json of the iOS app given a language.
 
@@ -251,7 +260,7 @@ def get_ios_data_path(language: str):
     return f"/Scribe-iOS/Keyboards/LanguageKeyboards/{language}"
 
 
-def get_android_data_path(language: str):
+def get_android_data_path(language: str) -> str:
     """
     Returns the path to the data json of the Android app given a language.
 
@@ -267,7 +276,7 @@ def get_android_data_path(language: str):
     return f"/Scribe-Android/app/src/main/LanguageKeyboards/{language}"
 
 
-def get_desktop_data_path(language: str):
+def get_desktop_data_path(language: str) -> str:
     """
     Returns the path to the data json of the desktop app given a language.
 
@@ -283,7 +292,9 @@ def get_desktop_data_path(language: str):
     return f"/Scribe-Desktop/scribe/language_guis/{language}"
 
 
-def check_command_line_args(file_name, passed_values, values_to_check):
+def check_command_line_args(
+    file_name: str, passed_values: Any, values_to_check: list[str]
+) -> list[str]:
     """
     Checks command line arguments passed to Scribe-Data files.
 
@@ -390,32 +401,3 @@ def check_and_return_command_line_args(
             python {all_args[0]} '["comma_separated_sets_in_quotes"]'
             """
         )
-
-
-def add_num_commas(num):
-    """
-    Adds commas to a numeric string for readability.
-
-    Parameters
-    ----------
-        num : int or float
-            A number to have commas added to.
-
-    Returns
-    -------
-        str_with_commas : str
-            The original number with commas to make it more readable.
-    """
-    num_str = str(num)
-    num_str_no_decimal = num_str.split(".")[0]
-    decimal = num_str.split(".")[1] if "." in num_str else None
-
-    str_list = num_str_no_decimal[::-1]
-    str_list_with_commas = [
-        f"{s}," if i % 3 == 0 and i != 0 else s for i, s in enumerate(str_list)
-    ]
-
-    str_list_with_commas = str_list_with_commas[::-1]
-    str_with_commas = "".join(str_list_with_commas)
-
-    return str_with_commas if decimal is None else f"{str_with_commas}.{decimal}"
