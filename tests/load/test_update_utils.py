@@ -196,7 +196,6 @@ def test_get_path_from_load_dir():
 
 
 def test_get_path_from_et_dir():
-    # TODO: file path is same as above. Is this correct?
     assert utils.get_path_from_et_dir() == "../../../.."
 
 
