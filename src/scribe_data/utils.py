@@ -96,17 +96,15 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str):
         ValueError: when a source_value is not supported.
 
     Returns:
-        the 'target' value
+        The 'target' value given the passed arguments.
     """
     norm_source_value = source_value.lower()
 
-    target_value = [
+    if target_value := [
         entry[target_key]
         for entry in _languages
         if entry[source_key] == norm_source_value
-    ]
-
-    if target_value:
+    ]:
         assert len(target_value) == 1, f"More than one entry for '{norm_source_value}'"
         return target_value[0]
 
@@ -188,8 +186,7 @@ def get_language_from_iso(iso: str) -> str:
 
 def get_language_words_to_remove(language: str) -> list[str]:
     """
-    Returns the words that should not be included as autosuggestions for the given
-    language.
+    Returns the words that should be removed during the data cleaning process for the given language.
 
     Parameters
     ----------
@@ -199,8 +196,7 @@ def get_language_words_to_remove(language: str) -> list[str]:
     Returns
     -------
         list[str]
-            The words that should not be included as autosuggestions for the given
-            language
+            The words that that be removed during the data cleaning process for the given language.
     """
     return _find(
         "language",
@@ -212,8 +208,7 @@ def get_language_words_to_remove(language: str) -> list[str]:
 
 def get_language_words_to_ignore(language: str) -> list[str]:
     """
-    Returns the words that should not be included as autosuggestions for the given
-    language.
+    Returns the words that should not be included as autosuggestions for the given language.
 
     Parameters
     ----------
@@ -223,8 +218,7 @@ def get_language_words_to_ignore(language: str) -> list[str]:
     Returns
     -------
         list[str]
-            The words that should not be included as autosuggestions for the given
-            language
+            The words that should not be included as autosuggestions for the given language.
     """
     return _find(
         "language",
@@ -241,7 +235,7 @@ def get_path_from_format_file() -> str:
     return "../../../../../.."
 
 
-def get_path_from_load_dir():
+def get_path_from_load_dir() -> str:
     """
     Returns the directory path from the load directory to scribe-org.
     """
@@ -363,8 +357,7 @@ def check_and_return_command_line_args(
     all_args, first_args_check=None, second_args_check=None
 ):
     """
-    Checks command line arguments passed to Scribe-Data files and returns them if
-    correct.
+    Checks command line arguments passed to Scribe-Data files and returns them if correct.
 
     Parameters
     ----------
@@ -380,8 +373,7 @@ def check_and_return_command_line_args(
     Returns
     -------
         first_args, second_args: list(str)
-            The subset of possible first and second arguments that have been verified
-            as being valid.
+            The subset of possible first and second arguments that have been verified as being valid.
     """
     if len(all_args) == 1:
         return None, None
