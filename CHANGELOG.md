@@ -14,21 +14,27 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ### ✨ Features
 
-- The data and process needed for an English keyboard has been added.
+- The data and process needed for an English keyboard has been added ([#39](https://github.com/scribe-org/Scribe-Data/issues/39)).
   - The Wikidata queries for English have been updated to get all nouns and verbs.
   - Formatting scripts have been written to prepare the queried data and load it into an SQLite database.
   <!-- - English has been added to the data ETL process. -->
 - The data update process has been cleaned up in preparation for future changes to Scribe-Data and to implement better practices.
-- The translation process has been updated to allow for translations from non-English languages.
+- The translation process has been updated to allow for translations from non-English languages ([#44](https://github.com/scribe-org/Scribe-Data/issues/44)).
   <!-- - Scribe-Data now outputs an SQLite table that has keys for target languages for each base language. -->
   - A process has been created to check and update words that can be translated for each Scribe language.
+- Language data was extracted into a JSON file for more succinct code ([#52](https://github.com/scribe-org/Scribe-Data/issues/52)).
+
+### ✅ Tests
+
+- A full testing suite has been added to run on GitHub Actions ([#37](https://github.com/scribe-org/Scribe-Data/issues/37)).
+- Unit tests have been added for Wikidata queries ([#48](https://github.com/scribe-org/Scribe-Data/issues/48)) and utility functions ([#50](https://github.com/scribe-org/Scribe-Data/issues/50)).
 
 # Scribe-Data 3.1.0
 
 ### ✨ Features
 
-- The word "Scribe" is now added to language database nouns files if it's not already present.
-- German contracted prepositions have been added to the German prepositions formatting process.
+- The word "Scribe" is now added to language database nouns files if it's not already present ([#35](https://github.com/scribe-org/Scribe-Data/issues/35)).
+- German contracted prepositions have been added to the German prepositions formatting process ([#34](https://github.com/scribe-org/Scribe-Data/issues/34)).
 - Words that are upper case are now better included in the autocomplete lexicon with their lower case equivalents being removed.
 - Words with apostrophes have been removed from the autocomplete lexicon.
 
@@ -62,7 +68,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - Code to derive appropriate export locations within `format_WORD_TYPE.py` files was removed in favor of a language `formatted_data` directory.
   - regex was added as a dependency.
   - pylint comments were removed.
-- Verb SPARQL query scripts for Spanish and Italian were simplified to remove unneeded repeat conditions.
+- Verb SPARQL query scripts for Spanish and Italian were simplified to remove unneeded repeat conditions ([#7](https://github.com/scribe-org/Scribe-Data/issues/7)).
 
 ### 🐞 Bug Fixes
 
@@ -89,22 +95,22 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ### ✨ Features
 
-- Scribe-Data now allows the user to create JSONs of word-emoji key-value pairs.
+- Scribe-Data now allows the user to create JSONs of word-emoji key-value pairs ([#24](https://github.com/scribe-org/Scribe-Data/issues/24)).
 
 # Scribe-Data 2.1.0
 
 ### ✨ Features
 
-- Scribe-Data can now split Wikidata queries into multiple stages to break up those that were too large to run.
+- Scribe-Data can now split Wikidata queries into multiple stages to break up those that were too large to run ([#21](https://github.com/scribe-org/Scribe-Data/issues/21)).
 
 # Scribe-Data 2.0.0
 
 ### ✨ Features
 
-- Scribe-Data now has the ability to download Wikipedia dumps of any language.
-- Functions have been added to parse and clean the above dumps.
-- Autosuggestions are generated from the cleaned texts by deriving most common words and those words that most commonly follow them.
-- A query for profane words has been added and integrated into the autosuggest flow to make sure that inappropriate words are not included.
+- Scribe-Data now has the ability to download Wikipedia dumps of any language ([#15](https://github.com/scribe-org/Scribe-Data/issues/15)).
+- Functions have been added to parse and clean the above dumps ([#15](https://github.com/scribe-org/Scribe-Data/issues/15)).
+- Autosuggestions are generated from the cleaned texts by deriving most common words and those words that most commonly follow them ([#15](https://github.com/scribe-org/Scribe-Data/issues/15)).
+- A query for profane words has been added and integrated into the autosuggest flow to make sure that inappropriate words are not included ([#16](https://github.com/scribe-org/Scribe-Data/issues/16)).
   - The adjectives column has been removed from Scribe data tables until support is offered.
 
 ### ♻️ Code Refactoring
@@ -127,7 +133,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ### 🚀 Deployment
 
-Releasing a Python package so that codes are accessible and the structure is set for future project iterations.
+- Releasing a Python package so that codes are accessible and the structure is set for future project iterations.
 
 ### ✨ Features
 
