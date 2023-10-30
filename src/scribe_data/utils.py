@@ -22,23 +22,102 @@ Contents:
 """
 
 import ast
+import json
+import sys
+from importlib import resources
+from pathlib import Path
 from typing import Any
+
+PROJECT_ROOT = "Scribe-Data"
+
+
+def _load_json(package_path: str, file_name: str, root: str):
+    """Loads a JSON resource from a package into a python entity.
+
+    Parameters
+    ----------
+        package_path : str
+            The fully qualified package that contains the resource.
+
+        file_name : str
+            The name of the file (resource) that contains the JSON data.
+
+        root : str
+            The root node of the JSON document.
+
+    Returns
+    -------
+        A python entity starting at 'root'.
+    """
+    # add 'Scribe-Data/src' to PYTHONPATH so that resources.files()
+    # can find 'package_path'
+    parts = Path(__file__).resolve().parts
+    prj_root_idx = parts.index(PROJECT_ROOT)
+    package_root = str(Path(*parts[: prj_root_idx + 1], "src"))
+
+    if package_root not in sys.path:
+        sys.path.insert(0, package_root)
+
+    with resources.files(package_path).joinpath(file_name).open(
+        encoding="utf-8"
+    ) as in_stream:
+        contents = json.load(in_stream)
+        return contents[root]
+
+
+_languages = _load_json(
+    package_path="scribe_data.resources",
+    file_name="language_meta_data.json",
+    root="languages",
+)
+
+
+def _find(source_key: str, source_value: str, target_key: str, error_msg: str):
+    """
+    Each 'language', (english, german,..., etc) is a dictionary of key/value pairs:
+
+        entry = {
+            "language": "english",
+            "iso": "en",
+            "qid": "Q1860",
+            "remove-words": [...],
+            "ignore-words": [...]
+        }
+
+    Given a key/value pair, the 'source', and the 'target' key, get the 'target' value.
+
+    Args:
+        source_value (str): e.g. 'english'.
+        source_key (str): e.g. 'language'.
+        target_key (str): e.g. 'iso'.
+        error_msg (str): for when a value cannot be found.
+
+    Raises:
+        ValueError: when a source_value is not supported.
+
+    Returns:
+        the 'target' value
+    """
+    norm_source_value = source_value.lower()
+
+    target_value = [
+        entry[target_key]
+        for entry in _languages
+        if entry[source_key] == norm_source_value
+    ]
+
+    if target_value:
+        assert len(target_value) == 1, f"More than one entry for '{norm_source_value}'"
+        return target_value[0]
+
+    raise ValueError(error_msg)
 
 
 def get_scribe_languages() -> list[str]:
     """
     Returns the list of currently implemented Scribe languages.
     """
-    return [
-        "English",
-        "French",
-        "German",
-        "Italian",
-        "Portuguese",
-        "Russian",
-        "Spanish",
-        "Swedish",
-    ]
+    return sorted(entry["language"].capitalize() for entry in _languages)
 
 
 def get_language_qid(language: str) -> str:
@@ -52,27 +131,15 @@ def get_language_qid(language: str) -> str:
 
     Returns
     -------
-        The Wikidata QID for the language as a value of a dictionary.
+        str
+            The Wikidata QID for the language.
     """
-    language = language.lower()
-
-    language_qid_dict = {
-        "english": "Q1860",
-        "french": "Q150",
-        "german": "Q188",
-        "italian": "Q652",
-        "portuguese": "Q5146",
-        "russian": "Q7737",
-        "spanish": "Q1321",
-        "swedish": "Q9027",
-    }
-
-    if language not in language_qid_dict:
-        raise ValueError(
-            f"{language.upper()} is currently not a supported language for QID conversion."
-        )
-
-    return language_qid_dict[language]
+    return _find(
+        "language",
+        language,
+        "qid",
+        f"{language.upper()} is currently not a supported language for QID conversion.",
+    )
 
 
 def get_language_iso(language: str) -> str:
@@ -86,27 +153,15 @@ def get_language_iso(language: str) -> str:
 
     Returns
     -------
-        The ISO code for the language as a value of a dictionary.
+        str
+            The ISO code for the language.
     """
-    language = language.lower()
-
-    language_iso_dict = {
-        "english": "en",
-        "french": "fr",
-        "german": "de",
-        "italian": "it",
-        "portuguese": "pt",
-        "russian": "ru",
-        "spanish": "es",
-        "swedish": "sv",
-    }
-
-    if language not in language_iso_dict:
-        raise ValueError(
-            f"{language.capitalize()} is currently not a supported language for ISO conversion."
-        )
-
-    return language_iso_dict[language]
+    return _find(
+        "language",
+        language,
+        "iso",
+        f"{language.capitalize()} is currently not a supported language for ISO conversion.",
+    )
 
 
 def get_language_from_iso(iso: str) -> str:
@@ -120,30 +175,21 @@ def get_language_from_iso(iso: str) -> str:
 
     Returns
     -------
-        The name for the language as a value of a dictionary.
+        str
+            The name for the language which has an ISO value of iso.
     """
-    iso = iso.lower()
-
-    iso_language_dict = {
-        "en": "English",
-        "fr": "French",
-        "de": "German",
-        "it": "Italian",
-        "pt": "Portuguese",
-        "ru": "Russian",
-        "es": "Spanish",
-        "sv": "Swedish",
-    }
-
-    if iso not in iso_language_dict:
-        raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
-
-    return iso_language_dict[iso]
+    return _find(
+        "iso",
+        iso,
+        "language",
+        f"{iso.upper()} is currently not a supported ISO language.",
+    ).capitalize()
 
 
 def get_language_words_to_remove(language: str) -> list[str]:
     """
-    Returns the words that should not be included as autosuggestions for the given language.
+    Returns the words that should not be included as autosuggestions for the given
+    language.
 
     Parameters
     ----------
@@ -152,46 +198,22 @@ def get_language_words_to_remove(language: str) -> list[str]:
 
     Returns
     -------
-        The words that should not be included as autosuggestions for the given language as values of a dictionary.
+        list[str]
+            The words that should not be included as autosuggestions for the given
+            language
     """
-    language = language.lower()
-    words_to_remove: dict[str, list[str]] = {
-        "english": [
-            "of",
-            "the",
-            "The",
-            "and",
-        ],
-        "french": [
-            "of",
-            "the",
-            "The",
-            "and",
-        ],
-        "german": ["of", "the", "The", "and", "NeinJa", "et", "redirect"],
-        "italian": ["of", "the", "The", "and", "text", "from"],
-        "portuguese": ["of", "the", "The", "and", "jbutadptflora"],
-        "russian": [
-            "of",
-            "the",
-            "The",
-            "and",
-        ],  # and all non-Cyrillic characters
-        "spanish": ["of", "the", "The", "and"],
-        "swedish": ["of", "the", "The", "and", "Checklist", "Catalogue"],
-    }
-
-    if language not in words_to_remove:
-        raise ValueError(
-            f"{language.capitalize()} is currently not a supported language."
-        )
-
-    return words_to_remove[language]
+    return _find(
+        "language",
+        language,
+        "remove-words",
+        f"{language.capitalize()} is currently not a supported language.",
+    )
 
 
 def get_language_words_to_ignore(language: str) -> list[str]:
     """
-    Returns the words that should not be included as autosuggestions for the given language.
+    Returns the words that should not be included as autosuggestions for the given
+    language.
 
     Parameters
     ----------
@@ -200,27 +222,16 @@ def get_language_words_to_ignore(language: str) -> list[str]:
 
     Returns
     -------
-        The words that should not be included as autosuggestions for the given language as values of a dictionary.
+        list[str]
+            The words that should not be included as autosuggestions for the given
+            language
     """
-    language = language.lower()
-    words_to_ignore: dict[str, list[str]] = {
-        "french": [
-            "XXe",
-        ],
-        "german": ["Gemeinde", "Familienname"],
-        "italian": ["The", "ATP"],
-        "portuguese": [],
-        "russian": [],
-        "spanish": [],
-        "swedish": ["databasdump"],
-    }
-
-    if language not in words_to_ignore:
-        raise ValueError(
-            f"{language.capitalize()} is currently not a supported language."
-        )
-
-    return words_to_ignore[language]
+    return _find(
+        "language",
+        language,
+        "ignore-words",
+        f"{language.capitalize()} is currently not a supported language.",
+    )
 
 
 def get_path_from_format_file() -> str:
@@ -230,7 +241,7 @@ def get_path_from_format_file() -> str:
     return "../../../../../.."
 
 
-def get_path_from_load_dir() -> str:
+def get_path_from_load_dir():
     """
     Returns the directory path from the load directory to scribe-org.
     """
@@ -255,7 +266,8 @@ def get_ios_data_path(language: str) -> str:
 
     Returns
     -------
-        The path to the data json for the given language.
+        str
+            The path to the data json for the given language.
     """
     return f"/Scribe-iOS/Keyboards/LanguageKeyboards/{language}"
 
@@ -271,7 +283,8 @@ def get_android_data_path(language: str) -> str:
 
     Returns
     -------
-        The path to the data json for the given language.
+        str
+            The path to the data json for the given language.
     """
     return f"/Scribe-Android/app/src/main/LanguageKeyboards/{language}"
 
@@ -287,7 +300,8 @@ def get_desktop_data_path(language: str) -> str:
 
     Returns
     -------
-        The path to the data json for the given language.
+        str
+            The path to the data JSON for the given language.
     """
     return f"/Scribe-Desktop/scribe/language_guis/{language}"
 
@@ -349,7 +363,8 @@ def check_and_return_command_line_args(
     all_args, first_args_check=None, second_args_check=None
 ):
     """
-    Checks command line arguments passed to Scribe-Data files and returns them if correct.
+    Checks command line arguments passed to Scribe-Data files and returns them if
+    correct.
 
     Parameters
     ----------
@@ -365,7 +380,8 @@ def check_and_return_command_line_args(
     Returns
     -------
         first_args, second_args: list(str)
-            The subset of possible first and second arguments that have been verified as being valid.
+            The subset of possible first and second arguments that have been verified
+            as being valid.
     """
     if len(all_args) == 1:
         return None, None
@@ -378,7 +394,7 @@ def check_and_return_command_line_args(
 
         return first_args, None
 
-    elif len(all_args) == 3:
+    if len(all_args) == 3:
         arg_1 = all_args[1]
         arg_2 = all_args[2]
 
@@ -393,11 +409,10 @@ def check_and_return_command_line_args(
 
         return first_args, second_args
 
-    else:
-        raise ValueError(
-            f"""An invalid number of arguments were specified.
-            At this time only two sets of values can be passed.
-            Pass argument sets via the following:
-            python {all_args[0]} '["comma_separated_sets_in_quotes"]'
-            """
-        )
+    raise ValueError(
+        f"""An invalid number of arguments were specified.
+        At this time only two sets of values can be passed.
+        Pass argument sets via the following:
+        python {all_args[0]} '["comma_separated_sets_in_quotes"]'
+        """
+    )
