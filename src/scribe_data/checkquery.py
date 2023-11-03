@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-"""Command line tool for testing SPARQl queries against an endpoint."""
+"""
+Command line tool for testing SPARQl queries against an endpoint.
+"""
 
 import argparse
 import math
@@ -29,7 +31,8 @@ PROJECT_ROOT = "Scribe-Data"
 
 @dataclass(repr=False, frozen=True)
 class QueryFile:
-    """Holds a reference to a file containing a SPARQL query."""
+    """
+    Holds a reference to a file containing a SPARQL query."""
 
     path: Path
 
@@ -50,7 +53,9 @@ class QueryFile:
 
 
 class QueryExecutionException(Exception):
-    """Raised when execution of a query fails."""
+    """
+    Raised when execution of a query fails.
+    """
 
     def __init__(self, message: str, query: QueryFile) -> None:
         """
@@ -67,7 +72,8 @@ class QueryExecutionException(Exception):
 
 
 def ping(url: str, timeout: int) -> bool:
-    """Test if a URL is reachable.
+    """
+    Test if a URL is reachable.
 
     Args:
         url (str): the URL to test.
@@ -86,7 +92,8 @@ def ping(url: str, timeout: int) -> bool:
 
 
 def all_queries() -> list[QueryFile]:
-    """All the SPARQL queries in, and below, 'Scribe-Data/'.
+    """
+    All the SPARQL queries in, and below, 'Scribe-Data/'.
 
     Returns:
         list[QueryFile]: the SPARQL query files.
@@ -107,7 +114,8 @@ def all_queries() -> list[QueryFile]:
 
 
 def changed_queries() -> Optional[list[QueryFile]]:
-    """Find all the SPARQL queries that have changed.
+    """
+    Find all the SPARQL queries that have changed.
 
     Includes new queries.
 
@@ -146,7 +154,8 @@ def changed_queries() -> Optional[list[QueryFile]]:
 
 
 def sparql_context(url: str) -> SPARQL.SPARQLWrapper:
-    """Configure a SPARQL context.
+    """
+    Configure a SPARQL context.
 
     A context allows the execution of SPARQL queries.
 
@@ -166,7 +175,8 @@ def sparql_context(url: str) -> SPARQL.SPARQLWrapper:
 def execute(
     query: QueryFile, limit: int, context: SPARQL.SPARQLWrapper, tries: int = 3
 ) -> dict:
-    """Execute a SPARQL query in a given context.
+    """
+    Execute a SPARQL query in a given context.
 
     Args:
         query (QueryFile): the SPARQL query to run.
@@ -188,8 +198,7 @@ def execute(
 
     try:
         context.setQuery(query.load(limit))
-        result = context.query().convert()
-        return result if result else []
+        return context.queryAndConvert()
 
     except HTTPError:
         time.sleep(delay_in_seconds())
@@ -204,28 +213,30 @@ def execute(
         ) from err
 
 
-def check_sparql_file(query_file: str) -> Path:
-    """Check meta information of SPARQL query file.
+def check_sparql_file(fpath: str) -> Path:
+    """
+    Check meta information of SPARQL query file.
 
     Args:
-        query_file (str): the file to validate.
+        fpath (str): the file to validate.
 
     Returns:
         Path: the validated file.
     """
-    fpath = Path(query_file)
+    path = Path(fpath)
 
-    if not fpath.is_file():
-        raise argparse.ArgumentTypeError(f"Not a valid file path: {fpath}")
+    if not path.is_file():
+        raise argparse.ArgumentTypeError(f"Not a valid file path: {path}")
 
-    if fpath.suffix != ".sparql":
-        raise argparse.ArgumentTypeError(f"{fpath} does not have a '.sparql' extension")
+    if path.suffix != ".sparql":
+        raise argparse.ArgumentTypeError(f"{path} does not have a '.sparql' extension")
 
-    return fpath
+    return path
 
 
-def check_positive_number(value: str, err_msg: str) -> int:
-    """Ensure 'value' is a positive number.
+def check_positive_int(value: str, err_msg: str) -> int:
+    """
+    Ensure 'value' is a positive number.
 
     Args:
         value (str): the value to be validated.
@@ -248,7 +259,8 @@ def check_positive_number(value: str, err_msg: str) -> int:
 
 
 def check_limit(limit: str) -> int:
-    """Validate the 'limit' argument.
+    """
+    Validate the 'limit' argument.
 
     Args:
         limit (str): the LIMIT to be validated.
@@ -259,13 +271,12 @@ def check_limit(limit: str) -> int:
     Returns:
         int: the validated LIMIT
     """
-    return check_positive_number(
-        limit, "LIMIT must be an integer of value 1 or greater."
-    )
+    return check_positive_int(limit, "LIMIT must be an integer of value 1 or greater.")
 
 
 def check_timeout(timeout: str) -> int:
-    """Validate the 'timeout' argument.
+    """
+    Validate the 'timeout' argument.
 
     Args:
         timeout (str): the timeout to be validated.
@@ -276,13 +287,14 @@ def check_timeout(timeout: str) -> int:
     Returns:
         int: the validated timeout.
     """
-    return check_positive_number(
+    return check_positive_int(
         timeout, "timeout must be an integer of value 1 or greater."
     )
 
 
 def main(argv=None) -> int:
-    """The main function.
+    """
+    The main function.
 
     Args:
         argv : If set to None then argparse will use sys.argv as the arguments.
@@ -408,7 +420,8 @@ def main(argv=None) -> int:
 
 
 def error_report(failures: list[QueryExecutionException]) -> None:
-    """Report failed queries.
+    """
+    Report failed queries.
 
     Args:
         failures (list[QueryExecutionException]): failed queries.
@@ -423,7 +436,8 @@ def error_report(failures: list[QueryExecutionException]) -> None:
 
 
 def success_report(successes: list[tuple[QueryFile, dict]], display: bool) -> None:
-    """Report successful queries.
+    """
+    Report successful queries.
 
     Args:
         successes (list[tuple[QueryFile, dict]]): successful queries.

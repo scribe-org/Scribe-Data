@@ -280,7 +280,9 @@ def test_main_help(arg):
     ],
 )
 def test_main_mutex_opts(args):
-    """some options cannot be used together"""
+    """
+    Some options cannot be used together.
+    """
     with pytest.raises(SystemExit) as err:
         _ = main([args])
         assert err.code == 2
