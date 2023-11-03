@@ -32,7 +32,8 @@ PROJECT_ROOT = "Scribe-Data"
 @dataclass(repr=False, frozen=True)
 class QueryFile:
     """
-    Holds a reference to a file containing a SPARQL query."""
+    Holds a reference to a file containing a SPARQL query.
+    """
 
     path: Path
 
