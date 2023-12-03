@@ -111,7 +111,7 @@ conda env create -f environment.yml
 ```
 
 > [!NOTE]
-> Feel free to contact the team in the [General room on Matrix](https://matrix.to/#/!yQJjLmluvlkWttNhKo:matrix.org?via=matrix.org) if you're having problems getting your environment setup!
+> Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!
 
 <a id="issues-projects"></a>
 
