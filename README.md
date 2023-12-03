@@ -85,7 +85,7 @@ The development environment for Scribe-Data can be installed via the following s
 >
 > To run git commands with SSH, remember then to substitute the HTTPS URL, `https://github.com/...`, with the SSH one, `git@github.com:...`.
 >
-> - e.g. Cloning now becomes `git clone git@github.com:<your-username>/activist.git`
+> - e.g. Cloning now becomes `git clone git@github.com:<your-username>/Scribe-Data.git`
 >
 > GitHub also has their documentation on how to [Generate new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent). 🔑
 >
