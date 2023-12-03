@@ -26,21 +26,10 @@ Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-
 
 # **Contents**
 
-- [Setup](#setup)
 - [Process](#process)
 - [Contributing](#contributing)
 - [Supported Languages](#supported-languages)
 - [Featured By](#featured-by)
-
-<a id="setup"></a>
-
-# Setup [`⇧`](#contents)
-
-The development environment for Scribe-Data can be installed via the following command with [Anaconda](https://www.anaconda.com/) in the root directory of your local copy of the project:
-
-```bash
-conda env create -f environment.yml
-```
 
 <a id="process"></a>
 
@@ -65,7 +54,7 @@ Please see the [contribution guidelines](https://github.com/scribe-org/Scribe-Da
 > [!NOTE]\
 > Just because an issue is assigned on GitHub doesn't mean that the team isn't interested in your contribution! Feel free to write [in the issues](https://github.com/scribe-org/Scribe-Data/issues) and we can potentially reassign it to you.
 
-Those interested can further check the [`-next release-`](https://github.com/scribe-org/Scribe-Data/labels/-next%20release-) and [`-priority-`](https://github.com/scribe-org/Scribe-Data/labels/-priority-) labels in the [issues](https://github.com/scribe-org/Scribe-iOS/issues) for those that are most important, as well as those marked [`good first issue`](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) that are tailored for first time contributors.
+Those interested can further check the [`-next release-`](https://github.com/scribe-org/Scribe-Data/labels/-next%20release-) and [`-priority-`](https://github.com/scribe-org/Scribe-Data/labels/-priority-) labels in the [issues](https://github.com/scribe-org/Scribe-Data/issues) for those that are most important, as well as those marked [`good first issue`](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) that are tailored for first time contributors.
 
 After your first few pull requests organization members would be happy to discuss granting you further rights as a contributor, with a maintainer role then being possible after continued interest in the project. Scribe seeks to be an inclusive and supportive organization. We'd love to have you on the team!
 
@@ -79,6 +68,52 @@ After your first few pull requests organization members would be happy to discus
 ### Road Map [`⇧`](#contents)
 
 The Scribe road map can be followed in the organization's [project board](https://github.com/orgs/scribe-org/projects/1) where we list the most important issues along with their priority, status and an indication of which sub projects they're included in (if applicable).
+
+### Development environment [`⇧`](#contents)
+
+The development environment for Scribe-Data can be installed via the following steps:
+
+1. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) the [Scribe-Data repo](https://github.com/scribe-org/Scribe-Data), clone your fork, and configure the remotes:
+
+> [!NOTE]
+>
+> <details><summary>Consider using SSH</summary>
+>
+> <p>
+>
+> Alternatively to using HTTPS as in the instructions below, consider SSH to interact with GitHub from the terminal. SSH allows you to connect without a user-pass authentication flow.
+>
+> To run git commands with SSH, remember then to substitute the HTTPS URL, `https://github.com/...`, with the SSH one, `git@github.com:...`.
+>
+> - e.g. Cloning now becomes `git clone git@github.com:<your-username>/activist.git`
+>
+> GitHub also has their documentation on how to [Generate new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent). 🔑
+>
+> </p>
+> </details>
+
+```bash
+# Clone your fork of the repo into the current directory.
+git clone https://github.com/<your-username>/Scribe-Data.git
+# Navigate to the newly cloned directory.
+cd Scribe-Data
+# Assign the original repo to a remote called "upstream".
+git remote add upstream https://github.com/scribe-org/Scibe-Data.git
+```
+
+Now, if you run `git remote -v` you should see two remote repositories named:
+
+- `origin` (forked repository)
+- `upstream` (Scribe-Data repository)
+
+2. Use [Anaconda](https://www.anaconda.com/) to create the local development environment within your Scribe-Data directory:
+
+```bash
+conda env create -f environment.yml
+```
+
+> [!NOTE]
+> Feel free to contact the team in the [General room on Matrix](https://matrix.to/#/!yQJjLmluvlkWttNhKo:matrix.org?via=matrix.org) if you're having problems getting your environment setup!
 
 ### Data Edits [`⇧`](#contents)
 
