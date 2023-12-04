@@ -111,16 +111,15 @@ cd Scribe-Data
 git remote add upstream https://github.com/scribe-org/Scibe-Data.git
 ```
 
-Now, if you run `git remote -v` you should see two remote repositories named:
-
-- `origin` (forked repository)
-- `upstream` (Scribe-Data repository)
+- Now, if you run `git remote -v` you should see two remote repositories named:
+  - `origin` (forked repository)
+  - `upstream` (Scribe-Data repository)
 
 2. Use [Anaconda](https://www.anaconda.com/) to create the local development environment within your Scribe-Data directory:
 
-```bash
-conda env create -f environment.yml
-```
+   ```bash
+   conda env create -f environment.yml
+   ```
 
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!
