@@ -85,7 +85,7 @@ The development environment for Scribe-Data can be installed via the following s
 >
 > - e.g. Cloning now becomes `git clone git@github.com:<your-username>/Scribe-Data.git`
 >
-> GitHub also has their documentation on how to [Generate new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent). 🔑
+> GitHub also has their documentation on how to [Generate a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) 🔑
 >
 > </p>
 > </details>
