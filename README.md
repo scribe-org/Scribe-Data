@@ -28,6 +28,7 @@ Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-
 
 - [Process](#process)
 - [Contributing](#contributing)
+- [Environment Setup](#environment-setup)
 - [Supported Languages](#supported-languages)
 - [Featured By](#featured-by)
 
@@ -69,7 +70,16 @@ After your first few pull requests organization members would be happy to discus
 
 The Scribe road map can be followed in the organization's [project board](https://github.com/orgs/scribe-org/projects/1) where we list the most important issues along with their priority, status and an indication of which sub projects they're included in (if applicable).
 
-### Development environment [`⇧`](#contents)
+### Data Edits [`⇧`](#contents)
+
+> [!NOTE]\
+> Please see the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and how Scribe uses it.
+
+Scribe does not accept direct edits to the grammar JSON files as they are sourced from [Wikidata](https://www.wikidata.org/). Edits can be discussed and the queries themselves will be changed and ran before an update. If there is a problem with one of the files, then the fix should be made on [Wikidata](https://www.wikidata.org/) and not on Scribe. Feel free to let us know that edits have been made by [opening a data issue](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=data&template=data_wikidata.yml) and we'll be happy to integrate them!
+
+<a id="environment-setup"></a>
+
+# Environment Setup [`⇧`](#contents)
 
 The development environment for Scribe-Data can be installed via the following steps:
 
@@ -114,13 +124,6 @@ conda env create -f environment.yml
 
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!
-
-### Data Edits [`⇧`](#contents)
-
-> [!NOTE]\
-> Please see the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and how Scribe uses it.
-
-Scribe does not accept direct edits to the grammar JSON files as they are sourced from [Wikidata](https://www.wikidata.org/). Edits can be discussed and the queries themselves will be changed and ran before an update. If there is a problem with one of the files, then the fix should be made on [Wikidata](https://www.wikidata.org/) and not on Scribe. Feel free to let us know that edits have been made by [opening a data issue](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=data&template=data_wikidata.yml) and we'll be happy to integrate them!
 
 <a id="supported-languages"></a>
 
