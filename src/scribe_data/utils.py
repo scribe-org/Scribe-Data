@@ -27,6 +27,8 @@ import sys
 from importlib import resources
 from pathlib import Path
 from typing import Any
+import langcodes
+from langcodes import *
 
 PROJECT_ROOT = "Scribe-Data"
 
@@ -154,12 +156,12 @@ def get_language_iso(language: str) -> str:
         str
             The ISO code for the language.
     """
-    return _find(
-        "language",
-        language,
-        "iso",
-        f"{language.capitalize()} is currently not a supported language for ISO conversion.",
-    )
+    try:
+        iso_code = str(langcodes.find(language).language)
+        return iso_code
+    except langcodes.LanguageTagError:
+        raise ValueError(f"{language.capitalize()} is currently not a supported language for ISO conversion.")
+
 
 
 def get_language_from_iso(iso: str) -> str:
@@ -176,13 +178,11 @@ def get_language_from_iso(iso: str) -> str:
         str
             The name for the language which has an ISO value of iso.
     """
-    return _find(
-        "iso",
-        iso,
-        "language",
-        f"{iso.upper()} is currently not a supported ISO language.",
-    ).capitalize()
-
+    try:
+        language_name = str(Language.make(language=iso).display_name())
+        return language_name
+    except langcodes.LanguageTagError:
+        raise ValueError(f"{iso} is currently not a supported ISO language.")
 
 def get_language_words_to_remove(language: str) -> list[str]:
     """
