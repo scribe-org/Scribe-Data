@@ -16,3 +16,5 @@ tabulate>=0.8.9
 tensorflow>=2.5.1
 tqdm==4.56.1
 transformers>=4.12
+langcodes>=3.0.0
+language_data>=1.0.0
