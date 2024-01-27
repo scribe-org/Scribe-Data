@@ -1,6 +1,9 @@
 import unittest
 import pytest
 
+import sys
+sys.path.append('../../src')
+
 from scribe_data import utils
 
 
