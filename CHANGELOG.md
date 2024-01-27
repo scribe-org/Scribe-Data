@@ -23,11 +23,16 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   <!-- - Scribe-Data now outputs an SQLite table that has keys for target languages for each base language. -->
   - A process has been created to check and update words that can be translated for each Scribe language.
 - Language data was extracted into a JSON file for more succinct code ([#52](https://github.com/scribe-org/Scribe-Data/issues/52)).
+- Language codes are now checked with the package [langcodes](https://github.com/rspeer/langcodes) for easier expansion.
 
 ### ✅ Tests
 
 - A full testing suite has been added to run on GitHub Actions ([#37](https://github.com/scribe-org/Scribe-Data/issues/37)).
 - Unit tests have been added for Wikidata queries ([#48](https://github.com/scribe-org/Scribe-Data/issues/48)) and utility functions ([#50](https://github.com/scribe-org/Scribe-Data/issues/50)).
+
+### 🐞 Bug Fixes
+
+- Tensorflow was removed from the download wiki process to fix build problems on Macs.
 
 # Scribe-Data 3.1.0
 
