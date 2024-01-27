@@ -30,7 +30,6 @@ from multiprocessing.dummy import Pool as Threadpool
 import defusedxml.sax
 import mwparserfromhell
 import requests
-import tensorflow as tf
 from bs4 import BeautifulSoup
 from tqdm.auto import tqdm
 
@@ -65,7 +64,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
     if file_limit is not None:
         assert isinstance(
             file_limit, int
-        ), "The 'file_limit' argument must be 'None' or an integer to subset the available file list"
+        ), "The 'file_limit' argument must be 'None' or an integer to subset the available files"
     else:
         file_limit = -1
 
@@ -74,12 +73,12 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
         os.makedirs(target_dir)
 
     base_url = f"https://dumps.wikimedia.org/{get_language_iso(language)}wiki/"
-    index = requests.get(base_url).text
+    index = requests.get(base_url, timeout=5).text
     soup_index = BeautifulSoup(index, "html.parser")
 
     all_dumps = [a["href"] for a in soup_index.find_all("a") if a.has_attr("href")]
     target_dump = all_dumps[-3]
-    if dump_id != None:
+    if dump_id is not None:
         if dump_id[-1] != "/":
             dump_id += "/"
 
@@ -87,7 +86,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
             target_dump = dump_id
 
     dump_url = base_url + target_dump
-    dump_html = requests.get(dump_url).text
+    dump_html = requests.get(dump_url, timeout=5).text
     soup_dump = BeautifulSoup(dump_html, "html.parser")
 
     print(f"Downloading Wikipedia dump found at {dump_url} ...")
@@ -111,27 +110,14 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
         or file_present_bools[0] is not True
     )
 
-    cache_subdir = target_dir.split("/")[-1]
-    cache_dir = "/".join(target_dir.split("/")[:-1])
-    if not cache_dir:
-        cache_subdir = target_dir
-        cache_dir = "."
-
     if dl_files:
         for f in files_to_download:
             file_path = f"{target_dir}/{f}"
             if not os.path.exists(file_path):
                 print(f"DL file to {file_path}")
-                saved_file_path = tf.keras.utils.get_file(
-                    fname=f,
-                    origin=dump_url + f,
-                    extract=True,
-                    archive_format="auto",
-                    cache_subdir=cache_subdir,
-                    cache_dir=cache_dir,
-                )
+                subprocess.run(["curl", "-o", file_path, dump_url + f], check=False)
 
-                file_size = os.stat(saved_file_path).st_size / 1e6
+                file_size = os.stat(file_path).st_size / 1e6
                 total_articles = int(f.split("p")[-1].split(".")[-2]) - int(
                     f.split("p")[-2]
                 )
@@ -273,13 +259,14 @@ def iterate_and_parse_file(args):
                 if len(handler.target_articles) >= article_limit:
                     break
 
-        with open(output_path, "w", encoding="utf-8") as fout:
+        with open(output_path, "w", encoding="utf-8") as f_out:
             for ta in handler.target_articles:
-                fout.write(json.dumps(ta) + "\n")
+                f_out.write(json.dumps(ta) + "\n")
 
         if verbose:
+            n_art = len(handler.target_articles)
             print(
-                f"File {file_name} with {len(handler.target_articles)} articles processed and saved in {partitions_dir}"
+                f"File {file_name} with {n_art} articles processed and saved in {partitions_dir}"
             )
 
     elif verbose:
@@ -388,7 +375,7 @@ def parse_to_ndjson(
             data = []
 
             with open(file_path, "r", encoding="utf-8") as f:
-                for l in f.readlines():
+                for l in f:
                     data.append(json.loads(l))
 
             return data
@@ -405,9 +392,9 @@ def parse_to_ndjson(
 
         file_list = list(chain(*results))
 
-        with open(output_file_name, "wt", encoding="utf-8") as fout:
+        with open(output_file_name, "wt", encoding="utf-8") as f_out:
             for f in file_list:
-                fout.write(json.dumps(f) + "\n")
+                f_out.write(json.dumps(f) + "\n")
         print(f"File {output_file_name} with Wikipedia articles saved")
 
     else:
