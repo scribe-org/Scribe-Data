@@ -158,8 +158,10 @@ def get_language_iso(language: str) -> str:
     """
     try:
         iso_code = str(langcodes.find(language).language)
-    except LookupError:
-        raise ValueError(f"{language.capitalize()} is currently not a supported language for ISO conversion.")
+    except LookupError as e:
+        raise ValueError(
+            f"{language.capitalize()} is currently not a supported language for ISO conversion."
+        ) from e
     return iso_code
 
 def get_language_from_iso(iso: str) -> str:
@@ -178,7 +180,7 @@ def get_language_from_iso(iso: str) -> str:
     """
 
     language_name = str(Language.make(language=iso).display_name())
-    if "Unknown language" in str(language_name):
+    if "Unknown language" in language_name:
         raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
     return language_name
 

@@ -13,7 +13,7 @@ regex>=2023.3.23
 sentencepiece>=0.1.95
 SPARQLWrapper>=2.0.0
 tabulate>=0.8.9
-tensorflow>=2.11.0
+tensorflow>=2.13.0
 tqdm==4.56.1
 transformers>=4.12
 langcodes>=3.0.0

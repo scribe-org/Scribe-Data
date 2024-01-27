@@ -20,6 +20,6 @@ dependencies:
       - python-dateutil>=2.8.2
       - regex>=2023.8.8
       - SPARQLWrapper>=2.0.0
-      - tensorflow>=2.11.0
+      - tensorflow>=2.13.0
       - langcodes>=3.0.0
       - language_data>=1.0.0
