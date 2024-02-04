@@ -4,13 +4,13 @@
     :target: https://github.com/scribe-org/Scribe-Data
 ============
 
-|rtd| |platform| |issues| |language| |pypi| |pypistatus| |license| |coc| |mastodon| |matrix| |codestyle|
-
-.. |rtd| image:: https://img.shields.io/readthedocs/scribe-data.svg?logo=read-the-docs
-    :target: http://scribe-datareadthedocs.io/en/latest/
+|platform| |rtd| |issues| |language| |pypi| |pypistatus| |license| |coc| |mastodon| |matrix| |codestyle|
 
 .. |platform| image:: https://img.shields.io/badge/Wikidata-990000.svg?logo=wikidata&logoColor=ffffff
     :target: https://github.com/scribe-org/Scribe-Data
+
+.. |rtd| image:: https://img.shields.io/readthedocs/scribe-data.svg?logo=read-the-docs
+    :target: http://scribe-datareadthedocs.io/en/latest/
 
 .. |issues| image:: https://img.shields.io/github/issues/scribe-org/Scribe-Data?label=%20&logo=github
     :target: https://github.com/scribe-org/Scribe-Data/issues
