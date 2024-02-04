@@ -1,0 +1,5 @@
+m2r2
+numpydoc
+scribe-data
+sphinx<7.0.0
+sphinx_rtd_theme

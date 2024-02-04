@@ -15,10 +15,10 @@ dependencies:
   - pip:
       - black>=23.7.0
       - emoji>=2.8.0
+      - langcodes>=3.0.0
+      - language_data>=1.0.0
       - mwparserfromhell>=0.6.5
       - PyICU>=2.10.2 # Make sure to fulfill PyICU dependencies, see https://gitlab.pyicu.org/main/pyicu#installing-pyicu
       - python-dateutil>=2.8.2
       - regex>=2023.8.8
       - SPARQLWrapper>=2.0.0
-      - langcodes>=3.0.0
-      - language_data>=1.0.0

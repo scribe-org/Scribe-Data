@@ -24,7 +24,7 @@ If you have questions or would like to communicate with the team, please [join u
 
 <a id="first-steps"></a>
 
-## First steps as a contributor [`⇧`](#contents)
+## First steps as a contributor
 
 Thank you for your interest in contributing to Scribe-Data! We look forward to welcoming you to the community and working with you to build an tools for language learners to communicate effectively :) The following are some suggested steps for people interested in joining our community:
 
@@ -43,7 +43,7 @@ Thank you for your interest in contributing to Scribe-Data! We look forward to w
 
 <a id="learning-the-tech"></a>
 
-## Learning the tech stack [`⇧`](#contents)
+## Learning the tech stack
 
 Scribe is very open to contributions from people in the early stages of their coding journey! The following is a select list of documentation pages to help you understand the technologies we use.
 
@@ -67,7 +67,7 @@ Scribe is very open to contributions from people in the early stages of their co
 
 <a id="dev-env"></a>
 
-## Development environment [`⇧`](#contents)
+## Development environment
 
 The development environment for Scribe-Data can be installed via the following steps:
 
@@ -114,7 +114,7 @@ git remote add upstream https://github.com/scribe-org/Scibe-Data.git
 
 <a id="issues-projects"></a>
 
-## Issues and projects [`⇧`](#contents)
+## Issues and projects
 
 The [issue tracker for Scribe-Data](https://github.com/scribe-org/Scribe-Data/issues) is the preferred channel for [bug reports](#bug-reports), [features requests](#feature-requests) and [submitting pull requests](#pull-requests). Scribe also organizes related issues into [projects](https://github.com/scribe-org/Scribe-Data/projects).
 
@@ -125,7 +125,7 @@ Be sure to check the [`-next release-`](https://github.com/scribe-org/Scribe-Dat
 
 <a id="bug-reports"></a>
 
-## Bug reports [`⇧`](#contents)
+## Bug reports
 
 A bug is a _demonstrable problem_ that is caused by the code in the repository. Good bug reports are extremely helpful - thank you!
 
@@ -151,13 +151,13 @@ Again, thank you for your time in reporting issues!
 
 <a id="feature-requests"></a>
 
-## Feature requests [`⇧`](#contents)
+## Feature requests
 
 Feature requests are more than welcome! Please take a moment to find out whether your idea fits with the scope and aims of the project. When making a suggestion, provide as much detail and context as possible, and further make clear the degree to which you would like to contribute in its development. Feature requests are marked with the [`feature`](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aopen+is%3Aissue+label%3Afeature) label, and can be made using the [feature request](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=feature&template=feature_request.yml) template.
 
 <a id="pull-requests"></a>
 
-## Pull requests [`⇧`](#contents)
+## Pull requests
 
 Good pull requests - patches, improvements and new features - are the foundation of our community making Scribe-Data. They should remain focused in scope and avoid containing unrelated commits. Note that all contributions to this project will be made under [the specified license](https://github.com/scribe-org/Scribe-Data/blob/main/LICENSE.txt) and should follow the coding indentation and style standards ([contact us](https://matrix.to/#/#scribe_community:matrix.org) if unsure).
 
@@ -204,7 +204,7 @@ Thank you in advance for your contributions!
 
 <a id="data-edits"></a>
 
-## Data edits [`⇧`](#contents)
+## Data edits
 
 > [!NOTE]\
 > Please see the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and how Scribe uses it.
@@ -213,6 +213,6 @@ Scribe does not accept direct edits to the grammar JSON files as they are source
 
 <a id="documentation"></a>
 
-## Documentation [`⇧`](#contents)
+## Documentation
 
 Documentation is an invaluable way to contribute to coding projects as it allows others to more easily understand the project structure and contribute. Issues related to documentation are marked with the [`documentation`](https://github.com/scribe-org/Scribe-Data/labels/documentation) label.

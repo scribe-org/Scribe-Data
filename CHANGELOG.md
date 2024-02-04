@@ -10,7 +10,7 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
-# [Upcoming] Scribe-Data 3.2.0
+## [Upcoming] Scribe-Data 3.2.0
 
 ### ✨ Features
 
@@ -34,7 +34,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - Tensorflow was removed from the download wiki process to fix build problems on Macs.
 
-# Scribe-Data 3.1.0
+## Scribe-Data 3.1.0
 
 ### ✨ Features
 
@@ -47,7 +47,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - Database output column names are now zero indexed to better align with Python and other language standards.
 
-# Scribe-Data 3.0.0
+## Scribe-Data 3.0.0
 
 ### ✨ Features
 
@@ -79,7 +79,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - The statements in translation files have been fixed as they were improperly defined after a file was moved.
 
-# Scribe-Data 2.2.2
+## Scribe-Data 2.2.2
 
 ### ✨ Features
 
@@ -89,26 +89,26 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - The export filenames for emoji keywords were renamed to reflect their usage in autosuggestions and soon autocompletions as well.
 
-# Scribe-Data 2.2.1
+## Scribe-Data 2.2.1
 
 ### ✨ Features
 
 - The number of suggested emojis for words can now be limited.
 - The total number of emojis that suggestions can be made for can now be limited.
 
-# Scribe-Data 2.2.0
+## Scribe-Data 2.2.0
 
 ### ✨ Features
 
 - Scribe-Data now allows the user to create JSONs of word-emoji key-value pairs ([#24](https://github.com/scribe-org/Scribe-Data/issues/24)).
 
-# Scribe-Data 2.1.0
+## Scribe-Data 2.1.0
 
 ### ✨ Features
 
 - Scribe-Data can now split Wikidata queries into multiple stages to break up those that were too large to run ([#21](https://github.com/scribe-org/Scribe-Data/issues/21)).
 
-# Scribe-Data 2.0.0
+## Scribe-Data 2.0.0
 
 ### ✨ Features
 
@@ -122,7 +122,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - The error messages for incorrect args in update_data.py have been updated.
 
-# Scribe-Data 1.0.1
+## Scribe-Data 1.0.1
 
 ### ✨ Features
 
@@ -134,7 +134,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - Hard coded strings for Spanish formatting files were fixed.
 - The paths of update_data.py were changed to match the new package structure.
 
-# Scribe-Data 1.0.0
+## Scribe-Data 1.0.0
 
 ### 🚀 Deployment
 

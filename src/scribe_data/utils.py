@@ -27,8 +27,9 @@ import sys
 from importlib import resources
 from pathlib import Path
 from typing import Any
+
 import langcodes
-from langcodes import *
+from langcodes import Language
 
 PROJECT_ROOT = "Scribe-Data"
 
@@ -163,6 +164,7 @@ def get_language_iso(language: str) -> str:
             f"{language.capitalize()} is currently not a supported language for ISO conversion."
         ) from e
     return iso_code
+
 
 def get_language_from_iso(iso: str) -> str:
     """

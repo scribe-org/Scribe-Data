@@ -3,6 +3,8 @@ black>=19.10b0
 certifi>=2020.12.5
 defusedxml==0.7.1
 emoji>=2.2.0
+langcodes>=3.0.0
+language_data>=1.0.0
 mwparserfromhell>=0.6
 packaging>=20.9
 pandas>=1.5.3
@@ -15,5 +17,3 @@ SPARQLWrapper>=2.0.0
 tabulate>=0.8.9
 tqdm==4.56.1
 transformers>=4.12
-langcodes>=3.0.0
-language_data>=1.0.0
