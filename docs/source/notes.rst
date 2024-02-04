@@ -1,4 +1,4 @@
-.. mdinclude:: _docs_internal/CONTRIBUTING_NO_BACK_LINKS.md
+.. mdinclude:: _internal/CONTRIBUTING_NO_BACK_LINKS.md
 
 License
 =======

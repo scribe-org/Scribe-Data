@@ -70,7 +70,7 @@ Installation
 .. toctree::
     :hidden:
 
-    _docs_internal/index
+    _internal/index
 
 Project Indices
 ===============
