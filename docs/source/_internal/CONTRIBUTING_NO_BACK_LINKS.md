@@ -10,7 +10,7 @@ If you have questions or would like to communicate with the team, please [join u
 
 <a id="contents"></a>
 
-## **Contents**
+## Contents
 
 - [First steps as a contributor](#first-steps)
 - [Learning the tech stack](#learning-the-tech)
