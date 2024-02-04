@@ -67,11 +67,6 @@ Installation
     utils
     notes
 
-.. toctree::
-    :hidden:
-
-    _internal/index
-
 Project Indices
 ===============
 
