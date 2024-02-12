@@ -40,19 +40,13 @@ class QueryFile:
     def load(self, limit: int) -> str:
         """Load the SPARQL query from 'path' into a string.
 
-        Parameters
-    -----------
-        source_value : str
-            The source value to find equivalents for (e.g. 'english').
-        source_key : str
-            The source key to reference (e.g. 'language').
-        target_key : str
-            The key to target (e.g. 'iso').
-        error_msg : str
-            The message displayed when a value cannot be found.
+        Args:
+        ------
+            limit (int): the maximum number of results a query should return.
 
         Returns:
-            The 'target' value given the passed arguments.
+        --------
+            str: the SPARQL query.
         """
         with open(self.path, encoding="utf-8") as in_stream:
             return f"{in_stream.read()}\nLIMIT {limit}\n"
@@ -68,16 +62,10 @@ class QueryExecutionException(Exception):
 
     def __init__(self, message: str, query: QueryFile) -> None:
         """
-        Parameters
-    -----------
-        source_value : str
-            The source value to find equivalents for (e.g. 'english').
-        source_key : str
-            The source key to reference (e.g. 'language').
-        target_key : str
-            The key to target (e.g. 'iso').
-        error_msg : str
-            The message displayed when a value cannot be found.
+        Args:
+        ------
+            message (str): why the query failed.
+            query (QueryFile): the query that failed.
         """
         self.message = message
         self.query = query
@@ -90,21 +78,15 @@ class QueryExecutionException(Exception):
 def ping(url: str, timeout: int) -> bool:
     """
     Test if a URL is reachable.
- Parameters
-    -----------
-        source_value : str
-            The source value to find equivalents for (e.g. 'english').
-        source_key : str
-            The source key to reference (e.g. 'language').
-        target_key : str
-            The key to target (e.g. 'iso').
-        error_msg : str
-            The message displayed when a value cannot be found.
 
-    
-    Returns
-    --------
-        The 'target' value given the passed arguments.
+    Args:
+    ------
+        url (str): the URL to test.
+        timeout (int): the maximum number of seconds to wait for a reply.
+
+    Returns:
+    -------
+        bool: True if connectivity established. False otherwise.
     """
     try:
         with urllib.request.urlopen(url, timeout=timeout) as response:
@@ -120,6 +102,7 @@ def all_queries() -> list[QueryFile]:
     All the SPARQL queries in, and below, 'Scribe-Data/'.
 
     Returns:
+    -------
         list[QueryFile]: the SPARQL query files.
     """
     parts = Path(__file__).resolve().parts
@@ -144,6 +127,7 @@ def changed_queries() -> Optional[list[QueryFile]]:
     Includes new queries.
 
     Returns:
+    -------
         Optional[list[QueryFile]]: list of changed/new SPARQL queries or None if error.
     """
 
@@ -182,22 +166,14 @@ def sparql_context(url: str) -> SPARQL.SPARQLWrapper:
     Configure a SPARQL context.
 
     A context allows the execution of SPARQL queries.
- Parameters
-    -----------
-        source_value : str
-            The source value to find equivalents for (e.g. 'english').
-        source_key : str
-            The source key to reference (e.g. 'language').
-        target_key : str
-            The key to target (e.g. 'iso').
-        error_msg : str
-            The message displayed when a value cannot be found.
 
-    Returns
-    --------
-        The 'target' value given the passed arguments.
-    """
-   
+    Args:
+    ------
+        url (str): a valid URL of a SPARQL endpoint.
+
+    Returns:
+    -------
+        SPARQLWrapper: the context.
     """
     context = SPARQL.SPARQLWrapper(url)
     context.setReturnFormat(SPARQL.JSON)
@@ -212,20 +188,17 @@ def execute(
     """
     Execute a SPARQL query in a given context.
 
-    Parameters
-    -----------
-        source_value : str
-            The source value to find equivalents for (e.g. 'english').
-        source_key : str
-            The source key to reference (e.g. 'language').
-        target_key : str
-            The key to target (e.g. 'iso').
-        error_msg : str
-            The message displayed when a value cannot be found.
-
-    Returns
+    Args:
     --------
-        The 'target' value given the passed arguments.
+        query (QueryFile): the SPARQL query to run.
+        limit (int): the maximum number of results a query should return.
+        context (SPARQLWrapper): the SPARQL context.
+        tries (int): the maximum number of times the query should be executed
+                    after failure.
+
+    Returns:
+    --------
+        dict: results of the query.
     """
 
     def delay_in_seconds() -> int:
@@ -256,20 +229,13 @@ def check_sparql_file(fpath: str) -> Path:
     """
     Check meta information of SPARQL query file.
 
-    Parameters
-    -----------
-        source_value : str
-            The source value to find equivalents for (e.g. 'english').
-        source_key : str
-            The source key to reference (e.g. 'language').
-        target_key : str
-            The key to target (e.g. 'iso').
-        error_msg : str
-            The message displayed when a value cannot be found.
+    Args:
+    ------
+        fpath (str): the file to validate.
 
-    Returns
-    --------
-        The 'target' value given the passed arguments.
+    Returns:
+    -------
+        Path: the validated file.
     """
     path = Path(fpath)
 
@@ -286,24 +252,18 @@ def check_positive_int(value: str, err_msg: str) -> int:
     """
     Ensure 'value' is a positive number.
 
-     Parameters
-    -----------
-        source_value : str
-            The source value to find equivalents for (e.g. 'english').
-        source_key : str
-            The source key to reference (e.g. 'language').
-        target_key : str
-            The key to target (e.g. 'iso').
-        error_msg : str
-            The message displayed when a value cannot be found.
-
-    Raises
+    Args:
     -------
-        ValueError : when a source_value is not supported.
+        value (str): the value to be validated.
+        err_msg (str): used when value fails validation.
 
-    Returns
+    Raises:
+    -------
+        argparse.ArgumentTypeError
+
+    Returns:
     --------
-        The 'target' value given the passed arguments.
+        int: the validated number.
     """
     try:
         number = int(value)
@@ -319,24 +279,17 @@ def check_limit(limit: str) -> int:
     """
     Validate the 'limit' argument.
 
-    Parameters
-    -----------
-        source_value : str
-            The source value to find equivalents for (e.g. 'english').
-        source_key : str
-            The source key to reference (e.g. 'language').
-        target_key : str
-            The key to target (e.g. 'iso').
-        error_msg : str
-            The message displayed when a value cannot be found.
+    Args:
+    ------
+        limit (str): the LIMIT to be validated.
 
-    Raises
+    Raises:
     -------
-        ValueError : when a source_value is not supported.
+        argparse.ArgumentTypeError
 
-    Returns
-    --------
-        The 'target' value given the passed arguments.
+    Returns:
+    -------
+        int: the validated LIMIT
     """
     return check_positive_int(limit, "LIMIT must be an integer of value 1 or greater.")
 
@@ -345,24 +298,17 @@ def check_timeout(timeout: str) -> int:
     """
     Validate the 'timeout' argument.
 
-    Parameters
-    -----------
-        source_value : str
-            The source value to find equivalents for (e.g. 'english').
-        source_key : str
-            The source key to reference (e.g. 'language').
-        target_key : str
-            The key to target (e.g. 'iso').
-        error_msg : str
-            The message displayed when a value cannot be found.
+    Args:
+    ------
+        timeout (str): the timeout to be validated.
 
-    Raises
+    Raises:
     -------
-        ValueError : when a source_value is not supported.
+        argparse.ArgumentTypeError
 
-    Returns
+    Returns:
     --------
-        The 'target' value given the passed arguments.
+        int: the validated timeout.
     """
     return check_positive_int(
         timeout, "timeout must be an integer of value 1 or greater."
@@ -372,20 +318,14 @@ def check_timeout(timeout: str) -> int:
 def main(argv=None) -> int:
     """
     The main function.
- Parameters
-    -----------
-        source_value : str
-            The source value to find equivalents for (e.g. 'english').
-        source_key : str
-            The source key to reference (e.g. 'language').
-        target_key : str
-            The key to target (e.g. 'iso').
-        error_msg : str
-            The message displayed when a value cannot be found.
 
-    Returns
-    --------
-        The 'target' value given the passed arguments.
+    Args:
+    ------
+        argv : If set to None then argparse will use sys.argv as the arguments.
+
+    Returns:
+    -------
+        int: the exit status - 0: success, any other value - failure.
     """
     cli = argparse.ArgumentParser(
         description=f"run SPARQL queries from the '{PROJECT_ROOT}' project",
@@ -508,24 +448,9 @@ def error_report(failures: list[QueryExecutionException]) -> None:
     """
     Report failed queries.
 
-     Parameters
-    -----------
-        source_value : str
-            The source value to find equivalents for (e.g. 'english').
-        source_key : str
-            The source key to reference (e.g. 'language').
-        target_key : str
-            The key to target (e.g. 'iso').
-        error_msg : str
-            The message displayed when a value cannot be found.
-
-    Raises
-    -------
-        ValueError : when a source_value is not supported.
-
-    Returns
-    --------
-        The 'target' value given the passed arguments.
+    Args:
+    ------
+        failures (list[QueryExecutionException]): failed queries.
     """
     if not failures:
         return
@@ -540,24 +465,10 @@ def success_report(successes: list[tuple[QueryFile, dict]], display: bool) -> No
     """
     Report successful queries.
 
-    Parameters
-    -----------
-        source_value : str
-            The source value to find equivalents for (e.g. 'english').
-        source_key : str
-            The source key to reference (e.g. 'language').
-        target_key : str
-            The key to target (e.g. 'iso').
-        error_msg : str
-            The message displayed when a value cannot be found.
-
-    Raises
-    -------
-        ValueError : when a source_value is not supported.
-
-    Returns
-    --------
-        The 'target' value given the passed arguments.
+    Args:
+    ------
+        successes (list[tuple[QueryFile, dict]]): successful queries.
+        display (bool): should there be output?
     """
     if not (display and successes):
         return
