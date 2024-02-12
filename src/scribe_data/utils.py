@@ -76,30 +76,22 @@ _languages = _load_json(
 
 
 def _find(source_key: str, source_value: str, target_key: str, error_msg: str):
-    """
-    Each 'language', (english, german,..., etc) is a dictionary of key/value pairs:
+    """Loads a JSON resource from a package into a python entity.
 
-        entry = {
-            "language": "english",
-            "iso": "en",
-            "qid": "Q1860",
-            "remove-words": [...],
-            "ignore-words": [...]
-        }
+    Parameters
+    ----------
+        package_path : str
+            The fully qualified package that contains the resource.
 
-    Given a key/value pair, the 'source', and the 'target' key, get the 'target' value.
+        file_name : str
+            The name of the file (resource) that contains the JSON data.
 
-    Args:
-        source_value (str): e.g. 'english'.
-        source_key (str): e.g. 'language'.
-        target_key (str): e.g. 'iso'.
-        error_msg (str): for when a value cannot be found.
+        root : str
+            The root node of the JSON document.
 
-    Raises:
-        ValueError: when a source_value is not supported.
-
-    Returns:
-        The 'target' value given the passed arguments.
+    Returns
+    -------
+        A python entity starting at 'root'.
     """
     norm_source_value = source_value.lower()
 
