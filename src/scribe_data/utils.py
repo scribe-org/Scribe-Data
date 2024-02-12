@@ -76,7 +76,7 @@ _languages = _load_json(
 
 
 def _find(source_key: str, source_value: str, target_key: str, error_msg: str):
-    """
+       """
     Each 'language', (english, german,..., etc) is a dictionary of key/value pairs:
 
         entry = {
@@ -89,16 +89,23 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str):
 
     Given a key/value pair, the 'source', and the 'target' key, get the 'target' value.
 
-    Args:
-        source_value (str): e.g. 'english'.
-        source_key (str): e.g. 'language'.
-        target_key (str): e.g. 'iso'.
-        error_msg (str): for when a value cannot be found.
+    Parameters
+    ----------
+        source_value : str
+            The source value to find equivalents for (e.g. 'english').
+        source_key : str
+            The source key to reference (e.g. 'language').
+        target_key : str
+            The key to target (e.g. 'iso').
+        error_msg : str
+            The message displayed when a value cannot be found.
 
-    Raises:
-        ValueError: when a source_value is not supported.
+    Raises
+    ------
+        ValueError : when a source_value is not supported.
 
-    Returns:
+    Returns
+    -------
         The 'target' value given the passed arguments.
     """
     norm_source_value = source_value.lower()
@@ -308,22 +315,25 @@ def check_command_line_args(
 ) -> list[str]:
     """
     Checks command line arguments passed to Scribe-Data files.
+    
+  Parameters
+    -----------
+        source_value : str
+            The source value to find equivalents for (e.g. 'english').
+        source_key : str
+            The source key to reference (e.g. 'language').
+        target_key : str
+            The key to target (e.g. 'iso').
+        error_msg : str
+            The message displayed when a value cannot be found.
 
-    Parameters
-    ----------
-        file_name : str
-            The name of the file for clear error outputs if necessary.
-
-        passed_values : UNKNOWN (will be checked)
-            An argument to be checked against known values.
-
-        values_to_check : list(str)
-            The values that should be checked against.
+    Raises
+    -------
+        ValueError : when a source_value is not supported.
 
     Returns
-    -------
-        args: list(str)
-            The arguments or an error are returned depending on if they're correct.
+    --------
+        The 'target' value given the passed arguments.
     """
     try:
         args = ast.literal_eval(passed_values)
@@ -362,21 +372,25 @@ def check_and_return_command_line_args(
     """
     Checks command line arguments passed to Scribe-Data files and returns them if correct.
 
-    Parameters
-    ----------
-        all_args : list (str)
-            The arguments passed to the Scribe-Data file.
+     Parameters
+    -----------
+        source_value : str
+            The source value to find equivalents for (e.g. 'english').
+        source_key : str
+            The source key to reference (e.g. 'language').
+        target_key : str
+            The key to target (e.g. 'iso').
+        error_msg : str
+            The message displayed when a value cannot be found.
 
-        first_args_check : list(str)
-            The values that the first argument should be checked against.
-
-        second_args_check : list(str)
-            The values that the second argument should be checked against.
+    Raises
+    -------
+        ValueError : when a source_value is not supported.
 
     Returns
-    -------
-        first_args, second_args: list(str)
-            The subset of possible first and second arguments that have been verified as being valid.
+    --------
+        The 'target' value given the passed arguments.
+        
     """
     if len(all_args) == 1:
         return None, None
