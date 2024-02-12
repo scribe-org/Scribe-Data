@@ -40,11 +40,11 @@ class QueryFile:
     def load(self, limit: int) -> str:
         """Load the SPARQL query from 'path' into a string.
 
-        Args:
+        Parameters
         ------
             limit (int): the maximum number of results a query should return.
 
-        Returns:
+        Returns
         --------
             str: the SPARQL query.
         """
@@ -62,8 +62,8 @@ class QueryExecutionException(Exception):
 
     def __init__(self, message: str, query: QueryFile) -> None:
         """
-        Args:
-        ------
+        Parameters
+        ----------
             message (str): why the query failed.
             query (QueryFile): the query that failed.
         """
@@ -79,12 +79,12 @@ def ping(url: str, timeout: int) -> bool:
     """
     Test if a URL is reachable.
 
-    Args:
-    ------
+    Parameters
+    ---------
         url (str): the URL to test.
         timeout (int): the maximum number of seconds to wait for a reply.
 
-    Returns:
+    Returns
     -------
         bool: True if connectivity established. False otherwise.
     """
@@ -167,12 +167,12 @@ def sparql_context(url: str) -> SPARQL.SPARQLWrapper:
 
     A context allows the execution of SPARQL queries.
 
-    Args:
-    ------
+    Parameters
+    ---------
         url (str): a valid URL of a SPARQL endpoint.
 
-    Returns:
-    -------
+    Returns
+    --------
         SPARQLWrapper: the context.
     """
     context = SPARQL.SPARQLWrapper(url)
@@ -188,15 +188,15 @@ def execute(
     """
     Execute a SPARQL query in a given context.
 
-    Args:
-    --------
+    Parameters
+    ---------
         query (QueryFile): the SPARQL query to run.
         limit (int): the maximum number of results a query should return.
         context (SPARQLWrapper): the SPARQL context.
         tries (int): the maximum number of times the query should be executed
                     after failure.
 
-    Returns:
+    Returns
     --------
         dict: results of the query.
     """
@@ -229,12 +229,12 @@ def check_sparql_file(fpath: str) -> Path:
     """
     Check meta information of SPARQL query file.
 
-    Args:
+    Parameters
     ------
         fpath (str): the file to validate.
 
-    Returns:
-    -------
+    Returns
+    --------
         Path: the validated file.
     """
     path = Path(fpath)
@@ -252,16 +252,16 @@ def check_positive_int(value: str, err_msg: str) -> int:
     """
     Ensure 'value' is a positive number.
 
-    Args:
-    -------
+    Parameters
+    ----------
         value (str): the value to be validated.
         err_msg (str): used when value fails validation.
 
-    Raises:
+    Raises
     -------
         argparse.ArgumentTypeError
 
-    Returns:
+    Returns
     --------
         int: the validated number.
     """
@@ -279,16 +279,16 @@ def check_limit(limit: str) -> int:
     """
     Validate the 'limit' argument.
 
-    Args:
-    ------
+    Parameters
+    ---------
         limit (str): the LIMIT to be validated.
 
-    Raises:
-    -------
+    Raises
+    --------
         argparse.ArgumentTypeError
 
-    Returns:
-    -------
+    Returns
+    --------
         int: the validated LIMIT
     """
     return check_positive_int(limit, "LIMIT must be an integer of value 1 or greater.")
@@ -298,16 +298,16 @@ def check_timeout(timeout: str) -> int:
     """
     Validate the 'timeout' argument.
 
-    Args:
-    ------
+    Parameters
+    ----------
         timeout (str): the timeout to be validated.
 
-    Raises:
-    -------
+    Raises
+    --------
         argparse.ArgumentTypeError
 
-    Returns:
-    --------
+    Returns
+    ---------
         int: the validated timeout.
     """
     return check_positive_int(
@@ -319,12 +319,12 @@ def main(argv=None) -> int:
     """
     The main function.
 
-    Args:
-    ------
+    Parameters
+    ----------
         argv : If set to None then argparse will use sys.argv as the arguments.
 
-    Returns:
-    -------
+    Returns
+    --------
         int: the exit status - 0: success, any other value - failure.
     """
     cli = argparse.ArgumentParser(
@@ -448,8 +448,8 @@ def error_report(failures: list[QueryExecutionException]) -> None:
     """
     Report failed queries.
 
-    Args:
-    ------
+    Parameters
+    ----------
         failures (list[QueryExecutionException]): failed queries.
     """
     if not failures:
@@ -465,8 +465,8 @@ def success_report(successes: list[tuple[QueryFile, dict]], display: bool) -> No
     """
     Report successful queries.
 
-    Args:
-    ------
+    Parameters
+    ----------
         successes (list[tuple[QueryFile, dict]]): successful queries.
         display (bool): should there be output?
     """
