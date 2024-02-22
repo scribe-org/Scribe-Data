@@ -5,6 +5,8 @@ Update Utils
 Utility functions for data extraction, formatting and loading.
 
 Contents:
+    _load_json,
+    _find,
     get_scribe_languages,
     get_language_qid,
     get_language_iso,
@@ -76,7 +78,7 @@ _languages = _load_json(
 
 
 def _find(source_key: str, source_value: str, target_key: str, error_msg: str):
-       """
+    """
     Each 'language', (english, german,..., etc) is a dictionary of key/value pairs:
 
         entry = {
@@ -87,16 +89,19 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str):
             "ignore-words": [...]
         }
 
-    Given a key/value pair, the 'source', and the 'target' key, get the 'target' value.
+    Given a key/value pair, the 'source' and the 'target' key get the 'target' value.
 
     Parameters
     ----------
         source_value : str
             The source value to find equivalents for (e.g. 'english').
+
         source_key : str
             The source key to reference (e.g. 'language').
+
         target_key : str
             The key to target (e.g. 'iso').
+
         error_msg : str
             The message displayed when a value cannot be found.
 
