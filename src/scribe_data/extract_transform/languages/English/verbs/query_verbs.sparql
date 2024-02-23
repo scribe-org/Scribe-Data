@@ -1,0 +1,53 @@
+# All English (Q1860) verbs and the currently implemented tenses for each.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT DISTINCT ?infinitive ?presFPS ?presTPS ?simpPast ?pastPart WHERE {
+  # Infinitive (required)
+  ?lexeme a ontolex:LexicalEntry ;
+    dct:language wd:Q1860 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive .
+
+  # Simple Present
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presFPSForm .
+    ?presFPSForm ontolex:representation ?presFPS ;
+      wikibase:grammaticalFeature wd:Q3910936 ;
+      FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q51929074 . }
+      FILTER NOT EXISTS { ?presFPSForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q126473 . }
+  } .
+
+  # Third-person Singular
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presTPSForm .
+    ?presTPSForm ontolex:representation ?presTPS ;
+    wikibase:grammaticalFeature wd:Q51929074 ;
+    wikibase:grammaticalFeature wd:Q110786 ;
+    wikibase:grammaticalFeature wd:Q3910936 ;
+    FILTER NOT EXISTS { ?presFPSForm wdt:P6191 wd:Q181970 . }
+    FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q126473 . }
+  } .
+
+  # Simple Past
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simpPastForm .
+    ?simpPastForm ontolex:representation ?simpPast ;
+    wikibase:grammaticalFeature wd:Q1392475 ;
+    FILTER NOT EXISTS { ?presFPSForm wdt:P6191 wd:Q181970 . }
+    FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q126473 . }
+  } .
+
+  # Past Participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastPartForm .
+    ?pastPartForm ontolex:representation ?pastPart ;
+    wikibase:grammaticalFeature wd:Q1230649 ;
+    FILTER NOT EXISTS { ?presFPSForm wdt:P6191 wd:Q181970 . }
+    FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q126473 . }
+  } .
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+  }
+}
