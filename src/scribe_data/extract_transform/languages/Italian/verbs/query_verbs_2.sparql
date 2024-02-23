@@ -1,0 +1,63 @@
+# All Italian (Q652) verbs and the currently implemented tenses for each.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  ?infinitive
+  ?impFPS ?impSPS ?impTPS
+  ?impFPP ?impSPP ?impTPP WHERE {
+
+  ?lexeme a ontolex:LexicalEntry ;
+    dct:language wd:Q652 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive .
+
+  # Imperfect
+
+  # FPS
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?impFPSForm .
+    ?impFPSForm ontolex:representation ?impFPS ;
+      wikibase:grammaticalFeature wd:Q12547192 ;
+      wikibase:grammaticalFeature wd:Q51929218 ;
+  } .
+
+  # SPS
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?impSPSForm .
+    ?impSPSForm ontolex:representation ?impSPS ;
+      wikibase:grammaticalFeature wd:Q12547192 ;
+      wikibase:grammaticalFeature wd:Q51929369 ;
+  } .
+
+  # TPS
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?impTPSForm .
+    ?impTPSForm ontolex:representation ?impTPS ;
+      wikibase:grammaticalFeature wd:Q12547192 ;
+      wikibase:grammaticalFeature wd:Q51929447 ;
+  } .
+
+  # FPP
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?impFPPForm .
+    ?impFPPForm ontolex:representation ?impFPP ;
+      wikibase:grammaticalFeature wd:Q12547192 ;
+      wikibase:grammaticalFeature wd:Q51929290 ;
+  } .
+
+  # SPP
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?impSPPForm .
+    ?impSPPForm ontolex:representation ?impSPP ;
+      wikibase:grammaticalFeature wd:Q12547192 ;
+      wikibase:grammaticalFeature wd:Q51929403 ;
+  } .
+
+  # TPP
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?impTPPForm .
+    ?impTPPForm ontolex:representation ?impTPP ;
+      wikibase:grammaticalFeature wd:Q12547192 ;
+      wikibase:grammaticalFeature wd:Q51929517 ;
+  } .
+}
