@@ -15,17 +15,19 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.utils import get_path_from_et_dir
+from scribe_data.utils import get_path_from_et_dir  # noqa: E402
 
 file_path = sys.argv[0]
 
 update_data_in_use = False  # check if update_data.py is being used
-if f"{LANGUAGE}/nouns/" not in file_path:
+if f"languages/{LANGUAGE}/nouns/" not in file_path:
     with open("nouns_queried.json", encoding="utf-8") as f:
         nouns_list = json.load(f)
 else:
     update_data_in_use = True
-    with open(f"./{LANGUAGE}/nouns/nouns_queried.json", encoding="utf-8") as f:
+    with open(
+        f"./languages/{LANGUAGE}/nouns/nouns_queried.json", encoding="utf-8"
+    ) as f:
         nouns_list = json.load(f)
 
 
@@ -100,9 +102,9 @@ for noun_vals in nouns_list:
                     nouns_formatted[noun_vals["nominativeSingular"]]["form"]
                     != noun_vals["gender"]
                 ):
-                    nouns_formatted[noun_vals["nominativeSingular"]][
-                        "form"
-                    ] += "/" + map_genders(noun_vals["gender"])
+                    nouns_formatted[noun_vals["nominativeSingular"]]["form"] += (
+                        "/" + map_genders(noun_vals["gender"])
+                    )
 
                 elif nouns_formatted[noun_vals["nominativeSingular"]]["gender"] == "":
                     nouns_formatted[noun_vals["nominativeSingular"]][
@@ -147,9 +149,9 @@ for noun_vals in nouns_list:
                     nouns_formatted[noun_vals["genitiveSingular"]]["form"]
                     != noun_vals["gender"]
                 ):
-                    nouns_formatted[noun_vals["genitiveSingular"]][
-                        "form"
-                    ] += "/" + map_genders(noun_vals["gender"])
+                    nouns_formatted[noun_vals["genitiveSingular"]]["form"] += (
+                        "/" + map_genders(noun_vals["gender"])
+                    )
 
                 elif nouns_formatted[noun_vals["genitiveSingular"]]["gender"] == "":
                     nouns_formatted[noun_vals["genitiveSingular"]][
@@ -198,7 +200,7 @@ nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 org_path = get_path_from_et_dir()
 export_path = "../formatted_data/nouns.json"
 if update_data_in_use:
-    export_path = f"{org_path}/Scribe-Data/src/scribe_data/extract_transform/{LANGUAGE}/formatted_data/nouns.json"
+    export_path = f"{org_path}/Scribe-Data/src/scribe_data/extract_transform/languages/{LANGUAGE}/formatted_data/nouns.json"
 
 with open(
     export_path,

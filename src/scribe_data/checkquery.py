@@ -40,7 +40,6 @@ import SPARQLWrapper as SPARQL
 from SPARQLWrapper import SPARQLExceptions
 from tqdm.auto import tqdm
 
-
 EXIT_SUCCESS = 0
 EXIT_FAILURE = 1
 EXIT_CLI_ERROR = 2
@@ -138,11 +137,11 @@ def all_queries() -> list[QueryFile]:
 
     queries: list[QueryFile] = []
 
-    for root, _, fnames in os.walk(prj_root):
-        for fname in fnames:
-            fpath = Path(root, fname)
-            if fpath.suffix == ".sparql":
-                queries.append(QueryFile(fpath))
+    for root, _, files in os.walk(prj_root):
+        for f in files:
+            file_path = Path(root, f)
+            if file_path.suffix == ".sparql":
+                queries.append(QueryFile(file_path))
 
     return queries
 
@@ -501,7 +500,7 @@ def error_report(failures: list[QueryExecutionException]) -> None:
     qword = "query" if len(failures) == 1 else "queries"
     print(f"\nFollowing {qword} failed:\n", file=sys.stderr)
     for failed_query in failures:
-        print(str(failed_query), file=sys.stderr)
+        print(failed_query, file=sys.stderr)
 
 
 def success_report(successes: list[tuple[QueryFile, dict]], display: bool) -> None:
