@@ -138,4 +138,4 @@ with open(
 ) as file:
     json.dump(nouns_formatted, file, ensure_ascii=False, indent=0)
 
-print(f"Wrote file nouns.json with {len(nouns_formatted)} nouns.")
+print(f"Wrote file nouns.json with {len(nouns_formatted):,} nouns.")

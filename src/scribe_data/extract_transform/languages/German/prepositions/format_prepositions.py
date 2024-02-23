@@ -132,4 +132,6 @@ with open(
 ) as file:
     json.dump(prepositions_formatted, file, ensure_ascii=False, indent=0)
 
-print(f"Wrote file prepositions.json with {len(prepositions_formatted)} prepositions.")
+print(
+    f"Wrote file prepositions.json with {len(prepositions_formatted):,} prepositions."
+)

@@ -170,4 +170,4 @@ with open(
 ) as file:
     json.dump(verbs_formatted, file, ensure_ascii=False, indent=0)
 
-print(f"Wrote file verbs.json with {len(verbs_formatted)} verbs.")
+print(f"Wrote file verbs.json with {len(verbs_formatted):,} verbs.")
