@@ -11,6 +11,8 @@ import os
 import sys
 
 LANGUAGE = "Russian"
+QUERIED_DATA_TYPE = "prepositions"
+QUERIED_DATA_FILE = f"{QUERIED_DATA_TYPE}_queried.json"
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 LANGUAGES_DIR_PATH = (
     f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages"
@@ -19,16 +21,16 @@ LANGUAGES_DIR_PATH = (
 file_path = sys.argv[0]
 
 update_data_in_use = False  # check if update_data.py is being used
-if f"languages/{LANGUAGE}/prepositions/" not in file_path:
-    with open("prepositions_queried.json", encoding="utf-8") as f:
-        prepositions_list = json.load(f)
+if f"languages/{LANGUAGE}/{QUERIED_DATA_TYPE}/" not in file_path:
+    data_path = QUERIED_DATA_FILE
 else:
     update_data_in_use = True
-    with open(
-        f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/prepositions/prepositions_queried.json",
-        encoding="utf-8",
-    ) as f:
-        prepositions_list = json.load(f)
+    data_path = (
+        f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/{QUERIED_DATA_TYPE}/{QUERIED_DATA_FILE}"
+    )
+
+with open(data_path, encoding="utf-8") as f:
+    prepositions_list = json.load(f)
 
 
 def convert_cases(case):
@@ -89,13 +91,11 @@ for k in prepositions_formatted:
 
 prepositions_formatted = collections.OrderedDict(sorted(prepositions_formatted.items()))
 
-export_dir = "../formatted_data/"
-export_path = os.path.join(export_dir, "prepositions.json")
+export_path = f"../formatted_data/{QUERIED_DATA_TYPE}.json"
 if update_data_in_use:
-    export_path = f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/formatted_data/prepositions.json"
-
-if not os.path.exists(export_dir):
-    os.makedirs(export_dir)
+    export_path = (
+        f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/formatted_data/{QUERIED_DATA_TYPE}.json"
+    )
 
 with open(
     export_path,
@@ -105,5 +105,7 @@ with open(
     json.dump(prepositions_formatted, file, ensure_ascii=False, indent=0)
 
 print(
-    f"Wrote file prepositions.json with {len(prepositions_formatted):,} prepositions."
+    f"Wrote file {QUERIED_DATA_TYPE}.json with {len(prepositions_formatted):,} {QUERIED_DATA_TYPE}."
 )
+
+os.remove(data_path)

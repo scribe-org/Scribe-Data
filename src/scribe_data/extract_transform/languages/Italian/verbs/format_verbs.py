@@ -11,6 +11,8 @@ import os
 import sys
 
 LANGUAGE = "Italian"
+QUERIED_DATA_TYPE = "verbs"
+QUERIED_DATA_FILE = f"{QUERIED_DATA_TYPE}_queried.json"
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 LANGUAGES_DIR_PATH = (
     f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages"
@@ -19,16 +21,16 @@ LANGUAGES_DIR_PATH = (
 file_path = sys.argv[0]
 
 update_data_in_use = False  # check if update_data.py is being used
-if f"languages/{LANGUAGE}/verbs/" not in file_path:
-    with open("verbs_queried.json", encoding="utf-8") as f:
-        verbs_list = json.load(f)
+if f"languages/{LANGUAGE}/{QUERIED_DATA_TYPE}/" not in file_path:
+    data_path = QUERIED_DATA_FILE
 else:
     update_data_in_use = True
-    with open(
-        f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/verbs/verbs_queried.json",
-        encoding="utf-8",
-    ) as f:
-        verbs_list = json.load(f)
+    data_path = (
+        f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/{QUERIED_DATA_TYPE}/{QUERIED_DATA_FILE}"
+    )
+
+with open(data_path, encoding="utf-8") as f:
+    verbs_list = json.load(f)
 
 verbs_formatted = {}
 
@@ -70,13 +72,11 @@ for verb_vals in verbs_list:
 
 verbs_formatted = collections.OrderedDict(sorted(verbs_formatted.items()))
 
-export_dir = "../formatted_data/"
-export_path = os.path.join(export_dir, "verbs.json")
+export_path = f"../formatted_data/{QUERIED_DATA_TYPE}.json"
 if update_data_in_use:
-    export_path = f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/formatted_data/verbs.json"
-
-if not os.path.exists(export_dir):
-    os.makedirs(export_dir)
+    export_path = (
+        f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/formatted_data/{QUERIED_DATA_TYPE}.json"
+    )
 
 with open(
     export_path,
@@ -85,4 +85,8 @@ with open(
 ) as file:
     json.dump(verbs_formatted, file, ensure_ascii=False, indent=0)
 
-print(f"Wrote file verbs.json with {len(verbs_formatted):,} verbs.")
+print(
+    f"Wrote file {QUERIED_DATA_TYPE}.json with {len(verbs_formatted):,} {QUERIED_DATA_TYPE}."
+)
+
+os.remove(data_path)
