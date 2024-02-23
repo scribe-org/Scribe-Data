@@ -171,48 +171,54 @@ for q in tqdm(
 
         if "_1" in query_path:
             # Note: Only the first query was ran, so we need to run the second and append the json.
+            for suffix in ["_2", "_3"]:
+                query_path = query_path.replace("_1", suffix).replace("_2", suffix)
 
-            query_path = query_path.replace("_1", "_2")
-            with open(query_path, encoding="utf-8") as file:
-                query_lines = file.readlines()
-                sparql.setQuery("".join(query_lines))
+                if os.path.exists(query_path):
+                    with open(query_path, encoding="utf-8") as file:
+                        query_lines = file.readlines()
+                        sparql.setQuery("".join(query_lines))
 
-                results = None
-                try:
-                    results = sparql.query().convert()
-                except HTTPError as err:
-                    print(f"HTTPError with {query_path}: {err}")
+                        results = None
+                        try:
+                            results = sparql.query().convert()
+                        except HTTPError as err:
+                            print(f"HTTPError with {query_path}: {err}")
 
-                if results is None:
-                    print(f"Nothing returned by the WDQS server for {query_path}")
+                        if results is None:
+                            print(
+                                f"Nothing returned by the WDQS server for {query_path}"
+                            )
 
-                    # Allow for a query to be reran up to two times.
-                    if queries_to_run.count(q) < 3:
-                        queries_to_run.append(q)
+                            # Allow for a query to be reran up to two times.
+                            if queries_to_run.count(q) < 3:
+                                queries_to_run.append(q)
 
-                else:
-                    # Subset the returned JSON and the individual results before saving.
-                    query_results = results["results"]["bindings"]
+                        else:
+                            # Subset the returned JSON and the individual results before saving.
+                            query_results = results["results"]["bindings"]
 
-                    # Note: Don't rewrite results_formatted as we want to extend the json and combine in formatting.
-                    for r in query_results:  # query_results is also a list
-                        r_dict = {k: r[k]["value"] for k in r.keys()}
+                            # Note: Don't rewrite results_formatted as we want to extend the json and combine in formatting.
+                            for r in query_results:  # query_results is also a list
+                                r_dict = {k: r[k]["value"] for k in r.keys()}
 
-                        # Note: The following is so we have a breakdown of queries for German later.
-                        # Note: We need auxiliary verbs to be present as we loop to get both sein and haben forms.
-                        if lang == "German":
-                            r_dict_keys = list(r_dict.keys())
-                            if "auxiliaryVerb" not in r_dict_keys:
-                                r_dict["auxiliaryVerb"] = ""
+                                # Note: The following is so we have a breakdown of queries for German later.
+                                # Note: We need auxiliary verbs to be present as we loop to get both sein and haben forms.
+                                if lang == "German":
+                                    r_dict_keys = list(r_dict.keys())
+                                    if "auxiliaryVerb" not in r_dict_keys:
+                                        r_dict["auxiliaryVerb"] = ""
 
-                        results_formatted.append(r_dict)
+                                results_formatted.append(r_dict)
 
-                    with open(
-                        f"{PATH_TO_ET_LANGUAGE_FILES}/{lang}/{target_type}/{target_type}_queried.json",
-                        "w",
-                        encoding="utf-8",
-                    ) as f:
-                        json.dump(results_formatted, f, ensure_ascii=False, indent=0)
+                            with open(
+                                f"{PATH_TO_ET_LANGUAGE_FILES}/{lang}/{target_type}/{target_type}_queried.json",
+                                "w",
+                                encoding="utf-8",
+                            ) as f:
+                                json.dump(
+                                    results_formatted, f, ensure_ascii=False, indent=0
+                                )
 
         # Call the corresponding formatting file and update data changes.
         os.system(
