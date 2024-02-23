@@ -35,20 +35,22 @@ from scribe_data.utils import (  # noqa: E402
     check_and_return_command_line_args,
 )
 
-PATH_TO_ET_FILES = "./"
+SCRIBE_DATA_SRC_PATH = "src/scribe_data"
+PATH_TO_ET_LANGUAGE_FILES = f"{SCRIBE_DATA_SRC_PATH}/extract_transform/languages"
+PATH_TO_UPDATE_FILES = f"{SCRIBE_DATA_SRC_PATH}/load/_update_files"
 
 # Set SPARQLWrapper query conditions.
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 sparql.setReturnFormat(JSON)
 sparql.setMethod(POST)
 
-with open("src/scribe_data/load/_update_files/total_data.json", encoding="utf-8") as f:
+with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", encoding="utf-8") as f:
     current_data = json.load(f)
 
 current_languages = list(current_data.keys())
 current_word_types = ["nouns", "verbs", "prepositions"]
 
-# Note: Check whether arguments have been passed to only update a subset of the data.
+# Check whether arguments have been passed to only update a subset of the data.
 languages, word_types = check_and_return_command_line_args(
     all_args=sys.argv,
     first_args_check=current_languages,
@@ -59,32 +61,30 @@ languages, word_types = check_and_return_command_line_args(
 languages_update = []
 if languages is None:
     languages_update = current_languages
+else:
+    languages_update = languages
 
 word_types_update = []
 if word_types is None:
     word_types_update = current_word_types
+else:
+    word_types_update = word_types
 
 # Derive Data directory elements for potential queries.
-data_dir_elements = []
+languages_dir_files = []
 
-for path, _, files in os.walk(PATH_TO_ET_FILES):
-    data_dir_elements.extend(os.path.join(path, name) for name in files)
-data_dir_files = [
-    f
-    for f in os.listdir(PATH_TO_ET_FILES)
-    if os.path.isfile(os.path.join(PATH_TO_ET_FILES, f))
-]
+for path, _, files in os.walk(PATH_TO_ET_LANGUAGE_FILES):
+    languages_dir_files.extend(os.path.join(path, name) for name in files)
 
-data_dir_directories = list(
+language_dir_files = list(
     {
-        f.split(PATH_TO_ET_FILES)[1].split("/")[0]
-        for f in data_dir_elements
-        if f.split(PATH_TO_ET_FILES)[1] not in data_dir_files
-        and f.split(PATH_TO_ET_FILES)[1][0] != "_"
+        f.split(PATH_TO_ET_LANGUAGE_FILES + "/")[1].split("/")[0]
+        for f in languages_dir_files
+        if f.split(PATH_TO_ET_LANGUAGE_FILES + "/")[1][0] != "_"
     }
 )
 
-# Note: Prepare data paths running scripts and formatting outputs.
+# Data paths to run scripts and format outputs.
 # Check to see if the language has all zeroes for its data, meaning it's been added.
 new_language_list = []
 for lang in languages_update:
@@ -95,35 +95,37 @@ for lang in languages_update:
 
 # Derive queries to be ran.
 possible_queries = []
-for d in data_dir_directories:
+for d in language_dir_files:
     possible_queries.extend(
-        f"{PATH_TO_ET_FILES}{d}/{target_type}"
+        f"{PATH_TO_ET_LANGUAGE_FILES}/{d}/{target_type}"
         for target_type in word_types_update
-        if f"{PATH_TO_ET_FILES}{d}/{target_type}"
-        in [e[: len(f"{PATH_TO_ET_FILES}{d}/{target_type}")] for e in data_dir_elements]
+        if f"{PATH_TO_ET_LANGUAGE_FILES}/{d}/{target_type}"
+        in [
+            e[: len(f"{PATH_TO_ET_LANGUAGE_FILES}/{d}/{target_type}")]
+            for e in languages_dir_files
+        ]
     )
 
 queries_to_run_lists = [
     [
         q
         for q in possible_queries
-        if q[len(PATH_TO_ET_FILES) : len(PATH_TO_ET_FILES) + len(lang)]
-        in languages_update
+        if q.split(PATH_TO_ET_LANGUAGE_FILES + "/")[1].split("/")[0] in languages_update
     ]
     for lang in languages_update
 ]
 
 queries_to_run = list({q for sub in queries_to_run_lists for q in sub})
 
-# Note: Run queries and format data.
+# Run queries and format data.
 data_added_dict = {}
 for q in tqdm(
     queries_to_run,
     desc="Data updated",
     unit="dirs",
 ):
-    lang = q.split("/")[1]
-    target_type = q.split("/")[2]
+    lang = q.split("/")[-2]
+    target_type = q.split("/")[-1]
     query_name = f"query_{target_type}.sparql"
     query_path = f"{q}/{query_name}"
 
@@ -161,7 +163,7 @@ for q in tqdm(
             results_formatted.append(r_dict)
 
         with open(
-            f"{PATH_TO_ET_FILES}{lang}/{target_type}/{target_type}_queried.json",
+            f"{PATH_TO_ET_LANGUAGE_FILES}/{lang}/{target_type}/{target_type}_queried.json",
             "w",
             encoding="utf-8",
         ) as f:
@@ -206,7 +208,7 @@ for q in tqdm(
                         results_formatted.append(r_dict)
 
                     with open(
-                        f"{PATH_TO_ET_FILES}{lang}/{target_type}/{target_type}_queried.json",
+                        f"{PATH_TO_ET_LANGUAGE_FILES}/{lang}/{target_type}/{target_type}_queried.json",
                         "w",
                         encoding="utf-8",
                     ) as f:
@@ -214,12 +216,12 @@ for q in tqdm(
 
         # Call the corresponding formatting file and update data changes.
         os.system(
-            f"python {PATH_TO_ET_FILES}{lang}/{target_type}/format_{target_type}.py"
+            f"python {PATH_TO_ET_LANGUAGE_FILES}/{lang}/{target_type}/format_{target_type}.py"
         )
 
         # Check current data within for formatted_data directories.
         with open(
-            f"{PATH_TO_ET_FILES}{lang.capitalize()}/formatted_data/{target_type}.json",
+            f"{PATH_TO_ET_LANGUAGE_FILES}/{lang.capitalize()}/formatted_data/{target_type}.json",
             encoding="utf-8",
         ) as json_file:
             new_keyboard_data = json.load(json_file)
@@ -233,9 +235,7 @@ for q in tqdm(
         current_data[lang][target_type] = len(new_keyboard_data)
 
 # Update total_data.json.
-with open(
-    "src/scribe_data/load/_update_files/total_data.json", "w", encoding="utf-8"
-) as f:
+with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", "w", encoding="utf-8") as f:
     json.dump(current_data, f, ensure_ascii=False, indent=0)
 
 
@@ -257,16 +257,14 @@ current_data_df.columns = [c.capitalize() for c in current_data_df.columns]
 
 # Get the current emoji data so that it can be appended at the end of the table.
 current_emoji_data_strings = []
-with open("src/scribe_data/load/_update_files/data_table.txt", encoding="utf-8") as f:
+with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", encoding="utf-8") as f:
     old_table_values = f.read()
 
 for line in old_table_values.splitlines():
     current_emoji_data_strings.append(line.split("|")[-2] + "|")
 
 # Write the new values to the table, which overwrites the emoji keyword values.
-with open(
-    "src/scribe_data/load/_update_files/data_table.txt", "w+", encoding="utf-8"
-) as f:
+with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", "w+", encoding="utf-8") as f:
     table_string = str(current_data_df.to_markdown()).replace(" nan ", "   - ")
     # Right justify the data and left justify the language indexes.
     table_string = (
@@ -278,7 +276,7 @@ with open(
 
 # Get the new table values and then rewrite the file with the full table.
 new_table_value_strings = []
-with open("src/scribe_data/load/_update_files/data_table.txt", encoding="utf-8") as f:
+with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", encoding="utf-8") as f:
     new_table_values = f.read()
 
 for line in new_table_values.splitlines():
@@ -287,9 +285,7 @@ for line in new_table_values.splitlines():
     line = line.replace("Prepositions", "Prepositions†")
     new_table_value_strings.append(line)
 
-with open(
-    "src/scribe_data/load/_update_files/data_table.txt", "w+", encoding="utf-8"
-) as f:
+with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", "w+", encoding="utf-8") as f:
     for i in range(len(new_table_value_strings)):
         f.writelines(new_table_value_strings[i] + current_emoji_data_strings[i] + "\n")
 
@@ -323,7 +319,5 @@ for lang in language_keys:
 
     data_added_string = data_added_string[:-1]  # remove the last comma
 
-with open(
-    "src/scribe_data/load/_update_files/data_updates.txt", "w+", encoding="utf-8"
-) as f:
+with open(f"{PATH_TO_UPDATE_FILES}/data_updates.txt", "w+", encoding="utf-8") as f:
     f.writelines(data_added_string)

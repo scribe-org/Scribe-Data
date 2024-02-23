@@ -12,10 +12,9 @@ import sys
 
 LANGUAGE = "Portuguese"
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
-sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
-
-from scribe_data.utils import get_path_from_et_dir  # noqa: E402
+LANGUAGES_DIR_PATH = (
+    f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages"
+)
 
 file_path = sys.argv[0]
 
@@ -26,7 +25,8 @@ if f"languages/{LANGUAGE}/nouns/" not in file_path:
 else:
     update_data_in_use = True
     with open(
-        f"./languages/{LANGUAGE}/nouns/nouns_queried.json", encoding="utf-8"
+        f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/nouns/nouns_queried.json",
+        encoding="utf-8",
     ) as f:
         nouns_list = json.load(f)
 
@@ -124,10 +124,13 @@ for k in nouns_formatted:
 
 nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
-org_path = get_path_from_et_dir()
-export_path = "../formatted_data/nouns.json"
+export_dir = "../formatted_data/"
+export_path = os.path.join(export_dir, "nouns.json")
 if update_data_in_use:
-    export_path = f"{org_path}/Scribe-Data/src/scribe_data/extract_transform/languages/{LANGUAGE}/formatted_data/nouns.json"
+    export_path = f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/formatted_data/nouns.json"
+
+if not os.path.exists(export_dir):
+    os.makedirs(export_dir)
 
 with open(
     export_path,

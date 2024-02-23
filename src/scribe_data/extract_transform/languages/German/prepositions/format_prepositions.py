@@ -12,10 +12,9 @@ import sys
 
 LANGUAGE = "German"
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
-sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
-
-from scribe_data.utils import get_path_from_et_dir  # noqa: E402
+LANGUAGES_DIR_PATH = (
+    f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages"
+)
 
 file_path = sys.argv[0]
 
@@ -26,7 +25,7 @@ if f"languages/{LANGUAGE}/prepositions/" not in file_path:
 else:
     update_data_in_use = True
     with open(
-        f"./languages/{LANGUAGE}/prepositions/prepositions_queried.json",
+        f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/prepositions/prepositions_queried.json",
         encoding="utf-8",
     ) as f:
         prepositions_list = json.load(f)
@@ -118,10 +117,13 @@ for p in contractedGermanPrepositions:
 
 prepositions_formatted = collections.OrderedDict(sorted(prepositions_formatted.items()))
 
-org_path = get_path_from_et_dir()
-export_path = "../formatted_data/prepositions.json"
+export_dir = "../formatted_data/"
+export_path = os.path.join(export_dir, "prepositions.json")
 if update_data_in_use:
-    export_path = f"{org_path}/Scribe-Data/src/scribe_data/extract_transform/languages/{LANGUAGE}/formatted_data/prepositions.json"
+    export_path = f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/formatted_data/prepositions.json"
+
+if not os.path.exists(export_dir):
+    os.makedirs(export_dir)
 
 with open(
     export_path,
