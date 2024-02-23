@@ -39,7 +39,7 @@
 .. |codestyle| image:: https://img.shields.io/badge/black-000000.svg
     :target: https://github.com/psf/black
 
-Wikidata and Wikipedia data extraction for Scribe applications
+Wikidata and Wikipedia language data extraction
 
 Installation
 ------------

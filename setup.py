@@ -42,7 +42,7 @@ setup_args = dict(
     python_requires=">=3.9",
     install_requires=requirements,
     package_data={"": ["2021_ranked.tsv"]},
-    description="Wikidata and Wikipedia data extraction for Scribe applications",
+    description="Wikidata and Wikipedia language data extraction",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/scribe-org/Scribe-Data",
