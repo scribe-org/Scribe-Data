@@ -10,6 +10,13 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+## [Upcoming] Scribe-Data 3.3.0
+
+- The translation process has been updated to allow for translations from non-English languages ([#44](https://github.com/scribe-org/Scribe-Data/issues/44)).
+    <!-- - Scribe-Data now outputs an SQLite table that has keys for target languages for each base language. -->
+  - A process has been created to check and update words that can be translated for each Scribe language.
+  <!-- - English has been added to the data ETL process. -->
+
 ## [Upcoming] Scribe-Data 3.2.0
 
 ### ✨ Features
@@ -17,11 +24,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - The data and process needed for an English keyboard has been added ([#39](https://github.com/scribe-org/Scribe-Data/issues/39)).
   - The Wikidata queries for English have been updated to get all nouns and verbs.
   - Formatting scripts have been written to prepare the queried data and load it into an SQLite database.
-  <!-- - English has been added to the data ETL process. -->
 - The data update process has been cleaned up in preparation for future changes to Scribe-Data and to implement better practices.
-- The translation process has been updated to allow for translations from non-English languages ([#44](https://github.com/scribe-org/Scribe-Data/issues/44)).
-  <!-- - Scribe-Data now outputs an SQLite table that has keys for target languages for each base language. -->
-  - A process has been created to check and update words that can be translated for each Scribe language.
 - Language data was extracted into a JSON file for more succinct code ([#52](https://github.com/scribe-org/Scribe-Data/issues/52)).
 - Language codes are now checked with the package [langcodes](https://github.com/rspeer/langcodes) for easier expansion.
 
@@ -33,6 +36,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 ### 🐞 Bug Fixes
 
 - Tensorflow was removed from the download wiki process to fix build problems on Macs.
+
+### ♻️ Code Refactoring
+
+- Language data processes were moved into the `src/scribe_data/extract_transform/languages` directory to clean up the structure.
 
 ## Scribe-Data 3.1.0
 

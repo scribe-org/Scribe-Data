@@ -103,10 +103,12 @@ git remote add upstream https://github.com/scribe-org/Scibe-Data.git
   - `origin` (forked repository)
   - `upstream` (Scribe-Data repository)
 
-2. Use [Anaconda](https://www.anaconda.com/) to create the local development environment within your Scribe-Data directory:
+2. Use [Python venv](https://docs.python.org/3/library/venv.html) to create the local development environment within your Scribe-Data directory:
 
    ```bash
-   conda env create -f environment.yml
+   python3 -m venv venv  # make an environment venv
+   pip install --upgrade pip  # make sure that pip is at the latest version
+   pip install -r requirements.txt  # install dependencies
    ```
 
 > [!NOTE]
@@ -215,4 +217,13 @@ Scribe does not accept direct edits to the grammar JSON files as they are source
 
 ## Documentation [`⇧`](#contents)
 
-Documentation is an invaluable way to contribute to coding projects as it allows others to more easily understand the project structure and contribute. Issues related to documentation are marked with the [`documentation`](https://github.com/scribe-org/Scribe-Data/labels/documentation) label.
+The documentation for Scribe-Data can be found at [scribe-data.readthedocs.io](https://scribe-data.readthedocs.io/en/latest/). Documentation is an invaluable way to contribute to coding projects as it allows others to more easily understand the project structure and contribute. Issues related to documentation are marked with the [`documentation`](https://github.com/scribe-org/Scribe-Data/labels/documentation) label.
+
+Use the following commands to build the documentation locally:
+
+```bash
+cd docs
+make html
+```
+
+You can then open `index.html` within `docs/build/html` to check the local version of the documentation.

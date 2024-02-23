@@ -29,16 +29,16 @@ language_db_dict = {
     for db in db_names
 }
 
-for l in language_db_dict:
-    language_db_dict[l]["scribe_ios_db_path"] = (
+for language in language_db_dict:
+    language_db_dict[language]["scribe_ios_db_path"] = (
         get_path_from_load_dir()
-        + get_ios_data_path(language=l)
+        + get_ios_data_path(language=language)
         + "/"
-        + language_db_dict[l]["db_location"].split("/")[1]
+        + language_db_dict[language]["db_location"].split("/")[1]
     )
 
-for l in language_db_dict:
+for language in language_db_dict:
     os.system(
-        f'cp {language_db_dict[l]["db_location"]} {language_db_dict[l]["scribe_ios_db_path"]}'
+        f'cp {language_db_dict[language]["db_location"]} {language_db_dict[language]["scribe_ios_db_path"]}'
     )
-    print(f"Moved {l} language database to Scribe-iOS.")
+    print(f"Moved {language} language database to Scribe-iOS.")

@@ -3,7 +3,7 @@
 </div>
 
 [![platform](https://img.shields.io/badge/Wikidata-990000.svg?logo=wikidata&logoColor=ffffff)](https://github.com/scribe-org/Scribe-Data)
-[![rtd](https://img.shields.io/readthedocs/scribe-data.svg?logo=read-the-docs)](http://scribe-data.readthedocs.io/en/latest/)
+[![rtd](https://img.shields.io/readthedocs/scribe-data.svg?label=%20&logo=read-the-docs&logoColor=ffffff)](http://scribe-data.readthedocs.io/en/latest/)
 [![issues](https://img.shields.io/github/issues/scribe-org/Scribe-Data?label=%20&logo=github)](https://github.com/scribe-org/Scribe-Data/issues)
 [![language](https://img.shields.io/badge/Python%203-306998.svg?logo=python&logoColor=ffffff)](https://github.com/scribe-org/Scribe-Data/blob/main/CONTRIBUTING.md)
 [![pypi](https://img.shields.io/pypi/v/scribe-data.svg?label=%20&color=4B8BBE)](https://pypi.org/project/scribe-data/)
@@ -116,10 +116,12 @@ git remote add upstream https://github.com/scribe-org/Scibe-Data.git
   - `origin` (forked repository)
   - `upstream` (Scribe-Data repository)
 
-2. Use [Anaconda](https://www.anaconda.com/) to create the local development environment within your Scribe-Data directory:
+2. Use [Python venv](https://docs.python.org/3/library/venv.html) to create the local development environment within your Scribe-Data directory:
 
    ```bash
-   conda env create -f environment.yml
+   python3 -m venv venv  # make an environment venv
+   pip install --upgrade pip  # make sure that pip is at the latest version
+   pip install -r requirements.txt  # install dependencies
    ```
 
 > [!NOTE]
@@ -156,7 +158,7 @@ The following table shows the supported languages and the amount of data availab
 
 <strong>2024</strong>
 
-- Feb: [Presentation slides](https://docs.google.com/presentation/d/1lMhYiQx1R99SVGhbikUGjOVaFgPPASvbzM2Bsu3NXSg/edit?usp=sharing) for Scribe's participation at the [Wikimedia Tech Safari Program](https://www.mediawiki.org/wiki/Wikimedia_Tech_Safari_Program)
+- February: [Presentation slides](https://docs.google.com/presentation/d/1lMhYiQx1R99SVGhbikUGjOVaFgPPASvbzM2Bsu3NXSg/edit?usp=sharing) for Scribe's participation at the [Wikimedia Tech Safari Program](https://www.mediawiki.org/wiki/Wikimedia_Tech_Safari_Program)
 
 <strong>2023</strong>
 

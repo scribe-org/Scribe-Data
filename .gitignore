@@ -1,7 +1,8 @@
 # OS Files
 ##########
 .DS_Store
-.vscode
+.vscode/*
+!.vscode/extensions.json
 .ipynb_checkpoints
 *wiki_dump
 *wiki_partitions
@@ -19,6 +20,9 @@ dist
 __pycache__
 # Test coverage output
 .coverage
+# Virtual environment
+venv
+.venv
 
 # NPM Files
 ###########
