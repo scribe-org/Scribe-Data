@@ -12,12 +12,11 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 3.3.0
 
-- The translation process has been updated to allow for translations from non-English languages ([#44](https://github.com/scribe-org/Scribe-Data/issues/44)).
-    <!-- - Scribe-Data now outputs an SQLite table that has keys for target languages for each base language. -->
-  - A process has been created to check and update words that can be translated for each Scribe language.
-  <!-- - English has been added to the data ETL process. -->
+<!-- - The translation process has been updated to allow for translations from non-English languages.
+  - Scribe-Data now outputs an SQLite table that has keys for target languages for each base language. -->
+<!-- - English has been added to the data ETL process. -->
 
-## [Upcoming] Scribe-Data 3.2.0
+## Scribe-Data 3.2.0
 
 ### ✨ Features
 
@@ -25,8 +24,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - The Wikidata queries for English have been updated to get all nouns and verbs.
   - Formatting scripts have been written to prepare the queried data and load it into an SQLite database.
 - The data update process has been cleaned up in preparation for future changes to Scribe-Data and to implement better practices.
-- Language data was extracted into a JSON file for more succinct code ([#52](https://github.com/scribe-org/Scribe-Data/issues/52)).
+- Language data was extracted into a JSON file for more succinct referencing ([#52](https://github.com/scribe-org/Scribe-Data/issues/52)).
 - Language codes are now checked with the package [langcodes](https://github.com/rspeer/langcodes) for easier expansion.
+- A process has been created to check and update words that can be translated for each Scribe language ([#44](https://github.com/scribe-org/Scribe-Data/issues/44)).
+- The baseline data returned from Wikidata queries is now removed once a formatted data file is created.
 
 ### ✅ Tests
 
@@ -40,6 +41,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 ### ♻️ Code Refactoring
 
 - Language data processes were moved into the `src/scribe_data/extract_transform/languages` directory to clean up the structure.
+- Code formatting processes were defined with common structures based on language and word type variables defined at the top of files.
 
 ## Scribe-Data 3.1.0
 

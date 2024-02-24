@@ -133,7 +133,7 @@ for q in tqdm(
         # There are multiple queries for a given target_type, so start by running the first.
         query_path = query_path[: -len(".sparql")] + "_1" + ".sparql"
 
-    print(f"Querying {lang} {target_type}")
+    print(f"Querying and formatting {lang} {target_type}")
     # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
     with open(query_path, encoding="utf-8") as file:
         query_lines = file.readlines()
