@@ -296,13 +296,13 @@ def check_positive_int(value: str, err_msg: str) -> int:
         err_msg : str
             Used when value fails validation.
 
-    Raises
-    ------
-        argparse.ArgumentTypeError
-
     Returns
     -------
         int : the validated number.
+
+    Raises
+    ------
+        argparse.ArgumentTypeError
     """
     try:
         number = int(value)
@@ -323,13 +323,13 @@ def check_limit(limit: str) -> int:
         limit : str
             The LIMIT to be validated.
 
-    Raises
-    ------
-        argparse.ArgumentTypeError
-
     Returns
     -------
         int : the validated LIMIT.
+
+    Raises
+    ------
+        argparse.ArgumentTypeError
     """
     return check_positive_int(limit, "LIMIT must be an integer of value 1 or greater.")
 
@@ -343,13 +343,13 @@ def check_timeout(timeout: str) -> int:
         timeout : str
             The timeout to be validated.
 
-    Raises
-    ------
-        argparse.ArgumentTypeError
-
     Returns
     -------
         int : the validated timeout.
+
+    Raises
+    ------
+        argparse.ArgumentTypeError
     """
     return check_positive_int(
         timeout, "timeout must be an integer of value 1 or greater."

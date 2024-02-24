@@ -102,13 +102,13 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str):
         error_msg : str
             The message displayed when a value cannot be found.
 
-    Raises
-    ------
-        ValueError : when a source_value is not supported.
-
     Returns
     -------
         The 'target' value given the passed arguments.
+
+    Raises
+    ------
+        ValueError : when a source_value is not supported.
     """
     norm_source_value = source_value.lower()
 

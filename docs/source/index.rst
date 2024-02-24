@@ -41,7 +41,8 @@
 Wikidata and Wikipedia language data extraction
 
 Installation
-------------
+============
+
 .. code-block:: shell
 
     pip install scribe-data
@@ -56,14 +57,20 @@ Installation
 
     import scribe_data
 
+Contents
+========
+
 .. toctree::
     :maxdepth: 2
-    :caption: Contents
 
-    extract_transform/index
-    load/index
-    checkquery
-    utils
+    scribe_data/index
+
+Contributing
+============
+
+.. toctree::
+    :maxdepth: 2
+
     notes
 
 Project Indices
