@@ -16,6 +16,14 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - Scribe-Data now outputs an SQLite table that has keys for target languages for each base language. -->
 <!-- - English has been added to the data ETL process. -->
 
+## Scribe-Data 3.2.1
+
+### ♻️ Code Refactoring
+
+- The docs and tests were grafted into the package using `MANIFEST.in`.
+- Minor fixes to file and function docstrings and documentation files.
+- `include_package_data=True` is used in `setup.py` to hopefully include all files in the package distribution.
+
 ## Scribe-Data 3.2.0
 
 ### ✨ Features

@@ -1,4 +1,7 @@
-include CHANGELOG.* LICENSE.*
+include CHANGELOG.* CONTRIBUTING.* LICENSE.*
 graft src
+graft docs
+prune docs/build
+graft tests
 global-exclude *.py[cod]
 global-exclude .DS_Store

@@ -1,7 +1,4 @@
 """
-Update Utils
-------------
-
 Utility functions for data extraction, formatting and loading.
 
 Contents:
@@ -37,7 +34,8 @@ PROJECT_ROOT = "Scribe-Data"
 
 
 def _load_json(package_path: str, file_name: str, root: str):
-    """Loads a JSON resource from a package into a python entity.
+    """
+    Loads a JSON resource from a package into a python entity.
 
     Parameters
     ----------
@@ -54,8 +52,7 @@ def _load_json(package_path: str, file_name: str, root: str):
     -------
         A python entity starting at 'root'.
     """
-    # add 'Scribe-Data/src' to PYTHONPATH so that resources.files()
-    # can find 'package_path'
+    # Add 'Scribe-Data/src' to PYTHONPATH so that resources.files() can find 'package_path'.
     parts = Path(__file__).resolve().parts
     prj_root_idx = parts.index(PROJECT_ROOT)
     package_root = str(Path(*parts[: prj_root_idx + 1], "src"))
@@ -71,7 +68,7 @@ def _load_json(package_path: str, file_name: str, root: str):
 
 
 _languages = _load_json(
-    package_path="scribe_data.resources",
+    package_path="scribe_data/resources",
     file_name="language_meta_data.json",
     root="languages",
 )

@@ -4,10 +4,10 @@
 Command line tool for testing SPARQl queries against an endpoint.
 
 Contents:
-    QueryFile Class:
+    QueryFile Class
         load,
         __repr__,
-    QueryExecutionException:
+    QueryExecutionException Class
         __init__,
         __str__,
     ping,
@@ -20,7 +20,7 @@ Contents:
     check_timeout,
     main,
     error_report,
-    success_report,
+    success_report
 """
 
 import argparse
@@ -103,7 +103,7 @@ def ping(url: str, timeout: int) -> bool:
     Test if a URL is reachable.
 
     Parameters
-    ---------
+    ----------
         url : str
             The URL to test.
 

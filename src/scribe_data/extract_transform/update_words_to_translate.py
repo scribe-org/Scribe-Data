@@ -17,6 +17,7 @@ Example
 import json
 import os
 import sys
+import urllib
 
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
@@ -25,7 +26,7 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.utils import (
+from scribe_data.utils import (  # noqa: E402
     check_and_return_command_line_args,
     get_language_qid,
     get_scribe_languages,
@@ -47,37 +48,37 @@ languages, _ = check_and_return_command_line_args(
 if languages is None:
     languages = get_scribe_languages()
 
-for l in tqdm(
+for lang in tqdm(
     languages,
     desc="Data updated",
     unit="languages",
 ):
-    print(f"Querying words for {l}...")
+    print(f"Querying words for {lang}...")
     # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
     with open("query_words_to_translate.sparql", encoding="utf-8") as file:
         query_lines = file.readlines()
 
-    query = "".join(query_lines).replace("LANGUAGE_QID", get_language_qid(l))
+    query = "".join(query_lines).replace("LANGUAGE_QID", get_language_qid(lang))
     sparql.setQuery(query)
 
     results = None
     try:
         results = sparql.query().convert()
-    except HTTPError as err:
-        print(f"HTTPError with query_words_to_translate.sparql for {l}: {err}")
+    except urllib.error.HTTPError as err:
+        print(f"HTTPError with query_words_to_translate.sparql for {lang}: {err}")
 
     if results is None:
         print(
-            f"Nothing returned by the WDQS server for query_words_to_translate.sparql for {l}"
+            f"Nothing returned by the WDQS server for query_words_to_translate.sparql for {lang}"
         )
 
         # Allow for a query to be reran up to two times.
-        if languages.count(l) < 3:
-            languages.append(l)
+        if languages.count(lang) < 3:
+            languages.append(lang)
 
     else:
         # Subset the returned JSON and the individual results before saving.
-        print(f"Success! Formatting {l} words...")
+        print(f"Success! Formatting {lang} words...")
         query_results = results["results"]["bindings"]
 
         results_formatted = []
@@ -87,11 +88,11 @@ for l in tqdm(
             results_formatted.append(r_dict)
 
         with open(
-            f"{PATH_TO_ET_FILES}{l}/translations/words_to_translate.json",
+            f"{PATH_TO_ET_FILES}{lang}/translations/words_to_translate.json",
             "w",
             encoding="utf-8",
         ) as f:
             json.dump(results_formatted, f, ensure_ascii=False, indent=0)
             print(
-                f"Wrote the words to translate to {PATH_TO_ET_FILES}{l}/translations/words_to_translate.json"
+                f"Wrote the words to translate to {PATH_TO_ET_FILES}{lang}/translations/words_to_translate.json"
             )

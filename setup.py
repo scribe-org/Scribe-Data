@@ -24,7 +24,7 @@ setup_args = dict(
     name="scribe-data",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    version="3.2.0",
+    version="3.2.1",
     author="Andrew Tavis McAllister",
     author_email="andrew.t.mcallister@gmail.com",
     classifiers=[
@@ -42,6 +42,7 @@ setup_args = dict(
     python_requires=">=3.9",
     install_requires=requirements,
     package_data={"": ["2021_ranked.tsv"]},
+    include_package_data=True,
     description="Wikidata and Wikipedia language data extraction",
     long_description=long_description,
     long_description_content_type="text/markdown",
