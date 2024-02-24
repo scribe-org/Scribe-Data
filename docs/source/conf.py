@@ -27,7 +27,7 @@ copyright = "2024, Scribe-Data developers (GPL 3.0 License)"
 author = "Scribe-Data developers"
 
 # The full version, including alpha/beta/rc tags
-release = "3.2.1"
+release = "3.2.2"
 
 
 # -- General configuration ---------------------------------------------------

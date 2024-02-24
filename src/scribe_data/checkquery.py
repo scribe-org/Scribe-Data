@@ -6,10 +6,10 @@ Command line tool for testing SPARQl queries against an endpoint.
 Contents:
     QueryFile Class
         load,
-        __repr__,
+        __repr__
     QueryExecutionException Class
         __init__,
-        __str__,
+        __str__
     ping,
     all_queries,
     changed_queries,

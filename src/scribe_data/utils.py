@@ -68,7 +68,7 @@ def _load_json(package_path: str, file_name: str, root: str):
 
 
 _languages = _load_json(
-    package_path="scribe_data/resources",
+    package_path="scribe_data.resources",
     file_name="language_meta_data.json",
     root="languages",
 )

@@ -2,6 +2,7 @@
     :height: 150
     :align: center
     :target: https://github.com/scribe-org/Scribe-Data
+
 ============
 
 |platform| |rtd| |issues| |language| |pypi| |pypistatus| |license| |coc| |mastodon| |matrix| |codestyle|
