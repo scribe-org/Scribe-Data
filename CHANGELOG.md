@@ -53,6 +53,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ### ♻️ Code Refactoring
 
+- The Anaconda based virtual environment was removed and documentation was updated to reflect this.
 - Language data processes were moved into the `src/scribe_data/extract_transform/languages` directory to clean up the structure.
 - Code formatting processes were defined with common structures based on language and word type variables defined at the top of files.
 
