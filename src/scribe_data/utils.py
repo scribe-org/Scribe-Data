@@ -11,6 +11,9 @@ Contents:
     get_language_words_to_remove,
     get_language_words_to_ignore,
     get_path_from_format_file,
+    get_language_dir_path,
+    load_queried_data,
+    export_formatted_data,
     get_path_from_load_dir,
     get_path_from_et_dir,
     get_ios_data_path,
@@ -22,6 +25,7 @@ Contents:
 
 import ast
 import json
+import os
 import sys
 from importlib import resources
 from pathlib import Path
@@ -238,6 +242,36 @@ def get_language_words_to_ignore(language: str) -> list[str]:
         "ignore-words",
         f"{language.capitalize()} is currently not a supported language.",
     )
+
+
+def get_language_dir_path(language):
+    PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
+    return f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages/{language}"
+
+
+def load_queried_data(language, data_type, file_path):
+    queried_data_file = f"{data_type}_queried.json"
+    update_data_in_use = False
+
+    if f"languages/{language}/{data_type}/" not in file_path:
+        data_path = queried_data_file
+    else:
+        update_data_in_use = True
+        data_path = f"{get_language_dir_path(language)}/{data_type}/{queried_data_file}"
+
+    with open(data_path, encoding="utf-8") as f:
+        return json.load(f), update_data_in_use
+
+
+def export_formatted_data(language, data_type, formatted_data, update_data_in_use):
+    if update_data_in_use:
+        export_path = f"{get_language_dir_path(language)}/formatted_data/{data_type}.json"
+    else:
+        export_path = f"{data_type}.json"
+
+    with open(export_path, "w", encoding="utf-8") as file:
+        json.dump(formatted_data, file, ensure_ascii=False, indent=0)
+    print(f"Wrote file {data_type}.json with {len(formatted_data):,} {data_type}.")
 
 
 def get_path_from_format_file() -> str:

@@ -6,31 +6,16 @@ Formats the nouns queried from Wikidata using query_nouns.sparql.
 """
 
 import collections
-import json
-import os
 import sys
+
+from scribe_data.utils import export_formatted_data, load_queried_data
 
 LANGUAGE = "English"
 QUERIED_DATA_TYPE = "nouns"
-QUERIED_DATA_FILE = f"{QUERIED_DATA_TYPE}_queried.json"
-PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-LANGUAGES_DIR_PATH = (
-    f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages"
-)
 
 file_path = sys.argv[0]
 
-update_data_in_use = False  # check if update_data.py is being used
-if f"languages/{LANGUAGE}/{QUERIED_DATA_TYPE}/" not in file_path:
-    data_path = QUERIED_DATA_FILE
-else:
-    update_data_in_use = True
-    data_path = (
-        f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/{QUERIED_DATA_TYPE}/{QUERIED_DATA_FILE}"
-    )
-
-with open(data_path, encoding="utf-8") as f:
-    nouns_list = json.load(f)
+nouns_list, update_data_in_use = load_queried_data(LANGUAGE, QUERIED_DATA_TYPE, file_path)
 
 nouns_formatted = {}
 
@@ -94,21 +79,4 @@ for noun_vals in nouns_list:
 
 nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
-export_path = f"../formatted_data/{QUERIED_DATA_TYPE}.json"
-if update_data_in_use:
-    export_path = (
-        f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/formatted_data/{QUERIED_DATA_TYPE}.json"
-    )
-
-with open(
-    export_path,
-    "w",
-    encoding="utf-8",
-) as file:
-    json.dump(nouns_formatted, file, ensure_ascii=False, indent=0)
-
-print(
-    f"Wrote file {QUERIED_DATA_TYPE}.json with {len(nouns_formatted):,} {QUERIED_DATA_TYPE}."
-)
-
-os.remove(data_path)
+export_formatted_data(LANGUAGE, QUERIED_DATA_TYPE, nouns_formatted, update_data_in_use)
