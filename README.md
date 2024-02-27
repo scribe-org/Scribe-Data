@@ -32,6 +32,7 @@ Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-
 - [Environment Setup](#environment-setup)
 - [Supported Languages](#supported-languages)
 - [Featured By](#featured-by)
+- [Architecture Diagrams](#architecture-diagrams)
 
 <a id="process"></a>
 
@@ -229,3 +230,10 @@ Many thanks to all the [Scribe-Data contributors](https://github.com/scribe-org/
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <br>
 </div>
+
+<a id="architecture-diagrams"></a>
+# Architecture Diagrams  [`⇧`](#contents)
+
+This is the overview of the [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md#full-architecture) of our organization, the services, the applications, the processes and the external systems and sources with which it interacts. 
+  It depicts the projects [Scribe-org](https://github.com/scribe-org) is developing and the relationship between the 
+  projects and external systems and sources.  
