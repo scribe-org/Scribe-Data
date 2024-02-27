@@ -42,7 +42,7 @@ for word in word_list[len(translations):]:
         translated_word = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)[0]
         word_translations[word][lang_code] = translated_word
     translations.append(word_translations)
-    with open('translations.json', 'w', encoding='utf-8') as file:
+    with open('../formatted_data/translations.json', 'w', encoding='utf-8') as file:
         json.dump(translations, file, ensure_ascii=False, indent=4)
     print(f"Translation results for the word '{word}' have been saved.")
 
