@@ -23,6 +23,14 @@
 
 Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-iOS), [Android](https://github.com/scribe-org/Scribe-Android) (WIP) and [Desktop](https://github.com/scribe-org/Scribe-Desktop) (planned).
 
+# Architecture Diagrams 
+
+Here is an overview of the [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) of our organization, the services, the 
+applications, the processes and the external systems and sources with which it interacts.
+
+  It depicts the projects [Scribe-org](https://github.com/scribe-org) is developing and the relationship between the 
+  projects and external systems and sources.  
+  
 <a id="contents"></a>
 
 # **Contents**
@@ -32,7 +40,6 @@ Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-
 - [Environment Setup](#environment-setup)
 - [Supported Languages](#supported-languages)
 - [Featured By](#featured-by)
-- [Architecture Diagrams](#architecture-diagrams)
 
 <a id="process"></a>
 
@@ -231,9 +238,3 @@ Many thanks to all the [Scribe-Data contributors](https://github.com/scribe-org/
   <br>
 </div>
 
-<a id="architecture-diagrams"></a>
-# Architecture Diagrams  [`⇧`](#contents)
-Scribe[[1]](https://en.wikipedia.org/wiki/Scribe) is a community of language enthusiasts, learners and developers creating tools to help people communicate with confidence.We strive to be an inclusive community, welcoming coders and open-source supporters of any level.  
- Here is the overview of the [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md#full-architecture) of our organization, the services, the applications, the processes and the external systems and sources with which it interacts. 
-  It depicts the projects [Scribe-org](https://github.com/scribe-org) is developing and the relationship between the 
-  projects and external systems and sources.  
