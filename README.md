@@ -23,13 +23,10 @@
 
 Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-iOS), [Android](https://github.com/scribe-org/Scribe-Android) (WIP) and [Desktop](https://github.com/scribe-org/Scribe-Desktop) (planned).
 
-# Architecture Diagrams 
 
 Here is an overview of the [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) of our organization, the services, the 
 applications, the processes and the external systems and sources with which it interacts.
-
-  It depicts the projects [Scribe-org](https://github.com/scribe-org) is developing and the relationship between the 
-  projects and external systems and sources.  
+It depicts the projects [Scribe-org](https://github.com/scribe-org) is developing and the relationship between the projects and external systems and sources.  
   
 <a id="contents"></a>
 
