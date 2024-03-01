@@ -260,7 +260,7 @@ def load_queried_data(language, data_type, file_path):
         data_path = f"{get_language_dir_path(language)}/{data_type}/{queried_data_file}"
 
     with open(data_path, encoding="utf-8") as f:
-        return json.load(f), update_data_in_use
+        return json.load(f), update_data_in_use, data_path
 
 
 def export_formatted_data(language, data_type, formatted_data, update_data_in_use):

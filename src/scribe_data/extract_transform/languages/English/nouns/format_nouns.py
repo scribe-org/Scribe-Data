@@ -6,8 +6,12 @@ Formats the nouns queried from Wikidata using query_nouns.sparql.
 """
 
 import collections
+import os
 import sys
 
+PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
+PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
+sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 from scribe_data.utils import export_formatted_data, load_queried_data
 
 LANGUAGE = "English"
@@ -15,7 +19,7 @@ QUERIED_DATA_TYPE = "nouns"
 
 file_path = sys.argv[0]
 
-nouns_list, update_data_in_use = load_queried_data(LANGUAGE, QUERIED_DATA_TYPE, file_path)
+nouns_list, update_data_in_use, data_path = load_queried_data(LANGUAGE, QUERIED_DATA_TYPE, file_path)
 
 nouns_formatted = {}
 
@@ -80,3 +84,5 @@ for noun_vals in nouns_list:
 nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
 export_formatted_data(LANGUAGE, QUERIED_DATA_TYPE, nouns_formatted, update_data_in_use)
+
+os.remove(data_path)
