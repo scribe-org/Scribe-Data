@@ -115,7 +115,7 @@ git clone https://github.com/<your-username>/Scribe-Data.git
 # Navigate to the newly cloned directory.
 cd Scribe-Data
 # Assign the original repo to a remote called "upstream".
-git remote add upstream https://github.com/scribe-org/Scibe-Data.git
+git remote add upstream https://github.com/scribe-org/Scribe-Data.git
 ```
 
 - Now, if you run `git remote -v` you should see two remote repositories named:
