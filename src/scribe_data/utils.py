@@ -248,6 +248,19 @@ def get_language_words_to_ignore(language: str) -> list[str]:
 
 
 def get_language_dir_path(language):
+    """
+    Returns the directory path for a specific language within the Scribe-Data project.
+
+    Parameters
+    ----------
+        language : str
+            The language for which the directory path is needed.
+
+    Returns
+    -------
+        str
+            The directory path for the specified language.
+    """
     PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
     return f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages/{language}"
 
