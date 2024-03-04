@@ -10,6 +10,7 @@ Contents:
     get_language_from_iso,
     get_language_words_to_remove,
     get_language_words_to_ignore,
+    get_language_dir_path,
     get_path_from_format_file,
     get_path_from_load_dir,
     get_path_from_et_dir,
@@ -17,11 +18,15 @@ Contents:
     get_android_data_path,
     get_desktop_data_path,
     check_command_line_args,
-    check_and_return_command_line_args
+    check_and_return_command_line_args,
+    translation_interrupt_handler,
+    get_target_languages,
+    translate_to_other_languages
 """
 
 import ast
 import json
+import os
 import sys
 from importlib import resources
 from pathlib import Path
@@ -29,6 +34,8 @@ from typing import Any
 
 import langcodes
 from langcodes import Language
+
+from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
 PROJECT_ROOT = "Scribe-Data"
 
@@ -238,6 +245,11 @@ def get_language_words_to_ignore(language: str) -> list[str]:
         "ignore-words",
         f"{language.capitalize()} is currently not a supported language.",
     )
+
+
+def get_language_dir_path(language):
+    PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
+    return f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages/{language}"
 
 
 def get_path_from_format_file() -> str:
