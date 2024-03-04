@@ -435,13 +435,37 @@ def check_and_return_command_line_args(
 
 
 def translation_interrupt_handler(source_language, translations):
+    """
+    Handles interrupt signals and saves the current translation progress.
+
+    Parameters
+    ----------
+        source_language : str
+            The source language being translated from.
+
+        translations : list[dict]
+            The current list of translations.
+    """
     print("\nThe interrupt signal has been caught and the current progress is being saved...")
     with open(f"{get_language_dir_path(source_language)}/formatted_data/translated_words.json", 'w', encoding='utf-8') as file:
         json.dump(translations, file, ensure_ascii=False, indent=4)
     print("The current progress is saved to the translated_words.json file.")
     exit()
 
-def get_target_languages(source_lang)->list[str]:
+def get_target_langcodes(source_lang)->list[str]:
+    """
+    Returns a list of target language ISO codes for translation.
+
+    Parameters
+    ----------
+        source_lang : str
+            The source language being translated from.
+
+    Returns
+    -------
+        list[str]
+            A list of target language ISO codes.
+    """
     target_langcodes=[]
     for lang in get_scribe_languages():
         if lang!=source_lang:
@@ -451,12 +475,26 @@ def get_target_languages(source_lang)->list[str]:
     return target_langcodes
 
 def translate_to_other_languages(source_language, word_list, translations):
+    """
+    Translates a list of words from the source language to other target languages.
+
+    Parameters
+    ----------
+        source_language : str
+            The source language being translated from.
+
+        word_list : list[str]
+            The list of words to translate.
+
+        translations : list[dict]
+            The current list of translations.
+    """
     model = M2M100ForConditionalGeneration.from_pretrained("facebook/m2m100_418M")
     tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
 
     for word in word_list[len(translations):]:
         word_translations = {word: {}}
-        for lang_code in get_target_languages(source_language):
+        for lang_code in get_target_langcodes(source_language):
             tokenizer.src_lang = get_language_iso(source_language)
             encoded_word = tokenizer(word, return_tensors="pt")
             generated_tokens = model.generate(**encoded_word, forced_bos_token_id=tokenizer.get_lang_id(lang_code))
