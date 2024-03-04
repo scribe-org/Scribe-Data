@@ -21,7 +21,7 @@ for item in json_data:
 
 src_lang="Russian"
 
-translations = []
+translations = {}
 translated_words_path = os.path.join(translate_script_dir, '../formatted_data/translated_words.json')
 if os.path.exists(translated_words_path):
     with open(translated_words_path, 'r', encoding='utf-8') as file:

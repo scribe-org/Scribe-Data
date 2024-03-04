@@ -20,7 +20,7 @@ Contents:
     check_command_line_args,
     check_and_return_command_line_args,
     translation_interrupt_handler,
-    get_target_languages,
+    get_target_langcodes,
     translate_to_other_languages
 """
 
