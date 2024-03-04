@@ -29,4 +29,4 @@ if os.path.exists(translated_words_path):
 
 signal.signal(signal.SIGINT, lambda sig, frame: translation_interrupt_handler(src_lang, translations))
 
-translate_to_other_languages(src_lang, word_list, translations)
+translate_to_other_languages(src_lang, word_list, translations, batch_size=100)
