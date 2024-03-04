@@ -420,3 +420,40 @@ def check_and_return_command_line_args(
         python {all_args[0]} '["comma_separated_sets_in_quotes"]'
         """
     )
+
+
+def translation_interrupt_handler(source_language, translations):
+    print("\nThe interrupt signal has been caught and the current progress is being saved...")
+    with open(f"{get_language_dir_path(source_language)}/formatted_data/translated_words.json", 'w', encoding='utf-8') as file:
+        json.dump(translations, file, ensure_ascii=False, indent=4)
+    print("The current progress is saved to the translated_words.json file.")
+    exit()
+
+def get_target_languages(source_lang)->list[str]:
+    target_langcodes=[]
+    for lang in get_scribe_languages():
+        if lang!=source_lang:
+            target_langcodes.append(get_language_iso(lang))
+        else:
+            continue
+    return target_langcodes
+
+def translate_to_other_languages(source_language, word_list, translations):
+    model = M2M100ForConditionalGeneration.from_pretrained("facebook/m2m100_418M")
+    tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
+
+    for word in word_list[len(translations):]:
+        word_translations = {word: {}}
+        for lang_code in get_target_languages(source_language):
+            tokenizer.src_lang = get_language_iso(source_language)
+            encoded_word = tokenizer(word, return_tensors="pt")
+            generated_tokens = model.generate(**encoded_word, forced_bos_token_id=tokenizer.get_lang_id(lang_code))
+            translated_word = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)[0]
+            word_translations[word][lang_code] = translated_word
+        translations.append(word_translations)
+        with open(f"{get_language_dir_path(source_language)}/formatted_data/translated_words.json", 'w', encoding='utf-8') as file:
+            json.dump(translations, file, ensure_ascii=False, indent=4)
+        print(f"Translation results for the word '{word}' have been saved.")
+
+    print("Translation results for all words are saved to the translated_words.json file.")
+
