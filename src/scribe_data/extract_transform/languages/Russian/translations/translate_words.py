@@ -15,7 +15,7 @@ words_to_translate_path = os.path.join(translate_script_dir, 'words_to_translate
 with open(words_to_translate_path, 'r', encoding='utf-8') as file:
     json_data = json.load(file)
 
-word_list = {}
+word_list = []
 for item in json_data:
     word_list.append(item["word"])
 
