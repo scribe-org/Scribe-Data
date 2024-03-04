@@ -126,8 +126,21 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
 
 2. Use [Python venv](https://docs.python.org/3/library/venv.html) to create the local development environment within your Scribe-Data directory:
 
+ - On Unix or MacOS, run:   
+
+     ```bash
+     python3 -m venv venv  # make an environment named venv
+     source venv/bin/activate # activate the environment
+     ```
+- On Windows (using Command Prompt), run:
+  
+    ```bash
+    python -m venv venv
+    venv\Scripts\activate.bat
+    ```
+After activating the virtual environment, install the required dependencies by running:
+
    ```bash
-   python3 -m venv venv  # make an environment venv
    pip install --upgrade pip  # make sure that pip is at the latest version
    pip install -r requirements.txt  # install dependencies
    ```
