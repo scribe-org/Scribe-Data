@@ -1,22 +1,30 @@
-/* More specific targeting for text color */
+/* Change the sidebar header color to match the new logo background */
+.wy-side-nav-search {
+    background-color: #F0F0EB !important;
+}
+
+/* Change sidebar text color to black for all sidebar items */
 .wy-nav-side .wy-nav-content,
-.wy-nav-side .wy-nav-content a,
-.wy-nav-side .wy-menu-vertical header,
 .wy-nav-side .wy-menu-vertical a {
     color: #000 !important; /* Ensuring the text color is black */
-}
-
-/* Override default link colors in the sidebar */
-.wy-nav-side .wy-menu-vertical li a {
-    color: #000 !important;
-}
-
-/* Change the sidebar header color to match the new logo background */
-.wy-side-nav-search, .wy-side-nav-search a {
-    background-color: #F0F0EB !important;
 }
 
 /* Update the sidebar background color */
 .wy-nav-side {
     background-color: #F6F8FA !important;
+}
+
+/* Sidebar link text color on hover */
+.wy-nav-side .wy-nav-content a:hover,
+.wy-nav-side .wy-menu-vertical a:hover {
+    color: #FFF !important; /* Changes text color to white on hover */
+}
+
+/* Logo styling */
+.wy-side-nav-search .wy-nav-top img {
+    padding: 15px; 
+    max-height: 80px; 
+    max-width: 100%; 
+    display: block; 
+    margin: 0 auto; 
 }
