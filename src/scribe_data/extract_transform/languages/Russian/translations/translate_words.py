@@ -1,6 +1,5 @@
 import json
 import os
-import signal
 import sys
 
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
@@ -26,7 +25,5 @@ translated_words_path = os.path.join(translate_script_dir, '../formatted_data/tr
 if os.path.exists(translated_words_path):
     with open(translated_words_path, 'r', encoding='utf-8') as file:
         translations = json.load(file)
-
-signal.signal(signal.SIGINT, lambda sig, frame: translation_interrupt_handler(src_lang, translations))
 
 translate_to_other_languages(src_lang, word_list, translations, batch_size=100)

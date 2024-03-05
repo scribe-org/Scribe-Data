@@ -27,6 +27,7 @@ Contents:
 import ast
 import json
 import os
+import signal
 import sys
 from importlib import resources
 from pathlib import Path
@@ -487,7 +488,7 @@ def get_target_langcodes(source_lang)->list[str]:
             continue
     return target_langcodes
 
-def translate_to_other_languages(source_language, word_list, translations, batch_size=10):
+def translate_to_other_languages(source_language, word_list, translations, batch_size):
     """
     Translates a list of words from the source language to other target languages using batch processing.
 
@@ -507,6 +508,8 @@ def translate_to_other_languages(source_language, word_list, translations, batch
     """
     model = M2M100ForConditionalGeneration.from_pretrained("facebook/m2m100_418M")
     tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
+
+    signal.signal(signal.SIGINT, lambda sig, frame: translation_interrupt_handler(source_language, translations))
 
     for i in range(0, len(word_list), batch_size):
         batch_words = word_list[i:i+batch_size]

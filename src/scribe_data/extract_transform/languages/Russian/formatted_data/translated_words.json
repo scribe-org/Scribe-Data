@@ -630,33 +630,7855 @@
         "sv": "Isolation"
     },
     "изоспора": {
-        "en": "Dispute"
+        "en": "Dispute",
+        "fr": "La contestation",
+        "de": "Kontroversen",
+        "it": "Controversa",
+        "pt": "controvérsia",
+        "es": "Controversa",
+        "sv": "Kontroversiell"
     },
     "изотаха": {
-        "en": "Isotha"
+        "en": "Isotha",
+        "fr": "Isotha",
+        "de": "Isotha",
+        "it": "Isotà",
+        "pt": "Isotáquia",
+        "es": "Isotá",
+        "sv": "Isotaka"
     },
     "изотропия": {
-        "en": "isotropy"
+        "en": "isotropy",
+        "fr": "Isotropie",
+        "de": "Isotropie",
+        "it": "Isotropia",
+        "pt": "Isotropia",
+        "es": "Isotropía",
+        "sv": "Isotropin"
     },
     "изофена": {
-        "en": "Isofen"
+        "en": "Isofen",
+        "fr": "Isophène",
+        "de": "Isofen",
+        "it": "Isofena",
+        "pt": "Isofena",
+        "es": "Isofena",
+        "sv": "Isofen"
     },
     "изоэндоморфизм": {
-        "en": "isendomorphism"
+        "en": "isendomorphism",
+        "fr": "Isomorfisme",
+        "de": "Isodomorphismus",
+        "it": "Isomorfismo",
+        "pt": "Isomorfismo",
+        "es": "Isomorfismo",
+        "sv": "Isomorfism"
     },
     "изразец": {
-        "en": "expressed"
+        "en": "expressed",
+        "fr": "Expresseur",
+        "de": "Ausdruck",
+        "it": "Espressione",
+        "pt": "expressão",
+        "es": "Expresor",
+        "sv": "Uttryckt"
     },
     "изрезанность": {
-        "en": "Cutting"
+        "en": "Cutting",
+        "fr": "Résistance",
+        "de": "Abschnitten",
+        "it": "taglio",
+        "pt": "Cortesão",
+        "es": "Cortesía",
+        "sv": "Avskärning"
     },
     "изречение": {
-        "en": "phrase"
+        "en": "phrase",
+        "fr": "La phrase",
+        "de": "Satz",
+        "it": "La frase",
+        "pt": "Palavra",
+        "es": "La frase",
+        "sv": "Frågan"
     },
     "изрыгание": {
-        "en": "The explosion"
+        "en": "The explosion",
+        "fr": "éruption",
+        "de": "Ausbruch",
+        "it": "Esplosione",
+        "pt": "explosão",
+        "es": "explosión",
+        "sv": "sprängning"
     },
     "изуверство": {
-        "en": "Confession"
+        "en": "Confession",
+        "fr": "L’extinction",
+        "de": "Überraschung",
+        "it": "La confusione",
+        "pt": "Desconfiança",
+        "es": "Desconfianza",
+        "sv": "övertygelse"
+    },
+    "изувечивание": {
+        "en": "The exploration",
+        "fr": "Étude",
+        "de": "Erforschung",
+        "it": "Sviluppo",
+        "pt": "Estudo",
+        "es": "Descubrimiento",
+        "sv": "Undersökning"
+    },
+    "изуродование": {
+        "en": "Production",
+        "fr": "Production",
+        "de": "Erzeugung",
+        "it": "Sviluppo",
+        "pt": "Produção",
+        "es": "extracción",
+        "sv": "Utveckling"
+    },
+    "изученность": {
+        "en": "Study",
+        "fr": "étude",
+        "de": "Forschung",
+        "it": "La ricerca",
+        "pt": "Estudo",
+        "es": "Estudios",
+        "sv": "Undersökning"
+    },
+    "изымание": {
+        "en": "The extinction",
+        "fr": "L’extinction",
+        "de": "Ausgrabung",
+        "it": "L’espulsione",
+        "pt": "Expulsão",
+        "es": "La extinción",
+        "sv": "utrotning"
+    },
+    "изыскание": {
+        "en": "Searching",
+        "fr": "Recherche",
+        "de": "Suche",
+        "it": "La ricerca",
+        "pt": "Pesquisa",
+        "es": "búsqueda",
+        "sv": "Sökning"
+    },
+    "изысканность": {
+        "en": "Excellence",
+        "fr": "Excellence",
+        "de": "Erforschung",
+        "it": "La ricerca",
+        "pt": "Experiência",
+        "es": "La excelencia",
+        "sv": "Utmattning"
+    },
+    "изящество": {
+        "en": "Excellence",
+        "fr": "Excellence",
+        "de": "Schönheit",
+        "it": "La eleganza",
+        "pt": "A elegância",
+        "es": "La elegancia",
+        "sv": "Skönhet"
+    },
+    "иконография": {
+        "en": "iconography",
+        "fr": "iconographie",
+        "de": "Ikonographie",
+        "it": "Iconografia",
+        "pt": "Iconografia",
+        "es": "Iconografía",
+        "sv": "Ikonografi"
+    },
+    "иконометр": {
+        "en": "The Iconometer",
+        "fr": "Iconomètre",
+        "de": "Ikonometer",
+        "it": "Iconometro",
+        "pt": "Iconômetro",
+        "es": "Iconómetro",
+        "sv": "Ikonometer"
+    },
+    "иконопочитание": {
+        "en": "The Icon",
+        "fr": "L’icône",
+        "de": "Ökonomatisierung",
+        "it": "L’economismo",
+        "pt": "Iconização",
+        "es": "Iconocimiento",
+        "sv": "Ekonomisk respekt"
+    },
+    "икрометание": {
+        "en": "andcromatation",
+        "fr": "Ecrométation",
+        "de": "Ikrometation",
+        "it": "Icrometazione",
+        "pt": "Icrometação",
+        "es": "ICROMETACIÓN",
+        "sv": "IKROMETATION"
+    },
+    "икряник": {
+        "en": "Icranians",
+        "fr": "L’Icranique",
+        "de": "Der Knecht",
+        "it": "Il peccatore",
+        "pt": "Icraniano",
+        "es": "Icraniano",
+        "sv": "Ikraniet"
+    },
+    "иксокутис": {
+        "en": "Ixocutis",
+        "fr": "IXOCUTIS",
+        "de": "IXOCUTIS",
+        "it": "Ixocotti",
+        "pt": "Ixocutismo",
+        "es": "IXOCUTIS",
+        "sv": "Ixocus"
+    },
+    "иллокутив": {
+        "en": "Illuminated",
+        "fr": "Illuminati",
+        "de": "Illustration",
+        "it": "Illuminazione",
+        "pt": "Iluminação",
+        "es": "Ilustración",
+        "sv": "Illuktion"
+    },
+    "иллокуция": {
+        "en": "Illusion",
+        "fr": "Illusion",
+        "de": "Illusion",
+        "it": "illusione",
+        "pt": "Ilustração",
+        "es": "Ilustración",
+        "sv": "Illuktion"
+    },
+    "иллюзион": {
+        "en": "Illusion",
+        "fr": "Illusion",
+        "de": "Illusion",
+        "it": "illusione",
+        "pt": "Ilusão",
+        "es": "Ilusión",
+        "sv": "Illusioner"
+    },
+    "иллюминизм": {
+        "en": "Illumination",
+        "fr": "Illuminati",
+        "de": "Illumination",
+        "it": "Illuminazione",
+        "pt": "Iluminismo",
+        "es": "Iluminismo",
+        "sv": "Illumination"
+    },
+    "иллюстраторша": {
+        "en": "Illustrator",
+        "fr": "Illustrateur",
+        "de": "Illustrator",
+        "it": "Illustrazione",
+        "pt": "Ilustração",
+        "es": "Ilustración",
+        "sv": "Illustrator"
+    },
+    "иловатость": {
+        "en": "Illumination",
+        "fr": "L’illumination",
+        "de": "Irrtum",
+        "it": "Illibertà",
+        "pt": "Iluminação",
+        "es": "Iluminación",
+        "sv": "illamående"
+    },
+    "ильваит": {
+        "en": "The Elves",
+        "fr": "Le Elvis",
+        "de": "Elvis",
+        "it": "Elvira",
+        "pt": "Elvão",
+        "es": "Elvira",
+        "sv": "Elvait"
+    },
+    "гликозидоз": {
+        "en": "Glycosides",
+        "fr": "Glycosidose",
+        "de": "Glycosidose",
+        "it": "Glicozidosi",
+        "pt": "Glycosidose",
+        "es": "Glycosidosis",
+        "sv": "Glykosid"
+    },
+    "гликокаликс": {
+        "en": "glycocalypse",
+        "fr": "glycocalytique",
+        "de": "Glycalyx",
+        "it": "Glicocalico",
+        "pt": "Glicocalítico",
+        "es": "Glicocalix",
+        "sv": "Glycalyx"
+    },
+    "гликолипид": {
+        "en": "Glycolipid",
+        "fr": "Glycolipide",
+        "de": "Glycopid",
+        "it": "Glicolipide",
+        "pt": "Glicolipido",
+        "es": "Glicolipido",
+        "sv": "glykolipider"
+    },
+    "глиномес": {
+        "en": "Glyne",
+        "fr": "Glyne",
+        "de": "Glänze",
+        "it": "Il glino",
+        "pt": "Glinho",
+        "es": "El glino",
+        "sv": "Glömska"
+    },
+    "глиоксаль": {
+        "en": "Glyoxal",
+        "fr": "Glioxale",
+        "de": "Glioxal",
+        "it": "Glioxale",
+        "pt": "Glioxal",
+        "es": "Glioxal",
+        "sv": "Glyoxal"
+    },
+    "глиома": {
+        "en": "Glyoma",
+        "fr": "Glyome",
+        "de": "Glyoma",
+        "it": "Glioma",
+        "pt": "Glyoma",
+        "es": "Glyoma",
+        "sv": "Glyom"
+    },
+    "глиоматоз": {
+        "en": "Glyomatosis",
+        "fr": "Glyomatose",
+        "de": "Glyomatose",
+        "it": "Gliomatosi",
+        "pt": "Glyomatose",
+        "es": "Glyomatosis",
+        "sv": "Glyomatos"
+    },
+    "глиссе": {
+        "en": "Glyse",
+        "fr": "Glyse",
+        "de": "Glisse",
+        "it": "Glisse",
+        "pt": "Glissão",
+        "es": "Glices",
+        "sv": "Glisse"
+    },
+    "глобин": {
+        "en": "Globe",
+        "fr": "Globe",
+        "de": "Globus",
+        "it": "Il Globo",
+        "pt": "Globo",
+        "es": "Globo",
+        "sv": "Globin"
+    },
+    "глог": {
+        "en": "The Glog",
+        "fr": "Glogue",
+        "de": "Glocke",
+        "it": "Il glog",
+        "pt": "Globo",
+        "es": "Globo",
+        "sv": "Glocka"
+    },
+    "глоссоним": {
+        "en": "Glossary",
+        "fr": "Glossyme",
+        "de": "Glosson",
+        "it": "Il glossone",
+        "pt": "Glossão",
+        "es": "Glossón",
+        "sv": "Glossom"
+    },
+    "глоссоптоз": {
+        "en": "Glossoptosis",
+        "fr": "Glossoptose",
+        "de": "Glossophtose",
+        "it": "Glossoptozo",
+        "pt": "Glossoptosis",
+        "es": "glosoptosis",
+        "sv": "Glossoptos"
+    },
+    "глубина": {
+        "en": "depths",
+        "fr": "La profondeur",
+        "de": "Die Tiefe",
+        "it": "profondità",
+        "pt": "profundidade",
+        "es": "profundidad",
+        "sv": "djupet"
+    },
+    "глубоководник": {
+        "en": "The Deep Manor",
+        "fr": "Le profondeur",
+        "de": "Die tiefe Führung",
+        "it": "profondità",
+        "pt": "Médico Profundo",
+        "es": "La profundidad",
+        "sv": "djupledare"
+    },
+    "глубокость": {
+        "en": "depths",
+        "fr": "La profondeur",
+        "de": "Die Tiefe",
+        "it": "profondità",
+        "pt": "profundidade",
+        "es": "profundidad",
+        "sv": "djupet"
+    },
+    "глутамин": {
+        "en": "Glutamine",
+        "fr": "Glutamine",
+        "de": "Glutamin",
+        "it": "Glutamina",
+        "pt": "Glutamina",
+        "es": "Glutamina",
+        "sv": "Glutamin"
+    },
+    "глутатионпероксидаза": {
+        "en": "Glutathion peroxidase",
+        "fr": "Glutathionperoxydase",
+        "de": "Glutathionperoxidase",
+        "it": "Glutatione perossidasi",
+        "pt": "glutationperoxidase",
+        "es": "glutation peroxidase",
+        "sv": "Glutathionperoksidas"
+    },
+    "глухарка": {
+        "en": "the fool",
+        "fr": "La sourde",
+        "de": "Scheiße",
+        "it": "la stupida",
+        "pt": "Mordida",
+        "es": "Sujero",
+        "sv": "Dummor"
+    },
+    "глухарёнок": {
+        "en": "the fool",
+        "fr": "La sourdesse",
+        "de": "Scheiße",
+        "it": "Cucciolo",
+        "pt": "Sombras",
+        "es": "Siguero",
+        "sv": "Döda"
+    },
+    "глуховатость": {
+        "en": "The Blindness",
+        "fr": "La sourdesse",
+        "de": "Die Dummheit",
+        "it": "La scomparsa",
+        "pt": "SOBRIDADE",
+        "es": "La profundidad",
+        "sv": "Dyssamhet"
+    },
+    "глухоманье": {
+        "en": "the foolish",
+        "fr": "Le sourd",
+        "de": "Süße",
+        "it": "Sorriso",
+        "pt": "SOBRO",
+        "es": "Sujos",
+        "sv": "Döda"
+    },
+    "глушняк": {
+        "en": "The Dust",
+        "fr": "La souris",
+        "de": "Schmutz",
+        "it": "La mucca",
+        "pt": "Guião",
+        "es": "La muñeca",
+        "sv": "Döda"
+    },
+    "глютин": {
+        "en": "Gluten",
+        "fr": "Glutine",
+        "de": "Gluten",
+        "it": "Glutine",
+        "pt": "glúten",
+        "es": "Glutina",
+        "sv": "Gluten"
+    },
+    "гляциолог": {
+        "en": "Visitor",
+        "fr": "Glucologue",
+        "de": "Seher",
+        "it": "Visualizzatore",
+        "pt": "Guiador",
+        "es": "Guión",
+        "sv": "Glytande"
+    },
+    "гмелинит": {
+        "en": "Gmelinite",
+        "fr": "Gmélinite",
+        "de": "Gmelin",
+        "it": "Gmino",
+        "pt": "Gmelinação",
+        "es": "Gómez",
+        "sv": "Gmlinit"
+    },
+    "гнедуха": {
+        "en": "The wrath",
+        "fr": "la colère",
+        "de": "Die Hölle",
+        "it": "La rabbia",
+        "pt": "raiva",
+        "es": "La ira",
+        "sv": "Hjärtan"
+    },
+    "гнездо": {
+        "en": "The Nest",
+        "fr": "Le nid",
+        "de": "Die Nest",
+        "it": "Il Nido",
+        "pt": "Nobreza",
+        "es": "El nido",
+        "sv": "Nätet"
+    },
+    "гнездование": {
+        "en": "The Nest",
+        "fr": "Le nid",
+        "de": "Nässe",
+        "it": "Il Nostro",
+        "pt": "Nobreza",
+        "es": "El nido",
+        "sv": "Näsning"
+    },
+    "гнездовка": {
+        "en": "The Nest",
+        "fr": "Le nid",
+        "de": "Die Nest",
+        "it": "Il nido",
+        "pt": "Nuvem",
+        "es": "El nido",
+        "sv": "Nötter"
+    },
+    "гнида": {
+        "en": "The Nest",
+        "fr": "Le nid",
+        "de": "Die Nase",
+        "it": "Nido",
+        "pt": "Nido",
+        "es": "El Nido",
+        "sv": "Hjärta"
+    },
+    "гноение": {
+        "en": "The anger",
+        "fr": "la colère",
+        "de": "Wut",
+        "it": "La rabbia",
+        "pt": "raivação",
+        "es": "La ira",
+        "sv": "upprörelse"
+    },
+    "гнойник": {
+        "en": "The Dwarf",
+        "fr": "Gneuvier",
+        "de": "Schmutz",
+        "it": "Gnoiani",
+        "pt": "Gênero",
+        "es": "Gnión",
+        "sv": "Dammsugare"
+    },
+    "гносеомахия": {
+        "en": "Gnoseomachia",
+        "fr": "Gnoseomachie",
+        "de": "Gnoseomachie",
+        "it": "Gnoseomachia",
+        "pt": "Gnoseomáquia",
+        "es": "Gnoseomáquia",
+        "sv": "Gnoseomak"
+    },
+    "гностик": {
+        "en": "Gnostic",
+        "fr": "Gnostic",
+        "de": "Gnostik",
+        "it": "Gnostico",
+        "pt": "Gnostic",
+        "es": "Gnostic",
+        "sv": "Gnostik"
+    },
+    "гнусность": {
+        "en": "Furiousness",
+        "fr": "L’irritation",
+        "de": "Übelkeit",
+        "it": "L’ingiustizia",
+        "pt": "raiva",
+        "es": "La rabia",
+        "sv": "Ångest"
+    },
+    "гоббинсит": {
+        "en": "Goebbels",
+        "fr": "Goebbels",
+        "de": "Gobbinsitz",
+        "it": "Goebbels",
+        "pt": "Goebbels",
+        "es": "Goebbels",
+        "sv": "Gobbinsit"
+    },
+    "гобой": {
+        "en": "Gobi",
+        "fr": "Gobi",
+        "de": "Goebbels",
+        "it": "Gobi",
+        "pt": "Goião",
+        "es": "Goya",
+        "sv": "Gobi"
+    },
+    "говардэвансит": {
+        "en": "Guardianship",
+        "fr": "Gardevance",
+        "de": "Gardewanz",
+        "it": "La guardiana",
+        "pt": "Guardião",
+        "es": "Guardevancia",
+        "sv": "Huvardivans"
+    },
+    "говнина": {
+        "en": "The Gowna",
+        "fr": "La caverne",
+        "de": "Gärten",
+        "it": "Il cavallo",
+        "pt": "Gavião",
+        "es": "Guevara",
+        "sv": "Växjö"
+    },
+    "говнище": {
+        "en": "The castle",
+        "fr": "Hôtel",
+        "de": "Gärten",
+        "it": "Il castello",
+        "pt": "Cidade",
+        "es": "El castillo",
+        "sv": "Lägret"
+    },
+    "говорение": {
+        "en": "Speech",
+        "fr": "discours",
+        "de": "Sprechen",
+        "it": "Parlare",
+        "pt": "Discurso",
+        "es": "El discurso",
+        "sv": "talande"
+    },
+    "говорильня": {
+        "en": "Speech",
+        "fr": "discours",
+        "de": "Sprechen",
+        "it": "Il discorso",
+        "pt": "Discurso",
+        "es": "Discurso",
+        "sv": "talande"
+    },
+    "говоритель": {
+        "en": "Speaker",
+        "fr": "Le porte-parole",
+        "de": "Sprecher",
+        "it": "Il portavoce",
+        "pt": "Discurso",
+        "es": "El Speaker",
+        "sv": "talare"
+    },
+    "говоруша": {
+        "en": "speaking",
+        "fr": "discours",
+        "de": "Sprechen",
+        "it": "Parlare",
+        "pt": "Falando",
+        "es": "habla",
+        "sv": "talade"
+    },
+    "говядо": {
+        "en": "the beef",
+        "fr": "La viande",
+        "de": "Kühe",
+        "it": "La mucca",
+        "pt": "Carneira",
+        "es": "La vacía",
+        "sv": "kyckling"
+    },
+    "гоготанье": {
+        "en": "Gogotany",
+        "fr": "Goethe",
+        "de": "Goethe",
+        "it": "Gogotano",
+        "pt": "Gogotão",
+        "es": "Gotaño",
+        "sv": "Gogota"
+    },
+    "годефруаит": {
+        "en": "Hodefruit",
+        "fr": "Hôdefrée",
+        "de": "Godefruit",
+        "it": "Godefroidismo",
+        "pt": "Gódefrúite",
+        "es": "Hodefroides",
+        "sv": "Godefruit"
+    },
+    "годкинсонит": {
+        "en": "The Dogkinsonite",
+        "fr": "Gokinsonite",
+        "de": "Gokinsonitis",
+        "it": "Cockinsonite",
+        "pt": "Gokinsonite",
+        "es": "Hockinsonitis",
+        "sv": "Gokinsonit"
+    },
+    "годковщина": {
+        "en": "Years of",
+        "fr": "Année",
+        "de": "Das Jahr",
+        "it": "L’anno",
+        "pt": "Aniversário",
+        "es": "El año",
+        "sv": "Årets"
+    },
+    "годность": {
+        "en": "Validity",
+        "fr": "Validité",
+        "de": "Wirksamkeit",
+        "it": "idoneità",
+        "pt": "Validade",
+        "es": "Validez",
+        "sv": "lämplighet"
+    },
+    "годовщина": {
+        "en": "Anniversary",
+        "fr": "Anniversaire",
+        "de": "Jahrestag",
+        "it": "Anniversario",
+        "pt": "Aniversário",
+        "es": "Aniversario",
+        "sv": "Årsdagen"
+    },
+    "годэ": {
+        "en": "Goa",
+        "fr": "Goe",
+        "de": "Das Goe",
+        "it": "di Goa",
+        "pt": "Goa",
+        "es": "Goa",
+        "sv": "Goa"
+    },
+    "голавль": {
+        "en": "the head",
+        "fr": "La tête",
+        "de": "Kopfhaut",
+        "it": "La testa",
+        "pt": "Cabeça",
+        "es": "El caballo",
+        "sv": "Huvud"
+    },
+    "голбчик": {
+        "en": "The golfist",
+        "fr": "Golfeur",
+        "de": "Golben",
+        "it": "Il Golfo",
+        "pt": "Golpeiro",
+        "es": "Golpeador",
+        "sv": "Golvspelare"
+    },
+    "голеадор": {
+        "en": "The Goal",
+        "fr": "Golaïde",
+        "de": "Große",
+        "it": "Giocattoli",
+        "pt": "Geloador",
+        "es": "Gólado",
+        "sv": "Golgotha"
+    },
+    "голиард": {
+        "en": "Goliath",
+        "fr": "Golière",
+        "de": "Goliath",
+        "it": "Il Goliat",
+        "pt": "Goliado",
+        "es": "Goliado",
+        "sv": "Goliat"
+    },
+    "голлист": {
+        "en": "Goliath",
+        "fr": "Golière",
+        "de": "Goliath",
+        "it": "Gollista",
+        "pt": "Gólista",
+        "es": "Gólito",
+        "sv": "Goliat"
+    },
+    "голован": {
+        "en": "hungry",
+        "fr": "La faim",
+        "de": "Hunger",
+        "it": "affamato",
+        "pt": "Fomeado",
+        "es": "hambriento",
+        "sv": "hungrig"
+    },
+    "головища": {
+        "en": "Headlines",
+        "fr": "La tête",
+        "de": "Kopfhaut",
+        "it": "capolavoro",
+        "pt": "Cabeça",
+        "es": "Cabezas",
+        "sv": "Huvudplats"
+    },
+    "головонька": {
+        "en": "The head",
+        "fr": "La tête",
+        "de": "Kopfhaut",
+        "it": "La testa",
+        "pt": "Cabeça",
+        "es": "cabecera",
+        "sv": "Huvud"
+    },
+    "головорез": {
+        "en": "Headset",
+        "fr": "Trouver la tête",
+        "de": "Kopfschüttel",
+        "it": "Il cappello",
+        "pt": "Cabeça",
+        "es": "cabecera",
+        "sv": "Huvudskärm"
+    },
+    "головотяп": {
+        "en": "The head",
+        "fr": "La tête",
+        "de": "Kopfschlag",
+        "it": "Il cappello",
+        "pt": "Cabeça",
+        "es": "cabecera",
+        "sv": "Huvudet"
+    },
+    "головушка": {
+        "en": "head",
+        "fr": "La tête",
+        "de": "Kopfhaut",
+        "it": "cappello",
+        "pt": "Cabeça",
+        "es": "cabecera",
+        "sv": "Huvud"
+    },
+    "голограмма": {
+        "en": "Hologram",
+        "fr": "Hologramme",
+        "de": "Hologramme",
+        "it": "Il Hologramma",
+        "pt": "Holograma",
+        "es": "Holograma",
+        "sv": "Hologram"
+    },
+    "голография": {
+        "en": "Holography",
+        "fr": "Holographie",
+        "de": "Holographie",
+        "it": "Holografia",
+        "pt": "Holografia",
+        "es": "Holografía",
+        "sv": "Holografi"
+    },
+    "голомянка": {
+        "en": "The Hunger",
+        "fr": "La faim",
+        "de": "Hunger",
+        "it": "La fame",
+        "pt": "Fome",
+        "es": "El hambre",
+        "sv": "hungrig"
+    },
+    "голомянковые": {
+        "en": "hungry",
+        "fr": "La faim",
+        "de": "Hungerige",
+        "it": "La fame",
+        "pt": "Fome",
+        "es": "hambrientos",
+        "sv": "hungrig"
+    },
+    "голофилия": {
+        "en": "Holophilia",
+        "fr": "Holographie",
+        "de": "Holophilie",
+        "it": "Il golofilo",
+        "pt": "Holofilia",
+        "es": "Holofilia",
+        "sv": "Hologrammet"
+    },
+    "голохуевка": {
+        "en": "Hollowing",
+        "fr": "Holographie",
+        "de": "Hülle",
+        "it": "La follia",
+        "pt": "Holofobia",
+        "es": "Holoquías",
+        "sv": "Halsvagnar"
+    },
+    "голоэнзим": {
+        "en": "Holoenzyme",
+        "fr": "Hologramme",
+        "de": "Holoenzyme",
+        "it": "Il holocausto",
+        "pt": "Holocausto",
+        "es": "Holocausto",
+        "sv": "Hologram"
+    },
+    "голубонька": {
+        "en": "the blue",
+        "fr": "Bleu",
+        "de": "Blau",
+        "it": "blu",
+        "pt": "Azul",
+        "es": "Azul",
+        "sv": "Blå"
+    },
+    "голубчик": {
+        "en": "The bubble",
+        "fr": "Bleu",
+        "de": "Blüte",
+        "it": "Il blu",
+        "pt": "Bolo",
+        "es": "El bulbo",
+        "sv": "Blommor"
+    },
+    "голштин": {
+        "en": "GOLSTIN",
+        "fr": "GOLSTIN",
+        "de": "Holstein",
+        "it": "Golgotha",
+        "pt": "GOLSTIN",
+        "es": "GOLSTIN",
+        "sv": "GOLSTIN"
+    },
+    "голытьба": {
+        "en": "Naked",
+        "fr": "Nougat",
+        "de": "Blüte",
+        "it": "Nottura",
+        "pt": "Nuvem",
+        "es": "la nudez",
+        "sv": "Naken"
+    },
+    "голышка": {
+        "en": "The Goat",
+        "fr": "Golière",
+        "de": "Kugel",
+        "it": "goccia",
+        "pt": "Gola",
+        "es": "Gola",
+        "sv": "Hål"
+    },
+    "гольтепа": {
+        "en": "the golden",
+        "fr": "GOLTEP",
+        "de": "Goltepa",
+        "it": "Il Golfo",
+        "pt": "Goltepa",
+        "es": "Goltepa",
+        "sv": "Goltepa"
+    },
+    "гольфистка": {
+        "en": "Golfist",
+        "fr": "Golfiste",
+        "de": "Golfspieler",
+        "it": "golfista",
+        "pt": "Golfista",
+        "es": "golfista",
+        "sv": "Golfspelare"
+    },
+    "голяк": {
+        "en": "Large",
+        "fr": "grosse",
+        "de": "Große",
+        "it": "Grande",
+        "pt": "Grande",
+        "es": "Gran",
+        "sv": "Stora"
+    },
+    "гомеозис": {
+        "en": "homeosis",
+        "fr": "Homoïsme",
+        "de": "Homosexualität",
+        "it": "homeosi",
+        "pt": "Homoseia",
+        "es": "homeosis",
+        "sv": "Homosexualitet"
+    },
+    "гомеоморфизм": {
+        "en": "Homeomorphism",
+        "fr": "Homéomorphisme",
+        "de": "Homömorphismus",
+        "it": "Homeomorfismo",
+        "pt": "Homemorfismo",
+        "es": "Homemorfismo",
+        "sv": "Homemorfism"
+    },
+    "гомеополярность": {
+        "en": "The homeopathy",
+        "fr": "Homo-polaire",
+        "de": "Homöpolarität",
+        "it": "Homeopolarità",
+        "pt": "Homeopolaridade",
+        "es": "Homeopolaridad",
+        "sv": "homeopolitisk"
+    },
+    "гомеостатика": {
+        "en": "homeostatism",
+        "fr": "Homéostatique",
+        "de": "Homosexualität",
+        "it": "homeostatica",
+        "pt": "Homoestática",
+        "es": "Homoestática",
+        "sv": "homeostatik"
+    },
+    "гоминист": {
+        "en": "The Governor",
+        "fr": "Gouvernement",
+        "de": "Hoministisch",
+        "it": "governatore",
+        "pt": "HOMINISTA",
+        "es": "Gobernador",
+        "sv": "Hominist"
+    },
+    "гоммоз": {
+        "en": "Homosexual",
+        "fr": "Homosexualité",
+        "de": "Homosexualität",
+        "it": "omosessuale",
+        "pt": "Homoseia",
+        "es": "Homosea",
+        "sv": "Homosexuella"
+    },
+    "гомогамета": {
+        "en": "homogeneous",
+        "fr": "Homosexualité",
+        "de": "Homosexuelle",
+        "it": "Gomorra",
+        "pt": "Homogênio",
+        "es": "Gómez",
+        "sv": "Homosexuella"
+    },
+    "гомогенез": {
+        "en": "Homogenesis",
+        "fr": "Homogène",
+        "de": "Homogenese",
+        "it": "Homogenesi",
+        "pt": "Homogênese",
+        "es": "Homogenesis",
+        "sv": "Homogenes"
+    },
+    "гомокератопластика": {
+        "en": "Homoceratoplasty",
+        "fr": "Homocérate plastique",
+        "de": "Homokeratoplastik",
+        "it": "Homoceratoplastica",
+        "pt": "Homoceratoplastia",
+        "es": "Homoceratoplástico",
+        "sv": "Homokeratoplastik"
+    },
+    "гомопереход": {
+        "en": "Homosexuality",
+        "fr": "Homo transit",
+        "de": "Homosexuelle Übergang",
+        "it": "La passeggiata",
+        "pt": "Caminho Homem",
+        "es": "Homo transcurso",
+        "sv": "Homoövergång"
+    },
+    "гоморомантик": {
+        "en": "Homeromancy",
+        "fr": "Homoromantique",
+        "de": "Homoromantik",
+        "it": "Homoromantico",
+        "pt": "Homeromântico",
+        "es": "Homoromántico",
+        "sv": "Homeromantiska"
+    },
+    "гомосексуалист": {
+        "en": "The homosexual",
+        "fr": "Homosexuels",
+        "de": "Homosexuelle",
+        "it": "omosessuale",
+        "pt": "Homosexual",
+        "es": "homosexual",
+        "sv": "homosexuell"
+    },
+    "гомосексуальность": {
+        "en": "Homosexuality",
+        "fr": "Homosexualité",
+        "de": "Homosexualität",
+        "it": "omosessualità",
+        "pt": "homossexualidade",
+        "es": "homosexualidad",
+        "sv": "Homosexualitet"
+    },
+    "гомотрансплантат": {
+        "en": "Homotransplantation",
+        "fr": "Homotransplantation",
+        "de": "Homotransplantation",
+        "it": "Homotransplantazione",
+        "pt": "Homotransplantação",
+        "es": "Homotransplantación",
+        "sv": "Homotransplantat"
+    },
+    "гомофоб": {
+        "en": "Homophobic",
+        "fr": "Homofob",
+        "de": "Homophob",
+        "it": "Homofob",
+        "pt": "Homofobia",
+        "es": "Homofobia",
+        "sv": "Homofob"
+    },
+    "гомоэротика": {
+        "en": "HomoErotic",
+        "fr": "Homoérotique",
+        "de": "Homosexualität",
+        "it": "HomoErotica",
+        "pt": "Homoerótica",
+        "es": "Homoerótica",
+        "sv": "Homoerotiska"
+    },
+    "гомункул": {
+        "en": "Homeculture",
+        "fr": "Homoncules",
+        "de": "Homosexuelle",
+        "it": "Homicolo",
+        "pt": "Homem",
+        "es": "homónimos",
+        "sv": "Humming"
+    },
+    "гондурасец": {
+        "en": "The Honduras",
+        "fr": "Honduras",
+        "de": "Honduraser",
+        "it": "Hondurasese",
+        "pt": "Honduras",
+        "es": "Honduras",
+        "sv": "Honduras"
+    },
+    "гоненье": {
+        "en": "The Hunting",
+        "fr": "La course",
+        "de": "Verfolgen",
+        "it": "La caccia",
+        "pt": "Caça",
+        "es": "Caza",
+        "sv": "förföljelse"
+    },
+    "гониометр": {
+        "en": "Goniometer",
+        "fr": "Goniomètre",
+        "de": "Goniometer",
+        "it": "Goniometro",
+        "pt": "Goniômetro",
+        "es": "Goniómetro",
+        "sv": "Goniometer"
+    },
+    "гониопунктура": {
+        "en": "Goniopunktur",
+        "fr": "Gonopunkture",
+        "de": "Goniopunktur",
+        "it": "Gonopuntura",
+        "pt": "Gonopuntura",
+        "es": "Gonopuntura",
+        "sv": "Gonopunktur"
+    },
+    "гонконгец": {
+        "en": "The Hong Kong",
+        "fr": "Hongkongs",
+        "de": "Königreich",
+        "it": "Il Hong Kong",
+        "pt": "Gonçalho",
+        "es": "HONGKONG",
+        "sv": "Hongkonger"
+    },
+    "грошик": {
+        "en": "money",
+        "fr": "L’argent",
+        "de": "Geld",
+        "it": "denaro",
+        "pt": "Dinheiro",
+        "es": "El dinero",
+        "sv": "Pengar"
+    },
+    "грузинец": {
+        "en": "The Georgian",
+        "fr": "Géorgien",
+        "de": "Georgiens",
+        "it": "Georgiano",
+        "pt": "Georgiano",
+        "es": "georgiano",
+        "sv": "Georgiens"
+    },
+    "грузоотправитель": {
+        "en": "The cargo dealer",
+        "fr": "Livreur de marchandises",
+        "de": "Frachtvertreter",
+        "it": "speditore di merci",
+        "pt": "Envio de carga",
+        "es": "Envío de carga",
+        "sv": "fraktförare"
+    },
+    "грумантит": {
+        "en": "Gramatic",
+        "fr": "Gromatisme",
+        "de": "Grummheit",
+        "it": "Grammatica",
+        "pt": "Grumante",
+        "es": "Grumante",
+        "sv": "grymt"
+    },
+    "грунтомер": {
+        "en": "Grounded",
+        "fr": "Territoire",
+        "de": "Grüner",
+        "it": "Il terreno",
+        "pt": "Terrestre",
+        "es": "Terremoto",
+        "sv": "jordmätare"
+    },
+    "грунторез": {
+        "en": "Grounded",
+        "fr": "Territoire",
+        "de": "Gründung",
+        "it": "Il terreno",
+        "pt": "terraço",
+        "es": "Terremoto",
+        "sv": "Jordbävning"
+    },
+    "группенфюрер": {
+        "en": "Group Furyer",
+        "fr": "Groupe Fourier",
+        "de": "Gruppenführer",
+        "it": "Gruppi di fornitore",
+        "pt": "Grupo Furador",
+        "es": "GrupoFuerrer",
+        "sv": "Gruppföremål"
+    },
+    "групповушка": {
+        "en": "The group",
+        "fr": "Groupe",
+        "de": "Gruppe",
+        "it": "Gruppo",
+        "pt": "Grupo",
+        "es": "grupo",
+        "sv": "Gruppvakt"
+    },
+    "грушанковые": {
+        "en": "The Grush",
+        "fr": "Grossiers",
+        "de": "Graschen",
+        "it": "Grossano",
+        "pt": "Grúas",
+        "es": "Grúas",
+        "sv": "Grönskande"
+    },
+    "грыжник": {
+        "en": "The grind",
+        "fr": "Le gîte",
+        "de": "Die Hühner",
+        "it": "Il grigio",
+        "pt": "Caminhão",
+        "es": "El griego",
+        "sv": "Hjärta"
+    },
+    "грэй": {
+        "en": "Greek",
+        "fr": "Gray",
+        "de": "Gray",
+        "it": "Gray",
+        "pt": "Grécia",
+        "es": "Griego",
+        "sv": "Gray"
+    },
+    "гуанозин": {
+        "en": "Guanozine",
+        "fr": "Guanosine",
+        "de": "Guanozin",
+        "it": "Guanozino",
+        "pt": "Guanozina",
+        "es": "Guanozino",
+        "sv": "Guanozin"
+    },
+    "гугенот": {
+        "en": "Guggen",
+        "fr": "Gugène",
+        "de": "Guggen",
+        "it": "Guglio",
+        "pt": "Guião",
+        "es": "Guión",
+        "sv": "Guggenet"
+    },
+    "гугиаит": {
+        "en": "Gujarat",
+        "fr": "Guiat",
+        "de": "Gugiait",
+        "it": "Gujarat",
+        "pt": "Guião",
+        "es": "Guión",
+        "sv": "Gujarat"
+    },
+    "гуглер": {
+        "en": "by google",
+        "fr": "Google",
+        "de": "Googleer",
+        "it": "Il Google",
+        "pt": "O Google",
+        "es": "Gugler",
+        "sv": "Googlar"
+    },
+    "гугол": {
+        "en": "Googles",
+        "fr": "Googles",
+        "de": "Googles",
+        "it": "Gugli",
+        "pt": "Gogol",
+        "es": "Gugón",
+        "sv": "Gogol"
+    },
+    "гудочник": {
+        "en": "The speaker",
+        "fr": "Le dicton",
+        "de": "Sprichwort",
+        "it": "Giocattoli",
+        "pt": "Dicionário",
+        "es": "Guión",
+        "sv": "Huvudbok"
+    },
+    "гудрон": {
+        "en": "by Godron",
+        "fr": "Goudron",
+        "de": "GUDRON",
+        "it": "di Goodron",
+        "pt": "GUDRÃO",
+        "es": "GUDRON",
+        "sv": "GUDRON"
+    },
+    "гудронище": {
+        "en": "The Goodwill",
+        "fr": "Mouvement",
+        "de": "Götzern",
+        "it": "Il saggio",
+        "pt": "Curiosidade",
+        "es": "Gastronomía",
+        "sv": "Döden"
+    },
+    "гужеед": {
+        "en": "Gujarat",
+        "fr": "Gujet",
+        "de": "Guggen",
+        "it": "Gujarat",
+        "pt": "Guião",
+        "es": "Guión",
+        "sv": "Gojed"
+    },
+    "гуиро": {
+        "en": "by Guiro",
+        "fr": "Guière",
+        "de": "Geiro",
+        "it": "Guiano",
+        "pt": "Guião",
+        "es": "Guíro",
+        "sv": "guirot"
+    },
+    "гулючки": {
+        "en": "Walking",
+        "fr": "Joueurs",
+        "de": "Spaziergang",
+        "it": "Giocattoli",
+        "pt": "caminhadas",
+        "es": "Juegos",
+        "sv": "Spelare"
+    },
+    "гуманизм": {
+        "en": "Humanism",
+        "fr": "Humanisme",
+        "de": "Humanismus",
+        "it": "umanismo",
+        "pt": "Humanismo",
+        "es": "Humanismo",
+        "sv": "Humanism"
+    },
+    "гуманистка": {
+        "en": "Humanist",
+        "fr": "humaniste",
+        "de": "Humanistisch",
+        "it": "umanista",
+        "pt": "Humanista",
+        "es": "humanista",
+        "sv": "Humanistiska"
+    },
+    "гумификация": {
+        "en": "Humification",
+        "fr": "Humification",
+        "de": "Humifizierung",
+        "it": "Humicazione",
+        "pt": "Humificação",
+        "es": "Humificación",
+        "sv": "Humifiering"
+    },
+    "гуммигут": {
+        "en": "Humidified",
+        "fr": "Humeur",
+        "de": "Gummigut",
+        "it": "Gummiugato",
+        "pt": "HUMMIGUTA",
+        "es": "Gómez",
+        "sv": "Gummi"
+    },
+    "гуммиластик": {
+        "en": "HUMMILASTIC",
+        "fr": "HUMMILASTIC",
+        "de": "Humilastisch",
+        "it": "Humilistica",
+        "pt": "Humilista",
+        "es": "Humilistas",
+        "sv": "Hummelistiska"
+    },
+    "гуммирование": {
+        "en": "Humidity",
+        "fr": "Humeur",
+        "de": "Humorierung",
+        "it": "Humidificazione",
+        "pt": "Humorização",
+        "es": "Huminación",
+        "sv": "Humör"
+    },
+    "гуммоз": {
+        "en": "Humorous",
+        "fr": "Humeur",
+        "de": "Hummose",
+        "it": "L’umorismo",
+        "pt": "Humor",
+        "es": "Humor",
+        "sv": "Humör"
+    },
+    "гуна": {
+        "en": "Guna",
+        "fr": "Guna",
+        "de": "Guna",
+        "it": "Guna",
+        "pt": "Guna",
+        "es": "Guna",
+        "sv": "Guna"
+    },
+    "гундёж": {
+        "en": "Gundy",
+        "fr": "Gongée",
+        "de": "Gundus",
+        "it": "Gunghi",
+        "pt": "Guião",
+        "es": "Gandía",
+        "sv": "Gungel"
+    },
+    "гунфу": {
+        "en": "GUNFU",
+        "fr": "GUNFU",
+        "de": "GUNFU",
+        "it": "Gonfiore",
+        "pt": "Gonçalho",
+        "es": "GUNFO",
+        "sv": "Gunnor"
+    },
+    "гуриец": {
+        "en": "Gourmet",
+        "fr": "Gouret",
+        "de": "Die Gourmet",
+        "it": "Il guglio",
+        "pt": "Gúria",
+        "es": "Guión",
+        "sv": "Guriet"
+    },
+    "гурия": {
+        "en": "GURIA",
+        "fr": "Gouria",
+        "de": "Gouria",
+        "it": "Gouria",
+        "pt": "Gúria",
+        "es": "Gúria",
+        "sv": "Gurias"
+    },
+    "гуртоправ": {
+        "en": "Gourmet",
+        "fr": "Gourmet",
+        "de": "Gurtrecht",
+        "it": "Il Giro",
+        "pt": "Grúas",
+        "es": "Gútero",
+        "sv": "Rättvisa"
+    },
+    "гусан": {
+        "en": "by Gusan",
+        "fr": "Gusane",
+        "de": "Gusan",
+        "it": "Gusano",
+        "pt": "Gusão",
+        "es": "Gusan",
+        "sv": "Gussan"
+    },
+    "гусарчик": {
+        "en": "The Gusar",
+        "fr": "Gussard",
+        "de": "Gussarchen",
+        "it": "Gucciolo",
+        "pt": "Gússara",
+        "es": "Gujarat",
+        "sv": "Gussare"
+    },
+    "гусельник": {
+        "en": "The Gusler",
+        "fr": "Gouillard",
+        "de": "Guseln",
+        "it": "Gusellano",
+        "pt": "Guião",
+        "es": "Guión",
+        "sv": "Gusseln"
+    },
+    "гусеничка": {
+        "en": "Gunset",
+        "fr": "Gusine",
+        "de": "Die Hussein",
+        "it": "Gucciola",
+        "pt": "Guião",
+        "es": "Guión",
+        "sv": "Hushåll"
+    },
+    "гусеёб": {
+        "en": "Hussein",
+        "fr": "Hussein",
+        "de": "Hussein",
+        "it": "Gucci",
+        "pt": "Guião",
+        "es": "Guión",
+        "sv": "Hushåll"
+    },
+    "густёрка": {
+        "en": "Gastronomy",
+        "fr": "gourmande",
+        "de": "Gastronomie",
+        "it": "Gastronomia",
+        "pt": "Gúster",
+        "es": "Gastronomía",
+        "sv": "Kvinna"
+    },
+    "гусыня": {
+        "en": "by Gusina",
+        "fr": "Gusine",
+        "de": "Götzen",
+        "it": "La guancia",
+        "pt": "Gússia",
+        "es": "Guión",
+        "sv": "Gussin"
+    },
+    "гусь": {
+        "en": "Gus",
+        "fr": "Gus",
+        "de": "Guss",
+        "it": "Gucci",
+        "pt": "Guias",
+        "es": "Guión",
+        "sv": "Gussar"
+    },
+    "гусятина": {
+        "en": "by Gucci",
+        "fr": "Gusine",
+        "de": "Götzen",
+        "it": "Gucciolo",
+        "pt": "Guiana",
+        "es": "Guión",
+        "sv": "Gussin"
+    },
+    "гуцулка": {
+        "en": "Gucci",
+        "fr": "Gucci",
+        "de": "Gucci",
+        "it": "Gucci",
+        "pt": "Guculca",
+        "es": "Guculca",
+        "sv": "Gucci"
+    },
+    "гущеед": {
+        "en": "by Gujarat",
+        "fr": "Gucci",
+        "de": "Götzen",
+        "it": "Gucciolo",
+        "pt": "Guião",
+        "es": "Guión",
+        "sv": "Hushåll"
+    },
+    "гэбэшник": {
+        "en": "The Hebei",
+        "fr": "Gabbé",
+        "de": "Hübscher",
+        "it": "Il cappello",
+        "pt": "Cabeçã",
+        "es": "Habsburgo",
+        "sv": "Växjö"
+    },
+    "гэг": {
+        "en": "GAG",
+        "fr": "GAG",
+        "de": "GAG",
+        "it": "GEG",
+        "pt": "GAG",
+        "es": "GAG",
+        "sv": "GAG"
+    },
+    "гэта": {
+        "en": "This is",
+        "fr": "C’est",
+        "de": "Das ist",
+        "it": "Questo",
+        "pt": "Esta é",
+        "es": "Esta es",
+        "sv": "Detta är"
+    },
+    "давило": {
+        "en": "Dusted",
+        "fr": "La pression",
+        "de": "Dämpfen",
+        "it": "La pressione",
+        "pt": "Deixou",
+        "es": "Dificultad",
+        "sv": "tryckta"
+    },
+    "давёж": {
+        "en": "long time",
+        "fr": "Le long",
+        "de": "Lange Zeit",
+        "it": "Il tempo",
+        "pt": "Duração",
+        "es": "El largo",
+        "sv": "Långtid"
+    },
+    "дагганит": {
+        "en": "by Daghanit",
+        "fr": "DAGGANT",
+        "de": "Dagghanit",
+        "it": "Taggato",
+        "pt": "Daganita",
+        "es": "Daganito",
+        "sv": "Dagganit"
+    },
+    "дагеротип": {
+        "en": "The Dagerotype",
+        "fr": "DAGEROTYPE",
+        "de": "Das Dagerotyp",
+        "it": "Il Dagerotipo",
+        "pt": "Digerótipo",
+        "es": "Dagerotipo",
+        "sv": "Dagertyp"
+    },
+    "дагоба": {
+        "en": "DAGOBA",
+        "fr": "DAGOBA",
+        "de": "DAGOBA",
+        "it": "DAGOBA",
+        "pt": "DAGOBA",
+        "es": "Douglas",
+        "sv": "Dagobas"
+    },
+    "дадаист": {
+        "en": "Dadaist",
+        "fr": "Dadaïste",
+        "de": "Dadaist",
+        "it": "Daudista",
+        "pt": "Dadais",
+        "es": "Dadaís",
+        "sv": "Dadaistiska"
+    },
+    "дайвинг": {
+        "en": "DAVING",
+        "fr": "Le DAVING",
+        "de": "Das DAVING",
+        "it": "Il DAVING",
+        "pt": "DAVING",
+        "es": "DAVING",
+        "sv": "DAVING"
+    },
+    "дайхардовец": {
+        "en": "The Dharma",
+        "fr": "Le Dharma",
+        "de": "Die Dakar",
+        "it": "Il diavolo",
+        "pt": "Daiardo",
+        "es": "Dajardo",
+        "sv": "Dajardov"
+    },
+    "дакиардит": {
+        "en": "by Dakar",
+        "fr": "Dakiardite",
+        "de": "Dakiardit",
+        "it": "Daccardi",
+        "pt": "Daquiardi",
+        "es": "Daquiardi",
+        "sv": "Dakarit"
+    },
+    "дакрил": {
+        "en": "DACRIL",
+        "fr": "Dacryl",
+        "de": "Das Dakar",
+        "it": "di Dakar",
+        "pt": "Dacril",
+        "es": "DACRIL",
+        "sv": "DAKRIL"
+    },
+    "дакриолит": {
+        "en": "Dacryolitis",
+        "fr": "Dacryolite",
+        "de": "Dacryolitis",
+        "it": "Dacriolite",
+        "pt": "Dacriolite",
+        "es": "Dacriolitis",
+        "sv": "Dacryoliter"
+    },
+    "дактилограмма": {
+        "en": "DACTILOGRAM",
+        "fr": "Dactylogramme",
+        "de": "Das Daktilogramm",
+        "it": "Il Daktilogramma",
+        "pt": "Dactilograma",
+        "es": "Dactilograma",
+        "sv": "Daktilogrammet"
+    },
+    "дактилоскопирование": {
+        "en": "Dactiloscopy",
+        "fr": "Dactyloscopie",
+        "de": "Daktiloskopie",
+        "it": "Daktiloscopia",
+        "pt": "Dactiloscopia",
+        "es": "Dactiloscopía",
+        "sv": "Daktiloskopi"
+    },
+    "дальневосточник": {
+        "en": "The Far East",
+        "fr": "L'Est lointain",
+        "de": "Ferner Osten",
+        "it": "Il lontano Oriente",
+        "pt": "O Longo Oriente",
+        "es": "El Lejano Oriente",
+        "sv": "Fjärran Östern"
+    },
+    "дальтоник": {
+        "en": "The Dalton",
+        "fr": "Dalton",
+        "de": "Der Dalton",
+        "it": "Il daltonico",
+        "pt": "Daltônico",
+        "es": "Daltónico",
+        "sv": "Daltoniska"
+    },
+    "далёкость": {
+        "en": "Distance",
+        "fr": "Distance",
+        "de": "Entfernung",
+        "it": "Distanza",
+        "pt": "Distância",
+        "es": "Distancia",
+        "sv": "avstånd"
+    },
+    "дамка": {
+        "en": "Damian",
+        "fr": "Damique",
+        "de": "DAMK",
+        "it": "Damiano",
+        "pt": "Damaça",
+        "es": "DAMCA",
+        "sv": "DAMKA"
+    },
+    "дансит": {
+        "en": "Dancing",
+        "fr": "Danseur",
+        "de": "Tanzen",
+        "it": "danza",
+        "pt": "Dança",
+        "es": "Danza",
+        "sv": "Dansar"
+    },
+    "дар": {
+        "en": "The gift",
+        "fr": "Le don",
+        "de": "Geschenk",
+        "it": "Il dono",
+        "pt": "Dado",
+        "es": "El don",
+        "sv": "gåva"
+    },
+    "дарбази": {
+        "en": "Darbasi",
+        "fr": "Darbaï",
+        "de": "Darbaus",
+        "it": "di Darbasi",
+        "pt": "Darbaço",
+        "es": "Darbacio",
+        "sv": "Darbaci"
+    },
+    "дарение": {
+        "en": "donation",
+        "fr": "Donation",
+        "de": "Spende",
+        "it": "Donazione",
+        "pt": "doação",
+        "es": "La donación",
+        "sv": "Givande"
+    },
+    "даритель": {
+        "en": "The Donor",
+        "fr": "Donateur",
+        "de": "Der Spender",
+        "it": "Donatore",
+        "pt": "doador",
+        "es": "Donador",
+        "sv": "Givare"
+    },
+    "дармовщина": {
+        "en": "Darwinism",
+        "fr": "Dharma",
+        "de": "Darwinismus",
+        "it": "Dharma",
+        "pt": "Darmão",
+        "es": "Darmo",
+        "sv": "Darmväska"
+    },
+    "даровщинка": {
+        "en": "The donor",
+        "fr": "donneur",
+        "de": "Geschenke",
+        "it": "Donatore",
+        "pt": "doador",
+        "es": "donación",
+        "sv": "Givare"
+    },
+    "дароносица": {
+        "en": "The Giant",
+        "fr": "Donnée",
+        "de": "Geschenke",
+        "it": "Giornata",
+        "pt": "Dourada",
+        "es": "La donación",
+        "sv": "Gödseln"
+    },
+    "датасет": {
+        "en": "Datasets",
+        "fr": "Datasets",
+        "de": "Das Datum",
+        "it": "Il datato",
+        "pt": "Datas",
+        "es": "Datas",
+        "sv": "Datasett"
+    },
+    "даттонит": {
+        "en": "Dattonite",
+        "fr": "Dattonite",
+        "de": "Dattonitis",
+        "it": "Dattonite",
+        "pt": "DATONITAÇÃO",
+        "es": "DATONITAS",
+        "sv": "Dattonit"
+    },
+    "датчанка": {
+        "en": "Danish",
+        "fr": "danois",
+        "de": "Dänisch",
+        "it": "danese",
+        "pt": "Dinamarca",
+        "es": "danesa",
+        "sv": "Danska"
+    },
+    "дацит": {
+        "en": "DACIT",
+        "fr": "DACIT",
+        "de": "Das Duft",
+        "it": "Dacita",
+        "pt": "Dacia",
+        "es": "Dacita",
+        "sv": "DACIT"
+    },
+    "дачник": {
+        "en": "The donor",
+        "fr": "Le donateur",
+        "de": "Zuschauer",
+        "it": "Il donatore",
+        "pt": "doador",
+        "es": "El donante",
+        "sv": "Läkare"
+    },
+    "дашнак": {
+        "en": "The Daesh",
+        "fr": "La douche",
+        "de": "Das Dach",
+        "it": "di Dashak",
+        "pt": "Dança",
+        "es": "Dajón",
+        "sv": "Skåne"
+    },
+    "даяк": {
+        "en": "The Daak",
+        "fr": "Le Daïk",
+        "de": "Daak",
+        "it": "Daiaco",
+        "pt": "Diaque",
+        "es": "El diaño",
+        "sv": "Dajak"
+    },
+    "двадцатигранник": {
+        "en": "Twenty Grants",
+        "fr": "Vingt-trois",
+        "de": "Zwanziggrenze",
+        "it": "Il ventesimo",
+        "pt": "Vinte grãos",
+        "es": "Vinte griegos",
+        "sv": "tjugofyra gränser"
+    },
+    "двадцатидевятилетие": {
+        "en": "twenty years",
+        "fr": "vingt-neuf ans",
+        "de": "Zwanzigjährige",
+        "it": "ventidici anni",
+        "pt": "vinte anos",
+        "es": "Veinte años",
+        "sv": "tjugoårsåldern"
+    },
+    "двадцатипятирублёвка": {
+        "en": "twenty-five rubles",
+        "fr": "Vingt-cinq rouleaux",
+        "de": "Zwanzigbündel",
+        "it": "ventiquattro",
+        "pt": "Vinte e cinco rublos",
+        "es": "Vinte y cinco rublos",
+        "sv": "tjugofem krukor"
+    },
+    "двенадцатигранник": {
+        "en": "The Twelve",
+        "fr": "Douze frontières",
+        "de": "Zwölf Grenzen",
+        "it": "Dodici grani",
+        "pt": "Doze Fronteiras",
+        "es": "Doce Fronteras",
+        "sv": "Tolvgränsen"
+    },
+    "двенадцатиугольник": {
+        "en": "Twelve corners",
+        "fr": "Douze angles",
+        "de": "Zwanzigkugel",
+        "it": "Dodici angoli",
+        "pt": "Doze ângulos",
+        "es": "Doce columnas",
+        "sv": "Tionde hörnet"
+    },
+    "двенадцатиэтажка": {
+        "en": "The Twelve",
+        "fr": "Douze étages",
+        "de": "Zwanzigstücke",
+        "it": "Dodici piani",
+        "pt": "Doze assentos",
+        "es": "Doce cuadrados",
+        "sv": "Tionde våningen"
+    },
+    "движенец": {
+        "en": "Moving",
+        "fr": "Moteur",
+        "de": "Bewegung",
+        "it": "Movimento",
+        "pt": "Movimento",
+        "es": "Movimiento",
+        "sv": "rörelse"
+    },
+    "двоеженец": {
+        "en": "The Twin",
+        "fr": "Doublé",
+        "de": "Zwillinge",
+        "it": "Il doppio",
+        "pt": "Dois casados",
+        "es": "El doble",
+        "sv": "Tvillingar"
+    },
+    "двоемыслие": {
+        "en": "Twinly",
+        "fr": "Doublé",
+        "de": "Zweifelhaft",
+        "it": "Doppio",
+        "pt": "duplo",
+        "es": "doble",
+        "sv": "Dubbelriktad"
+    },
+    "двоеперстие": {
+        "en": "Twilight",
+        "fr": "Doublé",
+        "de": "Zwei Finger",
+        "it": "Il doppio",
+        "pt": "Dois dedos",
+        "es": "Dos dedos",
+        "sv": "Två fingrar"
+    },
+    "двоетёс": {
+        "en": "Two",
+        "fr": "Doublé",
+        "de": "Zwei",
+        "it": "Doppio",
+        "pt": "Dois",
+        "es": "dos",
+        "sv": "Två"
+    },
+    "двойбан": {
+        "en": "Double banks",
+        "fr": "Doublé",
+        "de": "Doppelbank",
+        "it": "Doppio",
+        "pt": "Duplo",
+        "es": "doble",
+        "sv": "Dubbelban"
+    },
+    "двойник": {
+        "en": "Twin",
+        "fr": "Double",
+        "de": "Doppel",
+        "it": "Doppio",
+        "pt": "Duplo",
+        "es": "doble",
+        "sv": "dubbel"
+    },
+    "дворец": {
+        "en": "The Palace",
+        "fr": "Palais",
+        "de": "Palast",
+        "it": "Il palazzo",
+        "pt": "Palácio",
+        "es": "Palacio",
+        "sv": "palatset"
+    },
+    "дворецкий": {
+        "en": "Palace",
+        "fr": "Palais",
+        "de": "Palast",
+        "it": "Palazzo",
+        "pt": "Palácio",
+        "es": "Palacio",
+        "sv": "palatset"
+    },
+    "дворик": {
+        "en": "The court",
+        "fr": "Jardin",
+        "de": "Gärtner",
+        "it": "giardino",
+        "pt": "Jardim",
+        "es": "Jardín",
+        "sv": "trädgård"
+    },
+    "дворничиха": {
+        "en": "The palace",
+        "fr": "Le palais",
+        "de": "Gärtner",
+        "it": "Il palazzo",
+        "pt": "Palácio",
+        "es": "Palacio",
+        "sv": "trädgården"
+    },
+    "дворняжка": {
+        "en": "The Palace",
+        "fr": "Le palais",
+        "de": "Gärtner",
+        "it": "Il giardino",
+        "pt": "Palácio",
+        "es": "Palacio",
+        "sv": "trädgård"
+    },
+    "дворянин": {
+        "en": "the noble",
+        "fr": "noblesse",
+        "de": "Ehrenamt",
+        "it": "Nero",
+        "pt": "nobres",
+        "es": "noble",
+        "sv": "Äldre"
+    },
+    "клинкер": {
+        "en": "Clinker",
+        "fr": "Clinker",
+        "de": "Klinker",
+        "it": "Il clinker",
+        "pt": "Clinker",
+        "es": "Clinker",
+        "sv": "Klinker"
+    },
+    "клинобехоит": {
+        "en": "Clenbuterol",
+        "fr": "clinobéchoïte",
+        "de": "Klinobehitis",
+        "it": "Clenbuterol",
+        "pt": "Clínica",
+        "es": "Clínica",
+        "sv": "Klinobehit"
+    },
+    "клинокефалия": {
+        "en": "Clinocephalia",
+        "fr": "Clinocéphalie",
+        "de": "Klinokefalien",
+        "it": "Clinocefalia",
+        "pt": "Clinocefalia",
+        "es": "Clinocefalia",
+        "sv": "klinokefali"
+    },
+    "клиноцефалия": {
+        "en": "clinocephalia",
+        "fr": "Clinocéphalie",
+        "de": "Clinozephalie",
+        "it": "Clinocefalia",
+        "pt": "Clinocefalia",
+        "es": "Clinocefalia",
+        "sv": "klinocefali"
+    },
+    "клиноэнстатит": {
+        "en": "Clinoenstatitis",
+        "fr": "Clinoestatite",
+        "de": "Klineenstatitis",
+        "it": "Clinoestatite",
+        "pt": "Clinoestatite",
+        "es": "Clinoentitis",
+        "sv": "klinoenstatit"
+    },
+    "клинышек": {
+        "en": "Clinic",
+        "fr": "Clinique",
+        "de": "Kliniken",
+        "it": "Clinica",
+        "pt": "Clínica",
+        "es": "Clínicas",
+        "sv": "Kliniska"
+    },
+    "клипса": {
+        "en": "clips",
+        "fr": "clips",
+        "de": "Klipse",
+        "it": "Il clip",
+        "pt": "clips",
+        "es": "Clipes",
+        "sv": "klipp"
+    },
+    "клирошанин": {
+        "en": "clearance",
+        "fr": "Clinique",
+        "de": "Klärung",
+        "it": "Il cliroso",
+        "pt": "Cleveland",
+        "es": "Clero",
+        "sv": "Klärande"
+    },
+    "клитика": {
+        "en": "CLICK",
+        "fr": "Clinique",
+        "de": "Klicken",
+        "it": "Clicca",
+        "pt": "Clica",
+        "es": "Clica",
+        "sv": "klickar"
+    },
+    "клица": {
+        "en": "Clica",
+        "fr": "Clique",
+        "de": "Klick",
+        "it": "Clicca",
+        "pt": "Clica",
+        "es": "Clica",
+        "sv": "klickar"
+    },
+    "клонус": {
+        "en": "Clone",
+        "fr": "Le clone",
+        "de": "Kloster",
+        "it": "Il clone",
+        "pt": "Clônus",
+        "es": "El clón",
+        "sv": "Klonning"
+    },
+    "клохтание": {
+        "en": "Clothes",
+        "fr": "Clôture",
+        "de": "Klochtung",
+        "it": "Il clocco",
+        "pt": "Coloque",
+        "es": "Coloquio",
+        "sv": "Klockning"
+    },
+    "клочка": {
+        "en": "The Clock",
+        "fr": "Chapeau",
+        "de": "Die Klappe",
+        "it": "Il clocco",
+        "pt": "Cachoeira",
+        "es": "El cuchillo",
+        "sv": "Klockan"
+    },
+    "клубнеплод": {
+        "en": "Clubfruit",
+        "fr": "Club de fruits",
+        "de": "Clubfrüchte",
+        "it": "Il club",
+        "pt": "Clube de fruta",
+        "es": "Clubes de fruta",
+        "sv": "Klubbfrukt"
+    },
+    "клубничина": {
+        "en": "Clubs",
+        "fr": "Clubs",
+        "de": "Klube",
+        "it": "Il club",
+        "pt": "Clube",
+        "es": "Clubes",
+        "sv": "Klubbar"
+    },
+    "клубничник": {
+        "en": "Clubs",
+        "fr": "Clubs",
+        "de": "Klubbücher",
+        "it": "Il club",
+        "pt": "Clube",
+        "es": "Clubes",
+        "sv": "Klubbar"
+    },
+    "клубность": {
+        "en": "Clubs",
+        "fr": "Clubs",
+        "de": "Klube",
+        "it": "Il club",
+        "pt": "Clube",
+        "es": "Clubes",
+        "sv": "Klubbar"
+    },
+    "клык": {
+        "en": "Clay",
+        "fr": "Clique",
+        "de": "Klick",
+        "it": "Clicca",
+        "pt": "Clique",
+        "es": "Clica",
+        "sv": "klickar"
+    },
+    "клюв": {
+        "en": "The key",
+        "fr": "La clé",
+        "de": "Schlüssel",
+        "it": "La chiave",
+        "pt": "Chave",
+        "es": "La llave",
+        "sv": "Nyckeln"
+    },
+    "ключарь": {
+        "en": "The Lock",
+        "fr": "Le clou",
+        "de": "Schlüssel",
+        "it": "La chiusura",
+        "pt": "Cláusula",
+        "es": "El cierre",
+        "sv": "Nyckeln"
+    },
+    "ключевскит": {
+        "en": "The key",
+        "fr": "Le clé",
+        "de": "Schlüssel",
+        "it": "La chiave",
+        "pt": "Cláusulas",
+        "es": "La clave",
+        "sv": "Nyckeln"
+    },
+    "ключик": {
+        "en": "The key",
+        "fr": "La clé",
+        "de": "Schlüssel",
+        "it": "La chiave",
+        "pt": "chave",
+        "es": "La clave",
+        "sv": "Nyckeln"
+    },
+    "ключица": {
+        "en": "The key",
+        "fr": "La clé",
+        "de": "Schlüssel",
+        "it": "La chiave",
+        "pt": "chave",
+        "es": "La clave",
+        "sv": "Nyckeln"
+    },
+    "кляссер": {
+        "en": "Cluster",
+        "fr": "Clâtre",
+        "de": "Kloster",
+        "it": "Classificatore",
+        "pt": "Clássico",
+        "es": "Clásico",
+        "sv": "Kläsare"
+    },
+    "кляцанье": {
+        "en": "The swear",
+        "fr": "Le serment",
+        "de": "Gläubigen",
+        "it": "Il giuramento",
+        "pt": "juramento",
+        "es": "El juramento",
+        "sv": "svärd"
+    },
+    "клёпань": {
+        "en": "The Clown",
+        "fr": "Le couteau",
+        "de": "Kletter",
+        "it": "Il cugino",
+        "pt": "Cachoeira",
+        "es": "El cabrón",
+        "sv": "Klämma"
+    },
+    "клёш": {
+        "en": "Clash",
+        "fr": "Cloire",
+        "de": "Kletter",
+        "it": "Il piede",
+        "pt": "Clássico",
+        "es": "Clássico",
+        "sv": "Klättring"
+    },
+    "книггер": {
+        "en": "bookmaker",
+        "fr": "Libraire",
+        "de": "Buchführer",
+        "it": "Librario",
+        "pt": "Livrador",
+        "es": "Librería",
+        "sv": "Bokmästare"
+    },
+    "книговед": {
+        "en": "The bookmaker",
+        "fr": "Libraire",
+        "de": "Bibliothek",
+        "it": "Il Libro",
+        "pt": "Livro",
+        "es": "Librería",
+        "sv": "Bokmästare"
+    },
+    "книговыдача": {
+        "en": "The book publisher",
+        "fr": "Éditeur du livre",
+        "de": "Buchverleih",
+        "it": "Libro editoriale",
+        "pt": "Edição de Livros",
+        "es": "Publicación de libros",
+        "sv": "Bokutgivare"
+    },
+    "книгоград": {
+        "en": "Bookstore",
+        "fr": "Le Livre",
+        "de": "Büchergarten",
+        "it": "Il Libro",
+        "pt": "Livros",
+        "es": "Librería",
+        "sv": "Böckerna"
+    },
+    "книгоман": {
+        "en": "Bookman",
+        "fr": "Libraire",
+        "de": "Buchmann",
+        "it": "Il Libro",
+        "pt": "Livro",
+        "es": "Librería",
+        "sv": "Bokmästare"
+    },
+    "книгопечатня": {
+        "en": "Book Printing",
+        "fr": "Livre d'impression",
+        "de": "Buchdruck",
+        "it": "La stampa del libro",
+        "pt": "Livro Impressão",
+        "es": "Libro Impresión",
+        "sv": "Bokskrivning"
+    },
+    "книгораспространение": {
+        "en": "Book Distribution",
+        "fr": "Livraison",
+        "de": "Buchverbreitung",
+        "it": "La distribuzione del libro",
+        "pt": "Livros Distribuição",
+        "es": "Libros Distribución",
+        "sv": "Bokfördelning"
+    },
+    "книгохранилище": {
+        "en": "Book Storage",
+        "fr": "librairie",
+        "de": "Buchschütze",
+        "it": "Libro magazzino",
+        "pt": "Livro guardado",
+        "es": "Librería",
+        "sv": "Bokförvaring"
+    },
+    "книжка": {
+        "en": "The book",
+        "fr": "Le livre",
+        "de": "Bücher",
+        "it": "Il libro",
+        "pt": "Livro",
+        "es": "Libro",
+        "sv": "Boken"
+    },
+    "книповичит": {
+        "en": "Books",
+        "fr": "Le Livre",
+        "de": "Büchern",
+        "it": "Il libro",
+        "pt": "Livros",
+        "es": "Librería",
+        "sv": "Böcker"
+    },
+    "кнопит": {
+        "en": "Button",
+        "fr": "Le bouton",
+        "de": "Knopf",
+        "it": "Il pulsante",
+        "pt": "botão",
+        "es": "El botón",
+        "sv": "knoppen"
+    },
+    "кнопочка": {
+        "en": "The button",
+        "fr": "Le bouton",
+        "de": "Knochen",
+        "it": "Il pulsante",
+        "pt": "botão",
+        "es": "Botón",
+        "sv": "knappen"
+    },
+    "коагулаза": {
+        "en": "Coagulated",
+        "fr": "Coagulation",
+        "de": "Koagulase",
+        "it": "La coagulazione",
+        "pt": "Coagulação",
+        "es": "La coagulación",
+        "sv": "koagulans"
+    },
+    "коагулолог": {
+        "en": "Coagulator",
+        "fr": "Coagulologue",
+        "de": "Koagulologe",
+        "it": "Il coagulante",
+        "pt": "coagulação",
+        "es": "Coagulón",
+        "sv": "koagulolog"
+    },
+    "коагулопатия": {
+        "en": "Coagulopathy",
+        "fr": "Coagulopathie",
+        "de": "Koagulopathie",
+        "it": "Coagulopatia",
+        "pt": "Coagulopatia",
+        "es": "Coagulopatia",
+        "sv": "koagulopati"
+    },
+    "коагулянт": {
+        "en": "coagulated",
+        "fr": "Coagulant",
+        "de": "Koagulant",
+        "it": "Il coagulante",
+        "pt": "Coagulante",
+        "es": "Coagulante",
+        "sv": "Koagulant"
+    },
+    "кобальтоцений": {
+        "en": "COBALTOCEN",
+        "fr": "COBALTOCENIE",
+        "de": "Kobalten",
+        "it": "COBALTOZIONE",
+        "pt": "Cobaltão",
+        "es": "Cobaltos",
+        "sv": "Kabbaltjänst"
+    },
+    "кобамамид": {
+        "en": "Cobamide",
+        "fr": "COBAMAMID",
+        "de": "Kobamide",
+        "it": "Cobamidi",
+        "pt": "Cobamão",
+        "es": "Cobamida",
+        "sv": "Kobamid"
+    },
+    "кобелёк": {
+        "en": "Cable",
+        "fr": "Cable",
+        "de": "Kabel",
+        "it": "Il COBEL",
+        "pt": "Cabelo",
+        "es": "COBELLO",
+        "sv": "Kabeln"
+    },
+    "кобол": {
+        "en": "COBOL",
+        "fr": "COBOL",
+        "de": "COBOL",
+        "it": "Il COBOL",
+        "pt": "COBOL",
+        "es": "COBOL",
+        "sv": "COBOL"
+    },
+    "кобчик": {
+        "en": "Cabbage",
+        "fr": "Kobeur",
+        "de": "Kobe",
+        "it": "Coppia",
+        "pt": "Cabeça",
+        "es": "Cabecera",
+        "sv": "Kabbis"
+    },
+    "коварность": {
+        "en": "covertness",
+        "fr": "La fraude",
+        "de": "Betrügerlichkeit",
+        "it": "La covardia",
+        "pt": "Covardia",
+        "es": "La covardia",
+        "sv": "Förräderi"
+    },
+    "коварство": {
+        "en": "The fraud",
+        "fr": "La fraude",
+        "de": "Betrug",
+        "it": "La frode",
+        "pt": "A fraude",
+        "es": "La fraude",
+        "sv": "bedrägeri"
+    },
+    "ковит": {
+        "en": "The COVIT",
+        "fr": "COVIT",
+        "de": "Kaviet",
+        "it": "Covita",
+        "pt": "COVITÃO",
+        "es": "Covita",
+        "sv": "Kaviet"
+    },
+    "коврижка": {
+        "en": "The carpet",
+        "fr": "Couverture",
+        "de": "Die Kugel",
+        "it": "Cartuccia",
+        "pt": "Coberta",
+        "es": "Cuerpo",
+        "sv": "Väska"
+    },
+    "ковроткачество": {
+        "en": "Cornering",
+        "fr": "Couleur",
+        "de": "Die Kugel",
+        "it": "La corteccia",
+        "pt": "Corridação",
+        "es": "Córdoba",
+        "sv": "Väggdäck"
+    },
+    "ковшеобразность": {
+        "en": "Coinability",
+        "fr": "Coffreté",
+        "de": "Geldbörse",
+        "it": "La moneta",
+        "pt": "Cotação",
+        "es": "La moneda",
+        "sv": "Kassaregister"
+    },
+    "ковыряльник": {
+        "en": "The cowboy",
+        "fr": "Coffreur",
+        "de": "Kämpfer",
+        "it": "Il cavaliere",
+        "pt": "Cavaleiro",
+        "es": "Caballero",
+        "sv": "Kämparen"
+    },
+    "ковёрщик": {
+        "en": "The covers",
+        "fr": "Le coffreur",
+        "de": "Die Hütte",
+        "it": "La cottura",
+        "pt": "Coberta",
+        "es": "El cobertor",
+        "sv": "Kålaren"
+    },
+    "когазин": {
+        "en": "when",
+        "fr": "Québécois",
+        "de": "Wann ist",
+        "it": "Quando è",
+        "pt": "quandozinho",
+        "es": "cuándo",
+        "sv": "När"
+    },
+    "когезин": {
+        "en": "Cogusine",
+        "fr": "Cogézin",
+        "de": "Kohezin",
+        "it": "Coagulazione",
+        "pt": "Coagulação",
+        "es": "Cogazín",
+        "sv": "Kogasin"
+    },
+    "когенит": {
+        "en": "Cognitive",
+        "fr": "Cogénite",
+        "de": "Kogenitis",
+        "it": "Cognitivo",
+        "pt": "Cogênito",
+        "es": "Cogénito",
+        "sv": "Kogenit"
+    },
+    "когнитивист": {
+        "en": "Cognitive",
+        "fr": "Cognitive",
+        "de": "Kognitivist",
+        "it": "Cognitivo",
+        "pt": "Cognitivo",
+        "es": "Cognitivo",
+        "sv": "Kognitivist"
+    },
+    "когнитивистика": {
+        "en": "Cognitive",
+        "fr": "Cognitivisme",
+        "de": "Kognitivismus",
+        "it": "Cognitivismo",
+        "pt": "Cognitivismo",
+        "es": "Cognitivismo",
+        "sv": "Kognitivism"
+    },
+    "когномен": {
+        "en": "Cognitive",
+        "fr": "Coignons",
+        "de": "Kognome",
+        "it": "Cognome",
+        "pt": "Conheça",
+        "es": "Cognión",
+        "sv": "Kognomän"
+    },
+    "когортатив": {
+        "en": "cohorted",
+        "fr": "coordonnées",
+        "de": "Korruption",
+        "it": "Coordine",
+        "pt": "Coordenação",
+        "es": "Coordinación",
+        "sv": "Korridor"
+    },
+    "коготница": {
+        "en": "The Count",
+        "fr": "La couture",
+        "de": "Die Knochen",
+        "it": "Cattolica",
+        "pt": "Quintana",
+        "es": "La cuchara",
+        "sv": "Vänstern"
+    },
+    "кограница": {
+        "en": "The border",
+        "fr": "La frontière",
+        "de": "Grenze",
+        "it": "Il confine",
+        "pt": "Fronteiras",
+        "es": "La frontera",
+        "sv": "gränsen"
+    },
+    "когтеносец": {
+        "en": "Cognitive",
+        "fr": "Cognitive",
+        "de": "Cognitive",
+        "it": "Cognitore",
+        "pt": "Cognitivo",
+        "es": "Cogtenero",
+        "sv": "Cognitiva"
+    },
+    "кодеиномания": {
+        "en": "Codeignity",
+        "fr": "Codeïnomanie",
+        "de": "Koffein",
+        "it": "codinomania",
+        "pt": "codinômia",
+        "es": "codinomania",
+        "sv": "kodinomania"
+    },
+    "кодер": {
+        "en": "Coders",
+        "fr": "Codeur",
+        "de": "Koder",
+        "it": "Codice",
+        "pt": "Código",
+        "es": "Código",
+        "sv": "Kodare"
+    },
+    "кодериват": {
+        "en": "Code of",
+        "fr": "Codeur",
+        "de": "Codierung",
+        "it": "Codificazione",
+        "pt": "Código",
+        "es": "Código",
+        "sv": "Kodning"
+    },
+    "кодиокарпус": {
+        "en": "CODIO CARPUS",
+        "fr": "CODIO CARPUS",
+        "de": "Kodiakarpus",
+        "it": "Il codicarbus",
+        "pt": "CODIOCARPUS",
+        "es": "CODIO CARPUS",
+        "sv": "Kodokarpus"
+    },
+    "кодировщица": {
+        "en": "The coder",
+        "fr": "Codeur",
+        "de": "Codierung",
+        "it": "codificatore",
+        "pt": "codificador",
+        "es": "codificador",
+        "sv": "kodare"
+    },
+    "кодопреобразователь": {
+        "en": "Code Converter",
+        "fr": "Code Convertisseur",
+        "de": "Codeübertreiber",
+        "it": "Codificatore",
+        "pt": "Conversor de Código",
+        "es": "Codificación",
+        "sv": "kodomvandlare"
+    },
+    "кодрант": {
+        "en": "The code",
+        "fr": "codeur",
+        "de": "Kodant",
+        "it": "coderato",
+        "pt": "Código",
+        "es": "Código",
+        "sv": "koden"
+    },
+    "кожеед": {
+        "en": "The skin",
+        "fr": "La peau",
+        "de": "Hühner",
+        "it": "La pelle",
+        "pt": "Cozinha",
+        "es": "Cuerpo",
+        "sv": "Sköldpadda"
+    },
+    "кожемяка": {
+        "en": "The Skin",
+        "fr": "La peau",
+        "de": "Die Haut",
+        "it": "La pelle",
+        "pt": "Cozinha",
+        "es": "La piel",
+        "sv": "läder"
+    },
+    "кожурка": {
+        "en": "The cowboy",
+        "fr": "Couleur",
+        "de": "Katzen",
+        "it": "Il pellegrino",
+        "pt": "Cordeiro",
+        "es": "Córdoba",
+        "sv": "Håren"
+    },
+    "козелец": {
+        "en": "The Cowboy",
+        "fr": "Les chèvres",
+        "de": "Kiesel",
+        "it": "Il capra",
+        "pt": "Cozinha",
+        "es": "El caballo",
+        "sv": "Hästen"
+    },
+    "козельчанка": {
+        "en": "The cowboy",
+        "fr": "Les chèvres",
+        "de": "Kieselchen",
+        "it": "Il capra",
+        "pt": "Cozinha",
+        "es": "La cabra",
+        "sv": "Kossor"
+    },
+    "козичанин": {
+        "en": "The Cossy",
+        "fr": "Cozicane",
+        "de": "Kaischen",
+        "it": "Cossicani",
+        "pt": "Cozinha",
+        "es": "Cozicán",
+        "sv": "Kosian"
+    },
+    "козлец": {
+        "en": "The Cowboy",
+        "fr": "Le chèvre",
+        "de": "Kätzchen",
+        "it": "Il capra",
+        "pt": "Cozinha",
+        "es": "El caballo",
+        "sv": "Hästen"
+    },
+    "козлина": {
+        "en": "The Cowboy",
+        "fr": "Les chèvres",
+        "de": "Kiesel",
+        "it": "Il capra",
+        "pt": "Cozinha",
+        "es": "El caballo",
+        "sv": "Kvinna"
+    },
+    "козлобородость": {
+        "en": "The freedom",
+        "fr": "La liberté",
+        "de": "Knochenfreiheit",
+        "it": "La libertà",
+        "pt": "Liberdade de cabra",
+        "es": "La cabra",
+        "sv": "Halsfrihet"
+    },
+    "козульник": {
+        "en": "The Cognac",
+        "fr": "Coussin",
+        "de": "Küsler",
+        "it": "Il cappello",
+        "pt": "Cozinha",
+        "es": "Cozón",
+        "sv": "Käsare"
+    },
+    "козырёк": {
+        "en": "The Cowboy",
+        "fr": "La chèvre",
+        "de": "Kozyre",
+        "it": "Cucciolo",
+        "pt": "Cozinha",
+        "es": "Caballero",
+        "sv": "Kossor"
+    },
+    "козявочка": {
+        "en": "The Cowboy",
+        "fr": "Le cochon",
+        "de": "Schafe",
+        "it": "Il capra",
+        "pt": "Cozinha",
+        "es": "El caballo",
+        "sv": "Hästen"
+    },
+    "койбал": {
+        "en": "Quebec",
+        "fr": "Québec",
+        "de": "Kojbal",
+        "it": "Il Quebec",
+        "pt": "Quebal",
+        "es": "Quibal",
+        "sv": "Kojbal"
+    },
+    "койка": {
+        "en": "beds",
+        "fr": "Le lit",
+        "de": "Bett",
+        "it": "letto",
+        "pt": "Camaça",
+        "es": "La cama",
+        "sv": "säng"
+    },
+    "койловер": {
+        "en": "Koylover",
+        "fr": "Le couloir",
+        "de": "Kojlover",
+        "it": "Il Kiev",
+        "pt": "Caiuão",
+        "es": "Quijote",
+        "sv": "Kojovern"
+    },
+    "койне": {
+        "en": "beds",
+        "fr": "Le lit",
+        "de": "Stiefel",
+        "it": "Il letto",
+        "pt": "Camiseta",
+        "es": "Camisetas",
+        "sv": "Sängar"
+    },
+    "койот": {
+        "en": "Who is",
+        "fr": "Qui est",
+        "de": "Welche",
+        "it": "Chi è",
+        "pt": "Quão",
+        "es": "Quienes",
+        "sv": "Vem är"
+    },
+    "всё": {
+        "en": "All",
+        "fr": "Tout",
+        "de": "Alles",
+        "it": "Tutto",
+        "pt": "Tudo",
+        "es": "Todo",
+        "sv": "Allt"
+    },
+    "немало": {
+        "en": "a lot",
+        "fr": "Beaucoup",
+        "de": "Vieles",
+        "it": "Molto",
+        "pt": "Muito",
+        "es": "Mucho",
+        "sv": "Mycket"
+    },
+    "русский": {
+        "en": "Russian",
+        "fr": "russe",
+        "de": "Russisch",
+        "it": "russo",
+        "pt": "russo",
+        "es": "ruso",
+        "sv": "Ryska"
+    },
+    "милый": {
+        "en": "Lovely",
+        "fr": "doux",
+        "de": "süße",
+        "it": "dolce",
+        "pt": "doce",
+        "es": "dulce",
+        "sv": "söta"
+    },
+    "возить": {
+        "en": "driving",
+        "fr": "conduire",
+        "de": "Fahren",
+        "it": "guidare",
+        "pt": "conduzir",
+        "es": "conducir",
+        "sv": "Körning"
+    },
+    "гулять": {
+        "en": "Walking",
+        "fr": "marche",
+        "de": "Spazieren",
+        "it": "camminare",
+        "pt": "andando",
+        "es": "caminar",
+        "sv": "promenader"
+    },
+    "бездельничать": {
+        "en": "Uninterrupted",
+        "fr": "Inondation",
+        "de": "Untätig",
+        "it": "Sconosciuto",
+        "pt": "Desafio",
+        "es": "Desafortunado",
+        "sv": "Dödslösa"
+    },
+    "он": {
+        "en": "He",
+        "fr": "Il est",
+        "de": "Er ist",
+        "it": "Lui è",
+        "pt": "Ele é",
+        "es": "Él",
+        "sv": "Han är"
+    },
+    "онъ": {
+        "en": "He is",
+        "fr": "Il est",
+        "de": "Er ist",
+        "it": "Lui è",
+        "pt": "Ele é",
+        "es": "Él",
+        "sv": "Han är"
+    },
+    "Антон": {
+        "en": "Anton",
+        "fr": "Antoine",
+        "de": "Anton",
+        "it": "di Anton",
+        "pt": "Antão",
+        "es": "Antón",
+        "sv": "Anton"
+    },
+    "экзорцист": {
+        "en": "Exorcist",
+        "fr": "Exorciste",
+        "de": "Exorzistisch",
+        "it": "Exorcista",
+        "pt": "Exorcista",
+        "es": "Exorcistas",
+        "sv": "Exorcist"
+    },
+    "корабль": {
+        "en": "The ship",
+        "fr": "Le bateau",
+        "de": "Das Schiff",
+        "it": "La nave",
+        "pt": "navio",
+        "es": "El barco",
+        "sv": "fartyget"
+    },
+    "вода": {
+        "en": "Water",
+        "fr": "eau",
+        "de": "Wasser",
+        "it": "L’acqua",
+        "pt": "Água",
+        "es": "El agua",
+        "sv": "Vatten"
+    },
+    "правда": {
+        "en": "The truth",
+        "fr": "Vérité",
+        "de": "Wahrheit",
+        "it": "La verità",
+        "pt": "Verdade",
+        "es": "La verdad",
+        "sv": "Sanningen"
+    },
+    "агрессия": {
+        "en": "Aggression",
+        "fr": "Aggression",
+        "de": "Aggression",
+        "it": "Aggressione",
+        "pt": "Agressão",
+        "es": "agresión",
+        "sv": "Aggression"
+    },
+    "кандидат": {
+        "en": "Candidate",
+        "fr": "Candidat",
+        "de": "Kandidat",
+        "it": "Candidato",
+        "pt": "Candidato",
+        "es": "Candidato",
+        "sv": "Kandidat"
+    },
+    "алаверды": {
+        "en": "The Alaverda",
+        "fr": "Alabama",
+        "de": "Alaverda",
+        "it": "di Alaverda",
+        "pt": "ALAVERDA",
+        "es": "Alabama",
+        "sv": "Allaverda"
+    },
+    "лядина": {
+        "en": "The Ice",
+        "fr": "La glace",
+        "de": "Eis",
+        "it": "Il ghiaccio",
+        "pt": "Gelo",
+        "es": "El hielo",
+        "sv": "isen"
+    },
+    "паляница": {
+        "en": "Firefighters",
+        "fr": "Feuillette",
+        "de": "Feuerwehr",
+        "it": "Il fuoco",
+        "pt": "Fogo",
+        "es": "El fuego",
+        "sv": "Brännare"
+    },
+    "инсулоним": {
+        "en": "Insulin",
+        "fr": "Insuline",
+        "de": "Insulin",
+        "it": "Insulina",
+        "pt": "Insulina",
+        "es": "insulina",
+        "sv": "Insulin"
+    },
+    "метель": {
+        "en": "The Motel",
+        "fr": "Météo",
+        "de": "Müll",
+        "it": "Metallo",
+        "pt": "Método",
+        "es": "Método",
+        "sv": "Mätare"
+    },
+    "август": {
+        "en": "August",
+        "fr": "août",
+        "de": "August",
+        "it": "agosto",
+        "pt": "Agosto",
+        "es": "agosto",
+        "sv": "augusti"
+    },
+    "кабачок": {
+        "en": "Cabbage",
+        "fr": "Cabbage",
+        "de": "Kabbalah",
+        "it": "Cappuccetto",
+        "pt": "Cabeça",
+        "es": "Caballero",
+        "sv": "Kabbage"
+    },
+    "жук": {
+        "en": "The joke",
+        "fr": "Jeunesse",
+        "de": "Götzen",
+        "it": "Giocattoli",
+        "pt": "Júpiter",
+        "es": "Jucas",
+        "sv": "Jävla"
+    },
+    "тыква": {
+        "en": "Tyco",
+        "fr": "Taïka",
+        "de": "Taika",
+        "it": "Ticca",
+        "pt": "Taça",
+        "es": "Título",
+        "sv": "Taika"
+    },
+    "кот": {
+        "en": "Cat",
+        "fr": "Le chat",
+        "de": "Katze",
+        "it": "Il gatto",
+        "pt": "Gato",
+        "es": "El gato",
+        "sv": "Katten"
+    },
+    "новолуние": {
+        "en": "New Moon",
+        "fr": "Nouvelle Lune",
+        "de": "Neues Mond",
+        "it": "Nuova Luna",
+        "pt": "Nova Lua",
+        "es": "Nueva Luna",
+        "sv": "Nymåne"
+    },
+    "словарь": {
+        "en": "Dictionary",
+        "fr": "Dictionnaire",
+        "de": "Wörterbuch",
+        "it": "Il dizionario",
+        "pt": "Dicionário",
+        "es": "Diccionario",
+        "sv": "Ordbok"
+    },
+    "ёж": {
+        "en": "YES",
+        "fr": "Oui",
+        "de": "Ja ja",
+        "it": "Sì",
+        "pt": "Já",
+        "es": "YJ",
+        "sv": "Ja ja"
+    },
+    "инверсия": {
+        "en": "Inversion",
+        "fr": "Inversion",
+        "de": "Inversion",
+        "it": "inversione",
+        "pt": "Inversão",
+        "es": "Inversión",
+        "sv": "Inversion"
+    },
+    "генералишка": {
+        "en": "General",
+        "fr": "généraux",
+        "de": "Generalisierung",
+        "it": "Generale",
+        "pt": "Generalidade",
+        "es": "general",
+        "sv": "generalen"
+    },
+    "генеральша": {
+        "en": "General",
+        "fr": "généraux",
+        "de": "General",
+        "it": "Generale",
+        "pt": "O general",
+        "es": "General",
+        "sv": "generalen"
+    },
+    "генетик": {
+        "en": "Genetics",
+        "fr": "génétique",
+        "de": "Genetik",
+        "it": "Genetica",
+        "pt": "genética",
+        "es": "genética",
+        "sv": "Genetiker"
+    },
+    "генитив": {
+        "en": "Genetic",
+        "fr": "Génétique",
+        "de": "Genitalien",
+        "it": "Genetico",
+        "pt": "Gênesis",
+        "es": "Genética",
+        "sv": "Genetiska"
+    },
+    "генотипчик": {
+        "en": "Genotype",
+        "fr": "génotype",
+        "de": "Genotyp",
+        "it": "Genotipo",
+        "pt": "genótipo",
+        "es": "genotipo",
+        "sv": "Genotyper"
+    },
+    "генофонд": {
+        "en": "Genophond",
+        "fr": "fonds génétiques",
+        "de": "Genofond",
+        "it": "Il genofondo",
+        "pt": "Fundo Genético",
+        "es": "Genofondo",
+        "sv": "Genofond"
+    },
+    "генплан": {
+        "en": "General Plan",
+        "fr": "Général Plan",
+        "de": "Generalplan",
+        "it": "Il piano generale",
+        "pt": "Plano Geral",
+        "es": "Plan General",
+        "sv": "Generalplan"
+    },
+    "геоантиклиналь": {
+        "en": "Geoanticlinical",
+        "fr": "Geoanticlique",
+        "de": "Geoantiklinisch",
+        "it": "Geoanticlinale",
+        "pt": "Geoanticlinação",
+        "es": "Geoanticlinales",
+        "sv": "Geoantiklinal"
+    },
+    "геогеномика": {
+        "en": "Geogenic",
+        "fr": "Géogénomie",
+        "de": "Geogenomie",
+        "it": "Geogenetica",
+        "pt": "Geogênica",
+        "es": "Geogenomía",
+        "sv": "Geogenomi"
+    },
+    "геоглиф": {
+        "en": "Geography",
+        "fr": "Géoglyphes",
+        "de": "Geoglyph",
+        "it": "Geoglio",
+        "pt": "Geograma",
+        "es": "geoglifos",
+        "sv": "Geografiska"
+    },
+    "геогност": {
+        "en": "Geognitive",
+        "fr": "Géognostique",
+        "de": "Geogenität",
+        "it": "Geogetica",
+        "pt": "Geogênia",
+        "es": "geogénico",
+        "sv": "Geognost"
+    },
+    "геодиметр": {
+        "en": "Geodymeter",
+        "fr": "Géodimètre",
+        "de": "Geodimeter",
+        "it": "Geodimetro",
+        "pt": "Geodímetro",
+        "es": "Geodimetría",
+        "sv": "Geodimeter"
+    },
+    "геодинамика": {
+        "en": "Geodynamics",
+        "fr": "Géodynamique",
+        "de": "Geodynamik",
+        "it": "Geodinamica",
+        "pt": "Geodinâmica",
+        "es": "geodinámica",
+        "sv": "Geodynamik"
+    },
+    "геокультура": {
+        "en": "Geoculture",
+        "fr": "Geoculture",
+        "de": "Geokultur",
+        "it": "Geocultura",
+        "pt": "Geocultura",
+        "es": "Geocultura",
+        "sv": "Geokultur"
+    },
+    "геологоразведчик": {
+        "en": "Geological Intelligence",
+        "fr": "Geologiste",
+        "de": "Geologischer Ermittler",
+        "it": "Geologista",
+        "pt": "Geologista Investigador",
+        "es": "Geólogo Investigador",
+        "sv": "Geologiska upptäckter"
+    },
+    "геомикробиология": {
+        "en": "Geomicrobiology",
+        "fr": "Géomicrobiologie",
+        "de": "Geomikrobiologie",
+        "it": "Geomicrobiologia",
+        "pt": "Geomicrobiologia",
+        "es": "Geomicrobiología",
+        "sv": "Geomikrobiologi"
+    },
+    "геосинклиналь": {
+        "en": "Geosynchronic",
+        "fr": "Géosynclique",
+        "de": "Geosynklinisch",
+        "it": "Geosinclinale",
+        "pt": "Geosinclinação",
+        "es": "Geosínclina",
+        "sv": "Geosynklin"
+    },
+    "геостратегия": {
+        "en": "Geostrategic",
+        "fr": "Géostratégie",
+        "de": "Geostrategie",
+        "it": "Geostrategia",
+        "pt": "Geostratégia",
+        "es": "geoestrategia",
+        "sv": "Geostrategi"
+    },
+    "геотропизм": {
+        "en": "Geotropism",
+        "fr": "Le géotropisme",
+        "de": "Geotropismus",
+        "it": "Geotropismo",
+        "pt": "Geotropismo",
+        "es": "geotropismo",
+        "sv": "Geotropism"
+    },
+    "геохорология": {
+        "en": "Geochrology",
+        "fr": "Géochrologie",
+        "de": "Geochorologie",
+        "it": "Geocorologia",
+        "pt": "Geocorologia",
+        "es": "Geocorología",
+        "sv": "Geokorologi"
+    },
+    "гептада": {
+        "en": "HEPTAD",
+        "fr": "HEPTADA",
+        "de": "Hepatitis",
+        "it": "di HEPTADA",
+        "pt": "HEPTADA",
+        "es": "Hepatitis",
+        "sv": "HEPTAD"
+    },
+    "гептаэдр": {
+        "en": "by HEPTADR",
+        "fr": "HEPTAEDR",
+        "de": "Hepatitis",
+        "it": "di Heptaeder",
+        "pt": "HEPTADR",
+        "es": "HEPTADER",
+        "sv": "HEPTADER"
+    },
+    "гептеракт": {
+        "en": "Hepteracts",
+        "fr": "HEPTERACT",
+        "de": "Hepatitis",
+        "it": "L’epterratto",
+        "pt": "HEPTRACTÃO",
+        "es": "Hepteracto",
+        "sv": "Hepterakt"
+    },
+    "гептоза": {
+        "en": "Hepatitis",
+        "fr": "Hépothèse",
+        "de": "Hepatitis",
+        "it": "Hepatite",
+        "pt": "Hepatite",
+        "es": "Hepatitis",
+        "sv": "Hepatit"
+    },
+    "геральдист": {
+        "en": "Heraldist",
+        "fr": "Geraldiste",
+        "de": "Heraldisch",
+        "it": "Geraldista",
+        "pt": "Geraldista",
+        "es": "Heraldista",
+        "sv": "Heraldist"
+    },
+    "гербовник": {
+        "en": "Herbion",
+        "fr": "Herbonais",
+        "de": "Herbär",
+        "it": "il herbico",
+        "pt": "Herbário",
+        "es": "Herbario",
+        "sv": "Herbärare"
+    },
+    "гергейит": {
+        "en": "Hermione",
+        "fr": "Hermétique",
+        "de": "Hergeitis",
+        "it": "Hermione",
+        "pt": "Hermética",
+        "es": "Hergeitis",
+        "sv": "Hergeit"
+    },
+    "геркон": {
+        "en": "Hernandez",
+        "fr": "Hercône",
+        "de": "Herkon",
+        "it": "il hercone",
+        "pt": "Hercônio",
+        "es": "hercón",
+        "sv": "Herkonen"
+    },
+    "германит": {
+        "en": "Germanic",
+        "fr": "Allemagne",
+        "de": "Deutscher",
+        "it": "tedesco",
+        "pt": "Alemanha",
+        "es": "Alemania",
+        "sv": "tyska"
+    },
+    "германоколусит": {
+        "en": "Germanic colusite",
+        "fr": "Germanocolusite",
+        "de": "Deutschkollusitis",
+        "it": "Germanocolusite",
+        "pt": "Germanocolusite",
+        "es": "Germanocolusitis",
+        "sv": "tyska kolossit"
+    },
+    "германофил": {
+        "en": "Germanophilus",
+        "fr": "Germanophile",
+        "de": "Germanophilus",
+        "it": "il germanofilo",
+        "pt": "Germanófilo",
+        "es": "Germanofil",
+        "sv": "Germanofil"
+    },
+    "германофилия": {
+        "en": "Germanophilia",
+        "fr": "Germanophilie",
+        "de": "Germanophilie",
+        "it": "Germanofilia",
+        "pt": "Germanofilia",
+        "es": "Germanofilia",
+        "sv": "Germanofili"
+    },
+    "германофобство": {
+        "en": "Germanophobia",
+        "fr": "Germanophobie",
+        "de": "Germanophobie",
+        "it": "La germanofobia",
+        "pt": "Germanofobia",
+        "es": "Germanofobia",
+        "sv": "Germanofobisk"
+    },
+    "гермокабина": {
+        "en": "Hermopolitan",
+        "fr": "Hermétique",
+        "de": "Hermokabin",
+        "it": "la germocabina",
+        "pt": "Hermóquinas",
+        "es": "Hermosa",
+        "sv": "Hermorkabin"
+    },
+    "гермоперчатка": {
+        "en": "Hermopolitan",
+        "fr": "Hermopolite",
+        "de": "Hermopartikel",
+        "it": "Hermopolita",
+        "pt": "Hermão",
+        "es": "Hermosa",
+        "sv": "Hermoband"
+    },
+    "гермошлем": {
+        "en": "Hermopolitan",
+        "fr": "Hermès",
+        "de": "Hermosa",
+        "it": "di Hermione",
+        "pt": "Hermes",
+        "es": "Hermoso",
+        "sv": "Hermässa"
+    },
+    "геродиетика": {
+        "en": "Herodietics",
+        "fr": "Hérodiétique",
+        "de": "Herodietik",
+        "it": "Georgianato",
+        "pt": "Herodiologia",
+        "es": "Herodiología",
+        "sv": "Herodietiska"
+    },
+    "героин": {
+        "en": "Heroin",
+        "fr": "Héroïne",
+        "de": "Heroin",
+        "it": "Heroina",
+        "pt": "Heroína",
+        "es": "Heroína",
+        "sv": "Heroin"
+    },
+    "геронтопсихолог": {
+        "en": "Gerontopsychologist",
+        "fr": "Gerontopsychologue",
+        "de": "Gerontopsychologe",
+        "it": "Gerontopsicologo",
+        "pt": "Gerontopsicólogo",
+        "es": "Gerontopsicólogo",
+        "sv": "Gerontopsykolog"
+    },
+    "герцогство": {
+        "en": "The Duchy",
+        "fr": "Duchesse",
+        "de": "Herzoglichkeit",
+        "it": "Ducato",
+        "pt": "Duquesa",
+        "es": "Ducado",
+        "sv": "Drottning"
+    },
+    "герыч": {
+        "en": "Hermione",
+        "fr": "Héritier",
+        "de": "Herzog",
+        "it": "il gerico",
+        "pt": "Herói",
+        "es": "Hermoso",
+        "sv": "Herregud"
+    },
+    "гетерокератопластика": {
+        "en": "Heteroceratoplasty",
+        "fr": "Hétérocératoplastique",
+        "de": "Heterokeratoplastik",
+        "it": "Heteroceratoplastica",
+        "pt": "Heteroceratoplastia",
+        "es": "Heteroceratoplástico",
+        "sv": "Heterokeratoplastik"
+    },
+    "гетероконтакт": {
+        "en": "Heterocontact",
+        "fr": "Hétérocontacte",
+        "de": "Heterokontakt",
+        "it": "Heterocontatto",
+        "pt": "Heterocontato",
+        "es": "Heterocontactos",
+        "sv": "Heterkontakt"
+    },
+    "гетероморфизм": {
+        "en": "Heteromorphism",
+        "fr": "Hétéromorfisme",
+        "de": "Heteromorphismus",
+        "it": "Heteromorfismo",
+        "pt": "Heteromorfismo",
+        "es": "Heteromorfismo",
+        "sv": "Heteromorfism"
+    },
+    "гетероморфоз": {
+        "en": "Heteromorphosis",
+        "fr": "Hétéromorfose",
+        "de": "Heteromorfose",
+        "it": "Heteromorfismo",
+        "pt": "Heteromorfose",
+        "es": "Heteromorfosis",
+        "sv": "Heteromorfos"
+    },
+    "гетеропластика": {
+        "en": "Heteroplasty",
+        "fr": "Hétéroplastique",
+        "de": "Heteroplastik",
+        "it": "Heteroplastica",
+        "pt": "Heteroplastia",
+        "es": "Heteroplastica",
+        "sv": "Heteroplastik"
+    },
+    "гетерополярность": {
+        "en": "Heteropolity",
+        "fr": "Hétéropolaire",
+        "de": "Heteropolität",
+        "it": "Heteropolarietà",
+        "pt": "Heteropolaridade",
+        "es": "Heteropolaridad",
+        "sv": "Heteropolitet"
+    },
+    "гетеросексуал": {
+        "en": "Heterosexual",
+        "fr": "Hétérosexuels",
+        "de": "Heterosexuelle",
+        "it": "Heterosessuale",
+        "pt": "heterossexual",
+        "es": "Heterosexuales",
+        "sv": "heterosexuell"
+    },
+    "гетеростаз": {
+        "en": "Heterostasis",
+        "fr": "Hétérostase",
+        "de": "Heterostaz",
+        "it": "Heterostasi",
+        "pt": "Heterostase",
+        "es": "Heterostasis",
+        "sv": "Heterostasis"
+    },
+    "гетеротопия": {
+        "en": "Heterotopia",
+        "fr": "Hétérothropie",
+        "de": "Heterotopie",
+        "it": "Heterotopia",
+        "pt": "Heterotopia",
+        "es": "Heterotopía",
+        "sv": "Heterotopi"
+    },
+    "гетеротроф": {
+        "en": "Heterotrof",
+        "fr": "Hétérothrophe",
+        "de": "Heterotrof",
+        "it": "Heterotrofio",
+        "pt": "Heterótipo",
+        "es": "Heterotrópico",
+        "sv": "Heterotrof"
+    },
+    "гетерохрония": {
+        "en": "Heterochrony",
+        "fr": "Hétérochronique",
+        "de": "Heterochronie",
+        "it": "Heterocronia",
+        "pt": "Heterocrônica",
+        "es": "Heterocrónica",
+        "sv": "Heterokroni"
+    },
+    "гетра": {
+        "en": "The ghetto",
+        "fr": "Gètre",
+        "de": "Getra",
+        "it": "ghetto",
+        "pt": "Getra",
+        "es": "El ghetto",
+        "sv": "gitarr"
+    },
+    "геттардит": {
+        "en": "ghetto",
+        "fr": "Gettardite",
+        "de": "Gettartit",
+        "it": "Il ghetto",
+        "pt": "Getação",
+        "es": "Ghettardi",
+        "sv": "Gettardit"
+    },
+    "гешефтмахерство": {
+        "en": "The Getsemaker",
+        "fr": "Gémeaux",
+        "de": "Geheftmaschinen",
+        "it": "GESHEFTMAHERSTE",
+        "pt": "Getsemanias",
+        "es": "Getsemakería",
+        "sv": "Getsemaker"
+    },
+    "гештальтпсихология": {
+        "en": "Gestalt Psychology",
+        "fr": "Gestaltpsychologie",
+        "de": "Gestaltpsychologie",
+        "it": "Gestaltpsicologia",
+        "pt": "Gestaltpsicologia",
+        "es": "Gestaltpsicología",
+        "sv": "Gestaltpsykologi"
+    },
+    "гиалин": {
+        "en": "by GYALIN",
+        "fr": "Guillaume",
+        "de": "Gealin",
+        "it": "Giallino",
+        "pt": "Guilherme",
+        "es": "Gijón",
+        "sv": "gylen"
+    },
+    "гиалосома": {
+        "en": "Hyalosa",
+        "fr": "HYALOSOM",
+        "de": "Hyalosa",
+        "it": "Gioiello",
+        "pt": "HYALOSMO",
+        "es": "El hialoso",
+        "sv": "HYALOSOM"
+    },
+    "гиалотекит": {
+        "en": "Hyalocytes",
+        "fr": "Hyalothèque",
+        "de": "Hyalothek",
+        "it": "Hyalotecite",
+        "pt": "Hyalotecite",
+        "es": "hialotécito",
+        "sv": "Hyalotekit"
+    },
+    "гибридома": {
+        "en": "Hybrid",
+        "fr": "Hybride",
+        "de": "Hybrid",
+        "it": "ibrido",
+        "pt": "Híbrido",
+        "es": "Híbrido",
+        "sv": "Hybrid"
+    },
+    "клеммник": {
+        "en": "The Cemetery",
+        "fr": "Le cimetière",
+        "de": "Klemmer",
+        "it": "Il clero",
+        "pt": "Clemão",
+        "es": "Clemente",
+        "sv": "Källaren"
+    },
+    "клеммташ": {
+        "en": "Clemens",
+        "fr": "Clementaire",
+        "de": "Klemmtaß",
+        "it": "Il Clemento",
+        "pt": "Clemão",
+        "es": "Clementaje",
+        "sv": "Klämma"
+    },
+    "кленок": {
+        "en": "Clown",
+        "fr": "Le clan",
+        "de": "Klanken",
+        "it": "Il clan",
+        "pt": "Clãs",
+        "es": "El Clan",
+        "sv": "Klänningen"
+    },
+    "клеппер": {
+        "en": "Clapper",
+        "fr": "Clipper",
+        "de": "Klipper",
+        "it": "Clipper",
+        "pt": "Clipper",
+        "es": "Clipper",
+        "sv": "Klipper"
+    },
+    "клептоман": {
+        "en": "Cleptoman",
+        "fr": "Cléptoman",
+        "de": "Kleptoman",
+        "it": "Il Cleptomano",
+        "pt": "CLEPTOMAN",
+        "es": "Cléptomo",
+        "sv": "Klappman"
+    },
+    "клидонограф": {
+        "en": "Clidonographer",
+        "fr": "Clédonographe",
+        "de": "Klidonograph",
+        "it": "Il clidografo",
+        "pt": "Clidonógrafo",
+        "es": "Clodonógrafo",
+        "sv": "Klidografer"
+    },
+    "кликбейт": {
+        "en": "by clickbeat",
+        "fr": "Cliqueur",
+        "de": "Klickbeit",
+        "it": "Clicca qui",
+        "pt": "Clique em",
+        "es": "CLICKBET",
+        "sv": "klickbett"
+    },
+    "климакс": {
+        "en": "Climax",
+        "fr": "Climatisation",
+        "de": "Klimatisierung",
+        "it": "Climax",
+        "pt": "Climax",
+        "es": "Climax",
+        "sv": "klimakteriet"
+    },
+    "климатолечение": {
+        "en": "Climate Treatment",
+        "fr": "Climatothérapie",
+        "de": "Klimatisierung",
+        "it": "Climatoterapia",
+        "pt": "Climatoterapia",
+        "es": "Clima terapéutica",
+        "sv": "Klimatbehandling"
+    },
+    "имейл": {
+        "en": "Email",
+        "fr": "e-mail",
+        "de": "E-Mail",
+        "it": "Email",
+        "pt": "e-mail",
+        "es": "e-mail",
+        "sv": "e-post"
+    },
+    "имидж": {
+        "en": "image",
+        "fr": "image",
+        "de": "Bild",
+        "it": "Immagine",
+        "pt": "Imagem",
+        "es": "Imagen",
+        "sv": "Bilden"
+    },
+    "иммерсия": {
+        "en": "Immercia",
+        "fr": "Immercie",
+        "de": "Immerz",
+        "it": "Immerzia",
+        "pt": "Imersão",
+        "es": "Impresiones",
+        "sv": "Imersion"
+    },
+    "иммуноген": {
+        "en": "Immunogenic",
+        "fr": "Immunogène",
+        "de": "Immunogen",
+        "it": "Immunità",
+        "pt": "Imunogênio",
+        "es": "Immunógenos",
+        "sv": "Immunogen"
+    },
+    "иммунодепрессия": {
+        "en": "Immunodepression",
+        "fr": "Immunodepression",
+        "de": "Immundepressionen",
+        "it": "Immunodepressione",
+        "pt": "Imunodepressão",
+        "es": "Immunodepresión",
+        "sv": "immundepression"
+    },
+    "иммунопреципитат": {
+        "en": "Immunology",
+        "fr": "Immunité",
+        "de": "Immunrezept",
+        "it": "Immunità",
+        "pt": "Imunidade",
+        "es": "Immunodeficiencia",
+        "sv": "immunförsvar"
+    },
+    "иммуносфера": {
+        "en": "Immunosphere",
+        "fr": "Immunosphère",
+        "de": "Immunosphäre",
+        "it": "Immunosfera",
+        "pt": "Imunosfera",
+        "es": "La inmunosfera",
+        "sv": "immunförsvaret"
+    },
+    "иммунотопография": {
+        "en": "Immunography",
+        "fr": "Immunographie",
+        "de": "Immunopographie",
+        "it": "Immunografia",
+        "pt": "Imunopografia",
+        "es": "Immunopografía",
+        "sv": "Immunopografi"
+    },
+    "иммунофенотипирование": {
+        "en": "Immunofenotyping",
+        "fr": "Immunophénotyping",
+        "de": "Immunofenotypierung",
+        "it": "Immunofenotipazione",
+        "pt": "Imunofenotipamento",
+        "es": "Immunofenotipo",
+        "sv": "Immunofenotyp"
+    },
+    "иммунофильтрация": {
+        "en": "Immunofiltration",
+        "fr": "Immunophiltration",
+        "de": "Immunfiltration",
+        "it": "Immunofiltrazione",
+        "pt": "Imunofiltração",
+        "es": "Imunofiltración",
+        "sv": "immunfiltrering"
+    },
+    "иммунофлуоресценция": {
+        "en": "Immunofluorescence",
+        "fr": "Immunofluorescences",
+        "de": "Immunfluoreszenz",
+        "it": "Immunofluorescenza",
+        "pt": "Imunofluorescência",
+        "es": "Immunofluorescencia",
+        "sv": "immunflödescens"
+    },
+    "импеллер": {
+        "en": "Imperator",
+        "fr": "Impérateur",
+        "de": "Imperator",
+        "it": "Imperatore",
+        "pt": "Imperador",
+        "es": "Imperador",
+        "sv": "Imperator"
+    },
+    "империя": {
+        "en": "Empire",
+        "fr": "Empire",
+        "de": "Empire",
+        "it": "Impero",
+        "pt": "Império",
+        "es": "Imperio",
+        "sv": "Imperiet"
+    },
+    "имперсонализм": {
+        "en": "Impersonality",
+        "fr": "l’impersonnalisme",
+        "de": "Impersonalismus",
+        "it": "Impersonalismo",
+        "pt": "O impersonalismo",
+        "es": "Impersonalidad",
+        "sv": "Impersonalism"
+    },
+    "импичмент": {
+        "en": "Impeachment",
+        "fr": "Impacts",
+        "de": "Impichtung",
+        "it": "impiccamento",
+        "pt": "Impacto",
+        "es": "Impacto",
+        "sv": "Impetens"
+    },
+    "имплозия": {
+        "en": "Impulse",
+        "fr": "Implosion",
+        "de": "Implosion",
+        "it": "Implosione",
+        "pt": "Implosão",
+        "es": "Impulso",
+        "sv": "Implosion"
+    },
+    "импозантность": {
+        "en": "Impossibility",
+        "fr": "Impossibilité",
+        "de": "Impossibilität",
+        "it": "Impossibilità",
+        "pt": "Impossibilidade",
+        "es": "Imposibilidad",
+        "sv": "imponerande"
+    },
+    "импортозамещение": {
+        "en": "Import replacement",
+        "fr": "Importation de substitution",
+        "de": "Importierung ersetzt",
+        "it": "Importazione sostitutiva",
+        "pt": "Importação Substituição",
+        "es": "Importación Substitución",
+        "sv": "Import ersättning"
+    },
+    "импримитивность": {
+        "en": "Implicity",
+        "fr": "Imprimitivité",
+        "de": "Impressivität",
+        "it": "Imprimitività",
+        "pt": "Impressividade",
+        "es": "Impresividad",
+        "sv": "Imprimitivitet"
+    },
+    "импринтер": {
+        "en": "The printer",
+        "fr": "Imprimante",
+        "de": "Impressoren",
+        "it": "Imprintero",
+        "pt": "Impressor",
+        "es": "Impresor",
+        "sv": "Impressorer"
+    },
+    "импровизированность": {
+        "en": "Improvisation",
+        "fr": "Improvisation",
+        "de": "Improvisierung",
+        "it": "Improvisazione",
+        "pt": "Improvisão",
+        "es": "Improvisación",
+        "sv": "Improvisation"
+    },
+    "имурка": {
+        "en": "The immature",
+        "fr": "Immaculée",
+        "de": "Immerka",
+        "it": "Immaculato",
+        "pt": "Imunidade",
+        "es": "inmortal",
+        "sv": "Imorgon"
+    },
+    "имярек": {
+        "en": "NameRock",
+        "fr": "Le nom",
+        "de": "Namerek",
+        "it": "Il nome",
+        "pt": "Nomeado",
+        "es": "El nombre",
+        "sv": "Namreek"
+    },
+    "инаковерие": {
+        "en": "Otherwise",
+        "fr": "l'inverse",
+        "de": "Unwahrscheinlich",
+        "it": "altrettanto",
+        "pt": "Infelizmente",
+        "es": "El contrario",
+        "sv": "annorlunda"
+    },
+    "инаугурантка": {
+        "en": "The Innocent",
+        "fr": "Inauguration",
+        "de": "Innavigation",
+        "it": "Inaugurazione",
+        "pt": "Inauguração",
+        "es": "Inauguración",
+        "sv": "Inovation"
+    },
+    "инвалидка": {
+        "en": "Disabled",
+        "fr": "Invalide",
+        "de": "Behinderte",
+        "it": "Disabilità",
+        "pt": "Invalididade",
+        "es": "discapacidad",
+        "sv": "Handikappade"
+    },
+    "инвертирование": {
+        "en": "Inversion",
+        "fr": "Inversion",
+        "de": "Invertierung",
+        "it": "inversione",
+        "pt": "Inversão",
+        "es": "Inversión",
+        "sv": "invertering"
+    },
+    "инвестбанк": {
+        "en": "Investment Bank",
+        "fr": "Banque d’investissement",
+        "de": "Investitionsbank",
+        "it": "Banca di Investimenti",
+        "pt": "Banco de Investimento",
+        "es": "INVESTBANK",
+        "sv": "Investeringsbanken"
+    },
+    "инвестфонд": {
+        "en": "Investment Fund",
+        "fr": "Fonds d’investissement",
+        "de": "Investitionsfonds",
+        "it": "Fondo di Investimenti",
+        "pt": "Fundo de Investimento",
+        "es": "Fondo de Inversión",
+        "sv": "Investeringsfond"
+    },
+    "ингалятор": {
+        "en": "The Inhalator",
+        "fr": "Inhalateur",
+        "de": "Inhalator",
+        "it": "Inhalatore",
+        "pt": "Inhalador",
+        "es": "Inhalador",
+        "sv": "Inhalator"
+    },
+    "ингерсонит": {
+        "en": "Ingersonite",
+        "fr": "Ingersonite",
+        "de": "Ingersonitis",
+        "it": "Ingersonite",
+        "pt": "Ingressão",
+        "es": "Ingresonitis",
+        "sv": "Ingersonit"
+    },
+    "ингибиция": {
+        "en": "Inhibition",
+        "fr": "Inhibition",
+        "de": "Inhibition",
+        "it": "Inibizione",
+        "pt": "Inibição",
+        "es": "Inhibición",
+        "sv": "Inhibition"
+    },
+    "инглишит": {
+        "en": "English",
+        "fr": "Anglais",
+        "de": "Englisch",
+        "it": "Inglese",
+        "pt": "Inglês",
+        "es": "Inglés",
+        "sv": "Engelska"
+    },
+    "ингр": {
+        "en": "The English",
+        "fr": "Anglais",
+        "de": "Englisch",
+        "it": "Inglese",
+        "pt": "Inglês",
+        "es": "Ingreso",
+        "sv": "Engelska"
+    },
+    "ингрессивность": {
+        "en": "Ingression",
+        "fr": "Ingression",
+        "de": "Ingressivität",
+        "it": "Ingressività",
+        "pt": "Ingressividade",
+        "es": "Ingresiva",
+        "sv": "Ingression"
+    },
+    "ингушка": {
+        "en": "Inguish",
+        "fr": "Ingou",
+        "de": "Inguschen",
+        "it": "Inguetta",
+        "pt": "Ingúria",
+        "es": "Ingueras",
+        "sv": "Inguiska"
+    },
+    "индейководство": {
+        "en": "Indian leadership",
+        "fr": "Indépendance",
+        "de": "Indische Führung",
+        "it": "Guida indiana",
+        "pt": "Índice Guia",
+        "es": "La guía indiana",
+        "sv": "Indiska ledning"
+    },
+    "индент": {
+        "en": "The incident",
+        "fr": "Incident",
+        "de": "Einfall",
+        "it": "Il caso",
+        "pt": "Incidente",
+        "es": "El incidente",
+        "sv": "incident"
+    },
+    "индепендент": {
+        "en": "Indexed",
+        "fr": "Indépendant",
+        "de": "Indapendent",
+        "it": "indipendente",
+        "pt": "Indépendente",
+        "es": "Indépendente",
+        "sv": "Individer"
+    },
+    "индепендентство": {
+        "en": "Indemnity",
+        "fr": "Indépendance",
+        "de": "Indapendenz",
+        "it": "Indennità",
+        "pt": "Indépendência",
+        "es": "Indépendencia",
+        "sv": "indexering"
+    },
+    "индетерминизм": {
+        "en": "Indeterminism",
+        "fr": "Indéterminisme",
+        "de": "Indeterminismus",
+        "it": "Indeterminismo",
+        "pt": "Indeterminismo",
+        "es": "Indeterminismo",
+        "sv": "Indeterminism"
+    },
+    "индиалит": {
+        "en": "Indianity",
+        "fr": "l’indial",
+        "de": "Indie",
+        "it": "L’indialismo",
+        "pt": "Índice",
+        "es": "La indialidad",
+        "sv": "Individer"
+    },
+    "индигенат": {
+        "en": "Indigenate",
+        "fr": "Indigène",
+        "de": "Indigenen",
+        "it": "Indigenato",
+        "pt": "Indígena",
+        "es": "Indigenes",
+        "sv": "Indigena"
+    },
+    "индиголит": {
+        "en": "Indigolite",
+        "fr": "Indigolite",
+        "de": "Indigolitis",
+        "it": "Indigolite",
+        "pt": "Indigolite",
+        "es": "Indigolitis",
+        "sv": "Indigoliter"
+    },
+    "индиженат": {
+        "en": "Indigenous",
+        "fr": "Indigènes",
+        "de": "Indigenen",
+        "it": "Indigeno",
+        "pt": "Índice",
+        "es": "Indígenas",
+        "sv": "Indigenerat"
+    },
+    "индикан": {
+        "en": "The Indian",
+        "fr": "Indicateur",
+        "de": "Indianer",
+        "it": "indiano",
+        "pt": "Índico",
+        "es": "indígenas",
+        "sv": "Indiska"
+    },
+    "индикатор": {
+        "en": "Indicator",
+        "fr": "Indicateur",
+        "de": "Indikator",
+        "it": "Indicatore",
+        "pt": "Indicador",
+        "es": "Indicador",
+        "sv": "Indikator"
+    },
+    "индифферентист": {
+        "en": "Individualist",
+        "fr": "Individualiste",
+        "de": "Individualistisch",
+        "it": "Indiferenti",
+        "pt": "Indivíduos",
+        "es": "Individualista",
+        "sv": "Individualist"
+    },
+    "индифферентность": {
+        "en": "Individuality",
+        "fr": "L’indifférence",
+        "de": "Indifferenz",
+        "it": "L’indifferenza",
+        "pt": "Individência",
+        "es": "Indiferencia",
+        "sv": "Individualitet"
+    },
+    "индоевропеец": {
+        "en": "Indo-European",
+        "fr": "Indoeuropéen",
+        "de": "Indoeuropäischer",
+        "it": "Indoeuropeo",
+        "pt": "Indoeuropeu",
+        "es": "Indoeuropeo",
+        "sv": "Indoeuropeiska"
+    },
+    "индоевропеистика": {
+        "en": "Indoeuropeanism",
+        "fr": "Indoeuropéistique",
+        "de": "Indoeuropäisch",
+        "it": "Indoeuropea",
+        "pt": "Indoeuropeia",
+        "es": "Indoeuropeo",
+        "sv": "Indoeuropeiska"
+    },
+    "индолог": {
+        "en": "Indologist",
+        "fr": "Indologue",
+        "de": "Indologen",
+        "it": "Indologo",
+        "pt": "Indólogo",
+        "es": "Indólogo",
+        "sv": "Indolog"
+    },
+    "индоссант": {
+        "en": "The indossant",
+        "fr": "Indosant",
+        "de": "Indosanz",
+        "it": "indossato",
+        "pt": "Indossão",
+        "es": "Indosante",
+        "sv": "Indosans"
+    },
+    "индрик": {
+        "en": "Indric",
+        "fr": "Indrique",
+        "de": "Indrick",
+        "it": "Indrico",
+        "pt": "Indrico",
+        "es": "Indrico",
+        "sv": "Indrik"
+    },
+    "индульгенция": {
+        "en": "Indulgency",
+        "fr": "Indulgence",
+        "de": "Indulgenz",
+        "it": "Indulgenza",
+        "pt": "Indulgência",
+        "es": "Indulgencia",
+        "sv": "Indulgen"
+    },
+    "индюк": {
+        "en": "The Indy",
+        "fr": "indique",
+        "de": "Indie",
+        "it": "indiano",
+        "pt": "Índico",
+        "es": "Índico",
+        "sv": "Indiska"
+    },
+    "индюшатина": {
+        "en": "Induction",
+        "fr": "Induction",
+        "de": "Induktion",
+        "it": "Induccio",
+        "pt": "Índice",
+        "es": "Indígenas",
+        "sv": "Induktion"
+    },
+    "инжектор": {
+        "en": "Injector",
+        "fr": "Injecteur",
+        "de": "Injektor",
+        "it": "Iniezione",
+        "pt": "Injeção",
+        "es": "Injeción",
+        "sv": "Injektor"
+    },
+    "инженерша": {
+        "en": "Engineer",
+        "fr": "Ingénieur",
+        "de": "Ingenieur",
+        "it": "Ingegnere",
+        "pt": "engenheiro",
+        "es": "Ingeniero",
+        "sv": "ingenjör"
+    },
+    "инициирование": {
+        "en": "Initiation",
+        "fr": "Initiation",
+        "de": "Initiation",
+        "it": "L’iniziativa",
+        "pt": "iniciação",
+        "es": "Iniciación",
+        "sv": "Initiera"
+    },
+    "инкапаситант": {
+        "en": "Incapacity",
+        "fr": "Incapacité",
+        "de": "Inkapasiten",
+        "it": "Incapaziente",
+        "pt": "Incapazes",
+        "es": "Incapacidad",
+        "sv": "Inkapacitet"
+    },
+    "инкрустатор": {
+        "en": "The Incrustator",
+        "fr": "Incrustateur",
+        "de": "Inkrustator",
+        "it": "Incrustatore",
+        "pt": "Incrustador",
+        "es": "Incrustador",
+        "sv": "Inkrustator"
+    },
+    "инкубация": {
+        "en": "Incubation",
+        "fr": "Incubation",
+        "de": "Inkubation",
+        "it": "Incubazione",
+        "pt": "Incubação",
+        "es": "Incubación",
+        "sv": "Inkubation"
+    },
+    "иннервация": {
+        "en": "Inertia",
+        "fr": "Innervation",
+        "de": "Innervation",
+        "it": "Inervazione",
+        "pt": "Inervação",
+        "es": "Inervación",
+        "sv": "Innervation"
+    },
+    "инновационность": {
+        "en": "Innovation",
+        "fr": "Innovation",
+        "de": "Innovation",
+        "it": "Innovazione",
+        "pt": "Inovação",
+        "es": "Innovación",
+        "sv": "Innovation"
+    },
+    "иноземщина": {
+        "en": "Foreigners",
+        "fr": "étrangers",
+        "de": "Ausländer",
+        "it": "Stranieri",
+        "pt": "Estrangeiro",
+        "es": "extranjeros",
+        "sv": "Utlänningar"
+    },
+    "инро": {
+        "en": "INRO",
+        "fr": "INRO",
+        "de": "INRO",
+        "it": "INRO",
+        "pt": "INRO",
+        "es": "INRO",
+        "sv": "INRÖ"
+    },
+    "инсайд": {
+        "en": "Inside",
+        "fr": "Inside",
+        "de": "Insider",
+        "it": "di Inside",
+        "pt": "Insídio",
+        "es": "Inside",
+        "sv": "Insidan"
+    },
+    "инсектицид": {
+        "en": "Insecticides",
+        "fr": "insecticide",
+        "de": "Insektizid",
+        "it": "insetticidi",
+        "pt": "Insecticidas",
+        "es": "Insecticidas",
+        "sv": "Insekticider"
+    },
+    "инсерт": {
+        "en": "Inserted",
+        "fr": "Insert",
+        "de": "Insert",
+        "it": "Inserimento",
+        "pt": "Inserção",
+        "es": "Inserción",
+        "sv": "insert"
+    },
+    "инсинуатор": {
+        "en": "Insinuator",
+        "fr": "Insinateur",
+        "de": "Insinuator",
+        "it": "INSINUATORE",
+        "pt": "INSINUATOR",
+        "es": "INSINUATOR",
+        "sv": "Insinionär"
+    },
+    "инспектура": {
+        "en": "Inspection",
+        "fr": "Inspection",
+        "de": "Inspektion",
+        "it": "ispezione",
+        "pt": "Inspecção",
+        "es": "Inspección",
+        "sv": "Inspektion"
+    },
+    "инспирация": {
+        "en": "Inspiration",
+        "fr": "Inspiration",
+        "de": "Inspiration",
+        "it": "L’ispirazione",
+        "pt": "Inspiração",
+        "es": "Inspiración",
+        "sv": "Inspiration"
+    },
+    "инсталлирование": {
+        "en": "Installation",
+        "fr": "Installation",
+        "de": "Installation",
+        "it": "Installazione",
+        "pt": "Instalação",
+        "es": "Instalación",
+        "sv": "Installation"
+    },
+    "инсталляция": {
+        "en": "Installation",
+        "fr": "Installation",
+        "de": "Installation",
+        "it": "Installazione",
+        "pt": "Instalação",
+        "es": "Instalación",
+        "sv": "Installation"
+    },
+    "инстанс": {
+        "en": "Instance",
+        "fr": "instance",
+        "de": "Instanz",
+        "it": "di instance",
+        "pt": "instâncias",
+        "es": "instantes",
+        "sv": "instans"
+    },
+    "институтство": {
+        "en": "Institution",
+        "fr": "Institution",
+        "de": "Institution",
+        "it": "Istituzione",
+        "pt": "Instituição",
+        "es": "Instituto",
+        "sv": "Institutet"
+    },
+    "инструктирование": {
+        "en": "Instruction",
+        "fr": "Instructions",
+        "de": "Instruktion",
+        "it": "Istruzioni",
+        "pt": "Instruções",
+        "es": "Instrucciones",
+        "sv": "Instruktion"
+    },
+    "инструментальщик": {
+        "en": "Instruments",
+        "fr": "instrumentaliste",
+        "de": "Instrumentaler",
+        "it": "Instrumentatore",
+        "pt": "Instrumentador",
+        "es": "Instrumentalistas",
+        "sv": "Instrumentär"
+    },
+    "инсулин": {
+        "en": "Insulin",
+        "fr": "Insuline",
+        "de": "Insulin",
+        "it": "insulina",
+        "pt": "Insulina",
+        "es": "insulina",
+        "sv": "Insulin"
+    },
+    "инсценизация": {
+        "en": "Inscenation",
+        "fr": "Inscénalisation",
+        "de": "Inszenierung",
+        "it": "Inscenizzazione",
+        "pt": "Inscenização",
+        "es": "Inscenización",
+        "sv": "Inskription"
+    },
+    "интактность": {
+        "en": "Intuition",
+        "fr": "Intacté",
+        "de": "Intimität",
+        "it": "Intuizione",
+        "pt": "Intimação",
+        "es": "Intuacidad",
+        "sv": "Intuitivitet"
+    },
+    "интеграция": {
+        "en": "Integration",
+        "fr": "Intégration",
+        "de": "Integration",
+        "it": "integrazione",
+        "pt": "integração",
+        "es": "Integración",
+        "sv": "Integration"
+    },
+    "интеллигент": {
+        "en": "Intelligent",
+        "fr": "Intelligent",
+        "de": "Intelligent",
+        "it": "Intellettuale",
+        "pt": "Inteligente",
+        "es": "Inteligente",
+        "sv": "Intelligent"
+    },
+    "интеллигентик": {
+        "en": "Intelligent",
+        "fr": "Intelligent",
+        "de": "Intelligent",
+        "it": "Intellettuale",
+        "pt": "Inteligente",
+        "es": "Inteligente",
+        "sv": "Intelligent"
+    },
+    "интеллигенция": {
+        "en": "Intelligence",
+        "fr": "Intelligence",
+        "de": "Intelligenz",
+        "it": "Intelligenza",
+        "pt": "Inteligência",
+        "es": "Inteligencia",
+        "sv": "Intelligens"
+    },
+    "интендант": {
+        "en": "Intendent",
+        "fr": "Intendant",
+        "de": "Intendent",
+        "it": "Intanto",
+        "pt": "Intendência",
+        "es": "Intendente",
+        "sv": "Intendent"
+    },
+    "интенсионал": {
+        "en": "Intensity",
+        "fr": "Intensité",
+        "de": "Intensiv",
+        "it": "Intensità",
+        "pt": "Intensão",
+        "es": "Intensidad",
+        "sv": "Intensiv"
+    },
+    "интенция": {
+        "en": "Intensity",
+        "fr": "Intensité",
+        "de": "Intensität",
+        "it": "Intensità",
+        "pt": "Intensidade",
+        "es": "Intensidad",
+        "sv": "Intensitet"
+    },
+    "интербригадовец": {
+        "en": "Interbridge",
+        "fr": "Interbrigué",
+        "de": "Interbridge",
+        "it": "Interbrigatore",
+        "pt": "Interbrigação",
+        "es": "Interbrigo",
+        "sv": "Interbråkare"
+    },
+    "интервенционист": {
+        "en": "interventionist",
+        "fr": "interventionniste",
+        "de": "Interventionist",
+        "it": "Interventi",
+        "pt": "Intervencionista",
+        "es": "Intervencionistas",
+        "sv": "interventionist"
+    },
+    "интерливинг": {
+        "en": "Interliving",
+        "fr": "Interliver",
+        "de": "Interlining",
+        "it": "Interliving",
+        "pt": "Interliving",
+        "es": "Interliving",
+        "sv": "Interlivering"
+    },
+    "интермедия": {
+        "en": "Intermediate",
+        "fr": "Intermédia",
+        "de": "Intermediär",
+        "it": "Intermedia",
+        "pt": "Intermédio",
+        "es": "Intermedia",
+        "sv": "Intermediär"
+    },
+    "интермиссия": {
+        "en": "Intermission",
+        "fr": "Intermission",
+        "de": "Intermission",
+        "it": "Intermissione",
+        "pt": "Intermissão",
+        "es": "Intermisión",
+        "sv": "Intermittation"
+    },
+    "интернатовец": {
+        "en": "Internship",
+        "fr": "Internat",
+        "de": "Internat",
+        "it": "Internatore",
+        "pt": "Internatário",
+        "es": "Internacional",
+        "sv": "Interiör"
+    },
+    "интернетчик": {
+        "en": "The Internet",
+        "fr": "Internet",
+        "de": "Internetführer",
+        "it": "Internetatore",
+        "pt": "Internetista",
+        "es": "Internet",
+        "sv": "Internetledare"
+    },
+    "интернида": {
+        "en": "interned",
+        "fr": "Internière",
+        "de": "Internied",
+        "it": "Interno",
+        "pt": "Interião",
+        "es": "Interinidad",
+        "sv": "Interiör"
+    },
+    "интеротряд": {
+        "en": "Introduction",
+        "fr": "Intermédiaire",
+        "de": "Interaktionen",
+        "it": "Interazione",
+        "pt": "Interação",
+        "es": "Interrupción",
+        "sv": "Interiör"
+    },
+    "интерпретация": {
+        "en": "Interpretation",
+        "fr": "Interprétation",
+        "de": "Interpretation",
+        "it": "Interpretazione",
+        "pt": "Interpretação",
+        "es": "Interpretación",
+        "sv": "tolkning"
+    },
+    "интерпункция": {
+        "en": "Interruption",
+        "fr": "Interpension",
+        "de": "Interpunktion",
+        "it": "Interpunzione",
+        "pt": "Interrupção",
+        "es": "Interpunción",
+        "sv": "Interpunktion"
+    },
+    "благоустройство": {
+        "en": "well-established",
+        "fr": "Bien-être",
+        "de": "Wohlbefinden",
+        "it": "Il benessere",
+        "pt": "Bem-estar",
+        "es": "Bienestar",
+        "sv": "välbefinnande"
+    },
+    "блажь": {
+        "en": "Blessed",
+        "fr": "bénédiction",
+        "de": "Gnade",
+        "it": "La benedizione",
+        "pt": "A bênção",
+        "es": "La bendición",
+        "sv": "välsignelse"
+    },
+    "бластогенез": {
+        "en": "Blastogenesis",
+        "fr": "Blastogenèse",
+        "de": "Blastogenese",
+        "it": "Blastogenesi",
+        "pt": "Blastogênese",
+        "es": "Blastogenesis",
+        "sv": "Blastogenes"
+    },
+    "бластома": {
+        "en": "Blast",
+        "fr": "Blastic",
+        "de": "Blöte",
+        "it": "Blasto",
+        "pt": "blasfêmia",
+        "es": "Blasto",
+        "sv": "Blastom"
+    },
+    "бластомогенез": {
+        "en": "Blastomogenesis",
+        "fr": "Blastomogénèse",
+        "de": "Blastmogenese",
+        "it": "BlastoMogenesi",
+        "pt": "Blastomogênese",
+        "es": "Blastomogenesis",
+        "sv": "Blastomogenes"
+    },
+    "блатарка": {
+        "en": "The Blatter",
+        "fr": "Blatter",
+        "de": "Blatter",
+        "it": "Il Blatter",
+        "pt": "Blatarca",
+        "es": "Blatarca",
+        "sv": "Blåtarka"
+    },
+    "блатнячество": {
+        "en": "Blessing",
+        "fr": "Le blasphème",
+        "de": "Blödung",
+        "it": "Il blasfemo",
+        "pt": "blasfêmia",
+        "es": "La blasfemia",
+        "sv": "Blåhet"
+    },
+    "бленнорея": {
+        "en": "Blendery",
+        "fr": "Blénorée",
+        "de": "Blenderie",
+        "it": "Blenorrea",
+        "pt": "Blenoréia",
+        "es": "Blendería",
+        "sv": "Blendernor"
+    },
+    "блеск": {
+        "en": "Brightness",
+        "fr": "Brilleur",
+        "de": "Das Licht",
+        "it": "Il brillo",
+        "pt": "brilho",
+        "es": "El brillo",
+        "sv": "Ljuset"
+    },
+    "блеснение": {
+        "en": "Brightness",
+        "fr": "Brillage",
+        "de": "Der Blitz",
+        "it": "Il brillo",
+        "pt": "brilho",
+        "es": "El brillo",
+        "sv": "Skugga"
+    },
+    "блестянка": {
+        "en": "Brilliant",
+        "fr": "Brilleur",
+        "de": "Blüte",
+        "it": "brillante",
+        "pt": "brilhante",
+        "es": "brillante",
+        "sv": "glänsande"
+    },
+    "блефование": {
+        "en": "Blessing",
+        "fr": "Bleu",
+        "de": "Blödung",
+        "it": "bluffare",
+        "pt": "Blefação",
+        "es": "Blender",
+        "sv": "Bläddra"
+    },
+    "блинная": {
+        "en": "Blinded",
+        "fr": "Bleue",
+        "de": "Blind",
+        "it": "Il blu",
+        "pt": "Bleu",
+        "es": "Blanco",
+        "sv": "Blå"
+    },
+    "блицвопрос": {
+        "en": "Blizzard",
+        "fr": "Blizzard",
+        "de": "Blitzfrage",
+        "it": "Blizzard",
+        "pt": "Blizzard",
+        "es": "Pruebas",
+        "sv": "Blizzardfråga"
+    },
+    "блицпортрет": {
+        "en": "Blitzportrait",
+        "fr": "Blizzard Portrait",
+        "de": "Blitzporträt",
+        "it": "Il Blizzard",
+        "pt": "Blitzportrete",
+        "es": "El blitzportret",
+        "sv": "Blitzporträtt"
+    },
+    "блоггер": {
+        "en": "Blogger",
+        "fr": "Blogueur",
+        "de": "Blogger",
+        "it": "Il blogger",
+        "pt": "Blogueiro",
+        "es": "Blogueros",
+        "sv": "bloggare"
+    },
+    "блокиратор": {
+        "en": "Blocker",
+        "fr": "Blocateur",
+        "de": "Blocker",
+        "it": "Blocco",
+        "pt": "bloqueador",
+        "es": "bloqueador",
+        "sv": "Blockerare"
+    },
+    "блокит": {
+        "en": "Blocked",
+        "fr": "blocs",
+        "de": "Blocken",
+        "it": "Blocco",
+        "pt": "Bloco",
+        "es": "bloqueo",
+        "sv": "Blocka"
+    },
+    "блокпакет": {
+        "en": "Block Package",
+        "fr": "blocs",
+        "de": "Blockpaket",
+        "it": "Il blocco",
+        "pt": "Pacote de bloco",
+        "es": "Bloqueo",
+        "sv": "Blockpaket"
+    },
+    "блондин": {
+        "en": "blondes",
+        "fr": "Blonde",
+        "de": "Blondin",
+        "it": "bionda",
+        "pt": "Blondinho",
+        "es": "Blondín",
+        "sv": "Blondin"
+    },
+    "блуд": {
+        "en": "The Blond",
+        "fr": "Blondeur",
+        "de": "Blüte",
+        "it": "La prostituta",
+        "pt": "Blondinho",
+        "es": "La prostituta",
+        "sv": "Blondin"
+    },
+    "блудень": {
+        "en": "The Blond",
+        "fr": "Blondeur",
+        "de": "Blüte",
+        "it": "La prostituta",
+        "pt": "Blondinho",
+        "es": "La prostituta",
+        "sv": "Blondin"
+    },
+    "блудилище": {
+        "en": "The foolish",
+        "fr": "La prostituée",
+        "de": "Blüte",
+        "it": "La follia",
+        "pt": "loucura",
+        "es": "El maldito",
+        "sv": "Blondin"
+    },
+    "блудодеяние": {
+        "en": "the foolish",
+        "fr": "La fraude",
+        "de": "Betrüger",
+        "it": "Il maltrattamento",
+        "pt": "A loucura",
+        "es": "La maldición",
+        "sv": "bedrägeri"
+    },
+    "блужданье": {
+        "en": "the prostitute",
+        "fr": "La prostituée",
+        "de": "Blüte",
+        "it": "La prostituta",
+        "pt": "loucura",
+        "es": "La prostitución",
+        "sv": "Blondin"
+    },
+    "блузка": {
+        "en": "Blurry",
+        "fr": "Blondeur",
+        "de": "Blüte",
+        "it": "bluzetta",
+        "pt": "T-shirt",
+        "es": "bluza",
+        "sv": "Blöja"
+    },
+    "блуминг": {
+        "en": "Bluming",
+        "fr": "Blumeur",
+        "de": "Bluming",
+        "it": "Bluming",
+        "pt": "Blumagem",
+        "es": "Bloqueo",
+        "sv": "Blomning"
+    },
+    "блэкджек": {
+        "en": "Blackjack",
+        "fr": "Blackjack",
+        "de": "Blackjack",
+        "it": "Il blackjack",
+        "pt": "Blackjack",
+        "es": "Blackjack",
+        "sv": "Blackjack"
+    },
+    "блюдце": {
+        "en": "The dish",
+        "fr": "Le repas",
+        "de": "Das Essen",
+        "it": "Il piatto",
+        "pt": "Almoço",
+        "es": "Los platos",
+        "sv": "Måltider"
+    },
+    "блюминг": {
+        "en": "Bluming",
+        "fr": "Blumage",
+        "de": "Bluming",
+        "it": "Bluming",
+        "pt": "Blumagem",
+        "es": "Bloqueo",
+        "sv": "Blumning"
+    },
+    "блядища": {
+        "en": "Blinded",
+        "fr": "Bleu",
+        "de": "Blüten",
+        "it": "Il blasfemo",
+        "pt": "Brincadeira",
+        "es": "El blasfemo",
+        "sv": "bländare"
+    },
+    "бобик": {
+        "en": "The Bobby",
+        "fr": "Bobique",
+        "de": "Die Bose",
+        "it": "Il Bobby",
+        "pt": "Bobo",
+        "es": "La bobina",
+        "sv": "Bobbyn"
+    },
+    "бобок": {
+        "en": "beans",
+        "fr": "Bébé",
+        "de": "Böse",
+        "it": "Il bacino",
+        "pt": "Bobo",
+        "es": "Las cebollas",
+        "sv": "Bönor"
+    },
+    "бобрик": {
+        "en": "BOBRIC",
+        "fr": "BOBRIC",
+        "de": "BOBRIK",
+        "it": "di BOBRIC",
+        "pt": "BOBRIC",
+        "es": "BOBRIC",
+        "sv": "BOBRIK"
+    },
+    "бобслеист": {
+        "en": "Bobsleist",
+        "fr": "Bobsleiste",
+        "de": "Bobsleist",
+        "it": "di Bobsleist",
+        "pt": "BOBSLEIST",
+        "es": "Bobsleista",
+        "sv": "Bobsleist"
+    },
+    "богадельня": {
+        "en": "Wealthy",
+        "fr": "La richesse",
+        "de": "Reiche",
+        "it": "ricca",
+        "pt": "Ricos",
+        "es": "La riqueza",
+        "sv": "Riktiga"
+    },
+    "богемистика": {
+        "en": "The Bohemian",
+        "fr": "Bohémie",
+        "de": "Die Bohemie",
+        "it": "Il Bohemismo",
+        "pt": "Bohemias",
+        "es": "Bohemianismo",
+        "sv": "Bohemiska"
+    },
+    "боголюб": {
+        "en": "God loves",
+        "fr": "Divinité",
+        "de": "Gottesliebe",
+        "it": "Dio amore",
+        "pt": "Divindade",
+        "es": "El amor",
+        "sv": "Guds kärlek"
+    },
+    "богомолка": {
+        "en": "The Goddess",
+        "fr": "Divinité",
+        "de": "Die Göttin",
+        "it": "Divinità",
+        "pt": "Divindade",
+        "es": "Diosmola",
+        "sv": "gudomliga"
+    },
+    "богоненавистник": {
+        "en": "The Godfather",
+        "fr": "Le détestant",
+        "de": "Göttliche Hass",
+        "it": "Odio di Dio",
+        "pt": "O ódio de Deus",
+        "es": "Odio de Dios",
+        "sv": "Älskade gudar"
+    },
+    "бодипозитивщик": {
+        "en": "Body Positive",
+        "fr": "Bodypositif",
+        "de": "Bodypositivist",
+        "it": "Bodypositore",
+        "pt": "Bodypositiva",
+        "es": "Bodypositivo",
+        "sv": "Bodypositor"
+    },
+    "бодифлекс": {
+        "en": "Bodyflex",
+        "fr": "Bodyflex",
+        "de": "Bodyflex",
+        "it": "Il Bodyflex",
+        "pt": "BODIFLEX",
+        "es": "Bodiflex",
+        "sv": "Bodiflex"
+    },
+    "бодишеймер": {
+        "en": "The body",
+        "fr": "BODYCHEMER",
+        "de": "Bodystimmer",
+        "it": "Bodiamere",
+        "pt": "BODISHEMER",
+        "es": "BODYCHEMER",
+        "sv": "BODISÄMER"
+    },
+    "бодливость": {
+        "en": "Behavior",
+        "fr": "bouddhisme",
+        "de": "Bitterkeit",
+        "it": "La Bodilità",
+        "pt": "Preocupação",
+        "es": "Bodilidad",
+        "sv": "Försiktighet"
+    },
+    "бодрич": {
+        "en": "The Buddhist",
+        "fr": "Bouddha",
+        "de": "BODRICH",
+        "it": "Il Buddista",
+        "pt": "BODRIC",
+        "es": "Bodriño",
+        "sv": "Budbärare"
+    },
+    "бодхи": {
+        "en": "BODHY",
+        "fr": "Bouddha",
+        "de": "Bottas",
+        "it": "Bodhi",
+        "pt": "Bodas",
+        "es": "Bodas",
+        "sv": "Bodhi"
+    },
+    "боевые": {
+        "en": "Fighting",
+        "fr": "combattants",
+        "de": "Kämpfer",
+        "it": "combattenti",
+        "pt": "batalhas",
+        "es": "luchadores",
+        "sv": "Kämpar"
+    },
+    "боеготовность": {
+        "en": "Preparedness",
+        "fr": "La préparation",
+        "de": "Kampfbereitschaft",
+        "it": "Preparazione",
+        "pt": "Preparação",
+        "es": "Preparación",
+        "sv": "Kampberedskap"
+    },
+    "боеспособность": {
+        "en": "Fighting ability",
+        "fr": "Capacité de combat",
+        "de": "Kampffähigkeit",
+        "it": "Capacità di combattimento",
+        "pt": "Capacidade de combate",
+        "es": "Capacidad de combate",
+        "sv": "Kampförmåga"
+    },
+    "бойлеит": {
+        "en": "Boyleight",
+        "fr": "Boîte",
+        "de": "Boulevard",
+        "it": "Il Boyle",
+        "pt": "Boyleite",
+        "es": "Boyleite",
+        "sv": "Boulevard"
+    },
+    "боксирование": {
+        "en": "Boxing",
+        "fr": "Boxeur",
+        "de": "Boxung",
+        "it": "Il boxing",
+        "pt": "Boxing",
+        "es": "Boxeo",
+        "sv": "Boxning"
+    },
+    "болван": {
+        "en": "by BULVAN",
+        "fr": "Bouton",
+        "de": "Bleib",
+        "it": "Bolzano",
+        "pt": "Bolsonaro",
+        "es": "Bolvín",
+        "sv": "Botaniska"
+    },
+    "болдинец": {
+        "en": "Bollywood",
+        "fr": "Bolivien",
+        "de": "Boldener",
+        "it": "Il boldanese",
+        "pt": "Bolsonaro",
+        "es": "Boliviano",
+        "sv": "bollar"
+    },
+    "болнисец": {
+        "en": "The Hospital",
+        "fr": "Hôpital",
+        "de": "Krankenhaus",
+        "it": "Ospedale",
+        "pt": "O Hospital",
+        "es": "El Hospital",
+        "sv": "sjukhus"
+    },
+    "бологовка": {
+        "en": "painful",
+        "fr": "douleur",
+        "de": "Schmerz",
+        "it": "dolore",
+        "pt": "dor",
+        "es": "Dolores",
+        "sv": "smärta"
+    },
+    "болотник": {
+        "en": "Balcony",
+        "fr": "Bouleur",
+        "de": "Blatter",
+        "it": "Il boltone",
+        "pt": "Bolsonaro",
+        "es": "Boletín",
+        "sv": "Botaniska"
+    },
+    "болотовед": {
+        "en": "Bollywood",
+        "fr": "Bouleur",
+        "de": "Boltwissenschaft",
+        "it": "Il Bolo",
+        "pt": "Bolsonaro",
+        "es": "Boletín",
+        "sv": "Bollywood"
+    },
+    "болховчанин": {
+        "en": "The Bolshevik",
+        "fr": "bolchevique",
+        "de": "Bolscheiner",
+        "it": "Il Bolshevik",
+        "pt": "Bolchevique",
+        "es": "Bolchevique",
+        "sv": "Bolsjeviker"
+    },
+    "большесёлка": {
+        "en": "majority",
+        "fr": "Plusieurs",
+        "de": "Mehrheit",
+        "it": "più grande",
+        "pt": "Maioridade",
+        "es": "La mayor",
+        "sv": "Flera städer"
+    },
+    "большеулуец": {
+        "en": "The Multiple",
+        "fr": "Plusieurs",
+        "de": "Mehrflügel",
+        "it": "Il più grande",
+        "pt": "Multiplicação",
+        "es": "Muchos golpes",
+        "sv": "Flera skurkar"
+    },
+    "большечерниговец": {
+        "en": "The Multiple",
+        "fr": "Plusieurs noirs",
+        "de": "Mehrschwarzer",
+        "it": "Il più nero",
+        "pt": "Maior Negro",
+        "es": "El más negro",
+        "sv": "Flera svarta"
+    },
+    "бомбодержатель": {
+        "en": "The Bomber",
+        "fr": "Bombardier",
+        "de": "Bombenhafter",
+        "it": "Bombardiere",
+        "pt": "Bombardeiro",
+        "es": "Bomberos",
+        "sv": "Bomberhavaren"
+    },
+    "бомбометание": {
+        "en": "Bombing",
+        "fr": "Bombardement",
+        "de": "Bombardierung",
+        "it": "bombardiere",
+        "pt": "Bombardeamento",
+        "es": "Bombardeo",
+        "sv": "bombering"
+    },
+    "бомбометатель": {
+        "en": "Bombing",
+        "fr": "Bombardier",
+        "de": "Bombardier",
+        "it": "bombardiere",
+        "pt": "bombardeiro",
+        "es": "bomberos",
+        "sv": "Bombmätare"
+    },
+    "бомбоотсек": {
+        "en": "Bombing",
+        "fr": "Bombardement",
+        "de": "Bombardierung",
+        "it": "Il bomboneo",
+        "pt": "Bombardeio",
+        "es": "Bombardeo",
+        "sv": "Bombardering"
+    },
+    "бонго": {
+        "en": "BONGO",
+        "fr": "BONGO",
+        "de": "BONGO",
+        "it": "Il BONGO",
+        "pt": "BONGO",
+        "es": "BONGO",
+        "sv": "BONGO"
+    },
+    "бонза": {
+        "en": "Bonsai",
+        "fr": "Bonnette",
+        "de": "Bonsas",
+        "it": "Il bonus",
+        "pt": "Bônus",
+        "es": "Bonza",
+        "sv": "bonusar"
+    },
+    "бонист": {
+        "en": "Bonist",
+        "fr": "Boniste",
+        "de": "Bonistisch",
+        "it": "Bonista",
+        "pt": "Bônus",
+        "es": "Bonitas",
+        "sv": "Bonist"
+    },
+    "бонитет": {
+        "en": "Bonity",
+        "fr": "Bonnette",
+        "de": "Bonität",
+        "it": "Bonità",
+        "pt": "Bônus",
+        "es": "Bonidad",
+        "sv": "Bonitet"
+    },
+    "бонсай": {
+        "en": "Bonsai",
+        "fr": "Bonsai",
+        "de": "Bonsai",
+        "it": "Bonsai",
+        "pt": "Bonsai",
+        "es": "Bonsai",
+        "sv": "Bonsai"
+    },
+    "бонус": {
+        "en": "Bonus",
+        "fr": "Bonus",
+        "de": "Bonus",
+        "it": "Il bonus",
+        "pt": "Bônus",
+        "es": "Bonos",
+        "sv": "Bonus"
+    },
+    "бопер": {
+        "en": "Bopper",
+        "fr": "Bopper",
+        "de": "Bopper",
+        "it": "Il Bopper",
+        "pt": "BOPER",
+        "es": "BOPER",
+        "sv": "Bopper"
+    },
+    "боргес": {
+        "en": "Bordeaux",
+        "fr": "Bourgeois",
+        "de": "Bordeaux",
+        "it": "Bordeaux",
+        "pt": "Bordeaux",
+        "es": "Borgoña",
+        "sv": "Bordeaux"
+    },
+    "бордер": {
+        "en": "Border",
+        "fr": "Bordeaux",
+        "de": "Bordeaux",
+        "it": "Il Border",
+        "pt": "Borderão",
+        "es": "Bordería",
+        "sv": "Bordeaux"
+    },
+    "бордеркросс": {
+        "en": "Bordercross",
+        "fr": "Bordercross",
+        "de": "Bordercross",
+        "it": "Bordercross",
+        "pt": "Bordercross",
+        "es": "Bordercross",
+        "sv": "Bordercross"
+    },
+    "бордизм": {
+        "en": "Bordeaux",
+        "fr": "Bordeaux",
+        "de": "Bordeaux",
+        "it": "Il Bordeaux",
+        "pt": "Bordismo",
+        "es": "Bordialismo",
+        "sv": "Bordeaux"
+    },
+    "боржицкит": {
+        "en": "Borjits",
+        "fr": "Bourgeois",
+        "de": "Borjitschen",
+        "it": "Borzetta",
+        "pt": "Borjaço",
+        "es": "Borrónico",
+        "sv": "Borjitska"
+    },
+    "борисовец": {
+        "en": "The Warrior",
+        "fr": "combattants",
+        "de": "Kämpfer",
+        "it": "Il combattente",
+        "pt": "Batalhão",
+        "es": "Borrador",
+        "sv": "Kämparen"
+    },
+    "боровец": {
+        "en": "The Brave",
+        "fr": "Barbeur",
+        "de": "Die Braut",
+        "it": "Il Borovero",
+        "pt": "Barbeiro",
+        "es": "Borbón",
+        "sv": "Bärare"
+    },
+    "бородавочка": {
+        "en": "Brotherhood",
+        "fr": "Bordeaux",
+        "de": "Brustwasser",
+        "it": "La borda",
+        "pt": "Borracha",
+        "es": "Borrador",
+        "sv": "Borås"
+    },
+    "бородаевит": {
+        "en": "Borodevit",
+        "fr": "Bordeaux",
+        "de": "Bordeaux",
+        "it": "Bordaevit",
+        "pt": "Bordeaux",
+        "es": "Bordaevit",
+        "sv": "Borås"
+    },
+    "бородень": {
+        "en": "The Bear",
+        "fr": "Bordeaux",
+        "de": "Brunnen",
+        "it": "Il burro",
+        "pt": "BORDÃO",
+        "es": "El bronce",
+        "sv": "Brödet"
+    },
+    "бородища": {
+        "en": "Borodice",
+        "fr": "Bordeaux",
+        "de": "Die Borodie",
+        "it": "Bordieri",
+        "pt": "Borrão",
+        "es": "Borrador",
+        "sv": "Borås"
+    },
+    "бородулихинец": {
+        "en": "Browning",
+        "fr": "Bordeaux",
+        "de": "Bruder",
+        "it": "Il brudolino",
+        "pt": "Borduíquico",
+        "es": "Borrador",
+        "sv": "Bordeaux"
+    },
+    "борсеточник": {
+        "en": "Stock Exchange",
+        "fr": "Bourseurs",
+        "de": "Börsen",
+        "it": "Borsa",
+        "pt": "Bolsação",
+        "es": "Borsación",
+        "sv": "börsnotering"
+    },
+    "бортнаблюдатель": {
+        "en": "The board observer",
+        "fr": "Observateur à bord",
+        "de": "Schiffbeobachtung",
+        "it": "Osservatore a bordo",
+        "pt": "Observatório de bordo",
+        "es": "Observatorio de barco",
+        "sv": "fartygsövervakare"
+    },
+    "бортпроводница": {
+        "en": "Boat Guides",
+        "fr": "Le conducteur",
+        "de": "Schiffführer",
+        "it": "La guida a bordo",
+        "pt": "Caminhão",
+        "es": "La embarcación",
+        "sv": "Fartygledare"
+    },
+    "борфторид": {
+        "en": "Bordeaux",
+        "fr": "Bordeaux",
+        "de": "Bordeaux",
+        "it": "di Borftorid",
+        "pt": "Bordeaux",
+        "es": "Borftorido",
+        "sv": "Borftorid"
+    },
+    "борщевик": {
+        "en": "Borchevic",
+        "fr": "Borchevic",
+        "de": "Bordeaux",
+        "it": "Borchevic",
+        "pt": "Borchevique",
+        "es": "Borchevik",
+        "sv": "Borchevik"
+    },
+    "боскет": {
+        "en": "Bosque",
+        "fr": "Bosque",
+        "de": "Bosque",
+        "it": "Il Bosco",
+        "pt": "Bosque",
+        "es": "Bosque",
+        "sv": "Boskett"
+    },
+    "боснийка": {
+        "en": "Bosnian",
+        "fr": "Bosnie",
+        "de": "Bosnische",
+        "it": "La Bosnia",
+        "pt": "Bósnia",
+        "es": "bosniaca",
+        "sv": "Bosnien"
+    },
+    "ботаноид": {
+        "en": "Botanic",
+        "fr": "Botanoïde",
+        "de": "Botanische",
+        "it": "botanoide",
+        "pt": "Botanóides",
+        "es": "Botanoides",
+        "sv": "Botaniska"
+    },
+    "ботвинья": {
+        "en": "The bottle",
+        "fr": "Les bottes",
+        "de": "Die Schuhe",
+        "it": "bottiglie",
+        "pt": "Botinhas",
+        "es": "Botín",
+        "sv": "Skorna"
+    },
+    "ботдек": {
+        "en": "The BOTDEK",
+        "fr": "Bottex",
+        "de": "Botdeck",
+        "it": "bottec",
+        "pt": "Botdeque",
+        "es": "Botdec",
+        "sv": "BOTDEK"
+    },
+    "ботизация": {
+        "en": "Bothing",
+        "fr": "BOTISATION",
+        "de": "Botisierung",
+        "it": "Botalizzazione",
+        "pt": "BOTIZAÇÃO",
+        "es": "Botilización",
+        "sv": "Botytering"
+    },
+    "ботинкометатель": {
+        "en": "The bottlenecker",
+        "fr": "Booth métallique",
+        "de": "Schuhmesser",
+        "it": "bottiglione",
+        "pt": "Botânico",
+        "es": "Botíncometador",
+        "sv": "Bottumätare"
+    },
+    "ботсванка": {
+        "en": "Botswanka",
+        "fr": "Botswanque",
+        "de": "Botswans",
+        "it": "Botsuana",
+        "pt": "Botsuana",
+        "es": "Botsuana",
+        "sv": "Botsvans"
+    },
+    "боулер": {
+        "en": "Bowler",
+        "fr": "Bouleur",
+        "de": "Boiler",
+        "it": "Il bowler",
+        "pt": "Bouleiro",
+        "es": "Boiler",
+        "sv": "Boiler"
+    },
+    "бохо": {
+        "en": "Boho",
+        "fr": "Bobo",
+        "de": "Boho",
+        "it": "Bobo",
+        "pt": "Bobo",
+        "es": "Bobo",
+        "sv": "Boho"
+    },
+    "бочажина": {
+        "en": "Sweaters",
+        "fr": "Boissons",
+        "de": "Die Boote",
+        "it": "Cappuccetto",
+        "pt": "Cozinha",
+        "es": "La bolchera",
+        "sv": "Båtar"
+    },
+    "интерработа": {
+        "en": "Interaction",
+        "fr": "Interaction",
+        "de": "Interaktion",
+        "it": "Interazione",
+        "pt": "Interação",
+        "es": "Interacción",
+        "sv": "Interaktivitet"
+    },
+    "интерфаза": {
+        "en": "Interfaces",
+        "fr": "Interphase",
+        "de": "Interfase",
+        "it": "Interfaccia",
+        "pt": "Interfase",
+        "es": "Interfase",
+        "sv": "Interfasa"
+    },
+    "интерфон": {
+        "en": "Interphone",
+        "fr": "Interfons",
+        "de": "Interfone",
+        "it": "Interfondo",
+        "pt": "Interfone",
+        "es": "Interfonos",
+        "sv": "Interfon"
+    },
+    "интим": {
+        "en": "Intimity",
+        "fr": "Intimité",
+        "de": "Intim",
+        "it": "Intimità",
+        "pt": "Intimidade",
+        "es": "Intimidad",
+        "sv": "Intim"
+    },
+    "интина": {
+        "en": "Intention",
+        "fr": "Intense",
+        "de": "Intention",
+        "it": "Intenzione",
+        "pt": "Intenção",
+        "es": "Intención",
+        "sv": "Innehåll"
+    },
+    "интонировка": {
+        "en": "The intonation",
+        "fr": "intonation",
+        "de": "Intonierung",
+        "it": "intonazione",
+        "pt": "Intonização",
+        "es": "Intonización",
+        "sv": "Intonering"
+    },
+    "интроверт": {
+        "en": "Introvert",
+        "fr": "Introvert",
+        "de": "Introvert",
+        "it": "Introverti",
+        "pt": "Introvertida",
+        "es": "Introvertido",
+        "sv": "introvert"
+    },
+    "интронизация": {
+        "en": "Intronization",
+        "fr": "Intronisation",
+        "de": "Intronisierung",
+        "it": "Intronizzazione",
+        "pt": "Intronização",
+        "es": "Intronización",
+        "sv": "Intronisering"
+    },
+    "интрузия": {
+        "en": "Intrusion",
+        "fr": "Intrusion",
+        "de": "Intrusion",
+        "it": "Intrusione",
+        "pt": "Intrusão",
+        "es": "Intrusión",
+        "sv": "Intrusion"
+    },
+    "интуитивизм": {
+        "en": "Intuitivism",
+        "fr": "L’intuition",
+        "de": "Intuitivismus",
+        "it": "L’intuizione",
+        "pt": "Intuitivismo",
+        "es": "Intuitivismo",
+        "sv": "Intuitivism"
+    },
+    "интурист": {
+        "en": "The Inturist",
+        "fr": "Inturiste",
+        "de": "Inturist",
+        "it": "Istruzione",
+        "pt": "Inturista",
+        "es": "Inturistas",
+        "sv": "Inturist"
+    },
+    "интуристка": {
+        "en": "The Inturist",
+        "fr": "Inturiste",
+        "de": "Inturist",
+        "it": "Ingegnere",
+        "pt": "Inturista",
+        "es": "Inturista",
+        "sv": "Inturist"
+    },
+    "инфантерист": {
+        "en": "Infantry",
+        "fr": "Infantériste",
+        "de": "Infanterie",
+        "it": "Infantesi",
+        "pt": "Infantérico",
+        "es": "Infantería",
+        "sv": "infanteriet"
+    },
+    "инфарктник": {
+        "en": "The heart attack",
+        "fr": "Infarctus",
+        "de": "Herzinfarkt",
+        "it": "infarto",
+        "pt": "Infarto de coração",
+        "es": "Infarto del corazón",
+        "sv": "hjärtinfarkt"
+    },
+    "инфауна": {
+        "en": "Infounded",
+        "fr": "Infaune",
+        "de": "Infanterie",
+        "it": "Infauna",
+        "pt": "INFÁU",
+        "es": "INFAUN",
+        "sv": "infanteriet"
+    },
+    "инфектология": {
+        "en": "Infectiology",
+        "fr": "Infectiologie",
+        "de": "Infektionologie",
+        "it": "Infettologia",
+        "pt": "Infecção",
+        "es": "Infectiología",
+        "sv": "Infektion"
+    },
+    "инферно": {
+        "en": "Inferno",
+        "fr": "Inferno",
+        "de": "Inferno",
+        "it": "Inferno",
+        "pt": "Inferno",
+        "es": "Inferno",
+        "sv": "infertilitet"
+    },
+    "инфлуэнца": {
+        "en": "Influence",
+        "fr": "Influence",
+        "de": "Influenz",
+        "it": "Influenza",
+        "pt": "Influência",
+        "es": "Influencia",
+        "sv": "Influens"
+    },
+    "инфопоток": {
+        "en": "Infographic",
+        "fr": "Infographie",
+        "de": "Infografik",
+        "it": "Infotazione",
+        "pt": "Infopótulos",
+        "es": "INFOPOTEC",
+        "sv": "Infografiska"
+    },
+    "информагентство": {
+        "en": "Information agency",
+        "fr": "Informations",
+        "de": "Informationsagentur",
+        "it": "Informazione",
+        "pt": "Informação",
+        "es": "Informantía",
+        "sv": "informationenheten"
+    },
+    "информатик": {
+        "en": "Informatics",
+        "fr": "informatique",
+        "de": "Informatiker",
+        "it": "Informatico",
+        "pt": "informático",
+        "es": "informático",
+        "sv": "Informatiker"
+    },
+    "информбюро": {
+        "en": "Information Bureau",
+        "fr": "Bureau d’information",
+        "de": "Informationsbüro",
+        "it": "Ufficio Informazioni",
+        "pt": "INFORMAÇÃO",
+        "es": "Oficina de Información",
+        "sv": "Informationsbyrå"
+    },
+    "информсеть": {
+        "en": "informed",
+        "fr": "Informations",
+        "de": "Informieren",
+        "it": "Informazioni",
+        "pt": "INFORMAÇÃO",
+        "es": "Informar",
+        "sv": "Informerar"
+    },
+    "информцентр": {
+        "en": "Information Center",
+        "fr": "Centre d'information",
+        "de": "Informationszentrum",
+        "it": "Centro Informazioni",
+        "pt": "Centro de Informação",
+        "es": "Centro de Información",
+        "sv": "Informationcentret"
+    },
+    "инфошум": {
+        "en": "infographics",
+        "fr": "infos",
+        "de": "Infosum",
+        "it": "Il infosso",
+        "pt": "INFOSUM",
+        "es": "INFOSU",
+        "sv": "infosum"
+    },
+    "инфракон": {
+        "en": "Infrared",
+        "fr": "INFRACON",
+        "de": "Infrarot",
+        "it": "L’infraro",
+        "pt": "INFRACÃO",
+        "es": "Infracon",
+        "sv": "Infraktioner"
+    },
+    "инфрамикробиология": {
+        "en": "Inframicrobiology",
+        "fr": "inframicrobiologie",
+        "de": "Inframikrobiologie",
+        "it": "Inframicrobiologia",
+        "pt": "Inframicrobiologia",
+        "es": "Inframicrobiología",
+        "sv": "Inframikrobiologi"
+    },
+    "инцизия": {
+        "en": "Incident",
+        "fr": "Incidence",
+        "de": "Inzession",
+        "it": "Incidente",
+        "pt": "Incêndio",
+        "es": "Incidencia",
+        "sv": "Incidens"
+    },
+    "иолит": {
+        "en": "andolithic",
+        "fr": "Yolite",
+        "de": "Eolithik",
+        "it": "Gioletta",
+        "pt": "Iolítico",
+        "es": "yólito",
+        "sv": "Elliot"
+    },
+    "ионий": {
+        "en": "Yoni",
+        "fr": "Yoon",
+        "de": "Ionisch",
+        "it": "Ioani",
+        "pt": "João",
+        "es": "yonios",
+        "sv": "Ioniska"
+    },
+    "ионообмен": {
+        "en": "The ion exchange",
+        "fr": "Échange de ions",
+        "de": "ionische Austausch",
+        "it": "Lo scambio ionico",
+        "pt": "intercâmbio iônico",
+        "es": "Intercambio de iones",
+        "sv": "Ionväxling"
+    },
+    "ионосферист": {
+        "en": "Yonospherist",
+        "fr": "Yonosphère",
+        "de": "jonosphärisch",
+        "it": "Ionosfero",
+        "pt": "Ionosférico",
+        "es": "yonosferista",
+        "sv": "Ionosfär"
+    },
+    "иордизит": {
+        "en": "Orthodoxy",
+        "fr": "IORDISIT",
+        "de": "undordizitis",
+        "it": "Giordicidio",
+        "pt": "Iorodismo",
+        "es": "yorditis",
+        "sv": "iordisit"
+    },
+    "ипомея": {
+        "en": "The IPOMEA",
+        "fr": "l'ipoméie",
+        "de": "IPOMEA",
+        "it": "Ipomea",
+        "pt": "Hipoméia",
+        "es": "Hipómenos",
+        "sv": "Ipomea"
+    },
+    "ипподром": {
+        "en": "by ippodrom",
+        "fr": "Hippodrome",
+        "de": "IPPoder",
+        "it": "Il ippodro",
+        "pt": "Hipódromo",
+        "es": "Hippodro",
+        "sv": "Ippodrom"
+    },
+    "иприт": {
+        "en": "by Ipriot",
+        "fr": "l’iprite",
+        "de": "Hypothese",
+        "it": "Imprite",
+        "pt": "Impressão",
+        "es": "Impresion",
+        "sv": "Ippret"
+    },
+    "иридарий": {
+        "en": "Iridary",
+        "fr": "Iridaire",
+        "de": "Iridarium",
+        "it": "iridario",
+        "pt": "Iridário",
+        "es": "Iridario",
+        "sv": "Irridor"
+    },
+    "ириска": {
+        "en": "Iriska",
+        "fr": "irisée",
+        "de": "irisisch",
+        "it": "Irisca",
+        "pt": "Irisca",
+        "es": "iris",
+        "sv": "Iriska"
+    },
+    "ирнимит": {
+        "en": "Irnity",
+        "fr": "ironyme",
+        "de": "irnisch",
+        "it": "irnismo",
+        "pt": "Irmã",
+        "es": "Irnimación",
+        "sv": "irniska"
+    },
+    "ирредента": {
+        "en": "Irredent",
+        "fr": "irrédient",
+        "de": "Irredent",
+        "it": "irrigazione",
+        "pt": "Irredentado",
+        "es": "irredentado",
+        "sv": "Irredent"
+    },
+    "иртышит": {
+        "en": "Irtishit",
+        "fr": "Irrité",
+        "de": "irtisch",
+        "it": "irrigazione",
+        "pt": "Irmã",
+        "es": "irtiquido",
+        "sv": "Irritär"
+    },
+    "искалечение": {
+        "en": "discharge",
+        "fr": "Désinfection",
+        "de": "Verzerrung",
+        "it": "La distruzione",
+        "pt": "Desmoronamento",
+        "es": "El desgaste",
+        "sv": "utrotning"
+    },
+    "искалывание": {
+        "en": "scattering",
+        "fr": "Déchargement",
+        "de": "Verzweiflung",
+        "it": "Il distacco",
+        "pt": "Escavação",
+        "es": "Descargar",
+        "sv": "Förskjutning"
+    },
+    "искариотка": {
+        "en": "The Corner",
+        "fr": "Corrée",
+        "de": "Verrückt",
+        "it": "La corruzione",
+        "pt": "Caçador",
+        "es": "Córdoba",
+        "sv": "Förrädare"
+    },
+    "исключенье": {
+        "en": "Exceptions",
+        "fr": "Exception",
+        "de": "Ausnahmen",
+        "it": "eccezioni",
+        "pt": "Exceção",
+        "es": "Excepción",
+        "sv": "Undantag"
+    },
+    "исковыривание": {
+        "en": "Exploitation",
+        "fr": "Exploitation",
+        "de": "Ausbeutung",
+        "it": "sfruttamento",
+        "pt": "Exploração",
+        "es": "Explotación",
+        "sv": "utnyttjande"
+    },
+    "исконопачивание": {
+        "en": "Mining",
+        "fr": "L’exploitation",
+        "de": "Die Mining",
+        "it": "Il rifiuto",
+        "pt": "Mineração",
+        "es": "La mineración",
+        "sv": "fossilisering"
+    },
+    "искоренение": {
+        "en": "Extermination",
+        "fr": "L’extermination",
+        "de": "Aussterben",
+        "it": "Eliminazione",
+        "pt": "Extinção",
+        "es": "Extinción",
+        "sv": "utrotning"
+    },
+    "искривленье": {
+        "en": "The Curse",
+        "fr": "Corruption",
+        "de": "Verwirrung",
+        "it": "La corruzione",
+        "pt": "Corrupção",
+        "es": "Corrumpios",
+        "sv": "Skruvning"
+    },
+    "искупленье": {
+        "en": "Revenge",
+        "fr": "Rédemption",
+        "de": "Erlösung",
+        "it": "La salvezza",
+        "pt": "A redenção",
+        "es": "Salvación",
+        "sv": "Frälsning"
+    },
+    "искусственник": {
+        "en": "Artist",
+        "fr": "artificiel",
+        "de": "Künstler",
+        "it": "artificiale",
+        "pt": "Artista",
+        "es": "Artista",
+        "sv": "konstnärliga"
+    },
+    "искусывание": {
+        "en": "The temptation",
+        "fr": "La tentation",
+        "de": "Versuchung",
+        "it": "La tentazione",
+        "pt": "tentação",
+        "es": "La tentación",
+        "sv": "frestelsen"
+    },
+    "исламист": {
+        "en": "Islamist",
+        "fr": "islamiste",
+        "de": "Islamischer",
+        "it": "islamista",
+        "pt": "Islâmico",
+        "es": "Islámico",
+        "sv": "Islamistiska"
+    },
+    "исламовед": {
+        "en": "Islamists",
+        "fr": "Islamique",
+        "de": "Islamischer",
+        "it": "Islamisti",
+        "pt": "Islâmico",
+        "es": "Islámico",
+        "sv": "islamistiska"
+    },
+    "исламофоб": {
+        "en": "Islamophobic",
+        "fr": "islamophobe",
+        "de": "Islamofob",
+        "it": "Islamofobico",
+        "pt": "Islamofobia",
+        "es": "Islamofóbico",
+        "sv": "Islamofob"
+    },
+    "испанист": {
+        "en": "Spanish",
+        "fr": "Espagnole",
+        "de": "Spanisch",
+        "it": "Spagnolo",
+        "pt": "Espanhol",
+        "es": "español",
+        "sv": "spanska"
+    },
+    "испещрение": {
+        "en": "The Saving",
+        "fr": "épargne",
+        "de": "Ausspannung",
+        "it": "Il risparmio",
+        "pt": "Expedição",
+        "es": "El ahorro",
+        "sv": "utspädning"
+    },
+    "исполком": {
+        "en": "with the",
+        "fr": "Envoyer",
+        "de": "Aufschreiben",
+        "it": "con l'esecuzione",
+        "pt": "Compreendendo",
+        "es": "Encomiendo",
+        "sv": "Försöker"
+    },
+    "исполнительство": {
+        "en": "Execution",
+        "fr": "Exécutif",
+        "de": "Vollstreckung",
+        "it": "Esecuzione",
+        "pt": "Execução",
+        "es": "ejecución",
+        "sv": "verkställighet"
+    },
+    "испорченность": {
+        "en": "corruption",
+        "fr": "Déformation",
+        "de": "Verzerrung",
+        "it": "La rottura",
+        "pt": "corrupção",
+        "es": "corrupción",
+        "sv": "Förstörelse"
+    },
+    "исправничество": {
+        "en": "Correction",
+        "fr": "Correction",
+        "de": "Korrektur",
+        "it": "Correzione",
+        "pt": "Correção",
+        "es": "Corrección",
+        "sv": "Korrigering"
+    },
+    "испытание": {
+        "en": "Testing",
+        "fr": "Teste",
+        "de": "Versuchung",
+        "it": "Il test",
+        "pt": "A provação",
+        "es": "La prueba",
+        "sv": "Försök"
+    },
+    "исстрачивание": {
+        "en": "The loss",
+        "fr": "La perte",
+        "de": "Verlust",
+        "it": "La perdita",
+        "pt": "Perda",
+        "es": "La pérdida",
+        "sv": "Förlust"
+    },
+    "исступлённость": {
+        "en": "Exposure",
+        "fr": "Exposition",
+        "de": "Ausstellbarkeit",
+        "it": "esposizione",
+        "pt": "Exposição",
+        "es": "Exposición",
+        "sv": "Utställning"
+    },
+    "иссыхание": {
+        "en": "Drying",
+        "fr": "séchage",
+        "de": "Trocknen",
+        "it": "Asciugare",
+        "pt": "secagem",
+        "es": "secado",
+        "sv": "Torkning"
+    },
+    "истаивание": {
+        "en": "The standing",
+        "fr": "Éteignement",
+        "de": "Ausdauer",
+        "it": "Sviluppo",
+        "pt": "Estabelecimento",
+        "es": "Establecer",
+        "sv": "Utjämning"
+    },
+    "истина": {
+        "en": "The truth",
+        "fr": "Vérité",
+        "de": "Wahrheit",
+        "it": "La verità",
+        "pt": "A Verdade",
+        "es": "La verdad",
+        "sv": "Sanningen"
+    },
+    "истираемость": {
+        "en": "the truthfulness",
+        "fr": "Vérité",
+        "de": "Reifbarkeit",
+        "it": "La veridicità",
+        "pt": "Exercício",
+        "es": "La veracidad",
+        "sv": "Rättvisa"
+    },
+    "истопник": {
+        "en": "The Dwarf",
+        "fr": "L’abîme",
+        "de": "Verstopfung",
+        "it": "Il distacco",
+        "pt": "Caminhão",
+        "es": "Desaparición",
+        "sv": "Försvinnare"
+    },
+    "историковед": {
+        "en": "Historicists",
+        "fr": "Historiciens",
+        "de": "Historiker",
+        "it": "Storico",
+        "pt": "Histórico",
+        "es": "Histórico",
+        "sv": "Historiker"
+    },
+    "историковедение": {
+        "en": "History of",
+        "fr": "Historique",
+        "de": "Historik",
+        "it": "Storico",
+        "pt": "Histórico",
+        "es": "Histórico",
+        "sv": "Historiska"
+    },
+    "источник": {
+        "en": "Source",
+        "fr": "source",
+        "de": "Quelle",
+        "it": "Fonte",
+        "pt": "Fonte",
+        "es": "Fuente",
+        "sv": "Källa"
+    },
+    "истребительница": {
+        "en": "Fighter",
+        "fr": "La chasseuse",
+        "de": "Kämpfer",
+        "it": "La caccia",
+        "pt": "Atirador",
+        "es": "La luchadora",
+        "sv": "Kämparen"
+    },
+    "исхищрение": {
+        "en": "The kidnapping",
+        "fr": "L’enlèvement",
+        "de": "Entführung",
+        "it": "Il rapimento",
+        "pt": "Deslocação",
+        "es": "El secuestro",
+        "sv": "Förräderi"
+    },
+    "исхудание": {
+        "en": "Weight Loss",
+        "fr": "perte de poids",
+        "de": "Gewichtsverlust",
+        "it": "perdita di peso",
+        "pt": "perda de peso",
+        "es": "pérdida de peso",
+        "sv": "Viktminskning"
+    },
+    "исцеленье": {
+        "en": "Healing",
+        "fr": "guérison",
+        "de": "Heilung",
+        "it": "La guarigione",
+        "pt": "Curação",
+        "es": "curación",
+        "sv": "helande"
+    },
+    "ительмен": {
+        "en": "Italian",
+        "fr": "Italien",
+        "de": "Italiener",
+        "it": "Italiano",
+        "pt": "Itália",
+        "es": "Italiano",
+        "sv": "Italienska"
+    },
+    "итинерарий": {
+        "en": "Itinerary",
+        "fr": "Itinéraire",
+        "de": "Itinerarien",
+        "it": "Itinerario",
+        "pt": "Itinerário",
+        "es": "Itinerario",
+        "sv": "Innehållet"
+    },
+    "иттрий": {
+        "en": "Three",
+        "fr": "ettrie",
+        "de": "Echtrich",
+        "it": "Il Trio",
+        "pt": "Itrião",
+        "es": "ETRI",
+        "sv": "Ittre"
+    },
+    "итээровец": {
+        "en": "Theirow",
+        "fr": "Théâtre",
+        "de": "Der Tiger",
+        "it": "Il Tiro",
+        "pt": "Itinerário",
+        "es": "Teeróvico",
+        "sv": "Tjävlar"
+    },
+    "ихнология": {
+        "en": "theirology",
+        "fr": "Hynologie",
+        "de": "Immunologie",
+        "it": "L’Ironologia",
+        "pt": "Inanologia",
+        "es": "Inanología",
+        "sv": "Innanologi"
+    },
+    "ихнофоссилия": {
+        "en": "their phosphorus",
+        "fr": "leur phosphore",
+        "de": "ihre Fossilien",
+        "it": "La loro fosilità",
+        "pt": "Fossilidade",
+        "es": "Fosilía",
+        "sv": "deras fossiella"
+    },
+    "ихрам": {
+        "en": "Their",
+        "fr": "leur",
+        "de": "Ich habe",
+        "it": "Il loro",
+        "pt": "seus",
+        "es": "suyos",
+        "sv": "deras"
+    },
+    "ихтиандровец": {
+        "en": "Ichthiandrovets",
+        "fr": "Ichthiandrovets",
+        "de": "Ichthiandrose",
+        "it": "Ichthiandrovico",
+        "pt": "Ichthiandrovets",
+        "es": "Ichthiandrovets",
+        "sv": "Ichthiandrovets"
+    },
+    "ихтиопланктон": {
+        "en": "Ichthioplankton",
+        "fr": "Ichthyoplankton",
+        "de": "Ichthyoplankton",
+        "it": "Ichthioplanktone",
+        "pt": "Ichthioplankton",
+        "es": "Ichthyoplankton",
+        "sv": "Ichthyoplankton"
+    },
+    "ишачок": {
+        "en": "Issue",
+        "fr": "chercheur",
+        "de": "Nachfolger",
+        "it": "Il cacciatore",
+        "pt": "Buscando",
+        "es": "El buscador",
+        "sv": "Sökande"
+    },
+    "йифф-арт": {
+        "en": "Yif-Art",
+        "fr": "Yif-Arte",
+        "de": "Yif-Art",
+        "it": "Il Yif-Art",
+        "pt": "Yif-Art",
+        "es": "YIFF-Art",
+        "sv": "YIFF-art"
+    },
+    "йоббик": {
+        "en": "Yobby",
+        "fr": "JOBBIC",
+        "de": "JOBBIK",
+        "it": "Il Yobby",
+        "pt": "JOBBIC",
+        "es": "Yobby",
+        "sv": "JOBBIK"
+    },
+    "йодат": {
+        "en": "Yodium",
+        "fr": "iodate",
+        "de": "Jod",
+        "it": "Iodio",
+        "pt": "iodo",
+        "es": "Yoda",
+        "sv": "Jod"
+    },
+    "йодлер": {
+        "en": "Yodler",
+        "fr": "Le iodaire",
+        "de": "Jodler",
+        "it": "Il iodore",
+        "pt": "Iodelo",
+        "es": "yodero",
+        "sv": "Jodlar"
+    },
+    "йоркшир": {
+        "en": "The Yorkshire",
+        "fr": "Yorkshire",
+        "de": "Yorkshire",
+        "it": "Il Yorkshire",
+        "pt": "Yorkshire",
+        "es": "Yorkshir",
+        "sv": "Yorkshire"
+    },
+    "йух": {
+        "en": "Yuh",
+        "fr": "Yuh",
+        "de": "Yuh",
+        "it": "di Yuh",
+        "pt": "Yuh",
+        "es": "Yuh",
+        "sv": "Yuh"
+    },
+    "ка": {
+        "en": "to",
+        "fr": "à",
+        "de": "zu",
+        "it": "per la",
+        "pt": "Para",
+        "es": "a la",
+        "sv": "till"
+    },
+    "кабала": {
+        "en": "Cabal",
+        "fr": "Cabale",
+        "de": "Kabala",
+        "it": "Il Caballo",
+        "pt": "Cabala",
+        "es": "Caballero",
+        "sv": "Kabbala"
+    },
+    "кабатчик": {
+        "en": "Cabinet",
+        "fr": "Cabinet",
+        "de": "Kabinett",
+        "it": "Il cabattolo",
+        "pt": "Cabateiro",
+        "es": "Caballero",
+        "sv": "kabatär"
+    },
+    "кабачница": {
+        "en": "The Cabbage",
+        "fr": "Cabbage",
+        "de": "Kabbage",
+        "it": "Cappuccetto",
+        "pt": "Cabeça",
+        "es": "Caballero",
+        "sv": "Kabbage"
+    },
+    "каббалистика": {
+        "en": "Cabalists",
+        "fr": "Cabalistique",
+        "de": "Kabbalistisch",
+        "it": "Caballeria",
+        "pt": "Cabalística",
+        "es": "Cabalística",
+        "sv": "Kabbalistiska"
+    },
+    "каберне": {
+        "en": "cabin",
+        "fr": "Le cabinet",
+        "de": "Kabinett",
+        "it": "La cabina",
+        "pt": "Caberna",
+        "es": "Cabina",
+        "sv": "Kabinett"
+    },
+    "кабина": {
+        "en": "Cabin",
+        "fr": "Cabine",
+        "de": "Kabine",
+        "it": "La cabina",
+        "pt": "Cabina",
+        "es": "Cabina",
+        "sv": "Kabinet"
+    },
+    "кабинка": {
+        "en": "cabin",
+        "fr": "Cabine",
+        "de": "Kabinett",
+        "it": "La cabina",
+        "pt": "Cabina",
+        "es": "Cabina",
+        "sv": "Kabinet"
+    },
+    "гончар": {
+        "en": "Race",
+        "fr": "Raceur",
+        "de": "Rennen",
+        "it": "corridore",
+        "pt": "Corridor",
+        "es": "Concurso",
+        "sv": "Ryttare"
+    },
+    "гонщица": {
+        "en": "The Race",
+        "fr": "Raceur",
+        "de": "Rennen",
+        "it": "Il corridore",
+        "pt": "Corrente",
+        "es": "Corrente",
+        "sv": "Ryttare"
+    },
+    "гопеит": {
+        "en": "Goethe",
+        "fr": "HOPEIT",
+        "de": "GOPEIT",
+        "it": "Gopei",
+        "pt": "HOPEIT",
+        "es": "HOPEIT",
+        "sv": "Gopeit"
+    },
+    "горани": {
+        "en": "HORAN",
+        "fr": "Les montagnes",
+        "de": "Goran",
+        "it": "La montagna",
+        "pt": "Horão",
+        "es": "La montaña",
+        "sv": "Goran"
+    },
+    "горбинка": {
+        "en": "The gorbina",
+        "fr": "Les gorbins",
+        "de": "Der Gorben",
+        "it": "di Gorbina",
+        "pt": "Gorbina",
+        "es": "Gorbina",
+        "sv": "Gorbinska"
+    },
+    "гипосмия": {
+        "en": "Hyposmia",
+        "fr": "Hyposmie",
+        "de": "Hyposmie",
+        "it": "L’iposmia",
+        "pt": "Hiposmia",
+        "es": "Hiposmia",
+        "sv": "Hyposmisk"
+    },
+    "горбунья": {
+        "en": "The Gorbuna",
+        "fr": "Bourbonne",
+        "de": "Der Gorbun",
+        "it": "il gorbone",
+        "pt": "Gorbão",
+        "es": "Gorbona",
+        "sv": "Gorbuna"
+    },
+    "горводоканал": {
+        "en": "The horoscope",
+        "fr": "Le canal de gorge",
+        "de": "Gärtenkanal",
+        "it": "Il canale",
+        "pt": "O canal",
+        "es": "El canal",
+        "sv": "Kornkanal"
+    },
+    "горгонзола": {
+        "en": "by Gorgonsola",
+        "fr": "Gorgonsole",
+        "de": "Gorgonzola",
+        "it": "di Gorgonzola",
+        "pt": "Gargonsola",
+        "es": "Gorgonzola",
+        "sv": "Gorgonsol"
+    },
+    "гордон": {
+        "en": "proud",
+        "fr": "Orgueil",
+        "de": "Stolz",
+        "it": "orgoglioso",
+        "pt": "orgulho",
+        "es": "orgulloso",
+        "sv": "Stolt över"
+    },
+    "гордонит": {
+        "en": "Pride",
+        "fr": "fierté",
+        "de": "Stolz auf",
+        "it": "orgoglioso",
+        "pt": "orgulho",
+        "es": "Orgulloso",
+        "sv": "Stolt över"
+    },
+    "горенье": {
+        "en": "burning",
+        "fr": "Incendie",
+        "de": "Brennen",
+        "it": "Il fuoco",
+        "pt": "Fogo",
+        "es": "fuego",
+        "sv": "brinnande"
+    },
+    "горизонтальность": {
+        "en": "horizontality",
+        "fr": "horizontalité",
+        "de": "Horizontalität",
+        "it": "L’orizzontalità",
+        "pt": "horizontalidade",
+        "es": "horizontalidad",
+        "sv": "Horisontell"
+    },
+    "горлодёр": {
+        "en": "The throat",
+        "fr": "Le gorgeur",
+        "de": "Hunger",
+        "it": "La gola",
+        "pt": "O garoto",
+        "es": "El gorro",
+        "sv": "Håriga"
+    },
+    "гормолзавод": {
+        "en": "Hormone",
+        "fr": "Hormone",
+        "de": "Hormonbau",
+        "it": "ormonale",
+        "pt": "hormonais",
+        "es": "Hormonación",
+        "sv": "Hormonläkare"
+    },
+    "горно": {
+        "en": "Upper",
+        "fr": "En haut",
+        "de": "oben",
+        "it": "Al di sopra",
+        "pt": "acima",
+        "es": "arriba",
+        "sv": "Över"
+    },
+    "горнячка": {
+        "en": "Mining",
+        "fr": "La montagne",
+        "de": "Bergsteiger",
+        "it": "La montagna",
+        "pt": "Minas",
+        "es": "La montaña",
+        "sv": "Bergmästare"
+    },
+    "городничиха": {
+        "en": "Municipality",
+        "fr": "Municipalité",
+        "de": "Städte",
+        "it": "cittadino",
+        "pt": "Cidade",
+        "es": "Ciudadano",
+        "sv": "städerna"
+    },
+    "городокчанин": {
+        "en": "township",
+        "fr": "Cité",
+        "de": "Stadtbewohner",
+        "it": "Cittadini",
+        "pt": "Cidade",
+        "es": "Ciudadano",
+        "sv": "Stadskamrat"
+    },
+    "горохомолотилка": {
+        "en": "Horoscope",
+        "fr": "HOROMOLOTILLE",
+        "de": "GROHOMOLOTILKA",
+        "it": "Grochomoletti",
+        "pt": "Horóscopo",
+        "es": "Horomolotilla",
+        "sv": "HOROMOTILKA"
+    },
+    "горсовпроф": {
+        "en": "The GorsoProf",
+        "fr": "Gossoprof",
+        "de": "Der GorsoProf",
+        "it": "Il GorsoProf",
+        "pt": "Orçamento",
+        "es": "Gorsoprofesionales",
+        "sv": "Borgmästare"
+    },
+    "горст": {
+        "en": "The guest",
+        "fr": "GARDEN",
+        "de": "Gastgeber",
+        "it": "Guarda",
+        "pt": "Guardião",
+        "es": "Guerta",
+        "sv": "Gärna"
+    },
+    "гортаноглотка": {
+        "en": "The throat",
+        "fr": "La gorge",
+        "de": "Gurtengloten",
+        "it": "La gola",
+        "pt": "A garganta",
+        "es": "La garganta",
+        "sv": "Hårvagnen"
+    },
+    "горушка": {
+        "en": "The gorgeous",
+        "fr": "La gorge",
+        "de": "Hunger",
+        "it": "La fortezza",
+        "pt": "Furioso",
+        "es": "La gorra",
+        "sv": "Hjärta"
+    },
+    "горшечница": {
+        "en": "the gorgeous",
+        "fr": "La tortue",
+        "de": "Schmutz",
+        "it": "Peccato",
+        "pt": "Pérdida",
+        "es": "Pérdida",
+        "sv": "Hårvagnen"
+    },
+    "горэлектротранспорт": {
+        "en": "Electric transport",
+        "fr": "Transport électrique",
+        "de": "Stromtransport",
+        "it": "Il trasporto elettrico",
+        "pt": "Transporte elétrico",
+        "es": "El transporte eléctrico",
+        "sv": "Strömtransport"
+    },
+    "горюн": {
+        "en": "The Fire",
+        "fr": "brûleur",
+        "de": "Brennen",
+        "it": "Il fuoco",
+        "pt": "Fogo",
+        "es": "fuego",
+        "sv": "Brännare"
+    },
+    "госаккредитация": {
+        "en": "state credit",
+        "fr": "Créditations publiques",
+        "de": "Staatskredit",
+        "it": "credito pubblico",
+        "pt": "Crédito Público",
+        "es": "La acreditación estatal",
+        "sv": "Statskreditering"
+    },
+    "госбанк": {
+        "en": "The State Bank",
+        "fr": "Banque nationale",
+        "de": "Staatsbank",
+        "it": "Banca di Stato",
+        "pt": "Banco do Estado",
+        "es": "Banco de Estado",
+        "sv": "statsbanken"
+    },
+    "госбюджетник": {
+        "en": "The state budget",
+        "fr": "budgétaire",
+        "de": "Staatsbudget",
+        "it": "Il bilancio statale",
+        "pt": "Orçamento do Estado",
+        "es": "El presupuesto estatal",
+        "sv": "statsbudget"
+    },
+    "госграница": {
+        "en": "State border",
+        "fr": "La frontière",
+        "de": "Staatsgrenze",
+        "it": "Il confine",
+        "pt": "Estrangeiro",
+        "es": "El extranjero",
+        "sv": "Utländska gränser"
+    },
+    "госдача": {
+        "en": "The State",
+        "fr": "État",
+        "de": "Staatsbürger",
+        "it": "Stato",
+        "pt": "O Estado",
+        "es": "El Estado",
+        "sv": "staten"
+    },
+    "госдолжность": {
+        "en": "State duty",
+        "fr": "D’État",
+        "de": "Staatliche Pflicht",
+        "it": "Dipartimento di Stato",
+        "pt": "Função de Estado",
+        "es": "Duración del Estado",
+        "sv": "Statligt ansvar"
+    },
+    "госдоход": {
+        "en": "State income",
+        "fr": "L’État",
+        "de": "Staatliche Einnahme",
+        "it": "Il guadagno",
+        "pt": "renda pública",
+        "es": "El ingreso",
+        "sv": "statliga inkomster"
+    },
+    "госдура": {
+        "en": "The State",
+        "fr": "gouverneur",
+        "de": "Herrscher",
+        "it": "Il governatore",
+        "pt": "governador",
+        "es": "Gobernador",
+        "sv": "Statsministern"
+    },
+    "госзакупка": {
+        "en": "state purchases",
+        "fr": "Achat d'Etat",
+        "de": "Staatsverkauf",
+        "it": "Acquisto di Stato",
+        "pt": "Compra de Estado",
+        "es": "Compra de Estado",
+        "sv": "statliga inköp"
+    },
+    "госзащита": {
+        "en": "State Defence",
+        "fr": "Défense publique",
+        "de": "Staatsverteidigung",
+        "it": "difesa pubblica",
+        "pt": "Defesa do Estado",
+        "es": "Defensa del Estado",
+        "sv": "Statligt försvar"
+    },
+    "госменеджер": {
+        "en": "The State Manager",
+        "fr": "Général",
+        "de": "Staatsmanager",
+        "it": "Direttore pubblico",
+        "pt": "Gestor do Estado",
+        "es": "Gobernador",
+        "sv": "statsmanager"
+    },
+    "госнедвижимость": {
+        "en": "State Property",
+        "fr": "Propriété publique",
+        "de": "Staatsvermögen",
+        "it": "Proprietà pubblica",
+        "pt": "Propriedade Pública",
+        "es": "Propiedad Pública",
+        "sv": "statliga fastigheter"
+    },
+    "гособъединение": {
+        "en": "State unification",
+        "fr": "L’association",
+        "de": "Staatliche Vereinigung",
+        "it": "Unione pubblica",
+        "pt": "Comunidade",
+        "es": "Comunidad",
+        "sv": "Statsförening"
+    },
+    "госпредставитель": {
+        "en": "State Representative",
+        "fr": "représentant",
+        "de": "Staatsverteidiger",
+        "it": "rappresentante statale",
+        "pt": "representante do Estado",
+        "es": "El representante",
+        "sv": "statsföreträdare"
+    },
+    "госприказ": {
+        "en": "state order",
+        "fr": "Commande publique",
+        "de": "Staatsbericht",
+        "it": "Dichiarazione",
+        "pt": "Declaração",
+        "es": "Declaración",
+        "sv": "Statligt tal"
+    },
+    "госрасходы": {
+        "en": "State expenditure",
+        "fr": "dépenses publiques",
+        "de": "Staatsanleihen",
+        "it": "spese pubbliche",
+        "pt": "Despesas estatais",
+        "es": "Gastos estatales",
+        "sv": "Statliga utgifter"
+    },
+    "госрегистрация": {
+        "en": "State registration",
+        "fr": "Registre publique",
+        "de": "Staatsregistrierung",
+        "it": "Registrazione pubblica",
+        "pt": "Registo de Estado",
+        "es": "Registro de Estado",
+        "sv": "Statlig registrering"
+    },
+    "госрегулирование": {
+        "en": "governance",
+        "fr": "réglementation",
+        "de": "Staatsregulierung",
+        "it": "Regolamento",
+        "pt": "Regulação",
+        "es": "la regulación",
+        "sv": "Reglering"
+    },
+    "госреестр": {
+        "en": "The State",
+        "fr": "Général",
+        "de": "Staatsregister",
+        "it": "Il governatore",
+        "pt": "Governador",
+        "es": "Gobernador",
+        "sv": "statsrådgivare"
+    },
+    "госсекрет": {
+        "en": "Secretary",
+        "fr": "Secrétaire d'Etat",
+        "de": "Staatssekretär",
+        "it": "Segretario di Stato",
+        "pt": "Secretário de Estado",
+        "es": "Secretario de Estado",
+        "sv": "statssekreterare"
+    },
+    "госсекретарь": {
+        "en": "Secretary",
+        "fr": "Secrétaire Général",
+        "de": "Staatssekretär",
+        "it": "Segretario di Stato",
+        "pt": "Secretário de Estado",
+        "es": "Secretario de Estado",
+        "sv": "statssekreterare"
+    },
+    "госсовет": {
+        "en": "Council",
+        "fr": "Conseil d'Etat",
+        "de": "Staatsrat",
+        "it": "Consiglio di Stato",
+        "pt": "Conselho de Estado",
+        "es": "Consejo de Estado",
+        "sv": "Statens råd"
+    },
+    "госсоветник": {
+        "en": "Council of State",
+        "fr": "Conseil d'Etat",
+        "de": "Staatsberater",
+        "it": "Consigliere",
+        "pt": "Conselheiro",
+        "es": "Consejero de Estado",
+        "sv": "statsrådgivare"
+    },
+    "гостинодворец": {
+        "en": "The hostel",
+        "fr": "Hôtel",
+        "de": "Gastgeber",
+        "it": "palazzo ospite",
+        "pt": "Palácio",
+        "es": "El palacio",
+        "sv": "Värdshuset"
+    },
+    "гостинчик": {
+        "en": "The hostel",
+        "fr": "Hôtel",
+        "de": "Gastgeber",
+        "it": "albergo",
+        "pt": "Hospedagem",
+        "es": "El hotel",
+        "sv": "Hotellrummet"
+    },
+    "гостья": {
+        "en": "guests",
+        "fr": "Les invités",
+        "de": "Gäste",
+        "it": "Gli ospiti",
+        "pt": "convidados",
+        "es": "invitados",
+        "sv": "Gäst"
+    },
+    "государство": {
+        "en": "State",
+        "fr": "État",
+        "de": "Staat",
+        "it": "Stato",
+        "pt": "Estado",
+        "es": "Estado",
+        "sv": "Staten"
+    },
+    "госучастие": {
+        "en": "State Parties",
+        "fr": "Gouvernement",
+        "de": "Staatsteil",
+        "it": "Stato",
+        "pt": "Estado parte",
+        "es": "del Estado",
+        "sv": "statliga"
+    },
+    "госхолдинг": {
+        "en": "State holding",
+        "fr": "État Holding",
+        "de": "Staatshalter",
+        "it": "Stato Holding",
+        "pt": "Hospedagem",
+        "es": "Estado Holding",
+        "sv": "Hushåll"
+    },
+    "гот": {
+        "en": "Goth",
+        "fr": "GOT",
+        "de": "GOT",
+        "it": "GOT",
+        "pt": "Gato",
+        "es": "Gato",
+        "sv": "Göt"
+    },
+    "готика": {
+        "en": "Gothic",
+        "fr": "Gothic",
+        "de": "Gothik",
+        "it": "Gotica",
+        "pt": "Gótica",
+        "es": "Gótica",
+        "sv": "gotiska"
+    },
+    "готичность": {
+        "en": "Goticity",
+        "fr": "Gothicité",
+        "de": "Gothik",
+        "it": "La gotica",
+        "pt": "Gótica",
+        "es": "Gótica",
+        "sv": "gotiska"
+    },
+    "гофинтендант": {
+        "en": "Gofintendent",
+        "fr": "Hofintendant",
+        "de": "Hofintendant",
+        "it": "di Gofintendent",
+        "pt": "Gofintendente",
+        "es": "Hofintendente",
+        "sv": "Hofintendent"
+    },
+    "гофрировщик": {
+        "en": "Gofryer",
+        "fr": "Goffreur",
+        "de": "Gofrieren",
+        "it": "Gofriere",
+        "pt": "Gofrador",
+        "es": "Gofrador",
+        "sv": "Gofriär"
+    },
+    "гошизм": {
+        "en": "Goshism",
+        "fr": "Goshisme",
+        "de": "Goshismus",
+        "it": "Gossismo",
+        "pt": "Gossismo",
+        "es": "El gochismo",
+        "sv": "Goshism"
+    },
+    "грабитель": {
+        "en": "The Thief",
+        "fr": "Le voleur",
+        "de": "Diebstahl",
+        "it": "Il ladro",
+        "pt": "Ladrão",
+        "es": "El ladrón",
+        "sv": "Rånare"
+    },
+    "грабление": {
+        "en": "the robbery",
+        "fr": "Le vol",
+        "de": "Die Eroberung",
+        "it": "Il furto",
+        "pt": "roubo",
+        "es": "El robo",
+        "sv": "stöld"
+    },
+    "граблина": {
+        "en": "The Gravity",
+        "fr": "Graville",
+        "de": "Grablin",
+        "it": "di Gravina",
+        "pt": "Gravura",
+        "es": "La gravilla",
+        "sv": "Grabbin"
+    },
+    "градирование": {
+        "en": "Construction",
+        "fr": "Construction",
+        "de": "Konstruktion",
+        "it": "Costruzione",
+        "pt": "Construção",
+        "es": "Construción",
+        "sv": "Byggande"
+    },
+    "градоначальник": {
+        "en": "Mayor of",
+        "fr": "Maire",
+        "de": "Bürgermeister",
+        "it": "Il sindaco",
+        "pt": "Prefeito",
+        "es": "El alcalde",
+        "sv": "Borgmästare"
+    },
+    "грайндкор": {
+        "en": "Grindcore",
+        "fr": "Grindcore",
+        "de": "Grindkor",
+        "it": "Il granico",
+        "pt": "GRANDCOR",
+        "es": "GRANDCOR",
+        "sv": "grindkor"
+    },
+    "граммофон": {
+        "en": "Grammofon",
+        "fr": "Gramofon",
+        "de": "Grammofon",
+        "it": "Il gramofon",
+        "pt": "Gramofon",
+        "es": "Gramofón",
+        "sv": "Grammofon"
+    },
+    "граммулечка": {
+        "en": "Grammar",
+        "fr": "grammes",
+        "de": "Grammatik",
+        "it": "grammatica",
+        "pt": "Grâmula",
+        "es": "gramo",
+        "sv": "grammatik"
+    },
+    "грамотник": {
+        "en": "The literary",
+        "fr": "Littérature",
+        "de": "Schriftsteller",
+        "it": "Il lettore",
+        "pt": "Escritor",
+        "es": "Escritor",
+        "sv": "författare"
+    },
+    "грамотность": {
+        "en": "Literacy",
+        "fr": "La littérature",
+        "de": "Schreibfähigkeit",
+        "it": "La letteratura",
+        "pt": "gramática",
+        "es": "La gramática",
+        "sv": "Skriftlighet"
+    },
+    "гранильня": {
+        "en": "The grenade",
+        "fr": "Grenelle",
+        "de": "Grenze",
+        "it": "Granificazione",
+        "pt": "Fronteiras",
+        "es": "Granada",
+        "sv": "gränsen"
+    },
+    "граница": {
+        "en": "The border",
+        "fr": "La frontière",
+        "de": "Grenze",
+        "it": "La frontiera",
+        "pt": "Fronteiras",
+        "es": "Fronteras",
+        "sv": "gränsen"
+    },
+    "гранозан": {
+        "en": "the granozan",
+        "fr": "grenouille",
+        "de": "Grenozone",
+        "it": "Il grano",
+        "pt": "Granada",
+        "es": "Granada",
+        "sv": "Granat"
+    },
+    "гранула": {
+        "en": "Granulated",
+        "fr": "grenouille",
+        "de": "Granuliert",
+        "it": "Il granello",
+        "pt": "Granada",
+        "es": "Granada",
+        "sv": "Granat"
+    },
+    "гранулоцит": {
+        "en": "Granulocytes",
+        "fr": "Granulocytes",
+        "de": "Granulocyt",
+        "it": "Granulocite",
+        "pt": "Granulocite",
+        "es": "Granulocitos",
+        "sv": "Granulocyt"
+    },
+    "гранулятор": {
+        "en": "The granulator",
+        "fr": "Granulateur",
+        "de": "Granulator",
+        "it": "Granulatore",
+        "pt": "Granulador",
+        "es": "Granulador",
+        "sv": "Granulator"
+    },
+    "грануляция": {
+        "en": "Granulation",
+        "fr": "Granulation",
+        "de": "Granulierung",
+        "it": "Granulazione",
+        "pt": "Granulação",
+        "es": "Granulado",
+        "sv": "Granulering"
+    },
+    "гратификация": {
+        "en": "Graphicity",
+        "fr": "Graphisation",
+        "de": "Gratisierung",
+        "it": "La grafica",
+        "pt": "Graficação",
+        "es": "Grabación",
+        "sv": "Gratisering"
+    },
+    "графолог": {
+        "en": "Graphologist",
+        "fr": "Graphologue",
+        "de": "Grafologe",
+        "it": "Grafologo",
+        "pt": "Grafólogo",
+        "es": "Grafólogo",
+        "sv": "Grafolog"
+    },
+    "графоманка": {
+        "en": "Graphic",
+        "fr": "Graphologie",
+        "de": "Grafen",
+        "it": "Graffiti",
+        "pt": "Gráfomo",
+        "es": "Gráfico",
+        "sv": "Grafen"
+    },
+    "графство": {
+        "en": "The County",
+        "fr": "Le comté",
+        "de": "Grafschaft",
+        "it": "Il Comune",
+        "pt": "Gravação",
+        "es": "El condado",
+        "sv": "Grafen"
+    },
+    "графтсополимер": {
+        "en": "GraftSopolymer",
+        "fr": "Graffiti polymère",
+        "de": "Grafsopolymer",
+        "it": "Graffiti di polimero",
+        "pt": "Graftsópolis",
+        "es": "Graftosopolímero",
+        "sv": "Grafsopolymer"
+    },
+    "гребень": {
+        "en": "The grabbed",
+        "fr": "La grêle",
+        "de": "Gräber",
+        "it": "Il grigio",
+        "pt": "Gráfico",
+        "es": "El griego",
+        "sv": "Gräva"
+    },
+    "грегориит": {
+        "en": "Gregory",
+        "fr": "Grégorie",
+        "de": "Gregorisch",
+        "it": "Gregorio",
+        "pt": "Gregório",
+        "es": "Gregorio",
+        "sv": "Gregoriat"
+    },
+    "грейдинг": {
+        "en": "Griding",
+        "fr": "Gridage",
+        "de": "Gräden",
+        "it": "Grigio",
+        "pt": "Gráfico",
+        "es": "Gráfico",
+        "sv": "grädde"
+    },
+    "грефье": {
+        "en": "Graphic",
+        "fr": "Graphie",
+        "de": "Graffiti",
+        "it": "Graffiti",
+        "pt": "Grafias",
+        "es": "Gracia",
+        "sv": "Graffiti"
+    },
+    "греховодник": {
+        "en": "The sinner",
+        "fr": "pécheur",
+        "de": "Sündeführer",
+        "it": "Il peccatore",
+        "pt": "O pecador",
+        "es": "El pecador",
+        "sv": "syndare"
+    },
+    "гречушник": {
+        "en": "The Greek",
+        "fr": "Le greffeur",
+        "de": "Grüner",
+        "it": "Il Grigio",
+        "pt": "Greveiro",
+        "es": "El griego",
+        "sv": "Gräskare"
+    },
+    "грешница": {
+        "en": "The sinner",
+        "fr": "pécheur",
+        "de": "Die Sünde",
+        "it": "Il peccatore",
+        "pt": "pecador",
+        "es": "pecador",
+        "sv": "syndare"
+    },
+    "гриб": {
+        "en": "The fungus",
+        "fr": "Les champignons",
+        "de": "Die Pilze",
+        "it": "Il fungo",
+        "pt": "fungos",
+        "es": "El fungo",
+        "sv": "Svamp"
+    },
+    "гривуазность": {
+        "en": "Gravity",
+        "fr": "Grivée",
+        "de": "Grivosität",
+        "it": "Gravità",
+        "pt": "Grivoação",
+        "es": "Grivoación",
+        "sv": "Graviditet"
+    },
+    "грилзы": {
+        "en": "Grills",
+        "fr": "Grille",
+        "de": "Grillen",
+        "it": "Griglia",
+        "pt": "Grilhas",
+        "es": "Los gritos",
+        "sv": "Grilla"
+    },
+    "гримёрка": {
+        "en": "Greek",
+        "fr": "Grimper",
+        "de": "Grimm",
+        "it": "Griglia",
+        "pt": "Grêmio",
+        "es": "Gremio",
+        "sv": "Grönska"
+    },
+    "гринго": {
+        "en": "Gringo",
+        "fr": "Gringo",
+        "de": "Grün",
+        "it": "Grigio",
+        "pt": "Gringo",
+        "es": "Griego",
+        "sv": "Grön"
+    },
+    "грифон": {
+        "en": "Graphic",
+        "fr": "Graphine",
+        "de": "Griffon",
+        "it": "Il Griffin",
+        "pt": "Gráfono",
+        "es": "Gráfono",
+        "sv": "Graffiti"
+    },
+    "гротеск": {
+        "en": "Grotesque",
+        "fr": "Grotesque",
+        "de": "Grotesk",
+        "it": "Groteco",
+        "pt": "Grotesco",
+        "es": "Grotesco",
+        "sv": "Grotesk"
+    },
+    "гроубокс": {
+        "en": "Groubox",
+        "fr": "Groubox",
+        "de": "Grouboks",
+        "it": "Il Grobox",
+        "pt": "O Grobox",
+        "es": "GROBOX",
+        "sv": "Grouboks"
+    },
+    "гроулер": {
+        "en": "Growler",
+        "fr": "Grouleur",
+        "de": "Grouler",
+        "it": "di Growler",
+        "pt": "Grauela",
+        "es": "Grouer",
+        "sv": "Grouler"
+    },
+    "адреналинчик": {
+        "en": "Adrenaline",
+        "fr": "l’adrénaline",
+        "de": "Adrenalin",
+        "it": "Adrenalino",
+        "pt": "Adrenação",
+        "es": "Adrenalín",
+        "sv": "adrenalin"
+    },
+    "адресантка": {
+        "en": "Addressed",
+        "fr": "adressat",
+        "de": "Adressat",
+        "it": "Direttore",
+        "pt": "Endereço",
+        "es": "Directora",
+        "sv": "adressen"
+    },
+    "адресатка": {
+        "en": "Addressed",
+        "fr": "Directeur",
+        "de": "Adressat",
+        "it": "Indirizzo",
+        "pt": "Endereço",
+        "es": "Directora",
+        "sv": "Adressen"
+    },
+    "адресность": {
+        "en": "Addressing",
+        "fr": "Adresse",
+        "de": "Adressen",
+        "it": "L’indirizzo",
+        "pt": "Direção",
+        "es": "Dirección",
+        "sv": "Adressen"
+    },
+    "адритура": {
+        "en": "by admin",
+        "fr": "Adrétition",
+        "de": "Adritieren",
+        "it": "di Adriatica",
+        "pt": "Adrição",
+        "es": "ADRITURA",
+        "sv": "Adriatiska"
+    },
+    "адсорбция": {
+        "en": "Adsorption",
+        "fr": "Adsorption",
+        "de": "Adsorption",
+        "it": "Adsorbimento",
+        "pt": "Adsorção",
+        "es": "Adsorción",
+        "sv": "Adsorption"
+    },
+    "адусация": {
+        "en": "Aduction",
+        "fr": "Adoucation",
+        "de": "Adusierung",
+        "it": "Adusazione",
+        "pt": "Adusão",
+        "es": "Aducción",
+        "sv": "Adsorption"
+    },
+    "адхократия": {
+        "en": "Adhocracy",
+        "fr": "Adhocratie",
+        "de": "Adhokratisierung",
+        "it": "Adocratia",
+        "pt": "Adocracia",
+        "es": "Adhocracia",
+        "sv": "Adokratisering"
+    },
+    "адъютантик": {
+        "en": "Adjuvant",
+        "fr": "Adjuvant",
+        "de": "Adjutantisch",
+        "it": "Adeguato",
+        "pt": "Adjuvante",
+        "es": "Adjutante",
+        "sv": "Adjuvant"
+    },
+    "адюльтер": {
+        "en": "Adulter",
+        "fr": "Adultère"
+    },
+    "аер": {
+        "en": "Air",
+        "fr": "AER"
+    },
+    "аеругит": {
+        "en": "Aeroflot",
+        "fr": "Aérugite"
+    },
+    "ажан": {
+        "en": "by agan",
+        "fr": "Agne"
+    },
+    "ажио": {
+        "en": "andigo",
+        "fr": "Ango"
+    },
+    "ажиотажность": {
+        "en": "Anxiety",
+        "fr": "agitation"
+    },
+    "азан": {
+        "en": "by Azan",
+        "fr": "Azan"
+    },
+    "азарин": {
+        "en": "Azarin",
+        "fr": "Azarine"
+    },
+    "азарон": {
+        "en": "Azaron",
+        "fr": "Azaron"
+    },
+    "азеотропия": {
+        "en": "Azeotropy",
+        "fr": "Azéotropie"
+    },
+    "азианизм": {
+        "en": "Asianism",
+        "fr": "Asiatisme"
+    },
+    "азид": {
+        "en": "Assad",
+        "fr": "Asie"
+    },
+    "азидоводород": {
+        "en": "The acid",
+        "fr": "Asymétrie"
+    },
+    "азилянт": {
+        "en": "Asylum",
+        "fr": "Asylant"
+    },
+    "азнаур": {
+        "en": "Knowledge",
+        "fr": "L’Anaur"
+    },
+    "азотол": {
+        "en": "The Azot",
+        "fr": "Azotole"
+    },
+    "азотометр": {
+        "en": "Azotometer",
+        "fr": "Azotomeur"
+    },
+    "азямчик": {
+        "en": "The Assassin",
+        "fr": "Ascendants"
+    },
+    "аистиха": {
+        "en": "by Aisyah",
+        "fr": "Aïstique"
+    },
+    "айкание": {
+        "en": "by Ikan",
+        "fr": "Aikane"
+    },
+    "айкидоист": {
+        "en": "Aikidoist",
+        "fr": "Aikidoïste"
+    },
+    "айлурофобия": {
+        "en": "Aylurophobia",
+        "fr": "Ilurophobie"
+    },
+    "академгородок": {
+        "en": "Academic",
+        "fr": "Académie"
+    },
+    "акание": {
+        "en": "Acne",
+        "fr": "Acane"
+    },
+    "акародерматит": {
+        "en": "Acrodermatitis",
+        "fr": "Acodérmatite"
+    },
+    "акатаграфия": {
+        "en": "Acatography",
+        "fr": "Acatégraphie"
+    },
+    "акаталазия": {
+        "en": "Acatalation",
+        "fr": "Acathalie"
+    },
+    "акатафазия": {
+        "en": "Actaphasia",
+        "fr": "Actaphasie"
+    },
+    "аквагрим": {
+        "en": "Aquagram",
+        "fr": "Aquarium"
+    },
+    "аквакислота": {
+        "en": "Aquaculated",
+        "fr": "Aquacides"
+    },
+    "аквакрептит": {
+        "en": "Aquacreptitis",
+        "fr": "Aquacréptite"
+    },
+    "аквамарин": {
+        "en": "Aquamarine",
+        "fr": "Aquamarine"
+    },
+    "акванариум": {
+        "en": "Aquarium",
+        "fr": "Aquarium"
+    },
+    "аквапарк": {
+        "en": "Aquapark",
+        "fr": "Aquapark"
+    },
+    "аквапланирование": {
+        "en": "Aquaplaning",
+        "fr": "Aquaplanage"
+    },
+    "аквапояс": {
+        "en": "The Aqua",
+        "fr": "Aquapore"
+    },
+    "акваскипер": {
+        "en": "AquaSkyper",
+        "fr": "Aquascapeur"
+    },
+    "акватинта": {
+        "en": "The Aquarius",
+        "fr": "Acquateur"
+    },
+    "аквафорта": {
+        "en": "Aquaforta",
+        "fr": "Aquaforte"
+    },
+    "акинетопсия": {
+        "en": "acinetopsy",
+        "fr": "acinétopsie"
+    },
+    "аккламация": {
+        "en": "Acclamation",
+        "fr": "Acclamation"
+    },
+    "акклимация": {
+        "en": "Acclimation",
+        "fr": "Acclimation"
+    },
+    "аккомодация": {
+        "en": "Accomodation",
+        "fr": "Accomodation"
+    },
+    "аккомпанировка": {
+        "en": "Accompanying",
+        "fr": "Accompagnement"
+    },
+    "аккордеон": {
+        "en": "Accordeon",
+        "fr": "Accordeur"
+    },
+    "аккрец": {
+        "en": "accretion",
+        "fr": "Accrètes"
+    },
+    "аккумулятор": {
+        "en": "Battery",
+        "fr": "Batterie"
+    },
+    "аккумуляция": {
+        "en": "accumulation",
+        "fr": "accumulation"
+    },
+    "аккуратистка": {
+        "en": "Accurate",
+        "fr": "Accuratiste"
+    },
+    "акме": {
+        "en": "Acme",
+        "fr": "Acme"
+    },
+    "акмолинец": {
+        "en": "Acmolian",
+        "fr": "Acmolique"
+    },
+    "акоазм": {
+        "en": "Acoaism",
+        "fr": "Acoasisme"
+    },
+    "акриламид": {
+        "en": "Acrylamide",
+        "fr": "Acrylamide"
+    },
+    "акроанестезия": {
+        "en": "acroanesthesia",
+        "fr": "Acroanesthésie"
+    },
+    "акробатство": {
+        "en": "Acrobatism",
+        "fr": "Acrobatisme"
+    },
+    "акрогерия": {
+        "en": "acrogeria",
+        "fr": "Acrogerie"
+    },
+    "акрокератоз": {
+        "en": "Acrocaratosis",
+        "fr": "Acrocaratose"
+    },
+    "акрокрания": {
+        "en": "Acroclamation",
+        "fr": "Acrocranium"
+    },
+    "акролеин": {
+        "en": "acrolein",
+        "fr": "Acroleïne"
+    },
+    "акропатия": {
+        "en": "Acropathy",
+        "fr": "Acropathie"
+    },
+    "акросера": {
+        "en": "Acrobat",
+        "fr": "Acroïde"
+    },
+    "акроцефалия": {
+        "en": "Acrocephaly",
+        "fr": "Acrocéphalie"
+    },
+    "акселерация": {
+        "en": "Acceleration",
+        "fr": "Accélération"
+    },
+    "аксолемма": {
+        "en": "Acrobatic",
+        "fr": "Accueil Accueil"
+    },
+    "аксон": {
+        "en": "Axon",
+        "fr": "Axon"
+    },
+    "акташит": {
+        "en": "ActaShit",
+        "fr": "Actache"
+    },
+    "актив": {
+        "en": "Asset",
+        "fr": "Actif"
+    },
+    "активность": {
+        "en": "Activity",
+        "fr": "Activité"
+    },
+    "актиноморфия": {
+        "en": "actinomorphia",
+        "fr": "actinomorphie"
+    },
+    "актировка": {
+        "en": "Activation",
+        "fr": "Activation"
+    },
+    "акулька": {
+        "en": "Aculate",
+        "fr": "L’acule"
+    },
+    "акуметрия": {
+        "en": "Acupuncture",
+        "fr": "acoustique"
+    },
+    "акуминит": {
+        "en": "Acupuncture",
+        "fr": "acoustique"
+    },
+    "акупрессура": {
+        "en": "Acupressure",
+        "fr": "Acupressure"
+    },
+    "акустоэлектроника": {
+        "en": "Acoustic Electronics",
+        "fr": "Électronique acoustique"
+    },
+    "акут": {
+        "en": "acute",
+        "fr": "acoustique"
+    },
+    "акушинец": {
+        "en": "Auction",
+        "fr": "Aucun"
+    },
+    "акцентология": {
+        "en": "accentology",
+        "fr": "Accentologie"
+    },
+    "акцептирование": {
+        "en": "Acceptance",
+        "fr": "Acceptation"
+    },
+    "акцессорий": {
+        "en": "Accessories",
+        "fr": "Accessoires"
+    },
+    "акциедержатель": {
+        "en": "The shareholder",
+        "fr": "Les actionnaires"
+    },
+    "акциональность": {
+        "en": "The share",
+        "fr": "actionnalité"
+    },
+    "акционистка": {
+        "en": "The shareholder",
+        "fr": "actionnaire"
+    },
+    "алабамец": {
+        "en": "Alabama",
+        "fr": "Alabama"
+    },
+    "алакранит": {
+        "en": "Alakranite",
+        "fr": "Alakranite"
+    },
+    "аламанн": {
+        "en": "by Alaman",
+        "fr": "Alamanne"
+    },
+    "алапаевец": {
+        "en": "Alpaevic",
+        "fr": "Alpaïen"
+    },
+    "аларм": {
+        "en": "Alarm",
+        "fr": "L’alarme"
+    },
+    "аларма": {
+        "en": "Alarm",
+        "fr": "L’alarme"
+    },
+    "алатау": {
+        "en": "Alatau",
+        "fr": "Alataou"
+    },
+    "алгебраичка": {
+        "en": "Algebraic",
+        "fr": "Algébrique"
+    },
+    "гибщик": {
+        "en": "The flexible",
+        "fr": "Flexibilité"
+    },
+    "гигантесса": {
+        "en": "The Giant",
+        "fr": "gigantesque"
+    },
+    "гигантомания": {
+        "en": "The Giant",
+        "fr": "Giganticité"
+    },
+    "гигиенистика": {
+        "en": "Hygiene",
+        "fr": "hygiène"
+    },
+    "гигрофит": {
+        "en": "Hygrophite",
+        "fr": "Hygrophite"
+    },
+    "гиджра": {
+        "en": "Higuain",
+        "fr": "Higuain"
+    },
+    "гидирование": {
+        "en": "guidance",
+        "fr": "Guide"
+    },
+    "гидраденит": {
+        "en": "Hydration",
+        "fr": "hydraulique"
+    },
+    "гидроакустик": {
+        "en": "Hydroacoustic",
+        "fr": "Hydroacoustic"
     }
 }
