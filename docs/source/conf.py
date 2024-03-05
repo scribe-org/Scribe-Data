@@ -175,3 +175,15 @@ texinfo_documents = [
         "Miscellaneous",
     )
 ]
+
+# adding logo
+html_logo = "_static/ScribeDataLogo.png"
+html_theme_options = {
+    'logo_only': True,
+    'display_version': False,
+}
+
+# importing custom css for theme customization 
+html_css_files = [
+    'custom.css',
+]
