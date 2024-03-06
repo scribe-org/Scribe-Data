@@ -246,7 +246,7 @@ def get_language_words_to_ignore(language: str) -> list[str]:
 
 def get_language_dir_path(language):
     """
-    Constructs the directory path for a given language's data within the Scribe-Data project.
+    Constructs the directory path for a given language's data within the project.
 
     Parameters:
     - language (str): The name of the language for which the directory path is needed.
@@ -264,7 +264,7 @@ def load_queried_data(language, data_type, file_path):
 
     Parameters:
     - language (str): The language for which the data is being loaded.
-    - data_type (str): The type of data being loaded (e.g., 'words', 'phrases').
+    - data_type (str): The type of data being loaded (e.g., 'nouns', 'verbs').
     - file_path (str): The path to the file containing the queried data.
 
     Returns:
@@ -290,7 +290,7 @@ def export_formatted_data(language, data_type, formatted_data, update_data_in_us
 
     Parameters:
     - language (str): The language for which the data is being exported.
-    - data_type (str): The type of data being exported (e.g., 'words', 'phrases').
+    - data_type (str): The type of data being exported (e.g., 'nouns', 'verbs').
     - formatted_data (dict): The data to be exported.
     - update_data_in_use (bool): A flag indicating whether the data is currently in use.
     """
