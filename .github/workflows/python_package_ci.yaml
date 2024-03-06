@@ -11,8 +11,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, ubuntu-latest]
-        python-version: ["3.9", "3.10", "3.11"]
+        os:
+          # Removing 'macos-latest' for now until build issue is fixed.
+          #   https://github.com/scribe-org/Scribe-Data/issues/61
+          # - macos-latest
+          - ubuntu-latest
+        python-version: 
+          - "3.9"
 
     runs-on: ${{ matrix.os }}
 
