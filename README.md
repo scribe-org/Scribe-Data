@@ -23,6 +23,8 @@
 
 Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-iOS), [Android](https://github.com/scribe-org/Scribe-Android) (WIP) and [Desktop](https://github.com/scribe-org/Scribe-Desktop) (planned).
 
+Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) for an overview of the organization including our applications, services and processes. It depicts the projects that [Scribe](https://github.com/scribe-org) is developing as well as the relationships between them and the external systems with which they interact.
+
 <a id="contents"></a>
 
 # **Contents**
@@ -115,7 +117,7 @@ git clone https://github.com/<your-username>/Scribe-Data.git
 # Navigate to the newly cloned directory.
 cd Scribe-Data
 # Assign the original repo to a remote called "upstream".
-git remote add upstream https://github.com/scribe-org/Scibe-Data.git
+git remote add upstream https://github.com/scribe-org/Scribe-Data.git
 ```
 
 - Now, if you run `git remote -v` you should see two remote repositories named:
@@ -124,8 +126,21 @@ git remote add upstream https://github.com/scribe-org/Scibe-Data.git
 
 2. Use [Python venv](https://docs.python.org/3/library/venv.html) to create the local development environment within your Scribe-Data directory:
 
+ - On Unix or MacOS, run:   
+
+     ```bash
+     python3 -m venv venv  # make an environment named venv
+     source venv/bin/activate # activate the environment
+     ```
+- On Windows (using Command Prompt), run:
+  
+    ```bash
+    python -m venv venv
+    venv\Scripts\activate.bat
+    ```
+After activating the virtual environment, install the required dependencies by running:
+
    ```bash
-   python3 -m venv venv  # make an environment venv
    pip install --upgrade pip  # make sure that pip is at the latest version
    pip install -r requirements.txt  # install dependencies
    ```
