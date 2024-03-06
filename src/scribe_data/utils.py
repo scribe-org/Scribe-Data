@@ -245,11 +245,32 @@ def get_language_words_to_ignore(language: str) -> list[str]:
 
 
 def get_language_dir_path(language):
+    """
+    Constructs the directory path for a given language's data within the Scribe-Data project.
+
+    Parameters:
+    - language (str): The name of the language for which the directory path is needed.
+
+    Returns:
+    - str: The directory path for the specified language's data.
+    """
     PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
     return f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages/{language}"
 
 
 def load_queried_data(language, data_type, file_path):
+    """
+    Loads queried data from a JSON file for a specific language and data type.
+
+    Parameters:
+    - language (str): The language for which the data is being loaded.
+    - data_type (str): The type of data being loaded (e.g., 'words', 'phrases').
+    - file_path (str): The path to the file containing the queried data.
+
+    Returns:
+    - tuple: A tuple containing the loaded data, a boolean indicating whether the data is in use,
+             and the path to the data file.
+    """
     queried_data_file = f"{data_type}_queried.json"
     update_data_in_use = False
 
@@ -264,6 +285,15 @@ def load_queried_data(language, data_type, file_path):
 
 
 def export_formatted_data(language, data_type, formatted_data, update_data_in_use):
+    """
+    Exports formatted data to a JSON file for a specific language and data type.
+
+    Parameters:
+    - language (str): The language for which the data is being exported.
+    - data_type (str): The type of data being exported (e.g., 'words', 'phrases').
+    - formatted_data (dict): The data to be exported.
+    - update_data_in_use (bool): A flag indicating whether the data is currently in use.
+    """
     if update_data_in_use:
         export_path = f"{get_language_dir_path(language)}/formatted_data/{data_type}.json"
     else:
