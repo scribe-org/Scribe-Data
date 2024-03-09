@@ -12,14 +12,12 @@ import sys
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
-from scribe_data.utils import export_formatted_data, load_queried_data
 
-LANGUAGE = "German"
-QUERIED_DATA_TYPE = "nouns"
+from scribe_data.utils import export_formatted_data, load_queried_data
 
 file_path = sys.argv[0]
 
-nouns_list, update_data_in_use, data_path = load_queried_data(LANGUAGE, QUERIED_DATA_TYPE, file_path)
+nouns_list, update_data_in_use, data_path= load_queried_data(file_path, language = "German", data_type = "nouns")
 
 def map_genders(wikidata_gender):
     """
@@ -182,5 +180,6 @@ for k in nouns_formatted:
 
 nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
-export_formatted_data(LANGUAGE, QUERIED_DATA_TYPE, nouns_formatted, update_data_in_use)
+export_formatted_data(nouns_formatted, update_data_in_use, language = "German", data_type = "nouns")
+
 os.remove(data_path)
