@@ -1,30 +1,30 @@
-/* Change the sidebar header color to match the new logo background */
+/* Change the sidebar header color to match the new logo background. */
 .wy-side-nav-search {
-    background-color: #F0F0EB !important;
+  background-color: #f0f0eb !important;
 }
 
-/* Change sidebar text color to black for all sidebar items */
+/* Update the sidebar background color. */
+.wy-nav-side {
+  background-color: #f2f5f8 !important;
+}
+
+/* Change sidebar text color to black for all sidebar items. */
 .wy-nav-side .wy-nav-content,
 .wy-nav-side .wy-menu-vertical a {
-    color: #000 !important; /* Ensuring the text color is black */
+  color: #000 !important;
 }
 
-/* Update the sidebar background color */
-.wy-nav-side {
-    background-color: #F6F8FA !important;
-}
-
-/* Sidebar link text color on hover */
+/* Sidebar link text color on hover. */
 .wy-nav-side .wy-nav-content a:hover,
 .wy-nav-side .wy-menu-vertical a:hover {
-    color: #FFF !important; /* Changes text color to white on hover */
+  color: #fff !important;
 }
 
-/* Logo styling */
+/* Logo styling. */
 .wy-side-nav-search .wy-nav-top img {
-    padding: 15px; 
-    max-height: 80px; 
-    max-width: 100%; 
-    display: block; 
-    margin: 0 auto; 
+  padding: 15px;
+  max-height: 80px;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
 }
