@@ -12,14 +12,12 @@ import sys
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
-from scribe_data.utils import export_formatted_data, load_queried_data
 
-LANGUAGE = "Russian"
-QUERIED_DATA_TYPE = "prepositions"
+from scribe_data.utils import export_formatted_data, load_queried_data
 
 file_path = sys.argv[0]
 
-prepositions_list, update_data_in_use, data_path= load_queried_data(LANGUAGE, QUERIED_DATA_TYPE, file_path)
+prepositions_list, update_data_in_use, data_path= load_queried_data(file_path, language = "Russian", data_type = "prepositions")
 
 
 def convert_cases(case):
@@ -80,5 +78,6 @@ for k in prepositions_formatted:
 
 prepositions_formatted = collections.OrderedDict(sorted(prepositions_formatted.items()))
 
-export_formatted_data(LANGUAGE, QUERIED_DATA_TYPE, prepositions_formatted, update_data_in_use)
+export_formatted_data(prepositions_formatted, update_data_in_use, language = "Russian", data_type = "prepositions")
+
 os.remove(data_path)
