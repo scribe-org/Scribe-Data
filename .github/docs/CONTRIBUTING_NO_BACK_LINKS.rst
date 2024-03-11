@@ -34,31 +34,19 @@ Contents
 First steps as a contributor
 ----------------------------
 
-Thank you for your interest in contributing to Scribe-Data! We look
-forward to welcoming you to the community and working with you to build
-an tools for language learners to communicate effectively :) The
-following are some suggested steps for people interested in joining our
-community:
+Thank you for your interest in contributing to Scribe-Data! We look forward to welcoming you to the community and working with you to build an tools for language learners to communicate effectively :) The following are some suggested steps for people interested in joining our community:
 
--  Please join the `public Matrix
-   chat <https://matrix.to/#/#scribe_community:matrix.org>`__ to connect
-   with the community
+-  Please join the `public Matrix chat <https://matrix.to/#/#scribe_community:matrix.org>`__ to connect with the community
 
-   -  `Matrix <https://matrix.org/>`__ is a network for secure,
-      decentralized communication
-   -  Scribe would suggest that you use the
-      `Element <https://element.io/>`__ client
-   -  The
-      `General <https://matrix.to/#/!yQJjLmluvlkWttNhKo:matrix.org?via=matrix.org>`__
-      and `Data <https://matrix.to/#/#ScribeData:matrix.org>`__ channels
-      would be great places to start!
-   -  Feel free to introduce yourself and tell us what your interests
-      are if you’re comfortable :)
+   -  `Matrix <https://matrix.org/>`__ is a network for secure, decentralized communication
+   -  Scribe would suggest that you use the `Element <https://element.io/>`__ client
+   -  The `General <https://matrix.to/#/!yQJjLmluvlkWttNhKo:matrix.org?via=matrix.org>`__ and `Data <https://matrix.to/#/#ScribeData:matrix.org>`__ channels would be great places to start!
+   -  Feel free to introduce yourself and tell us what your interests are if you’re comfortable :)
 
 -  Read through this contributing guide for all the information you need
    to contribute
 -  Look into issues marked
-   ```good first issue`` <https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22>`__
+   `good first issue <https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22>`__
    and the `Projects
    board <https://github.com/orgs/scribe-org/projects/1>`__ to get a
    better understanding of what you can work on
@@ -70,9 +58,7 @@ community:
 
 ..
 
-   [!NOTE] Those new to Python or wanting to work on their Python skills
-   are more than welcome to contribute! The team would be happy to help
-   you on your development journey :)
+   .. note:: Those new to Python or wanting to work on their Python skills are more than welcome to contribute! The team would be happy to help you on your development journey :)
 
 Learning the tech stack
 -----------------------
@@ -115,10 +101,8 @@ Python learning docs
 
    <p>
 
--  `Python getting started
-   guide <https://docs.python.org/3/tutorial/introduction.html>`__
--  `Python getting started
-   resources <https://www.python.org/about/gettingstarted/>`__
+-  `Python getting started guide <https://docs.python.org/3/tutorial/introduction.html>`__
+-  `Python getting started resources <https://www.python.org/about/gettingstarted/>`__
 
 .. raw:: html
 
@@ -343,8 +327,7 @@ is the best way to get your work merged:
 
       git push origin <topic-branch-name>
 
-6. `Open a Pull
-   Request <https://help.github.com/articles/using-pull-requests/>`__
+6. `Open a Pull Request <https://help.github.com/articles/using-pull-requests/>`__
    with a clear title and description.
 
 Thank you in advance for your contributions!
@@ -352,11 +335,7 @@ Thank you in advance for your contributions!
 Data edits
 ----------
 
-   | [!NOTE]
-   | Please see the `Wikidata and Scribe
-     Guide <https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md>`__
-     for an overview of `Wikidata <https://www.wikidata.org/>`__ and how
-     Scribe uses it.
+.. note:: Please see the `Wikidata and Scribe Guide <https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md>`__ for an overview of `Wikidata <https://www.wikidata.org/>`__ and how Scribe uses it.
 
 Scribe does not accept direct edits to the grammar JSON files as they
 are sourced from `Wikidata <https://www.wikidata.org/>`__. Edits can be
@@ -377,7 +356,7 @@ The documentation for Scribe-Data can be found at
 Documentation is an invaluable way to contribute to coding projects as
 it allows others to more easily understand the project structure and
 contribute. Issues related to documentation are marked with the
-```documentation`` <https://github.com/scribe-org/Scribe-Data/labels/documentation>`__
+`documentation <https://github.com/scribe-org/Scribe-Data/labels/documentation>`__
 label.
 
 Use the following commands to build the documentation locally:
