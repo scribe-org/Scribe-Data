@@ -180,7 +180,7 @@ texinfo_documents = [
 html_logo = "_static/ScribeDataLogo.png"
 html_theme_options = {
     "logo_only": True,
-    "display_version": False,
+    "display_version": True,
 }
 
 # Importing custom css for theme customization.
