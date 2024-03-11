@@ -130,17 +130,18 @@ following steps:
       key <https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent>`_
       🔑
 
-.. code:: bash
+      .. code:: bash
 
-   # Clone your fork of the repo into the current directory.
-   git clone https://github.com/<your-username>/Scribe-Data.git
-   # Navigate to the newly cloned directory.
-   cd Scribe-Data
-   # Assign the original repo to a remote called "upstream".
-   git remote add upstream https://github.com/scribe-org/Scribe-Data.git
+         # Clone your fork of the repo into the current directory.
+         git clone https://github.com/<your-username>/Scribe-Data.git
+         # Navigate to the newly cloned directory.
+         cd Scribe-Data
+         # Assign the original repo to a remote called "upstream".
+         git remote add upstream https://github.com/scribe-org/Scribe-Data.git
 
 - Now, if you run ``git remote -v`` you should see two remote
   repositories named:
+
   - ``origin`` (forked repository)
   - ``upstream`` (Scribe-Data repository)
 
@@ -165,11 +166,7 @@ following steps:
 Issues and projects
 -------------------
 
-The `issue tracker for Scribe-Data
-<https://github.com/scribe-org/Scribe-Data/issues>`_ is the preferred
-channel for `bug reports`_, `features requests`_ and `submitting pull
-requests`_. Scribe also organizes related issues into `projects
-<https://github.com/scribe-org/Scribe-Data/projects>`_.
+The `issue tracker for Scribe-Data <https://github.com/scribe-org/Scribe-Data/issues>`_ is the preferred channel for `bug reports <#bug-reports>`_, `features requests <#feature-requests>`_ and `submitting pull requests <#pull-requests>`_. Scribe also organizes related issues into `projects <https://github.com/scribe-org/Scribe-Data/projects>`_.
 
    .. note::
 
@@ -276,19 +273,15 @@ the best way to get your work merged:
 
       git checkout -b <topic-branch-name>
 
-3. Commit your changes in logical chunks, and please try to adhere to
-   `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_.
+3. Commit your changes in logical chunks, and please try to adhere to `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_.
 
-   .. note::
+.. note:: 
 
-      The following are tools and methods to help you write good commit
-      messages ✨
+   The following are tools and methods to help you write good commit messages ✨
 
-      - `commitlint <https://commitlint.io/>`_ helps write `Conventional
-        Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_
-      - Git's `interactive rebase
-        <https://docs.github.com/en/github/getting-started-with-github/about-git-rebase>`_
-        cleans up commits
+   - `commitlint <https://commitlint.io/>`_ helps write `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`_
+   - Git's `interactive rebase <https://docs.github.com/en/github/getting-started-with-github/about-git-rebase>`_ cleans up commits.
+
 
 4. Locally merge (or rebase) the upstream development branch into your
    topic branch:
