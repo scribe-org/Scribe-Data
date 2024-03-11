@@ -175,3 +175,15 @@ texinfo_documents = [
         "Miscellaneous",
     )
 ]
+
+# Adding logo to the docs sidebar.
+html_logo = "_static/ScribeDataLogo.png"
+html_theme_options = {
+    "logo_only": True,
+    "display_version": False,
+}
+
+# Importing custom css for theme customization.
+html_css_files = [
+    "custom.css",
+]
