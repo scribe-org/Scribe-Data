@@ -21,9 +21,9 @@ happy to hear from you!
 Contents
 --------
 
--  `First steps as a contributor <#first-steps>`__
--  `Learning the tech stack <#learning-the-tech>`__
--  `Development environment <#dev-env>`__
+-  `First steps as a contributor <#first-steps-as-a-contributor>`__
+-  `Learning the tech stack <#learning-the-tech-stack>`__
+-  `Development environment <#development-environment>`__
 -  `Issues and projects <#issues-projects>`__
 -  `Bug reports <#bug-reports>`__
 -  `Feature requests <#feature-requests>`__
