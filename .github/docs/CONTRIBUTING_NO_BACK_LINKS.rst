@@ -11,9 +11,17 @@ If you have questions or would like to communicate with the team, please `join u
 
 Contents
 --------
-.. contents::
-   :local:
-   :depth: 2
+- `First steps as a contributor`_
+- `Learning the tech stack`_
+- `Development environment`_
+- `Issues and projects`_
+- `Bug reports`_
+- `Feature requests`_
+- `Pull requests`_
+- `Data edits`_
+- `Documentation`_
+
+.. _`First steps as a contributor`:
 
 First steps as a contributor
 ----------------------------
@@ -21,7 +29,7 @@ First steps as a contributor
 Thank you for your interest in contributing to Scribe-Data! We look forward to welcoming you to the community and working with you to build tools for language learners to communicate effectively :) The following are some suggested steps for people interested in joining our community:
 
 - Please join the `public Matrix chat <https://matrix.to/#/#scribe_community:matrix.org>`_ to connect with the community.
-
+ 
   - `Matrix <https://matrix.org/>`_ is a network for secure, decentralized communication.
   - Scribe would suggest that you use the `Element <https://element.io/>`_ client.
   - The `General <https://matrix.to/#/!yQJjLmluvlkWttNhKo:matrix.org?via=matrix.org>`_ and `Data <https://matrix.to/#/#ScribeData:matrix.org>`_ channels would be great places to start!
@@ -35,6 +43,8 @@ Thank you for your interest in contributing to Scribe-Data! We look forward to w
   .. note::
      Those new to Python or wanting to work on their Python skills are more than welcome to contribute! The team would be happy to help you on your development journey.
 
+.. _`Learning the tech stack`:
+
 Learning the tech stack
 -----------------------
 
@@ -43,13 +53,14 @@ Scribe is very open to contributions from people in the early stages of their co
 Docs for those new to programming:
 
 - `Mozilla Developer Network Learning Area <https://developer.mozilla.org/en-US/docs/Learn>`_:
-
   - Doing MDN sections for HTML, CSS, and JavaScript is the best way to get into web development!
 
 Python learning docs:
 
 - `Python getting started guide <https://docs.python.org/3/tutorial/introduction.html>`_
 - `Python getting started resources <https://www.python.org/about/gettingstarted/>`_
+
+.. _`Development environment`:
 
 Development environment
 -----------------------
@@ -87,15 +98,19 @@ The development environment for Scribe-Data can be installed via the following s
    .. note::
       If you encounter any issues setting up your development environment, feel free to reach out to the team in the `Data room on Matrix <https://matrix.to/#/#ScribeData:matrix.org>`_ for assistance.
 
+.. _`Issues and projects`:
+
 Issues and projects
 -------------------
 
-The `issue tracker for Scribe-Data <https://github.com/scribe-org/Scribe-Data/issues>`_ is the preferred channel for :ref:`bug reports`, :ref:`features requests`, and :ref:`submitting pull requests`. Scribe also organizes related issues into `projects <https://github.com/scribe-org/Scribe-Data/projects>`_.
+The `issue tracker for Scribe-Data <https://github.com/scribe-org/Scribe-Data/issues>`_ is the preferred channel for `bug reports <#bug-reports>`_, `features requests <#feature-requests>`_ and `submitting pull requests <#pull-requests>`_. Scribe also organizes related issues into `projects <https://github.com/scribe-org/Scribe-Data/projects>`_.
 
-.. note::
-   Just because an issue is assigned on GitHub doesn't mean that the team isn't interested in your contribution! Feel free to comment on the issue, and we can potentially reassign it to you.
+   .. note::
+      Just because an issue is assigned on GitHub doesn't mean that the team isn't interested in your contribution! Feel free to comment on the issue, and we can potentially reassign it to you.
 
 Be sure to check the `-next release- <https://github.com/scribe-org/Scribe-Data/labels/-next%20release->`_ and `-priority- <https://github.com/scribe-org/Scribe-Data/labels/-priority->`_ labels in the issues for those that are most important, as well as those marked `good first issue <https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22>`_ that are tailored for first-time contributors.
+
+.. _`Bug reports`:
 
 Bug reports
 -----------
@@ -118,12 +133,16 @@ Guidelines for bug reports:
 
 Report bugs using the `bug report template <https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=bug&template=bug_report.yml>`_, which helps in providing all necessary information.
 
+.. _`Feature requests`:
+
 Feature requests
 ----------------
 
 Feature requests are more than welcome! Before making a suggestion, please ensure it fits the scope and aims of the project. Provide as much detail and context as possible, and clarify how you'd like to contribute to its development.
 
 Use the `feature request template <https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=feature&template=feature_request.yml>`_ to submit your ideas. These are marked with the `feature` label for easy identification.
+
+.. _`Pull requests`:
 
 Pull requests
 -------------
@@ -141,10 +160,14 @@ Adhere to the `GitHub flow <https://guides.github.com/introduction/flow/index.ht
 5. Push your topic branch up to your fork.
 6. Open a Pull Request with a clear title and description via the GitHub website.
 
+.. _`Data edits`:
+
 Data edits
 ----------
 
 Scribe relies on data from `Wikidata <https://www.wikidata.org/>`, and thus direct edits to the data files in the repository are not accepted. If you find an issue with the data, please make the correction directly in Wikidata. You can then open an issue to notify the Scribe-Data team, and we'll update our data accordingly.
+
+.. _`Documentation`:
 
 Documentation
 -------------
