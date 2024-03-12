@@ -3,12 +3,12 @@ Contributing to Scribe-Data
 
 Thank you for your interest in contributing!
 
-Please take a moment to review this document in order to make the
-contribution process easy and effective for everyone involved.
+Please take a moment to review this document to make the
+contribution process is easy and effective for everyone involved.
 
 Following these guidelines helps to communicate that you respect the
 time of the developers managing and developing this open-source project.
-In return, and in accordance with this project’s `code of
+In return, and accordance with this project’s `code of
 conduct <https://github.com/scribe-org/Scribe-Data/blob/main/.github/CODE_OF_CONDUCT.md>`__,
 other contributors will reciprocate that respect in addressing your
 issue or assessing changes and features.
@@ -36,7 +36,7 @@ First steps as a contributor
 
 Thank you for your interest in contributing to Scribe-Data! We look
 forward to welcoming you to the community and working with you to build
-an tools for language learners to communicate effectively :) The
+a tool for language learners to communicate effectively. :) The
 following are some suggested steps for people interested in joining our
 community:
 
@@ -61,7 +61,7 @@ community:
    `good first issue <https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22>`__
    and the `Projects
    board <https://github.com/orgs/scribe-org/projects/1>`__ to get a
-   better understanding of what you can work on
+   a better understanding of what you can work on
 -  Check out our `public designs on
    Figma <https://www.figma.com/file/c8945w2iyoPYVhsqW7vRn6/scribe_public_designs?type=design&node-id=405-464&mode=design&t=E3ccS9Z8MDVSizQ4-0>`__
    to understand Scribes’s goals and direction
@@ -103,7 +103,7 @@ Docs for those new to programming
 -  `Mozilla Developer Network Learning
    Area <https://developer.mozilla.org/en-US/docs/Learn>`__
 
-   -  Doing MDN sections for HTML, CSS and JavaScript is the best ways
+   -  Doing MDN sections for HTML, CSS, and JavaScript is the best ways
       to get into web development!
 
 .. raw:: html
@@ -177,7 +177,7 @@ following steps:
 
       <p>
 
-   Alternatively to using HTTPS as in the instructions below, consider
+   Alternatively, to use HTTPS as in the instructions below, consider
    SSH to interact with GitHub from the terminal. SSH allows you to
    connect without a user-pass authentication flow.
 
@@ -185,10 +185,10 @@ following steps:
    URL, ``https://github.com/...``, with the SSH one,
    ``git@github.com:...``.
 
-   -  e.g. Cloning now becomes
+   -  e.g. Cloning now becomes
       ``git clone git@github.com:<your-username>/Scribe-Data.git``
 
-   GitHub also has their documentation on how to `Generate a new SSH
+   GitHub also has documentation on how to `Generate a new SSH
    key <https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent>`__
    🔑
 
@@ -229,7 +229,7 @@ following steps:
 
    [!NOTE] Feel free to contact the team in the `Data room on
    Matrix <https://matrix.to/#/#ScribeData:matrix.org>`__ if you’re
-   having problems getting your environment setup!
+   having problems getting your environment set up!
 
 Issues and projects
 -------------------
@@ -255,7 +255,7 @@ labels in the
 `issues <https://github.com/scribe-org/Scribe-Data/issues>`__ for those
 that are most important, as well as those marked
 `good first issue <https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22>`__
-that are tailored for first time contributors.
+that are tailored for first-time contributors.
 
 Bug reports
 -----------
@@ -298,7 +298,7 @@ Feature requests
 Feature requests are more than welcome! Please take a moment to find out
 whether your idea fits with the scope and aims of the project. When
 making a suggestion, provide as much detail and context as possible, and
-further make clear the degree to which you would like to contribute in
+further, make clear the degree to which you would like to contribute in
 its development. Feature requests are marked with the
 `feature <https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aopen+is%3Aissue+label%3Afeature>`__
 label, and can be made using the `feature
@@ -317,7 +317,7 @@ and should follow the coding indentation and style standards (`contact
 us <https://matrix.to/#/#scribe_community:matrix.org>`__ if unsure).
 
 **Please ask first** before embarking on any significant pull request
-(implementing features, refactoring code, etc), otherwise you risk
+(implementing features, refactoring code, etc), otherwise, you risk
 spending a lot of time working on something that the developers might
 not want to merge into the project. With that being said, major
 additions are very appreciated!
@@ -387,7 +387,7 @@ Scribe does not accept direct edits to the grammar JSON files as they
 are sourced from `Wikidata <https://www.wikidata.org/>`__. Edits can be
 discussed and the
 `Scribe-Data <https://github.com/scribe-org/Scribe-Data>`__ queries will
-be changed and ran before an update. If there is a problem with one of
+be changed and run before an update. If there is a problem with one of
 the files, then the fix should be made on
 `Wikidata <https://www.wikidata.org/>`__ and not on Scribe. Feel free to
 let us know that edits have been made by `opening an
