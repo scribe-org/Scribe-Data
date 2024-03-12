@@ -16,6 +16,8 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - Scribe-Data now outputs an SQLite table that has keys for target languages for each base language. -->
 <!-- - English has been added to the data ETL process. -->
 
+- The documentation has been given a new layout with the logo in the top left.
+
 ## Scribe-Data 3.2.2
 
 - Minor fixes to documentation index and file docstrings to fix errors.
