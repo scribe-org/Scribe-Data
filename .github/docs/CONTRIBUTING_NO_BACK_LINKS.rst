@@ -70,7 +70,8 @@ community:
 
 ..
 
-   [!NOTE] Those new to Python or wanting to work on their Python skills
+   [!NOTE] 
+   Those new to Python or wanting to work on their Python skills
    are more than welcome to contribute! The team would be happy to help
    you on your development journey :)
 
