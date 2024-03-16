@@ -46,7 +46,7 @@ The main data update process in [update_data.py](https://github.com/scribe-org/S
 Running [update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/update_data.py) is done via the following CLI command:
 
 ```bash
-python src/scribe_data/extract_transform/update_data.py
+python3 src/scribe_data/extract_transform/update_data.py
 ```
 
 The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data and data from other sources. These packs would then be available to download by users of Scribe applications.
@@ -126,11 +126,26 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
 
 2. Use [Python venv](https://docs.python.org/3/library/venv.html) to create the local development environment within your Scribe-Data directory:
 
-   ```bash
-   python3 -m venv venv  # make an environment venv
-   pip install --upgrade pip  # make sure that pip is at the latest version
-   pip install -r requirements.txt  # install dependencies
-   ```
+- On Unix or MacOS, run:
+
+  ```bash
+  python3 -m venv venv  # make an environment named venv
+  source venv/bin/activate # activate the environment
+  ```
+
+- On Windows (using Command Prompt), run:
+
+      ```bash
+      python -m venv venv
+      venv\Scripts\activate.bat
+      ```
+
+  After activating the virtual environment, install the required dependencies by running:
+
+  ```bash
+  pip install --upgrade pip  # make sure that pip is at the latest version
+  pip install -r requirements.txt  # install dependencies
+  ```
 
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!
