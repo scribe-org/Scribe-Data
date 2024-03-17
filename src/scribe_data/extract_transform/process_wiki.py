@@ -1,7 +1,4 @@
 """
-Process Wiki
-------------
-
 Module for cleaning Wikipedia based corpuses for autosuggestion generation.
 
 Contents:
@@ -380,9 +377,7 @@ def gen_autosuggestions(
         print("Nothing returned by the WDQS server for query_profanity.sparql")
     else:
         # Subset the returned JSON and the individual results before saving.
-        query_results = results["results"][  # pylint: disable=unsubscriptable-object
-            "bindings"
-        ]
+        query_results = results["results"]["bindings"]  # pylint: disable=unsubscriptable-object
 
         for r in query_results:  # query_results is also a list
             r_dict = {k: r[k]["value"] for k in r.keys()}

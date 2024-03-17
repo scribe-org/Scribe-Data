@@ -1,8 +1,5 @@
 """
-Format Nouns
-------------
-
-Formats the nouns queried from Wikidata using query_nouns.sparql.
+Formats the Italian nouns queried from Wikidata using query_nouns.sparql.
 """
 
 import collections

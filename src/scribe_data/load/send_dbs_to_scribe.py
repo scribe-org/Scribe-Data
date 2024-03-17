@@ -1,7 +1,4 @@
 """
-Send Databases to Scribe
-------------------------
-
 Updates Scribe apps with the SQLite language databases that are found in src/load/databases.
 
 Example

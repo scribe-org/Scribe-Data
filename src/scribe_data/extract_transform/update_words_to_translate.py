@@ -1,7 +1,4 @@
 """
-Update Words to Translate
--------------------------
-
 Updates words to translate by running the WDQS query for the given languages.
 
 Parameters

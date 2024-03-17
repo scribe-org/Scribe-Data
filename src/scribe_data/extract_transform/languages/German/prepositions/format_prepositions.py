@@ -1,8 +1,5 @@
 """
-Format Prepositions
--------------------
-
-Formats the prepositions queried from Wikidata using query_prepositions.sparql.
+Formats the German prepositions queried from Wikidata using query_prepositions.sparql.
 """
 
 import collections

@@ -1,8 +1,5 @@
 """
-Format Nouns
-------------
-
-Formats the nouns queried from Wikidata using query_nouns.sparql.
+Formats the Swedish nouns queried from Wikidata using query_nouns.sparql.
 """
 
 import collections
@@ -91,9 +88,9 @@ for noun_vals in nouns_list:
 
                 # Plural is same as singular.
                 else:
-                    nouns_formatted[noun_vals["nominativeSingular"]][
-                        "plural"
-                    ] = noun_vals["nominativePlural"]
+                    nouns_formatted[noun_vals["nominativeSingular"]]["plural"] = (
+                        noun_vals["nominativePlural"]
+                    )
                     nouns_formatted[noun_vals["nominativeSingular"]]["form"] = (
                         nouns_formatted[noun_vals["nominativeSingular"]]["form"] + "/PL"
                     )
@@ -109,9 +106,9 @@ for noun_vals in nouns_list:
                     )
 
                 elif nouns_formatted[noun_vals["nominativeSingular"]]["gender"] == "":
-                    nouns_formatted[noun_vals["nominativeSingular"]][
-                        "gender"
-                    ] = map_genders(noun_vals["gender"])
+                    nouns_formatted[noun_vals["nominativeSingular"]]["gender"] = (
+                        map_genders(noun_vals["gender"])
+                    )
 
     elif "genitiveSingular" in noun_vals.keys():
         if noun_vals["genitiveSingular"] not in nouns_formatted:
@@ -138,9 +135,9 @@ for noun_vals in nouns_list:
 
                 # Plural is same as singular.
                 else:
-                    nouns_formatted[noun_vals["genitiveSingular"]][
-                        "plural"
-                    ] = noun_vals["genitivePlural"]
+                    nouns_formatted[noun_vals["genitiveSingular"]]["plural"] = (
+                        noun_vals["genitivePlural"]
+                    )
                     nouns_formatted[noun_vals["genitiveSingular"]]["form"] = (
                         nouns_formatted[noun_vals["genitiveSingular"]]["form"] + "/PL"
                     )
@@ -156,9 +153,9 @@ for noun_vals in nouns_list:
                     )
 
                 elif nouns_formatted[noun_vals["genitiveSingular"]]["gender"] == "":
-                    nouns_formatted[noun_vals["genitiveSingular"]][
-                        "gender"
-                    ] = map_genders(noun_vals["gender"])
+                    nouns_formatted[noun_vals["genitiveSingular"]]["gender"] = (
+                        map_genders(noun_vals["gender"])
+                    )
 
     # Plural only noun.
     elif "nominativePlural" in noun_vals.keys():
@@ -170,9 +167,9 @@ for noun_vals in nouns_list:
 
         # Plural is same as singular.
         else:
-            nouns_formatted[noun_vals["nominativeSingular"]][
-                "nominativePlural"
-            ] = noun_vals["nominativePlural"]
+            nouns_formatted[noun_vals["nominativeSingular"]]["nominativePlural"] = (
+                noun_vals["nominativePlural"]
+            )
             nouns_formatted[noun_vals["nominativeSingular"]]["form"] = (
                 nouns_formatted[noun_vals["nominativeSingular"]]["form"] + "/PL"
             )
@@ -187,9 +184,9 @@ for noun_vals in nouns_list:
 
         # Plural is same as singular.
         else:
-            nouns_formatted[noun_vals["genitiveSingular"]][
-                "genitivePlural"
-            ] = noun_vals["genitivePlural"]
+            nouns_formatted[noun_vals["genitiveSingular"]]["genitivePlural"] = (
+                noun_vals["genitivePlural"]
+            )
             nouns_formatted[noun_vals["genitiveSingular"]]["form"] = (
                 nouns_formatted[noun_vals["genitiveSingular"]]["form"] + "/PL"
             )

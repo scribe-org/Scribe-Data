@@ -1,7 +1,4 @@
 """
-Update Data
------------
-
 Updates data for Scribe by running all or desired WDQS queries and formatting scripts.
 
 Parameters
@@ -37,7 +34,7 @@ from scribe_data.utils import (  # noqa: E402
 
 SCRIBE_DATA_SRC_PATH = "src/scribe_data"
 PATH_TO_ET_LANGUAGE_FILES = f"{SCRIBE_DATA_SRC_PATH}/extract_transform/languages"
-PATH_TO_UPDATE_FILES = f"{SCRIBE_DATA_SRC_PATH}/load/_update_files"
+PATH_TO_UPDATE_FILES = f"{SCRIBE_DATA_SRC_PATH}/load/update_files"
 
 # Set SPARQLWrapper query conditions.
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")

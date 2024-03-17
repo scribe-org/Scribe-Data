@@ -1,7 +1,4 @@
 """
-Emoji Utilities
----------------
-
 Module for a function to get emojis we want to filter from suggestions.
 
 Contents:

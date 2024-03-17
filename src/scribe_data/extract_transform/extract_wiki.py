@@ -1,7 +1,4 @@
 """
-Extract Wiki
-------------
-
 Module for downloading and creating workable files from Wikipedia dumps.
 
 Contents:

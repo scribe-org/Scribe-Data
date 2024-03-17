@@ -1,8 +1,5 @@
 """
-Format Verbs
-------------
-
-Formats the verbs queried from Wikidata using query_verbs.sparql.
+Formats the German verbs queried from Wikidata using query_verbs.sparql.
 
 Attn: The formatting in the file is significantly more complex than for other verbs.
     - We have two queries: query_verbs_1 and query_verbs_2.

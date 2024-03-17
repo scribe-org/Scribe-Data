@@ -19,6 +19,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - The documentation has been given a new layout with the logo in the top left ([#90](https://github.com/scribe-org/Scribe-Data/issues/90)).
 - The documentation now has links to the code at the top of each page ([#91](https://github.com/scribe-org/Scribe-Data/issues/91)).
 
+### ♻️ Code Refactoring
+
+- The `_update_files` directory was renamed `update_files` as these files are used in non-internal manners now ([#57](https://github.com/scribe-org/Scribe-Data/issues/57)).
+
 ## Scribe-Data 3.2.2
 
 - Minor fixes to documentation index and file docstrings to fix errors.
