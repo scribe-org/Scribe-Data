@@ -79,7 +79,8 @@ Scribe is very open to contributions from people in the early stages of their co
 >
 > - [blokhinnv.wikidataqidlabels](https://marketplace.visualstudio.com/items?itemName=blokhinnv.wikidataqidlabels)
 > - [charliermarsh.ruff](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff)
->
+> - [streetsidesoftware.code-spell-checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+
 > </p>
 > </details>
 

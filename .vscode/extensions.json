@@ -1,3 +1,7 @@
 {
-  "recommendations": ["blokhinnv.wikidataqidlabels", "charliermarsh.ruff"]
+  "recommendations": [
+    "blokhinnv.wikidataqidlabels",
+    "charliermarsh.ruff",
+    "streetsidesoftware.code-spell-checker"
+  ]
 }

@@ -23,6 +23,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - The `_update_files` directory was renamed `update_files` as these files are used in non-internal manners now ([#57](https://github.com/scribe-org/Scribe-Data/issues/57)).
 - A common function has been created to map Wikidata ids to noun genders ([#69](https://github.com/scribe-org/Scribe-Data/issues/69)).
+- Code formatting was shifted from [black](https://github.com/psf/black) to [Ruff](https://github.com/astral-sh/ruff).
 
 ## Scribe-Data 3.2.2
 
