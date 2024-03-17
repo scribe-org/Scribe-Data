@@ -12,6 +12,9 @@ Contents:
     get_language_words_to_ignore,
     get_language_dir_path,
     get_path_from_format_file,
+    get_language_dir_path,
+    load_queried_data,
+    export_formatted_data,
     get_path_from_load_dir,
     get_path_from_et_dir,
     get_ios_data_path,
@@ -21,7 +24,8 @@ Contents:
     check_and_return_command_line_args,
     translation_interrupt_handler,
     get_target_langcodes,
-    translate_to_other_languages
+    translate_to_other_languages,
+    map_genders
 """
 
 import ast
@@ -264,6 +268,67 @@ def get_language_dir_path(language):
     """
     PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
     return f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages/{language}"
+
+
+def load_queried_data(file_path, language, data_type):
+    """
+    Loads queried data from a JSON file for a specific language and data type.
+
+    Parameters
+    ----------
+        file_path : str
+            The path to the file containing the queried data.
+        language : str
+            The language for which the data is being loaded.
+        data_type : str
+            The type of data being loaded (e.g., 'nouns', 'verbs').
+
+    Returns
+    -------
+        tuple
+            A tuple containing the loaded data, a boolean indicating whether the data is in use,
+            and the path to the data file.
+    """
+    queried_data_file = f"{data_type}_queried.json"
+    update_data_in_use = False
+
+    if f"languages/{language}/{data_type}/" not in file_path:
+        data_path = queried_data_file
+    else:
+        update_data_in_use = True
+        data_path = f"{_get_language_dir_path(language)}/{data_type}/{queried_data_file}"
+
+    with open(data_path, encoding="utf-8") as f:
+        return json.load(f), update_data_in_use, data_path
+
+
+def export_formatted_data(formatted_data, update_data_in_use, language, data_type):
+    """
+    Exports formatted data to a JSON file for a specific language and data type.
+
+    Parameters
+    ----------
+        formatted_data : dict
+            The data to be exported.
+        update_data_in_use : bool
+            A flag indicating whether the data is currently in use.
+        language : str
+            The language for which the data is being exported.
+        data_type : str
+            The type of data being exported (e.g., 'nouns', 'verbs').
+
+    Returns
+    -------
+        None
+    """
+    if update_data_in_use:
+        export_path = f"{_get_language_dir_path(language)}/formatted_data/{data_type}.json"
+    else:
+        export_path = f"{data_type}.json"
+
+    with open(export_path, "w", encoding="utf-8") as file:
+        json.dump(formatted_data, file, ensure_ascii=False, indent=0)
+    print(f"Wrote file {data_type}.json with {len(formatted_data):,} {data_type}.")
 
 
 def get_path_from_format_file() -> str:
@@ -529,3 +594,24 @@ def translate_to_other_languages(source_language, word_list, translations, batch
             json.dump(translations, file, ensure_ascii=False, indent=4)
 
     print("Translation results for all words are saved to the translated_words.json file.")
+
+
+def map_genders(wikidata_gender):
+    """
+    Maps those genders from Wikidata to succinct versions.
+
+    Parameters
+    ----------
+        wikidata_gender : str
+            The gender of the noun that was queried from WikiData.
+    """
+    if wikidata_gender in ["masculine", "Q499327"]:
+        return "M"
+    elif wikidata_gender in ["feminine", "Q1775415"]:
+        return "F"
+    elif wikidata_gender in ["common gender", "Q1305037"]:
+        return "C"
+    elif wikidata_gender in ["neuter", "Q1775461"]:
+        return "N"
+    else:
+        return ""  # nouns could have a gender that is not valid as an attribute

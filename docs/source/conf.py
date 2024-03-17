@@ -18,7 +18,7 @@ import sys
 #
 import sphinx_rtd_theme
 
-sys.path.insert(0, os.path.abspath(".."))
+sys.path.insert(0, os.path.abspath("../../src"))
 
 # -- Project information -----------------------------------------------------
 
@@ -174,4 +174,16 @@ texinfo_documents = [
         "Wikidata and Wikipedia data extraction for Scribe applications",
         "Miscellaneous",
     )
+]
+
+# Adding logo to the docs sidebar.
+html_logo = "_static/ScribeDataLogo.png"
+html_theme_options = {
+    "logo_only": True,
+    "display_version": True,
+}
+
+# Importing custom css for theme customization.
+html_css_files = [
+    "custom.css",
 ]

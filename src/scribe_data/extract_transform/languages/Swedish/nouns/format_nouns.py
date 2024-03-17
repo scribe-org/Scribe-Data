@@ -1,48 +1,22 @@
 """
-Format Nouns
-------------
-
-Formats the nouns queried from Wikidata using query_nouns.sparql.
+Formats the Swedish nouns queried from Wikidata using query_nouns.sparql.
 """
 
 import collections
-import json
 import os
 import sys
 
-LANGUAGE = "Swedish"
-QUERIED_DATA_TYPE = "nouns"
-QUERIED_DATA_FILE = f"{QUERIED_DATA_TYPE}_queried.json"
 PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-LANGUAGES_DIR_PATH = (
-    f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages"
-)
+PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
+sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
+
+from scribe_data.utils import export_formatted_data, load_queried_data, map_genders
 
 file_path = sys.argv[0]
 
-update_data_in_use = False  # check if update_data.py is being used
-if f"languages/{LANGUAGE}/{QUERIED_DATA_TYPE}/" not in file_path:
-    data_path = QUERIED_DATA_FILE
-else:
-    update_data_in_use = True
-    data_path = (
-        f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/{QUERIED_DATA_TYPE}/{QUERIED_DATA_FILE}"
-    )
-
-with open(data_path, encoding="utf-8") as f:
-    nouns_list = json.load(f)
-
-
-def map_genders(wikidata_gender):
-    """
-    Maps those genders from Wikidata to succinct versions.
-    """
-    if wikidata_gender in ["common gender", "Q1305037"]:
-        return "C"
-    elif wikidata_gender in ["neuter", "Q1775461"]:
-        return "N"
-    else:
-        return ""  # nouns could have a gender that is not valid as an attribute
+nouns_list, update_data_in_use, data_path = load_queried_data(
+    file_path=file_path, language="Swedish", data_type="nouns"
+)
 
 
 def order_annotations(annotation):
@@ -91,9 +65,9 @@ for noun_vals in nouns_list:
 
                 # Plural is same as singular.
                 else:
-                    nouns_formatted[noun_vals["nominativeSingular"]][
-                        "plural"
-                    ] = noun_vals["nominativePlural"]
+                    nouns_formatted[noun_vals["nominativeSingular"]]["plural"] = (
+                        noun_vals["nominativePlural"]
+                    )
                     nouns_formatted[noun_vals["nominativeSingular"]]["form"] = (
                         nouns_formatted[noun_vals["nominativeSingular"]]["form"] + "/PL"
                     )
@@ -109,9 +83,9 @@ for noun_vals in nouns_list:
                     )
 
                 elif nouns_formatted[noun_vals["nominativeSingular"]]["gender"] == "":
-                    nouns_formatted[noun_vals["nominativeSingular"]][
-                        "gender"
-                    ] = map_genders(noun_vals["gender"])
+                    nouns_formatted[noun_vals["nominativeSingular"]]["gender"] = (
+                        map_genders(noun_vals["gender"])
+                    )
 
     elif "genitiveSingular" in noun_vals.keys():
         if noun_vals["genitiveSingular"] not in nouns_formatted:
@@ -138,9 +112,9 @@ for noun_vals in nouns_list:
 
                 # Plural is same as singular.
                 else:
-                    nouns_formatted[noun_vals["genitiveSingular"]][
-                        "plural"
-                    ] = noun_vals["genitivePlural"]
+                    nouns_formatted[noun_vals["genitiveSingular"]]["plural"] = (
+                        noun_vals["genitivePlural"]
+                    )
                     nouns_formatted[noun_vals["genitiveSingular"]]["form"] = (
                         nouns_formatted[noun_vals["genitiveSingular"]]["form"] + "/PL"
                     )
@@ -156,9 +130,9 @@ for noun_vals in nouns_list:
                     )
 
                 elif nouns_formatted[noun_vals["genitiveSingular"]]["gender"] == "":
-                    nouns_formatted[noun_vals["genitiveSingular"]][
-                        "gender"
-                    ] = map_genders(noun_vals["gender"])
+                    nouns_formatted[noun_vals["genitiveSingular"]]["gender"] = (
+                        map_genders(noun_vals["gender"])
+                    )
 
     # Plural only noun.
     elif "nominativePlural" in noun_vals.keys():
@@ -170,9 +144,9 @@ for noun_vals in nouns_list:
 
         # Plural is same as singular.
         else:
-            nouns_formatted[noun_vals["nominativeSingular"]][
-                "nominativePlural"
-            ] = noun_vals["nominativePlural"]
+            nouns_formatted[noun_vals["nominativeSingular"]]["nominativePlural"] = (
+                noun_vals["nominativePlural"]
+            )
             nouns_formatted[noun_vals["nominativeSingular"]]["form"] = (
                 nouns_formatted[noun_vals["nominativeSingular"]]["form"] + "/PL"
             )
@@ -187,9 +161,9 @@ for noun_vals in nouns_list:
 
         # Plural is same as singular.
         else:
-            nouns_formatted[noun_vals["genitiveSingular"]][
-                "genitivePlural"
-            ] = noun_vals["genitivePlural"]
+            nouns_formatted[noun_vals["genitiveSingular"]]["genitivePlural"] = (
+                noun_vals["genitivePlural"]
+            )
             nouns_formatted[noun_vals["genitiveSingular"]]["form"] = (
                 nouns_formatted[noun_vals["genitiveSingular"]]["form"] + "/PL"
             )
@@ -199,21 +173,11 @@ for k in nouns_formatted:
 
 nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
-export_path = f"../formatted_data/{QUERIED_DATA_TYPE}.json"
-if update_data_in_use:
-    export_path = (
-        f"{LANGUAGES_DIR_PATH}/{LANGUAGE}/formatted_data/{QUERIED_DATA_TYPE}.json"
-    )
-
-with open(
-    export_path,
-    "w",
-    encoding="utf-8",
-) as file:
-    json.dump(nouns_formatted, file, ensure_ascii=False, indent=0)
-
-print(
-    f"Wrote file {QUERIED_DATA_TYPE}.json with {len(nouns_formatted):,} {QUERIED_DATA_TYPE}."
+export_formatted_data(
+    formatted_data=nouns_formatted,
+    update_data_in_use=update_data_in_use,
+    language="Swedish",
+    data_type="nouns",
 )
 
 os.remove(data_path)
