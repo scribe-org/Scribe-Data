@@ -1,12 +1,15 @@
 /* Change the sidebar header color to match the new logo background. */
 .wy-side-nav-search {
   background-color: #f2f5f8 !important;
-  color: #000 !important;
 }
 
 /* Update the sidebar background color. */
 .wy-nav-side {
   background-color: #f2f5f8 !important;
+}
+
+/* Update the version color to match the background color. */
+.version {
   color: #000 !important;
 }
 
