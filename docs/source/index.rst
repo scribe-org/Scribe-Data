@@ -35,7 +35,7 @@
 .. |matrix| image:: https://img.shields.io/badge/Matrix-000000.svg?logo=matrix&logoColor=ffffff
     :target: https://matrix.to/#/#scribe_community:matrix.org
 
-.. |codestyle| image:: https://img.shields.io/badge/ruff-000000.svg
+.. |codestyle| image:: https://img.shields.io/badge/Ruff-26122F.svg?logo=Ruff
     :target: https://github.com/astral-sh/ruff
 
 Wikidata and Wikipedia language data extraction
