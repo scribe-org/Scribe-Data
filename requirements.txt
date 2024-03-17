@@ -1,5 +1,4 @@
 beautifulsoup4==4.9.3
-black>=19.10b0
 certifi>=2020.12.5
 defusedxml==0.7.1
 emoji>=2.2.0
@@ -14,6 +13,7 @@ pyarrow>=15.0.0
 PyICU>=2.10.2
 pytest-cov>=3.0.0
 regex>=2023.3.23
+ruff>=0.3.3
 sentencepiece>=0.1.95
 SPARQLWrapper>=2.0.0
 sphinx-rtd-theme>=2.0.0
