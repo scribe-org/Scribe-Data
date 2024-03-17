@@ -12,7 +12,7 @@
 [![coc](https://img.shields.io/badge/Contributor%20Covenant-ff69b4.svg)](https://github.com/scribe-org/Scribe-Data/blob/main/.github/CODE_OF_CONDUCT.md)
 [![mastodon](https://img.shields.io/badge/Mastodon-6364FF.svg?logo=mastodon&logoColor=ffffff)](https://wikis.world/@scribe)
 [![matrix](https://img.shields.io/badge/Matrix-000000.svg?logo=matrix&logoColor=ffffff)](https://matrix.to/#/#scribe_community:matrix.org)
-[![codestyle](https://img.shields.io/badge/black-000000.svg)](https://github.com/psf/black)
+[![codestyle](https://img.shields.io/badge/ruff-000000.svg)](https://github.com/astral-sh/ruff)
 
 ## Wikidata and Wikipedia language data extraction
 
@@ -90,6 +90,20 @@ Scribe does not accept direct edits to the grammar JSON files as they are source
 
 # Environment Setup [`⇧`](#contents)
 
+> [!IMPORTANT]
+>
+> <details><summary>Suggested IDE extensions</summary>
+>
+> <p>
+>
+> VS Code
+>
+> - [blokhinnv.wikidataqidlabels](https://marketplace.visualstudio.com/items?itemName=blokhinnv.wikidataqidlabels)
+> - [charliermarsh.ruff](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff)
+>
+> </p>
+> </details>
+
 The development environment for Scribe-Data can be installed via the following steps:
 
 1. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) the [Scribe-Data repo](https://github.com/scribe-org/Scribe-Data), clone your fork, and configure the remotes:
@@ -135,17 +149,17 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
 
 - On Windows (using Command Prompt), run:
 
-      ```bash
-      python -m venv venv
-      venv\Scripts\activate.bat
-      ```
-
-  After activating the virtual environment, install the required dependencies by running:
-
   ```bash
-  pip install --upgrade pip  # make sure that pip is at the latest version
-  pip install -r requirements.txt  # install dependencies
+  python -m venv venv
+  venv\Scripts\activate.bat
   ```
+
+After activating the virtual environment, install the required dependencies by running:
+
+```bash
+pip install --upgrade pip  # make sure that pip is at the latest version
+pip install -r requirements.txt  # install dependencies
+```
 
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!

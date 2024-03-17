@@ -14,7 +14,9 @@ from scribe_data.utils import export_formatted_data, load_queried_data, map_gend
 
 file_path = sys.argv[0]
 
-nouns_list, update_data_in_use, data_path= load_queried_data(file_path, language = "Portuguese", data_type = "nouns")
+nouns_list, update_data_in_use, data_path = load_queried_data(
+    file_path=file_path, language="Portuguese", data_type="nouns"
+)
 
 
 def order_annotations(annotation):
@@ -98,6 +100,11 @@ for k in nouns_formatted:
 
 nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
-export_formatted_data(nouns_formatted, update_data_in_use, language = "Portuguese", data_type = "nouns")
+export_formatted_data(
+    formatted_data=nouns_formatted,
+    update_data_in_use=update_data_in_use,
+    language="Portuguese",
+    data_type="nouns",
+)
 
 os.remove(data_path)

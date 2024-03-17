@@ -14,7 +14,9 @@ from scribe_data.utils import export_formatted_data, load_queried_data
 
 file_path = sys.argv[0]
 
-prepositions_list, update_data_in_use, data_path= load_queried_data(file_path, language = "German", data_type = "prepositions")
+prepositions_list, update_data_in_use, data_path = load_queried_data(
+    file_path=file_path, language="German", data_type="prepositions"
+)
 
 
 def convert_cases(case):
@@ -103,6 +105,11 @@ for p in contractedGermanPrepositions:
 
 prepositions_formatted = collections.OrderedDict(sorted(prepositions_formatted.items()))
 
-export_formatted_data(prepositions_formatted, update_data_in_use, language = "German", data_type = "prepositions")
+export_formatted_data(
+    formatted_data=prepositions_formatted,
+    update_data_in_use=update_data_in_use,
+    language="German",
+    data_type="prepositions",
+)
 
 os.remove(data_path)

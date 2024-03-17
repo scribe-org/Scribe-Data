@@ -14,7 +14,9 @@ from scribe_data.utils import export_formatted_data, load_queried_data
 
 file_path = sys.argv[0]
 
-nouns_list, update_data_in_use, data_path= load_queried_data(file_path, language = "English", data_type = "nouns")
+nouns_list, update_data_in_use, data_path = load_queried_data(
+    file_path=file_path, language="English", data_type="nouns"
+)
 
 nouns_formatted = {}
 
@@ -78,6 +80,11 @@ for noun_vals in nouns_list:
 
 nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
-export_formatted_data(nouns_formatted, update_data_in_use, language = "English", data_type = "nouns")
+export_formatted_data(
+    formatted_data=nouns_formatted,
+    update_data_in_use=update_data_in_use,
+    language="English",
+    data_type="nouns",
+)
 
 os.remove(data_path)

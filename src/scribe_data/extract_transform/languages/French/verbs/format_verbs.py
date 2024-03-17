@@ -14,7 +14,9 @@ from scribe_data.utils import export_formatted_data, load_queried_data
 
 file_path = sys.argv[0]
 
-verbs_list, update_data_in_use, data_path= load_queried_data(file_path, language = "French", data_type = "verbs")
+verbs_list, update_data_in_use, data_path = load_queried_data(
+    file_path=file_path, language="French", data_type="verbs"
+)
 
 verbs_formatted = {}
 
@@ -62,6 +64,11 @@ for verb_vals in verbs_list:
 
 verbs_formatted = collections.OrderedDict(sorted(verbs_formatted.items()))
 
-export_formatted_data(verbs_formatted, update_data_in_use, language = "French", data_type = "verbs")
+export_formatted_data(
+    formatted_data=verbs_formatted,
+    update_data_in_use=update_data_in_use,
+    language="French",
+    data_type="verbs",
+)
 
 os.remove(data_path)
