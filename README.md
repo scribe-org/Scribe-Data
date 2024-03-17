@@ -12,7 +12,6 @@
 [![coc](https://img.shields.io/badge/Contributor%20Covenant-ff69b4.svg)](https://github.com/scribe-org/Scribe-Data/blob/main/.github/CODE_OF_CONDUCT.md)
 [![mastodon](https://img.shields.io/badge/Mastodon-6364FF.svg?logo=mastodon&logoColor=ffffff)](https://wikis.world/@scribe)
 [![matrix](https://img.shields.io/badge/Matrix-000000.svg?logo=matrix&logoColor=ffffff)](https://matrix.to/#/#scribe_community:matrix.org)
-[![codestyle](https://img.shields.io/badge/Ruff-26122F.svg?logo=Ruff)](https://github.com/astral-sh/ruff)
 
 ## Wikidata and Wikipedia language data extraction
 
