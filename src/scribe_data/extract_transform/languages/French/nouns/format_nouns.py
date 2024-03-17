@@ -7,6 +7,12 @@ import json
 import os
 import sys
 
+PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
+PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
+sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
+
+from scribe_data.utils import map_genders
+
 LANGUAGE = "French"
 QUERIED_DATA_TYPE = "nouns"
 QUERIED_DATA_FILE = f"{QUERIED_DATA_TYPE}_queried.json"
@@ -28,18 +34,6 @@ else:
 
 with open(data_path, encoding="utf-8") as f:
     nouns_list = json.load(f)
-
-
-def map_genders(wikidata_gender):
-    """
-    Maps those genders from Wikidata to succinct versions.
-    """
-    if wikidata_gender in ["masculine", "Q499327"]:
-        return "M"
-    elif wikidata_gender in ["feminine", "Q1775415"]:
-        return "F"
-    else:
-        return ""  # nouns could have a gender that is not valid as an attribute
 
 
 def order_annotations(annotation):
