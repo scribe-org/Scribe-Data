@@ -19,7 +19,11 @@
 .wy-nav-side .wy-menu-vertical a:hover {
   color: #fff !important;
 }
-
+/* Sidebar item background color on hover */
+.wy-nav-side .wy-menu-vertical li.toctree-l1.current>a:hover,
+.wy-nav-side .wy-menu-vertical li.toctree-l1>a:hover {
+  background-color: #333333 !important; /* Dark gray background */
+}
 /* Logo styling. */
 .wy-side-nav-search .wy-nav-top img {
   padding: 15px;
