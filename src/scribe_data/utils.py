@@ -17,7 +17,8 @@ Contents:
     get_android_data_path,
     get_desktop_data_path,
     check_command_line_args,
-    check_and_return_command_line_args
+    check_and_return_command_line_args,
+    map_genders
 """
 
 import ast
@@ -421,6 +422,7 @@ def check_and_return_command_line_args(
         """
     )
 
+
 def map_genders(wikidata_gender):
     """
     Maps those genders from Wikidata to succinct versions.
@@ -428,12 +430,14 @@ def map_genders(wikidata_gender):
     Parameters
     ----------
         wikidata_gender : str
-            The gender of the noun that was queried from WikiData
+            The gender of the noun that was queried from WikiData.
     """
     if wikidata_gender in ["masculine", "Q499327"]:
         return "M"
     elif wikidata_gender in ["feminine", "Q1775415"]:
         return "F"
+    elif wikidata_gender in ["common gender", "Q1305037"]:
+        return "C"
     elif wikidata_gender in ["neuter", "Q1775461"]:
         return "N"
     else:
