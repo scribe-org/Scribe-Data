@@ -1,7 +1,4 @@
 """
-Translate
----------
-
 Translates the words queried from Wikidata using query_words_to_translate.sparql.
 
 Example

@@ -1,11 +1,16 @@
 /* Change the sidebar header color to match the new logo background. */
 .wy-side-nav-search {
-  background-color: #f0f0eb !important;
+  background-color: #f2f5f8 !important;
 }
 
 /* Update the sidebar background color. */
 .wy-nav-side {
   background-color: #f2f5f8 !important;
+}
+
+/* Update the version color to match the background color. */
+.version {
+  color: #000 !important;
 }
 
 /* Change sidebar text color to black for all sidebar items. */
@@ -17,9 +22,13 @@
 /* Sidebar link text color on hover. */
 .wy-nav-side .wy-nav-content a:hover,
 .wy-nav-side .wy-menu-vertical a:hover {
-  color: #fff !important;
+  color: #000 !important;
 }
-
+/* Sidebar item background color on hover. */
+.wy-nav-side .wy-menu-vertical li.toctree-l1.current > a:hover,
+.wy-nav-side .wy-menu-vertical li.toctree-l1 > a:hover {
+  background-color: #5495c9 !important; /* ligher Python blue background */
+}
 /* Logo styling. */
 .wy-side-nav-search .wy-nav-top img {
   padding: 15px;

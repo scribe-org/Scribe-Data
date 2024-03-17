@@ -1,8 +1,5 @@
 """
-Format Nouns
-------------
-
-Formats the nouns queried from Wikidata using query_nouns.sparql.
+Formats the Russian nouns queried from Wikidata using query_nouns.sparql.
 """
 
 import collections
@@ -13,30 +10,11 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.utils import export_formatted_data, load_queried_data
+from scribe_data.utils import export_formatted_data, load_queried_data, map_genders
 
 file_path = sys.argv[0]
 
 nouns_list, update_data_in_use, data_path= load_queried_data(file_path, language = "Russian", data_type = "nouns")
-
-
-def map_genders(wikidata_gender):
-    """
-    Maps those genders from Wikidata to succinct versions.
-
-    Parameters
-    ----------
-        wikidata_gender : str
-            The gender of the noun that was queried from WikiData
-    """
-    if wikidata_gender in ["masculine", "Q499327"]:
-        return "M"
-    elif wikidata_gender in ["feminine", "Q1775415"]:
-        return "F"
-    elif wikidata_gender in ["neuter", "Q1775461"]:
-        return "N"
-    else:
-        return ""  # nouns could have a gender that is not valid as an attribute
 
 
 def order_annotations(annotation):

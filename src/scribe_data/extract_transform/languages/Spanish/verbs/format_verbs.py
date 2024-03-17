@@ -1,8 +1,5 @@
 """
-Format Verbs
-------------
-
-Formats the verbs queried from Wikidata using query_verbs.sparql.
+Formats the Spanish verbs queried from Wikidata using query_verbs.sparql.
 """
 
 import collections

@@ -20,7 +20,8 @@ Contents:
     get_android_data_path,
     get_desktop_data_path,
     check_command_line_args,
-    check_and_return_command_line_args
+    check_and_return_command_line_args,
+    map_genders
 """
 
 import ast
@@ -503,3 +504,24 @@ def check_and_return_command_line_args(
         python {all_args[0]} '["comma_separated_sets_in_quotes"]'
         """
     )
+
+
+def map_genders(wikidata_gender):
+    """
+    Maps those genders from Wikidata to succinct versions.
+
+    Parameters
+    ----------
+        wikidata_gender : str
+            The gender of the noun that was queried from WikiData.
+    """
+    if wikidata_gender in ["masculine", "Q499327"]:
+        return "M"
+    elif wikidata_gender in ["feminine", "Q1775415"]:
+        return "F"
+    elif wikidata_gender in ["common gender", "Q1305037"]:
+        return "C"
+    elif wikidata_gender in ["neuter", "Q1775461"]:
+        return "N"
+    else:
+        return ""  # nouns could have a gender that is not valid as an attribute

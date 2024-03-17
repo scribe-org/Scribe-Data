@@ -1,8 +1,5 @@
 """
-Format Verbs
-------------
-
-Formats the verbs queried from Wikidata using query_verbs.sparql.
+Formats the French verbs queried from Wikidata using query_verbs.sparql.
 """
 
 import collections
