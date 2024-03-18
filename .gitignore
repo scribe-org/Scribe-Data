@@ -29,7 +29,6 @@ venv
 node_modules
 package-lock.json
 
-# Temporary to test
-# TODO remove later
-###################
-*_emoji_suggestions.json
+# Intermerdiary Data Files
+##########################
+**/*_queried.json
