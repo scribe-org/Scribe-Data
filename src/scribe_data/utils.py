@@ -11,10 +11,9 @@ Contents:
     get_language_words_to_remove,
     get_language_words_to_ignore,
     get_language_dir_path,
-    get_path_from_format_file,
-    get_language_dir_path,
     load_queried_data,
     export_formatted_data,
+    get_path_from_format_file,
     get_path_from_load_dir,
     get_path_from_et_dir,
     get_ios_data_path,
@@ -22,8 +21,8 @@ Contents:
     get_desktop_data_path,
     check_command_line_args,
     check_and_return_command_line_args,
-    translation_interrupt_handler,
     get_target_langcodes,
+    translation_interrupt_handler,
     translate_to_other_languages,
     map_genders
 """
@@ -39,7 +38,6 @@ from typing import Any
 
 import langcodes
 from langcodes import Language
-
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
 PROJECT_ROOT = "Scribe-Data"
@@ -296,7 +294,7 @@ def load_queried_data(file_path, language, data_type):
         data_path = queried_data_file
     else:
         update_data_in_use = True
-        data_path = f"{_get_language_dir_path(language)}/{data_type}/{queried_data_file}"
+        data_path = f"{get_language_dir_path(language)}/{data_type}/{queried_data_file}"
 
     with open(data_path, encoding="utf-8") as f:
         return json.load(f), update_data_in_use, data_path
@@ -322,7 +320,9 @@ def export_formatted_data(formatted_data, update_data_in_use, language, data_typ
         None
     """
     if update_data_in_use:
-        export_path = f"{_get_language_dir_path(language)}/formatted_data/{data_type}.json"
+        export_path = (
+            f"{get_language_dir_path(language)}/formatted_data/{data_type}.json"
+        )
     else:
         export_path = f"{data_type}.json"
 
@@ -513,25 +513,7 @@ def check_and_return_command_line_args(
     )
 
 
-def translation_interrupt_handler(source_language, translations):
-    """
-    Handles interrupt signals and saves the current translation progress.
-
-    Parameters
-    ----------
-        source_language : str
-            The source language being translated from.
-
-        translations : list[dict]
-            The current list of translations.
-    """
-    print("\nThe interrupt signal has been caught and the current progress is being saved...")
-    with open(f"{get_language_dir_path(source_language)}/formatted_data/translated_words.json", 'w', encoding='utf-8') as file:
-        json.dump(translations, file, ensure_ascii=False, indent=4)
-    print("The current progress is saved to the translated_words.json file.")
-    exit()
-
-def get_target_langcodes(source_lang)->list[str]:
+def get_target_langcodes(source_lang) -> list[str]:
     """
     Returns a list of target language ISO codes for translation.
 
@@ -545,13 +527,37 @@ def get_target_langcodes(source_lang)->list[str]:
         list[str]
             A list of target language ISO codes.
     """
-    target_langcodes=[]
-    for lang in get_scribe_languages():
-        if lang!=source_lang:
-            target_langcodes.append(get_language_iso(lang))
-        else:
-            continue
-    return target_langcodes
+    return [
+        get_language_iso(lang) for lang in get_scribe_languages() if lang != source_lang
+    ]
+
+
+def translation_interrupt_handler(source_language, translations):
+    """
+    Handles interrupt signals and saves the current translation progress.
+
+    Parameters
+    ----------
+        source_language : str
+            The source language being translated from.
+
+        translations : list[dict]
+            The current list of translations.
+    """
+    print(
+        "\nThe interrupt signal has been caught and the current progress is being saved..."
+    )
+
+    with open(
+        f"{get_language_dir_path(source_language)}/formatted_data/translated_words.json",
+        "w",
+        encoding="utf-8",
+    ) as file:
+        json.dump(translations, file, ensure_ascii=False, indent=4)
+
+    print("The current progress is saved to the translated_words.json file.")
+    exit()
+
 
 def translate_to_other_languages(source_language, word_list, translations, batch_size):
     """
@@ -574,26 +580,43 @@ def translate_to_other_languages(source_language, word_list, translations, batch
     model = M2M100ForConditionalGeneration.from_pretrained("facebook/m2m100_418M")
     tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
 
-    signal.signal(signal.SIGINT, lambda sig, frame: translation_interrupt_handler(source_language, translations))
+    signal.signal(
+        signal.SIGINT,
+        lambda sig, frame: translation_interrupt_handler(source_language, translations),
+    )
 
     for i in range(0, len(word_list), batch_size):
-        batch_words = word_list[i:i+batch_size]
+        batch_words = word_list[i : i + batch_size]
         print(f"Translating batch {i//batch_size + 1}: {batch_words}")
+
         for lang_code in get_target_langcodes(source_language):
             tokenizer.src_lang = get_language_iso(source_language)
             encoded_words = tokenizer(batch_words, return_tensors="pt", padding=True)
-            generated_tokens = model.generate(**encoded_words, forced_bos_token_id=tokenizer.get_lang_id(lang_code))
-            translated_words = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
+            generated_tokens = model.generate(
+                **encoded_words, forced_bos_token_id=tokenizer.get_lang_id(lang_code)
+            )
+            translated_words = tokenizer.batch_decode(
+                generated_tokens, skip_special_tokens=True
+            )
+
             for word, translation in zip(batch_words, translated_words):
                 if word not in translations:
                     translations[word] = {}
+
                 translations[word][lang_code] = translation
+
         print(f"Batch {i//batch_size + 1} translation completed.")
 
-        with open(f"{get_language_dir_path(source_language)}/formatted_data/translated_words.json", 'w', encoding='utf-8') as file:
+        with open(
+            f"{get_language_dir_path(source_language)}/formatted_data/translated_words.json",
+            "w",
+            encoding="utf-8",
+        ) as file:
             json.dump(translations, file, ensure_ascii=False, indent=4)
 
-    print("Translation results for all words are saved to the translated_words.json file.")
+    print(
+        "Translation results for all words are saved to the translated_words.json file."
+    )
 
 
 def map_genders(wikidata_gender):

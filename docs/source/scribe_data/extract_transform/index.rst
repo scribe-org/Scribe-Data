@@ -7,6 +7,7 @@ extract_transform
     :maxdepth: 1
 
     languages/index
+    translation/index
     unicode/index
     wikidata/index
     wikipedia/index

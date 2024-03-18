@@ -2,8 +2,8 @@ beautifulsoup4==4.9.3
 certifi>=2020.12.5
 defusedxml==0.7.1
 emoji>=2.2.0
+flax>=0.8.2
 langcodes>=3.0.0
-language_data>=1.0.0
 m2r2>=0.3.3
 mwparserfromhell>=0.6
 numpydoc>=1.6.0
@@ -18,5 +18,7 @@ sentencepiece>=0.1.95
 SPARQLWrapper>=2.0.0
 sphinx-rtd-theme>=2.0.0
 tabulate>=0.8.9
+tensorflow>=2.0
+torch>=2.2.1
 tqdm==4.56.1
 transformers>=4.12
