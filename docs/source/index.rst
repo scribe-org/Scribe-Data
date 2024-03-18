@@ -3,7 +3,7 @@
     :align: center
     :target: https://github.com/scribe-org/Scribe-Data
 
-|platform| |rtd| |issues| |language| |pypi| |pypistatus| |license| |coc| |mastodon| |matrix| |codestyle|
+|platform| |rtd| |issues| |language| |pypi| |pypistatus| |license| |coc| |mastodon| |matrix|
 
 .. |platform| image:: https://img.shields.io/badge/Wikidata-990000.svg?logo=wikidata&logoColor=ffffff
     :target: https://github.com/scribe-org/Scribe-Data

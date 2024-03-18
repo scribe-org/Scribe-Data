@@ -54,16 +54,21 @@ autodoc_member_order = "bysource"
 autodoc_mock_imports = [
     "beautifulsoup4",
     "emoji",
+    "flax",
     "langcodes",
-    "language_data",
     "mwparserfromhell",
     "pandas",
+    "pyarrow",
     "PyICU",
     "pytest",
     "pytest-cov",
+    "ruff",
     "sentencepiece",
     "SPARQLWrapper",
     "tabulate",
+    "tensorflow",
+    "torch",
+    "tqdm",
     "transformers",
 ]
 
