@@ -42,8 +42,8 @@ jobs:
           echo PATH=$PATH >> $GITHUB_ENV
 
       - name: Run ruff format - Formatting check
-        run: ruff .
+        run: ruff check .
 
       - name: Run ruff - Linting and import sorting check
         if: always()
-        run: ruff .
+        run: ruff check .
