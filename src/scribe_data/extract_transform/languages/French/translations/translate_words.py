@@ -4,7 +4,7 @@ Translates the French words queried from Wikidata to all other Scribe languages.
 
 Example
 -------
-    python3 src/scribe_data/extract_transform/languages/English/translations/translate_words.py
+    python3 src/scribe_data/extract_transform/languages/French/translations/translate_words.py
 """
 
 import json
