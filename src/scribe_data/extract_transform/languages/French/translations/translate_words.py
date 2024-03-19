@@ -1,9 +1,9 @@
 """
-Translates the English words queried from Wikidata to all other Scribe languages.
+Translates the French words queried from Wikidata to all other Scribe languages.
 
 Example
 -------
-    python3 src/scribe_data/extract_transform/languages/English/translations/translate_words.py
+    python3 src/scribe_data/extract_transform/languages/French/translations/translate_words.py
 """
 
 import json
@@ -16,7 +16,7 @@ sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
 from scribe_data.utils import translate_to_other_languages
 
-SRC_LANG = "English"
+SRC_LANG = "French"
 translate_script_dir = os.path.dirname(os.path.abspath(__file__))
 words_to_translate_path = os.path.join(translate_script_dir, "words_to_translate.json")
 

@@ -16,7 +16,7 @@ jobs:
           #   https://github.com/scribe-org/Scribe-Data/issues/61
           # - macos-latest
           - ubuntu-latest
-        python-version: 
+        python-version:
           - "3.9"
 
     runs-on: ${{ matrix.os }}

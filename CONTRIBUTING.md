@@ -69,6 +69,21 @@ Scribe is very open to contributions from people in the early stages of their co
 
 ## Development environment [`⇧`](#contents)
 
+> [!IMPORTANT]
+>
+> <details><summary>Suggested IDE extensions</summary>
+>
+> <p>
+>
+> VS Code
+>
+> - [blokhinnv.wikidataqidlabels](https://marketplace.visualstudio.com/items?itemName=blokhinnv.wikidataqidlabels)
+> - [charliermarsh.ruff](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff)
+> - [streetsidesoftware.code-spell-checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+
+> </p>
+> </details>
+
 The development environment for Scribe-Data can be installed via the following steps:
 
 1. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) the [Scribe-Data repo](https://github.com/scribe-org/Scribe-Data), clone your fork, and configure the remotes:
@@ -105,11 +120,26 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
 
 2. Use [Python venv](https://docs.python.org/3/library/venv.html) to create the local development environment within your Scribe-Data directory:
 
-   ```bash
-   python3 -m venv venv  # make an environment venv
-   pip install --upgrade pip  # make sure that pip is at the latest version
-   pip install -r requirements.txt  # install dependencies
-   ```
+- On Unix or MacOS, run:
+
+  ```bash
+  python3 -m venv venv  # make an environment named venv
+  source venv/bin/activate # activate the environment
+  ```
+
+- On Windows (using Command Prompt), run:
+
+  ```bash
+  python -m venv venv
+  venv\Scripts\activate.bat
+  ```
+
+After activating the virtual environment, install the required dependencies by running:
+
+```bash
+pip install --upgrade pip  # make sure that pip is at the latest version
+pip install -r requirements.txt  # install dependencies
+```
 
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!

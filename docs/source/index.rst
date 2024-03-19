@@ -3,7 +3,7 @@
     :align: center
     :target: https://github.com/scribe-org/Scribe-Data
 
-|platform| |rtd| |issues| |language| |pypi| |pypistatus| |license| |coc| |mastodon| |matrix| |codestyle|
+|platform| |rtd| |issues| |language| |pypi| |pypistatus| |license| |coc| |mastodon| |matrix|
 
 .. |platform| image:: https://img.shields.io/badge/Wikidata-990000.svg?logo=wikidata&logoColor=ffffff
     :target: https://github.com/scribe-org/Scribe-Data
@@ -34,9 +34,6 @@
 
 .. |matrix| image:: https://img.shields.io/badge/Matrix-000000.svg?logo=matrix&logoColor=ffffff
     :target: https://matrix.to/#/#scribe_community:matrix.org
-
-.. |codestyle| image:: https://img.shields.io/badge/black-000000.svg
-    :target: https://github.com/psf/black
 
 Wikidata and Wikipedia language data extraction
 

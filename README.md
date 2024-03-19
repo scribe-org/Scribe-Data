@@ -12,7 +12,6 @@
 [![coc](https://img.shields.io/badge/Contributor%20Covenant-ff69b4.svg)](https://github.com/scribe-org/Scribe-Data/blob/main/.github/CODE_OF_CONDUCT.md)
 [![mastodon](https://img.shields.io/badge/Mastodon-6364FF.svg?logo=mastodon&logoColor=ffffff)](https://wikis.world/@scribe)
 [![matrix](https://img.shields.io/badge/Matrix-000000.svg?logo=matrix&logoColor=ffffff)](https://matrix.to/#/#scribe_community:matrix.org)
-[![codestyle](https://img.shields.io/badge/black-000000.svg)](https://github.com/psf/black)
 
 ## Wikidata and Wikipedia language data extraction
 
@@ -41,7 +40,7 @@ Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organiz
 
 [scribe_data/extract_transform/update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/update_data.py) and the notebooks within the [scribe_data/extract_transform](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/extract_transform) directory are used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active.
 
-The main data update process in [update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/update_data.py) triggers [SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/extract_transform/languages) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The autosuggestion process derives popular words from [Wikipedia](https://www.wikipedia.org/) as well as those words that normally follow them for an effective baseline feature until natural language processing methods are employed. Functions to generate autosuggestions are ran in [gen_autosuggestions.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/gen_autosuggestions.ipynb). Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran in [gen_emoji_lexicon.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/gen_emoji_lexicon.ipynb).
+The main data update process in [update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/update_data.py) triggers [SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/extract_transform/languages) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The autosuggestion process derives popular words from [Wikipedia](https://www.wikipedia.org/) as well as those words that normally follow them for an effective baseline feature until natural language processing methods are employed. Functions to generate autosuggestions are ran in [gen_autosuggestions.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/wikipedia/gen_autosuggestions.ipynb). Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran in [gen_emoji_lexicon.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/unicode/gen_emoji_lexicon.ipynb).
 
 Running [update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/update_data.py) is done via the following CLI command:
 
@@ -90,6 +89,21 @@ Scribe does not accept direct edits to the grammar JSON files as they are source
 
 # Environment Setup [`⇧`](#contents)
 
+> [!IMPORTANT]
+>
+> <details><summary>Suggested IDE extensions</summary>
+>
+> <p>
+>
+> VS Code
+>
+> - [blokhinnv.wikidataqidlabels](https://marketplace.visualstudio.com/items?itemName=blokhinnv.wikidataqidlabels)
+> - [charliermarsh.ruff](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff)
+> - [streetsidesoftware.code-spell-checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+>
+> </p>
+> </details>
+
 The development environment for Scribe-Data can be installed via the following steps:
 
 1. [Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) the [Scribe-Data repo](https://github.com/scribe-org/Scribe-Data), clone your fork, and configure the remotes:
@@ -135,17 +149,17 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
 
 - On Windows (using Command Prompt), run:
 
-      ```bash
-      python -m venv venv
-      venv\Scripts\activate.bat
-      ```
-
-  After activating the virtual environment, install the required dependencies by running:
-
   ```bash
-  pip install --upgrade pip  # make sure that pip is at the latest version
-  pip install -r requirements.txt  # install dependencies
+  python -m venv venv
+  venv\Scripts\activate.bat
   ```
+
+After activating the virtual environment, install the required dependencies by running:
+
+```bash
+pip install --upgrade pip  # make sure that pip is at the latest version
+pip install -r requirements.txt  # install dependencies
+```
 
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!
