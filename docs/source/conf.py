@@ -188,7 +188,7 @@ html_theme_options = {
     "display_version": True,
 }
 
-# Adding favicon to the docs
+# Adding favicon to the docs.
 html_favicon = "_static/ScribeFavicon.ico"
 
 # Importing custom css for theme customization.
