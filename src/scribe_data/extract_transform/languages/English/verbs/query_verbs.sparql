@@ -3,8 +3,7 @@
 
 SELECT DISTINCT  
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC
-?infinitive ?presFPS ?presTPS ?simpPast ?pastPart WHERE {
+  ?infinitive ?presFPS ?presTPS ?simpPast ?pastPart WHERE {
   # Infinitive (required)
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q1860 ;

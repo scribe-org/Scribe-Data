@@ -4,7 +4,6 @@
 
 SELECT 
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC 
   ?infinitive WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q25164 ;
