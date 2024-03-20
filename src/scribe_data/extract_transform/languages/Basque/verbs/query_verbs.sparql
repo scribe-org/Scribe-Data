@@ -1,9 +1,10 @@
 # All Basque (Q8752) verbs.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT 
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?verb 
+  ?verb
+
 WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q8752 ;

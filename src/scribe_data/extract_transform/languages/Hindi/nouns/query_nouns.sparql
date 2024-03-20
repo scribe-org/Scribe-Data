@@ -2,10 +2,12 @@
 # Enter this query at https://query.wikidata.org/.
 # Note the necessity to filter for "hi" to remove Urdu (ur) words.
 
-SELECT DISTINCT 
+SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?noun ?gender WHERE {
+  ?noun
+  ?gender
 
+WHERE {
   # Nouns and pronouns.
   VALUES ?nounTypes { wd:Q1084 wd:Q147276 }
   ?lexeme a ontolex:LexicalEntry ;

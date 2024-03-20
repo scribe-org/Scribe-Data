@@ -2,9 +2,11 @@
 # Enter this query at https://query.wikidata.org/.
 # Note that this query is for Nynorsk (Q25164) rather than Bokmål (Q25167).
 
-SELECT 
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?infinitive WHERE {
+  ?infinitive
+
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q24905 .

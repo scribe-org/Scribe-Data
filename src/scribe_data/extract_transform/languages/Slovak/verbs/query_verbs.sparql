@@ -1,9 +1,11 @@
 # All Slovak (Q9058) verbs and the currently implemented tenses for each.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT 
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?infinitive  WHERE {
+  ?infinitive
+
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q9058 ;
     wikibase:lexicalCategory wd:Q24905 .

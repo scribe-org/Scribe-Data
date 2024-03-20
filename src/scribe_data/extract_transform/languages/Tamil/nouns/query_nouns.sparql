@@ -1,10 +1,11 @@
 # All Tamil (Q5885) nouns.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT 
+SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?noun WHERE {
+  ?noun
 
+WHERE {
   # Nouns and pronouns.
   VALUES ?nounTypes { wd:Q1084 wd:Q147276 }
   ?lexeme a ontolex:LexicalEntry ;

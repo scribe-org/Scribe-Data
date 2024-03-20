@@ -1,9 +1,12 @@
 # All Czeck (Q9056) nouns, their plural, and their gender.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT 
+SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?singular ?plural ?gender 
+  ?singular
+  ?plural
+  ?gender
+
 WHERE {
   # Nouns and pronouns.
   VALUES ?nounTypes { wd:Q1084 wd:Q147276 }

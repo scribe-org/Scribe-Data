@@ -11,8 +11,9 @@ SELECT DISTINCT
   ?impFPS ?impSPS ?impTPS
   ?impFPP ?impSPP ?impTPP
   ?fSimpFPS ?fSimpSPS ?fSimpTPS
-  ?fSimpFPP ?fSimpSPP ?fSimpTPP WHERE {
+  ?fSimpFPP ?fSimpSPP ?fSimpTPP
 
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q5146 ;
     wikibase:lexicalCategory wd:Q24905 .

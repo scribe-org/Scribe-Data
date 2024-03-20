@@ -6,8 +6,9 @@ SELECT
   ?activeInfinitive ?imperative ?activeSupine
   ?activePresent ?activePreterite
   ?passiveInfinitive ?passiveSupine
-  ?passivePresent ?passivePreterite WHERE {
+  ?passivePresent ?passivePreterite
 
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q9027 ;
     wikibase:lexicalCategory wd:Q24905 .

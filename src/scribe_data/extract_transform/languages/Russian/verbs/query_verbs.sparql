@@ -6,8 +6,9 @@ SELECT DISTINCT
   ?infinitive
   ?presFPS ?presSPS ?presTPS
   ?presFPP ?presSPP ?presTPP
-  ?pastFeminine ?pastMasculine ?pastNeutral ?pastPlural WHERE {
+  ?pastFeminine ?pastMasculine ?pastNeutral ?pastPlural
 
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q24905 .

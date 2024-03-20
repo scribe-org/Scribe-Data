@@ -6,8 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
   ?infinitive
   ?presFPS ?presSPS ?presTPS
-  ?presFPP ?presSPP ?presTPP WHERE {
+  ?presFPP ?presSPP ?presTPP
 
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q188 ;
     wikibase:lexicalCategory wd:Q24905 .

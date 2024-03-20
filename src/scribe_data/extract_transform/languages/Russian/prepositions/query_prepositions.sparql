@@ -1,10 +1,12 @@
 # All Russian (Q7737) prepositions and their corresponding cases.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT 
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?preposition ?case WHERE {
+  ?preposition
+  ?case
 
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q4833830 ;

@@ -7,8 +7,9 @@ SELECT
   ?impFPS ?impSPS ?impTPS
   ?impFPP ?impSPP ?impTPP
   ?futFPS ?futSPS ?futTPS
-  ?futFPP ?futSPP ?futTPP WHERE {
+  ?futFPP ?futSPP ?futTPP
 
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q150 ;
     wikibase:lexicalCategory wd:Q24905 .
