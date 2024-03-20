@@ -3,8 +3,9 @@
 
 SELECT DISTINCT 
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?lexeme ?noun 
-WHERE {
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC
+  ?noun WHERE {
+
   # Nouns and pronouns.
   VALUES ?nounTypes { wd:Q1084 wd:Q147276 }
   ?lexeme a ontolex:LexicalEntry ;

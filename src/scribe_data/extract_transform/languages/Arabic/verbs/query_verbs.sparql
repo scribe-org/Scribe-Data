@@ -1,9 +1,10 @@
 # All Arabic (Q13955) verbs.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT 
+SELECT 
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?lexeme ?verb 
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC
+  ?verb 
 WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q13955 ;

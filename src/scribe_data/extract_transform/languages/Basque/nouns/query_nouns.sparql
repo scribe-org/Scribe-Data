@@ -1,8 +1,9 @@
 # All Basque (Q8752) nouns.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT 
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC
   ?noun 
 WHERE {
   # Nouns and pronouns.

@@ -3,7 +3,8 @@
 
 SELECT 
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?infinitive ?tenseLabel
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC
+  ?infinitive WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q24905 .

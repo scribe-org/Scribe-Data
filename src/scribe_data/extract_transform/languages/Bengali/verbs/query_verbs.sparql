@@ -1,10 +1,10 @@
 # All Bengali (Q9610) verbs.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT 
+SELECT 
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?verb 
-WHERE {
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC
+  ?verb WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q9610 ;
     wikibase:lexicalCategory wd:Q24905 ;

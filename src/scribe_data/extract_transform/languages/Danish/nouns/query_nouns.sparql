@@ -1,10 +1,11 @@
 # All Danish (Q9035) nouns, their plural and their gender.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT 
+SELECT DISTINCT 
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?singular ?plural ?gender
-WHERE {
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC
+  ?singular ?plural ?gender WHERE {
+
   # Nouns and pronouns.
   VALUES ?nounTypes { wd:Q1084 wd:Q147276 }
   ?lexeme a ontolex:LexicalEntry ;
