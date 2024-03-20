@@ -1,4 +1,3 @@
-
 """
 Translates the French words queried from Wikidata to all other Scribe languages.
 
@@ -15,7 +14,7 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.utils import translate_to_other_languages 
+from scribe_data.utils import translate_to_other_languages  # noqa: E402
 
 SRC_LANG = "French"
 translate_script_dir = os.path.dirname(os.path.abspath(__file__))

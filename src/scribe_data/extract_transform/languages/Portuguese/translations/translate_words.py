@@ -1,9 +1,9 @@
 """
-Translates the Russian words queried from Wikidata to all other Scribe languages.
+Translates the Portuguese words queried from Wikidata to all other Scribe languages.
 
 Example
 -------
-    python3 src/scribe_data/extract_transform/languages/Russian/translations/translate_words.py
+    python3 src/scribe_data/extract_transform/languages/Portuguese/translations/translate_words.py
 """
 
 import json
@@ -16,7 +16,7 @@ sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
 from scribe_data.utils import translate_to_other_languages  # noqa: E402
 
-SRC_LANG = "Russian"
+SRC_LANG = "Portuguese"
 translate_script_dir = os.path.dirname(os.path.abspath(__file__))
 words_to_translate_path = os.path.join(translate_script_dir, "words_to_translate.json")
 

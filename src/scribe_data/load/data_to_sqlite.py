@@ -23,7 +23,7 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.utils import get_ios_data_path, get_language_iso
+from scribe_data.utils import get_language_iso  # noqa: E402
 
 PATH_TO_ET_FILES = "../extract_transform/"
 
@@ -76,32 +76,32 @@ if len(sys.argv) == 2:
 languages_update = current_languages if languages is None else languages
 
 language_word_type_dict = {
-    l: [
+    lang: [
         f.split(".json")[0]
-        for f in os.listdir(f"{PATH_TO_ET_FILES}{l}/formatted_data")
+        for f in os.listdir(f"{PATH_TO_ET_FILES}{lang}/formatted_data")
         if f.split(".json")[0] in word_types
     ]
-    for l in languages_update
+    for lang in languages_update
 }
 
 print(
     f"Creating SQLite databases for the following languages: {', '.join(languages_update)}"
 )
-for l in tqdm(
+for lang in tqdm(
     language_word_type_dict,
     desc="Databases created",
     unit="dbs",
 ):
-    if language_word_type_dict[l] != []:
+    if language_word_type_dict[lang] != []:
         maybe_over = ""  # output string formatting variable (see below)
         if os.path.exists(
-            f"databases/{get_language_iso(l).upper()}LanguageData.sqlite"
+            f"databases/{get_language_iso(lang).upper()}LanguageData.sqlite"
         ):
-            os.remove(f"databases/{get_language_iso(l).upper()}LanguageData.sqlite")
+            os.remove(f"databases/{get_language_iso(lang).upper()}LanguageData.sqlite")
             maybe_over = "over"
 
         connection = sqlite3.connect(
-            f"databases/{get_language_iso(l).upper()}LanguageData.sqlite"
+            f"databases/{get_language_iso(lang).upper()}LanguageData.sqlite"
         )
         cursor = connection.cursor()
 
@@ -139,11 +139,11 @@ for l in tqdm(
                 keys,
             )
 
-        print(f"Database for {l} {maybe_over}written and connection made.")
-        for wt in language_word_type_dict[l]:
-            print(f"Creating {l} {wt} table...")
+        print(f"Database for {lang} {maybe_over}written and connection made.")
+        for wt in language_word_type_dict[lang]:
+            print(f"Creating {lang} {wt} table...")
             json_data = json.load(
-                open(f"{PATH_TO_ET_FILES}{l}/formatted_data/{wt}.json")
+                open(f"{PATH_TO_ET_FILES}{lang}/formatted_data/{wt}.json")
             )
 
             if wt == "nouns":
@@ -153,9 +153,9 @@ for l in tqdm(
                     keys = [row, json_data[row]["plural"], json_data[row]["form"]]
                     table_insert(word_type=wt, keys=keys)
 
-                if "Scribe" not in json_data and l != "Russian":
+                if "Scribe" not in json_data and lang != "Russian":
                     table_insert(word_type=wt, keys=["Scribe", "Scribes", ""])
-                # elif "Писец" not in json_data and l == "Russian":
+                # elif "Писец" not in json_data and lang == "Russian":
                 #     table_insert(word_type=wt, keys=["Писец", "Писцы", ""])
 
                 connection.commit()
@@ -214,7 +214,7 @@ for l in tqdm(
                 connection.commit()
 
         wt = "autocomplete_lexicon"
-        print(f"Creating {l} {wt} table...")
+        print(f"Creating {lang} {wt} table...")
         cols = ["word"]
         create_table(word_type=wt, cols=cols)
 
@@ -306,7 +306,7 @@ for l in tqdm(
 
         connection.commit()
 
-        print(f"{l} database created.")
+        print(f"{lang} database created.")
 
     else:
-        print(f"Skipping {l} database creation as no JSON data files were found.")
+        print(f"Skipping {lang} database creation as no JSON data files were found.")
