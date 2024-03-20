@@ -10,7 +10,11 @@ PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
 PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
 sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
-from scribe_data.utils import export_formatted_data, load_queried_data, map_genders
+from scribe_data.utils import (  # noqa: E402
+    export_formatted_data,
+    load_queried_data,
+    map_genders,
+)
 
 file_path = sys.argv[0]
 

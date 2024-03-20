@@ -320,9 +320,9 @@ def parse_to_ndjson(
         print(f"Making {output_dir} directory for the output")
         os.makedirs(output_dir)
 
-    if multicore == True:
+    if multicore:
         num_cores = os.cpu_count()
-    elif multicore == False:
+    elif not multicore:
         num_cores = 1
     elif isinstance(multicore, int):
         num_cores = multicore
@@ -372,8 +372,8 @@ def parse_to_ndjson(
             data = []
 
             with open(file_path, "r", encoding="utf-8") as f:
-                for l in f:
-                    data.append(json.loads(l))
+                for line in f:
+                    data.append(json.loads(line))
 
             return data
 
