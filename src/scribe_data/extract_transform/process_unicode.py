@@ -8,7 +8,6 @@ Contents:
 import csv
 import fileinput
 import json
-import re
 from importlib.resources import files
 
 import emoji
@@ -16,7 +15,7 @@ from icu import Char, UProperty
 from tqdm.auto import tqdm
 
 from scribe_data.extract_transform.emoji_utils import get_emoji_codes_to_ignore
-from scribe_data.load.update_utils import (
+from scribe_data.utils import (
     get_language_iso,
     get_path_from_et_dir,
 )

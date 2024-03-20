@@ -24,6 +24,7 @@ Contents:
 """
 
 import argparse
+import contextlib
 import math
 import os
 import subprocess
@@ -304,12 +305,10 @@ def check_positive_int(value: str, err_msg: str) -> int:
     ------
         argparse.ArgumentTypeError
     """
-    try:
+    with contextlib.suppress(ValueError):
         number = int(value)
         if number >= 1:
             return number
-    except ValueError:
-        pass
 
     raise argparse.ArgumentTypeError(err_msg)
 
