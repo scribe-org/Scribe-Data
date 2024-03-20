@@ -2,7 +2,10 @@
 # Enter this query at https://query.wikidata.org/.
 # Note that this query includes postpositions that are also used in Estonian.
 
-SELECT ?lexeme ?preposition ?case WHERE {
+SELECT 
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC  
+  ?preposition ?case WHERE {
 
   # Prepositions and postpositions.
   VALUES ?PrePostPositions { wd:Q4833830 wd:Q161873 }

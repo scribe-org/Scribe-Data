@@ -1,7 +1,10 @@
 # All Greek (Q36510) nouns, their plural and their gender.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT ?singular ?plural ?gender WHERE {
+SELECT DISTINCT 
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC 
+  ?singular ?plural ?gender WHERE {
 
   # Nouns and pronouns.
   VALUES ?nounTypes { wd:Q1084 wd:Q147276 }

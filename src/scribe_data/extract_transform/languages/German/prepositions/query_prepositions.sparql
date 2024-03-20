@@ -1,7 +1,10 @@
 # All German (Q188) prepositions and their corresponding cases.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT ?preposition ?case WHERE {
+SELECT 
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC 
+  ?preposition ?case WHERE {
 
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q188 ;

@@ -2,6 +2,8 @@
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC 
   ?infinitive
   ?presFPS ?presSPS ?presTPS
   ?presFPP ?presSPP ?presTPP

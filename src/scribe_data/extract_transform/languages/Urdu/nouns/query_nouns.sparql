@@ -2,7 +2,10 @@
 # Enter this query at https://query.wikidata.org/.
 # Note the necessity to filter for "ur" to remove Hindustani (hi) words.
 
-SELECT DISTINCT ?noun ?gender WHERE {
+SELECT DISTINCT 
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC 
+  ?noun ?gender WHERE {
 
   # Nouns and pronouns.
   VALUES ?nounTypes { wd:Q1084 wd:Q147276 }

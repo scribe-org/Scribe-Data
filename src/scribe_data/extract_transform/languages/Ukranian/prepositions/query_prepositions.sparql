@@ -1,7 +1,10 @@
 # All Ukrainian (Q8798) prepositions and their corresponding cases.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT ?preposition ?case WHERE {
+SELECT 
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC 
+  ?preposition ?case WHERE {
 
   # All German prepositions.
   ?lexeme a ontolex:LexicalEntry ;

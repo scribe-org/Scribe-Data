@@ -4,6 +4,8 @@
 # Note: does not include pronouns as the query wasn't running.
 
 SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  OTHER_COLUMS_LIKE_NOUN_OR_VERB_ETC 
   ?nominativeSingular ?nominativePlural
   ?genitiveSingular ?genitivePlural ?gender WHERE {
 
