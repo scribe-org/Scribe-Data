@@ -134827,5 +134827,4775 @@
         "ru": "Правила цены",
         "es": "Regulación de precios",
         "sv": "Prissättning"
+    },
+    "Produktionsstockung": {
+        "en": "Production of",
+        "fr": "Augmentation de la production",
+        "it": "Sostituzione della produzione",
+        "pt": "Aumento da produção",
+        "ru": "Производственное укрепление",
+        "es": "El aumento de la producción",
+        "sv": "Produktionsstöd"
+    },
+    "Provisionsvertreter": {
+        "en": "Provisional representative",
+        "fr": "Provisions représentants",
+        "it": "Rappresentante della provvisione",
+        "pt": "Representante da provisão",
+        "ru": "Провизионный представитель",
+        "es": "Representantes de provisión",
+        "sv": "Provisionsföreträdare"
+    },
+    "Pressezensur": {
+        "en": "Press censorship",
+        "fr": "Censure de presse",
+        "it": "censura di stampa",
+        "pt": "censura de imprensa",
+        "ru": "пресс-центр",
+        "es": "censura de prensa",
+        "sv": "Pressensur"
+    },
+    "Privatissimum": {
+        "en": "The private",
+        "fr": "Privacité",
+        "it": "Il privato",
+        "pt": "Privacidade",
+        "ru": "Приватизм",
+        "es": "Privacidad",
+        "sv": "Privatisimum"
+    },
+    "Pressung": {
+        "en": "Pressure",
+        "fr": "La pression",
+        "it": "pressione",
+        "pt": "pressão",
+        "ru": "давление",
+        "es": "Presión",
+        "sv": "tryck"
+    },
+    "Produktionszyklus": {
+        "en": "The production cycle",
+        "fr": "Le cycle de production",
+        "it": "Il ciclo di produzione",
+        "pt": "Ciclo de Produção",
+        "ru": "Цикл производства",
+        "es": "Ciclo de producción",
+        "sv": "Produktionscykeln"
+    },
+    "Press-Span": {
+        "en": "Press spans",
+        "fr": "presse espagnol",
+        "it": "stampa spagnolo",
+        "pt": "Espanha Press",
+        "ru": "Пресс-Спан",
+        "es": "Espan Prensa",
+        "sv": "Press spanska"
+    },
+    "Prüfungskandidat": {
+        "en": "Examination candidate",
+        "fr": "Candidat à l'examen",
+        "it": "candidato esame",
+        "pt": "Candidato de exame",
+        "ru": "Кандидат на экзамен",
+        "es": "Candidato de examen",
+        "sv": "Prövningskandidat"
+    },
+    "Prestigegewinn": {
+        "en": "prestigious",
+        "fr": "prestigieux",
+        "it": "Il prestigio",
+        "pt": "Prestiguição",
+        "ru": "Престижная победа",
+        "es": "Prestigüedad",
+        "sv": "prestigevinst"
+    },
+    "Präsidiumssitzung": {
+        "en": "Presidium meeting",
+        "fr": "Réunion présidentielle",
+        "it": "riunione presidenziale",
+        "pt": "Sessão da Presidência",
+        "ru": "Председательская сессия",
+        "es": "Sesión presidencial",
+        "sv": "Presidiumsmötet"
+    },
+    "Promovend": {
+        "en": "Promotion",
+        "fr": "Promouvoir",
+        "it": "Promozione",
+        "pt": "Promovendo",
+        "ru": "Промоция",
+        "es": "Promoviendo",
+        "sv": "främjande"
+    },
+    "Privatunterricht": {
+        "en": "Private lessons",
+        "fr": "Les enseignements privés",
+        "it": "Lezioni private",
+        "pt": "Ensino privado",
+        "ru": "частный урок",
+        "es": "Enseñanza privada",
+        "sv": "Privatundervisning"
+    },
+    "Prinzenerzieher": {
+        "en": "The princess",
+        "fr": "princesse éducateur",
+        "it": "Principe educatori",
+        "pt": "Princesa Educadora",
+        "ru": "Принцесса",
+        "es": "Princesas educadoras",
+        "sv": "Prinsens lärare"
+    },
+    "Preisstabilität": {
+        "en": "price stability",
+        "fr": "Stabilité des prix",
+        "it": "Stabilità dei prezzi",
+        "pt": "estabilidade de preços",
+        "ru": "Ценовая стабильность",
+        "es": "Estabilidad de precios",
+        "sv": "Prisstabilitet"
+    },
+    "Prachtmädchen": {
+        "en": "the beautiful girl",
+        "fr": "beauté",
+        "it": "bella ragazza",
+        "pt": "Maravilha",
+        "ru": "Прекрасная девушка",
+        "es": "hermosa chica",
+        "sv": "Underbara flickor"
+    },
+    "Promoter": {
+        "en": "Promotion",
+        "fr": "Promouvoir",
+        "it": "Promotore",
+        "pt": "Promotores",
+        "ru": "Промотор",
+        "es": "Promotores",
+        "sv": "Promotera"
+    },
+    "Protoplasma": {
+        "en": "The Protoplasma",
+        "fr": "Protoplasme",
+        "it": "Il protoplasma",
+        "pt": "Protoplasma",
+        "ru": "Протоплазма",
+        "es": "Protoplasma",
+        "sv": "Protoplasma"
+    },
+    "Sternstunde": {
+        "en": "Star hours",
+        "fr": "Horaires étoiles",
+        "it": "orario stella",
+        "pt": "Horário Estrela",
+        "ru": "Звездный час",
+        "es": "Hora de estrellas",
+        "sv": "Stjärnklocka"
+    },
+    "Studentenkonferenz": {
+        "en": "Student Conference",
+        "fr": "Conférence étudiante",
+        "it": "Conferenza studentesca",
+        "pt": "Conferência estudantil",
+        "ru": "Студенческая конференция",
+        "es": "Conferencia estudiantil",
+        "sv": "Studentkonferens"
+    },
+    "Sterbesakrament": {
+        "en": "Sacrament of Death",
+        "fr": "Sacrement de la mort",
+        "it": "Sacramento della morte",
+        "pt": "Sacramento da Morte",
+        "ru": "Секрет смерти",
+        "es": "Sacramento de la muerte",
+        "sv": "döden sakrament"
+    },
+    "Steuereinnehmer": {
+        "en": "tax holders",
+        "fr": "Porteurs d'impôt",
+        "it": "I titolari fiscali",
+        "pt": "Tributação",
+        "ru": "налогоплательщики",
+        "es": "Impuestos independientes",
+        "sv": "Skatteinnehavare"
+    },
+    "Starkstromnetz": {
+        "en": "Strong power networks",
+        "fr": "Stricte réseau",
+        "it": "Strometta forte",
+        "pt": "Rede de corrente forte",
+        "ru": "Сильная электрическая сеть",
+        "es": "Potente red eléctrica",
+        "sv": "Stark strömnät"
+    },
+    "Stubengelehrte": {
+        "en": "Teachers",
+        "fr": "Les enseignants",
+        "it": "Gli insegnanti",
+        "pt": "Aprendizagem",
+        "ru": "Ученые",
+        "es": "Aprendizaje",
+        "sv": "Lärjungar"
+    },
+    "Stallkittel": {
+        "en": "Stallkits",
+        "fr": "Stallkittel",
+        "it": "Stalletti",
+        "pt": "Stallkittel",
+        "ru": "Стальные",
+        "es": "Stallkittel",
+        "sv": "Stallkällor"
+    },
+    "Sternblume": {
+        "en": "Star Flowers",
+        "fr": "Blume des étoiles",
+        "it": "Il fiore stella",
+        "pt": "Estrelas Flores",
+        "ru": "Звездные цветы",
+        "es": "estrella flor",
+        "sv": "Stjärnblommor"
+    },
+    "Staken": {
+        "en": "Staken",
+        "fr": "Staken",
+        "it": "Staken",
+        "pt": "estágio",
+        "ru": "Стакан",
+        "es": "Staken",
+        "sv": "Staken"
+    },
+    "Steingutgefäß": {
+        "en": "The stone",
+        "fr": "Poêle de pierre",
+        "it": "Pezzi di pietra",
+        "pt": "Caixa de pedra",
+        "ru": "Каменный камень",
+        "es": "Cañón de piedra",
+        "sv": "Stenvägg"
+    },
+    "Staublawine": {
+        "en": "The Dustlawine",
+        "fr": "La poussière",
+        "it": "La polvere",
+        "pt": "Poluição",
+        "ru": "пылесосы",
+        "es": "La polvo",
+        "sv": "Staublavin"
+    },
+    "Strafbefugnis": {
+        "en": "Criminal authority",
+        "fr": "Autorité pénale",
+        "it": "Autorità penale",
+        "pt": "Autoridade penal",
+        "ru": "Уголовная власть",
+        "es": "Autoridad penal",
+        "sv": "straffrättsliga befogenheter"
+    },
+    "Stromersparnis": {
+        "en": "Electricity savings",
+        "fr": "Économie d’électricité",
+        "it": "risparmio elettrico",
+        "pt": "economia de eletricidade",
+        "ru": "Энергосбережение",
+        "es": "ahorro de electricidad",
+        "sv": "Strömbesparing"
+    },
+    "Stahlgewitter": {
+        "en": "Stainless Steel",
+        "fr": "Les acier",
+        "it": "Acciaio di vetro",
+        "pt": "O acelerador",
+        "ru": "Стальной ветер",
+        "es": "Guión de acero",
+        "sv": "Stålvattnet"
+    },
+    "Standesvorrecht": {
+        "en": "Standing privilege",
+        "fr": "privilège de résidence",
+        "it": "Privilegio di stato",
+        "pt": "Privilégios permanentes",
+        "ru": "Преимущества",
+        "es": "Privilegio de estado",
+        "sv": "Ständig företräde"
+    },
+    "Streitbarkeit": {
+        "en": "Dispute",
+        "fr": "controversé",
+        "it": "controversia",
+        "pt": "controvérsia",
+        "ru": "Спорность",
+        "es": "controversia",
+        "sv": "Kontroversiell"
+    },
+    "Stämmigkeit": {
+        "en": "Stemness",
+        "fr": "La rigidité",
+        "it": "L’impotenza",
+        "pt": "humildade",
+        "ru": "Смелость",
+        "es": "La humildad",
+        "sv": "Stämlighet"
+    },
+    "Stützstange": {
+        "en": "supporting",
+        "fr": "soutien",
+        "it": "Soggiorno",
+        "pt": "apoio",
+        "ru": "Поддержка",
+        "es": "Apoyo",
+        "sv": "Stödstäng"
+    },
+    "Stirnhöhle": {
+        "en": "Head hole",
+        "fr": "La tête",
+        "it": "Il cappello",
+        "pt": "Cabeça",
+        "ru": "Главное",
+        "es": "Caballero",
+        "sv": "Huvudhål"
+    },
+    "Staatsgemach": {
+        "en": "The State",
+        "fr": "Membre de l'Etat",
+        "it": "Stati membri",
+        "pt": "Membro do Estado",
+        "ru": "Государственный",
+        "es": "Estado Mecanismo",
+        "sv": "Statsmässan"
+    },
+    "wirtschaftlich": {
+        "en": "Economic",
+        "fr": "économique",
+        "it": "economico",
+        "pt": "econômico",
+        "ru": "Экономически",
+        "es": "Economicamente",
+        "sv": "ekonomiskt"
+    },
+    "wichtig": {
+        "en": "Important",
+        "fr": "Important",
+        "it": "Importante",
+        "pt": "Importante",
+        "ru": "Важны",
+        "es": "Importante",
+        "sv": "Viktigt"
+    },
+    "witzig": {
+        "en": "funny",
+        "fr": "ridicule",
+        "it": "divertente",
+        "pt": "Brincadeira",
+        "ru": "смешно",
+        "es": "divertido",
+        "sv": "Roliga"
+    },
+    "wirrköpfig": {
+        "en": "by VIRKOPE",
+        "fr": "Résumé",
+        "it": "Il ritorno",
+        "pt": "Conexão",
+        "ru": "Вайркоппиг",
+        "es": "Conexión",
+        "sv": "Vänskapligt"
+    },
+    "wiederholt": {
+        "en": "repeated",
+        "fr": "répétition",
+        "it": "ripetuto",
+        "pt": "Repetindo",
+        "ru": "Повторно",
+        "es": "Repetiendo",
+        "sv": "Upprepa"
+    },
+    "wohlbewacht": {
+        "en": "well guarded",
+        "fr": "bien protégé",
+        "it": "ben protetta",
+        "pt": "Bem protegido",
+        "ru": "Хорошо охраняется",
+        "es": "bien protegido",
+        "sv": "Välbevarad"
+    },
+    "wohlbestellt": {
+        "en": "well ordered",
+        "fr": "bien commandé",
+        "it": "ben ordinato",
+        "pt": "Bem ordenado",
+        "ru": "хорошо заказан",
+        "es": "bien ordenado",
+        "sv": "Välbeställda"
+    },
+    "wohlgelitten": {
+        "en": "Well belonged",
+        "fr": "Bien entendu",
+        "it": "benevolente",
+        "pt": "Bem-sucedido",
+        "ru": "Добро пожаловать",
+        "es": "Beneficios",
+        "sv": "välsignade"
+    },
+    "wohlversehen": {
+        "en": "Unfortunate",
+        "fr": "Bienfait",
+        "it": "benedetto",
+        "pt": "Bem-vindo",
+        "ru": "Добро пожаловать",
+        "es": "Beneficios",
+        "sv": "Välsignad"
+    },
+    "wohlbewehrt": {
+        "en": "well defended",
+        "fr": "bien défendu",
+        "it": "ben difeso",
+        "pt": "bem defendido",
+        "ru": "Добро защищен",
+        "es": "bien defendido",
+        "sv": "välförsvarad"
+    },
+    "wohl bewehrt": {
+        "en": "Probably defended",
+        "fr": "Probablement défendu",
+        "it": "Probabilmente difeso",
+        "pt": "Provavelmente defendido",
+        "ru": "Может быть защищен",
+        "es": "Probablemente defendido",
+        "sv": "Kanske försvaras"
+    },
+    "wohl redend": {
+        "en": "Well speaking",
+        "fr": "Bien parlé",
+        "it": "Parlare bene",
+        "pt": "Talvez falando",
+        "ru": "Разговаривая",
+        "es": "bien hablando",
+        "sv": "Talar väl"
+    },
+    "wohlvermummt": {
+        "en": "well-covered",
+        "fr": "bien confondus",
+        "it": "ben dimenticato",
+        "pt": "Bem confundido",
+        "ru": "добросовестно",
+        "es": "Bueno confundido",
+        "sv": "Välmående"
+    },
+    "wohlfeil": {
+        "en": "Failure",
+        "fr": "Bienfait",
+        "it": "sbagliato",
+        "pt": "Bem errado",
+        "ru": "Добрый грех",
+        "es": "Beneficios",
+        "sv": "Bra misstag"
+    },
+    "wohlgeordnet": {
+        "en": "well arranged",
+        "fr": "bien organisé",
+        "it": "ben organizzato",
+        "pt": "bem organizado",
+        "ru": "Хорошо организован",
+        "es": "bien organizado",
+        "sv": "Välordnade"
+    },
+    "willigen": {
+        "en": "Desirable",
+        "fr": "Vouloir",
+        "it": "volontari",
+        "pt": "Desejados",
+        "ru": "Желание",
+        "es": "voluntarios",
+        "sv": "Villiga"
+    },
+    "wiedererobern": {
+        "en": "Recovered",
+        "fr": "Récupérer",
+        "it": "ripristinare",
+        "pt": "Recuperar",
+        "ru": "восстанавливать",
+        "es": "Recuperar",
+        "sv": "återhämta"
+    },
+    "wieder sagen": {
+        "en": "Say again",
+        "fr": "dire à nouveau",
+        "it": "Di nuovo dire",
+        "pt": "Mais uma vez dizer",
+        "ru": "Вновь скажу",
+        "es": "De nuevo decir",
+        "sv": "Säg igen"
+    },
+    "wieder schauen": {
+        "en": "Looking again",
+        "fr": "Regarder à nouveau",
+        "it": "Guarda di nuovo",
+        "pt": "Olhar de novo",
+        "ru": "Посмотреть снова",
+        "es": "Ver de nuevo",
+        "sv": "Se igen"
+    },
+    "wieder eröffnen": {
+        "en": "Opening again",
+        "fr": "Ouvrir à nouveau",
+        "it": "di nuovo aprire",
+        "pt": "Abre de novo",
+        "ru": "Вновь открыть",
+        "es": "Abriendo de nuevo",
+        "sv": "Öppna igen"
+    },
+    "wispeln": {
+        "en": "by wispeln",
+        "fr": "Vispellé",
+        "it": "Vispellano",
+        "pt": "Vispelação",
+        "ru": "Виспильн",
+        "es": "wispeln",
+        "sv": "vispeln"
+    },
+    "wiedergewinnen": {
+        "en": "Recovered",
+        "fr": "récupérer",
+        "it": "riconquistare",
+        "pt": "Recuperar",
+        "ru": "Возвращение",
+        "es": "Ganar de nuevo",
+        "sv": "återvinna"
+    },
+    "willfahren": {
+        "en": "Going to",
+        "fr": "Voyage",
+        "it": "Ritorno",
+        "pt": "Voltar",
+        "ru": "Войска",
+        "es": "Vuelve",
+        "sv": "Vänta"
+    },
+    "wogen": {
+        "en": "Wogen",
+        "fr": "Voyage",
+        "it": "di WOGEN",
+        "pt": "Vogação",
+        "ru": "ВУГЕН",
+        "es": "Voyó",
+        "sv": "Våg"
+    },
+    "Windklappe": {
+        "en": "Wind clothes",
+        "fr": "Ventilateur",
+        "it": "Il vento",
+        "pt": "Ventilador",
+        "ru": "Ветерклаппе",
+        "es": "Ventilador",
+        "sv": "Väderklapp"
+    },
+    "Windschutzpflanze": {
+        "en": "Wind protection plants",
+        "fr": "Plantes de protection contre le vent",
+        "it": "Pianta protetta dal vento",
+        "pt": "Plantas de proteção do vento",
+        "ru": "Ветрозащитные растения",
+        "es": "Plantas de protección del viento",
+        "sv": "Vindskyddsväxter"
+    },
+    "Widersetzlichkeit": {
+        "en": "contradictions",
+        "fr": "contradictoire",
+        "it": "contraddittorie",
+        "pt": "Contradição",
+        "ru": "Противоречия",
+        "es": "contradicción",
+        "sv": "motsägelse"
+    },
+    "Wirklichkeitstreue": {
+        "en": "The Reality",
+        "fr": "Triste de réalité",
+        "it": "Realtà trivia",
+        "pt": "Realidade Triste",
+        "ru": "Реальность",
+        "es": "Realidad Triste",
+        "sv": "Verklighetstrygg"
+    },
+    "Wildhege": {
+        "en": "Wildhege",
+        "fr": "sauvage",
+        "it": "Il Wildhege",
+        "pt": "selvagem",
+        "ru": "Дикий",
+        "es": "La salvación",
+        "sv": "Wildhege"
+    },
+    "Wirtschaftsapparat": {
+        "en": "The economic apparatus",
+        "fr": "Appareil économique",
+        "it": "apparato economico",
+        "pt": "aparelho econômico",
+        "ru": "Экономический аппарат",
+        "es": "Aparato económico",
+        "sv": "Ekonomiska apparaten"
+    },
+    "Winterrettich": {
+        "en": "The Winterrettich",
+        "fr": "Winterrettich",
+        "it": "inverno retti",
+        "pt": "Inverno reticto",
+        "ru": "Зимний ритм",
+        "es": "Invierno reticto",
+        "sv": "Vinterrettik"
+    },
+    "Wirkungslosigkeit": {
+        "en": "inefficiency",
+        "fr": "Inefficacité",
+        "it": "Inefficienza",
+        "pt": "ineficiência",
+        "ru": "Неэффективность",
+        "es": "ineficiencia",
+        "sv": "Ineffektivitet"
+    },
+    "Wirtschaftshilfe": {
+        "en": "Economic aid",
+        "fr": "Aide économique",
+        "it": "Assistenza economica",
+        "pt": "Auxílio Econômico",
+        "ru": "Экономическая помощь",
+        "es": "Ayuda Económica",
+        "sv": "Ekonomiskt stöd"
+    },
+    "Windhauch": {
+        "en": "Windhouse",
+        "fr": "Windhauch",
+        "it": "Il vento",
+        "pt": "Vento",
+        "ru": "ветряная",
+        "es": "Viento",
+        "sv": "Vindhålan"
+    },
+    "Wirtsorganismus": {
+        "en": "The Organism",
+        "fr": "Organisme de valeur",
+        "it": "Organismo di valore",
+        "pt": "Organismo de Valor",
+        "ru": "Стоимость организма",
+        "es": "Organismo valioso",
+        "sv": "Värdeorganismen"
+    },
+    "Winteranzug": {
+        "en": "Winter shoes",
+        "fr": "Chaussures d'hiver",
+        "it": "Tante d'inverno",
+        "pt": "Calçado de Inverno",
+        "ru": "Зимние носки",
+        "es": "Camisetas de invierno",
+        "sv": "Vinterdäck"
+    },
+    "Winkelprofil": {
+        "en": "Winkel profile",
+        "fr": "Profil de coin",
+        "it": "profilo angolo",
+        "pt": "perfil de ângulo",
+        "ru": "Уголный профиль",
+        "es": "perfil de ángulo",
+        "sv": "Vinkelprofil"
+    },
+    "Wirtstier": {
+        "en": "Wealthy",
+        "fr": "Économie",
+        "it": "Risparmio",
+        "pt": "Prestação",
+        "ru": "Безопасность",
+        "es": "ahorros",
+        "sv": "Besparingar"
+    },
+    "Wirtschaftsauftrieb": {
+        "en": "economic growth",
+        "fr": "La croissance économique",
+        "it": "Incremento economico",
+        "pt": "crescimento econômico",
+        "ru": "Экономический рост",
+        "es": "Desarrollo económico",
+        "sv": "Den ekonomiska ökningen"
+    },
+    "Wiedertreffen": {
+        "en": "Meeting",
+        "fr": "Réunions",
+        "it": "riunione",
+        "pt": "Reencontros",
+        "ru": "Вновь встреча",
+        "es": "Reencuentro",
+        "sv": "Återmöte"
+    },
+    "Witwengehalt": {
+        "en": "The Witwen",
+        "fr": "contenu de la veuve",
+        "it": "Contenuto vittima",
+        "pt": "Conteúdo",
+        "ru": "Женское содержание",
+        "es": "Contenido de viento",
+        "sv": "Witwenginnehåll"
+    },
+    "Witterungsfaktor": {
+        "en": "The weather factor",
+        "fr": "Facteur météorologique",
+        "it": "fattore meteorologico",
+        "pt": "Factor Meteorológico",
+        "ru": "Фактор погоды",
+        "es": "Factor meteorológico",
+        "sv": "Väderfaktorn"
+    },
+    "Willkommen": {
+        "en": "Welcome to",
+        "fr": "Bienvenue",
+        "it": "Benvenuti",
+        "pt": "Bem-vindo",
+        "ru": "Приветствуем",
+        "es": "Bienvenido",
+        "sv": "Välkommen"
+    },
+    "Wiedergabegerät": {
+        "en": "Repeated",
+        "fr": "Reproducteur",
+        "it": "riproduttore",
+        "pt": "Reprodução",
+        "ru": "Изображение",
+        "es": "Reproductor",
+        "sv": "Spelare"
+    },
+    "Wichs": {
+        "en": "by Wichs",
+        "fr": "Viches",
+        "it": "di Wichs",
+        "pt": "Viches",
+        "ru": "Виц",
+        "es": "Viches",
+        "sv": "Wichs"
+    },
+    "Wissensgut": {
+        "en": "knowledge goods",
+        "fr": "La connaissance",
+        "it": "Il bene della conoscenza",
+        "pt": "conhecimento",
+        "ru": "знаний",
+        "es": "El conocimiento",
+        "sv": "Vetenskapligt"
+    },
+    "Willensermittlung": {
+        "en": "The Willing Mediation",
+        "fr": "Intermédiaire de volonté",
+        "it": "La mediazione di volontà",
+        "pt": "Intermediação de vontade",
+        "ru": "Посредничество воли",
+        "es": "Medición de voluntad",
+        "sv": "Villansförmedling"
+    },
+    "Wirtschaftsintegration": {
+        "en": "Economic integration",
+        "fr": "Intégration économique",
+        "it": "integrazione economica",
+        "pt": "integração econômica",
+        "ru": "Экономическая интеграция",
+        "es": "La integración económica",
+        "sv": "Ekonomisk integration"
+    },
+    "Windhose": {
+        "en": "Windhose",
+        "fr": "Windhose",
+        "it": "Pantaloni a vento",
+        "pt": "Ventilador",
+        "ru": "Ветерные брюки",
+        "es": "Ventanas",
+        "sv": "Windhår"
+    },
+    "Widerstandsfähigkeit": {
+        "en": "Resistance",
+        "fr": "Résistance",
+        "it": "resistenza",
+        "pt": "Resistência",
+        "ru": "Сопротивляемость",
+        "es": "Resistencia",
+        "sv": "Motståndskraft"
+    },
+    "Wiederentdeckung": {
+        "en": "Re-discovery",
+        "fr": "Rédécouverte",
+        "it": "Riconoscimento",
+        "pt": "Reescoberta",
+        "ru": "Открытие",
+        "es": "Reconocimiento",
+        "sv": "Återupptäckt"
+    },
+    "Wissenszweig": {
+        "en": "Knowledge field",
+        "fr": "Le domaine des connaissances",
+        "it": "Il campo della conoscenza",
+        "pt": "O campo do conhecimento",
+        "ru": "знаний",
+        "es": "El campo de conocimiento",
+        "sv": "Vetenskapsområdet"
+    },
+    "Winddruck": {
+        "en": "Wind pressure",
+        "fr": "pression éolienne",
+        "it": "pressione vento",
+        "pt": "Pressão do vento",
+        "ru": "Ветерное давление",
+        "es": "La presión del viento",
+        "sv": "Vindtryck"
+    },
+    "Wimperhaar": {
+        "en": "Wimperhaar",
+        "fr": "Wimperhaar",
+        "it": "Il Wimperhaar",
+        "pt": "Wimperhaar",
+        "ru": "Wimperhaar",
+        "es": "Wimperhaar",
+        "sv": "Wimperhår"
+    },
+    "Wiederbeginn": {
+        "en": "Restarted",
+        "fr": "recommencer",
+        "it": "ricominciare",
+        "pt": "recomeçar",
+        "ru": "Повторное начало",
+        "es": "Reinicio",
+        "sv": "Återbörja"
+    },
+    "Windigkeit": {
+        "en": "winds",
+        "fr": "Vénérité",
+        "it": "Il vento",
+        "pt": "Vento",
+        "ru": "Ветер",
+        "es": "El viento",
+        "sv": "Vindighet"
+    },
+    "Winterschuh": {
+        "en": "Winter shoes",
+        "fr": "chaussures d'hiver",
+        "it": "scarpe invernali",
+        "pt": "Calçado de Inverno",
+        "ru": "Зимние обувь",
+        "es": "zapatos de invierno",
+        "sv": "Vinterskor"
+    },
+    "Winterhilfswerk": {
+        "en": "Winter Assistance",
+        "fr": "Aide d'hiver",
+        "it": "Lavoro di aiuto invernale",
+        "pt": "Serviço de Ajuda Invernal",
+        "ru": "Зимняя помощь",
+        "es": "Ayuda de invierno",
+        "sv": "Vinterhjälpsarbetet"
+    },
+    "Widerspruchsgeist": {
+        "en": "The contradiction",
+        "fr": "l’esprit de contradiction",
+        "it": "spirito di contraddizione",
+        "pt": "Espírito de contradição",
+        "ru": "Дух противоречия",
+        "es": "El espíritu de contradicción",
+        "sv": "motsägelse"
+    },
+    "Winterkleidung": {
+        "en": "Winter clothes",
+        "fr": "Vêtements hiver",
+        "it": "Abbigliamento invernale",
+        "pt": "Roupas de Inverno",
+        "ru": "Зимняя одежда",
+        "es": "vestidos de invierno",
+        "sv": "Vinterkläder"
+    },
+    "Wirkursache": {
+        "en": "Effectiveness",
+        "fr": "Cause d'effet",
+        "it": "Cause di funzionamento",
+        "pt": "Causa da ação",
+        "ru": "Эффект",
+        "es": "Causas de éxito",
+        "sv": "Effektskällor"
+    },
+    "Wiesenabhang": {
+        "en": "by Wiesenabhang",
+        "fr": "Wiesenabhang",
+        "it": "di Wiesenabhang",
+        "pt": "Wiesenabhang",
+        "ru": "ВУЗЕНОЙ",
+        "es": "Wiesenabhang",
+        "sv": "Wiesenavhang"
+    },
+    "Wintersaison": {
+        "en": "Winter season",
+        "fr": "saison hivernale",
+        "it": "stagione invernale",
+        "pt": "Temporada de inverno",
+        "ru": "Зимний сезон",
+        "es": "La temporada de invierno",
+        "sv": "Vintersäsong"
+    },
+    "Wiederurbarmachung": {
+        "en": "Recovery",
+        "fr": "rétablissement",
+        "it": "ripristino",
+        "pt": "Recuperação",
+        "ru": "восстановление",
+        "es": "Recuperación",
+        "sv": "återhämtning"
+    },
+    "Widerspruchslosigkeit": {
+        "en": "The contradiction",
+        "fr": "Impossible",
+        "it": "Impossibilità",
+        "pt": "incontestável",
+        "ru": "Беспорность",
+        "es": "Sin contradicción",
+        "sv": "Kontroversiell"
+    },
+    "Winkflagge": {
+        "en": "The Wink Flag",
+        "fr": "Drapeau Wink",
+        "it": "Bandiera Wink",
+        "pt": "A bandeira",
+        "ru": "Винковский флаг",
+        "es": "Bandera Wink",
+        "sv": "Vinkflagga"
+    },
+    "Wirbelschnelle": {
+        "en": "The back speed",
+        "fr": "vitesse verte",
+        "it": "velocità vertebrale",
+        "pt": "Velocidade vertebral",
+        "ru": "Скорость спины",
+        "es": "La espalda",
+        "sv": "ryggradsfrekvens"
+    },
+    "Wirkungsspektrum": {
+        "en": "Spectrum of Effect",
+        "fr": "Spectre d’effet",
+        "it": "Spettro di effetto",
+        "pt": "Espectro de efeito",
+        "ru": "Спектр эффектов",
+        "es": "Espectro de efecto",
+        "sv": "Effektspektrum"
+    },
+    "Windschutzpflanzung": {
+        "en": "Wind protection plantation",
+        "fr": "Plantation de protection contre le vent",
+        "it": "Piantagione protetta dal vento",
+        "pt": "Plantas de proteção do vento",
+        "ru": "Ветерзащитные растения",
+        "es": "Plantación de protección del viento",
+        "sv": "Vindskyddsplantering"
+    },
+    "Wiesenrand": {
+        "en": "Wiesenrand",
+        "fr": "Wiesenrand",
+        "it": "di Wiesenrand",
+        "pt": "Wiesenrand",
+        "ru": "Вьетнам",
+        "es": "Wiesenrand",
+        "sv": "Wiesenrand"
+    },
+    "Willensanspannung": {
+        "en": "The Will Strength",
+        "fr": "tension de volonté",
+        "it": "tensione di volontà",
+        "pt": "tensão de vontade",
+        "ru": "Волевое напряжение",
+        "es": "La tensión de voluntad",
+        "sv": "Willens spänning"
+    },
+    "Wintermanöver": {
+        "en": "Winter maneuver",
+        "fr": "Manœuvres hivernales",
+        "it": "Manovra invernale",
+        "pt": "Manuais de Inverno",
+        "ru": "Зимние маневри",
+        "es": "Manobras de invierno",
+        "sv": "Vintermanöver"
+    },
+    "Wissensbereich": {
+        "en": "knowledge area",
+        "fr": "domaine des connaissances",
+        "it": "Il campo della conoscenza",
+        "pt": "Área de conhecimento",
+        "ru": "Зона знаний",
+        "es": "Área de conocimiento",
+        "sv": "Vetenskapsområdet"
+    },
+    "Winde": {
+        "en": "Winds",
+        "fr": "Le vent",
+        "it": "Il vento",
+        "pt": "Vento",
+        "ru": "Ветер",
+        "es": "Viento",
+        "sv": "Vinden"
+    },
+    "Wildgeschmack": {
+        "en": "Wild taste",
+        "fr": "Le goût sauvage",
+        "it": "Il gusto selvaggio",
+        "pt": "sabor selvagem",
+        "ru": "Дикий вкус",
+        "es": "El sabor salvaje",
+        "sv": "Vilda smaker"
+    },
+    "Windfangtür": {
+        "en": "Wind capture",
+        "fr": "Porte de vent",
+        "it": "La porta del vento",
+        "pt": "Porta do vento",
+        "ru": "Ветерные ворота",
+        "es": "La puerta de viento",
+        "sv": "Vinddörr"
+    },
+    "Wissensvermittlung": {
+        "en": "knowledge mediation",
+        "fr": "Médiation des connaissances",
+        "it": "La mediazione delle conoscenze",
+        "pt": "A medição do conhecimento",
+        "ru": "Передача знаний",
+        "es": "Medición de conocimientos",
+        "sv": "Kunskapsförmedling"
+    },
+    "Windradar": {
+        "en": "Windradar",
+        "fr": "Windradar",
+        "it": "Il radar",
+        "pt": "Radar de vento",
+        "ru": "Ветеррадар",
+        "es": "Windradar",
+        "sv": "Windradar"
+    },
+    "Windbüchse": {
+        "en": "Windboxes",
+        "fr": "Boîtes de vent",
+        "it": "Libri di vento",
+        "pt": "Livros de vento",
+        "ru": "Ветерные книжки",
+        "es": "Libros de viento",
+        "sv": "Vindböcker"
+    },
+    "Wissenschaftlichkeit": {
+        "en": "Science",
+        "fr": "scientifique",
+        "it": "La scienza",
+        "pt": "Ciência",
+        "ru": "Ученые",
+        "es": "Ciencia",
+        "sv": "vetenskaplighet"
+    },
+    "Winterlaub": {
+        "en": "Winter holidays",
+        "fr": "Vacances d'hiver",
+        "it": "Vacanze invernali",
+        "pt": "Férias de Inverno",
+        "ru": "Зимний отпуск",
+        "es": "vacaciones de invierno",
+        "sv": "Vinterresa"
+    },
+    "Wissensstand": {
+        "en": "level of knowledge",
+        "fr": "niveau de connaissance",
+        "it": "Conoscenza",
+        "pt": "Nível de conhecimento",
+        "ru": "знаний",
+        "es": "Conocimiento",
+        "sv": "Kunskapsnivå"
+    },
+    "Wirkungsweise": {
+        "en": "Effective",
+        "fr": "Efficace",
+        "it": "Effettivamente",
+        "pt": "Efetivamente",
+        "ru": "Эффективно",
+        "es": "Efectivamente",
+        "sv": "Effektivt"
+    },
+    "Winterfahrplan": {
+        "en": "Winter travel plan",
+        "fr": "Plan d'hiver",
+        "it": "Piano d'inverno",
+        "pt": "Plano de Inverno",
+        "ru": "Зимний план",
+        "es": "Plan de invierno",
+        "sv": "Vinterplan"
+    },
+    "Mnemotechnik": {
+        "en": "Mnemotechnical",
+        "fr": "Mnemotechnique",
+        "it": "Mnemotechnica",
+        "pt": "Mnemotecnologia",
+        "ru": "МНЕМОТЕХНИКА",
+        "es": "Mnemotecnología",
+        "sv": "Mnemotechnik"
+    },
+    "Wohnlaube": {
+        "en": "residence",
+        "fr": "Le logement",
+        "it": "La residenza",
+        "pt": "Residência",
+        "ru": "Жилищный",
+        "es": "Residencia",
+        "sv": "bostadslöja"
+    },
+    "Wohlfahrtsamt": {
+        "en": "Welfare Office",
+        "fr": "Bureau du bien-être",
+        "it": "Ufficio del benessere",
+        "pt": "Agência de Bem-Estar",
+        "ru": "Бюро благосостояния",
+        "es": "Oficina de Bienestar",
+        "sv": "välfärdsbyrån"
+    },
+    "Wohlstandsförderung": {
+        "en": "Promotion of prosperity",
+        "fr": "Promouvoir la prospérité",
+        "it": "Promozione del benessere",
+        "pt": "Promoção do bem-estar",
+        "ru": "Помощь благосостоянию",
+        "es": "Promover el bienestar",
+        "sv": "Främjande av välstånd"
+    },
+    "Wohnzimmertür": {
+        "en": "living room door",
+        "fr": "Porte de chambre",
+        "it": "porta della stanza",
+        "pt": "Portas da Habitação",
+        "ru": "Дверь жилой комнаты",
+        "es": "puerta de habitación",
+        "sv": "bostadsdörr"
+    },
+    "Wohlstandsdenken": {
+        "en": "thought of prosperity",
+        "fr": "Pensée de prospérité",
+        "it": "Il pensiero della prosperità",
+        "pt": "Pensamento de prosperidade",
+        "ru": "Размышления о благосостоянии",
+        "es": "Pensamiento de bienestar",
+        "sv": "välmående tänkande"
+    },
+    "Wörtlichkeit": {
+        "en": "literacy",
+        "fr": "la littérature",
+        "it": "letteralità",
+        "pt": "literalidade",
+        "ru": "буквально",
+        "es": "literalidad",
+        "sv": "bokstavlighet"
+    },
+    "Wohnbezirksausschuss": {
+        "en": "Residential Committee",
+        "fr": "Comité du quartier résidentiel",
+        "it": "Comitato di residenza",
+        "pt": "Comitê de Habitação",
+        "ru": "Комитет жилых районов",
+        "es": "Comité de Secciones Residenciales",
+        "sv": "bostadskommittén"
+    },
+    "Wohnungsantrag": {
+        "en": "Application for housing",
+        "fr": "demande de logement",
+        "it": "domanda di alloggio",
+        "pt": "Solicitação de habitação",
+        "ru": "Заявка на жилье",
+        "es": "Solicitud de vivienda",
+        "sv": "bostadsansökan"
+    },
+    "Wollrock": {
+        "en": "Wollrock",
+        "fr": "Wollrock",
+        "it": "di Wollrock",
+        "pt": "O Wollrock",
+        "ru": "Wollrock",
+        "es": "El Wollrock",
+        "sv": "Wollrock"
+    },
+    "Wohnungstyp": {
+        "en": "Type of apartment",
+        "fr": "Type de logement",
+        "it": "Tipo appartamento",
+        "pt": "Tipo de apartamento",
+        "ru": "Тип квартиры",
+        "es": "Tipo de apartamento",
+        "sv": "Lägenhetstyp"
+    },
+    "Wollkostüm": {
+        "en": "The Woll Costume",
+        "fr": "Costume de volonté",
+        "it": "Costumi volentieri",
+        "pt": "Costumação",
+        "ru": "Костюм воли",
+        "es": "Costumbre de voluntad",
+        "sv": "Vollkostym"
+    },
+    "Wollgespinst": {
+        "en": "Wollgespins",
+        "fr": "Volonté",
+        "it": "Il desiderio",
+        "pt": "Voluntário",
+        "ru": "Волонтеры",
+        "es": "Voluntariado",
+        "sv": "Wollgespins"
+    },
+    "Wohlfahrtsempfänger": {
+        "en": "welfare recipients",
+        "fr": "bénéficiaires du bien-être",
+        "it": "beneficiari di benessere",
+        "pt": "Benefícios destinatários",
+        "ru": "Получатели благосостояния",
+        "es": "Beneficiarios",
+        "sv": "välgörenhetsmottagare"
+    },
+    "Wochenendeausgabe": {
+        "en": "Weekend Edition",
+        "fr": "édition du week-end",
+        "it": "La pubblicazione del weekend",
+        "pt": "Edição de fim de semana",
+        "ru": "Выпуск выходных",
+        "es": "Edición de fin de semana",
+        "sv": "Söndagsutgåva"
+    },
+    "Wolkenrand": {
+        "en": "The Cloud",
+        "fr": "La nuée",
+        "it": "Nuvola",
+        "pt": "Nuvem",
+        "ru": "облака",
+        "es": "La nube",
+        "sv": "molngräns"
+    },
+    "fangbar": {
+        "en": "captured",
+        "fr": "capturable",
+        "it": "catturabile",
+        "pt": "capturável",
+        "ru": "Уловим",
+        "es": "captura",
+        "sv": "fångar"
+    },
+    "fahnengeschmückt": {
+        "en": "Smoothed",
+        "fr": "dégusté",
+        "it": "Il sapore",
+        "pt": "Cozinhas deliciosas",
+        "ru": "По вкусу",
+        "es": "Tener sabor",
+        "sv": "Smakade på"
+    },
+    "fachbezogen": {
+        "en": "Specialized",
+        "fr": "spécialisés",
+        "it": "specializzati",
+        "pt": "especializado",
+        "ru": "Специализированные",
+        "es": "Especializado",
+        "sv": "sakkunniga"
+    },
+    "fabrikneu": {
+        "en": "Factory new",
+        "fr": "Nouvelle usine",
+        "it": "Fabbrica Nuova",
+        "pt": "fábrica nova",
+        "ru": "Фабрика",
+        "es": "fábrica nuevo",
+        "sv": "Fabriken ny"
+    },
+    "waldeinwärts": {
+        "en": "Walden toward",
+        "fr": "Waldeinverts",
+        "it": "Valdeinverts",
+        "pt": "Waldeinverts",
+        "ru": "Валдеинверт",
+        "es": "Valdeinverts",
+        "sv": "Waldeinverts"
+    },
+    "waldumsäumt": {
+        "en": "The Wave",
+        "fr": "de la forêt",
+        "it": "Il ghiaccio",
+        "pt": "Avaliação",
+        "ru": "Водолеи",
+        "es": "El bosque",
+        "sv": "Väderstammar"
+    },
+    "waffentechnisch": {
+        "en": "Armed Technical",
+        "fr": "Armétique",
+        "it": "Tecnico delle armi",
+        "pt": "Armas Técnicas",
+        "ru": "Вооруженная техника",
+        "es": "Armas Técnicas",
+        "sv": "vapenteknik"
+    },
+    "wasserfest": {
+        "en": "Waterfest",
+        "fr": "Fête d'eau",
+        "it": "Festa dell'acqua",
+        "pt": "Festa da Água",
+        "ru": "Водный фестиваль",
+        "es": "Festividad de agua",
+        "sv": "Vattenfest"
+    },
+    "fälschen": {
+        "en": "Fake",
+        "fr": "Faux",
+        "it": "falsificare",
+        "pt": "Falsificando",
+        "ru": "фальсифицировать",
+        "es": "Falsan",
+        "sv": "Falska"
+    },
+    "watscheln": {
+        "en": "Watson",
+        "fr": "Voyage",
+        "it": "Vediamo",
+        "pt": "Vingando",
+        "ru": "Оскорбление",
+        "es": "Víctor",
+        "sv": "Väckande"
+    },
+    "wallfahrten": {
+        "en": "The walls",
+        "fr": "Voyage Wall",
+        "it": "Viaggi di Wall",
+        "pt": "Caminhos de Wall",
+        "ru": "Уоллинг",
+        "es": "Vuelos de Wall",
+        "sv": "Wallvägar"
+    },
+    "wabern": {
+        "en": "The Wabber",
+        "fr": "Bébé",
+        "it": "di Wabern",
+        "pt": "Viberão",
+        "ru": "ВУБЕР",
+        "es": "Viber",
+        "sv": "Upptäck"
+    },
+    "wachrütteln": {
+        "en": "Warranty",
+        "fr": "Veuillez",
+        "it": "Il risveglio",
+        "pt": "Atirar",
+        "ru": "Стрельба",
+        "es": "vigilancia",
+        "sv": "Väckar"
+    },
+    "Fahrzeugdepot": {
+        "en": "Vehicle Deposit",
+        "fr": "Véhicule dépôt",
+        "it": "Depot di veicoli",
+        "pt": "Depósito de veículos",
+        "ru": "Депозит автомобиля",
+        "es": "Depósito de vehículos",
+        "sv": "Bilen Depot"
+    },
+    "Fahrenheit": {
+        "en": "Driving",
+        "fr": "conduite",
+        "it": "La guida",
+        "pt": "Condução",
+        "ru": "Вождение",
+        "es": "Conducción",
+        "sv": "Färdighet"
+    },
+    "Fanfarenbläser": {
+        "en": "Fanfarenbläsers",
+        "fr": "Fanfarenbläser",
+        "it": "Fanfarenbläser",
+        "pt": "Fãs Fãs",
+        "ru": "Фанфаренблейс",
+        "es": "Fanfarenbláser",
+        "sv": "Fanfarenbläsare"
+    },
+    "Fayenceschüssel": {
+        "en": "Fayenschüssel",
+        "fr": "Faïneschüssel",
+        "it": "Cappuccetto di Fayence",
+        "pt": "Caixas de Fayens",
+        "ru": "Файенс",
+        "es": "Cuerpo de Fayens",
+        "sv": "Fayensskötare"
+    },
+    "Fachlichkeit": {
+        "en": "Professionalism",
+        "fr": "Professionnalité",
+        "it": "Professionalità",
+        "pt": "Especialidade",
+        "ru": "Специализм",
+        "es": "Especialidad",
+        "sv": "Professionalism"
+    },
+    "Faltenwespe": {
+        "en": "by Faltenwespe",
+        "fr": "Le fauteuil",
+        "it": "Il falso",
+        "pt": "Falcão",
+        "ru": "Фальтовый",
+        "es": "El fallecimiento",
+        "sv": "Fällande"
+    },
+    "Farnblatt": {
+        "en": "Farned",
+        "fr": "Farbreau",
+        "it": "Fornata",
+        "pt": "Palhaço",
+        "ru": "ФАРНАТ",
+        "es": "Fármaco",
+        "sv": "Färgblad"
+    },
+    "Farbensinn": {
+        "en": "Coloring",
+        "fr": "Couleur",
+        "it": "Il colore",
+        "pt": "Coração",
+        "ru": "Цветный",
+        "es": "El color",
+        "sv": "Färgskänsla"
+    },
+    "Familienauseinandersetzung": {
+        "en": "Family Conflict",
+        "fr": "Conférence familiale",
+        "it": "Conflitto familiare",
+        "pt": "Conflito familiar",
+        "ru": "Семейный конфликт",
+        "es": "Conflicto familiar",
+        "sv": "Familjkonflikter"
+    },
+    "Fantasiepreis": {
+        "en": "Fantastic Prize",
+        "fr": "Prix de l'imagination",
+        "it": "Il premio fantasia",
+        "pt": "Prêmio de Fantasia",
+        "ru": "Фантастическая премия",
+        "es": "Premio de Fantasía",
+        "sv": "Fantasipriset"
+    },
+    "Fauster": {
+        "en": "by Fauster",
+        "fr": "Faustère",
+        "it": "di Fauster",
+        "pt": "Faustão",
+        "ru": "Фастер",
+        "es": "El Fauster",
+        "sv": "Fauster"
+    },
+    "Faulenzerleben": {
+        "en": "Faulence life",
+        "fr": "La Faulence",
+        "it": "La Faulenza",
+        "pt": "Faulência",
+        "ru": "Жизнь фауленса",
+        "es": "La vida de Faulenz",
+        "sv": "Faulens liv"
+    },
+    "Fachzensur": {
+        "en": "Specialist censorship",
+        "fr": "Censure spécialisée",
+        "it": "La censura",
+        "pt": "Censura especializada",
+        "ru": "Специализированная цензура",
+        "es": "Censura especializada",
+        "sv": "Specialiserad censur"
+    },
+    "Fabrikware": {
+        "en": "Factory Products",
+        "fr": "Fabrique",
+        "it": "La fabbrica",
+        "pt": "fábricas",
+        "ru": "Фабрика",
+        "es": "fábrica",
+        "sv": "Fabrikvaror"
+    },
+    "Fahrensmann": {
+        "en": "The driver",
+        "fr": "conducteur",
+        "it": "Il conducente",
+        "pt": "condutor",
+        "ru": "Водитель",
+        "es": "conductor",
+        "sv": "Förare"
+    },
+    "Fälscher": {
+        "en": "fake",
+        "fr": "faux",
+        "it": "falsificatori",
+        "pt": "Falsificador",
+        "ru": "Фальсификация",
+        "es": "falsos",
+        "sv": "Falska"
+    },
+    "Farbdia": {
+        "en": "colored",
+        "fr": "couleur",
+        "it": "Il colore",
+        "pt": "Coloração",
+        "ru": "Цвет",
+        "es": "El color",
+        "sv": "Färg"
+    },
+    "Walzenstuhl": {
+        "en": "Walzen chair",
+        "fr": "fauteuil roulant",
+        "it": "Sede di valle",
+        "pt": "cadeira de rolamento",
+        "ru": "Волшебный стул",
+        "es": "Cuerpo de valle",
+        "sv": "Vågstolar"
+    },
+    "Wasserstoffsuperoxyd": {
+        "en": "Hydrogen superoxide",
+        "fr": "Superoxyde d'hydrogène",
+        "it": "Superossido di idrogeno",
+        "pt": "Superóxido de hidrogênio",
+        "ru": "Суперксид водорода",
+        "es": "Superóxido de hidrógeno",
+        "sv": "Vätgassuperoxid"
+    },
+    "Wandbespannung": {
+        "en": "Wall tension",
+        "fr": "tension murale",
+        "it": "tensione di parete",
+        "pt": "tensão parede",
+        "ru": "Стенное напряжение",
+        "es": "La tensión de pared",
+        "sv": "Väggspänning"
+    },
+    "Waschkessel": {
+        "en": "The washing chair",
+        "fr": "La chaise de lavage",
+        "it": "lavastoviglie",
+        "pt": "Cadeira de lavanderia",
+        "ru": "Помывка",
+        "es": "La bañera",
+        "sv": "Tvättstolen"
+    },
+    "Wagenende": {
+        "en": "Wagened",
+        "fr": "Voiture",
+        "it": "Vaganti",
+        "pt": "caminhão",
+        "ru": "Водитель",
+        "es": "Vuelos",
+        "sv": "Vagnar"
+    },
+    "Waffenstillstandsverhandlung": {
+        "en": "Arms cessation negotiations",
+        "fr": "négociations de cessez-le-feu",
+        "it": "negoziati di cessate il fuoco",
+        "pt": "Negociação de cessar-fogo",
+        "ru": "Переговоры о прекращении огня",
+        "es": "Negociación del cese de armas",
+        "sv": "Förhandlingar om vapenvila"
+    },
+    "Wasserwanderer": {
+        "en": "The water migrant",
+        "fr": "Migrants d'eau",
+        "it": "Migranti acquatici",
+        "pt": "Migrantes da água",
+        "ru": "Водяные мигранты",
+        "es": "Migrantes de agua",
+        "sv": "Vattendragare"
+    },
+    "Wasserplatz": {
+        "en": "Water Square",
+        "fr": "place d'eau",
+        "it": "Piazza dell'acqua",
+        "pt": "Água Praça",
+        "ru": "Водное место",
+        "es": "El espacio de agua",
+        "sv": "Vattenplats"
+    },
+    "Wärmkruke": {
+        "en": "The Warmkruke",
+        "fr": "chaleur croque",
+        "it": "caldo croce",
+        "pt": "Corrida térmica",
+        "ru": "Теплый крук",
+        "es": "Corazón de calor",
+        "sv": "Värmkrukor"
+    },
+    "Wäschebleiche": {
+        "en": "The washing",
+        "fr": "Vêtements",
+        "it": "lavanderia",
+        "pt": "lavanderia",
+        "ru": "Помытье",
+        "es": "lavandería",
+        "sv": "tvättmedel"
+    },
+    "Waschechtheit": {
+        "en": "washing",
+        "fr": "Lavage",
+        "it": "La lavanderia",
+        "pt": "Lavagem",
+        "ru": "Промывание",
+        "es": "La lavandería",
+        "sv": "tvättning"
+    },
+    "Wasserdruck": {
+        "en": "Water pressure",
+        "fr": "pression de l'eau",
+        "it": "pressione dell'acqua",
+        "pt": "pressão da água",
+        "ru": "Водное давление",
+        "es": "presión de agua",
+        "sv": "vattentryck"
+    },
+    "Warenzirkulation": {
+        "en": "Circulation of goods",
+        "fr": "Circulation des marchandises",
+        "it": "Circolazione dei prodotti",
+        "pt": "Circulação de mercadorias",
+        "ru": "Торговая циркуляция",
+        "es": "Circulación de mercancías",
+        "sv": "Varor Cirkulation"
+    },
+    "Wasserlauf": {
+        "en": "Waterwalk",
+        "fr": "Le cours d'eau",
+        "it": "Corso d'acqua",
+        "pt": "Corrida de água",
+        "ru": "Водный ход",
+        "es": "Corrente de agua",
+        "sv": "vattenrörelse"
+    },
+    "Warenmarke": {
+        "en": "Branded",
+        "fr": "Marquage",
+        "it": "Marca di merce",
+        "pt": "Marcação",
+        "ru": "Торговая марка",
+        "es": "Marca de productos",
+        "sv": "Varumärken"
+    },
+    "Warenverzeichnis": {
+        "en": "List of goods",
+        "fr": "Liste des marchandises",
+        "it": "Elenco dei prodotti",
+        "pt": "Lista de mercadorias",
+        "ru": "Список товаров",
+        "es": "Lista de mercancías",
+        "sv": "Varuförteckning"
+    },
+    "Wachpersonal": {
+        "en": "Guard staff",
+        "fr": "Personnel de garde",
+        "it": "personale di vigilanza",
+        "pt": "Pessoal de vigilância",
+        "ru": "охранный персонал",
+        "es": "Personal de vigilancia",
+        "sv": "Vaktpersonal"
+    },
+    "Wasserzirkulation": {
+        "en": "water circulation",
+        "fr": "Circulation de l'eau",
+        "it": "Circolazione dell'acqua",
+        "pt": "Circulação da água",
+        "ru": "водная циркуляция",
+        "es": "Circulación de agua",
+        "sv": "vattencirkulation"
+    },
+    "Warnsignal": {
+        "en": "warning signal",
+        "fr": "Signal d’alerte",
+        "it": "segnale di avvertimento",
+        "pt": "sinal de alerta",
+        "ru": "предупреждающий сигнал",
+        "es": "señal de advertencia",
+        "sv": "Varningssignal"
+    },
+    "Wappenschild": {
+        "en": "Waped Shield",
+        "fr": "Les armes",
+        "it": "scudo di armi",
+        "pt": "Escudo de armas",
+        "ru": "Вооруженный щит",
+        "es": "Escudo de armas",
+        "sv": "Vapensköld"
+    },
+    "Warengattung": {
+        "en": "of goods",
+        "fr": "marchandises",
+        "it": "Cattura di merci",
+        "pt": "mercadorias",
+        "ru": "Продукция",
+        "es": "La mercancía",
+        "sv": "Varumärken"
+    },
+    "Warnungsschild": {
+        "en": "Warning Shield",
+        "fr": "Étiquette d'alerte",
+        "it": "Segno di avvertimento",
+        "pt": "Alerta de alerta",
+        "ru": "Сигнал предупреждения",
+        "es": "Esquema de advertencia",
+        "sv": "Varningsskylt"
+    },
+    "Wanderstab": {
+        "en": "The Walking",
+        "fr": "promenade",
+        "it": "Il cammino",
+        "pt": "caminhadas",
+        "ru": "Пешеходный",
+        "es": "Caminando",
+        "sv": "promenader"
+    },
+    "Waffenappell": {
+        "en": "arms appellation",
+        "fr": "Appel à armes",
+        "it": "Appello di arma",
+        "pt": "Apelo de Armas",
+        "ru": "Оружие",
+        "es": "Apellido de armas",
+        "sv": "vapenapp"
+    },
+    "Wagon": {
+        "en": "The wagon",
+        "fr": "wagon",
+        "it": "Il vagone",
+        "pt": "Carro",
+        "ru": "Вагон",
+        "es": "El vagón",
+        "sv": "vagn"
+    },
+    "Warnruf": {
+        "en": "Warning call",
+        "fr": "Appel d’alerte",
+        "it": "Avvertimento",
+        "pt": "Alerta",
+        "ru": "Предупреждение",
+        "es": "Alertamiento",
+        "sv": "Varningskälla"
+    },
+    "Waidwerk": {
+        "en": "Waidwerk",
+        "fr": "Waidwerk",
+        "it": "Waidwerk",
+        "pt": "Waidwerk",
+        "ru": "Вайд",
+        "es": "Waidwerk",
+        "sv": "Waidverk"
+    },
+    "Waschgarnitur": {
+        "en": "washing garnitures",
+        "fr": "Garnitures de lavage",
+        "it": "lavanderia",
+        "pt": "lavanderia",
+        "ru": "Умывание гарнитуры",
+        "es": "lavandería",
+        "sv": "tvättgarnitur"
+    },
+    "Wachspuppe": {
+        "en": "The watchpuppy",
+        "fr": "Le gardien",
+        "it": "Cappuccetto",
+        "pt": "Guardião",
+        "ru": "Охотница",
+        "es": "Guardiola",
+        "sv": "Vaktmästare"
+    },
+    "Wassertreten": {
+        "en": "Water Returns",
+        "fr": "Retrait de l'eau",
+        "it": "Ritorno dell'acqua",
+        "pt": "Substituição da água",
+        "ru": "Водный отступ",
+        "es": "La salida de agua",
+        "sv": "Vattentätning"
+    },
+    "Waidmann": {
+        "en": "by Waidmann",
+        "fr": "Waidmann",
+        "it": "di Waidmann",
+        "pt": "de Waidmann",
+        "ru": "Вайдман",
+        "es": "Waidmann",
+        "sv": "Waidmann"
+    },
+    "Waagrechte": {
+        "en": "Waagrechte",
+        "fr": "Valeur",
+        "it": "Valutazione",
+        "pt": "Valorização",
+        "ru": "Вааграхт",
+        "es": "Waagrechte",
+        "sv": "Waagrechte"
+    },
+    "Wagenführer": {
+        "en": "Vehicle Leader",
+        "fr": "Le conducteur",
+        "it": "Guida auto",
+        "pt": "Guia de veículos",
+        "ru": "Водитель",
+        "es": "Guía de coches",
+        "sv": "Vagnarledare"
+    },
+    "Walzgut": {
+        "en": "Walzgut",
+        "fr": "Walzgut",
+        "it": "Walzgut",
+        "pt": "Walzgut",
+        "ru": "Walzgut",
+        "es": "Walzgut",
+        "sv": "Walzgut"
+    },
+    "Wählerwille": {
+        "en": "Electoral Will",
+        "fr": "Volonté électorale",
+        "it": "volontà elettorale",
+        "pt": "A vontade eleitoral",
+        "ru": "избирательная воля",
+        "es": "Voluntad Electoral",
+        "sv": "Väljarvilja"
+    },
+    "Wasserkur": {
+        "en": "Water cur",
+        "fr": "Curation de l'eau",
+        "it": "curare l'acqua",
+        "pt": "Hidrogênio",
+        "ru": "Водоустройство",
+        "es": "Cuidados de agua",
+        "sv": "Vattentät"
+    },
+    "Wanderziel": {
+        "en": "The Walking Target",
+        "fr": "Mise à destination",
+        "it": "L’obiettivo di camminare",
+        "pt": "Destino de caminhada",
+        "ru": "Пешеходная цель",
+        "es": "Objetivo de caminata",
+        "sv": "vandringsmål"
+    },
+    "Wagenschlag": {
+        "en": "The Wagenschlag",
+        "fr": "Vague de wagon",
+        "it": "Striscia",
+        "pt": "Caminhão",
+        "ru": "Вагонный удар",
+        "es": "El tiroteo",
+        "sv": "Tågskott"
+    },
+    "Waisenrente": {
+        "en": "Orphanage",
+        "fr": "Orphelinat",
+        "it": "pensionato orfano",
+        "pt": "Orfanato",
+        "ru": "Родители",
+        "es": "Renta de esclavos",
+        "sv": "Slaveriet"
+    },
+    "Waffeneinfuhr": {
+        "en": "Arms imports",
+        "fr": "importation d'armes",
+        "it": "importazione di armi",
+        "pt": "Importação de armas",
+        "ru": "Ввоз оружия",
+        "es": "Importación de armas",
+        "sv": "vapenimport"
+    },
+    "Wäschetrommel": {
+        "en": "The washing room",
+        "fr": "L’eau de lavage",
+        "it": "Lavatrice",
+        "pt": "Limpeza de lavanderia",
+        "ru": "Промывающий напиток",
+        "es": "La lavandería",
+        "sv": "tvättdryck"
+    },
+    "Waldesinnere": {
+        "en": "The Forest",
+        "fr": "Les forêts",
+        "it": "Le foreste",
+        "pt": "Florestais",
+        "ru": "Лесоподобные",
+        "es": "El bosque",
+        "sv": "Skogsminnor"
+    },
+    "Wahllosung": {
+        "en": "Election",
+        "fr": "Élections",
+        "it": "Elezione",
+        "pt": "Eleição",
+        "ru": "Выборы",
+        "es": "Elección",
+        "sv": "Valet"
+    },
+    "Wacholderschnaps": {
+        "en": "The guard",
+        "fr": "Garde de garde",
+        "it": "Il vigilante",
+        "pt": "vigilância",
+        "ru": "Охранитель",
+        "es": "vigilancia",
+        "sv": "Vaktvakt"
+    },
+    "Warmfront": {
+        "en": "Hotfront",
+        "fr": "Le front chaud",
+        "it": "Il fronte caldo",
+        "pt": "Frente quente",
+        "ru": "Горячий фронт",
+        "es": "Frente caliente",
+        "sv": "Värmfront"
+    },
+    "Warenbereitstellung": {
+        "en": "Preparation of goods",
+        "fr": "Préparation de marchandises",
+        "it": "Preparazione di merci",
+        "pt": "Preparação de produtos",
+        "ru": "Предоставление товаров",
+        "es": "preparación de mercancías",
+        "sv": "Förberedelse av varor"
+    },
+    "Warennummer": {
+        "en": "Number of goods",
+        "fr": "Numéro de marchandise",
+        "it": "Numero di merci",
+        "pt": "Número de Produto",
+        "ru": "товарный номер",
+        "es": "Número de bienes",
+        "sv": "Varumärken"
+    },
+    "Wärmebildung": {
+        "en": "Heat formation",
+        "fr": "Formation de chaleur",
+        "it": "La formazione del calore",
+        "pt": "Formação de calor",
+        "ru": "Теплообразование",
+        "es": "Formación de calor",
+        "sv": "Värmebildning"
+    },
+    "Waschzeug": {
+        "en": "washing equipment",
+        "fr": "Vêtements",
+        "it": "Lavatrice",
+        "pt": "Lavanderia",
+        "ru": "Пратье",
+        "es": "Lavandería",
+        "sv": "tvättmedel"
+    },
+    "Wasserweg": {
+        "en": "Waterway",
+        "fr": "Le chemin de l'eau",
+        "it": "Il percorso idrico",
+        "pt": "O caminho da água",
+        "ru": "Водный путь",
+        "es": "El camino del agua",
+        "sv": "vattenvägen"
+    },
+    "Wanderquartier": {
+        "en": "The Walking Quarter",
+        "fr": "Quartier de promenade",
+        "it": "Quartiere migratori",
+        "pt": "Quarto de caminhadas",
+        "ru": "Пешеходный квартал",
+        "es": "Quarteto de viajes",
+        "sv": "vandringskvarter"
+    },
+    "Wasserzufuhr": {
+        "en": "water supply",
+        "fr": "L’approvisionnement en eau",
+        "it": "approvvigionamento idrico",
+        "pt": "Abastecimento de água",
+        "ru": "Водоснабжение",
+        "es": "El suministro de agua",
+        "sv": "vattenförsörjning"
+    },
+    "Warenfonds": {
+        "en": "Goods funds",
+        "fr": "Fonds de marchandises",
+        "it": "Fondi merci",
+        "pt": "Fundo de mercadorias",
+        "ru": "товарные фонды",
+        "es": "Fondo de mercancías",
+        "sv": "Varufonden"
+    },
+    "Wäscheberg": {
+        "en": "washing mountain",
+        "fr": "Le lavabo",
+        "it": "lavanderia",
+        "pt": "Lavanderia",
+        "ru": "Вешберг",
+        "es": "La lavandería",
+        "sv": "Väseberg"
+    },
+    "Wärmekissen": {
+        "en": "The Heat",
+        "fr": "chauffage",
+        "it": "Il caldo",
+        "pt": "aquecedor",
+        "ru": "Теплая",
+        "es": "Calentamiento",
+        "sv": "Värmeväskor"
+    },
+    "Waschchemikalie": {
+        "en": "washing chemicals",
+        "fr": "lavage chimique",
+        "it": "lavanderia chimica",
+        "pt": "Lavagem química",
+        "ru": "Химическая мытье",
+        "es": "Lavas químicas",
+        "sv": "tvättkemikalier"
+    },
+    "Wachsleinen": {
+        "en": "by Wachslin",
+        "fr": "Les croquettes",
+        "it": "Cuccioli",
+        "pt": "Cozinhas",
+        "ru": "Растение",
+        "es": "Las Wachsleinen",
+        "sv": "Växling"
+    },
+    "Waldmaus": {
+        "en": "The Forest Mouse",
+        "fr": "Mouse de bois",
+        "it": "Il mouse",
+        "pt": "Mouse florestal",
+        "ru": "Лесная мышь",
+        "es": "El bosque",
+        "sv": "Skogsmus"
+    },
+    "Waffengeklirr": {
+        "en": "Arms clarification",
+        "fr": "Clarificateur d'armes",
+        "it": "Clarificazione delle armi",
+        "pt": "Iluminação de armas",
+        "ru": "Оружие Клер",
+        "es": "Cláusulas de armas",
+        "sv": "vapenklärare"
+    },
+    "Warenvolumen": {
+        "en": "Volume of goods",
+        "fr": "Volume de marchandises",
+        "it": "Volume di merce",
+        "pt": "Volume de mercadorias",
+        "ru": "Объем товара",
+        "es": "Volumen de mercancías",
+        "sv": "Varumärken"
+    },
+    "Wäglein": {
+        "en": "Vagglein",
+        "fr": "Vengeance",
+        "it": "Valutazione",
+        "pt": "Valência",
+        "ru": "Вольгина",
+        "es": "Vuelta",
+        "sv": "Vagnarna"
+    },
+    "Wandschoner": {
+        "en": "The walls",
+        "fr": "Wondeur",
+        "it": "Il muro",
+        "pt": "Caminhão",
+        "ru": "стенокардия",
+        "es": "La pared",
+        "sv": "Väggskärm"
+    },
+    "Warenvorrat": {
+        "en": "The Goods",
+        "fr": "marchandises",
+        "it": "La merce",
+        "pt": "mercadorias",
+        "ru": "Продукция",
+        "es": "mercancías",
+        "sv": "Varuförsäkring"
+    },
+    "Wanderbewegung": {
+        "en": "Movement of migration",
+        "fr": "mouvement migratoire",
+        "it": "Il movimento migratorio",
+        "pt": "Movimento Migrantes",
+        "ru": "Пешеходное движение",
+        "es": "movimiento migratorio",
+        "sv": "Migrationsrörelse"
+    },
+    "Walzdraht": {
+        "en": "Walzdraht",
+        "fr": "Walzdraht",
+        "it": "Walzdraht",
+        "pt": "Voltação",
+        "ru": "Уолдрахт",
+        "es": "Walzdraht",
+        "sv": "Walzdraht"
+    },
+    "Wahlbetrug": {
+        "en": "Election fraud",
+        "fr": "fraude électorale",
+        "it": "La truffa elettorale",
+        "pt": "A fraude eleitoral",
+        "ru": "избирательная мошенничество",
+        "es": "La fraude electoral",
+        "sv": "Valbedrägeri"
+    },
+    "Wählergruppe": {
+        "en": "Electoral Group",
+        "fr": "Le groupe électoral",
+        "it": "Gruppo elettorale",
+        "pt": "Grupo eleitoral",
+        "ru": "избирательная группа",
+        "es": "Grupo Electoral",
+        "sv": "Väljargruppen"
+    },
+    "Warenbegleitschein": {
+        "en": "Goods accompanying",
+        "fr": "Licence de marchandises",
+        "it": "Licenza di merce",
+        "pt": "Licença de Comércio",
+        "ru": "Продукция сопровождается",
+        "es": "Licencia de mercancías",
+        "sv": "Varumärkesbevis"
+    },
+    "Wagenschmiere": {
+        "en": "The wardrobe",
+        "fr": "Wagenschmiere",
+        "it": "Carrozzeria",
+        "pt": "camarões",
+        "ru": "Вагоны",
+        "es": "Las muñecas",
+        "sv": "Vagnarna"
+    },
+    "Weidloch": {
+        "en": "by Weidloch",
+        "fr": "Weidloch",
+        "it": "di Weidloch",
+        "pt": "muito",
+        "ru": "Ведрох",
+        "es": "Weidloch",
+        "sv": "Weidloch"
+    },
+    "zehnprozentig": {
+        "en": "10 percent",
+        "fr": "10 pour cent",
+        "it": "10 per cento",
+        "pt": "Dez por cento",
+        "ru": "Десять процентов",
+        "es": "10 por ciento",
+        "sv": "10 procent"
+    },
+    "telefonisch": {
+        "en": "by telephone",
+        "fr": "téléphonique",
+        "it": "telefonico",
+        "pt": "Telefônico",
+        "ru": "Телефонный",
+        "es": "Telefónica",
+        "sv": "Telefoniskt"
+    },
+    "teilautomatisch": {
+        "en": "The automatic",
+        "fr": "Partie automatique",
+        "it": "Divisione automatica",
+        "pt": "Divisão automática",
+        "ru": "Частично автоматически",
+        "es": "División automática",
+        "sv": "Delade automatiskt"
+    },
+    "teigig": {
+        "en": "claimed",
+        "fr": "affirmé",
+        "it": "afferma",
+        "pt": "A afirmação",
+        "ru": "Тверь",
+        "es": "Testimonios",
+        "sv": "påstås"
+    },
+    "terrassenförmig": {
+        "en": "form of terrace",
+        "fr": "forme de terrasse",
+        "it": "forma di terrazza",
+        "pt": "forma de terraço",
+        "ru": "Террасовая форма",
+        "es": "forma de terraza",
+        "sv": "terrassform"
+    },
+    "texttreu": {
+        "en": "Texted",
+        "fr": "Texte",
+        "it": "Il testo",
+        "pt": "Texteira",
+        "ru": "Текстовый",
+        "es": "Texto",
+        "sv": "Textröja"
+    },
+    "textilchemisch": {
+        "en": "Textile chemistry",
+        "fr": "textile chimique",
+        "it": "chimica tessile",
+        "pt": "química têxtil",
+        "ru": "Текстильная химия",
+        "es": "química textil",
+        "sv": "Textilkemi"
+    },
+    "zerfließen": {
+        "en": "broken",
+        "fr": "déchirer",
+        "it": "spezzare",
+        "pt": "Ruptura",
+        "ru": "развалить",
+        "es": "deslizarse",
+        "sv": "bryta"
+    },
+    "zerspleißen": {
+        "en": "dispersed",
+        "fr": "Disperser",
+        "it": "dispersi",
+        "pt": "Dispersão",
+        "ru": "рассеивать",
+        "es": "dispersar",
+        "sv": "spridning"
+    },
+    "zelten": {
+        "en": "Yellow",
+        "fr": "Zélé",
+        "it": "Giallo",
+        "pt": "Ouro",
+        "ru": "Зелёные",
+        "es": "amarillo",
+        "sv": "Gult"
+    },
+    "zerprügeln": {
+        "en": "broken",
+        "fr": "décomposé",
+        "it": "spezzato",
+        "pt": "Esquecendo",
+        "ru": "Разбит",
+        "es": "rompiendo",
+        "sv": "krossade"
+    },
+    "teilmechanisieren": {
+        "en": "participating mechanisms",
+        "fr": "Participation mécanique",
+        "it": "partecipare a meccanismi",
+        "pt": "Participação mecânica",
+        "ru": "Механизировать",
+        "es": "Mecanizar",
+        "sv": "Delmekaniserar"
+    },
+    "Zeitraffer": {
+        "en": "The time",
+        "fr": "Le temps",
+        "it": "Il tempo",
+        "pt": "Horário",
+        "ru": "Временные",
+        "es": "Temporada",
+        "sv": "tidsbegränsning"
+    },
+    "Zeremoniell": {
+        "en": "Ceremony",
+        "fr": "Cérémonie",
+        "it": "Cerimonia",
+        "pt": "Cerimônia",
+        "ru": "Церемония",
+        "es": "ceremoniales",
+        "sv": "Ceremoniell"
+    },
+    "Zeitersparnis": {
+        "en": "time savings",
+        "fr": "économie du temps",
+        "it": "risparmio di tempo",
+        "pt": "poupança de tempo",
+        "ru": "Временная экономия",
+        "es": "ahorro de tiempo",
+        "sv": "Tidsbesparing"
+    },
+    "Zeitungsmeldung": {
+        "en": "Press Release",
+        "fr": "Message du journal",
+        "it": "Notizie giornaliere",
+        "pt": "Notícia do jornal",
+        "ru": "Новости газеты",
+        "es": "Noticias Periódicas",
+        "sv": "Tidning meddelande"
+    },
+    "Zeitgepräge": {
+        "en": "timelines",
+        "fr": "Les horaires",
+        "it": "Il calendario",
+        "pt": "Horário",
+        "ru": "Временные",
+        "es": "Horarios",
+        "sv": "Tidpunkter"
+    },
+    "Zeitschriftenillustration": {
+        "en": "Illustration of magazine",
+        "fr": "Illustration de magazines",
+        "it": "Illustrazione di riviste",
+        "pt": "Revista Ilustração",
+        "ru": "Илюстрация журнала",
+        "es": "Ilustración de revistas",
+        "sv": "Tidningar Illustration"
+    },
+    "Zeitlupentempo": {
+        "en": "time time time",
+        "fr": "Temps de perte",
+        "it": "Tempo di perdita",
+        "pt": "Tempo de luta",
+        "ru": "Временный темп",
+        "es": "Tempo de lujo",
+        "sv": "Tidlösa Tempo"
+    },
+    "Zeigerampel": {
+        "en": "Showing light",
+        "fr": "Affichage",
+        "it": "Visualizzazioni",
+        "pt": "mostrador",
+        "ru": "Показатель",
+        "es": "muñeca",
+        "sv": "Visar lampor"
+    },
+    "Zeitvorgabe": {
+        "en": "timing",
+        "fr": "Température",
+        "it": "Orario",
+        "pt": "Horário",
+        "ru": "Временное",
+        "es": "Horario",
+        "sv": "Tidsbestämning"
+    },
+    "Zeitrafferaufnahme": {
+        "en": "time trading",
+        "fr": "Comprendre le temps",
+        "it": "Il tempo di negoziazione",
+        "pt": "Comprar o tempo",
+        "ru": "Временная торговля",
+        "es": "La comprensión del tiempo",
+        "sv": "Tidsupptagning"
+    },
+    "Zeugniszensur": {
+        "en": "Certificate censorship",
+        "fr": "Le témoignage",
+        "it": "La censura dei testimoni",
+        "pt": "Testemunho de censura",
+        "ru": "Сертификат цензуры",
+        "es": "Censura de testigos",
+        "sv": "vittnesbörd"
+    },
+    "Zechenschornstein": {
+        "en": "The Characterstone",
+        "fr": "La pierre dessinée",
+        "it": "Sceneggiatura",
+        "pt": "Pedra de desenho",
+        "ru": "Каменный рисунок",
+        "es": "La piedra de dibujos",
+        "sv": "tecknad sten"
+    },
+    "Zechprellerei": {
+        "en": "by Zechprelleri",
+        "fr": "Téléchargement",
+        "it": "di Zechprelleria",
+        "pt": "Cadeira",
+        "ru": "Зачатое",
+        "es": "Zechprelleri",
+        "sv": "Tjeckprelleri"
+    },
+    "Zeugung": {
+        "en": "Forgiving",
+        "fr": "la donation",
+        "it": "La donazione",
+        "pt": "A doação",
+        "ru": "Семья",
+        "es": "La donación",
+        "sv": "födelse"
+    },
+    "Zehnkämpfer": {
+        "en": "The Ten Fighters",
+        "fr": "10 combattants",
+        "it": "Dieci combattenti",
+        "pt": "Dez lutadores",
+        "ru": "Десять боевиков",
+        "es": "Diez luchadores",
+        "sv": "Tio kämpar"
+    },
+    "Zeitungskommentar": {
+        "en": "The newspaper commentary",
+        "fr": "Journal commentaire",
+        "it": "Commenti giornalieri",
+        "pt": "Jornal Comentário",
+        "ru": "Комментарий газеты",
+        "es": "Periódico Comentario",
+        "sv": "Tidningskommentar"
+    },
+    "Zensurendurchschnitt": {
+        "en": "The censorship average",
+        "fr": "La moyenne de censure",
+        "it": "La media della censura",
+        "pt": "média de censura",
+        "ru": "Средняя цензура",
+        "es": "La media de censura",
+        "sv": "Genomsnittlig censur"
+    },
+    "Zentralverband": {
+        "en": "Central Union",
+        "fr": "Union centrale",
+        "it": "Unione Centrale",
+        "pt": "Associação Central",
+        "ru": "Центральный союз",
+        "es": "Asociación Central",
+        "sv": "Centralförbundet"
+    },
+    "Zettelchen": {
+        "en": "by Zettelchen",
+        "fr": "Télécharger",
+        "it": "Cittadini",
+        "pt": "Título",
+        "ru": "Записи",
+        "es": "Título",
+        "sv": "Tätning"
+    },
+    "Zelluloidball": {
+        "en": "cellulite ball",
+        "fr": "Ballon cellulaire",
+        "it": "Il celluloidball",
+        "pt": "Bola celulosa",
+        "ru": "Целлюлоидная мяч",
+        "es": "El balón celuloide",
+        "sv": "Zelluloidball"
+    },
+    "Zeitungseinwurf": {
+        "en": "The newspaper accusation",
+        "fr": "La presse accusée",
+        "it": "Il giornale accusato",
+        "pt": "Jornal de acusação",
+        "ru": "Журналистская жалоба",
+        "es": "Periódico reclamo",
+        "sv": "Tidningskällan"
+    },
+    "Zeugenbeeinflussung": {
+        "en": "influence of witnesses",
+        "fr": "L’influence des témoins",
+        "it": "influenza dei testimoni",
+        "pt": "influência de testemunhas",
+        "ru": "Влияние свидетелей",
+        "es": "Influencia de testigos",
+        "sv": "Bevisens inflytande"
+    },
+    "Zehntel": {
+        "en": "10th",
+        "fr": "Décennie",
+        "it": "decimale",
+        "pt": "Dezenas",
+        "ru": "Десять",
+        "es": "Decenio",
+        "sv": "Tionde"
+    },
+    "Cellospieler": {
+        "en": "The Cellospieler",
+        "fr": "Joueur sans cellule",
+        "it": "Il giocatore cellulare",
+        "pt": "Jogos celulares",
+        "ru": "Целлоигры",
+        "es": "Los celos",
+        "sv": "Cellospelare"
+    },
+    "Olympiavierte": {
+        "en": "Olympics",
+        "fr": "Olympique",
+        "it": "Olimpiadi",
+        "pt": "Olimpíadas",
+        "ru": "Олимпийские",
+        "es": "Olímpicos",
+        "sv": "Olympiska"
+    },
+    "Olympiamedaille": {
+        "en": "Olympic Medal",
+        "fr": "Médaille olympique",
+        "it": "Medaglia olimpica",
+        "pt": "Medalha Olímpica",
+        "ru": "Олимпийская медаль",
+        "es": "Medalla olímpica",
+        "sv": "Olympiska medaljer"
+    },
+    "Olympiasiegerin": {
+        "en": "Olympic winner",
+        "fr": "Champion olympique",
+        "it": "vincitore olimpico",
+        "pt": "campeão olímpico",
+        "ru": "Олимпийская",
+        "es": "Campeón Olímpico",
+        "sv": "Olympiska vinnare"
+    },
+    "Olympiakämpfer": {
+        "en": "Olympic fighters",
+        "fr": "combattants olympiques",
+        "it": "Olimpiadi combattenti",
+        "pt": "Campeões Olímpicos",
+        "ru": "Олимпийские бойцы",
+        "es": "Campeones Olímpicos",
+        "sv": "Olympiska kämpar"
+    },
+    "Telegraphenamt": {
+        "en": "The Telegraph Office",
+        "fr": "bureau de téléphonie",
+        "it": "ufficio telegrafico",
+        "pt": "Escritório de Telegrama",
+        "ru": "Телеграфная служба",
+        "es": "Oficina de Telegrafía",
+        "sv": "Telegrafbyrån"
+    },
+    "Testpilot": {
+        "en": "Test Pilot",
+        "fr": "pilote de test",
+        "it": "Il pilota di prova",
+        "pt": "Piloto de teste",
+        "ru": "Тест пилота",
+        "es": "Piloto de prueba",
+        "sv": "Testpilot"
+    },
+    "Teilstreckenkarte": {
+        "en": "Partly map",
+        "fr": "Carte partielle",
+        "it": "Mappa parziale",
+        "pt": "Cartão Parcial",
+        "ru": "Частная карта",
+        "es": "Mapa parcial",
+        "sv": "Delvägskort"
+    },
+    "Teestrauch": {
+        "en": "Theatre",
+        "fr": "Théâtre",
+        "it": "di Teestrauch",
+        "pt": "Teatrau",
+        "ru": "Театральный",
+        "es": "Teorías",
+        "sv": "Teoriska"
+    },
+    "Temperatursturz": {
+        "en": "The Temperature Storm",
+        "fr": "Température coupée",
+        "it": "Storia di temperatura",
+        "pt": "Tempestade de tempestade",
+        "ru": "Температурный бунт",
+        "es": "Temporada tormenta",
+        "sv": "Temperaturstörning"
+    },
+    "Textilwirtschaft": {
+        "en": "Textile Industry",
+        "fr": "Économie textile",
+        "it": "L'industria tessile",
+        "pt": "A indústria têxtil",
+        "ru": "текстильная промышленность",
+        "es": "Industria textil",
+        "sv": "Textilindustrin"
+    },
+    "Terminzahlung": {
+        "en": "Payment time",
+        "fr": "Paiement de date",
+        "it": "Pagamento terminale",
+        "pt": "Pagamento de horário",
+        "ru": "Срок оплаты",
+        "es": "Pagos terminales",
+        "sv": "Tidsbetalning"
+    },
+    "Tellerkrause": {
+        "en": "Tellercruise",
+        "fr": "Tellerkrause",
+        "it": "Tellercruzzo",
+        "pt": "Taça Cruzeiro",
+        "ru": "Талера Круза",
+        "es": "Tellercruza",
+        "sv": "Tellerkrus"
+    },
+    "Teilnehmerhauptanschluss": {
+        "en": "Participant connection",
+        "fr": "Accès participant",
+        "it": "Connessione partecipante",
+        "pt": "A ligação de participantes",
+        "ru": "УчастиеВключение",
+        "es": "Acceso Participante",
+        "sv": "Deltagarens anslutning"
+    },
+    "Teleologie": {
+        "en": "Teleology",
+        "fr": "Téléologie",
+        "it": "Teleologia",
+        "pt": "Teleologia",
+        "ru": "Телелогия",
+        "es": "Teleología",
+        "sv": "Teleologi"
+    },
+    "Tendenzdichtung": {
+        "en": "The tendency",
+        "fr": "la tendance",
+        "it": "Intensità di tendenza",
+        "pt": "Tendência",
+        "ru": "Тенденции",
+        "es": "La tendencia",
+        "sv": "Tendensförstärkning"
+    },
+    "Terrormaßnahme": {
+        "en": "Terrorist action",
+        "fr": "L’action terroriste",
+        "it": "azione terroristica",
+        "pt": "A ação terrorista",
+        "ru": "Терористическая акция",
+        "es": "La acción terrorista",
+        "sv": "Terroråtgärd"
+    },
+    "Telegraphenstange": {
+        "en": "The Telegraph",
+        "fr": "Télégramme",
+        "it": "Il telegrafo",
+        "pt": "Telegrama estágio",
+        "ru": "ТЕЛЕГРАФИКА",
+        "es": "Telegrafía",
+        "sv": "Telegrafstäng"
+    },
+    "Teilmobilisierung": {
+        "en": "Part Mobilization",
+        "fr": "Mobilisation partielle",
+        "it": "della mobilitazione parziale",
+        "pt": "Mobilização parcial",
+        "ru": "Частичная мобилизация",
+        "es": "movilización parcial",
+        "sv": "Delmobilisering"
+    },
+    "Teigmischmaschine": {
+        "en": "Measurement Machine",
+        "fr": "Machine de mélange",
+        "it": "macchina di taglio",
+        "pt": "Máquina de mistura",
+        "ru": "Таигмическая машина",
+        "es": "Máquina de mezcla",
+        "sv": "Mätmaskin"
+    },
+    "Textvergleich": {
+        "en": "The text comparison",
+        "fr": "Comparaison de texte",
+        "it": "Confronto di testo",
+        "pt": "Comparação de texto",
+        "ru": "Сравнение текста",
+        "es": "Comparación de texto",
+        "sv": "Text jämförelse"
+    },
+    "Teigschaber": {
+        "en": "The Teachers",
+        "fr": "Théâtre",
+        "it": "Taggato",
+        "pt": "Teigásbar",
+        "ru": "Таишар",
+        "es": "Teigábar",
+        "sv": "Tätare"
+    },
+    "Textaufgabe": {
+        "en": "Textwork",
+        "fr": "tâche textuelle",
+        "it": "compito di testo",
+        "pt": "tarefa de texto",
+        "ru": "Задача текста",
+        "es": "Tareas de texto",
+        "sv": "Textuppgift"
+    },
+    "Teufelei": {
+        "en": "The Devil",
+        "fr": "Le diable",
+        "it": "Il diavolo",
+        "pt": "Diabo",
+        "ru": "Дьявол",
+        "es": "El diablo",
+        "sv": "Djävulen"
+    },
+    "Tertiär": {
+        "en": "Tertiary",
+        "fr": "Tertiaire",
+        "it": "terziari",
+        "pt": "Terciário",
+        "ru": "Третий",
+        "es": "Terciario",
+        "sv": "Tertiär"
+    },
+    "Temperaturoptimum": {
+        "en": "Temperature optimum",
+        "fr": "Température optimale",
+        "it": "Temperatura ottimale",
+        "pt": "Temperatura óptima",
+        "ru": "Температурный оптимизм",
+        "es": "Temperatura óptima",
+        "sv": "Temperaturoptimum"
+    },
+    "Teiler": {
+        "en": "The share",
+        "fr": "partage",
+        "it": "Condividi",
+        "pt": "Partilhar",
+        "ru": "Дели",
+        "es": "Compartir",
+        "sv": "Delar"
+    },
+    "Terrassierung": {
+        "en": "Terrasion",
+        "fr": "Terrasseur",
+        "it": "Terrazzamento",
+        "pt": "Terrasão",
+        "ru": "Террация",
+        "es": "Terrasionamiento",
+        "sv": "Terrasserande"
+    },
+    "Testfahrt": {
+        "en": "Testing",
+        "fr": "Voyage Test",
+        "it": "Corso di prova",
+        "pt": "Teste de viagem",
+        "ru": "Тестный поход",
+        "es": "Corrida de prueba",
+        "sv": "Testflyg"
+    },
+    "Teilstück": {
+        "en": "Parts",
+        "fr": "Partie",
+        "it": "Parte parte",
+        "pt": "Parte",
+        "ru": "Часть",
+        "es": "Parte",
+        "sv": "Delar"
+    },
+    "Testamentserrichtung": {
+        "en": "The testament",
+        "fr": "L’orientation du testament",
+        "it": "L'orientamento del testamento",
+        "pt": "Orientação do testamento",
+        "ru": "завещание",
+        "es": "La orientación del testamento",
+        "sv": "Testamentets riktning"
+    },
+    "Textband": {
+        "en": "Text band",
+        "fr": "Bandes textes",
+        "it": "Band di testo",
+        "pt": "Banda de texto",
+        "ru": "Текстовая лента",
+        "es": "Bandas de texto",
+        "sv": "Textband"
+    },
+    "Testverbot": {
+        "en": "Test prohibition",
+        "fr": "Interdiction de test",
+        "it": "Proibizione di test",
+        "pt": "proibição de testes",
+        "ru": "Тест запрет",
+        "es": "Prohibición de prueba",
+        "sv": "Testförbud"
+    },
+    "Territorialität": {
+        "en": "Territoriality",
+        "fr": "territorialité",
+        "it": "Territorialità",
+        "pt": "Territorialidade",
+        "ru": "Территориальность",
+        "es": "Territorialidad",
+        "sv": "territorialitet"
+    },
+    "Tellerlecker": {
+        "en": "Tellerlecker",
+        "fr": "Télécharger",
+        "it": "Il Tellerlecker",
+        "pt": "O Tellerlecker",
+        "ru": "Таблица",
+        "es": "Tellerlecker",
+        "sv": "Tellerläckare"
+    },
+    "Telefonrechnung": {
+        "en": "Phone Accounting",
+        "fr": "La facture téléphonique",
+        "it": "La fattura telefonica",
+        "pt": "Conta telefônica",
+        "ru": "Телефонный счет",
+        "es": "La factura telefónica",
+        "sv": "Telefonräkning"
+    },
+    "Telegrammgebühr": {
+        "en": "telegram fee",
+        "fr": "Taxe de télégramme",
+        "it": "Le tasse di telegramma",
+        "pt": "Taxa de telegrama",
+        "ru": "Телеграммные сборы",
+        "es": "La tarifa de telegrama",
+        "sv": "Telegramavgift"
+    },
+    "Teufelskerl": {
+        "en": "The Devil",
+        "fr": "Le diable",
+        "it": "Il diavolo",
+        "pt": "O Diabo",
+        "ru": "Дьявольская",
+        "es": "El diablo",
+        "sv": "Djävulskärl"
+    },
+    "Tellermine": {
+        "en": "Tellermine",
+        "fr": "Tellermine",
+        "it": "Il Tellermine",
+        "pt": "Tellerminos",
+        "ru": "Толлермин",
+        "es": "Tellerminos",
+        "sv": "Tellermin"
+    },
+    "Testwahl": {
+        "en": "Test Selection",
+        "fr": "Choix de test",
+        "it": "selezione di test",
+        "pt": "Escolha de teste",
+        "ru": "Тестный выбор",
+        "es": "Elección de prueba",
+        "sv": "Testvalet"
+    },
+    "Telefonistin": {
+        "en": "The telephone",
+        "fr": "téléphonique",
+        "it": "telefonista",
+        "pt": "Telefônico",
+        "ru": "Телефонный",
+        "es": "Telefónica",
+        "sv": "Telefonsamtal"
+    },
+    "Tellerrad": {
+        "en": "Tellerrad",
+        "fr": "Tellerrad",
+        "it": "Tellerrad",
+        "pt": "Tellerraça",
+        "ru": "Тейлор",
+        "es": "Tellerrad",
+        "sv": "Tellerrad"
+    },
+    "Tenorbuffo": {
+        "en": "Tenorbuffo",
+        "fr": "Tenorbuffo",
+        "it": "Tenorbuffo",
+        "pt": "Tenorbuffo",
+        "ru": "Тенорбуффо",
+        "es": "Tenorbuffo",
+        "sv": "Tenorbuffo"
+    },
+    "Teiltext": {
+        "en": "Shared text",
+        "fr": "partagé",
+        "it": "Il testo condiviso",
+        "pt": "Compartilho",
+        "ru": "Споделенный текст",
+        "es": "Texto compartido",
+        "sv": "Delade texter"
+    },
+    "Telegraf": {
+        "en": "The Telegraph",
+        "fr": "Télégramme",
+        "it": "Il telegrafo",
+        "pt": "Telegrama",
+        "ru": "Телеграф",
+        "es": "Telegrafía",
+        "sv": "Telegraf"
+    },
+    "Textteil": {
+        "en": "Part of text",
+        "fr": "Texte partie",
+        "it": "parte del testo",
+        "pt": "Parte do texto",
+        "ru": "текстовая часть",
+        "es": "Texto parte",
+        "sv": "Textdelar"
+    },
+    "Terrororganisation": {
+        "en": "Terrorist organization",
+        "fr": "Organisation terroriste",
+        "it": "organizzazione terroristica",
+        "pt": "Organização Terrorista",
+        "ru": "террористическая организация",
+        "es": "Organización terrorista",
+        "sv": "Terrororganisation"
+    },
+    "Telefondraht": {
+        "en": "The telephone",
+        "fr": "téléphonie",
+        "it": "Il telefono",
+        "pt": "Telefoneira",
+        "ru": "Телефонный",
+        "es": "Telefónica",
+        "sv": "Telefonsamtal"
+    },
+    "Textfassung": {
+        "en": "Text collection",
+        "fr": "Texte recueillis",
+        "it": "La raccolta di testo",
+        "pt": "Texturação",
+        "ru": "Сбор текста",
+        "es": "Recogida de texto",
+        "sv": "Textförteckning"
+    },
+    "Terminologienormung": {
+        "en": "Terminological norms",
+        "fr": "normes terminologiques",
+        "it": "Norme terminologiche",
+        "pt": "Normas de Terminologia",
+        "ru": "Терминологические нормы",
+        "es": "Normas de terminología",
+        "sv": "Terminologiska normer"
+    },
+    "Terrassentreppe": {
+        "en": "The terrace",
+        "fr": "terrasses",
+        "it": "Terrazzo",
+        "pt": "terraço",
+        "ru": "Террасы",
+        "es": "Terrazas",
+        "sv": "Terrassläge"
+    },
+    "Teufelskirsche": {
+        "en": "The Devil Circle",
+        "fr": "Le diable",
+        "it": "Il diavolo",
+        "pt": "Círculo do Diabo",
+        "ru": "Дьяволская круга",
+        "es": "Círculo diabólico",
+        "sv": "Djävulskirke"
+    },
+    "Terminus": {
+        "en": "The Terminus",
+        "fr": "Terminus",
+        "it": "Il Terminus",
+        "pt": "Terminus",
+        "ru": "Термин",
+        "es": "Terminos",
+        "sv": "Terminus"
+    },
+    "Teilnahmslosigkeit": {
+        "en": "Unparticipation",
+        "fr": "Inparticipation",
+        "it": "Impartibilità",
+        "pt": "Participação",
+        "ru": "Неучастие",
+        "es": "Inparticipación",
+        "sv": "Udelaktighet"
+    },
+    "Terminverzögerung": {
+        "en": "Delayed time",
+        "fr": "retard de date",
+        "it": "Il ritardo del termine",
+        "pt": "atraso de prazo",
+        "ru": "Задержка срока",
+        "es": "Retraso de horario",
+        "sv": "Tidsförsening"
+    },
+    "Tennisschläger": {
+        "en": "The tennis player",
+        "fr": "Joueur de tennis",
+        "it": "giocatore di tennis",
+        "pt": "jogadores de tênis",
+        "ru": "теннисист",
+        "es": "Campeones de tenis",
+        "sv": "Tennisspelare"
+    },
+    "Terminänderung": {
+        "en": "Change of time",
+        "fr": "Changement de date",
+        "it": "Modifica del termine",
+        "pt": "Mudança de horário",
+        "ru": "Изменение срока",
+        "es": "Modificación de horario",
+        "sv": "Datumförändring"
+    },
+    "Teilnorm": {
+        "en": "Part norm",
+        "fr": "normes partielles",
+        "it": "Parziale Norma",
+        "pt": "Parte Norma",
+        "ru": "Частичная норма",
+        "es": "Normas parciales",
+        "sv": "delnormen"
+    },
+    "Temperatureinfluss": {
+        "en": "Temperature influence",
+        "fr": "Influence de température",
+        "it": "influenza della temperatura",
+        "pt": "Influência da temperatura",
+        "ru": "Влияние температуры",
+        "es": "Influencia de temperatura",
+        "sv": "Temperaturpåverkan"
+    },
+    "Telefonzentrale": {
+        "en": "The telephone center",
+        "fr": "Centre téléphonique",
+        "it": "Telefono Centrale",
+        "pt": "Centro de Telefone",
+        "ru": "Телефонный центр",
+        "es": "Centro de teléfono",
+        "sv": "Telefoncentral"
+    },
+    "Tee-Ernte": {
+        "en": "Tea harvest",
+        "fr": "Charbon de thé",
+        "it": "raccolta del tè",
+        "pt": "Colheita de chá",
+        "ru": "Тее урожай",
+        "es": "La cosecha del té",
+        "sv": "Te-grödor"
+    },
+    "Tertianer": {
+        "en": "Tertians",
+        "fr": "Tertiens",
+        "it": "Tertiani",
+        "pt": "Tertiã",
+        "ru": "Тертиан",
+        "es": "Tertián",
+        "sv": "Tertianska"
+    },
+    "Temperaturrückgang": {
+        "en": "Temperature decrease",
+        "fr": "Réduction de température",
+        "it": "Il declino della temperatura",
+        "pt": "Diminuição da temperatura",
+        "ru": "Температурный спад",
+        "es": "caída de temperatura",
+        "sv": "Temperaturnedgång"
+    },
+    "Jahresbestzeit": {
+        "en": "Annual time",
+        "fr": "Temps annuel",
+        "it": "Periodo annuale",
+        "pt": "Horário Anual",
+        "ru": "Годовой срок",
+        "es": "Periódico Anual",
+        "sv": "Årstid"
+    },
+    "Jahresausstellung": {
+        "en": "Annual Exhibition",
+        "fr": "Exposition Année",
+        "it": "Sviluppo annuale",
+        "pt": "Exposição Anual",
+        "ru": "Годовая выставка",
+        "es": "Exposición Anual",
+        "sv": "Årsutställning"
+    },
+    "lichtrot": {
+        "en": "light red",
+        "fr": "Lumière rouge",
+        "it": "Luce rosso",
+        "pt": "Luz vermelha",
+        "ru": "Светло-красный",
+        "es": "Luz roja",
+        "sv": "Ljusröd"
+    },
+    "linksgerichtet": {
+        "en": "Directed to left",
+        "fr": "gauche orientée",
+        "it": "Diretto a sinistra",
+        "pt": "direção esquerda",
+        "ru": "Левая направленность",
+        "es": "dirigido a la izquierda",
+        "sv": "vänsterriktad"
+    },
+    "lichtbeständig": {
+        "en": "light resistant",
+        "fr": "résistant à la lumière",
+        "it": "resistenza alla luce",
+        "pt": "Resistente à luz",
+        "ru": "светоустойчивый",
+        "es": "Resistente a la luz",
+        "sv": "ljusbeständig"
+    },
+    "lilienweiß": {
+        "en": "Lilly White",
+        "fr": "Lilium blanc",
+        "it": "Liliano bianco",
+        "pt": "Lilião branco",
+        "ru": "Лилия Белый",
+        "es": "Lilia Blanca",
+        "sv": "lilja vit"
+    },
+    "lichtundurchlässig": {
+        "en": "lightlessly",
+        "fr": "Lumière imprévisible",
+        "it": "Luce trasparente",
+        "pt": "Iluminação transparente",
+        "ru": "Свет непрозрачный",
+        "es": "Luz ininterrumpida",
+        "sv": "Ljusöverträffande"
+    },
+    "preußischblau": {
+        "en": "Prussian blue",
+        "fr": "Prussian bleu",
+        "it": "Prussiano blu",
+        "pt": "Prussiano Azul",
+        "ru": "Прусский синий",
+        "es": "Prusia Azul",
+        "sv": "Prussiska blå"
+    },
+    "privatbäuerlich": {
+        "en": "Private taxation",
+        "fr": "privée",
+        "it": "privato fiscale",
+        "pt": "Pessoal Fiscal",
+        "ru": "Приватный",
+        "es": "Fiscal privado",
+        "sv": "Privatbörs"
+    },
+    "lieb haben": {
+        "en": "have loves",
+        "fr": "Aimer avoir",
+        "it": "Avere amore",
+        "pt": "Tenho amor",
+        "ru": "Любить",
+        "es": "Tener amado",
+        "sv": "att älska"
+    },
+    "preschen": {
+        "en": "pressed",
+        "fr": "pressé",
+        "it": "Pressione",
+        "pt": "pressão",
+        "ru": "Пресс",
+        "es": "Presan",
+        "sv": "Pressa"
+    },
+    "Lichtfleck": {
+        "en": "light blade",
+        "fr": "Lumière flash",
+        "it": "Il fulmine luminoso",
+        "pt": "Iluminação",
+        "ru": "Светлое пятно",
+        "es": "Lámparas",
+        "sv": "Ljusfläck"
+    },
+    "Lichtgestalt": {
+        "en": "The lighting",
+        "fr": "Le style lumineux",
+        "it": "Illuminazione",
+        "pt": "Iluminação",
+        "ru": "Степень света",
+        "es": "Iluminación",
+        "sv": "Ljusformad"
+    },
+    "Literaturschaffen": {
+        "en": "Literature creation",
+        "fr": "La littérature",
+        "it": "Creazione letteraria",
+        "pt": "Criar literatura",
+        "ru": "Литературный",
+        "es": "La literatura",
+        "sv": "Författarskap"
+    },
+    "Liedersammlung": {
+        "en": "Song collection",
+        "fr": "Collection de chansons",
+        "it": "Collezione canzoni",
+        "pt": "coleção de canções",
+        "ru": "Песенная коллекция",
+        "es": "Colección de canciones",
+        "sv": "Låtesamling"
+    },
+    "Lieblingsaufenthalt": {
+        "en": "Favorite stay",
+        "fr": "Résidence préférée",
+        "it": "soggiorno preferito",
+        "pt": "Residência favorita",
+        "ru": "Любимый пребывание",
+        "es": "Alojamiento favorito",
+        "sv": "Favorit boende"
+    },
+    "Lieb": {
+        "en": "Love",
+        "fr": "amour",
+        "it": "amore",
+        "pt": "Amor",
+        "ru": "Любовь",
+        "es": "Amor",
+        "sv": "älska"
+    },
+    "Linksintellektuelle": {
+        "en": "Left Intellectual",
+        "fr": "Intellectuels de gauche",
+        "it": "Intellettuale di sinistra",
+        "pt": "Inteligência Esquerda",
+        "ru": "Левый интеллект",
+        "es": "Intelectuales de izquierda",
+        "sv": "Vänsterintellektuella"
+    },
+    "Liegehang": {
+        "en": "Liegehang",
+        "fr": "Lieux",
+        "it": "Il legno",
+        "pt": "Cabeça",
+        "ru": "Лежащий",
+        "es": "Cortesía",
+        "sv": "Längsäng"
+    },
+    "Lichtsignal": {
+        "en": "The light signal",
+        "fr": "Signal de lumière",
+        "it": "Il segnale",
+        "pt": "sinal de luz",
+        "ru": "Свет сигнала",
+        "es": "señales de luz",
+        "sv": "Ljus Signal"
+    },
+    "Lieblingsausdruck": {
+        "en": "Favorite expression",
+        "fr": "Expression préférée",
+        "it": "Espressione preferita",
+        "pt": "Expressão favorita",
+        "ru": "Любимые выражения",
+        "es": "Expresión favorita",
+        "sv": "Favorit uttryck"
+    },
+    "Linksabbieger": {
+        "en": "The left winner",
+        "fr": "gauche vainqueur",
+        "it": "Vincitore di sinistra",
+        "pt": "Vencedor da esquerda",
+        "ru": "Левые победители",
+        "es": "Vencedor izquierdo",
+        "sv": "vänstern vinnare"
+    },
+    "Linderung": {
+        "en": "Relief",
+        "fr": "Réduction",
+        "it": "alleviamento",
+        "pt": "alívio",
+        "ru": "облегчение",
+        "es": "alivio",
+        "sv": "lindring"
+    },
+    "Lindenholz": {
+        "en": "Lindenwood",
+        "fr": "Le bois de Linden",
+        "it": "Il Lindenholz",
+        "pt": "Árvore Linden",
+        "ru": "Линдинговый",
+        "es": "Lindenholz",
+        "sv": "Linden trä"
+    },
+    "Liederalbum": {
+        "en": "Song album",
+        "fr": "Album de chanson",
+        "it": "Album di canzoni",
+        "pt": "Álbum da Canção",
+        "ru": "песенный альбом",
+        "es": "Álbum de canciones",
+        "sv": "Låtaralbum"
+    },
+    "Liebestrank": {
+        "en": "Love Drink",
+        "fr": "La boisson amoureuse",
+        "it": "La bevanda amore",
+        "pt": "Água do Amor",
+        "ru": "Любовный напиток",
+        "es": "bebida de amor",
+        "sv": "Kärleksdryck"
+    },
+    "Lichteinstrahlung": {
+        "en": "Lighting",
+        "fr": "rayonnement lumineux",
+        "it": "illuminazione",
+        "pt": "Iluminação",
+        "ru": "Светлое излучение",
+        "es": "Iluminación",
+        "sv": "Ljusstrålning"
+    },
+    "Lichtintensität": {
+        "en": "The light intensity",
+        "fr": "Intensité de lumière",
+        "it": "Intensità di luce",
+        "pt": "Intensidade da luz",
+        "ru": "Интенсивность света",
+        "es": "Intensidad de luz",
+        "sv": "ljusintensitet"
+    },
+    "Liegenschaft": {
+        "en": "Legacy",
+        "fr": "Légation",
+        "it": "Leggenda",
+        "pt": "Legado",
+        "ru": "Легенда",
+        "es": "Legado",
+        "sv": "Legenden"
+    },
+    "Liebschaft": {
+        "en": "The Love",
+        "fr": "Amour",
+        "it": "L’amore",
+        "pt": "Amor",
+        "ru": "Любовь",
+        "es": "El amor",
+        "sv": "Kärlek"
+    },
+    "Liliputaner": {
+        "en": "Liliputan",
+        "fr": "Liliputane",
+        "it": "Liliputano",
+        "pt": "Líputanos",
+        "ru": "Лилипутан",
+        "es": "Lilipután",
+        "sv": "Liliputaner"
+    },
+    "Lichtminute": {
+        "en": "Light minutes",
+        "fr": "minute de lumière",
+        "it": "minuti di luce",
+        "pt": "Minutos de Luz",
+        "ru": "Минуты света",
+        "es": "Minutos de luz",
+        "sv": "Ljusminuter"
+    },
+    "Lichterbaum": {
+        "en": "Light tree",
+        "fr": "Lumière Arbre",
+        "it": "alberi di luce",
+        "pt": "Árvore de Luz",
+        "ru": "Светлое дерево",
+        "es": "árbol de luz",
+        "sv": "Ljusträd"
+    },
+    "Liebesgeständnis": {
+        "en": "The love agreement",
+        "fr": "Convention d'amour",
+        "it": "Accordo d'amore",
+        "pt": "Reconciliação de amor",
+        "ru": "Любовное согласие",
+        "es": "Reconciliación amorosa",
+        "sv": "Kärlekens överenskommelse"
+    },
+    "Liegesitz": {
+        "en": "seat",
+        "fr": "siège",
+        "it": "Sede",
+        "pt": "Sede",
+        "ru": "местоположение",
+        "es": "Sede",
+        "sv": "platser"
+    },
+    "Liturgie": {
+        "en": "Liturgy",
+        "fr": "La liturgie",
+        "it": "La liturgia",
+        "pt": "Liturgia",
+        "ru": "Литургия",
+        "es": "La liturgia",
+        "sv": "Liturgi"
+    },
+    "Lichtgeld": {
+        "en": "The light money",
+        "fr": "Lumière argent",
+        "it": "Il denaro luminoso",
+        "pt": "Luz do dinheiro",
+        "ru": "Светные деньги",
+        "es": "La luz de dinero",
+        "sv": "Ljuspengar"
+    },
+    "Litanei": {
+        "en": "Lithuania",
+        "fr": "Litani",
+        "it": "Lituania",
+        "pt": "Lituânia",
+        "ru": "Литании",
+        "es": "Lituania",
+        "sv": "Litauiska"
+    },
+    "Lichtempfindlichkeit": {
+        "en": "light sensitivity",
+        "fr": "Sensibilité à la lumière",
+        "it": "Sensibilità alla luce",
+        "pt": "Sensibilidade à luz",
+        "ru": "светочувствительность",
+        "es": "Sensibilidad a la luz",
+        "sv": "ljuskänslighet"
+    },
+    "Lichtatom": {
+        "en": "Light atoms",
+        "fr": "Lumière atomique",
+        "it": "atomi di luce",
+        "pt": "Átomos de Luz",
+        "ru": "Светлый атом",
+        "es": "Átomos de luz",
+        "sv": "Ljusatom"
+    },
+    "Liebestaumel": {
+        "en": "The Love",
+        "fr": "amoureux",
+        "it": "Il amore",
+        "pt": "amizade",
+        "ru": "Любовь",
+        "es": "amorestaumel",
+        "sv": "Kärlekstämpel"
+    },
+    "Linksliberalismus": {
+        "en": "Left Liberalism",
+        "fr": "Le libéralisme gauche",
+        "it": "Liberalismo di sinistra",
+        "pt": "Liberalismo de esquerda",
+        "ru": "Левый либерализм",
+        "es": "El liberalismo izquierdo",
+        "sv": "vänsterliberalism"
+    },
+    "Lieferwagen": {
+        "en": "Delivery car",
+        "fr": "Carreaux de livraison",
+        "it": "Carro di consegna",
+        "pt": "Carro de entrega",
+        "ru": "Доставка автомобиля",
+        "es": "Carros de suministro",
+        "sv": "Leveransbilar"
+    },
+    "Liebesfeuer": {
+        "en": "Fire of Love",
+        "fr": "feu d'amour",
+        "it": "Il fuoco dell'amore",
+        "pt": "Fogo de Amor",
+        "ru": "Огонь любви",
+        "es": "fuego de amor",
+        "sv": "Kärlekens eld"
+    },
+    "Liguster": {
+        "en": "Liguster",
+        "fr": "plus léger",
+        "it": "più leggera",
+        "pt": "mais ligado",
+        "ru": "Лигус",
+        "es": "más ligas",
+        "sv": "Ligtare"
+    },
+    "Produktionstechnik": {
+        "en": "Production technology",
+        "fr": "Technique de production",
+        "it": "Tecnologia di produzione",
+        "pt": "Tecnologia de Produção",
+        "ru": "Технологии производства",
+        "es": "Tecnología de producción",
+        "sv": "Produktionsteknik"
+    },
+    "Prüfungstermin": {
+        "en": "Examination Date",
+        "fr": "Date d'examen",
+        "it": "Data di ispezione",
+        "pt": "Data de exame",
+        "ru": "Срок проверки",
+        "es": "Fecha de examen",
+        "sv": "Prövningsdatum"
+    },
+    "Pression": {
+        "en": "Pressure",
+        "fr": "La pression",
+        "it": "pressione",
+        "pt": "pressão",
+        "ru": "давление",
+        "es": "Presión",
+        "sv": "tryck"
+    },
+    "Produktionslizenz": {
+        "en": "Production license",
+        "fr": "Licence de production",
+        "it": "Licenza di produzione",
+        "pt": "Licença de Produção",
+        "ru": "Лицензия на производство",
+        "es": "Licencia de producción",
+        "sv": "Tillverkningslicens"
+    },
+    "Profitunternehmen": {
+        "en": "Profit companies",
+        "fr": "Entreprises profitables",
+        "it": "imprese di profitto",
+        "pt": "Empresas de lucro",
+        "ru": "прибыльные компании",
+        "es": "Empresas de lucro",
+        "sv": "vinstföretag"
+    },
+    "Preisnachlass": {
+        "en": "Pricing discount",
+        "fr": "Réduction des prix",
+        "it": "Prezzo sconto",
+        "pt": "Redução de preços",
+        "ru": "Снижение цены",
+        "es": "Descuento de precios",
+        "sv": "Prisnedgång"
+    },
+    "Proviantsack": {
+        "en": "Proviantsack",
+        "fr": "Le sac proviant",
+        "it": "Il sacchetto",
+        "pt": "Caixa de provas",
+        "ru": "Провинциальная сумка",
+        "es": "El bolsillo",
+        "sv": "Provansack"
+    },
+    "Problemkomplex": {
+        "en": "The problem complex",
+        "fr": "Problème complexe",
+        "it": "Il complesso problematico",
+        "pt": "Complexo de problemas",
+        "ru": "Проблемный комплекс",
+        "es": "complejo de problemas",
+        "sv": "Problemkomplex"
+    },
+    "Prämisse": {
+        "en": "Prizes",
+        "fr": "Prémices",
+        "it": "premiati",
+        "pt": "Prêmio",
+        "ru": "Премия",
+        "es": "Premios",
+        "sv": "Priset"
+    },
+    "Produktionsumstellung": {
+        "en": "Transformation of production",
+        "fr": "Transformation de production",
+        "it": "La sostituzione della produzione",
+        "pt": "Transformação de produção",
+        "ru": "Преобразование производства",
+        "es": "Transformación de producción",
+        "sv": "Produktionsomvandling"
+    },
+    "Prinzessrock": {
+        "en": "Princess Rock",
+        "fr": "princesse rock",
+        "it": "La principessa rock",
+        "pt": "Princesa Rock",
+        "ru": "Принцесса Рок",
+        "es": "La princesa rock",
+        "sv": "Prinsessrock"
+    },
+    "Prüfungsbefund": {
+        "en": "Examination Results",
+        "fr": "Les résultats d'examen",
+        "it": "Documenti di ispezione",
+        "pt": "Resultados de exame",
+        "ru": "Экзаменационный документ",
+        "es": "Resultados de examen",
+        "sv": "Prövningsresultat"
+    },
+    "Preisherabsetzung": {
+        "en": "Pricing dismissal",
+        "fr": "Annulation de prix",
+        "it": "Primo annullamento",
+        "pt": "Abolição de preços",
+        "ru": "Преиздание",
+        "es": "Abstención de precios",
+        "sv": "Prissättning"
+    },
+    "Proseminar": {
+        "en": "Proseminar",
+        "fr": "Proséminaires",
+        "it": "Proseminar",
+        "pt": "Proseminário",
+        "ru": "Просеминар",
+        "es": "Proseminario",
+        "sv": "Proseminar"
+    },
+    "Prachteinband": {
+        "en": "Beautiful band",
+        "fr": "Bande magnifique",
+        "it": "bellissima band",
+        "pt": "Bandeira maravilhosa",
+        "ru": "Красивая связь",
+        "es": "hermosas bandas",
+        "sv": "Vackra band"
+    },
+    "Pressestenograf": {
+        "en": "Pressestographer",
+        "fr": "Testographe de presse",
+        "it": "Testografo stampa",
+        "pt": "Estenógrafo de imprensa",
+        "ru": "Прессэстограф",
+        "es": "Estenógrafo de prensa",
+        "sv": "Pressestograf"
+    },
+    "Pressestenograph": {
+        "en": "Pressestographs",
+        "fr": "Testographie de presse",
+        "it": "Estetografo stampa",
+        "pt": "Estenograma de imprensa",
+        "ru": "прессэстенография",
+        "es": "Estenografía de prensa",
+        "sv": "Pressestografier"
+    },
+    "Preisrichter": {
+        "en": "Prize Judges",
+        "fr": "Prémisseurs",
+        "it": "Il giudice",
+        "pt": "Prémio juiz",
+        "ru": "Премьеры",
+        "es": "Premios juzgados",
+        "sv": "Prissättare"
+    },
+    "Pressechef": {
+        "en": "Press Director",
+        "fr": "Chef de presse",
+        "it": "Direttore stampa",
+        "pt": "Chefe de imprensa",
+        "ru": "Пресс-секретарь",
+        "es": "Chefe de prensa",
+        "sv": "Presschef"
+    },
+    "Prachtmensch": {
+        "en": "Beautiful man",
+        "fr": "beauté",
+        "it": "meraviglioso uomo",
+        "pt": "homem maravilhoso",
+        "ru": "Красивый человек",
+        "es": "hermoso hombre",
+        "sv": "Vackra människa"
+    },
+    "Prosawerk": {
+        "en": "Prosawork",
+        "fr": "Prosaure",
+        "it": "Il prosa",
+        "pt": "Provação",
+        "ru": "Прозавод",
+        "es": "Prosaje",
+        "sv": "Prosaverk"
+    },
+    "Privateinkommen": {
+        "en": "Private income",
+        "fr": "revenus privés",
+        "it": "reddito privato",
+        "pt": "renda privada",
+        "ru": "частный доход",
+        "es": "ingresos privados",
+        "sv": "Privatinkomst"
+    },
+    "Prosaiker": {
+        "en": "The Prosaic",
+        "fr": "Prosaïque",
+        "it": "Il prosaico",
+        "pt": "Prosaico",
+        "ru": "Прозаики",
+        "es": "Prosaico",
+        "sv": "Prosaiker"
+    },
+    "Problemkreis": {
+        "en": "The problem circle",
+        "fr": "Circuit Problème",
+        "it": "Circolo del problema",
+        "pt": "Círculo de Problemas",
+        "ru": "Проблемный круг",
+        "es": "Círculo de Problemas",
+        "sv": "Problemskedjan"
+    },
+    "Priem": {
+        "en": "Priem",
+        "fr": "Prémie",
+        "it": "Primo",
+        "pt": "Prêmio",
+        "ru": "Прием",
+        "es": "Primera",
+        "sv": "Priem"
+    },
+    "Preisschraube": {
+        "en": "The price slope",
+        "fr": "Les prix scrapés",
+        "it": "Il prezzo scrovo",
+        "pt": "Custo de Preço",
+        "ru": "Скриншоты цены",
+        "es": "Esquema de precios",
+        "sv": "Prisskruv"
+    },
+    "Pressleder": {
+        "en": "Press Leader",
+        "fr": "Le chef de presse",
+        "it": "Direttore stampa",
+        "pt": "Leitor de imprensa",
+        "ru": "Пресс-пресс",
+        "es": "La prensa",
+        "sv": "Pressledare"
+    },
+    "Profoss": {
+        "en": "by Profoss",
+        "fr": "Professeur",
+        "it": "Il Profoss",
+        "pt": "Profoss",
+        "ru": "Профессора",
+        "es": "Profos",
+        "sv": "Profoss"
+    },
+    "Propellerschaden": {
+        "en": "The propelled damage",
+        "fr": "Les dommages propellés",
+        "it": "danni di propello",
+        "pt": "danos propulsivos",
+        "ru": "Повреждение проплета",
+        "es": "Los daños propellados",
+        "sv": "Propellskada"
+    },
+    "Probeaufführung": {
+        "en": "Testing",
+        "fr": "Épreuve",
+        "it": "Prova di esecuzione",
+        "pt": "Provação",
+        "ru": "испытание",
+        "es": "Experimentación",
+        "sv": "Provaföreställningar"
+    },
+    "Prahlerei": {
+        "en": "Pride",
+        "fr": "Précédent",
+        "it": "La splendida",
+        "pt": "Prazeria",
+        "ru": "Прелесть",
+        "es": "Pracería",
+        "sv": "förtjusning"
+    },
+    "Provinzialismus": {
+        "en": "The provincialism",
+        "fr": "Le provincialisme",
+        "it": "Il provinzialismo",
+        "pt": "Província",
+        "ru": "Провинциализм",
+        "es": "El Provincialismo",
+        "sv": "Provinsalism"
+    },
+    "Prädikatsnomen": {
+        "en": "Predicts",
+        "fr": "Prévisions",
+        "it": "Nomi di predicazione",
+        "pt": "Predições",
+        "ru": "Предсказания",
+        "es": "Nombre de predicción",
+        "sv": "fördomar"
+    },
+    "Promotionsverfahren": {
+        "en": "Promotion Procedure",
+        "fr": "Procédure de promotion",
+        "it": "Procedura di promozione",
+        "pt": "Processo de Promoção",
+        "ru": "Процедура промоции",
+        "es": "Procedimiento de Promoción",
+        "sv": "Promotionsförfaranden"
+    },
+    "Produktenbörse": {
+        "en": "Product Stock Exchange",
+        "fr": "Bourse de produits",
+        "it": "Borsa di prodotti",
+        "pt": "Bolsa de Produto",
+        "ru": "Продуктная биржа",
+        "es": "Bolsa de productos",
+        "sv": "Produktbörsen"
+    },
+    "Provianttasche": {
+        "en": "Proviant bag",
+        "fr": "sac provisoire",
+        "it": "La valigia provante",
+        "pt": "bolsa de provância",
+        "ru": "Провиантная сумка",
+        "es": "Bolsa de provisión",
+        "sv": "Provansväska"
+    },
+    "Preisgabe": {
+        "en": "Pricing",
+        "fr": "Récompense",
+        "it": "Prezzo",
+        "pt": "Preço",
+        "ru": "Преимущества",
+        "es": "Premios",
+        "sv": "Priset"
+    },
+    "Produktionsprofil": {
+        "en": "Production profile",
+        "fr": "Profil de production",
+        "it": "Profilo di produzione",
+        "pt": "perfil de produção",
+        "ru": "Профиль производства",
+        "es": "El perfil de producción",
+        "sv": "Produktionsprofil"
+    },
+    "Prüfungsergebnis": {
+        "en": "Results of examination",
+        "fr": "Résultats de l'examen",
+        "it": "Risultati dell'esame",
+        "pt": "Resultados do exame",
+        "ru": "Результаты обследования",
+        "es": "Resultados del examen",
+        "sv": "Testresultatet"
+    },
+    "Prunkdecke": {
+        "en": "Prunked",
+        "fr": "Précédent",
+        "it": "Prunkdecke",
+        "pt": "Cabeça",
+        "ru": "Принцесса",
+        "es": "Prunkdecke",
+        "sv": "Prunkdäck"
+    },
+    "Privatbank": {
+        "en": "Private Bank",
+        "fr": "Banque privée",
+        "it": "Banca privata",
+        "pt": "Banco privado",
+        "ru": "частный банк",
+        "es": "Banco privado",
+        "sv": "Privatbank"
+    },
+    "Prämienvereinbarung": {
+        "en": "Prize Agreement",
+        "fr": "Accord de récompense",
+        "it": "Accordo di premi",
+        "pt": "Acordo de Prêmio",
+        "ru": "Соглашение о премии",
+        "es": "Acuerdo de premios",
+        "sv": "Belöningsavtal"
+    },
+    "Problembehandlung": {
+        "en": "Problem Treatment",
+        "fr": "Traitement du problème",
+        "it": "Problema di trattamento",
+        "pt": "Problema de tratamento",
+        "ru": "Проблемное лечение",
+        "es": "Tratamiento de problemas",
+        "sv": "Problembehandlingen"
+    },
+    "Privatarzt": {
+        "en": "The Private Doctor",
+        "fr": "Médecin privé",
+        "it": "medico privato",
+        "pt": "Médico privado",
+        "ru": "частный врач",
+        "es": "médico privado",
+        "sv": "Privatläkare"
+    },
+    "Prüfungsprotokoll": {
+        "en": "The examination protocol",
+        "fr": "Protocole d'examen",
+        "it": "Il protocollo di ispezione",
+        "pt": "Protocolo de exame",
+        "ru": "Протокол проверки",
+        "es": "Protocolo de examen",
+        "sv": "Prövningsprotokoll"
+    },
+    "Profileisen": {
+        "en": "Profiles",
+        "fr": "Profiles",
+        "it": "profili",
+        "pt": "Profissionais",
+        "ru": "Профиль",
+        "es": "Profiles",
+        "sv": "Profilering"
+    },
+    "Prosaschriftsteller": {
+        "en": "Prosecutor",
+        "fr": "Procédateur",
+        "it": "Procuratore",
+        "pt": "Produtores",
+        "ru": "Прозапись",
+        "es": "Procesores",
+        "sv": "Författare"
+    },
+    "Produktionsergebnis": {
+        "en": "Production results",
+        "fr": "Résultat de production",
+        "it": "Risultati di produzione",
+        "pt": "Resultados de produção",
+        "ru": "Результат производства",
+        "es": "Resultado de producción",
+        "sv": "Produktionsresultat"
+    },
+    "Prunkraum": {
+        "en": "Prunkroom",
+        "fr": "Précédent",
+        "it": "Prunno",
+        "pt": "Pronúncia",
+        "ru": "Проклятие",
+        "es": "Pronóstico",
+        "sv": "Prunkrummet"
+    },
+    "Preismanipulation": {
+        "en": "Price manipulation",
+        "fr": "Manipulation des prix",
+        "it": "Manipolazione dei prezzi",
+        "pt": "Manipulação de preços",
+        "ru": "Ценовая манипуляция",
+        "es": "Manipulación de precios",
+        "sv": "Prismanipulation"
+    },
+    "Preisgarantie": {
+        "en": "Price guarantee",
+        "fr": "Garantie prix",
+        "it": "Garanzia prezzo",
+        "pt": "Garantia de preço",
+        "ru": "Гарантия цены",
+        "es": "Garantía de precio",
+        "sv": "prisgaranti"
+    },
+    "Propagandatrommel": {
+        "en": "The Propaganda",
+        "fr": "La propagande",
+        "it": "Il trampolino di propaganda",
+        "pt": "A bomba de propaganda",
+        "ru": "Пропагандистская бомба",
+        "es": "Campaña de propaganda",
+        "sv": "Propagandamöte"
+    },
+    "Preisgefüge": {
+        "en": "Pricing",
+        "fr": "Prévisions",
+        "it": "preziosi",
+        "pt": "preços",
+        "ru": "Ценовые знаки",
+        "es": "Preciosas",
+        "sv": "Prissättningar"
+    },
+    "Primus inter Pares": {
+        "en": "The Primus Inter Pares",
+        "fr": "Primus entre les couples",
+        "it": "Primus inter parenti",
+        "pt": "Prêmio Inter Pares",
+        "ru": "PRIMUS INTER PARES",
+        "es": "Primus entre parejas",
+        "sv": "Primus mellan par"
+    },
+    "Proviantmeister": {
+        "en": "Proviant Master",
+        "fr": "Maître provisoire",
+        "it": "Maestro provvisorio",
+        "pt": "Proviante mestrado",
+        "ru": "Провиант",
+        "es": "Proviante campeón",
+        "sv": "provinsmästare"
+    },
+    "Presseecho": {
+        "en": "by Presseecho",
+        "fr": "Pressecho",
+        "it": "Il Presseecho",
+        "pt": "Pressexo",
+        "ru": "Прессэхо",
+        "es": "Presseecho",
+        "sv": "Pressecho"
+    },
+    "Privatanstalt": {
+        "en": "Private offices",
+        "fr": "bureau privé",
+        "it": "Dipartimento privato",
+        "pt": "Escritório privado",
+        "ru": "Приватный",
+        "es": "Instalación privada",
+        "sv": "privaträtt"
+    },
+    "buchtenreich": {
+        "en": "The book",
+        "fr": "Règne",
+        "it": "Il regno",
+        "pt": "Resenha",
+        "ru": "Бюджетный",
+        "es": "Buen Reino",
+        "sv": "Boende riket"
+    },
+    "buntgeflammt": {
+        "en": "The flame",
+        "fr": "coloré flammé",
+        "it": "Il fuoco",
+        "pt": "Fogo colorido",
+        "ru": "Огненный",
+        "es": "Coloreado",
+        "sv": "Färgbränd"
+    },
+    "bündisch": {
+        "en": "Allied",
+        "fr": "Alliés",
+        "it": "congiunto",
+        "pt": "aliado",
+        "ru": "альянс",
+        "es": "aliado",
+        "sv": "Förbunden"
+    },
+    "buntbebändert": {
+        "en": "colour change",
+        "fr": "Couleur changé",
+        "it": "Il colore cambia",
+        "pt": "cor mudou",
+        "ru": "цвет меняется",
+        "es": "El color cambia",
+        "sv": "Färgförändring"
+    },
+    "buchhalterisch": {
+        "en": "The bookhalter",
+        "fr": "librairie",
+        "it": "Librario",
+        "pt": "Escritório",
+        "ru": "Бухгалтерский",
+        "es": "Librería",
+        "sv": "bokhältar"
+    },
+    "plebiszitär": {
+        "en": "plebistry",
+        "fr": "plebisciteur",
+        "it": "plebicità",
+        "pt": "plebiscitário",
+        "ru": "Плебистит",
+        "es": "plebiscita",
+        "sv": "plebistiska"
+    },
+    "plattdeutsch": {
+        "en": "Plate German",
+        "fr": "Plateau allemand",
+        "it": "Piatto tedesco",
+        "pt": "Plato alemão",
+        "ru": "Платный немецкий",
+        "es": "Plato alemán",
+        "sv": "Platt tyska"
+    },
+    "bündeln": {
+        "en": "binding",
+        "fr": "Liens",
+        "it": "Uniti",
+        "pt": "Ligação",
+        "ru": "Соединение",
+        "es": "Unidas",
+        "sv": "Förenade"
+    },
+    "bürsten": {
+        "en": "byst",
+        "fr": "Bourses",
+        "it": "La borsa",
+        "pt": "Caminhos",
+        "ru": "Бюро",
+        "es": "Cortesía",
+        "sv": "Brösten"
+    },
+    "platt walzen": {
+        "en": "Plate of Walzen",
+        "fr": "Plate de Walzen",
+        "it": "Piatto Walzen",
+        "pt": "Plato de Walzen",
+        "ru": "Платт Валзен",
+        "es": "Plato de Walzen",
+        "sv": "Platt Walzen"
+    },
+    "plappern": {
+        "en": "Plapped",
+        "fr": "Plapper",
+        "it": "Il tappeto",
+        "pt": "Plapperão",
+        "ru": "Плапперы",
+        "es": "Plástico",
+        "sv": "Plapperna"
+    },
+    "Bundesfürst": {
+        "en": "Federal Prince",
+        "fr": "Prêtre fédéral",
+        "it": "Principe federale",
+        "pt": "Príncipe Federal",
+        "ru": "Федеральный князь",
+        "es": "El príncipe federal",
+        "sv": "Förbundspräst"
+    },
+    "Buschwald": {
+        "en": "by Buschwald",
+        "fr": "Buschwald",
+        "it": "di Buschwald",
+        "pt": "Busquete",
+        "ru": "Бушвальд",
+        "es": "Buscado",
+        "sv": "Bussväld"
+    },
+    "Budenreihe": {
+        "en": "The Buddhist",
+        "fr": "Boutique",
+        "it": "La serie",
+        "pt": "Série Buda",
+        "ru": "Будинок",
+        "es": "La serie",
+        "sv": "Budenriktning"
+    },
+    "Bundestagsdebatte": {
+        "en": "Bundestag debate",
+        "fr": "Débat du Bundestag",
+        "it": "dibattito del Bundestag",
+        "pt": "Debate do Bundestag",
+        "ru": "Дебаты в Бундестаге",
+        "es": "Debate del Bundestag",
+        "sv": "Bundestagsdebatt"
+    },
+    "Buchform": {
+        "en": "Book form",
+        "fr": "La forme du livre",
+        "it": "La forma del libro",
+        "pt": "Livro forma",
+        "ru": "Книжная форма",
+        "es": "La forma del libro",
+        "sv": "Bokform"
+    },
+    "Bücheretagere": {
+        "en": "bookmakers",
+        "fr": "Libraire",
+        "it": "librerie",
+        "pt": "Escritores",
+        "ru": "Книжник",
+        "es": "Librería",
+        "sv": "Bokförare"
+    },
+    "Bugwelle": {
+        "en": "by Bugwelle",
+        "fr": "Le bugwelle",
+        "it": "di Bugwelle",
+        "pt": "Bugwelle",
+        "ru": "Бугвель",
+        "es": "BUGWELL",
+        "sv": "BUGWELL"
+    },
+    "Buchschatz": {
+        "en": "book treasury",
+        "fr": "Livraison",
+        "it": "Il Libro",
+        "pt": "Escritório",
+        "ru": "Бухгалтерский",
+        "es": "Librería",
+        "sv": "bokhyllan"
+    },
+    "Büffelleder": {
+        "en": "by Buffalo",
+        "fr": "buffet",
+        "it": "Buffelleder",
+        "pt": "Buffet",
+        "ru": "Буффель",
+        "es": "Buffet",
+        "sv": "Buffelleder"
+    },
+    "Bündel": {
+        "en": "Bündel",
+        "fr": "Bandeur",
+        "it": "Il Bundel",
+        "pt": "Bandeira",
+        "ru": "Бунт",
+        "es": "Unidad",
+        "sv": "Bündel"
+    },
+    "Bügler": {
+        "en": "The Bugler",
+        "fr": "Bûleur",
+        "it": "Il bullismo",
+        "pt": "Bandeira",
+        "ru": "Бугареты",
+        "es": "Bujero",
+        "sv": "Böjare"
+    },
+    "Büßergewand": {
+        "en": "The walls",
+        "fr": "Le boîtier",
+        "it": "Cappuccetto",
+        "pt": "Cinturão",
+        "ru": "Бухгалтерская стена",
+        "es": "Cortesía",
+        "sv": "bokstäver"
+    },
+    "Bühnenpraxis": {
+        "en": "stage practice",
+        "fr": "La pratique de scène",
+        "it": "La pratica dello spettacolo",
+        "pt": "A prática do palco",
+        "ru": "Сценальная практика",
+        "es": "Prácticas de escenario",
+        "sv": "Skådespelpraktik"
+    },
+    "Bücherstoß": {
+        "en": "The bookbreaking",
+        "fr": "Les livres",
+        "it": "Il libro",
+        "pt": "Escritório",
+        "ru": "Книжковая",
+        "es": "Librería",
+        "sv": "Böckerna"
+    },
+    "Buschmesser": {
+        "en": "Buschmesser",
+        "fr": "Buschmesser",
+        "it": "Buschmesser",
+        "pt": "Buscas",
+        "ru": "Бушместер",
+        "es": "Buscado",
+        "sv": "Buschmäsare"
+    },
+    "Bußpsalm": {
+        "en": "Punishment",
+        "fr": "Le pessimisme",
+        "it": "Il castigo",
+        "pt": "O castigo",
+        "ru": "Проклятие",
+        "es": "El castigo",
+        "sv": "Förbannelse"
+    },
+    "Bundesgerichtshof": {
+        "en": "Federal Court of Justice",
+        "fr": "Tribunal fédéral",
+        "it": "Tribunale federale",
+        "pt": "Tribunal Federal",
+        "ru": "Федеральный суд",
+        "es": "Tribunal Federal",
+        "sv": "Förbundsdomstolen"
+    },
+    "Bundesbruder": {
+        "en": "The Federal Brother",
+        "fr": "Frère fédéral",
+        "it": "Fratello federale",
+        "pt": "irmão federal",
+        "ru": "Федеральный брат",
+        "es": "hermano federal",
+        "sv": "Förbundsbröder"
+    },
+    "Büchsenmacher": {
+        "en": "Bookmaker",
+        "fr": "Boîtesmacher",
+        "it": "librerie",
+        "pt": "Escreveiro",
+        "ru": "Книжник",
+        "es": "Librería",
+        "sv": "Bokmästare"
+    },
+    "Budgetentwurf": {
+        "en": "The budget plan",
+        "fr": "Projet budgétaire",
+        "it": "Il progetto di bilancio",
+        "pt": "Projeto de Orçamento",
+        "ru": "Проект бюджета",
+        "es": "Proyecto de presupuesto",
+        "sv": "Budgetförslag"
+    },
+    "Bullenhitze": {
+        "en": "Bullen Heat",
+        "fr": "Bullen chaud",
+        "it": "caldo bollino",
+        "pt": "O calor da bolha",
+        "ru": "Горячая бульон",
+        "es": "Calentamiento de bolas",
+        "sv": "Buller värme"
+    },
+    "Burgfrieden": {
+        "en": "The Burg Peace",
+        "fr": "Paix de Burgos",
+        "it": "Città di pace",
+        "pt": "Cidade da Paz",
+        "ru": "Замок мира",
+        "es": "Cuerpo de Paz",
+        "sv": "Burgfrihet"
+    },
+    "Bücherleidenschaft": {
+        "en": "The Book Passion",
+        "fr": "La passion du livre",
+        "it": "La passione del libro",
+        "pt": "A paixão do livro",
+        "ru": "Книжная страсть",
+        "es": "La pasión del libro",
+        "sv": "Böckernas passion"
+    },
+    "Buchleidenschaft": {
+        "en": "The book passion",
+        "fr": "La passion du livre",
+        "it": "La passione del libro",
+        "pt": "A paixão do livro",
+        "ru": "Любовь к книге",
+        "es": "La pasión del libro",
+        "sv": "Bokkänslor"
+    },
+    "Busfahrt": {
+        "en": "Bus travel",
+        "fr": "Voyage bus",
+        "it": "Il bus",
+        "pt": "ônibus",
+        "ru": "Автобус",
+        "es": "El autobús",
+        "sv": "Bussresa"
+    },
+    "Bürstenbad": {
+        "en": "Bathroom",
+        "fr": "Bâtiment Bâtiment",
+        "it": "bagno di borsa",
+        "pt": "Banheiros",
+        "ru": "Бустянская ванна",
+        "es": "Baño de baño",
+        "sv": "Bröstbad"
+    },
+    "Bühnenkunst": {
+        "en": "The stage art",
+        "fr": "Art scénariste",
+        "it": "Arte dello spettacolo",
+        "pt": "Arte do palco",
+        "ru": "Сценальное искусство",
+        "es": "Arte de escena",
+        "sv": "Skådespel konst"
+    },
+    "Bürokratismus": {
+        "en": "Bureaucratism",
+        "fr": "Le bureaucratie",
+        "it": "Il burocratismo",
+        "pt": "O burocracia",
+        "ru": "бюрократия",
+        "es": "El burocracia",
+        "sv": "byråkratism"
+    },
+    "Buchstabenrechnung": {
+        "en": "The letter accounting",
+        "fr": "Les lettres",
+        "it": "La scrittura",
+        "pt": "Contabilidade de letras",
+        "ru": "Бухгалтерский счет",
+        "es": "Contabilidad letra",
+        "sv": "bokstäverna"
+    },
+    "Bürgertum": {
+        "en": "citizenship",
+        "fr": "Citoyenneté",
+        "it": "cittadinanza",
+        "pt": "Cidadania",
+        "ru": "Гражданство",
+        "es": "Ciudadanía",
+        "sv": "medborgarskap"
+    },
+    "Bundesbürger": {
+        "en": "Federal citizens",
+        "fr": "citoyen fédéral",
+        "it": "Cittadini federali",
+        "pt": "cidadão federal",
+        "ru": "Федеральный гражданин",
+        "es": "ciudadano federal",
+        "sv": "federala medborgare"
+    },
+    "Bummeligkeit": {
+        "en": "The Bummelity",
+        "fr": "Bummelité",
+        "it": "Bomba",
+        "pt": "Bombação",
+        "ru": "Бумминг",
+        "es": "Bomberos",
+        "sv": "Bummelighet"
+    },
+    "Buchenlaub": {
+        "en": "Book holiday",
+        "fr": "librairie",
+        "it": "Libretta",
+        "pt": "Livro de férias",
+        "ru": "Книжный отпуск",
+        "es": "Libro de vacaciones",
+        "sv": "Bokhyllan"
+    },
+    "Bühnenschau": {
+        "en": "The show",
+        "fr": "Affichage",
+        "it": "Spettacolo",
+        "pt": "Exibição",
+        "ru": "Показать",
+        "es": "Espectáculo",
+        "sv": "Skådespelare"
+    },
+    "Buckelei": {
+        "en": "Buckelei",
+        "fr": "Buckelei",
+        "it": "Buckelei",
+        "pt": "Buckelei",
+        "ru": "Буккели",
+        "es": "Buckelei",
+        "sv": "Buckelei"
+    },
+    "Büfettaufsatz": {
+        "en": "The buffet",
+        "fr": "Le buffet",
+        "it": "Il buffet",
+        "pt": "Acesso de buffet",
+        "ru": "Буфетный приток",
+        "es": "Apuesto de buffet",
+        "sv": "Buffertillskott"
+    },
+    "Bücherfabrikant": {
+        "en": "Book Manufacturers",
+        "fr": "Fabricant de livres",
+        "it": "produttore di libri",
+        "pt": "Fabricante de livros",
+        "ru": "Производитель книг",
+        "es": "Fabricante de libros",
+        "sv": "Boktillverkare"
+    },
+    "Bühnenprobe": {
+        "en": "The stage test",
+        "fr": "Épreuve de scène",
+        "it": "Prova di scena",
+        "pt": "A prova do palco",
+        "ru": "На сцене испытания",
+        "es": "Prueba de escena",
+        "sv": "Skådespel"
+    },
+    "Burgkeller": {
+        "en": "by Burgkeller",
+        "fr": "Burgkeller",
+        "it": "di Burgkeller",
+        "pt": "Burgkeller",
+        "ru": "Burgkeller",
+        "es": "Burgkeller",
+        "sv": "Burgkeller"
+    },
+    "Büchermagazin": {
+        "en": "Book magazine",
+        "fr": "La revue de livres",
+        "it": "La rivista di libri",
+        "pt": "Revista Livros",
+        "ru": "Книжный журнал",
+        "es": "Revista Libros",
+        "sv": "Bokmagasin"
+    },
+    "Burgberg": {
+        "en": "by Burgberg",
+        "fr": "à Burgberg",
+        "it": "di Burgberg",
+        "pt": "em Burgberg",
+        "ru": "Бургберг",
+        "es": "Burgas",
+        "sv": "Burgberg"
+    },
+    "Büchermappe": {
+        "en": "Bookmap",
+        "fr": "Carte du livre",
+        "it": "Mappa del libro",
+        "pt": "Livro Mapas",
+        "ru": "Книжная карта",
+        "es": "Mapa de Libros",
+        "sv": "Bokmapp"
+    },
+    "Buchmappe": {
+        "en": "Bookmap",
+        "fr": "Carte du livre",
+        "it": "Libro mappa",
+        "pt": "Livro Mapas",
+        "ru": "Книжная карта",
+        "es": "Libro Mapas",
+        "sv": "Bokmapp"
+    },
+    "Busennadel": {
+        "en": "The bus",
+        "fr": "Les bus",
+        "it": "Il bus",
+        "pt": "ônibus",
+        "ru": "Автобусы",
+        "es": "Autobús",
+        "sv": "Bussanläggning"
+    },
+    "Bumskneipe": {
+        "en": "by Bumskneipe",
+        "fr": "Boumets",
+        "it": "Cappuccetto",
+        "pt": "Bombeiro",
+        "ru": "Бумскнейп",
+        "es": "Bumskneipe",
+        "sv": "Bumskneipe"
+    },
+    "Bußgesang": {
+        "en": "Punishment",
+        "fr": "chanté",
+        "it": "Il castigo",
+        "pt": "Cântico",
+        "ru": "штрафная песня",
+        "es": "Cantaje",
+        "sv": "straffande"
+    },
+    "Büchsenknall": {
+        "en": "The Book Knall",
+        "fr": "Le boîtier",
+        "it": "La scatola",
+        "pt": "Escritório",
+        "ru": "Книжковая ночь",
+        "es": "Escritura",
+        "sv": "Böckerna Knall"
+    },
+    "Bücherrevision": {
+        "en": "Book Review",
+        "fr": "Révision du livre",
+        "it": "La revisione del libro",
+        "pt": "Revisão de Livros",
+        "ru": "Книжная ревизия",
+        "es": "Revisión de libros",
+        "sv": "Bokrevision"
+    },
+    "Buchdecke": {
+        "en": "Book Deck",
+        "fr": "Livraison",
+        "it": "Libretto",
+        "pt": "Escritório",
+        "ru": "Книжник",
+        "es": "Librería",
+        "sv": "Bokdäck"
+    },
+    "Bundespost": {
+        "en": "Bundespost",
+        "fr": "Bundespost",
+        "it": "Il Bundespost",
+        "pt": "Bundespost",
+        "ru": "Bundespost",
+        "es": "Bundespost",
+        "sv": "Bundespost"
+    },
+    "Bubi": {
+        "en": "Bubi",
+        "fr": "Bubi",
+        "it": "Bubi",
+        "pt": "Bubi",
+        "ru": "Буби",
+        "es": "Bubi",
+        "sv": "Bubi"
+    },
+    "Buschklepper": {
+        "en": "by Buschklepper",
+        "fr": "Buschklepper",
+        "it": "Cappuccetto",
+        "pt": "Buscador",
+        "ru": "Бушклаппер",
+        "es": "Buscador",
+        "sv": "Buschklipper"
+    },
+    "Butterstreusel": {
+        "en": "The Butterstreusel",
+        "fr": "Butterstreusel",
+        "it": "Striscia di Butter",
+        "pt": "Masteirão",
+        "ru": "Масло Стреус",
+        "es": "La mantequilla",
+        "sv": "Butterströja"
+    },
+    "Buchhülle": {
+        "en": "bookhole",
+        "fr": "Le Livre",
+        "it": "Il Libro",
+        "pt": "Livros",
+        "ru": "Книжник",
+        "es": "Librería",
+        "sv": "Bokhyllan"
+    },
+    "Buchfolge": {
+        "en": "Book follows",
+        "fr": "Livre suivi",
+        "it": "Il libro successivo",
+        "pt": "Livro Sucesso",
+        "ru": "Книгопоследие",
+        "es": "Siguiente libro",
+        "sv": "Boken följer"
+    },
+    "Buchecker": {
+        "en": "bookecker",
+        "fr": "Bookecker",
+        "it": "Il bookecker",
+        "pt": "Bookecker",
+        "ru": "Bookecker",
+        "es": "Librería",
+        "sv": "Bookecker"
+    },
+    "Butterklumpen": {
+        "en": "Butter clamps",
+        "fr": "Butter clumps",
+        "it": "Butter clumpi",
+        "pt": "Bolo de manteiga",
+        "ru": "Кукуруза",
+        "es": "mantequilla",
+        "sv": "Butterklumpar"
+    },
+    "Buchwissen": {
+        "en": "Book knowledge",
+        "fr": "Le savoir-faire",
+        "it": "conoscenza del libro",
+        "pt": "conhecimento do livro",
+        "ru": "Книжный знание",
+        "es": "Libros conocimientos",
+        "sv": "Bokkunskap"
+    },
+    "Bühnenerfolg": {
+        "en": "Scene Success",
+        "fr": "Scène Succès",
+        "it": "Sceneggiatura di successo",
+        "pt": "Sucesso da cena",
+        "ru": "Успех на сцене",
+        "es": "Escena de éxito",
+        "sv": "Scenen framgång"
+    },
+    "Butterbirne": {
+        "en": "Butterbirn",
+        "fr": "Le Butterbirne",
+        "it": "Il Butterbirne",
+        "pt": "A manteiga",
+        "ru": "Butterbirne",
+        "es": "mantequilla",
+        "sv": "Butterbär"
+    },
+    "Bügelzimmer": {
+        "en": "Bowl Room",
+        "fr": "Chambre boulanger",
+        "it": "La stanza",
+        "pt": "Sala de bolas",
+        "ru": "Бугальная комната",
+        "es": "Habitación de bolas",
+        "sv": "Huvudrum"
+    },
+    "Büchsenöffner": {
+        "en": "book opening",
+        "fr": "Boîtes ouvertes",
+        "it": "Libri di apertura",
+        "pt": "Abertura de livros",
+        "ru": "Книжное открытие",
+        "es": "Libro abierto",
+        "sv": "Boköppnare"
+    },
+    "Buchenmast": {
+        "en": "bookmast",
+        "fr": "Le BookMast",
+        "it": "Il BookMast",
+        "pt": "BookMast",
+        "ru": "BookMast",
+        "es": "Buchenmast",
+        "sv": "Bokmast"
+    },
+    "Planstelle": {
+        "en": "Planning",
+        "fr": "Planifice",
+        "it": "Pianificazione",
+        "pt": "Planejamento",
+        "ru": "Планирование",
+        "es": "Planificación",
+        "sv": "Planställning"
+    },
+    "Plünderer": {
+        "en": "The plunder",
+        "fr": "Plongeur",
+        "it": "Il Plutone",
+        "pt": "Plutão",
+        "ru": "пленник",
+        "es": "Plutón",
+        "sv": "Plundrar"
+    },
+    "Plagegeist": {
+        "en": "Plagiarism",
+        "fr": "Plagiatiste",
+        "it": "Il plagio",
+        "pt": "Plágico",
+        "ru": "Плагеист",
+        "es": "Plagistas",
+        "sv": "Plagejist"
+    },
+    "Plättschnur": {
+        "en": "Platework",
+        "fr": "Plateau",
+        "it": "Piattaforma",
+        "pt": "Plateira",
+        "ru": "Платформы",
+        "es": "Plato",
+        "sv": "Plattskärm"
+    },
+    "Plastewanne": {
+        "en": "The Plastic",
+        "fr": "plastique",
+        "it": "Plastica",
+        "pt": "Vano de plástico",
+        "ru": "Пластиковая вана",
+        "es": "El plástico",
+        "sv": "Plastvagn"
+    },
+    "Plakatsäule": {
+        "en": "The poster",
+        "fr": "Posteau",
+        "it": "Postaggio",
+        "pt": "Postagem",
+        "ru": "Плакаты",
+        "es": "Postagón",
+        "sv": "Plakatkällor"
+    },
+    "Plankton": {
+        "en": "Plankton",
+        "fr": "Plancton",
+        "it": "Il Plankton",
+        "pt": "Plankton",
+        "ru": "Планктон",
+        "es": "Planktón",
+        "sv": "Plankton"
+    },
+    "Plastetüte": {
+        "en": "Plastic",
+        "fr": "plastique",
+        "it": "plastica",
+        "pt": "Plástico",
+        "ru": "Пластиковые",
+        "es": "Plástico",
+        "sv": "Plastkorgar"
+    },
+    "Plötzlichkeit": {
+        "en": "suddenly",
+        "fr": "Plongée",
+        "it": "all’improvviso",
+        "pt": "de repente",
+        "ru": "внезапность",
+        "es": "de repente",
+        "sv": "Plötsligt"
+    },
+    "Plastedeckel": {
+        "en": "Plastic cover",
+        "fr": "Les plastiques",
+        "it": "coperchio di plastica",
+        "pt": "Cadeira de plástico",
+        "ru": "Пластиковый камень",
+        "es": "Plástico",
+        "sv": "Plastdäck"
+    },
+    "Plutoniummeiler": {
+        "en": "The Plutonium",
+        "fr": "Plutonium",
+        "it": "Il Plutonium",
+        "pt": "Plutônias",
+        "ru": "Плутониумные",
+        "es": "Plutónías",
+        "sv": "Plutoniummätare"
+    },
+    "Plattenspieler": {
+        "en": "Players",
+        "fr": "Plateau joueur",
+        "it": "Il giocatore",
+        "pt": "Jogo de Plataforma",
+        "ru": "Платфорный игрок",
+        "es": "Juegos de platino",
+        "sv": "Plattspelare"
+    },
+    "Platzmiete": {
+        "en": "Location of place",
+        "fr": "Location de place",
+        "it": "Appartamento",
+        "pt": "Aluguel de lugares",
+        "ru": "Аренда места",
+        "es": "alquiler",
+        "sv": "hyra platser"
+    },
+    "Plauderei": {
+        "en": "Speech",
+        "fr": "discours",
+        "it": "Il discorso",
+        "pt": "Palavras",
+        "ru": "Голосование",
+        "es": "Palabras",
+        "sv": "Röstning"
+    },
+    "Planträger": {
+        "en": "Plant rabbits",
+        "fr": "Plantaire",
+        "it": "Piantagioni",
+        "pt": "Plantação",
+        "ru": "плантатор",
+        "es": "Plantadores",
+        "sv": "Planterare"
+    },
+    "Plastespielwaren": {
+        "en": "Plastic Games",
+        "fr": "Jeux plastiques",
+        "it": "Giochi di plastica",
+        "pt": "Jogos de plástico",
+        "ru": "Пластиковые игрушки",
+        "es": "Juegos de plástico",
+        "sv": "Plastleksaker"
+    },
+    "Plauderton": {
+        "en": "Plauderton",
+        "fr": "Plauderton",
+        "it": "di Plauderton",
+        "pt": "Plutão",
+        "ru": "Плаудертон",
+        "es": "Plaudertón",
+        "sv": "Plauderton"
+    },
+    "Plunze": {
+        "en": "Plunze",
+        "fr": "Plonge",
+        "it": "di Plunze",
+        "pt": "Plutão",
+        "ru": "Плунце",
+        "es": "Plutón",
+        "sv": "Plunge"
+    },
+    "Plätteisen": {
+        "en": "Places",
+        "fr": "Placements",
+        "it": "Il posto",
+        "pt": "Plaça",
+        "ru": "Площадь",
+        "es": "Plazas",
+        "sv": "platser"
     }
 }
