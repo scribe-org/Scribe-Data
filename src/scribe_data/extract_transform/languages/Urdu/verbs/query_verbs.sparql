@@ -2,7 +2,11 @@
 # Enter this query at https://query.wikidata.org/.
 # Note the necessity to filter for "ur" to remove Hindustani (hi) words.
 
-SELECT ?lexeme ?verb WHERE {
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  ?verb
+
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q11051 ;
     wikibase:lexicalCategory wd:Q24905 ;

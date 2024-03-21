@@ -2,12 +2,14 @@
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
   ?infinitive
   ?impFPS ?impSPS ?impTPS
   ?impFPP ?impSPP ?impTPP
   ?futFPS ?futSPS ?futTPS
-  ?futFPP ?futSPP ?futTPP WHERE {
+  ?futFPP ?futSPP ?futTPP
 
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q150 ;
     wikibase:lexicalCategory wd:Q24905 .
