@@ -139597,5 +139597,1895 @@
         "ru": "Площадь",
         "es": "Plazas",
         "sv": "platser"
+    },
+    "Plaudertasche": {
+        "en": "Speaker",
+        "fr": "discours",
+        "it": "Il discorso",
+        "pt": "Palavras",
+        "ru": "Говорят",
+        "es": "Palabras",
+        "sv": "Talare"
+    },
+    "Plattenleger": {
+        "en": "The Plateau",
+        "fr": "Plateau",
+        "it": "Disegnatore",
+        "pt": "Plateiro",
+        "ru": "Платформы",
+        "es": "Plateadores",
+        "sv": "Plåtläger"
+    },
+    "Plakat": {
+        "en": "Poster",
+        "fr": "Poste",
+        "it": "poster",
+        "pt": "Postagem",
+        "ru": "Плакат",
+        "es": "Postagón",
+        "sv": "Plakat"
+    },
+    "Pleureuse": {
+        "en": "Pleurose",
+        "fr": "Pleureuse",
+        "it": "Il pleureo",
+        "pt": "Pleuração",
+        "ru": "Плеуруза",
+        "es": "Pleureza",
+        "sv": "Pleureus"
+    },
+    "Plüschdecke": {
+        "en": "The plunder",
+        "fr": "La plongée",
+        "it": "copertina",
+        "pt": "Cachoeira",
+        "ru": "Заблуждение",
+        "es": "La pluma",
+        "sv": "Plötsligt"
+    },
+    "Plauze": {
+        "en": "Plause",
+        "fr": "Plause",
+        "it": "Plauso",
+        "pt": "Plausão",
+        "ru": "Плаузы",
+        "es": "Plazas",
+        "sv": "Plötsligt"
+    },
+    "Plänemacher": {
+        "en": "Planner",
+        "fr": "Planificateur",
+        "it": "Pianificatore",
+        "pt": "Planejador",
+        "ru": "Планирующий",
+        "es": "Planificador",
+        "sv": "Planmästare"
+    },
+    "ordnungsgemäß": {
+        "en": "properly",
+        "fr": "correctement",
+        "it": "correttamente",
+        "pt": "Corretamente",
+        "ru": "Правильно",
+        "es": "correctamente",
+        "sv": "ordentligt"
+    },
+    "weit tragend": {
+        "en": "Wearing far",
+        "fr": "Porter loin",
+        "it": "portato lontano",
+        "pt": "Por longe",
+        "ru": "Долгое ношение",
+        "es": "Largamente llevado",
+        "sv": "Långt bära"
+    },
+    "werbefachlich": {
+        "en": "Advertising",
+        "fr": "publicitaire",
+        "it": "pubblicità",
+        "pt": "Publicidade",
+        "ru": "Рекламные",
+        "es": "Publicidad",
+        "sv": "Reklammässigt"
+    },
+    "weißlich": {
+        "en": "White",
+        "fr": "Blanche",
+        "it": "bianco",
+        "pt": "branco",
+        "ru": "Белый",
+        "es": "Blanco",
+        "sv": "Vit"
+    },
+    "wehrdiensttauglich": {
+        "en": "Armed service",
+        "fr": "Service militaire",
+        "it": "Servizio militare",
+        "pt": "Serviço Militar",
+        "ru": "Военноспособный",
+        "es": "Servicio armado",
+        "sv": "Vapenvänligt"
+    },
+    "weichlich": {
+        "en": "softly",
+        "fr": "doux",
+        "it": "delicatamente",
+        "pt": "suave",
+        "ru": "Мягкий",
+        "es": "suave",
+        "sv": "Mjukt"
+    },
+    "weichherzig": {
+        "en": "softly",
+        "fr": "douceur",
+        "it": "delizioso",
+        "pt": "suave",
+        "ru": "Мягкий",
+        "es": "suave",
+        "sv": "Mjukt hjärtat"
+    },
+    "weiträumig": {
+        "en": "extended",
+        "fr": "Large sphère",
+        "it": "Lunghezza",
+        "pt": "amplamente",
+        "ru": "Долгое",
+        "es": "extendido",
+        "sv": "Långt utrymme"
+    },
+    "wesenerhellend": {
+        "en": "Essentially",
+        "fr": "Essentiellement",
+        "it": "Essenziale",
+        "pt": "essencialmente",
+        "ru": "Огромное",
+        "es": "esencialmente",
+        "sv": "väsentliga"
+    },
+    "weiß gekleidet": {
+        "en": "Dressed white",
+        "fr": "Blanc habillé",
+        "it": "bianco vestito",
+        "pt": "vestido branco",
+        "ru": "Белый одетый",
+        "es": "vestido blanco",
+        "sv": "Vit klädd"
+    },
+    "weglos": {
+        "en": "Untouched",
+        "fr": "disparu",
+        "it": "Scomparso",
+        "pt": "Desaparecidos",
+        "ru": "Бессмертный",
+        "es": "Desaparecidos",
+        "sv": "Försvunna"
+    },
+    "weiterschlummern": {
+        "en": "to deepen",
+        "fr": "S’étendre",
+        "it": "Scomparso",
+        "pt": "Avançando",
+        "ru": "Продолжаться",
+        "es": "Deslizarse",
+        "sv": "Förlängning"
+    },
+    "wegrudern": {
+        "en": "to run away",
+        "fr": "se détourner",
+        "it": "Scomparso",
+        "pt": "Saindo",
+        "ru": "Утерять",
+        "es": "Desaparecer",
+        "sv": "avrundas"
+    },
+    "weiterzuckeln": {
+        "en": "The key",
+        "fr": "La clé",
+        "it": "Continua la chiave",
+        "pt": "Avançando",
+        "ru": "Продолжение ключа",
+        "es": "Añadir",
+        "sv": "Överklocka"
+    },
+    "weiterrasen": {
+        "en": "continued",
+        "fr": "Continuez à",
+        "it": "proseguire",
+        "pt": "Continuando",
+        "ru": "Продолжаем",
+        "es": "Seguimos",
+        "sv": "Fortsätt"
+    },
+    "wegsengen": {
+        "en": "Going away",
+        "fr": "Départ",
+        "it": "allontanarsi",
+        "pt": "Saindo",
+        "ru": "Отпугивать",
+        "es": "Lanzamiento",
+        "sv": "Sängs bort"
+    },
+    "wegfuttern": {
+        "en": "Fitting away",
+        "fr": "Foyer",
+        "it": "allontanarsi",
+        "pt": "Fui embora",
+        "ru": "Уезжать",
+        "es": "Fuertando",
+        "sv": "Fötter bort"
+    },
+    "wehren": {
+        "en": "Defence",
+        "fr": "défendre",
+        "it": "difendere",
+        "pt": "Defesa",
+        "ru": "отстаивать",
+        "es": "Defensa",
+        "sv": "Försvara"
+    },
+    "wegschubsen": {
+        "en": "Destroyed",
+        "fr": "Arrêter",
+        "it": "spingere",
+        "pt": "Desligado",
+        "ru": "Отправлять",
+        "es": "Descargarse",
+        "sv": "Stäng av"
+    },
+    "weitermachen": {
+        "en": "Continued",
+        "fr": "continuer",
+        "it": "proseguire",
+        "pt": "Continuar",
+        "ru": "Продолжать",
+        "es": "Continuar",
+        "sv": "Fortsätt"
+    },
+    "weiterfragen": {
+        "en": "Continued questions",
+        "fr": "Continuer la question",
+        "it": "Continua a chiedere",
+        "pt": "Perguntas adicionais",
+        "ru": "Продолжайте спрашивать",
+        "es": "Preguntas adicionales",
+        "sv": "Fortsätt fråga"
+    },
+    "wegtrocknen": {
+        "en": "and drought",
+        "fr": "séchés",
+        "it": "Asciugare",
+        "pt": "seco",
+        "ru": "Сухая",
+        "es": "Se secan",
+        "sv": "Växande"
+    },
+    "werkeln": {
+        "en": "Working",
+        "fr": "fonctionner",
+        "it": "Lavorare",
+        "pt": "Trabalhar",
+        "ru": "Работать",
+        "es": "funcionan",
+        "sv": "fungera"
+    },
+    "weitertraben": {
+        "en": "extended",
+        "fr": "prolongé",
+        "it": "prolungato",
+        "pt": "Extensão",
+        "ru": "Расширенная",
+        "es": "extendido",
+        "sv": "Förlängd"
+    },
+    "weitertratschen": {
+        "en": "Continued negotiations",
+        "fr": "Continuer à négocier",
+        "it": "Continua a negoziare",
+        "pt": "Continuar negociando",
+        "ru": "Продолжать переговоры",
+        "es": "Continuar negociar",
+        "sv": "Fortsätt förhandla"
+    },
+    "weitertrödeln": {
+        "en": "continued",
+        "fr": "continuer à détruire",
+        "it": "Continua a distruggere",
+        "pt": "Continuar roubando",
+        "ru": "Продолжаем расстрелять",
+        "es": "Continuar destruyendo",
+        "sv": "Fortsätt döda"
+    },
+    "wegbrechen": {
+        "en": "Break off",
+        "fr": "briser",
+        "it": "spezzare",
+        "pt": "Ruptura",
+        "ru": "разрывать",
+        "es": "romper",
+        "sv": "bryta bort"
+    },
+    "wegstreben": {
+        "en": "Escaped",
+        "fr": "Désirer",
+        "it": "aspettarsi",
+        "pt": "aspiração",
+        "ru": "Стремление уйти",
+        "es": "Desaparecidos",
+        "sv": "strävar bort"
+    },
+    "wetzen": {
+        "en": "Wake up",
+        "fr": "Voyage",
+        "it": "Nottare",
+        "pt": "Navegação",
+        "ru": "Вода",
+        "es": "Navegando",
+        "sv": "Vattnar"
+    },
+    "wegblicken": {
+        "en": "Looking away",
+        "fr": "Regarder dehors",
+        "it": "Guardare lontano",
+        "pt": "Olhar para fora",
+        "ru": "Оглядывать",
+        "es": "mirando lejos",
+        "sv": "Titta bort"
+    },
+    "Originalpackung": {
+        "en": "Original packaging",
+        "fr": "Emballage original",
+        "it": "imballaggio originale",
+        "pt": "embalagem original",
+        "ru": "Оригинальная упаковка",
+        "es": "Empaquetado original",
+        "sv": "Originalförpackning"
+    },
+    "Ordnungssinn": {
+        "en": "sense of order",
+        "fr": "Sentiment d’ordre",
+        "it": "Senza ordine",
+        "pt": "Sentimento de ordem",
+        "ru": "Чувство порядка",
+        "es": "Sensación de orden",
+        "sv": "Ordningssänsla"
+    },
+    "Ordensstern": {
+        "en": "The Order Star",
+        "fr": "Ordre étoiles",
+        "it": "Ordini Stellari",
+        "pt": "Estrelas de ordem",
+        "ru": "Орденные звезды",
+        "es": "Estrellas de orden",
+        "sv": "Ordensstjärnor"
+    },
+    "Orangeade": {
+        "en": "Orange",
+        "fr": "Orange",
+        "it": "Orangea",
+        "pt": "Orangeado",
+        "ru": "Оранжевый",
+        "es": "Orangeado",
+        "sv": "Orangeade"
+    },
+    "Orthopädie": {
+        "en": "Orthodoxy",
+        "fr": "Orthopédie",
+        "it": "ortopedica",
+        "pt": "Ortopédia",
+        "ru": "ортопедия",
+        "es": "Ortopedia",
+        "sv": "ortopediska"
+    },
+    "Ordinariat": {
+        "en": "Ordinary",
+        "fr": "Ordinaire",
+        "it": "ordinario",
+        "pt": "Ordinário",
+        "ru": "обыкновенный",
+        "es": "Ordinario",
+        "sv": "Ordinarie"
+    },
+    "Orgelbegleitung": {
+        "en": "Organic accompanying",
+        "fr": "accompagnement organique",
+        "it": "Organi di accompagnamento",
+        "pt": "Acompanhamento órgão",
+        "ru": "Организация сопровождения",
+        "es": "acompañamiento de órganos",
+        "sv": "Orgelövervakning"
+    },
+    "Ordensspange": {
+        "en": "Ordinary language",
+        "fr": "Ordonnance",
+        "it": "Ordine spagnolo",
+        "pt": "Palavras de ordem",
+        "ru": "Орденный язык",
+        "es": "Ordenante",
+        "sv": "Ordspråk"
+    },
+    "Orthopädiemechaniker": {
+        "en": "Orthopedic mechanics",
+        "fr": "mécanicien orthodoxe",
+        "it": "meccanico ortopedico",
+        "pt": "ortopédico mecânico",
+        "ru": "ортопедический механик",
+        "es": "ortopédico mecánico",
+        "sv": "ortopediska mekaniker"
+    },
+    "Ortskommandant": {
+        "en": "Local Commander",
+        "fr": "Commandeur local",
+        "it": "Comandante locale",
+        "pt": "Comandante local",
+        "ru": "Местный командир",
+        "es": "Comandante Local",
+        "sv": "Kommunkommandant"
+    },
+    "Organbehandlung": {
+        "en": "Organ Treatment",
+        "fr": "Traitement des organes",
+        "it": "Il trattamento degli organi",
+        "pt": "Tratamento de órgãos",
+        "ru": "Лечение органа",
+        "es": "Tratamiento de órganos",
+        "sv": "Organbehandling"
+    },
+    "Ortspfarrer": {
+        "en": "Local Parents",
+        "fr": "Paroisse locale",
+        "it": "parrocchiale",
+        "pt": "Pais locais",
+        "ru": "Местные пары",
+        "es": "La pareja local",
+        "sv": "Lokala par"
+    },
+    "Orient-Express": {
+        "en": "The Orient Express",
+        "fr": "Orient Express",
+        "it": "Il Oriente Express",
+        "pt": "Oriente Express",
+        "ru": "Источный экспресс",
+        "es": "El Oriente Express",
+        "sv": "Österrike Express"
+    },
+    "Ortsumgebung": {
+        "en": "Local Environment",
+        "fr": "Environnement",
+        "it": "Ambiente locale",
+        "pt": "Localização",
+        "ru": "Местное окружение",
+        "es": "El entorno",
+        "sv": "Omgivning"
+    },
+    "Weinrausch": {
+        "en": "The wine",
+        "fr": "Vineux",
+        "it": "Il vino",
+        "pt": "vinho",
+        "ru": "Виноводство",
+        "es": "El vino",
+        "sv": "Vinrörelse"
+    },
+    "Weltraumflug": {
+        "en": "Space flight",
+        "fr": "Voyage spatial",
+        "it": "Il volo spaziale",
+        "pt": "voo espacial",
+        "ru": "Космический полет",
+        "es": "vuelo espacial",
+        "sv": "rymdflyg"
+    },
+    "Weitermarsch": {
+        "en": "Continued march",
+        "fr": "progrès",
+        "it": "proseguimento",
+        "pt": "Continuação",
+        "ru": "Продолжение",
+        "es": "Seguimiento Marcha",
+        "sv": "fortsättningen"
+    },
+    "Weidenrute": {
+        "en": "Weidenrute",
+        "fr": "Widenrute",
+        "it": "di Widenrute",
+        "pt": "Vedação",
+        "ru": "Вайдерут",
+        "es": "Vía Rúa",
+        "sv": "Weidenrute"
+    },
+    "Weltfriedenskongress": {
+        "en": "World Peace Congress",
+        "fr": "Congrès mondial de la paix",
+        "it": "Congresso Mondiale della Pace",
+        "pt": "Congresso Mundial da Paz",
+        "ru": "Всемирный мирный конгресс",
+        "es": "Congreso Mundial de la Paz",
+        "sv": "Världsfredskonferens"
+    },
+    "Wellenreiter": {
+        "en": "Wave Rider",
+        "fr": "Wellenreiter",
+        "it": "Il cavaliere",
+        "pt": "Cavaleiro de onda",
+        "ru": "Волонтеры",
+        "es": "Corredores de onda",
+        "sv": "Wellenrätare"
+    },
+    "Wenigkeit": {
+        "en": "Minority",
+        "fr": "Minorité",
+        "it": "Minorità",
+        "pt": "Minoria",
+        "ru": "Немного",
+        "es": "Minoridad",
+        "sv": "Minoritet"
+    },
+    "Werksstudent": {
+        "en": "Work Student",
+        "fr": "Étudiant ouvrier",
+        "it": "Studente di lavoro",
+        "pt": "Estudante de Trabalho",
+        "ru": "Рабочий студент",
+        "es": "Estudiante de Obras",
+        "sv": "Arbetsstudent"
+    },
+    "Wegdistel": {
+        "en": "Distance",
+        "fr": "Distribution",
+        "it": "distanza",
+        "pt": "Distribuição",
+        "ru": "Диапазон",
+        "es": "Distribución",
+        "sv": "Distribution"
+    },
+    "Wetterführung": {
+        "en": "Weather management",
+        "fr": "Météorologie",
+        "it": "Guida meteorologica",
+        "pt": "Meteorologia",
+        "ru": "Метеорология",
+        "es": "Meteorología",
+        "sv": "Väderledning"
+    },
+    "Weizenkleie": {
+        "en": "Weightwear",
+        "fr": "Vêtements",
+        "it": "Le scarpe",
+        "pt": "Vestuário",
+        "ru": "Мягкий",
+        "es": "Vestido",
+        "sv": "Svart klänning"
+    },
+    "Wendigkeit": {
+        "en": "Reverse",
+        "fr": "tournée",
+        "it": "La rotazione",
+        "pt": "Voltação",
+        "ru": "поворотность",
+        "es": "Voluntad",
+        "sv": "vändning"
+    },
+    "Wettfahrt": {
+        "en": "Competition",
+        "fr": "Compétition",
+        "it": "Concorso",
+        "pt": "Competição",
+        "ru": "соревнования",
+        "es": "Concurso",
+        "sv": "tävling"
+    },
+    "Weißwurz": {
+        "en": "White root",
+        "fr": "Rouge blanche",
+        "it": "Il rosso bianco",
+        "pt": "raiz branca",
+        "ru": "Белый корень",
+        "es": "Rojo Blanco",
+        "sv": "Vitröd"
+    },
+    "Wetterbank": {
+        "en": "The Weather Bank",
+        "fr": "Banque météo",
+        "it": "Banca Meteorologica",
+        "pt": "Banco Meteorológico",
+        "ru": "Метеорологический банк",
+        "es": "Banco Meteorológico",
+        "sv": "Väderbank"
+    },
+    "Weichporzellan": {
+        "en": "soft porcelan",
+        "fr": "Porcelaine douce",
+        "it": "Porcellana morbida",
+        "pt": "Porcelana suave",
+        "ru": "мягкая порцелла",
+        "es": "Porcelana suave",
+        "sv": "mjuka porslin"
+    },
+    "Werkkanal": {
+        "en": "Working Channel",
+        "fr": "Le canal de travail",
+        "it": "Il canale di lavoro",
+        "pt": "Canais de Trabalho",
+        "ru": "Рабочий канал",
+        "es": "Canales de trabajo",
+        "sv": "Arbetskanal"
+    },
+    "Weinschwemme": {
+        "en": "Wineswemme",
+        "fr": "Vignobles",
+        "it": "Il vino",
+        "pt": "Vinho de vinho",
+        "ru": "виноградники",
+        "es": "Viñedos",
+        "sv": "Vinsvämnen"
+    },
+    "Wechseldiskont": {
+        "en": "exchange account",
+        "fr": "Compte de change",
+        "it": "Conto di cambio",
+        "pt": "Contas de troca",
+        "ru": "Обменный счет",
+        "es": "Contas de cambio",
+        "sv": "växelkontot"
+    },
+    "Weihebrunnen": {
+        "en": "White Fountain",
+        "fr": "source blanche",
+        "it": "Fuori bianchi",
+        "pt": "Fontes brancas",
+        "ru": "Белый источник",
+        "es": "Fuentes blancas",
+        "sv": "Vit källor"
+    },
+    "Wetterumschwung": {
+        "en": "The weather change",
+        "fr": "Changement météo",
+        "it": "Il cambiamento meteorologico",
+        "pt": "Mudança do tempo",
+        "ru": "Погодные перемены",
+        "es": "Cambio del tiempo",
+        "sv": "Väderförändring"
+    },
+    "Weltabgeschiedenheit": {
+        "en": "World distinction",
+        "fr": "La séparation mondiale",
+        "it": "Storia mondiale",
+        "pt": "Divulgação Mundial",
+        "ru": "Мировая разница",
+        "es": "La separación mundial",
+        "sv": "Världsskillnad"
+    },
+    "Wegfall": {
+        "en": "Disappearance",
+        "fr": "Départ",
+        "it": "scomparso",
+        "pt": "Deslocação",
+        "ru": "Упадение",
+        "es": "Desaparecimiento",
+        "sv": "Avfall"
+    },
+    "Wegewarte": {
+        "en": "Waiting",
+        "fr": "Attendre",
+        "it": "attesa",
+        "pt": "Aguardando",
+        "ru": "Ожидание",
+        "es": "La espera",
+        "sv": "Väntar"
+    },
+    "Wehrsold": {
+        "en": "Wehrsold",
+        "fr": "Résolé",
+        "it": "Il ritorno",
+        "pt": "Soldado",
+        "ru": "ВЕРСОЛД",
+        "es": "recuerdos",
+        "sv": "Wehrsold"
+    },
+    "Wertskala": {
+        "en": "Value scale",
+        "fr": "Valeur scale",
+        "it": "scala di valore",
+        "pt": "Escala de Valor",
+        "ru": "Степень ценности",
+        "es": "Escala de Valor",
+        "sv": "Värdeskala"
+    },
+    "Weihnachtstrubel": {
+        "en": "Christmas tube",
+        "fr": "Noël tube",
+        "it": "Il tubo di Natale",
+        "pt": "Tubulação de Natal",
+        "ru": "Рождественская труба",
+        "es": "El tubo de Navidad",
+        "sv": "Julstrumpor"
+    },
+    "Weinprobe": {
+        "en": "Wine Testing",
+        "fr": "Test du vin",
+        "it": "Prova del vino",
+        "pt": "A prova do vinho",
+        "ru": "Винопробы",
+        "es": "Proba de vino",
+        "sv": "Vinprovning"
+    },
+    "Weihegeschenk": {
+        "en": "The gift",
+        "fr": "Un cadeau courageux",
+        "it": "Il regalo",
+        "pt": "O presente",
+        "ru": "Подарки",
+        "es": "El regalo",
+        "sv": "Vackert gåva"
+    },
+    "Wehrlosigkeit": {
+        "en": "Unwillingness",
+        "fr": "irrésistibilité",
+        "it": "L’indifferenza",
+        "pt": "Invisibilidade",
+        "ru": "Бессмертие",
+        "es": "La irresponsabilidad",
+        "sv": "Ovänjlighet"
+    },
+    "Weihnachtsgratifikation": {
+        "en": "Christmas Gratification",
+        "fr": "Gratification de Noël",
+        "it": "Gratificazione di Natale",
+        "pt": "Gratificação de Natal",
+        "ru": "Рождественская гратификация",
+        "es": "Gratificación de Navidad",
+        "sv": "Julgratifikation"
+    },
+    "Werksbahn": {
+        "en": "Working trains",
+        "fr": "Trains de travail",
+        "it": "La ferrovia",
+        "pt": "Raízes de Trabalho",
+        "ru": "Рабочая трасса",
+        "es": "Trabajadores",
+        "sv": "Arbetsbanan"
+    },
+    "Wellenimpuls": {
+        "en": "The wave impulse",
+        "fr": "Impulse d’onde",
+        "it": "Impulso d'onda",
+        "pt": "Impulso de onda",
+        "ru": "Волна импульса",
+        "es": "Impulso de onda",
+        "sv": "vågimpulsen"
+    },
+    "Wetterhäuschen": {
+        "en": "Weather houses",
+        "fr": "Maison météo",
+        "it": "La casa meteorologica",
+        "pt": "Casa do Tempo",
+        "ru": "Погодные дома",
+        "es": "Las casas meteorológicas",
+        "sv": "Väderhus"
+    },
+    "Weihnachtsdult": {
+        "en": "Christmas Dult",
+        "fr": "Noël duel",
+        "it": "Dult di Natale",
+        "pt": "Dultos de Natal",
+        "ru": "Рождественский дульт",
+        "es": "Dulce de Navidad",
+        "sv": "Juldult"
+    },
+    "Weihnachtsgeld": {
+        "en": "Christmas money",
+        "fr": "L'argent de Noël",
+        "it": "denaro di Natale",
+        "pt": "Dinheiro de Natal",
+        "ru": "Рождественские деньги",
+        "es": "Dinero de Navidad",
+        "sv": "Julpengar"
+    },
+    "Weinstock": {
+        "en": "Weinstock",
+        "fr": "Le Weinstock",
+        "it": "di Weinstock",
+        "pt": "vinho",
+        "ru": "Вайнсток",
+        "es": "El Weinstock",
+        "sv": "Weinstock"
+    },
+    "Wetterleuchten": {
+        "en": "The weather lights",
+        "fr": "La lumière météorologique",
+        "it": "Luce meteo",
+        "pt": "Iluminação do tempo",
+        "ru": "Погодные светильники",
+        "es": "Luces del tiempo",
+        "sv": "Väderljus"
+    },
+    "Weggabelung": {
+        "en": "withdrawal",
+        "fr": "La retraite",
+        "it": "Il ritorno",
+        "pt": "Deslocação",
+        "ru": "Отказ",
+        "es": "Desaparecimiento",
+        "sv": "Avlägsnande"
+    },
+    "Wellblechdach": {
+        "en": "Wellblechdach",
+        "fr": "Wellblechdach",
+        "it": "di Wellblechdach",
+        "pt": "Bem-sucedido",
+        "ru": "Вельблейта",
+        "es": "Wellblechdach",
+        "sv": "Wellblechdach"
+    },
+    "Weltspitzenleistung": {
+        "en": "World Peak Performance",
+        "fr": "Les performances mondiales",
+        "it": "Pittura Mondiale",
+        "pt": "O desempenho mundial",
+        "ru": "Мировой пиццевый",
+        "es": "El rendimiento mundial",
+        "sv": "Världspets prestanda"
+    },
+    "Wertmaßstab": {
+        "en": "The Value",
+        "fr": "Valorisation",
+        "it": "Il valore",
+        "pt": "Valoridade",
+        "ru": "Стоимость",
+        "es": "Valoridad",
+        "sv": "värderingar"
+    },
+    "Weltfestspiele": {
+        "en": "World Festivals",
+        "fr": "Festivals mondiaux",
+        "it": "Giochi Mondiali",
+        "pt": "Jogos Mundiais",
+        "ru": "Всемирные игры",
+        "es": "Juegos mundiales",
+        "sv": "Världsfest"
+    },
+    "Wettbewerbsbestimmung": {
+        "en": "Competition Regulation",
+        "fr": "Définition concurrentielle",
+        "it": "Disposizione concorrenziale",
+        "pt": "Disposições de concorrência",
+        "ru": "Конкурентоспособность",
+        "es": "Disposición competitiva",
+        "sv": "Konkurrensbestämmelser"
+    },
+    "Weidebesatz": {
+        "en": "The wave",
+        "fr": "Voyage",
+        "it": "Il vasto",
+        "pt": "Vedação",
+        "ru": "Взрыв",
+        "es": "El desplazamiento",
+        "sv": "Väderbesättning"
+    },
+    "Werktelefon": {
+        "en": "Working phone",
+        "fr": "téléphone ouvrable",
+        "it": "Telefono di lavoro",
+        "pt": "Telefone de trabalho",
+        "ru": "Рабочий телефон",
+        "es": "Teléfono de trabajo",
+        "sv": "Arbetstelefon"
+    },
+    "Werkstelefon": {
+        "en": "Working Phone",
+        "fr": "Téléphone de travail",
+        "it": "Telefono di lavoro",
+        "pt": "Telefone de trabalho",
+        "ru": "Рабочий телефон",
+        "es": "Teléfono de trabajo",
+        "sv": "Arbetstelefon"
+    },
+    "Wehruf": {
+        "en": "Called",
+        "fr": "Rappel",
+        "it": "Il ritorno",
+        "pt": "Reclamação",
+        "ru": "Воскресение",
+        "es": "Reclamación",
+        "sv": "Röstning"
+    },
+    "Weihnachtserzählung": {
+        "en": "Christmas story",
+        "fr": "Contes de Noël",
+        "it": "Il racconto di Natale",
+        "pt": "Contos de Natal",
+        "ru": "Рождественский рассказ",
+        "es": "Cuentos de Navidad",
+        "sv": "Julen berättelse"
+    },
+    "Weindrossel": {
+        "en": "The vineyard",
+        "fr": "Vineux",
+        "it": "Il vino",
+        "pt": "Vinho de vinho",
+        "ru": "Виноводство",
+        "es": "El viñedo",
+        "sv": "vingårdar"
+    },
+    "Weltgeltung": {
+        "en": "The World",
+        "fr": "Valeur mondiale",
+        "it": "Dignità mondiale",
+        "pt": "Dignidade Mundial",
+        "ru": "Мировая доля",
+        "es": "Dignidad mundial",
+        "sv": "Världsförtjänst"
+    },
+    "Weichling": {
+        "en": "Weichling",
+        "fr": "Weichling",
+        "it": "di Weichling",
+        "pt": "de Weichling",
+        "ru": "Weichling",
+        "es": "Weichling",
+        "sv": "Weichling"
+    },
+    "Weltenrhythmus": {
+        "en": "The world rhythm",
+        "fr": "Rhythme mondial",
+        "it": "Ritmo mondiale",
+        "pt": "Ritmo Mundial",
+        "ru": "Мировой ритм",
+        "es": "El ritmo mundial",
+        "sv": "Världens rytm"
+    },
+    "Wegkreuzung": {
+        "en": "Crossing",
+        "fr": "Départ de croix",
+        "it": "La crociata",
+        "pt": "Saída cruzada",
+        "ru": "Рассеянный",
+        "es": "La cruzada",
+        "sv": "korsning"
+    },
+    "Werbefläche": {
+        "en": "Advertising area",
+        "fr": "Espace publicitaire",
+        "it": "Spazio pubblicitario",
+        "pt": "Área publicitária",
+        "ru": "Рекламная зона",
+        "es": "Área de publicidad",
+        "sv": "Annonsområde"
+    },
+    "Weltraumprogramm": {
+        "en": "The space program",
+        "fr": "Programme spatial",
+        "it": "Programma spaziale",
+        "pt": "Programa Espacial",
+        "ru": "Космическая программа",
+        "es": "Programa Espacial",
+        "sv": "rymdprogram"
+    },
+    "schwererrungen": {
+        "en": "serious injuries",
+        "fr": "graves dommages",
+        "it": "gravi danni",
+        "pt": "erros graves",
+        "ru": "тяжёлые повреждения",
+        "es": "graves daños",
+        "sv": "allvarliga skador"
+    },
+    "schnieke": {
+        "en": "snow",
+        "fr": "de neige",
+        "it": "La neve",
+        "pt": "neve",
+        "ru": "Снег",
+        "es": "La nieve",
+        "sv": "snö"
+    },
+    "schulisch": {
+        "en": "Schooled",
+        "fr": "École",
+        "it": "Scuola",
+        "pt": "Escola",
+        "ru": "Школьный",
+        "es": "Escuela",
+        "sv": "Skolan"
+    },
+    "schulmeisterlich": {
+        "en": "educational",
+        "fr": "scolarisée",
+        "it": "scolastico",
+        "pt": "estudante",
+        "ru": "Школьный",
+        "es": "Escuela",
+        "sv": "Skollärare"
+    },
+    "grußlos": {
+        "en": "Unpleasant",
+        "fr": "Immaculé",
+        "it": "senza piacere",
+        "pt": "Desagradável",
+        "ru": "Неплохо",
+        "es": "Desagradable",
+        "sv": "glatt"
+    },
+    "grämlich": {
+        "en": "Awesome",
+        "fr": "brutalement",
+        "it": "grammatico",
+        "pt": "Grânico",
+        "ru": "Огромный",
+        "es": "cruel",
+        "sv": "grymt"
+    },
+    "grobgliedrig": {
+        "en": "Grove membership",
+        "fr": "Membre grob",
+        "it": "Membro di Grob",
+        "pt": "Membro Grob",
+        "ru": "гробница",
+        "es": "Grobario",
+        "sv": "Grobmedlemmar"
+    },
+    "großmütterlich": {
+        "en": "the grandmother",
+        "fr": "grand-mère",
+        "it": "grande maternità",
+        "pt": "Grandes Mães",
+        "ru": "Большой материнский",
+        "es": "Grandes madres",
+        "sv": "Äldre moder"
+    },
+    "grellweiß": {
+        "en": "Grellwhite",
+        "fr": "La grille",
+        "it": "Il grigio",
+        "pt": "grel branco",
+        "ru": "Грилл",
+        "es": "grillo blanco",
+        "sv": "Grellvit"
+    },
+    "grasfressend": {
+        "en": "Grassfeeding",
+        "fr": "Grassé",
+        "it": "grasso grasso",
+        "pt": "grãos",
+        "ru": "Грейсфресс",
+        "es": "grasa",
+        "sv": "Gräsmatta"
+    },
+    "großschnäuzig": {
+        "en": "The great",
+        "fr": "grand méchante",
+        "it": "grande spazzolino",
+        "pt": "Grande desgraçado",
+        "ru": "Огромный",
+        "es": "Gran debilidad",
+        "sv": "Stora skägg"
+    },
+    "großschnauzig": {
+        "en": "The Great",
+        "fr": "grand bruyant",
+        "it": "grande schiacciante",
+        "pt": "Grande escuro",
+        "ru": "Большой шнур",
+        "es": "Gran escurrecimiento",
+        "sv": "Stora snusiga"
+    },
+    "grauplig": {
+        "en": "Graphic",
+        "fr": "graphique",
+        "it": "gravi",
+        "pt": "cruel",
+        "ru": "грубый",
+        "es": "gracioso",
+        "sv": "grymt"
+    },
+    "graublau": {
+        "en": "Graublau",
+        "fr": "Graouble",
+        "it": "Grigio",
+        "pt": "Gravação",
+        "ru": "ГРАБЛАУ",
+        "es": "grabaño",
+        "sv": "Grubblå"
+    },
+    "grauenvoll": {
+        "en": "cruel",
+        "fr": "horrible",
+        "it": "crudele",
+        "pt": "cruel",
+        "ru": "Грязный",
+        "es": "cruel",
+        "sv": "Grymt"
+    },
+    "gramvoll": {
+        "en": "Gramatic",
+        "fr": "grammaire",
+        "it": "grammatico",
+        "pt": "Gramado",
+        "ru": "грамма",
+        "es": "Gramado",
+        "sv": "grammatiska"
+    },
+    "grusartig": {
+        "en": "cruel",
+        "fr": "horrible",
+        "it": "Peccato",
+        "pt": "cruel",
+        "ru": "Грязный",
+        "es": "cruel",
+        "sv": "Grymt"
+    },
+    "großräumig": {
+        "en": "large spaces",
+        "fr": "grand espace",
+        "it": "grande spazio",
+        "pt": "Grande espaço",
+        "ru": "Огромный",
+        "es": "Gran espacio",
+        "sv": "Stora rum"
+    },
+    "grellfarbig": {
+        "en": "Grell colored",
+        "fr": "Grille colorée",
+        "it": "colore grigio",
+        "pt": "Grel colorido",
+        "ru": "Гриллианты",
+        "es": "color grillo",
+        "sv": "Grellfärg"
+    },
+    "groß geblümt": {
+        "en": "A large flame",
+        "fr": "grand flambé",
+        "it": "grande gonfiore",
+        "pt": "Grande derramada",
+        "ru": "Большой взрыв",
+        "es": "gran broteado",
+        "sv": "Stora blommor"
+    },
+    "grellbunt": {
+        "en": "by grellbunt",
+        "fr": "Grellbunt",
+        "it": "di grellbunt",
+        "pt": "Grilhão",
+        "ru": "ГРЕЛБОНТ",
+        "es": "grellbunt",
+        "sv": "grellbunt"
+    },
+    "grau gesträhnt": {
+        "en": "Gray shrinked",
+        "fr": "Gris éclaté",
+        "it": "Grigio scintillato",
+        "pt": "Gráfico deslizado",
+        "ru": "Грязный отверстий",
+        "es": "griego desgarrado",
+        "sv": "Grå stjälk"
+    },
+    "granitartig": {
+        "en": "by granitary",
+        "fr": "Granitaire",
+        "it": "Granificato",
+        "pt": "Granitário",
+        "ru": "Гранитарий",
+        "es": "Granitario",
+        "sv": "Granitär"
+    },
+    "grollen": {
+        "en": "Grolled",
+        "fr": "Grollé",
+        "it": "Il grolo",
+        "pt": "Grônio",
+        "ru": "Гролле",
+        "es": "GROLEN",
+        "sv": "Grön"
+    },
+    "Schmutzliteratur": {
+        "en": "Dirty literature",
+        "fr": "La littérature polluante",
+        "it": "La letteratura sporca",
+        "pt": "literatura suja",
+        "ru": "Грязная литература",
+        "es": "La literatura sucia",
+        "sv": "smutsig litteratur"
+    },
+    "Schicksalsschlag": {
+        "en": "fate strike",
+        "fr": "Le sort",
+        "it": "Il destino",
+        "pt": "Sorteio Destino",
+        "ru": "Судьба удара",
+        "es": "Destino golpe",
+        "sv": "öde slaget"
+    },
+    "Schwarzdorn": {
+        "en": "The Black Thorn",
+        "fr": "Tours noirs",
+        "it": "Il Toro Nero",
+        "pt": "Torneio Negro",
+        "ru": "Черный Торн",
+        "es": "El Toro Negro",
+        "sv": "Svartorn"
+    },
+    "Schneeverhältnisse": {
+        "en": "Snow conditions",
+        "fr": "Les conditions de neige",
+        "it": "Condizioni di neve",
+        "pt": "Condições de neve",
+        "ru": "Снежные условия",
+        "es": "Condiciones de nieve",
+        "sv": "Snöförhållanden"
+    },
+    "Schabe": {
+        "en": "Shabby",
+        "fr": "Schabe",
+        "it": "schiavo",
+        "pt": "Sabe",
+        "ru": "Шайба",
+        "es": "Sábado",
+        "sv": "Skåne"
+    },
+    "Schamesröte": {
+        "en": "Shameful",
+        "fr": "La honte",
+        "it": "vergogna",
+        "pt": "vergonha",
+        "ru": "Срамный",
+        "es": "vergüenza",
+        "sv": "Skamlösa"
+    },
+    "Schachbuch": {
+        "en": "The Chess Book",
+        "fr": "Le livre d'échecs",
+        "it": "Il libro dello scacco",
+        "pt": "Livro de xadrez",
+        "ru": "Шахматы",
+        "es": "El libro de ajedrez",
+        "sv": "Schackbok"
+    },
+    "Schiffswand": {
+        "en": "Ship wall",
+        "fr": "Le mur de navire",
+        "it": "Il muro della nave",
+        "pt": "parede do navio",
+        "ru": "Морская стена",
+        "es": "La pared del barco",
+        "sv": "Sjövägg"
+    },
+    "Schiffsartillerie": {
+        "en": "Ship artillery",
+        "fr": "Artillerie navale",
+        "it": "Artiglieria navale",
+        "pt": "Artilharia Naval",
+        "ru": "Морская артиллерия",
+        "es": "Artillería Naval",
+        "sv": "Sjöartilleri"
+    },
+    "Schluderarbeit": {
+        "en": "closed work",
+        "fr": "Travail de fermeture",
+        "it": "Lavoro di chiusura",
+        "pt": "Trabalho de fechamento",
+        "ru": "Заключительная работа",
+        "es": "Trabajo de cierre",
+        "sv": "Slutarbete"
+    },
+    "Schlupf": {
+        "en": "scratch",
+        "fr": "Loup",
+        "it": "scimmia",
+        "pt": "Escravidão",
+        "ru": "Срама",
+        "es": "Ladrón",
+        "sv": "Släppt"
+    },
+    "Schleifscheibe": {
+        "en": "The slide",
+        "fr": "La couverture",
+        "it": "La scatola",
+        "pt": "Escavação",
+        "ru": "Стрельба",
+        "es": "Escudo",
+        "sv": "Skivskivor"
+    },
+    "Schwulheit": {
+        "en": "the gender",
+        "fr": "Généralité",
+        "it": "La omosessualità",
+        "pt": "Gayidade",
+        "ru": "Гей",
+        "es": "La homosexualidad",
+        "sv": "jämlikhet"
+    },
+    "Schall-Loch": {
+        "en": "Sound of",
+        "fr": "Le bruit",
+        "it": "Il rumore",
+        "pt": "Sonho-luxo",
+        "ru": "Звук-люк",
+        "es": "sonido lujo",
+        "sv": "Ljudljus"
+    },
+    "Schleie": {
+        "en": "Sleeve",
+        "fr": "Schleie",
+        "it": "schiuma",
+        "pt": "Esquadrão",
+        "ru": "Слайд",
+        "es": "Esquema",
+        "sv": "Slippa"
+    },
+    "Schicksalsglaube": {
+        "en": "Fate of Faith",
+        "fr": "Croyance du destin",
+        "it": "La fede del destino",
+        "pt": "Confiança do destino",
+        "ru": "Доверие судьбы",
+        "es": "Confianza del destino",
+        "sv": "ödeförtroende"
+    },
+    "Schmerzgebrüll": {
+        "en": "The pain",
+        "fr": "la douleur",
+        "it": "Il dolore",
+        "pt": "dor brilho",
+        "ru": "Болезненный",
+        "es": "El dolor",
+        "sv": "Smärtabråck"
+    },
+    "Schmugglerschiff": {
+        "en": "The smugglership",
+        "fr": "Le bateau de mouchoir",
+        "it": "La barca di smuglio",
+        "pt": "Navegação",
+        "ru": "Смутный корабль",
+        "es": "Nave de muñeca",
+        "sv": "Smutsfartyg"
+    },
+    "Schiffsunfall": {
+        "en": "ship accident",
+        "fr": "Accident de navire",
+        "it": "Incidente navale",
+        "pt": "Acidente de barco",
+        "ru": "Корабль аварии",
+        "es": "Accidente de barco",
+        "sv": "skeppolycka"
+    },
+    "Schwelbrand": {
+        "en": "by Schwelbrand",
+        "fr": "Schwelbrand",
+        "it": "Il fuoco",
+        "pt": "O incêndio",
+        "ru": "Огонь",
+        "es": "El fuego",
+        "sv": "Schwelbrand"
+    },
+    "Schreckgespenst": {
+        "en": "Horror Ghosts",
+        "fr": "Horreur fantôme",
+        "it": "spaventoso",
+        "pt": "espanto horrível",
+        "ru": "Страшный призрак",
+        "es": "espanto de miedo",
+        "sv": "Rädsla spöke"
+    },
+    "Schwertertanz": {
+        "en": "The sword dance",
+        "fr": "danse épaisse",
+        "it": "danza pesante",
+        "pt": "dança pesada",
+        "ru": "Серьезный танец",
+        "es": "Danza pesada",
+        "sv": "svärd dans"
+    },
+    "Schnuppernäschen": {
+        "en": "Snoopers",
+        "fr": "Les coups de cheveux",
+        "it": "spazzolino",
+        "pt": "Limpeza de nariz",
+        "ru": "Сноуборд",
+        "es": "Cortesía",
+        "sv": "Skruvarna"
+    },
+    "Schamgefühl": {
+        "en": "the shame",
+        "fr": "La honte",
+        "it": "La vergogna",
+        "pt": "Sentido de vergonha",
+        "ru": "Ощущение стыда",
+        "es": "La vergüenza",
+        "sv": "Skamkänsla"
+    },
+    "Scheuklappe": {
+        "en": "The shock",
+        "fr": "Chapeau",
+        "it": "schiacciante",
+        "pt": "Escândalo",
+        "ru": "Шекспир",
+        "es": "Escudo",
+        "sv": "Sköldpadda"
+    },
+    "Schmähwort": {
+        "en": "Smooth word",
+        "fr": "La sourdesse",
+        "it": "La vergogna",
+        "pt": "Palavra suja",
+        "ru": "Смех",
+        "es": "Palabras sucias",
+        "sv": "smutsigt"
+    },
+    "Schäferhütte": {
+        "en": "The Shepherd",
+        "fr": "Château de Chevalier",
+        "it": "Cattedrale di cavalli",
+        "pt": "Cavaleiro",
+        "ru": "Шофьорская палатка",
+        "es": "Caballero",
+        "sv": "Hästkammare"
+    },
+    "Schlachtemesser": {
+        "en": "The battle",
+        "fr": "Batailleur",
+        "it": "La battaglia",
+        "pt": "Batalhão",
+        "ru": "Боевики",
+        "es": "Batallón",
+        "sv": "slagmätare"
+    },
+    "Schmerbauch": {
+        "en": "Painful",
+        "fr": "douleur",
+        "it": "dolore",
+        "pt": "dor",
+        "ru": "боли",
+        "es": "Dolores",
+        "sv": "smärta"
+    },
+    "Schreibung": {
+        "en": "Writing",
+        "fr": "écriture",
+        "it": "La scrittura",
+        "pt": "Escrever",
+        "ru": "Писание",
+        "es": "Escritura",
+        "sv": "Skrivande"
+    },
+    "Grenzjäger": {
+        "en": "The Border Hunter",
+        "fr": "Chasseurs de frontières",
+        "it": "Cacciatori di frontiera",
+        "pt": "Caçadores de Fronteiras",
+        "ru": "Граничный охотник",
+        "es": "Caza de Fronteras",
+        "sv": "Gränsjakt"
+    },
+    "Gruppenversammlung": {
+        "en": "Group Meeting",
+        "fr": "Assemblée Groupes",
+        "it": "Assemblea di gruppo",
+        "pt": "Assembleia de Grupos",
+        "ru": "Групповое собрание",
+        "es": "Asamblea Grupo",
+        "sv": "Gruppmötet"
+    },
+    "Grünkramladen": {
+        "en": "The green shops",
+        "fr": "Les verts",
+        "it": "Giochi di verde",
+        "pt": "Grã-Bretanha",
+        "ru": "Зелёные магазины",
+        "es": "Los griegos",
+        "sv": "Grönkammare"
+    },
+    "Großverdiener": {
+        "en": "Great winners",
+        "fr": "Grand mériteur",
+        "it": "Grande meritato",
+        "pt": "Grandes merecedores",
+        "ru": "Большие заслуги",
+        "es": "Los grandes merecedores",
+        "sv": "Stort förtjänt"
+    },
+    "Grobgarn": {
+        "en": "by Grobgarn",
+        "fr": "Grobgarne",
+        "it": "di Grobgarn",
+        "pt": "Grobgarno",
+        "ru": "Гробгарн",
+        "es": "Grobgarno",
+        "sv": "Grobgarn"
+    },
+    "Großversuch": {
+        "en": "The great attempt",
+        "fr": "Grand essai",
+        "it": "grande tentativo",
+        "pt": "Grande tentativa",
+        "ru": "Большой эксперимент",
+        "es": "Gran intento",
+        "sv": "Stora försök"
+    },
+    "Grundstufe": {
+        "en": "Basic level",
+        "fr": "Niveau de base",
+        "it": "livello di base",
+        "pt": "Nível de base",
+        "ru": "Основы",
+        "es": "Nivel de fondo",
+        "sv": "Grundnivå"
+    },
+    "Großstadtgetriebe": {
+        "en": "The big city",
+        "fr": "Groupe de la ville",
+        "it": "Grande Città",
+        "pt": "Grandes cidades",
+        "ru": "Большой город",
+        "es": "Grandes ciudades",
+        "sv": "Större städerna"
+    },
+    "Grünfilter": {
+        "en": "The green filter",
+        "fr": "Filtre vert",
+        "it": "Il filtro verde",
+        "pt": "Filtros Verdes",
+        "ru": "Зеленый фильтр",
+        "es": "filtros verdes",
+        "sv": "Grön filter"
+    },
+    "Grabstelle": {
+        "en": "Cemetery",
+        "fr": "Un tombeau",
+        "it": "La tomba",
+        "pt": "Cemitério",
+        "ru": "Гробница",
+        "es": "La tumba",
+        "sv": "Gravplats"
+    },
+    "Greisenblick": {
+        "en": "Greece view",
+        "fr": "Vue grecque",
+        "it": "La vista grezzo",
+        "pt": "Visão grega",
+        "ru": "Грейс Вид",
+        "es": "Vista griega",
+        "sv": "Grisenblick"
+    },
+    "Grundlawine": {
+        "en": "Basic law",
+        "fr": "La loi fondamentale",
+        "it": "Legge di base",
+        "pt": "Lei básica",
+        "ru": "Основные законы",
+        "es": "La Ley Fundamental",
+        "sv": "Grundlagen"
+    },
+    "Grundeigentum": {
+        "en": "Fundamental Property",
+        "fr": "Propriété fondamentale",
+        "it": "Proprietà di base",
+        "pt": "Propriedade básica",
+        "ru": "Основная собственность",
+        "es": "Propiedad básica",
+        "sv": "Grundläggande ägande"
+    },
+    "Grußadresse": {
+        "en": "address of greeting",
+        "fr": "adresse de salutation",
+        "it": "Indirizzo saluto",
+        "pt": "endereço de saudação",
+        "ru": "Приветственный адрес",
+        "es": "Dirección de salud",
+        "sv": "Hälsningsadress"
+    },
+    "Grießkloß": {
+        "en": "Greetings",
+        "fr": "Clôture Grise",
+        "it": "La chiusura",
+        "pt": "Coloque",
+        "ru": "Грозный",
+        "es": "Cuerpo de gritos",
+        "sv": "Gräsklås"
+    },
+    "Gründungsjahr": {
+        "en": "Founding Year",
+        "fr": "Année de fondation",
+        "it": "Anno di fondazione",
+        "pt": "Ano de fundação",
+        "ru": "Год основания",
+        "es": "Año de fundación",
+        "sv": "Företagets år"
+    },
+    "Grünunter": {
+        "en": "Greens",
+        "fr": "Les verts",
+        "it": "Il verde",
+        "pt": "Verde",
+        "ru": "Зеленый",
+        "es": "Verdes",
+        "sv": "Grönar"
+    },
+    "Greisenauge": {
+        "en": "Greenauge",
+        "fr": "L’œil vert",
+        "it": "Il Grigio",
+        "pt": "Vermelho",
+        "ru": "Зеленые глаза",
+        "es": "Los ojos verdes",
+        "sv": "Grön öga"
+    },
+    "Grobsplitt": {
+        "en": "The tomb",
+        "fr": "Les tombes",
+        "it": "Il cimitero",
+        "pt": "sepultura",
+        "ru": "Гробница",
+        "es": "Los sepulcros",
+        "sv": "Grobsplitt"
+    },
+    "Größenunterschied": {
+        "en": "Difference in size",
+        "fr": "Différence de taille",
+        "it": "Differenza di dimensioni",
+        "pt": "Diferença de tamanho",
+        "ru": "Различия размеров",
+        "es": "Diferencia de tamaño",
+        "sv": "Storleksskillnad"
+    },
+    "Gratwind": {
+        "en": "by Gratwind",
+        "fr": "GRATWIND",
+        "it": "La grattacia",
+        "pt": "Grã-Vindo",
+        "ru": "ГРАТВИН",
+        "es": "GRATWIND",
+        "sv": "Gratwind"
+    },
+    "Grabmonument": {
+        "en": "The tomb monument",
+        "fr": "Monument tombeau",
+        "it": "Monumento alla tomba",
+        "pt": "Monumento de sepultura",
+        "ru": "Могильный памятник",
+        "es": "Monumento a la tumba",
+        "sv": "Gravmonument"
+    },
+    "Grafenkrone": {
+        "en": "The Crown",
+        "fr": "Croix du Grafen",
+        "it": "Crociera di Grafen",
+        "pt": "Croação",
+        "ru": "Графная корона",
+        "es": "La corona",
+        "sv": "Grafenkrona"
+    },
+    "Grundrisszeichnung": {
+        "en": "Basic disclosure",
+        "fr": "Résumé de base",
+        "it": "Riscatto di base",
+        "pt": "Riscos Fundamentais",
+        "ru": "Основной риски",
+        "es": "Descripción básica",
+        "sv": "Grundrisker"
+    },
+    "Grabgeläute": {
+        "en": "The tomb",
+        "fr": "Les tombes",
+        "it": "La tomba",
+        "pt": "Gravação",
+        "ru": "Гробница",
+        "es": "La tumba",
+        "sv": "gravlån"
+    },
+    "Großherzigkeit": {
+        "en": "the generosity",
+        "fr": "La générosité",
+        "it": "generosità",
+        "pt": "A generosidade",
+        "ru": "великолепие",
+        "es": "generosidad",
+        "sv": "generositet"
+    },
+    "Grüblernatur": {
+        "en": "The Grief Nature",
+        "fr": "La nature cruelle",
+        "it": "La natura grossa",
+        "pt": "A natureza cruel",
+        "ru": "грубый природы",
+        "es": "Grúas Naturales",
+        "sv": "Grym natur"
+    },
+    "Granitblock": {
+        "en": "The Granite Block",
+        "fr": "blocs de granit",
+        "it": "Blocco di granito",
+        "pt": "bloco de granito",
+        "ru": "Гранитный блок",
+        "es": "El bloque de granito",
+        "sv": "Granitblock"
+    },
+    "Großprojekt": {
+        "en": "The big project",
+        "fr": "Grand projet",
+        "it": "Il grande progetto",
+        "pt": "Projeto Grande",
+        "ru": "Большой проект",
+        "es": "Gran proyecto",
+        "sv": "Stora projekt"
+    },
+    "Grisette": {
+        "en": "Grisette",
+        "fr": "Grisette",
+        "it": "la griglia",
+        "pt": "Griseta",
+        "ru": "ГРИСЕТ",
+        "es": "Griseta",
+        "sv": "Grisett"
+    },
+    "Grundumsatz": {
+        "en": "basic sales",
+        "fr": "Échanges de base",
+        "it": "La vendita di base",
+        "pt": "Comércio básico",
+        "ru": "Основной обмен",
+        "es": "Comercio básico",
+        "sv": "Grundläggande försäljning"
+    },
+    "Grünzeug": {
+        "en": "green",
+        "fr": "vert",
+        "it": "Il verde",
+        "pt": "Verde",
+        "ru": "Зеленый",
+        "es": "Verdes",
+        "sv": "Grön"
+    },
+    "Grammofonkasten": {
+        "en": "The Gramofon Box",
+        "fr": "La boîte de grammaire",
+        "it": "La scatola grammofonica",
+        "pt": "Caixa Gramofon",
+        "ru": "Грамофонная коробка",
+        "es": "La caja de gramofonos",
+        "sv": "Grammofonlåda"
+    },
+    "Grabkreuz": {
+        "en": "The grave cross",
+        "fr": "Croix de tombes",
+        "it": "Croce della tomba",
+        "pt": "Cruz do sepulcro",
+        "ru": "Гробный крест",
+        "es": "Cruz de tumbas",
+        "sv": "Gravkryssning"
+    },
+    "Großmut": {
+        "en": "Grandmother",
+        "fr": "grand-mère",
+        "it": "La grandezza",
+        "pt": "A grandeza",
+        "ru": "Дедушка",
+        "es": "Granosidad",
+        "sv": "Storhjärta"
+    },
+    "Grubenfeld": {
+        "en": "Grubenfeld",
+        "fr": "Groupe",
+        "it": "Il Grobenfeld",
+        "pt": "Campo de Grove",
+        "ru": "Гробница",
+        "es": "Groenlandia",
+        "sv": "Grubenfeld"
+    },
+    "Großstadtbevölkerung": {
+        "en": "The major urban population",
+        "fr": "Population de grandes villes",
+        "it": "popolazione di grandi città",
+        "pt": "população de grandes cidades",
+        "ru": "Городское население",
+        "es": "Población de grandes ciudades",
+        "sv": "Storstadsbefolkningen"
+    },
+    "Griebs": {
+        "en": "by Griebs",
+        "fr": "Grèbe",
+        "it": "di Griebs",
+        "pt": "Gráfico",
+        "ru": "Грейбс",
+        "es": "griegos",
+        "sv": "Gräva"
+    },
+    "Grabstock": {
+        "en": "by Grabstock",
+        "fr": "Le Grabstock",
+        "it": "di Grabstock",
+        "pt": "Gravação",
+        "ru": "Grabstock",
+        "es": "Grabstock",
+        "sv": "Grabstock"
+    },
+    "Grundanschauung": {
+        "en": "Basic view",
+        "fr": "Vue de base",
+        "it": "Visione di base",
+        "pt": "Visão básica",
+        "ru": "Основные взгляды",
+        "es": "La visión básica",
+        "sv": "grundläggande syn"
+    },
+    "Grasart": {
+        "en": "Grasart",
+        "fr": "Grasart",
+        "it": "Grasart",
+        "pt": "Gráfico",
+        "ru": "ГРАСАРТ",
+        "es": "Grasart",
+        "sv": "Grasart"
+    },
+    "Griebenspeck": {
+        "en": "Griebenspeck",
+        "fr": "Grivespeck",
+        "it": "Peccato",
+        "pt": "Pequena Pecca",
+        "ru": "Грейпфрут",
+        "es": "Pegado Pegado",
+        "sv": "Grävspeck"
+    },
+    "Gruppenflug": {
+        "en": "Group flights",
+        "fr": "Vols groupes",
+        "it": "Volo di gruppo",
+        "pt": "Voos de grupo",
+        "ru": "Групповый полет",
+        "es": "Vuelos de grupo",
+        "sv": "Gruppflyg"
+    },
+    "Großmannssucht": {
+        "en": "The Grandman",
+        "fr": "La grand-mère",
+        "it": "La vecchiaia",
+        "pt": "Grandes Mães",
+        "ru": "Большинство бабушек",
+        "es": "La granja",
+        "sv": "Stormänniskan"
+    },
+    "Grobschmied": {
+        "en": "The Grobschmied",
+        "fr": "Grobschmied",
+        "it": "Grobschmied",
+        "pt": "Grobschmied",
+        "ru": "Гробница",
+        "es": "Grobschmied",
+        "sv": "Grobschmied"
+    },
+    "Graubart": {
+        "en": "Graubart",
+        "fr": "Graubart",
+        "it": "Grigio",
+        "pt": "Graubart",
+        "ru": "Грейбарт",
+        "es": "Graubart",
+        "sv": "Graubart"
+    },
+    "steingrau": {
+        "en": "Steingrau",
+        "fr": "Steingrau",
+        "it": "Steingrau",
+        "pt": "Steingrau",
+        "ru": "Каменная",
+        "es": "Steingrau",
+        "sv": "Steingrau"
+    },
+    "stockig": {
+        "en": "stocked",
+        "fr": "Stockage",
+        "it": "Stoccolato",
+        "pt": "Estocolmo",
+        "ru": "Стокинг",
+        "es": "Estocas",
+        "sv": "Stockig"
+    },
+    "steinalt": {
+        "en": "stone",
+        "fr": "de pierre",
+        "it": "Pietra",
+        "pt": "pedra",
+        "ru": "Каменный",
+        "es": "piedra",
+        "sv": "stenalt"
     }
 }
