@@ -1,7 +1,15 @@
 # All English (Q1860) verbs and the currently implemented tenses for each.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT ?infinitive ?presFPS ?presTPS ?simpPast ?pastPart WHERE {
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  ?infinitive
+  ?presFPS
+  ?presTPS
+  ?simpPast
+  ?pastPart
+
+WHERE {
   # Infinitive (required)
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q1860 ;

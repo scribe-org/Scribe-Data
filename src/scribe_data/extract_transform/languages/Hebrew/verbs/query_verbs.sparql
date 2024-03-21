@@ -1,7 +1,11 @@
 # All Hebrew (Q9288) verbs.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT ?lexeme ?verb WHERE {
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  ?verb
+
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q9288 ;
     wikibase:lexicalCategory wd:Q24905 ;
