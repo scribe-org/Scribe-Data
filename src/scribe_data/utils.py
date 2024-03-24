@@ -33,7 +33,6 @@ import os
 import signal
 import sys
 from importlib import resources
-from pathlib import Path
 from typing import Any
 
 import langcodes
@@ -62,13 +61,6 @@ def _load_json(package_path: str, file_name: str, root: str):
     -------
         A python entity starting at 'root'.
     """
-    # Add 'Scribe-Data/src' to PYTHONPATH so that resources.files() can find 'package_path'.
-    # parts = Path(__file__).resolve().parts
-    # prj_root_idx = parts.index(PROJECT_ROOT)
-    # package_root = str(Path(*parts[: prj_root_idx + 1], "src"))
-
-    # if package_root not in sys.path:
-    #     sys.path.insert(0, package_root)
 
     with resources.files(package_path).joinpath(file_name).open(
         encoding="utf-8"

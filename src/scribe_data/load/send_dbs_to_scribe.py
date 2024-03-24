@@ -7,7 +7,6 @@ Example
 """
 
 import os
-import sys
 
 from scribe_data.utils import (
     get_ios_data_path,

@@ -8,7 +8,6 @@ Example
 
 import json
 import os
-import sys
 
 from scribe_data.utils import translate_to_other_languages
 
