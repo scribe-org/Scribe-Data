@@ -9,7 +9,7 @@ Example
 import json
 import os
 
-from scribe_data.extract_transform.translation.translation_utils import (  # noqa: E402
+from scribe_data.extract_transform.translation.translation_utils import (
     translate_to_other_languages,
 )
 
