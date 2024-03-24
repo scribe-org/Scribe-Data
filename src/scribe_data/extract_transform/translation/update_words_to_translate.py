@@ -8,7 +8,7 @@ Parameters
 
 Example
 -------
-    python update_words_to_translate.py '["French", "German"]'
+    python3 src/scribe_data/extract_transform/translation/update_words_to_translate.py '["French", "German"]'
 """
 
 import json

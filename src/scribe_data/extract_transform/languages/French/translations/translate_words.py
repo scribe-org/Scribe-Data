@@ -9,7 +9,9 @@ Example
 import json
 import os
 
-from scribe_data.utils import translate_to_other_languages
+from scribe_data.extract_transform.translation.translation_utils import (  # noqa: E402
+    translate_to_other_languages,
+)
 
 SRC_LANG = "French"
 translate_script_dir = os.path.dirname(os.path.abspath(__file__))

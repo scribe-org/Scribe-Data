@@ -12,10 +12,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 3.3.0
 
-<!-- - The translation process has been updated to allow for translations from non-English languages.
-  - Scribe-Data now outputs an SQLite table that has keys for target languages for each base language. -->
-<!-- - English has been added to the data ETL process. -->
-
+- The translation process has been updated to allow for translations from non-English languages ([#72](https://github.com/scribe-org/Scribe-Data/issues/72), [#73](https://github.com/scribe-org/Scribe-Data/issues/73), [#74](https://github.com/scribe-org/Scribe-Data/issues/74), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#76](https://github.com/scribe-org/Scribe-Data/issues/76), [#77](https://github.com/scribe-org/Scribe-Data/issues/77), [#78](https://github.com/scribe-org/Scribe-Data/issues/78), [#79](https://github.com/scribe-org/Scribe-Data/issues/79)).
 - The documentation has been given a new layout with the logo in the top left ([#90](https://github.com/scribe-org/Scribe-Data/issues/90)).
 - The documentation now has links to the code at the top of each page ([#91](https://github.com/scribe-org/Scribe-Data/issues/91)).
 
@@ -25,6 +22,8 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - A Ruff based GitHub workflow was added to check the code formatting and lint the codebase on each pull request ([#109](https://github.com/scribe-org/Scribe-Data/issues/109)).
 - The `_update_files` directory was renamed `update_files` as these files are used in non-internal manners now ([#57](https://github.com/scribe-org/Scribe-Data/issues/57)).
 - A common function has been created to map Wikidata ids to noun genders ([#69](https://github.com/scribe-org/Scribe-Data/issues/69)).
+- Files in the `extract_transform` directory were moved based on if they access Wikidata, Wikipedia or Unicode.
+  - Translation files are further moved to their own directory.
 
 ## Scribe-Data 3.2.2
 

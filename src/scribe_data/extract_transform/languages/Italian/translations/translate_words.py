@@ -1,19 +1,24 @@
 """
-Translates the German words queried from Wikidata to all other Scribe languages.
+Translates the Italian words queried from Wikidata to all other Scribe languages.
 
 Example
 -------
-    python3 src/scribe_data/extract_transform/languages/German/translations/translate_words.py
+    python3 src/scribe_data/extract_transform/languages/Italian/translations/translate_words.py
 """
 
 import json
 import os
+import sys
+
+PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
+PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
+sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
 
 from scribe_data.extract_transform.translation.translation_utils import (  # noqa: E402
     translate_to_other_languages,
 )
 
-SRC_LANG = "German"
+SRC_LANG = "Italian"
 translate_script_dir = os.path.dirname(os.path.abspath(__file__))
 words_to_translate_path = os.path.join(translate_script_dir, "words_to_translate.json")
 

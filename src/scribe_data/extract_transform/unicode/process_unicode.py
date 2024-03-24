@@ -14,13 +14,13 @@ import emoji
 from icu import Char, UProperty
 from tqdm.auto import tqdm
 
-from scribe_data.extract_transform.emoji_utils import get_emoji_codes_to_ignore
+from scribe_data.extract_transform.unicode.emoji_utils import get_emoji_codes_to_ignore
 from scribe_data.utils import (
     get_language_iso,
     get_path_from_et_dir,
 )
 
-from . import _resources
+from .. import _resources
 
 emoji_codes_to_ignore = get_emoji_codes_to_ignore()
 
