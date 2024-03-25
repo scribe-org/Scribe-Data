@@ -7,13 +7,8 @@ Example
 """
 
 import os
-import sys
 
-PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
-sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
-
-from scribe_data.utils import (  # noqa: E402
+from scribe_data.utils import (
     get_ios_data_path,
     get_language_from_iso,
     get_path_from_load_dir,

@@ -7,17 +7,11 @@ Contents:
 """
 
 import json
-import os
 import signal
-import sys
 
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
-PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
-sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
-
-from scribe_data.utils import (  # noqa: E402
+from scribe_data.utils import (
     get_language_dir_path,
     get_language_iso,
     get_target_langcodes,

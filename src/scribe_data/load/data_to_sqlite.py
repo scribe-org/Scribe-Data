@@ -19,11 +19,7 @@ import sys
 
 from tqdm.auto import tqdm
 
-PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
-sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
-
-from scribe_data.utils import get_language_iso  # noqa: E402
+from scribe_data.utils import get_language_iso
 
 PATH_TO_ET_FILES = "../extract_transform/"
 

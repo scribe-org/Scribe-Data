@@ -11,11 +11,7 @@ import collections
 import os
 import sys
 
-PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-PATH_TO_SCRIBE_DATA_SRC = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/src"
-sys.path.insert(0, PATH_TO_SCRIBE_DATA_SRC)
-
-from scribe_data.utils import export_formatted_data, load_queried_data  # noqa: E402
+from scribe_data.utils import export_formatted_data, load_queried_data
 
 file_path = sys.argv[0]
 
