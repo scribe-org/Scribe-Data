@@ -1,8 +1,12 @@
 # All Finnish (Q1412) nouns and their plural.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT ?lexeme ?singular ?plural WHERE {
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  ?singular
+  ?plural
 
+WHERE {
   # Nouns and pronouns.
   VALUES ?nounTypes { wd:Q1084 wd:Q147276 }
   ?lexeme a ontolex:LexicalEntry ;

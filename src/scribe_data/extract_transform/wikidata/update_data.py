@@ -11,7 +11,7 @@ Parameters
 
 Example
 -------
-    python update_data.py '["French", "German"]' '["nouns", "verbs"]'
+    python3 src/scribe_data/extract_transform/wikidata/update_data.py '["French", "German"]' '["nouns", "verbs"]'
 """
 
 import itertools
