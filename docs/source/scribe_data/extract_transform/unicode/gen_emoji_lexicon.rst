@@ -1,7 +1,7 @@
 gen_emoji_lexicon
 =================
 
-`View code on Github <https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/unicode/gen_emoji_lexicon.py>`_
+`View code on Github <https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/unicode/gen_emoji_lexicon.ipynb>`_
 
 Scribe Emoji Lexicon Generation
 -------------------------------
