@@ -24,6 +24,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - A common function has been created to map Wikidata ids to noun genders ([#69](https://github.com/scribe-org/Scribe-Data/issues/69)).
 - Files in the `extract_transform` directory were moved based on if they access Wikidata, Wikipedia or Unicode.
   - Translation files are further moved to their own directory.
+- The project now is installed locally for development and command line usage, so usages of `sys.path` have been removed from files ([#122](https://github.com/scribe-org/Scribe-Data/issues/122)).
 
 ## Scribe-Data 3.2.2
 
