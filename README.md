@@ -159,6 +159,7 @@ After activating the virtual environment, install the required dependencies by r
 ```bash
 pip install --upgrade pip  # make sure that pip is at the latest version
 pip install -r requirements.txt  # install dependencies
+pip install -e .  # install the local version of Scribe-Data
 ```
 
 > [!NOTE]
