@@ -3,7 +3,7 @@ Updates Scribe apps with the SQLite language databases that are found in src/loa
 
 Example
 -------
-    python send_dbs_to_scribe.py
+    python3 send_dbs_to_scribe.py
 """
 
 import os

@@ -7,14 +7,21 @@
 # Words with multiple translations could also prompt the keyboard to be replaced with the options.
 # For now words are querried and machine translated using 🤗 Transformers.
 
-SELECT ?word WHERE {
+SELECT
+  ?word
+
+WHERE {
   # We want nouns, proper nouns, pronouns, personal pronouns, verbs, adjectives, adverbs, prepositions, postpositions, conjunctions and articles.
-  VALUES ?wordCategories { wd:Q1084 wd:Q147276 wd:Q36224 wd:Q468801 wd:Q24905 wd:Q34698 wd:Q380057 wd:Q4833830 wd:Q161873 wd:Q191536 wd:Q103184 }
+  VALUES ?wordCategories {
+    wd:Q1084 wd:Q147276 wd:Q36224 wd:Q468801 wd:Q24905 wd:Q34698 wd:Q380057 wd:Q4833830 wd:Q161873 wd:Q191536 wd:Q103184
+  }
+
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:LANGUAGE_QID; # replace language qid here ;
     wikibase:lexicalCategory ?category ;
     wikibase:lemma ?lemma .
-  FILTER(?category = ?wordCategories )
+
+  FILTER (?category = ?wordCategories)
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

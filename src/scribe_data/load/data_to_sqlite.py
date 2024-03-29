@@ -8,7 +8,7 @@ Parameters
 
 Example
 -------
-    python data_to_sqlite.py '["French", "German"]'
+    python3 data_to_sqlite.py '["French", "German"]'
 """
 
 import ast
