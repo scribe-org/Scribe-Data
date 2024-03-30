@@ -7,6 +7,7 @@ This query is to check the totals of a given language on Wikidata. Enter this qu
 
 .. code:: sparql
 
+    # tool: scribe-data
     SELECT
         ?wordCategory
         (COUNT(?wordCategory) as ?wordCategoryCounts)

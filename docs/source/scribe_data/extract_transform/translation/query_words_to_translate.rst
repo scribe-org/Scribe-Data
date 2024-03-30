@@ -9,6 +9,7 @@ Currently translations (P5972, Q7553) are not widely used on Wikidata. An initia
 
 .. code:: sparql
 
+    # tool: scribe-data
     SELECT
         ?word
 
