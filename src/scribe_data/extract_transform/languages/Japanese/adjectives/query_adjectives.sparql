@@ -3,7 +3,10 @@ PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
 
-SELECT (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID) ?adjective WHERE {
+SELECT (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID) 
+?adjective 
+
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q5287 ;  # Japanese language
     wikibase:lexicalCategory wd:Q34698 ;  # Adjectives
