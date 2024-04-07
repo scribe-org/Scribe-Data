@@ -1,6 +1,8 @@
 scribe_data
 ===========
 
+`View code on Github <https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data>`_
+
 .. toctree::
     :maxdepth: 2
 
