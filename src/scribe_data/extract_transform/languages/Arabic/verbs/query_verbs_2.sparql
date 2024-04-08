@@ -7,7 +7,9 @@ SELECT
   ?verb
   ?pastFPS ?pastSPSM ?pastSPSF ?pastTPSM ?pastTPSF
   ?pastSPD ?pastTPDM ?pastTPDF
-  ?pastFPP ?pastSPPM ?pastSPPF WHERE {
+  ?pastFPP ?pastSPPM ?pastSPPF
+
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q24905 ;

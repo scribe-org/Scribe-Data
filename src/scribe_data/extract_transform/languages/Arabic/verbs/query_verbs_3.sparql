@@ -6,13 +6,15 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
   ?verb
   ?impSPSM ?impSPSF ?impSPD
-  ?impSPPM ?impSPPF WHERE {
+  ?impSPPM ?impSPPF
+
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
 
-  # Imperative Verb
+  # Imperative
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPSMForm .
     ?impSPSMForm ontolex:representation ?impSPSM ;

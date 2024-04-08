@@ -7,7 +7,9 @@ SELECT
   ?verb
   ?presFPS ?presSPSM ?presSPSF ?presTPSM ?presTPSF
   ?presSPD ?presTPDM ?presTPDF
-  ?presFPP ?presSPPM ?presSPPF WHERE {
+  ?presFPP ?presSPPM ?presSPPF
+
+WHERE {
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q24905 ;
