@@ -35,6 +35,7 @@ from importlib import resources
 from typing import Any
 
 from iso639 import Lang
+from iso639.exceptions import InvalidLanguageValue, DeprecatedLanguageValue
 
 PROJECT_ROOT = "Scribe-Data"
 
@@ -167,14 +168,12 @@ def get_language_iso(language: str) -> str:
     """
     try:
         iso_code = str(Lang(language.capitalize()).pt1)
-    except LookupError as e:
+    except InvalidLanguageValue:
         raise ValueError(
             f"{language.capitalize()} is currently not a supported language for ISO conversion."
-        ) from e
+        ) from None
     return iso_code
 
-# print("GERMAN".capitalize())s
-# print(Lang("french").pt1)
 
 def get_language_from_iso(iso: str) -> str:
     """
@@ -190,9 +189,9 @@ def get_language_from_iso(iso: str) -> str:
         str
             The name for the language which has an ISO value of iso.
     """
-
-    language_name = str(Lang(iso).name)
-    if "Unknown language" in language_name:
+    try:
+        language_name = str(Lang(iso).name)
+    except DeprecatedLanguageValue:
         raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
     return language_name
 
