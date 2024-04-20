@@ -12,8 +12,6 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          # Removing 'macos-latest' for now until build issue is fixed.
-          #   https://github.com/scribe-org/Scribe-Data/issues/61
           - macos-latest
           - ubuntu-latest
         python-version:
