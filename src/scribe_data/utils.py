@@ -34,8 +34,7 @@ import sys
 from importlib import resources
 from typing import Any
 
-import langcodes
-from langcodes import Language
+from iso639 import Lang
 
 PROJECT_ROOT = "Scribe-Data"
 
@@ -167,13 +166,15 @@ def get_language_iso(language: str) -> str:
             The ISO code for the language.
     """
     try:
-        iso_code = str(langcodes.find(language).language)
+        iso_code = str(Lang(language.capitalize()).pt1)
     except LookupError as e:
         raise ValueError(
             f"{language.capitalize()} is currently not a supported language for ISO conversion."
         ) from e
     return iso_code
 
+# print("GERMAN".capitalize())s
+# print(Lang("french").pt1)
 
 def get_language_from_iso(iso: str) -> str:
     """
@@ -190,7 +191,7 @@ def get_language_from_iso(iso: str) -> str:
             The name for the language which has an ISO value of iso.
     """
 
-    language_name = str(Language.make(language=iso).display_name())
+    language_name = str(Lang(iso).name)
     if "Unknown language" in language_name:
         raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
     return language_name
