@@ -3,8 +3,7 @@ certifi>=2020.12.5
 defusedxml==0.7.1
 emoji>=2.2.0
 flax>=0.8.2
-langcodes>=3.0.0
-language-data>=1.1
+iso639-lang>=2.2.3
 m2r2>=0.3.3
 mwparserfromhell>=0.6
 numpydoc>=1.6.0
