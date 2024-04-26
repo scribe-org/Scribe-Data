@@ -1,5 +1,6 @@
 from checkquery_utills.query_file import QueryFile
 
+
 class QueryExecutionException(Exception):
     def __init__(self, message: str, query: QueryFile) -> None:
         self.message = message

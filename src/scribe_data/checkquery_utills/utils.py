@@ -2,6 +2,7 @@ import urllib.request
 import sys
 import time
 
+
 def ping(url: str, timeout: int) -> bool:
     try:
         with urllib.request.urlopen(url, timeout=timeout) as response:

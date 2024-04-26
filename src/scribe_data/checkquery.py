@@ -39,6 +39,7 @@ from checkquery_utills.exceptions import QueryExecutionException
 from checkquery_utills.utils import ping
 from checkquery_utills.sparql import sparql_context, execute
 
+
 def all_queries() -> List[QueryFile]:
     parts = pathlib.Path(__file__).resolve().parts
     prj_root_idx = parts.index(PROJECT_ROOT)
@@ -64,7 +65,7 @@ def changed_queries() -> Optional[List[QueryFile]]:
         check=False,
     )
 
-    if result.returncode!= EXIT_SUCCESS:
+    if result.returncode != EXIT_SUCCESS:
         print(f"ERROR: {result.stderr}", file=sys.stderr)
         return None
 
@@ -81,7 +82,7 @@ def check_sparql_file(fpath: str) -> pathlib.Path:
     path = pathlib.Path(fpath)
     if not path.is_file():
         raise argparse.ArgumentTypeError(f"Not a valid file path: {path}")
-    if path.suffix!= ".sparql":
+    if path.suffix != ".sparql":
         raise argparse.ArgumentTypeError(f"{path} does not have a '.sparql' extension")
     return path
 

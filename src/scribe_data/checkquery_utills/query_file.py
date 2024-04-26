@@ -1,6 +1,7 @@
 import pathlib
 from dataclasses import dataclass
 
+
 @dataclass(frozen=True)
 class QueryFile:
     path: pathlib.Path

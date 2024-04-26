@@ -2,11 +2,13 @@ import SPARQLWrapper as SPARQL
 from SPARQLWrapper import SPARQLExceptions
 from checkquery_utills.query_file import QueryFile
 
+
 def sparql_context(url: str) -> SPARQL.SPARQLWrapper:
     context = SPARQL.SPARQLWrapper(url)
     context.setReturnFormat(SPARQL.JSON)
     context.setMethod(SPARQL.POST)
     return context
+
 
 def execute(query: QueryFile, limit: int, context: SPARQL.SPARQLWrapper) -> dict:
     def delay_in_seconds() -> int:
