@@ -1,43 +1,54 @@
-#!/usr/bin/env python3
-
-"""
-Command line tool for testing SPARQl queries against an endpoint.
-
-Contents:
-    QueryFile Class
-        load,
-        __repr__
-    QueryExecutionException Class
-        __init__,
-        __str__
-    ping,
-    all_queries,
-    changed_queries,
-    sparql_context,
-    execute,
-    check_sparql_file,
-    check_limit,
-    check_timeout,
-    main,
-    error_report,
-    success_report
-"""
-
 import argparse
 import contextlib
 import os
 import pathlib
-import subprocess
 import sys
 import time
+import urllib.request
+from dataclasses import dataclass
 from typing import Optional, List, Tuple
+
+import SPARQLWrapper as SPARQL
+from SPARQLWrapper import SPARQLExceptions
 from tqdm.auto import tqdm
 
-from checkquery_utills.constants import *
-from checkquery_utills.query_file import QueryFile
-from checkquery_utills.exceptions import QueryExecutionException
-from checkquery_utills.utils import ping
-from checkquery_utills.sparql import sparql_context, execute
+EXIT_SUCCESS = 0
+EXIT_FAILURE = 1
+EXIT_CLI_ERROR = 2
+
+PROJECT_ROOT = "Scribe-Data"
+
+
+@dataclass(frozen=True)
+class QueryFile:
+    path: pathlib.Path
+
+    def load(self, limit: int) -> str:
+        with open(self.path, encoding="utf-8") as in_stream:
+            return f"{in_stream.read()}\nLIMIT {limit}\n"
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}(path={self.path})"
+
+
+class QueryExecutionException(Exception):
+    def __init__(self, message: str, query: QueryFile) -> None:
+        self.message = message
+        self.query = query
+        super().__init__(self.message)
+
+    def __str__(self) -> str:
+        return f"{self.query.path} : {self.message}"
+
+
+def ping(url: str, timeout: int) -> bool:
+    try:
+        with urllib.request.urlopen(url, timeout=timeout) as response:
+            return response.getcode() == 200
+    except (urllib.error.HTTPError, Exception) as err:
+        print(f"{type(err).__name__}: {str(err)}", file=sys.stderr)
+    return False
+
 
 def all_queries() -> List[QueryFile]:
     parts = pathlib.Path(__file__).resolve().parts
@@ -64,7 +75,7 @@ def changed_queries() -> Optional[List[QueryFile]]:
         check=False,
     )
 
-    if result.returncode!= EXIT_SUCCESS:
+    if result.returncode != EXIT_SUCCESS:
         print(f"ERROR: {result.stderr}", file=sys.stderr)
         return None
 
@@ -77,11 +88,36 @@ def changed_queries() -> Optional[List[QueryFile]]:
     return [QueryFile(fpath) for fpath in changed_files if fpath.suffix == ".sparql"]
 
 
+def sparql_context(url: str) -> SPARQL.SPARQLWrapper:
+    context = SPARQL.SPARQLWrapper(url)
+    context.setReturnFormat(SPARQL.JSON)
+    context.setMethod(SPARQL.POST)
+    return context
+
+
+def execute(query: QueryFile, limit: int, context: SPARQL.SPARQLWrapper) -> dict:
+    def delay_in_seconds() -> int:
+        return int(math.ceil(10.0 / math.sqrt(3)))
+
+    try:
+        context.setQuery(query.load(limit))
+        return context.queryAndConvert()
+    except HTTPError:
+        time.sleep(delay_in_seconds())
+        return execute(query, limit, context)
+    except SPARQLExceptions.SPARQLWrapperException as err:
+        raise QueryExecutionException(err.msg, query) from err
+    except Exception as err:
+        raise QueryExecutionException(
+            f"{type(err).__name__} - {str(err)}", query
+        ) from err
+
+
 def check_sparql_file(fpath: str) -> pathlib.Path:
     path = pathlib.Path(fpath)
     if not path.is_file():
         raise argparse.ArgumentTypeError(f"Not a valid file path: {path}")
-    if path.suffix!= ".sparql":
+    if path.suffix != ".sparql":
         raise argparse.ArgumentTypeError(f"{path} does not have a '.sparql' extension")
     return path
 
