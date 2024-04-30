@@ -33,6 +33,7 @@ import os
 import sys
 from importlib import resources
 from typing import Any
+import re
 
 from iso639 import Lang
 from iso639.exceptions import InvalidLanguageValue, DeprecatedLanguageValue
@@ -541,3 +542,13 @@ def map_genders(wikidata_gender):
         return "N"
     else:
         return ""  # nouns could have a gender that is not valid as an attribute
+
+
+#extract_id_from_querylines
+def extract_language_id(code_snippet):
+    pattern = r'(?<=dct:language wd:Q)(\d+)'
+    language_ids = re.search(pattern, ''.join(code_snippet))
+    if language_ids:
+        return 'Q' + language_ids.group(1)
+    else:
+        return None

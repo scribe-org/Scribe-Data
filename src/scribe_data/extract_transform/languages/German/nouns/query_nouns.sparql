@@ -1,45 +1,40 @@
 # tool: scribe-data
-# All German (Q188) nouns, their plural and their gender.
+# All German (Q188) nouns, their plural, and their gender.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?singular
+  ?lemma
   ?plural
   ?gender
-
 WHERE {
   # Nouns and pronouns.
   VALUES ?nounTypes { wd:Q1084 wd:Q147276 }
   ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q188 ;
-    wikibase:lexicalCategory ?noun .
+          dct:language wd:Q188 ;
+          wikibase:lemma ?lemma;
+          wikibase:lexicalCategory ?noun .
   FILTER(?noun = ?nounTypes)
 
-  # Optional selection of nominative singular forms.
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-  } .
-
-  # Optional selection of nominative plural forms.
+  # Optional selection of nominative plural form.
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q131105 ;
+                wikibase:grammaticalFeature wd:Q146786 ;
+                wikibase:grammaticalFeature wd:Q131105 ;
   } .
 
-  # Optional selection of genders.
+  # Optional selection of gender.
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
     FILTER NOT EXISTS { ?lexeme wdt:P31 wd:Q202444 . }
   } .
 
+  # Get the label of the gender.
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
     ?nounGender rdfs:label ?gender .
   }
 }
+LIMIT 10000
+OFFSET OFFSET_BY
