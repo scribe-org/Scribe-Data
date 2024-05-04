@@ -20,5 +20,5 @@ sphinx-rtd-theme>=2.0.0
 tabulate>=0.8.9
 tensorflow>=2.0
 torch>=2.2.1
-tqdm==4.56.1
+tqdm==4.66.3
 transformers>=4.12
