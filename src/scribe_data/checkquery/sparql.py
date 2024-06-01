@@ -1,6 +1,15 @@
+"""
+Functions for running SPARQL queries within the query check process.
+"""
+
+import math
+import time
+from urllib.error import HTTPError
+
 import SPARQLWrapper as SPARQL
 from SPARQLWrapper import SPARQLExceptions
-from checkquery_utills.query_file import QueryFile
+
+from scribe_data.checkquery.query import QueryExecutionException, QueryFile
 
 
 def sparql_context(url: str) -> SPARQL.SPARQLWrapper:

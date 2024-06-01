@@ -1,30 +1,5 @@
 """
 Utility functions for data extraction, formatting and loading.
-
-Contents:
-    _load_json,
-    _find,
-    get_scribe_languages,
-    get_language_qid,
-    get_language_iso,
-    get_language_from_iso,
-    get_language_words_to_remove,
-    get_language_words_to_ignore,
-    get_language_dir_path,
-    load_queried_data,
-    export_formatted_data,
-    get_path_from_format_file,
-    get_path_from_load_dir,
-    get_path_from_et_dir,
-    get_ios_data_path,
-    get_android_data_path,
-    get_desktop_data_path,
-    check_command_line_args,
-    check_and_return_command_line_args,
-    get_target_langcodes,
-    translation_interrupt_handler,
-    translate_to_other_languages,
-    map_genders
 """
 
 import ast
@@ -35,7 +10,7 @@ from importlib import resources
 from typing import Any
 
 from iso639 import Lang
-from iso639.exceptions import InvalidLanguageValue, DeprecatedLanguageValue
+from iso639.exceptions import DeprecatedLanguageValue, InvalidLanguageValue
 
 PROJECT_ROOT = "Scribe-Data"
 

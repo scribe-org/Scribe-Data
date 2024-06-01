@@ -1,26 +1,23 @@
 import argparse
 from http import HTTPStatus
+from pathlib import Path
+from unittest.mock import MagicMock, mock_open, patch
 from urllib.error import HTTPError
 
-from unittest.mock import MagicMock, mock_open, patch
-from pathlib import Path
-
 import pytest
-
-from scribe_data.checkquery import (
+from scribe_data.checkquery.check import (
     all_queries,
     changed_queries,
     check_limit,
-    check_timeout,
     check_sparql_file,
+    check_timeout,
     error_report,
-    execute,
     main,
-    QueryExecutionException,
-    QueryFile,
     ping,
     success_report,
 )
+from scribe_data.checkquery.query import QueryExecutionException, QueryFile
+from scribe_data.checkquery.sparql import execute
 
 S_PATH = "/root/project/src/dir/query.sparql"
 A_PATH = Path(S_PATH)
