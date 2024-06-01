@@ -10,7 +10,7 @@ import sys
 import urllib.request
 from http import HTTPStatus
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Optional
 from urllib.error import HTTPError
 
 from tqdm.auto import tqdm
