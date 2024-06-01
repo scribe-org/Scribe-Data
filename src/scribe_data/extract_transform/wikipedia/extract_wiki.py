@@ -1,17 +1,5 @@
 """
 Module for downloading and creating workable files from Wikipedia dumps.
-
-Contents:
-    download_wiki,
-    _process_article,
-    iterate_and_parse_file,
-    parse_to_ndjson,
-
-    WikiXmlHandler Class
-        __init__,
-        characters,
-        startElement,
-        endElement
 """
 
 import gc

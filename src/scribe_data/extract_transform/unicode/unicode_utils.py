@@ -1,9 +1,5 @@
 """
 Module for a function to get emojis we want to filter from suggestions.
-
-Contents:
-    get_emojis_to_ignore,
-    get_emoji_codes_to_ignore
 """
 
 

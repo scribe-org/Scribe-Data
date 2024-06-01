@@ -1,9 +1,5 @@
 """
 Module for cleaning Wikipedia based corpuses for autosuggestion generation.
-
-Contents:
-    clean,
-    gen_autosuggestions
 """
 
 import json
