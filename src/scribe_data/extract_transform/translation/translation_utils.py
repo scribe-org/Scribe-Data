@@ -1,9 +1,5 @@
 """
 Utility functions for the machine translation process.
-
-Contents:
-    translation_interrupt_handler,
-    translate_to_other_languages
 """
 
 import json

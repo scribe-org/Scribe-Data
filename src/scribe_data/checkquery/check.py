@@ -1,102 +1,27 @@
-#!/usr/bin/env python3
-
 """
 Command line tool for testing SPARQl queries against an endpoint.
-
-Contents:
-    QueryFile Class
-        load,
-        __repr__
-    QueryExecutionException Class
-        __init__,
-        __str__
-    ping,
-    all_queries,
-    changed_queries,
-    sparql_context,
-    execute,
-    check_sparql_file,
-    check_limit,
-    check_timeout,
-    main,
-    error_report,
-    success_report
 """
 
 import argparse
 import contextlib
-import math
 import os
 import subprocess
 import sys
-import time
 import urllib.request
-from dataclasses import dataclass
 from http import HTTPStatus
 from pathlib import Path
 from typing import Optional
 from urllib.error import HTTPError
 
-import SPARQLWrapper as SPARQL
-from SPARQLWrapper import SPARQLExceptions
 from tqdm.auto import tqdm
+
+from scribe_data.checkquery.query import QueryExecutionException, QueryFile
+from scribe_data.checkquery.sparql import execute, sparql_context
 
 EXIT_SUCCESS = 0
 EXIT_FAILURE = 1
-EXIT_CLI_ERROR = 2
 
 PROJECT_ROOT = "Scribe-Data"
-
-
-@dataclass(repr=False, frozen=True)
-class QueryFile:
-    """
-    Holds a reference to a file containing a SPARQL query.
-    """
-
-    path: Path
-
-    def load(self, limit: int) -> str:
-        """
-        Load the SPARQL query from 'path' into a string.
-
-        Parameters
-        ----------
-            limit : int
-                The maximum number of results a query should return.
-
-        Returns
-        -------
-            str : the SPARQL query.
-        """
-        with open(self.path, encoding="utf-8") as in_stream:
-            return f"{in_stream.read()}\nLIMIT {limit}\n"
-
-    def __repr__(self) -> str:
-        return f"{self.__class__.__name__}(path={self.path})"
-
-
-class QueryExecutionException(Exception):
-    """
-    Raised when execution of a query fails.
-    """
-
-    def __init__(self, message: str, query: QueryFile) -> None:
-        """
-        Parameters
-        ----------
-            message : str
-                Why the query failed.
-
-            query : QueryFile
-                The query that failed.
-        """
-        self.message = message
-        self.query = query
-        super().__init__(self.message)
-
-    def __str__(self) -> str:
-        return f"{self.query.path} : {self.message}"
 
 
 def ping(url: str, timeout: int) -> bool:
@@ -157,7 +82,6 @@ def changed_queries() -> Optional[list[QueryFile]]:
     -------
         Optional[list[QueryFile]] : list of changed/new SPARQL queries or None if there's an error.
     """
-
     result = subprocess.run(
         (
             "git",
@@ -174,11 +98,6 @@ def changed_queries() -> Optional[list[QueryFile]]:
         print(f"ERROR: {result.stderr}", file=sys.stderr)
         return None
 
-    # example 'result.stdout'
-    #
-    # M a/b/c/changed.sparql
-    # ?? ../new.sparql
-
     changed_files = [
         Path(norm_line.split(maxsplit=1)[1]).resolve()
         for line in result.stdout.split("\n")
@@ -186,79 +105,6 @@ def changed_queries() -> Optional[list[QueryFile]]:
     ]
 
     return [QueryFile(fpath) for fpath in changed_files if fpath.suffix == ".sparql"]
-
-
-def sparql_context(url: str) -> SPARQL.SPARQLWrapper:
-    """
-    Configure a SPARQL context.
-
-    A context allows the execution of SPARQL queries.
-
-    Parameters
-    ----------
-        url : str
-            A valid URL of a SPARQL endpoint.
-
-    Returns
-    -------
-        SPARQLWrapper : the context.
-    """
-    context = SPARQL.SPARQLWrapper(url)
-    context.setReturnFormat(SPARQL.JSON)
-    context.setMethod(SPARQL.POST)
-
-    return context
-
-
-def execute(
-    query: QueryFile, limit: int, context: SPARQL.SPARQLWrapper, tries: int = 3
-) -> dict:
-    """
-    Execute a SPARQL query in a given context.
-
-    Parameters
-    ----------
-        query : QueryFile
-            The SPARQL query to run.
-
-        limit : int
-            The maximum number of results a query should return.
-
-        context : SPARQLWrapper
-            The SPARQL context.
-
-        tries : int
-            The maximum number of times the query should be executed after failure.
-
-    Returns
-    -------
-        dict : the results of the query.
-    """
-
-    def delay_in_seconds() -> int:
-        """
-        How long to wait, in seconds, between executing repeat queries.
-        """
-        return int(math.ceil(10.0 / math.sqrt(tries)))
-
-    if tries <= 0:
-        raise QueryExecutionException("Failed too many times.", query)
-
-    try:
-        context.setQuery(query.load(limit))
-        return context.queryAndConvert()
-
-    except HTTPError:
-        time.sleep(delay_in_seconds())
-        return execute(query, limit, context, tries - 1)
-
-    except SPARQLExceptions.SPARQLWrapperException as err:
-        raise QueryExecutionException(err.msg, query) from err
-
-    except Exception as err:
-        raise QueryExecutionException(
-            f"{type(err).__name__} - {str(err)}", query
-        ) from err
 
 
 def check_sparql_file(fpath: str) -> Path:

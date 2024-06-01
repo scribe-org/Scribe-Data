@@ -1,8 +1,5 @@
 """
 Module for processing Unicode based corpuses for autosuggestion and autocompletion generation.
-
-Contents:
-    gen_emoji_lexicon
 """
 
 import csv
@@ -14,7 +11,9 @@ import emoji
 from icu import Char, UProperty
 from tqdm.auto import tqdm
 
-from scribe_data.extract_transform.unicode.emoji_utils import get_emoji_codes_to_ignore
+from scribe_data.extract_transform.unicode.unicode_utils import (
+    get_emoji_codes_to_ignore,
+)
 from scribe_data.utils import (
     get_language_iso,
     get_path_from_et_dir,

@@ -25,8 +25,10 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
+
       - name: Install PyICU dependencies
         run: |
           brew bundle install --file=Brewfile
@@ -34,18 +36,27 @@ jobs:
           # https://gitlab.pyicu.org/main/pyicu#installing-pyicu
           echo "/usr/local/opt/icu4c/bin:/usr/local/opt/icu4c/sbin" >> $GITHUB_PATH
           echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/icu4c/lib/pkgconfig" >> $GITHUB_ENV
-      - name: Install Python dependencies
+
+      - name: Create and Activate Virtual Environment
         run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install pylint pytest pytest-cov
-          if [ -f requirements.txt ]; then python3 -m pip install -r requirements.txt; fi
+          python3 -m venv venv
+          source venv/bin/activate
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint pytest pytest-cov
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
       - name: Lint with pylint
         run: |
-          # only report linting, do not fail ci run
+          # Only report linting, do not fail ci run.
           pylint $(git ls-files '*.py') --exit-zero
+
       - name: Test with pytest
         run: |
           pytest
+
       - name: Test coverage with pytest-cov
         run: |
           pytest --cov=src

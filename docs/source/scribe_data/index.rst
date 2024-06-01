@@ -6,6 +6,7 @@ scribe_data
 .. toctree::
     :maxdepth: 2
 
+    checkquery/index
     extract_transform/index
     load/index
 
@@ -13,5 +14,4 @@ scribe_data
     :maxdepth: 1
 
     check_language_data
-    checkquery
     utils

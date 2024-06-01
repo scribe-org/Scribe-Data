@@ -7,5 +7,5 @@ unicode
     :maxdepth: 1
 
     gen_emoji_lexicon
-    emoji_utils
+    unicode_utils
     process_unicode
