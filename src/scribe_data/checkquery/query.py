@@ -2,15 +2,31 @@
 Classes and methods for querying a file in the query check process.
 """
 
-import pathlib
 from dataclasses import dataclass
+from pathlib import Path
 
 
-@dataclass(frozen=True)
+@dataclass(repr=False, frozen=True)
 class QueryFile:
-    path: pathlib.Path
+    """
+    Holds a reference to a file containing a SPARQL query.
+    """
+
+    path: Path
 
     def load(self, limit: int) -> str:
+        """
+        Load the SPARQL query from 'path' into a string.
+
+        Parameters
+        ----------
+            limit : int
+                The maximum number of results a query should return.
+
+        Returns
+        -------
+            str : the SPARQL query.
+        """
         with open(self.path, encoding="utf-8") as in_stream:
             return f"{in_stream.read()}\nLIMIT {limit}\n"
 
@@ -19,7 +35,20 @@ class QueryFile:
 
 
 class QueryExecutionException(Exception):
+    """
+    Raised when execution of a query fails.
+    """
+
     def __init__(self, message: str, query: QueryFile) -> None:
+        """
+        Parameters
+        ----------
+            message : str
+                Why the query failed.
+
+            query : QueryFile
+                The query that failed.
+        """
         self.message = message
         self.query = query
         super().__init__(self.message)
