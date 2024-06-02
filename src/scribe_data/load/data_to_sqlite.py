@@ -74,7 +74,9 @@ languages_update = current_languages if languages is None else languages
 language_word_type_dict = {
     lang: [
         f.split(".json")[0]
-        for f in os.listdir(f"{PATH_TO_LANGUAGE_DIRS}{lang}/formatted_data")
+        for f in os.listdir(
+            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../language_data_export/{lang}"
+        )
         if f.split(".json")[0] in word_types
     ]
     for lang in languages_update
@@ -139,7 +141,9 @@ for lang in tqdm(
         for wt in language_word_type_dict[lang]:
             print(f"Creating {lang} {wt} table...")
             json_data = json.load(
-                open(f"{PATH_TO_LANGUAGE_DIRS}{lang}/formatted_data/{wt}.json")
+                open(
+                    f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../language_data_export/{lang}/{wt}.json"
+                )
             )
 
             if wt == "nouns":

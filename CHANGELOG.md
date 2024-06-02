@@ -10,7 +10,7 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
-## [Upcoming] Scribe-Data 3.3.0
+## [Upcoming] Scribe-Data 4.0.0
 
 ### ✨ Features
 
@@ -29,11 +29,13 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - The `_update_files` directory was renamed `update_files` as these files are used in non-internal manners now ([#57](https://github.com/scribe-org/Scribe-Data/issues/57)).
 - A common function has been created to map Wikidata ids to noun genders ([#69](https://github.com/scribe-org/Scribe-Data/issues/69)).
 - The project now is installed locally for development and command line usage, so usages of `sys.path` have been removed from files ([#122](https://github.com/scribe-org/Scribe-Data/issues/122)).
-- The directory structure has been dramatically streamlined and includes folders for future projects where language data could come from (Wiktionary).
+- The directory structure has been dramatically streamlined and includes folders for future projects where language data could come from other sources like Wiktionary ([#139](https://github.com/scribe-org/Scribe-Data/issues/139)).
   - Translation files are moved to their own directory.
   - The `extract_transform` directory has been removed and all files within it have been moved one level up.
   - The `languages` directory has been renamed `language_data_extraction`.
   - All files within `wikidata/_resources` have been moved to the `resources` directory.
+  - The gender and case annotations for data formatting have now been commonly defined.
+  - All language directory `formatted_data` files have been now moved to the `language_data_export` directory to prepare for outputs being required to be directed to a directory outside of the package.
 
 ## Scribe-Data 3.2.2
 

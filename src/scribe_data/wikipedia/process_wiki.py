@@ -3,7 +3,9 @@ Module for cleaning Wikipedia based corpuses for autosuggestion generation.
 """
 
 import json
+import os
 import re
+import sys
 import warnings
 from collections import Counter
 from itertools import chain
@@ -331,7 +333,7 @@ def gen_autosuggestions(
             Strings that should be removed from the text body.
 
         update_local_data : bool (default=False)
-            Saves the created dictionaries as JSONs in the local formatted_data directories.
+            Saves the created dictionaries as JSONs in the target directories.
 
         verbose : bool (default=True)
             Whether to show a tqdm progress bar for the process.
@@ -418,7 +420,7 @@ def gen_autosuggestions(
     if update_local_data:
         path_to_formatted_data = (
             get_path_from_wikidata_dir()
-            + f"/Scribe-Data/src/scribe_data/language_data_extraction/{language.capitalize()}/formatted_data/autosuggestions.json"
+            + f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../language_data_export/{language}/autosuggestions.json"
         )
 
         with open(

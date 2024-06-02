@@ -217,24 +217,6 @@ def get_language_words_to_ignore(language: str) -> list[str]:
     )
 
 
-def get_language_dir_path(language):
-    """
-    Returns the directory path for a specific language within the Scribe-Data project.
-
-    Parameters
-    ----------
-        language : str
-            The language for which the directory path is needed.
-
-    Returns
-    -------
-        str
-            The directory path for the specified language.
-    """
-    PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-    return f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/language_data_extraction/{language}"
-
-
 def load_queried_data(file_path, language, data_type):
     """
     Loads queried data from a JSON file for a specific language and data type.
@@ -261,7 +243,9 @@ def load_queried_data(file_path, language, data_type):
         data_path = queried_data_file
     else:
         update_data_in_use = True
-        data_path = f"{get_language_dir_path(language)}/{data_type}/{queried_data_file}"
+        PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
+        LANG_DIR_PATH = f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/language_data_extraction/{language}"
+        data_path = f"{LANG_DIR_PATH}/{data_type}/{queried_data_file}"
 
     with open(data_path, encoding="utf-8") as f:
         return json.load(f), update_data_in_use, data_path
@@ -287,14 +271,15 @@ def export_formatted_data(formatted_data, update_data_in_use, language, data_typ
         None
     """
     if update_data_in_use:
-        export_path = (
-            f"{get_language_dir_path(language)}/formatted_data/{data_type}.json"
-        )
+        PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
+        export_path = f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/language_data_export/{language}/{data_type}.json"
+
     else:
         export_path = f"{data_type}.json"
 
     with open(export_path, "w", encoding="utf-8") as file:
         json.dump(formatted_data, file, ensure_ascii=False, indent=0)
+
     print(f"Wrote file {data_type}.json with {len(formatted_data):,} {data_type}.")
 
 

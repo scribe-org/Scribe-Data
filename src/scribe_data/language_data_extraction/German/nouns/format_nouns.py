@@ -21,7 +21,6 @@ nouns_list, update_data_in_use, data_path = load_queried_data(
     file_path=file_path, language=LANGUAGE, data_type=DATA_TYPE
 )
 
-
 nouns_formatted = {}
 
 for noun_vals in nouns_list:

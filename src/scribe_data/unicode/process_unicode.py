@@ -5,6 +5,8 @@ Module for processing Unicode based corpuses for autosuggestion and autocompleti
 import csv
 import fileinput
 import json
+import os
+import sys
 from importlib.resources import files
 
 import emoji
@@ -54,7 +56,7 @@ def gen_emoji_lexicon(
             Whether to export whether the emojis is a base character as well as its rank.
 
         update_local_data : bool (default=False)
-            Saves the created dictionaries as JSONs in the local formatted_data directories.
+            Saves the created dictionaries as JSONs in the target directories.
 
         verbose : bool (default=True)
             Whether to show a tqdm progress bar for the process.
@@ -167,7 +169,10 @@ def gen_emoji_lexicon(
                             )
 
     # Check nouns files for plurals and update their data with the emojis for their singular forms.
-    with open(f"./{language}/formatted_data/nouns.json", encoding="utf-8") as f:
+    with open(
+        f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../language_data_export/{language}/nouns.json",
+        encoding="utf-8",
+    ) as f:
         noun_data = json.load(f)
 
     plurals_to_singulars_dict = {
@@ -209,7 +214,7 @@ def gen_emoji_lexicon(
     if update_local_data:
         path_to_formatted_data = (
             get_path_from_wikidata_dir()
-            + f"/Scribe-Data/src/scribe_data/language_data_extraction/{language.capitalize()}/formatted_data/emoji_keywords.json"
+            + f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../language_data_export/{language}/emoji_keywords.json"
         )
 
         with open(path_to_formatted_data, "w", encoding="utf-8") as file:

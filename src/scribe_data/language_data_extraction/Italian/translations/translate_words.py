@@ -8,6 +8,7 @@ Example
 
 import json
 import os
+import sys
 
 from scribe_data.translation.translation_utils import (
     translate_to_other_languages,
@@ -24,7 +25,8 @@ word_list = [item["word"] for item in json_data]
 
 translations = {}
 translated_words_path = os.path.join(
-    translate_script_dir, "../formatted_data/translated_words.json"
+    translate_script_dir,
+    f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../language_data_export/{SRC_LANG}/translated_words.json",
 )
 if os.path.exists(translated_words_path):
     with open(translated_words_path, "r", encoding="utf-8") as file:

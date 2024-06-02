@@ -215,9 +215,9 @@ for q in tqdm(
             f"python {PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang}/{target_type}/format_{target_type}.py"
         )
 
-        # Check current data within for formatted_data directories.
+        # Check current data within formatted data directories.
         with open(
-            f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang.capitalize()}/formatted_data/{target_type}.json",
+            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../language_data_export/{lang.capitalize()}/{target_type}.json",
             encoding="utf-8",
         ) as json_file:
             new_keyboard_data = json.load(json_file)
