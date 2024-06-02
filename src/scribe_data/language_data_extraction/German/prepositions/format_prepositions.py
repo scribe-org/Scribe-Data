@@ -6,7 +6,12 @@ import collections
 import os
 import sys
 
-from scribe_data.utils import export_formatted_data, load_queried_data
+from scribe_data.utils import (
+    export_formatted_data,
+    load_queried_data,
+    map_cases,
+    order_annotations,
+)
 
 file_path = sys.argv[0]
 
@@ -14,52 +19,18 @@ prepositions_list, update_data_in_use, data_path = load_queried_data(
     file_path=file_path, language="German", data_type="prepositions"
 )
 
-
-def convert_cases(case):
-    """
-    Converts cases as found on Wikidata to more succinct versions.
-    """
-    case = case.split(" case")[0]
-    if case in ["accusative", "Q146078"]:
-        return "Acc"
-    elif case in ["dative", "Q145599"]:
-        return "Dat"
-    elif case in ["genitive", "Q146233"]:
-        return "Gen"
-    else:
-        return ""
-
-
-def order_annotations(annotation):
-    """
-    Standardizes the annotations that are presented to users where more than one is applicable.
-
-    Parameters
-    ----------
-        annotation : str
-            The annotation to be returned to the user in the command bar.
-    """
-    single_annotations = ["Akk", "Dat", "Gen"]
-    if annotation in single_annotations:
-        return annotation
-
-    annotation_split = sorted(annotation.split("/"))
-
-    return "/".join(annotation_split)
-
-
 prepositions_formatted = {}
 
 for prep_vals in prepositions_list:
     if "preposition" in prep_vals.keys():
         if "case" in prep_vals.keys():
             if prep_vals["preposition"] not in prepositions_formatted:
-                prepositions_formatted[prep_vals["preposition"]] = convert_cases(
+                prepositions_formatted[prep_vals["preposition"]] = map_cases(
                     prep_vals["case"]
                 )
 
             else:
-                prepositions_formatted[prep_vals["preposition"]] += "/" + convert_cases(
+                prepositions_formatted[prep_vals["preposition"]] += "/" + map_cases(
                     prep_vals["case"]
                 )
 

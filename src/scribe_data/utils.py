@@ -501,7 +501,7 @@ def get_target_langcodes(source_lang) -> list[str]:
 
 def map_genders(wikidata_gender):
     """
-    Maps those genders from Wikidata to succinct versions.
+    Maps genders from Wikidata to succinct versions.
 
     Parameters
     ----------
@@ -517,4 +517,47 @@ def map_genders(wikidata_gender):
     elif wikidata_gender in ["neuter", "Q1775461"]:
         return "N"
     else:
-        return ""  # nouns could have a gender that is not valid as an attribute
+        return ""  # nouns could have a gender that is not a valid attribute
+
+
+def map_cases(wikidata_case):
+    """
+    Maps cases from Wikidata to more succinct versions.
+
+    Parameters
+    ----------
+        wikidata_case : str
+            The case of the noun that was queried from WikiData.
+    """
+    case = wikidata_case.split(" case")[0]
+    if case in ["accusative", "Q146078"]:
+        return "Acc"
+    elif case in ["dative", "Q145599"]:
+        return "Dat"
+    elif case in ["genitive", "Q146233"]:
+        return "Gen"
+    elif case in ["instrumental", "Q192997"]:
+        return "Ins"
+    elif case in ["prepositional", "Q2114906"]:
+        return "Pre"
+    elif case in ["locative", "Q202142"]:
+        return "Loc"
+    else:
+        return ""
+
+
+def order_annotations(annotation):
+    """
+    Standardizes the annotations that are provided to users where more than one is applicable.
+
+    Parameters
+    ----------
+        annotation : str
+            The annotation to be returned to the user in the command bar.
+    """
+    if "/" not in annotation:
+        return annotation
+
+    annotation_split = sorted(annotation.split("/"))
+
+    return "/".join(annotation_split)
