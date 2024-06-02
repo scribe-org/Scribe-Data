@@ -10,31 +10,16 @@ from scribe_data.utils import (
     export_formatted_data,
     load_queried_data,
     map_genders,
+    order_annotations,
 )
 
+LANGUAGE = "French"
+DATA_TYPE = "nouns"
 file_path = sys.argv[0]
 
 nouns_list, update_data_in_use, data_path = load_queried_data(
-    file_path=file_path, language="French", data_type="nouns"
+    file_path=file_path, language=LANGUAGE, data_type=DATA_TYPE
 )
-
-
-def order_annotations(annotation):
-    """
-    Standardizes the annotations that are presented to users where more than one is applicable.
-
-    Parameters
-    ----------
-        annotation : str
-            The annotation to be returned to the user in the command bar.
-    """
-    single_annotations = ["F", "M", "PL"]
-    if annotation in single_annotations:
-        return annotation
-
-    annotation_split = sorted([a for a in set(annotation.split("/")) if a != ""])
-
-    return "/".join(annotation_split)
 
 
 nouns_formatted = {}
@@ -102,8 +87,8 @@ nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 export_formatted_data(
     formatted_data=nouns_formatted,
     update_data_in_use=update_data_in_use,
-    language="French",
-    data_type="nouns",
+    language=LANGUAGE,
+    data_type=DATA_TYPE,
 )
 
 os.remove(data_path)

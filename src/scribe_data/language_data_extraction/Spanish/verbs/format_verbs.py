@@ -8,10 +8,12 @@ import sys
 
 from scribe_data.utils import export_formatted_data, load_queried_data
 
+LANGUAGE = "Spanish"
+DATA_TYPE = "verbs"
 file_path = sys.argv[0]
 
 verbs_list, update_data_in_use, data_path = load_queried_data(
-    file_path=file_path, language="Spanish", data_type="verbs"
+    file_path=file_path, language=LANGUAGE, data_type=DATA_TYPE
 )
 
 verbs_formatted = {}
@@ -57,8 +59,8 @@ verbs_formatted = collections.OrderedDict(sorted(verbs_formatted.items()))
 export_formatted_data(
     formatted_data=verbs_formatted,
     update_data_in_use=update_data_in_use,
-    language="Spanish",
-    data_type="verbs",
+    language=LANGUAGE,
+    data_type=DATA_TYPE,
 )
 
 os.remove(data_path)

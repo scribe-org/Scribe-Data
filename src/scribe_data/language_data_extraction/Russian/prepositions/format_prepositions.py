@@ -13,10 +13,12 @@ from scribe_data.utils import (
     order_annotations,
 )
 
+LANGUAGE = "Russian"
+DATA_TYPE = "prepositions"
 file_path = sys.argv[0]
 
 prepositions_list, update_data_in_use, data_path = load_queried_data(
-    file_path=file_path, language="Russian", data_type="prepositions"
+    file_path=file_path, language=LANGUAGE, data_type=DATA_TYPE
 )
 
 prepositions_formatted = {}
@@ -41,8 +43,8 @@ prepositions_formatted = collections.OrderedDict(sorted(prepositions_formatted.i
 export_formatted_data(
     formatted_data=prepositions_formatted,
     update_data_in_use=update_data_in_use,
-    language="Russian",
-    data_type="prepositions",
+    language=LANGUAGE,
+    data_type=DATA_TYPE,
 )
 
 os.remove(data_path)
