@@ -21,7 +21,7 @@ from tqdm.auto import tqdm
 
 from scribe_data.utils import get_language_iso
 
-PATH_TO_ET_FILES = "../extract_transform/"
+PATH_TO_LANGUAGE_DIRS = "../language_data_extraction/"
 
 with open("update_files/total_data.json", encoding="utf-8") as f:
     current_data = json.load(f)
@@ -74,7 +74,7 @@ languages_update = current_languages if languages is None else languages
 language_word_type_dict = {
     lang: [
         f.split(".json")[0]
-        for f in os.listdir(f"{PATH_TO_ET_FILES}{lang}/formatted_data")
+        for f in os.listdir(f"{PATH_TO_LANGUAGE_DIRS}{lang}/formatted_data")
         if f.split(".json")[0] in word_types
     ]
     for lang in languages_update
@@ -139,7 +139,7 @@ for lang in tqdm(
         for wt in language_word_type_dict[lang]:
             print(f"Creating {lang} {wt} table...")
             json_data = json.load(
-                open(f"{PATH_TO_ET_FILES}{lang}/formatted_data/{wt}.json")
+                open(f"{PATH_TO_LANGUAGE_DIRS}{lang}/formatted_data/{wt}.json")
             )
 
             if wt == "nouns":

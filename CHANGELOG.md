@@ -12,7 +12,13 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 3.3.0
 
+### ✨ Features
+
 - The translation process has been updated to allow for translations from non-English languages ([#72](https://github.com/scribe-org/Scribe-Data/issues/72), [#73](https://github.com/scribe-org/Scribe-Data/issues/73), [#74](https://github.com/scribe-org/Scribe-Data/issues/74), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#76](https://github.com/scribe-org/Scribe-Data/issues/76), [#77](https://github.com/scribe-org/Scribe-Data/issues/77), [#78](https://github.com/scribe-org/Scribe-Data/issues/78), [#79](https://github.com/scribe-org/Scribe-Data/issues/79)).
+- The package now checks for the total nouns available on Wikidata and then calls a looped query that sets an iterative offset by in order to get all of the data.
+
+### 📝 Documentation
+
 - The documentation has been given a new layout with the logo in the top left ([#90](https://github.com/scribe-org/Scribe-Data/issues/90)).
 - The documentation now has links to the code at the top of each page ([#91](https://github.com/scribe-org/Scribe-Data/issues/91)).
 
@@ -22,9 +28,12 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - A Ruff based GitHub workflow was added to check the code formatting and lint the codebase on each pull request ([#109](https://github.com/scribe-org/Scribe-Data/issues/109)).
 - The `_update_files` directory was renamed `update_files` as these files are used in non-internal manners now ([#57](https://github.com/scribe-org/Scribe-Data/issues/57)).
 - A common function has been created to map Wikidata ids to noun genders ([#69](https://github.com/scribe-org/Scribe-Data/issues/69)).
-- Files in the `extract_transform` directory were moved based on if they access Wikidata, Wikipedia or Unicode.
-  - Translation files are further moved to their own directory.
 - The project now is installed locally for development and command line usage, so usages of `sys.path` have been removed from files ([#122](https://github.com/scribe-org/Scribe-Data/issues/122)).
+- The directory structure has been dramatically streamlined and includes folders for future projects where language data could come from (Wiktionary).
+  - Translation files are moved to their own directory.
+  - The `extract_transform` directory has been removed and all files within it have been moved one level up.
+  - The `languages` directory has been renamed `language_data_extraction`.
+  - All files within `wikidata/_resources` have been moved to the `resources` directory.
 
 ## Scribe-Data 3.2.2
 
