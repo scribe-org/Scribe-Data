@@ -1,8 +1,9 @@
+import sys
 import unittest
+
 import pytest
 
-import sys
-sys.path.append('../../src')
+sys.path.append("../../src")
 
 from scribe_data import utils
 
@@ -198,8 +199,8 @@ def test_get_path_from_load_dir():
     assert utils.get_path_from_load_dir() == "../../../.."
 
 
-def test_get_path_from_et_dir():
-    assert utils.get_path_from_et_dir() == "../../../.."
+def test_get_path_from_wikidata_dir():
+    assert utils.get_path_from_wikidata_dir() == "../../../.."
 
 
 def test_get_ios_data_path():

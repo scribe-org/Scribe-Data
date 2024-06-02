@@ -1,0 +1,26 @@
+# tool: scribe-data
+# All Bengali (Q9610) prepositions and their corresponding cases.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  ?preposition
+  ?case
+
+WHERE {
+  ?lexeme a ontolex:LexicalEntry ;
+    dct:language wd:Q9610 ;
+    wikibase:lexicalCategory wd:Q4833830 ;
+    wikibase:lemma ?lemma .
+
+  # Optional selection of corresponding cases.
+  OPTIONAL {
+    ?lexeme wdt:P5713 ?caseForm .
+  } .
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+    ?lemma rdfs:label ?preposition .
+    ?caseForm rdfs:label ?case .
+  }
+}

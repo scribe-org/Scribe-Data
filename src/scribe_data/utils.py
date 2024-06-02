@@ -166,8 +166,10 @@ def get_language_from_iso(iso: str) -> str:
     """
     try:
         language_name = str(Lang(iso).name)
-    except DeprecatedLanguageValue:
-        raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
+    except DeprecatedLanguageValue as e:
+        raise ValueError(
+            f"{iso.upper()} is currently not a supported ISO language."
+        ) from e
     return language_name
 
 
@@ -230,7 +232,7 @@ def get_language_dir_path(language):
             The directory path for the specified language.
     """
     PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-    return f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages/{language}"
+    return f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/language_data_extraction/{language}"
 
 
 def load_queried_data(file_path, language, data_type):
@@ -255,7 +257,7 @@ def load_queried_data(file_path, language, data_type):
     queried_data_file = f"{data_type}_queried.json"
     update_data_in_use = False
 
-    if f"languages/{language}/{data_type}/" not in file_path:
+    if f"language_data_extraction/{language}/{data_type}/" not in file_path:
         data_path = queried_data_file
     else:
         update_data_in_use = True
@@ -310,9 +312,9 @@ def get_path_from_load_dir() -> str:
     return "../../../.."
 
 
-def get_path_from_et_dir() -> str:
+def get_path_from_wikidata_dir() -> str:
     """
-    Returns the directory path from the extract_transform directory to scribe-org.
+    Returns the directory path from the wikidata directory to scribe-org.
     """
     return "../../../.."
 
