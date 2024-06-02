@@ -30,12 +30,12 @@ from scribe_data.utils import (
 )
 from scribe_data.wikidata.query_total_nouns import query_total_nouns
 
-total_nouns = query_total_nouns()
-batch_size = 10
-num_iterations = math.ceil(total_nouns / batch_size)
+# total_nouns = query_total_nouns()
+# batch_size = 10
+# num_iterations = math.ceil(total_nouns / batch_size)
 
 SCRIBE_DATA_SRC_PATH = "src/scribe_data"
-PATH_TO_LANGUAGE_EXTRACTION_FILES = f"{SCRIBE_DATA_SRC_PATH}/language_data/extraction"
+PATH_TO_LANGUAGE_EXTRACTION_FILES = f"{SCRIBE_DATA_SRC_PATH}/language_data_extraction"
 PATH_TO_UPDATE_FILES = f"{SCRIBE_DATA_SRC_PATH}/load/update_files"
 
 # Set SPARQLWrapper query conditions.
@@ -62,39 +62,36 @@ languages_update = current_languages if languages is None else languages
 
 word_types_update = []
 word_types_update = current_word_types if word_types is None else word_types
-# Derive Data directory elements for potential queries.
-languages_dir_files = []
+
+# Derive directory files and language subdirectories for potential queries.
+language_data_extraction_files = []
 
 for path, _, files in os.walk(PATH_TO_LANGUAGE_EXTRACTION_FILES):
-    languages_dir_files.extend(os.path.join(path, name) for name in files)
+    language_data_extraction_files.extend(os.path.join(path, name) for name in files)
 
-language_dir_files = list(
-    {
-        f.split(PATH_TO_LANGUAGE_EXTRACTION_FILES + "/")[1].split("/")[0]
-        for f in languages_dir_files
-        if f.split(PATH_TO_LANGUAGE_EXTRACTION_FILES + "/")[1][0] != "_"
-    }
-)
+language_directories = [
+    d
+    for d in os.listdir(PATH_TO_LANGUAGE_EXTRACTION_FILES)
+    if os.path.isdir(f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{d}")
+]
 
-# Data paths to run scripts and format outputs.
-# Check to see if the language has all zeroes for its data, meaning it's been added.
+# Check to see if the language has all zeroes for its data, meaning it's new.
 new_language_list = []
 for lang in languages_update:
-    # Prepositions not needed for all languages.
     check_current_data = [current_data[lang][k] for k in current_data[lang].keys()]
     if len(set(check_current_data)) == 1 and check_current_data[0] == 0:
         new_language_list.append(lang)
 
 # Derive queries to be ran.
 possible_queries = []
-for d in language_dir_files:
+for d in language_directories:
     possible_queries.extend(
         f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{d}/{target_type}"
         for target_type in word_types_update
         if f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{d}/{target_type}"
         in [
             e[: len(f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{d}/{target_type}")]
-            for e in languages_dir_files
+            for e in language_data_extraction_files
         ]
     )
 

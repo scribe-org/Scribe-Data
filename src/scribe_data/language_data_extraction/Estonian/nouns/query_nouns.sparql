@@ -3,31 +3,24 @@
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?singular
   ?plural
 
 WHERE {
-  # Nouns and pronouns.
-  VALUES ?nounTypes { wd:Q1084 wd:Q147276 }
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q9072 ;
-    wikibase:lexicalCategory ?noun .
-  FILTER(?noun = ?nounTypes)
+    wikibase:lexicalCategory ?nounType ;
+    wikibase:lemma ?singular .
 
-  # Optional selection of singular forms.
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-  } .
+  FILTER(?nounType = ?nounTypes)
 
   # Optional selection of plural forms.
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
   } .
 }

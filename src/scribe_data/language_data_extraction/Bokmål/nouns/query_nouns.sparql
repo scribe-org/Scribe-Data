@@ -1,41 +1,55 @@
 # tool: scribe-data
-# All Bokmål (Norwegian) (Q9043) nouns, their plural and their gender.
+# All Bokmål Norwegian (Q9043) nouns, their plurals and their genders.
 # Enter this query at https://query.wikidata.org/.
 # Note that this query is for Bokmål (Q25167) rather than Nynorsk (Q25164).
 
 SELECT DISTINCT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?singular
-  ?plural
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?indefSingular
+  ?defSingular
+  ?indefPlural
+  ?defPlural
   ?gender
 
 WHERE {
-
-  # Nouns and pronouns.
-  VALUES ?nounTypes { wd:Q1084 wd:Q147276 }
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q25167 ;
-    wikibase:lexicalCategory ?noun .
-  FILTER(?noun = ?nounTypes)
+    wikibase:lexicalCategory ?nounType ;
+    wikibase:lemma ?indefSingular .
 
-  # Optional selection of singular forms.
+  FILTER(?nounType = ?nounTypes)
+
+  # Optional selection of definite singular forms.
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
+    ?lexeme ontolex:lexicalForm ?  ?defSingularForm .
+    ?defSingularForm ontolex:representation ?defSingular ;
       wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q53997851 ;
   } .
 
-  # Optional selection of plural forms.
+  # Optional selection of indefinite plural forms.
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
+    ?lexeme ontolex:lexicalForm ?indefPluralForm .
+    ?indefPluralForm ontolex:representation ?indefPlural ;
       wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  # Optional selection of definite plural forms.
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?defPluralForm .
+    ?defPluralForm ontolex:representation ?defPlural ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q53997851 ;
   } .
 
   # Optional selection of genders.
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS { ?lexeme wdt:P31 wd:Q202444 . }
+    FILTER NOT EXISTS {
+      ?lexeme wdt:P31 wd:Q202444 .
+    }
   } .
 
   SERVICE wikibase:label {

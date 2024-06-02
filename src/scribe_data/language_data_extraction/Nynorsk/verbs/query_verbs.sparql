@@ -4,7 +4,7 @@
 # Note that this query is for Nynorsk (Q25164) rather than Bokmål (Q25167).
 
 SELECT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
 
 WHERE {

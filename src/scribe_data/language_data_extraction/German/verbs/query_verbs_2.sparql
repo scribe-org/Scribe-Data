@@ -4,7 +4,7 @@
 
 # Not SELECT DISTINCT as we want to get verbs with both sein and haben as auxiliaries
 SELECT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive ?pastParticiple ?auxiliaryVerb
   ?pretFPS ?pretSPS ?pretTPS
   ?pretFPP ?pretSPP ?pretTPP

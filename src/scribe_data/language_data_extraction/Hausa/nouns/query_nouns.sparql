@@ -3,28 +3,41 @@
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?noun
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?singular
+  ?plural
   ?gender
 
 WHERE {
-  # Nouns and pronouns.
-  VALUES ?nounTypes { wd:Q1084 wd:Q147276 }
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q56475 ;
     wikibase:lexicalCategory ?nounType ;
-    wikibase:lemma ?noun .
+    wikibase:lemma ?singular .
+
   FILTER(?nounType = ?nounTypes)
+
+  # Optional selection of plural forms.
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+  } .
 
   # Optional selection of genders.
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS { ?lexeme wdt:P31 wd:Q202444 . }
+    FILTER NOT EXISTS {
+      ?lexeme wdt:P31 wd:Q202444 .
+    }
   } .
 
-  BIND(lang(?noun) as ?language)
-  FILTER(?language = "ha")
-  # FILTER(?language = "ha-arabic")
+  BIND(lang(?singular) as ?langSingular)
+  BIND(lang(?plural) as ?langPlural)
+  FILTER(?langSingular = "ha")
+  FILTER(?langPlural = "ha")
+  # FILTER(?langSingular = "ha-arabic")
+  # FILTER(?langPlural = "ha-arabic")
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

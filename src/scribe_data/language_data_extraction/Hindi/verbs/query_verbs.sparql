@@ -4,7 +4,7 @@
 # Note the necessity to filter for "hi" to remove Urdu (ur) words.
 
 SELECT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
 
 WHERE {

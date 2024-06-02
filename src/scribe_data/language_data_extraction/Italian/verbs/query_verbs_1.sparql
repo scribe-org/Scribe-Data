@@ -3,7 +3,7 @@
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
   ?presFPS ?presSPS ?presTPS
   ?presFPP ?presSPP ?presTPP

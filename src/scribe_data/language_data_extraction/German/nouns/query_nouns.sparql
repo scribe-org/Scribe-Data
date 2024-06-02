@@ -1,31 +1,35 @@
 # tool: scribe-data
-# All German (Q188) nouns, their plural and their gender.
+# All German (Q188) nouns, their plurals and their genders in the given cases.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID) ?singular
-  ?plural
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?nomSingular
+  ?nomPlural
   ?gender
+
 WHERE {
-  # Nouns and pronouns.
-  VALUES ?nounTypes { wd:Q1084 wd:Q147276 }
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
   ?lexeme a ontolex:LexicalEntry ;
-            dct:language wd:Q188 ;
-            wikibase:lexicalCategory ?noun .
+    dct:language wd:Q188 ;
+    wikibase:lexicalCategory ?nomSingular .
+
   FILTER(?noun = ?nounTypes)
 
-  # Optional selection of nominative plural form.
+  # Optional selection of nominative plural forms.
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-                wikibase:grammaticalFeature wd:Q146786 ;
-                wikibase:grammaticalFeature wd:Q131105 ;
+    ?lexeme ontolex:lexicalForm ?nonPluralForm .
+    ?nonPluralForm ontolex:representation ?nonPlural ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q131105 ;
   } .
 
   # Optional selection of genders.
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS { ?lexeme wdt:P31 wd:Q202444 . }
+    FILTER NOT EXISTS {
+      ?lexeme wdt:P31 wd:Q202444 .
+    }
   } .
 
   SERVICE wikibase:label {
@@ -33,6 +37,3 @@ WHERE {
     ?nounGender rdfs:label ?gender .
   }
 }
-
-LIMIT 10000
-OFFSET OFFSET_BY

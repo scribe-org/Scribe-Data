@@ -1,41 +1,43 @@
 # tool: scribe-data
-# All Polish (Q809) nouns, their plural and their gender.
+# All Polish (Q809) nouns, their plurals and their genders in the given cases.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
-  ?singular
-  ?plural
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?nomSingular
+  ?nomPlural
   ?gender
 
 WHERE {
-  # Nouns and pronouns.
-  VALUES ?nounTypes { wd:Q1084 wd:Q147276 }
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q809 ;
-    wikibase:lexicalCategory ?noun .
-  FILTER(?noun = ?nounTypes)
+    wikibase:lexicalCategory ?nounType .
 
-  # Optional selection of singular forms.
+  FILTER(?nounType = ?nounTypes)
+
+  # Optional selection of nominative singular forms.
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 ;
+    ?lexeme ontolex:lexicalForm ?nomSingularForm .
+    ?nomSingularForm ontolex:representation ?nomSingular ;
       wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
   } .
 
-  # Optional selection of plural forms.
+  # Optional selection of nominative plural forms.
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
+    ?lexeme ontolex:lexicalForm ?nomPluralForm .
+    ?nomPluralForm ontolex:representation ?nomPlural ;
       wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
   } .
 
   # Optional selection of genders.
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS { ?lexeme wdt:P31 wd:Q202444 . }
+    FILTER NOT EXISTS {
+      ?lexeme wdt:P31 wd:Q202444 .
+    }
   } .
 
   SERVICE wikibase:label {

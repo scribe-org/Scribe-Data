@@ -1,29 +1,23 @@
 # tool: scribe-data
-# All Spanish (Q1321) nouns, their plural and their gender.
+# All Spanish (Q1321) nouns, their plurals and their genders.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") as ?lexemeID)
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?singular
   ?plural
   ?gender
 
 WHERE {
-  # Nouns and pronouns.
-  VALUES ?nounTypes { wd:Q1084 wd:Q147276 }
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
   ?lexeme a ontolex:LexicalEntry ;
     dct:language wd:Q1321 ;
-    wikibase:lexicalCategory ?noun .
-  FILTER(?noun = ?nounTypes)
+    wikibase:lexicalCategory ?nounType ;
+    wikibase:lemma ?singular .
 
-  # Optional selection of nominative singular forms.
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-  } .
+  FILTER(?nounType = ?nounTypes)
 
-  # Optional selection of nominative plural forms.
+  # Optional selection of plural forms.
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
@@ -33,7 +27,9 @@ WHERE {
   # Optional selection of genders.
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS { ?lexeme wdt:P31 wd:Q202444 . }
+    FILTER NOT EXISTS {
+      ?lexeme wdt:P31 wd:Q202444 .
+    }
   } .
 
   SERVICE wikibase:label {
