@@ -26,6 +26,11 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Create and Activate Virtual Environment
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
@@ -36,11 +41,6 @@ jobs:
           # https://gitlab.pyicu.org/main/pyicu#installing-pyicu
           echo "/usr/local/opt/icu4c/bin:/usr/local/opt/icu4c/sbin" >> $GITHUB_PATH
           echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/icu4c/lib/pkgconfig" >> $GITHUB_ENV
-
-      - name: Create and Activate Virtual Environment
-        run: |
-          python3 -m venv venv
-          source venv/bin/activate
 
       - name: Install Python Dependencies
         run: |
