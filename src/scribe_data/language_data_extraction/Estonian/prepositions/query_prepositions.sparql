@@ -11,8 +11,7 @@ SELECT
 WHERE {
   # Prepositions and postpositions.
   VALUES ?PrePostPositions { wd:Q4833830 wd:Q161873 }
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q9072 ;
+  ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory ?prePost ;
     wikibase:lemma ?lemma .
   FILTER(?prePost = ?PrePostPositions)

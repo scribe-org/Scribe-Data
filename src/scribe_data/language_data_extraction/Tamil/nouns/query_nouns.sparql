@@ -9,8 +9,8 @@ SELECT DISTINCT
 
 WHERE {
   VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q5885 ;
+
+  ?lexeme dct:language wd:Q5885 ;
     wikibase:lexicalCategory ?nounType .
 
   FILTER(?nounType = ?nounTypes)

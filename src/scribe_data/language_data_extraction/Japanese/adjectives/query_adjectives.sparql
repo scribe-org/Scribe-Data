@@ -7,8 +7,7 @@ SELECT
   ?adjective
 
 WHERE {
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q5287 ;
+  ?lexeme dct:language wd:Q5287 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
 

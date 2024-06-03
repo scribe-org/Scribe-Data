@@ -14,9 +14,8 @@ def query_total_nouns(language):
     SELECT (COUNT(DISTINCT ?lexeme) as ?total)
     WHERE {{
         VALUES ?language {{ wd:{} }}
-        ?lexeme a ontolex:LexicalEntry ;
-                dct:language ?language ;
-                wikibase:lexicalCategory ?category .
+        ?lexeme dct:language ?language ;
+            wikibase:lexicalCategory ?category .
         FILTER(?category IN (wd:Q1084, wd:Q147276))
     }}
     """

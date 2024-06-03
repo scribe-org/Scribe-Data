@@ -10,8 +10,7 @@ SELECT
   ?pastFPP ?pastSPPM ?pastSPPF
 
 WHERE {
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q13955 ;
+  ?lexeme dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
 

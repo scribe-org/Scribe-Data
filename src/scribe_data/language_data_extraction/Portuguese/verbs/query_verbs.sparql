@@ -15,8 +15,7 @@ SELECT DISTINCT
   ?fSimpFPP ?fSimpSPP ?fSimpTPP
 
 WHERE {
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q5146 ;
+  ?lexeme dct:language wd:Q5146 ;
     wikibase:lexicalCategory wd:Q24905 .
 
   # Infinitive (required)

@@ -7,8 +7,7 @@ SELECT
   ?preposition ?case
 
 WHERE {
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q9058 ;
+  ?lexeme dct:language wd:Q9058 ;
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?lemma .
 

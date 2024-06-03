@@ -10,8 +10,7 @@ SELECT DISTINCT
   ?pastFeminine ?pastMasculine ?pastNeutral ?pastPlural
 
 WHERE {
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q7737 ;
+  ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q24905 .
 
   # Infinitive (required)

@@ -8,8 +8,7 @@ SELECT
   ?case
 
 WHERE {
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q9056 ;
+  ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?lemma .
 

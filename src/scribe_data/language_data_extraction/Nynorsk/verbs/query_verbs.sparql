@@ -8,8 +8,7 @@ SELECT
   ?infinitive
 
 WHERE {
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q25164 ;
+  ?lexeme dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q24905 .
 
   # Infinitive (required)

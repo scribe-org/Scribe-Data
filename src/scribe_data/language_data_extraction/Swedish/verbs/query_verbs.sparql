@@ -10,8 +10,7 @@ SELECT
   ?passivePresent ?passivePreterite
 
 WHERE {
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q9027 ;
+  ?lexeme dct:language wd:Q9027 ;
     wikibase:lexicalCategory wd:Q24905 .
 
   # Active Voice

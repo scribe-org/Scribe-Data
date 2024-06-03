@@ -12,8 +12,7 @@ SELECT DISTINCT
 
 WHERE {
   # Infinitive (required)
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q1860 ;
+  ?lexeme dct:language wd:Q1860 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?infinitive .
 

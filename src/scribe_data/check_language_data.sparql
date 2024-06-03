@@ -17,8 +17,7 @@ WHERE {
   }
 
   # Query the lexeme if it's in the above categories of words.
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language ?language ;
+  ?lexeme dct:language ?language ;
     wikibase:lexicalCategory ?category ;
 
   FILTER (?category = ?wordCategories)

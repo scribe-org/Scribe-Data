@@ -11,8 +11,7 @@ SELECT
   ?pretFPP ?pretSPP ?pretTPP
 
 WHERE {
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q150 ;
+  ?lexeme dct:language wd:Q150 ;
     wikibase:lexicalCategory wd:Q24905 .
 
   # Infinitive (required)

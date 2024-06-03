@@ -9,8 +9,7 @@ SELECT
 
 WHERE {
   # All German prepositions.
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q8798 ;
+  ?lexeme dct:language wd:Q8798 ;
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?lemma .
 

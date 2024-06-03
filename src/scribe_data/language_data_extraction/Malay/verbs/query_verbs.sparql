@@ -7,8 +7,7 @@ SELECT
   ?verb
 
 WHERE {
-  ?lexeme a ontolex:LexicalEntry ;
-    dct:language wd:Q9237 ;
+  ?lexeme dct:language wd:Q9237 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
 

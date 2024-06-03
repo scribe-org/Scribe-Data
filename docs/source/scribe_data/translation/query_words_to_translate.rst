@@ -19,8 +19,7 @@ Currently translations (P5972, Q7553) are not widely used on Wikidata. An initia
             wd:Q1084 wd:Q147276 wd:Q36224 wd:Q468801 wd:Q24905 wd:Q34698 wd:Q380057 wd:Q4833830 wd:Q161873 wd:Q191536 wd:Q103184
         }
 
-        ?lexeme a ontolex:LexicalEntry ;
-            dct:language wd:LANGUAGE_QID; # replace language qid here ;
+        ?lexeme dct:language wd:LANGUAGE_QID; # replace language qid here ;
             wikibase:lexicalCategory ?category ;
             wikibase:lemma ?lemma .
 
