@@ -2,7 +2,7 @@
 # All German (Q188) nouns, their plurals and their genders in the given cases.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?nomSingular
   ?nomPlural
@@ -19,10 +19,10 @@ WHERE {
 
   # Optional selection of nominative plural forms.
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nonPluralForm .
-    ?nonPluralForm ontolex:representation ?nonPlural ;
+    ?lexeme ontolex:lexicalForm ?nomPluralForm .
+    ?nomPluralForm ontolex:representation ?nomPlural ;
       wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:lemma wd:Q131105 ;
   } .
 
   # Optional selection of genders.
