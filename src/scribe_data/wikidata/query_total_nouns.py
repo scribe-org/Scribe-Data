@@ -2,6 +2,8 @@
 Derives the total nouns available for a language on Wikidata by querying the count.
 """
 
+import urllib
+
 from SPARQLWrapper import JSON, SPARQLWrapper
 
 
@@ -25,6 +27,15 @@ def query_total_nouns(language):
 
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
 
-    return int(results["results"]["bindings"][0]["total"]["value"])
+    results = None
+    try:
+        results = sparql.query().convert()
+    except urllib.error.HTTPError as err:
+        print(f"HTTPError with query_total_nouns for {language}: {err}")
+
+    if results is not None:
+        return int(results["results"]["bindings"][0]["total"]["value"])
+
+    else:
+        return results
