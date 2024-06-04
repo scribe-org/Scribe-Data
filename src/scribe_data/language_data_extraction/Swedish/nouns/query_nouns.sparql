@@ -18,9 +18,7 @@ WHERE {
   VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
 
   ?lexeme dct:language wd:Q9027 ;
-    wikibase:lexicalCategory ?nounType .
-
-  FILTER(?nounType = ?nounTypes)
+    wikibase:lexicalCategory ?nounTypes .
 
   # Indefinite forms in both nominative and genitive.
   OPTIONAL {

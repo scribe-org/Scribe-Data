@@ -13,9 +13,7 @@ WHERE {
   VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
 
   ?lexeme dct:language wd:Q9610 ;
-    wikibase:lexicalCategory ?nounType ;
-
-  FILTER(?nounType = ?nounTypes)
+    wikibase:lexicalCategory ?nounTypes ;
 
   # Optional selection of nominative form.
   OPTIONAL {

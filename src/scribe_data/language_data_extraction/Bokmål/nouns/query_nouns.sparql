@@ -15,10 +15,8 @@ WHERE {
   VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
 
   ?lexeme dct:language wd:Q25167 ;
-    wikibase:lexicalCategory ?nounType ;
+    wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?indefSingular .
-
-  FILTER(?nounType = ?nounTypes)
 
   # Optional selection of definite singular forms.
   OPTIONAL {

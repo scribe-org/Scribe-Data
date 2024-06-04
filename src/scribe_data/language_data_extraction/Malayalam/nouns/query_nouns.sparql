@@ -11,10 +11,8 @@ WHERE {
   VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
 
   ?lexeme dct:language wd:Q36236 ;
-    wikibase:lexicalCategory ?nounType ;
+    wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?nomSingular .
-
-  FILTER(?nounType = ?nounTypes)
 
   # Optional selection of genders.
   OPTIONAL {
