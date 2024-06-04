@@ -16,7 +16,6 @@ Example
 
 import itertools
 import json
-import math
 import os
 import sys
 from urllib.error import HTTPError
@@ -28,7 +27,6 @@ from tqdm.auto import tqdm
 from scribe_data.utils import (
     check_and_return_command_line_args,
 )
-from scribe_data.wikidata.query_total_nouns import query_total_nouns
 
 # total_nouns = query_total_nouns()
 # batch_size = 10
