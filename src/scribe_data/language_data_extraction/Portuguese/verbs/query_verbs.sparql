@@ -20,10 +20,10 @@ WHERE {
 
   # Infinitive (required)
   VALUES ?infTypes { wd:Q179230 wd:Q64003131 }
+
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
   ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature ?inf ;
-  FILTER(?inf = ?infTypes)
+    wikibase:grammaticalFeature infTypes ;
 
   VALUES ?perfectTypes { wd:Q23663136 wd:Q64005357 }
 
