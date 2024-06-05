@@ -12,7 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-latest
+          # See: https://github.com/scribe-org/Scribe-Data/issues/61
+          #   - macos-latest
           - ubuntu-latest
         python-version:
           - "3.9"
