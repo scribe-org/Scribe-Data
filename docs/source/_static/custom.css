@@ -37,3 +37,8 @@
   display: block;
   margin: 0 auto;
 }
+
+/* Hide HTML comments in the generated documentation */
+html > body > div.document > div.section > pre > code {
+  display: none;
+}
