@@ -47,6 +47,11 @@ setup_args = dict(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/scribe-org/Scribe-Data",
+    entry_points={
+        "console_scripts": [
+            "scribe-data=scribe_data.cli:main",
+        ],
+    }
 )
 
 if __name__ == "__main__":

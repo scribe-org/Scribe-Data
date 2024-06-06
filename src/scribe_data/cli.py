@@ -20,10 +20,19 @@ Setup and commands for the Scribe-Data command line interface.
     -->
 """
 
+#!/usr/bin/env python3
+
+import sys
+import os
 import argparse
 import json
 from pathlib import Path
 from typing import Dict, List, Union
+
+# Add the parent directory of 'src' to sys.path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
 
 DATA_DIR = Path('language_data_export')
 
@@ -32,43 +41,69 @@ def list_languages() -> None:
         print(f"Directory '{DATA_DIR}' does not exist.")
         return
 
-    languages = [lang for lang in DATA_DIR.iterdir() if lang.is_dir()]
+    languages = [lang.name for lang in DATA_DIR.iterdir() if lang.is_dir()]
     print("Available languages:")
     for lang in languages:
-        print(f"- {lang.name}")
-        word_types = [wt.stem for wt in lang.glob('*.json')]
-        max_word_type_length = max(len(wt) for wt in word_types)
-        for wt in word_types:
-            print(f"  - {wt:<{max_word_type_length}}")
-        print("")
+        print(f"- {lang}")
 
-def print_formatted_data(data: Union[Dict, List]) -> None:
-    if isinstance(data, dict):
+def list_word_types(language: str) -> None:
+    language_dir = DATA_DIR / language
+    if not language_dir.exists() or not language_dir.is_dir():
+        print(f"No data found for language '{language}'.")
+        return
+
+    word_types = [wt.stem for wt in language_dir.glob('*.json')]
+    if not word_types:
+        print(f"No word types available for language '{language}'.")
+        return
+
+    max_word_type_length = max(len(wt) for wt in word_types)
+    print(f"Word types for language '{language}':")
+    for wt in word_types:
+        print(f"  - {wt:<{max_word_type_length}}")
+
+def print_formatted_data(data: Union[Dict, List], word_type: str) -> None:
+    if word_type == 'autosuggestions':
         max_key_length = max(len(key) for key in data.keys())
         for key, value in data.items():
-            if isinstance(value, dict):
-                print(f"{key:<{max_key_length}} : ")
-                max_sub_key_length = max(len(sub_key) for sub_key in value.keys())
-                for sub_key, sub_value in value.items():
-                    print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
-            else:
-                print(f"{key:<{max_key_length}} : {value}")
-    elif isinstance(data, list):
-        max_key_length = max(len(key) for item in data for key in item.keys())
-        for item in data:
-            if isinstance(item, dict):
-                for key, value in item.items():
-                    print(f"{key:<{max_key_length}} : ")
-                    if isinstance(value, dict):
-                        max_sub_key_length = max(len(sub_key) for sub_key in value.keys())
-                        for sub_key, sub_value in value.items():
-                            print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
-                    else:
-                        print(f"  {value}")
-            else:
-                print(json.dumps(item, indent=2))
+            print(f"{key:<{max_key_length}} : {', '.join(value)}")
+    elif word_type == 'emoji_keywords':
+        max_key_length = max(len(key) for key in data.keys())
+        for key, value in data.items():
+            emojis = [item['emoji'] for item in value]
+            print(f"{key:<{max_key_length}} : {' '.join(emojis)}")
+    elif word_type == 'prepositions' or word_type == 'translations':
+        max_key_length = max(len(key) for key in data.keys())
+        for key, value in data.items():
+            print(f"{key:<{max_key_length}} : {value}")
     else:
-        print(data)
+        if isinstance(data, dict):
+            max_key_length = max(len(key) for key in data.keys())
+            for key, value in data.items():
+                if isinstance(value, dict):
+                    print(f"{key:<{max_key_length}} : ")
+                    max_sub_key_length = max(len(sub_key) for sub_key in value.keys())
+                    for sub_key, sub_value in value.items():
+                        print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
+                elif isinstance(value, list):
+                    print(f"{key:<{max_key_length}} : ")
+                    for item in value:
+                        if isinstance(item, dict):
+                            for sub_key, sub_value in item.items():
+                                print(f"  {sub_key:<{max_key_length}} : {sub_value}")
+                        else:
+                            print(f"  {item}")
+                else:
+                    print(f"{key:<{max_key_length}} : {value}")
+        elif isinstance(data, list):
+            for item in data:
+                if isinstance(item, dict):
+                    for key, value in item.items():
+                        print(f"{key} : {value}")
+                else:
+                    print(item)
+        else:
+            print(data)
 
 def query_data(language: str, word_type: str) -> None:
     data_file = DATA_DIR / language / f"{word_type}.json"
@@ -84,22 +119,35 @@ def query_data(language: str, word_type: str) -> None:
         return
 
     print(f"Data for language '{language}' and word type '{word_type}':")
-    print_formatted_data(data)
+    print_formatted_data(data, word_type)
+
+    if word_type.lower() == 'nouns':
+        print("\nLegend:")
+        print("PL    : Plural")
+        print("empty : Singular\n")
 
 def main() -> None:
     parser = argparse.ArgumentParser(description='Scribe-Data CLI Tool')
-    subparsers = parser.add_subparsers(dest='command')
+    subparsers = parser.add_subparsers(dest='command', required=True)
 
-    subparsers.add_parser('list-languages', help='List available language codes and word types')
-
+    # Define the 'list-languages' subcommand
+    list_languages_parser = subparsers.add_parser('languages-list', aliases=['ll'], help='List available languages')
+    
+    # Define the 'list-word-types' subcommand
+    list_word_types_parser = subparsers.add_parser('list-word-types', aliases=['lwt'], help='List available word types for a specific language')
+    list_word_types_parser.add_argument('-l', '--language', required=True, help='Language code')
+    
+    # Define the 'query' subcommand
     query_parser = subparsers.add_parser('query', help='Query data for a specific language and word type')
     query_parser.add_argument('-l', '--language', required=True, help='Language code')
     query_parser.add_argument('-wt', '--word-type', required=True, help='Word type')
 
     args = parser.parse_args()
 
-    if args.command == 'list-languages':
+    if args.command in ['languages-list', 'll']:
         list_languages()
+    elif args.command in ['list-word-types', 'lwt']:
+        list_word_types(args.language)
     elif args.command == 'query':
         query_data(args.language, args.word_type)
     else:
