@@ -29,12 +29,23 @@ import json
 from pathlib import Path
 from typing import Dict, List, Union
 
-# Add the parent directory of 'src' to sys.path
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
 DATA_DIR = Path('language_data_export')
+
+# Mapping of possible inputs to standardized language names
+LANGUAGE_MAP = {
+    'en': 'English', 'english': 'English',
+    'fr': 'French', 'french': 'French',
+    'de': 'German', 'german': 'German',
+    'it': 'Italian', 'italian': 'Italian',
+    'pt': 'Portuguese', 'portuguese': 'Portuguese',
+    'ru': 'Russian', 'russian': 'Russian',
+    'es': 'Spanish', 'spanish': 'Spanish',
+    'sv': 'Swedish', 'swedish': 'Swedish'
+}
 
 def list_languages() -> None:
     if not DATA_DIR.exists() or not DATA_DIR.is_dir():
@@ -47,18 +58,24 @@ def list_languages() -> None:
         print(f"- {lang}")
 
 def list_word_types(language: str) -> None:
-    language_dir = DATA_DIR / language
+    # Normalize the input language
+    normalized_language = LANGUAGE_MAP.get(language.lower())
+    if not normalized_language:
+        print(f"Language '{language}' is not recognized.")
+        return
+
+    language_dir = DATA_DIR / normalized_language
     if not language_dir.exists() or not language_dir.is_dir():
-        print(f"No data found for language '{language}'.")
+        print(f"No data found for language '{normalized_language}'.")
         return
 
     word_types = [wt.stem for wt in language_dir.glob('*.json')]
     if not word_types:
-        print(f"No word types available for language '{language}'.")
+        print(f"No word types available for language '{normalized_language}'.")
         return
 
     max_word_type_length = max(len(wt) for wt in word_types)
-    print(f"Word types for language '{language}':")
+    print(f"Word types for language '{normalized_language}':")
     for wt in word_types:
         print(f"  - {wt:<{max_word_type_length}}")
 
@@ -106,9 +123,15 @@ def print_formatted_data(data: Union[Dict, List], word_type: str) -> None:
             print(data)
 
 def query_data(language: str, word_type: str) -> None:
-    data_file = DATA_DIR / language / f"{word_type}.json"
+    # Normalize the input language
+    normalized_language = LANGUAGE_MAP.get(language.lower())
+    if not normalized_language:
+        print(f"Language '{language}' is not recognized.")
+        return
+
+    data_file = DATA_DIR / normalized_language / f"{word_type}.json"
     if not data_file.exists():
-        print(f"No data found for language '{language}' and word type '{word_type}'.")
+        print(f"No data found for language '{normalized_language}' and word type '{word_type}'.")
         return
 
     try:
@@ -118,7 +141,7 @@ def query_data(language: str, word_type: str) -> None:
         print(f"Error reading '{data_file}': {e}")
         return
 
-    print(f"Data for language '{language}' and word type '{word_type}':")
+    print(f"Data for language '{normalized_language}' and word type '{word_type}':")
     print_formatted_data(data, word_type)
 
     if word_type.lower() == 'nouns':
@@ -130,14 +153,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description='Scribe-Data CLI Tool')
     subparsers = parser.add_subparsers(dest='command', required=True)
 
-    # Define the 'list-languages' subcommand
-    list_languages_parser = subparsers.add_parser('languages-list', aliases=['ll'], help='List available languages')
+    subparsers.add_parser('languages-list', aliases=['ll'], help='List available languages')
     
-    # Define the 'list-word-types' subcommand
     list_word_types_parser = subparsers.add_parser('list-word-types', aliases=['lwt'], help='List available word types for a specific language')
     list_word_types_parser.add_argument('-l', '--language', required=True, help='Language code')
     
-    # Define the 'query' subcommand
     query_parser = subparsers.add_parser('query', help='Query data for a specific language and word type')
     query_parser.add_argument('-l', '--language', required=True, help='Language code')
     query_parser.add_argument('-wt', '--word-type', required=True, help='Word type')
