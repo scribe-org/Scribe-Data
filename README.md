@@ -17,12 +17,8 @@
 
 **Scribe-Data** contains the scripts for extracting and formatting language data from [Wikidata](https://www.wikidata.org/) and [Wikipedia](https://www.wikipedia.org/). Updates to the data can be done using [scribe_data/wikidata/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/update_data.py) and the notebooks within the [scribe_data/load](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load) directory.
 
-<!-- markdown-link-check-disable -->
-
 > [!NOTE]\
 > The [contributing](#contributing) section has information for those interested, with the articles and presentations in [featured by](#featured-by) also being good resources for learning more about Scribe.
-
-<!-- markdown-link-check-enable -->
 
 Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-iOS), [Android](https://github.com/scribe-org/Scribe-Android) (WIP) and [Desktop](https://github.com/scribe-org/Scribe-Desktop) (planned).
 
@@ -32,15 +28,11 @@ Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organiz
 
 # **Contents**
 
-<!-- markdown-link-check-disable -->
-
 - [Process](#process)
 - [Contributing](#contributing)
 - [Environment Setup](#environment-setup)
 - [Supported Languages](#supported-languages)
 - [Featured By](#featured-by)
-
-<!-- markdown-link-check-enable -->
 
 <a id="Process"></a>
 

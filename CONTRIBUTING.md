@@ -12,8 +12,6 @@ If you have questions or would like to communicate with the team, please [join u
 
 ## Contents
 
-<!-- markdown-link-check-disable -->
-
 - [First steps as a contributor](#first-steps)
 - [Learning the tech stack](#learning-the-tech)
 - [Development environment](#dev-env)
@@ -23,8 +21,6 @@ If you have questions or would like to communicate with the team, please [join u
 - [Pull requests](#pull-requests)
 - [Data edits](#data-edits)
 - [Documentation](#documentation)
-
-<!-- markdown-link-check-enable -->
 
 <a id="first-steps"></a>
 
@@ -155,11 +151,7 @@ pre-commit install  # install pre-commit hooks
 
 ## Issues and projects [`⇧`](#contents)
 
-<!-- markdown-link-check-disable -->
-
 The [issue tracker for Scribe-Data](https://github.com/scribe-org/Scribe-Data/issues) is the preferred channel for [bug reports](#bug-reports), [features requests](#feature-requests) and [submitting pull requests](#pull-requests). Scribe also organizes related issues into [projects](https://github.com/scribe-org/Scribe-Data/projects).
-
-<!-- markdown-link-check-enabled -->
 
 > [!NOTE]\
 > Just because an issue is assigned on GitHub doesn't mean that the team isn't interested in your contribution! Feel free to write [in the issues](https://github.com/scribe-org/Scribe-Data/issues) and we can potentially reassign it to you.
