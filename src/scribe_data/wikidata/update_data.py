@@ -122,6 +122,7 @@ queries_to_run_lists = [
 ]
 
 queries_to_run = list({q for sub in queries_to_run_lists for q in sub})
+queries_to_run = sorted(queries_to_run)
 
 # Run queries and format data.
 data_added_dict = {}
