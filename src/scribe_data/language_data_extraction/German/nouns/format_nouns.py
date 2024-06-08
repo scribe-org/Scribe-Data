@@ -65,7 +65,7 @@ for noun_vals in nouns_list:
                             "form": "PL",
                         }
                 else:
-                    # Mark nomPlural as a possible form if it isn't already.
+                    # Mark plural as a possible form if it isn't already.
                     if (
                         "PL" not in nouns_formatted[noun_vals["nomPlural"]]["form"]
                         and nouns_formatted[noun_vals["nomPlural"]]["form"] != ""
@@ -77,20 +77,20 @@ for noun_vals in nouns_list:
                     elif nouns_formatted[noun_vals["nomPlural"]]["form"] == "":
                         nouns_formatted[noun_vals["nomPlural"]]["form"] = "PL"
 
-                    # Assign itself as a nomPlural if possible (maybe wasn't for prior versions).
+                    # Assign itself as a plural if possible (maybe wasn't for prior versions).
                     if noun_vals["nomSingular"] == noun_vals["nomPlural"]:
                         nouns_formatted[noun_vals["nomPlural"]]["plural"] = noun_vals[
                             "nomPlural"
                         ]
 
-            # Get nomPlural and assign it as a noun.
+            # Get plural and assign it as a noun.
             elif "nomPlural" in noun_vals.keys() and "gender" not in noun_vals.keys():
                 nouns_formatted[noun_vals["nomSingular"]] = {
                     "plural": noun_vals["nomPlural"],
                     "form": "",
                 }
 
-                # Assign nomPlural as a new entry after checking if it's its own nomPlural.
+                # Assign plural as a new entry after checking if it's its own plural.
                 if noun_vals["nomPlural"] not in nouns_formatted:
                     if noun_vals["nomSingular"] != noun_vals["nomPlural"]:
                         nouns_formatted[noun_vals["nomPlural"]] = {
@@ -104,7 +104,7 @@ for noun_vals in nouns_list:
                             "form": "PL",
                         }
                 else:
-                    # Mark nomPlural as a possible form if it isn't already.
+                    # Mark plural as a possible form if it isn't already.
                     if (
                         "PL" not in nouns_formatted[noun_vals["nomPlural"]]["form"]
                         and nouns_formatted[noun_vals["nomPlural"]]["form"] != ""
@@ -116,7 +116,7 @@ for noun_vals in nouns_list:
                     elif nouns_formatted[noun_vals["nomPlural"]]["form"] == "":
                         nouns_formatted[noun_vals["nomPlural"]]["form"] = "PL"
 
-                    # Assign itself as a nomPlural if possible (maybe wasn't for prior versions).
+                    # Assign itself as a plural if possible (maybe wasn't for prior versions).
                     if noun_vals["nomSingular"] == noun_vals["nomPlural"]:
                         nouns_formatted[noun_vals["nomPlural"]]["plural"] = noun_vals[
                             "nomPlural"
