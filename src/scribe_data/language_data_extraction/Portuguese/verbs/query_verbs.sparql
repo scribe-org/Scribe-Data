@@ -23,7 +23,7 @@ WHERE {
 
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
   ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature infTypes ;
+    wikibase:grammaticalFeature ?infTypes ;
 
   VALUES ?perfectTypes { wd:Q23663136 wd:Q64005357 }
 
