@@ -15,18 +15,24 @@
 
 ## Wikidata and Wikipedia language data extraction
 
-**Scribe-Data** contains the scripts for extracting and formatting data from [Wikidata](https://www.wikidata.org/) and [Wikipedia](https://www.wikipedia.org/) for Scribe applications. Updates to the language keyboard and interface data can be done using [scribe_data/wikidata/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/update_data.py) and the notebooks within the [scribe_data/load](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load) directory.
+**Scribe-Data** contains the scripts for extracting and formatting language data from [Wikidata](https://www.wikidata.org/) and [Wikipedia](https://www.wikipedia.org/). Updates to the data can be done using [scribe_data/wikidata/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/update_data.py) and the notebooks within the [scribe_data/load](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load) directory.
+
+<!-- markdown-link-check-disable -->
 
 > [!NOTE]\
 > The [contributing](#contributing) section has information for those interested, with the articles and presentations in [featured by](#featured-by) also being good resources for learning more about Scribe.
 
+<!-- markdown-link-check-enable -->
+
 Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-iOS), [Android](https://github.com/scribe-org/Scribe-Android) (WIP) and [Desktop](https://github.com/scribe-org/Scribe-Desktop) (planned).
 
-Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) for an overview of the organization including our applications, services and processes. It depicts the projects that [Scribe](https://github.com/scribe-org) is developing as well as the relationships between them and the external systems with which they interact.
+Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) for an overview of the organization including our applications, services and processes. It depicts the projects that [Scribe](https://github.com/scribe-org) is developing as well as the relationships between them and the external systems with which they interact. Also check out the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and querying language data from it.
 
 <a id="contents"></a>
 
 # **Contents**
+
+<!-- markdown-link-check-disable -->
 
 - [Process](#process)
 - [Contributing](#contributing)
@@ -34,7 +40,9 @@ Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organiz
 - [Supported Languages](#supported-languages)
 - [Featured By](#featured-by)
 
-<a id="process"></a>
+<!-- markdown-link-check-enable -->
+
+<a id="Process"></a>
 
 # Process [`⇧`](#contents)
 
@@ -204,7 +212,7 @@ The following table shows the supported languages and the amount of data availab
 
 - August: [Scribe-iOS final submission report for Google Summer of Code 2023](https://saurabhjamadagni.hashnode.dev/gsoc-23-final-work-submission)
 - June: [Scribe-iOS development blog post on Nested UITableViews & Apple's built-in ViewControllers in app menu](https://saurabhjamadagni.hashnode.dev/nested-uitableviews-apples-built-in-viewcontrollers) for [GSoC '23](https://www.mediawiki.org/wiki/Google_Summer_of_Code/2023#Accepted_projects:~:text=links%3A%20Phabricator%20issue-,3.%20Adding%20a%20Menu%20and%20Keyboards%20to%20Scribe%2DiOS,-%5Bedit%5D)
-- March: [Presentation slides](https://docs.google.com/presentation/d/1W4ZkGi9UDDiTxM_silEij0gTE8YEubluHxe78xoqEP0/edit?usp=sharing) for a talk at [Berlin Hack and Tell](https://berlinhackandtell.rocks/) ([Hack of the month winner 🏆](https://berlinhackandtell.rocks/2023-03-28-no87-moore-hacks))
+- March: [Presentation slides](https://docs.google.com/presentation/d/1W4ZkGi9UDDiTxM_silEij0gTE8YEubluHxe78xoqEP0/edit?usp=sharing) for a talk at [Berlin Hack and Tell](https://bhnt.c-base.org/) ([Hack of the month winner 🏆](https://bhnt.c-base.org/2023-03-28-no87-moore-hacks))
 
 <strong>2022</strong>
 
