@@ -21,6 +21,12 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - The documentation has been given a new layout with the logo in the top left ([#90](https://github.com/scribe-org/Scribe-Data/issues/90)).
 - The documentation now has links to the code at the top of each page ([#91](https://github.com/scribe-org/Scribe-Data/issues/91)).
 
+### 🐞 Bug Fixes
+
+- Annotation bugs were removed like repeat or empty values.
+- Perfect tenses of Portuguese verbs were fixed via finding the appropriate PID ([#68](https://github.com/scribe-org/Scribe-Data/issues/68)).
+  - Note that the most common past perfect property is not the standard one, so this will need to be fixed.
+
 ### ♻️ Code Refactoring
 
 - [pre-commit](https://pre-commit.com/) have been added to the repo to improve the development experience ([#137](https://github.com/scribe-org/Scribe-Data/issues/137)).
