@@ -233,7 +233,7 @@ for q in tqdm(
 
         # Check current data within formatted data directories.
         with open(
-            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../language_data_export/{lang.capitalize()}/{target_type}.json",
+            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_export/{lang.capitalize()}/{target_type}.json",
             encoding="utf-8",
         ) as json_file:
             new_keyboard_data = json.load(json_file)
