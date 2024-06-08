@@ -42,132 +42,132 @@ nouns_list, update_data_in_use, data_path = load_queried_data(
 nouns_formatted = {}
 
 for noun_vals in nouns_list:
-    if "nominativeSingular" in noun_vals.keys():
-        if noun_vals["nominativeSingular"] not in nouns_formatted:
-            nouns_formatted[noun_vals["nominativeSingular"]] = {
+    if "nomIndefSingular" in noun_vals.keys():
+        if noun_vals["nomIndefSingular"] not in nouns_formatted:
+            nouns_formatted[noun_vals["nomIndefSingular"]] = {
                 "plural": "",
                 "form": "",
             }
 
             if "gender" in noun_vals.keys():
-                nouns_formatted[noun_vals["nominativeSingular"]]["form"] = map_genders(
+                nouns_formatted[noun_vals["nomIndefSingular"]]["form"] = map_genders(
                     noun_vals["gender"]
                 )
 
-            if "nominativePlural" in noun_vals.keys():
-                nouns_formatted[noun_vals["nominativeSingular"]]["plural"] = noun_vals[
-                    "nominativePlural"
+            if "nomIndefPlural" in noun_vals.keys():
+                nouns_formatted[noun_vals["nomIndefSingular"]]["plural"] = noun_vals[
+                    "nomIndefPlural"
                 ]
 
-                if noun_vals["nominativePlural"] not in nouns_formatted:
-                    nouns_formatted[noun_vals["nominativePlural"]] = {
+                if noun_vals["nomIndefPlural"] not in nouns_formatted:
+                    nouns_formatted[noun_vals["nomIndefPlural"]] = {
                         "plural": "isPlural",
                         "form": "PL",
                     }
 
                 # Plural is same as singular.
                 else:
-                    nouns_formatted[noun_vals["nominativeSingular"]]["plural"] = (
-                        noun_vals["nominativePlural"]
+                    nouns_formatted[noun_vals["nomIndefSingular"]]["plural"] = (
+                        noun_vals["nomIndefPlural"]
                     )
-                    nouns_formatted[noun_vals["nominativeSingular"]]["form"] = (
-                        nouns_formatted[noun_vals["nominativeSingular"]]["form"] + "/PL"
+                    nouns_formatted[noun_vals["nomIndefSingular"]]["form"] = (
+                        nouns_formatted[noun_vals["nomIndefSingular"]]["form"] + "/PL"
                     )
 
         else:
             if "gender" in noun_vals.keys():
                 if (
-                    nouns_formatted[noun_vals["nominativeSingular"]]["form"]
+                    nouns_formatted[noun_vals["nomIndefSingular"]]["form"]
                     != noun_vals["gender"]
                 ):
-                    nouns_formatted[noun_vals["nominativeSingular"]]["form"] += (
+                    nouns_formatted[noun_vals["nomIndefSingular"]]["form"] += (
                         "/" + map_genders(noun_vals["gender"])
                     )
 
-                elif nouns_formatted[noun_vals["nominativeSingular"]]["gender"] == "":
-                    nouns_formatted[noun_vals["nominativeSingular"]]["gender"] = (
+                elif nouns_formatted[noun_vals["nomIndefSingular"]]["gender"] == "":
+                    nouns_formatted[noun_vals["nomIndefSingular"]]["gender"] = (
                         map_genders(noun_vals["gender"])
                     )
 
-    elif "genitiveSingular" in noun_vals.keys():
-        if noun_vals["genitiveSingular"] not in nouns_formatted:
-            nouns_formatted[noun_vals["genitiveSingular"]] = {
+    elif "genIndefSingular" in noun_vals.keys():
+        if noun_vals["genIndefSingular"] not in nouns_formatted:
+            nouns_formatted[noun_vals["genIndefSingular"]] = {
                 "plural": "",
                 "form": "",
             }
 
             if "gender" in noun_vals.keys():
-                nouns_formatted[noun_vals["genitiveSingular"]]["form"] = map_genders(
+                nouns_formatted[noun_vals["genIndefSingular"]]["form"] = map_genders(
                     noun_vals["gender"]
                 )
 
-            if "genitivePlural" in noun_vals.keys():
-                nouns_formatted[noun_vals["genitiveSingular"]]["plural"] = noun_vals[
-                    "genitivePlural"
+            if "genIndefPlural" in noun_vals.keys():
+                nouns_formatted[noun_vals["genIndefSingular"]]["plural"] = noun_vals[
+                    "genIndefPlural"
                 ]
 
-                if noun_vals["genitivePlural"] not in nouns_formatted:
-                    nouns_formatted[noun_vals["genitivePlural"]] = {
+                if noun_vals["genIndefPlural"] not in nouns_formatted:
+                    nouns_formatted[noun_vals["genIndefPlural"]] = {
                         "plural": "isPlural",
                         "form": "PL",
                     }
 
                 # Plural is same as singular.
                 else:
-                    nouns_formatted[noun_vals["genitiveSingular"]]["plural"] = (
-                        noun_vals["genitivePlural"]
+                    nouns_formatted[noun_vals["genIndefSingular"]]["plural"] = (
+                        noun_vals["genIndefPlural"]
                     )
-                    nouns_formatted[noun_vals["genitiveSingular"]]["form"] = (
-                        nouns_formatted[noun_vals["genitiveSingular"]]["form"] + "/PL"
+                    nouns_formatted[noun_vals["genIndefSingular"]]["form"] = (
+                        nouns_formatted[noun_vals["genIndefSingular"]]["form"] + "/PL"
                     )
 
         else:
             if "gender" in noun_vals.keys():
                 if (
-                    nouns_formatted[noun_vals["genitiveSingular"]]["form"]
+                    nouns_formatted[noun_vals["genIndefSingular"]]["form"]
                     != noun_vals["gender"]
                 ):
-                    nouns_formatted[noun_vals["genitiveSingular"]]["form"] += (
+                    nouns_formatted[noun_vals["genIndefSingular"]]["form"] += (
                         "/" + map_genders(noun_vals["gender"])
                     )
 
-                elif nouns_formatted[noun_vals["genitiveSingular"]]["gender"] == "":
-                    nouns_formatted[noun_vals["genitiveSingular"]]["gender"] = (
+                elif nouns_formatted[noun_vals["genIndefSingular"]]["gender"] == "":
+                    nouns_formatted[noun_vals["genIndefSingular"]]["gender"] = (
                         map_genders(noun_vals["gender"])
                     )
 
     # Plural only noun.
-    elif "nominativePlural" in noun_vals.keys():
-        if noun_vals["nominativePlural"] not in nouns_formatted:
-            nouns_formatted[noun_vals["nominativePlural"]] = {
+    elif "nomIndefPlural" in noun_vals.keys():
+        if noun_vals["nomIndefPlural"] not in nouns_formatted:
+            nouns_formatted[noun_vals["nomIndefPlural"]] = {
                 "plural": "isPlural",
                 "form": "PL",
             }
 
         # Plural is same as singular.
         else:
-            nouns_formatted[noun_vals["nominativeSingular"]]["nominativePlural"] = (
-                noun_vals["nominativePlural"]
+            nouns_formatted[noun_vals["nomIndefSingular"]]["nomIndefPlural"] = (
+                noun_vals["nomIndefPlural"]
             )
-            nouns_formatted[noun_vals["nominativeSingular"]]["form"] = (
-                nouns_formatted[noun_vals["nominativeSingular"]]["form"] + "/PL"
+            nouns_formatted[noun_vals["nomIndefSingular"]]["form"] = (
+                nouns_formatted[noun_vals["nomIndefSingular"]]["form"] + "/PL"
             )
 
     # Plural only noun.
-    elif "genitivePlural" in noun_vals.keys():
-        if noun_vals["genitivePlural"] not in nouns_formatted:
-            nouns_formatted[noun_vals["genitivePlural"]] = {
+    elif "genIndefPlural" in noun_vals.keys():
+        if noun_vals["genIndefPlural"] not in nouns_formatted:
+            nouns_formatted[noun_vals["genIndefPlural"]] = {
                 "plural": "isPlural",
                 "form": "PL",
             }
 
         # Plural is same as singular.
         else:
-            nouns_formatted[noun_vals["genitiveSingular"]]["genitivePlural"] = (
-                noun_vals["genitivePlural"]
+            nouns_formatted[noun_vals["genIndefSingular"]]["genIndefPlural"] = (
+                noun_vals["genIndefPlural"]
             )
-            nouns_formatted[noun_vals["genitiveSingular"]]["form"] = (
-                nouns_formatted[noun_vals["genitiveSingular"]]["form"] + "/PL"
+            nouns_formatted[noun_vals["genIndefSingular"]]["form"] = (
+                nouns_formatted[noun_vals["genIndefSingular"]]["form"] + "/PL"
             )
 
 for k in nouns_formatted:
