@@ -129,7 +129,7 @@ data_added_dict = {}
 for q in tqdm(
     queries_to_run,
     desc="Data updated",
-    unit="dirs",
+    unit="process",
 ):
     lang = q.split("/")[-2]
     target_type = q.split("/")[-1]

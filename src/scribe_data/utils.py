@@ -564,6 +564,6 @@ def order_annotations(annotation):
         return annotation
 
     # Remove repeat annotations, if present.
-    annotation_split = sorted(list(set(annotation.split("/"))))
+    annotation_split = sorted(list(set(filter(None, annotation.split("/")))))
 
     return "/".join(annotation_split)
