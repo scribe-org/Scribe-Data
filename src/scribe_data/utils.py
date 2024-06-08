@@ -298,7 +298,9 @@ def export_formatted_data(formatted_data, update_data_in_use, language, data_typ
     with open(export_path, "w", encoding="utf-8") as file:
         json.dump(formatted_data, file, ensure_ascii=False, indent=0)
 
-    print(f"Wrote file {data_type}.json with {len(formatted_data):,} {data_type}.")
+    print(
+        f"Wrote file {language}/{data_type}.json with {len(formatted_data):,} {data_type}."
+    )
 
 
 def get_path_from_format_file() -> str:
