@@ -15,7 +15,6 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 ### ✨ Features
 
 - The translation process has been updated to allow for translations from non-English languages ([#72](https://github.com/scribe-org/Scribe-Data/issues/72), [#73](https://github.com/scribe-org/Scribe-Data/issues/73), [#74](https://github.com/scribe-org/Scribe-Data/issues/74), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#76](https://github.com/scribe-org/Scribe-Data/issues/76), [#77](https://github.com/scribe-org/Scribe-Data/issues/77), [#78](https://github.com/scribe-org/Scribe-Data/issues/78), [#79](https://github.com/scribe-org/Scribe-Data/issues/79)).
-- The package now checks for the total nouns available on Wikidata and then calls a looped query that sets an iterative offset by in order to get all of the data.
 
 ### 📝 Documentation
 

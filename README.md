@@ -234,7 +234,7 @@ The following table shows the supported languages and the amount of data availab
   <br>
 </div>
 
-# Powered By
+# Powered By [`⇧`](#contents)
 
 ### Contributors
 
