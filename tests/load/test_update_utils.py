@@ -224,7 +224,7 @@ def test_get_path_from_wikidata_dir():
 def test_get_ios_data_path():
     assert (
         utils.get_ios_data_path("suomi")
-        == "/Scribe-iOS/Keyboards/LanguageKeyboards/suomi"
+        == "Scribe-iOS/Keyboards/LanguageKeyboards/suomi"
     )
 
 
