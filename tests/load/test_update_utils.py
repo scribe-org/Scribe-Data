@@ -217,10 +217,6 @@ def test_get_path_from_format_file():
     assert utils.get_path_from_format_file() == "../../../../../.."
 
 
-def test_get_path_from_load_dir():
-    assert utils.get_path_from_load_dir() == "../../../.."
-
-
 def test_get_path_from_wikidata_dir():
     assert utils.get_path_from_wikidata_dir() == "../../../.."
 
@@ -229,20 +225,6 @@ def test_get_ios_data_path():
     assert (
         utils.get_ios_data_path("suomi")
         == "/Scribe-iOS/Keyboards/LanguageKeyboards/suomi"
-    )
-
-
-def test_get_android_data_path():
-    assert (
-        utils.get_android_data_path("Robbie")
-        == "/Scribe-Android/app/src/main/LanguageKeyboards/Robbie"
-    )
-
-
-def test_get_desktop_data_path():
-    assert (
-        utils.get_desktop_data_path("PAVEMENT")
-        == "/Scribe-Desktop/scribe/language_guis/PAVEMENT"
     )
 
 

@@ -8,7 +8,7 @@ Parameters
 
 Example
 -------
-    python3 data_to_sqlite.py '["French", "German"]'
+    python3 src/scribe_data/load/data_to_sqlite.py '["French", "German"]'
 
 .. raw:: html
     <!--

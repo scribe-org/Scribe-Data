@@ -183,7 +183,7 @@ def get_language_from_iso(iso: str) -> str:
             The name for the language which has an ISO value of iso.
     """
     try:
-        language_name = str(Lang(iso).name)
+        language_name = str(Lang(iso.lower()).name)
     except DeprecatedLanguageValue as e:
         raise ValueError(
             f"{iso.upper()} is currently not a supported ISO language."
@@ -310,13 +310,6 @@ def get_path_from_format_file() -> str:
     return "../../../../../.."
 
 
-def get_path_from_load_dir() -> str:
-    """
-    Returns the directory path from the load directory to scribe-org.
-    """
-    return "../../../.."
-
-
 def get_path_from_wikidata_dir() -> str:
     """
     Returns the directory path from the wikidata directory to scribe-org.
@@ -338,41 +331,7 @@ def get_ios_data_path(language: str) -> str:
         str
             The path to the data json for the given language.
     """
-    return f"/Scribe-iOS/Keyboards/LanguageKeyboards/{language}"
-
-
-def get_android_data_path(language: str) -> str:
-    """
-    Returns the path to the data json of the Android app given a language.
-
-    Parameters
-    ----------
-        language : str
-            The language the path should be returned for.
-
-    Returns
-    -------
-        str
-            The path to the data json for the given language.
-    """
-    return f"/Scribe-Android/app/src/main/LanguageKeyboards/{language}"
-
-
-def get_desktop_data_path(language: str) -> str:
-    """
-    Returns the path to the data json of the desktop app given a language.
-
-    Parameters
-    ----------
-        language : str
-            The language the path should be returned for.
-
-    Returns
-    -------
-        str
-            The path to the data JSON for the given language.
-    """
-    return f"/Scribe-Desktop/scribe/language_guis/{language}"
+    return f"Scribe-iOS/Keyboards/LanguageKeyboards/{language}"
 
 
 def check_command_line_args(
