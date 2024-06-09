@@ -438,7 +438,7 @@ def gen_autosuggestions(
     if update_local_data:
         path_to_formatted_data = (
             get_path_from_wikidata_dir()
-            + f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_export/{language}/autosuggestions.json"
+            + f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{language}/autosuggestions.json"
         )
 
         with open(

@@ -50,7 +50,7 @@ def translation_interrupt_handler(source_language, translations):
     )
 
     with open(
-        f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_export/{source_language}/translated_words.json",
+        f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{source_language}/translated_words.json",
         "w",
         encoding="utf-8",
     ) as file:
@@ -109,7 +109,7 @@ def translate_to_other_languages(source_language, word_list, translations, batch
         print(f"Batch {i//batch_size + 1} translation completed.")
 
         with open(
-            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_export/{source_language}/translated_words.json",
+            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{source_language}/translated_words.json",
             "w",
             encoding="utf-8",
         ) as file:

@@ -41,7 +41,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - The `languages` directory has been renamed `language_data_extraction`.
   - All files within `wikidata/_resources` have been moved to the `resources` directory.
   - The gender and case annotations for data formatting have now been commonly defined.
-  - All language directory `formatted_data` files have been now moved to the `scribe_data_export` directory to prepare for outputs being required to be directed to a directory outside of the package.
+  - All language directory `formatted_data` files have been now moved to the `scribe_data_json_export` directory to prepare for outputs being required to be directed to a directory outside of the package.
 
 ## Scribe-Data 3.2.2
 

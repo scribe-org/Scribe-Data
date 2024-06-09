@@ -2,6 +2,7 @@
   "recommendations": [
     "blokhinnv.wikidataqidlabels",
     "charliermarsh.ruff",
+    "qwtel.sqlite-viewer",
     "streetsidesoftware.code-spell-checker"
   ]
 }

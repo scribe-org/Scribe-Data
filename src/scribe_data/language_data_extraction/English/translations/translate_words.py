@@ -44,7 +44,7 @@ word_list = [item["word"] for item in json_data]
 translations = {}
 translated_words_path = os.path.join(
     translate_script_dir,
-    f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_export/{SRC_LANG}/translated_words.json",
+    f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{SRC_LANG}/translated_words.json",
 )
 
 if os.path.exists(translated_words_path):
