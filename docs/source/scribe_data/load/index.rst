@@ -6,7 +6,6 @@ load/
 .. toctree::
     :maxdepth: 2
 
-    databases/index
     update_files/index
 
 .. toctree::
