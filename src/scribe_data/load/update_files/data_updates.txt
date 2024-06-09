@@ -1,5 +1,7 @@
-- French: 2 nouns
-- German: 44 nouns, 1 verb, 20 prepositions
-- Italian: 2 nouns
-- Spanish: 350 nouns, 102 verbs
-- Swedish: 635 nouns, 27 verbs
+- French: 972 nouns, 2 verbs
+- German: 91,854 nouns, 41 verbs, 5 prepositions
+- Italian: 50,520 nouns, 7,576 verbs
+- Portuguese: 2 verbs
+- Russian: 119 nouns, 3 verbs
+- Spanish: 22,545 nouns, 2,982 verbs
+- Swedish: 1,748 nouns, 177 verbs

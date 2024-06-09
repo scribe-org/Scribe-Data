@@ -294,8 +294,9 @@ with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", encoding="utf-8") as f:
 
 for line in new_table_values.splitlines():
     # Replace headers while translation is still in beta and always for prepositions to annotate missing values.
-    line = line.replace("Translations", "Translations\*")
-    line = line.replace("Prepositions", "Prepositions†")
+    # Note: Spaces replaced to maintain table spacing.
+    line = line.replace("Translations  ", "Translations\*")
+    line = line.replace("Prepositions ", "Prepositions†")
     new_table_value_strings.append(line)
 
 with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", "w+", encoding="utf-8") as f:
