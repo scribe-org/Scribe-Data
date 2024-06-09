@@ -42,6 +42,29 @@ nouns_list, update_data_in_use, data_path = load_queried_data(
 nouns_formatted = {}
 
 for noun_vals in nouns_list:
+    # Check if the multiple genders of a word are being stored on the same lemma.
+    if "masSingular" in noun_vals.keys():
+        nouns_formatted[noun_vals["masSingular"]] = {"plural": "", "form": "M"}
+
+        if "masPlural" in noun_vals.keys():
+            nouns_formatted[noun_vals["masSingular"]]["plural"] = noun_vals["masPlural"]
+
+            nouns_formatted[noun_vals["masPlural"]] = {
+                "plural": "isPlural",
+                "form": "PL",
+            }
+
+    if "femSingular" in noun_vals.keys():
+        nouns_formatted[noun_vals["femSingular"]] = {"plural": "", "form": "F"}
+
+        if "femPlural" in noun_vals.keys():
+            nouns_formatted[noun_vals["femSingular"]]["plural"] = noun_vals["femPlural"]
+
+            nouns_formatted[noun_vals["femPlural"]] = {
+                "plural": "isPlural",
+                "form": "PL",
+            }
+
     if "singular" in noun_vals.keys():
         if noun_vals["singular"] not in nouns_formatted:
             nouns_formatted[noun_vals["singular"]] = {"plural": "", "form": ""}
@@ -70,7 +93,11 @@ for noun_vals in nouns_list:
                     )
 
         else:
-            if "gender" in noun_vals.keys():
+            # Another version of the word may have a different gender.
+            if "gender" in noun_vals.keys() and (
+                "masSingular" not in noun_vals.keys()
+                or "femSingular" not in noun_vals.keys()
+            ):
                 if (
                     nouns_formatted[noun_vals["singular"]]["form"]
                     != noun_vals["gender"]
@@ -87,7 +114,10 @@ for noun_vals in nouns_list:
     # Plural only noun.
     elif "plural" in noun_vals.keys():
         if noun_vals["plural"] not in nouns_formatted:
-            nouns_formatted[noun_vals["plural"]] = {"plural": "isPlural", "form": "PL"}
+            nouns_formatted[noun_vals["plural"]] = {
+                "plural": "isPlural",
+                "form": "PL",
+            }
 
         # Plural is same as singular.
         else:
