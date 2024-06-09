@@ -122,13 +122,14 @@ queries_to_run_lists = [
 ]
 
 queries_to_run = list({q for sub in queries_to_run_lists for q in sub})
+queries_to_run = sorted(queries_to_run)
 
 # Run queries and format data.
 data_added_dict = {}
 for q in tqdm(
     queries_to_run,
     desc="Data updated",
-    unit="dirs",
+    unit="process",
 ):
     lang = q.split("/")[-2]
     target_type = q.split("/")[-1]
@@ -233,7 +234,7 @@ for q in tqdm(
 
         # Check current data within formatted data directories.
         with open(
-            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../language_data_export/{lang.capitalize()}/{target_type}.json",
+            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_export/{lang.capitalize()}/{target_type}.json",
             encoding="utf-8",
         ) as json_file:
             new_keyboard_data = json.load(json_file)

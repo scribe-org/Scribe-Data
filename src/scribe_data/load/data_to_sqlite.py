@@ -93,7 +93,7 @@ language_word_type_dict = {
     lang: [
         f.split(".json")[0]
         for f in os.listdir(
-            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../language_data_export/{lang}"
+            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_export/{lang}"
         )
         if f.split(".json")[0] in word_types
     ]
@@ -160,7 +160,7 @@ for lang in tqdm(
             print(f"Creating {lang} {wt} table...")
             json_data = json.load(
                 open(
-                    f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../language_data_export/{lang}/{wt}.json"
+                    f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_export/{lang}/{wt}.json"
                 )
             )
 

@@ -23,7 +23,7 @@ WHERE {
 
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
   ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature infTypes ;
+    wikibase:grammaticalFeature ?infTypes ;
 
   VALUES ?perfectTypes { wd:Q23663136 wd:Q64005357 }
 
@@ -84,7 +84,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q21714344 ;
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q23663136 ;
+      wikibase:grammaticalFeature wd:Q64005357 ;
   } .
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?perfSPSForm .
@@ -92,7 +92,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929049 ;
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q23663136 ;
+      wikibase:grammaticalFeature wd:Q64005357 ;
   } .
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?perfTPSForm .
@@ -100,7 +100,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074 ;
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q23663136 ;
+      wikibase:grammaticalFeature wd:Q64005357 ;
   } .
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?perfFPPForm .
@@ -108,7 +108,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q21714344 ;
       wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q23663136 ;
+      wikibase:grammaticalFeature wd:Q64005357 ;
   } .
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?perfSPPForm .
@@ -116,7 +116,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929049 ;
       wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q23663136 ;
+      wikibase:grammaticalFeature wd:Q64005357 ;
   } .
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?perfTPPForm .
@@ -124,7 +124,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074 ;
       wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q23663136 ;
+      wikibase:grammaticalFeature wd:Q64005357 ;
   } .
 
   # Past Imperfect

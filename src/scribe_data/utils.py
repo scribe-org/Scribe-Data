@@ -290,7 +290,7 @@ def export_formatted_data(formatted_data, update_data_in_use, language, data_typ
     """
     if update_data_in_use:
         PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-        export_path = f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/language_data_export/{language}/{data_type}.json"
+        export_path = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/scribe_data_export/{language}/{data_type}.json"
 
     else:
         export_path = f"{data_type}.json"
@@ -298,7 +298,9 @@ def export_formatted_data(formatted_data, update_data_in_use, language, data_typ
     with open(export_path, "w", encoding="utf-8") as file:
         json.dump(formatted_data, file, ensure_ascii=False, indent=0)
 
-    print(f"Wrote file {data_type}.json with {len(formatted_data):,} {data_type}.")
+    print(
+        f"Wrote file {language}/{data_type}.json with {len(formatted_data):,} {data_type}."
+    )
 
 
 def get_path_from_format_file() -> str:
@@ -561,6 +563,7 @@ def order_annotations(annotation):
     if "/" not in annotation:
         return annotation
 
-    annotation_split = sorted(annotation.split("/"))
+    # Remove repeat annotations, if present.
+    annotation_split = sorted(list(set(filter(None, annotation.split("/")))))
 
     return "/".join(annotation_split)

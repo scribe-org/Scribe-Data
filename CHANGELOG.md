@@ -10,17 +10,22 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
-## [Upcoming] Scribe-Data 4.0.0
+## [Upcoming] Scribe-Data 3.3.0
 
 ### ✨ Features
 
 - The translation process has been updated to allow for translations from non-English languages ([#72](https://github.com/scribe-org/Scribe-Data/issues/72), [#73](https://github.com/scribe-org/Scribe-Data/issues/73), [#74](https://github.com/scribe-org/Scribe-Data/issues/74), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#76](https://github.com/scribe-org/Scribe-Data/issues/76), [#77](https://github.com/scribe-org/Scribe-Data/issues/77), [#78](https://github.com/scribe-org/Scribe-Data/issues/78), [#79](https://github.com/scribe-org/Scribe-Data/issues/79)).
-- The package now checks for the total nouns available on Wikidata and then calls a looped query that sets an iterative offset by in order to get all of the data.
 
 ### 📝 Documentation
 
 - The documentation has been given a new layout with the logo in the top left ([#90](https://github.com/scribe-org/Scribe-Data/issues/90)).
 - The documentation now has links to the code at the top of each page ([#91](https://github.com/scribe-org/Scribe-Data/issues/91)).
+
+### 🐞 Bug Fixes
+
+- Annotation bugs were removed like repeat or empty values.
+- Perfect tenses of Portuguese verbs were fixed via finding the appropriate PID ([#68](https://github.com/scribe-org/Scribe-Data/issues/68)).
+  - Note that the most common past perfect property is not the standard one, so this will need to be fixed.
 
 ### ♻️ Code Refactoring
 
@@ -36,7 +41,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - The `languages` directory has been renamed `language_data_extraction`.
   - All files within `wikidata/_resources` have been moved to the `resources` directory.
   - The gender and case annotations for data formatting have now been commonly defined.
-  - All language directory `formatted_data` files have been now moved to the `language_data_export` directory to prepare for outputs being required to be directed to a directory outside of the package.
+  - All language directory `formatted_data` files have been now moved to the `scribe_data_export` directory to prepare for outputs being required to be directed to a directory outside of the package.
 
 ## Scribe-Data 3.2.2
 
