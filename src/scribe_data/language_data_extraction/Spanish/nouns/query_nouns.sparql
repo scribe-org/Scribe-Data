@@ -1,12 +1,17 @@
 # tool: scribe-data
 # All Spanish (Q1321) nouns, their plurals and their genders.
 # Enter this query at https://query.wikidata.org/.
+# Note: Spansih sometimes has masculine and feminine versions on a single lexeme.
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?singular
   ?plural
   ?gender
+  ?masSingular
+  ?masPlural
+  ?femSingular
+  ?femPlural
 
 WHERE {
   VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
@@ -28,6 +33,38 @@ WHERE {
     FILTER NOT EXISTS {
       ?lexeme wdt:P31 wd:Q202444 .
     }
+  } .
+
+  # Spansih sometimes has masculine and feminine versions on a single lexeme.
+
+  # Optional selection of masculine singular and plural forms.
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masSingularForm .
+    ?masSingularForm ontolex:representation ?masSingular ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masPluralForm .
+    ?masPluralForm ontolex:representation ?masPlural ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+  } .
+
+  # Optional selection of feminine singular and plural forms.
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femSingularForm .
+    ?femSingularForm ontolex:representation ?femSingular ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femPluralForm .
+    ?femPluralForm ontolex:representation ?femPlural ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
   } .
 
   SERVICE wikibase:label {

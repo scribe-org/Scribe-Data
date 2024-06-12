@@ -188,7 +188,7 @@ def gen_emoji_lexicon(
 
     # Check nouns files for plurals and update their data with the emojis for their singular forms.
     with open(
-        f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_export/{language}/nouns.json",
+        f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{language}/nouns.json",
         encoding="utf-8",
     ) as f:
         noun_data = json.load(f)
@@ -232,7 +232,7 @@ def gen_emoji_lexicon(
     if update_local_data:
         path_to_formatted_data = (
             get_path_from_wikidata_dir()
-            + f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_export/{language}/emoji_keywords.json"
+            + f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{language}/emoji_keywords.json"
         )
 
         with open(path_to_formatted_data, "w", encoding="utf-8") as file:

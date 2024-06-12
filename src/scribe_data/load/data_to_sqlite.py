@@ -8,7 +8,7 @@ Parameters
 
 Example
 -------
-    python3 data_to_sqlite.py '["French", "German"]'
+    python3 src/scribe_data/load/data_to_sqlite.py '["French", "German"]'
 
 .. raw:: html
     <!--
@@ -39,9 +39,13 @@ from tqdm.auto import tqdm
 
 from scribe_data.utils import get_language_iso
 
-PATH_TO_LANGUAGE_DIRS = "../language_data_extraction/"
+PATH_TO_SCRIBE_DATA = (
+    os.path.dirname(sys.path[0]).split("src/scribe_data")[0] + "src/scribe_data"
+)
 
-with open("update_files/total_data.json", encoding="utf-8") as f:
+with open(
+    f"{PATH_TO_SCRIBE_DATA}/load/update_files/total_data.json", encoding="utf-8"
+) as f:
     current_data = json.load(f)
 
 current_languages = list(current_data.keys())
@@ -93,7 +97,7 @@ language_word_type_dict = {
     lang: [
         f.split(".json")[0]
         for f in os.listdir(
-            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_export/{lang}"
+            f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_json_export/{lang}"
         )
         if f.split(".json")[0] in word_types
     ]
@@ -103,6 +107,7 @@ language_word_type_dict = {
 print(
     f"Creating SQLite databases for the following languages: {', '.join(languages_update)}"
 )
+
 for lang in tqdm(
     language_word_type_dict,
     desc="Databases created",
@@ -111,13 +116,15 @@ for lang in tqdm(
     if language_word_type_dict[lang] != []:
         maybe_over = ""  # output string formatting variable (see below)
         if os.path.exists(
-            f"databases/{get_language_iso(lang).upper()}LanguageData.sqlite"
+            f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_sqlite_export/{get_language_iso(lang).upper()}LanguageData.sqlite"
         ):
-            os.remove(f"databases/{get_language_iso(lang).upper()}LanguageData.sqlite")
+            os.remove(
+                f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_sqlite_export/{get_language_iso(lang).upper()}LanguageData.sqlite"
+            )
             maybe_over = "over"
 
         connection = sqlite3.connect(
-            f"databases/{get_language_iso(lang).upper()}LanguageData.sqlite"
+            f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_sqlite_export/{get_language_iso(lang).upper()}LanguageData.sqlite"
         )
         cursor = connection.cursor()
 
@@ -160,7 +167,7 @@ for lang in tqdm(
             print(f"Creating {lang} {wt} table...")
             json_data = json.load(
                 open(
-                    f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_export/{lang}/{wt}.json"
+                    f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{lang}/{wt}.json"
                 )
             )
 
