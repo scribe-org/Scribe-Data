@@ -49,9 +49,9 @@ setup_args = dict(
     url="https://github.com/scribe-org/Scribe-Data",
     entry_points={
         "console_scripts": [
-            "scribe-data=scribe_data.cli:main",
-        ],
-    }
+            "scribe-data=scribe_data.cli.cli_main:main",
+            ],
+        }
 )
 
 if __name__ == "__main__":
