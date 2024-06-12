@@ -1,5 +1,7 @@
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
+from difflib import SequenceMatcher
 
+# Mapping of possible inputs to standardized language names
 LANGUAGE_MAP = {
     'en': 'English', 'english': 'English',
     'fr': 'French', 'french': 'French',
@@ -12,10 +14,6 @@ LANGUAGE_MAP = {
 }
 
 def print_formatted_data(data: Union[Dict, List], word_type: str) -> None:
-    if not data:
-        print("No data available.")
-        return
-
     if word_type == 'autosuggestions':
         max_key_length = max(len(key) for key in data.keys())
         for key, value in data.items():
@@ -50,4 +48,10 @@ def print_formatted_data(data: Union[Dict, List], word_type: str) -> None:
                     print(f"{key:<{max_key_length}} : {value}")
         elif isinstance(data, list):
             for item in data:
-                print(item)
+                if isinstance(item, dict):
+                    for key, value in item.items():
+                        print(f"{key} : {value}")
+                else:
+                    print(item)
+        else:
+            print(data)

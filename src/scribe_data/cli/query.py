@@ -1,6 +1,7 @@
+# src/scribe_data/cli/query.py
 import json
 from pathlib import Path
-from .cli_utils import print_formatted_data, LANGUAGE_MAP
+from .utils import LANGUAGE_MAP, print_formatted_data
 
 DATA_DIR = Path('scribe_data_json_export')
 
@@ -56,8 +57,4 @@ def query_and_print_data(language: str, word_type: str) -> None:
 
     print(f"Data for language '{normalized_language}' and word type '{word_type}':")
     print_formatted_data(data, word_type)
-
-    if word_type.lower() == 'nouns':
-        print("\nLegend:")
-        print("PL    : Plural")
-        print("empty : Singular\n")
+    
