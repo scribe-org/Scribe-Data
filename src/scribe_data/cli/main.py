@@ -33,7 +33,10 @@ def main() -> None:
     list_parser.add_argument('--language', '-l', nargs='?', const=True, help='List all languages or filter by language code')
     list_parser.add_argument('--word-type', '-wt', nargs='?', const=True, help='List all word types or filter by word type')
 
-    query_parser = subparsers.add_parser('query', help='Query data for a specific language and word type')
+    list_word_types_parser = subparsers.add_parser('list-word-types', aliases=['lwt'], help='List available word types')
+    list_word_types_parser.add_argument('-l', '--language', help='Language code')
+
+    query_parser = subparsers.add_parser('query', aliases=['q'], help='Query data for a specific language and word type')
     query_parser.add_argument('--all', action='store_true', help='Query all data')
     query_parser.add_argument('-l', '--language', help='Language code')
     query_parser.add_argument('-wt', '--word-type', help='Word type')
@@ -42,7 +45,9 @@ def main() -> None:
 
     if args.command == 'list':
         list_wrapper(args.language, args.word_type)
-    elif args.command == 'query':
+    elif args.command in ['list-word-types', 'lwt']:
+        list_wrapper(None, args.language)
+    elif args.command in ['query', 'q']:
         query_data(args.all, args.language, args.word_type)
     else:
         parser.print_help()
