@@ -1,16 +1,16 @@
+import json
+from pathlib import Path
 from typing import Dict, List, Union
 
-# Mapping of possible inputs to standardized language names
-LANGUAGE_MAP = {
-    'en': 'English', 'english': 'English',
-    'fr': 'French', 'french': 'French',
-    'de': 'German', 'german': 'German',
-    'it': 'Italian', 'italian': 'Italian',
-    'pt': 'Portuguese', 'portuguese': 'Portuguese',
-    'ru': 'Russian', 'russian': 'Russian',
-    'es': 'Spanish', 'spanish': 'Spanish',
-    'sv': 'Swedish', 'swedish': 'Swedish'
-}
+# Load language metadata from JSON file
+METADATA_FILE = Path(__file__).parent.parent / 'resources' / 'language_meta_data.json'
+
+def load_language_metadata() -> Dict:
+    with METADATA_FILE.open('r', encoding='utf-8') as file:
+        return json.load(file)
+
+LANGUAGE_METADATA = load_language_metadata()
+LANGUAGE_MAP = {lang['language'].lower(): lang for lang in LANGUAGE_METADATA['languages']}
 
 def print_formatted_data(data: Union[Dict, List], word_type: str) -> None:
     if not data:
@@ -26,7 +26,7 @@ def print_formatted_data(data: Union[Dict, List], word_type: str) -> None:
         for key, value in data.items():
             emojis = [item['emoji'] for item in value]
             print(f"{key:<{max_key_length}} : {' '.join(emojis)}")
-    elif word_type == 'prepositions' or word_type == 'translations':
+    elif word_type in ['prepositions', 'translations']:
         max_key_length = max((len(key) for key in data.keys()), default=0)
         for key, value in data.items():
             print(f"{key:<{max_key_length}} : {value}")

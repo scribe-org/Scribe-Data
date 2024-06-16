@@ -1,18 +1,14 @@
 from pathlib import Path
-from.utils import LANGUAGE_MAP
+from .utils import LANGUAGE_METADATA, LANGUAGE_MAP
 
 DATA_DIR = Path('scribe_data_json_export')
 
 def list_languages() -> None:
-    if not DATA_DIR.exists() or not DATA_DIR.is_dir():
-        print(f"Directory '{DATA_DIR}' does not exist.")
-        return
-
-    languages = [lang.name for lang in DATA_DIR.iterdir() if lang.is_dir()]
+    languages = [lang['language'] for lang in LANGUAGE_METADATA['languages']]
     languages.sort()
     print("Available languages:")
     for lang in languages:
-        print(f"- {lang}")
+        print(f"- {lang.capitalize()}")
 
 def list_word_types(language: str = None) -> None:
     if language:
@@ -21,25 +17,26 @@ def list_word_types(language: str = None) -> None:
             print(f"Language '{language}' is not recognized.")
             return
 
-        language_dir = DATA_DIR / normalized_language
+        language_dir = DATA_DIR / normalized_language['language'].capitalize()
         if not language_dir.exists() or not language_dir.is_dir():
-            print(f"No data found for language '{normalized_language}'.")
+            print(f"No data found for language '{normalized_language['language']}'.")
             return
 
         word_types = [wt.stem for wt in language_dir.glob('*.json')]
         if not word_types:
-            print(f"No word types available for language '{normalized_language}'.")
+            print(f"No word types available for language '{normalized_language['language']}'.")
             return
 
-        max_word_type_length = max(len(wt) for wt in word_types)
-        print(f"Word types for language '{normalized_language}':")
+        word_types = sorted(word_types)
+        print(f"Word types for language '{normalized_language['language']}':")
         for wt in word_types:
-            print(f"  - {wt:<{max_word_type_length}}")
+            print(f"  - {wt}")
     else:
         word_types = set()
-        for lang_dir in DATA_DIR.iterdir():
-            if lang_dir.is_dir():
-                word_types.update(wt.stem for wt in lang_dir.glob('*.json'))
+        for lang in LANGUAGE_METADATA['languages']:
+            language_dir = DATA_DIR / lang['language'].capitalize()
+            if language_dir.is_dir():
+                word_types.update(wt.stem for wt in language_dir.glob('*.json'))
 
         if not word_types:
             print("No word types available.")
@@ -57,11 +54,12 @@ def list_all() -> None:
 
 def list_languages_for_word_type(word_type: str) -> None:
     available_languages = []
-    for lang_dir in DATA_DIR.iterdir():
-        if lang_dir.is_dir():
-            wt_path = lang_dir / f"{word_type}.json"
+    for lang in LANGUAGE_METADATA['languages']:
+        language_dir = DATA_DIR / lang['language'].capitalize()
+        if language_dir.is_dir():
+            wt_path = language_dir / f"{word_type}.json"
             if wt_path.exists():
-                available_languages.append(lang_dir.name)
+                available_languages.append(lang['language'])
 
     if not available_languages:
         print(f"No languages found with word type '{word_type}'.")
@@ -70,7 +68,7 @@ def list_languages_for_word_type(word_type: str) -> None:
     available_languages.sort()
     print(f"Languages with word type '{word_type}':")
     for lang in available_languages:
-        print(f"- {lang}")
+        print(f"- {lang.capitalize()}")
 
 def list_wrapper(language: str = None, word_type: str = None) -> None:
     if language is None and word_type is None:
@@ -84,14 +82,6 @@ def list_wrapper(language: str = None, word_type: str = None) -> None:
     elif language is True and word_type is not None:
         list_languages_for_word_type(word_type)
     elif language is not None and word_type is True:
-        normalized_language = LANGUAGE_MAP.get(language.lower())
-        if not normalized_language:
-            print(f"Language '{language}' is not recognized.")
-            return
-        list_word_types(normalized_language)
+        list_word_types(language)
     elif language is not None and word_type is not None:
-        normalized_language = LANGUAGE_MAP.get(language.lower())
-        if not normalized_language:
-            print(f"Language '{language}' is not recognized.")
-            return
-        list_word_types(normalized_language)
+        list_word_types(language)
