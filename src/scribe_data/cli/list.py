@@ -1,14 +1,80 @@
+import json
 from pathlib import Path
-from .utils import LANGUAGE_METADATA, LANGUAGE_MAP
+from typing import Dict, List, Union
+
+# Load language metadata from JSON file
+METADATA_FILE = Path(__file__).parent.parent / 'resources' / 'language_meta_data.json'
+
+def load_language_metadata() -> Dict:
+    with METADATA_FILE.open('r', encoding='utf-8') as file:
+        return json.load(file)
+
+LANGUAGE_METADATA = load_language_metadata()
+LANGUAGE_MAP = {lang['language'].lower(): lang for lang in LANGUAGE_METADATA['languages']}
 
 DATA_DIR = Path('scribe_data_json_export')
 
+def print_formatted_data(data: Union[Dict, List], word_type: str) -> None:
+    if not data:
+        print(f"No data available for word type '{word_type}'.")
+        return
+
+    if word_type == 'autosuggestions':
+        max_key_length = max((len(key) for key in data.keys()), default=0)
+        for key, value in data.items():
+            print(f"{key:<{max_key_length}} : {', '.join(value)}")
+    elif word_type == 'emoji_keywords':
+        max_key_length = max((len(key) for key in data.keys()), default=0)
+        for key, value in data.items():
+            emojis = [item['emoji'] for item in value]
+            print(f"{key:<{max_key_length}} : {' '.join(emojis)}")
+    elif word_type in ['prepositions', 'translations']:
+        max_key_length = max((len(key) for key in data.keys()), default=0)
+        for key, value in data.items():
+            print(f"{key:<{max_key_length}} : {value}")
+    else:
+        if isinstance(data, dict):
+            max_key_length = max((len(key) for key in data.keys()), default=0)
+            for key, value in data.items():
+                if isinstance(value, dict):
+                    print(f"{key:<{max_key_length}} : ")
+                    max_sub_key_length = max((len(sub_key) for sub_key in value.keys()), default=0)
+                    for sub_key, sub_value in value.items():
+                        print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
+                elif isinstance(value, list):
+                    print(f"{key:<{max_key_length}} : ")
+                    for item in value:
+                        if isinstance(item, dict):
+                            for sub_key, sub_value in item.items():
+                                print(f"  {sub_key:<{max_key_length}} : {sub_value}")
+                        else:
+                            print(f"  {item}")
+                else:
+                    print(f"{key:<{max_key_length}} : {value}")
+        elif isinstance(data, list):
+            for item in data:
+                if isinstance(item, dict):
+                    for key, value in item.items():
+                        print(f"{key} : {value}")
+                else:
+                    print(item)
+        else:
+            print(data)
+
 def list_languages() -> None:
-    languages = [lang['language'] for lang in LANGUAGE_METADATA['languages']]
-    languages.sort()
-    print("Available languages:")
+    languages = [lang for lang in LANGUAGE_METADATA['languages']]
+    languages.sort(key=lambda x: x['language'])
+
+    # Define column widths
+    language_col_width = max(len(lang['language']) for lang in languages) + 2
+    iso_col_width = 5  # Length of "ISO" column header + padding
+    qid_col_width = 5  # Length of "QID" column header + padding
+
+    print(f"{'Language':<{language_col_width}} {'ISO':<{iso_col_width}} {'QID':<{qid_col_width}}")
+    print('-' * (language_col_width + iso_col_width + qid_col_width))
+
     for lang in languages:
-        print(f"- {lang.capitalize()}")
+        print(f"{lang['language'].capitalize():<{language_col_width}} {lang['iso']:<{iso_col_width}} {lang['qid']:<{qid_col_width}}")
 
 def list_word_types(language: str = None) -> None:
     if language:
