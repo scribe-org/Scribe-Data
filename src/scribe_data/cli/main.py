@@ -25,9 +25,6 @@ import argparse
 from .list import list_wrapper
 from .query import query_data
 
-def not_implemented():
-    print("This command is not implemented yet.")
-
 def main() -> None:
     parser = argparse.ArgumentParser(description='Scribe-Data CLI Tool')
     subparsers = parser.add_subparsers(dest='command', required=True)
@@ -46,18 +43,8 @@ def main() -> None:
     query_parser.add_argument('--all', action='store_true', help='Query all data')
     query_parser.add_argument('-l', '--language', help='Language code')
     query_parser.add_argument('-wt', '--word-type', help='Word type')
-    query_parser.add_argument('-of', '--output-file', help='Output file')
-    query_parser.add_argument('-ot', '--output-type', help='Output type')
-    query_parser.add_argument('-ll', '--list-languages', action='store_true', help='List available language codes')
-
-    # Poll command
-    poll_parser = subparsers.add_parser('poll', help='Check whether there is new data available')
-
-    # Version command
-    version_parser = subparsers.add_parser('version', aliases=['v'], help='Show the version of the CLI tool')
-
-    # Update command
-    update_parser = subparsers.add_parser('update', aliases=['u'], help='Update the CLI tool')
+    query_parser.add_argument('-od', '--output-dir', help='Output directory')
+    query_parser.add_argument('-o', '--overwrite', action='store_true', help='Overwrite existing files in output directory')
 
     args = parser.parse_args()
 
@@ -66,16 +53,9 @@ def main() -> None:
     elif args.command in ['list-word-types', 'lwt']:
         list_wrapper(None, args.language)
     elif args.command in ['query', 'q']:
-        query_data(args.all, args.language, args.word_type)
-    elif args.command == 'poll':
-        not_implemented()
-    elif args.command in ['version', 'v']:
-        not_implemented()
-    elif args.command in ['update', 'u']:
-        not_implemented()
+        query_data(args.all, args.language, args.word_type, args.output_dir, args.overwrite)
     else:
         parser.print_help()
 
 if __name__ == '__main__':
     main()
-
