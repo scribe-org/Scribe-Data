@@ -39,12 +39,12 @@ def main() -> None:
     list_word_types_parser.add_argument('-l', '--language', help='Language code')
 
     # Query command
-    query_parser = subparsers.add_parser('query', aliases=['q'], help='Query data for a specific language and word type')
-    query_parser.add_argument('--all', action='store_true', help='Query all data')
-    query_parser.add_argument('-l', '--language', help='Language code')
-    query_parser.add_argument('-wt', '--word-type', help='Word type')
-    query_parser.add_argument('-od', '--output-dir', help='Output directory')
-    query_parser.add_argument('-o', '--overwrite', action='store_true', help='Overwrite existing files in output directory')
+    query_parser = subparsers.add_parser('query', help='Query data')
+    query_parser.add_argument('-l', '--language', type=str, help='Language for query')
+    query_parser.add_argument('-wt', '--word-type', type=str, help='Word type for query')
+    query_parser.add_argument('-od', '--output-dir', type=str, help='Output directory')
+    query_parser.add_argument('-o', '--overwrite', action='store_true', help='Overwrite existing files')
+    query_parser.add_argument('--output-type', type=str, choices=['json', 'csv', 'tsv'], help='Output file type')
 
     args = parser.parse_args()
 
@@ -53,7 +53,7 @@ def main() -> None:
     elif args.command in ['list-word-types', 'lwt']:
         list_wrapper(None, args.language)
     elif args.command in ['query', 'q']:
-        query_data(args.all, args.language, args.word_type, args.output_dir, args.overwrite)
+        query_data(args.language, args.word_type, args.output_dir, args.overwrite, args.output_type)
     else:
         parser.print_help()
 
