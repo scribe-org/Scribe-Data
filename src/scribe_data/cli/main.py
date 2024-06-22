@@ -47,6 +47,7 @@ def main() -> None:
     parser.add_argument("-u", "--update", help="Update the Scribe-Data CLI.")
 
     # MARK: List
+
     list_parser = subparsers.add_parser(
         "list",
         aliases=["l"],
@@ -71,6 +72,7 @@ def main() -> None:
     )
 
     # MARK: Query
+
     query_parser = subparsers.add_parser(
         "query",
         aliases=["q"],
@@ -103,6 +105,7 @@ def main() -> None:
     )
 
     # MARK: Convert
+
     convert_parser = subparsers.add_parser(
         "convert",
         aliases=["c"],

@@ -88,7 +88,7 @@ def export_json(
         print(f"Error reading '{data_file}': {e}")
         return
 
-    # Adjust the output directory for JSON exports
+    # Adjust the output directory for JSON exports.
     json_output_dir = (
         output_dir
         / "scribe_data_json_export"
@@ -151,7 +151,7 @@ def export_csv_or_tsv(
         print(f"Unsupported output type '{output_type}'.")
         return
 
-    # Adjust the output directory for CSV exports
+    # Adjust the output directory for CSV exports.
     csv_output_dir = (
         output_dir
         / "scribe_data_csv_export"
