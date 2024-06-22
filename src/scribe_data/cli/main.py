@@ -27,10 +27,8 @@ from .list import list_wrapper
 from .query import query_data
 
 LIST_DESCRIPTION = "List languages, word types and combinations of each that Scribe-Data can be used for."
-QUERY_DESCRIPTION = "Query data from Wikidata for given languages and word types."
-TOTAL_DESCRIPTION = (
-    "Check Wikidata for the available data for given languages and word types"
-)
+QUERY_DESCRIPTION = "Query data from Wikidata for the given languages and word types."
+TOTAL_DESCRIPTION = "Check Wikidata for the total available data for the given languages and word types."
 CONVERT_DESCRIPTION = "Convert data returned by Scribe-Data to different file types."
 CLI_EPILOG = "Visit the codebase at https://github.com/scribe-org/Scribe-Data and documentation at https://scribe-data.readthedocs.io/en/latest/ to learn more!"
 
@@ -40,7 +38,8 @@ def main() -> None:
 
     parser = argparse.ArgumentParser(
         prog="Scribe-Data",
-        description="The Scribe-Data CLI is a tool to query language data from Wikidata and other sources.",
+        description="The Scribe-Data CLI is a tool for extracting language data from Wikidata and other sources.",
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=40),
         epilog=CLI_EPILOG,
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
