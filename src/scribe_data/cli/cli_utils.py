@@ -24,11 +24,19 @@ import json
 from pathlib import Path
 from typing import Dict, List, Union
 
-METADATA_FILE = Path(__file__).parent.parent / "resources" / "language_meta_data.json"
+LANGUAGE_METADATA_FILE = (
+    Path(__file__).parent.parent / "resources" / "language_metadata.json"
+)
+WORD_TYPE_METADATA_FILE = (
+    Path(__file__).parent.parent / "resources" / "word_type_metadata.json"
+)
 DATA_DIR = Path("scribe_data_json_export")
 
-with METADATA_FILE.open("r", encoding="utf-8") as file:
+with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
     language_metadata = json.load(file)
+
+with WORD_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
+    word_type_metadata = json.load(file)
 
 language_map = {
     lang["language"].lower(): lang for lang in language_metadata["languages"]
@@ -48,11 +56,7 @@ def correct_word_type(word_type: str) -> str:
     -------
         The word_type value or a corrected version of it.
     """
-    all_word_types = set()
-    for language in language_metadata["languages"]:
-        all_word_types.update(language["word-types"])
-
-    all_word_types = list(all_word_types)
+    all_word_types = word_type_metadata["word-types"]
 
     if word_type in all_word_types:
         return word_type

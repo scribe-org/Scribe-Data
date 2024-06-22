@@ -26,7 +26,7 @@ from pathlib import Path
 from .cli_utils import correct_word_type
 
 # Load language metadata from JSON file.
-METADATA_FILE = Path(__file__).parent.parent / "resources" / "language_meta_data.json"
+METADATA_FILE = Path(__file__).parent.parent / "resources" / "language_metadata.json"
 LANGUAGE_DATA_EXTRACTION_DIR = Path(__file__).parent.parent / "language_data_extraction"
 
 with METADATA_FILE.open("r", encoding="utf-8") as file:
