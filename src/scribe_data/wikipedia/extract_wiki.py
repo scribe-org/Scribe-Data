@@ -182,7 +182,7 @@ def iterate_and_parse_file(args):
         partitions_dir : str
             The path to where output file should be stored.
 
-        article_limit : int optional (default=None)
+        article_limit : int (default=None)
             An optional article_limit of the number of articles to find.
 
         verbose : bool (default=True)

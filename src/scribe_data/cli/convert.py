@@ -1,5 +1,5 @@
 """
-Setup and commands for the Scribe-Data command line interface.
+Functions to convert data returned from the Scribe-Data CLI to other file types.
 
 .. raw:: html
     <!--

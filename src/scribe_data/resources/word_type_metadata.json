@@ -1,0 +1,10 @@
+{
+  "word-types": [
+    "autosuggestions",
+    "emoji_keywords",
+    "nouns",
+    "prepositions",
+    "translations",
+    "verbs"
+  ]
+}
