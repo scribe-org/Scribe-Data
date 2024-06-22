@@ -25,7 +25,7 @@ import json
 from pathlib import Path
 from typing import Optional
 
-from .cli_utils import language_map
+from scribe_data.cli.cli_utils import language_map
 
 DATA_DIR = Path("scribe_data_json_export")
 

@@ -23,7 +23,7 @@ Functions for listing languages and word types for the Scribe-Data CLI.
 import json
 from pathlib import Path
 
-from .cli_utils import correct_word_type
+from scribe_data.cli.cli_utils import correct_word_type
 
 # Load language metadata from JSON file.
 METADATA_FILE = Path(__file__).parent.parent / "resources" / "language_metadata.json"

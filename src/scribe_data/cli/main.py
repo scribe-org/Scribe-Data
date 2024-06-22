@@ -23,21 +23,20 @@ Setup and commands for the Scribe-Data command line interface.
 #!/usr/bin/env python3
 import argparse
 
-from .list import list_wrapper
-from .query import query_data
+from scribe_data.cli.list import list_wrapper
+from scribe_data.cli.query import query_data
 
 LIST_DESCRIPTION = "List languages, word types and combinations of each that Scribe-Data can be used for."
 QUERY_DESCRIPTION = "Query data from Wikidata for the given languages and word types."
 TOTAL_DESCRIPTION = "Check Wikidata for the total available data for the given languages and word types."
 CONVERT_DESCRIPTION = "Convert data returned by Scribe-Data to different file types."
-CLI_EPILOG = "Visit the codebase at https://github.com/scribe-org/Scribe-Data and documentation at https://scribe-data.readthedocs.io/en/latest/ to learn more!"
+CLI_EPILOG = "Visit the codebase at https://github.com/scribe-org/Scribe-Data and documentation at https://scribe-data.readthedocs.io to learn more!"
 
 
 def main() -> None:
     # MARK: CLI Base
 
     parser = argparse.ArgumentParser(
-        prog="Scribe-Data",
         description="The Scribe-Data CLI is a tool for extracting language data from Wikidata and other sources.",
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=40),
         epilog=CLI_EPILOG,
