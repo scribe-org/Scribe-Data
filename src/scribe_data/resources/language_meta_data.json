@@ -17,7 +17,7 @@
       "qid": "Q1860",
       "remove-words": ["of", "the", "The", "and"],
       "ignore-words": [],
-      "word-types": ["nouns", "verbs", "translated_words"]
+      "word-types": ["nouns", "verbs", "translations"]
     },
     {
       "language": "french",
@@ -25,7 +25,13 @@
       "qid": "Q150",
       "remove-words": ["of", "the", "The", "and"],
       "ignore-words": ["XXe"],
-      "word-types": ["nouns", "verbs", "translations", "emoji_keywords", "prepositions", "autosuggestions"]
+      "word-types": [
+        "nouns",
+        "verbs",
+        "translations",
+        "emoji_keywords",
+        "autosuggestions"
+      ]
     },
     {
       "language": "german",
@@ -33,7 +39,14 @@
       "qid": "Q188",
       "remove-words": ["of", "the", "The", "and", "NeinJa", "et", "redirect"],
       "ignore-words": ["Gemeinde", "Familienname"],
-      "word-types": ["nouns", "verbs", "translations", "emoji_keywords", "prepositions", "autosuggestions"]
+      "word-types": [
+        "nouns",
+        "verbs",
+        "translations",
+        "emoji_keywords",
+        "prepositions",
+        "autosuggestions"
+      ]
     },
     {
       "language": "italian",
@@ -41,7 +54,13 @@
       "qid": "Q652",
       "remove-words": ["of", "the", "The", "and", "text", "from"],
       "ignore-words": ["The", "ATP"],
-      "word-types": ["nouns", "verbs", "translations", "emoji_keywords", "prepositions", "autosuggestions"]
+      "word-types": [
+        "nouns",
+        "verbs",
+        "translations",
+        "emoji_keywords",
+        "autosuggestions"
+      ]
     },
     {
       "language": "portuguese",
@@ -49,7 +68,13 @@
       "qid": "Q5146",
       "remove-words": ["of", "the", "The", "and", "jbutadptflora"],
       "ignore-words": [],
-      "word-types": ["nouns", "verbs", "translations", "emoji_keywords", "prepositions", "autosuggestions"]
+      "word-types": [
+        "nouns",
+        "verbs",
+        "translations",
+        "emoji_keywords",
+        "autosuggestions"
+      ]
     },
     {
       "language": "russian",
@@ -57,7 +82,14 @@
       "qid": "Q7737",
       "remove-words": ["of", "the", "The", "and"],
       "ignore-words": [],
-      "word-types": ["nouns", "verbs", "translated_words", "translations", "emoji_keywords", "prepositions", "autosuggestions"]
+      "word-types": [
+        "nouns",
+        "verbs",
+        "translations",
+        "emoji_keywords",
+        "prepositions",
+        "autosuggestions"
+      ]
     },
     {
       "language": "spanish",
@@ -65,7 +97,13 @@
       "qid": "Q1321",
       "remove-words": ["of", "the", "The", "and"],
       "ignore-words": [],
-      "word-types": ["nouns", "verbs", "translations", "emoji_keywords", "prepositions", "autosuggestions"]
+      "word-types": [
+        "nouns",
+        "verbs",
+        "translations",
+        "emoji_keywords",
+        "autosuggestions"
+      ]
     },
     {
       "language": "swedish",
@@ -73,7 +111,13 @@
       "qid": "Q9027",
       "remove-words": ["of", "the", "The", "and", "Checklist", "Catalogue"],
       "ignore-words": ["databasdump"],
-      "word-types": ["nouns", "verbs", "translations", "emoji_keywords", "prepositions", "autosuggestions"]
+      "word-types": [
+        "nouns",
+        "verbs",
+        "translations",
+        "emoji_keywords",
+        "autosuggestions"
+      ]
     }
   ]
 }
