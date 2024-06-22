@@ -26,13 +26,18 @@ import argparse
 from .list import list_wrapper
 from .query import query_data
 
-LIST_DESCRIPTION = "List languages and word types that Scribe-Data can be used for."
+LIST_DESCRIPTION = "List languages, word types and combinations of each that Scribe-Data can be used for."
 QUERY_DESCRIPTION = "Query data from Wikidata for given languages and word types."
+TOTAL_DESCRIPTION = (
+    "Check Wikidata for the available data for given languages and word types"
+)
 CONVERT_DESCRIPTION = "Convert data returned by Scribe-Data to different file types."
 CLI_EPILOG = "Visit the codebase at https://github.com/scribe-org/Scribe-Data and documentation at https://scribe-data.readthedocs.io/en/latest/ to learn more!"
 
 
 def main() -> None:
+    # MARK: CLI Base
+
     parser = argparse.ArgumentParser(
         prog="Scribe-Data",
         description="The Scribe-Data CLI is a tool to query language data from Wikidata and other sources.",
@@ -104,6 +109,23 @@ def main() -> None:
         help="Whether to overwrite existing files (default: False).",
     )
 
+    # MARK: Total
+
+    total_parser = subparsers.add_parser(
+        "total",
+        aliases=["t"],
+        help=TOTAL_DESCRIPTION,
+        description=TOTAL_DESCRIPTION,
+        epilog=CLI_EPILOG,
+    )
+    total_parser._actions[0].help = "Show this help message and exit."
+    total_parser.add_argument(
+        "-lang", "--language", type=str, help="The language(s) to check totals for."
+    )
+    total_parser.add_argument(
+        "-wt", "--word-type", type=str, help="The word type(s) to check totals for."
+    )
+
     # MARK: Convert
 
     convert_parser = subparsers.add_parser(
@@ -151,6 +173,9 @@ def main() -> None:
             args.overwrite,
             args.output_type,
         )
+
+    elif args.command in ["total", "t"]:
+        return
 
     elif args.command in ["convert", "c"]:
         return
