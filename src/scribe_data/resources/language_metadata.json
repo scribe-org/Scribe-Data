@@ -16,108 +16,56 @@
       "iso": "en",
       "qid": "Q1860",
       "remove-words": ["of", "the", "The", "and"],
-      "ignore-words": [],
-      "word-types": ["nouns", "verbs", "translations"]
+      "ignore-words": []
     },
     {
       "language": "french",
       "iso": "fr",
       "qid": "Q150",
       "remove-words": ["of", "the", "The", "and"],
-      "ignore-words": ["XXe"],
-      "word-types": [
-        "nouns",
-        "verbs",
-        "translations",
-        "emoji_keywords",
-        "autosuggestions"
-      ]
+      "ignore-words": ["XXe"]
     },
     {
       "language": "german",
       "iso": "de",
       "qid": "Q188",
       "remove-words": ["of", "the", "The", "and", "NeinJa", "et", "redirect"],
-      "ignore-words": ["Gemeinde", "Familienname"],
-      "word-types": [
-        "nouns",
-        "verbs",
-        "translations",
-        "emoji_keywords",
-        "prepositions",
-        "autosuggestions"
-      ]
+      "ignore-words": ["Gemeinde", "Familienname"]
     },
     {
       "language": "italian",
       "iso": "it",
       "qid": "Q652",
       "remove-words": ["of", "the", "The", "and", "text", "from"],
-      "ignore-words": ["The", "ATP"],
-      "word-types": [
-        "nouns",
-        "verbs",
-        "translations",
-        "emoji_keywords",
-        "autosuggestions"
-      ]
+      "ignore-words": ["The", "ATP"]
     },
     {
       "language": "portuguese",
       "iso": "pt",
       "qid": "Q5146",
       "remove-words": ["of", "the", "The", "and", "jbutadptflora"],
-      "ignore-words": [],
-      "word-types": [
-        "nouns",
-        "verbs",
-        "translations",
-        "emoji_keywords",
-        "autosuggestions"
-      ]
+      "ignore-words": []
     },
     {
       "language": "russian",
       "iso": "ru",
       "qid": "Q7737",
       "remove-words": ["of", "the", "The", "and"],
-      "ignore-words": [],
-      "word-types": [
-        "nouns",
-        "verbs",
-        "translations",
-        "emoji_keywords",
-        "prepositions",
-        "autosuggestions"
-      ]
+      "ignore-words": []
     },
     {
       "language": "spanish",
       "iso": "es",
       "qid": "Q1321",
       "remove-words": ["of", "the", "The", "and"],
-      "ignore-words": [],
-      "word-types": [
-        "nouns",
-        "verbs",
-        "translations",
-        "emoji_keywords",
-        "autosuggestions"
-      ]
+      "ignore-words": []
     },
     {
       "language": "swedish",
       "iso": "sv",
       "qid": "Q9027",
       "remove-words": ["of", "the", "The", "and", "Checklist", "Catalogue"],
-      "ignore-words": ["databasdump"],
-      "word-types": [
-        "nouns",
-        "verbs",
-        "translations",
-        "emoji_keywords",
-        "autosuggestions"
-      ]
+      "ignore-words": ["databasdump"]
     }
   ]
 }
