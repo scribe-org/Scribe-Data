@@ -1,5 +1,5 @@
 """
-Functions for listing languages and word types for the Scribe-Data CLI.
+Functions for listing languages and data types for the Scribe-Data CLI.
 
 .. raw:: html
     <!--
@@ -23,7 +23,7 @@ Functions for listing languages and word types for the Scribe-Data CLI.
 import json
 from pathlib import Path
 
-from scribe_data.cli.cli_utils import correct_word_type
+from scribe_data.cli.cli_utils import correct_data_type
 
 # Load language metadata from JSON file.
 METADATA_FILE = Path(__file__).parent.parent / "resources" / "language_metadata.json"
@@ -65,14 +65,14 @@ def list_languages() -> None:
     print()
 
 
-def list_word_types(language: str = None) -> None:
+def list_data_types(language: str = None) -> None:
     """
-    Lists all word types or those available for a given language.
+    Lists all data types or those available for a given language.
 
     Parameters
     ----------
         language : str
-            The language to potentially list word types for.
+            The language to potentially list data types for.
     """
     if language:
         language_data = language_map.get(language.lower())
@@ -82,32 +82,32 @@ def list_word_types(language: str = None) -> None:
         if not language_data:
             raise ValueError(f"Language '{language}' is not recognized.")
 
-        word_types = [f.name for f in language_dir.iterdir() if f.is_dir()]
-        if not word_types:
+        data_types = [f.name for f in language_dir.iterdir() if f.is_dir()]
+        if not data_types:
             raise ValueError(
-                f"No word types available for language '{language_capitalized}'."
+                f"No data types available for language '{language_capitalized}'."
             )
 
-        table_header = f"Available word types: {language_capitalized}"
+        table_header = f"Available data types: {language_capitalized}"
 
     else:
-        word_types = set()
+        data_types = set()
         for lang in language_metadata["languages"]:
             language_dir = LANGUAGE_DATA_EXTRACTION_DIR / lang["language"].capitalize()
             if language_dir.is_dir():
-                word_types.update(f.name for f in language_dir.iterdir() if f.is_dir())
+                data_types.update(f.name for f in language_dir.iterdir() if f.is_dir())
 
-        table_header = "Available word types: All languages"
+        table_header = "Available data types: All languages"
 
-    table_line_length = max(len(table_header), max(len(wt) for wt in word_types))
+    table_line_length = max(len(table_header), max(len(dt) for dt in data_types))
 
     print()
     print(table_header)
     print("-" * table_line_length)
 
-    word_types = sorted(word_types)
-    for wt in word_types:
-        print(wt)
+    data_types = sorted(data_types)
+    for dt in data_types:
+        print(dt)
 
     print("-" * table_line_length)
     print()
@@ -115,32 +115,32 @@ def list_word_types(language: str = None) -> None:
 
 def list_all() -> None:
     """
-    Lists all available languages and word types.
+    Lists all available languages and data types.
     """
     list_languages()
-    list_word_types()
+    list_data_types()
 
 
-def list_languages_for_word_type(word_type: str) -> None:
+def list_languages_for_data_type(data_type: str) -> None:
     """
-    Lists the available languages for a given word type.
+    Lists the available languages for a given data type.
 
     Parameters
     ----------
-        word_type : str
-            The word type to check for.
+        data_type : str
+            The data type to check for.
     """
-    word_type = correct_word_type(word_type)
+    data_type = correct_data_type(data_type=data_type)
     available_languages = []
     for lang in language_metadata["languages"]:
         language_dir = LANGUAGE_DATA_EXTRACTION_DIR / lang["language"].capitalize()
         if language_dir.is_dir():
-            wt_path = language_dir / word_type
-            if wt_path.exists():
+            dt_path = language_dir / data_type
+            if dt_path.exists():
                 available_languages.append(lang["language"])
 
     available_languages.sort()
-    table_header = f"Available languages: {word_type}"
+    table_header = f"Available languages: {data_type}"
     table_line_length = max(
         len(table_header), max(len(lang) for lang in available_languages)
     )
@@ -156,32 +156,32 @@ def list_languages_for_word_type(word_type: str) -> None:
     print()
 
 
-def list_wrapper(language: str = None, word_type: str = None) -> None:
+def list_wrapper(language: str = None, data_type: str = None) -> None:
     """
     Conditionally provides the full functionality of the list command.
 
     Parameters
     ----------
         language : str
-            The language to potentially list word types for.
+            The language to potentially list data types for.
 
-        word_type : str
-            The word type to check for.
+        data_type : str
+            The data type to check for.
     """
-    if not language and not word_type:
+    if not language and not data_type:
         list_all()
 
-    elif language is True and not word_type:
+    elif language is True and not data_type:
         list_languages()
 
-    elif not language and word_type is True:
-        list_word_types()
+    elif not language and data_type is True:
+        list_data_types()
 
-    elif language is True and word_type is True:
-        print("Please specify either a language or a word type.")
+    elif language is True and data_type is True:
+        print("Please specify either a language or a data type.")
 
-    elif word_type is not None:
-        list_languages_for_word_type(word_type)
+    elif language is True and data_type is not None:
+        list_languages_for_data_type(data_type)
 
-    elif language is not None:
-        list_word_types(language)
+    elif language is not None and data_type is True:
+        list_data_types(language)

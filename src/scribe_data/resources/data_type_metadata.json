@@ -1,5 +1,5 @@
 {
-  "word-types": [
+  "data-types": [
     "autosuggestions",
     "emoji_keywords",
     "nouns",

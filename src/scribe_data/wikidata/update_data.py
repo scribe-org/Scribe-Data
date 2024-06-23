@@ -6,7 +6,7 @@ Parameters
     languages : list of strings (default=None)
         A subset of Scribe's languages that the user wants to update.
 
-    word_types : list of strings (default=None)
+    data_types : list of strings (default=None)
         A subset of nouns, verbs, and prepositions that currently can be updated with this fie.
 
 Example
@@ -63,21 +63,21 @@ with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", encoding="utf-8") as f:
     current_data = json.load(f)
 
 current_languages = list(current_data.keys())
-current_word_types = ["nouns", "verbs", "prepositions"]
+current_data_types = ["nouns", "verbs", "prepositions"]
 
 # Check whether arguments have been passed to only update a subset of the data.
-languages, word_types = check_and_return_command_line_args(
+languages, data_types = check_and_return_command_line_args(
     all_args=sys.argv,
     first_args_check=current_languages,
-    second_args_check=current_word_types,
+    second_args_check=current_data_types,
 )
 
-# Assign current_languages and current_word_types if no arguments have been passed.
+# Assign current_languages and current_data_types if no arguments have been passed.
 languages_update = []
 languages_update = current_languages if languages is None else languages
 
-word_types_update = []
-word_types_update = current_word_types if word_types is None else word_types
+data_types_update = []
+data_types_update = current_data_types if data_types is None else data_types
 
 # Derive directory files and language subdirectories for potential queries.
 language_data_extraction_files = []
@@ -103,7 +103,7 @@ possible_queries = []
 for d in language_directories:
     possible_queries.extend(
         f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{d}/{target_type}"
-        for target_type in word_types_update
+        for target_type in data_types_update
         if f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{d}/{target_type}"
         in [
             e[: len(f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{d}/{target_type}")]
@@ -257,13 +257,13 @@ current_data_df = pd.DataFrame(
     index=sorted(list(current_data.keys())),
     columns=["nouns", "verbs", "translations", "prepositions"],
 )
-for lang, wt in itertools.product(
+for lang, dt in itertools.product(
     list(current_data_df.index), list(current_data_df.columns)
 ):
-    if wt in current_data[lang].keys():
-        current_data_df.loc[lang, wt] = f"{current_data[lang][wt]:,}"
-    elif wt == "translations":
-        current_data_df.loc[lang, wt] = f"{67652:,}"
+    if dt in current_data[lang].keys():
+        current_data_df.loc[lang, dt] = f"{current_data[lang][dt]:,}"
+    elif dt == "translations":
+        current_data_df.loc[lang, dt] = f"{67652:,}"
 
 current_data_df.index.name = "Languages"
 current_data_df.columns = [c.capitalize() for c in current_data_df.columns]
@@ -322,14 +322,14 @@ for lang in language_keys:
             f"\n- {lang} (New):" if lang in new_language_list else f"\n- {lang}:"
         )
 
-    for wt in word_types_update:
-        if wt in data_added_dict[lang].keys():
-            if data_added_dict[lang][wt] <= 0:
+    for dt in data_types_update:
+        if dt in data_added_dict[lang].keys():
+            if data_added_dict[lang][dt] <= 0:
                 pass
-            elif data_added_dict[lang][wt] == 1:  # remove the s for label
-                data_added_string += f" {data_added_dict[lang][wt]} {wt[:-1]},"
+            elif data_added_dict[lang][dt] == 1:  # remove the s for label
+                data_added_string += f" {data_added_dict[lang][dt]} {dt[:-1]},"
             else:
-                data_added_string += f" {data_added_dict[lang][wt]:,} {wt},"
+                data_added_string += f" {data_added_dict[lang][dt]:,} {dt},"
 
     data_added_string = data_added_string[:-1]  # remove the last comma
 
