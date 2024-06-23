@@ -38,8 +38,8 @@ def main() -> None:
 
     parser = argparse.ArgumentParser(
         description="The Scribe-Data CLI is a tool for extracting language data from Wikidata and other sources.",
-        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=40),
         epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -57,21 +57,25 @@ def main() -> None:
         help=LIST_DESCRIPTION,
         description=LIST_DESCRIPTION,
         epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
     list_parser._actions[0].help = "Show this help message and exit."
     list_parser.add_argument(
-        "--language",
         "-lang",
+        "--language",
         nargs="?",
         const=True,
-        help="Run list command on all or given languages.",
+        help="List options for all or given languages.",
     )
     list_parser.add_argument(
-        "--word-type",
         "-wt",
+        "--word-type",
         nargs="?",
         const=True,
-        help="Run list command on all or given word types.",
+        help="List options for all or given word types.",
+    )
+    list_parser.add_argument(
+        "-a", "--all", type=str, help="List all languages and word types."
     )
 
     # MARK: Query
@@ -82,6 +86,7 @@ def main() -> None:
         help=QUERY_DESCRIPTION,
         description=QUERY_DESCRIPTION,
         epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
     query_parser._actions[0].help = "Show this help message and exit."
     query_parser.add_argument(
@@ -106,6 +111,9 @@ def main() -> None:
         action="store_true",
         help="Whether to overwrite existing files (default: False).",
     )
+    query_parser.add_argument(
+        "-a", "--all", type=str, help="Query all languages and word types."
+    )
 
     # MARK: Total
 
@@ -115,6 +123,7 @@ def main() -> None:
         help=TOTAL_DESCRIPTION,
         description=TOTAL_DESCRIPTION,
         epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
     total_parser._actions[0].help = "Show this help message and exit."
     total_parser.add_argument(
@@ -122,6 +131,12 @@ def main() -> None:
     )
     total_parser.add_argument(
         "-wt", "--word-type", type=str, help="The word type(s) to check totals for."
+    )
+    total_parser.add_argument(
+        "-a",
+        "--all",
+        type=str,
+        help="Get totals for all languages and word types.",
     )
 
     # MARK: Convert
@@ -132,6 +147,7 @@ def main() -> None:
         help=CONVERT_DESCRIPTION,
         description=CONVERT_DESCRIPTION,
         epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
     convert_parser._actions[0].help = "Show this help message and exit."
     convert_parser.add_argument(
