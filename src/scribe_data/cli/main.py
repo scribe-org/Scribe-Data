@@ -26,9 +26,9 @@ import argparse
 from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.query import query_data
 
-LIST_DESCRIPTION = "List languages, word types and combinations of each that Scribe-Data can be used for."
-QUERY_DESCRIPTION = "Query data from Wikidata for the given languages and word types."
-TOTAL_DESCRIPTION = "Check Wikidata for the total available data for the given languages and word types."
+LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
+QUERY_DESCRIPTION = "Query data from Wikidata for the given languages and data types."
+TOTAL_DESCRIPTION = "Check Wikidata for the total available data for the given languages and data types."
 CONVERT_DESCRIPTION = "Convert data returned by Scribe-Data to different file types."
 CLI_EPILOG = "Visit the codebase at https://github.com/scribe-org/Scribe-Data and documentation at https://scribe-data.readthedocs.io to learn more!"
 
@@ -69,13 +69,13 @@ def main() -> None:
     )
     list_parser.add_argument(
         "-wt",
-        "--word-type",
+        "--data-type",
         nargs="?",
         const=True,
-        help="List options for all or given word types.",
+        help="List options for all or given data types.",
     )
     list_parser.add_argument(
-        "-a", "--all", type=str, help="List all languages and word types."
+        "-a", "--all", type=str, help="List all languages and data types."
     )
 
     # MARK: Query
@@ -93,7 +93,7 @@ def main() -> None:
         "-lang", "--language", type=str, help="The language(s) to query."
     )
     query_parser.add_argument(
-        "-wt", "--word-type", type=str, help="The word type(s) to query."
+        "-wt", "--data-type", type=str, help="The data type(s) to query."
     )
     query_parser.add_argument(
         "-od", "--output-dir", type=str, help="The output directory path for results."
@@ -112,7 +112,7 @@ def main() -> None:
         help="Whether to overwrite existing files (default: False).",
     )
     query_parser.add_argument(
-        "-a", "--all", action="store_true", help="Query all languages and word types."
+        "-a", "--all", action="store_true", help="Query all languages and data types."
     )
 
     # MARK: Total
@@ -130,13 +130,13 @@ def main() -> None:
         "-lang", "--language", type=str, help="The language(s) to check totals for."
     )
     total_parser.add_argument(
-        "-wt", "--word-type", type=str, help="The word type(s) to check totals for."
+        "-wt", "--data-type", type=str, help="The data type(s) to check totals for."
     )
     total_parser.add_argument(
         "-a",
         "--all",
         type=str,
-        help="Get totals for all languages and word types.",
+        help="Get totals for all languages and data types.",
     )
 
     # MARK: Convert
@@ -177,12 +177,12 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.command in ["list", "l"]:
-        list_wrapper(args.language, args.word_type)
+        list_wrapper(args.language, args.data_type)
 
     elif args.command in ["query", "q"]:
         query_data(
             args.language,
-            args.word_type,
+            args.data_type,
             args.output_dir,
             args.overwrite,
             args.output_type,

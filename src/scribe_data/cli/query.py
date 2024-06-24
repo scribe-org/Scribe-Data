@@ -1,5 +1,5 @@
 """
-Functions for querying languages-word types packs for the Scribe-Data CLI.
+Functions for querying languages-data types packs for the Scribe-Data CLI.
 
 .. raw:: html
     <!--
@@ -28,29 +28,27 @@ from scribe_data.cli.cli_utils import language_map
 from scribe_data.wikidata.update_data import update_data
 import os
 
-from scribe_data.cli.cli_utils import language_map
-
 DATA_DIR = Path("scribe_data_json_export")
 
 def query_data(
     language: Optional[str] = None,
-    word_type: Optional[str] = None,
+    data_type: Optional[str] = None,
     output_dir: Optional[str] = None,
     overwrite: bool = False,
     output_type: Optional[str] = None,
     all: bool = False
 ) -> None:
     if all:
-        print("Updating all languages and word types...")
+        print("Updating all languages and data types...")
         update_data()
-    elif language or word_type:
+    elif language or data_type:
         languages = [language] if language else None
-        word_types = [word_type] if word_type else None
-        print(f"Updating data for language: {language}, word type: {word_type}")
-        update_data(languages, word_types)
+        data_type = [data_type] if data_type else None
+        print(f"Updating data for language: {language}, data type: {data_type}")
+        update_data(languages, data_type)
     else:
         raise ValueError(
-            "You must provide either a --language (-l) or --word-type (-wt) option, or use --all (-a)."
+            "You must provide either a --language (-l) or --data-type (-dt) option, or use --all (-a)."
         )
 
     if output_dir:
@@ -59,9 +57,9 @@ def query_data(
             output_dir.mkdir(parents=True, exist_ok=True)
 
         if output_type == "json" or output_type is None:
-            export_json(language, word_type, output_dir, overwrite)
+            export_json(language, data_type, output_dir, overwrite)
         elif output_type in ["csv", "tsv"]:
-            export_csv_or_tsv(language, word_type, output_dir, overwrite, output_type)
+            export_csv_or_tsv(language, data_type, output_dir, overwrite, output_type)
         else:
             raise ValueError(
                 "Unsupported output type. Please use 'json', 'csv', or 'tsv'."
@@ -76,25 +74,25 @@ def query_data(
         lang_path = data_path / language.capitalize()
         if not lang_path.exists():
             print(f"Warning: No data directory found for language '{language}'")
-        elif word_type:
-            wt_file = lang_path / f"{word_type}.json"
-            if not wt_file.exists():
-                print(f"Warning: No data file found for '{language}' {word_type}")
+        elif data_type:
+            dt_file = lang_path / f"{data_type}.json"
+            if not dt_file.exists():
+                print(f"Warning: No data file found for '{language}' {data_type}")
         else:
             print(f"Data updated for language: {language}")
-    elif word_type:
-        wt_updated = False
+    elif data_type:
+        dt_updated = False
         for lang_dir in data_path.iterdir():
-            if lang_dir.is_dir() and (lang_dir / f"{word_type}.json").exists():
-                wt_updated = True
+            if lang_dir.is_dir() and (lang_dir / f"{data_type}.json").exists():
+                dt_updated = True
                 break
-        if not wt_updated:
-            print(f"Warning: No data files found for word type '{word_type}'")
+        if not dt_updated:
+            print(f"Warning: No data files found for data type '{data_type}'")
         else:
-            print(f"Data updated for word type: {word_type}")
+            print(f"Data updated for data type: {data_type}")
 
 def export_json(
-    language: str, word_type: str, output_dir: Path, overwrite: bool
+    language: str, data_type: str, output_dir: Path, overwrite: bool
 ) -> None:
     normalized_language = language_map.get(language.lower())
     language_capitalized = language.capitalize()
@@ -102,12 +100,12 @@ def export_json(
         raise ValueError(f"Language '{language_capitalized}' is not recognized.")
 
     data_file = (
-        DATA_DIR / normalized_language["language"].capitalize() / f"{word_type}.json"
+        DATA_DIR / normalized_language["language"].capitalize() / f"{data_type}.json"
     )
 
     if not data_file.exists():
         print(
-            f"No data found for language '{normalized_language['language']}' and word type '{word_type}'."
+            f"No data found for language '{normalized_language['language']}' and data type '{data_type}'."
         )
         return
 
@@ -127,11 +125,11 @@ def export_json(
     )
     json_output_dir.mkdir(parents=True, exist_ok=True)
 
-    output_file = json_output_dir / f"{word_type}.json"
+    output_file = json_output_dir / f"{data_type}.json"
     if output_file.exists() and not overwrite:
         user_input = input(f"File '{output_file}' already exists. Overwrite? (y/n): ")
         if user_input.lower() != "y":
-            print(f"Skipping {normalized_language['language']} - {word_type}")
+            print(f"Skipping {normalized_language['language']} - {data_type}")
             return
 
     try:
@@ -141,12 +139,12 @@ def export_json(
         raise IOError(f"Error writing to '{output_file}': {e}") from e
 
     print(
-        f"Data for language '{normalized_language['language']}' and word type '{word_type}' written to '{output_file}'"
+        f"Data for language '{normalized_language['language']}' and data type '{data_type}' written to '{output_file}'"
     )
 
 
 def export_csv_or_tsv(
-    language: str, word_type: str, output_dir: Path, overwrite: bool, output_type: str
+    language: str, data_type: str, output_dir: Path, overwrite: bool, output_type: str
 ) -> None:
     normalized_language = language_map.get(language.lower())
     if not normalized_language:
@@ -154,11 +152,11 @@ def export_csv_or_tsv(
         return
 
     data_file = (
-        DATA_DIR / normalized_language["language"].capitalize() / f"{word_type}.json"
+        DATA_DIR / normalized_language["language"].capitalize() / f"{data_type}.json"
     )
     if not data_file.exists():
         print(
-            f"No data found for language '{normalized_language['language']}' and word type '{word_type}'."
+            f"No data found for language '{normalized_language['language']}' and data type '{data_type}'."
         )
         return
 
@@ -190,11 +188,11 @@ def export_csv_or_tsv(
     )
     csv_output_dir.mkdir(parents=True, exist_ok=True)
 
-    output_file = csv_output_dir / f"{word_type}.{file_extension}"
+    output_file = csv_output_dir / f"{data_type}.{file_extension}"
     if output_file.exists() and not overwrite:
         user_input = input(f"File '{output_file}' already exists. Overwrite? (y/n): ")
         if user_input.lower() != "y":
-            print(f"Skipping {normalized_language['language']} - {word_type}")
+            print(f"Skipping {normalized_language['language']} - {data_type}")
             return
 
     try:
@@ -220,5 +218,5 @@ def export_csv_or_tsv(
         return
 
     print(
-        f"Data for language '{normalized_language['language']}' and word type '{word_type}' written to '{output_file}'"
+        f"Data for language '{normalized_language['language']}' and data type '{data_type}' written to '{output_file}'"
     )

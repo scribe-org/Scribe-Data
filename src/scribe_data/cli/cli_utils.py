@@ -27,65 +27,65 @@ from typing import Dict, List, Union
 LANGUAGE_METADATA_FILE = (
     Path(__file__).parent.parent / "resources" / "language_metadata.json"
 )
-WORD_TYPE_METADATA_FILE = (
-    Path(__file__).parent.parent / "resources" / "word_type_metadata.json"
+DATA_TYPE_METADATA_FILE = (
+    Path(__file__).parent.parent / "resources" / "data_type_metadata.json"
 )
 DATA_DIR = Path("scribe_data_json_export")
 
 with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
     language_metadata = json.load(file)
 
-with WORD_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
-    word_type_metadata = json.load(file)
+with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
+    data_type_metadata = json.load(file)
 
 language_map = {
     lang["language"].lower(): lang for lang in language_metadata["languages"]
 }
 
 
-def correct_word_type(word_type: str) -> str:
+def correct_data_type(data_type: str) -> str:
     """
-    Corrects common versions of word type arguments so users can choose between them.
+    Corrects common versions of data type arguments so users can choose between them.
 
     Parameters
     ----------
-        word_type : str
-            The word type to potentially correct.
+        data_type : str
+            The data type to potentially correct.
 
     Returns
     -------
-        The word_type value or a corrected version of it.
+        The data_type value or a corrected version of it.
     """
-    all_word_types = word_type_metadata["word-types"]
+    all_data_types = data_type_metadata["data-types"]
 
-    if word_type in all_word_types:
-        return word_type
+    if data_type in all_data_types:
+        return data_type
 
-    for wt in all_word_types:
-        if f"{word_type}s" == wt:
+    for wt in all_data_types:
+        if f"{data_type}s" == wt:
             return wt
 
 
-def print_formatted_data(data: Union[Dict, List], word_type: str) -> None:
+def print_formatted_data(data: Union[Dict, List], data_type: str) -> None:
     """
     Prints a formatted output from the Scribe-Data CLI.
     """
     if not data:
-        print(f"No data available for word type '{word_type}'.")
+        print(f"No data available for data type '{data_type}'.")
         return
 
     max_key_length = max((len(key) for key in data.keys()), default=0)
 
-    if word_type == "autosuggestions":
+    if data_type == "autosuggestions":
         for key, value in data.items():
             print(f"{key:<{max_key_length}} : {', '.join(value)}")
 
-    elif word_type == "emoji_keywords":
+    elif data_type == "emoji_keywords":
         for key, value in data.items():
             emojis = [item["emoji"] for item in value]
             print(f"{key:<{max_key_length}} : {' '.join(emojis)}")
 
-    elif word_type in {"prepositions", "translations"}:
+    elif data_type in {"prepositions", "translations"}:
         for key, value in data.items():
             print(f"{key:<{max_key_length}} : {value}")
 
