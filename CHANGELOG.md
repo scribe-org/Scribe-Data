@@ -12,6 +12,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 4.0.0
 
+### ♻️ Code Refactoring
+
+- `word_type` has been switched to `data_type` throughout the codebase ([#160](https://github.com/scribe-org/Scribe-Data/issues/160)).
+
 ## Scribe-Data 3.3.0
 
 ### ✨ Features

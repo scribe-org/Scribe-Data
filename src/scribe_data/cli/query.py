@@ -38,6 +38,7 @@ def query_data(
     output_type: Optional[str] = None,
     all: bool = False
 ) -> None:
+
     if all:
         print("Updating all languages and data types...")
         update_data()
@@ -50,7 +51,6 @@ def query_data(
         raise ValueError(
             "You must provide either a --language (-l) or --data-type (-dt) option, or use --all (-a)."
         )
-
     if output_dir:
         output_dir = Path(output_dir)
         if not output_dir.exists():
@@ -60,6 +60,7 @@ def query_data(
             export_json(language, data_type, output_dir, overwrite)
         elif output_type in ["csv", "tsv"]:
             export_csv_or_tsv(language, data_type, output_dir, overwrite, output_type)
+
         else:
             raise ValueError(
                 "Unsupported output type. Please use 'json', 'csv', or 'tsv'."

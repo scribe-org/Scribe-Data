@@ -68,7 +68,7 @@ def main() -> None:
         help="List options for all or given languages.",
     )
     list_parser.add_argument(
-        "-wt",
+        "-dt",
         "--data-type",
         nargs="?",
         const=True,
@@ -93,7 +93,7 @@ def main() -> None:
         "-lang", "--language", type=str, help="The language(s) to query."
     )
     query_parser.add_argument(
-        "-wt", "--data-type", type=str, help="The data type(s) to query."
+        "-dt", "--data-type", type=str, help="The data type(s) to query."
     )
     query_parser.add_argument(
         "-od", "--output-dir", type=str, help="The output directory path for results."
@@ -112,7 +112,7 @@ def main() -> None:
         help="Whether to overwrite existing files (default: False).",
     )
     query_parser.add_argument(
-        "-a", "--all", action="store_true", help="Query all languages and data types."
+        "-a", "--all", type=str, help="Query all languages and data types."
     )
 
     # MARK: Total
@@ -130,7 +130,7 @@ def main() -> None:
         "-lang", "--language", type=str, help="The language(s) to check totals for."
     )
     total_parser.add_argument(
-        "-wt", "--data-type", type=str, help="The data type(s) to check totals for."
+        "-dt", "--data-type", type=str, help="The data type(s) to check totals for."
     )
     total_parser.add_argument(
         "-a",
