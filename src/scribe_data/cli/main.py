@@ -112,7 +112,7 @@ def main() -> None:
         help="Whether to overwrite existing files (default: False).",
     )
     query_parser.add_argument(
-        "-a", "--all", type=str, help="Query all languages and word types."
+        "-a", "--all", action="store_true", help="Query all languages and word types."
     )
 
     # MARK: Total
@@ -186,6 +186,7 @@ def main() -> None:
             args.output_dir,
             args.overwrite,
             args.output_type,
+            args.all,
         )
 
     elif args.command in ["total", "t"]:
@@ -196,6 +197,7 @@ def main() -> None:
 
     else:
         parser.print_help()
+ 
 
 
 if __name__ == "__main__":

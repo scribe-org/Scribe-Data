@@ -24,22 +24,33 @@ import csv
 import json
 from pathlib import Path
 from typing import Optional
+from scribe_data.cli.cli_utils import language_map
+from scribe_data.wikidata.update_data import update_data
+import os
 
 from scribe_data.cli.cli_utils import language_map
 
 DATA_DIR = Path("scribe_data_json_export")
 
-
 def query_data(
-    language: str = None,
-    word_type: str = None,
+    language: Optional[str] = None,
+    word_type: Optional[str] = None,
     output_dir: Optional[str] = None,
     overwrite: bool = False,
     output_type: Optional[str] = None,
+    all: bool = False
 ) -> None:
-    if not (language or word_type):
+    if all:
+        print("Updating all languages and word types...")
+        update_data()
+    elif language or word_type:
+        languages = [language] if language else None
+        word_types = [word_type] if word_type else None
+        print(f"Updating data for language: {language}, word type: {word_type}")
+        update_data(languages, word_types)
+    else:
         raise ValueError(
-            "You must provide either a --language (-l) or --word-type (-wt) option."
+            "You must provide either a --language (-l) or --word-type (-wt) option, or use --all (-a)."
         )
 
     if output_dir:
@@ -49,18 +60,38 @@ def query_data(
 
         if output_type == "json" or output_type is None:
             export_json(language, word_type, output_dir, overwrite)
-
         elif output_type in ["csv", "tsv"]:
             export_csv_or_tsv(language, word_type, output_dir, overwrite, output_type)
-
         else:
             raise ValueError(
                 "Unsupported output type. Please use 'json', 'csv', or 'tsv'."
             )
-
     else:
-        raise ValueError("Please specify an output directory using --output-dir (-od).")
+        print("Data update complete. No output directory specified for exporting results.")
+        print(f"Updated data can be found in: {os.path.abspath('scribe_data_json_export')}")
 
+    # Check if data was actually updated
+    data_path = Path('scribe_data_json_export')
+    if language:
+        lang_path = data_path / language.capitalize()
+        if not lang_path.exists():
+            print(f"Warning: No data directory found for language '{language}'")
+        elif word_type:
+            wt_file = lang_path / f"{word_type}.json"
+            if not wt_file.exists():
+                print(f"Warning: No data file found for '{language}' {word_type}")
+        else:
+            print(f"Data updated for language: {language}")
+    elif word_type:
+        wt_updated = False
+        for lang_dir in data_path.iterdir():
+            if lang_dir.is_dir() and (lang_dir / f"{word_type}.json").exists():
+                wt_updated = True
+                break
+        if not wt_updated:
+            print(f"Warning: No data files found for word type '{word_type}'")
+        else:
+            print(f"Data updated for word type: {word_type}")
 
 def export_json(
     language: str, word_type: str, output_dir: Path, overwrite: bool
