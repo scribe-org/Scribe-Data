@@ -35,12 +35,12 @@ Example
 import itertools
 import json
 import os
-import sys
 from urllib.error import HTTPError
 
 import pandas as pd
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
+from datetime import datetime
 
 # from scribe_data.utils import (
 #     check_and_return_command_line_args,
@@ -169,7 +169,7 @@ def update_data(languages=None, word_types=None):
                 r_dict = {k: r[k]["value"] for k in r.keys()}
 
                 results_formatted.append(r_dict)
-
+             
             with open(
                 f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang}/{target_type}/{target_type}_queried.json",
                 "w",
@@ -253,88 +253,88 @@ def update_data(languages=None, word_types=None):
 
 
     # Update data_table.txt
-    current_data_df = pd.DataFrame(
-        index=sorted(list(current_data.keys())),
-        columns=["nouns", "verbs", "translations", "prepositions"],
-    )
-    for lang, wt in itertools.product(
-        list(current_data_df.index), list(current_data_df.columns)
-    ):
-        if wt in current_data[lang].keys():
-            current_data_df.loc[lang, wt] = f"{current_data[lang][wt]:,}"
-        elif wt == "translations":
-            current_data_df.loc[lang, wt] = f"{67652:,}"
+    # current_data_df = pd.DataFrame(
+    #     index=sorted(list(current_data.keys())),
+    #     columns=["nouns", "verbs", "translations", "prepositions"],
+    # )
+    # for lang, wt in itertools.product(
+    #     list(current_data_df.index), list(current_data_df.columns)
+    # ):
+    #     if wt in current_data[lang].keys():
+    #         current_data_df.loc[lang, wt] = f"{current_data[lang][wt]:,}"
+    #     elif wt == "translations":
+    #         current_data_df.loc[lang, wt] = f"{67652:,}"
 
-    current_data_df.index.name = "Languages"
-    current_data_df.columns = [c.capitalize() for c in current_data_df.columns]
+    # current_data_df.index.name = "Languages"
+    # current_data_df.columns = [c.capitalize() for c in current_data_df.columns]
 
     # Get the current emoji data so that it can be appended at the end of the table.
-    current_emoji_data_strings = []
-    with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", encoding="utf-8") as f:
-        old_table_values = f.read()
+    # current_emoji_data_strings = []
+    # with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", encoding="utf-8") as f:
+    #     old_table_values = f.read()
 
-    for line in old_table_values.splitlines():
-        current_emoji_data_strings.append(line.split("|")[-2] + "|")
+    # for line in old_table_values.splitlines():
+    #     current_emoji_data_strings.append(line.split("|")[-2] + "|")
 
     # Write the new values to the table, which overwrites the emoji keyword values.
-    with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", "w+", encoding="utf-8") as f:
-        table_string = str(current_data_df.to_markdown()).replace(" nan ", "   - ")
-        # Right justify the data and left justify the language indexes.
-        table_string = (
-            table_string.replace("-|-", ":|-")
-            .replace("-|:", ":|-")
-            .replace(":|-", "-|-", 1)
-        )
-        f.writelines(table_string)
+    # with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", "w+", encoding="utf-8") as f:
+    #     table_string = str(current_data_df.to_markdown()).replace(" nan ", "   - ")
+    #     # Right justify the data and left justify the language indexes.
+    #     table_string = (
+    #         table_string.replace("-|-", ":|-")
+    #         .replace("-|:", ":|-")
+    #         .replace(":|-", "-|-", 1)
+    #     )
+    #     f.writelines(table_string)
 
     # Get the new table values and then rewrite the file with the full table.
-    new_table_value_strings = []
-    with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", encoding="utf-8") as f:
-        new_table_values = f.read()
+    # new_table_value_strings = []
+    # with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", encoding="utf-8") as f:
+    #     new_table_values = f.read()
 
-    for line in new_table_values.splitlines():
-        # Replace headers while translation is still in beta and always for prepositions to annotate missing values.
-        # Note: Spaces replaced to maintain table spacing.
-        line = line.replace("Translations  ", "Translations\*")
-        line = line.replace("Prepositions ", "Prepositions†")
-        new_table_value_strings.append(line)
+    # for line in new_table_values.splitlines():
+    #     # Replace headers while translation is still in beta and always for prepositions to annotate missing values.
+    #     # Note: Spaces replaced to maintain table spacing.
+    #     line = line.replace("Translations  ", "Translations\*")
+    #     line = line.replace("Prepositions ", "Prepositions†")
+    #     new_table_value_strings.append(line)
 
-    with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", "w+", encoding="utf-8") as f:
-        for i in range(len(new_table_value_strings)):
-            f.writelines(new_table_value_strings[i] + current_emoji_data_strings[i] + "\n")
+    # with open(f"{PATH_TO_UPDATE_FILES}/data_table.txt", "w+", encoding="utf-8") as f:
+    #     for i in range(len(new_table_value_strings)):
+    #         f.writelines(new_table_value_strings[i] + current_emoji_data_strings[i] + "\n")
 
     # Update data_updates.txt.
-    data_added_string = ""
-    language_keys = sorted(list(data_added_dict.keys()))
+    # data_added_string = ""
+    # language_keys = sorted(list(data_added_dict.keys()))
 
     # Check if all data added values are 0 and remove if so.
-    for lang in language_keys:
-        if all(v <= 0 for v in data_added_dict[lang].values()):
-            language_keys.remove(lang)
+    # for lang in language_keys:
+    #     if all(v <= 0 for v in data_added_dict[lang].values()):
+    #         language_keys.remove(lang)
 
-    for lang in language_keys:
-        if lang == language_keys[0]:
-            data_added_string += (
-                f"- {lang} (New):" if lang in new_language_list else f"- {lang}:"
-            )
-        else:
-            data_added_string += (
-                f"\n- {lang} (New):" if lang in new_language_list else f"\n- {lang}:"
-            )
+    # for lang in language_keys:
+    #     if lang == language_keys[0]:
+    #         data_added_string += (
+    #             f"- {lang} (New):" if lang in new_language_list else f"- {lang}:"
+    #         )
+    #     else:
+    #         data_added_string += (
+    #             f"\n- {lang} (New):" if lang in new_language_list else f"\n- {lang}:"
+    #         )
 
-        for wt in word_types_update:
-            if wt in data_added_dict[lang].keys():
-                if data_added_dict[lang][wt] <= 0:
-                    pass
-                elif data_added_dict[lang][wt] == 1:  # remove the s for label
-                    data_added_string += f" {data_added_dict[lang][wt]} {wt[:-1]},"
-                else:
-                    data_added_string += f" {data_added_dict[lang][wt]:,} {wt},"
+    #     for wt in word_types_update:
+    #         if wt in data_added_dict[lang].keys():
+    #             if data_added_dict[lang][wt] <= 0:
+    #                 pass
+    #             elif data_added_dict[lang][wt] == 1:  # remove the s for label
+    #                 data_added_string += f" {data_added_dict[lang][wt]} {wt[:-1]},"
+    #             else:
+    #                 data_added_string += f" {data_added_dict[lang][wt]:,} {wt},"
 
-        data_added_string = data_added_string[:-1]  # remove the last comma
+    #     data_added_string = data_added_string[:-1]  # remove the last comma
 
-    with open(f"{PATH_TO_UPDATE_FILES}/data_updates.txt", "w+", encoding="utf-8") as f:
-        f.writelines(data_added_string)
+    # with open(f"{PATH_TO_UPDATE_FILES}/data_updates.txt", "w+", encoding="utf-8") as f:
+    #     f.writelines(data_added_string)
 
 
 if __name__ == "__main__":
