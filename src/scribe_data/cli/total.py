@@ -19,26 +19,61 @@ Functions to check the total language data available on Wikidata.
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  -->
 """
-#!/usr/bin/env python3
-
 from SPARQLWrapper import SPARQLWrapper, JSON
 
-def get_total_lexemes(language=None, data_type=None, all=False):
+# Dictionary to map language names to their Wikidata Q-IDs
+language_to_qid = {
+    "english": "Q1860",
+    "french": "Q150",
+    "german": "Q188",
+    "italian": "Q652",
+    "portuguese": "Q5146",
+    "russian": "Q7737",
+    "spanish": "Q1321",
+    "swedish": "Q9027"
+}
+
+# Dictionary to map word types to their Wikidata Q-IDs
+word_type_to_qid = {
+    "nouns": "Q1084",
+    "prepositions": "Q37649",
+    "verbs": "Q24905",
+    "translations": "Q7553789"
+}
+
+def get_qid_by_input(input_str):
+    if input_str:
+        input_str_lower = input_str.lower()
+        if input_str_lower in language_to_qid:
+            return language_to_qid[input_str_lower]
+        elif input_str_lower in word_type_to_qid:
+            return word_type_to_qid[input_str_lower]
+    return None
+
+def get_total_lexemes(language, data_type):
     endpoint_url = "https://query.wikidata.org/sparql"
     sparql = SPARQLWrapper(endpoint_url)
 
-    query= """
-    SELECT (COUNT(DISTINCT ?lexeme) as ?total)
-    WHERE {
-    ?lexeme a ontolex:LexicalEntry .
+    language_qid = get_qid_by_input(language)
+    data_type_qid = get_qid_by_input(data_type)
+
+    query_template = """
+    SELECT 
+        (COUNT(DISTINCT ?lexeme) as ?total)
+    WHERE {{
+        ?lexeme a ontolex:LexicalEntry .
+        {language_filter}
+        {data_type_filter}
+    }}
     """
 
-    if language:
-        query += f"?lexeme dct:language wd:{language} .\n"
-    if data_type:
-        query += f"?lexeme wikibase:lexicalCategory wd:{data_type} .\n"
+    language_filter = f"?lexeme dct:language wd:{language_qid} ." if language_qid else ""
+    data_type_filter = f"?lexeme wikibase:lexicalCategory wd:{data_type_qid} ." if data_type_qid else ""
 
-    query += "}"
+    query = query_template.format(
+        language_filter=language_filter,
+        data_type_filter=data_type_filter
+    )
 
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
