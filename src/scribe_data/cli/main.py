@@ -131,7 +131,7 @@ def main() -> None:
         "-l","-lang", "--language", type=str, help="The language(s) to check totals for."
     )
     total_parser.add_argument(
-        "-wt", "--data-type", type=str, help="The data type(s) to check totals for."
+        "-dt", "--data-type", type=str, help="The data type(s) to check totals for."
     )
     total_parser.add_argument(
         "-a",

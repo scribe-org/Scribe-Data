@@ -19,6 +19,7 @@ Functions to check the total language data available on Wikidata.
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  -->
 """
+
 from SPARQLWrapper import SPARQLWrapper, JSON
 
 # Dictionary to map language names to their Wikidata Q-IDs
@@ -33,8 +34,8 @@ language_to_qid = {
     "swedish": "Q9027"
 }
 
-# Dictionary to map word types to their Wikidata Q-IDs
-word_type_to_qid = {
+# Dictionary to map data types to their Wikidata Q-IDs
+data_type_to_qid = {
     "nouns": "Q1084",
     "prepositions": "Q37649",
     "verbs": "Q24905",
@@ -42,15 +43,43 @@ word_type_to_qid = {
 }
 
 def get_qid_by_input(input_str):
+    """
+    Retrieve the QID for a given language or data type input string.
+
+    Parameters
+    ----------
+    input_str : str
+        The input string representing a language or data type.
+
+    Returns
+    -------
+    str or None
+        The QID corresponding to the input string, or None if not found.
+    """
     if input_str:
         input_str_lower = input_str.lower()
         if input_str_lower in language_to_qid:
             return language_to_qid[input_str_lower]
-        elif input_str_lower in word_type_to_qid:
-            return word_type_to_qid[input_str_lower]
+        elif input_str_lower in data_type_to_qid:
+            return data_type_to_qid[input_str_lower]
     return None
 
 def get_total_lexemes(language, data_type):
+    """
+    Get the total number of lexemes for a given language and data type from Wikidata.
+
+    Parameters
+    ----------
+    language : str
+        The language for which to count lexemes.
+    data_type : str
+        The data type (e.g., "nouns", "verbs") for which to count lexemes.
+
+    Returns
+    -------
+    int
+        The total number of lexemes found for the given language and data type.
+    """
     endpoint_url = "https://query.wikidata.org/sparql"
     sparql = SPARQLWrapper(endpoint_url)
 
