@@ -46,10 +46,6 @@ from scribe_data.utils import (
     check_and_return_command_line_args,
 )
 
-# total_nouns = query_total_nouns()
-# batch_size = 10
-# num_iterations = math.ceil(total_nouns / batch_size)
-
 SCRIBE_DATA_SRC_PATH = "src/scribe_data"
 PATH_TO_LANGUAGE_EXTRACTION_FILES = f"{SCRIBE_DATA_SRC_PATH}/language_data_extraction"
 PATH_TO_UPDATE_FILES = f"{SCRIBE_DATA_SRC_PATH}/load/update_files"
