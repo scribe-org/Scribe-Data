@@ -39,9 +39,12 @@ from urllib.error import HTTPError
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
 
+
 def update_data(languages=None, word_types=None):
     SCRIBE_DATA_SRC_PATH = "src/scribe_data"
-    PATH_TO_LANGUAGE_EXTRACTION_FILES = f"{SCRIBE_DATA_SRC_PATH}/language_data_extraction"
+    PATH_TO_LANGUAGE_EXTRACTION_FILES = (
+        f"{SCRIBE_DATA_SRC_PATH}/language_data_extraction"
+    )
     PATH_TO_UPDATE_FILES = f"{SCRIBE_DATA_SRC_PATH}/load/update_files"
 
     # Set SPARQLWrapper query conditions.
@@ -64,7 +67,9 @@ def update_data(languages=None, word_types=None):
     language_data_extraction_files = []
 
     for path, _, files in os.walk(PATH_TO_LANGUAGE_EXTRACTION_FILES):
-        language_data_extraction_files.extend(os.path.join(path, name) for name in files)
+        language_data_extraction_files.extend(
+            os.path.join(path, name) for name in files
+        )
 
     language_directories = [
         d
@@ -96,10 +101,10 @@ def update_data(languages=None, word_types=None):
         [
             q
             for q in possible_queries
-            if q.split(PATH_TO_LANGUAGE_EXTRACTION_FILES + "/")[1].split("/")[0]
+            if q.split(f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/")[1].split("/")[0]
             in languages_update
         ]
-        for lang in languages_update
+        for _ in languages_update
     ]
 
     queries_to_run = list({q for sub in queries_to_run_lists for q in sub})
@@ -149,7 +154,7 @@ def update_data(languages=None, word_types=None):
                 r_dict = {k: r[k]["value"] for k in r.keys()}
 
                 results_formatted.append(r_dict)
-             
+
             with open(
                 f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang}/{target_type}/{target_type}_queried.json",
                 "w",
@@ -205,7 +210,10 @@ def update_data(languages=None, word_types=None):
                                     encoding="utf-8",
                                 ) as f:
                                     json.dump(
-                                        results_formatted, f, ensure_ascii=False, indent=0
+                                        results_formatted,
+                                        f,
+                                        ensure_ascii=False,
+                                        indent=0,
                                     )
 
             # Call the corresponding formatting file and update data changes.
