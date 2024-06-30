@@ -186,6 +186,7 @@ def main() -> None:
             args.output_dir,
             args.overwrite,
             args.output_type,
+            args.all,
         )
 
     elif args.command in ["total", "t"]:
