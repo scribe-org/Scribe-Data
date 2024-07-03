@@ -22,24 +22,37 @@ Functions for querying languages-data types packs for the Scribe-Data CLI.
 
 import csv
 import json
+import os
 from pathlib import Path
 from typing import Optional
 
 from scribe_data.cli.cli_utils import language_map
+from scribe_data.wikidata.update_data import update_data
 
 DATA_DIR = Path("scribe_data_json_export")
 
 
 def query_data(
-    language: str = None,
-    data_type: str = None,
+    language: Optional[str] = None,
+    data_type: Optional[str] = None,
     output_dir: Optional[str] = None,
     overwrite: bool = False,
     output_type: Optional[str] = None,
+    all: bool = False,
 ) -> None:
-    if not (language or data_type):
+    if all:
+        print("Updating all languages and data types ...")
+        update_data()
+
+    elif language or data_type:
+        languages = [language] if language else None
+        data_type = [data_type] if data_type else None
+        print(f"Updating data for language: {language}, data type: {data_type}")
+        update_data(languages, data_type)
+
+    else:
         raise ValueError(
-            "You must provide either a --language (-l) or --data-type (-dt) option."
+            "You must provide either a --language (-l) or --data-type (-dt) option, or use --all (-a)."
         )
 
     if output_dir:
@@ -59,7 +72,39 @@ def query_data(
             )
 
     else:
-        raise ValueError("Please specify an output directory using --output-dir (-od).")
+        print(
+            "Data update complete. No output directory specified for exporting results."
+        )
+        print(
+            f"Updated data can be found in: {os.path.abspath('scribe_data_json_export')}"
+        )
+
+    # Check if data was actually updated
+    data_path = Path("scribe_data_json_export")
+    if language:
+        lang_path = data_path / language.capitalize()
+        if not lang_path.exists():
+            print(f"Warning: No data directory found for language '{language}'")
+
+        elif data_type:
+            dt_file = lang_path / f"{data_type}.json"
+            if not dt_file.exists():
+                print(f"Warning: No data file found for '{language}' {data_type}")
+
+        else:
+            print(f"Data updated for language: {language}")
+    elif data_type:
+        dt_updated = False
+        for lang_dir in data_path.iterdir():
+            if lang_dir.is_dir() and (lang_dir / f"{data_type}.json").exists():
+                dt_updated = True
+                break
+
+        if not dt_updated:
+            print(f"Warning: No data files found for data type '{data_type}'")
+
+        else:
+            print(f"Data updated for data type: {data_type}")
 
 
 def export_json(
@@ -106,6 +151,7 @@ def export_json(
     try:
         with output_file.open("w") as file:
             json.dump(data, file, indent=2)
+
     except IOError as e:
         raise IOError(f"Error writing to '{output_file}': {e}") from e
 
