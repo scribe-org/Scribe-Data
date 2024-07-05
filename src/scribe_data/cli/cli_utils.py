@@ -22,7 +22,7 @@ Utility functions for the Scribe-Data CLI.
 
 import json
 from pathlib import Path
-from typing import Dict, List, Union
+from typing import Dict, List, Union,Any, Optional
 
 LANGUAGE_METADATA_FILE = (
     Path(__file__).parent.parent / "resources" / "language_metadata.json"
@@ -40,8 +40,46 @@ with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
 
 language_map = {
     lang["language"].lower(): lang for lang in language_metadata["languages"]
-}
+        }
 
+all_keys_to_info: Dict[str, Dict] = {}
+for lang in language_metadata["languages"]:
+    all_keys_to_info[lang["language"].lower()] = lang
+    all_keys_to_info[lang["iso"].lower()] = lang
+    all_keys_to_info[lang["qid"]] = lang
+
+def get_language_data(data_type: str, attribute: Optional[str] = None) -> Optional[Any]:
+    """
+    Retrieve language information or a specific attribute for a given input string.
+
+    Parameters
+    ----------
+    data_type : str
+        The input string representing a language, ISO code, or QID.
+    attribute : str, optional
+        The specific attribute to retrieve (e.g., 'language', 'iso', 'qid', 'remove-words', 'ignore-words').
+        If None, returns the full language information dictionary.
+
+    Returns
+    -------
+    Any or None
+        If attribute is None, returns the full language information dictionary.
+        If attribute is specified, returns the value of that attribute.
+        Returns None if the data_type is not found or the attribute doesn't exist.
+    """
+    info = all_keys_to_info.get(data_type) or all_keys_to_info.get(data_type.lower())
+    
+    if info is None:
+        return None
+    
+    if attribute is None:
+        return info
+    elif attribute == 'language':
+        return info.get(attribute).capitalize()
+    elif attribute in info:
+        return info.get(attribute)
+    else:
+        return None
 
 def correct_data_type(data_type: str) -> str:
     """
@@ -64,6 +102,7 @@ def correct_data_type(data_type: str) -> str:
     for wt in all_data_types:
         if f"{data_type}s" == wt:
             return wt
+    return None
 
 
 def print_formatted_data(data: Union[Dict, List], data_type: str) -> None:

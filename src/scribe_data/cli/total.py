@@ -21,18 +21,7 @@ Functions to check the total language data available on Wikidata.
 """
 
 from SPARQLWrapper import SPARQLWrapper, JSON
-
-# Dictionary to map language names to their Wikidata Q-IDs
-language_to_qid = {
-    "english": "Q1860",
-    "french": "Q150",
-    "german": "Q188",
-    "italian": "Q652",
-    "portuguese": "Q5146",
-    "russian": "Q7737",
-    "spanish": "Q1321",
-    "swedish": "Q9027"
-}
+from scribe_data.cli.cli_utils import get_language_data
 
 # Dictionary to map data types to their Wikidata Q-IDs
 data_type_to_qid = {
@@ -56,13 +45,15 @@ def get_qid_by_input(input_str):
     str or None
         The QID corresponding to the input string, or None if not found.
     """
-    if input_str:
-        input_str_lower = input_str.lower()
-        if input_str_lower in language_to_qid:
-            return language_to_qid[input_str_lower]
-        elif input_str_lower in data_type_to_qid:
-            return data_type_to_qid[input_str_lower]
-    return None
+    if not input_str:
+        return None
+    
+    language_info = get_language_data(input_str)
+    
+    if language_info is None:
+        return None
+    
+    return language_info.get('qid')
 
 def get_total_lexemes(language, data_type):
     """
@@ -75,11 +66,12 @@ def get_total_lexemes(language, data_type):
     data_type : str
         The data type (e.g., "nouns", "verbs") for which to count lexemes.
 
-    Returns
+    Prints    
     -------
     int
-        The total number of lexemes found for the given language and data type.
+        A formatted string containing the language, data type, and total number of lexemes.
     """
+    
     endpoint_url = "https://query.wikidata.org/sparql"
     sparql = SPARQLWrapper(endpoint_url)
 
@@ -108,4 +100,15 @@ def get_total_lexemes(language, data_type):
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
 
-    return int(results["results"]["bindings"][0]["total"]["value"])
+    try:
+        total_lexemes = int(results["results"]["bindings"][0]["total"]["value"])
+    except (KeyError, IndexError, ValueError):
+        total_lexemes = 0
+
+     # Get the full language name
+    language_info = get_language_data(language)
+    language_name = language_info['language'] if language_info else language
+
+
+    result = f"Language: {language_name.capitalize()}\nData type: {data_type.capitalize()}\nTotal number of lexemes: {total_lexemes}"
+    print(result)

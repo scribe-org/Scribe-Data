@@ -130,8 +130,18 @@ def list_languages_for_data_type(data_type: str) -> None:
         data_type : str
             The data type to check for.
     """
+
+    if data_type is None:
+        raise ValueError("data_type cannot be None")
+
     data_type = correct_data_type(data_type=data_type)
+
+    if data_type is None:
+        print("No corrected data type found for:  {data_type}")
+        return
+
     available_languages = []
+
     for lang in language_metadata["languages"]:
         language_dir = LANGUAGE_DATA_EXTRACTION_DIR / lang["language"].capitalize()
         if language_dir.is_dir():
@@ -140,6 +150,11 @@ def list_languages_for_data_type(data_type: str) -> None:
                 available_languages.append(lang["language"])
 
     available_languages.sort()
+
+    if not available_languages:
+        print(f"No languages available for data type: {data_type}")
+        return
+
     table_header = f"Available languages: {data_type}"
     table_line_length = max(
         len(table_header), max(len(lang) for lang in available_languages)

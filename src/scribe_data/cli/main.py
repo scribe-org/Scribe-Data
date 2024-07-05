@@ -22,6 +22,7 @@ Setup and commands for the Scribe-Data command line interface.
 
 #!/usr/bin/env python3
 import argparse
+import sys
 
 from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.query import query_data
@@ -177,6 +178,14 @@ def main() -> None:
 
     args = parser.parse_args()
 
+    valid_commands = ["list", "l", "query", "q", "total", "t", "convert", "c"]
+
+    if args.command not in valid_commands:
+            print("Error: Invalid command.")
+            parser.print_help()
+            sys.exit(1)  # Exit the program with status code 1 (indicating an error)
+
+
     if args.command in ["list", "l"]:
         list_wrapper(args.language, args.data_type)
 
@@ -195,8 +204,8 @@ def main() -> None:
             print("Error: At least one of -lang/--language or -dt/--data-type must be specified.")
             total_parser.print_help()
             return
-        total = get_total_lexemes(args.language, args.data_type)
-        print(f"Total number of lexemes: {total}")
+        get_total_lexemes(args.language, args.data_type)
+        # print(f"Total number of lexemes: {total}")
         
     elif args.command in ["convert", "c"]:
         return
