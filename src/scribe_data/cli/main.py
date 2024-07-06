@@ -22,7 +22,7 @@ Setup and commands for the Scribe-Data command line interface.
 
 #!/usr/bin/env python3
 import argparse
-
+from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.query import query_data
 
@@ -114,6 +114,9 @@ def main() -> None:
     query_parser.add_argument(
         "-a", "--all", type=str, help="Query all languages and data types."
     )
+    query_parser.add_argument(
+        "-i", "--interactive", action="store_true", help="Run in interactive mode"
+        )
 
     # MARK: Total
 
@@ -180,14 +183,17 @@ def main() -> None:
         list_wrapper(args.language, args.data_type)
 
     elif args.command in ["query", "q"]:
-        query_data(
-            args.language,
-            args.data_type,
-            args.output_dir,
-            args.overwrite,
-            args.output_type,
-            args.all,
-        )
+        if args.interactive:
+            start_interactive_mode()
+        else:
+            query_data(
+                args.language,
+                args.data_type,
+                args.output_dir,
+                args.overwrite,
+                args.output_type,
+                args.all,
+            )
 
     elif args.command in ["total", "t"]:
         return
