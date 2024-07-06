@@ -33,8 +33,8 @@ import json
 import sys
 import urllib
 
-from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
+from scribe_data.wikidata.wikidata_utils import sparql 
 
 from scribe_data.utils import (
     check_and_return_command_line_args,
@@ -43,11 +43,6 @@ from scribe_data.utils import (
 )
 
 PATH_TO_ET_FILES = "./"
-
-# Set SPARQLWrapper query conditions.
-sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
-sparql.setReturnFormat(JSON)
-sparql.setMethod(POST)
 
 # Note: Check whether arguments have been passed to only update a subset of the data.
 languages, _ = check_and_return_command_line_args(
