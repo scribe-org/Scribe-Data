@@ -1,6 +1,6 @@
 {
 "French": {
-"nouns": 18044,
+"nouns": 10634,
 "verbs": 6574,
 "emoji_keywords": 2488
 },
@@ -34,6 +34,11 @@
 "Swedish": {
 "nouns": 47007,
 "verbs": 4678,
+"emoji_keywords": 2913
+},
+"English": {
+"nouns": 33448,
+"verbs": 11686,
 "emoji_keywords": 2913
 }
 }
