@@ -34,13 +34,13 @@ import sys
 import urllib
 
 from tqdm.auto import tqdm
-from scribe_data.wikidata.wikidata_utils import sparql 
 
 from scribe_data.utils import (
     check_and_return_command_line_args,
     get_language_qid,
     get_scribe_languages,
 )
+from scribe_data.wikidata.wikidata_utils import sparql
 
 PATH_TO_ET_FILES = "./"
 

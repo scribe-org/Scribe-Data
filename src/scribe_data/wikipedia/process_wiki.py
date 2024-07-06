@@ -31,7 +31,6 @@ from urllib.error import HTTPError
 
 import numpy as np
 import regex
-from scribe_data.wikidata.wikidata_utils import sparql 
 from tqdm.auto import tqdm
 
 from scribe_data.utils import (
@@ -40,8 +39,10 @@ from scribe_data.utils import (
     get_language_words_to_remove,
     get_path_from_wikidata_dir,
 )
+from scribe_data.wikidata.wikidata_utils import sparql
 
 warnings.filterwarnings("ignore", message=r"Passing", category=FutureWarning)
+
 
 def clean(
     texts,

@@ -36,8 +36,9 @@ import json
 import os
 from urllib.error import HTTPError
 
-from scribe_data.wikidata.wikidata_utils import sparql 
 from tqdm.auto import tqdm
+
+from scribe_data.wikidata.wikidata_utils import sparql
 
 
 def update_data(languages=None, word_types=None):

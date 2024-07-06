@@ -1,4 +1,6 @@
 """
+Utility functions for accessing data from Wikidata.
+
 .. raw:: html
     <!--
     * Copyright (C) 2024 Scribe
@@ -18,7 +20,7 @@
     -->
 """
 
-from SPARQLWrapper import SPARQLWrapper, JSON, POST
+from SPARQLWrapper import JSON, POST, SPARQLWrapper
 
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 sparql.setReturnFormat(JSON)
