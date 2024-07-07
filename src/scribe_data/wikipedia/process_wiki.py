@@ -31,7 +31,6 @@ from urllib.error import HTTPError
 
 import numpy as np
 import regex
-from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
 
 from scribe_data.utils import (
@@ -40,13 +39,9 @@ from scribe_data.utils import (
     get_language_words_to_remove,
     get_path_from_wikidata_dir,
 )
+from scribe_data.wikidata.wikidata_utils import sparql
 
 warnings.filterwarnings("ignore", message=r"Passing", category=FutureWarning)
-
-# Set SPARQLWrapper query conditions.
-sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
-sparql.setReturnFormat(JSON)
-sparql.setMethod(POST)
 
 
 def clean(
