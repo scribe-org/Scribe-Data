@@ -35,14 +35,14 @@ Example
 import json
 import os
 from urllib.error import HTTPError
-
 from tqdm.auto import tqdm
+
+from scribe_data.wikidata.wikidata_utils import sparql
 
 def update_data(languages=None, word_types=None):
     SCRIBE_DATA_SRC_PATH = "src/scribe_data"
     PATH_TO_LANGUAGE_EXTRACTION_FILES = (
         f"{SCRIBE_DATA_SRC_PATH}/language_data_extraction"
-
     )
     PATH_TO_UPDATE_FILES = f"{SCRIBE_DATA_SRC_PATH}/load/update_files"
 

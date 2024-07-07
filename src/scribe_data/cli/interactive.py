@@ -28,7 +28,6 @@ from typing import List
 from scribe_data.cli.cli_utils import (
     language_metadata,
     data_type_metadata,
-    print_formatted_data,
 )
 from scribe_data.cli.query import query_data
 
