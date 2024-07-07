@@ -8,7 +8,25 @@ Parameters
 
 Example
 -------
-    python3 data_to_sqlite.py '["French", "German"]'
+    python3 src/scribe_data/load/data_to_sqlite.py '["French", "German"]'
+
+.. raw:: html
+    <!--
+    * Copyright (C) 2024 Scribe
+    *
+    * This program is free software: you can redistribute it and/or modify
+    * it under the terms of the GNU General Public License as published by
+    * the Free Software Foundation, either version 3 of the License, or
+    * (at your option) any later version.
+    *
+    * This program is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    * GNU General Public License for more details.
+    *
+    * You should have received a copy of the GNU General Public License
+    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    -->
 """
 
 import ast
@@ -21,13 +39,17 @@ from tqdm.auto import tqdm
 
 from scribe_data.utils import get_language_iso
 
-PATH_TO_ET_FILES = "../extract_transform/"
+PATH_TO_SCRIBE_DATA = (
+    os.path.dirname(sys.path[0]).split("src/scribe_data")[0] + "src/scribe_data"
+)
 
-with open("update_files/total_data.json", encoding="utf-8") as f:
+with open(
+    f"{PATH_TO_SCRIBE_DATA}/load/update_files/total_data.json", encoding="utf-8"
+) as f:
     current_data = json.load(f)
 
 current_languages = list(current_data.keys())
-word_types = [
+data_types = [
     "nouns",
     "verbs",
     "prepositions",
@@ -71,11 +93,13 @@ if len(sys.argv) == 2:
 # Note: Derive tables to be made, prepare paths for process and create databases.
 languages_update = current_languages if languages is None else languages
 
-language_word_type_dict = {
+language_data_type_dict = {
     lang: [
         f.split(".json")[0]
-        for f in os.listdir(f"{PATH_TO_ET_FILES}{lang}/formatted_data")
-        if f.split(".json")[0] in word_types
+        for f in os.listdir(
+            f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_json_export/{lang}"
+        )
+        if f.split(".json")[0] in data_types
     ]
     for lang in languages_update
 }
@@ -83,47 +107,50 @@ language_word_type_dict = {
 print(
     f"Creating SQLite databases for the following languages: {', '.join(languages_update)}"
 )
+
 for lang in tqdm(
-    language_word_type_dict,
+    language_data_type_dict,
     desc="Databases created",
     unit="dbs",
 ):
-    if language_word_type_dict[lang] != []:
+    if language_data_type_dict[lang] != []:
         maybe_over = ""  # output string formatting variable (see below)
         if os.path.exists(
-            f"databases/{get_language_iso(lang).upper()}LanguageData.sqlite"
+            f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_sqlite_export/{get_language_iso(lang).upper()}LanguageData.sqlite"
         ):
-            os.remove(f"databases/{get_language_iso(lang).upper()}LanguageData.sqlite")
+            os.remove(
+                f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_sqlite_export/{get_language_iso(lang).upper()}LanguageData.sqlite"
+            )
             maybe_over = "over"
 
         connection = sqlite3.connect(
-            f"databases/{get_language_iso(lang).upper()}LanguageData.sqlite"
+            f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_sqlite_export/{get_language_iso(lang).upper()}LanguageData.sqlite"
         )
         cursor = connection.cursor()
 
-        def create_table(word_type, cols):
+        def create_table(data_type, cols):
             """
-            Creates a table in the language database given a word type for its title and column names.
+            Creates a table in the language database given a data type for its title and column names.
 
             Parameters
             ----------
-                word_type : str
+                data_type : str
                     The name of the table to be created
 
                 cols : list of strings
                     The names of columns for the new table
             """
             cursor.execute(
-                f"CREATE TABLE IF NOT EXISTS {word_type} ({' Text, '.join(cols)} Text, UNIQUE({cols[0]}))"
+                f"CREATE TABLE IF NOT EXISTS {data_type} ({' Text, '.join(cols)} Text, UNIQUE({cols[0]}))"
             )
 
-        def table_insert(word_type, keys):
+        def table_insert(data_type, keys):
             """
             Inserts a row into a language database table.
 
             Parameters
             ----------
-                word_type : str
+                data_type : str
                     The name of the table to be inserted into
 
                 keys : list of strings
@@ -131,88 +158,90 @@ for lang in tqdm(
             """
             insert_question_marks = ", ".join(["?"] * len(keys))
             cursor.execute(
-                f"INSERT OR IGNORE INTO {word_type} values({insert_question_marks})",
+                f"INSERT OR IGNORE INTO {data_type} values({insert_question_marks})",
                 keys,
             )
 
         print(f"Database for {lang} {maybe_over}written and connection made.")
-        for wt in language_word_type_dict[lang]:
-            print(f"Creating {lang} {wt} table...")
+        for dt in language_data_type_dict[lang]:
+            print(f"Creating {lang} {dt} table...")
             json_data = json.load(
-                open(f"{PATH_TO_ET_FILES}{lang}/formatted_data/{wt}.json")
+                open(
+                    f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{lang}/{dt}.json"
+                )
             )
 
-            if wt == "nouns":
+            if dt == "nouns":
                 cols = ["noun, plural, form"]
-                create_table(word_type=wt, cols=cols)
+                create_table(data_type=dt, cols=cols)
                 for row in json_data:
                     keys = [row, json_data[row]["plural"], json_data[row]["form"]]
-                    table_insert(word_type=wt, keys=keys)
+                    table_insert(data_type=dt, keys=keys)
 
                 if "Scribe" not in json_data and lang != "Russian":
-                    table_insert(word_type=wt, keys=["Scribe", "Scribes", ""])
+                    table_insert(data_type=dt, keys=["Scribe", "Scribes", ""])
                 # elif "Писец" not in json_data and lang == "Russian":
-                #     table_insert(word_type=wt, keys=["Писец", "Писцы", ""])
+                #     table_insert(data_type=dt, keys=["Писец", "Писцы", ""])
 
                 connection.commit()
 
-            elif wt == "verbs":
+            elif dt == "verbs":
                 cols = ["verb"]
                 cols += json_data[list(json_data.keys())[0]].keys()
-                create_table(word_type=wt, cols=cols)
+                create_table(data_type=dt, cols=cols)
                 for row in json_data:
                     keys = [row]
                     keys += [json_data[row][col_name] for col_name in cols[1:]]
-                    table_insert(word_type=wt, keys=keys)
+                    table_insert(data_type=dt, keys=keys)
 
                 connection.commit()
 
-            elif wt == "prepositions":
+            elif dt == "prepositions":
                 cols = ["preposition, form"]
-                create_table(word_type=wt, cols=cols)
+                create_table(data_type=dt, cols=cols)
                 for row in json_data:
                     keys = [row, json_data[row]]
-                    table_insert(word_type=wt, keys=keys)
+                    table_insert(data_type=dt, keys=keys)
 
                 connection.commit()
 
-            elif wt == "translations":
+            elif dt == "translations":
                 cols = ["word, translation"]
-                create_table(word_type=wt, cols=cols)
+                create_table(data_type=dt, cols=cols)
                 for row in json_data:
                     keys = [row, json_data[row]]
-                    table_insert(word_type=wt, keys=keys)
+                    table_insert(data_type=dt, keys=keys)
 
                 connection.commit()
 
-            elif wt == "autosuggestions":
+            elif dt == "autosuggestions":
                 cols = ["word", "suggestion_0", "suggestion_1", "suggestion_2"]
-                create_table(word_type=wt, cols=cols)
+                create_table(data_type=dt, cols=cols)
                 for row in json_data:
                     keys = [row]
                     keys += [json_data[row][i] for i in range(len(json_data[row]))]
                     keys += [""] * (len(cols) - len(keys))
-                    table_insert(word_type=wt, keys=keys)
+                    table_insert(data_type=dt, keys=keys)
 
                 connection.commit()
 
-            elif wt == "emoji_keywords":
+            elif dt == "emoji_keywords":
                 cols = ["word", "emoji_0", "emoji_1", "emoji_2"]
-                create_table(word_type=wt, cols=cols)
+                create_table(data_type=dt, cols=cols)
                 for row in json_data:
                     keys = [row]
                     keys += [
                         json_data[row][i]["emoji"] for i in range(len(json_data[row]))
                     ]
                     keys += [""] * (len(cols) - len(keys))
-                    table_insert(word_type=wt, keys=keys)
+                    table_insert(data_type=dt, keys=keys)
 
                 connection.commit()
 
-        wt = "autocomplete_lexicon"
-        print(f"Creating {lang} {wt} table...")
+        dt = "autocomplete_lexicon"
+        print(f"Creating {lang} {dt} table...")
         cols = ["word"]
-        create_table(word_type=wt, cols=cols)
+        create_table(data_type=dt, cols=cols)
 
         cursor.execute(
             """

@@ -24,7 +24,7 @@ setup_args = dict(
     name="scribe-data",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    version="3.2.2",
+    version="3.3.0",
     author="Andrew Tavis McAllister",
     author_email="andrew.t.mcallister@gmail.com",
     classifiers=[
@@ -47,6 +47,11 @@ setup_args = dict(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/scribe-org/Scribe-Data",
+    entry_points={
+        "console_scripts": [
+            "scribe-data=scribe_data.cli.main:main",
+        ],
+    }
 )
 
 if __name__ == "__main__":

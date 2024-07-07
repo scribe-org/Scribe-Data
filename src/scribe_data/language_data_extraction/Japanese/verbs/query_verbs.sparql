@@ -1,0 +1,17 @@
+# tool: scribe-data
+# All Japanese (Q5287) verbs.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+
+WHERE {
+  ?lexeme dct:language wd:Q5287 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  BIND(lang(?noun) as ?language)
+  FILTER(?language = "ja-hira")
+  # FILTER(?language = "ja")
+}

@@ -1,0 +1,33 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns, their plurals and their dual forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?singular
+  ?plural
+  ?dual
+
+WHERE {
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lemma ?singular .
+
+  # Optional selection of indefinite plural forms.
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+  } .
+
+  # Optional selection of indefinite dual form.
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dualForm .
+    ?dualForm ontolex:representation ?dual ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+      wikibase:grammaticalFeature wd:Q110022 ;
+  } .
+}

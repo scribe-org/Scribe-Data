@@ -134,12 +134,14 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
   venv\Scripts\activate.bat
   ```
 
-After activating the virtual environment, install the required dependencies by running:
+After activating the virtual environment, install the required dependencies and set up [pre-commit](https://pre-commit.com/) by running:
 
 ```bash
 pip install --upgrade pip  # make sure that pip is at the latest version
 pip install -r requirements.txt  # install dependencies
 pip install -e .  # install the local version of Scribe-Data
+pre-commit install  # install pre-commit hooks
+# pre-commit run --all-files  # lint and fix common problems in the codebase
 ```
 
 > [!NOTE]

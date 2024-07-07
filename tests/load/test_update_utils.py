@@ -1,8 +1,31 @@
-import unittest
-import pytest
+"""
+Tests for the update_utils file functions.
+
+.. raw:: html
+    <!--
+    * Copyright (C) 2024 Scribe
+    *
+    * This program is free software: you can redistribute it and/or modify
+    * it under the terms of the GNU General Public License as published by
+    * the Free Software Foundation, either version 3 of the License, or
+    * (at your option) any later version.
+    *
+    * This program is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    * GNU General Public License for more details.
+    *
+    * You should have received a copy of the GNU General Public License
+    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    -->
+"""
 
 import sys
-sys.path.append('../../src')
+import unittest
+
+import pytest
+
+sys.path.append("../../src")
 
 from scribe_data import utils
 
@@ -194,32 +217,14 @@ def test_get_path_from_format_file():
     assert utils.get_path_from_format_file() == "../../../../../.."
 
 
-def test_get_path_from_load_dir():
-    assert utils.get_path_from_load_dir() == "../../../.."
-
-
-def test_get_path_from_et_dir():
-    assert utils.get_path_from_et_dir() == "../../../.."
+def test_get_path_from_wikidata_dir():
+    assert utils.get_path_from_wikidata_dir() == "../../../.."
 
 
 def test_get_ios_data_path():
     assert (
         utils.get_ios_data_path("suomi")
-        == "/Scribe-iOS/Keyboards/LanguageKeyboards/suomi"
-    )
-
-
-def test_get_android_data_path():
-    assert (
-        utils.get_android_data_path("Robbie")
-        == "/Scribe-Android/app/src/main/LanguageKeyboards/Robbie"
-    )
-
-
-def test_get_desktop_data_path():
-    assert (
-        utils.get_desktop_data_path("PAVEMENT")
-        == "/Scribe-Desktop/scribe/language_guis/PAVEMENT"
+        == "Scribe-iOS/Keyboards/LanguageKeyboards/suomi"
     )
 
 

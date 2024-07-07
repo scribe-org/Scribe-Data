@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://github.com/scribe-org/Scribe-Data"><img src="https://raw.githubusercontent.com/scribe-org/Scribe-Data/main/.github/resources/images/ScribeDataLogo.png" height=150 alt="Scribe Logo"></a>
+  <a href="https://github.com/scribe-org/Scribe-Data"><img src="https://raw.githubusercontent.com/scribe-org/Scribe-Data/main/.github/resources/images/ScribeDataLogo.png" height=150 alt="Scribe-Data Logo"></a>
 </div>
 
 [![platform](https://img.shields.io/badge/Wikidata-990000.svg?logo=wikidata&logoColor=ffffff)](https://github.com/scribe-org/Scribe-Data)
@@ -15,14 +15,14 @@
 
 ## Wikidata and Wikipedia language data extraction
 
-**Scribe-Data** contains the scripts for extracting and formatting data from [Wikidata](https://www.wikidata.org/) and [Wikipedia](https://www.wikipedia.org/) for Scribe applications. Updates to the language keyboard and interface data can be done using [scribe_data/extract_transform/wikidata/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/extract_transform/wikidata/update_data.py) and the notebooks within the [scribe_data/load](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load) directory.
+**Scribe-Data** contains the scripts for extracting and formatting language data from [Wikidata](https://www.wikidata.org/) and [Wikipedia](https://www.wikipedia.org/). Updates to the data can be done using [scribe_data/wikidata/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/update_data.py) and the notebooks within the [scribe_data/load](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load) directory.
 
 > [!NOTE]\
 > The [contributing](#contributing) section has information for those interested, with the articles and presentations in [featured by](#featured-by) also being good resources for learning more about Scribe.
 
 Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-iOS), [Android](https://github.com/scribe-org/Scribe-Android) (WIP) and [Desktop](https://github.com/scribe-org/Scribe-Desktop) (planned).
 
-Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) for an overview of the organization including our applications, services and processes. It depicts the projects that [Scribe](https://github.com/scribe-org) is developing as well as the relationships between them and the external systems with which they interact.
+Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) for an overview of the organization including our applications, services and processes. It depicts the projects that [Scribe](https://github.com/scribe-org) is developing as well as the relationships between them and the external systems with which they interact. Also check out the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and querying language data from it.
 
 <a id="contents"></a>
 
@@ -34,18 +34,18 @@ Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organiz
 - [Supported Languages](#supported-languages)
 - [Featured By](#featured-by)
 
-<a id="process"></a>
+<a id="Process"></a>
 
 # Process [`⇧`](#contents)
 
-[scribe_data/extract_transform/wikidata/update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/wikidata/update_data.py) and the notebooks within the [scribe_data/extract_transform](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/extract_transform) directory are used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active.
+[scribe_data/wikidata/update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikidata/update_data.py) and the notebooks within the various [scribe_data](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data) directories are used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active.
 
-The main data update process in [update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/wikidata/update_data.py) triggers [SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/extract_transform/languages) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The autosuggestion process derives popular words from [Wikipedia](https://www.wikipedia.org/) as well as those words that normally follow them for an effective baseline feature until natural language processing methods are employed. Functions to generate autosuggestions are ran in [gen_autosuggestions.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/wikipedia/gen_autosuggestions.ipynb). Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran in [gen_emoji_lexicon.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/unicode/gen_emoji_lexicon.ipynb).
+The main data update process in [update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikidata/update_data.py) triggers [SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/language_data_extraction) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The autosuggestion process derives popular words from [Wikipedia](https://www.wikipedia.org/) as well as those words that normally follow them for an effective baseline feature until natural language processing methods are employed. Functions to generate autosuggestions are ran in [gen_autosuggestions.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikipedia/gen_autosuggestions.ipynb). Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran in [gen_emoji_lexicon.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/unicode/gen_emoji_lexicon.ipynb).
 
-Running [update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/extract_transform/wikidata/update_data.py) is done via the following CLI command:
+Running [update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikidata/update_data.py) is done via the following CLI command:
 
 ```bash
-python3 src/scribe_data/extract_transform/wikidata/update_data.py
+python3 src/scribe_data/wikidata/update_data.py
 ```
 
 The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data and data from other sources. These packs would then be available to download by users of Scribe applications.
@@ -77,6 +77,9 @@ After your first few pull requests organization members would be happy to discus
 ### Road Map [`⇧`](#contents)
 
 The Scribe road map can be followed in the organization's [project board](https://github.com/orgs/scribe-org/projects/1) where we list the most important issues along with their priority, status and an indication of which sub projects they're included in (if applicable).
+
+> [!NOTE]\
+> Consider joining our [bi-weekly developer syncs](https://etherpad.wikimedia.org/p/scribe-dev-sync)!
 
 ### Data Edits [`⇧`](#contents)
 
@@ -154,12 +157,14 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
   venv\Scripts\activate.bat
   ```
 
-After activating the virtual environment, install the required dependencies by running:
+After activating the virtual environment, install the required dependencies and set up [pre-commit](https://pre-commit.com/) by running:
 
 ```bash
 pip install --upgrade pip  # make sure that pip is at the latest version
 pip install -r requirements.txt  # install dependencies
 pip install -e .  # install the local version of Scribe-Data
+pre-commit install  # install pre-commit hooks
+# pre-commit run --all-files  # lint and fix common problems in the codebase
 ```
 
 > [!NOTE]
@@ -169,19 +174,19 @@ pip install -e .  # install the local version of Scribe-Data
 
 # Supported Languages [`⇧`](#contents)
 
-Scribe's goal is functional, feature-rich keyboards and interfaces for all languages. Check the [extract_transform](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/extract_transform) directory for queries for currently supported languages and those that have substantial data on [Wikidata](https://www.wikidata.org/).
+Scribe's goal is functional, feature-rich keyboards and interfaces for all languages. Check the [language_data_extraction](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/language_data_extraction) directory for queries for currently supported languages and those that have substantial data on [Wikidata](https://www.wikidata.org/).
 
 The following table shows the supported languages and the amount of data available for each on [Wikidata](https://www.wikidata.org/) and via [Unicode CLDR](https://github.com/unicode-org/cldr) for emojis:
 
 | Languages  |   Nouns | Verbs | Translations\* | Prepositions† | Emoji Keywords |
 | :--------- | ------: | ----: | -------------: | ------------: | -------------: |
-| French     |  17,072 | 6,572 |         67,652 |             - |          2,488 |
-| German     | 102,833 | 3,593 |         67,652 |           210 |          2,898 |
-| Italian    |   8,671 |    73 |         67,652 |             - |          2,457 |
-| Portuguese |   5,437 |   536 |         67,652 |             - |          2,327 |
-| Russian    | 194,448 |    12 |         67,652 |            15 |          3,827 |
-| Spanish    |  39,105 | 4,930 |         67,652 |             - |          3,134 |
-| Swedish    |  45,259 | 4,501 |         67,652 |             - |          2,913 |
+| French     |  18,044 | 6,574 |         67,652 |             - |          2,488 |
+| German     | 194,687 | 3,634 |         67,652 |           215 |          2,898 |
+| Italian    |  59,191 | 7,649 |         67,652 |             - |          2,457 |
+| Portuguese |   5,268 |   538 |         67,652 |             - |          2,327 |
+| Russian    | 194,567 |    15 |         67,652 |            15 |          3,827 |
+| Spanish    |  61,650 | 7,912 |         67,652 |             - |          3,134 |
+| Swedish    |  47,007 | 4,678 |         67,652 |             - |          2,913 |
 
 `*` Given the current **`beta`** status where words are machine translated.
 
@@ -196,13 +201,14 @@ The following table shows the supported languages and the amount of data availab
 
 <strong>2024</strong>
 
+- April: [Blog post on Medium](https://medium.com/@mhmohona/scribe-data-a-guide-to-open-source-language-data-a801c59db4c9) about [Scribe-Data](https://github.com/scribe-org/Scribe-Data) and its functionalities
 - February: [Presentation slides](https://docs.google.com/presentation/d/1lMhYiQx1R99SVGhbikUGjOVaFgPPASvbzM2Bsu3NXSg/edit?usp=sharing) for Scribe's participation at the [Wikimedia Tech Safari Program](https://www.mediawiki.org/wiki/Wikimedia_Tech_Safari_Program)
 
 <strong>2023</strong>
 
 - August: [Scribe-iOS final submission report for Google Summer of Code 2023](https://saurabhjamadagni.hashnode.dev/gsoc-23-final-work-submission)
 - June: [Scribe-iOS development blog post on Nested UITableViews & Apple's built-in ViewControllers in app menu](https://saurabhjamadagni.hashnode.dev/nested-uitableviews-apples-built-in-viewcontrollers) for [GSoC '23](https://www.mediawiki.org/wiki/Google_Summer_of_Code/2023#Accepted_projects:~:text=links%3A%20Phabricator%20issue-,3.%20Adding%20a%20Menu%20and%20Keyboards%20to%20Scribe%2DiOS,-%5Bedit%5D)
-- March: [Presentation slides](https://docs.google.com/presentation/d/1W4ZkGi9UDDiTxM_silEij0gTE8YEubluHxe78xoqEP0/edit?usp=sharing) for a talk at [Berlin Hack and Tell](https://berlinhackandtell.rocks/) ([Hack of the month winner 🏆](https://berlinhackandtell.rocks/2023-03-28-no87-moore-hacks))
+- March: [Presentation slides](https://docs.google.com/presentation/d/1W4ZkGi9UDDiTxM_silEij0gTE8YEubluHxe78xoqEP0/edit?usp=sharing) for a talk at [Berlin Hack and Tell](https://bhnt.c-base.org/) ([Hack of the month winner 🏆](https://bhnt.c-base.org/2023-03-28-no87-moore-hacks))
 
 <strong>2022</strong>
 
@@ -222,14 +228,14 @@ The following table shows the supported languages and the amount of data availab
   <br>
     <a href="https://tech-news.wikimedia.de/en/2022/03/18/lexicographical-data-for-language-learners-the-wikidata-based-app-scribe/"><img height="120"src="https://raw.githubusercontent.com/scribe-org/Organization/main/resources/images/logos/WikimediaDeutschlandLogo.png" alt="Wikimedia Deutschland logo linking to an article on Scribe in the tech news blog."></a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="https://www.mediawiki.org/wiki/New_Developers#Scribe"><img height="120" src="https://raw.githubusercontent.com/scribe-org/Organization/main/resources/images/logos/MediawikiLogo.png" alt="MediaWiki logo linking to the new developers page."></a>
+    <a href="https://www.mediawiki.org/wiki/New_Developers#Scribe"><img height="120" src="https://raw.githubusercontent.com/scribe-org/Organization/main/resources/images/logos/WikimediaFoundationLogo.png" alt="Wikimedia Foundation logo linking to the MediaWiki new developers page."></a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://summerofcode.withgoogle.com/"><img height="120" src="https://raw.githubusercontent.com/scribe-org/Organization/main/resources/images/logos/GSoCLogo.png" alt="Google Summer of Code logo linking to its website."></a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <br>
 </div>
 
-# Powered By
+# Powered By [`⇧`](#contents)
 
 ### Contributors
 

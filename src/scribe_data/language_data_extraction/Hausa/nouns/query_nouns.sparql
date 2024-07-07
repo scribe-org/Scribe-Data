@@ -1,0 +1,44 @@
+# tool: scribe-data
+# All Hausa (Q56475) nouns and their gender.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?singular
+  ?plural
+  ?gender
+
+WHERE {
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+
+  ?lexeme dct:language wd:Q56475 ;
+    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lemma ?singular .
+
+  # Optional selection of plural forms.
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+  } .
+
+  # Optional selection of genders.
+  OPTIONAL {
+    ?lexeme wdt:P5185 ?nounGender .
+    FILTER NOT EXISTS {
+      ?lexeme wdt:P31 wd:Q202444 .
+    }
+  } .
+
+  BIND(lang(?singular) as ?langSingular)
+  BIND(lang(?plural) as ?langPlural)
+  FILTER(?langSingular = "ha")
+  FILTER(?langPlural = "ha")
+  # FILTER(?langSingular = "ha-arabic")
+  # FILTER(?langPlural = "ha-arabic")
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+    ?nounGender rdfs:label ?gender .
+  }
+}

@@ -9,6 +9,7 @@ mwparserfromhell>=0.6
 numpydoc>=1.6.0
 packaging>=20.9
 pandas>=1.5.3
+pre-commit>=3.7.1
 pyarrow>=15.0.0
 PyICU>=2.10.2
 pytest-cov>=3.0.0
@@ -20,5 +21,5 @@ sphinx-rtd-theme>=2.0.0
 tabulate>=0.8.9
 tensorflow>=2.0
 torch>=2.2.1
-tqdm==4.66.3
+tqdm==4.66.4
 transformers>=4.12

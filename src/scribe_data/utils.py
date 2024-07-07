@@ -1,30 +1,23 @@
 """
 Utility functions for data extraction, formatting and loading.
 
-Contents:
-    _load_json,
-    _find,
-    get_scribe_languages,
-    get_language_qid,
-    get_language_iso,
-    get_language_from_iso,
-    get_language_words_to_remove,
-    get_language_words_to_ignore,
-    get_language_dir_path,
-    load_queried_data,
-    export_formatted_data,
-    get_path_from_format_file,
-    get_path_from_load_dir,
-    get_path_from_et_dir,
-    get_ios_data_path,
-    get_android_data_path,
-    get_desktop_data_path,
-    check_command_line_args,
-    check_and_return_command_line_args,
-    get_target_langcodes,
-    translation_interrupt_handler,
-    translate_to_other_languages,
-    map_genders
+.. raw:: html
+    <!--
+    * Copyright (C) 2024 Scribe
+    *
+    * This program is free software: you can redistribute it and/or modify
+    * it under the terms of the GNU General Public License as published by
+    * the Free Software Foundation, either version 3 of the License, or
+    * (at your option) any later version.
+    *
+    * This program is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    * GNU General Public License for more details.
+    *
+    * You should have received a copy of the GNU General Public License
+    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    -->
 """
 
 import ast
@@ -35,7 +28,7 @@ from importlib import resources
 from typing import Any
 
 from iso639 import Lang
-from iso639.exceptions import InvalidLanguageValue, DeprecatedLanguageValue
+from iso639.exceptions import DeprecatedLanguageValue, InvalidLanguageValue
 
 PROJECT_ROOT = "Scribe-Data"
 
@@ -69,7 +62,7 @@ def _load_json(package_path: str, file_name: str, root: str):
 
 _languages = _load_json(
     package_path="scribe_data.resources",
-    file_name="language_meta_data.json",
+    file_name="language_metadata.json",
     root="languages",
 )
 
@@ -190,9 +183,11 @@ def get_language_from_iso(iso: str) -> str:
             The name for the language which has an ISO value of iso.
     """
     try:
-        language_name = str(Lang(iso).name)
-    except DeprecatedLanguageValue:
-        raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
+        language_name = str(Lang(iso.lower()).name)
+    except DeprecatedLanguageValue as e:
+        raise ValueError(
+            f"{iso.upper()} is currently not a supported ISO language."
+        ) from e
     return language_name
 
 
@@ -240,24 +235,6 @@ def get_language_words_to_ignore(language: str) -> list[str]:
     )
 
 
-def get_language_dir_path(language):
-    """
-    Returns the directory path for a specific language within the Scribe-Data project.
-
-    Parameters
-    ----------
-        language : str
-            The language for which the directory path is needed.
-
-    Returns
-    -------
-        str
-            The directory path for the specified language.
-    """
-    PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-    return f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/extract_transform/languages/{language}"
-
-
 def load_queried_data(file_path, language, data_type):
     """
     Loads queried data from a JSON file for a specific language and data type.
@@ -280,11 +257,13 @@ def load_queried_data(file_path, language, data_type):
     queried_data_file = f"{data_type}_queried.json"
     update_data_in_use = False
 
-    if f"languages/{language}/{data_type}/" not in file_path:
+    if f"language_data_extraction/{language}/{data_type}/" not in file_path:
         data_path = queried_data_file
     else:
         update_data_in_use = True
-        data_path = f"{get_language_dir_path(language)}/{data_type}/{queried_data_file}"
+        PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
+        LANG_DIR_PATH = f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/language_data_extraction/{language}"
+        data_path = f"{LANG_DIR_PATH}/{data_type}/{queried_data_file}"
 
     with open(data_path, encoding="utf-8") as f:
         return json.load(f), update_data_in_use, data_path
@@ -310,15 +289,18 @@ def export_formatted_data(formatted_data, update_data_in_use, language, data_typ
         None
     """
     if update_data_in_use:
-        export_path = (
-            f"{get_language_dir_path(language)}/formatted_data/{data_type}.json"
-        )
+        PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
+        export_path = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/scribe_data_json_export/{language}/{data_type}.json"
+
     else:
         export_path = f"{data_type}.json"
 
     with open(export_path, "w", encoding="utf-8") as file:
         json.dump(formatted_data, file, ensure_ascii=False, indent=0)
-    print(f"Wrote file {data_type}.json with {len(formatted_data):,} {data_type}.")
+
+    print(
+        f"Wrote file {language}/{data_type}.json with {len(formatted_data):,} {data_type}."
+    )
 
 
 def get_path_from_format_file() -> str:
@@ -328,16 +310,9 @@ def get_path_from_format_file() -> str:
     return "../../../../../.."
 
 
-def get_path_from_load_dir() -> str:
+def get_path_from_wikidata_dir() -> str:
     """
-    Returns the directory path from the load directory to scribe-org.
-    """
-    return "../../../.."
-
-
-def get_path_from_et_dir() -> str:
-    """
-    Returns the directory path from the extract_transform directory to scribe-org.
+    Returns the directory path from the wikidata directory to scribe-org.
     """
     return "../../../.."
 
@@ -356,41 +331,7 @@ def get_ios_data_path(language: str) -> str:
         str
             The path to the data json for the given language.
     """
-    return f"/Scribe-iOS/Keyboards/LanguageKeyboards/{language}"
-
-
-def get_android_data_path(language: str) -> str:
-    """
-    Returns the path to the data json of the Android app given a language.
-
-    Parameters
-    ----------
-        language : str
-            The language the path should be returned for.
-
-    Returns
-    -------
-        str
-            The path to the data json for the given language.
-    """
-    return f"/Scribe-Android/app/src/main/LanguageKeyboards/{language}"
-
-
-def get_desktop_data_path(language: str) -> str:
-    """
-    Returns the path to the data json of the desktop app given a language.
-
-    Parameters
-    ----------
-        language : str
-            The language the path should be returned for.
-
-    Returns
-    -------
-        str
-            The path to the data JSON for the given language.
-    """
-    return f"/Scribe-Desktop/scribe/language_guis/{language}"
+    return f"Scribe-iOS/Keyboards/LanguageKeyboards/{language}"
 
 
 def check_command_line_args(
@@ -524,7 +465,7 @@ def get_target_langcodes(source_lang) -> list[str]:
 
 def map_genders(wikidata_gender):
     """
-    Maps those genders from Wikidata to succinct versions.
+    Maps genders from Wikidata to succinct versions.
 
     Parameters
     ----------
@@ -540,4 +481,48 @@ def map_genders(wikidata_gender):
     elif wikidata_gender in ["neuter", "Q1775461"]:
         return "N"
     else:
-        return ""  # nouns could have a gender that is not valid as an attribute
+        return ""  # nouns could have a gender that is not a valid attribute
+
+
+def map_cases(wikidata_case):
+    """
+    Maps cases from Wikidata to more succinct versions.
+
+    Parameters
+    ----------
+        wikidata_case : str
+            The case of the noun that was queried from WikiData.
+    """
+    case = wikidata_case.split(" case")[0]
+    if case in ["accusative", "Q146078"]:
+        return "Acc"
+    elif case in ["dative", "Q145599"]:
+        return "Dat"
+    elif case in ["genitive", "Q146233"]:
+        return "Gen"
+    elif case in ["instrumental", "Q192997"]:
+        return "Ins"
+    elif case in ["prepositional", "Q2114906"]:
+        return "Pre"
+    elif case in ["locative", "Q202142"]:
+        return "Loc"
+    else:
+        return ""
+
+
+def order_annotations(annotation):
+    """
+    Standardizes the annotations that are provided to users where more than one is applicable.
+
+    Parameters
+    ----------
+        annotation : str
+            The annotation to be returned to the user in the command bar.
+    """
+    if "/" not in annotation:
+        return annotation
+
+    # Remove repeat annotations, if present.
+    annotation_split = sorted(list(set(filter(None, annotation.split("/")))))
+
+    return "/".join(annotation_split)

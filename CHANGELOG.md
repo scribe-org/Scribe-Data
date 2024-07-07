@@ -10,21 +10,49 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
-## [Upcoming] Scribe-Data 3.3.0
-
-- The translation process has been updated to allow for translations from non-English languages ([#72](https://github.com/scribe-org/Scribe-Data/issues/72), [#73](https://github.com/scribe-org/Scribe-Data/issues/73), [#74](https://github.com/scribe-org/Scribe-Data/issues/74), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#76](https://github.com/scribe-org/Scribe-Data/issues/76), [#77](https://github.com/scribe-org/Scribe-Data/issues/77), [#78](https://github.com/scribe-org/Scribe-Data/issues/78), [#79](https://github.com/scribe-org/Scribe-Data/issues/79)).
-- The documentation has been given a new layout with the logo in the top left ([#90](https://github.com/scribe-org/Scribe-Data/issues/90)).
-- The documentation now has links to the code at the top of each page ([#91](https://github.com/scribe-org/Scribe-Data/issues/91)).
+## [Upcoming] Scribe-Data 4.0.0
 
 ### ♻️ Code Refactoring
 
+- `word_type` has been switched to `data_type` throughout the codebase ([#160](https://github.com/scribe-org/Scribe-Data/issues/160)).
+
+### ♻️ Code Refactoring
+
+- The SPARQLWrapper access method has been extracted to the Wikidata utils and is imported into the files that need it ([#164](https://github.com/scribe-org/Scribe-Data/issues/164)).
+
+## Scribe-Data 3.3.0
+
+### ✨ Features
+
+- The translation process has been updated to allow for translations from non-English languages ([#72](https://github.com/scribe-org/Scribe-Data/issues/72), [#73](https://github.com/scribe-org/Scribe-Data/issues/73), [#74](https://github.com/scribe-org/Scribe-Data/issues/74), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#76](https://github.com/scribe-org/Scribe-Data/issues/76), [#77](https://github.com/scribe-org/Scribe-Data/issues/77), [#78](https://github.com/scribe-org/Scribe-Data/issues/78), [#79](https://github.com/scribe-org/Scribe-Data/issues/79)).
+
+### 📝 Documentation
+
+- The documentation has been given a new layout with the logo in the top left ([#90](https://github.com/scribe-org/Scribe-Data/issues/90)).
+- The documentation now has links to the code at the top of each page ([#91](https://github.com/scribe-org/Scribe-Data/issues/91)).
+
+### 🐞 Bug Fixes
+
+- Annotation bugs were removed like repeat or empty values.
+- Perfect tenses of Portuguese verbs were fixed via finding the appropriate PID ([#68](https://github.com/scribe-org/Scribe-Data/issues/68)).
+  - Note that the most common past perfect property is not the standard one, so this will need to be fixed.
+
+### ♻️ Code Refactoring
+
+- [pre-commit](https://pre-commit.com/) have been added to the repo to improve the development experience ([#137](https://github.com/scribe-org/Scribe-Data/issues/137)).
 - Code formatting was shifted from [black](https://github.com/psf/black) to [Ruff](https://github.com/astral-sh/ruff).
 - A Ruff based GitHub workflow was added to check the code formatting and lint the codebase on each pull request ([#109](https://github.com/scribe-org/Scribe-Data/issues/109)).
 - The `_update_files` directory was renamed `update_files` as these files are used in non-internal manners now ([#57](https://github.com/scribe-org/Scribe-Data/issues/57)).
 - A common function has been created to map Wikidata ids to noun genders ([#69](https://github.com/scribe-org/Scribe-Data/issues/69)).
-- Files in the `extract_transform` directory were moved based on if they access Wikidata, Wikipedia or Unicode.
-  - Translation files are further moved to their own directory.
 - The project now is installed locally for development and command line usage, so usages of `sys.path` have been removed from files ([#122](https://github.com/scribe-org/Scribe-Data/issues/122)).
+- The directory structure has been dramatically streamlined and includes folders for future projects where language data could come from other sources like Wiktionary ([#139](https://github.com/scribe-org/Scribe-Data/issues/139)).
+  - Translation files are moved to their own directory.
+  - The `extract_transform` directory has been removed and all files within it have been moved one level up.
+  - The `languages` directory has been renamed `language_data_extraction`.
+  - All files within `wikidata/_resources` have been moved to the `resources` directory.
+  - The gender and case annotations for data formatting have now been commonly defined.
+  - All language directory `formatted_data` files have been now moved to the `scribe_data_json_export` directory to prepare for outputs being required to be directed to a directory outside of the package.
+  - Path computing has been refactored throughout the codebase, and unneeded functions for data transfers have been removed.
 
 ## Scribe-Data 3.2.2
 

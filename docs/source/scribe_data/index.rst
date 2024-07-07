@@ -6,12 +6,17 @@ scribe_data
 .. toctree::
     :maxdepth: 2
 
-    extract_transform/index
+    language_data_extraction/index
     load/index
+    translation/index
+    unicode/index
+    wikidata/index
+    wikipedia/index
+    wiktionary/index
 
 .. toctree::
     :maxdepth: 1
 
     check_language_data
-    checkquery
+    cli
     utils

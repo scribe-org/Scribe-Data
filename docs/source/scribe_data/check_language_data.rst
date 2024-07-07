@@ -1,5 +1,5 @@
-check_language_data
-===================
+check_language_data.sparql
+==========================
 
 `View code on Github <https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/check_language_data.sparql>`_
 
@@ -23,8 +23,7 @@ This query is to check the totals of a given language on Wikidata. Enter this qu
         }
 
         # Query the lexeme if it's in the above categories of words.
-        ?lexeme a ontolex:LexicalEntry ;
-            dct:language ?language ;
+        ?lexeme dct:language ?language ;
             wikibase:lexicalCategory ?category ;
 
         FILTER (?category = ?wordCategories)
