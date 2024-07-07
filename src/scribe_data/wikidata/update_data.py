@@ -35,18 +35,22 @@ Example
 import json
 import os
 from urllib.error import HTTPError
-
+from datetime import datetime
+from pathlib import Path
+from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
 
 from scribe_data.wikidata.wikidata_utils import sparql
 
-
 def update_data(languages=None, word_types=None):
     SCRIBE_DATA_SRC_PATH = "src/scribe_data"
-    PATH_TO_LANGUAGE_EXTRACTION_FILES = (
-        f"{SCRIBE_DATA_SRC_PATH}/language_data_extraction"
-    )
+    PATH_TO_LANGUAGE_EXTRACTION_FILES = f"{SCRIBE_DATA_SRC_PATH}/language_data_extraction"
     PATH_TO_UPDATE_FILES = f"{SCRIBE_DATA_SRC_PATH}/load/update_files"
+
+    # Set SPARQLWrapper query conditions.
+    sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
+    sparql.setReturnFormat(JSON)
+    sparql.setMethod(POST)
 
     with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", encoding="utf-8") as f:
         current_data = json.load(f)
@@ -117,6 +121,38 @@ def update_data(languages=None, word_types=None):
         target_type = q.split("/")[-1]
         query_name = f"query_{target_type}.sparql"
         query_path = f"{q}/{query_name}"
+
+        # After formatting and before saving the new data
+        timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+        export_dir = Path(f"scribe_data_json_export/{lang.capitalize()}")
+        export_dir.mkdir(parents=True, exist_ok=True)
+
+        new_file_name = f"{target_type}_{timestamp}.json"
+        new_file_path = export_dir / new_file_name
+
+        # Check for existing files with timestamps
+        existing_files = list(export_dir.glob(f"{target_type}_*.json"))
+        if existing_files:
+            print(f"Existing file(s) found for {lang} {target_type}:")
+            for i, file in enumerate(existing_files, 1):
+                print(f"{i}. {file.name}")
+
+            choice = input("Choose an option:\n1. Keep existing (skip update)\n2. Overwrite existing\n3. Keep both\n4. Cancel\nEnter your choice (1-4): ")
+
+            if choice == '1':
+                print(f"Skipping update for {lang} {target_type}")
+                continue
+            elif choice == '2':
+                for file in existing_files:
+                    file.unlink()
+            elif choice == '3':
+                pass  # We'll create a new file with the current timestamp
+            elif choice == '4':
+                print("Update cancelled")
+                return
+            else:
+                print("Invalid choice. Skipping this update.")
+                continue
 
         if not os.path.exists(query_path):
             # There are multiple queries for a given target_type, so start by running the first.
@@ -212,24 +248,17 @@ def update_data(languages=None, word_types=None):
                                         indent=0,
                                     )
 
-            # Call the corresponding formatting file and update data changes.
-            os.system(
-                f"python3 {PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang}/{target_type}/format_{target_type}.py"
-            )
-
-            with open(
-                f"scribe_data_json_export/{lang.capitalize()}/{target_type}.json",
-                encoding="utf-8",
-            ) as json_file:
-                new_keyboard_data = json.load(json_file)
+            # Save the newly formatted data with timestamp
+            with open(new_file_path, "w", encoding="utf-8") as json_file:
+                json.dump(results_formatted, json_file, ensure_ascii=False, indent=0)
 
             if lang not in data_added_dict:
                 data_added_dict[lang] = {}
             data_added_dict[lang][target_type] = (
-                len(new_keyboard_data) - current_data[lang][target_type]
+                len(results_formatted) - current_data[lang][target_type]
             )
 
-            current_data[lang][target_type] = len(new_keyboard_data)
+            current_data[lang][target_type] = len(results_formatted)
 
     # Update total_data.json.
     with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", "w", encoding="utf-8") as f:
