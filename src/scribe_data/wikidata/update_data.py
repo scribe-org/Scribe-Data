@@ -36,7 +36,6 @@ import json
 import os
 from urllib.error import HTTPError
 
-from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
 
 def update_data(languages=None, word_types=None):
@@ -46,11 +45,6 @@ def update_data(languages=None, word_types=None):
 
     )
     PATH_TO_UPDATE_FILES = f"{SCRIBE_DATA_SRC_PATH}/load/update_files"
-
-    # Set SPARQLWrapper query conditions.
-    sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
-    sparql.setReturnFormat(JSON)
-    sparql.setMethod(POST)
 
     with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", encoding="utf-8") as f:
         current_data = json.load(f)
