@@ -1,44 +1,39 @@
 {
-"French": {
-"nouns": 18044,
-"verbs": 6574,
-"emoji_keywords": 2488
-},
-"German": {
-"nouns": 194687,
-"verbs": 3634,
-"prepositions": 215,
-"emoji_keywords": 2898
-},
-"Italian": {
-"nouns": 59191,
-"verbs": 7649,
-"emoji_keywords": 2457
-},
-"Portuguese": {
-"nouns": 5268,
-"verbs": 538,
-"emoji_keywords": 2327
-},
-"Russian": {
-"nouns": 194567,
-"verbs": 15,
-"prepositions": 15,
-"emoji_keywords": 3827
-},
-"Spanish": {
-"nouns": 61650,
-"verbs": 7912,
-"emoji_keywords": 3134
-},
-"Swedish": {
-"nouns": 47007,
-"verbs": 4678,
-"emoji_keywords": 2913
-},
-"English": {
-"nouns": 33448,
-"verbs": 11686,
-"emoji_keywords": 2913
-}
-}
+    "French": {
+    "nouns": 18044,
+    "verbs": 6574,
+    "emoji_keywords": 2488
+    },
+    "German": {
+    "nouns": 194687,
+    "verbs": 3634,
+    "prepositions": 215,
+    "emoji_keywords": 2898
+    },
+    "Italian": {
+    "nouns": 59191,
+    "verbs": 7649,
+    "emoji_keywords": 2457
+    },
+    "Portuguese": {
+    "nouns": 5268,
+    "verbs": 538,
+    "emoji_keywords": 2327
+    },
+    "Russian": {
+    "nouns": 194567,
+    "verbs": 15,
+    "prepositions": 15,
+    "emoji_keywords": 3827
+    },
+    "Spanish": {
+    "nouns": 61650,
+    "verbs": 7912,
+    "emoji_keywords": 3134
+    },
+    "Swedish": {
+    "nouns": 47007,
+    "verbs": 4678,
+    "emoji_keywords": 2913
+    }
+    }
