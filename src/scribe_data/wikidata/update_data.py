@@ -37,7 +37,6 @@ import os
 from urllib.error import HTTPError
 from datetime import datetime
 from pathlib import Path
-from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from tqdm.auto import tqdm
 
 from scribe_data.wikidata.wikidata_utils import sparql
