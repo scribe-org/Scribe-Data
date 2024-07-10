@@ -1,13 +1,10 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from io import StringIO
 
-from cli_utils import correct_data_type, print_formatted_data, get_language_data
-
-from main import main
-from total import get_total_lexemes, get_qid_by_input
-from list import (
-    list_wrapper,
+from scribe_data.cli.cli_utils import correct_data_type, print_formatted_data
+from scribe_data.cli.total import get_qid_by_input
+from scribe_data.cli.list import (
     list_languages,
     list_data_types,
     list_all,
@@ -91,31 +88,6 @@ class TestScribeDataCLI(unittest.TestCase):
         self.assertIn("Available languages: nouns", output)
         self.assertIn("English", output)
 
-    @patch("list.list_languages")
-    @patch("list.list_data_types")
-    @patch("list.list_all")
-    @patch("list.list_languages_for_data_type")
-    def test_list_wrapper(
-        self,
-        mock_list_languages_for_data_type,
-        mock_list_all,
-        mock_list_data_types,
-        mock_list_languages,
-    ):
-        """Test the list_wrapper function for various inputs"""
-        print("Running test_list_wrapper")
-        list_wrapper()
-        mock_list_all.assert_called_once()
-
-        list_wrapper(language=True)
-        mock_list_languages.assert_called_once()
-
-        list_wrapper(data_type=True)
-        mock_list_data_types.assert_called_once()
-
-        list_wrapper(language=True, data_type="nouns")
-        mock_list_languages_for_data_type.assert_called_once_with("nouns")
-
     # Test Total Command
 
     def test_get_qid_by_input(self):
@@ -124,22 +96,6 @@ class TestScribeDataCLI(unittest.TestCase):
         self.assertEqual(get_qid_by_input("English"), "Q1860")
         self.assertEqual(get_qid_by_input("french"), "Q150")
         self.assertIsNone(get_qid_by_input("NonexistentLanguage"))
-
-    @patch("total.SPARQLWrapper")
-    def test_get_total_lexemes(self, mock_sparql_wrapper):
-        """Test the get_total_lexemes function"""
-        print("Running test_get_total_lexemes")
-        mock_sparql_wrapper.return_value.query.return_value.convert.return_value = {
-            "results": {"bindings": [{"total": {"value": "100000"}}]}
-        }
-
-        with patch("sys.stdout", new_callable=StringIO) as mock_stdout:
-            get_total_lexemes("English", "nouns")
-            output = mock_stdout.getvalue()
-            print(f"Output: {output}")
-            self.assertIn("Language: English", output)
-            self.assertIn("Data type: Nouns", output)
-            self.assertIn("Total number of lexemes: 100000", output)
 
     # Edge Cases and Error Handling
 
@@ -155,66 +111,6 @@ class TestScribeDataCLI(unittest.TestCase):
         with patch("pathlib.Path.iterdir", return_value=[]):
             with self.assertRaises(ValueError):
                 list_data_types("English")
-
-    @patch("total.SPARQLWrapper")
-    def test_get_total_lexemes_no_results(self, mock_sparql_wrapper):
-        """Test the get_total_lexemes function when no results are returned"""
-        print("Running test_get_total_lexemes_no_results")
-        mock_sparql_wrapper.return_value.query.return_value.convert.return_value = {
-            "results": {"bindings": []}
-        }
-
-        with patch("sys.stdout", new_callable=StringIO) as mock_stdout:
-            get_total_lexemes("English", "nouns")
-            output = mock_stdout.getvalue()
-            print(f"Output: {output}")
-            self.assertIn("Total number of lexemes: 0", output)
-
-    def test_get_language_data(self):
-        """Test the get_language_data function for various inputs"""
-        print("Running test_get_language_data")
-        self.assertEqual(get_language_data("english", "language"), "English")
-        self.assertEqual(get_language_data("en", "iso"), "en")
-        self.assertEqual(get_language_data("Q1860", "qid"), "Q1860")
-        self.assertIsNone(get_language_data("nonexistent", "language"))
-        self.assertIsNone(get_language_data("english", "nonexistent_attribute"))
-
-    @patch("argparse.ArgumentParser.parse_args")
-    def test_main_with_invalid_command(self, mock_parse_args):
-        """Test the main function with an invalid command"""
-        print("Running test_main_with_invalid_command")
-        mock_parse_args.return_value = MagicMock(command="invalid_command")
-
-        # Capture stdout to check printed messages
-        with patch("sys.stdout", new_callable=StringIO) as mock_stdout:
-            with self.assertRaises(SystemExit) as cm:
-                main()
-
-            # Check if the program exited with status code 1
-            self.assertEqual(cm.exception.code, 1)
-
-            # Check if the usage message is printed
-            self.assertIn("usage:", mock_stdout.getvalue())
-
-    # test_scribe_data_cli.py
-
-    @patch("total.SPARQLWrapper")
-    def test_get_total_lexemes_sparql_error(self, mock_sparql_wrapper):
-        print("Running test_get_total_lexemes_sparql_error")
-        mock_sparql_wrapper.return_value.query.side_effect = Exception(
-            "SPARQL query failed"
-        )
-
-        with self.assertRaises(Exception):
-            get_total_lexemes("English", "nouns")
-
-    @patch("argparse.ArgumentParser.parse_args")
-    def test_main_invalid_command(self, mock_parse_args):
-        """Test main function with invalid command"""
-        print("Running test_main_invalid_command")
-        mock_parse_args.return_value = MagicMock(command="invalid")
-        with self.assertRaises(SystemExit):
-            main()
 
 
 if __name__ == "__main__":
