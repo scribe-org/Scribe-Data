@@ -115,6 +115,17 @@ scribe-data [command] [options]
    ```
 
 ### Query Command
+1. Query all available languages and data types:
+   ```bash
+   scribe-data q -all
+  ```
+
+2. Query specific language and data type (e.g., German nouns):
+   ```bash
+   scribe-data q -lang German -dt nouns
+   ```
+
+### Convert Command
 
 1. Retrieve data for both language and data type (e.g., English nouns) in CSV format:
    ```bash
