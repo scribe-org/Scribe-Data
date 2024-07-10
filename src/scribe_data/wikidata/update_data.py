@@ -41,9 +41,12 @@ from tqdm.auto import tqdm
 
 from scribe_data.wikidata.wikidata_utils import sparql
 
+
 def update_data(languages=None, word_types=None):
     SCRIBE_DATA_SRC_PATH = "src/scribe_data"
-    PATH_TO_LANGUAGE_EXTRACTION_FILES = f"{SCRIBE_DATA_SRC_PATH}/language_data_extraction"
+    PATH_TO_LANGUAGE_EXTRACTION_FILES = (
+        f"{SCRIBE_DATA_SRC_PATH}/language_data_extraction"
+    )
     PATH_TO_UPDATE_FILES = f"{SCRIBE_DATA_SRC_PATH}/load/update_files"
 
     with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", encoding="utf-8") as f:
@@ -126,26 +129,27 @@ def update_data(languages=None, word_types=None):
 
         # Check for existing files with timestamps
         existing_files = list(export_dir.glob(f"{target_type}_*.json"))
+
         if existing_files:
-            print(f"Existing file(s) found for {lang} {target_type}:")
+            print(
+                f"Existing file(s) found for {lang} {target_type} (ex: %Y_%m_%d_%H_%M_%S):"
+            )
             for i, file in enumerate(existing_files, 1):
                 print(f"{i}. {file.name}")
 
-            choice = input("Choose an option:\n1. Keep existing (skip update)\n2. Overwrite existing\n3. Keep both\n4. Cancel\nEnter your choice (1-4): ")
+            choice = input(
+                "Choose an option:\n1. Overwrite existing (press 'o')\n2. Keep both (press 'k')\n3. Keep existing (press anything else)\nEnter your choice: "
+            )
 
-            if choice == '1':
-                print(f"Skipping update for {lang} {target_type}")
-                continue
-            elif choice == '2':
+            if choice == "o" or choice == "O":
                 for file in existing_files:
                     file.unlink()
-            elif choice == '3':
+
+            elif choice == "k" or choice == "K":
                 pass  # We'll create a new file with the current timestamp
-            elif choice == '4':
-                print("Update cancelled")
-                return
+
             else:
-                print("Invalid choice. Skipping this update.")
+                print(f"Skipping update for {lang} {target_type}")
                 continue
 
         if not os.path.exists(query_path):
@@ -153,12 +157,14 @@ def update_data(languages=None, word_types=None):
             query_path = query_path[: -len(".sparql")] + "_1" + ".sparql"
 
         print(f"Querying and formatting {lang} {target_type}")
+
         # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
         with open(query_path, encoding="utf-8") as file:
             query_lines = file.readlines()
         sparql.setQuery("".join(query_lines))
 
         results = None
+
         try:
             results = sparql.query().convert()
         except HTTPError as err:
@@ -176,6 +182,7 @@ def update_data(languages=None, word_types=None):
             query_results = results["results"]["bindings"]
 
             results_formatted = []
+
             for r in query_results:  # query_results is also a list
                 r_dict = {k: r[k]["value"] for k in r.keys()}
 
@@ -201,6 +208,7 @@ def update_data(languages=None, word_types=None):
                             results = None
                             try:
                                 results = sparql.query().convert()
+
                             except HTTPError as err:
                                 print(f"HTTPError with {query_path}: {err}")
 
