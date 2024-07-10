@@ -24,11 +24,14 @@ Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-
 
 Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) for an overview of the organization including our applications, services and processes. It depicts the projects that [Scribe](https://github.com/scribe-org) is developing as well as the relationships between them and the external systems with which they interact. Also check out the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and querying language data from it.
 
+Scribe-data includes a command-line interface (CLI) for easy interaction with its functionality, allowing users to list, query, and manage language data directly from the terminal.
+
 <a id="contents"></a>
 
 # **Contents**
 
 - [Process](#process)
+- [CLI Usage](#cli-usage)
 - [Contributing](#contributing)
 - [Environment Setup](#environment-setup)
 - [Supported Languages](#supported-languages)
@@ -49,6 +52,106 @@ python3 src/scribe_data/wikidata/update_data.py
 ```
 
 The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data and data from other sources. These packs would then be available to download by users of Scribe applications.
+
+<a id="cli-usage"></a>
+
+# CLI Usage [`⇧`](#contents)
+
+Scribe-Data provides a command-line interface (CLI) for efficient interaction with its language data functionality.
+
+## Basic Usage
+
+To utilize the Scribe-Data CLI, you can execute the following command in your terminal:
+
+```bash
+scribe-data [command] [options]
+```
+
+## Available Commands
+
+- `list`: Enumerate available languages, data types, and their combinations.
+- `query`: Retrieve data from Wikidata for specified languages and data types.
+- `total`: Display the total available data for given languages and data types.
+- `convert`: Transform data returned by Scribe-Data into different file formats.
+
+## Command Examples
+
+### List Command
+
+1. Display all available options:
+   ```bash
+   scribe-data list
+   ```
+
+2. Display available languages:
+   ```bash
+   scribe-data list -lang
+   ```
+   Alternative syntax:
+   ```bash
+   scribe-data list -l
+   ```
+
+3. Display available data types:
+   ```bash
+   scribe-data list -dt
+   ```
+
+### Total Command
+
+1. Display total available data for a specific data type (e.g., nouns):
+   ```bash
+   scribe-data total -dt nouns
+   ```
+
+2. Display total available data for a specific language (e.g., English):
+   ```bash
+   scribe-data total -l english
+   ```
+
+3. Display total available data for both language and data type (e.g., English nouns):
+   ```bash
+   scribe-data total -l english -dt nouns
+   ```
+
+### Query Command
+
+1. Retrieve data for both language and data type (e.g., English nouns) in CSV format:
+   ```bash
+   scribe-data query -l english --data-type verbs --output-dir ./output_data --output-type csv
+   ```
+
+2. Retrieve data for both language and data type (e.g., English nouns) in TSV format:
+   ```bash
+   scribe-data query -l english --data-type verbs --output-dir ./output_data --output-type tsv
+   ```
+
+### Interactive Query Mode
+
+The CLI also offers an interactive query mode, which can be initiated with the following command:
+
+```bash
+scribe-data query -i
+```
+
+This mode guides users through the data retrieval process with a series of prompts:
+
+1. Language selection: Users can choose from a list of available languages or select all.
+2. Data type selection: Users can specify which types of data to query.
+3. Output configuration: Users can set the file format, export directory, and overwrite preferences.
+
+The interactive mode is particularly useful for users who prefer a guided approach or are exploring the available data options.
+
+## Additional Assistance
+
+For more detailed information on each command and its options, append the `--help` flag:
+
+```bash
+scribe-data --help
+scribe-data [command] --help
+```
+
+For comprehensive usage instructions and examples, please refer to the [official documentation](https://scribe-data.readthedocs.io/).
 
 <a id="contributing"></a>
 
