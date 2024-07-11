@@ -34,6 +34,7 @@ Example
 
 import json
 import os
+from pathlib import Path
 from urllib.error import HTTPError
 
 from tqdm.auto import tqdm
@@ -42,11 +43,15 @@ from scribe_data.wikidata.wikidata_utils import sparql
 
 
 def update_data(languages=None, word_types=None):
-    SCRIBE_DATA_SRC_PATH = "src/scribe_data"
+    p = Path("/src")
+    q = p / 'scribe_data'
+    lan = q / 'language_data_extraction'
+    # SCRIBE_DATA_SRC_PATH = "src/scribe_data"
     PATH_TO_LANGUAGE_EXTRACTION_FILES = (
-        f"{SCRIBE_DATA_SRC_PATH}/language_data_extraction"
+            lan.resolve()
     )
-    PATH_TO_UPDATE_FILES = f"{SCRIBE_DATA_SRC_PATH}/load/update_files"
+    PATH_TO_UPDATE_FILES = q / 'load' / 'update_files'
+    PATH_TO_UPDATE_FILES.resolve()
 
     with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", encoding="utf-8") as f:
         current_data = json.load(f)
