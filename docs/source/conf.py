@@ -18,7 +18,6 @@ import sys
 #
 import sphinx_rtd_theme
 
-# Adding the path to the scribe_data package
 sys.path.insert(0, os.path.abspath("../../src"))
 
 # -- Project information -----------------------------------------------------
@@ -196,10 +195,3 @@ html_favicon = "_static/ScribeFavicon.ico"
 html_css_files = [
     "custom.css",
 ]
-
-# Additional paths for custom modules (if any)
-sys.path.insert(0, os.path.abspath("../../src/scribe_data/cli"))
-
-# -- Custom settings ------------------------------------------------------
-print(sys.path)
-print(sys.executable)

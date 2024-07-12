@@ -6,6 +6,7 @@ scribe_data
 .. toctree::
     :maxdepth: 2
 
+    cli/index
     language_data_extraction/index
     load/index
     translation/index
@@ -18,5 +19,4 @@ scribe_data
     :maxdepth: 1
 
     check_language_data
-    cli
     utils
