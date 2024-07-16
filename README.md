@@ -167,8 +167,8 @@ pre-commit install  # install pre-commit hooks
 # pre-commit run --all-files  # lint and fix common problems in the codebase
 ```
 
-- On Windows run: 
-> 
+> After running above commands, on Windows, if you face any issue, reinstall Scribe-data by running:
+
 ```
  # Install the new version of Scribe-Data and reinstalling new packages
 pip uninstall scribe-data
