@@ -20,9 +20,6 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - `word_type` has been switched to `data_type` throughout the codebase ([#160](https://github.com/scribe-org/Scribe-Data/issues/160)).
 - Case and gender map reference functions were updated to use hashmaps.
-
-### ♻️ Code Refactoring
-
 - The SPARQLWrapper access method has been extracted to the Wikidata utils and is imported into the files that need it ([#164](https://github.com/scribe-org/Scribe-Data/issues/164)).
 
 ## Scribe-Data 3.3.0
