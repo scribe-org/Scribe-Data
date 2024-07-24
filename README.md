@@ -157,6 +157,13 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
   venv\Scripts\activate.bat
   ```
 
+- On Windows (using PowerShell), run:
+
+  ```bash
+  python -m venv venv
+  venv\Scripts\activate.ps1
+  ```
+
 After activating the virtual environment, install the required dependencies and set up [pre-commit](https://pre-commit.com/) by running:
 
 ```bash
