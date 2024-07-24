@@ -24,11 +24,14 @@ Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-
 
 Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) for an overview of the organization including our applications, services and processes. It depicts the projects that [Scribe](https://github.com/scribe-org) is developing as well as the relationships between them and the external systems with which they interact. Also check out the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and querying language data from it.
 
+Scribe-data includes a command-line interface (CLI) for easy interaction with its functionality, allowing users to list, query, and manage language data directly from the terminal.
+
 <a id="contents"></a>
 
 # **Contents**
 
 - [Process](#process)
+- [CLI Usage](#cli-usage)
 - [Contributing](#contributing)
 - [Environment Setup](#environment-setup)
 - [Supported Languages](#supported-languages)
@@ -49,6 +52,27 @@ python3 src/scribe_data/wikidata/update_data.py
 ```
 
 The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data and data from other sources. These packs would then be available to download by users of Scribe applications.
+
+<a id="cli-usage"></a>
+
+# CLI Usage [`⇧`](#contents)
+
+Scribe-Data provides a command-line interface (CLI) for efficient interaction with its language data functionality. Please see the [usage guide](https://github.com/scribe-org/Scribe-Data/blob/main/USAGE.md) or the [official documentation](https://scribe-data.readthedocs.io/) for detailed instructions.
+
+### Basic Usage
+
+To utilize the Scribe-Data CLI, you can execute the following command in your terminal:
+
+```bash
+scribe-data [command] [options]
+```
+
+### Available Commands
+
+- `list` (`l`): Enumerate available languages, data types and their combinations.
+- `query` (`q`): Retrieve data from Wikidata for specified languages and data types.
+- `total` (`t`): Display the total available data for given languages and data types.
+- `convert` (`c`): Transform data returned by Scribe-Data into different file formats.
 
 <a id="contributing"></a>
 

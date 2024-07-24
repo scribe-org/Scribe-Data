@@ -246,7 +246,7 @@ def load_queried_data(file_path, language, data_type):
         language : str
             The language for which the data is being loaded.
         data_type : str
-            The type of data being loaded (e.g., 'nouns', 'verbs').
+            The type of data being loaded (e.g. 'nouns', 'verbs').
 
     Returns
     -------
@@ -282,7 +282,7 @@ def export_formatted_data(formatted_data, update_data_in_use, language, data_typ
         language : str
             The language for which the data is being exported.
         data_type : str
-            The type of data being exported (e.g., 'nouns', 'verbs').
+            The type of data being exported (e.g. 'nouns', 'verbs').
 
     Returns
     -------
