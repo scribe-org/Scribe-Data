@@ -472,16 +472,20 @@ def map_genders(wikidata_gender):
         wikidata_gender : str
             The gender of the noun that was queried from WikiData.
     """
-    if wikidata_gender in ["masculine", "Q499327"]:
-        return "M"
-    elif wikidata_gender in ["feminine", "Q1775415"]:
-        return "F"
-    elif wikidata_gender in ["common gender", "Q1305037"]:
-        return "C"
-    elif wikidata_gender in ["neuter", "Q1775461"]:
-        return "N"
-    else:
-        return ""  # nouns could have a gender that is not a valid attribute
+    gender_map = {
+        "masculine": "M",
+        "Q499327": "M",
+        "feminine": "F",
+        "Q1775415": "F",
+        "common gender": "C",
+        "Q1305037": "C",
+        "neuter": "N",
+        "Q1775461": "N",
+    }
+
+    return gender_map.get(
+        wikidata_gender, ""
+    )  # nouns could have a gender that is not a valid attribute
 
 
 def map_cases(wikidata_case):
@@ -493,21 +497,22 @@ def map_cases(wikidata_case):
         wikidata_case : str
             The case of the noun that was queried from WikiData.
     """
+    case_map = {
+        "accusative": "Acc",
+        "Q146078": "Acc",
+        "dative": "Dat",
+        "Q145599": "Dat",
+        "genitive": "Gen",
+        "Q146233": "Gen",
+        "instrumental": "Ins",
+        "Q192997": "Ins",
+        "prepositional": "Pre",
+        "Q2114906": "Pre",
+        "locative": "Loc",
+        "Q202142": "Loc",
+    }
     case = wikidata_case.split(" case")[0]
-    if case in ["accusative", "Q146078"]:
-        return "Acc"
-    elif case in ["dative", "Q145599"]:
-        return "Dat"
-    elif case in ["genitive", "Q146233"]:
-        return "Gen"
-    elif case in ["instrumental", "Q192997"]:
-        return "Ins"
-    elif case in ["prepositional", "Q2114906"]:
-        return "Pre"
-    elif case in ["locative", "Q202142"]:
-        return "Loc"
-    else:
-        return ""
+    return case_map.get(case, "")
 
 
 def order_annotations(annotation):
