@@ -12,6 +12,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 4.0.0
 
+### 🐞 Bug Fixes
+
+- Wikidata query process stages no longer trigger the tqdm progress bar when they're unsuccessful ([#155](https://github.com/scribe-org/Scribe-Data/issues/155)).
+
 ### ♻️ Code Refactoring
 
 - `word_type` has been switched to `data_type` throughout the codebase ([#160](https://github.com/scribe-org/Scribe-Data/issues/160)).
