@@ -25,16 +25,16 @@ import os
 import signal
 import sys
 from functools import lru_cache
-from typing import List
 from pathlib import Path
+from typing import List
 
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
-from scribe_data.wikidata.wikidata_utils import JSON, sparql
 
 from scribe_data.utils import (
     get_language_iso,
     get_target_langcodes,
 )
+from scribe_data.wikidata.wikidata_utils import JSON, sparql
 
 LANGUAGE_METADATA_FILE = (
     Path(__file__).parent.parent / "resources" / "language_metadata.json"
@@ -45,52 +45,101 @@ with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
 
 
 @lru_cache(maxsize=None)
-def get_language_qid(language_name: str) -> str:
-    """Get the QID for a given language name."""
-    normalized_name = language_name.lower()
-    for language in language_data["languages"]:
-        if language["language"] == normalized_name:
-            return language["qid"]
-    return None
+def get_language_qid(language: str) -> str:
+    """
+    Get the QID for a given language name.
+
+    Parameters
+    ----------
+        language : str
+            The language for a Wikidata QID should be returned.
+
+    Returns
+    -------
+        str
+            The Wikidata QID for the given language.
+    """
+    normalized_language = language.lower()
+    return next(
+        (
+            lang["qid"]
+            for lang in language_data["languages"]
+            if lang["language"] == normalized_language
+        ),
+        None,
+    )
 
 
 @lru_cache(maxsize=None)
 def get_all_articles(language: str) -> List[str]:
-    """Get all articles for a given language."""
+    """
+    Get all articles for a given language.
+
+    Parameters
+    ----------
+        language : str
+            The language for which articles should be retrieved from Wikidata.
+
+    Returns
+    -------
+        List[str]
+            The articles for the given language as found on Wikidata.
+    """
     qid_from_language_metadata = get_language_qid(language)
     query = f"""
-    SELECT DISTINCT ?article WHERE {{
-      VALUES ?language {{ wd:{qid_from_language_metadata} }}
-      ?lexeme dct:language ?language ;
-              wikibase:lexicalCategory ?category ;
-              wikibase:lemma ?lemma .
-      VALUES ?category {{ wd:Q2865743 wd:Q3813849 wd:Q576670}}  # Definite, indefinite articles and Partitive Articles
+    SELECT DISTINCT
+        ?article
 
-      {{
-        ?lexeme wikibase:lemma ?article .
-      }} UNION {{
-        ?lexeme ontolex:lexicalForm ?form .
-        ?form ontolex:representation ?article .
-      }}
+    WHERE {{
+        VALUES ?language {{ wd:{qid_from_language_metadata} }}
+        ?lexeme dct:language ?language ;
+        wikibase:lexicalCategory ?category ;
+        wikibase:lemma ?lemma .
+
+        # Definite, indefinite articles and Partitive Articles
+        VALUES ?category {{ wd:Q2865743 wd:Q3813849 wd:Q576670 }}
+
+        {{
+            ?lexeme wikibase:lemma ?article .
+        }} UNION {{
+            ?lexeme ontolex:lexicalForm ?form .
+            ?form ontolex:representation ?article .
+        }}
     }}
     """
 
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
     results = sparql.query().convert()
+
     return [result["article"]["value"] for result in results["results"]["bindings"]]
 
 
 def remove_articles_from_words(
     batch_words: List[str], articles: List[str]
 ) -> List[str]:
-    """Remove articles from a given list of words."""
+    """
+    Remove articles from a given list of words.
+
+    Parameters
+    ----------
+        batch_words : List[str]
+            The words derived as translations.
+
+        articles : List[str]
+            The articles to remove from translations.
+
+    Returns
+    -------
+        List[str]
+            Translated words without the articles for the language in question.
+    """
 
     def remove_article(word: str) -> str:
         for article in articles:
-            if word.lower().startswith(article.lower() + " "):
-                print(f"Article '{article}' found in word: '{word}'")
+            if word.lower().startswith(f"{article.lower()} "):
                 return word[len(article) :].strip()
+
         return word
 
     return [remove_article(word) for word in batch_words]
@@ -153,6 +202,7 @@ def translate_to_other_languages(source_language, word_list, translations, batch
     for i in range(0, len(word_list), batch_size):
         batch_words = word_list[i : i + batch_size]
         batch_words = remove_articles_from_words(batch_words, articles)
+
         print(f"Translating batch {i//batch_size + 1}: {batch_words}")
 
         for lang_code in get_target_langcodes(source_language):
@@ -166,18 +216,18 @@ def translate_to_other_languages(source_language, word_list, translations, batch
             )
 
             for word, translation in zip(batch_words, translated_words):
-                "Find if the word already exists in translations"
+                # Find if the word already exists in translations.
                 existing_entry = next(
                     (item for item in translations if word in item), None
                 )
 
                 if existing_entry is None:
-                    "If the word doesn't exist, create a new entry"
+                    # If the word doesn't exist, create a new entry.
                     new_entry = {word: {lang_code: translation}}
                     translations.append(new_entry)
 
                 else:
-                    "If the word exists, update its translations"
+                    # If the word exists, update its translations.
                     existing_entry[word][lang_code] = translation
 
         print(f"Batch {i//batch_size + 1} translation completed.")

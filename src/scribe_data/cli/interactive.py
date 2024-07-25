@@ -36,12 +36,18 @@ def get_selection(user_input: str, options: List[str]) -> List[str]:
     """
     Parse user input to get selected options.
 
-    Args:
-        user_input (str): User's input string
-        options (List[str]): List of available options
+    Parameters
+    ----------
+        user_input : str
+            The user's input string.
 
-    Returns:
-        List[str]: Selected options
+        options : List[str]
+            The list of available options given the interactive mode stage.
+
+    Returns
+    -------
+        List[str]
+            The options available in interactive mode and CLI directions.
     """
     if user_input.lower() == "a":
         return options
@@ -58,8 +64,10 @@ def select_languages() -> List[str]:
     """
     Display language options and get user selection.
 
-    Returns:
-        list[str]: Selected languages
+    Returns
+    -------
+        List[str]
+            The languages available in Scribe-Data and CLI directions.
     """
     print("Language options:")
     languages = [
@@ -79,8 +87,10 @@ def select_data_types() -> List[str]:
     """
     Display data type options and get user selection.
 
-    Returns:
-        list[str]: Selected data types
+    Returns
+    -------
+        List[str]
+            The data types available in Scribe-Data and CLI directions.
     """
     print("\nData type options:")
     data_types = data_type_metadata["data-types"]
@@ -99,8 +109,10 @@ def get_output_options() -> dict:
     """
     Get output options from user.
 
-    Returns:
-        dict: Output options including type, directory, and overwrite flag
+    Returns
+    -------
+        dict
+            Output options including type, directory, and overwrite flag
     """
     output_type = (
         input("File type to export (json, csv, tsv) [json]: ").lower() or "json"
@@ -120,8 +132,8 @@ def run_interactive_mode():
     """
     Run the interactive mode for Scribe-Data CLI.
 
-    This function guides the user through selecting languages, data types,
-    and output options, then executes the query based on these selections.
+    This function guides the user through selecting languages, data types and output options.
+    The query is then executed based on these selections.
     """
     selected_languages = select_languages()
     selected_data_types = select_data_types()
