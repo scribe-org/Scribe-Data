@@ -35,9 +35,11 @@ Example
 import json
 import os
 from urllib.error import HTTPError
+
 from tqdm.auto import tqdm
 
 from scribe_data.wikidata.wikidata_utils import sparql
+
 
 def update_data(languages=None, word_types=None):
     SCRIBE_DATA_SRC_PATH = "src/scribe_data"

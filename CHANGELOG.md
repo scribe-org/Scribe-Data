@@ -17,6 +17,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - Scribe-Data is now a fully functional CLI.
   - Querying Wikidata lexicographical data can be done via the `--query` command ([#159](https://github.com/scribe-org/Scribe-Data/issues/159)).
   - Total Wikidata lexemes for languages and data types can be derived with the `--total` command ([#147](https://github.com/scribe-org/Scribe-Data/issues/147)).
+  - Commands can be used via an interactive mode with the `--interactive` command ([#158](https://github.com/scribe-org/Scribe-Data/issues/158)).
 
 ### 🐞 Bug Fixes
 
