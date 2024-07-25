@@ -25,6 +25,7 @@ import argparse
 
 from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.query import query_data
+from scribe_data.cli.total import get_total_lexemes
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
 QUERY_DESCRIPTION = "Query data from Wikidata for the given languages and data types."
@@ -127,7 +128,10 @@ def main() -> None:
     )
     total_parser._actions[0].help = "Show this help message and exit."
     total_parser.add_argument(
-        "-lang", "--language", type=str, help="The language(s) to check totals for."
+        "-lang",
+        "--language",
+        type=str,
+        help="The language(s) to check totals for.",
     )
     total_parser.add_argument(
         "-dt", "--data-type", type=str, help="The data type(s) to check totals for."
@@ -190,7 +194,14 @@ def main() -> None:
         )
 
     elif args.command in ["total", "t"]:
-        return
+        if not args.language and not args.data_type:
+            print(
+                "Error: At least one of -lang/--language or -dt/--data-type must be specified."
+            )
+            total_parser.print_help()
+            return
+
+        get_total_lexemes(args.language, args.data_type)
 
     elif args.command in ["convert", "c"]:
         return
