@@ -134,6 +134,13 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
   venv\Scripts\activate.bat
   ```
 
+- On Windows (using PowerShell), run:
+
+  ```bash
+  python -m venv venv
+  venv\Scripts\activate.ps1
+  ```
+
 After activating the virtual environment, install the required dependencies and set up [pre-commit](https://pre-commit.com/) by running:
 
 ```bash
@@ -143,11 +150,15 @@ pip install -e .  # install the local version of Scribe-Data
 pre-commit install  # install pre-commit hooks
 # pre-commit run --all-files  # lint and fix common problems in the codebase
 ```
- After running above commands, on Windows, if you face any issue, reinstall Scribe-data by running: 
 
+If you face any issues, consider reinstalling Scribe-data by running the following:
 
-```
-# Update the entry_points and console_scripts via the egg info to use Scribe-Data CLI
+```bash
+# Install the new version of Scribe-Data:
+pip uninstall scribe-data
+pip install .  # or pip install scribe-data
+
+# Update the entry_points and console_scripts:
 python setup.py egg_info
 ```
 
