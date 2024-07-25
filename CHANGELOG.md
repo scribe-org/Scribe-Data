@@ -12,6 +12,11 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 4.0.0
 
+### ✨ Features
+
+- Scribe-Data is now a fully functional CLI.
+  - Total Wikidata lexemes for languages and data types can be derived with the `--total` command ([#147](https://github.com/scribe-org/Scribe-Data/issues/147)).
+
 ### 🐞 Bug Fixes
 
 - Wikidata query process stages no longer trigger the tqdm progress bar when they're unsuccessful ([#155](https://github.com/scribe-org/Scribe-Data/issues/155)).
