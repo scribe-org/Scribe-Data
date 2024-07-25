@@ -143,6 +143,13 @@ pip install -e .  # install the local version of Scribe-Data
 pre-commit install  # install pre-commit hooks
 # pre-commit run --all-files  # lint and fix common problems in the codebase
 ```
+ After running above commands, on Windows, if you face any issue, reinstall Scribe-data by running: 
+
+
+```
+# Update the entry_points and console_scripts via the egg info to use Scribe-Data CLI
+python setup.py egg_info
+```
 
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!
