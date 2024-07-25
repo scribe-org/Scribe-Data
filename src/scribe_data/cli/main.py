@@ -128,7 +128,6 @@ def main() -> None:
     )
     total_parser._actions[0].help = "Show this help message and exit."
     total_parser.add_argument(
-        "-l",
         "-lang",
         "--language",
         type=str,
@@ -201,6 +200,7 @@ def main() -> None:
             )
             total_parser.print_help()
             return
+
         get_total_lexemes(args.language, args.data_type)
 
     elif args.command in ["convert", "c"]:
