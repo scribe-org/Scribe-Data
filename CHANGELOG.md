@@ -12,12 +12,14 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 4.0.0
 
+### 🐞 Bug Fixes
+
+- Wikidata query process stages no longer trigger the tqdm progress bar when they're unsuccessful ([#155](https://github.com/scribe-org/Scribe-Data/issues/155)).
+
 ### ♻️ Code Refactoring
 
 - `word_type` has been switched to `data_type` throughout the codebase ([#160](https://github.com/scribe-org/Scribe-Data/issues/160)).
-
-### ♻️ Code Refactoring
-
+- Case and gender map reference functions were updated to use hashmaps.
 - The SPARQLWrapper access method has been extracted to the Wikidata utils and is imported into the files that need it ([#164](https://github.com/scribe-org/Scribe-Data/issues/164)).
 
 ## Scribe-Data 3.3.0
