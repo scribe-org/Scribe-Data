@@ -7,3 +7,9 @@ cli
     :maxdepth: 1
 
     main
+    list
+    query
+    total
+    convert
+    interactive
+    update
