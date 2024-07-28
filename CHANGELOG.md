@@ -12,9 +12,23 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 4.0.0
 
+### ✨ Features
+
+- Scribe-Data is now a fully functional CLI.
+  - Querying Wikidata lexicographical data can be done via the `--query` command ([#159](https://github.com/scribe-org/Scribe-Data/issues/159)).
+  - Total Wikidata lexemes for languages and data types can be derived with the `--total` command ([#147](https://github.com/scribe-org/Scribe-Data/issues/147)).
+  - Commands can be used via an interactive mode with the `--interactive` command ([#158](https://github.com/scribe-org/Scribe-Data/issues/158)).
+- Articles are removed from machine translations so they're more directly useful in Scribe applications ([#96](https://github.com/scribe-org/Scribe-Data/issues/96)).
+
+### 🐞 Bug Fixes
+
+- Wikidata query process stages no longer trigger the tqdm progress bar when they're unsuccessful ([#155](https://github.com/scribe-org/Scribe-Data/issues/155)).
+
 ### ♻️ Code Refactoring
 
 - `word_type` has been switched to `data_type` throughout the codebase ([#160](https://github.com/scribe-org/Scribe-Data/issues/160)).
+- Case and gender map reference functions were updated to use hashmaps.
+- The SPARQLWrapper access method has been extracted to the Wikidata utils and is imported into the files that need it ([#164](https://github.com/scribe-org/Scribe-Data/issues/164)).
 
 ## Scribe-Data 3.3.0
 
