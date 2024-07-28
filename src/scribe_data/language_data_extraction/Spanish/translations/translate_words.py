@@ -41,7 +41,7 @@ with open(words_to_translate_path, "r", encoding="utf-8") as file:
 
 word_list = [item["word"] for item in json_data]
 
-translations = {}
+translations = []
 translated_words_path = os.path.join(
     translate_script_dir,
     f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{SRC_LANG}/translated_words.json",

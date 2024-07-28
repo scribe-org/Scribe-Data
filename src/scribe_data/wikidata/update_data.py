@@ -109,6 +109,7 @@ def update_data(languages=None, word_types=None):
 
     # Run queries and format data.
     data_added_dict = {}
+
     for q in tqdm(
         queries_to_run,
         desc="Data updated",
@@ -265,7 +266,6 @@ def update_data(languages=None, word_types=None):
     # Update total_data.json.
     with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", "w", encoding="utf-8") as f:
         json.dump(current_data, f, ensure_ascii=False, indent=0)
-
 
 if __name__ == "__main__":
     update_data()
