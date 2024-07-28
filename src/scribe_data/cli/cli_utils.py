@@ -42,6 +42,11 @@ language_map = {
     lang["language"].lower(): lang for lang in language_metadata["languages"]
 }
 
+# Create language_to_qid dictionary
+language_to_qid = {
+    lang["language"].lower(): lang["qid"] for lang in language_metadata["languages"]
+}
+
 
 def correct_data_type(data_type: str) -> str:
     """

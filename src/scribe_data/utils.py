@@ -25,7 +25,7 @@ import json
 import os
 import sys
 from importlib import resources
-from typing import Any
+from typing import Any, List
 
 from iso639 import Lang
 from iso639.exceptions import DeprecatedLanguageValue, InvalidLanguageValue
@@ -116,7 +116,7 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str):
     raise ValueError(error_msg)
 
 
-def get_scribe_languages() -> list[str]:
+def get_scribe_languages() -> List[str]:
     """
     Returns the list of currently implemented Scribe languages.
     """
@@ -191,7 +191,7 @@ def get_language_from_iso(iso: str) -> str:
     return language_name
 
 
-def get_language_words_to_remove(language: str) -> list[str]:
+def get_language_words_to_remove(language: str) -> List[str]:
     """
     Returns the words that should be removed during the data cleaning process for the given language.
 
@@ -202,7 +202,7 @@ def get_language_words_to_remove(language: str) -> list[str]:
 
     Returns
     -------
-        list[str]
+        List[str]
             The words that that be removed during the data cleaning process for the given language.
     """
     return _find(
@@ -213,7 +213,7 @@ def get_language_words_to_remove(language: str) -> list[str]:
     )
 
 
-def get_language_words_to_ignore(language: str) -> list[str]:
+def get_language_words_to_ignore(language: str) -> List[str]:
     """
     Returns the words that should not be included as autosuggestions for the given language.
 
@@ -224,7 +224,7 @@ def get_language_words_to_ignore(language: str) -> list[str]:
 
     Returns
     -------
-        list[str]
+        List[str]
             The words that should not be included as autosuggestions for the given language.
     """
     return _find(
@@ -246,7 +246,7 @@ def load_queried_data(file_path, language, data_type):
         language : str
             The language for which the data is being loaded.
         data_type : str
-            The type of data being loaded (e.g., 'nouns', 'verbs').
+            The type of data being loaded (e.g. 'nouns', 'verbs').
 
     Returns
     -------
@@ -282,7 +282,7 @@ def export_formatted_data(formatted_data, update_data_in_use, language, data_typ
         language : str
             The language for which the data is being exported.
         data_type : str
-            The type of data being exported (e.g., 'nouns', 'verbs').
+            The type of data being exported (e.g. 'nouns', 'verbs').
 
     Returns
     -------
@@ -335,8 +335,8 @@ def get_ios_data_path(language: str) -> str:
 
 
 def check_command_line_args(
-    file_name: str, passed_values: Any, values_to_check: list[str]
-) -> list[str]:
+    file_name: str, passed_values: Any, values_to_check: List[str]
+) -> List[str]:
     """
     Checks command line arguments passed to Scribe-Data files.
 
@@ -444,7 +444,7 @@ def check_and_return_command_line_args(
     )
 
 
-def get_target_langcodes(source_lang) -> list[str]:
+def get_target_langcodes(source_lang) -> List[str]:
     """
     Returns a list of target language ISO codes for translation.
 
@@ -455,7 +455,7 @@ def get_target_langcodes(source_lang) -> list[str]:
 
     Returns
     -------
-        list[str]
+        List[str]
             A list of target language ISO codes.
     """
     return [
@@ -472,16 +472,20 @@ def map_genders(wikidata_gender):
         wikidata_gender : str
             The gender of the noun that was queried from WikiData.
     """
-    if wikidata_gender in ["masculine", "Q499327"]:
-        return "M"
-    elif wikidata_gender in ["feminine", "Q1775415"]:
-        return "F"
-    elif wikidata_gender in ["common gender", "Q1305037"]:
-        return "C"
-    elif wikidata_gender in ["neuter", "Q1775461"]:
-        return "N"
-    else:
-        return ""  # nouns could have a gender that is not a valid attribute
+    gender_map = {
+        "masculine": "M",
+        "Q499327": "M",
+        "feminine": "F",
+        "Q1775415": "F",
+        "common gender": "C",
+        "Q1305037": "C",
+        "neuter": "N",
+        "Q1775461": "N",
+    }
+
+    return gender_map.get(
+        wikidata_gender, ""
+    )  # nouns could have a gender that is not a valid attribute
 
 
 def map_cases(wikidata_case):
@@ -493,21 +497,22 @@ def map_cases(wikidata_case):
         wikidata_case : str
             The case of the noun that was queried from WikiData.
     """
+    case_map = {
+        "accusative": "Acc",
+        "Q146078": "Acc",
+        "dative": "Dat",
+        "Q145599": "Dat",
+        "genitive": "Gen",
+        "Q146233": "Gen",
+        "instrumental": "Ins",
+        "Q192997": "Ins",
+        "prepositional": "Pre",
+        "Q2114906": "Pre",
+        "locative": "Loc",
+        "Q202142": "Loc",
+    }
     case = wikidata_case.split(" case")[0]
-    if case in ["accusative", "Q146078"]:
-        return "Acc"
-    elif case in ["dative", "Q145599"]:
-        return "Dat"
-    elif case in ["genitive", "Q146233"]:
-        return "Gen"
-    elif case in ["instrumental", "Q192997"]:
-        return "Ins"
-    elif case in ["prepositional", "Q2114906"]:
-        return "Pre"
-    elif case in ["locative", "Q202142"]:
-        return "Loc"
-    else:
-        return ""
+    return case_map.get(case, "")
 
 
 def order_annotations(annotation):
