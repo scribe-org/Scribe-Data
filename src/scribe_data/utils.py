@@ -116,7 +116,7 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
     raise ValueError(error_msg)
 
 
-def get_scribe_languages() -> list[str]:
+def get_scribe_languages() -> List[str]:
     """
     Returns the list of currently implemented Scribe languages.
     """
@@ -191,7 +191,7 @@ def get_language_from_iso(iso: str) -> str:
     return language_name
 
 
-def get_language_words_to_remove(language: str) -> list[str]:
+def get_language_words_to_remove(language: str) -> List[str]:
     """
     Returns the words that should be removed during the data cleaning process for the given language.
 
@@ -202,7 +202,7 @@ def get_language_words_to_remove(language: str) -> list[str]:
 
     Returns
     -------
-        list[str]
+        List[str]
             The words that that be removed during the data cleaning process for the given language.
     """
     return _find(
@@ -213,7 +213,7 @@ def get_language_words_to_remove(language: str) -> list[str]:
     )
 
 
-def get_language_words_to_ignore(language: str) -> list[str]:
+def get_language_words_to_ignore(language: str) -> List[str]:
     """
     Returns the words that should not be included as autosuggestions for the given language.
 
@@ -224,7 +224,7 @@ def get_language_words_to_ignore(language: str) -> list[str]:
 
     Returns
     -------
-        list[str]
+        List[str]
             The words that should not be included as autosuggestions for the given language.
     """
     return _find(
@@ -248,7 +248,7 @@ def load_queried_data(
         language : str
             The language for which the data is being loaded.
         data_type : str
-            The type of data being loaded (e.g., 'nouns', 'verbs').
+            The type of data being loaded (e.g. 'nouns', 'verbs').
 
     Returns
     -------
@@ -286,7 +286,7 @@ def export_formatted_data(
         language : str
             The language for which the data is being exported.
         data_type : str
-            The type of data being exported (e.g., 'nouns', 'verbs').
+            The type of data being exported (e.g. 'nouns', 'verbs').
 
     Returns
     -------
@@ -339,8 +339,8 @@ def get_ios_data_path(language: str) -> str:
 
 
 def check_command_line_args(
-    file_name: str, passed_values: Any, values_to_check: list[str]
-) -> list[str]:
+    file_name: str, passed_values: Any, values_to_check: List[str]
+) -> List[str]:
     """
     Checks command line arguments passed to Scribe-Data files.
 
@@ -461,7 +461,7 @@ def get_target_langcodes(source_lang: str) -> list[str]:
 
     Returns
     -------
-        list[str]
+        List[str]
             A list of target language ISO codes.
     """
     return [

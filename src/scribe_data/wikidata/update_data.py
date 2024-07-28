@@ -108,132 +108,141 @@ def update_data(languages=None, word_types=None):
 
     # Run queries and format data.
     data_added_dict = {}
-    for q in tqdm(
-        queries_to_run,
-        desc="Data updated",
-        unit="process",
-    ):
-        lang = q.split("/")[-2]
-        target_type = q.split("/")[-1]
-        query_name = f"query_{target_type}.sparql"
-        query_path = f"{q}/{query_name}"
+    with tqdm(total=len(queries_to_run), desc="Data updated", unit="process") as pbar:
+        for q in queries_to_run:
+            lang = q.split("/")[-2]
+            target_type = q.split("/")[-1]
+            query_name = f"query_{target_type}.sparql"
+            query_path = f"{q}/{query_name}"
+            pbar.update(0)
 
-        if not os.path.exists(query_path):
-            # There are multiple queries for a given target_type, so start by running the first.
-            query_path = query_path[: -len(".sparql")] + "_1" + ".sparql"
+            if not os.path.exists(query_path):
+                # There are multiple queries for a given target_type, so start by running the first.
+                query_path = query_path[: -len(".sparql")] + "_1" + ".sparql"
 
-        print(f"Querying and formatting {lang} {target_type}")
-        # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
-        with open(query_path, encoding="utf-8") as file:
-            query_lines = file.readlines()
-        sparql.setQuery("".join(query_lines))
+            print(f"Querying and formatting {lang} {target_type}")
+            # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
+            with open(query_path, encoding="utf-8") as file:
+                query_lines = file.readlines()
+            sparql.setQuery("".join(query_lines))
 
-        results = None
-        try:
-            results = sparql.query().convert()
-        except HTTPError as err:
-            print(f"HTTPError with {query_path}: {err}")
+            results = None
+            try:
+                results = sparql.query().convert()
 
-        if results is None:
-            print(f"Nothing returned by the WDQS server for {query_path}")
+            except HTTPError as err:
+                print(f"HTTPError with {query_path}: {err}")
+                tqdm.write(f"Exception: {err}")
 
-            # Allow for a query to be reran up to two times.
-            if queries_to_run.count(q) < 3:
-                queries_to_run.append(q)
+            if results is None:
+                print(f"Nothing returned by the WDQS server for {query_path}")
 
-        else:
-            # Subset the returned JSON and the individual results before saving.
-            query_results = results["results"]["bindings"]
+                # Allow for a query to be reran up to two times.
+                if queries_to_run.count(q) < 3:
+                    queries_to_run.append(q)
+                ## tqdm.write("results is none")
 
-            results_formatted = []
-            for r in query_results:  # query_results is also a list
-                r_dict = {k: r[k]["value"] for k in r.keys()}
+            else:
+                # Subset the returned JSON and the individual results before saving.
+                query_results = results["results"]["bindings"]
 
-                results_formatted.append(r_dict)
+                results_formatted = []
+                for r in query_results:  # query_results is also a list
+                    r_dict = {k: r[k]["value"] for k in r.keys()}
 
-            with open(
-                f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang}/{target_type}/{target_type}_queried.json",
-                "w",
-                encoding="utf-8",
-            ) as f:
-                json.dump(results_formatted, f, ensure_ascii=False, indent=0)
+                    results_formatted.append(r_dict)
 
-            if "_1" in query_path:
-                # Note: Only the first query was ran, so we need to run the second and append the json.
-                for suffix in ["_2", "_3"]:
-                    query_path = query_path.replace("_1", suffix).replace("_2", suffix)
+                with open(
+                    f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang}/{target_type}/{target_type}_queried.json",
+                    "w",
+                    encoding="utf-8",
+                ) as f:
+                    json.dump(results_formatted, f, ensure_ascii=False, indent=0)
 
-                    if os.path.exists(query_path):
-                        with open(query_path, encoding="utf-8") as file:
-                            query_lines = file.readlines()
-                            sparql.setQuery("".join(query_lines))
+                if "_1" in query_path:
+                    # Note: Only the first query was ran, so we need to run the second and append the json.
+                    for suffix in ["_2", "_3"]:
+                        query_path = query_path.replace("_1", suffix).replace(
+                            "_2", suffix
+                        )
 
-                            results = None
-                            try:
-                                results = sparql.query().convert()
-                            except HTTPError as err:
-                                print(f"HTTPError with {query_path}: {err}")
+                        if os.path.exists(query_path):
+                            with open(query_path, encoding="utf-8") as file:
+                                query_lines = file.readlines()
+                                sparql.setQuery("".join(query_lines))
 
-                            if results is None:
-                                print(
-                                    f"Nothing returned by the WDQS server for {query_path}"
-                                )
+                                results = None
+                                try:
+                                    results = sparql.query().convert()
+                                except HTTPError as err:
+                                    print(f"HTTPError with {query_path}: {err}")
 
-                                # Allow for a query to be reran up to two times.
-                                if queries_to_run.count(q) < 3:
-                                    queries_to_run.append(q)
-
-                            else:
-                                # Subset the returned JSON and the individual results before saving.
-                                query_results = results["results"]["bindings"]
-
-                                # Note: Don't rewrite results_formatted as we want to extend the json and combine in formatting.
-                                for r in query_results:  # query_results is also a list
-                                    r_dict = {k: r[k]["value"] for k in r.keys()}
-
-                                    # Note: The following is so we have a breakdown of queries for German later.
-                                    # Note: We need auxiliary verbs to be present as we loop to get both sein and haben forms.
-                                    if lang == "German":
-                                        r_dict_keys = list(r_dict.keys())
-                                        if "auxiliaryVerb" not in r_dict_keys:
-                                            r_dict["auxiliaryVerb"] = ""
-
-                                    results_formatted.append(r_dict)
-
-                                with open(
-                                    f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang}/{target_type}/{target_type}_queried.json",
-                                    "w",
-                                    encoding="utf-8",
-                                ) as f:
-                                    json.dump(
-                                        results_formatted,
-                                        f,
-                                        ensure_ascii=False,
-                                        indent=0,
+                                if results is None:
+                                    print(
+                                        f"Nothing returned by the WDQS server for {query_path}"
                                     )
 
-            # Call the corresponding formatting file and update data changes.
-            os.system(
-                f"python3 {PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang}/{target_type}/format_{target_type}.py"
-            )
+                                    # Allow for a query to be reran up to two times.
+                                    if queries_to_run.count(q) < 3:
+                                        queries_to_run.append(q)
 
-            with open(
-                f"scribe_data_json_export/{lang.capitalize()}/{target_type}.json",
-                encoding="utf-8",
-            ) as json_file:
-                new_keyboard_data = json.load(json_file)
+                                else:
+                                    # Subset the returned JSON and the individual results before saving.
+                                    query_results = results["results"]["bindings"]
 
-            if lang not in data_added_dict:
-                data_added_dict[lang] = {}
-            data_added_dict[lang][target_type] = (
-                len(new_keyboard_data) - current_data[lang][target_type]
-            )
+                                    # Note: Don't rewrite results_formatted as we want to extend the json and combine in formatting.
+                                    for (
+                                        r
+                                    ) in query_results:  # query_results is also a list
+                                        r_dict = {k: r[k]["value"] for k in r.keys()}
 
-            current_data[lang][target_type] = len(new_keyboard_data)
+                                        # Note: The following is so we have a breakdown of queries for German later.
+                                        # Note: We need auxiliary verbs to be present as we loop to get both sein and haben forms.
+                                        if lang == "German":
+                                            r_dict_keys = list(r_dict.keys())
+                                            if "auxiliaryVerb" not in r_dict_keys:
+                                                r_dict["auxiliaryVerb"] = ""
 
-    # Update total_data.json.
-    with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", "w", encoding="utf-8") as f:
-        json.dump(current_data, f, ensure_ascii=False, indent=0)
+                                        results_formatted.append(r_dict)
+
+                                    with open(
+                                        f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang}/{target_type}/{target_type}_queried.json",
+                                        "w",
+                                        encoding="utf-8",
+                                    ) as f:
+                                        json.dump(
+                                            results_formatted,
+                                            f,
+                                            ensure_ascii=False,
+                                            indent=0,
+                                        )
+
+                # Call the corresponding formatting file and update data changes.
+                os.system(
+                    f"python3 {PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang}/{target_type}/format_{target_type}.py"
+                )
+
+                with open(
+                    f"scribe_data_json_export/{lang.capitalize()}/{target_type}.json",
+                    encoding="utf-8",
+                ) as json_file:
+                    new_keyboard_data = json.load(json_file)
+
+                if lang not in data_added_dict:
+                    data_added_dict[lang] = {}
+                data_added_dict[lang][target_type] = (
+                    len(new_keyboard_data) - current_data[lang][target_type]
+                )
+
+                current_data[lang][target_type] = len(new_keyboard_data)
+
+                pbar.update(1)
+
+        # Update total_data.json.
+        with open(
+            f"{PATH_TO_UPDATE_FILES}/total_data.json", "w", encoding="utf-8"
+        ) as f:
+            json.dump(current_data, f, ensure_ascii=False, indent=0)
 
 
 if __name__ == "__main__":
