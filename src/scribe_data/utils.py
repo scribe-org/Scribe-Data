@@ -116,7 +116,7 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
     raise ValueError(error_msg)
 
 
-def get_scribe_languages() -> List[str]:
+def get_scribe_languages() -> list[str]:
     """
     Returns the list of currently implemented Scribe languages.
     """
@@ -191,7 +191,7 @@ def get_language_from_iso(iso: str) -> str:
     return language_name
 
 
-def get_language_words_to_remove(language: str) -> List[str]:
+def get_language_words_to_remove(language: str) -> list[str]:
     """
     Returns the words that should be removed during the data cleaning process for the given language.
 
@@ -202,7 +202,7 @@ def get_language_words_to_remove(language: str) -> List[str]:
 
     Returns
     -------
-        List[str]
+        list[str]
             The words that that be removed during the data cleaning process for the given language.
     """
     return _find(
@@ -213,7 +213,7 @@ def get_language_words_to_remove(language: str) -> List[str]:
     )
 
 
-def get_language_words_to_ignore(language: str) -> List[str]:
+def get_language_words_to_ignore(language: str) -> list[str]:
     """
     Returns the words that should not be included as autosuggestions for the given language.
 
@@ -224,7 +224,7 @@ def get_language_words_to_ignore(language: str) -> List[str]:
 
     Returns
     -------
-        List[str]
+        list[str]
             The words that should not be included as autosuggestions for the given language.
     """
     return _find(
@@ -339,8 +339,8 @@ def get_ios_data_path(language: str) -> str:
 
 
 def check_command_line_args(
-    file_name: str, passed_values: Any, values_to_check: List[str]
-) -> List[str]:
+    file_name: str, passed_values: Any, values_to_check: list[str]
+) -> list[str]:
     """
     Checks command line arguments passed to Scribe-Data files.
 
@@ -412,7 +412,7 @@ def check_and_return_command_line_args(
 
     Returns
     -------
-        first_args, second_args: Tuple[Optional[List[str]], Optional[List[str]]]
+        first_args, second_args: Tuple[Optional[list[str]], Optional[list[str]]]
             The subset of possible first and second arguments that have been verified as being valid.
     """
     if len(all_args) == 1:
@@ -461,7 +461,7 @@ def get_target_langcodes(source_lang: str) -> list[str]:
 
     Returns
     -------
-        List[str]
+        list[str]
             A list of target language ISO codes.
     """
     return [
