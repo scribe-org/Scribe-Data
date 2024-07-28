@@ -3,9 +3,6 @@ cli
 
 `View code on Github <https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/cli>`_
 
-Overview
---------
-
 Scribe-Data provides a command-line interface (CLI) for efficient interaction with its language data functionality.
 
 Usage
