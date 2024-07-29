@@ -26,7 +26,6 @@ import signal
 import sys
 from functools import lru_cache
 from pathlib import Path
-from typing import List
 
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
@@ -71,7 +70,7 @@ def get_language_qid(language: str) -> str:
 
 
 @lru_cache(maxsize=None)
-def get_all_articles(language: str) -> List[str]:
+def get_all_articles(language: str) -> list[str]:
     """
     Get all articles for a given language.
 
@@ -116,8 +115,8 @@ def get_all_articles(language: str) -> List[str]:
 
 
 def remove_articles_from_words(
-    batch_words: List[str], articles: List[str]
-) -> List[str]:
+    batch_words: list[str], articles: list[str]
+) -> list[str]:
     """
     Remove articles from a given list of words.
 

@@ -25,7 +25,7 @@ import json
 import os
 import sys
 from importlib import resources
-from typing import Any, List
+from typing import Any, Optional
 
 from iso639 import Lang
 from iso639.exceptions import DeprecatedLanguageValue, InvalidLanguageValue
@@ -33,7 +33,7 @@ from iso639.exceptions import DeprecatedLanguageValue, InvalidLanguageValue
 PROJECT_ROOT = "Scribe-Data"
 
 
-def _load_json(package_path: str, file_name: str, root: str):
+def _load_json(package_path: str, file_name: str, root: str) -> Any:
     """
     Loads a JSON resource from a package into a python entity.
 
@@ -67,7 +67,7 @@ _languages = _load_json(
 )
 
 
-def _find(source_key: str, source_value: str, target_key: str, error_msg: str):
+def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -> Any:
     """
     Each 'language', (english, german,..., etc) is a dictionary of key/value pairs:
 
@@ -116,7 +116,7 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str):
     raise ValueError(error_msg)
 
 
-def get_scribe_languages() -> List[str]:
+def get_scribe_languages() -> list[str]:
     """
     Returns the list of currently implemented Scribe languages.
     """
@@ -191,7 +191,7 @@ def get_language_from_iso(iso: str) -> str:
     return language_name
 
 
-def get_language_words_to_remove(language: str) -> List[str]:
+def get_language_words_to_remove(language: str) -> list[str]:
     """
     Returns the words that should be removed during the data cleaning process for the given language.
 
@@ -202,7 +202,7 @@ def get_language_words_to_remove(language: str) -> List[str]:
 
     Returns
     -------
-        List[str]
+        list[str]
             The words that that be removed during the data cleaning process for the given language.
     """
     return _find(
@@ -213,7 +213,7 @@ def get_language_words_to_remove(language: str) -> List[str]:
     )
 
 
-def get_language_words_to_ignore(language: str) -> List[str]:
+def get_language_words_to_ignore(language: str) -> list[str]:
     """
     Returns the words that should not be included as autosuggestions for the given language.
 
@@ -224,7 +224,7 @@ def get_language_words_to_ignore(language: str) -> List[str]:
 
     Returns
     -------
-        List[str]
+        list[str]
             The words that should not be included as autosuggestions for the given language.
     """
     return _find(
@@ -235,7 +235,9 @@ def get_language_words_to_ignore(language: str) -> List[str]:
     )
 
 
-def load_queried_data(file_path, language, data_type):
+def load_queried_data(
+    file_path: str, language: str, data_type: str
+) -> tuple[Any, bool, str]:
     """
     Loads queried data from a JSON file for a specific language and data type.
 
@@ -250,7 +252,7 @@ def load_queried_data(file_path, language, data_type):
 
     Returns
     -------
-        tuple
+        tuple[Any, bool, str]
             A tuple containing the loaded data, a boolean indicating whether the data is in use,
             and the path to the data file.
     """
@@ -269,7 +271,9 @@ def load_queried_data(file_path, language, data_type):
         return json.load(f), update_data_in_use, data_path
 
 
-def export_formatted_data(formatted_data, update_data_in_use, language, data_type):
+def export_formatted_data(
+    formatted_data: dict, update_data_in_use: bool, language: str, data_type: str
+) -> None:
     """
     Exports formatted data to a JSON file for a specific language and data type.
 
@@ -335,8 +339,8 @@ def get_ios_data_path(language: str) -> str:
 
 
 def check_command_line_args(
-    file_name: str, passed_values: Any, values_to_check: List[str]
-) -> List[str]:
+    file_name: str, passed_values: Any, values_to_check: list[str]
+) -> list[str]:
     """
     Checks command line arguments passed to Scribe-Data files.
 
@@ -388,25 +392,27 @@ def check_command_line_args(
 
 
 def check_and_return_command_line_args(
-    all_args, first_args_check=None, second_args_check=None
-):
+    all_args: list[str],
+    first_args_check: list[str] = None,
+    second_args_check: list[str] = None,
+) -> tuple[Optional[list[str]], Optional[list[str]]]:
     """
     Checks command line arguments passed to Scribe-Data files and returns them if correct.
 
     Parameters
     ----------
-        all_args : list (str)
+        all_args : list[str]
             The arguments passed to the Scribe-Data file.
 
-        first_args_check : list(str)
+        first_args_check : list[str]
             The values that the first argument should be checked against.
 
-        second_args_check : list(str)
+        second_args_check : list[str]
             The values that the second argument should be checked against.
 
     Returns
     -------
-        first_args, second_args: list(str)
+        first_args, second_args: Tuple[Optional[list[str]], Optional[list[str]]]
             The subset of possible first and second arguments that have been verified as being valid.
     """
     if len(all_args) == 1:
@@ -444,7 +450,7 @@ def check_and_return_command_line_args(
     )
 
 
-def get_target_langcodes(source_lang) -> List[str]:
+def get_target_langcodes(source_lang: str) -> list[str]:
     """
     Returns a list of target language ISO codes for translation.
 
@@ -455,7 +461,7 @@ def get_target_langcodes(source_lang) -> List[str]:
 
     Returns
     -------
-        List[str]
+        list[str]
             A list of target language ISO codes.
     """
     return [
@@ -463,7 +469,7 @@ def get_target_langcodes(source_lang) -> List[str]:
     ]
 
 
-def map_genders(wikidata_gender):
+def map_genders(wikidata_gender: str) -> str:
     """
     Maps genders from Wikidata to succinct versions.
 
@@ -488,7 +494,7 @@ def map_genders(wikidata_gender):
     )  # nouns could have a gender that is not a valid attribute
 
 
-def map_cases(wikidata_case):
+def map_cases(wikidata_case: str) -> str:
     """
     Maps cases from Wikidata to more succinct versions.
 
@@ -515,7 +521,7 @@ def map_cases(wikidata_case):
     return case_map.get(case, "")
 
 
-def order_annotations(annotation):
+def order_annotations(annotation: str) -> str:
     """
     Standardizes the annotations that are provided to users where more than one is applicable.
 

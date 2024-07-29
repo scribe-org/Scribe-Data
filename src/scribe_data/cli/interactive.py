@@ -23,8 +23,6 @@ data types and output options for querying Wikidata data using Scribe-Data.
     -->
 """
 
-from typing import List
-
 from scribe_data.cli.cli_utils import (
     data_type_metadata,
     language_metadata,
@@ -32,7 +30,7 @@ from scribe_data.cli.cli_utils import (
 from scribe_data.cli.query import query_data
 
 
-def get_selection(user_input: str, options: List[str]) -> List[str]:
+def get_selection(user_input: str, options: list[str]) -> list[str]:
     """
     Parse user input to get selected options.
 
@@ -60,7 +58,7 @@ def get_selection(user_input: str, options: List[str]) -> List[str]:
         return [opt for opt in user_input.split(",") if opt in options]
 
 
-def select_languages() -> List[str]:
+def select_languages() -> list[str]:
     """
     Display language options and get user selection.
 
@@ -83,7 +81,7 @@ def select_languages() -> List[str]:
     return get_selection(lang_input, languages)
 
 
-def select_data_types() -> List[str]:
+def select_data_types() -> list[str]:
     """
     Display data type options and get user selection.
 
