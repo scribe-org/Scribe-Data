@@ -24,6 +24,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - Wikidata query process stages no longer trigger the tqdm progress bar when they're unsuccessful ([#155](https://github.com/scribe-org/Scribe-Data/issues/155)).
 
+### 📝 Documentation
+
+- The CLI's functionality has been fully documented ([#152](https://github.com/scribe-org/Scribe-Data/issues/152)).
+
 ### ♻️ Code Refactoring
 
 - `word_type` has been switched to `data_type` throughout the codebase ([#160](https://github.com/scribe-org/Scribe-Data/issues/160)).
@@ -36,16 +40,16 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - The translation process has been updated to allow for translations from non-English languages ([#72](https://github.com/scribe-org/Scribe-Data/issues/72), [#73](https://github.com/scribe-org/Scribe-Data/issues/73), [#74](https://github.com/scribe-org/Scribe-Data/issues/74), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#75](https://github.com/scribe-org/Scribe-Data/issues/75), [#76](https://github.com/scribe-org/Scribe-Data/issues/76), [#77](https://github.com/scribe-org/Scribe-Data/issues/77), [#78](https://github.com/scribe-org/Scribe-Data/issues/78), [#79](https://github.com/scribe-org/Scribe-Data/issues/79)).
 
-### 📝 Documentation
-
-- The documentation has been given a new layout with the logo in the top left ([#90](https://github.com/scribe-org/Scribe-Data/issues/90)).
-- The documentation now has links to the code at the top of each page ([#91](https://github.com/scribe-org/Scribe-Data/issues/91)).
-
 ### 🐞 Bug Fixes
 
 - Annotation bugs were removed like repeat or empty values.
 - Perfect tenses of Portuguese verbs were fixed via finding the appropriate PID ([#68](https://github.com/scribe-org/Scribe-Data/issues/68)).
   - Note that the most common past perfect property is not the standard one, so this will need to be fixed.
+
+### 📝 Documentation
+
+- The documentation has been given a new layout with the logo in the top left ([#90](https://github.com/scribe-org/Scribe-Data/issues/90)).
+- The documentation now has links to the code at the top of each page ([#91](https://github.com/scribe-org/Scribe-Data/issues/91)).
 
 ### ♻️ Code Refactoring
 
