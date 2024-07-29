@@ -12,7 +12,7 @@ The basic syntax for using the Scribe-Data CLI is:
 
 .. code-block:: bash
 
-   scribe-data [global_options] command [command_options]
+    scribe-data [global_options] command [command_options]
 
 Global Options
 --------------
@@ -40,7 +40,7 @@ Usage:
 
 .. code-block:: bash
 
-   scribe-data list [options]
+    scribe-data list [options]
 
 Options:
 ^^^^^^^^
@@ -53,25 +53,22 @@ Example output:
 
 .. code-block:: text
 
-   $ scribe-data list
-   Language     ISO  QID
-   -----------------------
-   English      en   Q1860
-   French       fr   Q150
-   German       de   Q188
-   Italian      it   Q652
-   Portuguese   pt   Q5146
-   Russian      ru   Q7737
-   Spanish      es   Q1321
-   Swedish      sv   Q9027
-   -----------------------
-   Available data types: All languages
-   -----------------------------------
-   nouns
-   prepositions
-   translations
-   verbs
-   -----------------------------------
+    $ scribe-data list
+    Language     ISO  QID
+    -----------------------
+    English      en   Q1860
+    French       fr   Q150
+    German       de   Q188
+    ...
+    -----------------------
+
+    Available data types: All languages
+    -----------------------------------
+    nouns
+    prepositions
+    translations
+    verbs
+    -----------------------------------
 
 Query Command
 ~~~~~~~~~~~~~
@@ -82,7 +79,7 @@ Usage:
 
 .. code-block:: bash
 
-   scribe-data query [options]
+    scribe-data query [options]
 
 Options:
 ^^^^^^^^
@@ -99,54 +96,53 @@ Example:
 
 .. code-block:: bash
 
-   $ scribe-data query -l English --data-type verbs -od ~/Desktop/gsoc/wiki/Scribe-Data
+    $ scribe-data query -l English --data-type verbs -od ~/Desktop/gsoc/wiki/Scribe-Data
 
 Behavior and Output:
 ^^^^^^^^^^^^^^^^^^^^
 
 1. The command will first check for existing data:
 
-   .. code-block:: text
+    .. code-block:: text
 
-      Updating data for language: English, data type: ['verbs']
-      Data updated:   0%|
+        Updating data for language: English, data type: ['verbs']
+        Data updated:   0%|
 
 2. If existing files are found, you'll be prompted to choose an option:
 
-   .. code-block:: text
+    .. code-block:: text
 
-      Existing file(s) found for English verbs:
-      1. verbs_2024_07_07_00_28_44.json
-      2. verbs_2024_07_07_00_29_20.json
-      Choose an option:
-      1. Keep existing (skip update)
-      2. Overwrite existing
-      3. Keep both
-      4. Cancel
-      Enter your choice (1-4):
+        Existing file(s) found for English verbs:
+        1. verbs_2024_07_07_00_28_44.json
+        2. verbs_2024_07_07_00_29_20.json
+        Choose an option:
+        1. Keep existing (skip update)
+        2. Overwrite existing
+        3. Keep both
+        4. Cancel
+        Enter your choice (1-4):
 
 3. After making a selection, the querying process begins:
 
-   .. code-block:: text
+    .. code-block:: text
 
-      Querying and formatting English verbs
-      Data updated: 100%|████████████████████████| 1/1 [00:29<00:00, 29.73s/process]
+        Querying and formatting English verbs
+        Data updated: 100%|████████████████████████| 1/1 [00:29<00:00, 29.73s/process]
 
 4. If no data is found, you'll see a warning:
 
-   .. code-block:: text
+    .. code-block:: text
 
-      No data found for language 'english' and data type '['verbs']'.
-      Warning: No data file found for 'English' ['verbs']
+        No data found for language 'english' and data type '['verbs']'.
+        Warning: No data file found for 'English' ['verbs']
 
 Notes:
 ^^^^^^
 
-1. The command uses ``-l`` for language instead of ``-lang`` as previously documented. Both forms appear to be accepted.
-2. The data type can be specified with ``--data-type`` or ``-dt``.
-3. The command creates timestamped JSON files by default, even if no data is found.
-4. If multiple files exist, you'll be given options to manage them (keep existing, overwrite, keep both, or cancel).
-5. The process may take some time, especially for large datasets.
+1. The data type can be specified with ``--data-type`` or ``-dt``.
+2. The command creates timestamped JSON files by default, even if no data is found.
+3. If multiple files exist, you'll be given options to manage them (keep existing, overwrite, keep both, or cancel).
+4. The process may take some time, especially for large datasets.
 
 Troubleshooting:
 ^^^^^^^^^^^^^^^^
@@ -155,29 +151,30 @@ Troubleshooting:
 - If you're having issues with file paths, remember to use quotes around paths with spaces.
 - If the command seems to hang at 0% or 100%, be patient as the process can take several minutes depending on the dataset size and your internet connection.
 
-Interactive Mode:
+Interactive Mode
+----------------
 
 .. code-block:: text
 
-   $ scribe-data query -i
-   Welcome to Scribe-Data interactive mode!
-   Language options:
-   1. English
-   2. French
-   3. German
-   4. Italian
-   5. Portuguese
-   6. Russian
-   7. Spanish
-   8. Swedish
-   Please enter the languages to query data for, their numbers or (a) for all languages: 1
-   Data type options:
-   1. autosuggestions
-   2. emoji_keywords
-   3. nouns
-   4. prepositions
-   5. translations
-   6. verbs
+    $ scribe-data query -i
+    Welcome to Scribe-Data interactive mode!
+    Language options:
+    1. English
+    2. French
+    3. German
+    ...
+
+    Please enter the languages to query data for, their numbers or (a) for all languages: 1
+
+    Data type options:
+    1. autosuggestions
+    2. emoji_keywords
+    3. nouns
+    4. prepositions
+    5. translations
+    6. verbs
+
+    ...
 
 Total Command
 ~~~~~~~~~~~~~
@@ -188,7 +185,7 @@ Usage:
 
 .. code-block:: bash
 
-   scribe-data total [options]
+    scribe-data total [options]
 
 Options:
 ^^^^^^^^
@@ -201,14 +198,14 @@ Examples:
 
 .. code-block:: text
 
-   $ scribe-data total -dt nouns
-   Data type: nouns
-   Total number of lexemes: 872443
+    $ scribe-data total -dt nouns
+    Data type: nouns
+    Total number of lexemes: <NUMBER />
 
-   $ scribe-data total -lang eng -dt nouns
-   Language: eng
-   Data type: nouns
-   Total number of lexemes: 872443
+    $ scribe-data total -lang eng -dt nouns
+    Language: eng
+    Data type: nouns
+    Total number of lexemes: <NUMBER />
 
 Convert Command
 ~~~~~~~~~~~~~~~
@@ -219,7 +216,7 @@ Usage:
 
 .. code-block:: bash
 
-   scribe-data convert [options]
+    scribe-data convert [options]
 
 Options:
 ^^^^^^^^
