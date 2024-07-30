@@ -23,8 +23,12 @@ Functions to convert data returned from the Scribe-Data CLI to other file types.
 import csv
 import json
 
-from pathlib import Path
+from scribe_data.utils import get_language_iso
 from scribe_data.cli.cli_utils import language_map
+from pathlib import Path
+
+from scribe_data.load.data_to_sqlite import data_to_sqlite
+from typing import Optional
 
 DATA_DIR = Path("scribe_data_json_export")
 
@@ -158,3 +162,41 @@ def export_csv_or_tsv(
     print(
         f"Data for language '{normalized_language['language']}' and data type '{data_type}' written to '{output_file}'"
     )
+
+
+def convert_to_sqlite(
+    language: Optional[str] = None,
+    data_type: Optional[str] = None,
+    output_dir: Optional[str] = None,
+    overwrite: bool = False,
+) -> None:
+    if not language:
+        raise ValueError("Language must be specified for SQLite conversion.")
+
+    languages = [language]
+    specific_tables = [data_type] if data_type else None
+
+    if output_dir:
+        output_dir = Path(output_dir)
+        if not output_dir.exists():
+            output_dir.mkdir(parents=True, exist_ok=True)
+
+    print(f"Converting data for language: {language}, data type: {data_type} to SQLite")
+    data_to_sqlite(languages, specific_tables)
+
+    if output_dir:
+        source_file = f"{get_language_iso(language).upper()}LanguageData.sqlite"
+        source_path = Path("scribe_data_sqlite_export") / source_file
+        target_path = output_dir / source_file
+        if source_path.exists():
+            if target_path.exists() and not overwrite:
+                print(f"File {target_path} already exists. Use --overwrite to replace.")
+            else:
+                import shutil
+
+                shutil.copy(source_path, target_path)
+                print(f"SQLite database copied to: {target_path}")
+        else:
+            print(f"Warning: SQLite file not found at {source_path}")
+    else:
+        print("No output directory specified. SQLite file remains in default location.")
