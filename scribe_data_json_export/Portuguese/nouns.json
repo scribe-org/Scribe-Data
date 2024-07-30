@@ -87,6 +87,10 @@
 "plural": "",
 "form": ""
 },
+"Udachi Candeiras": {
+"plural": "",
+"form": ""
+},
 "Zâmbia": {
 "plural": "Zâmbias",
 "form": "F"
@@ -96,10 +100,10 @@
 "form": "PL"
 },
 "abacaxi": {
-"plural": "abacaxís",
+"plural": "abacaxis",
 "form": "M"
 },
-"abacaxís": {
+"abacaxis": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -1488,8 +1492,12 @@
 "form": "PL"
 },
 "asa": {
-"plural": "asões",
+"plural": "asas",
 "form": "F"
+},
+"asas": {
+"plural": "isPlural",
+"form": "PL"
 },
 "aspecto": {
 "plural": "aspetos",
@@ -1621,7 +1629,7 @@
 },
 "asteroide": {
 "plural": "asteroides",
-"form": "M/PL"
+"form": "M"
 },
 "asteroides": {
 "plural": "isPlural",
@@ -1629,7 +1637,7 @@
 },
 "asteróide": {
 "plural": "asteroides",
-"form": "M"
+"form": "M/PL"
 },
 "astro": {
 "plural": "astros",
@@ -1649,10 +1657,6 @@
 },
 "astrônomo": {
 "plural": "astrónomas",
-"form": "PL"
-},
-"asões": {
-"plural": "isPlural",
 "form": "PL"
 },
 "ataque": {
@@ -2624,8 +2628,12 @@
 "form": "PL"
 },
 "bissanense": {
-"plural": "",
+"plural": "bissanenses",
 "form": ""
+},
+"bissanenses": {
+"plural": "isPlural",
+"form": "PL"
 },
 "bissauense": {
 "plural": "",
@@ -2832,6 +2840,14 @@
 "form": "F"
 },
 "botas": {
+"plural": "isPlural",
+"form": "PL"
+},
+"botelha": {
+"plural": "botelhas",
+"form": "F"
+},
+"botelhas": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -3335,13 +3351,13 @@
 "plural": "isPlural",
 "form": "PL"
 },
-"campinhos": {
+"campo": {
+"plural": "campões",
+"form": "M"
+},
+"campões": {
 "plural": "isPlural",
 "form": "PL"
-},
-"campo": {
-"plural": "campinhos",
-"form": "M"
 },
 "canais": {
 "plural": "isPlural",
@@ -5369,11 +5385,11 @@
 },
 "controle": {
 "plural": "controlos",
-"form": "M"
+"form": "M/PL"
 },
 "controlo": {
 "plural": "controlos",
-"form": "M/PL"
+"form": "M"
 },
 "controlos": {
 "plural": "isPlural",
@@ -8473,7 +8489,7 @@
 },
 "facto": {
 "plural": "factos",
-"form": "M/PL"
+"form": "M"
 },
 "factor": {
 "plural": "factores",
@@ -8616,12 +8632,16 @@
 "form": "PL"
 },
 "fato": {
-"plural": "factos",
+"plural": "fatos",
 "form": "M"
 },
 "fator": {
 "plural": "factores",
 "form": "M/PL"
+},
+"fatos": {
+"plural": "isPlural",
+"form": "PL"
 },
 "fava": {
 "plural": "favas",
@@ -8817,11 +8837,11 @@
 },
 "figura": {
 "plural": "figurinhas",
-"form": "F"
+"form": "F/PL"
 },
 "figurinha": {
 "plural": "figurinhas",
-"form": "F/PL"
+"form": "F"
 },
 "figurinhas": {
 "plural": "isPlural",
@@ -10491,6 +10511,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"iguaria": {
+"plural": "iguarias",
+"form": "F"
+},
+"iguarias": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ilha": {
 "plural": "ilhas",
 "form": "F"
@@ -11448,10 +11476,10 @@
 "form": "PL"
 },
 "laranja": {
-"plural": "laranjões",
+"plural": "laranjas",
 "form": "F"
 },
-"laranjões": {
+"laranjas": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -11916,16 +11944,24 @@
 "form": "PL"
 },
 "lourenço-marquino": {
-"plural": "",
+"plural": "lourenço-marquinos",
 "form": ""
+},
+"lourenço-marquinos": {
+"plural": "isPlural",
+"form": "PL"
 },
 "lua": {
 "plural": "luas",
 "form": "F"
 },
 "luandense": {
-"plural": "",
+"plural": "luandenses",
 "form": ""
+},
+"luandenses": {
+"plural": "isPlural",
+"form": "PL"
 },
 "luas": {
 "plural": "isPlural",
@@ -12989,7 +13025,7 @@
 },
 "modelo": {
 "plural": "modelos",
-"form": "M"
+"form": "M/PL"
 },
 "modelos": {
 "plural": "isPlural",
@@ -13021,7 +13057,7 @@
 },
 "modêlo": {
 "plural": "modelos",
-"form": "M/PL"
+"form": "M"
 },
 "moenda": {
 "plural": "moendas",
@@ -14392,18 +14428,18 @@
 "form": "PL"
 },
 "palavra": {
-"plural": "palavras",
+"plural": "palavrinhas",
 "form": "F"
-},
-"palavras": {
-"plural": "isPlural",
-"form": "PL"
 },
 "palavreado": {
 "plural": "palavreados",
 "form": "M"
 },
 "palavreados": {
+"plural": "isPlural",
+"form": "PL"
+},
+"palavrinhas": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -14807,6 +14843,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"pechincha": {
+"plural": "pechinchas",
+"form": "F"
+},
+"pechinchas": {
+"plural": "isPlural",
+"form": "PL"
+},
 "pedalada": {
 "plural": "pedaladas",
 "form": "F"
@@ -15016,10 +15060,10 @@
 "form": "PL"
 },
 "perna": {
-"plural": "pernocas",
+"plural": "pernas",
 "form": "F"
 },
-"pernocas": {
+"pernas": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -15956,10 +16000,10 @@
 "form": ""
 },
 "princesa": {
-"plural": "princesas",
+"plural": "princesonas",
 "form": "F"
 },
-"princesas": {
+"princesonas": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -16061,11 +16105,11 @@
 },
 "projecto": {
 "plural": "projetos",
-"form": "M"
+"form": "M/PL"
 },
 "projeto": {
 "plural": "projetos",
-"form": "M/PL"
+"form": "M"
 },
 "projetos": {
 "plural": "isPlural",
@@ -16756,10 +16800,10 @@
 "form": ""
 },
 "ratoeira": {
-"plural": "ratoeiras",
+"plural": "ratoeironas",
 "form": "F"
 },
-"ratoeiras": {
+"ratoeironas": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -16784,8 +16828,12 @@
 "form": "PL"
 },
 "reacção": {
-"plural": "reações",
-"form": "F/PL"
+"plural": "reacções",
+"form": "F"
+},
+"reacções": {
+"plural": "isPlural",
+"form": "PL"
 },
 "reais": {
 "plural": "isPlural",
@@ -18559,8 +18607,12 @@
 "plural": "suis",
 "form": "M"
 },
+"sul-africanas": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sul-africano": {
-"plural": "",
+"plural": "sul-africanas",
 "form": ""
 },
 "sumo": {
