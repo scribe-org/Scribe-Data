@@ -22,7 +22,7 @@ Utility functions for the Scribe-Data CLI.
 
 import json
 from pathlib import Path
-from typing import Dict, List, Union
+from typing import Union
 
 LANGUAGE_METADATA_FILE = (
     Path(__file__).parent.parent / "resources" / "language_metadata.json"
@@ -71,7 +71,7 @@ def correct_data_type(data_type: str) -> str:
             return wt
 
 
-def print_formatted_data(data: Union[Dict, List], data_type: str) -> None:
+def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
     """
     Prints a formatted output from the Scribe-Data CLI.
     """

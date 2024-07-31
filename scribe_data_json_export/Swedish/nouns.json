@@ -2097,10 +2097,10 @@
 },
 "akustik": {
 "plural": "akustiker",
-"form": "C"
+"form": "C/PL"
 },
 "akustiker": {
-"plural": "isPlural",
+"plural": "akustiker",
 "form": "C/PL"
 },
 "akut": {
@@ -10491,6 +10491,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"ballar": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ballast": {
 "plural": "ballaster",
 "form": "C"
@@ -10506,6 +10510,10 @@
 "ballastvagnar": {
 "plural": "isPlural",
 "form": "PL"
+},
+"balle": {
+"plural": "ballar",
+"form": "C"
 },
 "ballerina": {
 "plural": "ballerinor",
@@ -11210,6 +11218,10 @@
 "barnbespisningar": {
 "plural": "isPlural",
 "form": "PL"
+},
+"barnbibliotek": {
+"plural": "barnbibliotek",
+"form": "N/PL"
 },
 "barnbibliotekarie": {
 "plural": "barnbibliotekarier",
@@ -19996,7 +20008,7 @@
 "form": "PL"
 },
 "bot": {
-"plural": "boter",
+"plural": "böter",
 "form": "C"
 },
 "botaniker": {
@@ -20014,10 +20026,6 @@
 "botemedel": {
 "plural": "botemedel",
 "form": "N/PL"
-},
-"boter": {
-"plural": "isPlural",
-"form": "PL"
 },
 "botgörare": {
 "plural": "botgörare",
@@ -24668,6 +24676,10 @@
 "form": "C"
 },
 "börtingar": {
+"plural": "isPlural",
+"form": "PL"
+},
+"böter": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -32191,6 +32203,14 @@
 "plural": "dubbelrum",
 "form": "N/PL"
 },
+"dubbelsmörgås": {
+"plural": "dubbelsmörgåsar",
+"form": "C"
+},
+"dubbelsmörgåsar": {
+"plural": "isPlural",
+"form": "PL"
+},
 "dubbelspår": {
 "plural": "dubbelspår",
 "form": "N/PL"
@@ -38156,12 +38176,8 @@
 "form": "PL"
 },
 "fax": {
-"plural": "faxar",
-"form": "C/N"
-},
-"faxar": {
-"plural": "isPlural",
-"form": "PL"
+"plural": "fax",
+"form": "C/N/PL"
 },
 "feber": {
 "plural": "febrar",
@@ -40102,6 +40118,14 @@
 "fiskpinne": {
 "plural": "fiskpinnar",
 "form": "C"
+},
+"fiskpudding": {
+"plural": "fiskpuddingar",
+"form": "C"
+},
+"fiskpuddingar": {
+"plural": "isPlural",
+"form": "PL"
 },
 "fiskrestaurang": {
 "plural": "fiskrestauranger",
@@ -42107,6 +42131,14 @@
 "plural": "fniss",
 "form": "N/PL"
 },
+"fnutt": {
+"plural": "fnuttar",
+"form": "C"
+},
+"fnuttar": {
+"plural": "isPlural",
+"form": "PL"
+},
 "foajé": {
 "plural": "foajéer",
 "form": "C"
@@ -42901,11 +42933,11 @@
 },
 "fordran": {
 "plural": "fordringar",
-"form": "C"
+"form": "C/PL"
 },
 "fordring": {
 "plural": "fordringar",
-"form": "C/PL"
+"form": "C"
 },
 "fordringar": {
 "plural": "isPlural",
@@ -57435,6 +57467,10 @@
 "plural": "gäddor",
 "form": "C"
 },
+"gäddhäng": {
+"plural": "gäddhäng",
+"form": "N/PL"
+},
 "gäddor": {
 "plural": "isPlural",
 "form": "PL"
@@ -58507,6 +58543,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"halster": {
+"plural": "halster",
+"form": "N/PL"
+},
 "halt": {
 "plural": "halter",
 "form": "C"
@@ -58538,6 +58578,14 @@
 "halvblod": {
 "plural": "halvblod",
 "form": "N/PL"
+},
+"halvbror": {
+"plural": "halvbröder",
+"form": "C"
+},
+"halvbröder": {
+"plural": "isPlural",
+"form": "PL"
 },
 "halvbutelj": {
 "plural": "halvbuteljer",
@@ -75523,6 +75571,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"katastrofhjälp": {
+"plural": "katastrofhjälpar",
+"form": "C"
+},
+"katastrofhjälpar": {
+"plural": "isPlural",
+"form": "PL"
+},
 "katastrofområde": {
 "plural": "katastrofområden",
 "form": "N"
@@ -76106,6 +76162,14 @@
 "kille": {
 "plural": "killar",
 "form": "C"
+},
+"killgissning": {
+"plural": "killgissningar",
+"form": "C"
+},
+"killgissningar": {
+"plural": "isPlural",
+"form": "PL"
 },
 "killgäng": {
 "plural": "killgäng",
@@ -76851,6 +76915,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"klimatavtal": {
+"plural": "klimatavtal",
+"form": "N/PL"
+},
 "klimatavtryck": {
 "plural": "klimatavtryck",
 "form": "N/PL"
@@ -76959,6 +77027,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"klimatgas": {
+"plural": "klimatgaser",
+"form": "C"
+},
+"klimatgaser": {
+"plural": "isPlural",
+"form": "PL"
+},
 "klimathandlingsplan": {
 "plural": "klimathandlingsplaner",
 "form": "C"
@@ -76987,6 +77063,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"klimatkatastrof": {
+"plural": "klimatkatastrofer",
+"form": "C"
+},
+"klimatkatastrofer": {
+"plural": "isPlural",
+"form": "PL"
+},
 "klimatkompensation": {
 "plural": "klimatkompensationer",
 "form": "C"
@@ -77000,6 +77084,14 @@
 "form": "C"
 },
 "klimatkorrespondenter": {
+"plural": "isPlural",
+"form": "PL"
+},
+"klimatkris": {
+"plural": "klimatkriser",
+"form": "C"
+},
+"klimatkriser": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -77032,6 +77124,14 @@
 "form": "C"
 },
 "klimatmodeller": {
+"plural": "isPlural",
+"form": "PL"
+},
+"klimatmärkning": {
+"plural": "klimatmärkningar",
+"form": "C"
+},
+"klimatmärkningar": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -77179,6 +77279,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"klimatutsläpp": {
+"plural": "klimatutsläpp",
+"form": "N/PL"
+},
 "klimatväxling": {
 "plural": "klimatväxlingar",
 "form": "C"
@@ -77200,6 +77304,14 @@
 "form": "N"
 },
 "klimatåtaganden": {
+"plural": "isPlural",
+"form": "PL"
+},
+"klimatåtgärd": {
+"plural": "klimatåtgärder",
+"form": "C"
+},
+"klimatåtgärder": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -104081,7 +104193,7 @@
 },
 "moder": {
 "plural": "mödrar",
-"form": "C/PL"
+"form": "C"
 },
 "moderat": {
 "plural": "moderater",
@@ -104589,7 +104701,7 @@
 },
 "mor": {
 "plural": "mödrar",
-"form": "C"
+"form": "C/PL"
 },
 "moraklocka": {
 "plural": "moraklockor",
@@ -107482,6 +107594,10 @@
 "målspråk": {
 "plural": "målspråk",
 "form": "N/PL"
+},
+"målsägande": {
+"plural": "målsägande",
+"form": "C/PL"
 },
 "målsägandebiträde": {
 "plural": "målsägandebiträden",
@@ -140111,6 +140227,14 @@
 "plural": "skidåkare",
 "form": "C/PL"
 },
+"skidåkning": {
+"plural": "skidåkningar",
+"form": "C"
+},
+"skidåkningar": {
+"plural": "isPlural",
+"form": "PL"
+},
 "skift": {
 "plural": "skift",
 "form": "N/PL"
@@ -160573,14 +160697,14 @@
 },
 "teknik": {
 "plural": "tekniker",
-"form": "C"
+"form": "C/PL"
 },
 "teknikbolag": {
 "plural": "teknikbolag",
 "form": "N/PL"
 },
 "tekniker": {
-"plural": "isPlural",
+"plural": "tekniker",
 "form": "C/PL"
 },
 "teknikföretag": {
@@ -169165,7 +169289,7 @@
 },
 "tätort": {
 "plural": "tätorter",
-"form": "C"
+"form": "C/PL"
 },
 "tätorter": {
 "plural": "isPlural",
@@ -169197,7 +169321,7 @@
 },
 "tätört": {
 "plural": "tätorter",
-"form": "C/PL"
+"form": "C"
 },
 "tävling": {
 "plural": "tävlingar",
@@ -174413,7 +174537,7 @@
 },
 "vadd": {
 "plural": "vaddar",
-"form": "C/PL"
+"form": "C"
 },
 "vaddar": {
 "plural": "isPlural",
@@ -174652,8 +174776,8 @@
 "form": "PL"
 },
 "val": {
-"plural": "val",
-"form": "C/N/PL"
+"plural": "valar",
+"form": "C/N"
 },
 "valack": {
 "plural": "valacker",
@@ -174680,6 +174804,10 @@
 "form": "C"
 },
 "valapparater": {
+"plural": "isPlural",
+"form": "PL"
+},
+"valar": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -179873,7 +180001,7 @@
 },
 "vädd": {
 "plural": "vaddar",
-"form": "C"
+"form": "C/PL"
 },
 "väder": {
 "plural": "väder",
