@@ -204,8 +204,8 @@
 "form": ""
 },
 "Antiguo-barbudani": {
-"plural": "",
-"form": ""
+"plural": "Antiguo-barbudani",
+"form": "PL"
 },
 "Antiochia": {
 "plural": "",
@@ -1823,8 +1823,12 @@
 "plural": "",
 "form": "M"
 },
+"Laotiane": {
+"plural": "isPlural",
+"form": "PL"
+},
 "Laotiani": {
-"plural": "",
+"plural": "Laotiane",
 "form": ""
 },
 "Lara": {
@@ -1943,13 +1947,9 @@
 "plural": "",
 "form": ""
 },
-"Loreti": {
-"plural": "isPlural",
-"form": "PL"
-},
 "Loreto": {
-"plural": "Loreti",
-"form": "M"
+"plural": "",
+"form": ""
 },
 "Losanna": {
 "plural": "",
@@ -2336,8 +2336,8 @@
 "form": "M/PL"
 },
 "Naum": {
-"plural": "Naum",
-"form": "M/PL"
+"plural": "",
+"form": "M"
 },
 "Nauru": {
 "plural": "",
@@ -2831,12 +2831,8 @@
 "plural": "",
 "form": "M"
 },
-"Ringraziamenti": {
-"plural": "isPlural",
-"form": "PL"
-},
 "Ringraziamento": {
-"plural": "Ringraziamenti",
+"plural": "",
 "form": "M"
 },
 "Rita": {
@@ -2875,14 +2871,6 @@
 "plural": "",
 "form": "F"
 },
-"Romanticismi": {
-"plural": "isPlural",
-"form": "PL"
-},
-"Romanticismo": {
-"plural": "Romanticismi",
-"form": "M"
-},
 "Romolo": {
 "plural": "",
 "form": "M"
@@ -2912,8 +2900,8 @@
 "form": "M"
 },
 "Rumeni": {
-"plural": "",
-"form": ""
+"plural": "Rumeni",
+"form": "PL"
 },
 "Russia": {
 "plural": "",
@@ -2996,12 +2984,8 @@
 "form": ""
 },
 "Sapienza": {
-"plural": "Sapienze",
+"plural": "",
 "form": "F"
-},
-"Sapienze": {
-"plural": "isPlural",
-"form": "PL"
 },
 "Sara": {
 "plural": "",
@@ -3572,8 +3556,8 @@
 "form": "M"
 },
 "Vaticani": {
-"plural": "",
-"form": ""
+"plural": "Vaticani",
+"form": "PL"
 },
 "Vaticano": {
 "plural": "",
@@ -3879,6 +3863,14 @@
 "plural": "abbordaggi",
 "form": "M"
 },
+"abbottonatura": {
+"plural": "abbottonature",
+"form": "F"
+},
+"abbottonature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "abbozzi": {
 "plural": "isPlural",
 "form": "PL"
@@ -3943,6 +3935,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"abigeato": {
+"plural": "",
+"form": "M"
+},
 "abilitazione": {
 "plural": "abilitazioni",
 "form": "F"
@@ -3988,6 +3984,14 @@
 "form": "F"
 },
 "abitudini": {
+"plural": "isPlural",
+"form": "PL"
+},
+"abiura": {
+"plural": "abiure",
+"form": "F"
+},
+"abiure": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -4055,6 +4059,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"abomini": {
+"plural": "isPlural",
+"form": "PL"
+},
+"abominio": {
+"plural": "abomini",
+"form": "M"
+},
 "aborti": {
 "plural": "isPlural",
 "form": "PL"
@@ -4068,6 +4080,14 @@
 "form": "F"
 },
 "abrasioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"abrazite": {
+"plural": "abraziti",
+"form": "F"
+},
+"abraziti": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -4111,6 +4131,14 @@
 "plural": "abusi",
 "form": "M"
 },
+"acacia": {
+"plural": "acacie",
+"form": "F"
+},
+"acacie": {
+"plural": "isPlural",
+"form": "PL"
+},
 "acanti": {
 "plural": "isPlural",
 "form": "PL"
@@ -4149,6 +4177,14 @@
 },
 "accadimento": {
 "plural": "accadimenti",
+"form": "M"
+},
+"accaduti": {
+"plural": "isPlural",
+"form": "PL"
+},
+"accaduto": {
+"plural": "accaduti",
 "form": "M"
 },
 "accalappiamenti": {
@@ -4207,6 +4243,22 @@
 "plural": "accarezzamenti",
 "form": "M"
 },
+"accartocciamenti": {
+"plural": "isPlural",
+"form": "PL"
+},
+"accartocciamento": {
+"plural": "accartocciamenti",
+"form": "M"
+},
+"accartocciatura": {
+"plural": "accartocciature",
+"form": "F"
+},
+"accartocciature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "accasciamenti": {
 "plural": "isPlural",
 "form": "PL"
@@ -4222,6 +4274,14 @@
 "accattonaggio": {
 "plural": "accattonaggi",
 "form": "M"
+},
+"accattone": {
+"plural": "accattoni",
+"form": "M"
+},
+"accattoni": {
+"plural": "isPlural",
+"form": "PL"
 },
 "accavallamenti": {
 "plural": "isPlural",
@@ -4287,6 +4347,14 @@
 "plural": "accendini",
 "form": "M"
 },
+"accenditoi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"accenditoio": {
+"plural": "accenditoi",
+"form": "M"
+},
 "accenni": {
 "plural": "isPlural",
 "form": "PL"
@@ -4300,6 +4368,14 @@
 "form": "F"
 },
 "accensioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"accentatura": {
+"plural": "accentature",
+"form": "F"
+},
+"accentature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -4423,6 +4499,14 @@
 "plural": "acciaccamenti",
 "form": "M"
 },
+"acciaccatura": {
+"plural": "acciaccature",
+"form": "F"
+},
+"acciaccature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "acciacchi": {
 "plural": "isPlural",
 "form": "PL"
@@ -4450,6 +4534,14 @@
 "accidentalità": {
 "plural": "accidentalità",
 "form": "F/PL"
+},
+"accidente": {
+"plural": "accidenti",
+"form": "M"
+},
+"accidenti": {
+"plural": "isPlural",
+"form": "PL"
 },
 "acciecamenti": {
 "plural": "isPlural",
@@ -4551,6 +4643,14 @@
 "plural": "accoglimenti",
 "form": "M"
 },
+"accoliti": {
+"plural": "isPlural",
+"form": "PL"
+},
+"accolito": {
+"plural": "accoliti",
+"form": "M"
+},
 "accolli": {
 "plural": "isPlural",
 "form": "PL"
@@ -4607,6 +4707,14 @@
 "plural": "accompagnamenti",
 "form": "M"
 },
+"accompagnatore": {
+"plural": "accompagnatori",
+"form": ""
+},
+"accompagnatori": {
+"plural": "isPlural",
+"form": "PL"
+},
 "acconciamenti": {
 "plural": "isPlural",
 "form": "PL"
@@ -4614,6 +4722,10 @@
 "acconciamento": {
 "plural": "acconciamenti",
 "form": "M"
+},
+"acconciapadelle": {
+"plural": "acconciapadelle",
+"form": "PL"
 },
 "acconciatura": {
 "plural": "acconciature",
@@ -4670,6 +4782,14 @@
 "accordamento": {
 "plural": "accordamenti",
 "form": "M"
+},
+"accordatura": {
+"plural": "accordature",
+"form": "F"
+},
+"accordature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "accordi": {
 "plural": "isPlural",
@@ -4839,6 +4959,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"achillea": {
+"plural": "achillee",
+"form": "F"
+},
+"achillee": {
+"plural": "isPlural",
+"form": "PL"
+},
 "acidi": {
 "plural": "isPlural",
 "form": "PL"
@@ -4907,6 +5035,14 @@
 "plural": "acquari",
 "form": "M"
 },
+"acquavite": {
+"plural": "acquaviti",
+"form": "F"
+},
+"acquaviti": {
+"plural": "isPlural",
+"form": "PL"
+},
 "acquazzone": {
 "plural": "acquazzoni",
 "form": "M"
@@ -4963,6 +5099,14 @@
 "plural": "acquietamenti",
 "form": "M"
 },
+"acquisitore": {
+"plural": "acquisitori",
+"form": "M"
+},
+"acquisitori": {
+"plural": "isPlural",
+"form": "PL"
+},
 "acquisizione": {
 "plural": "acquisizioni",
 "form": "F"
@@ -4978,6 +5122,18 @@
 "acquisto": {
 "plural": "acquisti",
 "form": "M"
+},
+"acredine": {
+"plural": "acredini",
+"form": "F"
+},
+"acredini": {
+"plural": "isPlural",
+"form": "PL"
+},
+"acri": {
+"plural": "isPlural",
+"form": "PL"
 },
 "acrilici": {
 "plural": "isPlural",
@@ -4995,6 +5151,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"acro": {
+"plural": "acri",
+"form": "M"
+},
 "acrobazia": {
 "plural": "acrobazie",
 "form": "F"
@@ -5011,9 +5171,49 @@
 "plural": "acronimi",
 "form": "M"
 },
+"acrostici": {
+"plural": "isPlural",
+"form": "PL"
+},
+"acrostico": {
+"plural": "acrostici",
+"form": "M"
+},
+"acroteri": {
+"plural": "isPlural",
+"form": "PL"
+},
+"acroterio": {
+"plural": "acroteri",
+"form": "M"
+},
 "acuità": {
 "plural": "acuità",
 "form": "F/PL"
+},
+"acume": {
+"plural": "acumi",
+"form": "M"
+},
+"acumi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"acustica": {
+"plural": "acustiche",
+"form": "F"
+},
+"acustiche": {
+"plural": "isPlural",
+"form": "PL"
+},
+"acutezza": {
+"plural": "acutezze",
+"form": "F"
+},
+"acutezze": {
+"plural": "isPlural",
+"form": "PL"
 },
 "acutizzazione": {
 "plural": "acutizzazioni",
@@ -5447,6 +5647,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"aeropittura": {
+"plural": "aeropitture",
+"form": "F"
+},
+"aeropitture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "aeroporti": {
 "plural": "isPlural",
 "form": "PL"
@@ -5679,6 +5887,14 @@
 "plural": "affilamenti",
 "form": "M"
 },
+"affilatura": {
+"plural": "affilature",
+"form": "F"
+},
+"affilature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "affiliazione": {
 "plural": "affiliazioni",
 "form": "F"
@@ -5827,6 +6043,14 @@
 "plural": "affrancamenti",
 "form": "M"
 },
+"affrancatura": {
+"plural": "affrancature",
+"form": "F"
+},
+"affrancature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "affrancazione": {
 "plural": "affrancazioni",
 "form": "F"
@@ -5842,6 +6066,14 @@
 "affratellamento": {
 "plural": "affratellamenti",
 "form": "M"
+},
+"affrescatura": {
+"plural": "affrescature",
+"form": "F"
+},
+"affrescature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "affreschi": {
 "plural": "isPlural",
@@ -5866,6 +6098,14 @@
 "affumicamento": {
 "plural": "affumicamenti",
 "form": "M"
+},
+"affumicatura": {
+"plural": "affumicature",
+"form": "F"
+},
+"affumicature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "agenda": {
 "plural": "agende",
@@ -6155,6 +6395,22 @@
 "plural": "agi",
 "form": "M"
 },
+"agiografi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"agiografia": {
+"plural": "agiografie",
+"form": "F"
+},
+"agiografie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"agiografo": {
+"plural": "agiografi",
+"form": "M"
+},
 "agitamenti": {
 "plural": "isPlural",
 "form": "PL"
@@ -6223,6 +6479,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"agonia": {
+"plural": "agonie",
+"form": "F"
+},
+"agonie": {
+"plural": "isPlural",
+"form": "PL"
+},
 "agonismi": {
 "plural": "isPlural",
 "form": "PL"
@@ -6231,6 +6495,14 @@
 "plural": "agonismi",
 "form": "M"
 },
+"agonoteta": {
+"plural": "agonoteti",
+"form": "M"
+},
+"agonoteti": {
+"plural": "isPlural",
+"form": "PL"
+},
 "agopuntura": {
 "plural": "agopunture",
 "form": "F"
@@ -6238,6 +6510,10 @@
 "agopunture": {
 "plural": "isPlural",
 "form": "PL"
+},
+"agorafobia": {
+"plural": "",
+"form": "F"
 },
 "agostinismi": {
 "plural": "isPlural",
@@ -6257,6 +6533,14 @@
 },
 "agresto": {
 "plural": "agresti",
+"form": "M"
+},
+"agretti": {
+"plural": "isPlural",
+"form": "PL"
+},
+"agretto": {
+"plural": "agretti",
 "form": "M"
 },
 "agricoltore": {
@@ -6312,6 +6596,14 @@
 "form": "F"
 },
 "agronomie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"agrumicoltura": {
+"plural": "agrumicolture",
+"form": "F"
+},
+"agrumicolture": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -6378,6 +6670,14 @@
 "alacrità": {
 "plural": "alacrità",
 "form": "F/PL"
+},
+"alaggi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"alaggio": {
+"plural": "alaggi",
+"form": "M"
 },
 "alambicchi": {
 "plural": "isPlural",
@@ -6474,6 +6774,14 @@
 "albeggiamento": {
 "plural": "albeggiamenti",
 "form": "M"
+},
+"alberatura": {
+"plural": "alberature",
+"form": "F"
+},
+"alberature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "albergagione": {
 "plural": "albergagioni",
@@ -6692,10 +7000,10 @@
 "form": "PL"
 },
 "alchimista": {
-"plural": "alchimiste",
+"plural": "alchimisti",
 "form": ""
 },
-"alchimiste": {
+"alchimisti": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -6999,6 +7307,14 @@
 "plural": "alesaggi",
 "form": "M"
 },
+"alesatura": {
+"plural": "alesature",
+"form": "F"
+},
+"alesature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "alessia": {
 "plural": "alessie",
 "form": "F"
@@ -7018,6 +7334,14 @@
 "aletta": {
 "plural": "alette",
 "form": "F"
+},
+"alettatura": {
+"plural": "alettature",
+"form": "F"
+},
+"alettature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "alette": {
 "plural": "isPlural",
@@ -7398,6 +7722,14 @@
 "allacciamento": {
 "plural": "allacciamenti",
 "form": "M"
+},
+"allacciatura": {
+"plural": "allacciature",
+"form": "F"
+},
+"allacciature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "allagamenti": {
 "plural": "isPlural",
@@ -8779,6 +9111,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"amarume": {
+"plural": "amarumi",
+"form": "M"
+},
+"amarumi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "amasi": {
 "plural": "isPlural",
 "form": "PL"
@@ -8999,6 +9339,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"ambliopia": {
+"plural": "ambliopie",
+"form": "F"
+},
+"ambliopie": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ambo": {
 "plural": "ambi",
 "form": "M"
@@ -9151,6 +9499,14 @@
 "plural": "amenità",
 "form": "F/PL"
 },
+"amenorrea": {
+"plural": "amenorree",
+"form": "F"
+},
+"amenorree": {
+"plural": "isPlural",
+"form": "PL"
+},
 "amenti": {
 "plural": "isPlural",
 "form": "PL"
@@ -9241,6 +9597,10 @@
 },
 "amica": {
 "plural": "amiche",
+"form": "F"
+},
+"amicabilità": {
+"plural": "",
 "form": "F"
 },
 "amiche": {
@@ -10660,7 +11020,7 @@
 "form": "M"
 },
 "ancora": {
-"plural": "",
+"plural": "ancore",
 "form": "F"
 },
 "ancoraggi": {
@@ -10670,6 +11030,10 @@
 "ancoraggio": {
 "plural": "ancoraggi",
 "form": "M"
+},
+"ancore": {
+"plural": "isPlural",
+"form": "PL"
 },
 "ancorina": {
 "plural": "ancorine",
@@ -11767,6 +12131,14 @@
 "plural": "annaffiatoi",
 "form": "M"
 },
+"annaffiatura": {
+"plural": "annaffiature",
+"form": "F"
+},
+"annaffiature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "annali": {
 "plural": "annali",
 "form": "M/PL"
@@ -12641,6 +13013,14 @@
 },
 "anticolinesterasico": {
 "plural": "anticolinesterasici",
+"form": "M"
+},
+"anticolonialismi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"anticolonialismo": {
+"plural": "anticolonialismi",
 "form": "M"
 },
 "anticomunismi": {
@@ -14219,6 +14599,14 @@
 "plural": "",
 "form": "F"
 },
+"apicultura": {
+"plural": "apiculture",
+"form": "F"
+},
+"apiculture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "apifobia": {
 "plural": "apifobie",
 "form": "F"
@@ -14939,6 +15327,14 @@
 "plural": "appoggiacapi",
 "form": "M"
 },
+"appoggiatura": {
+"plural": "appoggiature",
+"form": "F"
+},
+"appoggiature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "appoggio": {
 "plural": "appoggi",
 "form": "M"
@@ -15163,6 +15559,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"aprospatia": {
+"plural": "aprospatie",
+"form": "F"
+},
+"aprospatie": {
+"plural": "isPlural",
+"form": "PL"
+},
 "aptoglobina": {
 "plural": "aptoglobine",
 "form": "F"
@@ -15327,6 +15731,10 @@
 "plural": "aracnofobi",
 "form": "M"
 },
+"aracnologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "aracnologia": {
 "plural": "aracnologie",
 "form": "F"
@@ -15334,6 +15742,10 @@
 "aracnologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"aracnologo": {
+"plural": "aracnologi",
+"form": "M"
 },
 "aragna": {
 "plural": "aragne",
@@ -15671,6 +16083,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"archeggiatura": {
+"plural": "archeggiature",
+"form": "F"
+},
+"archeggiature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "archeggio": {
 "plural": "archeggi",
 "form": "M"
@@ -15991,6 +16411,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"arcipretura": {
+"plural": "arcipreture",
+"form": "F"
+},
+"arcipreture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "arcivescovi": {
 "plural": "isPlural",
 "form": "PL"
@@ -16199,6 +16627,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"arefazione": {
+"plural": "arefazioni",
+"form": "F"
+},
+"arefazioni": {
+"plural": "isPlural",
+"form": "PL"
+},
 "arella": {
 "plural": "arelle",
 "form": "F"
@@ -16275,6 +16711,14 @@
 "plural": "argani",
 "form": "M"
 },
+"argentatura": {
+"plural": "argentature",
+"form": "F"
+},
+"argentature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "argenteria": {
 "plural": "argenterie",
 "form": "F"
@@ -16342,6 +16786,14 @@
 "arginasi": {
 "plural": "arginasi",
 "form": "F/PL"
+},
+"arginatura": {
+"plural": "arginature",
+"form": "F"
+},
+"arginature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "argine": {
 "plural": "argini",
@@ -16438,6 +16890,14 @@
 "aridità": {
 "plural": "aridità",
 "form": "F/PL"
+},
+"aridocoltura": {
+"plural": "aridocolture",
+"form": "F"
+},
+"aridocolture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "aridore": {
 "plural": "aridori",
@@ -17693,7 +18153,7 @@
 },
 "artropode": {
 "plural": "artropodi",
-"form": "M"
+"form": "M/PL"
 },
 "artropodi": {
 "plural": "isPlural",
@@ -17701,7 +18161,7 @@
 },
 "artropodo": {
 "plural": "artropodi",
-"form": "M/PL"
+"form": "M"
 },
 "artroscopia": {
 "plural": "artroscopie",
@@ -17775,6 +18235,10 @@
 "plural": "asado",
 "form": "M/PL"
 },
+"asalà": {
+"plural": "",
+"form": "M"
+},
 "asbesti": {
 "plural": "isPlural",
 "form": "PL"
@@ -17782,6 +18246,14 @@
 "asbesto": {
 "plural": "asbesti",
 "form": "M"
+},
+"asbestoide": {
+"plural": "asbestoidi",
+"form": "M"
+},
+"asbestoidi": {
+"plural": "isPlural",
+"form": "PL"
 },
 "asbestosi": {
 "plural": "asbestosi",
@@ -17858,6 +18330,14 @@
 "ascesso": {
 "plural": "ascessi",
 "form": "M"
+},
+"asceta": {
+"plural": "asceti",
+"form": ""
+},
+"asceti": {
+"plural": "isPlural",
+"form": "PL"
 },
 "ascetica": {
 "plural": "ascetiche",
@@ -18299,6 +18779,10 @@
 "plural": "aspetti",
 "form": "M"
 },
+"aspi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "aspic": {
 "plural": "aspic",
 "form": "M/PL"
@@ -18342,6 +18826,10 @@
 "aspirine": {
 "plural": "isPlural",
 "form": "PL"
+},
+"aspo": {
+"plural": "aspi",
+"form": "M"
 },
 "asportazione": {
 "plural": "asportazioni",
@@ -18457,7 +18945,7 @@
 },
 "asse": {
 "plural": "assi",
-"form": "F"
+"form": "F/PL"
 },
 "assedi": {
 "plural": "isPlural",
@@ -18751,6 +19239,14 @@
 "plural": "assideramenti",
 "form": "M"
 },
+"assiderazione": {
+"plural": "assiderazioni",
+"form": "F"
+},
+"assiderazioni": {
+"plural": "isPlural",
+"form": "PL"
+},
 "assiduità": {
 "plural": "assiduità",
 "form": "F/PL"
@@ -18865,7 +19361,7 @@
 },
 "asso": {
 "plural": "assi",
-"form": "M/PL"
+"form": "M"
 },
 "associati": {
 "plural": "isPlural",
@@ -20201,7 +20697,7 @@
 },
 "attore": {
 "plural": "attori",
-"form": "M"
+"form": "M/PL"
 },
 "attori": {
 "plural": "isPlural",
@@ -20300,7 +20796,7 @@
 "form": "PL"
 },
 "attrice": {
-"plural": "",
+"plural": "attori",
 "form": "F"
 },
 "attriti": {
@@ -21764,7 +22260,7 @@
 "form": "F/PL"
 },
 "autore": {
-"plural": "",
+"plural": "autori",
 "form": ""
 },
 "autoreattore": {
@@ -21838,6 +22334,10 @@
 "autorevolezza": {
 "plural": "",
 "form": "F"
+},
+"autori": {
+"plural": "isPlural",
+"form": "PL"
 },
 "autorialità": {
 "plural": "autorialità",
@@ -22517,6 +23017,14 @@
 },
 "avvallamento": {
 "plural": "avvallamenti",
+"form": "M"
+},
+"avvaloramenti": {
+"plural": "isPlural",
+"form": "PL"
+},
+"avvaloramento": {
+"plural": "avvaloramenti",
 "form": "M"
 },
 "avvedutezza": {
@@ -23423,9 +23931,25 @@
 "plural": "baccani",
 "form": "M"
 },
+"baccellatura": {
+"plural": "baccellature",
+"form": "F"
+},
+"baccellature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "baccelli": {
 "plural": "isPlural",
 "form": "PL"
+},
+"baccellierati": {
+"plural": "isPlural",
+"form": "PL"
+},
+"baccellierato": {
+"plural": "baccellierati",
+"form": "M"
 },
 "baccello": {
 "plural": "baccelli",
@@ -24903,6 +25427,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"barbagianneria": {
+"plural": "barbagiannerie",
+"form": "F"
+},
+"barbagiannerie": {
+"plural": "isPlural",
+"form": "PL"
+},
 "barbagianni": {
 "plural": "barbagianni",
 "form": "M/PL"
@@ -25231,6 +25763,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"barilatura": {
+"plural": "barilature",
+"form": "F"
+},
+"barilature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "barile": {
 "plural": "barili",
 "form": "M"
@@ -25422,6 +25962,14 @@
 "barracano": {
 "plural": "barracani",
 "form": "M"
+},
+"barratura": {
+"plural": "barrature",
+"form": "F"
+},
+"barrature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "barre": {
 "plural": "isPlural",
@@ -25798,6 +26346,14 @@
 "basto": {
 "plural": "basti",
 "form": "M"
+},
+"bastonatura": {
+"plural": "bastonature",
+"form": "F"
+},
+"bastonature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "bastoncelli": {
 "plural": "isPlural",
@@ -26259,6 +26815,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"baulatura": {
+"plural": "baulature",
+"form": "F"
+},
+"baulature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "baule": {
 "plural": "bauli",
 "form": "M"
@@ -26608,12 +27172,8 @@
 "form": "F"
 },
 "belladonna": {
-"plural": "belladonne",
+"plural": "",
 "form": "F"
-},
-"belladonne": {
-"plural": "isPlural",
-"form": "PL"
 },
 "belle": {
 "plural": "isPlural",
@@ -28043,6 +28603,14 @@
 "plural": "bigami",
 "form": "M"
 },
+"bigattiere": {
+"plural": "bigattieri",
+"form": "M"
+},
+"bigattieri": {
+"plural": "isPlural",
+"form": "PL"
+},
 "bigenitorialità": {
 "plural": "bigenitorialità",
 "form": "F/PL"
@@ -28434,6 +29002,14 @@
 "binario": {
 "plural": "binari",
 "form": "M"
+},
+"binatura": {
+"plural": "binature",
+"form": "F"
+},
+"binature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "binazione": {
 "plural": "binazioni",
@@ -30971,6 +31547,14 @@
 "plural": "bolognesità",
 "form": "F/PL"
 },
+"bolognini": {
+"plural": "isPlural",
+"form": "PL"
+},
+"bolognino": {
+"plural": "bolognini",
+"form": "M"
+},
 "bolsaggine": {
 "plural": "bolsaggini",
 "form": "F"
@@ -31038,6 +31622,14 @@
 "bombardino": {
 "plural": "bombardini",
 "form": "M"
+},
+"bombatura": {
+"plural": "bombature",
+"form": "F"
+},
+"bombature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "bombe": {
 "plural": "isPlural",
@@ -31816,6 +32408,14 @@
 "form": "F"
 },
 "bottoniere": {
+"plural": "isPlural",
+"form": "PL"
+},
+"bottura": {
+"plural": "botture",
+"form": "F"
+},
+"botture": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -32783,6 +33383,14 @@
 "plural": "brividi",
 "form": "M"
 },
+"brizzolatura": {
+"plural": "brizzolature",
+"form": "F"
+},
+"brizzolature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "broadcast": {
 "plural": "broadcast",
 "form": "M/PL"
@@ -33247,6 +33855,14 @@
 "plural": "brucaioli",
 "form": "M"
 },
+"brucatura": {
+"plural": "brucature",
+"form": "F"
+},
+"brucature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "brucellosi": {
 "plural": "brucellosi",
 "form": "F/PL"
@@ -33364,6 +33980,14 @@
 "form": "PL"
 },
 "bruni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"brunitura": {
+"plural": "bruniture",
+"form": "F"
+},
+"bruniture": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -33510,6 +34134,14 @@
 "bucato": {
 "plural": "bucati",
 "form": "M"
+},
+"bucatura": {
+"plural": "bucature",
+"form": "F"
+},
+"bucature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "bucce": {
 "plural": "isPlural",
@@ -33779,6 +34411,14 @@
 "plural": "bugnati",
 "form": "M"
 },
+"bugnatura": {
+"plural": "bugnature",
+"form": "F"
+},
+"bugnature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "bugni": {
 "plural": "isPlural",
 "form": "PL"
@@ -33810,6 +34450,14 @@
 "bulbocastano": {
 "plural": "bulbocastani",
 "form": "M"
+},
+"bulbomania": {
+"plural": "bulbomanie",
+"form": "F"
+},
+"bulbomanie": {
+"plural": "isPlural",
+"form": "PL"
 },
 "buleuteri": {
 "plural": "isPlural",
@@ -34377,7 +35025,7 @@
 },
 "butch": {
 "plural": "butch",
-"form": "M/PL"
+"form": "PL"
 },
 "butile": {
 "plural": "butili",
@@ -34514,6 +35162,14 @@
 "cablaggio": {
 "plural": "cablaggi",
 "form": "M"
+},
+"cablatura": {
+"plural": "cablature",
+"form": "F"
+},
+"cablature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "cablografia": {
 "plural": "cablografie",
@@ -34943,6 +35599,14 @@
 "plural": "caduti",
 "form": "M"
 },
+"caffeicoltura": {
+"plural": "caffeicolture",
+"form": "F"
+},
+"caffeicolture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "caffeina": {
 "plural": "caffeine",
 "form": "F"
@@ -35289,7 +35953,7 @@
 },
 "calaverna": {
 "plural": "calaverne",
-"form": "F/PL"
+"form": "F"
 },
 "calaverne": {
 "plural": "isPlural",
@@ -35396,6 +36060,14 @@
 "form": "M"
 },
 "calciatori": {
+"plural": "isPlural",
+"form": "PL"
+},
+"calciatura": {
+"plural": "calciature",
+"form": "F"
+},
+"calciature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -35845,10 +36517,10 @@
 },
 "calla": {
 "plural": "calle",
-"form": "F/PL"
+"form": "F"
 },
 "calle": {
-"plural": "calli",
+"plural": "isPlural",
 "form": "F/PL"
 },
 "calli": {
@@ -36483,6 +37155,14 @@
 "plural": "camiciai",
 "form": "M"
 },
+"camiciatura": {
+"plural": "camiciature",
+"form": "F"
+},
+"camiciature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "camicie": {
 "plural": "isPlural",
 "form": "PL"
@@ -36532,8 +37212,12 @@
 "form": "PL"
 },
 "camionista": {
-"plural": "",
+"plural": "camioniste",
 "form": ""
+},
+"camioniste": {
+"plural": "isPlural",
+"form": "PL"
 },
 "camma": {
 "plural": "camme",
@@ -37027,6 +37711,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"cancellatura": {
+"plural": "cancellature",
+"form": "F"
+},
+"cancellature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "cancellazione": {
 "plural": "cancellazioni",
 "form": "F"
@@ -37218,6 +37910,14 @@
 "candito": {
 "plural": "canditi",
 "form": "M"
+},
+"canditura": {
+"plural": "canditure",
+"form": "F"
+},
+"canditure": {
+"plural": "isPlural",
+"form": "PL"
 },
 "candore": {
 "plural": "candori",
@@ -38011,6 +38711,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"capigruppo": {
+"plural": "isPlural",
+"form": "PL"
+},
 "capillare": {
 "plural": "capillari",
 "form": "M"
@@ -38264,12 +38968,8 @@
 "form": "F"
 },
 "capofamiglia": {
-"plural": "capofamiglie",
-"form": "F"
-},
-"capofamiglie": {
-"plural": "isPlural",
-"form": "PL"
+"plural": "capofamiglia",
+"form": "F/PL"
 },
 "capogiri": {
 "plural": "isPlural",
@@ -38279,13 +38979,9 @@
 "plural": "capogiri",
 "form": "M"
 },
-"capogruppi": {
-"plural": "isPlural",
-"form": "PL"
-},
 "capogruppo": {
-"plural": "capogruppi",
-"form": "M"
+"plural": "capigruppo",
+"form": ""
 },
 "capolavori": {
 "plural": "isPlural",
@@ -38626,6 +39322,14 @@
 "cappottamento": {
 "plural": "cappottamenti",
 "form": "M"
+},
+"cappottatura": {
+"plural": "cappottature",
+"form": "F"
+},
+"cappottature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "cappotte": {
 "plural": "isPlural",
@@ -38984,6 +39688,14 @@
 "form": "F"
 },
 "caratterizzazioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"caratura": {
+"plural": "carature",
+"form": "F"
+},
+"carature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -41623,6 +42335,14 @@
 "plural": "castrati",
 "form": "M"
 },
+"castratura": {
+"plural": "castrature",
+"form": "F"
+},
+"castrature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "castrazione": {
 "plural": "castrazioni",
 "form": "F"
@@ -43735,6 +44455,14 @@
 "plural": "centinaia",
 "form": ""
 },
+"centinatura": {
+"plural": "centinature",
+"form": "F"
+},
+"centinature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "centine": {
 "plural": "isPlural",
 "form": "PL"
@@ -43836,6 +44564,14 @@
 "form": "F"
 },
 "centralizzazioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"centratura": {
+"plural": "centrature",
+"form": "F"
+},
+"centrature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -44658,6 +45394,14 @@
 "cesaropapismo": {
 "plural": "cesaropapismi",
 "form": "M"
+},
+"cesellatura": {
+"plural": "cesellature",
+"form": "F"
+},
+"cesellature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "ceselli": {
 "plural": "isPlural",
@@ -46139,6 +46883,10 @@
 "plural": "chirotteri",
 "form": "M"
 },
+"chirurghi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "chirurgia": {
 "plural": "chirurgie",
 "form": "F"
@@ -46148,7 +46896,7 @@
 "form": "PL"
 },
 "chirurgo": {
-"plural": "",
+"plural": "chirurghi",
 "form": ""
 },
 "chitarra": {
@@ -46446,6 +47194,14 @@
 "cianogeno": {
 "plural": "cianogeni",
 "form": "M"
+},
+"cianopatia": {
+"plural": "cianopatie",
+"form": "F"
+},
+"cianopatie": {
+"plural": "isPlural",
+"form": "PL"
 },
 "cianopsia": {
 "plural": "cianopsie",
@@ -47067,6 +47823,14 @@
 "plural": "cime",
 "form": "F"
 },
+"cimatura": {
+"plural": "cimature",
+"form": "F"
+},
+"cimature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "cimbali": {
 "plural": "isPlural",
 "form": "PL"
@@ -47470,6 +48234,14 @@
 "cingolato": {
 "plural": "cingolati",
 "form": "M"
+},
+"cingolatura": {
+"plural": "cingolature",
+"form": "F"
+},
+"cingolature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "cingoli": {
 "plural": "isPlural",
@@ -50667,6 +51439,14 @@
 "plural": "coetanei",
 "form": "M"
 },
+"cofanatura": {
+"plural": "cofanature",
+"form": "F"
+},
+"cofanature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "cofanetti": {
 "plural": "isPlural",
 "form": "PL"
@@ -51216,8 +51996,12 @@
 "form": "F"
 },
 "collaboratore": {
-"plural": "",
+"plural": "collaboratori",
 "form": ""
+},
+"collaboratori": {
+"plural": "isPlural",
+"form": "PL"
 },
 "collaborazione": {
 "plural": "collaborazioni",
@@ -52405,7 +53189,7 @@
 },
 "commediografo": {
 "plural": "commediografi",
-"form": "M"
+"form": ""
 },
 "commemorazione": {
 "plural": "commemorazioni",
@@ -53964,6 +54748,14 @@
 "form": "M"
 },
 "conciatori": {
+"plural": "isPlural",
+"form": "PL"
+},
+"conciatura": {
+"plural": "conciature",
+"form": "F"
+},
+"conciature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -58103,6 +58895,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"cordonatura": {
+"plural": "cordonature",
+"form": "F"
+},
+"cordonature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "cordura": {
 "plural": "cordure",
 "form": "F"
@@ -59407,6 +60207,14 @@
 "plural": "costole",
 "form": "F"
 },
+"costolatura": {
+"plural": "costolature",
+"form": "F"
+},
+"costolature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "costole": {
 "plural": "isPlural",
 "form": "PL"
@@ -59834,6 +60642,14 @@
 "cranio": {
 "plural": "crani",
 "form": "M"
+},
+"craniometria": {
+"plural": "craniometrie",
+"form": "F"
+},
+"craniometrie": {
+"plural": "isPlural",
+"form": "PL"
 },
 "craniostenosi": {
 "plural": "craniostenosi",
@@ -60463,6 +61279,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"criminologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "criminologia": {
 "plural": "criminologie",
 "form": "F"
@@ -60470,6 +61290,10 @@
 "criminologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"criminologo": {
+"plural": "criminologi",
+"form": "M"
 },
 "criminosità": {
 "plural": "criminosità",
@@ -60596,8 +61420,8 @@
 "form": "M"
 },
 "criptoanalisi": {
-"plural": "crittanalisi",
-"form": "F"
+"plural": "criptoanalisi",
+"form": "F/PL"
 },
 "criptococchi": {
 "plural": "isPlural",
@@ -60671,6 +61495,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"criptozoologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "criptozoologia": {
 "plural": "criptozoologie",
 "form": "F"
@@ -60678,6 +61506,10 @@
 "criptozoologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"criptozoologo": {
+"plural": "criptozoologi",
+"form": "M"
 },
 "crisalide": {
 "plural": "crisalidi",
@@ -60896,7 +61728,7 @@
 "form": "M"
 },
 "crittanalisi": {
-"plural": "isPlural",
+"plural": "crittanalisi",
 "form": "F/PL"
 },
 "crittoanalisi": {
@@ -62631,6 +63463,14 @@
 "plural": "damalischi",
 "form": "M"
 },
+"damascatura": {
+"plural": "damascature",
+"form": "F"
+},
+"damascature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "damaschi": {
 "plural": "isPlural",
 "form": "PL"
@@ -63499,6 +64339,14 @@
 "plural": "decifrati",
 "form": "M"
 },
+"decifratura": {
+"plural": "decifrature",
+"form": "F"
+},
+"decifrature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "decifrazione": {
 "plural": "decifrazioni",
 "form": "F"
@@ -63668,6 +64516,14 @@
 "form": "F"
 },
 "decodificazioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"decollatura": {
+"plural": "decollature",
+"form": "F"
+},
+"decollature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -64947,6 +65803,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"demonologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "demonologia": {
 "plural": "demonologie",
 "form": "F"
@@ -64954,6 +65814,10 @@
 "demonologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"demonologo": {
+"plural": "demonologi",
+"form": "M"
 },
 "demoralizzazione": {
 "plural": "demoralizzazioni",
@@ -64985,11 +65849,11 @@
 },
 "denario": {
 "plural": "denari",
-"form": "M"
+"form": "M/PL"
 },
 "denaro": {
 "plural": "denari",
-"form": "M/PL"
+"form": "M"
 },
 "denatalità": {
 "plural": "denatalità",
@@ -65118,6 +65982,14 @@
 "dente": {
 "plural": "denti",
 "form": "M"
+},
+"dentellatura": {
+"plural": "dentellature",
+"form": "F"
+},
+"dentellature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "dentelli": {
 "plural": "isPlural",
@@ -66504,10 +67376,6 @@
 "form": "F"
 },
 "devozioni": {
-"plural": "isPlural",
-"form": "PL"
-},
-"di": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -70679,6 +71547,10 @@
 "plural": "disvitaminosi",
 "form": "F/PL"
 },
+"dita": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ditacci": {
 "plural": "isPlural",
 "form": "PL"
@@ -70727,10 +71599,6 @@
 "plural": "isPlural",
 "form": "PL"
 },
-"diti": {
-"plural": "isPlural",
-"form": "PL"
-},
 "ditirambi": {
 "plural": "isPlural",
 "form": "PL"
@@ -70740,7 +71608,7 @@
 "form": "M"
 },
 "dito": {
-"plural": "diti",
+"plural": "dita",
 "form": "M"
 },
 "ditola": {
@@ -70975,6 +71843,14 @@
 "plural": "divertimenti",
 "form": "M"
 },
+"divezzi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"divezzo": {
+"plural": "divezzi",
+"form": "M"
+},
 "divi": {
 "plural": "isPlural",
 "form": "PL"
@@ -71148,8 +72024,8 @@
 "form": "M/PL"
 },
 "do": {
-"plural": "di",
-"form": "M"
+"plural": "do",
+"form": "M/PL"
 },
 "dobermann": {
 "plural": "dobermann",
@@ -72011,6 +72887,14 @@
 "plural": "dosaggi",
 "form": "M"
 },
+"dosatura": {
+"plural": "dosature",
+"form": "F"
+},
+"dosature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "dose": {
 "plural": "dosi",
 "form": "F"
@@ -72337,7 +73221,7 @@
 },
 "drepanocita": {
 "plural": "drepanociti",
-"form": "M/PL"
+"form": "M"
 },
 "drepanociti": {
 "plural": "isPlural",
@@ -72345,7 +73229,7 @@
 },
 "drepanocito": {
 "plural": "drepanociti",
-"form": "M"
+"form": "M/PL"
 },
 "drepanocitosi": {
 "plural": "drepanocitosi",
@@ -73293,10 +74177,10 @@
 },
 "eclisse": {
 "plural": "eclissi",
-"form": "F"
+"form": "F/PL"
 },
 "eclissi": {
-"plural": "isPlural",
+"plural": "eclissi",
 "form": "F/PL"
 },
 "eclittica": {
@@ -73415,6 +74299,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"ecologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ecologia": {
 "plural": "ecologie",
 "form": "F"
@@ -73439,6 +74327,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"ecologo": {
+"plural": "ecologi",
+"form": "M"
+},
 "ecomarxismi": {
 "plural": "isPlural",
 "form": "PL"
@@ -73446,6 +74338,14 @@
 "ecomarxismo": {
 "plural": "ecomarxismi",
 "form": "M"
+},
+"ecometria": {
+"plural": "ecometrie",
+"form": "F"
+},
+"ecometrie": {
+"plural": "isPlural",
+"form": "PL"
 },
 "ecomusei": {
 "plural": "isPlural",
@@ -74904,6 +75804,14 @@
 "form": "F"
 },
 "elettroesecuzioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"elettrofilatura": {
+"plural": "elettrofilature",
+"form": "F"
+},
+"elettrofilature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -77629,7 +78537,7 @@
 },
 "enterocita": {
 "plural": "enterociti",
-"form": "M/PL"
+"form": "M"
 },
 "enterociti": {
 "plural": "isPlural",
@@ -77637,7 +78545,7 @@
 },
 "enterocito": {
 "plural": "enterociti",
-"form": "M"
+"form": "M/PL"
 },
 "enteroclisi": {
 "plural": "enteroclisi",
@@ -78539,6 +79447,14 @@
 "plural": "epitafi",
 "form": "M"
 },
+"epitalami": {
+"plural": "isPlural",
+"form": "PL"
+},
+"epitalamio": {
+"plural": "epitalami",
+"form": "M"
+},
 "epitasi": {
 "plural": "epitasi",
 "form": "F/PL"
@@ -79059,6 +79975,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"erborinatura": {
+"plural": "erborinature",
+"form": "F"
+},
+"erborinature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "erborista": {
 "plural": "erboriste",
 "form": ""
@@ -79524,7 +80448,7 @@
 "form": "PL"
 },
 "eroe": {
-"plural": "eroi",
+"plural": "eroine",
 "form": "PL"
 },
 "erogabilità": {
@@ -79619,11 +80543,27 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"erpetologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "erpetologia": {
 "plural": "erpetologie",
 "form": "F"
 },
 "erpetologie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"erpetologo": {
+"plural": "erpetologi",
+"form": "M"
+},
+"erpicatura": {
+"plural": "erpicature",
+"form": "F"
+},
+"erpicature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -79988,8 +80928,8 @@
 "form": "PL"
 },
 "esarca": {
-"plural": "esarche",
-"form": "F"
+"plural": "esarchi",
+"form": "M"
 },
 "esarcati": {
 "plural": "isPlural",
@@ -79999,7 +80939,7 @@
 "plural": "esarcati",
 "form": "M"
 },
-"esarche": {
+"esarchi": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -81311,6 +82251,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"essiccatura": {
+"plural": "essiccature",
+"form": "F"
+},
+"essiccature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "essiccazione": {
 "plural": "essiccazioni",
 "form": "F"
@@ -81366,6 +82314,14 @@
 "estasi": {
 "plural": "estasi",
 "form": "F/PL"
+},
+"estatatura": {
+"plural": "estatature",
+"form": "F"
+},
+"estatature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "estate": {
 "plural": "estati",
@@ -82435,6 +83391,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"etnologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "etnologia": {
 "plural": "etnologie",
 "form": "F"
@@ -82443,11 +83403,19 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"etnologo": {
+"plural": "etnologi",
+"form": "M"
+},
 "etnomatematica": {
 "plural": "etnomatematiche",
 "form": "F"
 },
 "etnomatematiche": {
+"plural": "isPlural",
+"form": "PL"
+},
+"etnomusicologi": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -82458,6 +83426,10 @@
 "etnomusicologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"etnomusicologo": {
+"plural": "etnomusicologi",
+"form": "M"
 },
 "etnonimi": {
 "plural": "isPlural",
@@ -82551,6 +83523,10 @@
 "plural": "etruschi",
 "form": "M"
 },
+"etruscologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "etruscologia": {
 "plural": "etruscologie",
 "form": "F"
@@ -82558,6 +83534,10 @@
 "etruscologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"etruscologo": {
+"plural": "etruscologi",
+"form": "M"
 },
 "ettagoni": {
 "plural": "isPlural",
@@ -82680,6 +83660,14 @@
 "form": "F"
 },
 "eudermie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"eudiometria": {
+"plural": "eudiometrie",
+"form": "F"
+},
+"eudiometrie": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -82908,10 +83896,10 @@
 "form": "M"
 },
 "europeista": {
-"plural": "europeisti",
+"plural": "europeiste",
 "form": ""
 },
-"europeisti": {
+"europeiste": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -83831,6 +84819,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"falciatura": {
+"plural": "falciature",
+"form": "F"
+},
+"falciature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "falcidia": {
 "plural": "falcidie",
 "form": "F"
@@ -84049,11 +85045,11 @@
 },
 "fama": {
 "plural": "fame",
-"form": "F"
+"form": "F/PL"
 },
 "fame": {
-"plural": "isPlural",
-"form": "F/PL"
+"plural": "fami",
+"form": "F"
 },
 "famedi": {
 "plural": "isPlural",
@@ -84066,6 +85062,10 @@
 "famelicità": {
 "plural": "famelicità",
 "form": "F/PL"
+},
+"fami": {
+"plural": "isPlural",
+"form": "PL"
 },
 "famigli": {
 "plural": "isPlural",
@@ -84429,13 +85429,17 @@
 },
 "faraona": {
 "plural": "faraone",
-"form": "F/PL"
+"form": "F"
 },
 "faraone": {
-"plural": "faraoni",
-"form": "M"
+"plural": "isPlural",
+"form": "M/PL"
 },
-"faraoni": {
+"farcitura": {
+"plural": "farciture",
+"form": "F"
+},
+"farciture": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -84870,6 +85874,14 @@
 "farnetico": {
 "plural": "farnetici",
 "form": "M"
+},
+"farnia": {
+"plural": "farnie",
+"form": "F"
+},
+"farnie": {
+"plural": "isPlural",
+"form": "PL"
 },
 "faro": {
 "plural": "fari",
@@ -85955,6 +86967,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"fenestratura": {
+"plural": "fenestrature",
+"form": "F"
+},
+"fenestrature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "fengofobia": {
 "plural": "fengofobie",
 "form": "F"
@@ -86063,6 +87083,10 @@
 "plural": "fenomeni",
 "form": "M"
 },
+"fenomenologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "fenomenologia": {
 "plural": "fenomenologie",
 "form": "F"
@@ -86070,6 +87094,10 @@
 "fenomenologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"fenomenologo": {
+"plural": "fenomenologi",
+"form": "M"
 },
 "fenopolimorfismi": {
 "plural": "isPlural",
@@ -86552,8 +87580,12 @@
 "form": "PL"
 },
 "ferroviere": {
-"plural": "",
+"plural": "ferrovieri",
 "form": ""
+},
+"ferrovieri": {
+"plural": "isPlural",
+"form": "PL"
 },
 "ferrozirconio": {
 "plural": "",
@@ -87835,6 +88867,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"filautia": {
+"plural": "",
+"form": "F"
+},
 "file": {
 "plural": "isPlural",
 "form": "M/PL"
@@ -88374,6 +89410,14 @@
 "finestrato": {
 "plural": "finestrati",
 "form": "M"
+},
+"finestratura": {
+"plural": "finestrature",
+"form": "F"
+},
+"finestrature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "finestre": {
 "plural": "isPlural",
@@ -89691,6 +90735,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"floricultura": {
+"plural": "floriculture",
+"form": "F"
+},
+"floriculture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "floridezza": {
 "plural": "floridezze",
 "form": "F"
@@ -90043,6 +91095,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"focatura": {
+"plural": "focature",
+"form": "F"
+},
+"focature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "foce": {
 "plural": "foci",
 "form": "F"
@@ -90115,6 +91175,14 @@
 "plural": "fodere",
 "form": "F"
 },
+"foderatura": {
+"plural": "foderature",
+"form": "F"
+},
+"foderature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "fodere": {
 "plural": "isPlural",
 "form": "PL"
@@ -90154,6 +91222,14 @@
 "foggia": {
 "plural": "fogge",
 "form": "F"
+},
+"foggiatura": {
+"plural": "foggiature",
+"form": "F"
+},
+"foggiature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "foghe": {
 "plural": "isPlural",
@@ -91002,6 +92078,14 @@
 "forgiabilità": {
 "plural": "forgiabilità",
 "form": "F/PL"
+},
+"forgiatore": {
+"plural": "forgiatori",
+"form": "F/M"
+},
+"forgiatori": {
+"plural": "isPlural",
+"form": "PL"
 },
 "forgiatura": {
 "plural": "forgiature",
@@ -92531,6 +93615,14 @@
 "plural": "frange",
 "form": "F"
 },
+"frangiatura": {
+"plural": "frangiature",
+"form": "F"
+},
+"frangiature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "frangibiade": {
 "plural": "frangibiade",
 "form": "M/PL"
@@ -93175,6 +94267,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"fresatura": {
+"plural": "fresature",
+"form": "F"
+},
+"fresature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "freschezza": {
 "plural": "freschezze",
 "form": "F"
@@ -93259,12 +94359,8 @@
 "plural": "friccici",
 "form": "M"
 },
-"frici": {
-"plural": "isPlural",
-"form": "PL"
-},
 "frico": {
-"plural": "frici",
+"plural": "",
 "form": "M"
 },
 "friendzone": {
@@ -93452,6 +94548,14 @@
 "form": "F"
 },
 "frogie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"frollatura": {
+"plural": "frollature",
+"form": "F"
+},
+"frollature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -93675,12 +94779,12 @@
 "plural": "isPlural",
 "form": "PL"
 },
-"frustingi": {
+"frustinghi": {
 "plural": "isPlural",
 "form": "PL"
 },
 "frustingo": {
-"plural": "frustingi",
+"plural": "frustinghi",
 "form": "M"
 },
 "frustini": {
@@ -94819,12 +95923,28 @@
 "plural": "föhn",
 "form": "M/PL"
 },
+"gabarra": {
+"plural": "gabarre",
+"form": "F"
+},
+"gabarre": {
+"plural": "isPlural",
+"form": "PL"
+},
 "gabbacompagni": {
 "plural": "isPlural",
 "form": "PL"
 },
 "gabbacompagno": {
 "plural": "gabbacompagni",
+"form": "M"
+},
+"gabbadei": {
+"plural": "isPlural",
+"form": "PL"
+},
+"gabbadeo": {
+"plural": "gabbadei",
 "form": "M"
 },
 "gabbanella": {
@@ -94925,10 +96045,10 @@
 },
 "gaffa": {
 "plural": "gaffe",
-"form": "F/PL"
+"form": "F"
 },
 "gaffe": {
-"plural": "gaffe",
+"plural": "isPlural",
 "form": "F/PL"
 },
 "gag": {
@@ -95073,7 +96193,7 @@
 },
 "galaverna": {
 "plural": "calaverne",
-"form": "F"
+"form": "F/PL"
 },
 "galea": {
 "plural": "galee",
@@ -95784,6 +96904,14 @@
 "form": "F"
 },
 "garzaie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"garzatura": {
+"plural": "garzature",
+"form": "F"
+},
+"garzature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -98203,6 +99331,14 @@
 "plural": "giacinti",
 "form": "M"
 },
+"giacitura": {
+"plural": "giaciture",
+"form": "F"
+},
+"giaciture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "giaco": {
 "plural": "giachi",
 "form": "M"
@@ -99020,8 +100156,12 @@
 "form": "M"
 },
 "giornalista": {
-"plural": "",
+"plural": "giornalisti",
 "form": ""
+},
+"giornalisti": {
+"plural": "isPlural",
+"form": "PL"
 },
 "giornata": {
 "plural": "giornate",
@@ -99303,6 +100443,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"giratura": {
+"plural": "girature",
+"form": "F"
+},
+"girature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "giravite": {
 "plural": "giraviti",
 "form": "M"
@@ -99543,6 +100691,14 @@
 "plural": "giudicati",
 "form": "M"
 },
+"giudicatura": {
+"plural": "giudicature",
+"form": "F"
+},
+"giudicature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "giudice": {
 "plural": "giudici",
 "form": ""
@@ -99616,6 +100772,14 @@
 "form": "F"
 },
 "giumente": {
+"plural": "isPlural",
+"form": "PL"
+},
+"giumetria": {
+"plural": "giumetrie",
+"form": "F"
+},
+"giumetrie": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -100094,6 +101258,14 @@
 "glassa": {
 "plural": "glasse",
 "form": "F"
+},
+"glassatura": {
+"plural": "glassature",
+"form": "F"
+},
+"glassature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "glasse": {
 "plural": "isPlural",
@@ -101143,6 +102315,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"gommatura": {
+"plural": "gommature",
+"form": "F"
+},
+"gommature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "gomme": {
 "plural": "isPlural",
 "form": "PL"
@@ -102169,7 +103349,7 @@
 },
 "granulocita": {
 "plural": "granulociti",
-"form": "M/PL"
+"form": "M"
 },
 "granulociti": {
 "plural": "isPlural",
@@ -102177,7 +103357,7 @@
 },
 "granulocito": {
 "plural": "granulociti",
-"form": "M"
+"form": "M/PL"
 },
 "granulocitopenia": {
 "plural": "granulocitopenie",
@@ -102716,6 +103896,14 @@
 "form": "F"
 },
 "grigliate": {
+"plural": "isPlural",
+"form": "PL"
+},
+"grigliatura": {
+"plural": "grigliature",
+"form": "F"
+},
+"grigliature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -103404,6 +104592,14 @@
 "form": "F"
 },
 "guarnigioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"guarnitura": {
+"plural": "guarniture",
+"form": "F"
+},
+"guarniture": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -104375,6 +105571,14 @@
 "plural": "idee",
 "form": "F"
 },
+"ideale": {
+"plural": "ideali",
+"form": "M"
+},
+"ideali": {
+"plural": "isPlural",
+"form": "PL"
+},
 "idealismi": {
 "plural": "isPlural",
 "form": "PL"
@@ -104983,6 +106187,14 @@
 "plural": "idroni",
 "form": "M"
 },
+"idropatia": {
+"plural": "idropatie",
+"form": "F"
+},
+"idropatie": {
+"plural": "isPlural",
+"form": "PL"
+},
 "idropittura": {
 "plural": "idropitture",
 "form": "F"
@@ -105132,6 +106344,14 @@
 "form": "F"
 },
 "idroterapie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"idrotimetria": {
+"plural": "idrotimetrie",
+"form": "F"
+},
+"idrotimetrie": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -105847,13 +107067,25 @@
 "plural": "imbrattamenti",
 "form": "M"
 },
-"imbroglio": {
+"imbreviatura": {
+"plural": "imbreviature",
+"form": "F"
+},
+"imbreviature": {
 "plural": "isPlural",
-"form": "M/PL"
+"form": "PL"
+},
+"imbrogli": {
+"plural": "isPlural",
+"form": "PL"
+},
+"imbroglio": {
+"plural": "imbrogli",
+"form": "M"
 },
 "imbroglione": {
 "plural": "imbroglio",
-"form": "M"
+"form": "M/PL"
 },
 "imbuti": {
 "plural": "isPlural",
@@ -106608,6 +107840,14 @@
 "form": "F"
 },
 "impaginazioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"impagliatura": {
+"plural": "impagliature",
+"form": "F"
+},
+"impagliature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -107487,6 +108727,14 @@
 "plural": "imprimatur",
 "form": "M/PL"
 },
+"imprimitura": {
+"plural": "imprimiture",
+"form": "F"
+},
+"imprimiture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "imprinting": {
 "plural": "imprinting",
 "form": "M/PL"
@@ -107967,6 +109215,14 @@
 "plural": "incameramenti",
 "form": "M"
 },
+"incamiciatura": {
+"plural": "incamiciature",
+"form": "F"
+},
+"incamiciature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "incamminamenti": {
 "plural": "isPlural",
 "form": "PL"
@@ -108143,6 +109399,14 @@
 "plural": "incastri",
 "form": "M"
 },
+"incavatura": {
+"plural": "incavature",
+"form": "F"
+},
+"incavature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "incavi": {
 "plural": "isPlural",
 "form": "PL"
@@ -108308,6 +109572,14 @@
 "form": "F"
 },
 "inchiodature": {
+"plural": "isPlural",
+"form": "PL"
+},
+"inchiostratura": {
+"plural": "inchiostrature",
+"form": "F"
+},
+"inchiostrature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -108843,6 +110115,14 @@
 "plural": "incrementi",
 "form": "M"
 },
+"increspatura": {
+"plural": "increspature",
+"form": "F"
+},
+"increspature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "increzione": {
 "plural": "increzioni",
 "form": "F"
@@ -109012,6 +110292,14 @@
 "form": "M"
 },
 "incursori": {
+"plural": "isPlural",
+"form": "PL"
+},
+"incurvatura": {
+"plural": "incurvature",
+"form": "F"
+},
+"incurvature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -110100,8 +111388,12 @@
 "form": "PL"
 },
 "infermiere": {
-"plural": "",
+"plural": "infermieri",
 "form": ""
+},
+"infermieri": {
+"plural": "isPlural",
+"form": "PL"
 },
 "infermieristica": {
 "plural": "infermieristiche",
@@ -110583,6 +111875,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"infreddatura": {
+"plural": "infreddature",
+"form": "F"
+},
+"infreddature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "infrequenza": {
 "plural": "infrequenze",
 "form": "F"
@@ -110656,8 +111956,8 @@
 "form": "M"
 },
 "ingegnere": {
-"plural": "",
-"form": ""
+"plural": "ingegnere",
+"form": "PL"
 },
 "ingegneria": {
 "plural": "ingegnerie",
@@ -111091,6 +112391,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"innaffiatura": {
+"plural": "innaffiature",
+"form": "F"
+},
+"innaffiature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "innalzamenti": {
 "plural": "isPlural",
 "form": "PL"
@@ -111495,6 +112803,14 @@
 "plural": "insaccati",
 "form": "M"
 },
+"insaccatura": {
+"plural": "insaccature",
+"form": "F"
+},
+"insaccature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "insalata": {
 "plural": "insalate",
 "form": "F"
@@ -111702,6 +113018,14 @@
 "inseguimento": {
 "plural": "inseguimenti",
 "form": "M"
+},
+"insellatura": {
+"plural": "insellature",
+"form": "F"
+},
+"insellature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "inseminazione": {
 "plural": "inseminazioni",
@@ -112276,6 +113600,14 @@
 "form": "F"
 },
 "intasature": {
+"plural": "isPlural",
+"form": "PL"
+},
+"intavolatura": {
+"plural": "intavolature",
+"form": "F"
+},
+"intavolature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -114235,6 +115567,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"invetriatura": {
+"plural": "invetriature",
+"form": "F"
+},
+"invetriature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "invettiva": {
 "plural": "invettive",
 "form": "F"
@@ -115655,6 +116995,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"ipsometria": {
+"plural": "ipsometrie",
+"form": "F"
+},
+"ipsometrie": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ira": {
 "plural": "ire",
 "form": "F"
@@ -116604,8 +117952,12 @@
 "form": "M"
 },
 "ispettore": {
-"plural": "",
+"plural": "ispettori",
 "form": "M"
+},
+"ispettori": {
+"plural": "isPlural",
+"form": "PL"
 },
 "ispezione": {
 "plural": "ispezioni",
@@ -117171,11 +118523,23 @@
 "plural": "itteri",
 "form": "M"
 },
+"itticoltura": {
+"plural": "itticolture",
+"form": "F"
+},
+"itticolture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ittiofobia": {
 "plural": "ittiofobie",
 "form": "F"
 },
 "ittiofobie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"ittiologi": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -117186,6 +118550,10 @@
 "ittiologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"ittiologo": {
+"plural": "ittiologi",
+"form": "M"
 },
 "ittiosi": {
 "plural": "ittiosi",
@@ -117883,6 +119251,14 @@
 "plural": "lacche",
 "form": "F"
 },
+"laccatura": {
+"plural": "laccature",
+"form": "F"
+},
+"laccature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "lacce": {
 "plural": "isPlural",
 "form": "PL"
@@ -118241,11 +119617,11 @@
 },
 "lamellibranchio": {
 "plural": "lamellibranchi",
-"form": "M/PL"
+"form": "M"
 },
 "lamellibranco": {
 "plural": "lamellibranchi",
-"form": "M"
+"form": "M/PL"
 },
 "lamentanza": {
 "plural": "lamentanze",
@@ -118647,10 +120023,6 @@
 "plural": "lanzini",
 "form": "M"
 },
-"laparatomia": {
-"plural": "laparatomie",
-"form": "F"
-},
 "laparatomie": {
 "plural": "isPlural",
 "form": "PL"
@@ -118664,12 +120036,8 @@
 "form": "PL"
 },
 "laparotomia": {
-"plural": "laparotomie",
+"plural": "laparatomie",
 "form": "F"
-},
-"laparotomie": {
-"plural": "isPlural",
-"form": "PL"
 },
 "lapidari": {
 "plural": "isPlural",
@@ -119007,6 +120375,14 @@
 "plural": "lastre",
 "form": "F"
 },
+"lastratura": {
+"plural": "lastrature",
+"form": "F"
+},
+"lastrature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "lastre": {
 "plural": "isPlural",
 "form": "PL"
@@ -119018,6 +120394,14 @@
 "lastricato": {
 "plural": "lastricati",
 "form": "M"
+},
+"lastricatura": {
+"plural": "lastricature",
+"form": "F"
+},
+"lastricature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "lastrici": {
 "plural": "isPlural",
@@ -119221,7 +120605,7 @@
 },
 "latta": {
 "plural": "latte",
-"form": "F/PL"
+"form": "F"
 },
 "lattai": {
 "plural": "isPlural",
@@ -119268,8 +120652,8 @@
 "form": "PL"
 },
 "latte": {
-"plural": "latti",
-"form": "M"
+"plural": "isPlural",
+"form": "M/PL"
 },
 "latteria": {
 "plural": "latterie",
@@ -119292,10 +120676,6 @@
 "form": "F"
 },
 "lattescenze": {
-"plural": "isPlural",
-"form": "PL"
-},
-"latti": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -121003,20 +122383,24 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"levatura": {
+"plural": "levature",
+"form": "F"
+},
+"levature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "leve": {
 "plural": "isPlural",
 "form": "PL"
 },
 "leviatan": {
-"plural": "leviatan",
-"form": "M/PL"
-},
-"leviatani": {
 "plural": "isPlural",
 "form": "PL"
 },
 "leviatano": {
-"plural": "leviatani",
+"plural": "leviatan",
 "form": "M"
 },
 "levigatura": {
@@ -122523,6 +123907,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"lisciatura": {
+"plural": "lisciature",
+"form": "F"
+},
+"lisciature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "liscivia": {
 "plural": "liscivie",
 "form": "F"
@@ -123503,6 +124895,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"longimetria": {
+"plural": "longimetrie",
+"form": "F"
+},
+"longimetrie": {
+"plural": "isPlural",
+"form": "PL"
+},
 "longinquità": {
 "plural": "longinquità",
 "form": "F/PL"
@@ -124027,6 +125427,14 @@
 "plural": "lumi",
 "form": "M"
 },
+"lumeggiatura": {
+"plural": "lumeggiature",
+"form": "F"
+},
+"lumeggiature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "lumen": {
 "plural": "lumen",
 "form": "M/PL"
@@ -124114,6 +125522,14 @@
 "luna": {
 "plural": "lune",
 "form": "F"
+},
+"lunamoti": {
+"plural": "isPlural",
+"form": "PL"
+},
+"lunamoto": {
+"plural": "lunamoti",
+"form": "M"
 },
 "lunari": {
 "plural": "isPlural",
@@ -124471,10 +125887,6 @@
 "plural": "isPlural",
 "form": "PL"
 },
-"lógos": {
-"plural": "",
-"form": "M"
-},
 "macabri": {
 "plural": "isPlural",
 "form": "PL"
@@ -124672,8 +126084,12 @@
 "form": "M"
 },
 "macchinista": {
-"plural": "",
+"plural": "macchinisti",
 "form": ""
+},
+"macchinisti": {
+"plural": "isPlural",
+"form": "PL"
 },
 "macchinosità": {
 "plural": "macchinosità",
@@ -125198,6 +126614,14 @@
 "macula": {
 "plural": "macule",
 "form": "F"
+},
+"maculatura": {
+"plural": "maculature",
+"form": "F"
+},
+"maculature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "macule": {
 "plural": "isPlural",
@@ -128355,6 +129779,14 @@
 "plural": "marescialli",
 "form": "M"
 },
+"marezzatura": {
+"plural": "marezzature",
+"form": "F"
+},
+"marezzature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "margarina": {
 "plural": "margarine",
 "form": "F"
@@ -128771,6 +130203,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"martellatura": {
+"plural": "martellature",
+"form": "F"
+},
+"martellature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "martelletti": {
 "plural": "isPlural",
 "form": "PL"
@@ -128798,6 +130238,14 @@
 "martello": {
 "plural": "martelli",
 "form": "M"
+},
+"martensite": {
+"plural": "martensiti",
+"form": "F"
+},
+"martensiti": {
+"plural": "isPlural",
+"form": "PL"
 },
 "martinetta": {
 "plural": "martinette",
@@ -128991,6 +130439,14 @@
 "plural": "mascheramenti",
 "form": "M"
 },
+"mascheratura": {
+"plural": "mascherature",
+"form": "F"
+},
+"mascherature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "maschere": {
 "plural": "isPlural",
 "form": "PL"
@@ -129022,6 +130478,14 @@
 "maschiaccio": {
 "plural": "maschiacci",
 "form": "M"
+},
+"maschiatura": {
+"plural": "maschiature",
+"form": "F"
+},
+"maschiature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "maschicidi": {
 "plural": "isPlural",
@@ -130503,6 +131967,10 @@
 "plural": "megabyte",
 "form": "M/PL"
 },
+"megabìt": {
+"plural": "megabìt",
+"form": "M/PL"
+},
 "megacaloria": {
 "plural": "megacalorie",
 "form": "F"
@@ -131433,15 +132901,15 @@
 },
 "menta": {
 "plural": "mente",
-"form": "F/PL"
+"form": "F"
 },
 "mentalità": {
 "plural": "mentalità",
 "form": "F/PL"
 },
 "mente": {
-"plural": "menti",
-"form": "F"
+"plural": "isPlural",
+"form": "F/PL"
 },
 "mentecatti": {
 "plural": "isPlural",
@@ -131473,7 +132941,7 @@
 },
 "mento": {
 "plural": "menti",
-"form": "M/PL"
+"form": "M"
 },
 "mentoli": {
 "plural": "isPlural",
@@ -133027,6 +134495,10 @@
 "plural": "meteorografi",
 "form": "M"
 },
+"meteorologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "meteorologia": {
 "plural": "meteorologie",
 "form": "F"
@@ -133034,6 +134506,10 @@
 "meteorologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"meteorologo": {
+"plural": "meteorologi",
+"form": "M"
 },
 "meteoropatia": {
 "plural": "meteoropatie",
@@ -134050,6 +135526,14 @@
 "microfono": {
 "plural": "microfoni",
 "form": "M"
+},
+"microfrattura": {
+"plural": "microfratture",
+"form": "F"
+},
+"microfratture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "microfusione": {
 "plural": "microfusioni",
@@ -135283,6 +136767,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"miniavventura": {
+"plural": "miniavventure",
+"form": "F"
+},
+"miniavventure": {
+"plural": "isPlural",
+"form": "PL"
+},
 "minibar": {
 "plural": "minibar",
 "form": "M/PL"
@@ -135308,6 +136800,14 @@
 "form": "F"
 },
 "miniere": {
+"plural": "isPlural",
+"form": "PL"
+},
+"minifigura": {
+"plural": "minifigure",
+"form": "F"
+},
+"minifigure": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -136007,6 +137507,14 @@
 "plural": "miscibilità",
 "form": "F/PL"
 },
+"misconoscenza": {
+"plural": "misconoscenze",
+"form": "F"
+},
+"misconoscenze": {
+"plural": "isPlural",
+"form": "PL"
+},
 "miscredenza": {
 "plural": "miscredenze",
 "form": "F"
@@ -136343,6 +137851,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"mitilicoltura": {
+"plural": "mitilicolture",
+"form": "F"
+},
+"mitilicolture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "mitilo": {
 "plural": "mitili",
 "form": "M"
@@ -136537,7 +138053,7 @@
 },
 "mobile": {
 "plural": "mobili",
-"form": "M"
+"form": "M/PL"
 },
 "mobili": {
 "plural": "isPlural",
@@ -136561,7 +138077,7 @@
 },
 "mobilio": {
 "plural": "mobili",
-"form": "M/PL"
+"form": "M"
 },
 "mobilitazione": {
 "plural": "mobilitazioni",
@@ -136592,8 +138108,8 @@
 "form": "PL"
 },
 "moca": {
-"plural": "moche",
-"form": "F"
+"plural": "moke",
+"form": "F/M"
 },
 "mocassini": {
 "plural": "isPlural",
@@ -136632,10 +138148,6 @@
 "form": "M"
 },
 "moccoloni": {
-"plural": "isPlural",
-"form": "PL"
-},
-"moche": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -136963,6 +138475,10 @@
 "plural": "mojiti",
 "form": "M"
 },
+"moke": {
+"plural": "isPlural",
+"form": "PL"
+},
 "mola": {
 "plural": "mole",
 "form": "F"
@@ -136982,6 +138498,14 @@
 "molarità": {
 "plural": "molarità",
 "form": "F/PL"
+},
+"molatura": {
+"plural": "molature",
+"form": "F"
+},
+"molature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "moldavi": {
 "plural": "isPlural",
@@ -137046,6 +138570,14 @@
 "molibdeno": {
 "plural": "",
 "form": "M"
+},
+"molitura": {
+"plural": "moliture",
+"form": "F"
+},
+"moliture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "molla": {
 "plural": "molle",
@@ -137579,6 +139111,14 @@
 "plural": "monocoli",
 "form": "M"
 },
+"monocoltura": {
+"plural": "monocolture",
+"form": "F"
+},
+"monocolture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "monocrazia": {
 "plural": "monocrazie",
 "form": "F"
@@ -137604,6 +139144,14 @@
 "form": "F"
 },
 "monocromie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"monocultura": {
+"plural": "monoculture",
+"form": "F"
+},
+"monoculture": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -138827,6 +140375,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"mostreggiatura": {
+"plural": "mostreggiature",
+"form": "F"
+},
+"mostreggiature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "mostri": {
 "plural": "isPlural",
 "form": "PL"
@@ -139298,6 +140854,14 @@
 "motto": {
 "plural": "motti",
 "form": "M"
+},
+"mottura": {
+"plural": "motture",
+"form": "F"
+},
+"motture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "motupropri": {
 "plural": "isPlural",
@@ -140224,8 +141788,12 @@
 "form": "PL"
 },
 "musicista": {
-"plural": "",
+"plural": "musiciste",
 "form": ""
+},
+"musiciste": {
+"plural": "isPlural",
+"form": "PL"
 },
 "musico": {
 "plural": "musici",
@@ -140252,6 +141820,14 @@
 "form": "F"
 },
 "musicoterapie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"musicultura": {
+"plural": "musiculture",
+"form": "F"
+},
+"musiculture": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -140410,6 +141986,14 @@
 "mutismo": {
 "plural": "mutismi",
 "form": "M"
+},
+"mutizzazione": {
+"plural": "mutizzazioni",
+"form": "F"
+},
+"mutizzazioni": {
+"plural": "isPlural",
+"form": "PL"
 },
 "muto": {
 "plural": "muti",
@@ -141440,12 +143024,8 @@
 "form": "M"
 },
 "navarca": {
-"plural": "navarche",
-"form": "F"
-},
-"navarche": {
-"plural": "isPlural",
-"form": "PL"
+"plural": "navarchi",
+"form": "M"
 },
 "navarchi": {
 "plural": "isPlural",
@@ -141453,7 +143033,7 @@
 },
 "navarco": {
 "plural": "navarchi",
-"form": "M"
+"form": "M/PL"
 },
 "navata": {
 "plural": "navate",
@@ -143387,6 +144967,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"neuropsicologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "neuropsicologia": {
 "plural": "neuropsicologie",
 "form": "F"
@@ -143394,6 +144978,10 @@
 "neuropsicologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"neuropsicologo": {
+"plural": "neuropsicologi",
+"form": "M"
 },
 "neuropsicopatia": {
 "plural": "neuropsicopatie",
@@ -145599,6 +147187,14 @@
 "plural": "nunzie",
 "form": "F"
 },
+"nunziatura": {
+"plural": "nunziature",
+"form": "F"
+},
+"nunziature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "nunzie": {
 "plural": "isPlural",
 "form": "PL"
@@ -146251,6 +147847,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"occhiatura": {
+"plural": "occhiature",
+"form": "F"
+},
+"occhiature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "occhielli": {
 "plural": "isPlural",
 "form": "PL"
@@ -146734,6 +148338,14 @@
 "offeso": {
 "plural": "offesi",
 "form": "M"
+},
+"officiatura": {
+"plural": "officiature",
+"form": "F"
+},
+"officiature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "officina": {
 "plural": "officine",
@@ -148199,6 +149811,14 @@
 "plural": "oogenesi",
 "form": "F/PL"
 },
+"oolite": {
+"plural": "ooliti",
+"form": "F"
+},
+"ooliti": {
+"plural": "isPlural",
+"form": "PL"
+},
 "oosfera": {
 "plural": "oosfere",
 "form": "F"
@@ -149195,6 +150815,14 @@
 "plural": "orgogliosi",
 "form": "M"
 },
+"orgone": {
+"plural": "orgoni",
+"form": "M"
+},
+"orgoni": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ori": {
 "plural": "isPlural",
 "form": "PL"
@@ -149723,6 +151351,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"orticultura": {
+"plural": "orticulture",
+"form": "F"
+},
+"orticulture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "orto": {
 "plural": "orti",
 "form": "M"
@@ -150109,7 +151745,7 @@
 },
 "ospite": {
 "plural": "ospiti",
-"form": "M"
+"form": ""
 },
 "ospiti": {
 "plural": "isPlural",
@@ -150593,7 +152229,7 @@
 },
 "osteocita": {
 "plural": "osteociti",
-"form": "M"
+"form": "M/PL"
 },
 "osteociti": {
 "plural": "isPlural",
@@ -150601,7 +152237,7 @@
 },
 "osteocito": {
 "plural": "osteociti",
-"form": "M/PL"
+"form": "M"
 },
 "osteoclasia": {
 "plural": "osteoclasie",
@@ -150874,6 +152510,14 @@
 "ostrichetrancidipescesalatocagnoligattuccipezzidicefaloinsalsapiccantesilfiooliomieletordimerlicolombaccicolombellegallettilodolearrostocutrettolepiccioniselvaticilepricottenelvinocroccanticantuccini": {
 "plural": "Ostrichetrancidipescesalatocagnoligattuccipezzidicefaloinsalsapiccantesilfiooliomieletordimerlicolombaccicolombellegallettilodolearrostocutrettolepiccioniselvaticilepricottenelvinocroccanticantuccini",
 "form": ""
+},
+"ostricoltura": {
+"plural": "ostricolture",
+"form": "F"
+},
+"ostricolture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "ostro": {
 "plural": "",
@@ -151391,6 +153035,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"ovatura": {
+"plural": "ovature",
+"form": "F"
+},
+"ovature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ovazione": {
 "plural": "ovazioni",
 "form": "F"
@@ -151554,6 +153206,14 @@
 "ozono": {
 "plural": "ozoni",
 "form": "M"
+},
+"ozonometria": {
+"plural": "ozonometrie",
+"form": "F"
+},
+"ozonometrie": {
+"plural": "isPlural",
+"form": "PL"
 },
 "pH-metri": {
 "plural": "isPlural",
@@ -152175,6 +153835,14 @@
 "plural": "palatoschisi",
 "form": "F/PL"
 },
+"palatura": {
+"plural": "palature",
+"form": "F"
+},
+"palature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "palazzi": {
 "plural": "isPlural",
 "form": "PL"
@@ -152323,6 +153991,14 @@
 "plural": "paleolitici",
 "form": "M"
 },
+"paleologi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"paleologo": {
+"plural": "paleologi",
+"form": "M"
+},
 "paleomagnetismi": {
 "plural": "isPlural",
 "form": "PL"
@@ -152422,6 +154098,14 @@
 "paletta": {
 "plural": "palette",
 "form": "F"
+},
+"palettatura": {
+"plural": "palettature",
+"form": "F"
+},
+"palettature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "palette": {
 "plural": "isPlural",
@@ -152762,6 +154446,14 @@
 "palmitato": {
 "plural": "palmitati",
 "form": "M"
+},
+"palmite": {
+"plural": "palmiti",
+"form": "M"
+},
+"palmiti": {
+"plural": "isPlural",
+"form": "PL"
 },
 "palmizi": {
 "plural": "isPlural",
@@ -153431,6 +155123,14 @@
 "plural": "panneggi",
 "form": "M"
 },
+"pannellatura": {
+"plural": "pannellature",
+"form": "F"
+},
+"pannellature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "pannelli": {
 "plural": "isPlural",
 "form": "PL"
@@ -153883,6 +155583,10 @@
 "plural": "papiri",
 "form": "M"
 },
+"papirologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "papirologia": {
 "plural": "papirologie",
 "form": "F"
@@ -153890,6 +155594,10 @@
 "papirologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"papirologo": {
+"plural": "papirologi",
+"form": "M"
 },
 "papismi": {
 "plural": "isPlural",
@@ -154471,6 +156179,14 @@
 "plural": "parallelogrammi",
 "form": "M"
 },
+"paralogismi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"paralogismo": {
+"plural": "paralogismi",
+"form": "M"
+},
 "paramagnetismi": {
 "plural": "isPlural",
 "form": "PL"
@@ -154627,6 +156343,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"parapsicologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "parapsicologia": {
 "plural": "parapsicologie",
 "form": "F"
@@ -154634,6 +156354,18 @@
 "parapsicologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"parapsicologo": {
+"plural": "parapsicologi",
+"form": "M"
+},
+"parasaurolofi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"parasaurolofo": {
+"plural": "parasaurolofi",
+"form": "M"
 },
 "parasimpaticolitici": {
 "plural": "isPlural",
@@ -156255,10 +157987,6 @@
 "plural": "patologi",
 "form": "M"
 },
-"patos": {
-"plural": "patos",
-"form": "M/PL"
-},
 "patosi": {
 "plural": "patosi",
 "form": "F/PL"
@@ -157250,6 +158978,14 @@
 "pellicola cinematografica": {
 "plural": "pellicole cinematografiche",
 "form": "F"
+},
+"pellicolatura": {
+"plural": "pellicolature",
+"form": "F"
+},
+"pellicolature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "pellicole cinematografiche": {
 "plural": "isPlural",
@@ -158839,6 +160575,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"permacultura": {
+"plural": "permaculture",
+"form": "F"
+},
+"permaculture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "permafrost": {
 "plural": "permafrost",
 "form": "M/PL"
@@ -159911,6 +161655,14 @@
 "plural": "pezzati",
 "form": "M"
 },
+"pezzatura": {
+"plural": "pezzature",
+"form": "F"
+},
+"pezzature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "pezze": {
 "plural": "isPlural",
 "form": "PL"
@@ -160050,6 +161802,14 @@
 "piallaccio": {
 "plural": "piallacci",
 "form": "M"
+},
+"piallatura": {
+"plural": "piallature",
+"form": "F"
+},
+"piallature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "pialle": {
 "plural": "isPlural",
@@ -160246,6 +162006,14 @@
 "piastrella": {
 "plural": "piastrelle",
 "form": "F"
+},
+"piastrellatura": {
+"plural": "piastrellature",
+"form": "F"
+},
+"piastrellature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "piastrelle": {
 "plural": "isPlural",
@@ -160499,6 +162267,14 @@
 "plural": "picchiati",
 "form": "M"
 },
+"picchiettatura": {
+"plural": "picchiettature",
+"form": "F"
+},
+"picchiettature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "picchio": {
 "plural": "picchi",
 "form": "M"
@@ -160699,6 +162475,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"piedinatura": {
+"plural": "piedinature",
+"form": "F"
+},
+"piedinature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "piedini": {
 "plural": "isPlural",
 "form": "PL"
@@ -160744,6 +162528,14 @@
 "form": "PL"
 },
 "pieghe": {
+"plural": "isPlural",
+"form": "PL"
+},
+"pieghettatura": {
+"plural": "pieghettature",
+"form": "F"
+},
+"pieghettature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -160924,6 +162716,14 @@
 "form": "M"
 },
 "pigiami": {
+"plural": "isPlural",
+"form": "PL"
+},
+"pigiatura": {
+"plural": "pigiature",
+"form": "F"
+},
+"pigiature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -161452,6 +163252,14 @@
 "form": "M"
 },
 "pioppi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"pioppicoltura": {
+"plural": "pioppicolture",
+"form": "F"
+},
+"pioppicolture": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -163460,10 +165268,10 @@
 "form": "F/PL"
 },
 "poeta": {
-"plural": "poete",
+"plural": "poetesse",
 "form": "M"
 },
-"poete": {
+"poetesse": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -163822,6 +165630,14 @@
 "policlinico": {
 "plural": "policlinici",
 "form": "M"
+},
+"policoltura": {
+"plural": "policolture",
+"form": "F"
+},
+"policolture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "policondensazione": {
 "plural": "policondensazioni",
@@ -165863,6 +167679,10 @@
 "plural": "portaombrelli",
 "form": "M/PL"
 },
+"portaova": {
+"plural": "isPlural",
+"form": "PL"
+},
 "portapacchi": {
 "plural": "portapacchi",
 "form": "M/PL"
@@ -166064,7 +167884,7 @@
 "form": "M/PL"
 },
 "portauovo": {
-"plural": "",
+"plural": "portaova",
 "form": "M"
 },
 "portautensili": {
@@ -167915,6 +169735,14 @@
 "plural": "prelati",
 "form": "M"
 },
+"prelatura": {
+"plural": "prelature",
+"form": "F"
+},
+"prelature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "prelazione": {
 "plural": "prelazioni",
 "form": "F"
@@ -168246,6 +170074,14 @@
 "prepositivo": {
 "plural": "prepositivi",
 "form": "M"
+},
+"prepositura": {
+"plural": "prepositure",
+"form": "F"
+},
+"prepositure": {
+"plural": "isPlural",
+"form": "PL"
 },
 "preposizione": {
 "plural": "preposizioni",
@@ -169030,6 +170866,14 @@
 "prevosto": {
 "plural": "prevosti",
 "form": "M"
+},
+"prevostura": {
+"plural": "prevosture",
+"form": "F"
+},
+"prevosture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "preziosi": {
 "plural": "isPlural",
@@ -169956,8 +171800,12 @@
 "form": "M"
 },
 "professionista": {
-"plural": "",
+"plural": "professioniste",
 "form": ""
+},
+"professioniste": {
+"plural": "isPlural",
+"form": "PL"
 },
 "professore": {
 "plural": "professori",
@@ -170022,6 +171870,14 @@
 "profilattico": {
 "plural": "profilattici",
 "form": "M"
+},
+"profilatura": {
+"plural": "profilature",
+"form": "F"
+},
+"profilature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "profili": {
 "plural": "isPlural",
@@ -170819,6 +172675,14 @@
 "plural": "propositi",
 "form": "M"
 },
+"propositura": {
+"plural": "propositure",
+"form": "F"
+},
+"propositure": {
+"plural": "isPlural",
+"form": "PL"
+},
 "proposizione": {
 "plural": "proposizioni",
 "form": "F"
@@ -171320,8 +173184,12 @@
 "form": "M"
 },
 "protagonista": {
-"plural": "",
+"plural": "protagonisti",
 "form": ""
+},
+"protagonisti": {
+"plural": "isPlural",
+"form": "PL"
 },
 "protagorismi": {
 "plural": "isPlural",
@@ -172899,6 +174767,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"puericultura": {
+"plural": "puericulture",
+"form": "F"
+},
+"puericulture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "puerilità": {
 "plural": "puerilità",
 "form": "F/PL"
@@ -173390,6 +175266,14 @@
 "puntina": {
 "plural": "puntine",
 "form": "F"
+},
+"puntinatura": {
+"plural": "puntinature",
+"form": "F"
+},
+"puntinature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "puntine": {
 "plural": "isPlural",
@@ -173920,6 +175804,14 @@
 "form": "F"
 },
 "quadrature": {
+"plural": "isPlural",
+"form": "PL"
+},
+"quadrettatura": {
+"plural": "quadrettature",
+"form": "F"
+},
+"quadrettature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -174540,10 +176432,10 @@
 "form": "M/PL"
 },
 "quena": {
-"plural": "quene",
+"plural": "quenas",
 "form": "F"
 },
-"quene": {
+"quenas": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -174648,6 +176540,14 @@
 "form": "F"
 },
 "quietanze": {
+"plural": "isPlural",
+"form": "PL"
+},
+"quietatura": {
+"plural": "quietature",
+"form": "F"
+},
+"quietature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -174783,8 +176683,12 @@
 "plural": "quinti",
 "form": "M"
 },
+"quintupli": {
+"plural": "isPlural",
+"form": "PL"
+},
 "quintuplo": {
-"plural": "",
+"plural": "quintupli",
 "form": ""
 },
 "quirinalismi": {
@@ -175835,6 +177739,14 @@
 "plural": "radiometri",
 "form": "M"
 },
+"radiomisura": {
+"plural": "radiomisure",
+"form": "F"
+},
+"radiomisure": {
+"plural": "isPlural",
+"form": "PL"
+},
 "radionavigazione": {
 "plural": "radionavigazioni",
 "form": "F"
@@ -176405,11 +178317,11 @@
 },
 "ragazzino": {
 "plural": "ragazzini",
-"form": "M/PL"
+"form": "M"
 },
 "ragazzo": {
 "plural": "ragazzini",
-"form": "M"
+"form": "M/PL"
 },
 "ragazzotti": {
 "plural": "isPlural",
@@ -177130,6 +179042,14 @@
 "rapport": {
 "plural": "rapport",
 "form": "M/PL"
+},
+"rapportatura": {
+"plural": "rapportature",
+"form": "F"
+},
+"rapportature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "rapporti": {
 "plural": "isPlural",
@@ -178640,6 +180560,14 @@
 "form": "M"
 },
 "registratori": {
+"plural": "isPlural",
+"form": "PL"
+},
+"registratura": {
+"plural": "registrature",
+"form": "F"
+},
+"registrature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -180515,6 +182443,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"rialesatura": {
+"plural": "rialesature",
+"form": "F"
+},
+"rialesature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "riallacci": {
 "plural": "isPlural",
 "form": "PL"
@@ -180654,6 +182590,14 @@
 "riarrangiamento": {
 "plural": "riarrangiamenti",
 "form": "M"
+},
+"riasfaltatura": {
+"plural": "riasfaltature",
+"form": "F"
+},
+"riasfaltature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "riassegnazione": {
 "plural": "riassegnazioni",
@@ -180936,6 +182880,14 @@
 "form": "F"
 },
 "ricanalizzazioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"ricandidatura": {
+"plural": "ricandidature",
+"form": "F"
+},
+"ricandidature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -181475,6 +183427,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"ricopertura": {
+"plural": "ricoperture",
+"form": "F"
+},
+"ricoperture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ricoprimenti": {
 "plural": "isPlural",
 "form": "PL"
@@ -181635,6 +183595,14 @@
 "plural": "ricuciti",
 "form": "M"
 },
+"ricucitura": {
+"plural": "ricuciture",
+"form": "F"
+},
+"ricuciture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ricusabilità": {
 "plural": "ricusabilità",
 "form": "F/PL"
@@ -181710,6 +183678,14 @@
 "ridimensionamento": {
 "plural": "ridimensionamenti",
 "form": "M"
+},
+"ridipintura": {
+"plural": "ridipinture",
+"form": "F"
+},
+"ridipinture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "ridisegnamenti": {
 "plural": "isPlural",
@@ -182019,6 +183995,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"rifioritura": {
+"plural": "rifioriture",
+"form": "F"
+},
+"rifioriture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "rifiuti": {
 "plural": "isPlural",
 "form": "PL"
@@ -182292,6 +184276,14 @@
 "form": "F"
 },
 "rigatterie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"rigatura": {
+"plural": "rigature",
+"form": "F"
+},
+"rigature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -182588,6 +184580,22 @@
 "form": "F"
 },
 "rimanenze": {
+"plural": "isPlural",
+"form": "PL"
+},
+"rimappatura": {
+"plural": "rimappature",
+"form": "F"
+},
+"rimappature": {
+"plural": "isPlural",
+"form": "PL"
+},
+"rimarchiatura": {
+"plural": "rimarchiature",
+"form": "F"
+},
+"rimarchiature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -183567,6 +185575,14 @@
 "plural": "ripiegamenti",
 "form": "M"
 },
+"ripiegatura": {
+"plural": "ripiegature",
+"form": "F"
+},
+"ripiegature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ripieghi": {
 "plural": "isPlural",
 "form": "PL"
@@ -183787,11 +185803,35 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"ripulitura": {
+"plural": "ripuliture",
+"form": "F"
+},
+"ripuliture": {
+"plural": "isPlural",
+"form": "PL"
+},
+"ripuntatura": {
+"plural": "ripuntature",
+"form": "F"
+},
+"ripuntature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "riputazione": {
 "plural": "riputazioni",
 "form": "F"
 },
 "riputazioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"riquadratura": {
+"plural": "riquadrature",
+"form": "F"
+},
+"riquadrature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -183998,6 +186038,14 @@
 "riscotibilità": {
 "plural": "riscotibilità",
 "form": "F/PL"
+},
+"riscrittura": {
+"plural": "riscritture",
+"form": "F"
+},
+"riscritture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "riscuotibilità": {
 "plural": "riscuotibilità",
@@ -184439,6 +186487,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"ritinteggiatura": {
+"plural": "ritinteggiature",
+"form": "F"
+},
+"ritinteggiature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ritirata": {
 "plural": "ritirate",
 "form": "F"
@@ -184803,6 +186859,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"riverniciatura": {
+"plural": "riverniciature",
+"form": "F"
+},
+"riverniciature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "riversibilità": {
 "plural": "riversibilità",
 "form": "F/PL"
@@ -184814,6 +186878,14 @@
 "rivestimento": {
 "plural": "rivestimenti",
 "form": "M"
+},
+"rivettatura": {
+"plural": "rivettature",
+"form": "F"
+},
+"rivettature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "rivetti": {
 "plural": "isPlural",
@@ -186259,6 +188331,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"rullatura": {
+"plural": "rullature",
+"form": "F"
+},
+"rullature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "rulli": {
 "plural": "isPlural",
 "form": "PL"
@@ -186595,6 +188675,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"sabbiatura": {
+"plural": "sabbiature",
+"form": "F"
+},
+"sabbiature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sabbie": {
 "plural": "isPlural",
 "form": "PL"
@@ -186668,6 +188756,14 @@
 "form": "F"
 },
 "saccarificazioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"saccarimetria": {
+"plural": "saccarimetrie",
+"form": "F"
+},
+"saccarimetrie": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -187077,7 +189173,7 @@
 },
 "sala": {
 "plural": "sale",
-"form": "F/PL"
+"form": "F"
 },
 "salacca": {
 "plural": "salacche",
@@ -187187,6 +189283,14 @@
 "plural": "salati",
 "form": "M"
 },
+"salatura": {
+"plural": "salature",
+"form": "F"
+},
+"salature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "salbutamoli": {
 "plural": "isPlural",
 "form": "PL"
@@ -187268,8 +189372,8 @@
 "form": "M"
 },
 "sale": {
-"plural": "sali",
-"form": "M"
+"plural": "isPlural",
+"form": "M/PL"
 },
 "salentini": {
 "plural": "isPlural",
@@ -187310,10 +189414,6 @@
 "salgemma": {
 "plural": "salgemma",
 "form": "M/PL"
-},
-"sali": {
-"plural": "isPlural",
-"form": "PL"
 },
 "salice": {
 "plural": "salici",
@@ -189135,6 +191235,14 @@
 "plural": "sbattimenti",
 "form": "M"
 },
+"sbavatura": {
+"plural": "sbavature",
+"form": "F"
+},
+"sbavature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sbeffeggiamenti": {
 "plural": "isPlural",
 "form": "PL"
@@ -189260,6 +191368,14 @@
 "form": "F"
 },
 "sbobbe": {
+"plural": "isPlural",
+"form": "PL"
+},
+"sbobinatura": {
+"plural": "sbobinature",
+"form": "F"
+},
+"sbobinature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -189515,6 +191631,14 @@
 "plural": "scafandri",
 "form": "M"
 },
+"scaffalatura": {
+"plural": "scaffalature",
+"form": "F"
+},
+"scaffalature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "scaffale": {
 "plural": "scaffali",
 "form": "M"
@@ -189589,11 +191713,19 @@
 },
 "scala": {
 "plural": "scalette",
-"form": "F"
+"form": "F/PL"
 },
 "scalabilità": {
 "plural": "scalabilità",
 "form": "F/PL"
+},
+"scalanatura": {
+"plural": "scalanature",
+"form": "F"
+},
+"scalanature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "scalare": {
 "plural": "scalari",
@@ -189616,6 +191748,14 @@
 "form": "M"
 },
 "scalatori": {
+"plural": "isPlural",
+"form": "PL"
+},
+"scalatura": {
+"plural": "scalature",
+"form": "F"
+},
+"scalature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -189673,7 +191813,7 @@
 },
 "scaletta": {
 "plural": "scalette",
-"form": "F/PL"
+"form": "F"
 },
 "scalette": {
 "plural": "isPlural",
@@ -189686,6 +191826,14 @@
 "scaletto": {
 "plural": "scaletti",
 "form": "M"
+},
+"scalfittura": {
+"plural": "scalfitture",
+"form": "F"
+},
+"scalfitture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "scali": {
 "plural": "isPlural",
@@ -190239,6 +192387,14 @@
 "plural": "scarlatti",
 "form": "M"
 },
+"scarnatura": {
+"plural": "scarnature",
+"form": "F"
+},
+"scarnature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "scarnificazione": {
 "plural": "scarnificazioni",
 "form": "F"
@@ -190272,6 +192428,14 @@
 "form": "F"
 },
 "scarpate": {
+"plural": "isPlural",
+"form": "PL"
+},
+"scarpatura": {
+"plural": "scarpature",
+"form": "F"
+},
+"scarpature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -190746,6 +192910,14 @@
 "schedario": {
 "plural": "schedari",
 "form": "M"
+},
+"schedatura": {
+"plural": "schedature",
+"form": "F"
+},
+"schedature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "schede": {
 "plural": "isPlural",
@@ -191335,6 +193507,14 @@
 "plural": "scialacquii",
 "form": "M"
 },
+"scialbatura": {
+"plural": "scialbature",
+"form": "F"
+},
+"scialbature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "scialle": {
 "plural": "scialli",
 "form": "M"
@@ -191387,6 +193567,14 @@
 "plural": "sciamani",
 "form": "M"
 },
+"sciamatura": {
+"plural": "sciamature",
+"form": "F"
+},
+"sciamature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sciame": {
 "plural": "sciami",
 "form": "M"
@@ -191410,6 +193598,14 @@
 "sciampo": {
 "plural": "sciampi",
 "form": "M"
+},
+"sciancratura": {
+"plural": "sciancrature",
+"form": "F"
+},
+"sciancrature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "sciantosa": {
 "plural": "sciantose",
@@ -191952,12 +194148,8 @@
 "form": "M/PL"
 },
 "scolarca": {
-"plural": "scolarche",
-"form": "F"
-},
-"scolarche": {
-"plural": "isPlural",
-"form": "PL"
+"plural": "scolarchi",
+"form": "M"
 },
 "scolarchi": {
 "plural": "isPlural",
@@ -191965,7 +194157,7 @@
 },
 "scolarco": {
 "plural": "scolarchi",
-"form": "M"
+"form": "M/PL"
 },
 "scolaresca": {
 "plural": "scolaresche",
@@ -192015,6 +194207,14 @@
 "plural": "scolasticità",
 "form": "F/PL"
 },
+"scolatura": {
+"plural": "scolature",
+"form": "F"
+},
+"scolature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "scoli": {
 "plural": "isPlural",
 "form": "PL"
@@ -192059,6 +194259,14 @@
 "plural": "scoli",
 "form": "M"
 },
+"scolopendra": {
+"plural": "scolopendre",
+"form": "F"
+},
+"scolopendre": {
+"plural": "isPlural",
+"form": "PL"
+},
 "scolopi": {
 "plural": "isPlural",
 "form": "PL"
@@ -192066,6 +194274,14 @@
 "scolopio": {
 "plural": "scolopi",
 "form": "M"
+},
+"scolpitura": {
+"plural": "scolpiture",
+"form": "F"
+},
+"scolpiture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "scolta": {
 "plural": "scolte",
@@ -192519,6 +194735,14 @@
 "plural": "scoperti",
 "form": "M"
 },
+"scopertura": {
+"plural": "scoperture",
+"form": "F"
+},
+"scoperture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "scopi": {
 "plural": "isPlural",
 "form": "PL"
@@ -192630,6 +194854,14 @@
 "scorcio": {
 "plural": "scorci",
 "form": "M"
+},
+"scordatura": {
+"plural": "scordature",
+"form": "F"
+},
+"scordature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "score": {
 "plural": "",
@@ -192931,6 +195163,14 @@
 "plural": "screenshot",
 "form": "M/PL"
 },
+"scrematura": {
+"plural": "scremature",
+"form": "F"
+},
+"scremature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "screpolatura": {
 "plural": "screpolature",
 "form": "F"
@@ -192940,6 +195180,14 @@
 "form": "PL"
 },
 "screzi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"screziatura": {
+"plural": "screziature",
+"form": "F"
+},
+"screziature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -193164,6 +195412,14 @@
 "form": "F"
 },
 "scucchie": {
+"plural": "isPlural",
+"form": "PL"
+},
+"scudatura": {
+"plural": "scudature",
+"form": "F"
+},
+"scudature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -193899,6 +196155,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"seghettatura": {
+"plural": "seghettature",
+"form": "F"
+},
+"seghettature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "seghi": {
 "plural": "isPlural",
 "form": "PL"
@@ -194134,6 +196398,10 @@
 "selenio": {
 "plural": "",
 "form": "M"
+},
+"selenite": {
+"plural": "seleniti",
+"form": "F/PL"
 },
 "seleniti": {
 "plural": "isPlural",
@@ -196575,6 +198843,14 @@
 "plural": "sfaldamenti",
 "form": "M"
 },
+"sfaldatura": {
+"plural": "sfaldature",
+"form": "F"
+},
+"sfaldature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sfarfallamenti": {
 "plural": "isPlural",
 "form": "PL"
@@ -196602,6 +198878,14 @@
 "sfasamento": {
 "plural": "sfasamenti",
 "form": "M"
+},
+"sfasatura": {
+"plural": "sfasature",
+"form": "F"
+},
+"sfasature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "sfasci": {
 "plural": "isPlural",
@@ -196938,6 +199222,14 @@
 "sfiziosità": {
 "plural": "sfiziosità",
 "form": "F/PL"
+},
+"sfocatura": {
+"plural": "sfocature",
+"form": "F"
+},
+"sfocature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "sfoggi": {
 "plural": "isPlural",
@@ -197360,6 +199652,14 @@
 "form": "F"
 },
 "sgradevolezze": {
+"plural": "isPlural",
+"form": "PL"
+},
+"sgranatura": {
+"plural": "sgranature",
+"form": "F"
+},
+"sgranature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -197999,6 +200299,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"sigillatura": {
+"plural": "sigillature",
+"form": "F"
+},
+"sigillature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sigilli": {
 "plural": "isPlural",
 "form": "PL"
@@ -198010,6 +200318,14 @@
 "sigla": {
 "plural": "sigle",
 "form": "F"
+},
+"siglatura": {
+"plural": "siglature",
+"form": "F"
+},
+"siglature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "sigle": {
 "plural": "isPlural",
@@ -198803,6 +201119,14 @@
 "plural": "sindacati",
 "form": "M"
 },
+"sindacatura": {
+"plural": "sindacature",
+"form": "F"
+},
+"sindacature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sindacazione": {
 "plural": "sindacazioni",
 "form": "F"
@@ -198811,8 +201135,12 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"sindache": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sindaco": {
-"plural": "",
+"plural": "sindache",
 "form": ""
 },
 "sindemia": {
@@ -198834,6 +201162,14 @@
 "sindone": {
 "plural": "",
 "form": "F"
+},
+"sindonologi": {
+"plural": "isPlural",
+"form": "PL"
+},
+"sindonologo": {
+"plural": "sindonologi",
+"form": "M"
 },
 "sindrome": {
 "plural": "sindromi",
@@ -199103,6 +201439,10 @@
 "plural": "sinoli",
 "form": "M"
 },
+"sinologi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sinologia": {
 "plural": "sinologie",
 "form": "F"
@@ -199110,6 +201450,10 @@
 "sinologie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"sinologo": {
+"plural": "sinologi",
+"form": "M"
 },
 "sinonimi": {
 "plural": "isPlural",
@@ -199955,6 +202299,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"smerigliatura": {
+"plural": "smerigliature",
+"form": "F"
+},
+"smerigliature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "smeriglio": {
 "plural": "smerigli",
 "form": "M"
@@ -200102,6 +202454,14 @@
 "smottamento": {
 "plural": "smottamenti",
 "form": "M"
+},
+"smussatura": {
+"plural": "smussature",
+"form": "F"
+},
+"smussature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "snack": {
 "plural": "snack",
@@ -200639,6 +202999,14 @@
 "plural": "soffiati",
 "form": "M"
 },
+"soffiatura": {
+"plural": "soffiature",
+"form": "F"
+},
+"soffiature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sofficità": {
 "plural": "sofficità",
 "form": "F/PL"
@@ -201112,6 +203480,14 @@
 "form": "M"
 },
 "solfidrili": {
+"plural": "isPlural",
+"form": "PL"
+},
+"solfidrometria": {
+"plural": "solfidrometrie",
+"form": "F"
+},
+"solfidrometrie": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -203003,6 +205379,14 @@
 "plural": "sottoconsumi",
 "form": "M"
 },
+"sottocopertura": {
+"plural": "sottocoperture",
+"form": "F"
+},
+"sottocoperture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sottocoppa": {
 "plural": "sottocoppe",
 "form": "M"
@@ -203116,6 +205500,14 @@
 "form": "M"
 },
 "sottoli": {
+"plural": "isPlural",
+"form": "PL"
+},
+"sottolineatura": {
+"plural": "sottolineature",
+"form": "F"
+},
+"sottolineature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -203415,6 +205807,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"sottostruttura": {
+"plural": "sottostrutture",
+"form": "F"
+},
+"sottostrutture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sottosuoli": {
 "plural": "isPlural",
 "form": "PL"
@@ -203430,6 +205830,14 @@
 "sottosviluppo": {
 "plural": "sottosviluppi",
 "form": "M"
+},
+"sottotenente": {
+"plural": "sottotenenti",
+"form": "M"
+},
+"sottotenenti": {
+"plural": "isPlural",
+"form": "PL"
 },
 "sottotesi": {
 "plural": "sottotesi",
@@ -203790,6 +206198,14 @@
 "sovraprezzo": {
 "plural": "sovraprezzi",
 "form": "M"
+},
+"sovrascrittura": {
+"plural": "sovrascritture",
+"form": "F"
+},
+"sovrascritture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "sovrastruttura": {
 "plural": "sovrastrutture",
@@ -204271,6 +206687,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"spannolinamenti": {
+"plural": "isPlural",
+"form": "PL"
+},
+"spannolinamento": {
+"plural": "spannolinamenti",
+"form": "M"
+},
 "sparagella": {
 "plural": "sparagelle",
 "form": "F"
@@ -204715,6 +207139,14 @@
 "plural": "spazzole",
 "form": "F"
 },
+"spazzolatura": {
+"plural": "spazzolature",
+"form": "F"
+},
+"spazzolature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "spazzole": {
 "plural": "isPlural",
 "form": "PL"
@@ -204738,6 +207170,14 @@
 "specchia": {
 "plural": "specchie",
 "form": "F"
+},
+"specchiatura": {
+"plural": "specchiature",
+"form": "F"
+},
+"specchiature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "specchie": {
 "plural": "isPlural",
@@ -205307,6 +207747,14 @@
 "plural": "spezialità",
 "form": "F/PL"
 },
+"speziatura": {
+"plural": "speziature",
+"form": "F"
+},
+"speziature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "spezie": {
 "plural": "isPlural",
 "form": "PL"
@@ -205588,6 +208036,14 @@
 "form": "M"
 },
 "spigolatori": {
+"plural": "isPlural",
+"form": "PL"
+},
+"spigolatura": {
+"plural": "spigolature",
+"form": "F"
+},
+"spigolature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -206291,6 +208747,14 @@
 "plural": "spongiosità",
 "form": "F/PL"
 },
+"spongite": {
+"plural": "spongiti",
+"form": "F"
+},
+"spongiti": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sponsalizi": {
 "plural": "isPlural",
 "form": "PL"
@@ -206627,6 +209091,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"sprezzatura": {
+"plural": "sprezzature",
+"form": "F"
+},
+"sprezzature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sprezzi": {
 "plural": "isPlural",
 "form": "PL"
@@ -206764,6 +209236,14 @@
 "form": "F"
 },
 "spruzzate": {
+"plural": "isPlural",
+"form": "PL"
+},
+"spruzzatura": {
+"plural": "spruzzature",
+"form": "F"
+},
+"spruzzature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -206906,6 +209386,14 @@
 "squadra": {
 "plural": "squadre",
 "form": "F"
+},
+"squadratura": {
+"plural": "squadrature",
+"form": "F"
+},
+"squadrature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "squadre": {
 "plural": "isPlural",
@@ -207391,13 +209879,13 @@
 "plural": "isPlural",
 "form": "PL"
 },
-"stai": {
+"staia": {
 "plural": "isPlural",
 "form": "PL"
 },
 "staio": {
-"plural": "stai",
-"form": "M"
+"plural": "staia",
+"form": ""
 },
 "stakeholder": {
 "plural": "stakeholder",
@@ -207582,6 +210070,14 @@
 "stampiglia": {
 "plural": "stampiglie",
 "form": "F"
+},
+"stampigliatura": {
+"plural": "stampigliature",
+"form": "F"
+},
+"stampigliature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "stampiglie": {
 "plural": "isPlural",
@@ -208667,6 +211163,14 @@
 "plural": "sterri",
 "form": "M"
 },
+"sterzatura": {
+"plural": "sterzature",
+"form": "F"
+},
+"sterzature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "sterzi": {
 "plural": "isPlural",
 "form": "PL"
@@ -209068,6 +211572,14 @@
 "form": "F"
 },
 "stiratrici": {
+"plural": "isPlural",
+"form": "PL"
+},
+"stiratura": {
+"plural": "stirature",
+"form": "F"
+},
+"stirature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -209510,6 +212022,14 @@
 "storno": {
 "plural": "storni",
 "form": "M"
+},
+"storpiatura": {
+"plural": "storpiature",
+"form": "F"
+},
+"storpiature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "storta": {
 "plural": "storte",
@@ -210263,6 +212783,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"strettura": {
+"plural": "stretture",
+"form": "F"
+},
+"stretture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "stria": {
 "plural": "strie",
 "form": "F"
@@ -210807,6 +213335,14 @@
 "plural": "stuccamenti",
 "form": "M"
 },
+"stuccatura": {
+"plural": "stuccature",
+"form": "F"
+},
+"stuccature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "stucchi": {
 "plural": "isPlural",
 "form": "PL"
@@ -210874,6 +213410,14 @@
 "stufato": {
 "plural": "stufati",
 "form": "M"
+},
+"stufatura": {
+"plural": "stufature",
+"form": "F"
+},
+"stufature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "stufe": {
 "plural": "isPlural",
@@ -211231,6 +213775,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"subfornitura": {
+"plural": "subforniture",
+"form": "F"
+},
+"subforniture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "subietti": {
 "plural": "isPlural",
 "form": "PL"
@@ -211469,7 +214021,7 @@
 },
 "succube": {
 "plural": "succubi",
-"form": "F"
+"form": "F/PL"
 },
 "succubi": {
 "plural": "isPlural",
@@ -211477,7 +214029,7 @@
 },
 "succubo": {
 "plural": "succubi",
-"form": "M/PL"
+"form": "M"
 },
 "succursale": {
 "plural": "succursali",
@@ -212511,6 +215063,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"superstruttura": {
+"plural": "superstrutture",
+"form": "F"
+},
+"superstrutture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "supertassazione": {
 "plural": "supertassazioni",
 "form": "F"
@@ -212535,12 +215095,12 @@
 "plural": "superumanismi",
 "form": "M"
 },
-"superuomi": {
+"superuomini": {
 "plural": "isPlural",
 "form": "PL"
 },
 "superuomo": {
-"plural": "superuomi",
+"plural": "superuomini",
 "form": "M"
 },
 "supervalutazione": {
@@ -213099,6 +215659,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"svasatura": {
+"plural": "svasature",
+"form": "F"
+},
+"svasature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "svassi": {
 "plural": "isPlural",
 "form": "PL"
@@ -213622,6 +216190,14 @@
 "tabernacolo": {
 "plural": "tabernacoli",
 "form": "M"
+},
+"tablatura": {
+"plural": "tablature",
+"form": "F"
+},
+"tablature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "tablet": {
 "plural": "tablet",
@@ -214851,6 +217427,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"taratura": {
+"plural": "tarature",
+"form": "F"
+},
+"tarature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "tardità": {
 "plural": "tardità",
 "form": "F/PL"
@@ -215159,6 +217743,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"tassellatura": {
+"plural": "tassellature",
+"form": "F"
+},
+"tassellature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "tasselli": {
 "plural": "isPlural",
 "form": "PL"
@@ -215208,7 +217800,7 @@
 "form": "PL"
 },
 "tassì": {
-"plural": "tassì",
+"plural": "isPlural",
 "form": "M/PL"
 },
 "tastamenti": {
@@ -215496,8 +218088,8 @@
 "form": "PL"
 },
 "taxi": {
-"plural": "taxi",
-"form": "M/PL"
+"plural": "tassì",
+"form": "M"
 },
 "taxista": {
 "plural": "taxiste",
@@ -216148,8 +218740,12 @@
 "form": "PL"
 },
 "telegrafista": {
-"plural": "",
+"plural": "telegrafisti",
 "form": ""
+},
+"telegrafisti": {
+"plural": "isPlural",
+"form": "PL"
 },
 "telegrafo": {
 "plural": "telegrafi",
@@ -216194,6 +218790,14 @@
 "telelavoro": {
 "plural": "telelavori",
 "form": "M"
+},
+"telelettura": {
+"plural": "teleletture",
+"form": "F"
+},
+"teleletture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "telemarketing": {
 "plural": "telemarketing",
@@ -218091,9 +220695,13 @@
 "plural": "terni",
 "form": "M"
 },
+"teroldeghi": {
+"plural": "isPlural",
+"form": "PL"
+},
 "teroldego": {
-"plural": "teroldego",
-"form": "M/PL"
+"plural": "teroldeghi",
+"form": "M"
 },
 "terotecnologia": {
 "plural": "terotecnologie",
@@ -218332,8 +220940,12 @@
 "form": "M"
 },
 "terrorista": {
-"plural": "",
+"plural": "terroristi",
 "form": ""
+},
+"terroristi": {
+"plural": "isPlural",
+"form": "PL"
 },
 "tersità": {
 "plural": "tersità",
@@ -218440,10 +221052,10 @@
 "form": "M"
 },
 "terzomondista": {
-"plural": "terzomondisti",
+"plural": "terzomondiste",
 "form": ""
 },
-"terzomondisti": {
+"terzomondiste": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -218462,6 +221074,14 @@
 "tesafili": {
 "plural": "tesafili",
 "form": "M/PL"
+},
+"tesatura": {
+"plural": "tesature",
+"form": "F"
+},
+"tesature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "tesauri": {
 "plural": "isPlural",
@@ -219315,6 +221935,14 @@
 "plural": "ticchi",
 "form": "M"
 },
+"ticchiolatura": {
+"plural": "ticchiolature",
+"form": "F"
+},
+"ticchiolature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "ticket": {
 "plural": "ticket",
 "form": "M/PL"
@@ -219356,12 +221984,12 @@
 "form": "PL"
 },
 "tifosi": {
-"plural": "tifosi",
+"plural": "isPlural",
 "form": "F/PL"
 },
 "tifoso": {
 "plural": "tifosi",
-"form": "M/PL"
+"form": "M"
 },
 "tigella": {
 "plural": "tigelle",
@@ -219672,6 +222300,14 @@
 "form": "PL"
 },
 "tinte": {
+"plural": "isPlural",
+"form": "PL"
+},
+"tinteggiatura": {
+"plural": "tinteggiature",
+"form": "F"
+},
+"tinteggiature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -220165,7 +222801,7 @@
 },
 "tirio": {
 "plural": "tiri",
-"form": "M"
+"form": "M/PL"
 },
 "tiristore": {
 "plural": "tiristori",
@@ -220185,7 +222821,7 @@
 },
 "tiro": {
 "plural": "tiri",
-"form": "M/PL"
+"form": "M"
 },
 "tirocini": {
 "plural": "isPlural",
@@ -220359,6 +222995,14 @@
 "plural": "titolarità",
 "form": "F/PL"
 },
+"titolatura": {
+"plural": "titolature",
+"form": "F"
+},
+"titolature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "titolazione": {
 "plural": "titolazioni",
 "form": "F"
@@ -220523,6 +223167,14 @@
 "plural": "tolette",
 "form": "F"
 },
+"tolettatura": {
+"plural": "tolettature",
+"form": "F"
+},
+"tolettature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "tolette": {
 "plural": "isPlural",
 "form": "PL"
@@ -220604,6 +223256,14 @@
 "form": "M"
 },
 "tombe": {
+"plural": "isPlural",
+"form": "PL"
+},
+"tombinatura": {
+"plural": "tombinature",
+"form": "F"
+},
+"tombinature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -220802,6 +223462,14 @@
 "tono": {
 "plural": "toni",
 "form": "M"
+},
+"tonometria": {
+"plural": "tonometrie",
+"form": "F"
+},
+"tonometrie": {
+"plural": "isPlural",
+"form": "PL"
 },
 "tonsilla": {
 "plural": "tonsille",
@@ -221102,6 +223770,14 @@
 "torcinaso": {
 "plural": "torcinasi",
 "form": "M"
+},
+"torcitura": {
+"plural": "torciture",
+"form": "F"
+},
+"torciture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "tordi": {
 "plural": "isPlural",
@@ -221571,6 +224247,14 @@
 "plural": "tosasiepi",
 "form": "M/PL"
 },
+"tosatura": {
+"plural": "tosature",
+"form": "F"
+},
+"tosature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "toscanismi": {
 "plural": "isPlural",
 "form": "PL"
@@ -221688,6 +224372,14 @@
 "form": "M"
 },
 "tostapani": {
+"plural": "isPlural",
+"form": "PL"
+},
+"tostatura": {
+"plural": "tostature",
+"form": "F"
+},
+"tostature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -222403,6 +225095,14 @@
 "plural": "tramezzamenti",
 "form": "M"
 },
+"tramezzatura": {
+"plural": "tramezzature",
+"form": "F"
+},
+"tramezzature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "tramezzi": {
 "plural": "isPlural",
 "form": "PL"
@@ -222620,6 +225320,14 @@
 "form": "F"
 },
 "transculturazioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"transcurvatura": {
+"plural": "transcurvature",
+"form": "F"
+},
+"transcurvature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -222914,6 +225622,14 @@
 "trapanamento": {
 "plural": "trapanamenti",
 "form": "M"
+},
+"trapanatura": {
+"plural": "trapanature",
+"form": "F"
+},
+"trapanature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "trapanazione": {
 "plural": "trapanazioni",
@@ -223679,6 +226395,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"trattura": {
+"plural": "tratture",
+"form": "F"
+},
+"tratture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "tratturi": {
 "plural": "isPlural",
 "form": "PL"
@@ -224062,6 +226786,10 @@
 "trenodie": {
 "plural": "isPlural",
 "form": "PL"
+},
+"trenonatura": {
+"plural": "",
+"form": "M"
 },
 "trentaduesimi": {
 "plural": "isPlural",
@@ -224585,7 +227313,7 @@
 },
 "trifora": {
 "plural": "trifore",
-"form": "F/PL"
+"form": "F"
 },
 "triforcazione": {
 "plural": "triforcazioni",
@@ -224596,8 +227324,8 @@
 "form": "PL"
 },
 "trifore": {
-"plural": "trifori",
-"form": "M/PL"
+"plural": "isPlural",
+"form": "PL"
 },
 "trifori": {
 "plural": "isPlural",
@@ -224887,6 +227615,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"trinciatura": {
+"plural": "trinciature",
+"form": "F"
+},
+"trinciature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "trine": {
 "plural": "isPlural",
 "form": "PL"
@@ -225093,11 +227829,11 @@
 },
 "tripolio": {
 "plural": "tripoli",
-"form": "M/PL"
+"form": "M"
 },
 "tripolo": {
 "plural": "tripoli",
-"form": "M"
+"form": "M/PL"
 },
 "triposti": {
 "plural": "isPlural",
@@ -225516,7 +228252,7 @@
 "form": "PL"
 },
 "troia": {
-"plural": "",
+"plural": "troie",
 "form": "F"
 },
 "troiai": {
@@ -225526,6 +228262,10 @@
 "troiaio": {
 "plural": "troiai",
 "form": "M"
+},
+"troie": {
+"plural": "isPlural",
+"form": "PL"
 },
 "trojan": {
 "plural": "trojan",
@@ -225710,6 +228450,14 @@
 "troncamento": {
 "plural": "troncamenti",
 "form": "M"
+},
+"troncatura": {
+"plural": "troncature",
+"form": "F"
+},
+"troncature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "tronchese": {
 "plural": "tronchesi",
@@ -225911,12 +228659,8 @@
 "plural": "isPlural",
 "form": "PL"
 },
-"trucchi": {
-"plural": "isPlural",
-"form": "PL"
-},
 "trucco": {
-"plural": "trucchi",
+"plural": "",
 "form": "M"
 },
 "trucidamenti": {
@@ -226427,10 +229171,6 @@
 "plural": "isPlural",
 "form": "PL"
 },
-"turbi": {
-"plural": "isPlural",
-"form": "PL"
-},
 "turbina": {
 "plural": "turbine",
 "form": "F"
@@ -226456,8 +229196,8 @@
 "form": "M"
 },
 "turbo": {
-"plural": "turbi",
-"form": "M"
+"plural": "turbo",
+"form": "M/PL"
 },
 "turboalberi": {
 "plural": "isPlural",
@@ -226851,8 +229591,12 @@
 "plural": "tuttala",
 "form": "M/PL"
 },
+"tutte": {
+"plural": "isPlural",
+"form": "PL"
+},
 "tutto": {
-"plural": "",
+"plural": "tutte",
 "form": ""
 },
 "tuttologi": {
@@ -227156,6 +229900,14 @@
 "form": "F"
 },
 "ufficializzazioni": {
+"plural": "isPlural",
+"form": "PL"
+},
+"ufficiatura": {
+"plural": "ufficiature",
+"form": "F"
+},
+"ufficiature": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -228079,6 +230831,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"uranometria": {
+"plural": "uranometrie",
+"form": "F"
+},
+"uranometrie": {
+"plural": "isPlural",
+"form": "PL"
+},
 "urbanesimo": {
 "plural": "",
 "form": "M"
@@ -228799,6 +231559,14 @@
 "plural": "vacche",
 "form": "F"
 },
+"vaccari": {
+"plural": "isPlural",
+"form": "PL"
+},
+"vaccaro": {
+"plural": "vaccari",
+"form": ""
+},
 "vaccata": {
 "plural": "vaccate",
 "form": "F"
@@ -229241,7 +232009,7 @@
 },
 "valtellina": {
 "plural": "valtelline",
-"form": "F"
+"form": ""
 },
 "valtelline": {
 "plural": "isPlural",
@@ -229394,6 +232162,14 @@
 "vanga": {
 "plural": "vanghe",
 "form": "F"
+},
+"vangatura": {
+"plural": "vangature",
+"form": "F"
+},
+"vangature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "vangeli": {
 "plural": "isPlural",
@@ -229623,6 +232399,14 @@
 "plural": "",
 "form": "M"
 },
+"variegatura": {
+"plural": "variegature",
+"form": "F"
+},
+"variegature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "varietà": {
 "plural": "varietà",
 "form": "F/PL"
@@ -229714,6 +232498,10 @@
 "vasi": {
 "plural": "isPlural",
 "form": "PL"
+},
+"vasistas": {
+"plural": "vasistas",
+"form": "M/PL"
 },
 "vaso": {
 "plural": "vasi",
@@ -230999,6 +233787,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"vermicolatura": {
+"plural": "vermicolature",
+"form": "F"
+},
+"vermicolature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "vermicolazione": {
 "plural": "vermicolazioni",
 "form": "F"
@@ -231174,6 +233970,14 @@
 "verseggiatori": {
 "plural": "isPlural",
 "form": "PL"
+},
+"versetti": {
+"plural": "isPlural",
+"form": "PL"
+},
+"versetto": {
+"plural": "versetti",
+"form": "M"
 },
 "versi": {
 "plural": "isPlural",
@@ -231642,6 +234446,14 @@
 "vetrato": {
 "plural": "vetrati",
 "form": "M"
+},
+"vetratura": {
+"plural": "vetrature",
+"form": "F"
+},
+"vetrature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "vetreria": {
 "plural": "vetrerie",
@@ -232646,6 +235458,14 @@
 "vignetta": {
 "plural": "vignette",
 "form": "F"
+},
+"vignettatura": {
+"plural": "vignettature",
+"form": "F"
+},
+"vignettature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "vignette": {
 "plural": "isPlural",
@@ -233667,6 +236487,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"viticultura": {
+"plural": "viticulture",
+"form": "F"
+},
+"viticulture": {
+"plural": "isPlural",
+"form": "PL"
+},
 "vitigni": {
 "plural": "isPlural",
 "form": "PL"
@@ -233678,6 +236506,14 @@
 "vitiligine": {
 "plural": "",
 "form": "F"
+},
+"vitivinicoltura": {
+"plural": "vitivinicolture",
+"form": "F"
+},
+"vitivinicolture": {
+"plural": "isPlural",
+"form": "PL"
 },
 "vitronectina": {
 "plural": "vitronectine",
@@ -235755,6 +238591,14 @@
 "plural": "zebre",
 "form": "F"
 },
+"zebratura": {
+"plural": "zebrature",
+"form": "F"
+},
+"zebrature": {
+"plural": "isPlural",
+"form": "PL"
+},
 "zebre": {
 "plural": "isPlural",
 "form": "PL"
@@ -235777,14 +238621,6 @@
 },
 "zecchino": {
 "plural": "zecchini",
-"form": "M"
-},
-"zeffiri": {
-"plural": "isPlural",
-"form": "PL"
-},
-"zeffiro": {
-"plural": "zeffiri",
 "form": "M"
 },
 "zefiri": {
@@ -235878,6 +238714,14 @@
 "zenziglio": {
 "plural": "zenzigli",
 "form": "M"
+},
+"zeolite": {
+"plural": "zeoliti",
+"form": "F"
+},
+"zeoliti": {
+"plural": "isPlural",
+"form": "PL"
 },
 "zeppa": {
 "plural": "zeppe",
@@ -236010,6 +238854,14 @@
 "zigrinato": {
 "plural": "zigrinati",
 "form": "M"
+},
+"zigrinatura": {
+"plural": "zigrinature",
+"form": "F"
+},
+"zigrinature": {
+"plural": "isPlural",
+"form": "PL"
 },
 "zigzag": {
 "plural": "zigzag",
@@ -236459,6 +239311,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"zoppaggine": {
+"plural": "zoppaggini",
+"form": "F"
+},
+"zoppaggini": {
+"plural": "isPlural",
+"form": "PL"
+},
 "zoppi": {
 "plural": "isPlural",
 "form": "PL"
@@ -236512,6 +239372,14 @@
 "form": "F"
 },
 "zotiche": {
+"plural": "isPlural",
+"form": "PL"
+},
+"zotichezza": {
+"plural": "zotichezze",
+"form": "F"
+},
+"zotichezze": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -236710,6 +239578,14 @@
 "zuppiere": {
 "plural": "isPlural",
 "form": "PL"
+},
+"zurri": {
+"plural": "isPlural",
+"form": "PL"
+},
+"zurro": {
+"plural": "zurri",
+"form": "M"
 },
 "zurvanismi": {
 "plural": "isPlural",
