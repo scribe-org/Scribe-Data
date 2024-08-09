@@ -7,6 +7,7 @@ SELECT DISTINCT
   ?infinitive
   ?presFPS
   ?presTPS
+  ?presPart
   ?simpPast
   ?pastPart
 
@@ -33,8 +34,17 @@ WHERE {
     wikibase:grammaticalFeature wd:Q51929074 ;
     wikibase:grammaticalFeature wd:Q110786 ;
     wikibase:grammaticalFeature wd:Q3910936 ;
-    FILTER NOT EXISTS { ?presFPSForm wdt:P6191 wd:Q181970 . }
-    FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q126473 . }
+    FILTER NOT EXISTS { ?presTPSForm wdt:P6191 wd:Q181970 . }
+    FILTER NOT EXISTS { ?presTPSForm wikibase:grammaticalFeature wd:Q126473 . }
+  } .
+
+  # Present Participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presPartForm .
+    ?presPartForm ontolex:representation ?presPart ;
+    wikibase:grammaticalFeature wd:Q10345583 ;
+    FILTER NOT EXISTS { ?presPartForm wdt:P6191 wd:Q181970 . }
+    FILTER NOT EXISTS { ?presPartForm wikibase:grammaticalFeature wd:Q126473 . }
   } .
 
   # Simple Past
@@ -42,8 +52,8 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?simpPastForm .
     ?simpPastForm ontolex:representation ?simpPast ;
     wikibase:grammaticalFeature wd:Q1392475 ;
-    FILTER NOT EXISTS { ?presFPSForm wdt:P6191 wd:Q181970 . }
-    FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q126473 . }
+    FILTER NOT EXISTS { ?simpPastForm wdt:P6191 wd:Q181970 . }
+    FILTER NOT EXISTS { ?simpPastForm wikibase:grammaticalFeature wd:Q126473 . }
   } .
 
   # Past Participle
@@ -51,8 +61,8 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastPartForm .
     ?pastPartForm ontolex:representation ?pastPart ;
     wikibase:grammaticalFeature wd:Q1230649 ;
-    FILTER NOT EXISTS { ?presFPSForm wdt:P6191 wd:Q181970 . }
-    FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q126473 . }
+    FILTER NOT EXISTS { ?pastPartForm wdt:P6191 wd:Q181970 . }
+    FILTER NOT EXISTS { ?pastPartForm wikibase:grammaticalFeature wd:Q126473 . }
   } .
 
   SERVICE wikibase:label {
