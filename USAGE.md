@@ -34,7 +34,7 @@ The following arguments can be passed to the Scribe-Data commands whenever sensi
 1. Display all available options:
 
    ```bash
-   scribe-data list
+   scribe-data list # -a --all
    ```
 
 2. Display available languages:
@@ -118,8 +118,8 @@ The interactive mode is particularly useful for users who prefer a guided approa
 For more detailed information on each command and its options, append the `--help` flag:
 
 ```bash
-scribe-data --help # -h
-scribe-data [command] --help
+scribe-data -h # --help
+scribe-data [command] -h
 ```
 
 The CLI also has functions to check the version and upgrade the package if necessary.
