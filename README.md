@@ -24,11 +24,14 @@ Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-
 
 Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) for an overview of the organization including our applications, services and processes. It depicts the projects that [Scribe](https://github.com/scribe-org) is developing as well as the relationships between them and the external systems with which they interact. Also check out the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and querying language data from it.
 
+Scribe-data includes a command-line interface (CLI) for easy interaction with its functionality, allowing users to list, query, and manage language data directly from the terminal.
+
 <a id="contents"></a>
 
 # **Contents**
 
 - [Process](#process)
+- [CLI Usage](#cli-usage)
 - [Contributing](#contributing)
 - [Environment Setup](#environment-setup)
 - [Supported Languages](#supported-languages)
@@ -49,6 +52,27 @@ python3 src/scribe_data/wikidata/update_data.py
 ```
 
 The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data and data from other sources. These packs would then be available to download by users of Scribe applications.
+
+<a id="cli-usage"></a>
+
+# CLI Usage [`⇧`](#contents)
+
+Scribe-Data provides a command-line interface (CLI) for efficient interaction with its language data functionality. Please see the [usage guide](https://github.com/scribe-org/Scribe-Data/blob/main/USAGE.md) or the [official documentation](https://scribe-data.readthedocs.io/) for detailed instructions.
+
+### Basic Usage
+
+To utilize the Scribe-Data CLI, you can execute the following command in your terminal:
+
+```bash
+scribe-data [command] [options]
+```
+
+### Available Commands
+
+- `list` (`l`): Enumerate available languages, data types and their combinations.
+- `query` (`q`): Retrieve data from Wikidata for specified languages and data types.
+- `total` (`t`): Display the total available data for given languages and data types.
+- `convert` (`c`): Transform data returned by Scribe-Data into different file formats.
 
 <a id="contributing"></a>
 
@@ -157,6 +181,13 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
   venv\Scripts\activate.bat
   ```
 
+- On Windows (using PowerShell), run:
+
+  ```bash
+  python -m venv venv
+  venv\Scripts\activate.ps1
+  ```
+
 After activating the virtual environment, install the required dependencies and set up [pre-commit](https://pre-commit.com/) by running:
 
 ```bash
@@ -166,6 +197,8 @@ pip install -e .  # install the local version of Scribe-Data
 pre-commit install  # install pre-commit hooks
 # pre-commit run --all-files  # lint and fix common problems in the codebase
 ```
+
+See the [contribution guidelines](https://github.com/scribe-org/Scribe-Data/blob/main/CONTRIBUTING.md) for a more detailed explanation and troubleshooting.
 
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!
@@ -180,13 +213,13 @@ The following table shows the supported languages and the amount of data availab
 
 | Languages  |   Nouns | Verbs | Translations\* | Prepositions† | Emoji Keywords |
 | :--------- | ------: | ----: | -------------: | ------------: | -------------: |
-| French     |  18,044 | 6,574 |         67,652 |             - |          2,488 |
-| German     | 194,687 | 3,634 |         67,652 |           215 |          2,898 |
-| Italian    |  59,191 | 7,649 |         67,652 |             - |          2,457 |
-| Portuguese |   5,268 |   538 |         67,652 |             - |          2,327 |
+| French     |  18,082 | 6,575 |         67,652 |             - |          2,488 |
+| German     | 194,762 | 3,637 |         67,652 |           215 |          2,898 |
+| Italian    |  59,910 | 7,654 |         67,652 |             - |          2,457 |
+| Portuguese |   5,281 |   539 |         67,652 |             - |          2,327 |
 | Russian    | 194,567 |    15 |         67,652 |            15 |          3,827 |
-| Spanish    |  61,650 | 7,912 |         67,652 |             - |          3,134 |
-| Swedish    |  47,007 | 4,678 |         67,652 |             - |          2,913 |
+| Spanish    |  62,949 | 7,938 |         67,652 |             - |          3,134 |
+| Swedish    |  47,039 | 4,682 |         67,652 |             - |          2,913 |
 
 `*` Given the current **`beta`** status where words are machine translated.
 

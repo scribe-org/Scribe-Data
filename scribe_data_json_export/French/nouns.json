@@ -184,7 +184,7 @@
 "form": "PL"
 },
 "Allemand": {
-"plural": "Allemands",
+"plural": "",
 "form": "M"
 },
 "Allemande": {
@@ -192,10 +192,6 @@
 "form": "F"
 },
 "Allemandes": {
-"plural": "isPlural",
-"form": "PL"
-},
-"Allemands": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -2216,6 +2212,14 @@
 "form": "PL"
 },
 "Espagnols": {
+"plural": "isPlural",
+"form": "PL"
+},
+"Esquimau": {
+"plural": "Esquimaux",
+"form": "M"
+},
+"Esquimaux": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -4312,8 +4316,8 @@
 "form": ""
 },
 "Mars": {
-"plural": "Mars",
-"form": "F/M/PL"
+"plural": "",
+"form": "F/M"
 },
 "Marseillais": {
 "plural": "Marseillais",
@@ -5561,10 +5565,10 @@
 },
 "Philippine": {
 "plural": "Philippines",
-"form": "F"
+"form": "F/PL"
 },
 "Philippines": {
-"plural": "isPlural",
+"plural": "Philippines",
 "form": "F/PL"
 },
 "Philippins": {
@@ -10235,6 +10239,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"amérissage": {
+"plural": "amérissages",
+"form": "M"
+},
+"amérissages": {
+"plural": "isPlural",
+"form": "PL"
+},
 "améthyste": {
 "plural": "améthystes",
 "form": "F"
@@ -12276,12 +12288,8 @@
 "form": "PL"
 },
 "assurance-maladie": {
-"plural": "assurance-maladies",
+"plural": "assurances maladie",
 "form": "F"
-},
-"assurance-maladies": {
-"plural": "isPlural",
-"form": "PL"
 },
 "assurance-maternité": {
 "plural": "assurance-maternités",
@@ -12300,6 +12308,10 @@
 "form": "PL"
 },
 "assurances": {
+"plural": "isPlural",
+"form": "PL"
+},
+"assurances maladie": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -13371,11 +13383,27 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"aérobiologie": {
+"plural": "aérobiologies",
+"form": "F"
+},
+"aérobiologies": {
+"plural": "isPlural",
+"form": "PL"
+},
 "aérodrome": {
 "plural": "aérodromes",
 "form": "M"
 },
 "aérodromes": {
+"plural": "isPlural",
+"form": "PL"
+},
+"aérologie": {
+"plural": "aérologies",
+"form": "F"
+},
+"aérologies": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -13804,6 +13832,14 @@
 "form": "M"
 },
 "bandits": {
+"plural": "isPlural",
+"form": "PL"
+},
+"bandoline": {
+"plural": "bandolines",
+"form": "F"
+},
+"bandolines": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -14395,11 +14431,19 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"best": {
+"plural": "bests",
+"form": "M"
+},
 "bestiau": {
 "plural": "bestiaux",
 "form": "M"
 },
 "bestiaux": {
+"plural": "isPlural",
+"form": "PL"
+},
+"bests": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -14740,6 +14784,14 @@
 "form": "PL"
 },
 "billions": {
+"plural": "isPlural",
+"form": "PL"
+},
+"bimétallisme": {
+"plural": "bimétallismes",
+"form": "M"
+},
+"bimétallismes": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -15416,7 +15468,7 @@
 "form": "PL"
 },
 "boite": {
-"plural": "boites",
+"plural": "boîtes",
 "form": "F"
 },
 "boitement": {
@@ -15424,10 +15476,6 @@
 "form": "M"
 },
 "boitements": {
-"plural": "isPlural",
-"form": "PL"
-},
-"boites": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -16121,7 +16169,7 @@
 },
 "boîte": {
 "plural": "boîtes",
-"form": "F"
+"form": "F/PL"
 },
 "boîtes": {
 "plural": "isPlural",
@@ -16744,8 +16792,8 @@
 "form": "PL"
 },
 "bus": {
-"plural": "",
-"form": "M"
+"plural": "bus",
+"form": "M/PL"
 },
 "business": {
 "plural": "business",
@@ -21795,6 +21843,14 @@
 "plural": "",
 "form": "F"
 },
+"complètement": {
+"plural": "complètements",
+"form": "M"
+},
+"complètements": {
+"plural": "isPlural",
+"form": "PL"
+},
 "complément": {
 "plural": "compléments",
 "form": "M"
@@ -23542,6 +23598,10 @@
 "corailleurs": {
 "plural": "isPlural",
 "form": "PL"
+},
+"coran": {
+"plural": "",
+"form": ""
 },
 "coraux": {
 "plural": "isPlural",
@@ -25606,6 +25666,10 @@
 "dauphins": {
 "plural": "isPlural",
 "form": "PL"
+},
+"david gobé": {
+"plural": "",
+"form": ""
 },
 "degré": {
 "plural": "degrés",
@@ -30019,6 +30083,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"ergotisme": {
+"plural": "ergotismes",
+"form": "M"
+},
+"ergotismes": {
+"plural": "isPlural",
+"form": "PL"
+},
 "erratum": {
 "plural": "erratums",
 "form": "M"
@@ -31941,7 +32013,7 @@
 },
 "fil": {
 "plural": "fils",
-"form": "M"
+"form": "M/PL"
 },
 "filamentation": {
 "plural": "filamentations",
@@ -32040,7 +32112,7 @@
 "form": "PL"
 },
 "fils": {
-"plural": "isPlural",
+"plural": "fils",
 "form": "M/PL"
 },
 "filtrage": {
@@ -33595,6 +33667,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"fétiche": {
+"plural": "fétiches",
+"form": "M"
+},
+"fétiches": {
+"plural": "isPlural",
+"form": "PL"
+},
 "février": {
 "plural": "févriers",
 "form": "M"
@@ -33812,6 +33892,14 @@
 "form": "M"
 },
 "gangsters": {
+"plural": "isPlural",
+"form": "PL"
+},
+"gangue": {
+"plural": "gangues",
+"form": "F"
+},
+"gangues": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -35160,6 +35248,14 @@
 "form": "F/M"
 },
 "groupistes": {
+"plural": "isPlural",
+"form": "PL"
+},
+"groupuscule": {
+"plural": "groupuscules",
+"form": "M"
+},
+"groupuscules": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -39463,6 +39559,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"jaquette": {
+"plural": "jaquettes",
+"form": "F"
+},
+"jaquettes": {
+"plural": "isPlural",
+"form": "PL"
+},
 "jardin": {
 "plural": "jardins",
 "form": "M"
@@ -43055,6 +43159,14 @@
 "plural": "mas",
 "form": "M/PL"
 },
+"mascotte": {
+"plural": "mascottes",
+"form": "F"
+},
+"mascottes": {
+"plural": "isPlural",
+"form": "PL"
+},
 "masculin": {
 "plural": "masculins",
 "form": "M"
@@ -45380,6 +45492,14 @@
 "form": "F"
 },
 "mutilations": {
+"plural": "isPlural",
+"form": "PL"
+},
+"mycologie": {
+"plural": "mycologies",
+"form": "F"
+},
+"mycologies": {
 "plural": "isPlural",
 "form": "PL"
 },
@@ -48914,6 +49034,14 @@
 "palais": {
 "plural": "palais",
 "form": "M/PL"
+},
+"palefrenier": {
+"plural": "palefreniers",
+"form": "M"
+},
+"palefreniers": {
+"plural": "isPlural",
+"form": "PL"
 },
 "palette": {
 "plural": "palettes",
@@ -56494,6 +56622,10 @@
 "rallyes": {
 "plural": "isPlural",
 "form": "PL"
+},
+"ramadan": {
+"plural": "",
+"form": ""
 },
 "ramboutan": {
 "plural": "ramboutans",
@@ -68147,6 +68279,10 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"vasistas": {
+"plural": "vasistas",
+"form": "M/PL"
+},
 "vaticaniste": {
 "plural": "vaticanistes",
 "form": "F/M"
@@ -69847,6 +69983,14 @@
 "plural": "isPlural",
 "form": "PL"
 },
+"yatagan": {
+"plural": "yatagans",
+"form": "M"
+},
+"yatagans": {
+"plural": "isPlural",
+"form": "PL"
+},
 "yeux": {
 "plural": "isPlural",
 "form": "PL"
@@ -70792,6 +70936,14 @@
 "form": "F"
 },
 "éducations": {
+"plural": "isPlural",
+"form": "PL"
+},
+"également": {
+"plural": "égalements",
+"form": "M"
+},
+"égalements": {
 "plural": "isPlural",
 "form": "PL"
 },

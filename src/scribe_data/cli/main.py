@@ -23,8 +23,11 @@ Setup and commands for the Scribe-Data command line interface.
 #!/usr/bin/env python3
 import argparse
 
+from scribe_data.cli.convert import convert_to_sqlite
+from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.query import query_data
+from scribe_data.cli.total import get_total_lexemes
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
 QUERY_DESCRIPTION = "Query data from Wikidata for the given languages and data types."
@@ -102,7 +105,7 @@ def main() -> None:
         "-ot",
         "--output-type",
         type=str,
-        choices=["json", "csv", "tsv"],
+        choices=["json", "csv", "tsv", "sqlite"],
         help="The output file type.",
     )
     query_parser.add_argument(
@@ -113,6 +116,9 @@ def main() -> None:
     )
     query_parser.add_argument(
         "-a", "--all", type=str, help="Query all languages and data types."
+    )
+    query_parser.add_argument(
+        "-i", "--interactive", action="store_true", help="Run in interactive mode"
     )
 
     # MARK: Total
@@ -180,17 +186,35 @@ def main() -> None:
         list_wrapper(args.language, args.data_type)
 
     elif args.command in ["query", "q"]:
-        query_data(
-            args.language,
-            args.data_type,
-            args.output_dir,
-            args.overwrite,
-            args.output_type,
-            args.all,
-        )
+        if args.interactive:
+            start_interactive_mode()
+
+        if args.output_type == "sqlite":
+            convert_to_sqlite(
+                args.language,
+                args.data_type,
+                args.output_dir,
+                args.overwrite,
+            )
+        else:
+            query_data(
+                args.language,
+                args.data_type,
+                args.output_dir,
+                args.overwrite,
+                args.output_type,
+                args.all,
+            )
 
     elif args.command in ["total", "t"]:
-        return
+        if not args.language and not args.data_type:
+            print(
+                "Error: At least one of -lang/--language or -dt/--data-type must be specified."
+            )
+            total_parser.print_help()
+            return
+
+        get_total_lexemes(args.language, args.data_type)
 
     elif args.command in ["convert", "c"]:
         return

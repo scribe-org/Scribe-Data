@@ -6079,6 +6079,16 @@
 "passivePresent": "chattas",
 "passivePreterite": "chattades"
 },
+"chefa": {
+"imperative": "chefa",
+"activeSupine": "chefade",
+"activePresent": "chefar",
+"activePreterite": "chefade",
+"passiveInfinitive": "chefas",
+"passiveSupine": "chefats",
+"passivePresent": "chefas",
+"passivePreterite": "chefades"
+},
 "chilla": {
 "imperative": "chilla",
 "activeSupine": "chillat",
@@ -20719,6 +20729,16 @@
 "passivePresent": "klimatkompenseras",
 "passivePreterite": "klimatkompenserades"
 },
+"klimatmärka": {
+"imperative": "klimatmärk",
+"activeSupine": "klimatmärkt",
+"activePresent": "klimatmärker",
+"activePreterite": "klimatmärkte",
+"passiveInfinitive": "klimatmärkas",
+"passiveSupine": "klimatmärkts",
+"passivePresent": "klimatmärks",
+"passivePreterite": "klimatmärktes"
+},
 "klimatneutralisera": {
 "imperative": "klimatneutralisera",
 "activeSupine": "klimatneutraliserat",
@@ -34759,6 +34779,16 @@
 "passivePresent": "skyldras",
 "passivePreterite": "skyldrades"
 },
+"skylla": {
+"imperative": "skyll",
+"activeSupine": "skyllt",
+"activePresent": "skyller",
+"activePreterite": "skyllde",
+"passiveInfinitive": "skyllas",
+"passiveSupine": "skyllts",
+"passivePresent": "skylls",
+"passivePreterite": "skylldes"
+},
 "skylta": {
 "imperative": "skylta",
 "activeSupine": "skyltat",
@@ -36148,6 +36178,16 @@
 "passiveSupine": "sneddats",
 "passivePresent": "sneddas",
 "passivePreterite": "sneddades"
+},
+"snedvrida": {
+"imperative": "snedvrid",
+"activeSupine": "snedvridit",
+"activePresent": "snedvrider",
+"activePreterite": "snedvred",
+"passiveInfinitive": "snedvridas",
+"passiveSupine": "snedvridits",
+"passivePresent": "snedvrids",
+"passivePreterite": "snedvreds"
 },
 "snegla": {
 "imperative": "snegla",

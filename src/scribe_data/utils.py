@@ -25,7 +25,7 @@ import json
 import os
 import sys
 from importlib import resources
-from typing import Any
+from typing import Any, Optional
 
 from iso639 import Lang
 from iso639.exceptions import DeprecatedLanguageValue, InvalidLanguageValue
@@ -33,7 +33,7 @@ from iso639.exceptions import DeprecatedLanguageValue, InvalidLanguageValue
 PROJECT_ROOT = "Scribe-Data"
 
 
-def _load_json(package_path: str, file_name: str, root: str):
+def _load_json(package_path: str, file_name: str, root: str) -> Any:
     """
     Loads a JSON resource from a package into a python entity.
 
@@ -67,7 +67,7 @@ _languages = _load_json(
 )
 
 
-def _find(source_key: str, source_value: str, target_key: str, error_msg: str):
+def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -> Any:
     """
     Each 'language', (english, german,..., etc) is a dictionary of key/value pairs:
 
@@ -235,7 +235,9 @@ def get_language_words_to_ignore(language: str) -> list[str]:
     )
 
 
-def load_queried_data(file_path, language, data_type):
+def load_queried_data(
+    file_path: str, language: str, data_type: str
+) -> tuple[Any, bool, str]:
     """
     Loads queried data from a JSON file for a specific language and data type.
 
@@ -246,11 +248,11 @@ def load_queried_data(file_path, language, data_type):
         language : str
             The language for which the data is being loaded.
         data_type : str
-            The type of data being loaded (e.g., 'nouns', 'verbs').
+            The type of data being loaded (e.g. 'nouns', 'verbs').
 
     Returns
     -------
-        tuple
+        tuple[Any, bool, str]
             A tuple containing the loaded data, a boolean indicating whether the data is in use,
             and the path to the data file.
     """
@@ -269,7 +271,9 @@ def load_queried_data(file_path, language, data_type):
         return json.load(f), update_data_in_use, data_path
 
 
-def export_formatted_data(formatted_data, update_data_in_use, language, data_type):
+def export_formatted_data(
+    formatted_data: dict, update_data_in_use: bool, language: str, data_type: str
+) -> None:
     """
     Exports formatted data to a JSON file for a specific language and data type.
 
@@ -282,7 +286,7 @@ def export_formatted_data(formatted_data, update_data_in_use, language, data_typ
         language : str
             The language for which the data is being exported.
         data_type : str
-            The type of data being exported (e.g., 'nouns', 'verbs').
+            The type of data being exported (e.g. 'nouns', 'verbs').
 
     Returns
     -------
@@ -388,25 +392,27 @@ def check_command_line_args(
 
 
 def check_and_return_command_line_args(
-    all_args, first_args_check=None, second_args_check=None
-):
+    all_args: list[str],
+    first_args_check: list[str] = None,
+    second_args_check: list[str] = None,
+) -> tuple[Optional[list[str]], Optional[list[str]]]:
     """
     Checks command line arguments passed to Scribe-Data files and returns them if correct.
 
     Parameters
     ----------
-        all_args : list (str)
+        all_args : list[str]
             The arguments passed to the Scribe-Data file.
 
-        first_args_check : list(str)
+        first_args_check : list[str]
             The values that the first argument should be checked against.
 
-        second_args_check : list(str)
+        second_args_check : list[str]
             The values that the second argument should be checked against.
 
     Returns
     -------
-        first_args, second_args: list(str)
+        first_args, second_args: Tuple[Optional[list[str]], Optional[list[str]]]
             The subset of possible first and second arguments that have been verified as being valid.
     """
     if len(all_args) == 1:
@@ -444,7 +450,7 @@ def check_and_return_command_line_args(
     )
 
 
-def get_target_langcodes(source_lang) -> list[str]:
+def get_target_langcodes(source_lang: str) -> list[str]:
     """
     Returns a list of target language ISO codes for translation.
 
@@ -463,7 +469,7 @@ def get_target_langcodes(source_lang) -> list[str]:
     ]
 
 
-def map_genders(wikidata_gender):
+def map_genders(wikidata_gender: str) -> str:
     """
     Maps genders from Wikidata to succinct versions.
 
@@ -472,19 +478,23 @@ def map_genders(wikidata_gender):
         wikidata_gender : str
             The gender of the noun that was queried from WikiData.
     """
-    if wikidata_gender in ["masculine", "Q499327"]:
-        return "M"
-    elif wikidata_gender in ["feminine", "Q1775415"]:
-        return "F"
-    elif wikidata_gender in ["common gender", "Q1305037"]:
-        return "C"
-    elif wikidata_gender in ["neuter", "Q1775461"]:
-        return "N"
-    else:
-        return ""  # nouns could have a gender that is not a valid attribute
+    gender_map = {
+        "masculine": "M",
+        "Q499327": "M",
+        "feminine": "F",
+        "Q1775415": "F",
+        "common gender": "C",
+        "Q1305037": "C",
+        "neuter": "N",
+        "Q1775461": "N",
+    }
+
+    return gender_map.get(
+        wikidata_gender, ""
+    )  # nouns could have a gender that is not a valid attribute
 
 
-def map_cases(wikidata_case):
+def map_cases(wikidata_case: str) -> str:
     """
     Maps cases from Wikidata to more succinct versions.
 
@@ -493,24 +503,25 @@ def map_cases(wikidata_case):
         wikidata_case : str
             The case of the noun that was queried from WikiData.
     """
+    case_map = {
+        "accusative": "Acc",
+        "Q146078": "Acc",
+        "dative": "Dat",
+        "Q145599": "Dat",
+        "genitive": "Gen",
+        "Q146233": "Gen",
+        "instrumental": "Ins",
+        "Q192997": "Ins",
+        "prepositional": "Pre",
+        "Q2114906": "Pre",
+        "locative": "Loc",
+        "Q202142": "Loc",
+    }
     case = wikidata_case.split(" case")[0]
-    if case in ["accusative", "Q146078"]:
-        return "Acc"
-    elif case in ["dative", "Q145599"]:
-        return "Dat"
-    elif case in ["genitive", "Q146233"]:
-        return "Gen"
-    elif case in ["instrumental", "Q192997"]:
-        return "Ins"
-    elif case in ["prepositional", "Q2114906"]:
-        return "Pre"
-    elif case in ["locative", "Q202142"]:
-        return "Loc"
-    else:
-        return ""
+    return case_map.get(case, "")
 
 
-def order_annotations(annotation):
+def order_annotations(annotation: str) -> str:
     """
     Standardizes the annotations that are provided to users where more than one is applicable.
 
