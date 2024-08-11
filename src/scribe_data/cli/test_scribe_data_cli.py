@@ -1,25 +1,25 @@
 import unittest
-from unittest.mock import patch
 from io import StringIO
+from unittest.mock import patch
 
 from scribe_data.cli.cli_utils import correct_data_type, print_formatted_data
-from scribe_data.cli.total import get_qid_by_input
 from scribe_data.cli.list import (
-    list_languages,
-    list_data_types,
     list_all,
+    list_data_types,
+    list_languages,
     list_languages_for_data_type,
 )
+from scribe_data.cli.total import get_qid_by_input
 
 
 class TestScribeDataCLI(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    # Test CLI Utils
-
     def test_correct_data_type(self):
-        """Test the correct_data_type function for various inputs"""
+        """
+        Test the correct_data_type function for various inputs.
+        """
         print("Running test_correct_data_type")
         self.assertEqual(correct_data_type("noun"), "nouns")
         self.assertEqual(correct_data_type("verbs"), "verbs")
@@ -27,7 +27,9 @@ class TestScribeDataCLI(unittest.TestCase):
 
     @patch("builtins.print")
     def test_print_formatted_data(self, mock_print):
-        """Test the print_formatted_data function"""
+        """
+        Test the print_formatted_data function.
+        """
         print("Running test_print_formatted_data")
         data = {"key1": "value1", "key2": "value2"}
         print(f"Data: {data}")
@@ -38,7 +40,9 @@ class TestScribeDataCLI(unittest.TestCase):
 
     @patch("sys.stdout", new_callable=StringIO)
     def test_list_languages(self, mock_stdout):
-        """Test the list_languages function"""
+        """
+        Test the list_languages function.
+        """
         print("Running test_list_languages")
         list_languages()
         output = mock_stdout.getvalue()
@@ -50,7 +54,9 @@ class TestScribeDataCLI(unittest.TestCase):
 
     @patch("sys.stdout", new_callable=StringIO)
     def test_list_data_types(self, mock_stdout):
-        """Test the list_data_types function"""
+        """
+        Test the list_data_types function.
+        """
         print("Running test_list_data_types")
         list_data_types()
         output = mock_stdout.getvalue()
@@ -61,7 +67,9 @@ class TestScribeDataCLI(unittest.TestCase):
 
     @patch("sys.stdout", new_callable=StringIO)
     def test_list_data_types_for_language(self, mock_stdout):
-        """Test the list_data_types function for a specific language"""
+        """
+        Test the list_data_types function for a specific language.
+        """
         print("Running test_list_data_types_for_language")
         list_data_types("English")
         output = mock_stdout.getvalue()
@@ -70,7 +78,9 @@ class TestScribeDataCLI(unittest.TestCase):
 
     @patch("sys.stdout", new_callable=StringIO)
     def test_list_all(self, mock_stdout):
-        """Test the list_all function"""
+        """
+        Test the list_all function.
+        """
         print("Running test_list_all")
         list_all()
         output = mock_stdout.getvalue()
@@ -80,7 +90,9 @@ class TestScribeDataCLI(unittest.TestCase):
 
     @patch("sys.stdout", new_callable=StringIO)
     def test_list_languages_for_data_type(self, mock_stdout):
-        """Test the list_languages_for_data_type function"""
+        """
+        Test the list_languages_for_data_type function.
+        """
         print("Running test_list_languages_for_data_type")
         list_languages_for_data_type("nouns")
         output = mock_stdout.getvalue()
@@ -91,7 +103,9 @@ class TestScribeDataCLI(unittest.TestCase):
     # Test Total Command
 
     def test_get_qid_by_input(self):
-        """Test the get_qid_by_input function for various inputs"""
+        """
+        Test the get_qid_by_input function for various inputs.
+        """
         print("Running test_get_qid_by_input")
         self.assertEqual(get_qid_by_input("English"), "Q1860")
         self.assertEqual(get_qid_by_input("french"), "Q150")
@@ -100,13 +114,17 @@ class TestScribeDataCLI(unittest.TestCase):
     # Edge Cases and Error Handling
 
     def test_list_data_types_nonexistent_language(self):
-        """Test that list_data_types raises a ValueError for a nonexistent language"""
+        """
+        Test that list_data_types raises a ValueError for a nonexistent language.
+        """
         print("Running test_list_data_types_nonexistent_language")
         with self.assertRaises(ValueError):
             list_data_types("NonexistentLanguage")
 
     def test_list_data_types_no_data_available(self):
-        """Test that list_data_types raises a ValueError when no data is available"""
+        """
+        Test that list_data_types raises a ValueError when no data is available.
+        """
         print("Running test_list_data_types_no_data_available")
         with patch("pathlib.Path.iterdir", return_value=[]):
             with self.assertRaises(ValueError):
