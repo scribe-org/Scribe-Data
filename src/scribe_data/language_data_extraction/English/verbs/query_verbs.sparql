@@ -5,9 +5,10 @@
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?presFPS
+  ?presSimp
   ?presTPS
-  ?simpPast
+  ?presPart
+  ?pastSimp
   ?pastPart
 
 WHERE {
@@ -18,12 +19,13 @@ WHERE {
 
   # Simple Present
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presFPSForm .
-    ?presFPSForm ontolex:representation ?presFPS ;
+    ?lexeme ontolex:lexicalForm ?presSimpForm .
+    ?presSimpForm ontolex:representation ?presSimp ;
       wikibase:grammaticalFeature wd:Q3910936 ;
-      FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q51929074 . }
-      FILTER NOT EXISTS { ?presFPSForm wdt:P6191 wd:Q181970 . }
-      FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q51929074 . }
+      FILTER NOT EXISTS { ?presSimpForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?presSimp) = "en") .
   } .
 
   # Third-person Singular
@@ -33,17 +35,29 @@ WHERE {
     wikibase:grammaticalFeature wd:Q51929074 ;
     wikibase:grammaticalFeature wd:Q110786 ;
     wikibase:grammaticalFeature wd:Q3910936 ;
-    FILTER NOT EXISTS { ?presFPSForm wdt:P6191 wd:Q181970 . }
-    FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q126473 . }
+    FILTER NOT EXISTS { ?presTPSForm wdt:P6191 wd:Q181970 . }
+    FILTER NOT EXISTS { ?presTPSForm wikibase:grammaticalFeature wd:Q126473 . }
+    FILTER(LANG(?presTPS) = "en") .
+  } .
+
+  # Present Participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presPartForm .
+    ?presPartForm ontolex:representation ?presPart ;
+    wikibase:grammaticalFeature wd:Q10345583 ;
+    FILTER NOT EXISTS { ?presPartForm wdt:P6191 wd:Q181970 . }
+    FILTER NOT EXISTS { ?presPartForm wikibase:grammaticalFeature wd:Q126473 . }
+    FILTER(LANG(?presPart) = "en") .
   } .
 
   # Simple Past
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simpPastForm .
-    ?simpPastForm ontolex:representation ?simpPast ;
+    ?lexeme ontolex:lexicalForm ?pastSimpForm .
+    ?pastSimpForm ontolex:representation ?pastSimp ;
     wikibase:grammaticalFeature wd:Q1392475 ;
-    FILTER NOT EXISTS { ?presFPSForm wdt:P6191 wd:Q181970 . }
-    FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q126473 . }
+    FILTER NOT EXISTS { ?pastSimpForm wdt:P6191 wd:Q181970 . }
+    FILTER NOT EXISTS { ?pastSimpForm wikibase:grammaticalFeature wd:Q126473 . }
+    FILTER(LANG(?pastSimp) = "en") .
   } .
 
   # Past Participle
@@ -51,8 +65,9 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastPartForm .
     ?pastPartForm ontolex:representation ?pastPart ;
     wikibase:grammaticalFeature wd:Q1230649 ;
-    FILTER NOT EXISTS { ?presFPSForm wdt:P6191 wd:Q181970 . }
-    FILTER NOT EXISTS { ?presFPSForm wikibase:grammaticalFeature wd:Q126473 . }
+    FILTER NOT EXISTS { ?pastPartForm wdt:P6191 wd:Q181970 . }
+    FILTER NOT EXISTS { ?pastPartForm wikibase:grammaticalFeature wd:Q126473 . }
+    FILTER(LANG(?pastPart) = "en") .
   } .
 
   SERVICE wikibase:label {
