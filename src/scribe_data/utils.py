@@ -31,6 +31,10 @@ from iso639 import Lang
 from iso639.exceptions import DeprecatedLanguageValue, InvalidLanguageValue
 
 PROJECT_ROOT = "Scribe-Data"
+DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
+DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
+DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
+DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
 
 
 def _load_json(package_path: str, file_name: str, root: str) -> Any:
@@ -294,7 +298,7 @@ def export_formatted_data(
     """
     if update_data_in_use:
         PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-        export_path = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/scribe_data_json_export/{language}/{data_type}.json"
+        export_path = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/{DEFAULT_JSON_EXPORT_DIR}/{language}/{data_type}.json"
 
     else:
         export_path = f"{data_type}.json"

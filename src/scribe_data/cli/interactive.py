@@ -28,6 +28,7 @@ from scribe_data.cli.cli_utils import (
     language_metadata,
 )
 from scribe_data.cli.query import query_data
+from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 
 
 def get_selection(user_input: str, options: list[str]) -> list[str]:
@@ -116,8 +117,8 @@ def get_output_options() -> dict:
         input("File type to export (json, csv, tsv) [json]: ").lower() or "json"
     )
     output_dir = (
-        input("Export directory path [./scribe_data_json_export]: ")
-        or "./scribe_data_json_export"
+        input(f"Export directory path [./{DEFAULT_JSON_EXPORT_DIR}]: ")
+        or f"./{DEFAULT_JSON_EXPORT_DIR}"
     )
     overwrite = (
         input("Overwrite existing data without asking (y/n) [n]: ").lower() == "y"

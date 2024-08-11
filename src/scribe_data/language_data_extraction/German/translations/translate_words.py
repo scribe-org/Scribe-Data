@@ -31,6 +31,7 @@ import sys
 from scribe_data.translation.translation_utils import (
     translate_to_other_languages,
 )
+from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 
 SRC_LANG = "German"
 translate_script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -44,7 +45,7 @@ word_list = [item["word"] for item in json_data]
 translations = []
 translated_words_path = os.path.join(
     translate_script_dir,
-    f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{SRC_LANG}/translated_words.json",
+    f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../{DEFAULT_JSON_EXPORT_DIR}/{SRC_LANG}/translated_words.json",
 )
 if os.path.exists(translated_words_path):
     with open(translated_words_path, "r", encoding="utf-8") as file:

@@ -28,6 +28,7 @@ from urllib.error import HTTPError
 
 from tqdm.auto import tqdm
 
+from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 from scribe_data.wikidata.wikidata_utils import sparql
 
 
@@ -111,7 +112,7 @@ def update_data(languages=None, word_types=None):
 
         # After formatting and before saving the new data.
         timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-        export_dir = Path(f"scribe_data_json_export/{lang.capitalize()}")
+        export_dir = Path(f"{DEFAULT_JSON_EXPORT_DIR}/{lang.capitalize()}")
         export_dir.mkdir(parents=True, exist_ok=True)
 
         new_file_name = f"{target_type}_{timestamp}.json"

@@ -23,6 +23,7 @@ The following arguments can be passed to the Scribe-Data commands whenever sensi
 
 - `--language` (`-lang`): The language to run the command for.
 - `--data-type` (`-dt`): The data type to run the command for.
+- `--file` (`-f`): The path to a file to run the command on.
 - `--output-dir` (`-od`): The path to a directory for the outputs of the command.
 - `--output-type` (`-ot`): The file type that the command should output.
 - `--all` (`-a`): Get all results from the command.

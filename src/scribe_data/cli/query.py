@@ -25,9 +25,10 @@ from pathlib import Path
 from typing import Optional
 
 from scribe_data.cli.convert import export_csv_or_tsv, export_json
+from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 from scribe_data.wikidata.update_data import update_data
 
-DATA_DIR = Path("scribe_data_json_export")
+DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
 
 
 def query_data(
@@ -77,11 +78,11 @@ def query_data(
             "Data update complete. No output directory specified for exporting results."
         )
         print(
-            f"Updated data can be found in: {os.path.abspath('scribe_data_json_export')}"
+            f"Updated data can be found in: {os.path.abspath(DEFAULT_JSON_EXPORT_DIR)}"
         )
 
     # Check if data was actually updated.
-    data_path = Path("scribe_data_json_export")
+    data_path = Path(DEFAULT_JSON_EXPORT_DIR)
     if language:
         lang_path = data_path / language.capitalize()
         if not lang_path.exists():
