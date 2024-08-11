@@ -29,7 +29,11 @@ from typing import List, Optional
 
 from tqdm.auto import tqdm
 
-from scribe_data.utils import get_language_iso
+from scribe_data.utils import (
+    DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_SQLITE_EXPORT_DIR,
+    get_language_iso,
+)
 
 
 def data_to_sqlite(
@@ -65,7 +69,7 @@ def data_to_sqlite(
         lang: [
             f.split(".json")[0]
             for f in os.listdir(
-                f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_json_export/{lang}"
+                f"{PATH_TO_SCRIBE_DATA}/../../{DEFAULT_JSON_EXPORT_DIR}/{lang}"
             )
             if f.split(".json")[0] in (specific_tables or data_types)
         ]
@@ -91,15 +95,15 @@ def data_to_sqlite(
         if language_data_type_dict[lang] != []:
             maybe_over = ""  # output string formatting variable (see below)
             if os.path.exists(
-                f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_sqlite_export/{get_language_iso(lang).upper()}LanguageData.sqlite"
+                f"{PATH_TO_SCRIBE_DATA}/../../{DEFAULT_SQLITE_EXPORT_DIR}/{get_language_iso(lang).upper()}LanguageData.sqlite"
             ):
                 os.remove(
-                    f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_sqlite_export/{get_language_iso(lang).upper()}LanguageData.sqlite"
+                    f"{PATH_TO_SCRIBE_DATA}/../../{DEFAULT_SQLITE_EXPORT_DIR}/{get_language_iso(lang).upper()}LanguageData.sqlite"
                 )
                 maybe_over = "over"
 
             connection = sqlite3.connect(
-                f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_sqlite_export/{get_language_iso(lang).upper()}LanguageData.sqlite"
+                f"{PATH_TO_SCRIBE_DATA}/../../{DEFAULT_SQLITE_EXPORT_DIR}/{get_language_iso(lang).upper()}LanguageData.sqlite"
             )
             cursor = connection.cursor()
 
@@ -143,7 +147,7 @@ def data_to_sqlite(
                     continue  # We'll handle this separately
 
                 print(f"Creating/Updating {lang} {dt} table...")
-                json_file_path = f"{PATH_TO_SCRIBE_DATA}/../../scribe_data_json_export/{lang}/{dt}.json"
+                json_file_path = f"{PATH_TO_SCRIBE_DATA}/../../{DEFAULT_JSON_EXPORT_DIR}/{lang}/{dt}.json"
 
                 if not os.path.exists(json_file_path):
                     print(

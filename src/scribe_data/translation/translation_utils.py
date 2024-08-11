@@ -30,6 +30,7 @@ from pathlib import Path
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
 from scribe_data.utils import (
+    DEFAULT_JSON_EXPORT_DIR,
     get_language_iso,
     get_target_langcodes,
 )
@@ -161,7 +162,7 @@ def translation_interrupt_handler(source_language, translations):
     )
 
     with open(
-        f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{source_language}/translated_words.json",
+        f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../{DEFAULT_JSON_EXPORT_DIR}/{source_language}/translated_words.json",
         "w",
         encoding="utf-8",
     ) as file:
@@ -232,7 +233,7 @@ def translate_to_other_languages(source_language, word_list, translations, batch
         print(f"Batch {i//batch_size + 1} translation completed.")
 
         with open(
-            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{source_language}/translated_words.json",
+            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../{DEFAULT_JSON_EXPORT_DIR}/{source_language}/translated_words.json",
             "w",
             encoding="utf-8",
         ) as file:

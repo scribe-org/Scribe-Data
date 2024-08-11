@@ -34,6 +34,7 @@ import regex
 from tqdm.auto import tqdm
 
 from scribe_data.utils import (
+    DEFAULT_JSON_EXPORT_DIR,
     get_language_qid,
     get_language_words_to_ignore,
     get_language_words_to_remove,
@@ -433,7 +434,7 @@ def gen_autosuggestions(
     if update_local_data:
         path_to_formatted_data = (
             get_path_from_wikidata_dir()
-            + f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../scribe_data_json_export/{language}/autosuggestions.json"
+            + f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../{DEFAULT_JSON_EXPORT_DIR}/{language}/autosuggestions.json"
         )
 
         with open(

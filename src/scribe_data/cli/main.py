@@ -48,9 +48,9 @@ def main() -> None:
 
     parser._actions[0].help = "Show this help message and exit."
     parser.add_argument(
-        "-v", "--verbose", help="Increase output verbosity.", action="store_true"
+        "-v", "--version", help="Show the version of the Scribe-Data CLI."
     )
-    parser.add_argument("-u", "--update", help="Update the Scribe-Data CLI.")
+    parser.add_argument("-u", "--upgrade", help="Upgrade the Scribe-Data CLI.")
 
     # MARK: List
 
@@ -159,23 +159,18 @@ def main() -> None:
     convert_parser.add_argument(
         "-f", "--file", type=str, help="The file to convert to a new type."
     )
+    query_parser.add_argument(
+        "-ot",
+        "--output-type",
+        type=str,
+        choices=["json", "csv", "tsv", "sqlite"],
+        help="The output file type.",
+    )
     convert_parser.add_argument(
         "-ko",
         "--keep-original",
         action="store_false",
         help="Whether to keep the file to be converted (default: True).",
-    )
-    convert_parser.add_argument(
-        "-json", "--to-json", type=str, help="Convert the file to JSON format."
-    )
-    convert_parser.add_argument(
-        "-csv", "--to-csv", type=str, help="Convert the file to CSV format."
-    )
-    convert_parser.add_argument(
-        "-tsv", "--to-tsv", type=str, help="Convert the file to TSV format."
-    )
-    convert_parser.add_argument(
-        "-sqlite", "--to-sqlite", type=str, help="Convert the file to SQLite format."
     )
 
     # MARK: Setup CLI
@@ -209,7 +204,7 @@ def main() -> None:
     elif args.command in ["total", "t"]:
         if not args.language and not args.data_type:
             print(
-                "Error: At least one of -lang/--language or -dt/--data-type must be specified."
+                "Error: You must provide either at least one of the --language (-l) or --data-type (-dt) options"
             )
             total_parser.print_help()
             return

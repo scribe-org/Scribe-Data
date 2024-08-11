@@ -27,9 +27,15 @@ from typing import Optional
 
 from scribe_data.cli.cli_utils import language_map
 from scribe_data.load.data_to_sqlite import data_to_sqlite
-from scribe_data.utils import get_language_iso
+from scribe_data.utils import (
+    DEFAULT_CSV_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_SQLITE_EXPORT_DIR,
+    DEFAULT_TSV_EXPORT_DIR,
+    get_language_iso,
+)
 
-DATA_DIR = Path("scribe_data_json_export")
+DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
 
 
 def export_json(
@@ -61,7 +67,7 @@ def export_json(
     # Adjust the output directory for JSON exports.
     json_output_dir = (
         output_dir
-        / "scribe_data_json_export"
+        / DEFAULT_JSON_EXPORT_DIR
         / normalized_language["language"].capitalize()
     )
     json_output_dir.mkdir(parents=True, exist_ok=True)
@@ -112,24 +118,24 @@ def export_csv_or_tsv(
     if output_type == "csv":
         delimiter = ","
         file_extension = "csv"
+        output_subdirectory = DEFAULT_CSV_EXPORT_DIR
 
     elif output_type == "tsv":
         delimiter = "\t"
         file_extension = "tsv"
+        output_subdirectory = DEFAULT_TSV_EXPORT_DIR
 
     else:
         print(f"Unsupported output type '{output_type}'.")
         return
 
     # Adjust the output directory for CSV exports.
-    csv_output_dir = (
-        output_dir
-        / "scribe_data_csv_export"
-        / normalized_language["language"].capitalize()
+    final_output_dir = (
+        output_dir / output_subdirectory / normalized_language["language"].capitalize()
     )
-    csv_output_dir.mkdir(parents=True, exist_ok=True)
+    final_output_dir.mkdir(parents=True, exist_ok=True)
 
-    output_file = csv_output_dir / f"{data_type}.{file_extension}"
+    output_file = final_output_dir / f"{data_type}.{file_extension}"
     if output_file.exists() and not overwrite:
         user_input = input(f"File '{output_file}' already exists. Overwrite? (y/n): ")
         if user_input.lower() != "y":
@@ -185,7 +191,7 @@ def convert_to_sqlite(
 
     if output_dir:
         source_file = f"{get_language_iso(language).upper()}LanguageData.sqlite"
-        source_path = Path("scribe_data_sqlite_export") / source_file
+        source_path = Path(DEFAULT_SQLITE_EXPORT_DIR) / source_file
         target_path = output_dir / source_file
         if source_path.exists():
             if target_path.exists() and not overwrite:
