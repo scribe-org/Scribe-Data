@@ -1,18 +1,6 @@
 """
 Updates data for Scribe by running all or desired WDQS queries and formatting scripts.
 
-Parameters
-----------
-    languages : list of strings (default=None)
-        A subset of Scribe's languages that the user wants to update.
-
-    data_types : list of strings (default=None)
-        A subset of nouns, verbs, and prepositions that currently can be updated with this fie.
-
-Example
--------
-    python3 src/scribe_data/extract_transform/wikidata/update_data.py '["French", "German"]' '["nouns", "verbs"]'
-
 .. raw:: html
     <!--
     * Copyright (C) 2024 Scribe
@@ -34,9 +22,10 @@ Example
 
 import json
 import os
-from urllib.error import HTTPError
 from datetime import datetime
 from pathlib import Path
+from urllib.error import HTTPError
+
 from tqdm.auto import tqdm
 
 from scribe_data.wikidata.wikidata_utils import sparql
@@ -120,7 +109,7 @@ def update_data(languages=None, word_types=None):
         query_name = f"query_{target_type}.sparql"
         query_path = f"{q}/{query_name}"
 
-        # After formatting and before saving the new data
+        # After formatting and before saving the new data.
         timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
         export_dir = Path(f"scribe_data_json_export/{lang.capitalize()}")
         export_dir.mkdir(parents=True, exist_ok=True)
@@ -128,10 +117,7 @@ def update_data(languages=None, word_types=None):
         new_file_name = f"{target_type}_{timestamp}.json"
         new_file_path = export_dir / new_file_name
 
-        # Check for existing files with timestamps
-        existing_files = list(export_dir.glob(f"{target_type}_*.json"))
-
-        if existing_files:
+        if existing_files := list(export_dir.glob(f"{target_type}_*.json")):
             print(
                 f"Existing file(s) found for {lang} {target_type} (ex: %Y_%m_%d_%H_%M_%S):"
             )
@@ -142,14 +128,11 @@ def update_data(languages=None, word_types=None):
                 "Choose an option:\n1. Overwrite existing (press 'o')\n2. Keep both (press 'k')\n3. Keep existing (press anything else)\nEnter your choice: "
             )
 
-            if choice == "o" or choice == "O":
+            if choice in ["o", "O"]:
                 for file in existing_files:
                     file.unlink()
 
-            elif choice == "k" or choice == "K":
-                pass  # We'll create a new file with the current timestamp
-
-            else:
+            elif choice not in ["k", "K"]:
                 print(f"Skipping update for {lang} {target_type}")
                 continue
 
@@ -251,7 +234,7 @@ def update_data(languages=None, word_types=None):
                                         indent=0,
                                     )
 
-            # Save the newly formatted data with timestamp
+            # Save the newly formatted data with timestamp.
             with open(new_file_path, "w", encoding="utf-8") as json_file:
                 json.dump(results_formatted, json_file, ensure_ascii=False, indent=0)
 
@@ -267,6 +250,4 @@ def update_data(languages=None, word_types=None):
     with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", "w", encoding="utf-8") as f:
         json.dump(current_data, f, ensure_ascii=False, indent=0)
 
-
-if __name__ == "__main__":
     update_data()

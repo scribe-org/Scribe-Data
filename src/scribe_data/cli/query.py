@@ -21,13 +21,11 @@ Functions for querying languages-data types packs for the Scribe-Data CLI.
 """
 
 import os
-
-
-from scribe_data.wikidata.update_data import update_data
-from scribe_data.cli.convert import export_json
-from scribe_data.cli.convert import export_csv_or_tsv
 from pathlib import Path
 from typing import Optional
+
+from scribe_data.cli.convert import export_csv_or_tsv, export_json
+from scribe_data.wikidata.update_data import update_data
 
 DATA_DIR = Path("scribe_data_json_export")
 
@@ -94,12 +92,10 @@ def query_data(
         else:
             print(f"Data updated for language: {language}")
     elif data_type:
-        dt_updated = False
-        for lang_dir in data_path.iterdir():
-            if lang_dir.is_dir() and (lang_dir / f"{data_type}.json").exists():
-                dt_updated = True
-                break
-
+        dt_updated = any(
+            lang_dir.is_dir() and (lang_dir / f"{data_type}.json").exists()
+            for lang_dir in data_path.iterdir()
+        )
         if not dt_updated:
             print(f"Warning: No data files found for data type '{data_type}'")
 

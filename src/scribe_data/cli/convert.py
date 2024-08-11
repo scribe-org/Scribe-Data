@@ -22,13 +22,12 @@ Functions to convert data returned from the Scribe-Data CLI to other file types.
 
 import csv
 import json
-
-from scribe_data.utils import get_language_iso
-from scribe_data.cli.cli_utils import language_map
 from pathlib import Path
-
-from scribe_data.load.data_to_sqlite import data_to_sqlite
 from typing import Optional
+
+from scribe_data.cli.cli_utils import language_map
+from scribe_data.load.data_to_sqlite import data_to_sqlite
+from scribe_data.utils import get_language_iso
 
 DATA_DIR = Path("scribe_data_json_export")
 
