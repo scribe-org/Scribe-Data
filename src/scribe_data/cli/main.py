@@ -23,6 +23,7 @@ Setup and commands for the Scribe-Data command line interface.
 #!/usr/bin/env python3
 import argparse
 
+from scribe_data.cli.convert import convert_to_sqlite
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.query import query_data
@@ -104,7 +105,7 @@ def main() -> None:
         "-ot",
         "--output-type",
         type=str,
-        choices=["json", "csv", "tsv"],
+        choices=["json", "csv", "tsv", "sqlite"],
         help="The output file type.",
     )
     query_parser.add_argument(
@@ -132,10 +133,7 @@ def main() -> None:
     )
     total_parser._actions[0].help = "Show this help message and exit."
     total_parser.add_argument(
-        "-lang",
-        "--language",
-        type=str,
-        help="The language(s) to check totals for.",
+        "-lang", "--language", type=str, help="The language(s) to check totals for."
     )
     total_parser.add_argument(
         "-dt", "--data-type", type=str, help="The data type(s) to check totals for."
@@ -191,6 +189,13 @@ def main() -> None:
         if args.interactive:
             start_interactive_mode()
 
+        if args.output_type == "sqlite":
+            convert_to_sqlite(
+                args.language,
+                args.data_type,
+                args.output_dir,
+                args.overwrite,
+            )
         else:
             query_data(
                 args.language,
