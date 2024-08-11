@@ -159,7 +159,7 @@ def main() -> None:
     convert_parser.add_argument(
         "-f", "--file", type=str, help="The file to convert to a new type."
     )
-    query_parser.add_argument(
+    convert_parser.add_argument(
         "-ot",
         "--output-type",
         type=str,
@@ -184,13 +184,14 @@ def main() -> None:
         if args.interactive:
             start_interactive_mode()
 
-        if args.output_type == "sqlite":
+        elif args.output_type == "sqlite":
             convert_to_sqlite(
                 args.language,
                 args.data_type,
                 args.output_dir,
                 args.overwrite,
             )
+
         else:
             query_data(
                 args.language,
