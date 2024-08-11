@@ -38,6 +38,9 @@ def query_data(
     output_type: Optional[str] = None,
     all: bool = False,
 ) -> None:
+    """
+    Function for controlling the data querying process for the CLI.
+    """
     if all:
         print("Updating all languages and data types ...")
         update_data()
@@ -50,7 +53,7 @@ def query_data(
 
     else:
         raise ValueError(
-            "You must provide either a --language (-l) or --data-type (-dt) option, or use --all (-a)."
+            "You must provide either at least one of the --language (-l) or --data-type (-dt) options, or use --all (-a)."
         )
 
     if output_dir:
@@ -77,7 +80,7 @@ def query_data(
             f"Updated data can be found in: {os.path.abspath('scribe_data_json_export')}"
         )
 
-    # Check if data was actually updated
+    # Check if data was actually updated.
     data_path = Path("scribe_data_json_export")
     if language:
         lang_path = data_path / language.capitalize()

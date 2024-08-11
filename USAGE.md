@@ -17,6 +17,16 @@ scribe-data [command] [options]
 - `total` (`t`): Display the total available data for given languages and data types.
 - `convert` (`c`): Transform data returned by Scribe-Data into different file formats.
 
+## Available Arguments
+
+The following arguments can be passed to the Scribe-Data commands whenever sensible:
+
+- `--language` (`-lang`): The language to run the command for.
+- `--data-type` (`-dt`): The data type to run the command for.
+- `--output-dir` (`-od`): The path to a directory for the outputs of the command.
+- `--output-type` (`-ot`): The file type that the command should output.
+- `--all` (`-a`): Get all results from the command.
+
 ## Command Examples
 
 ### List Command
@@ -50,13 +60,13 @@ scribe-data [command] [options]
 2. Display total available data for a specific language (e.g. English):
 
    ```bash
-   scribe-data total -l English
+   scribe-data total -lang English
    ```
 
 3. Display total available data for both language and data type (e.g. English nouns):
 
    ```bash
-   scribe-data total -l English -dt nouns
+   scribe-data total -lang English -dt nouns
    ```
 
 ### Query Command
@@ -78,13 +88,13 @@ scribe-data [command] [options]
 1. Retrieve data for both language and data type (e.g. English nouns) in CSV format:
 
    ```bash
-   scribe-data query -l english --data-type verbs --output-dir ./output_data --output-type csv
+   scribe-data query -lang english -dt verbs -od ./output_data -ot csv
    ```
 
 2. Retrieve data for both language and data type (e.g. English nouns) in TSV format:
 
    ```bash
-   scribe-data query -l english --data-type verbs --output-dir ./output_data --output-type tsv
+   scribe-data query -lang english -t verbs -od ./output_data -ot tsv
    ```
 
 ### Interactive Query Mode
@@ -92,7 +102,7 @@ scribe-data [command] [options]
 The CLI also offers an interactive query mode, which can be initiated with the following command:
 
 ```bash
-scribe-data query -i
+scribe-data query -i # --interactive
 ```
 
 This mode guides users through the data retrieval process with a series of prompts:
@@ -110,6 +120,13 @@ For more detailed information on each command and its options, append the `--hel
 ```bash
 scribe-data --help # -h
 scribe-data [command] --help
+```
+
+The CLI also has functions to check the version and upgrade the package if necessary.
+
+```bash
+scribe-data -v # --version
+scribe-data -u # --upgrade
 ```
 
 For comprehensive usage instructions and examples, please refer to the [official documentation](https://scribe-data.readthedocs.io/).
