@@ -113,7 +113,3 @@ scribe-data [command] --help
 ```
 
 For comprehensive usage instructions and examples, please refer to the [official documentation](https://scribe-data.readthedocs.io/).
-
-```
-
-```
