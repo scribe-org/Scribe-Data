@@ -15,7 +15,7 @@
 
 ## Wikidata and Wikipedia language data extraction
 
-**Scribe-Data** contains the scripts for extracting and formatting language data from [Wikidata](https://www.wikidata.org/) and [Wikipedia](https://www.wikipedia.org/). Updates to the data can be done using [scribe_data/wikidata/update_data.py](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/update_data.py) and the notebooks within the [scribe_data/load](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/load) directory.
+**Scribe-Data** is a convenient command-line interface (CLI) for extracting and formatting language data from [Wikidata](https://www.wikidata.org/) and [Wikipedia](https://www.wikipedia.org/). Functionality includes allowing users to list, query, and manage language data directly from the terminal.
 
 > [!NOTE]\
 > The [contributing](#contributing) section has information for those interested, with the articles and presentations in [featured by](#featured-by) also being good resources for learning more about Scribe.
@@ -23,8 +23,6 @@
 Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-iOS), [Android](https://github.com/scribe-org/Scribe-Android) (WIP) and [Desktop](https://github.com/scribe-org/Scribe-Desktop) (planned).
 
 Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) for an overview of the organization including our applications, services and processes. It depicts the projects that [Scribe](https://github.com/scribe-org) is developing as well as the relationships between them and the external systems with which they interact. Also check out the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and querying language data from it.
-
-Scribe-data includes a command-line interface (CLI) for easy interaction with its functionality, allowing users to list, query, and manage language data directly from the terminal.
 
 <a id="contents"></a>
 
@@ -41,17 +39,9 @@ Scribe-data includes a command-line interface (CLI) for easy interaction with it
 
 # Process [`⇧`](#contents)
 
-[scribe_data/wikidata/update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikidata/update_data.py) and the notebooks within the various [scribe_data](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data) directories are used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) when they're active.
+The CLI commands defined within [scribe_data/cli](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/cli) and the notebooks within the various [scribe_data](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data) directories are used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) once they're active.
 
-The main data update process in [update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikidata/update_data.py) triggers [SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/language_data_extraction) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The autosuggestion process derives popular words from [Wikipedia](https://www.wikipedia.org/) as well as those words that normally follow them for an effective baseline feature until natural language processing methods are employed. Functions to generate autosuggestions are ran in [gen_autosuggestions.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikipedia/gen_autosuggestions.ipynb). Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran in [gen_emoji_lexicon.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/unicode/gen_emoji_lexicon.ipynb).
-
-Running [update_data.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikidata/update_data.py) is done via the following CLI command:
-
-```bash
-python3 src/scribe_data/wikidata/update_data.py
-```
-
-The ultimate goal is that this repository will house language packs that are periodically updated with new [Wikidata](https://www.wikidata.org/) lexicographical data and data from other sources. These packs would then be available to download by users of Scribe applications.
+The main data update process in triggers [language based SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/language_data_extraction) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The autosuggestion process derives popular words from [Wikipedia](https://www.wikipedia.org/) as well as those words that normally follow them for an effective baseline feature until natural language processing methods are employed. Functions to generate autosuggestions are ran in [gen_autosuggestions.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikipedia/gen_autosuggestions.ipynb). Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran in [gen_emoji_lexicon.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/unicode/gen_emoji_lexicon.ipynb).
 
 <a id="cli-usage"></a>
 
