@@ -18,8 +18,8 @@ Global Options
 --------------
 
 - ``-h, --help``: Show this help message and exit.
-- ``-v, --verbose``: Increase output verbosity.
-- ``-u, --update UPDATE``: Update the Scribe-Data CLI.
+- ``-v, --version``: Show the version of Scribe-Data.
+- ``-u, --upgrade``: Upgrade the Scribe-Data CLI.
 
 Commands
 --------
