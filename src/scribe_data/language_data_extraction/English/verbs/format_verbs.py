@@ -103,7 +103,7 @@ for verb_vals in verbs_list:
             "presPart", ""
         )
         verbs_formatted[infinitive_key]["pastPerf"] = "had " + verb_vals.get(
-            "presPart", ""
+            "pastPart", ""
         )
         verbs_formatted[infinitive_key]["pastPerfCont"] = "had been " + verb_vals.get(
             "presPart", ""
