@@ -306,14 +306,14 @@ def export_formatted_data(
         export_path = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/{DEFAULT_JSON_EXPORT_DIR}/{language}/{data_type.replace('-', '_')}.json"
 
     else:
-        export_path = f"{data_type.replace("-", "_")}.json"
+        export_path = f"{data_type.replace('-', '_')}.json"
 
     with open(export_path, "w", encoding="utf-8") as file:
         json.dump(formatted_data, file, ensure_ascii=False, indent=0)
         file.write("\n")
 
     print(
-        f"Wrote file {language}/{data_type.replace("-", "_")}.json with {len(formatted_data):,} {data_type}."
+        f"Wrote file {language}/{data_type.replace('-', '_')}.json with {len(formatted_data):,} {data_type}."
     )
 
 

@@ -112,7 +112,7 @@ def get_data(
             print(f"Warning: No data directory found for language '{language}'")
 
         elif data_type:
-            dt_file = lang_path / f"{data_type.replace("-", "_")}.json"
+            dt_file = lang_path / f"{data_type.replace('-', '_')}.json"
             if not dt_file.exists():
                 print(
                     f"Warning: No data file found for '{language}' {data_type}. The command must not have worked."
