@@ -35,20 +35,26 @@
 .. |matrix| image:: https://img.shields.io/badge/Matrix-000000.svg?logo=matrix&logoColor=ffffff
     :target: https://matrix.to/#/#scribe_community:matrix.org
 
-Wikidata and Wikipedia language data extraction
+**Wikidata and Wikipedia language data extraction**
 
 Installation
 ============
 
+Scribe-Data can be installed via `pip <https://pypi.org/project/scribe-data/>`_:
+
 .. code-block:: shell
 
     pip install scribe-data
+
+The latest development version can further be installed the `source code on GitHub <https://github.com/scribe-org/Scribe-Data>`_:
 
 .. code-block:: shell
 
     git clone https://github.com/scribe-org/Scribe-Data.git
     cd Scribe-Data
     python setup.py install
+
+Then execute the following import statement to use Scribe-Data:
 
 .. code-block:: python
 
