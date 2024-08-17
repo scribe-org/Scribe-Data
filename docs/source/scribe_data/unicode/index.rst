@@ -6,6 +6,6 @@ unicode
 .. toctree::
     :maxdepth: 1
 
-    gen_emoji_lexicon
     unicode_utils
+    update_unicode_data
     process_unicode
