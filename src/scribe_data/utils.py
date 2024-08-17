@@ -303,7 +303,7 @@ def export_formatted_data(
     """
     if update_data_in_use:
         PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-        export_path = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/{DEFAULT_JSON_EXPORT_DIR}/{language}/{data_type.replace("-", "_")}.json"
+        export_path = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/{DEFAULT_JSON_EXPORT_DIR}/{language}/{data_type.replace('-', '_')}.json"
 
     else:
         export_path = f"{data_type.replace("-", "_")}.json"
