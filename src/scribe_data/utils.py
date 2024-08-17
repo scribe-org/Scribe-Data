@@ -249,8 +249,10 @@ def load_queried_data(
     ----------
         file_path : str
             The path to the file containing the queried data.
+
         language : str
             The language for which the data is being loaded.
+
         data_type : str
             The type of data being loaded (e.g. 'nouns', 'verbs').
 
@@ -285,10 +287,13 @@ def export_formatted_data(
     ----------
         formatted_data : dict
             The data to be exported.
+
         update_data_in_use : bool
             A flag indicating whether the data is currently in use.
+
         language : str
             The language for which the data is being exported.
+
         data_type : str
             The type of data being exported (e.g. 'nouns', 'verbs').
 
@@ -298,16 +303,17 @@ def export_formatted_data(
     """
     if update_data_in_use:
         PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-        export_path = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/{DEFAULT_JSON_EXPORT_DIR}/{language}/{data_type}.json"
+        export_path = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/{DEFAULT_JSON_EXPORT_DIR}/{language}/{data_type.replace("-", "_")}.json"
 
     else:
-        export_path = f"{data_type}.json"
+        export_path = f"{data_type.replace("-", "_")}.json"
 
     with open(export_path, "w", encoding="utf-8") as file:
         json.dump(formatted_data, file, ensure_ascii=False, indent=0)
+        file.write("\n")
 
     print(
-        f"Wrote file {language}/{data_type}.json with {len(formatted_data):,} {data_type}."
+        f"Wrote file {language}/{data_type.replace("-", "_")}.json with {len(formatted_data):,} {data_type}."
     )
 
 

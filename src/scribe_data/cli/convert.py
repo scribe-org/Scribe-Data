@@ -90,29 +90,22 @@ def export_json(
     )
 
 
-def export_csv_or_tsv(
-    language: str, data_type: str, output_dir: Path, overwrite: bool, output_type: str
+def convert_to_csv_or_tsv(
+    file: Path,
+    output_dir: Path,
+    output_type: str,
+    overwrite: bool,
 ) -> None:
-    normalized_language = language_map.get(language.lower())
-    if not normalized_language:
-        print(f"Language '{language}' is not recognized.")
-        return
-
-    data_file = (
-        DATA_DIR / normalized_language["language"].capitalize() / f"{data_type}.json"
-    )
-    if not data_file.exists():
-        print(
-            f"No data found for language '{normalized_language['language']}' and data type '{data_type}'."
-        )
+    if not file.exists():
+        print(f"No data found for {output_type} conversion.")
         return
 
     try:
-        with data_file.open("r") as file:
-            data = json.load(file)
+        with file.open("r") as f:
+            data = json.load(f)
 
     except (IOError, json.JSONDecodeError) as e:
-        print(f"Error reading '{data_file}': {e}")
+        print(f"Error reading '{file}': {e}")
         return
 
     if output_type == "csv":
@@ -131,15 +124,15 @@ def export_csv_or_tsv(
 
     # Adjust the output directory for CSV exports.
     final_output_dir = (
-        output_dir / output_subdirectory / normalized_language["language"].capitalize()
+        output_dir / output_subdirectory / file.split("/")[-2].capitalize()
     )
     final_output_dir.mkdir(parents=True, exist_ok=True)
 
-    output_file = final_output_dir / f"{data_type}.{file_extension}"
+    output_file = final_output_dir / f"{file.split('/')[-2]}.{file_extension}"
     if output_file.exists() and not overwrite:
         user_input = input(f"File '{output_file}' already exists. Overwrite? (y/n): ")
         if user_input.lower() != "y":
-            print(f"Skipping {normalized_language['language']} - {data_type}")
+            print(f"Skipping {file}")
             return
 
     try:
@@ -164,9 +157,7 @@ def export_csv_or_tsv(
         print(f"Error writing to '{output_file}': {e}")
         return
 
-    print(
-        f"Data for language '{normalized_language['language']}' and data type '{data_type}' written to '{output_file}'"
-    )
+    print(f"Data for '{file}' written to '{output_file}'")
 
 
 def convert_to_sqlite(

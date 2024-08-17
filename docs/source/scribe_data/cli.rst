@@ -27,7 +27,7 @@ Commands
 The Scribe-Data CLI supports the following commands:
 
 1. ``list`` (alias: ``l``)
-2. ``query`` (alias: ``q``)
+2. ``get`` (alias: ``g``)
 3. ``total`` (alias: ``t``)
 4. ``convert`` (alias: ``c``)
 
@@ -70,33 +70,33 @@ Example output:
     verbs
     -----------------------------------
 
-Query Command
-~~~~~~~~~~~~~
+Get Command
+~~~~~~~~~~~
 
-Description: Query data from Wikidata for the given languages and data types.
+Description: Get data from Wikidata for the given languages and data types.
 
 Usage:
 
 .. code-block:: bash
 
-    scribe-data query [options]
+    scribe-data get [options]
 
 Options:
 ^^^^^^^^
 
-- ``-lang, --language LANGUAGE``: The language(s) to query.
-- ``-dt, --data-type DATA_TYPE``: The data type(s) to query.
+- ``-lang, --language LANGUAGE``: The language(s) to get.
+- ``-dt, --data-type DATA_TYPE``: The data type(s) to get.
 - ``-od, --output-dir OUTPUT_DIR``: The output directory path for results.
 - ``-ot, --output-type {json,csv,tsv}``: The output file type.
 - ``-o, --overwrite``: Whether to overwrite existing files (default: False).
-- ``-a, --all ALL``: Query all languages and data types.
+- ``-a, --all ALL``: Get all languages and data types.
 - ``-i, --interactive``: Run in interactive mode.
 
 Example:
 
 .. code-block:: bash
 
-    $ scribe-data query -l English --data-type verbs -od ~/Desktop/gsoc/wiki/Scribe-Data
+    $ scribe-data get -l English --data-type verbs -od ~/path/for/output
 
 Behavior and Output:
 ^^^^^^^^^^^^^^^^^^^^
@@ -122,11 +122,11 @@ Behavior and Output:
         4. Cancel
         Enter your choice (1-4):
 
-3. After making a selection, the querying process begins:
+3. After making a selection, the get process begins:
 
     .. code-block:: text
 
-        Querying and formatting English verbs
+        Getting and formatting English verbs
         Data updated: 100%|████████████████████████| 1/1 [00:29<00:00, 29.73s/process]
 
 4. If no data is found, you'll see a warning:
@@ -134,7 +134,7 @@ Behavior and Output:
     .. code-block:: text
 
         No data found for language 'english' and data type '['verbs']'.
-        Warning: No data file found for 'English' ['verbs']
+        Warning: No data file found for 'English' ['verbs']. The command must not have worked.
 
 Notes:
 ^^^^^^
@@ -156,7 +156,7 @@ Interactive Mode
 
 .. code-block:: text
 
-    $ scribe-data query -i
+    $ scribe-data get -i
     Welcome to Scribe-Data interactive mode!
     Language options:
     1. English
@@ -164,7 +164,7 @@ Interactive Mode
     3. German
     ...
 
-    Please enter the languages to query data for, their numbers or (a) for all languages: 1
+    Please enter the languages to get data for, their numbers or (a) for all languages: 1
 
     Data type options:
     1. autosuggestions

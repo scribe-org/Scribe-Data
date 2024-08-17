@@ -51,7 +51,7 @@ setup_args = dict(
         "console_scripts": [
             "scribe-data=scribe_data.cli.main:main",
         ],
-    }
+    },
 )
 
 if __name__ == "__main__":

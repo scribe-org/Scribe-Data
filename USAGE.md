@@ -13,7 +13,7 @@ scribe-data [command] [options]
 ## Available Commands
 
 - `list` (`l`): Enumerate available languages, data types and their combinations.
-- `query` (`q`): Retrieve data from Wikidata for specified languages and data types.
+- `get` (`g`): Retrieve data from Wikidata for specified languages and data types.
 - `total` (`t`): Display the total available data for given languages and data types.
 - `convert` (`c`): Transform data returned by Scribe-Data into different file formats.
 
@@ -26,6 +26,7 @@ The following arguments can be passed to the Scribe-Data commands whenever sensi
 - `--file` (`-f`): The path to a file to run the command on.
 - `--output-dir` (`-od`): The path to a directory for the outputs of the command.
 - `--output-type` (`-ot`): The file type that the command should output.
+- `--outputs-per-entry` (`-ope`): How many outputs should be generated per data entry.
 - `--all` (`-a`): Get all results from the command.
 
 ## Command Examples
@@ -70,18 +71,18 @@ The following arguments can be passed to the Scribe-Data commands whenever sensi
    scribe-data total -lang English -dt nouns
    ```
 
-### Query Command
+### Get Command
 
-1. Query all available languages and data types:
+1. Get all available languages and data types:
 
    ```bash
-   scribe-data query -a # --all
+   scribe-data get -a # --all
    ```
 
-2. Query specific language and data type (e.g. German nouns):
+2. Get specific language and data type (e.g. German nouns):
 
    ```bash
-   scribe-data query -lang German -dt nouns
+   scribe-data get -lang German -dt nouns
    ```
 
 ### Convert Command
@@ -89,27 +90,27 @@ The following arguments can be passed to the Scribe-Data commands whenever sensi
 1. Retrieve data for both language and data type (e.g. English nouns) in CSV format:
 
    ```bash
-   scribe-data query -lang english -dt verbs -od ./output_data -ot csv
+   scribe-data get -lang english -dt verbs -od ./output_data -ot csv
    ```
 
 2. Retrieve data for both language and data type (e.g. English nouns) in TSV format:
 
    ```bash
-   scribe-data query -lang english -t verbs -od ./output_data -ot tsv
+   scribe-data get -lang english -t verbs -od ./output_data -ot tsv
    ```
 
-### Interactive Query Mode
+### Interactive Get Mode
 
-The CLI also offers an interactive query mode, which can be initiated with the following command:
+The CLI also offers an interactive get mode, which can be initiated with the following command:
 
 ```bash
-scribe-data query -i # --interactive
+scribe-data get -i # --interactive
 ```
 
 This mode guides users through the data retrieval process with a series of prompts:
 
 1. Language selection: Users can choose from a list of available languages or select all.
-2. Data type selection: Users can specify which types of data to query.
+2. Data type selection: Users can specify which types of data to get.
 3. Output configuration: Users can set the file format, export directory, and overwrite preferences.
 
 The interactive mode is particularly useful for users who prefer a guided approach or are exploring the available data options.

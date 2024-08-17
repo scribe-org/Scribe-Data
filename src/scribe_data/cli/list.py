@@ -107,7 +107,7 @@ def list_data_types(language: str = None) -> None:
 
     data_types = sorted(data_types)
     for dt in data_types:
-        print(dt)
+        print(dt.replace("_", "-"))
 
     print("-" * table_line_length)
     print()
