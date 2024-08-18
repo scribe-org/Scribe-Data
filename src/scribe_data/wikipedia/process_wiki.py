@@ -21,12 +21,11 @@ Module for cleaning Wikipedia based corpuses for autosuggestion generation.
 """
 
 import json
-import os
 import re
-import sys
 import warnings
 from collections import Counter
 from itertools import chain
+from pathlib import Path
 from urllib.error import HTTPError
 
 import numpy as np
@@ -38,7 +37,6 @@ from scribe_data.utils import (
     get_language_qid,
     get_language_words_to_ignore,
     get_language_words_to_remove,
-    get_path_from_wikidata_dir,
 )
 from scribe_data.wikidata.wikidata_utils import sparql
 
@@ -433,8 +431,7 @@ def gen_autosuggestions(
 
     if update_local_data:
         path_to_formatted_data = (
-            get_path_from_wikidata_dir()
-            + f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../{DEFAULT_JSON_EXPORT_DIR}/{language}/autosuggestions.json"
+            Path(DEFAULT_JSON_EXPORT_DIR) / language / "autosuggestions.json"
         )
 
         with open(

@@ -42,7 +42,6 @@ emoji_codes_to_ignore = get_emoji_codes_to_ignore()
 def gen_emoji_lexicon(
     language: str,
     emojis_per_keyword: int,
-    verbose: bool = True,
 ):
     """
     Generates a dictionary of keywords (keys) and emoji unicode(s) associated with them (values).
@@ -54,9 +53,6 @@ def gen_emoji_lexicon(
 
         emojis_per_keyword : int (default=None)
             The limit for number of emoji keywords that should be generated per keyword.
-
-        verbose : bool (default=True)
-            Whether to show a tqdm progress bar for the process.
 
     Returns
     -------
@@ -109,7 +105,6 @@ def gen_emoji_lexicon(
             iterable=cldr_dict,
             desc=f"Characters processed from '{cldr_file_key}' CLDR file for {language}",
             unit="cldr characters",
-            disable=not verbose,
         ):
             # Filter CLDR data for emoji characters while not including certain emojis.
             if (
@@ -199,10 +194,5 @@ def gen_emoji_lexicon(
         # If specified, enforce limit of emojis per keyword.
         if emojis_per_keyword and len(emojis) > emojis_per_keyword:
             emojis[:] = emojis[:emojis_per_keyword]
-
-    total_keywords = f"{len(keyword_dict):,}"
-
-    if verbose:
-        print(f"Number of emoji keywords found for {language}: {total_keywords}")
 
     return keyword_dict

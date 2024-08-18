@@ -3,7 +3,7 @@ Translates the French words queried from Wikidata to all other Scribe languages.
 
 Example
 -------
-    python3 src/scribe_data/wikidata/languages/French/translations/translate_words.py
+    python3 src/scribe_data/language_data_extraction/French/translations/translate_words.py
 
 .. raw:: html
     <!--
@@ -25,8 +25,7 @@ Example
 """
 
 import json
-import os
-import sys
+from pathlib import Path
 
 from scribe_data.translation.translation_utils import (
     translate_to_other_languages,
@@ -34,20 +33,17 @@ from scribe_data.translation.translation_utils import (
 from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 
 SRC_LANG = "French"
-translate_script_dir = os.path.dirname(os.path.abspath(__file__))
-words_to_translate_path = os.path.join(translate_script_dir, "words_to_translate.json")
+translate_script_dir = Path(__file__).parent
+words_to_translate_path = translate_script_dir / "words_to_translate.json"
 
 with open(words_to_translate_path, "r", encoding="utf-8") as file:
     json_data = json.load(file)
 
 word_list = [item["word"] for item in json_data]
 
-translations = []
-translated_words_path = os.path.join(
-    translate_script_dir,
-    f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../{DEFAULT_JSON_EXPORT_DIR}/{SRC_LANG}/translated_words.json",
-)
-if os.path.exists(translated_words_path):
+translated_words_path = Path(DEFAULT_JSON_EXPORT_DIR) / SRC_LANG / "translations.json"
+
+if translated_words_path.exists():
     with open(translated_words_path, "r", encoding="utf-8") as file:
         translations = json.load(file)
 

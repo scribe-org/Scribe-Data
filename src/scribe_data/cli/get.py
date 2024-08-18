@@ -43,21 +43,19 @@ def get_data(
     """
     Function for controlling the data get process for the CLI.
     """
-    if not outputs_per_entry and (
-        data_type in ["emoji-keywords", "emoji_keywords", "translations"]
-    ):
+    if not outputs_per_entry and (data_type in ["emoji-keywords", "emoji_keywords"]):
         print(
             "\nNo value set for 'outputs-per-entry'. Setting a default value of 3 outputs per entry.\n"
         )
         outputs_per_entry = 3
+
+    languages = [language] if language else None
 
     if all:
         print("Updating all languages and data types ...")
         update_data()
 
     elif data_type in ["emoji-keywords", "emoji_keywords"]:
-        languages = [language] if language else None
-
         for lang in languages:
             emoji_keyword_extraction_script = (
                 Path(__file__).parent.parent
@@ -69,8 +67,19 @@ def get_data(
 
             os.system(f"python3 {emoji_keyword_extraction_script}")
 
+    elif data_type == "translations":
+        for lang in languages:
+            translation_generation_script = (
+                Path(__file__).parent.parent
+                / "language_data_extraction"
+                / lang
+                / "translations"
+                / "translate_words.py"
+            )
+
+            os.system(f"python3 {translation_generation_script}")
+
     elif language or data_type:
-        languages = [language] if language else None
         data_type = [data_type] if data_type else None
         print(f"Updating data for language: {language}, data type: {data_type}")
         update_data(languages, data_type)
@@ -99,9 +108,8 @@ def get_data(
             )
 
     else:
-        print("\nData update complete!\n")
         print(
-            f"No output directory specified for exporting results. Updated data will be saved in: {os.path.abspath(DEFAULT_JSON_EXPORT_DIR)}"
+            f"No output directory specified for exporting results. Updated data was saved in: {Path(DEFAULT_JSON_EXPORT_DIR).resolve()}."
         )
 
     # Check if data was actually updated.

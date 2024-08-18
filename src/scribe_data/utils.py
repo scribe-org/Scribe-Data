@@ -22,9 +22,8 @@ Utility functions for data extraction, formatting and loading.
 
 import ast
 import json
-import os
-import sys
 from importlib import resources
+from pathlib import Path
 from typing import Any, Optional
 
 from iso639 import Lang
@@ -35,6 +34,7 @@ DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
 DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
 DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
+PATH_TO_SCRIBE_ORG = Path(__file__).parent.parent.parent.parent
 
 
 def _load_json(package_path: str, file_name: str, root: str) -> Any:
@@ -269,7 +269,6 @@ def load_queried_data(
         data_path = queried_data_file
     else:
         update_data_in_use = True
-        PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
         LANG_DIR_PATH = f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/language_data_extraction/{language}"
         data_path = f"{LANG_DIR_PATH}/{data_type}/{queried_data_file}"
 
@@ -302,8 +301,13 @@ def export_formatted_data(
         None
     """
     if update_data_in_use:
-        PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-        export_path = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/{DEFAULT_JSON_EXPORT_DIR}/{language}/{data_type.replace('-', '_')}.json"
+        export_path = (
+            PATH_TO_SCRIBE_ORG
+            / "Scribe-Data"
+            / DEFAULT_JSON_EXPORT_DIR
+            / language
+            / f"{data_type.replace('-', '_')}.json"
+        )
 
     else:
         export_path = f"{data_type.replace('-', '_')}.json"
@@ -460,7 +464,7 @@ def check_and_return_command_line_args(
     )
 
 
-def get_target_langcodes(source_lang: str) -> list[str]:
+def get_target_lang_codes(source_lang: str) -> list[str]:
     """
     Returns a list of target language ISO codes for translation.
 

@@ -21,9 +21,7 @@ Utility functions for the machine translation process.
 """
 
 import json
-import os
 import signal
-import sys
 from functools import lru_cache
 from pathlib import Path
 
@@ -32,7 +30,7 @@ from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     get_language_iso,
-    get_target_langcodes,
+    get_target_lang_codes,
 )
 from scribe_data.wikidata.wikidata_utils import JSON, sparql
 
@@ -45,74 +43,52 @@ with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
 
 
 @lru_cache(maxsize=None)
-def get_language_qid(language: str) -> str:
+def get_articles_dict() -> dict:
     """
-    Get the QID for a given language name.
-
-    Parameters
-    ----------
-        language : str
-            The language for a Wikidata QID should be returned.
+    Get all articles for all languages that Scribe-Data supports.
 
     Returns
     -------
-        str
-            The Wikidata QID for the given language.
+        dict[str: list]
+            The articles for all languages as found on Wikidata.
     """
-    normalized_language = language.lower()
-    return next(
-        (
-            lang["qid"]
-            for lang in language_data["languages"]
-            if lang["language"] == normalized_language
-        ),
-        None,
-    )
+    all_scribe_lang_isos = [lang["iso"] for lang in language_data["languages"]]
+    all_scribe_lang_qids = [lang["qid"] for lang in language_data["languages"]]
 
+    articles_dict = {}
 
-@lru_cache(maxsize=None)
-def get_all_articles(language: str) -> list[str]:
-    """
-    Get all articles for a given language.
+    for i, lang in enumerate(all_scribe_lang_isos):
+        query = f"""
+        SELECT DISTINCT
+            ?article
 
-    Parameters
-    ----------
-        language : str
-            The language for which articles should be retrieved from Wikidata.
+        WHERE {{
+            VALUES ?language {{ wd:{all_scribe_lang_qids[i]} }}
+            ?lexeme dct:language ?language ;
+            wikibase:lexicalCategory ?category ;
+            wikibase:lemma ?lemma .
 
-    Returns
-    -------
-        List[str]
-            The articles for the given language as found on Wikidata.
-    """
-    qid_from_language_metadata = get_language_qid(language)
-    query = f"""
-    SELECT DISTINCT
-        ?article
+            # Definite, indefinite articles and Partitive Articles
+            VALUES ?category {{ wd:Q2865743 wd:Q3813849 wd:Q576670 }}
 
-    WHERE {{
-        VALUES ?language {{ wd:{qid_from_language_metadata} }}
-        ?lexeme dct:language ?language ;
-        wikibase:lexicalCategory ?category ;
-        wikibase:lemma ?lemma .
-
-        # Definite, indefinite articles and Partitive Articles
-        VALUES ?category {{ wd:Q2865743 wd:Q3813849 wd:Q576670 }}
-
-        {{
-            ?lexeme wikibase:lemma ?article .
-        }} UNION {{
-            ?lexeme ontolex:lexicalForm ?form .
-            ?form ontolex:representation ?article .
+            {{
+                ?lexeme wikibase:lemma ?article .
+            }} UNION {{
+                ?lexeme ontolex:lexicalForm ?form .
+                ?form ontolex:representation ?article .
+            }}
         }}
-    }}
-    """
+        """
 
-    sparql.setQuery(query)
-    sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
+        sparql.setQuery(query)
+        sparql.setReturnFormat(JSON)
+        results = sparql.query().convert()
 
-    return [result["article"]["value"] for result in results["results"]["bindings"]]
+        articles_dict[lang] = [
+            result["article"]["value"] for result in results["results"]["bindings"]
+        ]
+
+    return articles_dict
 
 
 def remove_articles_from_words(
@@ -162,17 +138,19 @@ def translation_interrupt_handler(source_language, translations):
     )
 
     with open(
-        f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../{DEFAULT_JSON_EXPORT_DIR}/{source_language}/translated_words.json",
+        Path(DEFAULT_JSON_EXPORT_DIR) / source_language / "translations.json",
         "w",
         encoding="utf-8",
     ) as file:
         json.dump(translations, file, ensure_ascii=False, indent=4)
 
-    print("The current progress is saved to the translated_words.json file.")
+    print("The current progress is saved to the translations.json file.")
     exit()
 
 
-def translate_to_other_languages(source_language, word_list, translations, batch_size):
+def translate_to_other_languages(
+    source_language: str, word_list: list, translations: dict, batch_size: int
+):
     """
     Translates a list of words from the source language to other target languages using batch processing.
 
@@ -184,8 +162,8 @@ def translate_to_other_languages(source_language, word_list, translations, batch
         word_list : list[str]
             The list of words to translate.
 
-        translations : list
-            The current list of translation dictionaries.
+        translations : dict
+            The current dictionary of translation dictionaries.
 
         batch_size : int
             The number of words to translate in each batch.
@@ -193,19 +171,24 @@ def translate_to_other_languages(source_language, word_list, translations, batch
     model = M2M100ForConditionalGeneration.from_pretrained("facebook/m2m100_418M")
     tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
 
+    articles_dict = get_articles_dict()
+
     signal.signal(
         signal.SIGINT,
         lambda sig, frame: translation_interrupt_handler(source_language, translations),
     )
-    articles = get_all_articles(source_language)
+
+    word_list = word_list[:100]
 
     for i in range(0, len(word_list), batch_size):
         batch_words = word_list[i : i + batch_size]
-        batch_words = remove_articles_from_words(batch_words, articles)
+        batch_words = remove_articles_from_words(
+            batch_words, articles_dict[get_language_iso(source_language)]
+        )
 
         print(f"Translating batch {i//batch_size + 1}: {batch_words}")
 
-        for lang_code in get_target_langcodes(source_language):
+        for lang_code in get_target_lang_codes(source_language):
             tokenizer.src_lang = get_language_iso(source_language)
             encoded_words = tokenizer(batch_words, return_tensors="pt", padding=True)
             generated_tokens = model.generate(
@@ -214,31 +197,26 @@ def translate_to_other_languages(source_language, word_list, translations, batch
             translated_words = tokenizer.batch_decode(
                 generated_tokens, skip_special_tokens=True
             )
+            translated_words_cleaned = remove_articles_from_words(
+                translated_words, articles_dict[lang_code]
+            )
 
-            for word, translation in zip(batch_words, translated_words):
-                # Find if the word already exists in translations.
-                existing_entry = next(
-                    (item for item in translations if word in item), None
-                )
+            for word, translation in zip(batch_words, translated_words_cleaned):
+                if word not in translations:
+                    translations[word] = {}
 
-                if existing_entry is None:
-                    # If the word doesn't exist, create a new entry.
-                    new_entry = {word: {lang_code: translation}}
-                    translations.append(new_entry)
-
-                else:
-                    # If the word exists, update its translations.
-                    existing_entry[word][lang_code] = translation
+                translations[word][lang_code] = translation
 
         print(f"Batch {i//batch_size + 1} translation completed.")
 
         with open(
-            f"{os.path.dirname(sys.path[0]).split('scribe_data')[0]}/../{DEFAULT_JSON_EXPORT_DIR}/{source_language}/translated_words.json",
+            Path(DEFAULT_JSON_EXPORT_DIR) / source_language / "translations.json",
             "w",
             encoding="utf-8",
         ) as file:
-            json.dump(translations, file, ensure_ascii=False, indent=4)
+            file.write(json.dumps(translations, ensure_ascii=False, indent=2))
+            file.write("\n")
 
     print(
-        "Translation results for all words are saved to the translated_words.json file."
+        f"Translation results for all words are saved to the {source_language}/translations.json file."
     )

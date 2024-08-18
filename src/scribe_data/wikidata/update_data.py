@@ -21,7 +21,6 @@ Updates data for Scribe by running all or desired WDQS queries and formatting sc
 """
 
 import json
-import os
 from datetime import datetime
 from pathlib import Path
 from urllib.error import HTTPError
@@ -33,13 +32,13 @@ from scribe_data.wikidata.wikidata_utils import sparql
 
 
 def update_data(languages=None, word_types=None):
-    SCRIBE_DATA_SRC_PATH = "src/scribe_data"
+    SCRIBE_DATA_SRC_PATH = Path(__file__).parent.parent
     PATH_TO_LANGUAGE_EXTRACTION_FILES = (
-        f"{SCRIBE_DATA_SRC_PATH}/language_data_extraction"
+        SCRIBE_DATA_SRC_PATH / "language_data_extraction"
     )
-    PATH_TO_UPDATE_FILES = f"{SCRIBE_DATA_SRC_PATH}/load/update_files"
+    PATH_TO_UPDATE_FILES = SCRIBE_DATA_SRC_PATH / "load" / "update_files"
 
-    with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", encoding="utf-8") as f:
+    with open(PATH_TO_UPDATE_FILES / "total_data.json", encoding="utf-8") as f:
         current_data = json.load(f)
 
     current_languages = list(current_data.keys())
@@ -50,18 +49,14 @@ def update_data(languages=None, word_types=None):
 
     word_types_update = current_word_types if word_types is None else word_types
 
-    # Derive directory files and language subdirectories for potential queries.
-    language_data_extraction_files = []
-
-    for path, _, files in os.walk(PATH_TO_LANGUAGE_EXTRACTION_FILES):
-        language_data_extraction_files.extend(
-            os.path.join(path, name) for name in files
-        )
+    language_data_extraction_files = [
+        path
+        for path in Path(PATH_TO_LANGUAGE_EXTRACTION_FILES).rglob("*")
+        if path.is_file()
+    ]
 
     language_directories = [
-        d
-        for d in os.listdir(PATH_TO_LANGUAGE_EXTRACTION_FILES)
-        if os.path.isdir(f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{d}")
+        d for d in Path(PATH_TO_LANGUAGE_EXTRACTION_FILES).iterdir() if d.is_dir()
     ]
 
     # Check to see if the language has all zeroes for its data, meaning it's new.
@@ -75,11 +70,11 @@ def update_data(languages=None, word_types=None):
     possible_queries = []
     for d in language_directories:
         possible_queries.extend(
-            f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{d}/{target_type}"
+            PATH_TO_LANGUAGE_EXTRACTION_FILES / d / target_type
             for target_type in word_types_update
-            if f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{d}/{target_type}"
+            if PATH_TO_LANGUAGE_EXTRACTION_FILES / d / target_type
             in [
-                e[: len(f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{d}/{target_type}")]
+                e[: len(PATH_TO_LANGUAGE_EXTRACTION_FILES / d / target_type)]
                 for e in language_data_extraction_files
             ]
         )
@@ -88,8 +83,7 @@ def update_data(languages=None, word_types=None):
         [
             q
             for q in possible_queries
-            if q.split(f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/")[1].split("/")[0]
-            in languages_update
+            if PATH_TO_LANGUAGE_EXTRACTION_FILES in languages_update
         ]
         for _ in languages_update
     ]
@@ -108,11 +102,11 @@ def update_data(languages=None, word_types=None):
         lang = q.split("/")[-2]
         target_type = q.split("/")[-1]
         query_name = f"query_{target_type}.sparql"
-        query_path = f"{q}/{query_name}"
+        query_path = Path(q) / query_name
 
         # After formatting and before saving the new data.
         timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-        export_dir = Path(f"{DEFAULT_JSON_EXPORT_DIR}/{lang.capitalize()}")
+        export_dir = Path(DEFAULT_JSON_EXPORT_DIR) / lang.capitalize()
         export_dir.mkdir(parents=True, exist_ok=True)
 
         new_file_name = f"{target_type}_{timestamp}.json"
@@ -137,7 +131,7 @@ def update_data(languages=None, word_types=None):
                 print(f"Skipping update for {lang} {target_type}")
                 continue
 
-        if not os.path.exists(query_path):
+        if not query_path.exists():
             # There are multiple queries for a given target_type, so start by running the first.
             query_path = query_path[: -len(".sparql")] + "_1" + ".sparql"
 
@@ -174,7 +168,10 @@ def update_data(languages=None, word_types=None):
                 results_formatted.append(r_dict)
 
             with open(
-                f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang}/{target_type}/{target_type}_queried.json",
+                Path(PATH_TO_LANGUAGE_EXTRACTION_FILES)
+                / lang
+                / target_type
+                / f"{target_type}_queried.json",
                 "w",
                 encoding="utf-8",
             ) as f:
@@ -185,7 +182,7 @@ def update_data(languages=None, word_types=None):
                 for suffix in ["_2", "_3"]:
                     query_path = query_path.replace("_1", suffix).replace("_2", suffix)
 
-                    if os.path.exists(query_path):
+                    if query_path.exists():
                         with open(query_path, encoding="utf-8") as file:
                             query_lines = file.readlines()
                             sparql.setQuery("".join(query_lines))
@@ -224,7 +221,10 @@ def update_data(languages=None, word_types=None):
                                     results_formatted.append(r_dict)
 
                                 with open(
-                                    f"{PATH_TO_LANGUAGE_EXTRACTION_FILES}/{lang}/{target_type}/{target_type}_queried.json",
+                                    Path(PATH_TO_LANGUAGE_EXTRACTION_FILES)
+                                    / lang
+                                    / target_type
+                                    / f"{target_type}_queried.json",
                                     "w",
                                     encoding="utf-8",
                                 ) as f:
@@ -248,7 +248,9 @@ def update_data(languages=None, word_types=None):
             current_data[lang][target_type] = len(results_formatted)
 
     # Update total_data.json.
-    with open(f"{PATH_TO_UPDATE_FILES}/total_data.json", "w", encoding="utf-8") as f:
+    with open(
+        Path(PATH_TO_UPDATE_FILES) / "total_data.json", "w", encoding="utf-8"
+    ) as f:
         json.dump(current_data, f, ensure_ascii=False, indent=0)
 
     update_data()

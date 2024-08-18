@@ -30,7 +30,6 @@ emojis_per_keyword = 3
 emoji_keywords_dict = gen_emoji_lexicon(
     language=LANGUAGE,
     emojis_per_keyword=emojis_per_keyword,
-    verbose=True,
 )
 
 export_formatted_data(
