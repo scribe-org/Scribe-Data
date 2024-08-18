@@ -29,6 +29,7 @@ import xml.sax
 from itertools import chain
 from multiprocessing import Pool
 from multiprocessing.dummy import Pool as Threadpool
+from pathlib import Path
 
 import defusedxml.sax
 import mwparserfromhell
@@ -48,7 +49,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
         language : str (default=en)
             The language of Wikipedia to download.
 
-        target_dir : str (default=wiki_dump)
+        target_dir : pathlib.Path (default=wiki_dump)
             The directory in the pwd into which files should be downloaded.
 
         file_limit : int (default=None, all files)
@@ -71,7 +72,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
     else:
         file_limit = -1
 
-    if not os.path.exists(target_dir):
+    if not target_dir.exists():
         print(f"Making {target_dir} directory")
         os.makedirs(target_dir)
 
@@ -105,9 +106,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
 
     file_info = []
 
-    file_present_bools = [
-        os.path.exists(f"{target_dir}/{f}") for f in files_to_download
-    ]
+    file_present_bools = [(target_dir / f).exists() for f in files_to_download]
     dl_files = (
         any(b != file_present_bools[0] for b in file_present_bools)
         or file_present_bools[0] is not True
@@ -115,8 +114,8 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
 
     if dl_files:
         for f in files_to_download:
-            file_path = f"{target_dir}/{f}"
-            if not os.path.exists(file_path):
+            file_path = target_dir / f
+            if not file_path.exists():
                 print(f"DL file to {file_path}")
                 subprocess.run(["curl", "-o", file_path, dump_url + f], check=False)
 
@@ -130,7 +129,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
     else:
         print(f"Files already available in the {target_dir} directory.")
         for f in files_to_download:
-            file_path = f"{target_dir}/{f}"
+            file_path = Path(target_dir) / f
 
             file_size = os.stat(file_path).st_size / 1e6
             total_articles = int(f.split("p")[-1].split(".")[-2]) - int(
@@ -176,10 +175,10 @@ def iterate_and_parse_file(args):
         args : tuple
             The below arguments as a tuple for pool.imap_unordered rather than pool.starmap.
 
-        input_path : str
+        input_path : pathlib.Path
             The path to the data file.
 
-        partitions_dir : str
+        partitions_dir : pathlib.Path
             The path to where output file should be stored.
 
         article_limit : int (default=None)
@@ -194,7 +193,7 @@ def iterate_and_parse_file(args):
     """
     input_path, partitions_dir, article_limit, verbose = args
 
-    if not os.path.exists(partitions_dir):
+    if not partitions_dir.exists():
         print(f"Making {partitions_dir} directory for the partitions")
         os.makedirs(partitions_dir)
 
@@ -204,9 +203,9 @@ def iterate_and_parse_file(args):
 
     file_name = input_path.split("/")[-1].split("-")[-1].split(".")[-2]
     file_name = f"{file_name}.ndjson"
-    output_path = f"{partitions_dir}/{file_name}"
+    output_path = Path(partitions_dir) / file_name
 
-    if not os.path.exists(output_path):
+    if not output_path.exists():
         if article_limit is None:
             pbar = tqdm(
                 total=len(
@@ -322,7 +321,7 @@ def parse_to_ndjson(
         Wikipedia dump files parsed and converted to json files.
     """
     output_dir = "/".join(list(output_path.split("/")[:-1]))
-    if not os.path.exists(output_dir):
+    if not output_dir.exists():
         print(f"Making {output_dir} directory for the output")
         os.makedirs(output_dir)
 
@@ -344,13 +343,13 @@ def parse_to_ndjson(
         else:
             output_file_name = output_path
 
-    if not os.path.exists(output_file_name):
-        if not os.path.exists(partitions_dir):
+    if not output_file_name.exists():
+        if not partitions_dir.exists():
             print(f"Making {partitions_dir} directory for the partitions")
             os.makedirs(partitions_dir)
 
         target_files = [
-            f"{input_dir}/{f}" for f in os.listdir(input_dir) if "pages-articles" in f
+            Path(input_dir) / f for f in os.listdir(input_dir) if "pages-articles" in f
         ]
 
         parse_inputs = zip(
@@ -385,7 +384,7 @@ def parse_to_ndjson(
 
         threadpool = Threadpool(processes=num_cores)
         partition_files = [
-            f"{partitions_dir}/{f}"
+            Path(partitions_dir) / f
             for f in os.listdir(partitions_dir)
             if f[-len(".ndjson") :] == ".ndjson"
         ]
@@ -403,7 +402,7 @@ def parse_to_ndjson(
     else:
         print(f"File {output_file_name} with Wikipedia articles already exists")
 
-    if delete_parsed_files and os.path.exists(partitions_dir):
+    if delete_parsed_files and partitions_dir.exists():
         print(f"Deleting {partitions_dir} directory")
         os.system(f"rm -rf {partitions_dir}")
 

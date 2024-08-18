@@ -26,18 +26,13 @@ Attn: The formatting in the file is significantly more complex than for other ve
 """
 
 import collections
-import os
-import sys
 
 from scribe_data.utils import export_formatted_data, load_queried_data
 
 LANGUAGE = "German"
 DATA_TYPE = "verbs"
-file_path = sys.argv[0]
 
-verbs_list, update_data_in_use, data_path = load_queried_data(
-    file_path=file_path, language=LANGUAGE, data_type=DATA_TYPE
-)
+verbs_list, data_path = load_queried_data(language=LANGUAGE, data_type=DATA_TYPE)
 
 verbs_formatted = {}
 
@@ -161,9 +156,6 @@ verbs_formatted = collections.OrderedDict(sorted(verbs_formatted.items()))
 
 export_formatted_data(
     formatted_data=verbs_formatted,
-    update_data_in_use=update_data_in_use,
     language=LANGUAGE,
     data_type=DATA_TYPE,
 )
-
-os.remove(data_path)

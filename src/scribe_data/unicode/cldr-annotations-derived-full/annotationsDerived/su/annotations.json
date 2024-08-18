@@ -1,0 +1,20 @@
+{
+  "annotationsDerived": {
+    "identity": {
+      "version": {
+        "_cldrVersion": "45"
+      },
+      "language": "su"
+    },
+    "annotations": {
+      "¤": {
+        "default": [
+          "Mata Uang Teu Dikenal"
+        ],
+        "tts": [
+          "Mata Uang Teu Dikenal"
+        ]
+      }
+    }
+  }
+}

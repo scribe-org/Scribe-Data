@@ -1,0 +1,902 @@
+{
+  "& al.": {
+    "fr": "et al.",
+    "de": "und al.",
+    "it": "e al.",
+    "pt": "e o al.",
+    "ru": "и ал.",
+    "es": "y al.",
+    "sv": "och al."
+  },
+  "& ux.": {
+    "fr": "et UX.",
+    "de": "und UX.",
+    "it": "e gli UX.",
+    "pt": "e o UX.",
+    "ru": "и UX.",
+    "es": "y UX.",
+    "sv": "och ux."
+  },
+  "'appen": {
+    "fr": "« Apprendre",
+    "de": "» App",
+    "it": "Applicazione",
+    "pt": "Apenas",
+    "ru": "«Аппен",
+    "es": "Apuesto",
+    "sv": "”Applicera"
+  },
+  "'course": {
+    "fr": "« Course",
+    "de": "» Rennen",
+    "it": "corsa",
+    "pt": "Corrida",
+    "ru": "«Турс»",
+    "es": "curso",
+    "sv": "»Tävling"
+  },
+  "'deed": {
+    "fr": "» décès",
+    "de": "»Tod",
+    "it": "e morto",
+    "pt": "“Morte",
+    "ru": "«Смерть",
+    "es": "“Muerte",
+    "sv": "”Död"
+  },
+  "'long": {
+    "fr": "« Long »",
+    "de": "»Lange",
+    "it": "lungo",
+    "pt": "“Long”",
+    "ru": "Долгое",
+    "es": "“Long”",
+    "sv": "”Lång"
+  },
+  "'longst": {
+    "fr": "plus long",
+    "de": "»Longste",
+    "it": "più lungo",
+    "pt": "“Longa",
+    "ru": "Долгое",
+    "es": "largo",
+    "sv": "Långt"
+  },
+  "'nough": {
+    "fr": "suffisamment",
+    "de": "genügend",
+    "it": "abbastanza",
+    "pt": "suficiente",
+    "ru": "Достаточно",
+    "es": "suficiente",
+    "sv": "tillräckligt"
+  },
+  "'orribly": {
+    "fr": "« Corruptible",
+    "de": "»Römisch",
+    "it": "“Bisogna",
+    "pt": "“Amoravelmente",
+    "ru": "«Убийство",
+    "es": "“Robosamente",
+    "sv": "”Rörligt”"
+  },
+  "'specially": {
+    "fr": "« En particulier",
+    "de": "vor allem »",
+    "it": "In particolare",
+    "pt": "“Em especial",
+    "ru": "«В особенности",
+    "es": "“En particular",
+    "sv": "”Särskilt"
+  },
+  "'splodey": {
+    "fr": "« Splodey »",
+    "de": "„Splodey“",
+    "it": "di Splodey",
+    "pt": "“Splodão”",
+    "ru": "«Сплодей»",
+    "es": "de Splodey",
+    "sv": "”Splodey”"
+  },
+  "'umbly": {
+    "fr": "« Humble",
+    "de": "»umbly",
+    "it": "“Obblighi",
+    "pt": "“Não",
+    "ru": "«Омбли»",
+    "es": "“Nosotros",
+    "sv": "”Ummly"
+  },
+  "'way": {
+    "fr": "« Voir",
+    "de": "»Weiß",
+    "it": "di Way",
+    "pt": "O caminho",
+    "ru": "«WAY»",
+    "es": "camino",
+    "sv": "Vägen"
+  },
+  "100%": {
+    "fr": "100 %",
+    "de": "100 %",
+    "it": "100%",
+    "pt": "100%",
+    "ru": "100%",
+    "es": "100%",
+    "sv": "100 %"
+  },
+  "101": {
+    "fr": "101",
+    "de": "101",
+    "it": "101",
+    "pt": "101",
+    "ru": "101",
+    "es": "101",
+    "sv": "101"
+  },
+  "11-deoxycorticosterone": {
+    "fr": "11-deoxycorticosterone",
+    "de": "11 Deoxycorticosterone",
+    "it": "11 diossicorticosterone",
+    "pt": "11 deoxicorticosterona",
+    "ru": "11-деоксикортикостерон",
+    "es": "11-deoxycorticosterona",
+    "sv": "11-deoxykortikosteron"
+  },
+  "110 proof": {
+    "fr": "110 preuves",
+    "de": "110 Beweise",
+    "it": "110 testimonianze",
+    "pt": "110 provas",
+    "ru": "110 доказательств",
+    "es": "110 pruebas",
+    "sv": "110 bevis"
+  },
+  "18-wheeler": {
+    "fr": "18 Voyageur",
+    "de": "18 Wheeler",
+    "it": "18 Gioielli",
+    "pt": "18o Corrente",
+    "ru": "18 шт",
+    "es": "18 Vuelos",
+    "sv": "18 Wheeler"
+  },
+  "1stly": {
+    "fr": "1stly",
+    "de": "1stly",
+    "it": "1 Stella",
+    "pt": "1o estágio",
+    "ru": "1stly",
+    "es": "1stly",
+    "sv": "1stly"
+  },
+  "2,4-D": {
+    "fr": "2 à 4D",
+    "de": "2,4D",
+    "it": "2 e 4D",
+    "pt": "2,4D",
+    "ru": "2,4 д",
+    "es": "2,4D",
+    "sv": "2,4D"
+  },
+  "2-dimensional": {
+    "fr": "Deux dimensions",
+    "de": "2dimensionelle",
+    "it": "2 Dimensioni",
+    "pt": "2Dimensional",
+    "ru": "2-размерный",
+    "es": "2Dimensional",
+    "sv": "2-dimensionell"
+  },
+  "224": {
+    "fr": "224",
+    "de": "224",
+    "it": "224",
+    "pt": "224",
+    "ru": "224",
+    "es": "224",
+    "sv": "224"
+  },
+  "24/7/365": {
+    "fr": "24 / 7 / 365",
+    "de": "24/7 / 365",
+    "it": "24 / 7 / 365",
+    "pt": "24 / 7 / 365",
+    "ru": "24/7 / 365",
+    "es": "24/7 / 365",
+    "sv": "24/7 / 365"
+  },
+  "2moz": {
+    "fr": "2 Moïse",
+    "de": "2Mos",
+    "it": "2moz",
+    "pt": "2 Moisés",
+    "ru": "2 Моз",
+    "es": "2Moz",
+    "sv": "2Mos"
+  },
+  "2mrw": {
+    "fr": "2 MRI",
+    "de": "2Mrw",
+    "it": "2Mrv",
+    "pt": "2MRV",
+    "ru": "2 МРТ",
+    "es": "2MRW",
+    "sv": "Tvåmrw"
+  },
+  "2ndly": {
+    "fr": "2ème",
+    "de": "2ndlich",
+    "it": "secondo",
+    "pt": "2o",
+    "ru": "2ndly",
+    "es": "2a",
+    "sv": "2ndly"
+  },
+  "3-D": {
+    "fr": "3D",
+    "de": "3D",
+    "it": "3D",
+    "pt": "3D",
+    "ru": "3D",
+    "es": "3D",
+    "sv": "3D"
+  },
+  "3-D mammography": {
+    "fr": "mammographie 3D",
+    "de": "3D Mammographie",
+    "it": "3D mammografia",
+    "pt": "3D mamografia",
+    "ru": "3D маммография",
+    "es": "mamografía 3D",
+    "sv": "3D mammografi"
+  },
+  "3-D printing": {
+    "fr": "Étiquette 3D",
+    "de": "3D Druck",
+    "it": "3D stampa",
+    "pt": "Impressão 3D",
+    "ru": "3D печать",
+    "es": "Impresión 3D",
+    "sv": "3D utskrift"
+  },
+  "3D": {
+    "fr": "3D",
+    "de": "3D",
+    "it": "3D",
+    "pt": "3D",
+    "ru": "3D",
+    "es": "3D",
+    "sv": "3D"
+  },
+  "3D mammography": {
+    "fr": "mammographie 3D",
+    "de": "3D Mammographie",
+    "it": "mammografia 3D",
+    "pt": "3D mamografia",
+    "ru": "3D маммография",
+    "es": "mamografía 3D",
+    "sv": "3D mammografi"
+  },
+  "3D print": {
+    "fr": "3D imprimé",
+    "de": "3D Druck",
+    "it": "3D stampa",
+    "pt": "Impressão 3D",
+    "ru": "3D печать",
+    "es": "Impresión 3D",
+    "sv": "3D tryck"
+  },
+  "3D printed": {
+    "fr": "3D imprimé",
+    "de": "3D Druck",
+    "it": "3D stampato",
+    "pt": "Impressão 3D",
+    "ru": "3D печать",
+    "es": "3D impreso",
+    "sv": "3D tryckt"
+  },
+  "3D printing": {
+    "fr": "Impression 3D",
+    "de": "3D Druck",
+    "it": "Impressione 3D",
+    "pt": "Impressão 3D",
+    "ru": "3D печать",
+    "es": "Impresión 3D",
+    "sv": "3D utskrift"
+  },
+  "3d": {
+    "fr": "3D",
+    "de": "3d",
+    "it": "3d",
+    "pt": "3D",
+    "ru": "3D",
+    "es": "3D",
+    "sv": "3d"
+  },
+  "3rdly": {
+    "fr": "Troisième",
+    "de": "3rdlich",
+    "it": "3rdli",
+    "pt": "3o",
+    "ru": "3rdly",
+    "es": "3D",
+    "sv": "3rdly"
+  },
+  "4eva": {
+    "fr": "4 EVA",
+    "de": "4 EVA",
+    "it": "4eva",
+    "pt": "4a",
+    "ru": "4 Ева",
+    "es": "4a",
+    "sv": "4Eva"
+  },
+  "4evah": {
+    "fr": "4 EVA",
+    "de": "4 Evah",
+    "it": "4eva",
+    "pt": "4 EVA",
+    "ru": "4 Ева",
+    "es": "4 Evah",
+    "sv": "4 evah"
+  },
+  "4ever": {
+    "fr": "4 Toujours",
+    "de": "4 immer",
+    "it": "4 Sempre",
+    "pt": "4 Sempre",
+    "ru": "4 Всегда",
+    "es": "4 siempre",
+    "sv": "4 Alltid"
+  },
+  "5G": {
+    "fr": "5G",
+    "de": "5G",
+    "it": "5G",
+    "pt": "5G",
+    "ru": "5G",
+    "es": "5G",
+    "sv": "5G"
+  },
+  "5ever": {
+    "fr": "5 Toujours",
+    "de": "5 immer",
+    "it": "5 Sempre",
+    "pt": "5 Sempre",
+    "ru": "5 Всегда",
+    "es": "5 siempre",
+    "sv": "5 Alltid"
+  },
+  "9/11": {
+    "fr": "9 / 11",
+    "de": "9/11",
+    "it": "9 / 11",
+    "pt": "9/11",
+    "ru": "9/11",
+    "es": "9/11",
+    "sv": "9 / 11"
+  },
+  "9/11 truther": {
+    "fr": "9 / 11 Truthère",
+    "de": "9/11 Truther",
+    "it": "9/11 di Truther",
+    "pt": "11 de Setembro de Truther",
+    "ru": "9/11 Трютер",
+    "es": "11 de septiembre Truther",
+    "sv": "9/11 Truther"
+  },
+  "90s": {
+    "fr": "90s",
+    "de": "90s",
+    "it": "90 anni",
+    "pt": "90s",
+    "ru": "90-е годы",
+    "es": "90s",
+    "sv": "90s"
+  },
+  "99 percent": {
+    "fr": "99 pour cent",
+    "de": "99 Prozent",
+    "it": "99 per cento",
+    "pt": "99 por cento",
+    "ru": "99 процентов",
+    "es": "99 por ciento",
+    "sv": "99 procent"
+  },
+  "@": {
+    "fr": "@",
+    "de": "@",
+    "it": "di @",
+    "pt": "@",
+    "ru": "@",
+    "es": "@",
+    "sv": "@"
+  },
+  "A": {
+    "fr": "A",
+    "de": "A",
+    "it": "di A",
+    "pt": "A",
+    "ru": "А",
+    "es": "A",
+    "sv": "a a"
+  },
+  "Coruña": {
+    "fr": "Corogne",
+    "de": "Koruna",
+    "it": "corona",
+    "pt": "A Corunha",
+    "ru": "Колумбия",
+    "es": "Coruña",
+    "sv": "Koruna"
+  },
+  "to Z": {
+    "fr": "à Z",
+    "de": "zu Z",
+    "it": "di Z",
+    "pt": "para Z",
+    "ru": "к Z",
+    "es": "para Z",
+    "sv": "till Z"
+  },
+  "A.": {
+    "fr": "et A.",
+    "de": "und A.",
+    "it": "di A.",
+    "pt": "e a.",
+    "ru": "А.",
+    "es": "y a.",
+    "sv": "och A."
+  },
+  "A.D.": {
+    "fr": "A.D",
+    "de": "A.D",
+    "it": "A. di",
+    "pt": "A. D",
+    "ru": "А. Д",
+    "es": "A.D",
+    "sv": "och d."
+  },
+  "ABC": {
+    "fr": "ABC",
+    "de": "ABC",
+    "it": "di ABC",
+    "pt": "ABC",
+    "ru": "ABC",
+    "es": "ABC",
+    "sv": "ABC"
+  },
+  "AC": {
+    "fr": "AC",
+    "de": "AC",
+    "it": "di AC",
+    "pt": "AC",
+    "ru": "AC",
+    "es": "AC",
+    "sv": "AC"
+  },
+  "AEAP": {
+    "fr": "AEAP",
+    "de": "AEAP",
+    "it": "di AEAP",
+    "pt": "AEAP",
+    "ru": "AEAP",
+    "es": "AEAP",
+    "sv": "AEAP"
+  },
+  "AFAB": {
+    "fr": "AFAB",
+    "de": "AFAB",
+    "it": "di AFAB",
+    "pt": "AFAB",
+    "ru": "АФАБ",
+    "es": "afab",
+    "sv": "avab"
+  },
+  "AFAIAA": {
+    "fr": "Afaïa",
+    "de": "AFAIAA",
+    "it": "di Afaia",
+    "pt": "Afaião",
+    "ru": "Афая",
+    "es": "AFAIA",
+    "sv": "Afaia"
+  },
+  "AFAIK": {
+    "fr": "AFAIK",
+    "de": "AFAIK",
+    "it": "di AFAIK",
+    "pt": "AFAIK",
+    "ru": "АФАИК",
+    "es": "AFAIK",
+    "sv": "AFAIK"
+  },
+  "AI": {
+    "fr": "à",
+    "de": "AI",
+    "it": "di AI",
+    "pt": "Aí",
+    "ru": "АИ",
+    "es": "que",
+    "sv": "och"
+  },
+  "AMNH": {
+    "fr": "Amnesty",
+    "de": "Amnesty",
+    "it": "Amnesty",
+    "pt": "AMNH",
+    "ru": "АМН",
+    "es": "AMN",
+    "sv": "Ämne"
+  },
+  "ASAHP": {
+    "fr": "ASAHP",
+    "de": "ASAHP",
+    "it": "ASAHP",
+    "pt": "ASAHP",
+    "ru": "ASAHP",
+    "es": "ASAHP",
+    "sv": "ASAHP"
+  },
+  "ASAIC": {
+    "fr": "ASAIC",
+    "de": "ASAIC",
+    "it": "di ASAIC",
+    "pt": "ASAIC",
+    "ru": "ASAIC",
+    "es": "ASAIC",
+    "sv": "ASAIC"
+  },
+  "ASAP": {
+    "fr": "Asap",
+    "de": "ASAP",
+    "it": "di ASAP",
+    "pt": "ASAP",
+    "ru": "Асад",
+    "es": "ASAP",
+    "sv": "Asap"
+  },
+  "ASCII": {
+    "fr": "ASCII",
+    "de": "ASCII",
+    "it": "di ASCII",
+    "pt": "ASCII",
+    "ru": "ASCII",
+    "es": "ASCII",
+    "sv": "ASCII"
+  },
+  "ATM": {
+    "fr": "ATM",
+    "de": "ATM",
+    "it": "di ATM",
+    "pt": "O ATM",
+    "ru": "АТМ",
+    "es": "ATM",
+    "sv": "ATM"
+  },
+  "ATPase": {
+    "fr": "Attaque",
+    "de": "Zugang",
+    "it": "Attacco",
+    "pt": "ATPASÃO",
+    "ru": "АТПАС",
+    "es": "ATPAS",
+    "sv": "tillträde"
+  },
+  "Aachen": {
+    "fr": "Aachen",
+    "de": "Aachen",
+    "it": "di Aachen",
+    "pt": "Aachen",
+    "ru": "Аахен",
+    "es": "Aachen",
+    "sv": "Aachen"
+  },
+  "Aaland": {
+    "fr": "Aaland",
+    "de": "Aaland",
+    "it": "di Aaland",
+    "pt": "Aaland",
+    "ru": "Аланд",
+    "es": "Aaland",
+    "sv": "Aaland"
+  },
+  "Aalenian": {
+    "fr": "Alénie",
+    "de": "Alenien",
+    "it": "di Alien",
+    "pt": "Alênio",
+    "ru": "Аланий",
+    "es": "ALENIA",
+    "sv": "Alieniska"
+  },
+  "Aaron": {
+    "fr": "Aaron",
+    "de": "Aaron",
+    "it": "di Aaron",
+    "pt": "Arão",
+    "ru": "Аарон",
+    "es": "Aaron",
+    "sv": "Aaron"
+  },
+  "Aaronic": {
+    "fr": "Aaronic",
+    "de": "Aaronisch",
+    "it": "di Aaronic",
+    "pt": "Arônico",
+    "ru": "Аарон",
+    "es": "Arónico",
+    "sv": "Aaronic"
+  },
+  "Aaronical": {
+    "fr": "Aaronic",
+    "de": "Aaronische",
+    "it": "Aronico",
+    "pt": "Arônico",
+    "ru": "Ароника",
+    "es": "Arónico",
+    "sv": "Aaroniska"
+  },
+  "Aaron’s beard": {
+    "fr": "bête d'Aaron",
+    "de": "Aaron’s Beard",
+    "it": "beata di Aaron",
+    "pt": "A beira de Arão",
+    "ru": "Медведь Аарона",
+    "es": "orilla de Aaron",
+    "sv": "Arons björn"
+  },
+  "Aaron’s rod": {
+    "fr": "royaume d'Aaron",
+    "de": "Aaron’s Rod",
+    "it": "grembo di Aaron",
+    "pt": "O rosto de Aaron",
+    "ru": "Род Аарона",
+    "es": "rod de Aaron",
+    "sv": "Aarons rod"
+  },
+  "Abaddon": {
+    "fr": "Abaddon",
+    "de": "Abaddon",
+    "it": "di Abaddon",
+    "pt": "Abadão",
+    "ru": "АБДДОН",
+    "es": "Abadón",
+    "sv": "Abaddon"
+  },
+  "Abakan": {
+    "fr": "Abacou",
+    "de": "Abakan",
+    "it": "Abacco",
+    "pt": "Abacão",
+    "ru": "Абакан",
+    "es": "Abacía",
+    "sv": "Abakan"
+  },
+  "Abdul": {
+    "fr": "Abdul",
+    "de": "Abbott",
+    "it": "di Abdul",
+    "pt": "Abdel",
+    "ru": "Абдул",
+    "es": "Abdul",
+    "sv": "Abbott"
+  },
+  "Aberdeen": {
+    "fr": "à Aberdeen",
+    "de": "Aberdeen",
+    "it": "di Aberdeen",
+    "pt": "Aberdeão",
+    "ru": "Абердин",
+    "es": "Aberdeen",
+    "sv": "Aberdeen"
+  },
+  "Aberdonian": {
+    "fr": "Aperdonais",
+    "de": "Aberdonian",
+    "it": "di Aberdonian",
+    "pt": "Aberdônia",
+    "ru": "Абердониан",
+    "es": "Aberdónico",
+    "sv": "Aberdonian"
+  },
+  "Abidjan": {
+    "fr": "Abidjan",
+    "de": "Abidjan",
+    "it": "di Abidjan",
+    "pt": "Abidão",
+    "ru": "Абиджан",
+    "es": "Abidjan",
+    "sv": "Abidjan"
+  },
+  "Abinomn": {
+    "fr": "L’abîme",
+    "de": "Abinomn",
+    "it": "di Abino",
+    "pt": "Abimão",
+    "ru": "Абинон",
+    "es": "Abinón",
+    "sv": "Abinomn"
+  },
+  "Abraham": {
+    "fr": "Abraham",
+    "de": "Abraham",
+    "it": "di Abramo",
+    "pt": "Abraão",
+    "ru": "Авраам",
+    "es": "Abrahán",
+    "sv": "Abraham"
+  },
+  "Abu": {
+    "fr": "Abu",
+    "de": "Abu",
+    "it": "di Abu",
+    "pt": "Abu",
+    "ru": "Абу",
+    "es": "Abu",
+    "sv": "Abu"
+  },
+  "Abuja": {
+    "fr": "L’Abuja",
+    "de": "Abu Dhabi",
+    "it": "di Abu Dhabi",
+    "pt": "Águia",
+    "ru": "Абуджа",
+    "es": "Águila",
+    "sv": "Abuja"
+  },
+  "Accra": {
+    "fr": "Accra",
+    "de": "Accra",
+    "it": "di Accra",
+    "pt": "O ACRA",
+    "ru": "АКРА",
+    "es": "Accra",
+    "sv": "Accra"
+  },
+  "Adam": {
+    "fr": "Adam",
+    "de": "Adam",
+    "it": "Adamo",
+    "pt": "Adão",
+    "ru": "Адам",
+    "es": "Adán",
+    "sv": "Adam"
+  },
+  "Adams": {
+    "fr": "Adams",
+    "de": "Adams",
+    "it": "Adamo",
+    "pt": "Adão",
+    "ru": "Адамс",
+    "es": "Adán",
+    "sv": "Adams"
+  },
+  "Addis Ababa": {
+    "fr": "Addis Ababa",
+    "de": "Addis Ababa",
+    "it": "di Addis Ababa",
+    "pt": "Addis Abeba",
+    "ru": "Адис Абаба",
+    "es": "Addis Ababa",
+    "sv": "Addis Ababa"
+  },
+  "Adelaide": {
+    "fr": "Adelaïde",
+    "de": "Adelaide",
+    "it": "Adelaide",
+    "pt": "Adelaide",
+    "ru": "Аделаида",
+    "es": "Adelaide",
+    "sv": "Adelaide"
+  },
+  "Adexia": {
+    "fr": "adéquation",
+    "de": "Adexien",
+    "it": "adesione",
+    "pt": "Adequação",
+    "ru": "Адекс",
+    "es": "Adexia",
+    "sv": "Adekvat"
+  },
+  "Adolf": {
+    "fr": "Adolf",
+    "de": "Adolf",
+    "it": "Adolf",
+    "pt": "Adolfo",
+    "ru": "Адольф",
+    "es": "Adolf",
+    "sv": "Adolf"
+  },
+  "Adrian": {
+    "fr": "Adrienne",
+    "de": "Adrian",
+    "it": "di Adrian",
+    "pt": "Adriano",
+    "ru": "Адриан",
+    "es": "Adriano",
+    "sv": "Adrian"
+  },
+  "Adrian Quist": {
+    "fr": "Adrian Québec",
+    "de": "von Adrian Quist",
+    "it": "di Adrian Quist",
+    "pt": "Adrião Quista",
+    "ru": "Адриан Квист",
+    "es": "Adrián Quijote",
+    "sv": "för Adrian Quist"
+  },
+  "Aesopically": {
+    "fr": "Espagnol",
+    "de": "Aesopisch",
+    "it": "Aesopico",
+    "pt": "Aesôpico",
+    "ru": "Эзопически",
+    "es": "Aesopía",
+    "sv": "Aesopiskt"
+  },
+  "Afghan": {
+    "fr": "Afghane",
+    "de": "Afghanen",
+    "it": "Afghano",
+    "pt": "Afeganistão",
+    "ru": "Афганистан",
+    "es": "Afganistán",
+    "sv": "afghanska"
+  },
+  "Afghani": {
+    "fr": "Afghane",
+    "de": "Afghanen",
+    "it": "Afghani",
+    "pt": "Afeganistão",
+    "ru": "Афганистан",
+    "es": "Afganistán",
+    "sv": "afghanska"
+  },
+  "Afghanistan": {
+    "fr": "Afghane",
+    "de": "Afghanistan",
+    "it": "L’Afghanistan",
+    "pt": "Afeganistão",
+    "ru": "Афганистан",
+    "es": "Afganistán",
+    "sv": "Afghanistan"
+  },
+  "Africa": {
+    "fr": "Afrique",
+    "de": "Afrika",
+    "it": "Africa",
+    "pt": "África",
+    "ru": "Африка",
+    "es": "África",
+    "sv": "Afrika"
+  },
+  "African": {
+    "fr": "Afrique",
+    "de": "Afrikanische",
+    "it": "Africa",
+    "pt": "África",
+    "ru": "Африканский",
+    "es": "África",
+    "sv": "afrikanska"
+  },
+  "African bush elephant": {
+    "fr": "L’éléphant africain Bush",
+    "de": "Afrikanischer Bush Elefant",
+    "it": "L’elefante africano Bush",
+    "pt": "Bush elefante africano",
+    "ru": "Африканский буш слон",
+    "es": "elefante bush africano",
+    "sv": "Afrikansk bush elefant"
+  },
+  "African chimaera": {
+    "fr": "Chimée africaine",
+    "de": "Afrikanische Chemie",
+    "it": "chimica africana",
+    "pt": "Química Africana",
+    "ru": "африканская химика",
+    "es": "Química africana",
+    "sv": "afrikansk chimaera"
+  }
+}
