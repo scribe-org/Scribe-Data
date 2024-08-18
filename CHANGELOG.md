@@ -36,6 +36,9 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - Case and gender map reference functions were updated to use hashmaps.
 - The SPARQLWrapper access method has been extracted to the Wikidata utils and is imported into the files that need it ([#164](https://github.com/scribe-org/Scribe-Data/issues/164)).
 - Export data paths have been converted to centrally saved variables to reduce hard coded string repetition.
+- Many files were renamed including `update_data.py` being renamed `query_data.py`
+- Paths within the package have been updated to work for all operating systems via `pathlib` ([#125](https://github.com/scribe-org/Scribe-Data/issues/125)).
+- The language formatting scripts have been dramatically simplified given changes to export paths all being the same.
 
 ## Scribe-Data 3.3.0
 

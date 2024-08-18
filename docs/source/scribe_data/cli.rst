@@ -113,14 +113,13 @@ Behavior and Output:
     .. code-block:: text
 
         Existing file(s) found for English verbs:
-        1. verbs_2024_07_07_00_28_44.json
-        2. verbs_2024_07_07_00_29_20.json
+
+        1. verbs.json
+
         Choose an option:
-        1. Keep existing (skip update)
-        2. Overwrite existing
-        3. Keep both
-        4. Cancel
-        Enter your choice (1-4):
+        1. Overwrite existing data (press 'o')
+        2. Skip process (press anything else)
+        Enter your choice:
 
 3. After making a selection, the get process begins:
 

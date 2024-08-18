@@ -21,8 +21,6 @@ Formats the French nouns queried from Wikidata using query_nouns.sparql.
 """
 
 import collections
-import os
-import sys
 
 from scribe_data.utils import (
     export_formatted_data,
@@ -33,11 +31,8 @@ from scribe_data.utils import (
 
 LANGUAGE = "French"
 DATA_TYPE = "nouns"
-file_path = sys.argv[0]
 
-nouns_list, update_data_in_use, data_path = load_queried_data(
-    file_path=file_path, language=LANGUAGE, data_type=DATA_TYPE
-)
+nouns_list, data_path = load_queried_data(language=LANGUAGE, data_type=DATA_TYPE)
 
 nouns_formatted = {}
 
@@ -103,9 +98,6 @@ nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
 export_formatted_data(
     formatted_data=nouns_formatted,
-    update_data_in_use=update_data_in_use,
     language=LANGUAGE,
     data_type=DATA_TYPE,
 )
-
-os.remove(data_path)

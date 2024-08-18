@@ -21,7 +21,7 @@ Updates data for Scribe by running all or desired WDQS queries and formatting sc
 """
 
 import json
-from datetime import datetime
+import os
 from pathlib import Path
 from urllib.error import HTTPError
 
@@ -31,7 +31,7 @@ from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 from scribe_data.wikidata.wikidata_utils import sparql
 
 
-def update_data(languages=None, word_types=None):
+def query_data(languages=None, word_types=None):
     SCRIBE_DATA_SRC_PATH = Path(__file__).parent.parent
     PATH_TO_LANGUAGE_EXTRACTION_FILES = (
         SCRIBE_DATA_SRC_PATH / "language_data_extraction"
@@ -46,100 +46,82 @@ def update_data(languages=None, word_types=None):
 
     # Assign current_languages and current_word_types if no arguments have been passed.
     languages_update = current_languages if languages is None else languages
-
     word_types_update = current_word_types if word_types is None else word_types
 
-    language_data_extraction_files = [
+    all_language_data_extraction_files = [
         path
         for path in Path(PATH_TO_LANGUAGE_EXTRACTION_FILES).rglob("*")
         if path.is_file()
     ]
 
-    language_directories = [
-        d for d in Path(PATH_TO_LANGUAGE_EXTRACTION_FILES).iterdir() if d.is_dir()
+    language_data_extraction_files_in_use = [
+        path
+        for path in all_language_data_extraction_files
+        if path.parent.name in word_types_update
+        and path.parent.parent.name in languages_update
+        and path.name != "__init__.py"
     ]
 
-    # Check to see if the language has all zeroes for its data, meaning it's new.
-    new_language_list = []
-    for lang in languages_update:
-        check_current_data = [current_data[lang][k] for k in current_data[lang].keys()]
-        if len(set(check_current_data)) == 1 and check_current_data[0] == 0:
-            new_language_list.append(lang)
-
-    # Derive queries to be ran.
-    possible_queries = []
-    for d in language_directories:
-        possible_queries.extend(
-            PATH_TO_LANGUAGE_EXTRACTION_FILES / d / target_type
-            for target_type in word_types_update
-            if PATH_TO_LANGUAGE_EXTRACTION_FILES / d / target_type
-            in [
-                e[: len(PATH_TO_LANGUAGE_EXTRACTION_FILES / d / target_type)]
-                for e in language_data_extraction_files
-            ]
-        )
-
-    queries_to_run_lists = [
-        [
-            q
-            for q in possible_queries
-            if PATH_TO_LANGUAGE_EXTRACTION_FILES in languages_update
-        ]
-        for _ in languages_update
+    queries_to_run = [
+        f
+        for f in language_data_extraction_files_in_use
+        if f.name[-len(".sparql") :] == ".sparql"
     ]
-
-    queries_to_run = list({q for sub in queries_to_run_lists for q in sub})
     queries_to_run = sorted(queries_to_run)
 
-    # Run queries and format data.
-    data_added_dict = {}
+    print(queries_to_run)
 
+    # Run queries and format data.
     for q in tqdm(
         queries_to_run,
         desc="Data updated",
         unit="process",
     ):
-        lang = q.split("/")[-2]
-        target_type = q.split("/")[-1]
-        query_name = f"query_{target_type}.sparql"
-        query_path = Path(q) / query_name
+        lang = q.parent.parent.name
+        target_type = q.parent.name
 
         # After formatting and before saving the new data.
-        timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
         export_dir = Path(DEFAULT_JSON_EXPORT_DIR) / lang.capitalize()
         export_dir.mkdir(parents=True, exist_ok=True)
 
-        new_file_name = f"{target_type}_{timestamp}.json"
-        new_file_path = export_dir / new_file_name
+        file_name = f"{target_type}.json"
 
-        if existing_files := list(export_dir.glob(f"{target_type}_*.json")):
+        if existing_files := list(export_dir.glob(f"{target_type}*.json")):
             print(
-                f"Existing file(s) found for {lang} {target_type} (ex: %Y_%m_%d_%H_%M_%S):"
+                f"Existing file(s) found for {lang} {target_type} in the outputs directory:\n"
             )
             for i, file in enumerate(existing_files, 1):
                 print(f"{i}. {file.name}")
 
+            # choice = input(
+            #     "\nChoose an option:\n1. Overwrite existing (press 'o')\n2. Keep all (press 'k')\n3. Skip process (press anything else)\nEnter your choice: "
+            # )
             choice = input(
-                "Choose an option:\n1. Overwrite existing (press 'o')\n2. Keep both (press 'k')\n3. Keep existing (press anything else)\nEnter your choice: "
+                "\nChoose an option:\n1. Overwrite existing data (press 'o')\n2. Skip process (press anything else)\nEnter your choice: "
             )
 
+            print(f"You entered: {choice}")
+
             if choice in ["o", "O"]:
+                print("Removing existing files...")
                 for file in existing_files:
                     file.unlink()
 
-            elif choice not in ["k", "K"]:
-                print(f"Skipping update for {lang} {target_type}")
+            # elif choice in ["k", "K"]:
+            #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+            #     file_name = f"{target_type}_{timestamp}.json"
+
+            else:
+                print(f"Skipping update for {lang} {target_type}.")
                 continue
 
-        if not query_path.exists():
-            # There are multiple queries for a given target_type, so start by running the first.
-            query_path = query_path[: -len(".sparql")] + "_1" + ".sparql"
-
+        file_path = export_dir / file_name
         print(f"Querying and formatting {lang} {target_type}")
 
         # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
-        with open(query_path, encoding="utf-8") as file:
+        with open(q, encoding="utf-8") as file:
             query_lines = file.readlines()
+
         sparql.setQuery("".join(query_lines))
 
         results = None
@@ -147,10 +129,10 @@ def update_data(languages=None, word_types=None):
         try:
             results = sparql.query().convert()
         except HTTPError as err:
-            print(f"HTTPError with {query_path}: {err}")
+            print(f"HTTPError with {q}: {err}")
 
         if results is None:
-            print(f"Nothing returned by the WDQS server for {query_path}")
+            print(f"Nothing returned by the WDQS server for {q}")
 
             # Allow for a query to be reran up to two times.
             if queries_to_run.count(q) < 3:
@@ -160,12 +142,12 @@ def update_data(languages=None, word_types=None):
             # Subset the returned JSON and the individual results before saving.
             query_results = results["results"]["bindings"]
 
-            results_formatted = []
+            results_final = []
 
             for r in query_results:  # query_results is also a list
                 r_dict = {k: r[k]["value"] for k in r.keys()}
 
-                results_formatted.append(r_dict)
+                results_final.append(r_dict)
 
             with open(
                 Path(PATH_TO_LANGUAGE_EXTRACTION_FILES)
@@ -175,15 +157,15 @@ def update_data(languages=None, word_types=None):
                 "w",
                 encoding="utf-8",
             ) as f:
-                json.dump(results_formatted, f, ensure_ascii=False, indent=0)
+                json.dump(results_final, f, ensure_ascii=False, indent=0)
 
-            if "_1" in query_path:
+            if "_1" in q.name:
                 # Note: Only the first query was ran, so we need to run the second and append the json.
                 for suffix in ["_2", "_3"]:
-                    query_path = query_path.replace("_1", suffix).replace("_2", suffix)
+                    q = Path(str(q).replace("_1", suffix).replace("_2", suffix))
 
-                    if query_path.exists():
-                        with open(query_path, encoding="utf-8") as file:
+                    if q.exists():
+                        with open(q, encoding="utf-8") as file:
                             query_lines = file.readlines()
                             sparql.setQuery("".join(query_lines))
 
@@ -192,12 +174,10 @@ def update_data(languages=None, word_types=None):
                                 results = sparql.query().convert()
 
                             except HTTPError as err:
-                                print(f"HTTPError with {query_path}: {err}")
+                                print(f"HTTPError with {q}: {err}")
 
                             if results is None:
-                                print(
-                                    f"Nothing returned by the WDQS server for {query_path}"
-                                )
+                                print(f"Nothing returned by the WDQS server for {q}")
 
                                 # Allow for a query to be reran up to two times.
                                 if queries_to_run.count(q) < 3:
@@ -207,7 +187,7 @@ def update_data(languages=None, word_types=None):
                                 # Subset the returned JSON and the individual results before saving.
                                 query_results = results["results"]["bindings"]
 
-                                # Note: Don't rewrite results_formatted as we want to extend the json and combine in formatting.
+                                # Note: Don't rewrite results_final as we want to extend the json and combine in formatting.
                                 for r in query_results:  # query_results is also a list
                                     r_dict = {k: r[k]["value"] for k in r.keys()}
 
@@ -218,7 +198,7 @@ def update_data(languages=None, word_types=None):
                                         if "auxiliaryVerb" not in r_dict_keys:
                                             r_dict["auxiliaryVerb"] = ""
 
-                                    results_formatted.append(r_dict)
+                                    results_final.append(r_dict)
 
                                 with open(
                                     Path(PATH_TO_LANGUAGE_EXTRACTION_FILES)
@@ -229,28 +209,35 @@ def update_data(languages=None, word_types=None):
                                     encoding="utf-8",
                                 ) as f:
                                     json.dump(
-                                        results_formatted,
+                                        results_final,
                                         f,
                                         ensure_ascii=False,
                                         indent=0,
                                     )
 
-            # Save the newly formatted data with timestamp.
-            with open(new_file_path, "w", encoding="utf-8") as json_file:
-                json.dump(results_formatted, json_file, ensure_ascii=False, indent=0)
+            with open(file_path, "w", encoding="utf-8") as json_file:
+                json.dump(results_final, json_file, ensure_ascii=False, indent=0)
 
-            if lang not in data_added_dict:
-                data_added_dict[lang] = {}
-            data_added_dict[lang][target_type] = (
-                len(results_formatted) - current_data[lang][target_type]
+            # Call the corresponding formatting file.
+            os.system(
+                f"python3 {PATH_TO_LANGUAGE_EXTRACTION_FILES / lang / target_type / f'format_{target_type}.py'}"
             )
 
-            current_data[lang][target_type] = len(results_formatted)
+            with open(
+                f"scribe_data_json_export/{lang.capitalize()}/{target_type}.json",
+                encoding="utf-8",
+            ) as json_file:
+                formatted_language_data = json.load(json_file)
+
+            current_data[lang][target_type] = len(formatted_language_data)
 
     # Update total_data.json.
     with open(
         Path(PATH_TO_UPDATE_FILES) / "total_data.json", "w", encoding="utf-8"
-    ) as f:
-        json.dump(current_data, f, ensure_ascii=False, indent=0)
+    ) as file:
+        file.write(json.dumps(current_data, ensure_ascii=False, indent=0))
+        file.write("\n")
 
-    update_data()
+
+if __name__ == "__main__":
+    query_data()

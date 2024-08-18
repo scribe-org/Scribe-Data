@@ -26,7 +26,7 @@ from typing import Optional
 
 from scribe_data.cli.convert import convert_to_csv_or_tsv, export_json
 from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
-from scribe_data.wikidata.update_data import update_data
+from scribe_data.wikidata.query_data import query_data
 
 DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
 
@@ -53,7 +53,7 @@ def get_data(
 
     if all:
         print("Updating all languages and data types ...")
-        update_data()
+        query_data()
 
     elif data_type in ["emoji-keywords", "emoji_keywords"]:
         for lang in languages:
@@ -82,7 +82,7 @@ def get_data(
     elif language or data_type:
         data_type = [data_type] if data_type else None
         print(f"Updating data for language: {language}, data type: {data_type}")
-        update_data(languages, data_type)
+        query_data(languages, data_type)
 
     else:
         raise ValueError(
@@ -111,32 +111,3 @@ def get_data(
         print(
             f"No output directory specified for exporting results. Updated data was saved in: {Path(DEFAULT_JSON_EXPORT_DIR).resolve()}."
         )
-
-    # Check if data was actually updated.
-    data_path = Path(DEFAULT_JSON_EXPORT_DIR)
-    if language:
-        lang_path = data_path / language.capitalize()
-        if not lang_path.exists():
-            print(f"Warning: No data directory found for language '{language}'")
-
-        elif data_type:
-            dt_file = lang_path / f"{data_type.replace('-', '_')}.json"
-            if not dt_file.exists():
-                print(
-                    f"Warning: No data file found for '{language}' {data_type}. The command must not have worked."
-                )
-
-        else:
-            print(f"Data updated for language: {language}")
-
-    elif data_type:
-        dt_updated = any(
-            lang_dir.is_dir() and (lang_dir / f"{data_type}.json").exists()
-            for lang_dir in data_path.iterdir()
-        )
-
-        if not dt_updated:
-            print(f"Warning: No data files found for data type '{data_type}'")
-
-        else:
-            print(f"Data updated for data type: {data_type}")

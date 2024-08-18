@@ -21,8 +21,6 @@ Formats the Russian prepositions queried from Wikidata using query_prepositions.
 """
 
 import collections
-import os
-import sys
 
 from scribe_data.utils import (
     export_formatted_data,
@@ -33,11 +31,8 @@ from scribe_data.utils import (
 
 LANGUAGE = "Russian"
 DATA_TYPE = "prepositions"
-file_path = sys.argv[0]
 
-prepositions_list, update_data_in_use, data_path = load_queried_data(
-    file_path=file_path, language=LANGUAGE, data_type=DATA_TYPE
-)
+prepositions_list, data_path = load_queried_data(language=LANGUAGE, data_type=DATA_TYPE)
 
 prepositions_formatted = {}
 
@@ -60,9 +55,6 @@ prepositions_formatted = collections.OrderedDict(sorted(prepositions_formatted.i
 
 export_formatted_data(
     formatted_data=prepositions_formatted,
-    update_data_in_use=update_data_in_use,
     language=LANGUAGE,
     data_type=DATA_TYPE,
 )
-
-os.remove(data_path)

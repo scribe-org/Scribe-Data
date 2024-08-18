@@ -34,7 +34,7 @@ emoji_keywords_dict = gen_emoji_lexicon(
 
 export_formatted_data(
     formatted_data=emoji_keywords_dict,
-    update_data_in_use=True,
+    query_data_in_use=True,
     language=LANGUAGE,
     data_type=DATA_TYPE,
 )
