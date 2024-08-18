@@ -33,7 +33,7 @@ from scribe_data.utils import (
     get_language_from_iso,
 )
 
-PATH_TO_SCRIBE_DATA_ROOT = Path(__file__).parent.parent
+PATH_TO_SCRIBE_DATA_ROOT = Path(__file__).parent.parent.parent.parent
 
 dbs_to_send = list(
     Path(PATH_TO_SCRIBE_DATA_ROOT, DEFAULT_SQLITE_EXPORT_DIR).glob("*.sqlite")
