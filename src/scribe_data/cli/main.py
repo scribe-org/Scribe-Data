@@ -80,7 +80,10 @@ def main() -> None:
         help="List options for all or given data types.",
     )
     list_parser.add_argument(
-        "-a", "--all", type=str, help="List all languages and data types."
+        "-a",
+        "--all",
+        action=argparse.BooleanOptionalAction,
+        help="List all languages and data types.",
     )
 
     # MARK: GET
@@ -123,7 +126,10 @@ def main() -> None:
         help="Whether to overwrite existing files (default: False).",
     )
     get_parser.add_argument(
-        "-a", "--all", type=str, help="Get all languages and data types."
+        "-a",
+        "--all",
+        action=argparse.BooleanOptionalAction,
+        help="Get all languages and data types.",
     )
     get_parser.add_argument(
         "-i", "--interactive", action="store_true", help="Run in interactive mode"
@@ -145,12 +151,6 @@ def main() -> None:
     )
     total_parser.add_argument(
         "-dt", "--data-type", type=str, help="The data type(s) to check totals for."
-    )
-    total_parser.add_argument(
-        "-a",
-        "--all",
-        type=str,
-        help="Get totals for all languages and data types.",
     )
 
     # MARK: Convert
@@ -186,7 +186,7 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.command in ["list", "l"]:
-        list_wrapper(args.language, args.data_type)
+        list_wrapper(args.language, args.data_type, args.all)
 
     elif args.command in ["get", "g"]:
         if args.interactive:

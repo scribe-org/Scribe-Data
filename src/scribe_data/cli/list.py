@@ -156,7 +156,9 @@ def list_languages_for_data_type(data_type: str) -> None:
     print()
 
 
-def list_wrapper(language: str = None, data_type: str = None) -> None:
+def list_wrapper(
+    language: str = None, data_type: str = None, all_bool: bool = False
+) -> None:
     """
     Conditionally provides the full functionality of the list command.
 
@@ -167,8 +169,11 @@ def list_wrapper(language: str = None, data_type: str = None) -> None:
 
         data_type : str
             The data type to check for.
+
+        all_bool : boolean
+            Whether all languages and data types should be listed.
     """
-    if not language and not data_type:
+    if (not language and not data_type) or all_bool:
         list_all()
 
     elif language is True and not data_type:
