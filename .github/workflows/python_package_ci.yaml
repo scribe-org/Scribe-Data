@@ -13,7 +13,7 @@ jobs:
       matrix:
         os:
           # See: https://github.com/scribe-org/Scribe-Data/issues/61
-          #   - macos-latest
+          - macos-latest
           - ubuntu-latest
         python-version:
           - "3.9"
