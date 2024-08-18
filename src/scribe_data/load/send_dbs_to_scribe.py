@@ -1,5 +1,5 @@
 """
-Updates Scribe apps with the SQLite language databases that are found in scribe_data_sqlite_export.
+Updates Scribe apps with the SQLite language databases that are found in the SQLite data export directory.
 
 Example
 -------
@@ -25,20 +25,23 @@ Example
 """
 
 import os
-import sys
+from pathlib import Path
 
 from scribe_data.utils import (
+    DEFAULT_SQLITE_EXPORT_DIR,
     get_ios_data_path,
     get_language_from_iso,
 )
 
-PATH_TO_SCRIBE_DATA_ROOT = os.path.dirname(sys.path[0]).split("/src/scribe_data")[0]
+PATH_TO_SCRIBE_DATA_ROOT = Path(__file__).parent.parent.parent.parent
 
-dbs_to_send = os.listdir(f"{PATH_TO_SCRIBE_DATA_ROOT}/scribe_data_sqlite_export")
-db_names = [os.path.splitext(db)[0] for db in dbs_to_send]
+dbs_to_send = list(
+    Path(PATH_TO_SCRIBE_DATA_ROOT, DEFAULT_SQLITE_EXPORT_DIR).glob("*.sqlite")
+)
+db_names = [Path(db).stem for db in dbs_to_send]
 language_db_dict = {
     get_language_from_iso(db[:2]): {
-        "db_location": f"{PATH_TO_SCRIBE_DATA_ROOT}/scribe_data_sqlite_export/{db}.sqlite"
+        "db_location": f"{PATH_TO_SCRIBE_DATA_ROOT}/{DEFAULT_SQLITE_EXPORT_DIR}/{db}.sqlite"
     }
     for db in db_names
 }

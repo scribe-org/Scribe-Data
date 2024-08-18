@@ -13,9 +13,21 @@ scribe-data [command] [options]
 ## Available Commands
 
 - `list` (`l`): Enumerate available languages, data types and their combinations.
-- `query` (`q`): Retrieve data from Wikidata for specified languages and data types.
+- `get` (`g`): Retrieve data from Wikidata for specified languages and data types.
 - `total` (`t`): Display the total available data for given languages and data types.
 - `convert` (`c`): Transform data returned by Scribe-Data into different file formats.
+
+## Available Arguments
+
+The following arguments can be passed to the Scribe-Data commands whenever sensible:
+
+- `--language` (`-lang`): The language to run the command for.
+- `--data-type` (`-dt`): The data type to run the command for.
+- `--file` (`-f`): The path to a file to run the command on.
+- `--output-dir` (`-od`): The path to a directory for the outputs of the command.
+- `--output-type` (`-ot`): The file type that the command should output.
+- `--outputs-per-entry` (`-ope`): How many outputs should be generated per data entry.
+- `--all` (`-a`): Get all results from the command.
 
 ## Command Examples
 
@@ -24,7 +36,7 @@ scribe-data [command] [options]
 1. Display all available options:
 
    ```bash
-   scribe-data list
+   scribe-data list # -a --all
    ```
 
 2. Display available languages:
@@ -50,27 +62,27 @@ scribe-data [command] [options]
 2. Display total available data for a specific language (e.g. English):
 
    ```bash
-   scribe-data total -l English
+   scribe-data total -lang English
    ```
 
 3. Display total available data for both language and data type (e.g. English nouns):
 
    ```bash
-   scribe-data total -l English -dt nouns
+   scribe-data total -lang English -dt nouns
    ```
 
-### Query Command
+### Get Command
 
-1. Query all available languages and data types:
+1. Get all available languages and data types:
 
    ```bash
-   scribe-data query -a # --all
+   scribe-data get -a # --all
    ```
 
-2. Query specific language and data type (e.g. German nouns):
+2. Get specific language and data type (e.g. German nouns):
 
    ```bash
-   scribe-data query -lang German -dt nouns
+   scribe-data get -lang German -dt nouns
    ```
 
 ### Convert Command
@@ -78,27 +90,27 @@ scribe-data [command] [options]
 1. Retrieve data for both language and data type (e.g. English nouns) in CSV format:
 
    ```bash
-   scribe-data query -l english --data-type verbs --output-dir ./output_data --output-type csv
+   scribe-data get -lang english -dt verbs -od ./output_data -ot csv
    ```
 
 2. Retrieve data for both language and data type (e.g. English nouns) in TSV format:
 
    ```bash
-   scribe-data query -l english --data-type verbs --output-dir ./output_data --output-type tsv
+   scribe-data get -lang english -t verbs -od ./output_data -ot tsv
    ```
 
-### Interactive Query Mode
+### Interactive Get Mode
 
-The CLI also offers an interactive query mode, which can be initiated with the following command:
+The CLI also offers an interactive get mode, which can be initiated with the following command:
 
 ```bash
-scribe-data query -i
+scribe-data get -i # --interactive
 ```
 
 This mode guides users through the data retrieval process with a series of prompts:
 
 1. Language selection: Users can choose from a list of available languages or select all.
-2. Data type selection: Users can specify which types of data to query.
+2. Data type selection: Users can specify which types of data to get.
 3. Output configuration: Users can set the file format, export directory, and overwrite preferences.
 
 The interactive mode is particularly useful for users who prefer a guided approach or are exploring the available data options.
@@ -108,12 +120,15 @@ The interactive mode is particularly useful for users who prefer a guided approa
 For more detailed information on each command and its options, append the `--help` flag:
 
 ```bash
-scribe-data --help # -h
-scribe-data [command] --help
+scribe-data -h # --help
+scribe-data [command] -h
+```
+
+The CLI also has functions to check the version and upgrade the package if necessary.
+
+```bash
+scribe-data -v # --version
+scribe-data -u # --upgrade
 ```
 
 For comprehensive usage instructions and examples, please refer to the [official documentation](https://scribe-data.readthedocs.io/).
-
-```
-
-```

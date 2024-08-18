@@ -24,13 +24,15 @@ import json
 from pathlib import Path
 from typing import Union
 
+from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
+
 LANGUAGE_METADATA_FILE = (
     Path(__file__).parent.parent / "resources" / "language_metadata.json"
 )
 DATA_TYPE_METADATA_FILE = (
     Path(__file__).parent.parent / "resources" / "data_type_metadata.json"
 )
-DATA_DIR = Path("scribe_data_json_export")
+DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
 
 with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
     language_metadata = json.load(file)

@@ -32,6 +32,7 @@ Example
 import json
 import sys
 import urllib
+from pathlib import Path
 
 from tqdm.auto import tqdm
 
@@ -42,7 +43,9 @@ from scribe_data.utils import (
 )
 from scribe_data.wikidata.wikidata_utils import sparql
 
-PATH_TO_ET_FILES = "./"
+PATH_TO_LANGUAGE_DATA_EXTRACTION = (
+    Path(__file__).parent.parent / "language_data_extraction"
+)
 
 # Note: Check whether arguments have been passed to only update a subset of the data.
 languages, _ = check_and_return_command_line_args(
@@ -60,7 +63,9 @@ for lang in tqdm(
 ):
     print(f"Querying words for {lang}...")
     # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
-    with open("query_words_to_translate.sparql", encoding="utf-8") as file:
+    with open(
+        Path(__file__).parent / "query_words_to_translate.sparql", encoding="utf-8"
+    ) as file:
         query_lines = file.readlines()
 
     query = "".join(query_lines).replace("LANGUAGE_QID", get_language_qid(lang))
@@ -86,18 +91,28 @@ for lang in tqdm(
         print(f"Success! Formatting {lang} words...")
         query_results = results["results"]["bindings"]
 
+        all_words = []
         results_formatted = []
         for r in query_results:  # query_results is also a list
-            r_dict = {k: r[k]["value"] for k in r.keys()}
+            r_dict = {"word": r[k]["value"] for k in r.keys()}
 
-            results_formatted.append(r_dict)
+            # Assure that results are unique.
+            if r_dict["word"] not in all_words:
+                all_words.append(r_dict["word"])
+                results_formatted.append(r_dict)
+
+        results_sorted = sorted(results_formatted, key=lambda x: x["word"])
 
         with open(
-            f"{PATH_TO_ET_FILES}{lang}/translations/words_to_translate.json",
+            PATH_TO_LANGUAGE_DATA_EXTRACTION
+            / lang
+            / "translations"
+            / "words_to_translate.json",
             "w",
             encoding="utf-8",
-        ) as f:
-            json.dump(results_formatted, f, ensure_ascii=False, indent=0)
+        ) as file:
+            file.write(json.dumps(results_sorted, ensure_ascii=False, indent=0))
+            file.write("\n")
             print(
-                f"Wrote the words to translate to {PATH_TO_ET_FILES}{lang}/translations/words_to_translate.json"
+                f"Wrote the words to translate to {PATH_TO_LANGUAGE_DATA_EXTRACTION / lang / 'translations' /'words_to_translate.json'}"
             )

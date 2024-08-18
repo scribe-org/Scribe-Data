@@ -22,15 +22,18 @@ Utility functions for data extraction, formatting and loading.
 
 import ast
 import json
-import os
-import sys
 from importlib import resources
+from pathlib import Path
 from typing import Any, Optional
 
 from iso639 import Lang
 from iso639.exceptions import DeprecatedLanguageValue, InvalidLanguageValue
 
 PROJECT_ROOT = "Scribe-Data"
+DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
+DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
+DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
+DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
 
 
 def _load_json(package_path: str, file_name: str, root: str) -> Any:
@@ -235,9 +238,7 @@ def get_language_words_to_ignore(language: str) -> list[str]:
     )
 
 
-def load_queried_data(
-    file_path: str, language: str, data_type: str
-) -> tuple[Any, bool, str]:
+def load_queried_data(language: str, data_type: str) -> tuple[Any, bool, str]:
     """
     Loads queried data from a JSON file for a specific language and data type.
 
@@ -245,35 +246,25 @@ def load_queried_data(
     ----------
         file_path : str
             The path to the file containing the queried data.
+
         language : str
             The language for which the data is being loaded.
+
         data_type : str
             The type of data being loaded (e.g. 'nouns', 'verbs').
 
     Returns
     -------
-        tuple[Any, bool, str]
-            A tuple containing the loaded data, a boolean indicating whether the data is in use,
-            and the path to the data file.
+        tuple(Any, str)
+            A tuple containing the loaded data and the path to the data file.
     """
-    queried_data_file = f"{data_type}_queried.json"
-    update_data_in_use = False
-
-    if f"language_data_extraction/{language}/{data_type}/" not in file_path:
-        data_path = queried_data_file
-    else:
-        update_data_in_use = True
-        PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-        LANG_DIR_PATH = f"{PATH_TO_SCRIBE_ORG}/Scribe-Data/src/scribe_data/language_data_extraction/{language}"
-        data_path = f"{LANG_DIR_PATH}/{data_type}/{queried_data_file}"
+    data_path = Path(DEFAULT_JSON_EXPORT_DIR) / language / f"{data_type}.json"
 
     with open(data_path, encoding="utf-8") as f:
-        return json.load(f), update_data_in_use, data_path
+        return json.load(f), data_path
 
 
-def export_formatted_data(
-    formatted_data: dict, update_data_in_use: bool, language: str, data_type: str
-) -> None:
+def export_formatted_data(formatted_data: dict, language: str, data_type: str) -> None:
     """
     Exports formatted data to a JSON file for a specific language and data type.
 
@@ -281,10 +272,10 @@ def export_formatted_data(
     ----------
         formatted_data : dict
             The data to be exported.
-        update_data_in_use : bool
-            A flag indicating whether the data is currently in use.
+
         language : str
             The language for which the data is being exported.
+
         data_type : str
             The type of data being exported (e.g. 'nouns', 'verbs').
 
@@ -292,18 +283,16 @@ def export_formatted_data(
     -------
         None
     """
-    if update_data_in_use:
-        PATH_TO_SCRIBE_ORG = os.path.dirname(sys.path[0]).split("Scribe-Data")[0]
-        export_path = f"{PATH_TO_SCRIBE_ORG}Scribe-Data/scribe_data_json_export/{language}/{data_type}.json"
-
-    else:
-        export_path = f"{data_type}.json"
+    export_path = (
+        Path(DEFAULT_JSON_EXPORT_DIR) / language / f"{data_type.replace('-', '_')}.json"
+    )
 
     with open(export_path, "w", encoding="utf-8") as file:
         json.dump(formatted_data, file, ensure_ascii=False, indent=0)
+        file.write("\n")
 
     print(
-        f"Wrote file {language}/{data_type}.json with {len(formatted_data):,} {data_type}."
+        f"Wrote file {language}/{data_type.replace('-', '_')}.json with {len(formatted_data):,} {data_type}."
     )
 
 
@@ -450,7 +439,7 @@ def check_and_return_command_line_args(
     )
 
 
-def get_target_langcodes(source_lang: str) -> list[str]:
+def get_target_lang_codes(source_lang: str) -> list[str]:
     """
     Returns a list of target language ISO codes for translation.
 
