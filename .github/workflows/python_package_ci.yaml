@@ -40,7 +40,7 @@ jobs:
           # configure PATH & PKG_CONFIG_PATH as per
           # https://gitlab.pyicu.org/main/pyicu#installing-pyicu
           echo "/opt/homebrew/opt/icu4c/bin:/opt/homebrew/opt/icu4c/sbin:$PATH" >> $GITHUB_PATH
-          echo "$PKG_CONFIG_PATH:/opt/homebrew/opt/icu4c/lib/pkgconfig" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/homebrew/opt/icu4c/lib/pkgconfig" >> $GITHUB_ENV
 
       - name: Install Python Dependencies
         run: |
