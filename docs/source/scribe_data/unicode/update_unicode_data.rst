@@ -1,5 +1,5 @@
-update_unicode_data
-===================
+update_unicode_data.py
+======================
 
 `View code on Github <https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/unicode/update_unicode_data.py>`_
 
