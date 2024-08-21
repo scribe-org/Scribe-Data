@@ -27,6 +27,7 @@ import requests
 def get_local_version():
     try:
         return pkg_resources.get_distribution("scribe-data").version
+
     except pkg_resources.DistributionNotFound:
         return "Unknown (Not installed via pip)"
 
@@ -36,14 +37,14 @@ def get_latest_version():
         response = requests.get(
             "https://api.github.com/repos/scribe-org/Scribe-Data/releases/latest"
         )
-        version = response.json()["name"]
-        return version
+        return response.json()["name"]
+
     except Exception:
         return "Unknown (Unable to fetch version)"
 
 
 def get_version_message():
-    local_version = "Scribe-Data v" + get_local_version()
+    local_version = f"Scribe-Data v{get_local_version()}"
     latest_version = get_latest_version()
 
     if (
@@ -54,9 +55,10 @@ def get_version_message():
 
     if local_version == latest_version:
         return f"{local_version}"
-    else:
-        update_message = (
-            f"Scribe-Data v{local_version} (Update available: v{latest_version})\n"
-        )
-        update_message += "To update, run: pip scribe-data --upgrade"
-        return update_message
+
+    update_message = (
+        f"Scribe-Data v{local_version} (Update available: v{latest_version})\n"
+    )
+    update_message += "To update: pip scribe-data --upgrade"
+
+    return update_message
