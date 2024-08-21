@@ -41,17 +41,21 @@ dbs_to_send = list(
 db_names = [Path(db).stem for db in dbs_to_send]
 language_db_dict = {
     get_language_from_iso(db[:2]): {
-        "db_location": f"{PATH_TO_SCRIBE_DATA_ROOT}/{DEFAULT_SQLITE_EXPORT_DIR}/{db}.sqlite"
+        "db_location": PATH_TO_SCRIBE_DATA_ROOT
+        / DEFAULT_SQLITE_EXPORT_DIR
+        / f"{db}.sqlite"
     }
     for db in db_names
 }
 
 for language in language_db_dict:
     language_db_dict[language]["scribe_ios_db_path"] = (
-        f"{get_ios_data_path(language=language)}/{language_db_dict[language]['db_location'].split('/')[-1]}"
+        get_ios_data_path(language=language)
+        / f"{language_db_dict[language]['db_location'].split('/')[-1]}"
     )
     language_db_dict[language]["full_path_to_scribe_ios_db"] = (
-        f"{PATH_TO_SCRIBE_DATA_ROOT}/../{language_db_dict[language]['scribe_ios_db_path']}"
+        PATH_TO_SCRIBE_DATA_ROOT.parent
+        / f"{language_db_dict[language]['scribe_ios_db_path']}"
     )
 
 for language in language_db_dict:

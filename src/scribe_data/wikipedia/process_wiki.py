@@ -366,7 +366,9 @@ def gen_autosuggestions(
 
     print("Querying profanities to remove from suggestions.")
     # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
-    with open("./query_profanity.sparql", encoding="utf-8") as file:
+    with open(
+        Path(__file__).parent / "query_profanity.sparql", encoding="utf-8"
+    ) as file:
         query_lines = file.readlines()
 
     query = "".join(query_lines).replace(

@@ -1,5 +1,5 @@
-query_profanity
-===============
+query_profanity.sparql
+======================
 
 `View code on Github <https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/query_profanity.sparql>`_
 

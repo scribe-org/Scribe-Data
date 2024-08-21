@@ -1,5 +1,5 @@
-check_query
-===========
+check_query/
+============
 
 `View code on Github <https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/check_query>`_
 

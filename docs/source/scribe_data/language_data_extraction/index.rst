@@ -1,5 +1,5 @@
-language_data_extraction
-========================
+language_data_extraction/
+=========================
 
 `View code on Github <https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/language_data_extraction>`_
 
