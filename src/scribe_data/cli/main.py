@@ -28,6 +28,7 @@ from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.total import get_total_lexemes
+from scribe_data.cli.version import get_version_message
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
 GET_DESCRIPTION = (
@@ -50,7 +51,11 @@ def main() -> None:
 
     parser._actions[0].help = "Show this help message and exit."
     parser.add_argument(
-        "-v", "--version", help="Show the version of the Scribe-Data CLI."
+        "-v",
+        "--version",
+        action="version",
+        version=f"{get_version_message()}",
+        help="Show the local and latest versions of the Scribe-Data CLI.",
     )
     parser.add_argument("-u", "--upgrade", help="Upgrade the Scribe-Data CLI.")
 
