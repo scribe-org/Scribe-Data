@@ -1,5 +1,5 @@
-update_words_to_translate
-=========================
+update_words_to_translate.py
+============================
 
 `View code on Github <https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/translation/update_words_to_translate.py>`_
 

@@ -1,5 +1,5 @@
-gen_autosuggestions
-===================
+gen_autosuggestions.ipynb
+=========================
 
 `View code on Github <https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikipedia/gen_autosuggestions.ipynb>`_
 
