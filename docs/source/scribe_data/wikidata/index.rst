@@ -12,4 +12,4 @@ wikidata
     :maxdepth: 1
 
     query_profanity
-    update_data
+    query_data

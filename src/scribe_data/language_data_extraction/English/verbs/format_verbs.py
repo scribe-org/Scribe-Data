@@ -21,73 +21,121 @@ Formats the English verbs queried from Wikidata using query_verbs.sparql.
 """
 
 import collections
-import os
-import sys
 
 from scribe_data.utils import export_formatted_data, load_queried_data
 
 LANGUAGE = "English"
 DATA_TYPE = "verbs"
-file_path = sys.argv[0]
 
-verbs_list, update_data_in_use, data_path = load_queried_data(
-    file_path=file_path, language=LANGUAGE, data_type=DATA_TYPE
-)
+verbs_list, data_path = load_queried_data(language=LANGUAGE, data_type=DATA_TYPE)
 
 verbs_formatted = {}
 
 all_conjugations = [
-    "presFPS",
-    "presSPS",
+    "presSimp",
     "presTPS",
-    "presFPP",
-    "presSPP",
-    "presTPP",
-    "pastFPS",
-    "pastSPS",
-    "pastTPS",
-    "pastFPP",
-    "pastSPP",
-    "pastTPP",
-    "pastPart",
+    "presPart",
+    "presFPSCont",
+    "prePluralCont",
+    "presTPSCont",
+    "presPerfSimp",
+    "presPerfTPS",
+    "presPerfSimpCont",
+    "presPerfTPSCont",
+    "pastSimp",
+    "pastSimpCont",
+    "pastSimpPluralCont",
+    "pastPerf",
+    "pastPerfCont",
+    "futSimp",
+    "futCont",
+    "futPerf",
+    "futPerfCont",
+    "condSimp",
+    "condCont",
+    "condPerf",
+    "condPerfCont",
 ]
 
 for verb_vals in verbs_list:
     # If infinitive is available add to formatted verbs, else no entry created.
-    if verb_vals["infinitive"] not in verbs_formatted.keys():
-        verbs_formatted[verb_vals["infinitive"]] = {}
+    infinitive_key = verb_vals["infinitive"]
+    if infinitive_key not in verbs_formatted.keys():
+        verbs_formatted[infinitive_key] = {}
 
-        infinitive_key = verb_vals["infinitive"]
-        # presFPS
-        verbs_formatted[infinitive_key]["presFPS"] = verb_vals.get("presFPS", "")
-        verbs_formatted[infinitive_key]["presSPS"] = verb_vals.get("presFPS", "")
-
-        # presTPS
+        # Present
+        verbs_formatted[infinitive_key]["presSimp"] = verb_vals.get("presSimp", "")
         verbs_formatted[infinitive_key]["presTPS"] = verb_vals.get("presTPS", "")
+        verbs_formatted[infinitive_key]["presPart"] = verb_vals.get("presPart", "")
+        verbs_formatted[infinitive_key]["presFPSCont"] = "am " + verb_vals.get(
+            "presPart", ""
+        )
+        verbs_formatted[infinitive_key]["prePluralCont"] = "are " + verb_vals.get(
+            "presPart", ""
+        )
+        verbs_formatted[infinitive_key]["presTPSCont"] = "is " + verb_vals.get(
+            "presPart", ""
+        )
+        verbs_formatted[infinitive_key]["presPerfSimp"] = "have " + verb_vals.get(
+            "pastPart", ""
+        )
+        verbs_formatted[infinitive_key]["presPerfTPS"] = "has " + verb_vals.get(
+            "pastPart", ""
+        )
+        verbs_formatted[infinitive_key]["presPerfSimpCont"] = (
+            "have been " + verb_vals.get("presPart", "")
+        )
+        verbs_formatted[infinitive_key]["presPerfTPSCont"] = (
+            "has been " + verb_vals.get("presPart", "")
+        )
 
-        # Copying over presFPS to remaining present cases.
-        verbs_formatted[infinitive_key]["presFPP"] = verb_vals.get("presFPS", "")
-        verbs_formatted[infinitive_key]["presSPP"] = verb_vals.get("presFPS", "")
-        verbs_formatted[infinitive_key]["presTPP"] = verb_vals.get("presFPS", "")
+        # Past
+        verbs_formatted[infinitive_key]["pastSimp"] = verb_vals.get("pastSimp", "")
+        verbs_formatted[infinitive_key]["pastSimpCont"] = "was " + verb_vals.get(
+            "presPart", ""
+        )
+        verbs_formatted[infinitive_key]["pastSimpPluralCont"] = "were " + verb_vals.get(
+            "presPart", ""
+        )
+        verbs_formatted[infinitive_key]["pastPerf"] = "had " + verb_vals.get(
+            "pastPart", ""
+        )
+        verbs_formatted[infinitive_key]["pastPerfCont"] = "had been " + verb_vals.get(
+            "presPart", ""
+        )
 
-        # Assigning simpPast to all past keys if available.
-        verbs_formatted[infinitive_key]["pastFPS"] = verb_vals.get("simpPast", "")
-        verbs_formatted[infinitive_key]["pastSPS"] = verb_vals.get("simpPast", "")
-        verbs_formatted[infinitive_key]["pastTPS"] = verb_vals.get("simpPast", "")
-        verbs_formatted[infinitive_key]["pastFPP"] = verb_vals.get("simpPast", "")
-        verbs_formatted[infinitive_key]["pastSPP"] = verb_vals.get("simpPast", "")
-        verbs_formatted[infinitive_key]["pastTPP"] = verb_vals.get("simpPast", "")
+        # Future
+        verbs_formatted[infinitive_key]["futSimp"] = "will " + verb_vals.get(
+            "presSimp", ""
+        )
+        verbs_formatted[infinitive_key]["futCont"] = "will be " + verb_vals.get(
+            "presPart", ""
+        )
+        verbs_formatted[infinitive_key]["futPerf"] = "will have " + verb_vals.get(
+            "pastPart", ""
+        )
+        verbs_formatted[infinitive_key]["futPerfCont"] = (
+            "will have been " + verb_vals.get("presPart", "")
+        )
 
-        # pastParticiple
-        verbs_formatted[infinitive_key]["pastPart"] = verb_vals.get("pastPart", "")
+        # Conditional
+        verbs_formatted[infinitive_key]["condSimp"] = "would " + verb_vals.get(
+            "presSimp", ""
+        )
+        verbs_formatted[infinitive_key]["condCont"] = "would be " + verb_vals.get(
+            "presPart", ""
+        )
+        verbs_formatted[infinitive_key]["condPerf"] = "would have " + verb_vals.get(
+            "pastPart", ""
+        )
+        verbs_formatted[infinitive_key]["condPerfCont"] = (
+            "would have been " + verb_vals.get("presPart", "")
+        )
 
 verbs_formatted = collections.OrderedDict(sorted(verbs_formatted.items()))
 
 export_formatted_data(
     formatted_data=verbs_formatted,
-    update_data_in_use=update_data_in_use,
     language=LANGUAGE,
     data_type=DATA_TYPE,
 )
-
-os.remove(data_path)

@@ -16,6 +16,8 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - Scribe-Data is now a fully functional CLI.
   - Querying Wikidata lexicographical data can be done via the `--query` command ([#159](https://github.com/scribe-org/Scribe-Data/issues/159)).
+    - The output type of queries can be in JSON, CSV, TSV and SQLite, with conversions output types also being possible ([#145](https://github.com/scribe-org/Scribe-Data/issues/145), [#146](https://github.com/scribe-org/Scribe-Data/issues/146))
+    - Output paths can be set for query results ([#144](https://github.com/scribe-org/Scribe-Data/issues/144)).
   - Total Wikidata lexemes for languages and data types can be derived with the `--total` command ([#147](https://github.com/scribe-org/Scribe-Data/issues/147)).
   - Commands can be used via an interactive mode with the `--interactive` command ([#158](https://github.com/scribe-org/Scribe-Data/issues/158)).
 - Articles are removed from machine translations so they're more directly useful in Scribe applications ([#96](https://github.com/scribe-org/Scribe-Data/issues/96)).
@@ -33,6 +35,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - `word_type` has been switched to `data_type` throughout the codebase ([#160](https://github.com/scribe-org/Scribe-Data/issues/160)).
 - Case and gender map reference functions were updated to use hashmaps.
 - The SPARQLWrapper access method has been extracted to the Wikidata utils and is imported into the files that need it ([#164](https://github.com/scribe-org/Scribe-Data/issues/164)).
+- Export data paths have been converted to centrally saved variables to reduce hard coded string repetition.
+- Many files were renamed including `update_data.py` being renamed `query_data.py`
+- Paths within the package have been updated to work for all operating systems via `pathlib` ([#125](https://github.com/scribe-org/Scribe-Data/issues/125)).
+- The language formatting scripts have been dramatically simplified given changes to export paths all being the same.
 
 ## Scribe-Data 3.3.0
 

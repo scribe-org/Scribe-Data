@@ -23,13 +23,16 @@ Setup and commands for the Scribe-Data command line interface.
 #!/usr/bin/env python3
 import argparse
 
+from scribe_data.cli.convert import convert_to_csv_or_tsv, convert_to_sqlite
+from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
-from scribe_data.cli.query import query_data
 from scribe_data.cli.total import get_total_lexemes
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
-QUERY_DESCRIPTION = "Query data from Wikidata for the given languages and data types."
+GET_DESCRIPTION = (
+    "Get data from Wikidata and other sources for the given languages and data types."
+)
 TOTAL_DESCRIPTION = "Check Wikidata for the total available data for the given languages and data types."
 CONVERT_DESCRIPTION = "Convert data returned by Scribe-Data to different file types."
 CLI_EPILOG = "Visit the codebase at https://github.com/scribe-org/Scribe-Data and documentation at https://scribe-data.readthedocs.io to learn more!"
@@ -47,9 +50,9 @@ def main() -> None:
 
     parser._actions[0].help = "Show this help message and exit."
     parser.add_argument(
-        "-v", "--verbose", help="Increase output verbosity.", action="store_true"
+        "-v", "--version", help="Show the version of the Scribe-Data CLI."
     )
-    parser.add_argument("-u", "--update", help="Update the Scribe-Data CLI.")
+    parser.add_argument("-u", "--upgrade", help="Upgrade the Scribe-Data CLI.")
 
     # MARK: List
 
@@ -77,46 +80,58 @@ def main() -> None:
         help="List options for all or given data types.",
     )
     list_parser.add_argument(
-        "-a", "--all", type=str, help="List all languages and data types."
+        "-a",
+        "--all",
+        action=argparse.BooleanOptionalAction,
+        help="List all languages and data types.",
     )
 
-    # MARK: Query
+    # MARK: GET
 
-    query_parser = subparsers.add_parser(
-        "query",
-        aliases=["q"],
-        help=QUERY_DESCRIPTION,
-        description=QUERY_DESCRIPTION,
+    get_parser = subparsers.add_parser(
+        "get",
+        aliases=["g"],
+        help=GET_DESCRIPTION,
+        description=GET_DESCRIPTION,
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
-    query_parser._actions[0].help = "Show this help message and exit."
-    query_parser.add_argument(
-        "-lang", "--language", type=str, help="The language(s) to query."
+    get_parser._actions[0].help = "Show this help message and exit."
+    get_parser.add_argument(
+        "-lang", "--language", type=str, help="The language(s) to get."
     )
-    query_parser.add_argument(
-        "-dt", "--data-type", type=str, help="The data type(s) to query."
+    get_parser.add_argument(
+        "-dt", "--data-type", type=str, help="The data type(s) to get."
     )
-    query_parser.add_argument(
+    get_parser.add_argument(
         "-od", "--output-dir", type=str, help="The output directory path for results."
     )
-    query_parser.add_argument(
+    get_parser.add_argument(
         "-ot",
         "--output-type",
         type=str,
-        choices=["json", "csv", "tsv"],
+        choices=["json", "csv", "tsv", "sqlite"],
         help="The output file type.",
     )
-    query_parser.add_argument(
+    get_parser.add_argument(
+        "-ope",
+        "--outputs-per-entry",
+        type=int,
+        help="How many outputs should be generated per data entry.",
+    )
+    get_parser.add_argument(
         "-o",
         "--overwrite",
         action="store_true",
         help="Whether to overwrite existing files (default: False).",
     )
-    query_parser.add_argument(
-        "-a", "--all", type=str, help="Query all languages and data types."
+    get_parser.add_argument(
+        "-a",
+        "--all",
+        action=argparse.BooleanOptionalAction,
+        help="Get all languages and data types.",
     )
-    query_parser.add_argument(
+    get_parser.add_argument(
         "-i", "--interactive", action="store_true", help="Run in interactive mode"
     )
 
@@ -132,19 +147,10 @@ def main() -> None:
     )
     total_parser._actions[0].help = "Show this help message and exit."
     total_parser.add_argument(
-        "-lang",
-        "--language",
-        type=str,
-        help="The language(s) to check totals for.",
+        "-lang", "--language", type=str, help="The language(s) to check totals for."
     )
     total_parser.add_argument(
         "-dt", "--data-type", type=str, help="The data type(s) to check totals for."
-    )
-    total_parser.add_argument(
-        "-a",
-        "--all",
-        type=str,
-        help="Get totals for all languages and data types.",
     )
 
     # MARK: Convert
@@ -162,22 +168,17 @@ def main() -> None:
         "-f", "--file", type=str, help="The file to convert to a new type."
     )
     convert_parser.add_argument(
+        "-ot",
+        "--output-type",
+        type=str,
+        choices=["json", "csv", "tsv", "sqlite"],
+        help="The output file type.",
+    )
+    convert_parser.add_argument(
         "-ko",
         "--keep-original",
         action="store_false",
         help="Whether to keep the file to be converted (default: True).",
-    )
-    convert_parser.add_argument(
-        "-json", "--to-json", type=str, help="Convert the file to JSON format."
-    )
-    convert_parser.add_argument(
-        "-csv", "--to-csv", type=str, help="Convert the file to CSV format."
-    )
-    convert_parser.add_argument(
-        "-tsv", "--to-tsv", type=str, help="Convert the file to TSV format."
-    )
-    convert_parser.add_argument(
-        "-sqlite", "--to-sqlite", type=str, help="Convert the file to SQLite format."
     )
 
     # MARK: Setup CLI
@@ -185,26 +186,27 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.command in ["list", "l"]:
-        list_wrapper(args.language, args.data_type)
+        list_wrapper(args.language, args.data_type, args.all)
 
-    elif args.command in ["query", "q"]:
+    elif args.command in ["get", "g"]:
         if args.interactive:
             start_interactive_mode()
 
         else:
-            query_data(
+            get_data(
                 args.language,
                 args.data_type,
                 args.output_dir,
                 args.overwrite,
                 args.output_type,
+                args.outputs_per_entry,
                 args.all,
             )
 
     elif args.command in ["total", "t"]:
         if not args.language and not args.data_type:
             print(
-                "Error: At least one of -lang/--language or -dt/--data-type must be specified."
+                "Error: You must provide either at least one of the --language (-l) or --data-type (-dt) options"
             )
             total_parser.print_help()
             return
@@ -212,7 +214,21 @@ def main() -> None:
         get_total_lexemes(args.language, args.data_type)
 
     elif args.command in ["convert", "c"]:
-        return
+        if args.output_type in ["csv", "tsv"]:
+            convert_to_csv_or_tsv(
+                args.language,
+                args.data_type,
+                args.output_dir,
+                args.overwrite,
+            )
+
+        elif args.output_type == "sqlite":
+            convert_to_sqlite(
+                args.language,
+                args.data_type,
+                args.output_dir,
+                args.overwrite,
+            )
 
     else:
         parser.print_help()

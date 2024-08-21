@@ -83,6 +83,7 @@ def get_total_lexemes(language, data_type):
     query_template = """
     SELECT
         (COUNT(DISTINCT ?lexeme) as ?total)
+
     WHERE {{
         ?lexeme a ontolex:LexicalEntry .
         {language_filter}

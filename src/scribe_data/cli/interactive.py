@@ -2,7 +2,7 @@
 Interactive mode functionality for the Scribe-Data CLI.
 
 This module provides an interactive interface for users to select languages,
-data types and output options for querying Wikidata data using Scribe-Data.
+data types and output options for getting Wikidata data using Scribe-Data.
 
 .. raw:: html
     <!--
@@ -27,7 +27,8 @@ from scribe_data.cli.cli_utils import (
     data_type_metadata,
     language_metadata,
 )
-from scribe_data.cli.query import query_data
+from scribe_data.cli.get import get_data
+from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 
 
 def get_selection(user_input: str, options: list[str]) -> list[str]:
@@ -75,7 +76,7 @@ def select_languages() -> list[str]:
         print(f"{i}. {lang}")
 
     lang_input = input(
-        "\nPlease enter the languages to query data for, their numbers or (a) for all languages: "
+        "\nPlease enter the languages to get data for, their numbers or (a) for all languages: "
     )
 
     return get_selection(lang_input, languages)
@@ -97,7 +98,7 @@ def select_data_types() -> list[str]:
         print(f"{i}. {dt}")
 
     dt_input = input(
-        "\nPlease enter the data types to query, their numbers or (a) for all data types: "
+        "\nPlease enter the data types to get, their numbers or (a) for all data types: "
     )
 
     return get_selection(dt_input, data_types)
@@ -116,8 +117,8 @@ def get_output_options() -> dict:
         input("File type to export (json, csv, tsv) [json]: ").lower() or "json"
     )
     output_dir = (
-        input("Export directory path [./scribe_data_json_export]: ")
-        or "./scribe_data_json_export"
+        input(f"Export directory path [./{DEFAULT_JSON_EXPORT_DIR}]: ")
+        or f"./{DEFAULT_JSON_EXPORT_DIR}"
     )
     overwrite = (
         input("Overwrite existing data without asking (y/n) [n]: ").lower() == "y"
@@ -131,7 +132,7 @@ def run_interactive_mode():
     Run the interactive mode for Scribe-Data CLI.
 
     This function guides the user through selecting languages, data types and output options.
-    The query is then executed based on these selections.
+    The process is then executed based on these selections.
     """
     selected_languages = select_languages()
     selected_data_types = select_data_types()
@@ -139,7 +140,7 @@ def run_interactive_mode():
 
     if len(selected_languages) == 1:
         print(
-            f"\nQuerying {', '.join(selected_data_types)} for {', '.join(selected_languages)}."
+            f"\nGetting {', '.join(selected_data_types)} for {', '.join(selected_languages)}."
         )
 
     else:
@@ -151,11 +152,11 @@ def run_interactive_mode():
         f"Data will be exported as {output_options['type'].upper()} files to '{output_options['dir']}'."
     )
 
-    # Convert lists to comma-separated strings for query_data.
+    # Convert lists to comma-separated strings for get_data.
     languages_str = ",".join(selected_languages)
     data_types_str = ",".join(selected_data_types)
 
-    query_data(
+    get_data(
         languages_str,
         data_types_str,
         output_options["dir"],
