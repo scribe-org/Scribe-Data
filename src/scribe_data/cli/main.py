@@ -28,6 +28,7 @@ from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.total import get_total_lexemes
+from scribe_data.cli.update import update_cli
 from scribe_data.cli.version import get_version_message
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
@@ -47,17 +48,21 @@ def main() -> None:
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
-    subparsers = parser.add_subparsers(dest="command", required=True)
-
-    parser._actions[0].help = "Show this help message and exit."
+    subparsers = parser.add_subparsers(dest="command")
     parser.add_argument(
         "-v",
         "--version",
         action="version",
         version=f"{get_version_message()}",
-        help="Show the local and latest versions of the Scribe-Data CLI.",
+        help="Show the version of the Scribe-Data CLI.",
     )
-    parser.add_argument("-u", "--upgrade", help="Upgrade the Scribe-Data CLI.")
+
+    parser.add_argument(
+        "-u",
+        "--upgrade",
+        action="store_true",
+        help="Upgrade the Scribe-Data CLI to the latest version.",
+    )
 
     # MARK: List
 
@@ -189,6 +194,14 @@ def main() -> None:
     # MARK: Setup CLI
 
     args = parser.parse_args()
+
+    if args.upgrade:
+        update_cli()
+        return
+
+    if not args.command:
+        parser.print_help()
+        return
 
     if args.command in ["list", "l"]:
         list_wrapper(args.language, args.data_type, args.all)
