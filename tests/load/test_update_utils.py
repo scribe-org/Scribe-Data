@@ -22,10 +22,11 @@ Tests for the update_utils file functions.
 
 import sys
 import unittest
+from pathlib import Path
 
 import pytest
 
-sys.path.append("../../src")
+sys.path.append(Path(__file__).parent.parent.parent)
 
 from scribe_data import utils
 
@@ -213,18 +214,10 @@ def test_get_language_words_to_ignore_negative():
     assert str(excp.value) == "Java is currently not a supported language."
 
 
-def test_get_path_from_format_file():
-    assert utils.get_path_from_format_file() == "../../../../../.."
-
-
-def test_get_path_from_wikidata_dir():
-    assert utils.get_path_from_wikidata_dir() == "../../../.."
-
-
 def test_get_ios_data_path():
     assert (
         utils.get_ios_data_path("suomi")
-        == "Scribe-iOS/Keyboards/LanguageKeyboards/suomi"
+        == Path("Scribe-iOS") / "Keyboards" / "LanguageKeyboards" / "suomi"
     )
 
 
