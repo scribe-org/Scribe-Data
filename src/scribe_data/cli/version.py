@@ -56,9 +56,7 @@ def get_version_message():
     if local_version == latest_version:
         return f"{local_version}"
 
-    update_message = (
-        f"Scribe-Data v{local_version} (Update available: v{latest_version})\n"
-    )
+    update_message = f"{local_version} (Upgrade available: {latest_version})\n"
     update_message += "To update: pip scribe-data --upgrade"
 
     return update_message
