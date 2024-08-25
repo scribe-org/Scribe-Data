@@ -77,7 +77,3 @@ class TestVersionFunctions(unittest.TestCase):
         """
         expected_message = "Scribe-Data v1.0.0 (Update available: Scribe-Data v1.0.1)\nTo update: pip scribe-data --upgrade"
         self.assertEqual(get_version_message(), expected_message)
-
-
-if __name__ == "__main__":
-    unittest.main()
