@@ -1,5 +1,5 @@
 """
-Tests for the version file functions.
+Tests for the CLI version functionality.
 
 .. raw:: html
     <!--
@@ -22,12 +22,13 @@ Tests for the version file functions.
 
 import unittest
 from unittest.mock import patch
+
+import pkg_resources
 from scribe_data.cli.version import (
-    get_local_version,
     get_latest_version,
+    get_local_version,
     get_version_message,
 )
-import pkg_resources
 
 
 class TestVersionFunctions(unittest.TestCase):
@@ -60,7 +61,7 @@ class TestVersionFunctions(unittest.TestCase):
         self, mock_latest_version, mock_local_version
     ):
         """
-        Tests the scenario where the local version is up to date with the latest version
+        Tests the scenario where the local version is up to date with the latest version.
         """
         expected_message = "Scribe-Data v1.0.0"
         self.assertEqual(get_version_message(), expected_message)
@@ -73,7 +74,7 @@ class TestVersionFunctions(unittest.TestCase):
         self, mock_latest_version, mock_local_version
     ):
         """
-        Tests the scenario where a newer version is available, suggesting an update
+        Tests the scenario where a newer version is available, suggesting an update.
         """
         expected_message = "Scribe-Data v1.0.0 (Upgrade available: Scribe-Data v1.0.1)\nTo update: pip scribe-data --upgrade"
         self.assertEqual(get_version_message(), expected_message)

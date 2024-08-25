@@ -28,7 +28,7 @@ from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.total import get_total_lexemes
-from scribe_data.cli.upgrade import upgrade
+from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
@@ -196,7 +196,7 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.upgrade:
-        upgrade()
+        upgrade_cli()
         return
 
     if not args.command:
