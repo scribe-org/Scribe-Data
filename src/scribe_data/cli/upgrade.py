@@ -32,7 +32,7 @@ import requests
 from scribe_data.cli.version import get_latest_version, get_local_version
 
 
-def upgrade():
+def upgrade_cli():
     local_version = get_local_version()
     latest_version = get_latest_version()
     latest_version = latest_version.split("v")[-1]
