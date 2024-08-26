@@ -1,5 +1,5 @@
-query_words_to_translate
-========================
+query_words_to_translate.sparql
+===============================
 
 `View code on Github <https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/translation/query_words_to_translate.sparql>`_
 

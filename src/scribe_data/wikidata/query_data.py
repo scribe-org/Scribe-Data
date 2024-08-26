@@ -224,7 +224,9 @@ def query_data(languages=None, word_types=None):
             )
 
             with open(
-                f"scribe_data_json_export/{lang.capitalize()}/{target_type}.json",
+                Path("scribe_data_json_export")
+                / lang.capitalize()
+                / f"{target_type}.json",
                 encoding="utf-8",
             ) as json_file:
                 formatted_language_data = json.load(json_file)

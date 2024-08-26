@@ -296,20 +296,6 @@ def export_formatted_data(formatted_data: dict, language: str, data_type: str) -
     )
 
 
-def get_path_from_format_file() -> str:
-    """
-    Returns the directory path from a data formatting file to scribe-org.
-    """
-    return "../../../../../.."
-
-
-def get_path_from_wikidata_dir() -> str:
-    """
-    Returns the directory path from the wikidata directory to scribe-org.
-    """
-    return "../../../.."
-
-
 def get_ios_data_path(language: str) -> str:
     """
     Returns the path to the data json of the iOS app given a language.
@@ -324,7 +310,7 @@ def get_ios_data_path(language: str) -> str:
         str
             The path to the data json for the given language.
     """
-    return f"Scribe-iOS/Keyboards/LanguageKeyboards/{language}"
+    return Path("Scribe-iOS") / "Keyboards" / "LanguageKeyboards" / f"{language}"
 
 
 def check_command_line_args(
