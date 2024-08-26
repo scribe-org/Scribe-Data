@@ -28,7 +28,6 @@ class TestTotalLexemes(unittest.TestCase):
     @patch('scribe_data.cli.total.get_qid_by_input')
     @patch('scribe_data.cli.total.sparql.query')
     def test_get_total_lexemes_valid(self, mock_query, mock_get_qid):
-        # Setup mock responses
         mock_get_qid.side_effect = lambda x: {'english': 'Q1860', 'nouns': 'Q1084'}.get(x.lower(), None)
         mock_results = MagicMock()
         mock_results.convert.return_value = {
@@ -40,17 +39,14 @@ class TestTotalLexemes(unittest.TestCase):
         }
         mock_query.return_value = mock_results
 
-        # Call the function
         with patch('builtins.print') as mock_print:
             get_total_lexemes('English', 'nouns')
 
-        # Check outputs
         mock_print.assert_called_once_with('Language: English\nData type: nouns\nTotal number of lexemes: 42')
 
     @patch('scribe_data.cli.total.get_qid_by_input')
     @patch('scribe_data.cli.total.sparql.query')
     def test_get_total_lexemes_no_results(self, mock_query, mock_get_qid):
-        # Setup mock responses
         mock_get_qid.side_effect = lambda x: {'english': 'Q1860', 'nouns': 'Q1084'}.get(x.lower(), None)
         mock_results = MagicMock()
         mock_results.convert.return_value = {
@@ -60,11 +56,9 @@ class TestTotalLexemes(unittest.TestCase):
         }
         mock_query.return_value = mock_results
 
-        # Call the function
         with patch('builtins.print') as mock_print:
             get_total_lexemes('English', 'nouns')
 
-        # Check outputs
         mock_print.assert_called_once_with('Total number of lexemes: Not found')
 
     @patch('scribe_data.cli.total.get_qid_by_input')
@@ -95,7 +89,6 @@ class TestTotalLexemes(unittest.TestCase):
         ]
         mock_print.assert_has_calls(expected_calls, any_order=True)
 
-
     @patch('scribe_data.cli.total.get_qid_by_input')
     @patch('scribe_data.cli.total.sparql.query')
     def test_get_total_lexemes_nonexistent_language(self, mock_query, mock_get_qid):
@@ -119,6 +112,7 @@ class TestTotalLexemes(unittest.TestCase):
                 ]
             }
         }
+
         mock_query.return_value = mock_results
 
         # Call the function with different data types

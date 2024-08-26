@@ -25,7 +25,6 @@ from unittest.mock import patch
 from pathlib import Path
 from scribe_data.cli.convert import export_json,  convert_to_sqlite
 
-
 class TestConvert(unittest.TestCase):
 
     @patch('scribe_data.cli.convert.Path')
