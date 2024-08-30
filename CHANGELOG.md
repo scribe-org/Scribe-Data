@@ -27,6 +27,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - Wikidata query process stages no longer trigger the tqdm progress bar when they're unsuccessful ([#155](https://github.com/scribe-org/Scribe-Data/issues/155)).
 
+### ✅ Tests
+
+- Tests have been written for the CLI to assure that it's functionality remains consistent.
+
 ### 📝 Documentation
 
 - The CLI's functionality has been fully documented ([#152](https://github.com/scribe-org/Scribe-Data/issues/152)).
@@ -101,14 +105,14 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - A process has been created to check and update words that can be translated for each Scribe language ([#44](https://github.com/scribe-org/Scribe-Data/issues/44)).
 - The baseline data returned from Wikidata queries is now removed once a formatted data file is created.
 
+### 🐞 Bug Fixes
+
+- Tensorflow was removed from the download wiki process to fix build problems on Macs.
+
 ### ✅ Tests
 
 - A full testing suite has been added to run on GitHub Actions ([#37](https://github.com/scribe-org/Scribe-Data/issues/37)).
 - Unit tests have been added for Wikidata queries ([#48](https://github.com/scribe-org/Scribe-Data/issues/48)) and utility functions ([#50](https://github.com/scribe-org/Scribe-Data/issues/50)).
-
-### 🐞 Bug Fixes
-
-- Tensorflow was removed from the download wiki process to fix build problems on Macs.
 
 ### ♻️ Code Refactoring
 
