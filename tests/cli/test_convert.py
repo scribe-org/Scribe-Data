@@ -21,9 +21,10 @@ Tests for the CLI convert functionality.
 """
 
 import unittest
-from unittest.mock import patch
 from pathlib import Path
-from scribe_data.cli.convert import export_json, convert_to_sqlite
+from unittest.mock import patch
+
+from scribe_data.cli.convert import convert_to_sqlite, export_json
 
 
 class TestConvert(unittest.TestCase):
