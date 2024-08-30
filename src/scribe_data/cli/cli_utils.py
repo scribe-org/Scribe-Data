@@ -81,43 +81,44 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
         print(f"No data available for data type '{data_type}'.")
         return
 
-    max_key_length = max((len(key) for key in data.keys()), default=0)
+    if isinstance(data, dict):
+        max_key_length = max((len(key) for key in data.keys()), default=0)
 
-    if data_type == "autosuggestions":
-        for key, value in data.items():
-            print(f"{key:<{max_key_length}} : {', '.join(value)}")
+        if data_type == "autosuggestions":
+            for key, value in data.items():
+                print(f"{key:<{max_key_length}} : {', '.join(value)}")
 
-    elif data_type == "emoji_keywords":
-        for key, value in data.items():
-            emojis = [item["emoji"] for item in value]
-            print(f"{key:<{max_key_length}} : {' '.join(emojis)}")
+        elif data_type == "emoji_keywords":
+            for key, value in data.items():
+                emojis = [item["emoji"] for item in value]
+                print(f"{key:<{max_key_length}} : {' '.join(emojis)}")
 
-    elif data_type in {"prepositions", "translations"}:
-        for key, value in data.items():
-            print(f"{key:<{max_key_length}} : {value}")
-
-    elif isinstance(data, dict):
-        for key, value in data.items():
-            if isinstance(value, dict):
-                print(f"{key:<{max_key_length}} : ")
-                max_sub_key_length = max(
-                    (len(sub_key) for sub_key in value.keys()), default=0
-                )
-                for sub_key, sub_value in value.items():
-                    print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
-
-            elif isinstance(value, list):
-                print(f"{key:<{max_key_length}} : ")
-                for item in value:
-                    if isinstance(item, dict):
-                        for sub_key, sub_value in item.items():
-                            print(f"  {sub_key:<{max_key_length}} : {sub_value}")
-
-                    else:
-                        print(f"  {item}")
-
-            else:
+        elif data_type in {"prepositions", "translations"}:
+            for key, value in data.items():
                 print(f"{key:<{max_key_length}} : {value}")
+
+        else:
+            for key, value in data.items():
+                if isinstance(value, dict):
+                    print(f"{key:<{max_key_length}} : ")
+                    max_sub_key_length = max(
+                        (len(sub_key) for sub_key in value.keys()), default=0
+                    )
+                    for sub_key, sub_value in value.items():
+                        print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
+
+                elif isinstance(value, list):
+                    print(f"{key:<{max_key_length}} : ")
+                    for item in value:
+                        if isinstance(item, dict):
+                            for sub_key, sub_value in item.items():
+                                print(f"  {sub_key:<{max_key_length}} : {sub_value}")
+
+                        else:
+                            print(f"  {item}")
+
+                else:
+                    print(f"{key:<{max_key_length}} : {value}")
 
     elif isinstance(data, list):
         for item in data:
