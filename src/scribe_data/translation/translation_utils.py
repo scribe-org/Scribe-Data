@@ -178,8 +178,6 @@ def translate_to_other_languages(
         lambda sig, frame: translation_interrupt_handler(source_language, translations),
     )
 
-    word_list = word_list[:100]
-
     for i in range(0, len(word_list), batch_size):
         batch_words = word_list[i : i + batch_size]
         batch_words = remove_articles_from_words(
