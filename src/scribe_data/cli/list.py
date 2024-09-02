@@ -20,21 +20,12 @@ Functions for listing languages and data types for the Scribe-Data CLI.
     -->
 """
 
-import json
-from pathlib import Path
-
-from scribe_data.cli.cli_utils import correct_data_type
-
-# Load language metadata from JSON file.
-METADATA_FILE = Path(__file__).parent.parent / "resources" / "language_metadata.json"
-LANGUAGE_DATA_EXTRACTION_DIR = Path(__file__).parent.parent / "language_data_extraction"
-
-with METADATA_FILE.open("r", encoding="utf-8") as file:
-    language_metadata = json.load(file)
-
-language_map = {
-    lang["language"].lower(): lang for lang in language_metadata["languages"]
-}
+from scribe_data.cli.cli_utils import (
+    correct_data_type,
+    language_metadata,
+    language_map,
+    LANGUAGE_DATA_EXTRACTION_DIR,
+)
 
 
 def list_languages() -> None:
