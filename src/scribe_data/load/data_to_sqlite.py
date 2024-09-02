@@ -45,18 +45,14 @@ def data_to_sqlite(
     with open(
         PATH_TO_SCRIBE_DATA / "load" / "update_files" / "total_data.json",
         encoding="utf-8",
-    ) as f:
-        current_data = json.load(f)
+    ) as f_total, open(
+        PATH_TO_SCRIBE_DATA / "resources" / "data_type_metadata.json",
+        encoding="utf-8",
+    ) as f_types:
+        current_data = json.load(f_total)
+        data_types = json.load(f_types)["data-types"]
 
     current_languages = list(current_data.keys())
-    data_types = [
-        "nouns",
-        "verbs",
-        "prepositions",
-        "translations",
-        "autosuggestions",
-        "emoji_keywords",
-    ]
 
     if not languages:
         languages = current_languages
