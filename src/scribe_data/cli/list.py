@@ -20,10 +20,12 @@ Functions for listing languages and data types for the Scribe-Data CLI.
     -->
 """
 
-from scribe_data.cli.cli_utils import correct_data_type
-from scribe_data.utils import language_metadata
-from scribe_data.utils import language_map
-from scribe_data.utils import LANGUAGE_DATA_EXTRACTION_DIR
+from scribe_data.cli.cli_utils import (
+    correct_data_type,
+    language_metadata,
+    language_map,
+    LANGUAGE_DATA_EXTRACTION_DIR,
+)
 
 
 def list_languages() -> None:
