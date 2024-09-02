@@ -328,7 +328,6 @@ def data_to_sqlite(
             )
 
     print("Database creation/update process completed.")
-    print("Database creation/update process completed.")
 
 
 if __name__ == "__main__":

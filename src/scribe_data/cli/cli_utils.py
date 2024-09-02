@@ -26,6 +26,8 @@ from typing import Union
 
 from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 
+LANGUAGE_DATA_EXTRACTION_DIR = Path(__file__).parent.parent / "language_data_extraction"
+
 LANGUAGE_METADATA_FILE = (
     Path(__file__).parent.parent / "resources" / "language_metadata.json"
 )
