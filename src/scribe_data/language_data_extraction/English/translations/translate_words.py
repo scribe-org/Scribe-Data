@@ -3,7 +3,7 @@ Translates the English words queried from Wikidata to all other Scribe languages
 
 Example
 -------
-    python3 src/scribe_data/languages/English/translations/translate_words.py
+    python3 src/scribe_data/language_data_extraction/English/translations/translate_words.py
 
 .. raw:: html
     <!--
