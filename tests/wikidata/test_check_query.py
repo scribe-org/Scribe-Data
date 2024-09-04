@@ -25,7 +25,7 @@ from http import HTTPStatus
 from pathlib import Path
 from unittest.mock import MagicMock, mock_open, patch
 from urllib.error import HTTPError
-
+import os
 import pytest
 from scribe_data.wikidata.check_query.check import (
     all_queries,
@@ -41,8 +41,14 @@ from scribe_data.wikidata.check_query.check import (
 from scribe_data.wikidata.check_query.query import QueryExecutionException, QueryFile
 from scribe_data.wikidata.check_query.sparql import execute
 
+
+def normalize_path(path):
+    return os.path.normpath(path)
+
+
 S_PATH = "/root/project/src/dir/query.sparql"
-A_PATH = Path(S_PATH)
+S_PATH = normalize_path(S_PATH)
+A_PATH = Path(normalize_path(S_PATH))
 
 
 @pytest.fixture
@@ -50,7 +56,7 @@ def a_query():
     return QueryFile(A_PATH)
 
 
-# Query
+# MARK: Query
 def test_full_path(a_query):
     assert a_query.path == A_PATH
 
@@ -65,7 +71,7 @@ def test_query_equals(a_query):
 
 
 def test_query_not_equals(a_query):
-    assert a_query != QueryFile("/root/project/src/Dir/query.sparql")
+    assert a_query != QueryFile(normalize_path("/root/project/src/Dir/query.sparql"))
 
 
 def test_query_not_equals_object(a_query):
@@ -73,11 +79,17 @@ def test_query_not_equals_object(a_query):
 
 
 def test_query_str(a_query):
-    assert str(a_query) == "QueryFile(path=/root/project/src/dir/query.sparql)"
+    assert (
+        str(a_query)
+        == f"QueryFile(path={normalize_path('/root/project/src/dir/query.sparql')})"
+    )
 
 
 def test_query_repr(a_query):
-    assert repr(a_query) == "QueryFile(path=/root/project/src/dir/query.sparql)"
+    assert (
+        repr(a_query)
+        == f"QueryFile(path={normalize_path('/root/project/src/dir/query.sparql')})"
+    )
 
 
 def test_query_execution_exception(a_query):
@@ -85,7 +97,7 @@ def test_query_execution_exception(a_query):
     assert str(exception) == f"{S_PATH} : failure"
 
 
-# ping
+# MARK: ping
 @patch("urllib.request.urlopen")
 def test_ping_pass(mock_urlopen):
     mock_urlopen.return_value.__enter__.return_value.getcode.return_value = (
@@ -117,7 +129,7 @@ def test_ping_fail(mock_urlopen):
     assert not ping("http://www.python.org", 0)
 
 
-# check_sparql_file
+# MARK: check_sparql_file
 @patch.object(Path, "is_file", return_value=True)
 def test_check_sparql_file_exists(_):
     assert check_sparql_file(S_PATH) == A_PATH
@@ -140,7 +152,7 @@ def test_check_sparql_file_not_sparql_extension(_):
     assert str(err.value) == f"{fpath} does not have a '.sparql' extension"
 
 
-# changed_queries
+# MARK: changed_queries
 @pytest.mark.parametrize(
     "git_status, expected",
     [
@@ -165,6 +177,7 @@ def test_changed_queries(mock_run, git_status, expected):
     mock_result.configure_mock(**{"returncode": 0, "stdout": git_status})
 
     mock_run.return_value = mock_result
+    expected = [QueryFile(Path(p.path).resolve()) for p in expected]
     assert changed_queries() == expected
 
 
@@ -180,7 +193,7 @@ def test_changed_queries_failure(mock_run, capsys):
     assert "ERROR: no git" == err_out.strip()
 
 
-# all_queries
+# MARK: all_queries
 @pytest.mark.parametrize(
     "tree, expected",
     [
@@ -197,8 +210,8 @@ def test_changed_queries_failure(mock_run, capsys):
                 ("/root/src", (), ("sparql.pdf", "b.sparql")),
             ],
             [
-                QueryFile(Path("/root/a.sparql")),
-                QueryFile(Path("/root/src/b.sparql")),
+                QueryFile(Path(normalize_path("/root/a.sparql"))),
+                QueryFile(Path(normalize_path("/root/src/b.sparql"))),
             ],
         ),
     ],
@@ -209,7 +222,7 @@ def test_all_queries(tree, expected):
         assert all_queries() == expected
 
 
-# execute
+# MARK: execute
 
 
 def test_execute(a_query):
@@ -219,7 +232,7 @@ def test_execute(a_query):
         assert str(err) == f"{a_query.path} : Failed too many times."
 
 
-# check_limit
+# MARK: check_limit
 @pytest.mark.parametrize(
     "candidate, limit",
     [
@@ -248,7 +261,7 @@ def test_check_limit_neg(candidate):
     assert str(err.value) == "LIMIT must be an integer of value 1 or greater."
 
 
-# check_timeout
+# MARK: check_timeout
 @pytest.mark.parametrize(
     "candidate, timeout",
     [
@@ -277,7 +290,7 @@ def test_check_timeout_neg(candidate):
     assert str(err.value) == "timeout must be an integer of value 1 or greater."
 
 
-# main
+# MARK: main
 
 
 @pytest.mark.parametrize("arg", ["-h", "--help"])
@@ -314,7 +327,7 @@ def test_error_report_single(a_query, capsys):
 
     assert (
         err_out == "\nFollowing query failed:\n\n"
-        "/root/project/src/dir/query.sparql : timeout\n"
+        f"{normalize_path('/root/project/src/dir/query.sparql')} : timeout\n"
     )
 
 
@@ -328,8 +341,8 @@ def test_error_report_multiple(a_query, capsys):
 
     assert (
         err_out == "\nFollowing queries failed:\n\n"
-        "/root/project/src/dir/query.sparql : timeout\n"
-        "/root/project/src/dir/query.sparql : bad format\n"
+        f"{normalize_path('/root/project/src/dir/query.sparql')} : timeout\n"
+        f"{normalize_path('/root/project/src/dir/query.sparql')} : bad format\n"
     )
 
 
@@ -346,7 +359,7 @@ def test_success_report_single_display_set(a_query, capsys):
 
     assert (
         out == "\nFollowing query ran successfully:\n\n"
-        "/root/project/src/dir/query.sparql returned: {'a': 23}\n"
+        f"{normalize_path('/root/project/src/dir/query.sparql')} returned: {{'a': 23}}\n"
     )
 
 
@@ -375,6 +388,6 @@ def test_success_report_multiple_display_set(a_query, capsys):
 
     assert (
         out == "\nFollowing queries ran successfully:\n\n"
-        "/root/project/src/dir/query.sparql returned: {'a': 23}\n"
-        "/root/project/src/dir/query.sparql returned: {'b': 57}\n"
+        f"{normalize_path('/root/project/src/dir/query.sparql')} returned: {{'a': 23}}\n"
+        f"{normalize_path('/root/project/src/dir/query.sparql')} returned: {{'b': 57}}\n"
     )
