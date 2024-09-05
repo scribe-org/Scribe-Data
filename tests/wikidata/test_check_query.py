@@ -25,7 +25,6 @@ from http import HTTPStatus
 from pathlib import Path
 from unittest.mock import MagicMock, mock_open, patch
 from urllib.error import HTTPError
-import os
 import pytest
 from scribe_data.wikidata.check_query.check import (
     all_queries,
@@ -43,7 +42,7 @@ from scribe_data.wikidata.check_query.sparql import execute
 
 
 def normalize_path(path):
-    return os.path.normpath(path)
+    return str(Path(path))
 
 
 S_PATH = "/root/project/src/dir/query.sparql"
