@@ -29,6 +29,7 @@ from pathlib import Path
 
 from scribe_data.utils import (
     DEFAULT_SQLITE_EXPORT_DIR,
+    get_android_data_path,
     get_ios_data_path,
     get_language_from_iso,
 )
@@ -51,11 +52,19 @@ language_db_dict = {
 for language in language_db_dict:
     language_db_dict[language]["scribe_ios_db_path"] = (
         get_ios_data_path(language=language)
-        / f"{language_db_dict[language]['db_location'].split('/')[-1]}"
+        / f"{str(language_db_dict[language]['db_location']).split('/')[-1]}"
     )
     language_db_dict[language]["full_path_to_scribe_ios_db"] = (
         PATH_TO_SCRIBE_DATA_ROOT.parent
         / f"{language_db_dict[language]['scribe_ios_db_path']}"
+    )
+    language_db_dict[language]["scribe_android_db_path"] = (
+        get_android_data_path()
+        / f"{str(language_db_dict[language]['db_location']).split('/')[-1]}"
+    )
+    language_db_dict[language]["full_path_to_scribe_android_db"] = (
+        PATH_TO_SCRIBE_DATA_ROOT.parent
+        / f"{language_db_dict[language]['scribe_android_db_path']}"
     )
 
 for language in language_db_dict:
@@ -64,4 +73,10 @@ for language in language_db_dict:
     )
     print(
         f"Moved {language} language database to Scribe-iOS at {language_db_dict[language]['scribe_ios_db_path']}."
+    )
+    os.system(
+        f'cp {language_db_dict[language]["db_location"]} {language_db_dict[language]["full_path_to_scribe_android_db"]}'
+    )
+    print(
+        f"Moved {language} language database to Scribe-iOS at {language_db_dict[language]['scribe_android_db_path']}."
     )
