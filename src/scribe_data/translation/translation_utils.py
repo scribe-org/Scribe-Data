@@ -22,6 +22,7 @@ Utility functions for the machine translation process.
 
 import json
 import signal
+import time
 from functools import lru_cache
 from pathlib import Path
 
@@ -178,7 +179,9 @@ def translate_to_other_languages(
         lambda sig, frame: translation_interrupt_handler(source_language, translations),
     )
 
+    total_time = 0
     for i in range(0, len(word_list), batch_size):
+        start_time = time.time()
         batch_words = word_list[i : i + batch_size]
         batch_words = remove_articles_from_words(
             batch_words, articles_dict[get_language_iso(source_language)]
@@ -205,7 +208,19 @@ def translate_to_other_languages(
 
                 translations[word][lang_code] = translation
 
-        print(f"Batch {i//batch_size + 1} translation completed.")
+        batch_time = time.time() - start_time
+        total_time += batch_time
+        decimal_completed = (i + batch_size) / len(word_list)
+        percent_completed = round(decimal_completed, 4) * 100
+        time_to_finish_estimate = round(total_time / decimal_completed / 60 / 60, 4)
+
+        print(
+            f"Batch {i // batch_size + 1} translations completed - {percent_completed}% complete"
+        )
+        print(f"Time to finish batch: {batch_time} seconds")
+        print(
+            f"Time to finish {source_language} translations: {time_to_finish_estimate} hours\n"
+        )
 
         with open(
             Path(DEFAULT_JSON_EXPORT_DIR) / source_language / "translations.json",
