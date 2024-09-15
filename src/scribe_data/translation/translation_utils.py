@@ -26,6 +26,7 @@ import time
 from functools import lru_cache
 from pathlib import Path
 
+import torch
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
 from scribe_data.utils import (
@@ -150,7 +151,10 @@ def translation_interrupt_handler(source_language, translations):
 
 
 def translate_to_other_languages(
-    source_language: str, word_list: list, translations: dict, batch_size: int
+    source_language: str,
+    word_list: list,
+    translations: dict,
+    batch_size: int,
 ):
     """
     Translates a list of words from the source language to other target languages using batch processing.
@@ -169,8 +173,14 @@ def translate_to_other_languages(
         batch_size : int
             The number of words to translate in each batch.
     """
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
     model = M2M100ForConditionalGeneration.from_pretrained("facebook/m2m100_418M")
-    tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
+    tokenizer = M2M100Tokenizer.from_pretrained(
+        "facebook/m2m100_418M", src_lang=get_language_iso(source_language)
+    )
+
+    model.to(device)
 
     articles_dict = get_articles_dict()
 
@@ -193,7 +203,8 @@ def translate_to_other_languages(
             tokenizer.src_lang = get_language_iso(source_language)
             encoded_words = tokenizer(batch_words, return_tensors="pt", padding=True)
             generated_tokens = model.generate(
-                **encoded_words, forced_bos_token_id=tokenizer.get_lang_id(lang_code)
+                **encoded_words.to(device),
+                forced_bos_token_id=tokenizer.get_lang_id(lang_code),
             )
             translated_words = tokenizer.batch_decode(
                 generated_tokens, skip_special_tokens=True
