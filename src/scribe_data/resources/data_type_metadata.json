@@ -1,10 +1,10 @@
 {
-  "data-types": [
-    "autosuggestions",
-    "emoji_keywords",
-    "nouns",
-    "prepositions",
-    "translations",
-    "verbs"
-  ]
+  "data-types": {
+    "autosuggestions":"",
+    "emoji_keywords":"",
+    "nouns": "Q1084",
+    "prepositions": "Q37649",
+    "translations": "Q7553789",
+    "verbs": "Q24905"
+  }
 }
