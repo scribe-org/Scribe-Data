@@ -23,7 +23,7 @@ Tests for the CLI total functionality.
 import unittest
 from unittest.mock import MagicMock, call, patch
 
-from scribe_data.cli.total import get_total_lexemes
+from scribe_data.cli.total import get_total_lexemes, get_qid_by_input
 
 
 class TestTotalLexemes(unittest.TestCase):
@@ -125,3 +125,25 @@ class TestTotalLexemes(unittest.TestCase):
             call("Language: English\nData type: nouns\nTotal number of lexemes: 30"),
         ]
         mock_print.assert_has_calls(expected_calls)
+
+
+class TestGetQidByInput(unittest.TestCase):
+    def setUp(self):
+        self.valid_data_types = {
+            "english": "Q1860",
+            "nouns": "Q1084",
+            "verbs": "Q24905",
+        }
+
+    @patch("scribe_data.cli.total.data_type_to_qid", new_callable=dict)
+    def test_get_qid_by_input_valid(self, mock_data_type_to_qid):
+        mock_data_type_to_qid.update(self.valid_data_types)
+
+        for data_type, expected_qid in self.valid_data_types.items():
+            self.assertEqual(get_qid_by_input(data_type), expected_qid)
+
+    @patch("scribe_data.cli.total.data_type_to_qid", new_callable=dict)
+    def test_get_qid_by_input_invalid(self, mock_data_type_to_qid):
+        mock_data_type_to_qid.update(self.valid_data_types)
+
+        self.assertIsNone(get_qid_by_input("invalid_data_type"))
