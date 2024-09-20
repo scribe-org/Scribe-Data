@@ -28,10 +28,8 @@ from typing import Optional
 from scribe_data.cli.cli_utils import language_map
 from scribe_data.load.data_to_sqlite import data_to_sqlite
 from scribe_data.utils import (
-    DEFAULT_CSV_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
-    DEFAULT_TSV_EXPORT_DIR,
     get_language_iso,
 )
 
@@ -43,6 +41,7 @@ def export_json(
 ) -> None:
     normalized_language = language_map.get(language.lower())
     language_capitalized = language.capitalize()
+
     if not normalized_language:
         raise ValueError(f"Language '{language_capitalized}' is not recognized.")
 
@@ -64,7 +63,6 @@ def export_json(
         print(f"Error reading '{data_file}': {e}")
         return
 
-    # Adjust the output directory for JSON exports.
     json_output_dir = (
         output_dir
         / DEFAULT_JSON_EXPORT_DIR
@@ -91,73 +89,62 @@ def export_json(
 
 
 def convert_to_csv_or_tsv(
-    file: Path,
-    output_dir: Path,
-    output_type: str,
-    overwrite: bool,
+    language: str, data_type: list, output_dir: Path, overwrite: bool, output_type: str
 ) -> None:
-    if not file.exists():
-        print(f"No data found for {output_type} conversion.")
+    normalized_language = language_map.get(language.lower())
+    if not normalized_language:
+        print(f"Language '{language}' is not recognized.")
         return
 
-    try:
-        with file.open("r") as f:
-            data = json.load(f)
+    for dtype in data_type:
+        file_path = (
+            DATA_DIR / normalized_language["language"].capitalize() / f"{dtype}.json"
+        )
+        if not file_path.exists():
+            print(f"No data found for {dtype} conversion at '{file_path}'.")
+            continue
 
-    except (IOError, json.JSONDecodeError) as e:
-        print(f"Error reading '{file}': {e}")
-        return
+        try:
+            with file_path.open("r") as f:
+                data = json.load(f)
+        except (IOError, json.JSONDecodeError) as e:
+            print(f"Error reading '{file_path}': {e}")
+            continue
 
-    if output_type == "csv":
-        delimiter = ","
-        file_extension = "csv"
-        output_subdirectory = DEFAULT_CSV_EXPORT_DIR
+        delimiter = "," if output_type == "csv" else "\t"
+        file_extension = output_type
 
-    elif output_type == "tsv":
-        delimiter = "\t"
-        file_extension = "tsv"
-        output_subdirectory = DEFAULT_TSV_EXPORT_DIR
+        final_output_dir = output_dir / normalized_language["language"].capitalize()
+        final_output_dir.mkdir(parents=True, exist_ok=True)
 
-    else:
-        print(f"Unsupported output type '{output_type}'.")
-        return
+        output_file = final_output_dir / f"{dtype}.{file_extension}"
+        if output_file.exists() and not overwrite:
+            user_input = input(
+                f"File '{output_file}' already exists. Overwrite? (y/n): "
+            )
+            if user_input.lower() != "y":
+                print(f"Skipping {dtype}")
+                continue
 
-    # Adjust the output directory for CSV exports.
-    final_output_dir = (
-        output_dir / output_subdirectory / file.split("/")[-2].capitalize()
-    )
-    final_output_dir.mkdir(parents=True, exist_ok=True)
+        try:
+            with output_file.open("w", newline="", encoding="utf-8") as file:
+                writer = csv.writer(file, delimiter=delimiter)
+                if isinstance(data, dict):
+                    writer.writerow(data.keys())
+                    writer.writerow(data.values())
+                elif isinstance(data, list):
+                    for item in data:
+                        if isinstance(item, dict):
+                            writer.writerow(item.values())
+                        else:
+                            writer.writerow([item])
+                else:
+                    print(f"Unsupported data format for {output_type} export.")
+        except IOError as e:
+            print(f"Error writing to '{output_file}': {e}")
+            continue
 
-    output_file = final_output_dir / f"{file.split('/')[-2]}.{file_extension}"
-    if output_file.exists() and not overwrite:
-        user_input = input(f"File '{output_file}' already exists. Overwrite? (y/n): ")
-        if user_input.lower() != "y":
-            print(f"Skipping {file}")
-            return
-
-    try:
-        with output_file.open("w", newline="", encoding="utf-8") as file:
-            writer = csv.writer(file, delimiter=delimiter)
-            if isinstance(data, dict):
-                for key, value in data.items():
-                    writer.writerow([key, value])
-
-            elif isinstance(data, list):
-                for item in data:
-                    if isinstance(item, dict):
-                        writer.writerow(item.values())
-
-                    else:
-                        writer.writerow([item])
-
-            else:
-                print(f"Unsupported data format for {output_type} export.")
-
-    except IOError as e:
-        print(f"Error writing to '{output_file}': {e}")
-        return
-
-    print(f"Data for '{file}' written to '{output_file}'")
+        print(f"Data for '{dtype}' written to '{output_file}'")
 
 
 def convert_to_sqlite(

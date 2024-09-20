@@ -28,7 +28,11 @@ from scribe_data.cli.cli_utils import (
     language_metadata,
 )
 from scribe_data.cli.get import get_data
-from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
+from scribe_data.utils import (
+    DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_CSV_EXPORT_DIR,
+    DEFAULT_TSV_EXPORT_DIR,
+)
 
 
 def get_selection(user_input: str, options: list[str]) -> list[str]:
@@ -113,15 +117,34 @@ def get_output_options() -> dict:
         dict
             Output options including type, directory, and overwrite flag
     """
+    valid_types = ["json", "csv", "tsv"]
     output_type = (
-        input("File type to export (json, csv, tsv) [json]: ").lower() or "json"
+        input("File type to export (json, csv, tsv) [json]: ").strip().lower() or "json"
     )
+
+    while output_type not in valid_types:
+        print(
+            f"Invalid output type '{output_type}'. Please choose from 'json', 'csv', or 'tsv'."
+        )
+        output_type = (
+            input("File type to export (json, csv, tsv) [json]: ").strip().lower()
+            or "json"
+        )
+
+    if output_type == "csv":
+        default_export_dir = DEFAULT_CSV_EXPORT_DIR
+    elif output_type == "tsv":
+        default_export_dir = DEFAULT_TSV_EXPORT_DIR
+    else:
+        default_export_dir = DEFAULT_JSON_EXPORT_DIR
+
     output_dir = (
-        input(f"Export directory path [./{DEFAULT_JSON_EXPORT_DIR}]: ")
-        or f"./{DEFAULT_JSON_EXPORT_DIR}"
+        input(f"Export directory path [./{default_export_dir}]: ").strip()
+        or f"./{default_export_dir}"
     )
     overwrite = (
-        input("Overwrite existing data without asking (y/n) [n]: ").lower() == "y"
+        input("Overwrite existing data without asking (y/n) [n]: ").strip().lower()
+        == "y"
     )
 
     return {"type": output_type, "dir": output_dir, "overwrite": overwrite}
@@ -152,17 +175,15 @@ def run_interactive_mode():
         f"Data will be exported as {output_options['type'].upper()} files to '{output_options['dir']}'."
     )
 
-    # Convert lists to comma-separated strings for get_data.
-    languages_str = ",".join(selected_languages)
-    data_types_str = ",".join(selected_data_types)
-
-    get_data(
-        languages_str,
-        data_types_str,
-        output_options["dir"],
-        output_options["overwrite"],
-        output_options["type"],
-    )
+    for language in selected_languages:
+        for data_type in selected_data_types:
+            get_data(
+                language,
+                data_type,
+                output_options["dir"],
+                output_options["overwrite"],
+                output_options["type"],
+            )
 
 
 # This function can be called from main.py when the -i or --interactive flag is used.
