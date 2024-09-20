@@ -22,6 +22,7 @@ Functions to convert data returned from the Scribe-Data CLI to other file types.
 
 import csv
 import json
+import shutil
 from pathlib import Path
 from typing import Optional
 
@@ -107,17 +108,16 @@ def convert_to_csv_or_tsv(
         try:
             with file_path.open("r") as f:
                 data = json.load(f)
+
         except (IOError, json.JSONDecodeError) as e:
             print(f"Error reading '{file_path}': {e}")
             continue
 
         delimiter = "," if output_type == "csv" else "\t"
-        file_extension = output_type
-
         final_output_dir = output_dir / normalized_language["language"].capitalize()
         final_output_dir.mkdir(parents=True, exist_ok=True)
 
-        output_file = final_output_dir / f"{dtype}.{file_extension}"
+        output_file = final_output_dir / f"{dtype}.{output_type}"
         if output_file.exists() and not overwrite:
             user_input = input(
                 f"File '{output_file}' already exists. Overwrite? (y/n): "
@@ -132,14 +132,17 @@ def convert_to_csv_or_tsv(
                 if isinstance(data, dict):
                     writer.writerow(data.keys())
                     writer.writerow(data.values())
+
                 elif isinstance(data, list):
                     for item in data:
                         if isinstance(item, dict):
                             writer.writerow(item.values())
+
                         else:
                             writer.writerow([item])
                 else:
                     print(f"Unsupported data format for {output_type} export.")
+
         except IOError as e:
             print(f"Error writing to '{output_file}': {e}")
             continue
@@ -174,12 +177,13 @@ def convert_to_sqlite(
         if source_path.exists():
             if target_path.exists() and not overwrite:
                 print(f"File {target_path} already exists. Use --overwrite to replace.")
-            else:
-                import shutil
 
+            else:
                 shutil.copy(source_path, target_path)
                 print(f"SQLite database copied to: {target_path}")
+
         else:
             print(f"Warning: SQLite file not found at {source_path}")
+
     else:
         print("No output directory specified. SQLite file remains in default location.")

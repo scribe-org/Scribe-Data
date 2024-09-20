@@ -29,8 +29,8 @@ from scribe_data.cli.cli_utils import (
 )
 from scribe_data.cli.get import get_data
 from scribe_data.utils import (
-    DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_CSV_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
 )
 
@@ -56,7 +56,8 @@ def get_selection(user_input: str, options: list[str]) -> list[str]:
         return options
 
     try:
-        indices = [int(i) - 1 for i in user_input.split(",")]
+        indices = [int(i.strip()) - 1 for i in user_input.split(",")]
+
         return [options[i] for i in indices]
 
     except (ValueError, IndexError):
@@ -72,7 +73,7 @@ def select_languages() -> list[str]:
         List[str]
             The languages available in Scribe-Data and CLI directions.
     """
-    print("Language options:")
+    print("\nLanguage options:")
     languages = [
         lang["language"].capitalize() for lang in language_metadata["languages"]
     ]
@@ -105,7 +106,7 @@ def select_data_types() -> list[str]:
         "\nPlease enter the data types to get, their numbers or (a) for all data types: "
     )
 
-    return get_selection(dt_input, data_types)
+    return get_selection(dt_input, list(data_types.keys()))
 
 
 def get_output_options() -> dict:
@@ -133,8 +134,10 @@ def get_output_options() -> dict:
 
     if output_type == "csv":
         default_export_dir = DEFAULT_CSV_EXPORT_DIR
+
     elif output_type == "tsv":
         default_export_dir = DEFAULT_TSV_EXPORT_DIR
+
     else:
         default_export_dir = DEFAULT_JSON_EXPORT_DIR
 
@@ -188,7 +191,7 @@ def run_interactive_mode():
 
 # This function can be called from main.py when the -i or --interactive flag is used.
 def start_interactive_mode():
-    print("Welcome to Scribe-Data interactive mode!\n")
+    print("Welcome to Scribe-Data interactive mode!")
     run_interactive_mode()
 
 
