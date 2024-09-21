@@ -21,107 +21,129 @@ Tests for the CLI total functionality.
 """
 
 import unittest
-from unittest.mock import patch, MagicMock, call
-from scribe_data.cli.total import get_total_lexemes
+from unittest.mock import MagicMock, call, patch
+
+from scribe_data.cli.total import get_total_lexemes, get_qid_by_input
+
 
 class TestTotalLexemes(unittest.TestCase):
-    @patch('scribe_data.cli.total.get_qid_by_input')
-    @patch('scribe_data.cli.total.sparql.query')
+    @patch("scribe_data.cli.total.get_qid_by_input")
+    @patch("scribe_data.cli.total.sparql.query")
     def test_get_total_lexemes_valid(self, mock_query, mock_get_qid):
-        mock_get_qid.side_effect = lambda x: {'english': 'Q1860', 'nouns': 'Q1084'}.get(x.lower(), None)
+        mock_get_qid.side_effect = lambda x: {"english": "Q1860", "nouns": "Q1084"}.get(
+            x.lower(), None
+        )
         mock_results = MagicMock()
         mock_results.convert.return_value = {
-            "results": {
-                "bindings": [
-                    {"total": {"value": "42"}}
-                ]
-            }
+            "results": {"bindings": [{"total": {"value": "42"}}]}
         }
         mock_query.return_value = mock_results
 
-        with patch('builtins.print') as mock_print:
-            get_total_lexemes('English', 'nouns')
+        with patch("builtins.print") as mock_print:
+            get_total_lexemes("English", "nouns")
 
-        mock_print.assert_called_once_with('Language: English\nData type: nouns\nTotal number of lexemes: 42')
+        mock_print.assert_called_once_with(
+            "Language: English\nData type: nouns\nTotal number of lexemes: 42"
+        )
 
-    @patch('scribe_data.cli.total.get_qid_by_input')
-    @patch('scribe_data.cli.total.sparql.query')
+    @patch("scribe_data.cli.total.get_qid_by_input")
+    @patch("scribe_data.cli.total.sparql.query")
     def test_get_total_lexemes_no_results(self, mock_query, mock_get_qid):
-        mock_get_qid.side_effect = lambda x: {'english': 'Q1860', 'nouns': 'Q1084'}.get(x.lower(), None)
+        mock_get_qid.side_effect = lambda x: {"english": "Q1860", "nouns": "Q1084"}.get(
+            x.lower()
+        )
         mock_results = MagicMock()
-        mock_results.convert.return_value = {
-            "results": {
-                "bindings": []
-            }
-        }
+        mock_results.convert.return_value = {"results": {"bindings": []}}
         mock_query.return_value = mock_results
 
-        with patch('builtins.print') as mock_print:
-            get_total_lexemes('English', 'nouns')
+        with patch("builtins.print") as mock_print:
+            get_total_lexemes("English", "nouns")
 
-        mock_print.assert_called_once_with('Total number of lexemes: Not found')
+        mock_print.assert_called_once_with("Total number of lexemes: Not found")
 
-    @patch('scribe_data.cli.total.get_qid_by_input')
-    @patch('scribe_data.cli.total.sparql.query')
+    @patch("scribe_data.cli.total.get_qid_by_input")
+    @patch("scribe_data.cli.total.sparql.query")
     def test_get_total_lexemes_invalid_language(self, mock_query, mock_get_qid):
         mock_get_qid.side_effect = lambda x: None
         mock_query.return_value = MagicMock()
 
-        with patch('builtins.print') as mock_print:
-            get_total_lexemes('InvalidLanguage', 'nouns')
+        with patch("builtins.print") as mock_print:
+            get_total_lexemes("InvalidLanguage", "nouns")
 
-        mock_print.assert_called_once_with('Total number of lexemes: Not found')
+        mock_print.assert_called_once_with("Total number of lexemes: Not found")
 
-    @patch('scribe_data.cli.total.get_qid_by_input')
-    @patch('scribe_data.cli.total.sparql.query')
+    @patch("scribe_data.cli.total.get_qid_by_input")
+    @patch("scribe_data.cli.total.sparql.query")
     def test_get_total_lexemes_empty_and_none_inputs(self, mock_query, mock_get_qid):
         mock_get_qid.return_value = None
         mock_query.return_value = MagicMock()
 
         # Call the function with empty and None inputs
-        with patch('builtins.print') as mock_print:
-            get_total_lexemes('', 'nouns')
-            get_total_lexemes(None, 'verbs')
+        with patch("builtins.print") as mock_print:
+            get_total_lexemes("", "nouns")
+            get_total_lexemes(None, "verbs")
 
         expected_calls = [
-            call('Total number of lexemes: Not found'),
-            call('Total number of lexemes: Not found')
+            call("Total number of lexemes: Not found"),
+            call("Total number of lexemes: Not found"),
         ]
         mock_print.assert_has_calls(expected_calls, any_order=True)
 
-    @patch('scribe_data.cli.total.get_qid_by_input')
-    @patch('scribe_data.cli.total.sparql.query')
+    @patch("scribe_data.cli.total.get_qid_by_input")
+    @patch("scribe_data.cli.total.sparql.query")
     def test_get_total_lexemes_nonexistent_language(self, mock_query, mock_get_qid):
         mock_get_qid.return_value = None
         mock_query.return_value = MagicMock()
 
-        with patch('builtins.print') as mock_print:
-            get_total_lexemes('Martian', 'nouns')
+        with patch("builtins.print") as mock_print:
+            get_total_lexemes("Martian", "nouns")
 
-        mock_print.assert_called_once_with('Total number of lexemes: Not found')
-    
-    @patch('scribe_data.cli.total.get_qid_by_input')
-    @patch('scribe_data.cli.total.sparql.query')
+        mock_print.assert_called_once_with("Total number of lexemes: Not found")
+
+    @patch("scribe_data.cli.total.get_qid_by_input")
+    @patch("scribe_data.cli.total.sparql.query")
     def test_get_total_lexemes_various_data_types(self, mock_query, mock_get_qid):
-        mock_get_qid.side_effect = lambda x: {'english': 'Q1860', 'verbs': 'Q24905', 'nouns': 'Q1084'}.get(x.lower(), None)
+        mock_get_qid.side_effect = lambda x: {
+            "english": "Q1860",
+            "verbs": "Q24905",
+            "nouns": "Q1084",
+        }.get(x.lower())
         mock_results = MagicMock()
         mock_results.convert.return_value = {
-            "results": {
-                "bindings": [
-                    {"total": {"value": "30"}}
-                ]
-            }
+            "results": {"bindings": [{"total": {"value": "30"}}]}
         }
 
         mock_query.return_value = mock_results
 
         # Call the function with different data types
-        with patch('builtins.print') as mock_print:
-            get_total_lexemes('English', 'verbs')
-            get_total_lexemes('English', 'nouns')
+        with patch("builtins.print") as mock_print:
+            get_total_lexemes("English", "verbs")
+            get_total_lexemes("English", "nouns")
 
         expected_calls = [
-            call('Language: English\nData type: verbs\nTotal number of lexemes: 30'),
-            call('Language: English\nData type: nouns\nTotal number of lexemes: 30')
+            call("Language: English\nData type: verbs\nTotal number of lexemes: 30"),
+            call("Language: English\nData type: nouns\nTotal number of lexemes: 30"),
         ]
         mock_print.assert_has_calls(expected_calls)
+
+
+class TestGetQidByInput(unittest.TestCase):
+    def setUp(self):
+        self.valid_data_types = {
+            "english": "Q1860",
+            "nouns": "Q1084",
+            "verbs": "Q24905",
+        }
+
+    @patch("scribe_data.cli.total.data_type_to_qid", new_callable=dict)
+    def test_get_qid_by_input_valid(self, mock_data_type_to_qid):
+        mock_data_type_to_qid.update(self.valid_data_types)
+
+        for data_type, expected_qid in self.valid_data_types.items():
+            self.assertEqual(get_qid_by_input(data_type), expected_qid)
+
+    @patch("scribe_data.cli.total.data_type_to_qid", new_callable=dict)
+    def test_get_qid_by_input_invalid(self, mock_data_type_to_qid):
+        mock_data_type_to_qid.update(self.valid_data_types)
+
+        self.assertIsNone(get_qid_by_input("invalid_data_type"))

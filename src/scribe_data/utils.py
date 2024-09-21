@@ -308,9 +308,26 @@ def get_ios_data_path(language: str) -> str:
     Returns
     -------
         str
-            The path to the data json for the given language.
+            The path to the language folder for the given language.
     """
     return Path("Scribe-iOS") / "Keyboards" / "LanguageKeyboards" / f"{language}"
+
+
+def get_android_data_path() -> str:
+    """
+    Returns the path to the data json of the Android app given a language.
+
+    Parameters
+    ----------
+        language : str
+            The language the path should be returned for.
+
+    Returns
+    -------
+        str
+            The path to the assets data folder for the application.
+    """
+    return Path("Scribe-Android") / "app" / "src" / "main" / "assets" / "data"
 
 
 def check_command_line_args(

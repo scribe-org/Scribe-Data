@@ -176,7 +176,7 @@ texinfo_documents = [
         "Scribe-Data Documentation",
         author,
         "Scribe-Data",
-        "Wikidata and Wikipedia data extraction for Scribe applications",
+        "Wikidata, Wiktionary and Wikipedia language data extraction",
         "Miscellaneous",
     )
 ]

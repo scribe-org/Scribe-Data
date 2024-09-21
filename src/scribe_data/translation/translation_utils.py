@@ -22,9 +22,11 @@ Utility functions for the machine translation process.
 
 import json
 import signal
+import time
 from functools import lru_cache
 from pathlib import Path
 
+import torch
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
 from scribe_data.utils import (
@@ -149,7 +151,10 @@ def translation_interrupt_handler(source_language, translations):
 
 
 def translate_to_other_languages(
-    source_language: str, word_list: list, translations: dict, batch_size: int
+    source_language: str,
+    word_list: list,
+    translations: dict,
+    batch_size: int,
 ):
     """
     Translates a list of words from the source language to other target languages using batch processing.
@@ -168,8 +173,14 @@ def translate_to_other_languages(
         batch_size : int
             The number of words to translate in each batch.
     """
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
     model = M2M100ForConditionalGeneration.from_pretrained("facebook/m2m100_418M")
-    tokenizer = M2M100Tokenizer.from_pretrained("facebook/m2m100_418M")
+    tokenizer = M2M100Tokenizer.from_pretrained(
+        "facebook/m2m100_418M", src_lang=get_language_iso(source_language)
+    )
+
+    model.to(device)
 
     articles_dict = get_articles_dict()
 
@@ -178,9 +189,9 @@ def translate_to_other_languages(
         lambda sig, frame: translation_interrupt_handler(source_language, translations),
     )
 
-    word_list = word_list[:100]
-
+    total_time = 0
     for i in range(0, len(word_list), batch_size):
+        start_time = time.time()
         batch_words = word_list[i : i + batch_size]
         batch_words = remove_articles_from_words(
             batch_words, articles_dict[get_language_iso(source_language)]
@@ -192,7 +203,8 @@ def translate_to_other_languages(
             tokenizer.src_lang = get_language_iso(source_language)
             encoded_words = tokenizer(batch_words, return_tensors="pt", padding=True)
             generated_tokens = model.generate(
-                **encoded_words, forced_bos_token_id=tokenizer.get_lang_id(lang_code)
+                **encoded_words.to(device),
+                forced_bos_token_id=tokenizer.get_lang_id(lang_code),
             )
             translated_words = tokenizer.batch_decode(
                 generated_tokens, skip_special_tokens=True
@@ -207,7 +219,19 @@ def translate_to_other_languages(
 
                 translations[word][lang_code] = translation
 
-        print(f"Batch {i//batch_size + 1} translation completed.")
+        batch_time = time.time() - start_time
+        total_time += batch_time
+        decimal_completed = (i + batch_size) / len(word_list)
+        percent_completed = round(decimal_completed, 4) * 100
+        time_to_finish_estimate = round(total_time / decimal_completed / 60 / 60, 4)
+
+        print(
+            f"Batch {i // batch_size + 1} translations completed - {percent_completed}% complete"
+        )
+        print(f"Time to finish batch: {batch_time} seconds")
+        print(
+            f"Time to finish {source_language} translations: {time_to_finish_estimate} hours\n"
+        )
 
         with open(
             Path(DEFAULT_JSON_EXPORT_DIR) / source_language / "translations.json",

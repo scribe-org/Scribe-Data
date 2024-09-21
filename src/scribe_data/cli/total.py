@@ -25,13 +25,9 @@ from SPARQLWrapper import JSON
 from scribe_data.cli.cli_utils import language_to_qid
 from scribe_data.wikidata.wikidata_utils import sparql
 
-# Dictionary to map data types to their Wikidata Q-IDs.
-data_type_to_qid = {
-    "nouns": "Q1084",
-    "prepositions": "Q37649",
-    "verbs": "Q24905",
-    "translations": "Q7553789",
-}
+from scribe_data.cli.cli_utils import data_type_metadata as data_type_to_qid
+
+data_type_to_qid = data_type_to_qid["data-types"]
 
 
 def get_qid_by_input(input_str):

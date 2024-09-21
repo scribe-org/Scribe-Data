@@ -45,18 +45,14 @@ def data_to_sqlite(
     with open(
         PATH_TO_SCRIBE_DATA / "load" / "update_files" / "total_data.json",
         encoding="utf-8",
-    ) as f:
-        current_data = json.load(f)
+    ) as f_total, open(
+        PATH_TO_SCRIBE_DATA / "resources" / "data_type_metadata.json",
+        encoding="utf-8",
+    ) as f_types:
+        current_data = json.load(f_total)
+        data_types = json.load(f_types)["data-types"]
 
     current_languages = list(current_data.keys())
-    data_types = [
-        "nouns",
-        "verbs",
-        "prepositions",
-        "translations",
-        "autosuggestions",
-        "emoji_keywords",
-    ]
 
     if not languages:
         languages = current_languages
@@ -87,6 +83,92 @@ def data_to_sqlite(
     if specific_tables:
         print(f"Updating only the following tables: {', '.join(specific_tables)}")
 
+    def create_table(data_type, cols):
+        """
+        Creates a table in the language database given a data type for its title and column names.
+
+        Parameters
+        ----------
+            data_type : str
+                The name of the table to be created
+
+            cols : list of strings
+                The names of columns for the new table
+        """
+        cursor.execute(
+            f"CREATE TABLE IF NOT EXISTS {data_type} ({' Text, '.join(cols)} Text, UNIQUE({cols[0]}))"
+        )
+
+    def table_insert(data_type, keys):
+        """
+        Inserts a row into a language database table.
+
+        Parameters
+        ----------
+            data_type : str
+                The name of the table to be inserted into
+
+            keys : list of strings
+                The values to be inserted into the table row
+        """
+        insert_question_marks = ", ".join(["?"] * len(keys))
+        cursor.execute(
+            f"INSERT OR IGNORE INTO {data_type} values({insert_question_marks})",
+            keys,
+        )
+
+    maybe_over = ""  # output string formatting variable (see below)
+    if (Path(DEFAULT_SQLITE_EXPORT_DIR) / "TranslationData.sqlite").exists():
+        os.remove(Path(DEFAULT_SQLITE_EXPORT_DIR) / "TranslationData.sqlite")
+        maybe_over = "over"
+
+    connection = sqlite3.connect(
+        Path(DEFAULT_SQLITE_EXPORT_DIR) / "TranslationData.sqlite"
+    )
+    cursor = connection.cursor()
+
+    print(f"Database for translations {maybe_over}written and connection made.")
+
+    for lang in tqdm(
+        language_data_type_dict,
+        desc="Tables added",
+        unit="tables",
+    ):
+        print(f"Creating/Updating {lang} translations table...")
+        json_file_path = Path(DEFAULT_JSON_EXPORT_DIR) / lang / "translations.json"
+
+        if not json_file_path.exists():
+            print(
+                f"Skipping {lang} translations table creation as JSON file not found."
+            )
+            continue
+
+        with open(json_file_path, "r", encoding="utf-8") as f:
+            json_data = json.load(f)
+
+        target_cols = [
+            get_language_iso(language)
+            for language in current_languages
+            if language != lang
+        ]
+        cols = ["word"] + target_cols
+        create_table(data_type=lang, cols=cols)
+        cursor.execute(f"DELETE FROM {lang}")  # clear existing data
+        for row in json_data:
+            keys = [row]
+            keys += [json_data[row][col_name] for col_name in cols[1:]]
+            table_insert(data_type=lang, keys=keys)
+
+        try:
+            connection.commit()
+            print(f"{lang} translations table created/updated successfully.\n")
+
+        except sqlite3.Error as e:
+            print(f"Error creating/updating {lang} translations table: {e}")
+
+    connection.close()
+    print("Translations database processing completed.")
+
     for lang in tqdm(
         language_data_type_dict,
         desc="Databases created",
@@ -96,13 +178,11 @@ def data_to_sqlite(
             maybe_over = ""  # output string formatting variable (see below)
             if (
                 Path(DEFAULT_SQLITE_EXPORT_DIR)
-                / get_language_iso(lang).upper()
-                / "LanguageData.sqlite"
+                / f"{get_language_iso(lang).upper()}LanguageData.sqlite"
             ).exists():
                 os.remove(
                     Path(DEFAULT_SQLITE_EXPORT_DIR)
-                    / get_language_iso(lang).upper()
-                    / "LanguageData.sqlite"
+                    / f"{get_language_iso(lang).upper()}LanguageData.sqlite"
                 )
                 maybe_over = "over"
 
@@ -111,45 +191,11 @@ def data_to_sqlite(
                 / f"{get_language_iso(lang).upper()}LanguageData.sqlite"
             )
             cursor = connection.cursor()
-
-            def create_table(data_type, cols):
-                """
-                Creates a table in the language database given a data type for its title and column names.
-
-                Parameters
-                ----------
-                    data_type : str
-                        The name of the table to be created
-
-                    cols : list of strings
-                        The names of columns for the new table
-                """
-                cursor.execute(
-                    f"CREATE TABLE IF NOT EXISTS {data_type} ({' Text, '.join(cols)} Text, UNIQUE({cols[0]}))"
-                )
-
-            def table_insert(data_type, keys):
-                """
-                Inserts a row into a language database table.
-
-                Parameters
-                ----------
-                    data_type : str
-                        The name of the table to be inserted into
-
-                    keys : list of strings
-                        The values to be inserted into the table row
-                """
-                insert_question_marks = ", ".join(["?"] * len(keys))
-                cursor.execute(
-                    f"INSERT OR IGNORE INTO {data_type} values({insert_question_marks})",
-                    keys,
-                )
-
             print(f"Database for {lang} {maybe_over}written and connection made.")
+
             for dt in language_data_type_dict[lang]:
                 if dt == "autocomplete_lexicon":
-                    continue  # We'll handle this separately
+                    continue  # handled separately
 
                 print(f"Creating/Updating {lang} {dt} table...")
                 json_file_path = Path(DEFAULT_JSON_EXPORT_DIR) / lang / f"{dt}.json"
@@ -159,13 +205,14 @@ def data_to_sqlite(
                         f"Skipping {lang} {dt} table creation as JSON file not found."
                     )
                     continue
+
                 with open(json_file_path, "r", encoding="utf-8") as f:
                     json_data = json.load(f)
 
                 if dt == "nouns":
                     cols = ["noun", "plural", "form"]
                     create_table(data_type=dt, cols=cols)
-                    cursor.execute(f"DELETE FROM {dt}")  # Clear existing data
+                    cursor.execute(f"DELETE FROM {dt}")  # clear existing data
                     for row in json_data:
                         keys = [row, json_data[row]["plural"], json_data[row]["form"]]
                         table_insert(data_type=dt, keys=keys)
@@ -175,11 +222,11 @@ def data_to_sqlite(
 
                     connection.commit()
 
-                elif dt in ["verbs", "translations"]:
+                elif dt == "verbs":
                     cols = ["verb"] if dt == "verbs" else ["word"]
                     cols += json_data[list(json_data.keys())[0]].keys()
                     create_table(data_type=dt, cols=cols)
-                    cursor.execute(f"DELETE FROM {dt}")  # Clear existing data
+                    cursor.execute(f"DELETE FROM {dt}")  # clear existing data
                     for row in json_data:
                         keys = [row]
                         keys += [json_data[row][col_name] for col_name in cols[1:]]
@@ -188,7 +235,7 @@ def data_to_sqlite(
                 elif dt == "prepositions":
                     cols = ["preposition", "form"]
                     create_table(data_type=dt, cols=cols)
-                    cursor.execute(f"DELETE FROM {dt}")  # Clear existing data
+                    cursor.execute(f"DELETE FROM {dt}")  # clear existing data
                     for row in json_data:
                         keys = [row, json_data[row]]
                         table_insert(data_type=dt, keys=keys)
@@ -196,7 +243,7 @@ def data_to_sqlite(
                 elif dt in ["autosuggestions", "emoji_keywords"]:
                     cols = ["word"] + [f"{dt[:-1]}_{i}" for i in range(3)]
                     create_table(data_type=dt, cols=cols)
-                    cursor.execute(f"DELETE FROM {dt}")  # Clear existing data
+                    cursor.execute(f"DELETE FROM {dt}")  # clear existing data
                     for row in json_data:
                         keys = [row]
                         if dt == "autosuggestions":
@@ -213,7 +260,7 @@ def data_to_sqlite(
 
                 connection.commit()
 
-            # Handle autocomplete_lexicon separately
+            # Handle autocomplete_lexicon separately.
             if (not specific_tables or "autocomplete_lexicon" in specific_tables) and {
                 "nouns",
                 "prepositions",
@@ -225,45 +272,53 @@ def data_to_sqlite(
                 create_table(data_type="autocomplete_lexicon", cols=cols)
                 cursor.execute(
                     "DELETE FROM autocomplete_lexicon"
-                )  # Clear existing data
+                )  # clear existing data
 
                 sql_query = """
-                INSERT INTO autocomplete_lexicon (word)
+                INSERT INTO
+                    autocomplete_lexicon (word)
 
                 WITH full_lexicon AS (
                     SELECT
-                    noun AS word
+                        noun AS word
+
                     FROM
-                    nouns
+                        nouns
+
                     WHERE
-                    LENGTH(noun) > 2
+                        LENGTH(noun) > 2
 
                     UNION
 
                     SELECT
-                    preposition AS word
+                        preposition AS word
+
                     FROM
-                    prepositions
+                        prepositions
+
                     WHERE
-                    LENGTH(preposition) > 2
+                        LENGTH(preposition) > 2
 
                     UNION
 
                     SELECT DISTINCT
-                    -- For autosuggestion keys we want lower case versions.
-                    -- The SELECT DISTINCT cases later will make sure that nouns are appropriately selected.
-                    LOWER(word) AS word
+                        -- For autosuggestion keys we want lower case versions.
+                        -- The SELECT DISTINCT cases later will make sure that nouns are appropriately selected.
+                        LOWER(word) AS word
+
                     FROM
-                    autosuggestions
+                        autosuggestions
+
                     WHERE
-                    LENGTH(word) > 2
+                        LENGTH(word) > 2
 
                     UNION
 
                     SELECT
-                    word AS word
+                        word AS word
+
                     FROM
-                    emoji_keywords
+                        emoji_keywords
                 )
 
                 SELECT DISTINCT
@@ -271,16 +326,19 @@ def data_to_sqlite(
                     CASE
                         WHEN
                             UPPER(SUBSTR(lex.word, 1, 1)) || SUBSTR(lex.word, 2) = nouns_cap.noun
+
                         THEN
                             nouns_cap.noun
 
                         WHEN
                             UPPER(lex.word) = nouns_upper.noun
+
                         THEN
                             nouns_upper.noun
 
                         ELSE
                             lex.word
+
                     END
 
                 FROM
@@ -317,6 +375,7 @@ def data_to_sqlite(
                     print(
                         f"{lang} autocomplete_lexicon table created/updated successfully."
                     )
+
                 except sqlite3.Error as e:
                     print(f"Error creating/updating autocomplete_lexicon table: {e}")
 
@@ -327,7 +386,6 @@ def data_to_sqlite(
                 f"Skipping {lang} database creation/update as no relevant JSON data files were found."
             )
 
-    print("Database creation/update process completed.")
     print("Database creation/update process completed.")
 
 

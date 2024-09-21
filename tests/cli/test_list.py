@@ -21,15 +21,17 @@ Tests for the list file functions.
 """
 
 import unittest
-from unittest.mock import patch, call
+from unittest.mock import call, patch
+
 from scribe_data.cli.list import (
-    list_languages,
-    list_data_types,
     list_all,
+    list_data_types,
+    list_languages,
     list_languages_for_data_type,
     list_wrapper,
 )
 from scribe_data.cli.main import main
+
 
 class TestListFunctions(unittest.TestCase):
     @patch("builtins.print")
@@ -37,17 +39,17 @@ class TestListFunctions(unittest.TestCase):
         list_languages()
         expected_calls = [
             call(),
-            call('Language     ISO  QID    '),
-            call('-----------------------'),
-            call('English      en   Q1860  '),
-            call('French       fr   Q150   '),
-            call('German       de   Q188   '),
-            call('Italian      it   Q652   '),
-            call('Portuguese   pt   Q5146  '),
-            call('Russian      ru   Q7737  '),
-            call('Spanish      es   Q1321  '),
-            call('Swedish      sv   Q9027  '),
-            call('-----------------------'),
+            call("Language     ISO  QID    "),
+            call("-----------------------"),
+            call("English      en   Q1860  "),
+            call("French       fr   Q150   "),
+            call("German       de   Q188   "),
+            call("Italian      it   Q652   "),
+            call("Portuguese   pt   Q5146  "),
+            call("Russian      ru   Q7737  "),
+            call("Spanish      es   Q1321  "),
+            call("Swedish      sv   Q9027  "),
+            call("-----------------------"),
             call(),
         ]
         mock_print.assert_has_calls(expected_calls)
@@ -57,14 +59,14 @@ class TestListFunctions(unittest.TestCase):
         list_data_types()
         expected_calls = [
             call(),
-            call('Available data types: All languages'),
-            call('-----------------------------------'),
-            call('emoji-keywords'),
-            call('nouns'),
-            call('prepositions'),
-            call('translations'),
-            call('verbs'),
-            call('-----------------------------------'),
+            call("Available data types: All languages"),
+            call("-----------------------------------"),
+            call("emoji-keywords"),
+            call("nouns"),
+            call("prepositions"),
+            call("translations"),
+            call("verbs"),
+            call("-----------------------------------"),
             call(),
         ]
         mock_print.assert_has_calls(expected_calls)
@@ -74,13 +76,13 @@ class TestListFunctions(unittest.TestCase):
         list_data_types("English")
         expected_calls = [
             call(),
-            call('Available data types: English'),
-            call('-----------------------------'),
-            call('emoji-keywords'),
-            call('nouns'),
-            call('translations'),
-            call('verbs'),
-            call('-----------------------------'),
+            call("Available data types: English"),
+            call("-----------------------------"),
+            call("emoji-keywords"),
+            call("nouns"),
+            call("translations"),
+            call("verbs"),
+            call("-----------------------------"),
             call(),
         ]
         mock_print.assert_has_calls(expected_calls)
@@ -91,7 +93,7 @@ class TestListFunctions(unittest.TestCase):
 
     def test_list_data_types_no_data_types(self):
         with self.assertRaises(ValueError):
-            list_data_types("Klingon")  
+            list_data_types("Klingon")
 
     @patch("scribe_data.cli.list.list_languages")
     @patch("scribe_data.cli.list.list_data_types")
@@ -118,10 +120,14 @@ class TestListFunctions(unittest.TestCase):
     @patch("builtins.print")
     def test_list_wrapper_language_and_data_type(self, mock_print):
         list_wrapper(language=True, data_type=True)
-        mock_print.assert_called_with("Please specify either a language or a data type.")
+        mock_print.assert_called_with(
+            "Please specify either a language or a data type."
+        )
 
     @patch("scribe_data.cli.list.list_languages_for_data_type")
-    def test_list_wrapper_languages_for_data_type(self, mock_list_languages_for_data_type):
+    def test_list_wrapper_languages_for_data_type(
+        self, mock_list_languages_for_data_type
+    ):
         list_wrapper(language=True, data_type="example_data_type")
         mock_list_languages_for_data_type.assert_called_with("example_data_type")
 
@@ -135,38 +141,38 @@ class TestListFunctions(unittest.TestCase):
         list_languages_for_data_type("nouns")
         expected_calls = [
             call(),
-            call('Available languages: nouns'),
-            call('--------------------------'),
-            call('English'),
-            call('French'),
-            call('German'),
-            call('Italian'),
-            call('Portuguese'),
-            call('Russian'),
-            call('Spanish'),
-            call('Swedish'),
-            call('--------------------------'),
+            call("Available languages: nouns"),
+            call("--------------------------"),
+            call("English"),
+            call("French"),
+            call("German"),
+            call("Italian"),
+            call("Portuguese"),
+            call("Russian"),
+            call("Spanish"),
+            call("Swedish"),
+            call("--------------------------"),
             call(),
         ]
         mock_print.assert_has_calls(expected_calls)
 
-    @patch('scribe_data.cli.list.list_languages')
+    @patch("scribe_data.cli.list.list_languages")
     def test_list_languages_command(self, mock_list_languages):
-        test_args = ['main.py', 'list', '--language']
-        with patch('sys.argv', test_args):
+        test_args = ["main.py", "list", "--language"]
+        with patch("sys.argv", test_args):
             main()
         mock_list_languages.assert_called_once()
 
-    @patch('scribe_data.cli.list.list_data_types')
+    @patch("scribe_data.cli.list.list_data_types")
     def test_list_data_types_command(self, mock_list_data_types):
-        test_args = ['main.py', 'list', '--data-type']
-        with patch('sys.argv', test_args):
+        test_args = ["main.py", "list", "--data-type"]
+        with patch("sys.argv", test_args):
             main()
         mock_list_data_types.assert_called_once()
 
-    @patch('scribe_data.cli.list.list_all')
+    @patch("scribe_data.cli.list.list_all")
     def test_list_all_command(self, mock_list_all):
-        test_args = ['main.py', 'list', '--all']
-        with patch('sys.argv', test_args):
+        test_args = ["main.py", "list", "--all"]
+        with patch("sys.argv", test_args):
             main()
         mock_list_all.assert_called_once()
