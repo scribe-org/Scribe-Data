@@ -34,10 +34,11 @@ class TestCLIGetCommand(unittest.TestCase):
     def test_get_command(
         self, mock_system, mock_convert, mock_export_json, mock_query_data
     ):
+        # Updated expected_calls to include the 'overwrite' parameter
         expected_calls = [
-            call(["English"], ["nouns"]),
-            call(["English"], ["nouns"]),
-            call(),
+            call(["English"], ["nouns"], False),
+            call(["English"], ["nouns"], False),
+            call(None, None, False),
         ]
 
         # Execute the test
