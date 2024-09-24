@@ -64,11 +64,7 @@ def export_json(
         print(f"Error reading '{data_file}': {e}")
         return
 
-    json_output_dir = (
-        output_dir
-        / DEFAULT_JSON_EXPORT_DIR
-        / normalized_language["language"].capitalize()
-    )
+    json_output_dir = output_dir / normalized_language["language"].capitalize()
     json_output_dir.mkdir(parents=True, exist_ok=True)
 
     output_file = json_output_dir / f"{data_type}.json"

@@ -31,7 +31,7 @@ from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 from scribe_data.wikidata.wikidata_utils import sparql
 
 
-def query_data(languages=None, word_types=None):
+def query_data(languages=None, word_types=None, overwrite=None):
     SCRIBE_DATA_SRC_PATH = Path(__file__).parent.parent
     PATH_TO_LANGUAGE_EXTRACTION_FILES = (
         SCRIBE_DATA_SRC_PATH / "language_data_extraction"
@@ -87,33 +87,35 @@ def query_data(languages=None, word_types=None):
         file_name = f"{target_type}.json"
 
         if existing_files := list(export_dir.glob(f"{target_type}*.json")):
-            print(
-                f"Existing file(s) found for {lang} {target_type} in the outputs directory:\n"
-            )
-            for i, file in enumerate(existing_files, 1):
-                print(f"{i}. {file.name}")
-
-            # choice = input(
-            #     "\nChoose an option:\n1. Overwrite existing (press 'o')\n2. Keep all (press 'k')\n3. Skip process (press anything else)\nEnter your choice: "
-            # )
-            choice = input(
-                "\nChoose an option:\n1. Overwrite existing data (press 'o')\n2. Skip process (press anything else)\nEnter your choice: "
-            )
-
-            print(f"You entered: {choice}")
-
-            if choice in ["o", "O"]:
-                print("Removing existing files...")
+            if overwrite:
+                print("Overwrite is enabled. Removing existing files...")
                 for file in existing_files:
                     file.unlink()
-
-            # elif choice in ["k", "K"]:
-            #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-            #     file_name = f"{target_type}_{timestamp}.json"
-
             else:
-                print(f"Skipping update for {lang} {target_type}.")
-                continue
+                print(
+                    f"Existing file(s) found for {lang} {target_type} in the outputs directory:\n"
+                )
+                for i, file in enumerate(existing_files, 1):
+                    print(f"{i}. {file.name}")
+                # choice = input(
+                #     "\nChoose an option:\n1. Overwrite existing (press 'o')\n2. Keep all (press 'k')\n3. Skip process (press anything else)\nEnter your choice: "
+                # )
+                choice = input(
+                    "\nChoose an option:\n1. Overwrite existing data (press 'o')\n2. Skip process (press anything else)\nEnter your choice: "
+                )
+
+                print(f"You entered: {choice}")
+
+                if choice.lower() == "o":
+                    print("Removing existing files...")
+                    for file in existing_files:
+                        file.unlink()
+                # elif choice in ["k", "K"]:
+                #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+                #     file_name = f"{target_type}_{timestamp}.json"
+                else:
+                    print(f"Skipping update for {lang} {target_type}.")
+                    continue
 
         file_path = export_dir / file_name
         print(f"Querying and formatting {lang} {target_type}")

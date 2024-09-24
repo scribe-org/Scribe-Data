@@ -264,7 +264,9 @@ def load_queried_data(language: str, data_type: str) -> tuple[Any, bool, str]:
         return json.load(f), data_path
 
 
-def export_formatted_data(formatted_data: dict, language: str, data_type: str) -> None:
+def export_formatted_data(
+    formatted_data: dict, language: str, data_type: str, query_data_in_use: bool = False
+) -> None:
     """
     Exports formatted data to a JSON file for a specific language and data type.
 
