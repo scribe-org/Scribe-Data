@@ -43,12 +43,6 @@ def get_data(
     """
     Function for controlling the data get process for the CLI.
     """
-    # if not outputs_per_entry and (data_type in ["emoji-keywords", "emoji_keywords"]):
-    #     print(
-    #         "\nNo value set for 'outputs-per-entry'. Setting a default value of 3 outputs per entry.\n"
-    #     )
-    #     outputs_per_entry = 3
-
     languages = [language] if language else None
 
     if all:
