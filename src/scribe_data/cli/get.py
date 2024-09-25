@@ -75,7 +75,7 @@ def get_data(
 
     elif language or data_type:
         data_type = [data_type] if data_type else None
-        print(f"Updating data for language: {language}, data type: {data_type}")
+        print(f"Updating data for language: {language}, data type: {data_type[0]}")
         query_data(languages, data_type, overwrite)
 
     else:
@@ -84,7 +84,7 @@ def get_data(
         )
 
     if output_dir:
-        output_dir = Path(output_dir)
+        output_dir = Path(output_dir).resolve()
         if not output_dir.exists():
             output_dir.mkdir(parents=True, exist_ok=True)
 

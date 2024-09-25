@@ -29,25 +29,23 @@ from typing import Optional
 from scribe_data.cli.cli_utils import language_map
 from scribe_data.load.data_to_sqlite import data_to_sqlite
 from scribe_data.utils import (
-    DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
     get_language_iso,
 )
-
-DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
 
 
 def export_json(
     language: str, data_type: str, output_dir: Path, overwrite: bool
 ) -> None:
     normalized_language = language_map.get(language.lower())
-    language_capitalized = language.capitalize()
 
     if not normalized_language:
-        raise ValueError(f"Language '{language_capitalized}' is not recognized.")
+        raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
     data_file = (
-        DATA_DIR / normalized_language["language"].capitalize() / f"{data_type}.json"
+        output_dir
+        / normalized_language["language"].capitalize()
+        / f"{data_type[0]}.json"
     )
 
     if not data_file.exists():
@@ -67,7 +65,7 @@ def export_json(
     json_output_dir = output_dir / normalized_language["language"].capitalize()
     json_output_dir.mkdir(parents=True, exist_ok=True)
 
-    output_file = json_output_dir / f"{data_type}.json"
+    output_file = json_output_dir / f"{data_type[0]}.json"
     if output_file.exists() and not overwrite:
         user_input = input(f"File '{output_file}' already exists. Overwrite? (y/n): ")
         if user_input.lower() != "y":
@@ -81,7 +79,7 @@ def export_json(
         raise IOError(f"Error writing to '{output_file}': {e}") from e
 
     print(
-        f"Data for language '{normalized_language['language']}' and data type '{data_type}' written to '{output_file}'"
+        f"Data for {normalized_language['language'].capitalize()} {data_type[0]} written to {output_file}"
     )
 
 
@@ -95,7 +93,7 @@ def convert_to_csv_or_tsv(
 
     for dtype in data_type:
         file_path = (
-            DATA_DIR / normalized_language["language"].capitalize() / f"{dtype}.json"
+            output_dir / normalized_language["language"].capitalize() / f"{dtype}.json"
         )
         if not file_path.exists():
             print(f"No data found for {dtype} conversion at '{file_path}'.")

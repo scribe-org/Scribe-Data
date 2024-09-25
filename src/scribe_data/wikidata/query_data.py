@@ -69,8 +69,6 @@ def query_data(languages=None, word_types=None, overwrite=None):
     ]
     queries_to_run = sorted(queries_to_run)
 
-    print(queries_to_run)
-
     # Run queries and format data.
     for q in tqdm(
         queries_to_run,
