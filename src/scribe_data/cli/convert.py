@@ -92,12 +92,20 @@ def convert_to_csv_or_tsv(
         return
 
     for dtype in data_type:
+        # Replace non-JSON default paths with JSON path for where exported data is.
         file_path = (
-            output_dir / normalized_language["language"].capitalize() / f"{dtype}.json"
+            Path(
+                str(output_dir)
+                .replace("scribe_data_csv_export", "scribe_data_json_export")
+                .replace("scribe_data_tsv_export", "scribe_data_json_export")
+            )
+            / normalized_language["language"].capitalize()
+            / f"{dtype}.json"
         )
         if not file_path.exists():
-            print(f"No data found for {dtype} conversion at '{file_path}'.")
-            continue
+            raise FileNotFoundError(
+                f"No data found for {dtype} conversion at '{file_path}'."
+            )
 
         try:
             with file_path.open("r") as f:
