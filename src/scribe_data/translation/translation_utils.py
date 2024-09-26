@@ -144,7 +144,7 @@ def translation_interrupt_handler(source_language, translations):
         "w",
         encoding="utf-8",
     ) as file:
-        json.dump(translations, file, ensure_ascii=False, indent=4)
+        json.dump(translations, file, ensure_ascii=False, indent=0)
 
     print("The current progress is saved to the translations.json file.")
     exit()
@@ -238,7 +238,7 @@ def translate_to_other_languages(
             "w",
             encoding="utf-8",
         ) as file:
-            file.write(json.dumps(translations, ensure_ascii=False, indent=2))
+            file.write(json.dumps(translations, ensure_ascii=False, indent=0))
             file.write("\n")
 
     print(

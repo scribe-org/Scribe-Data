@@ -43,17 +43,11 @@ def get_data(
     """
     Function for controlling the data get process for the CLI.
     """
-    if not outputs_per_entry and (data_type in ["emoji-keywords", "emoji_keywords"]):
-        print(
-            "\nNo value set for 'outputs-per-entry'. Setting a default value of 3 outputs per entry.\n"
-        )
-        outputs_per_entry = 3
-
     languages = [language] if language else None
 
     if all:
         print("Updating all languages and data types ...")
-        query_data()
+        query_data(None, None, overwrite)
 
     elif data_type in ["emoji-keywords", "emoji_keywords"]:
         for lang in languages:
@@ -80,9 +74,11 @@ def get_data(
             os.system(f"python3 {translation_generation_script}")
 
     elif language or data_type:
+        data_type = data_type[0] if isinstance(data_type, list) else data_type
+
         data_type = [data_type] if data_type else None
         print(f"Updating data for language: {language}, data type: {data_type}")
-        query_data(languages, data_type)
+        query_data(languages, data_type, overwrite)
 
     else:
         raise ValueError(
@@ -90,7 +86,7 @@ def get_data(
         )
 
     if output_dir:
-        output_dir = Path(output_dir)
+        output_dir = Path(output_dir).resolve()
         if not output_dir.exists():
             output_dir.mkdir(parents=True, exist_ok=True)
 

@@ -35,9 +35,9 @@ class TestCLIGetCommand(unittest.TestCase):
         self, mock_system, mock_convert, mock_export_json, mock_query_data
     ):
         expected_calls = [
-            call(["English"], ["nouns"]),
-            call(["English"], ["nouns"]),
-            call(),
+            call(["English"], ["nouns"], False),
+            call(["English"], ["nouns"], False),
+            call(None, None, False),
         ]
 
         # Execute the test

@@ -164,16 +164,6 @@ def run_interactive_mode():
     selected_data_types = select_data_types()
     output_options = get_output_options()
 
-    if len(selected_languages) == 1:
-        print(
-            f"\nGetting {', '.join(selected_data_types)} for {', '.join(selected_languages)}."
-        )
-
-    else:
-        print(
-            f"\nQuerying {', '.join(selected_data_types)} for {', '.join(selected_languages)} languages."
-        )
-
     print(
         f"Data will be exported as {output_options['type'].upper()} files to '{output_options['dir']}'."
     )
