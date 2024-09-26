@@ -91,7 +91,7 @@ def query_data(languages=None, word_types=None, overwrite=None):
                     file.unlink()
             else:
                 print(
-                    f"Existing file(s) found for {lang} {target_type} in the outputs directory:\n"
+                    f"\nExisting file(s) found for {lang} {target_type} in the outputs directory:\n"
                 )
                 for i, file in enumerate(existing_files, 1):
                     print(f"{i}. {file.name}")
