@@ -42,11 +42,12 @@ def export_json(
     if not normalized_language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
+    data_type = data_type[0] if isinstance(data_type, list) else data_type
     data_file = (
-        output_dir
-        / normalized_language["language"].capitalize()
-        / f"{data_type[0]}.json"
+        output_dir / normalized_language["language"].capitalize() / f"{data_type}.json"
     )
+
+    print(data_file)
 
     if not data_file.exists():
         print(
@@ -65,7 +66,7 @@ def export_json(
     json_output_dir = output_dir / normalized_language["language"].capitalize()
     json_output_dir.mkdir(parents=True, exist_ok=True)
 
-    output_file = json_output_dir / f"{data_type[0]}.json"
+    output_file = json_output_dir / f"{data_type}.json"
     if output_file.exists() and not overwrite:
         user_input = input(f"File '{output_file}' already exists. Overwrite? (y/n): ")
         if user_input.lower() != "y":
@@ -74,12 +75,13 @@ def export_json(
 
     try:
         with output_file.open("w") as file:
-            json.dump(data, file, indent=2)
+            json.dump(data, file, indent=0)
+
     except IOError as e:
         raise IOError(f"Error writing to '{output_file}': {e}") from e
 
     print(
-        f"Data for {normalized_language['language'].capitalize()} {data_type[0]} written to {output_file}"
+        f"Data for {normalized_language['language'].capitalize()} {data_type} written to {output_file}"
     )
 
 

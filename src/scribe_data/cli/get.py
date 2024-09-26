@@ -74,8 +74,10 @@ def get_data(
             os.system(f"python3 {translation_generation_script}")
 
     elif language or data_type:
+        data_type = data_type[0] if isinstance(data_type, list) else data_type
+
         data_type = [data_type] if data_type else None
-        print(f"Updating data for language: {language}, data type: {data_type[0]}")
+        print(f"Updating data for language: {language}, data type: {data_type}")
         query_data(languages, data_type, overwrite)
 
     else:
