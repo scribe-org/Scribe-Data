@@ -12,17 +12,15 @@ If you have questions or would like to communicate with the team, please [join u
 
 ## Contents
 
-- [Contributing to Scribe-Data](#contributing-to-scribe-data)
-  - [Contents](#contents)
-  - [First steps as a contributor `⇧`](#first-steps-as-a-contributor-)
-  - [Learning the tech stack `⇧`](#learning-the-tech-stack-)
-  - [Development environment `⇧`](#development-environment-)
-  - [Issues and projects `⇧`](#issues-and-projects-)
-  - [Bug reports `⇧`](#bug-reports-)
-  - [Feature requests `⇧`](#feature-requests-)
-  - [Pull requests `⇧`](#pull-requests-)
-  - [Data edits `⇧`](#data-edits-)
-  - [Documentation `⇧`](#documentation-)
+- [First steps as a contributor](#first-steps)
+- [Learning the tech stack](#learning-the-tech)
+- [Development environment](#dev-env)
+- [Issues and projects](#issues-projects)
+- [Bug reports](#bug-reports)
+- [Feature requests](#feature-requests)
+- [Pull requests](#pull-requests)
+- [Data edits](#data-edits)
+- [Documentation](#documentation)
 
 <a id="first-steps"></a>
 
