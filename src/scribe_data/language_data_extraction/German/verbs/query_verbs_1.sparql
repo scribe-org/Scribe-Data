@@ -13,12 +13,14 @@ WHERE {
   ?lexeme dct:language wd:Q188 ;
     wikibase:lexicalCategory wd:Q24905 .
 
-  # Infinitive (required), past participle and the auxiliary verb(s)
+  # MARK: Infinitive
+
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
   ?infinitiveForm ontolex:representation ?infinitive ;
     wikibase:grammaticalFeature wd:Q179230 .
 
-  # Indicative Present
+  # MARK: Indicative Present
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presFPSForm .
     ?presFPSForm ontolex:representation ?presFPS ;

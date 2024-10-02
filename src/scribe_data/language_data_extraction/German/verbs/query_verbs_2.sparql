@@ -13,10 +13,13 @@ WHERE {
   ?lexeme dct:language wd:Q188 ;
     wikibase:lexicalCategory wd:Q24905 .
 
-  # Infinitive (required), past participle and the auxiliary verb(s)
+  # MARK: Infinitive
+
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
   ?infinitiveForm ontolex:representation ?infinitive ;
     wikibase:grammaticalFeature wd:Q179230 .
+
+  # MARK: Past Participle
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastParticipleForm .
@@ -24,12 +27,14 @@ WHERE {
       wikibase:grammaticalFeature wd:Q12717679 ;
   } .
 
-  # WIP: select select only auxiliary or both sein and haben and convert to labels
+  # MARK: Auxiliary Verb(s)
+
   OPTIONAL {
     ?lexeme wdt:P5401 ?auxiliaryVerbFrom ;
   } .
 
-  # Indicative Preterite
+  # MARK: Indicative Preterite
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretFPSForm .
     ?pretFPSForm ontolex:representation ?pretFPS ;

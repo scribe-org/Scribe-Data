@@ -14,7 +14,8 @@ WHERE {
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?directDefSingular .
 
-  # Optional selection of genders.
+  # MARK: Gender(s)
+
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
     FILTER NOT EXISTS {

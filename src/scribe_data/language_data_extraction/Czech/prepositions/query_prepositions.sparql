@@ -12,7 +12,8 @@ WHERE {
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?lemma .
 
-  # Optional selection of corresponding cases.
+  # MARK: Corresponding Cases
+
   OPTIONAL {
     ?lexeme wdt:P5713 ?caseForm .
   } .

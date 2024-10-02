@@ -15,7 +15,8 @@ WHERE {
     wikibase:lexicalCategory ?nounTypes .
     wikibase:lemma ?nomSingular .
 
-  # Optional selection of nominative plural forms.
+  # MARK: Nominative Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
@@ -23,7 +24,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
   } .
 
-  # Optional selection of genders.
+  # MARK: Gender(s)
+
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
     FILTER NOT EXISTS {

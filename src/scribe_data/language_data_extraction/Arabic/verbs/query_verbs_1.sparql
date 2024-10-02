@@ -14,7 +14,8 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
 
-  # Indicative Present
+  # MARK: Present
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presFPSForm .
     ?presFPSForm ontolex:representation ?presFPS ;

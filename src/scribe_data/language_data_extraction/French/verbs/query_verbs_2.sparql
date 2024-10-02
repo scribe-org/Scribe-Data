@@ -14,12 +14,13 @@ WHERE {
   ?lexeme dct:language wd:Q150 ;
     wikibase:lexicalCategory wd:Q24905 .
 
-  # Infinitive (required)
+  # MARK: Infinitive
+
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
   ?infinitiveForm ontolex:representation ?infinitive ;
     wikibase:grammaticalFeature wd:Q179230 ;
 
-  # Imperfect
+  # MARK: Imperfect
 
   # FPS
   OPTIONAL {
@@ -30,6 +31,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q108524486 ;
   } .
+
   # SPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPSForm .
@@ -39,6 +41,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q108524486 ;
   } .
+
   # TPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impTPSForm .
@@ -48,6 +51,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q108524486 ;
   } .
+
   # FPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impFPPForm .
@@ -57,6 +61,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q108524486 ;
   } .
+
   # SPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPPForm .
@@ -66,6 +71,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q108524486 ;
   } .
+
   # TPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impTPPForm .
@@ -76,7 +82,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q108524486 ;
   } .
 
-  # Future
+  # MARK: Future
 
   # FPS
   OPTIONAL {
@@ -87,6 +93,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q1475560 ;
   } .
+
   # SPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futSPSForm .
@@ -96,6 +103,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q1475560 ;
   } .
+
   # TPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futTPSForm .
@@ -105,6 +113,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q1475560 ;
   } .
+
   # FPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futFPPForm .
@@ -114,6 +123,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q1475560 ;
   } .
+
   # SPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futSPPForm .
@@ -123,6 +133,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q1475560 ;
   } .
+
   # TPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futTPPForm .

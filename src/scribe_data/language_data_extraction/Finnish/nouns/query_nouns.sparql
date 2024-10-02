@@ -14,7 +14,8 @@ WHERE {
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?nomSingular .
 
-  # Optional selection of nominative plural forms.
+  # MARK: Nominative Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;

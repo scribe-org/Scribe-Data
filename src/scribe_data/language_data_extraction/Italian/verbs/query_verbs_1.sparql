@@ -15,7 +15,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?infinitive .
 
-  # Present
+  # MARK: Present
 
   # FPS
   OPTIONAL {
@@ -65,7 +65,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929517 ;
   } .
 
-  # Preterite
+  # MARK: Preterite
 
   # FPS
   OPTIONAL {

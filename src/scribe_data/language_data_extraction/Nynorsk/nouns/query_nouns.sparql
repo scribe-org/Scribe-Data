@@ -18,7 +18,8 @@ WHERE {
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?indefSingular .
 
-  # Optional selection of definite singular forms.
+  # MARK: Definite Singular
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?  ?defSingularForm .
     ?defSingularForm ontolex:representation ?defSingular ;
@@ -26,7 +27,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q53997851 ;
   } .
 
-  # Optional selection of indefinite plural forms.
+  # MARK: Indefinite Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indefPluralForm .
     ?indefPluralForm ontolex:representation ?indefPlural ;
@@ -34,7 +36,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q53997857 ;
   } .
 
-  # Optional selection of definite plural forms.
+  # MARK: Definite Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?defPluralForm .
     ?defPluralForm ontolex:representation ?defPlural ;
@@ -42,7 +45,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q53997851 ;
   } .
 
-  # Optional selection of genders.
+  # MARK: Gender(s)
+
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
     FILTER NOT EXISTS {

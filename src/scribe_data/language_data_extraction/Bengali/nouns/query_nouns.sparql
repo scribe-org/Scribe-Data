@@ -15,28 +15,32 @@ WHERE {
   ?lexeme dct:language wd:Q9610 ;
     wikibase:lexicalCategory ?nounTypes ;
 
-  # Optional selection of nominative form.
+  # MARK: Nminative
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomForm .
     ?nomForm ontolex:representation ?nominative ;
       wikibase:grammaticalFeature wd:Q131105 ;
   } .
 
-  # Optional selection of genitive form.
+  # MARK: Genitive
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genForm .
     ?genForm ontolex:representation ?genitive ;
       wikibase:grammaticalFeature wd:Q146233 ;
   } .
 
-  # Optional selection of accusative form.
+  # MARK: Accusative
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accForm .
     ?accForm ontolex:representation ?accusative ;
       wikibase:grammaticalFeature wd:Q146078 ;
   } .
 
-  # Optional selection of locative form.
+  # MARK: Locative
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?locForm .
     ?locForm ontolex:representation ?locative ;
