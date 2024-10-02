@@ -27,14 +27,13 @@ LANGUAGE = "English"
 DATA_TYPE = "emoji-keywords"
 emojis_per_keyword = 3
 
-emoji_keywords_dict = gen_emoji_lexicon(
+if emoji_keywords_dict := gen_emoji_lexicon(
     language=LANGUAGE,
     emojis_per_keyword=emojis_per_keyword,
-)
-
-export_formatted_data(
-    formatted_data=emoji_keywords_dict,
-    query_data_in_use=True,
-    language=LANGUAGE,
-    data_type=DATA_TYPE,
-)
+):
+    export_formatted_data(
+        formatted_data=emoji_keywords_dict,
+        query_data_in_use=True,
+        language=LANGUAGE,
+        data_type=DATA_TYPE,
+    )

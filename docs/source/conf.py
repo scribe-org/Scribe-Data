@@ -66,7 +66,6 @@ autodoc_mock_imports = [
     "sentencepiece",
     "SPARQLWrapper",
     "tabulate",
-    "tensorflow",
     "torch",
     "tqdm",
     "transformers",

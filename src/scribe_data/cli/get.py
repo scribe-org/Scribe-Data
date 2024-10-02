@@ -20,7 +20,7 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
     -->
 """
 
-import os
+import subprocess
 from pathlib import Path
 from typing import Optional
 
@@ -59,7 +59,9 @@ def get_data(
                 / "generate_emoji_keywords.py"
             )
 
-            os.system(f"python3 {emoji_keyword_extraction_script}")
+            subprocess_result = subprocess.run(
+                ["python", emoji_keyword_extraction_script]
+            )
 
     elif data_type == "translations":
         for lang in languages:
@@ -71,7 +73,9 @@ def get_data(
                 / "translate_words.py"
             )
 
-            os.system(f"python3 {translation_generation_script}")
+            subprocess_result = subprocess.run(
+                ["python", translation_generation_script]
+            )
 
     elif language or data_type:
         data_type = data_type[0] if isinstance(data_type, list) else data_type
@@ -82,7 +86,7 @@ def get_data(
 
     else:
         raise ValueError(
-            "You must provide either at least one of the --language (-l) or --data-type (-dt) options, or use --all (-a)."
+            "You must provide at least one of the --language (-l) or --data-type (-dt) options, or use --all (-a)."
         )
 
     if output_dir:
@@ -103,7 +107,16 @@ def get_data(
                 "Unsupported output type. Please use 'json', 'csv', or 'tsv'."
             )
 
-    else:
+    elif subprocess_result.returncode != 1:
         print(
-            f"No output directory specified for exporting results. Updated data was saved in: {Path(DEFAULT_JSON_EXPORT_DIR).resolve()}."
+            "No output directory specified for exporting results.",
+            f"Updated data was saved in: {Path(DEFAULT_JSON_EXPORT_DIR).resolve()}.",
+        )
+
+    elif data_type in ["emoji-keywords", "emoji_keywords"]:
+        print(
+            "\nThe Scribe-Data emoji functionality is powered by PyICU, which is currently not installed."
+        )
+        print(
+            "Please check the installation steps at https://gitlab.pyicu.org/main/pyicu for more information.\n"
         )

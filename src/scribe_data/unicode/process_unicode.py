@@ -25,7 +25,15 @@ import json
 from pathlib import Path
 
 import emoji
-from icu import Char, UProperty
+
+try:
+    from icu import Char, UProperty
+
+    icu_installed = True
+
+except ImportError:
+    icu_installed = False
+
 from tqdm.auto import tqdm
 
 from scribe_data.unicode.unicode_utils import (
@@ -58,6 +66,8 @@ def gen_emoji_lexicon(
     -------
         Keywords dictionary for emoji keywords-to-unicode are saved locally or uploaded to Scribe apps.
     """
+    if not icu_installed:
+        raise ImportError("Could not import required PyICU functionality.")
 
     keyword_dict = {}
 
