@@ -18,7 +18,8 @@ WHERE {
   ?lexeme dct:language wd:Q5146 ;
     wikibase:lexicalCategory wd:Q24905 .
 
-  # Infinitive (required)
+  # MARK: Infinitive
+
   VALUES ?infTypes { wd:Q179230 wd:Q64003131 }
 
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
@@ -27,7 +28,9 @@ WHERE {
 
   VALUES ?perfectTypes { wd:Q23663136 wd:Q64005357 }
 
-  # Present
+  # MARK: Present
+
+  # FPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presFPSForm .
     ?presFPSForm ontolex:representation ?presFPS ;
@@ -36,6 +39,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q192613 ;
   } .
+
+  # SPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPSForm .
     ?presSPSForm ontolex:representation ?presSPS ;
@@ -44,6 +49,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q192613 ;
   } .
+
+  # TPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPSForm .
     ?presTPSForm ontolex:representation ?presTPS ;
@@ -52,6 +59,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q192613 ;
   } .
+
+  # FPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presFPPForm .
     ?presFPPForm ontolex:representation ?presFPP ;
@@ -60,6 +69,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q192613 ;
   } .
+
+  # SPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPPForm .
     ?presSPPForm ontolex:representation ?presSPP ;
@@ -68,6 +79,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q192613 ;
   } .
+
+  # TPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPPForm .
     ?presTPPForm ontolex:representation ?presTPP ;
@@ -77,7 +90,9 @@ WHERE {
       wikibase:grammaticalFeature wd:Q192613 ;
   } .
 
-  # Past Perfect
+  # MARK: Past Perfect
+
+  # FPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?perfFPSForm .
     ?perfFPSForm ontolex:representation ?perfFPS ;
@@ -86,6 +101,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q64005357 ;
   } .
+
+  # SPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?perfSPSForm .
     ?perfSPSForm ontolex:representation ?perfSPS ;
@@ -94,6 +111,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q64005357 ;
   } .
+
+  # TPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?perfTPSForm .
     ?perfTPSForm ontolex:representation ?perfTPS ;
@@ -102,6 +121,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q64005357 ;
   } .
+
+  # FPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?perfFPPForm .
     ?perfFPPForm ontolex:representation ?perfFPP ;
@@ -110,6 +131,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q64005357 ;
   } .
+
+  # SPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?perfSPPForm .
     ?perfSPPForm ontolex:representation ?perfSPP ;
@@ -118,6 +141,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q64005357 ;
   } .
+
+  # TPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?perfTPPForm .
     ?perfTPPForm ontolex:representation ?perfTPP ;
@@ -127,7 +152,9 @@ WHERE {
       wikibase:grammaticalFeature wd:Q64005357 ;
   } .
 
-  # Past Imperfect
+  # MARK: Past Imperfect
+
+  # FPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impFPSForm .
     ?impFPSForm ontolex:representation ?impFPS ;
@@ -136,6 +163,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q12547192 ;
   } .
+
+  # SPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPSForm .
     ?impSPSForm ontolex:representation ?impSPS ;
@@ -144,6 +173,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q12547192 ;
   } .
+
+  # TPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impTPSForm .
     ?impTPSForm ontolex:representation ?impTPS ;
@@ -152,6 +183,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q12547192 ;
   } .
+
+  # FPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impFPPForm .
     ?impFPPForm ontolex:representation ?impFPP ;
@@ -160,6 +193,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q12547192 ;
   } .
+
+  # SPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPPForm .
     ?impSPPForm ontolex:representation ?impSPP ;
@@ -168,6 +203,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q12547192 ;
   } .
+
+  # TPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impTPPForm .
     ?impTPPForm ontolex:representation ?impTPP ;
@@ -177,7 +214,9 @@ WHERE {
       wikibase:grammaticalFeature wd:Q12547192 ;
   } .
 
-  # Future Simple
+  # MARK: Future Simple
+
+  # FPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?fSimpFPSForm .
     ?fSimpFPSForm ontolex:representation ?fSimpFPS ;
@@ -186,6 +225,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q623742 ;
       wikibase:grammaticalFeature wd:Q682111 ;
   } .
+
+  # SPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?fSimpSPSForm .
     ?fSimpSPSForm ontolex:representation ?fSimpSPS ;
@@ -194,6 +235,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q623742 ;
       wikibase:grammaticalFeature wd:Q682111 ;
   } .
+
+  # TPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?fSimpTPSForm .
     ?fSimpTPSForm ontolex:representation ?fSimpTPS ;
@@ -202,6 +245,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q623742 ;
       wikibase:grammaticalFeature wd:Q682111 ;
   } .
+
+  # FPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?fSimpFPPForm .
     ?fSimpFPPForm ontolex:representation ?fSimpFPP ;
@@ -210,6 +255,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q623742 ;
       wikibase:grammaticalFeature wd:Q682111 ;
   } .
+
+  # SPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?fSimpSPPForm .
     ?fSimpSPPForm ontolex:representation ?fSimpSPP ;
@@ -218,6 +265,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q623742 ;
       wikibase:grammaticalFeature wd:Q682111 ;
   } .
+
+  # TPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?fSimpTPPForm .
     ?fSimpTPPForm ontolex:representation ?fSimpTPP ;

@@ -15,7 +15,8 @@ WHERE {
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?singular .
 
-  # Optional selection of indefinite plural forms.
+  # MARK: Indefinte Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
@@ -23,7 +24,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
   } .
 
-  # Optional selection of indefinite dual form.
+  # MARK: Indefinte Dual
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?dualForm .
     ?dualForm ontolex:representation ?dual ;

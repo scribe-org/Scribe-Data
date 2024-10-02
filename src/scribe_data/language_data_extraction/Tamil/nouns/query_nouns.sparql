@@ -13,7 +13,8 @@ WHERE {
   ?lexeme dct:language wd:Q5885 ;
     wikibase:lexicalCategory ?nounTypes .
 
-  # Optional selection of nominative singular forms.
+  # MARK: Nominative Singular
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomSingularForm .
     ?nomSingularForm ontolex:representation ?nomSingular ;
@@ -21,7 +22,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786 ;
   } .
 
-  # Optional selection of nominative plural forms.
+  # MARK: Nominative Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;

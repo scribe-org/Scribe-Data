@@ -16,14 +16,16 @@ WHERE {
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?singular .
 
-  # Optional selection of plural forms.
+  # MARK: Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 ;
   } .
 
-  # Optional selection of genders.
+  # MARK: Gender(s)
+
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
     FILTER NOT EXISTS {
