@@ -19,6 +19,7 @@ WHERE {
     wikibase:lemma ?infinitive .
 
   # MARK: Simple Present
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSimpForm .
     ?presSimpForm ontolex:representation ?presSimp ;
@@ -30,6 +31,7 @@ WHERE {
   } .
 
   # MARK: Third-person Singular
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPSForm .
     ?presTPSForm ontolex:representation ?presTPS ;
@@ -42,6 +44,7 @@ WHERE {
   } .
 
   # MARK: Present Participle
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presPartForm .
     ?presPartForm ontolex:representation ?presPart ;
@@ -52,6 +55,7 @@ WHERE {
   } .
 
   # MARK: Simple Past
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastSimpForm .
     ?pastSimpForm ontolex:representation ?pastSimp ;
@@ -62,6 +66,7 @@ WHERE {
   } .
 
   # MARK: Past Participle
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastPartForm .
     ?pastPartForm ontolex:representation ?pastPart ;
