@@ -45,9 +45,12 @@ def get_data(
     """
     languages = [language] if language else None
 
+    subprocess_result = False
+
     if all:
         print("Updating all languages and data types ...")
         query_data(None, None, overwrite)
+        subprocess_result = True
 
     elif data_type in ["emoji-keywords", "emoji_keywords"]:
         for lang in languages:
@@ -83,6 +86,7 @@ def get_data(
         data_type = [data_type] if data_type else None
         print(f"Updating data for language: {language}, data type: {data_type}")
         query_data(languages, data_type, overwrite)
+        subprocess_result = True
 
     else:
         raise ValueError(
@@ -107,7 +111,10 @@ def get_data(
                 "Unsupported output type. Please use 'json', 'csv', or 'tsv'."
             )
 
-    elif subprocess_result.returncode != 1:
+    elif (
+        isinstance(subprocess_result, subprocess.CompletedProcess)
+        and subprocess_result.returncode != 1
+    ) or (isinstance(subprocess_result, bool) and subprocess_result is not False):
         print(
             "No output directory specified for exporting results.",
             f"Updated data was saved in: {Path(DEFAULT_JSON_EXPORT_DIR).resolve()}.",
