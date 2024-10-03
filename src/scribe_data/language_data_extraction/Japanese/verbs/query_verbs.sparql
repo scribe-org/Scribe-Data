@@ -5,13 +5,25 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
+  ?presSimp
 
 WHERE {
   ?lexeme dct:language wd:Q5287 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
 
-  BIND(lang(?noun) as ?language)
-  FILTER(?language = "ja-hira")
-  # FILTER(?language = "ja")
-}
+  #BIND(lang(?verb) as ?language)
+  #FILTER(?language = "ja-hira")
+  #FILTER(?language = "ja")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presSimpForm .
+    ?presSimpForm ontolex:representation ?presSimp ;
+      wikibase:grammaticalFeature wd:Q3910936 ;
+   FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q51929074 . }
+   FILTER NOT EXISTS { ?presSimpForm wdt:P6191 wd:Q181970 . }
+   FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q126473 . }
+   FILTER(LANG(?presSimp) = "ja") .
+    }
+
+ }
