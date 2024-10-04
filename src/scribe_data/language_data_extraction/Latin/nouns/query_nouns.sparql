@@ -1,18 +1,30 @@
 # tool: scribe-data
-# All Latin (Q397) nouns and their gender.
+# All Latin (Q397) nouns, their singular, plural forms, and gender.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?nomSingular
+  ?nomPlural
   ?gender
 
 WHERE {
   VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
 
+  # MARK: Singular Form (Nominative Singular)
+
   ?lexeme dct:language wd:Q397 ;
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?nomSingular .
+
+  # MARK: Plural Form (Nominative Plural)
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?nomPlural ;
+    wikibase:grammaticalFeature wd:Q146786 . # Nominative plural
+    FILTER(LANG(?nomPlural) = "la") .
+  } .
 
   # MARK: Gender(s)
 
@@ -28,3 +40,4 @@ WHERE {
     ?nounGender rdfs:label ?gender .
   }
 }
+LIMIT 1000
