@@ -1,13 +1,39 @@
 # tool: scribe-data
-# All Latin (Q397) verbs.
+# All Latin (Q397) verbs with number (singular/plural) and voice (active/passive)
 # Enter this query at https://query.wikidata.org/.
 
-SELECT
+SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
+  ?number
+  ?voice
 
 WHERE {
+  # Latin verb lexemes
   ?lexeme dct:language wd:Q397 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
+
+  # Number (singular/plural)
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?form .
+    ?form wikibase:grammaticalFeature ?numberFeature .
+    ?numberFeature rdfs:label ?number .
+    FILTER(?numberFeature IN (wd:Q110786, wd:Q146786))
+    FILTER(LANG(?number) = "la") .
+  } .
+
+  # Voice (active/passive)
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?form .
+    ?form wikibase:grammaticalFeature ?voiceFeature .
+    ?voiceFeature rdfs:label ?voice .
+    FILTER(?voiceFeature IN (wd:Q1317831, wd:Q1194697))
+    FILTER(LANG(?voice) = "la") .
+  } .
+ 
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],la".
+  }
 }
+LIMIT 1000
