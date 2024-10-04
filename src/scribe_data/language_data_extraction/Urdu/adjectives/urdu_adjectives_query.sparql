@@ -1,0 +1,56 @@
+# SPARQL Query: Retrieve Urdu Adjectives and Their Grammatical Forms from Wikidata
+# This query is inspired by the sparql code on "Expand Scribe-Data Hindi verb queries"[KesharwaniArpita],
+# The query fetches the adjective's lemma along with these grammatical forms.
+# Each form is filtered to include only those where the language is set to "ur" (Urdu).
+# The results display lexeme ID, lemma, and the optional grammatical features.
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+  ?directCase
+  ?singulativeNumeral
+  ?collectiveNumeral
+  ?obliqueCase
+WHERE {
+  # Adjective Lexeme
+  ?lexeme dct:language wd:Q11051 ;  # Hindustani language
+          wikibase:lexicalCategory wd:Q34698 ;  # Adjective category
+          wikibase:lemma ?lemma .
+  FILTER(lang(?lemma) = "ur")  # Filter for Urdu language lemmas
+
+  # MARK: Direct Case
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directCaseForm .
+    ?directCaseForm ontolex:representation ?directCase ;
+    wikibase:grammaticalFeature wd:Q1751855 .  # Direct case
+    FILTER(LANG(?directCase) = "ur")
+  }
+
+  # MARK: Singulative Numeral
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singulativeNumeralForm .
+    ?singulativeNumeralForm ontolex:representation ?singulativeNumeral ;
+    wikibase:grammaticalFeature wd:Q121786 .  # Singulative numeral
+    FILTER(LANG(?singulativeNumeral) = "ur")
+  }
+
+  # MARK: Collective Numeral
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?collectiveNumeralForm .
+    ?collectiveNumeralForm ontolex:representation ?collectiveNumeral ;
+    wikibase:grammaticalFeature wd:Q161341 .  # Collective numeral
+    FILTER(LANG(?collectiveNumeral) = "ur")
+  }
+
+  # MARK: Oblique Case
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueCaseForm .
+    ?obliqueCaseForm ontolex:representation ?obliqueCase ;
+    wikibase:grammaticalFeature wd:Q551797 .  # Oblique case
+    FILTER(LANG(?obliqueCase) = "ur")
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+  }
+}
