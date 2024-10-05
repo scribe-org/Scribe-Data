@@ -31,9 +31,8 @@ WHERE {
     FILTER(?voiceFeature IN (wd:Q1317831, wd:Q1194697))
     FILTER(LANG(?voice) = "la") .
   } .
- 
+
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE],la".
   }
 }
-LIMIT 1000
