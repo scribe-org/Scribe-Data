@@ -11,17 +11,12 @@ SELECT DISTINCT
   ?intransitivePhase
   ?basicPhase
   ?conjParticiple
-  ?adverbial
-  ?absConstruction
-  ?accusative
-  ?ergative
-  ?additivePhase
 
 WHERE {
   # MARK: Infinitive
 
-  ?lexeme dct:language wd:Q11051 ; 
-          wikibase:lexicalCategory wd:Q24905 ; 
+  ?lexeme dct:language wd:Q11051 ;
+          wikibase:lexicalCategory wd:Q24905 ;
           wikibase:lemma ?infinitive .
   FILTER(lang(?infinitive) = "hi") .
 
@@ -69,8 +64,4 @@ WHERE {
     wikibase:grammaticalFeature wd:Q113133303 .
     FILTER(LANG(?conjParticiple) = "hi") .
   } .
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". 
-  }
 }

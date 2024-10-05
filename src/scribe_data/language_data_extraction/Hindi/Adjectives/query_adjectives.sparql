@@ -1,6 +1,5 @@
-# SPARQL Query: Retrieve Hindi adjectives from Wikidata
-# This query is loosely based on the on the query in PR "Add SPARQL query for extracting Urdu adjectives"[Ekikereabasi-Nk],
-# The query fetches the adjective's lemma along with these grammatical forms.
+# tool: scribe-data
+# All Hindi (from Hindustani Q11051) adjectives with the included grammatical forms.
 # Each form is filtered to include only those where the language is set to "hi" (Hindi).
 # Tested this query at https://query.wikidata.org/.
 
@@ -11,6 +10,7 @@ SELECT DISTINCT
   (GROUP_CONCAT(DISTINCT ?singulativeNumeral; SEPARATOR=", ") AS ?singulativeNumerals)
   (GROUP_CONCAT(DISTINCT ?collectiveNumeral; SEPARATOR=", ") AS ?collectiveNumerals)
   (GROUP_CONCAT(DISTINCT ?obliqueCase; SEPARATOR=", ") AS ?obliqueCases)
+
 WHERE {
   # Adjective Lexeme
   ?lexeme dct:language wd:Q11051 ;  # Hindustani language
@@ -19,6 +19,7 @@ WHERE {
   FILTER(lang(?lemma) = "hi")  # Filter for Hindi language lemmas
 
   # MARK: Direct Case
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?directCaseForm .
     ?directCaseForm ontolex:representation ?directCase ;
@@ -27,6 +28,7 @@ WHERE {
   }
 
   # MARK: Singulative Numeral
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singulativeNumeralForm .
     ?singulativeNumeralForm ontolex:representation ?singulativeNumeral ;
@@ -35,6 +37,7 @@ WHERE {
   }
 
   # MARK: Collective Numeral
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?collectiveNumeralForm .
     ?collectiveNumeralForm ontolex:representation ?collectiveNumeral ;
@@ -43,6 +46,7 @@ WHERE {
   }
 
   # MARK: Oblique Case
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?obliqueCaseForm .
     ?obliqueCaseForm ontolex:representation ?obliqueCase ;
