@@ -220,7 +220,7 @@ def query_data(languages=None, word_types=None, overwrite=None):
 
             # Call the corresponding formatting file.
             os.system(
-                f"python3 {PATH_TO_LANGUAGE_EXTRACTION_FILES / lang / target_type / f'format_{target_type}.py'}"
+                f'python3 "{PATH_TO_LANGUAGE_EXTRACTION_FILES / lang / target_type / f"format_{target_type}.py"}"'
             )
 
             with open(
