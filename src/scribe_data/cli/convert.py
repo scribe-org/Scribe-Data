@@ -110,7 +110,7 @@ def convert_to_csv_or_tsv(
             )
 
         try:
-            with file_path.open("r") as f:
+            with file_path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
 
         except (IOError, json.JSONDecodeError) as e:
