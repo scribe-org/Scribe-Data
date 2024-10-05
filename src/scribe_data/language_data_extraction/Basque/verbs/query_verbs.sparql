@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Basque (Q8752) verbs.
+# All Basque (Q8752) verbs and the currently implemented tenses for each.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
@@ -10,62 +10,51 @@ SELECT DISTINCT
   ?imperfective
   ?nominalized
   ?participle
-  ?sense
 
 WHERE {
-  # Infinitive form
+  # MARK: Infinitive
+
   ?lexeme dct:language wd:Q8752 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?infinitive .
 
-  # Future Tense
+  # MARK: Future
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futureForm .
     ?futureForm ontolex:representation ?future ;
-    wikibase:grammaticalFeature wd:Q501405 .  # Future tense
-    FILTER(LANG(?future) = "eu") .
+    wikibase:grammaticalFeature wd:Q501405 .
   } .
 
-  # Gerund
+  # MARK: Gerund
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?gerundForm .
     ?gerundForm ontolex:representation ?gerund ;
-    wikibase:grammaticalFeature wd:Q1923028 .  # Gerund
-    FILTER(LANG(?gerund) = "eu") .
+    wikibase:grammaticalFeature wd:Q1923028 .
   } .
 
-  # Imperfective Verb
+  # MARK: Imperfective
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperfectiveForm .
     ?imperfectiveForm ontolex:representation ?imperfective ;
-    wikibase:grammaticalFeature wd:Q54556033 .  # Imperfective
-    FILTER(LANG(?imperfective) = "eu") .
+    wikibase:grammaticalFeature wd:Q54556033 .
   } .
 
-  # Nominalized Verb
+  # MARK: Nominalized
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominalizedForm .
     ?nominalizedForm ontolex:representation ?nominalized ;
-    wikibase:grammaticalFeature wd:Q74674960 .  # Nominalization
-    FILTER(LANG(?nominalized) = "eu") .
+    wikibase:grammaticalFeature wd:Q74674960 .
   } .
 
-  # Participle
+  # MARK: Participle
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?participleForm .
     ?participleForm ontolex:representation ?participle ;
-    wikibase:grammaticalFeature wd:Q814722 .  # Participle
-    FILTER(LANG(?participle) = "eu") .
+    wikibase:grammaticalFeature wd:Q814722 .
   } .
-
-  # Senses (meanings)
-  OPTIONAL {
-    ?lexeme ontolex:sense ?senseURI .
-    ?senseURI skos:definition ?sense .
-    FILTER(LANG(?sense) = "eu") .
-  } .
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],eu".
-  }
 }
