@@ -1,0 +1,24 @@
+# tool: scribe-data
+# All Latin (Q397) verbs with active singular.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+  (GROUP_CONCAT(DISTINCT ?activeSingular; SEPARATOR=", ") AS ?activeSingularForms)
+
+WHERE {
+  # Latin verb lexemes
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  # Active Singular
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?formActiveSingular .
+    ?formActiveSingular ontolex:representation ?activeSingular ;
+    wikibase:grammaticalFeature wd:Q110786, wd:Q1317831 .  # Singular, Active voice
+    FILTER(LANG(?activeSingular) = "la")
+  }
+  GROUP BY ?lexeme ?verb
+}
