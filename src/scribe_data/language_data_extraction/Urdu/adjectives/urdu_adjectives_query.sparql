@@ -1,8 +1,6 @@
-# SPARQL Query: Retrieve Urdu Adjectives and Their Grammatical Forms from Wikidata
-# This query is inspired by the sparql code on "Expand Scribe-Data Hindi verb queries"[KesharwaniArpita],
-# The query fetches the adjective's lemma along with these grammatical forms.
-# Each form is filtered to include only those where the language is set to "ur" (Urdu).
-# The results display lexeme ID, lemma, and the optional grammatical features.
+# tool: scribe-data
+# Enter this query at https://query.wikidata.org/.
+# Retrieve Urdu Adjectives and Grammatical Forms
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
@@ -12,41 +10,40 @@ SELECT DISTINCT
   ?collectiveNumeral
   ?obliqueCase
 WHERE {
-  # Adjective Lexeme
-  ?lexeme dct:language wd:Q11051 ;  # Hindustani language
-          wikibase:lexicalCategory wd:Q34698 ;  # Adjective category
+  ?lexeme dct:language wd:Q11051 ;
+          wikibase:lexicalCategory wd:Q34698 ;
           wikibase:lemma ?lemma .
-  FILTER(lang(?lemma) = "ur")  # Filter for Urdu language lemmas
+  FILTER(lang(?lemma) = "ur")
 
-  # MARK: Direct Case
+  # Direct Case
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?directCaseForm .
     ?directCaseForm ontolex:representation ?directCase ;
-    wikibase:grammaticalFeature wd:Q1751855 .  # Direct case
+    wikibase:grammaticalFeature wd:Q1751855 .
     FILTER(LANG(?directCase) = "ur")
   }
 
-  # MARK: Singulative Numeral
+  # Singulative Numeral
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singulativeNumeralForm .
     ?singulativeNumeralForm ontolex:representation ?singulativeNumeral ;
-    wikibase:grammaticalFeature wd:Q121786 .  # Singulative numeral
+    wikibase:grammaticalFeature wd:Q121786 .
     FILTER(LANG(?singulativeNumeral) = "ur")
   }
 
-  # MARK: Collective Numeral
+  # Collective Numeral
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?collectiveNumeralForm .
     ?collectiveNumeralForm ontolex:representation ?collectiveNumeral ;
-    wikibase:grammaticalFeature wd:Q161341 .  # Collective numeral
+    wikibase:grammaticalFeature wd:Q161341 .
     FILTER(LANG(?collectiveNumeral) = "ur")
   }
 
-  # MARK: Oblique Case
+  # Oblique Case
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?obliqueCaseForm .
     ?obliqueCaseForm ontolex:representation ?obliqueCase ;
-    wikibase:grammaticalFeature wd:Q551797 .  # Oblique case
+    wikibase:grammaticalFeature wd:Q551797 .
     FILTER(LANG(?obliqueCase) = "ur")
   }
 
