@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Latin (Q397) verbs.
+# All Latin (Q397) verbs with passive singular.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
