@@ -10,7 +10,6 @@ SELECT DISTINCT
   ?gerund
   ?intransitivePhase
   ?basicPhase
-  ?conjParticiple
 
 WHERE {
   # MARK: Infinitive
@@ -54,14 +53,5 @@ WHERE {
     ?basicPhaseForm ontolex:representation ?basicPhase ;
     wikibase:grammaticalFeature wd:Q113330960 .
     FILTER(LANG(?basicPhase) = "hi") .
-  } .
-
-  # MARK: Conjunctive Participle
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conjParticipleForm .
-    ?conjParticipleForm ontolex:representation ?conjParticiple ;
-    wikibase:grammaticalFeature wd:Q113133303 .
-    FILTER(LANG(?conjParticiple) = "hi") .
   } .
 }
