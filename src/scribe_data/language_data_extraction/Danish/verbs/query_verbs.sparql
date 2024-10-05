@@ -2,7 +2,7 @@
 # All Danish (Q9035) verbs and the currently implemented tenses for each.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
   ?infActive
@@ -15,14 +15,15 @@ SELECT DISTINCT
   ?pretPassive
   ?infPassive
 
-
 WHERE {
-  # Infinitive
+  # MARK: Infinitive
+
   ?lexeme dct:language wd:Q9035 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?infinitive
 
   # MARK: Infinitive Active
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?infActiveForm .
     ?infActiveForm ontolex:representation ?infActive ;
@@ -30,7 +31,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1317831 .
   }
 
-  # MARK: Present Tense Active
+  # MARK: Present Active
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presActiveForm .
     ?presActiveForm ontolex:representation ?presActive ;
@@ -39,6 +41,7 @@ WHERE {
   }
 
   # MARK: Preterite Active
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretActiveForm .
     ?pretActiveForm ontolex:representation ?pretActive ;
@@ -47,6 +50,7 @@ WHERE {
   }
 
   # MARK: Past Participle
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastPartForm .
     ?pastPartForm ontolex:representation ?pastPart ;
@@ -54,6 +58,7 @@ WHERE {
   }
 
   # MARK: Present Participle
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presPartForm .
     ?presPartForm ontolex:representation ?presPart ;
@@ -61,6 +66,7 @@ WHERE {
   }
 
   # MARK: Imperative
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperativeForm .
     ?imperativeForm ontolex:representation ?imperative ;
@@ -68,6 +74,7 @@ WHERE {
   }
 
   # MARK: Present Passive
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presPassiveForm .
     ?presPassiveForm ontolex:representation ?presPassive ;
@@ -76,6 +83,7 @@ WHERE {
   }
 
   # MARK: Preterite Passive
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretPassiveForm .
     ?pretPassiveForm ontolex:representation ?pretPassive ;
