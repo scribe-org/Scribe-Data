@@ -22,6 +22,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - Total Wikidata lexemes for languages and data types can be derived with the `--total` command ([#147](https://github.com/scribe-org/Scribe-Data/issues/147)).
   - Commands can be used via an interactive mode with the `--interactive` command ([#158](https://github.com/scribe-org/Scribe-Data/issues/158)).
 - Articles are removed from machine translations so they're more directly useful in Scribe applications ([#96](https://github.com/scribe-org/Scribe-Data/issues/96)).
+- Queries for Basque verbs and adjectives were expanded and added respectively ([#222](https://github.com/scribe-org/Scribe-Data/issues/222)).
 
 ### 🐞 Bug Fixes
 
