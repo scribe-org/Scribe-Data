@@ -5,6 +5,7 @@
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?conjParticiple
   ?adverbial
   ?absConstruction
   ?accusative
@@ -15,6 +16,15 @@ WHERE {
   ?lexeme dct:language wd:Q11051 ;
         wikibase:lexicalCategory wd:Q24905 .
 
+  # MARK: Conjunctive Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conjParticipleForm .
+    ?conjParticipleForm ontolex:representation ?conjParticiple ;
+    wikibase:grammaticalFeature wd:Q113133303 .
+    FILTER(LANG(?conjParticiple) = "hi") .
+  } .
+  
   # MARK: Adverbial
 
   OPTIONAL {
