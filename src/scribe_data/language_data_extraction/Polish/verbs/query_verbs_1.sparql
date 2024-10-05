@@ -1,0 +1,85 @@
+# tool: scribe-data
+# Enter this query at https://query.wikidata.org/.
+# Retrieve Polish Verbs and Common Grammatical Forms
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+  ?infinitive
+  ?imperative
+  ?indicative
+  ?conditional
+  ?pastTense
+  ?futureTense
+  ?singular
+  ?plural
+WHERE {
+  ?lexeme dct:language wd:Q809 ;
+          wikibase:lexicalCategory wd:Q24905 ;
+          wikibase:lemma ?lemma .
+  FILTER(lang(?lemma) = "pl")
+
+  # Infinitive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+    wikibase:grammaticalFeature wd:Q179230 .
+    FILTER(LANG(?infinitive) = "pl")
+  }
+
+  # Imperative
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+    wikibase:grammaticalFeature wd:Q22716 .
+    FILTER(LANG(?imperative) = "pl")
+  }
+
+  # Indicative
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeForm .
+    ?indicativeForm ontolex:representation ?indicative ;
+    wikibase:grammaticalFeature wd:Q682111 .
+    FILTER(LANG(?indicative) = "pl")
+  }
+
+  # Conditional
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalForm .
+    ?conditionalForm ontolex:representation ?conditional ;
+    wikibase:grammaticalFeature wd:Q625581 .
+    FILTER(LANG(?conditional) = "pl")
+  }
+
+  # Past Tense
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastTenseForm .
+    ?pastTenseForm ontolex:representation ?pastTense ;
+    wikibase:grammaticalFeature wd:Q1994301 .
+    FILTER(LANG(?pastTense) = "pl")
+  }
+
+  # Future Tense
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureTenseForm .
+    ?futureTenseForm ontolex:representation ?futureTense ;
+    wikibase:grammaticalFeature wd:Q501405 .
+    FILTER(LANG(?futureTense) = "pl")
+  }
+
+  # Singular
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+    wikibase:grammaticalFeature wd:Q110786 .
+    FILTER(LANG(?singular) = "pl")
+  }
+
+  # Plural
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+    wikibase:grammaticalFeature wd:Q146786 .
+    FILTER(LANG(?plural) = "pl")
+  }
+}
