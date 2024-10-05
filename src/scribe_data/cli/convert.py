@@ -56,7 +56,7 @@ def export_json(
         return
 
     try:
-        with data_file.open("r") as file:
+        with data_file.open("r", encoding="utf-8") as file:
             data = json.load(file)
 
     except (IOError, json.JSONDecodeError) as e:
@@ -110,7 +110,7 @@ def convert_to_csv_or_tsv(
             )
 
         try:
-            with file_path.open("r") as f:
+            with file_path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
 
         except (IOError, json.JSONDecodeError) as e:

@@ -8,7 +8,7 @@ SELECT
   ?case
 
 WHERE {
-  # All German prepositions.
+  # All Ukrainian prepositions.
   ?lexeme dct:language wd:Q8798 ;
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?lemma .
