@@ -1,0 +1,49 @@
+# tool: scribe-data
+# All Czech (Q9056) verbs and the currently implemented tenses for each.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
+  ?presTrans ?pastpart
+  ?fTense
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q24905 .
+
+  # MARK: Infinitive
+
+  ?lexeme ontolex:lexicalForm ?infinitiveForm .
+  ?infinitiveForm ontolex:representation ?infinitive ;
+    wikibase:grammaticalFeature wd:Q179230 ;
+
+  # MARK: Present Transgressive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presTransForm .
+    ?presTransForm ontolex:representation ?presTrans ;
+      wikibase:grammaticalFeature wd:Q65540125 ;
+      FILTER(lang(?presTrans) = "cs" ) .
+  } .
+
+  # MARK: Past Participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastpartForm .
+    ?pastpartForm ontolex:representation ?pastpart ;
+      wikibase:grammaticalFeature wd:Q12717679 ;
+      FILTER(lang(?pastpart) = "cs" ) .
+  } .
+
+  # MARK: Future Tense
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?fTenseForm .
+    ?fTenseForm ontolex:representation ?fTense ;
+      wikibase:grammaticalFeature wd:Q501405 ;
+      FILTER(lang(?fTense) = "cs" ) .
+  } .
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+  }
+}
