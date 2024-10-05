@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Arabic (Q13955) nouns, their plurals and their dual forms.
+# All Arabic (Q13955) nouns, their plurals, definiteSingular, definitePlural, feminineSingular, femininePlural and their dual forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
@@ -7,6 +7,10 @@ SELECT DISTINCT
   ?singular
   ?plural
   ?dual
+  ?definiteSingular
+  ?definitePlural
+  ?feminineSingular
+  ?femininePlural
 
 WHERE {
   VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
@@ -15,21 +19,57 @@ WHERE {
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?singular .
 
-  # MARK: Indefinte Plural
+  # MARK: Indefinite Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q53997857 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q53997857 ; # Indefinite
+      wikibase:grammaticalFeature wd:Q146786 ;    # Plural
   } .
 
-  # MARK: Indefinte Dual
+  # MARK: Indefinite Dual
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?dualForm .
     ?dualForm ontolex:representation ?dual ;
-      wikibase:grammaticalFeature wd:Q53997857 ;
-      wikibase:grammaticalFeature wd:Q110022 ;
+      wikibase:grammaticalFeature wd:Q53997857 ; # Indefinite
+      wikibase:grammaticalFeature wd:Q110022 ;    # Dual
+  } .
+
+  # MARK: Definite Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?defSingularForm .
+    ?defSingularForm ontolex:representation ?definiteSingular ;
+      wikibase:grammaticalFeature wd:Q53997793 ; # Definite
+      wikibase:grammaticalFeature wd:Q131105 ;    # Singular
+  } .
+
+  # MARK: Definite Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?defPluralForm .
+    ?defPluralForm ontolex:representation ?definitePlural ;
+      wikibase:grammaticalFeature wd:Q53997793 ; # Definite
+      wikibase:grammaticalFeature wd:Q146786 ;    # Plural
+  } .
+
+  # MARK: Feminine Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femSingularForm .
+    ?femSingularForm ontolex:representation ?feminineSingular ;
+      wikibase:grammaticalFeature wd:Q1775415 ;  # Feminine
+      wikibase:grammaticalFeature wd:Q131105 ;   # Singular
+  } .
+
+  # MARK: Feminine Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femPluralForm .
+    ?femPluralForm ontolex:representation ?femininePlural ;
+      wikibase:grammaticalFeature wd:Q1775415 ;  # Feminine
+      wikibase:grammaticalFeature wd:Q146786 ;   # Plural
   } .
 }
