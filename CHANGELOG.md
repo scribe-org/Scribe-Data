@@ -23,6 +23,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - Commands can be used via an interactive mode with the `--interactive` command ([#158](https://github.com/scribe-org/Scribe-Data/issues/158)).
 - Articles are removed from machine translations so they're more directly useful in Scribe applications ([#96](https://github.com/scribe-org/Scribe-Data/issues/96)).
 - Queries for Basque verbs and adjectives were expanded and added respectively ([#222](https://github.com/scribe-org/Scribe-Data/issues/222)).
+- The query for Danish verbs was expanded ([#225](https://github.com/scribe-org/Scribe-Data/issues/225)).
 
 ### 🐞 Bug Fixes
 
