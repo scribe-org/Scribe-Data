@@ -20,5 +20,5 @@ WHERE {
     wikibase:grammaticalFeature wd:Q110786, wd:Q1317831 .  # Singular, Active voice
     FILTER(LANG(?activeSingular) = "la")
   }
-  GROUP BY ?lexeme ?verb
 }
+GROUP BY ?lexeme ?verb
