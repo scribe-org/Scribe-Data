@@ -1,3 +1,9 @@
+# SPARQL Query: Retrieve Hindi adjectives from Wikidata
+# This query is loosely based on the on the query in PR "Add SPARQL query for extracting Urdu adjectives"[Ekikereabasi-Nk],
+# The query fetches the adjective's lemma along with these grammatical forms.
+# Each form is filtered to include only those where the language is set to "hi" (Hindi).
+# Tested this query at https://query.wikidata.org/.
+
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lemma
