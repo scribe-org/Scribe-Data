@@ -20,10 +20,9 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?presSimpForm .
     ?presSimpForm ontolex:representation ?presSimp ;
       wikibase:grammaticalFeature wd:Q3910936 ;
-   FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q51929074 . }
-   FILTER NOT EXISTS { ?presSimpForm wdt:P6191 wd:Q181970 . }
-   FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q126473 . }
-   FILTER(LANG(?presSimp) = "ja") .
-    }
-
- }
+    FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q51929074 . }
+    FILTER NOT EXISTS { ?presSimpForm wdt:P6191 wd:Q181970 . }
+    FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q126473 . }
+    FILTER(LANG(?presSimp) = "ja") .
+  }
+}
