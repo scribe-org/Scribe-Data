@@ -1,0 +1,18 @@
+# tool: scribe-data
+# All English (Q1860) adjectives.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+
+WHERE {
+  ?lexeme dct:language wd:Q1860 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?lemma .
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+    ?lemma rdfs:label ?adjective .
+  }
+}
