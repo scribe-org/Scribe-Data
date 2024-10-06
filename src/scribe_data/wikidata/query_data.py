@@ -24,6 +24,8 @@ import json
 import os
 from pathlib import Path
 from urllib.error import HTTPError
+import time
+from http.client import IncompleteRead
 
 from tqdm.auto import tqdm
 
@@ -126,10 +128,21 @@ def query_data(languages=None, word_types=None, overwrite=None):
 
         results = None
 
-        try:
-            results = sparql.query().convert()
-        except HTTPError as err:
-            print(f"HTTPError with {q}: {err}")
+        max_retries = 3
+        retry_delay = 5  # seconds
+
+        for attempt in range(max_retries):
+            try:
+                results = sparql.query().convert()
+                break  # If successful, break out of the retry loop
+            except IncompleteRead:
+                if attempt < max_retries - 1:
+                    print(
+                        f"Incomplete read error occurred. Retrying in {retry_delay} seconds..."
+                    )
+                    time.sleep(retry_delay)
+                else:
+                    raise
 
         if results is None:
             print(f"Nothing returned by the WDQS server for {q}")
