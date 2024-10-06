@@ -2,31 +2,34 @@
 # All Arabic (Q13955) adjectives, their plurals and their dual forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID) # Selects the lexeme ID without the namespace
-  ?adjective # Selects the adjective label
-  ?plural # Selects the plural form of the adjective
-  ?dual # Selects the dual form representation
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?plural
+  ?dual
 
 WHERE {
-  ?lexeme dct:language wd:Q13955 ; # Filters lexemes by language (Arabic)
-    wikibase:lexicalCategory wd:Q34698; # Filters lexemes that are adjectives
-    wikibase:lemma ?lemma . # Gets the lemma associated with the lexeme
+  ?lexeme dct:language wd:Q13955 ;            # Arabic language
+    wikibase:lexicalCategory wd:Q34698;        # Adjectives
+    wikibase:lemma ?lemma .
 
+  # Indefinite Dual Form
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dualForm . # Retrieves the lexical form for the dual
-    ?dualForm ontolex:representation ?dual ; # Gets the dual representation
-      wikibase:grammaticalFeature wd:Q110022 ; # Filters for the dual grammatical feature
+    ?lexeme ontolex:lexicalForm ?dualForm .
+    ?dualForm ontolex:representation ?dual ;
+      wikibase:grammaticalFeature wd:Q110022 ;
   }
 
-  OPTIONAL { # This block allows for the optional retrieval of plural forms
-    ?lexeme ontolex:lexicalForm ?pluralForm . # Retrieves the lexical form for the plural
-    ?pluralForm ontolex:representation ?plural ; # Gets the plural representation
-      wikibase:grammaticalFeature wd:Q146786 ; # Filters for the plural grammatical feature
+  # Indefinite Plural Form
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 ;
   }
 
-  SERVICE wikibase:label { # Retrieves labels for the specified language
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". # Automatically determines the best language to use
-    ?lemma rdfs:label ?adjective. # Gets the adjective label from the lemma
+  # Retrieve labels for display
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]" .
+    ?lemma rdfs:label ?adjective .
   }
 }
