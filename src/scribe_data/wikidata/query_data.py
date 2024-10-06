@@ -219,9 +219,13 @@ def query_data(languages=None, word_types=None, overwrite=None):
                 json.dump(results_final, json_file, ensure_ascii=False, indent=0)
 
             # Call the corresponding formatting file.
-            os.system(
-                f"python3 {PATH_TO_LANGUAGE_EXTRACTION_FILES / lang / target_type / f'format_{target_type}.py'}"
+            formatting_file_path = (
+                PATH_TO_LANGUAGE_EXTRACTION_FILES
+                / lang
+                / target_type
+                / f"format_{target_type}.py"
             )
+            os.system(f"python3 {formatting_file_path}")
 
             with open(
                 Path("scribe_data_json_export")
