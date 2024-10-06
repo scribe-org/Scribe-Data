@@ -1,13 +1,79 @@
 # tool: scribe-data
-# All Esperanto (Q143) verbs.
+# All Esperanto (Q143) verbs and the currently implemented tenses for each.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT
+SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?verb
+  ?infinitive
+  ?present
+  ?past
+  ?future
+  ?indicative
+  ?conditional
+  ?volitive
 
 WHERE {
+  # MARK: Infinitive
+
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+    wikibase:lemma ?infinitive .
+
+  # MARK: Present Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+    wikibase:grammaticalFeature wd:Q192613 ; # Present tense in Esperanto
+    FILTER(LANG(?present) = "eo") .
+  } .
+
+  # MARK: Past Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+    wikibase:grammaticalFeature wd:Q1994301 ; # Past tense in Esperanto
+    FILTER(LANG(?past) = "eo") .
+  } .
+
+  # MARK: Future Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureForm .
+    ?futureForm ontolex:representation ?future ;
+    wikibase:grammaticalFeature wd:Q501405 ; # Future tense in Esperanto
+    FILTER(LANG(?future) = "eo") .
+  } .
+
+  # MARK: Indicative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeForm .
+    ?indicativeForm ontolex:representation ?indicative ;
+    wikibase:grammaticalFeature wd:Q682111 ; # Indicative mood in Esperanto
+    FILTER(LANG(?indicative) = "eo") .
+  } .
+
+  # MARK: Conditional
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalForm .
+    ?conditionalForm ontolex:representation ?conditional ;
+    wikibase:grammaticalFeature wd:Q625581 ; # Conditional mood in Esperanto
+    FILTER(LANG(?conditional) = "eo") .
+  } .
+
+  # MARK: Volitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?volitiveForm .
+    ?volitiveForm ontolex:representation ?volitive ;
+    wikibase:grammaticalFeature wd:Q2532941 ; # Volitive mood in Esperanto
+    FILTER(LANG(?volitive) = "eo") .
+  } .
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+  }
 }
