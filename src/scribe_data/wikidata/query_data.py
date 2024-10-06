@@ -27,11 +27,10 @@ from urllib.error import HTTPError
 
 from tqdm.auto import tqdm
 
-from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 from scribe_data.wikidata.wikidata_utils import sparql
 
 
-def query_data(languages=None, word_types=None, overwrite=None):
+def query_data(output_dir, languages=None, word_types=None, overwrite=None):
     SCRIBE_DATA_SRC_PATH = Path(__file__).parent.parent
     PATH_TO_LANGUAGE_EXTRACTION_FILES = (
         SCRIBE_DATA_SRC_PATH / "language_data_extraction"
@@ -79,7 +78,13 @@ def query_data(languages=None, word_types=None, overwrite=None):
         target_type = q.parent.name
 
         # After formatting and before saving the new data.
-        export_dir = Path(DEFAULT_JSON_EXPORT_DIR) / lang.capitalize()
+        print(f"Got output directory {output_dir}")
+        if output_dir.startswith("./"):
+            updated_path = output_dir[2:]  # Remove the first two characters ('./')
+        else:
+            updated_path = output_dir
+        print(updated_path)
+        export_dir = Path(updated_path) / lang.capitalize()
         export_dir.mkdir(parents=True, exist_ok=True)
 
         file_name = f"{target_type}.json"
@@ -219,13 +224,9 @@ def query_data(languages=None, word_types=None, overwrite=None):
                 json.dump(results_final, json_file, ensure_ascii=False, indent=0)
 
             # Call the corresponding formatting file.
-            formatting_file_path = (
-                PATH_TO_LANGUAGE_EXTRACTION_FILES
-                / lang
-                / target_type
-                / f"format_{target_type}.py"
+            os.system(
+                f"python3 {PATH_TO_LANGUAGE_EXTRACTION_FILES / lang / target_type / f'format_{target_type}.py'}"
             )
-            os.system(f"python3 {formatting_file_path}")
 
             with open(
                 Path("scribe_data_json_export")

@@ -36,13 +36,16 @@ def get_data(
     data_type: Optional[str] = None,
     output_dir: Optional[str] = None,
     overwrite: bool = False,
-    output_type: Optional[str] = None,
+    output_type: Optional[str] = "json",
     outputs_per_entry: int = None,
     all: bool = False,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
     """
+    print(f"Output directory {output_dir}")
+    print(f"Output type {output_type}")
+
     languages = [language] if language else None
 
     subprocess_result = False
@@ -85,7 +88,7 @@ def get_data(
 
         data_type = [data_type] if data_type else None
         print(f"Updating data for language: {language}, data type: {data_type}")
-        query_data(languages, data_type, overwrite)
+        query_data(output_dir, languages, data_type, overwrite)
         subprocess_result = True
 
     else:
