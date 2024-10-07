@@ -1,9 +1,0 @@
-SELECT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?verb
-
-WHERE {
-  ?lexeme dct:language wd:Q7838 ;
-    wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
-}
