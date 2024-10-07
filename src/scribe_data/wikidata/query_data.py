@@ -24,6 +24,8 @@ import json
 import os
 from pathlib import Path
 from urllib.error import HTTPError
+import sys
+import subprocess
 
 from tqdm.auto import tqdm
 
@@ -262,7 +264,39 @@ def query_data(
                 / target_type
                 / f"format_{target_type}.py"
             )
-            os.system(f"python3 {formatting_file_path} --file-path {output_dir}")
+            # Replace the original os.system call with:
+            execute_formatting_script(formatting_file_path, output_dir)
+
+            # os.system(f"python3 {formatting_file_path} --file-path {output_dir}")
+
+
+def execute_formatting_script(formatting_file_path, output_dir):
+    # Determine the root directory of the project
+    project_root = Path(__file__).parent.parent
+
+    if sys.platform.startswith("win"):
+        python_executable = sys.executable
+        pythonpath = str(project_root)
+
+        # Create environment with updated PYTHONPATH
+        env = os.environ.copy()
+        if "PYTHONPATH" in env:
+            env["PYTHONPATH"] = f"{pythonpath};{env['PYTHONPATH']}"
+        else:
+            env["PYTHONPATH"] = pythonpath
+
+        # Use subprocess.run instead of os.system
+        subprocess.run(
+            [python_executable, str(formatting_file_path), "--file-path", output_dir],
+            env=env,
+            check=True,
+        )
+    else:
+        # Unix-like systems (Linux, macOS)
+        subprocess.run(
+            ["python3", str(formatting_file_path), "--file-path", output_dir],
+            check=True,
+        )
 
 
 if __name__ == "__main__":
