@@ -1,79 +1,25 @@
-# tool: scribe-data
-# All Arabic (Q13955) nouns and their associated forms with all grammatical features.
-# Enter this query at https://query.wikidata.org/.
-
-SELECT DISTINCT
-  # MARK: Columns
-  ?lexemeId
-  ?actualWord
-  (GROUP_CONCAT(?featureLabel; separator=", ") AS ?features)
-
-WHERE {
-  # MARK: Lexeme Selection
-  ?lexeme dct:language wd:Q13955 ;  # Language: Arabic (Q13955)
+SELECT ?lexemeId ?actualWord (GROUP_CONCAT(?featureLabel; separator=", ") AS ?features) WHERE {
+  # Filter for Arabic lexemes that are nouns
+  ?lexeme dct:language wd:Q13955;  # Language: Arabic (Q13955)
           wikibase:lexicalCategory wd:Q1084.  # Lexical Category: Noun (Q1084)
 
-  # MARK: Form Extraction
+  # Retrieve each form of the lexeme
   ?lexeme ontolex:lexicalForm ?form.
 
-  # MARK: Lexeme ID Formatting
+  # Construct the lexeme ID in the desired format (e.g., L1001-F1)
   BIND(STRAFTER(STR(?form), "entity/") AS ?lexemeId).
 
-  # MARK: Word Representation
+  # Get the form's actual written word
   ?form ontolex:representation ?actualWord.
 
-  # MARK: Grammatical Features Extraction
-  OPTIONAL {
-    ?form wikibase:grammaticalFeature ?feature.
-  }
+  # Retrieve grammatical features of these forms
+  OPTIONAL { ?form wikibase:grammaticalFeature ?feature. }
 
-  # MARK: Indefinite Dual
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dualForm .
-    ?dualForm ontolex:representation ?dual ;
-      wikibase:grammaticalFeature wd:Q53997857 ;  # Indefinite
-      wikibase:grammaticalFeature wd:Q110022 ;    # Dual
-  } .
-
-  # MARK: Definite Singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?defSingularForm .
-    ?defSingularForm ontolex:representation ?definiteSingular ;
-      wikibase:grammaticalFeature wd:Q53997793 ;  # Definite
-      wikibase:grammaticalFeature wd:Q131105 ;    # Singular
-  } .
-
-  # MARK: Definite Plural
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?defPluralForm .
-    ?defPluralForm ontolex:representation ?definitePlural ;
-      wikibase:grammaticalFeature wd:Q53997793 ;  # Definite
-      wikibase:grammaticalFeature wd:Q146786 ;    # Plural
-  } .
-
-  # MARK: Feminine Singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femSingularForm .
-    ?femSingularForm ontolex:representation ?feminineSingular ;
-      wikibase:grammaticalFeature wd:Q1775415 ;   # Feminine
-      wikibase:grammaticalFeature wd:Q131105 ;     # Singular
-  } .
-
-  # MARK: Feminine Plural
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femPluralForm .
-    ?femPluralForm ontolex:representation ?femininePlural ;
-      wikibase:grammaticalFeature wd:Q1775415 ;   # Feminine
-      wikibase:grammaticalFeature wd:Q146786 ;     # Plural
-  } .
-
-  # MARK: Feature Labeling
+  # Get labels for grammatical features
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en".
     ?feature rdfs:label ?featureLabel.
   }
 }
-
-# MARK: Grouping and Ordering
 GROUP BY ?lexemeId ?actualWord
 ORDER BY ?lexemeId
