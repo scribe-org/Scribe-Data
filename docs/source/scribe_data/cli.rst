@@ -105,7 +105,7 @@ Behavior and Output:
 
     .. code-block:: text
 
-        Updating data for language: English, data type: ['verbs']
+        Updating data for language(s): English; data type(s): verbs
         Data updated:   0%|
 
 2. If existing files are found, you'll be prompted to choose an option:
