@@ -69,14 +69,7 @@ WHERE {
     wikibase:grammaticalFeature wd:Q1233197 .
     FILTER(LANG(?ergative) = "ku") .
   } .
-  
-  
-  
-  
-
 }
-
-ORDER BY ASC (?lexemeID)
 
 
 
