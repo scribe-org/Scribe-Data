@@ -8,8 +8,8 @@ SELECT DISTINCT
 
 WHERE {
   # Select lexemes in Esperanto that are adjectives
-  ?lexeme dct:language wd:Q143 ;
-    wikibase:lexicalCategory wd:Q34698 ; # Adjective category
+  ?lexeme dct:language wd:Q143 ;  # Esperanto
+    wikibase:lexicalCategory wd:Q34698 ;  # Adjective
     wikibase:lemma ?adjective .
 
   # Ensure we get only the lexeme forms that are adjectives in Esperanto

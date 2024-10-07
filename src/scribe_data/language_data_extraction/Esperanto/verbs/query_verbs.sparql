@@ -5,10 +5,9 @@
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?present
-  ?past
-  ?future
-  ?indicative
+  ?presIndicative
+  ?pastIndicative
+  ?futIndicative
   ?conditional
   ?volitive
 
@@ -22,37 +21,31 @@ WHERE {
   # MARK: Present Tense
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-    wikibase:grammaticalFeature wd:Q192613 ; # Present tense in Esperanto
-    FILTER(LANG(?present) = "eo") .
+    ?lexeme ontolex:lexicalForm ?presIndicativeForm .
+    ?presIndicativeForm ontolex:representation ?presIndicative ;
+    wikibase:grammaticalFeature wd:Q192613 ;
+    wikibase:grammaticalFeature wd:Q682111 ;
+    FILTER(LANG(?presIndicative) = "eo") .
   } .
 
   # MARK: Past Tense
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastForm .
-    ?pastForm ontolex:representation ?past ;
-    wikibase:grammaticalFeature wd:Q1994301 ; # Past tense in Esperanto
-    FILTER(LANG(?past) = "eo") .
+    ?lexeme ontolex:lexicalForm ?pastIndicativeForm .
+    ?pastIndicativeForm ontolex:representation ?pastIndicative ;
+    wikibase:grammaticalFeature wd:Q1994301 ;
+    wikibase:grammaticalFeature wd:Q682111 ;
+    FILTER(LANG(?pastIndicative) = "eo") .
   } .
 
   # MARK: Future Tense
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futureForm .
-    ?futureForm ontolex:representation ?future ;
-    wikibase:grammaticalFeature wd:Q501405 ; # Future tense in Esperanto
-    FILTER(LANG(?future) = "eo") .
-  } .
-
-  # MARK: Indicative
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeForm .
-    ?indicativeForm ontolex:representation ?indicative ;
-    wikibase:grammaticalFeature wd:Q682111 ; # Indicative mood in Esperanto
-    FILTER(LANG(?indicative) = "eo") .
+    ?lexeme ontolex:lexicalForm ?futIndicativeForm .
+    ?futIndicativeForm ontolex:representation ?futIndicative ;
+    wikibase:grammaticalFeature wd:Q501405 ;
+    wikibase:grammaticalFeature wd:Q682111 ;
+    FILTER(LANG(?futIndicative) = "eo") .
   } .
 
   # MARK: Conditional
@@ -60,7 +53,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?conditionalForm .
     ?conditionalForm ontolex:representation ?conditional ;
-    wikibase:grammaticalFeature wd:Q625581 ; # Conditional mood in Esperanto
+    wikibase:grammaticalFeature wd:Q625581 ;
     FILTER(LANG(?conditional) = "eo") .
   } .
 
@@ -69,11 +62,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?volitiveForm .
     ?volitiveForm ontolex:representation ?volitive ;
-    wikibase:grammaticalFeature wd:Q2532941 ; # Volitive mood in Esperanto
+    wikibase:grammaticalFeature wd:Q2532941 ;
     FILTER(LANG(?volitive) = "eo") .
   } .
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-  }
 }
