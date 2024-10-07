@@ -92,7 +92,7 @@ def get_data(
 
     if all:
         print("Updating all languages and data types ...")
-        query_data(None, None, overwrite)
+        query_data(None, None, None, overwrite)
         subprocess_result = True
 
     # MARK: Emojis
