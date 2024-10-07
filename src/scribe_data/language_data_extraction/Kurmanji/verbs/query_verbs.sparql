@@ -25,7 +25,7 @@ WHERE {
     wikibase:lemma ?verb .
 
   
-     # Infinitive (basic form of the verb)
+  # Infinitive (basic form of the verb)
   FILTER(lang(?verb) = "ku") .
 
     # Forms associated with the grammatical features (direct case, gerund, etc.)
@@ -44,7 +44,6 @@ WHERE {
   } .
 
   # MARK: Absolute Construction
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?absConstructionForm .
     ?absConstructionForm ontolex:representation ?absConstruction ;
@@ -53,7 +52,6 @@ WHERE {
   } .
 
   # MARK: Accusative
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeForm .
     ?accusativeForm ontolex:representation ?accusative ;
@@ -62,7 +60,6 @@ WHERE {
   } .
 
   # MARK: Ergative
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?ergativeForm .
     ?ergativeForm ontolex:representation ?ergative ;
@@ -71,5 +68,3 @@ WHERE {
   } .
   
 }
-
-
