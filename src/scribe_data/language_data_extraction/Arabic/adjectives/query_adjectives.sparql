@@ -9,27 +9,23 @@ SELECT DISTINCT
   ?dual
 
 WHERE {
-  ?lexeme dct:language wd:Q13955 ;            # Arabic language
-    wikibase:lexicalCategory wd:Q34698;        # Adjectives
-    wikibase:lemma ?lemma .
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q34698;
+    wikibase:lemma ?adjective .
 
-  # Indefinite Dual Form
+  # MARK: Indefinite Dual Form
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?dualForm .
     ?dualForm ontolex:representation ?dual ;
       wikibase:grammaticalFeature wd:Q110022 ;
   }
 
-  # Indefinite Plural Form
+  # MARK: Indefinite Plural Form
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 ;
-  }
-
-  # Retrieve labels for display
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]" .
-    ?lemma rdfs:label ?adjective .
   }
 }
