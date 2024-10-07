@@ -20,6 +20,7 @@ Formats the French nouns queried from Wikidata using query_nouns.sparql.
     -->
 """
 
+import argparse
 import collections
 
 from scribe_data.utils import (
@@ -32,7 +33,13 @@ from scribe_data.utils import (
 LANGUAGE = "French"
 DATA_TYPE = "nouns"
 
-nouns_list, data_path = load_queried_data(language=LANGUAGE, data_type=DATA_TYPE)
+parser = argparse.ArgumentParser()
+parser.add_argument("--file-path")
+args = parser.parse_args()
+
+nouns_list, data_path = load_queried_data(
+    file_path=args.file_path, language=LANGUAGE, data_type=DATA_TYPE
+)
 
 nouns_formatted = {}
 
@@ -97,6 +104,7 @@ for k in nouns_formatted:
 nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
 export_formatted_data(
+    file_path=args.file_path,
     formatted_data=nouns_formatted,
     language=LANGUAGE,
     data_type=DATA_TYPE,
