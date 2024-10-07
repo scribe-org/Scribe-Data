@@ -20,6 +20,7 @@ Formats the Italian verbs queried from Wikidata using query_verbs.sparql.
     -->
 """
 
+import argparse
 import collections
 
 from scribe_data.utils import export_formatted_data, load_queried_data
@@ -27,7 +28,13 @@ from scribe_data.utils import export_formatted_data, load_queried_data
 LANGUAGE = "Italian"
 DATA_TYPE = "verbs"
 
-verbs_list, data_path = load_queried_data(language=LANGUAGE, data_type=DATA_TYPE)
+parser = argparse.ArgumentParser()
+parser.add_argument("--file-path")
+args = parser.parse_args()
+
+verbs_list, data_path = load_queried_data(
+    file_path=args.file_path, language=LANGUAGE, data_type=DATA_TYPE
+)
 
 verbs_formatted = {}
 
@@ -70,6 +77,7 @@ for verb_vals in verbs_list:
 verbs_formatted = collections.OrderedDict(sorted(verbs_formatted.items()))
 
 export_formatted_data(
+    file_path=args.file_path,
     formatted_data=verbs_formatted,
     language=LANGUAGE,
     data_type=DATA_TYPE,
