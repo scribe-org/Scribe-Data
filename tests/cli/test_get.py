@@ -22,28 +22,33 @@ Tests for the CLI get functionality.
 
 import unittest
 from unittest.mock import patch
+
 from scribe_data.cli.get import get_data
 
 
 class TestGetData(unittest.TestCase):
-    # MARK: Test for subprocess patching
+    # MARK: Subprocess Patching
+
     @patch("subprocess.run")
     def test_get_emoji_keywords(self, mock_subprocess_run):
         get_data(language="English", data_type="emoji-keywords")
         self.assertTrue(mock_subprocess_run.called)
 
-    # MARK: Test for invalid arguments
+    # MARK: Invalid Arguments
+
     def test_invalid_arguments(self):
         with self.assertRaises(ValueError):
             get_data()
 
-    # MARK: Test for getting all data
+    # MARK: All Data
+
     @patch("scribe_data.cli.get.query_data")
     def test_get_all_data(self, mock_query_data):
         get_data(all=True)
         mock_query_data.assert_called_once_with(None, None, None, False)
 
-    # MARK: Test for specific language and data type
+    # MARK: Language and Data Type
+
     @patch("scribe_data.cli.get.query_data")
     def test_get_specific_language_and_data_type(self, mock_query_data):
         get_data(language="german", data_type="nouns", output_dir="./test_output")
@@ -54,7 +59,8 @@ class TestGetData(unittest.TestCase):
             overwrite=False,
         )
 
-    # MARK: Test for capitalized language input
+    # MARK: Capitalized Language
+
     @patch("scribe_data.cli.get.query_data")
     def test_get_data_with_capitalized_language(self, mock_query_data):
         get_data(language="German", data_type="nouns")
@@ -65,7 +71,8 @@ class TestGetData(unittest.TestCase):
             overwrite=False,
         )
 
-    # MARK: Test for lowercase language input
+    # MARK: Lowercase Language
+
     @patch("scribe_data.cli.get.query_data")
     def test_get_data_with_lowercase_language(self, mock_query_data):
         get_data(language="german", data_type="nouns")
@@ -76,7 +83,8 @@ class TestGetData(unittest.TestCase):
             overwrite=False,
         )
 
-    # MARK: Test for different output directory
+    # MARK: Output Directory
+
     @patch("scribe_data.cli.get.query_data")
     def test_get_data_with_different_output_directory(self, mock_query_data):
         get_data(
@@ -89,7 +97,8 @@ class TestGetData(unittest.TestCase):
             overwrite=False,
         )
 
-    # MARK: Test for overwrite=True
+    # MARK: Overwrite is True
+
     @patch("scribe_data.cli.get.query_data")
     def test_get_data_with_overwrite_true(self, mock_query_data):
         get_data(language="English", data_type="verbs", overwrite=True)
@@ -100,7 +109,8 @@ class TestGetData(unittest.TestCase):
             overwrite=True,
         )
 
-    # MARK: Test for overwrite=False
+    # MARK: Overwrite is False
+
     @patch("scribe_data.cli.get.query_data")
     def test_get_data_with_overwrite_false(self, mock_query_data):
         get_data(
