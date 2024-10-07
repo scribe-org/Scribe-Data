@@ -1,0 +1,17 @@
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+  ?adjectiveForm
+
+WHERE {
+  # Retrieve Swahili lexemes
+  ?lexeme dct:language wd:Q7838 ;  # Q7838 refers to Swahili
+          wikibase:lexicalCategory wd:Q34698 ;  # Q34698 refers to adjectives
+          wikibase:lemma ?lemma .
+
+  # Optional block to retrieve adjective form
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adjectiveLexicalForm .
+    ?adjectiveLexicalForm ontolex:representation ?adjectiveForm .
+  } .
+}
