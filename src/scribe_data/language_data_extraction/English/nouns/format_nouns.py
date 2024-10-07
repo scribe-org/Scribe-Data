@@ -20,6 +20,7 @@ Formats the English nouns queried from Wikidata using query_nouns.sparql.
     -->
 """
 
+import argparse
 import collections
 
 from scribe_data.utils import export_formatted_data, load_queried_data
@@ -27,7 +28,13 @@ from scribe_data.utils import export_formatted_data, load_queried_data
 LANGUAGE = "English"
 DATA_TYPE = "nouns"
 
-nouns_list, data_path = load_queried_data(language=LANGUAGE, data_type=DATA_TYPE)
+parser = argparse.ArgumentParser()
+parser.add_argument("--file-path")
+args = parser.parse_args()
+
+nouns_list, data_path = load_queried_data(
+    file_path=args.file_path, language=LANGUAGE, data_type=DATA_TYPE
+)
 
 nouns_formatted = {}
 
@@ -92,6 +99,7 @@ for noun_vals in nouns_list:
 nouns_formatted = collections.OrderedDict(sorted(nouns_formatted.items()))
 
 export_formatted_data(
+    file_path=args.file_path,
     formatted_data=nouns_formatted,
     language=LANGUAGE,
     data_type=DATA_TYPE,
