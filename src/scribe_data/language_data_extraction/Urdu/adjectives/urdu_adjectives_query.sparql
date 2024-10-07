@@ -17,7 +17,6 @@ WHERE {
           wikibase:lemma ?lemma .
   FILTER(lang(?lemma) = "ur")
 
-  # Direct Case
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?directCaseForm .
     ?directCaseForm ontolex:representation ?directCase ;
@@ -25,7 +24,6 @@ WHERE {
     FILTER(LANG(?directCase) = "ur")
   }
 
-  # Vocative Case
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?vocativeCaseForm .
     ?vocativeCaseForm ontolex:representation ?vocativeCase ;
@@ -33,7 +31,6 @@ WHERE {
     FILTER(LANG(?vocativeCase) = "ur")
   }
 
-  # Oblique Case
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?obliqueCaseForm .
     ?obliqueCaseForm ontolex:representation ?obliqueCase ;
@@ -41,7 +38,6 @@ WHERE {
     FILTER(LANG(?obliqueCase) = "ur")
   }
 
-  # Singular
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularForm .
     ?singularForm ontolex:representation ?singular ;
@@ -49,7 +45,6 @@ WHERE {
     FILTER(LANG(?singular) = "ur")
   }
 
-  # Plural
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
@@ -57,7 +52,6 @@ WHERE {
     FILTER(LANG(?plural) = "ur")
   }
 
-  # Masculine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineForm .
     ?masculineForm ontolex:representation ?masculine ;
