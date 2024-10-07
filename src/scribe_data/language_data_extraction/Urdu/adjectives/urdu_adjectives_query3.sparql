@@ -1,0 +1,45 @@
+# tool: scribe-data
+# Enter this query at https://query.wikidata.org/
+# Retrieve Remaining Urdu Adjective Grammatical Forms
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+  ?comparative
+  ?superlative
+  ?positive
+WHERE {
+  # Hindustani Adjective Lexeme
+  ?lexeme dct:language wd:Q11051 ;  # Hindustani language
+          wikibase:lexicalCategory wd:Q34698 ;  # Adjective category
+          wikibase:lemma ?lemma .
+  FILTER(lang(?lemma) = "ur")
+
+  # Comparative Degree
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+    wikibase:grammaticalFeature wd:Q14169499 .  # Comparative
+    FILTER(LANG(?comparative) = "ur")
+  }
+
+  # Superlative Degree
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+    wikibase:grammaticalFeature wd:Q1817208 .  # Superlative
+    FILTER(LANG(?superlative) = "ur")
+  }
+
+  # Positive Degree
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+    wikibase:grammaticalFeature wd:Q3482678 .  # Positive
+    FILTER(LANG(?positive) = "ur")
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+  }
+}
