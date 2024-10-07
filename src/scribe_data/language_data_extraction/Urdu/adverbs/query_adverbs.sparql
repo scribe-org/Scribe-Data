@@ -14,8 +14,4 @@ WHERE {
 
   BIND(lang(?adverb) as ?langAdverb)
   FILTER(?langAdverb = "ur")
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-  }
 }
