@@ -9,13 +9,11 @@ SELECT DISTINCT
   ?superlative
   ?positive
 WHERE {
-  # Hindustani Adjective Lexeme
   ?lexeme dct:language wd:Q11051 ;  # Hindustani language
           wikibase:lexicalCategory wd:Q34698 ;  # Adjective category
           wikibase:lemma ?lemma .
   FILTER(lang(?lemma) = "ur")
 
-  # Comparative Degree
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?comparativeForm .
     ?comparativeForm ontolex:representation ?comparative ;
@@ -23,7 +21,6 @@ WHERE {
     FILTER(LANG(?comparative) = "ur")
   }
 
-  # Superlative Degree
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?superlativeForm .
     ?superlativeForm ontolex:representation ?superlative ;
@@ -31,7 +28,6 @@ WHERE {
     FILTER(LANG(?superlative) = "ur")
   }
 
-  # Positive Degree
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?positiveForm .
     ?positiveForm ontolex:representation ?positive ;
