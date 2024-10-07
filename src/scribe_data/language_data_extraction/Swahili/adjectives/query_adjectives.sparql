@@ -4,12 +4,12 @@ SELECT DISTINCT
   ?adjectiveForm
 
 WHERE {
-  # Retrieve Swahili lexemes
-  ?lexeme dct:language wd:Q7838 ;  # Q7838 refers to Swahili
-          wikibase:lexicalCategory wd:Q34698 ;  # Q34698 refers to adjectives
+  
+  ?lexeme dct:language wd:Q7838 ;  
+          wikibase:lexicalCategory wd:Q34698 ;  
           wikibase:lemma ?lemma .
 
-  # Optional block to retrieve adjective form
+  
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?adjectiveLexicalForm .
     ?adjectiveLexicalForm ontolex:representation ?adjectiveForm .
