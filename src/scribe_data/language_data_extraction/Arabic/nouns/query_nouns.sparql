@@ -1,25 +1,31 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns and their grammatical features.
+# Enter this query at https://query.wikidata.org/.
+
 SELECT ?lexemeId ?actualWord (GROUP_CONCAT(?featureLabel; separator=", ") AS ?features) WHERE {
-  # Filter for Arabic lexemes that are nouns
+  # MARK: Filter nouns
   ?lexeme dct:language wd:Q13955;  # Language: Arabic (Q13955)
           wikibase:lexicalCategory wd:Q1084.  # Lexical Category: Noun (Q1084)
 
-  # Retrieve each form of the lexeme
+  # MARK: Retrieve forms
   ?lexeme ontolex:lexicalForm ?form.
 
-  # Construct the lexeme ID in the desired format (e.g., L1001-F1)
+  # MARK: Create ID
   BIND(STRAFTER(STR(?form), "entity/") AS ?lexemeId).
 
-  # Get the form's actual written word
+  # MARK: Get word
   ?form ontolex:representation ?actualWord.
 
-  # Retrieve grammatical features of these forms
+  # MARK: Get features
   OPTIONAL { ?form wikibase:grammaticalFeature ?feature. }
 
-  # Get labels for grammatical features
+  # MARK: Labeling
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en".
     ?feature rdfs:label ?featureLabel.
   }
 }
+# MARK: Grouping
 GROUP BY ?lexemeId ?actualWord
+# MARK: Order results
 ORDER BY ?lexemeId
