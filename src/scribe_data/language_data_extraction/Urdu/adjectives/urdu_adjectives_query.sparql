@@ -1,0 +1,71 @@
+# tool: scribe-data
+# Enter this query at https://query.wikidata.org/.
+# Retrieve Urdu Adjectives with Masculine Forms
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+  ?directCase
+  ?vocativeCase
+  ?obliqueCase
+  ?singular
+  ?plural
+  ?masculine
+WHERE {
+  ?lexeme dct:language wd:Q11051 ;
+          wikibase:lexicalCategory wd:Q34698 ;
+          wikibase:lemma ?lemma .
+  FILTER(lang(?lemma) = "ur")
+
+  # Direct Case
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directCaseForm .
+    ?directCaseForm ontolex:representation ?directCase ;
+    wikibase:grammaticalFeature wd:Q1751855 .
+    FILTER(LANG(?directCase) = "ur")
+  }
+
+  # Vocative Case
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeCaseForm .
+    ?vocativeCaseForm ontolex:representation ?vocativeCase ;
+    wikibase:grammaticalFeature wd:Q185077 .
+    FILTER(LANG(?vocativeCase) = "ur")
+  }
+
+  # Oblique Case
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueCaseForm .
+    ?obliqueCaseForm ontolex:representation ?obliqueCase ;
+    wikibase:grammaticalFeature wd:Q1233197 .
+    FILTER(LANG(?obliqueCase) = "ur")
+  }
+
+  # Singular
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+    wikibase:grammaticalFeature wd:Q110786 .
+    FILTER(LANG(?singular) = "ur")
+  }
+
+  # Plural
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+    wikibase:grammaticalFeature wd:Q146786 .
+    FILTER(LANG(?plural) = "ur")
+  }
+
+  # Masculine
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineForm .
+    ?masculineForm ontolex:representation ?masculine ;
+    wikibase:grammaticalFeature wd:Q499327 .
+    FILTER(LANG(?masculine) = "ur")
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+  }
+}
