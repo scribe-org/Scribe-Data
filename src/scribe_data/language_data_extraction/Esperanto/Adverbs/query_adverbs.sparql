@@ -1,0 +1,17 @@
+# tool: scribe-data
+# All Esperanto (Q143) adverbs.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adverb
+
+WHERE {
+
+  ?lexeme dct:language wd:Q143 ;  # Esperanto
+    wikibase:lexicalCategory wd:Q380057 ;  # Adverbs
+    wikibase:lemma ?adverb .
+
+  # Ensure we get only the lexeme forms that are adjectives in Esperanto
+  FILTER(LANG(?adverb) = "eo") .
+}
