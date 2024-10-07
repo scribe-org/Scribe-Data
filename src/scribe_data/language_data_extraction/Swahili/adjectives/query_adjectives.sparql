@@ -4,7 +4,7 @@ SELECT DISTINCT
   ?adjectiveForm
 
 WHERE {
-  # Retrieve Swahili lexemes
+
   ?lexeme dct:language wd:Q7838 ;
           wikibase:lexicalCategory wd:Q34698 ;
           wikibase:lemma ?lemma .
