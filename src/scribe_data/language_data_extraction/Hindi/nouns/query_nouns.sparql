@@ -1,7 +1,6 @@
 # tool: scribe-data
 # All Hindi (from Hindustani Q11051) nouns and their gender.
 # Enter this query at https://query.wikidata.org/.
-# Note the necessity to filter for "hi" to remove Urdu (ur) words.
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
@@ -35,7 +34,7 @@ WHERE {
 
   BIND(lang(?singular) as ?langSingular)
   BIND(lang(?plural) as ?langPlural)
-  FILTER(?langSingular = "hi")
+  FILTER(?langSingular = "hi") # Note the necessity to filter for "hi" to remove Urdu (ur) words.
   FILTER(?langPlural = "hi")
 
   SERVICE wikibase:label {
