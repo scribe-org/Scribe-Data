@@ -2,7 +2,6 @@
 # All Arabic (Q13955) adjectives and their grammatical features.
 # Enter this query at https://query.wikidata.org/.
 
-
 SELECT ?lexemeId ?Adjective (GROUP_CONCAT(?featureLabel; separator=", ") AS ?features) WHERE {
   # MARK: Filter adjectives
   ?lexeme dct:language wd:Q13955;
