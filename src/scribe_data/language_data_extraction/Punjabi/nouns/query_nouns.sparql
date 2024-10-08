@@ -1,10 +1,9 @@
 # tool: scribe-data
-# All Punjabi (from Gurmukhi Q58635) nouns and their gender.
+# All Gurmukhi (from Punjabi Q58635) nouns, their plurals and their genders.
 # Enter this query at https://query.wikidata.org/.
 # Note the necessity to filter for "pa" to select Gurmukhi words.
 
 SELECT DISTINCT
-  ?lexeme
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?singular
   ?plural
@@ -18,25 +17,24 @@ WHERE {
   wikibase:lemma ?singular .
 
   # MARK: Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-    wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
   } .
 
   # MARK: Gender(s)
+
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
     FILTER NOT EXISTS {
-    ?lexeme wdt:P31 wd:Q202444 .
+      ?lexeme wdt:P31 wd:Q202444 .
     }
   } .
 
-  BIND(lang(?singular) AS ?langSingular)
-  BIND(lang(?plural) AS ?langPlural)
-
-  FILTER(?langSingular = "pa")
-  FILTER(?langPlural = "pa")
+  FILTER(lang(?singular) = "pa")
+  FILTER(lang(?plural) = "pa")
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
