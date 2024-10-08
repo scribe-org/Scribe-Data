@@ -1,7 +1,6 @@
 # tool: scribe-data
-# All Hindi (from Hindustani Q11051) nouns and their gender.
+# All Nigerian Pidgin (Q33655) nouns, their plurals and their genders.
 # Enter this query at https://query.wikidata.org/.
-# Note the necessity to filter for "hi" to remove Urdu (ur) words.
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
@@ -12,10 +11,9 @@ SELECT DISTINCT
 WHERE {
   VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
 
-  ?lexeme dct:language wd:Q11051 ;
+  ?lexeme dct:language wd:Q33655 ; # Nigerian Pidgin
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?singular .
-    FILTER(lang(?singular) = "hi")
 
   # MARK: Plural
 
@@ -23,7 +21,6 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 ;
-      FILTER(lang(?plural) = "hi")
   } .
 
   # MARK: Gender(s)

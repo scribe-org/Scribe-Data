@@ -1,7 +1,7 @@
 # tool: scribe-data
-# All Hindi (from Hindustani Q11051) nouns and their gender.
+# All Gurmukhi (from Punjabi Q58635) nouns, their plurals and their genders.
 # Enter this query at https://query.wikidata.org/.
-# Note the necessity to filter for "hi" to remove Urdu (ur) words.
+# Note the necessity to filter for "pa" to select Gurmukhi words.
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
@@ -12,10 +12,9 @@ SELECT DISTINCT
 WHERE {
   VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
 
-  ?lexeme dct:language wd:Q11051 ;
-    wikibase:lexicalCategory ?nounTypes ;
-    wikibase:lemma ?singular .
-    FILTER(lang(?singular) = "hi")
+  ?lexeme dct:language wd:Q58635 ;
+  wikibase:lexicalCategory ?nounTypes ;
+  wikibase:lemma ?singular .
 
   # MARK: Plural
 
@@ -23,7 +22,6 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 ;
-      FILTER(lang(?plural) = "hi")
   } .
 
   # MARK: Gender(s)
@@ -34,6 +32,9 @@ WHERE {
       ?lexeme wdt:P31 wd:Q202444 .
     }
   } .
+
+  FILTER(lang(?singular) = "pa")
+  FILTER(lang(?plural) = "pa")
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
