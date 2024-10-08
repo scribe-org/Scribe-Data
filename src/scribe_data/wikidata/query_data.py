@@ -22,6 +22,8 @@ Updates data for Scribe by running all or desired WDQS queries and formatting sc
 
 import json
 import os
+import subprocess
+import sys
 from pathlib import Path
 from urllib.error import HTTPError
 
@@ -31,6 +33,52 @@ from scribe_data.cli.cli_utils import (
     language_metadata,
 )
 from scribe_data.wikidata.wikidata_utils import sparql
+
+
+def execute_formatting_script(formatting_file_path, output_dir):
+    """
+    Executes a formatting script given a filepath and output directory for the process.
+
+    Parameters
+    ----------
+        formatting_file_path : str
+            The formatting file to run.
+
+        output_dir : str
+            The output directory path for results.
+
+    Returns
+    -------
+        The results of the formatting script saved in the given output directory.
+    """
+    # Determine the root directory of the project.
+    project_root = Path(__file__).parent.parent
+
+    if sys.platform.startswith("win"):
+        python_executable = sys.executable
+        pythonpath = str(project_root)
+
+        # Create environment with updated PYTHONPATH.
+        env = os.environ.copy()
+        if "PYTHONPATH" in env:
+            env["PYTHONPATH"] = f"{pythonpath};{env['PYTHONPATH']}"
+
+        else:
+            env["PYTHONPATH"] = pythonpath
+
+        # Use subprocess.run instead of os.system.
+        subprocess.run(
+            [python_executable, str(formatting_file_path), "--file-path", output_dir],
+            env=env,
+            check=True,
+        )
+
+    else:
+        # Unix-like systems (Linux, macOS).
+        subprocess.run(
+            ["python3", str(formatting_file_path), "--file-path", output_dir],
+            check=True,
+        )
 
 
 def query_data(
@@ -262,7 +310,9 @@ def query_data(
                 / target_type
                 / f"format_{target_type}.py"
             )
-            os.system(f"python3 {formatting_file_path} --file-path {output_dir}")
+            execute_formatting_script(
+                formatting_file_path=formatting_file_path, output_dir=output_dir
+            )
 
 
 if __name__ == "__main__":
