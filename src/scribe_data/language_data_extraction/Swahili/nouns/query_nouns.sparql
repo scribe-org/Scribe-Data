@@ -11,6 +11,7 @@ WHERE {
   ?lexeme dct:language wd:Q7838 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?singular .
+    FILTER(lang(?singular) = "sw")
 
   # MARK: Plural
 
@@ -18,8 +19,6 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 ;
+      FILTER(lang(?plural) = "sw")
   } .
-
-  FILTER(lang(?singular) = "sw")
-  FILTER(lang(?plural) = "sw")
 }
