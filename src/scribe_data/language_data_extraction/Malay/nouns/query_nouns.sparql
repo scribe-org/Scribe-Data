@@ -12,7 +12,5 @@ WHERE {
   ?lexeme dct:language wd:Q9237 ;
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?noun .
-
-  BIND(lang(?noun) as ?language)
-  FILTER(?language = "ms")
+    FILTER(lang(?noun) = "ms")
 }
