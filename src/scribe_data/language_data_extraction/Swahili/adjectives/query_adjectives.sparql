@@ -1,17 +1,15 @@
-SELECT DISTINCT
+# tool: scribe-data
+# All Swahili (Q7838) adjectives.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lemma
-  ?adjectiveForm
+  ?adjective
 
 WHERE {
 
   ?lexeme dct:language wd:Q7838 ;
-          wikibase:lexicalCategory wd:Q34698 ;
-          wikibase:lemma ?lemma .
-
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?adjectiveLexicalForm .
-    ?adjectiveLexicalForm ontolex:representation ?adjectiveForm .
-  } .
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+    FILTER(lang(?adjective) = "sw")
 }
