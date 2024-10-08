@@ -1,0 +1,41 @@
+# tool: scribe-data
+# Enter this query at https://query.wikidata.org/ #137452 results in 8020 ms
+# Retrieve Estonian Verbs with Impersonal, Indirect Speech, and Negation forms 137452 results in 10232 ms
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+  ?impersonalVerb
+  ?indirectSpeech
+  ?negation
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+          wikibase:lexicalCategory wd:Q24905 ;
+          wikibase:lemma ?lemma .
+  FILTER(lang(?lemma) = "et")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?impersonalForm .
+    ?impersonalForm ontolex:representation ?impersonalVerb ;
+    wikibase:grammaticalFeature wd:Q1509829 .
+    FILTER(LANG(?impersonalVerb) = "et")
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indirectSpeechForm .
+    ?indirectSpeechForm ontolex:representation ?indirectSpeech ;
+    wikibase:grammaticalFeature wd:Q1006348 .
+    FILTER(LANG(?indirectSpeech) = "et")
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?negationForm .
+    ?negationForm ontolex:representation ?negation ;
+    wikibase:grammaticalFeature wd:Q1478451 .
+    FILTER(LANG(?negation) = "et")
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+  }
+}

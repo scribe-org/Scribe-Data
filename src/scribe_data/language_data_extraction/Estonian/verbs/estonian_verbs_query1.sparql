@@ -1,18 +1,58 @@
 # tool: scribe-data
-# All Estonian (Q9072) verbs and the currently implemented tenses for each.
-# Enter this query at https://query.wikidata.org/.
+# Enter this query at https://query.wikidata.org/
+# Retrieve Estonian Grammatical Forms (Supine, Inessive, Elative, Translative, Abessive) 38021 results in 30159 ms
 
-SELECT
+
+SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?infinitive
-
+  ?lemma
+  ?supine
+  ?inessive
+  ?elative
+  ?translative
+  ?abessive
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
-    wikibase:lexicalCategory wd:Q24905 .
+          wikibase:lexicalCategory wd:Q24905 ;
+          wikibase:lemma ?lemma .
+  FILTER(lang(?lemma) = "et")
 
-  # MARK: Infinitive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?supineForm .
+    ?supineForm ontolex:representation ?supine ;
+    wikibase:grammaticalFeature wd:Q548470 .
+    FILTER(LANG(?supine) = "et")
+  }
 
-  ?lexeme ontolex:lexicalForm ?infinitiveForm .
-  ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature wd:Q179230 ;
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveForm .
+    ?inessiveForm ontolex:representation ?inessive ;
+    wikibase:grammaticalFeature wd:Q282031 .
+    FILTER(LANG(?inessive) = "et")
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?elativeForm .
+    ?elativeForm ontolex:representation ?elative ;
+    wikibase:grammaticalFeature wd:Q394253 .
+    FILTER(LANG(?elative) = "et")
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?translativeForm .
+    ?translativeForm ontolex:representation ?translative ;
+    wikibase:grammaticalFeature wd:Q950170 .
+    FILTER(LANG(?translative) = "et")
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?abessiveForm .
+    ?abessiveForm ontolex:representation ?abessive ;
+    wikibase:grammaticalFeature wd:Q319822 .
+    FILTER(LANG(?abessive) = "et")
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+  }
 }

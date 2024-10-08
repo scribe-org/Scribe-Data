@@ -1,0 +1,25 @@
+# tool: scribe-data
+# Enter this query at https://query.wikidata.org/
+# Retrieve Estonian Verbs with Indicative forms 92374 results in 13776 ms
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+  ?indicative
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+          wikibase:lexicalCategory wd:Q24905 ;
+          wikibase:lemma ?lemma .
+  FILTER(lang(?lemma) = "et")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeForm .
+    ?indicativeForm ontolex:representation ?indicative ;
+    wikibase:grammaticalFeature wd:Q682111 .
+    FILTER(LANG(?indicative) = "et")
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+  }
+}
