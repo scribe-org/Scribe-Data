@@ -1,35 +1,31 @@
 # tool: scribe-data
-# All Arabic (Q13955) adjectives, their plurals and their dual forms.
+# All Arabic (Q13955) adjectives and their grammatical features.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?adjective
-  ?plural
-  ?dual
 
-WHERE {
-  ?lexeme dct:language wd:Q13955 ;            # Arabic language
-    wikibase:lexicalCategory wd:Q34698;        # Adjectives
-    wikibase:lemma ?lemma .
+SELECT ?lexemeId ?Adjective (GROUP_CONCAT(?featureLabel; separator=", ") AS ?features) WHERE {
+  # MARK: Filter adjectives
+  ?lexeme dct:language wd:Q13955;
+          wikibase:lexicalCategory wd:Q34698.
 
-  # Indefinite Dual Form
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dualForm .
-    ?dualForm ontolex:representation ?dual ;
-      wikibase:grammaticalFeature wd:Q110022 ;
-  }
+  # MARK: Retrieve forms
+  ?lexeme ontolex:lexicalForm ?form.
 
-  # Indefinite Plural Form
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-  }
+  BIND(STRAFTER(STR(?form), "entity/") AS ?lexemeId).
 
-  # Retrieve labels for display
+  # MARK: Get word
+  ?form ontolex:representation ?Adjective.
+
+  # MARK: Get features
+  OPTIONAL { ?form wikibase:grammaticalFeature ?feature. }
+
+  # MARK: Labeling
   SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]" .
-    ?lemma rdfs:label ?adjective .
+    bd:serviceParam wikibase:language "en".
+    ?feature rdfs:label ?featureLabel.
   }
 }
+# MARK: Grouping
+GROUP BY ?lexemeId ?Adjective
+# MARK: Order results
+ORDER BY ?lexemeId
