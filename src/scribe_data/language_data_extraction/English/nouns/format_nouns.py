@@ -1,5 +1,5 @@
 """
-Formats the Hindi nouns queried from Wikidata using query_nouns.sparql.
+Formats the English nouns queried from Wikidata using query_nouns.sparql.
 
 .. raw:: html
     <!--
