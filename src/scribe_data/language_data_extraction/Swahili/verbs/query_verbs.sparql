@@ -1,3 +1,7 @@
+# tool: scribe-data
+# All Swahili (Q7838) verbs.
+# Enter this query at https://query.wikidata.org/.
+
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
@@ -6,4 +10,5 @@ WHERE {
   ?lexeme dct:language wd:Q7838 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
+    FILTER(lang(?plural) = "sw")
 }
