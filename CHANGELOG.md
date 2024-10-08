@@ -46,6 +46,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - Many files were renamed including `update_data.py` being renamed `query_data.py`
 - Paths within the package have been updated to work for all operating systems via `pathlib` ([#125](https://github.com/scribe-org/Scribe-Data/issues/125)).
 - The language formatting scripts have been dramatically simplified given changes to export paths all being the same.
+- The `update_files` directory was removed in preparation of other means of showing data totals.
 
 ## Scribe-Data 3.3.0
 
