@@ -1,0 +1,33 @@
+# tool: scribe-data
+# Enter this query at https://query.wikidata.org/
+# Retrieve Estonian Verbs with Singular and Plural forms 547540 results in 33021 ms
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+  ?singular
+  ?plural
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;  # Estonian language
+          wikibase:lexicalCategory wd:Q24905 ;  # Verb category
+          wikibase:lemma ?lemma .
+  FILTER(lang(?lemma) = "et")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+    wikibase:grammaticalFeature wd:Q110786 .  # Singular
+    FILTER(LANG(?singular) = "et")
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+    wikibase:grammaticalFeature wd:Q146786 .  # Plural
+    FILTER(LANG(?plural) = "et")
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+  }
+}

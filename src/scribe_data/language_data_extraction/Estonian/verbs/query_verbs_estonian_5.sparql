@@ -1,0 +1,25 @@
+# tool: scribe-data
+# Enter this query at https://query.wikidata.org/
+# Retrieve Estonian Verbs with Present Tense forms 140844 results in 8678 ms
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+  ?presentTense
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+          wikibase:lexicalCategory wd:Q24905 ;
+          wikibase:lemma ?lemma .
+  FILTER(lang(?lemma) = "et")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentTenseForm .
+    ?presentTenseForm ontolex:representation ?presentTense ;
+    wikibase:grammaticalFeature wd:Q192613 .
+    FILTER(LANG(?presentTense) = "et")
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+  }
+}
