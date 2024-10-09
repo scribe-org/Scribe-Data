@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Malayalam (Q36236) verbs.
+# All Malayalam (Q36236) verbs and the currently implemented tenses for each.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
@@ -50,8 +50,4 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1475560 ;
       FILTER(LANG(?simpleFuture) = "ml") .
   } .
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-  }
 }
