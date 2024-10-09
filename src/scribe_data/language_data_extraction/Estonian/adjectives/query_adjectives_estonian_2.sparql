@@ -1,0 +1,41 @@
+# tool: scribe-data
+# Enter this query at https://query.wikidata.org/
+# Retrieve Estonian Adjectives with Inessive, Elative, and Illative Cases 254332 results in 11688 ms
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+  ?inessive
+  ?elative
+  ?illative
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+          wikibase:lexicalCategory wd:Q34698 ;
+          wikibase:lemma ?lemma .
+  FILTER(lang(?lemma) = "et")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveForm .
+    ?inessiveForm ontolex:representation ?inessive ;
+    wikibase:grammaticalFeature wd:Q282031 .
+    FILTER(LANG(?inessive) = "et")
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?elativeForm .
+    ?elativeForm ontolex:representation ?elative ;
+    wikibase:grammaticalFeature wd:Q394253 .
+    FILTER(LANG(?elative) = "et")
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?illativeForm .
+    ?illativeForm ontolex:representation ?illative ;
+    wikibase:grammaticalFeature wd:Q474668 .
+    FILTER(LANG(?illative) = "et")
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+  }
+}
