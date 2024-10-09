@@ -1,0 +1,31 @@
+# tool: scribe-data
+# All Estonian (Q9072) verbs and the currently implemented tenses for each.
+# Enter this query at https://query.wikidata.org/
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  # MARK: Supine
+
+  # MARK: Present
+
+  # MARK: Present Conditional
+
+  # MARK: Present Quotative
+
+  # MARK: Present Imperative
+
+  # MARK: Past
+
+  # MARK: Past Imperfect
+
+  # MARK: Past Conditional
+
+  #MARK: Past Quotative
+}
