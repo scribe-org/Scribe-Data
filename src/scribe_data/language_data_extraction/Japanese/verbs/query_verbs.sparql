@@ -5,7 +5,11 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?presSimp
+  ?negative
+  ?conjunctive
+  ?imperfective
+  ?atrributive
+  ?hypothetical
 
 WHERE {
   ?lexeme dct:language wd:Q5287 ;
@@ -13,13 +17,48 @@ WHERE {
     wikibase:lemma ?verb .
     FILTER(lang(?verb) = "ja-hira")
 
+  # MARK: Negative
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSimpForm .
-    ?presSimpForm ontolex:representation ?presSimp ;
-      wikibase:grammaticalFeature wd:Q3910936 ;
-    FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q51929074 . }
-    FILTER NOT EXISTS { ?presSimpForm wdt:P6191 wd:Q181970 . }
-    FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q126473 . }
-    FILTER(LANG(?presSimp) = "ja") .
+    ?lexeme ontolex:lexicalForm ?negativeForm .
+    ?negativeForm ontolex:representation ?negative ;
+      wikibase:grammaticalFeature wd:Q15737187 ;
+      FILTER(LANG(?negative) = "ja-hira") .
+  }
+
+  # MARK: Conjunctive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conjunctiveForm .
+    ?conjunctiveForm ontolex:representation ?conjunctive ;
+      wikibase:grammaticalFeature wd:Q2888577 ;
+      FILTER(LANG(?conjunctive) = "ja-hira") .
+  }
+
+  # MARK: Imperfective
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectiveForm .
+    ?imperfectiveForm ontolex:representation ?imperfective ;
+      wikibase:grammaticalFeature wd:Q2898727 ;
+      FILTER(LANG(?imperfective) = "ja-hira") .
+  }
+
+  # MARK: Attributive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?atrributiveForm .
+    ?atrributiveForm ontolex:representation ?atrributive ;
+      wikibase:grammaticalFeature wd:Q53608953 ;
+      FILTER(LANG(?atrributive) = "ja-hira") .
+  }
+
+  # MARK: Hypothetical
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?hypotheticalForm .
+    ?hypotheticalForm ontolex:representation ?hypothetical ;
+      wikibase:grammaticalFeature wd:Q53609593 ;
+      FILTER(LANG(?hypothetical) = "ja-hira") .
   }
 }
