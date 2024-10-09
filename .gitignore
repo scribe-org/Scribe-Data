@@ -1,5 +1,5 @@
-# OS Files
-##########
+# MARK: OS Files
+
 .DS_Store
 .vscode/*
 !.vscode/extensions.json
@@ -8,8 +8,8 @@
 *wiki_partitions
 *wiki.ndjson
 
-# Python Files
-##############
+# MARK: Python Files
+
 # setup.py working directory
 build
 # setup.py dist directory
@@ -24,11 +24,15 @@ __pycache__
 venv
 .venv
 
-# NPM Files
-###########
+# MARK: NPM Files
+
 node_modules
 package-lock.json
 
-# Intermerdiary Data Files
-##########################
+# MARK: Intermerdiary Files
+
 **/*_queried.json
+
+# MARK: Test Files
+
+tests_output
