@@ -4,15 +4,10 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?prepositions
+  ?preposition
 
 WHERE {
   ?lexeme dct:language wd:Q150 ;
     wikibase:lexicalCategory wd:Q4833830 ;
-    wikibase:lemma ?lemma .
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-    ?lemma rdfs:label ?prepositions .
-  }
+    wikibase:lemma ?preposition .
 }
