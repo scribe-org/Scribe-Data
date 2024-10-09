@@ -35,8 +35,10 @@ SELECT DISTINCT
   ?masPluralPausalIndef
 
 WHERE {
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
+
   ?lexeme dct:language wd:Q13955 ;
-    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?noun .
 
   # MARK: Nominative
