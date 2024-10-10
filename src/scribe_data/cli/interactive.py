@@ -23,18 +23,19 @@ data types and output options for getting Wikidata data using Scribe-Data.
     -->
 """
 
-from typing import List
 from pathlib import Path
-from rich.console import Console
-from rich.table import Table
-from rich.panel import Panel
-from rich import print as rprint
+from typing import List
+
 import questionary
 from questionary import Choice
+from rich import print as rprint
+from rich.console import Console
+from rich.table import Table
+
 from scribe_data.cli.cli_utils import data_type_metadata, language_metadata
 from scribe_data.cli.get import get_data
-from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 from scribe_data.cli.version import get_version_message
+from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 
 console = Console()
 
@@ -55,11 +56,17 @@ class ScribeDataConfig:
 config = ScribeDataConfig()
 
 
-# MARK: Display Summary
+# MARK: Summary
+
+
 def display_summary():
+    """
+    Displays a summary of the interactive mode request to run.
+    """
     table = Table(title="Scribe-Data Configuration Summary")
+
     table.add_column("Setting", style="cyan")
-    table.add_column("Value", style="magenta")
+    table.add_column("Value(s)", style="magenta")
 
     table.add_row("Languages", ", ".join(config.selected_languages) or "None")
     table.add_row("Data Types", ", ".join(config.selected_data_types) or "None")
@@ -71,86 +78,110 @@ def display_summary():
 
 
 def configure_settings():
-    # MARK: Language selection
-    language_choices = ["All"] + config.languages
-    selected_languages = questionary.checkbox(
-        "Select languages (use spacebar to select, enter to confirm):",
-        choices=language_choices,
-    ).ask()
+    # MARK: Languages
 
-    if "All" in selected_languages:
-        config.selected_languages = config.languages
-    elif selected_languages:
-        config.selected_languages = selected_languages
-    else:
-        rprint(
-            "[yellow]Warning: No languages selected. Please select at least one language.[/yellow]"
-        )
-        return configure_settings()
-
-    # MARK: Data type selection
-    data_type_choices = ["All"] + config.data_types
-    selected_data_types = questionary.checkbox(
-        "Select data types (use spacebar to select, enter to confirm):",
-        choices=data_type_choices,
-    ).ask()
-
-    if "All" in selected_data_types:
-        config.selected_data_types = config.data_types
-    elif selected_data_types:
-        config.selected_data_types = selected_data_types
-    else:
-        rprint(
-            "[yellow]Warning: No data types selected. Please select at least one data type.[/yellow]"
-        )
-        return configure_settings()
-
-    # MARK: Output type selection
-    config.output_type = questionary.select(
-        "Select output type:", choices=["json", "csv", "tsv"]
-    ).ask()
-
-    config.output_dir = Path(
-        questionary.text(
-            "Enter output directory:", default=str(config.output_dir)
+    if not config.selected_languages:
+        language_selected = False
+        language_choices = ["All"] + config.languages
+        selected_languages = questionary.checkbox(
+            message="Select languages and press enter:",
+            choices=language_choices,
         ).ask()
-    )
 
-    config.overwrite = questionary.confirm(
-        "Overwrite existing files?", default=config.overwrite
-    ).ask()
+        if "All" in selected_languages:
+            config.selected_languages = config.languages
+            language_selected = True
 
-    display_summary()
+        elif selected_languages:
+            config.selected_languages = selected_languages
+            language_selected = True
+
+        else:
+            rprint(
+                "[yellow]No language selected. Please select at least one option with space followed by enter.[/yellow]"
+            )
+            if questionary.confirm("Continue?").ask():
+                return configure_settings()
+
+    else:
+        language_selected = True
+
+    if language_selected:
+        # MARK: Data Types
+
+        data_type_selected = False
+        data_type_choices = ["All"] + config.data_types
+        selected_data_types = questionary.checkbox(
+            "Select data types and press enter:",
+            choices=data_type_choices,
+        ).ask()
+
+        if "All" in selected_data_types:
+            config.selected_data_types = config.data_types
+            data_type_selected = True
+
+        elif selected_data_types:
+            config.selected_data_types = selected_data_types
+            data_type_selected = True
+
+        else:
+            rprint(
+                "[yellow]No data type selected. Please select at least one option with space followed by enter.[/yellow]"
+            )
+            if questionary.confirm("Continue?").ask():
+                return configure_settings()
+
+        if data_type_selected:
+            # MARK: Output Type
+
+            config.output_type = questionary.select(
+                "Select output type:", choices=["json", "csv", "tsv"]
+            ).ask()
+
+            config.output_dir = Path(
+                questionary.text(
+                    "Enter output directory:", default=str(config.output_dir)
+                ).ask()
+            )
+
+            config.overwrite = questionary.confirm(
+                "Overwrite existing files?", default=config.overwrite
+            ).ask()
+
+            display_summary()
 
 
 def run_export():
     if not config.selected_languages or not config.selected_data_types:
-        rprint(
-            "[bold red]Error: Please configure languages and data types before running export.[/bold red]"
-        )
+        rprint("[bold red]Error: Please configure languages and data types.[/bold red]")
         return
 
-    # MARK: Exporting data
+    # MARK: Export Data
+
     with console.status("[bold green]Exporting data...[/bold green]") as status:
         for language in config.selected_languages:
             for data_type in config.selected_data_types:
                 status.update(
                     f"[bold green]Exporting {language} {data_type} data...[/bold green]"
                 )
+
                 get_data(
-                    language,
-                    data_type,
-                    config.output_type,
-                    str(config.output_dir),
-                    config.overwrite,
-                    config.output_type,
+                    language=language,
+                    data_type=data_type,
+                    output_type=config.output_type,
+                    output_dir=str(config.output_dir),
+                    overwrite=config.overwrite,
+                    all=config.output_type,
                 )
-                rprint(f"[green]✓[/green] Exported {language} {data_type} data.")
 
-    rprint(Panel.fit("[bold green]Data export completed successfully![/bold green]"))
+                rprint(f"\n[green]✔[/green] Exported {language} {data_type} data.")
+
+    rprint("[bold green]Data export completed successfully![/bold green]")
 
 
-# MARK: Start interactive mode functionality
+# MARK: Start
+
+
 def start_interactive_mode():
     rprint(
         f"[bold green]Welcome to {get_version_message()} interactive mode![/bold green]"
@@ -160,17 +191,21 @@ def start_interactive_mode():
         choice = questionary.select(
             "What would you like to do?",
             choices=[
-                Choice("Configure settings", "configure"),
-                Choice("Run data export", "run"),
+                Choice("Configure request", "configure"),
+                Choice("Run configured data request", "run"),
                 Choice("Exit", "exit"),
             ],
         ).ask()
 
         if choice == "configure":
             configure_settings()
+
         elif choice == "run":
             run_export()
-            rprint("[bold yellow]Thank you for using Scribe-Data![/bold yellow]")
+            rprint("[bold cyan]Thank you for using Scribe-Data![/bold cyan]")
+            break
+
+        else:
             break
 
 
