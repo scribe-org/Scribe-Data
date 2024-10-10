@@ -1,0 +1,65 @@
+# tool: scribe-data
+# All Estonian (Q9072) adjectives in the given cases.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?essPlural
+  ?abeSingular
+  ?abePlural
+  ?comSingular
+  ?comPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  # MARK: Essive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?essSingularForm .
+    ?essSingularForm ontolex:representation ?essSingular ;
+      wikibase:grammaticalFeature wd:Q148465 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?essPluralForm .
+    ?essPluralForm ontolex:representation ?essPlural ;
+      wikibase:grammaticalFeature wd:Q148465 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  } .
+
+  # MARK: Abessive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?abeSingularForm .
+    ?abeSingularForm ontolex:representation ?abeSingular ;
+      wikibase:grammaticalFeature wd:Q319822 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?abePluralForm .
+    ?abePluralForm ontolex:representation ?abePlural ;
+      wikibase:grammaticalFeature wd:Q319822 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  } .
+
+  # MARK: Comitative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comSingularForm .
+    ?comSingularForm ontolex:representation ?comSingular ;
+      wikibase:grammaticalFeature wd:Q838581 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comPluralForm .
+    ?comPluralForm ontolex:representation ?comPlural ;
+      wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  } .
+}
