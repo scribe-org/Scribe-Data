@@ -10,4 +10,4 @@ WHERE {
   ?lexeme dct:language wd:Q36236 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
-  }
+}
