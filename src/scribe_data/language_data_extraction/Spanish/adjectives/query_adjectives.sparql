@@ -1,0 +1,49 @@
+# tool: scribe-data
+# All Spanish (Q1321) adjectives.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?masSingular
+  ?masPlural
+  ?femSingular
+  ?femPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1321 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  # MARK: Masculine Singular
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masSingularForm .
+    ?masSingularForm ontolex:representation ?masSingular ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  # MARK: Masculine Plural
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masPluralForm .
+    ?masPluralForm ontolex:representation ?masPlural ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # MARK: Feminine Singular
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femSingularForm .
+    ?femSingularForm ontolex:representation ?femSingular ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  # MARK: Feminine Plural
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femPluralForm .
+    ?femPluralForm ontolex:representation ?femPlural ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+}
