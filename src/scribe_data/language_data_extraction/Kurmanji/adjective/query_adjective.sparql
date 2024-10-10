@@ -1,0 +1,15 @@
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+WHERE {
+
+    ?lexeme dct:language wd:Q36163 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  FILTER(lang(?adjective) = "ku") .
+}
+
+
+    
