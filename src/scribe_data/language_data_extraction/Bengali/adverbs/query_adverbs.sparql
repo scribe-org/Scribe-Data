@@ -1,10 +1,10 @@
 # tool: scribe-data
-# All Bengali (Q9610) adjectives.
+# All Bengali (Q9610) adverbs.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?adjective
+  ?adverbs
 
 WHERE {
   ?lexeme dct:language wd:Q9610 ;
@@ -13,6 +13,6 @@ WHERE {
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-    ?lemma rdfs:label ?adjective .
+    ?lemma rdfs:label ?adverbs .
   }
 }
