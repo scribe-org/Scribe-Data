@@ -58,17 +58,12 @@ autodoc_mock_imports = [
     "langcodes",
     "mwparserfromhell",
     "pandas",
-    "pyarrow",
     "PyICU",
     "pytest",
     "pytest-cov",
     "ruff",
-    "sentencepiece",
     "SPARQLWrapper",
-    "tabulate",
-    "torch",
-    "tqdm",
-    "transformers",
+    "tqdm"
 ]
 
 # Add any paths that contain templates here, relative to this directory.
