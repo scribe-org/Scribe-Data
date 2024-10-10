@@ -1,0 +1,58 @@
+# tool: scribe-data
+# All Urdu (from Hindustani Q11051) verbs and the currently implemented conjugations for each.
+# Enter this query at https://query.wikidata.org/.
+
+# Note: We need to filter for "ur" to remove Hindustani (hi) words.
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
+  ?directCase
+  ?gerund
+  ?intransitivePhase
+  ?basicPhase
+
+WHERE {
+  # MARK: Infinitive
+
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive .
+    FILTER(lang(?infinitive) = "ur")
+
+  # MARK: Direct Case
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directCaseForm .
+    ?directCaseForm ontolex:representation ?directCase ;
+      wikibase:grammaticalFeature wd:Q1751855 .
+      FILTER(LANG(?directCase) = "ur") .
+  } .
+
+  # MARK: Gerund
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+      FILTER(LANG(?gerund) = "ur") .
+  } .
+
+  # MARK: Intransitive Phase
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?intransitivePhaseForm .
+    ?intransitivePhaseForm ontolex:representation ?intransitivePhase ;
+      wikibase:grammaticalFeature wd:Q113330736 .
+      FILTER(LANG(?intransitivePhase) = "ur") .
+  } .
+
+  # MARK: Basic Phase
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?basicPhaseForm .
+    ?basicPhaseForm ontolex:representation ?basicPhase ;
+      wikibase:grammaticalFeature wd:Q113330960 .
+      FILTER(LANG(?basicPhase) = "ur") .
+  } .
+}

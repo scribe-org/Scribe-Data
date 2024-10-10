@@ -77,11 +77,12 @@ def select_languages() -> list[str]:
     languages = [
         lang["language"].capitalize() for lang in language_metadata["languages"]
     ]
+
     for i, lang in enumerate(languages, 1):
         print(f"{i}. {lang}")
 
     lang_input = input(
-        "\nPlease enter the languages to get data for, their numbers or (a) for all languages: "
+        "\nPlease enter the languages to get data for, their numbers or (a) for all languages:"
     )
 
     return get_selection(lang_input, languages)
@@ -103,7 +104,7 @@ def select_data_types() -> list[str]:
         print(f"{i}. {dt}")
 
     dt_input = input(
-        "\nPlease enter the data types to get, their numbers or (a) for all data types: "
+        "\nPlease enter the data types to get, their numbers or (a) for all data types:"
     )
 
     return get_selection(dt_input, list(data_types.keys()))

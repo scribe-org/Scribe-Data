@@ -9,11 +9,13 @@ SELECT DISTINCT
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q56475 ;
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?singular .
+    FILTER(lang(?singular) = "ha")
+    # FILTER(lang(?singular) = "ha-arabic")
 
   # MARK: Plural
 
@@ -21,6 +23,8 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 ;
+      FILTER(lang(?plural) = "ha")
+      # FILTER(lang(?plural) = "ha-arabic")
   } .
 
   # MARK: Gender(s)
@@ -31,13 +35,6 @@ WHERE {
       ?lexeme wdt:P31 wd:Q202444 .
     }
   } .
-
-  BIND(lang(?singular) as ?langSingular)
-  BIND(lang(?plural) as ?langPlural)
-  FILTER(?langSingular = "ha")
-  FILTER(?langPlural = "ha")
-  # FILTER(?langSingular = "ha-arabic")
-  # FILTER(?langPlural = "ha-arabic")
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
