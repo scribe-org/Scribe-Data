@@ -1,21 +1,16 @@
 # tool: scribe-data
-# All Hindi (from Hindustani Q11051) Postpositions.
+# All Hindi (from Hindustani Q11051) postpositions.
 # Enter this query at https://query.wikidata.org/.
 # Note the necessity to filter for "hi" to remove Urdu (ur) words.
 
 SELECT DISTINCT
+  ?lexeme
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?Postpositions
+  ?postposition
 
 WHERE {
-  ?lexeme dct:language wd:Q11051 ;  # Hindi language (from Hindustani)
-    wikibase:lexicalCategory wd:Q161873 ;  # Postpositions
-    wikibase:lemma ?Postpositions .
-
-  BIND(lang(?Postpositions) as ?langPostpositions)
-  FILTER(?langPostpositions = "hi")
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-  }
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q161873 ;
+    wikibase:lemma ?postposition .
+    FILTER(lang(?postposition) = "hi")
 }

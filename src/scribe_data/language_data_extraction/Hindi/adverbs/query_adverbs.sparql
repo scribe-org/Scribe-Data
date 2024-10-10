@@ -8,14 +8,8 @@ SELECT DISTINCT
   ?adverb
 
 WHERE {
-  ?lexeme dct:language wd:Q11051 ;  # Hindi language (from Hindustani)
-    wikibase:lexicalCategory wd:Q380057 ;  # Adverbs
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb .
-
-  BIND(lang(?adverb) as ?langAdverb)
-  FILTER(?langAdverb = "hi")
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-  }
+    FILTER(lang(?adverb) = "hi")
 }

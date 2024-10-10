@@ -5,26 +5,26 @@
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lemma
-  (GROUP_CONCAT(DISTINCT ?directCase; SEPARATOR=", ") AS ?directCases)
-  (GROUP_CONCAT(DISTINCT ?singulativeNumeral; SEPARATOR=", ") AS ?singulativeNumerals)
-  (GROUP_CONCAT(DISTINCT ?collectiveNumeral; SEPARATOR=", ") AS ?collectiveNumerals)
-  (GROUP_CONCAT(DISTINCT ?obliqueCase; SEPARATOR=", ") AS ?obliqueCases)
+  ?adjective
+  ?directCase
+  ?singulativeNumeral
+  ?collectiveNumeral
+  ?obliqueCase
 
 WHERE {
   # Adjective Lexeme
-  ?lexeme dct:language wd:Q11051 ;  # Hindustani language
-          wikibase:lexicalCategory wd:Q34698 ;  # Adjective category
-          wikibase:lemma ?lemma .
-  FILTER(lang(?lemma) = "hi")  # Filter for Hindi language lemmas
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+    FILTER(lang(?adjective) = "hi")
 
   # MARK: Direct Case
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?directCaseForm .
     ?directCaseForm ontolex:representation ?directCase ;
-    wikibase:grammaticalFeature wd:Q1751855 .  # Direct case
-    FILTER(LANG(?directCase) = "hi")
+      wikibase:grammaticalFeature wd:Q1751855 .
+      FILTER(LANG(?directCase) = "hi")
   }
 
   # MARK: Singulative Numeral
@@ -32,8 +32,8 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singulativeNumeralForm .
     ?singulativeNumeralForm ontolex:representation ?singulativeNumeral ;
-    wikibase:grammaticalFeature wd:Q110786 .  # Singulative numeral
-    FILTER(LANG(?singulativeNumeral) = "hi")
+      wikibase:grammaticalFeature wd:Q110786 .
+      FILTER(LANG(?singulativeNumeral) = "hi")
   }
 
   # MARK: Collective Numeral
@@ -41,8 +41,8 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?collectiveNumeralForm .
     ?collectiveNumeralForm ontolex:representation ?collectiveNumeral ;
-    wikibase:grammaticalFeature wd:Q146786 .  # Collective numeral
-    FILTER(LANG(?collectiveNumeral) = "hi")
+      wikibase:grammaticalFeature wd:Q146786 .
+      FILTER(LANG(?collectiveNumeral) = "hi")
   }
 
   # MARK: Oblique Case
@@ -50,12 +50,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?obliqueCaseForm .
     ?obliqueCaseForm ontolex:representation ?obliqueCase ;
-    wikibase:grammaticalFeature wd:Q1233197 .  # Oblique case
-    FILTER(LANG(?obliqueCase) = "hi")
-  }
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en".
+      wikibase:grammaticalFeature wd:Q1233197 .
+      FILTER(LANG(?obliqueCase) = "hi")
   }
 }
-GROUP BY ?lexeme ?lemma
