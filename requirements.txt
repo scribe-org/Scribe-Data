@@ -21,3 +21,5 @@ tabulate>=0.8.9
 torch>=2.2.1
 tqdm==4.66.4
 transformers>=4.12
+rich>=10.0.0
+questionary>=1.10.0
