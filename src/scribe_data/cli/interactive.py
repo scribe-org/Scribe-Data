@@ -78,26 +78,12 @@ def select_languages() -> list[str]:
         lang["language"].capitalize() for lang in language_metadata["languages"]
     ]
 
-    languages_with_indexes = []
     for i, lang in enumerate(languages, 1):
-        languages_with_indexes.append(str(i))
-        languages_with_indexes.append(lang)
         print(f"{i}. {lang}")
 
     lang_input = input(
-        "\nPlease enter the languages to get data for, their numbers or (a) for all languages: "
-    ).strip()
-
-    while True:
-        if not lang_input:
-            lang_input = input(
-                "\nPlease input a language of choice, input cannot be empty: "
-            ).strip()
-
-        elif lang_input not in languages_with_indexes:
-            lang_input = input("\nInvalid option selected: ").strip()
-        else:
-            break
+        "\nPlease enter the languages to get data for, their numbers or (a) for all languages:"
+    )
 
     return get_selection(lang_input, languages)
 
@@ -114,27 +100,12 @@ def select_data_types() -> list[str]:
     print("\nData type options:")
     data_types = data_type_metadata["data-types"]
 
-    data_type_with_indexes = []
-
     for i, dt in enumerate(data_types, 1):
-        data_type_with_indexes.append(str(i))
-        data_type_with_indexes.append(dt)
         print(f"{i}. {dt}")
 
     dt_input = input(
-        "\nPlease enter the data types to get, their numbers or (a) for all data types: "
-    ).strip()
-
-    while True:
-        if not dt_input:
-            dt_input = input(
-                "\nPlease input a valid data type, input cannot be empty: "
-            ).strip()
-
-        elif dt_input not in data_type_with_indexes:
-            dt_input = input("\nInvalid datatype selected: ").strip()
-        else:
-            break
+        "\nPlease enter the data types to get, their numbers or (a) for all data types:"
+    )
 
     return get_selection(dt_input, list(data_types.keys()))
 
