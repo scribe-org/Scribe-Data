@@ -1,7 +1,8 @@
 # tool: scribe-data
 # All Gurmukhi (from Punjabi Q58635) nouns, their plurals and their genders.
 # Enter this query at https://query.wikidata.org/.
-# Note the necessity to filter for "pa" to select Gurmukhi words.
+
+# Note: We need to filter for "pa" to select Gurmukhi words.
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)

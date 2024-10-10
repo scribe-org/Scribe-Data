@@ -25,8 +25,7 @@ import argparse
 from scribe_data.unicode.process_unicode import gen_emoji_lexicon
 from scribe_data.utils import export_formatted_data
 
-LANGUAGE = "Hindustani"  # Broad language category
-LANGUAGE_CODE = "hi"  # Specific filter for Hindi
+LANGUAGE = "Hindi"
 DATA_TYPE = "emoji-keywords"
 emojis_per_keyword = 3
 
@@ -38,7 +37,6 @@ args = parser.parse_args()
 if emoji_keywords_dict := gen_emoji_lexicon(
     language=LANGUAGE,
     emojis_per_keyword=emojis_per_keyword,
-    filter_language_code=LANGUAGE_CODE,  # Adding filter for Hindi language code "hi"
 ):
     export_formatted_data(
         file_path=args.file_path,

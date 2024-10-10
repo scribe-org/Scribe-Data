@@ -1,15 +1,16 @@
 # tool: scribe-data
-# All Urdu (from Hindustani Q11051) adverbs.
+# All Hindi (from Hindustani Q11051) adverbs.
 # Enter this query at https://query.wikidata.org/.
-# Note the necessity to filter for "ur" to remove Hindi (hi) words.
+
+# Note: We need to filter for "hi" to remove Urdu (ur) words.
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adverb
 
 WHERE {
-  ?lexeme dct:language wd:Q11051 ;  # Urdu language (from Hindustani)
+  ?lexeme dct:language wd:Q11051 ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb .
-    FILTER(lang(?adverb) = "ur")
+    FILTER(lang(?adverb) = "hi")
 }

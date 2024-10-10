@@ -1,7 +1,8 @@
 # tool: scribe-data
 # All Hindi (from Hindustani Q11051) verbs and the currently implemented forms for each.
 # Enter this query at https://query.wikidata.org/.
-# Note the necessity to filter for "hi" to remove Urdu (ur) words.
+
+# Note: We need to filter for "hi" to remove Urdu (ur) words.
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)

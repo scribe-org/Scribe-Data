@@ -1,10 +1,14 @@
 # tool: scribe-data
-# All Urduo (from Hindustani Q11051) adjectives.
+# All Urdu (from Hindustani Q11051) adjectives with the included grammatical forms.
 # Enter this query at https://query.wikidata.org/.
+
+# Note: We need to filter for "ur" to remove Hindi (hi) words.
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lemma
+  ?adjective
+  ?singulativeNumeral
+  ?collectiveNumeral
   ?femSingularDirect
   ?masSingularDirect
   ?femPluralDirect
@@ -21,8 +25,26 @@ SELECT DISTINCT
 WHERE {
   ?lexeme dct:language wd:Q11051 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?lemma .
-    FILTER(lang(?lemma) = "ur")
+    wikibase:lemma ?adjective .
+    FILTER(lang(?adjective) = "ur")
+
+  # MARK: Singulative Numeral
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singulativeNumeralForm .
+    ?singulativeNumeralForm ontolex:representation ?singulativeNumeral ;
+      wikibase:grammaticalFeature wd:Q110786 .
+      FILTER(LANG(?singulativeNumeral) = "ur")
+  }
+
+  # MARK: Collective Numeral
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?collectiveNumeralForm .
+    ?collectiveNumeralForm ontolex:representation ?collectiveNumeral ;
+      wikibase:grammaticalFeature wd:Q146786 .
+      FILTER(LANG(?collectiveNumeral) = "ur")
+  }
 
   # MARK: Direct
 
