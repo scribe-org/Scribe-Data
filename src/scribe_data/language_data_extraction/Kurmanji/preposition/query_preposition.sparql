@@ -1,0 +1,12 @@
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?Prepositions
+WHERE {
+
+    ?lexeme dct:language wd:Q36163 ;
+    wikibase:lexicalCategory wd:Q4833830 ;  
+    wikibase:lemma ?Prepositions .
+  
+FILTER(lang(?Prepositions) = "ku") .
+
+}
