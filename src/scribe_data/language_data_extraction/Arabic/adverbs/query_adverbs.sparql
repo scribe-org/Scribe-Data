@@ -1,17 +1,13 @@
 # tool: scribe-data
-# All Arabic (Q13955) adverbs on wikidata.
+# All Arabic (Q13955) adverbs.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?adverbs
+  ?adverb
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q380057 ;
-    wikibase:lemma ?lemma .
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-    ?lemma rdfs:label ?adverbs .
-  }
+    wikibase:lemma ?adverb .
+}
