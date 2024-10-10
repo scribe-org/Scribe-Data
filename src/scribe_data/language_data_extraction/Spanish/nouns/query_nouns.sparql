@@ -14,7 +14,7 @@ SELECT DISTINCT
   ?femPlural
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory ?nounTypes ;

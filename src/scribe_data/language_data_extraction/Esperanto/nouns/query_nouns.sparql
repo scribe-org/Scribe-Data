@@ -10,7 +10,7 @@ SELECT DISTINCT
   ?accPlural
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory ?nounTypes ;

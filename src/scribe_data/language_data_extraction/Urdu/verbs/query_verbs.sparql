@@ -17,15 +17,15 @@ WHERE {
   ?lexeme dct:language wd:Q11051 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?infinitive .
-  FILTER(lang(?infinitive) = "ur")
+    FILTER(lang(?infinitive) = "ur")
 
   # MARK: Direct Case
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?directCaseForm .
     ?directCaseForm ontolex:representation ?directCase ;
-    wikibase:grammaticalFeature wd:Q1751855 .
-    FILTER(LANG(?directCase) = "ur") .
+      wikibase:grammaticalFeature wd:Q1751855 .
+      FILTER(LANG(?directCase) = "ur") .
   } .
 
   # MARK: Gerund
@@ -33,8 +33,8 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?gerundForm .
     ?gerundForm ontolex:representation ?gerund ;
-    wikibase:grammaticalFeature wd:Q1923028 .
-    FILTER(LANG(?gerund) = "ur") .
+      wikibase:grammaticalFeature wd:Q1923028 .
+      FILTER(LANG(?gerund) = "ur") .
   } .
 
   # MARK: Intransitive Phase
@@ -42,8 +42,8 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?intransitivePhaseForm .
     ?intransitivePhaseForm ontolex:representation ?intransitivePhase ;
-    wikibase:grammaticalFeature wd:Q113330736 .
-    FILTER(LANG(?intransitivePhase) = "ur") .
+      wikibase:grammaticalFeature wd:Q113330736 .
+      FILTER(LANG(?intransitivePhase) = "ur") .
   } .
 
   # MARK: Basic Phase
@@ -51,11 +51,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?basicPhaseForm .
     ?basicPhaseForm ontolex:representation ?basicPhase ;
-    wikibase:grammaticalFeature wd:Q113330960 .
-    FILTER(LANG(?basicPhase) = "ur") .
+      wikibase:grammaticalFeature wd:Q113330960 .
+      FILTER(LANG(?basicPhase) = "ur") .
   } .
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-  }
 }
