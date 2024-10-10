@@ -14,6 +14,7 @@ WHERE {
     wikibase:lemma ?adverb .
 
   # MARK: Diminutive
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?diminutiveForm .
     ?diminutiveForm ontolex:representation ?diminutive ;
@@ -21,6 +22,7 @@ WHERE {
   }
 
   # MARK: Superlative
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?superlativeForm .
     ?superlativeForm ontolex:representation ?superlative ;
