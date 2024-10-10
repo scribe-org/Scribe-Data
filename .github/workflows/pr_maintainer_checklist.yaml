@@ -16,22 +16,49 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Get PR author's merged pull request count
+        id: pr_count
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            let mergedPRs = 0;
+            let page = 1;
+            const author = context.payload.pull_request.user.login;
+            while (true) {
+              const { data: pullRequests } = await github.rest.pulls.list({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'closed',
+                creator: context.payload.pull_request.user.login,
+                per_page: 100,
+                page: page
+              });
+
+              if (pullRequests.length === 0) {
+                break;
+              }
+
+              mergedPRs += pullRequests.filter(pr => pr.merged_at !== null && pr.user.login === author).length;
+              page++;
+              if (page > 10) break;
+            }
+            return mergedPRs;
+
+      - name: Set Maintainer Checklist
+        id: set_checklist
+        run: |
+            echo "::set-output name=checklist::### Maintainer checklist%0A%0A- [ ] The commit messages for the remote branch should be checked to make sure the contributor's email is set up correctly so that they receive credit for their contribution%0A  - The contributor's name and icon in remote commits should be the same as what appears in the PR%0A  - If there's a mismatch, the contributor needs to make sure that the [email they use for GitHub](https://github.com/settings/emails) matches what they have for \`git config user.email\` in their local Scribe-Data repo%0A%0A- [ ] The linting and formatting workflow within the [PR checks](https://github.com/scribe-org/Scribe-Data/pull/${{ github.event.pull_request.number }}/checks) do not indicate new errors in the files changed%0A%0A- [ ] The [CHANGELOG](https://github.com/scribe-org/Scribe-Data/blob/main/CHANGELOG.md) has been updated with a description of the changes for the upcoming release and the corresponding issue (if necessary)"
+
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            ## Thank you for the pull request!
+            ${{ steps.pr_count.outputs.result == '0' && '🎉 Congratulations on your first pull request in this repository! 🎉' || 'Thank you for the pull request!' }}
+
 
             The Scribe team will do our best to address your contribution as soon as we can. The following is a checklist for maintainers to make sure this process goes as well as possible. Feel free to address the points below yourself in further commits if you realize that actions are needed :)
 
             If you're not already a member of our [public Matrix community](https://matrix.to/#/#scribe_community:matrix.org), please consider joining! We'd suggest using [Element](https://element.io/) as your Matrix client, and definitely join the General and Data rooms once you're in. Also consider joining our [bi-weekly Saturday dev syncs](https://etherpad.wikimedia.org/p/scribe-dev-sync). It'd be great to have you!
 
-            ### Maintainer checklist
-
-            - [ ] The commit messages for the remote branch should be checked to make sure the contributor's email is set up correctly so that they receive credit for their contribution
-              - The contributor's name and icon in remote commits should be the same as what appears in the PR
-              - If there's a mismatch, the contributor needs to make sure that the [email they use for GitHub](https://github.com/settings/emails) matches what they have for `git config user.email` in their local Scribe-Data repo
-
-            - [ ] The linting and formatting workflow within the [PR checks](https://github.com/scribe-org/Scribe-Data/pull/${{ github.event.pull_request.number }}/checks) do not indicate new errors in the files changed
-
-            - [ ] The [CHANGELOG](https://github.com/scribe-org/Scribe-Data/blob/main/CHANGELOG.md) has been updated with a description of the changes for the upcoming release and the corresponding issue (if necessary)
+            ${{ steps.pr_count.outputs.result == '0' && steps.set_checklist.outputs.checklist || '' }}
