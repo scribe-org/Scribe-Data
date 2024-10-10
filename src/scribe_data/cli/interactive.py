@@ -37,7 +37,7 @@ from scribe_data.utils import (
 
 def get_selection(user_input: str, options: list[str]) -> list[str]:
     """
-    Parse user input to get selected options. Re-asks the question if input is empty.
+    Parse user input to get selected options.
 
     Parameters
     ----------
@@ -52,14 +52,12 @@ def get_selection(user_input: str, options: list[str]) -> list[str]:
         List[str]
             The options available in interactive mode and CLI directions.
     """
-    while not user_input.strip():  # Keep asking if input is empty
-        user_input = input("\nYou must provide a valid input. Please try again: ").strip()
-
     if user_input.lower() == "a":
         return options
 
     try:
         indices = [int(i.strip()) - 1 for i in user_input.split(",")]
+
         return [options[i] for i in indices]
 
     except (ValueError, IndexError):
@@ -68,111 +66,92 @@ def get_selection(user_input: str, options: list[str]) -> list[str]:
 
 def select_languages() -> list[str]:
     """
-    Display language options and get user selection, re-asking for input if none is provided.
+    Display language options and get user selection.
 
     Returns
     -------
         List[str]
             The languages available in Scribe-Data and CLI directions.
     """
+    print("\nLanguage options:")
     languages = [
         lang["language"].capitalize() for lang in language_metadata["languages"]
     ]
 
-    while True:  # Loop to re-ask for input if necessary
-        print("\nLanguage options:")
-        for i, lang in enumerate(languages, 1):
-            print(f"{i}. {lang}")
+    for i, lang in enumerate(languages, 1):
+        print(f"{i}. {lang}")
 
-        lang_input = input(
-            "\nPlease enter the languages to get data for, their numbers or (a) for all languages: "
-        ).strip()
+    lang_input = input(
+        "\nPlease enter the languages to get data for, their numbers or (a) for all languages:"
+    )
 
-        if lang_input:  
-            selected_languages = get_selection(lang_input, languages)
-            if selected_languages:
-                return selected_languages
-            else:
-                print("Invalid selection. Please try again.")
-        else:
-            print("No input provided. Please try again.")
+    return get_selection(lang_input, languages)
 
 
 def select_data_types() -> list[str]:
     """
-    Display data type options and get user selection, re-asking for input if none is provided.
+    Display data type options and get user selection.
 
     Returns
     -------
         List[str]
             The data types available in Scribe-Data and CLI directions.
     """
+    print("\nData type options:")
     data_types = data_type_metadata["data-types"]
 
-    while True:  # Loop to re-ask for input if necessary
-        print("\nData type options:")
-        for i, dt in enumerate(data_types, 1):
-            print(f"{i}. {dt}")
+    for i, dt in enumerate(data_types, 1):
+        print(f"{i}. {dt}")
 
-        dt_input = input(
-            "\nPlease enter the data types to get, their numbers or (a) for all data types: "
-        ).strip()
+    dt_input = input(
+        "\nPlease enter the data types to get, their numbers or (a) for all data types:"
+    )
 
-        if dt_input:  # Proceed if user provides a non-empty input
-            selected_data_types = get_selection(dt_input, list(data_types.keys()))
-            if selected_data_types:
-                return selected_data_types
-            else:
-                print("Invalid selection. Please try again.")
-        else:
-            print("No input provided. Please try again.")
+    return get_selection(dt_input, list(data_types.keys()))
 
 
 def get_output_options() -> dict:
     """
-    Get output options from user, re-asking for input if none is provided.
+    Get output options from user.
 
     Returns
     -------
         dict
-            Output options including type, directory, and overwrite flag.
+            Output options including type, directory, and overwrite flag
     """
     valid_types = ["json", "csv", "tsv"]
+    output_type = (
+        input("File type to export (json, csv, tsv) [json]: ").strip().lower() or "json"
+    )
 
-    while True:  # Loop to re-ask for valid output type
+    while output_type not in valid_types:
+        print(
+            f"Invalid output type '{output_type}'. Please choose from 'json', 'csv', or 'tsv'."
+        )
         output_type = (
             input("File type to export (json, csv, tsv) [json]: ").strip().lower()
             or "json"
         )
-        if output_type in valid_types:
-            break
-        print(
-            f"Invalid output type '{output_type}'. Please choose from 'json', 'csv', or 'tsv'."
-        )
 
     if output_type == "csv":
         default_export_dir = DEFAULT_CSV_EXPORT_DIR
+
     elif output_type == "tsv":
         default_export_dir = DEFAULT_TSV_EXPORT_DIR
+
     else:
         default_export_dir = DEFAULT_JSON_EXPORT_DIR
 
-    while True:  # Loop to ensure a non-empty directory path is provided
-        output_dir = (
-            input(f"Export directory path [./{default_export_dir}]: ").strip()
-            or f"./{default_export_dir}"
-        )
-        if output_dir:
-            break
-        print("You must provide a valid directory path. Please try again.")
-
+    output_dir = (
+        input(f"Export directory path [./{default_export_dir}]: ").strip()
+        or f"./{default_export_dir}"
+    )
     overwrite = (
         input("Overwrite existing data without asking (y/n) [n]: ").strip().lower()
         == "y"
     )
 
     return {"type": output_type, "dir": output_dir, "overwrite": overwrite}
-
 
 
 def run_interactive_mode():
