@@ -1,0 +1,18 @@
+# tool: scribe-data
+# All German (Q188) adverbs.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adverbs
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?lemma .
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+    ?lemma rdfs:label ?adverbs .
+  }
+}
