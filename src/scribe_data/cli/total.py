@@ -27,7 +27,40 @@ from scribe_data.wikidata.wikidata_utils import sparql
 
 from scribe_data.cli.cli_utils import data_type_metadata as data_type_to_qid
 
+from scribe_data.cli.cli_utils import (
+    language_metadata,
+    language_map,
+    LANGUAGE_DATA_EXTRACTION_DIR,
+)
+from pathlib import Path
+from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
+
+LANGUAGE_METADATA_FILE = (
+    Path(__file__).parent.parent / "resources" / "language_metadata.json"
+)
+
+
 data_type_to_qid = data_type_to_qid["data-types"]
+
+DATA_TYPE_METADATA_FILE = (
+    Path(__file__).parent.parent / "resources" / "data_type_metadata.json"
+)
+DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
+
+
+DataType_LIST = {
+    "nouns": "Q1084",
+    "proper nouns": "Q147276",
+    "pronouns": "Q36224",
+    "personal pronouns": "Q468801",
+    "verbs": "Q24905",
+    "adjectives": "Q34698",
+    "adverbs": "Q380057",
+    "prepositions": "Q4833830",
+    "postpositions": "Q161873",
+    "conjunctions": "Q191536",
+    "articles": "Q103184",
+}
 
 
 def get_qid_by_input(input_str):
@@ -42,7 +75,7 @@ def get_qid_by_input(input_str):
     Returns
     -------
     str or None
-        The QID corresponding to the input string, or None if not found.
+        The QID corresponding to the input string, or- None if not found.
     """
     if input_str:
         input_str_lower = input_str.lower()
@@ -55,7 +88,105 @@ def get_qid_by_input(input_str):
     return None
 
 
-def get_total_lexemes(language, data_type):
+def get_datatype_list(language):
+    languages = list(language_metadata["languages"])
+    language_list = [lang["language"] for lang in languages]
+
+    if language.lower() in language_list:
+        language_data = language_map.get(language.lower())
+        language_capitalized = language.capitalize()
+        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language_capitalized
+
+        if not language_data:
+            raise ValueError(f"Language '{language}' is not recognized.")
+        data_types = [f.name for f in language_dir.iterdir() if f.is_dir()]
+        if not data_types:
+            raise ValueError(
+                f"No data types available for language '{language_capitalized}'."
+            )
+
+        data_types = sorted(data_types)
+        data_types.remove("translations")  # removing translation from list
+        return data_types
+
+    else:
+        print(f"language not present {language}")
+        return None
+
+
+def get_all_lexemes(language: str = None):
+    """
+    Get the total number of lexemes for all the languages and data types from Wikidata.
+
+    Outputs
+    -------
+    str
+        A formatted string indicating the language, data type, and total number of lexemes for all the languages, if found.
+    """
+
+    # get all the languages
+    # get all the data types
+    print("Please wait while we retrieve the data...\n")
+    print(f"{'Language':<15} {'Data Type':<25} {'Total Number of Lexemes':<25}")
+    print("=" * 65)
+
+    # when language is none, we will get all the languages from metadata file
+    if language is None:
+        languages = list(language_metadata["languages"])
+        languages.sort(key=lambda x: x["language"])
+        language_list = [lang["language"] for lang in languages]
+
+        for lang in language_list:
+            # getting datatype of the language
+
+            data_types = get_datatype_list(lang)
+
+            first_row = True
+            for dt in data_types:
+                total_lexemes = print_total_lexemes(lang, dt, False)
+                if first_row:
+                    print(
+                        f"{lang.capitalize():<15} {dt.replace('_', '-'): <25} {total_lexemes:<25}"
+                    )
+                    first_row = False
+                else:
+                    print(f"{'':<15} {dt.replace('_', '-'): <25} {total_lexemes:<25}")
+
+    else:
+        # if name passed we will check if we have their data then will send datatype of data we already have, else just get data
+        if language.startswith("Q") and language[1:].isdigit():
+            data_types = DataType_LIST
+            first_row = True
+            for dt_key, dt_value in data_types.items():
+                total_lexemes = print_total_lexemes(language, dt_value, False)
+                if first_row:
+                    print(
+                        f"{language.capitalize():<15} {dt_key.replace('_', '-'): <25} {total_lexemes:<25}"
+                    )
+                    first_row = False
+                else:
+                    print(
+                        f"{'':<15} {dt_key.replace('_', '-'): <25} {total_lexemes:<25}"
+                    )
+
+        else:
+            data_types = get_datatype_list(language)
+            if data_types is None:
+                print("Language is not present in Scribe")
+                data_types = DataType_LIST
+            first_row = True
+            for dt in data_types:
+                total_lexemes = print_total_lexemes(language, dt, False)
+                if first_row:
+                    print(
+                        f"{language.capitalize():<15} {dt.replace('_', '-'): <25} {total_lexemes:<25}"
+                    )
+                    first_row = False
+                else:
+                    print(f"{'':<15} {dt.replace('_', '-'): <25} {total_lexemes:<25}")
+
+
+def print_total_lexemes(language, data_type, doPrint=True):
     """
     Get the total number of lexemes for a given language and data type from Wikidata.
 
@@ -73,8 +204,15 @@ def get_total_lexemes(language, data_type):
         A formatted string indicating the language, data type and total number of lexemes, if found.
     """
 
-    language_qid = get_qid_by_input(language)
-    data_type_qid = get_qid_by_input(data_type)
+    if language is not None and language.startswith("Q") and language[1:].isdigit():
+        language_qid = language
+    else:
+        language_qid = get_qid_by_input(language)
+
+    if data_type is not None and data_type.startswith("Q") and data_type[1:].isdigit():
+        data_type_qid = data_type
+    else:
+        data_type_qid = get_qid_by_input(data_type)
 
     query_template = """
     SELECT
@@ -123,7 +261,46 @@ def get_total_lexemes(language, data_type):
             output_template += f"Data type: {data_type}\n"
 
         output_template += f"Total number of lexemes: {total_lexemes}"
-        print(output_template)
-
+        if doPrint:
+            print(output_template)
     else:
         print("Total number of lexemes: Not found")
+
+    return total_lexemes
+
+
+def total_wrapper(
+    language: str = None, data_type: str = None, all_bool: bool = False
+) -> None:
+    """
+    Conditionally provides the full functionality of the total command.
+
+    Parameters
+    ----------
+        language : str
+            The language to potentially total data types for.
+
+        data_type : str
+            The data type to check for.
+
+        all_bool : boolean
+            Whether all languages and data types should be listed.
+    """
+
+    if (not language and not data_type) and all_bool:
+        get_all_lexemes()
+
+    elif language is not None and data_type is None:
+        get_all_lexemes(language)
+
+    elif language is not None and data_type is not None and not all_bool:
+        print_total_lexemes(language, data_type)
+
+    elif language is not None and data_type is not None and all_bool:
+        print(
+            f"You have already specified language: {language} and datatype: {data_type}, no need to specify -all"
+        )
+        print_total_lexemes(language, data_type)
+
+    else:
+        print("Invalid input or missing information")
