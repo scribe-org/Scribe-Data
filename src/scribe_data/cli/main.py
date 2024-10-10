@@ -114,14 +114,14 @@ def main() -> None:
         "-dt", "--data-type", type=str, help="The data type(s) to get."
     )
     get_parser.add_argument(
-        "-od", "--output-dir", type=str, help="The output directory path for results."
-    )
-    get_parser.add_argument(
         "-ot",
         "--output-type",
         type=str,
         choices=["json", "csv", "tsv", "sqlite"],
         help="The output file type.",
+    )
+    get_parser.add_argument(
+        "-od", "--output-dir", type=str, help="The output directory path for results."
     )
     get_parser.add_argument(
         "-ope",
@@ -212,13 +212,13 @@ def main() -> None:
 
         else:
             get_data(
-                args.language,
-                args.data_type,
-                args.output_dir,
-                args.overwrite,
-                args.output_type,
-                args.outputs_per_entry,
-                args.all,
+                language=args.language,
+                data_type=args.data_type,
+                output_type=args.output_type,
+                output_dir=args.output_dir,
+                outputs_per_entry=args.outputs_per_entry,
+                overwrite=args.overwrite,
+                all=args.all,
             )
 
     elif args.command in ["total", "t"]:

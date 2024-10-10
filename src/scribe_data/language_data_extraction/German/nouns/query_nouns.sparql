@@ -9,7 +9,7 @@ SELECT DISTINCT
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q188 ;
     wikibase:lexicalCategory ?nounTypes ;
