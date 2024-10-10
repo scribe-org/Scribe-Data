@@ -9,11 +9,12 @@ SELECT DISTINCT
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q9288 ;
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?noun .
+    FILTER(lang(?noun) = "he")
 
   # MARK: Plural
 
@@ -21,6 +22,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 ;
+      FILTER(lang(?plural) = "he")
   } .
 
   # MARK: Gender(s)
@@ -31,11 +33,6 @@ WHERE {
       ?lexeme wdt:P31 wd:Q202444 .
     }
   } .
-
-  BIND(lang(?noun) as ?langSingular)
-  BIND(lang(?plural) as ?langPlural)
-  FILTER(?langSingular = "he")
-  FILTER(?langPlural = "he")
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

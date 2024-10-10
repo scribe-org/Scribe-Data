@@ -9,9 +9,7 @@ SELECT DISTINCT
 
 WHERE {
   ?lexeme dct:language wd:Q11051 ;  # Urdu language (from Hindustani)
-    wikibase:lexicalCategory wd:Q380057 ;  # Adverbs
+    wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb .
-
-  BIND(lang(?adverb) as ?langAdverb)
-  FILTER(?langAdverb = "ur")
+    FILTER(lang(?adverb) = "ur")
 }

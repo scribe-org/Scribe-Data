@@ -62,6 +62,7 @@ class TestListFunctions(unittest.TestCase):
             call("Available data types: All languages"),
             call("-----------------------------------"),
             call("adjectives"),
+            call("adverbs"),
             call("emoji-keywords"),
             call("nouns"),
             call("prepositions"),
