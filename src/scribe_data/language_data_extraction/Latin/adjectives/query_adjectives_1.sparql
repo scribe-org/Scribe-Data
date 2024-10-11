@@ -7,11 +7,7 @@ SELECT
   ?adjective
   ?nomSingular
   ?nomPlural
-  ?genSingular
-  ?genPlural
-  ?partSingular
-  ?partPlural
-
+  
 WHERE {
   ?lexeme dct:language wd:Q397 ;
     wikibase:lexicalCategory wd:Q34698 ;
