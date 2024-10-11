@@ -1,10 +1,18 @@
 {
   "data-types": {
-    "autosuggestions":"",
-    "emoji_keywords":"",
+    "autosuggestions": "",
+    "emoji_keywords": "",
+    "translations": "",
     "nouns": "Q1084",
-    "prepositions": "Q37649",
-    "translations": "Q7553789",
-    "verbs": "Q24905"
+    "proper_nouns": "Q147276",
+    "pronouns": "Q36224",
+    "personal_pronouns": "Q468801",
+    "verbs": "Q24905",
+    "adjectives": "Q34698",
+    "adverbs": "Q380057",
+    "prepositions": "Q4833830",
+    "postpositions": "Q161873",
+    "conjunctions": "Q36484",
+    "articles": "Q103184"
   }
 }
