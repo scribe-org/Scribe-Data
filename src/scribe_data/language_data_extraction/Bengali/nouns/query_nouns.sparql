@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Bengali (Q9610) nouns and their forms in the various cases.
+# All Bengali (Bangla Q9610) nouns and their forms in the various cases.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
@@ -10,7 +10,7 @@ SELECT DISTINCT
   ?locative
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q9610 ;
     wikibase:lexicalCategory ?nounTypes ;

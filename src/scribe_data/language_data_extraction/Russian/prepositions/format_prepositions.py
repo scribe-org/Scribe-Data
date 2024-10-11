@@ -20,6 +20,7 @@ Formats the Russian prepositions queried from Wikidata using query_prepositions.
     -->
 """
 
+import argparse
 import collections
 
 from scribe_data.utils import (
@@ -32,7 +33,13 @@ from scribe_data.utils import (
 LANGUAGE = "Russian"
 DATA_TYPE = "prepositions"
 
-prepositions_list, data_path = load_queried_data(language=LANGUAGE, data_type=DATA_TYPE)
+parser = argparse.ArgumentParser()
+parser.add_argument("--file-path")
+args = parser.parse_args()
+
+prepositions_list, data_path = load_queried_data(
+    file_path=args.file_path, language=LANGUAGE, data_type=DATA_TYPE
+)
 
 prepositions_formatted = {}
 
@@ -54,6 +61,7 @@ for k in prepositions_formatted:
 prepositions_formatted = collections.OrderedDict(sorted(prepositions_formatted.items()))
 
 export_formatted_data(
+    file_path=args.file_path,
     formatted_data=prepositions_formatted,
     language=LANGUAGE,
     data_type=DATA_TYPE,
