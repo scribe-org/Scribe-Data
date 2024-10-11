@@ -1,0 +1,16 @@
+# tool: scribe-data
+# All Korean (Q9176) Adverbs
+# Enter this query at https://query.wikidata.org/.
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?Adverbs
+
+WHERE {
+  VALUES ?adverbTypes {wd:Q380057} # Adverbs
+
+  ?lexeme dct:language wd:Q9176 ;  # Korean language
+    wikibase:lexicalCategory ?adverbTypes ;
+    wikibase:lemma ?Adverbs .       # Return adverb
+
+}
