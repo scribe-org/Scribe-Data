@@ -1,8 +1,5 @@
 """
-Interactive mode functionality for the Scribe-Data CLI.
-
-This module provides an interactive interface for users to select languages,
-data types and output options for getting Wikidata data using Scribe-Data.
+Interactive mode functionality for the Scribe-Data CLI to allow users to select request arguments.
 
 .. raw:: html
     <!--
@@ -78,6 +75,16 @@ def display_summary():
 
 
 def configure_settings():
+    """
+    Configures the settings of the interactive mode request.
+
+    Asks for:
+        - Languages
+        - Data types
+        - Output type
+        - Output directory
+        - Whether to overwrite
+    """
     # MARK: Languages
 
     if not config.selected_languages:
@@ -151,7 +158,10 @@ def configure_settings():
             display_summary()
 
 
-def run_export():
+def run_request():
+    """
+    Runs the interactive mode request given the configuration.
+    """
     if not config.selected_languages or not config.selected_data_types:
         rprint("[bold red]Error: Please configure languages and data types.[/bold red]")
         return
@@ -183,6 +193,9 @@ def run_export():
 
 
 def start_interactive_mode():
+    """
+    Provides base options and forwarding to other interactive mode functionality.
+    """
     rprint(
         f"[bold green]Welcome to {get_version_message()} interactive mode![/bold green]"
     )
@@ -201,7 +214,7 @@ def start_interactive_mode():
             configure_settings()
 
         elif choice == "run":
-            run_export()
+            run_request()
             rprint("[bold cyan]Thank you for using Scribe-Data![/bold cyan]")
             break
 
