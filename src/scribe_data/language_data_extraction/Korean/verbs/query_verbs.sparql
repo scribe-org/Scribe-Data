@@ -5,8 +5,6 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?instransitive
-  ?transitive
 
 WHERE {
   #MARK: Verb
