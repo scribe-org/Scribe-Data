@@ -36,3 +36,4 @@ package-lock.json
 # MARK: Test Files
 
 tests_output
+scribe_data_json_export/*
