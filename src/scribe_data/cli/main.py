@@ -249,7 +249,9 @@ def main() -> None:
         return
 
     if args.command in ["list", "l"]:
-        list_wrapper(args.language, args.data_type, args.all)
+        list_wrapper(
+            language=args.language, data_type=args.data_type, all_bool=args.all
+        )
 
     elif args.command in ["get", "g"]:
         if args.interactive:
@@ -272,31 +274,32 @@ def main() -> None:
     elif args.command in ["convert", "c"]:
         if args.output_type in ["csv", "tsv"]:
             convert_to_csv_or_tsv(
-                args.language,
-                args.data_type,
-                args.input_file,
-                args.output_dir,
-                args.overwrite,
-                args.output_type,
+                language=args.language,
+                data_type=args.data_type,
+                output_type=args.output_type,
+                input_file=args.input_file,
+                output_dir=args.output_dir,
+                overwrite=args.overwrite,
             )
 
         elif args.output_type == "sqlite":
             convert_to_sqlite(
-                args.language,
-                args.data_type,
-                args.input_file,
-                args.output_dir,
-                args.overwrite,
-                args.output_type,
+                language=args.language,
+                data_type=args.data_type,
+                output_type=args.output_type,
+                input_file=args.input_file,
+                output_dir=args.output_dir,
+                overwrite=args.overwrite,
             )
+
         elif args.output_type == "json":
             convert_to_json(
-                args.language,
-                args.data_type,
-                args.input_file,
-                args.output_dir,
-                args.overwrite,
-                args.output_type,
+                language=args.language,
+                data_type=args.data_type,
+                output_type=args.output_type,
+                input_file=args.input_file,
+                output_dir=args.output_dir,
+                overwrite=args.overwrite,
             )
 
     else:

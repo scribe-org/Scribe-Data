@@ -38,10 +38,10 @@ from scribe_data.utils import (
 def convert_to_json(
     language: str,
     data_type: Union[str, List[str]],
+    output_type: str,
     input_file: str,
     output_dir: str,
     overwrite: bool,
-    output_type: str,
 ) -> None:
     """
     Convert a CSV/TSV file to JSON.
@@ -54,6 +54,9 @@ def convert_to_json(
         data_type : Union[str, List[str]]
             The data type of the file to convert.
 
+        output_type : str
+            The output format, should be "json".
+
         input_file : str
             The input CSV/TSV file path.
 
@@ -62,9 +65,6 @@ def convert_to_json(
 
         overwrite : bool
             Whether to overwrite existing files.
-
-        output_type : str
-            The output format, should be "json".
 
     Returns
     -------
@@ -172,10 +172,10 @@ def convert_to_json(
 def convert_to_csv_or_tsv(
     language: str,
     data_type: Union[str, List[str]],
+    output_type: str,
     input_file: str,
     output_dir: str,
     overwrite: bool,
-    output_type: str,
 ) -> None:
     """
     Convert a JSON File to CSV/TSV file.
@@ -188,6 +188,9 @@ def convert_to_csv_or_tsv(
     data_type : Union[str, List[str]]
         The data type of the file to convert.
 
+    output_type : str
+        The output format, should be "csv" or "tsv".
+
     input_file : str
         The input JSON file path.
 
@@ -196,9 +199,6 @@ def convert_to_csv_or_tsv(
 
     overwrite : bool
         Whether to overwrite existing files.
-
-    output_type : str
-        The output format, should be "csv or tsv".
 
     Returns
     -------
@@ -323,10 +323,10 @@ def convert_to_csv_or_tsv(
 def convert_to_sqlite(
     language: str,
     data_type: str,
-    input_file: str,
-    output_dir: str,
-    overwrite: bool,
     output_type: str,
+    input_file: str = None,
+    output_dir: str = None,
+    overwrite: bool = False,
 ) -> None:
     """
     Converts a Scribe-Data output file to an SQLite file.
@@ -338,6 +338,9 @@ def convert_to_sqlite(
 
         data_type : str
             The data type of the file to convert.
+
+        output_type : str
+            The output format, should be "sqlite".
 
         input_file : Path
             The input file path for the data to be converted.

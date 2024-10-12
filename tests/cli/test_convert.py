@@ -33,7 +33,14 @@ class TestConvert(unittest.TestCase):
     def test_convert_to_sqlite(self, mock_shutil_copy, mock_data_to_sqlite, mock_path):
         mock_path.return_value.exists.return_value = True
 
-        convert_to_sqlite("english", "nouns", "/output", True)
+        convert_to_sqlite(
+            language="english",
+            data_type="nouns",
+            input_file="file",
+            output_type="sqlite",
+            output_dir="/output",
+            overwrite=True,
+        )
 
         mock_data_to_sqlite.assert_called_with(["english"], ["nouns"])
         mock_shutil_copy.assert_called()
@@ -41,7 +48,14 @@ class TestConvert(unittest.TestCase):
     @patch("scribe_data.cli.convert.Path")
     @patch("scribe_data.cli.convert.data_to_sqlite")
     def test_convert_to_sqlite_no_output_dir(self, mock_data_to_sqlite, mock_path):
-        convert_to_sqlite("english", "nouns", None, True)
+        convert_to_sqlite(
+            language="english",
+            data_type="nouns",
+            input_file="file",
+            output_type="sqlite",
+            output_dir=None,
+            overwrite=True,
+        )
 
         mock_data_to_sqlite.assert_called_with(["english"], ["nouns"])
         mock_path.assert_not_called()
@@ -56,11 +70,24 @@ class TestConvert(unittest.TestCase):
         mock_get_language_iso.return_value = "en"
         mock_path.return_value.exists.return_value = True
 
-        convert_to_sqlite("English", "data_type", "/output", True)
+        convert_to_sqlite(
+            language="English",
+            data_type="data_type",
+            input_file="file",
+            output_type="sqlite",
+            output_dir="/output",
+            overwrite=True,
+        )
 
         mock_data_to_sqlite.assert_called_with(["English"], ["data_type"])
         mock_copy.assert_called()
 
     def test_convert_to_sqlite_no_language(self):
         with self.assertRaises(ValueError):
-            convert_to_sqlite(None, "data_type", "/output", True)
+            convert_to_sqlite(
+                language=None,
+                data_type="data_type",
+                output_type="sqlite",
+                output_dir="/output",
+                overwrite=True,
+            )
