@@ -21,10 +21,9 @@ Tests for the CLI convert functionality.
 """
 
 import unittest
-from pathlib import Path
 from unittest.mock import patch
 
-from scribe_data.cli.convert import convert_to_sqlite, export_json
+from scribe_data.cli.convert import convert_to_sqlite
 
 
 class TestConvert(unittest.TestCase):
@@ -61,13 +60,6 @@ class TestConvert(unittest.TestCase):
 
         mock_data_to_sqlite.assert_called_with(["English"], ["data_type"])
         mock_copy.assert_called()
-
-    @patch("scribe_data.cli.convert.language_map")
-    def test_export_json_invalid_language(self, mock_language_map):
-        mock_language_map.get.return_value = None
-
-        with self.assertRaises(ValueError):
-            export_json("invalid", "data_type", Path("/output"), True)
 
     def test_convert_to_sqlite_no_language(self):
         with self.assertRaises(ValueError):

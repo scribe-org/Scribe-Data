@@ -24,7 +24,7 @@ import csv
 import json
 import shutil
 from pathlib import Path
-from typing import Union, List
+from typing import List, Union
 
 from scribe_data.cli.cli_utils import language_map
 from scribe_data.load.data_to_sqlite import data_to_sqlite
@@ -68,7 +68,7 @@ def convert_to_json(
 
     Returns
     -------
-         None
+        None
     """
     normalized_language = language_map.get(language.lower())
 
@@ -202,7 +202,7 @@ def convert_to_csv_or_tsv(
 
     Returns
     -------
-    None
+        None
     """
 
     # Normalize the language

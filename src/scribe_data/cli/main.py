@@ -23,10 +23,11 @@ Setup and commands for the Scribe-Data command line interface.
 #!/usr/bin/env python3
 import argparse
 from pathlib import Path
+
 from scribe_data.cli.convert import (
     convert_to_csv_or_tsv,
-    convert_to_sqlite,
     convert_to_json,
+    convert_to_sqlite,
 )
 from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
@@ -186,7 +187,7 @@ def main() -> None:
 
     # Setting up the arguments for the convert command
     convert_parser.add_argument(
-        "-lan",
+        "-lang",
         "--language",
         type=str,
         required=True,
@@ -200,7 +201,7 @@ def main() -> None:
         help="The data type(s) of the file to convert (e.g., noun, verb).",
     )
     convert_parser.add_argument(
-        "-i",
+        "-if",
         "--input-file",
         type=Path,
         required=True,
