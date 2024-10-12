@@ -1,9 +1,9 @@
-cli/
+Command Line Interface(CLI)
 ====
 
-`View code on Github <https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/cli>`_
-
 Scribe-Data provides a command-line interface (CLI) for efficient interaction with its language data functionality.
+
+`View code on Github <https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/cli>`_
 
 Usage
 -----
@@ -54,16 +54,86 @@ Example output:
 .. code-block:: text
 
     $ scribe-data list
+
     Language     ISO  QID
     -----------------------
     English      en   Q1860
     French       fr   Q150
     German       de   Q188
-    ...
+    Italian      it   Q652
+    Portuguese   pt   Q5146
+    Russian      ru   Q7737
+    Spanish      es   Q1321
+    Swedish      sv   Q9027
     -----------------------
 
     Available data types: All languages
     -----------------------------------
+    adjectives
+    adverbs
+    emoji-keywords
+    nouns
+    prepositions
+    translations
+    verbs
+    -----------------------------------
+
+
+
+.. code-block:: text
+
+    $scribe-data list --language
+
+    Language     ISO  QID
+    -----------------------
+    English      en   Q1860
+    French       fr   Q150
+    German       de   Q188
+    Italian      it   Q652
+    Portuguese   pt   Q5146
+    Russian      ru   Q7737
+    Spanish      es   Q1321
+    Swedish      sv   Q9027
+    -----------------------
+
+
+.. code-block:: text
+
+    $scribe-data list -dt
+
+    Available data types: All languages
+    -----------------------------------
+    adjectives
+    adverbs
+    emoji-keywords
+    nouns
+    prepositions
+    translations
+    verbs
+    -----------------------------------
+
+
+.. code-block:: text
+
+    $scribe-data list -a
+
+    Language     ISO  QID
+    -----------------------
+    English      en   Q1860
+    French       fr   Q150
+    German       de   Q188
+    Italian      it   Q652
+    Portuguese   pt   Q5146
+    Russian      ru   Q7737
+    Spanish      es   Q1321
+    Swedish      sv   Q9027
+    -----------------------
+
+    Available data types: All languages
+    -----------------------------------
+    adjectives
+    adverbs
+    emoji-keywords
     nouns
     prepositions
     translations
