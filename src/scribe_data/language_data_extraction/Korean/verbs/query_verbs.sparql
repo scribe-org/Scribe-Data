@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Korean (Q9176) verbs
+# All Korean (Q9176) verbs.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -7,12 +7,7 @@ SELECT
   ?verb
 
 WHERE {
-  #MARK: Verb
-
   ?lexeme dct:language wd:Q9176 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
-
-  BIND(lang(?verb) AS ?language)
-  FILTER(?language = "ko")
 }
