@@ -463,25 +463,6 @@ def check_and_return_command_line_args(
     )
 
 
-def get_target_lang_codes(source_lang: str) -> list[str]:
-    """
-    Returns a list of target language ISO codes for translation.
-
-    Parameters
-    ----------
-        source_lang : str
-            The source language being translated from.
-
-    Returns
-    -------
-        list[str]
-            A list of target language ISO codes.
-    """
-    return [
-        get_language_iso(lang) for lang in get_scribe_languages() if lang != source_lang
-    ]
-
-
 def map_genders(wikidata_gender: str) -> str:
     """
     Maps genders from Wikidata to succinct versions.

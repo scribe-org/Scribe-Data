@@ -34,14 +34,12 @@ class TestCLIUtils(TestCase):
         self.assertEqual(correct_data_type("autosuggestion"), "autosuggestions")
         self.assertEqual(correct_data_type("emoji_keyword"), "emoji_keywords")
         self.assertEqual(correct_data_type("preposition"), "prepositions")
-        self.assertEqual(correct_data_type("translation"), "translations")
         self.assertEqual(correct_data_type("invalid"), None)
 
     def test_correct_data_type_with_trailing_s(self):
         self.assertEqual(correct_data_type("autosuggestions"), "autosuggestions")
         self.assertEqual(correct_data_type("emoji_keywords"), "emoji_keywords")
         self.assertEqual(correct_data_type("prepositions"), "prepositions")
-        self.assertEqual(correct_data_type("translations"), "translations")
 
     def test_correct_data_type_invalid_input(self):
         self.assertIsNone(correct_data_type("invalid_data_type"))
@@ -61,17 +59,6 @@ class TestCLIUtils(TestCase):
         print_formatted_data(data, "emoji_keywords")
         mock_print.assert_any_call("key1 : 😀 😁")
         mock_print.assert_any_call("key2 : 😂")
-
-    @patch("builtins.print")
-    def test_print_formatted_data_prepositions_translations(self, mock_print):
-        data = {"key1": "value1", "key2": "value2"}
-        print_formatted_data(data, "prepositions")
-        mock_print.assert_any_call("key1 : value1")
-        mock_print.assert_any_call("key2 : value2")
-
-        print_formatted_data(data, "translations")
-        mock_print.assert_any_call("key1 : value1")
-        mock_print.assert_any_call("key2 : value2")
 
     @patch("builtins.print")
     def test_print_formatted_data_dict(self, mock_print):
@@ -132,13 +119,6 @@ class TestCLIUtils(TestCase):
         data = {"key1": "value1", "key2": "value2"}
         with patch("builtins.print") as mock_print:
             print_formatted_data(data, "prepositions")
-            mock_print.assert_any_call("key1 : value1")
-            mock_print.assert_any_call("key2 : value2")
-
-    def test_print_formatted_data_translations(self):
-        data = {"key1": "value1", "key2": "value2"}
-        with patch("builtins.print") as mock_print:
-            print_formatted_data(data, "translations")
             mock_print.assert_any_call("key1 : value1")
             mock_print.assert_any_call("key2 : value2")
 
