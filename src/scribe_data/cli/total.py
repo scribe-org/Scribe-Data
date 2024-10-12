@@ -76,6 +76,16 @@ def get_total_lexemes(language, data_type):
     language_qid = get_qid_by_input(language)
     data_type_qid = get_qid_by_input(data_type)
 
+    if not language_qid:
+        print(
+            "The specified language does not exist. Please update your language_metadata.json file by using:\n"
+            "`scribe-data update --metadata`\n"
+            "Alternatively, you can manually set it with:\n"
+            "`scribe-data set-metadata -lang [your_language] -qid [your_qid]`.\n\n"
+            "This will ensure that you can fetch the correct data."
+        )
+        return
+
     query_template = """
     SELECT
         (COUNT(DISTINCT ?lexeme) as ?total)
