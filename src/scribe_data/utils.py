@@ -120,8 +120,22 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
 def get_scribe_languages() -> list[str]:
     """
     Returns the list of currently implemented Scribe languages.
+    This version handles both regular languages and those with sub-languages (e.g., Norwegian).
     """
-    return sorted(entry["language"].capitalize() for entry in _languages)
+    languages = []
+
+    for language, entry in _languages.items():
+        # Add the main language (if it's directly queryable)
+        if "sub_languages" not in entry:
+            languages.append(language.capitalize())
+
+        # If there are sub-languages, add them instead
+        if "sub_languages" in entry:
+            languages.extend(
+                sub_language.capitalize() for sub_language in entry["sub_languages"]
+            )
+
+    return sorted(languages)
 
 
 def get_language_qid(language: str) -> str:
