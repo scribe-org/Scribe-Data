@@ -36,7 +36,7 @@ DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
 
 
-def _load_json(package_path: str, file_name: str, root: str) -> Any:
+def _load_json(package_path: str, file_name: str) -> Any:
     """
     Loads a JSON resource from a package into a python entity.
 
@@ -48,25 +48,19 @@ def _load_json(package_path: str, file_name: str, root: str) -> Any:
         file_name : str
             The name of the file (resource) that contains the JSON data.
 
-        root : str
-            The root node of the JSON document.
-
     Returns
     -------
-        A python entity starting at 'root'.
+        A python entity representing the JSON content.
     """
-
     with resources.files(package_path).joinpath(file_name).open(
         encoding="utf-8"
     ) as in_stream:
         contents = json.load(in_stream)
-        return contents[root]
+        return contents  # No need for 'root'
 
 
 _languages = _load_json(
-    package_path="scribe_data.resources",
-    file_name="language_metadata.json",
-    root="languages",
+    package_path="scribe_data.resources", file_name="language_metadata.json"
 )
 
 
