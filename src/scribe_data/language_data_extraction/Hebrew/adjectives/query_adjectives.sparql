@@ -1,0 +1,13 @@
+# tool: scribe-data
+# All Hebrew (Q9288) adjectives.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  (SAMPLE(?adjective) AS ?adjective)  # Use SAMPLE to select one adjective per lexeme
+WHERE {
+  ?lexeme dct:language wd:Q9288 ;
+          wikibase:lexicalCategory wd:Q34698 ;
+          wikibase:lemma ?adjective .
+}
+GROUP BY ?lexeme
