@@ -9,7 +9,7 @@ SELECT DISTINCT
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory ?nounTypes .
@@ -37,7 +37,7 @@ WHERE {
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
     FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .
+      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
     }
   } .
 
