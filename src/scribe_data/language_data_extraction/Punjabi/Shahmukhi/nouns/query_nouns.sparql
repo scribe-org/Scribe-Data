@@ -1,8 +1,11 @@
 # tool: scribe-data
-# All French (Q150) nouns, their plurals and their genders.
+# All Shahmukhi (from Punjabi Q58635) nouns, their plurals and their genders.
 # Enter this query at https://query.wikidata.org/.
 
+# Note: We need to filter for "pnb" to select Shahmukhi words.
+
 SELECT DISTINCT
+  ?lexeme
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?singular
   ?plural
@@ -11,9 +14,10 @@ SELECT DISTINCT
 WHERE {
   VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
-  ?lexeme dct:language wd:Q150 ;
+  ?lexeme dct:language wd:Q58635 ;   # Punjabi (Q58635)
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?singular .
+    FILTER(lang(?singular) = "pnb")
 
   # MARK: Plural
 
@@ -21,6 +25,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 ;
+      FILTER(lang(?plural) = "pnb")
   } .
 
   # MARK: Gender(s)
