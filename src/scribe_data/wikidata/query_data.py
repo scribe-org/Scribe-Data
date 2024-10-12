@@ -147,6 +147,8 @@ def query_data(
     }
     queries_to_run = sorted(queries_to_run)
 
+    # MARK: Run Queries
+
     # Run queries and format data.
     for q in tqdm(
         queries_to_run,
@@ -299,6 +301,8 @@ def query_data(
                                         ensure_ascii=False,
                                         indent=0,
                                     )
+
+            # MARK: Save Results
 
             with open(file_path, "w", encoding="utf-8") as json_file:
                 json.dump(results_final, json_file, ensure_ascii=False, indent=0)
