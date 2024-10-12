@@ -7,8 +7,6 @@ SELECT
   ?adjective
   ?genSingular
   ?genPlural
-  ?ineSingular
-  ?inePlural
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
