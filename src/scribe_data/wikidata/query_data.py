@@ -86,6 +86,7 @@ def query_data(
     data_type: str = None,
     output_dir: str = None,
     overwrite: bool = None,
+    interactive: bool = False,  # Add interactive parameter
 ):
     """
     Queries language data from the Wikidata lexicographical data.
@@ -152,6 +153,8 @@ def query_data(
         queries_to_run,
         desc="Data updated",
         unit="process",
+        disable=interactive,
+        colour="MAGENTA",
     ):
         lang = q.parent.parent.name
         target_type = q.parent.name
@@ -169,24 +172,25 @@ def query_data(
                 for file in existing_files:
                     file.unlink()
             else:
-                print(
-                    f"\nExisting file(s) found for {lang} {target_type} in the {output_dir} directory:\n"
-                )
-                for i, file in enumerate(existing_files, 1):
-                    print(f"{i}. {file.name}")
+                if not interactive:
+                    print(
+                        f"\nExisting file(s) found for {lang} {target_type} in the {output_dir} directory:\n"
+                    )
+                    for i, file in enumerate(existing_files, 1):
+                        print(f"{i}. {file.name}")
 
-                # choice = input(
-                #     "\nChoose an option:\n1. Overwrite existing (press 'o')\n2. Keep all (press 'k')\n3. Skip process (press anything else)\nEnter your choice: "
-                # )
+                    # choice = input(
+                    #     "\nChoose an option:\n1. Overwrite existing (press 'o')\n2. Keep all (press 'k')\n3. Skip process (press anything else)\nEnter your choice: "
+                    # )
 
-                choice = input(
-                    "\nChoose an option:\n1. Overwrite existing data (press 'o')\n2. Skip process (press anything else)\nEnter your choice: "
-                )
+                    choice = input(
+                        "\nChoose an option:\n1. Overwrite existing data (press 'o')\n2. Skip process (press anything else)\nEnter your choice: "
+                    )
 
-                if choice.lower() == "o":
-                    print("Removing existing files ...")
-                    for file in existing_files:
-                        file.unlink()
+                    if choice.lower() == "o":
+                        print("Removing existing files ...")
+                        for file in existing_files:
+                            file.unlink()
 
                 # elif choice in ["k", "K"]:
                 #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")

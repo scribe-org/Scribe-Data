@@ -39,7 +39,7 @@ def get_data(
     output_dir: str = None,
     overwrite: bool = False,
     outputs_per_entry: int = None,
-    all: bool = False,
+    interactive: bool = False,  # Add interactive parameter
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
@@ -67,6 +67,9 @@ def get_data(
         all : bool
             Get all languages and data types.
 
+        interactive : bool
+            Whether it's running in interactive mode (default: False).
+
     Returns
     -------
         The requested data saved locally given file type and location arguments.
@@ -88,16 +91,9 @@ def get_data(
 
     subprocess_result = False
 
-    # MARK: Get All
-
-    if all:
-        print("Updating all languages and data types ...")
-        query_data(None, None, None, overwrite)
-        subprocess_result = True
-
     # MARK: Emojis
 
-    elif data_type in {"emoji-keywords", "emoji_keywords"}:
+    if data_type in {"emoji-keywords", "emoji_keywords"}:
         for lang in languages:
             emoji_keyword_extraction_script = (
                 Path(__file__).parent.parent
@@ -125,6 +121,7 @@ def get_data(
             data_type=data_type,
             output_dir=output_dir,
             overwrite=overwrite,
+            interactive=interactive,
         )
         subprocess_result = True
 
@@ -140,6 +137,8 @@ def get_data(
         print(
             f"Updated data was saved in: {Path(output_dir).resolve()}.",
         )
+        if interactive:
+            return True
 
     # The emoji keywords process has failed.
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
