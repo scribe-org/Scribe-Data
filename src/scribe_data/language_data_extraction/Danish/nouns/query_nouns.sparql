@@ -28,7 +28,7 @@ WHERE {
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
     FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .
+      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
     }
   } .
 
