@@ -66,28 +66,20 @@ _languages = _load_json(
 
 def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -> Any:
     """
-    Each 'language', (english, german,..., etc) is a dictionary of key/value pairs:
+    Finds a target value based on a source key/value pair from the language metadata.
 
-        entry = {
-            "language": "english",
-            "iso": "en",
-            "qid": "Q1860",
-            "remove-words": [...],
-            "ignore-words": [...]
-        }
-
-    Given a key/value pair, the 'source' and the 'target' key get the 'target' value.
+    This version handles both regular languages and those with sub-languages (e.g., Norwegian).
 
     Parameters
     ----------
         source_value : str
-            The source value to find equivalents for (e.g. 'english').
+            The source value to find equivalents for (e.g., 'english', 'nynorsk').
 
         source_key : str
-            The source key to reference (e.g. 'language').
+            The source key to reference (e.g., 'language').
 
         target_key : str
-            The key to target (e.g. 'iso').
+            The key to target (e.g., 'qid').
 
         error_msg : str
             The message displayed when a value cannot be found.
@@ -98,18 +90,30 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
 
     Raises
     ------
-        ValueError : when a source_value is not supported.
+        ValueError : when a source_value is not supported or the language only has sub-languages.
     """
     norm_source_value = source_value.lower()
 
-    if target_value := [
-        entry[target_key]
-        for entry in _languages
-        if entry[source_key] == norm_source_value
-    ]:
-        assert len(target_value) == 1, f"More than one entry for '{norm_source_value}'"
-        return target_value[0]
+    # Check if we're searching by language name
+    if source_key == "language":
+        # First, check the main language entries (e.g., mandarin, french, etc.)
+        for language, entry in _languages.items():
+            # If the language name matches the top-level key, return the target value
+            if language.lower() == norm_source_value:
+                if "sub_languages" in entry:
+                    sub_languages = ", ".join(entry["sub_languages"].keys())
+                    raise ValueError(
+                        f"'{language}' has sub-languages, but is not queryable directly. Available sub-languages: {sub_languages}"
+                    )
+                return entry.get(target_key)
 
+            # If there are sub-languages, check them too
+            if "sub_languages" in entry:
+                for sub_language, sub_entry in entry["sub_languages"].items():
+                    if sub_language.lower() == norm_source_value:
+                        return sub_entry.get(target_key)
+
+    # If no match was found, raise an error
     raise ValueError(error_msg)
 
 
