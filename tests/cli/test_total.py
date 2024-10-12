@@ -23,7 +23,7 @@ Tests for the CLI total functionality.
 import unittest
 from unittest.mock import MagicMock, call, patch
 
-from scribe_data.cli.total import get_total_lexemes, get_qid_by_input
+from scribe_data.cli.total import get_qid_by_input, get_total_lexemes
 
 
 class TestTotalLexemes(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestTotalLexemes(unittest.TestCase):
     @patch("scribe_data.cli.total.sparql.query")
     def test_get_total_lexemes_valid(self, mock_query, mock_get_qid):
         mock_get_qid.side_effect = lambda x: {"english": "Q1860", "nouns": "Q1084"}.get(
-            x.lower(), None
+            x.lower()
         )
         mock_results = MagicMock()
         mock_results.convert.return_value = {
@@ -43,7 +43,7 @@ class TestTotalLexemes(unittest.TestCase):
             get_total_lexemes("English", "nouns")
 
         mock_print.assert_called_once_with(
-            "Language: English\nData type: nouns\nTotal number of lexemes: 42"
+            "\nLanguage: English\nData type: nouns\nTotal number of lexemes: 42\n"
         )
 
     @patch("scribe_data.cli.total.get_qid_by_input")
@@ -129,8 +129,12 @@ class TestTotalLexemes(unittest.TestCase):
             get_total_lexemes("English", "nouns")
 
         expected_calls = [
-            call("Language: English\nData type: verbs\nTotal number of lexemes: 30"),
-            call("Language: English\nData type: nouns\nTotal number of lexemes: 30"),
+            call(
+                "\nLanguage: English\nData type: verbs\nTotal number of lexemes: 30\n"
+            ),
+            call(
+                "\nLanguage: English\nData type: nouns\nTotal number of lexemes: 30\n"
+            ),
         ]
         mock_print.assert_has_calls(expected_calls)
 
@@ -143,15 +147,15 @@ class TestGetQidByInput(unittest.TestCase):
             "verbs": "Q24905",
         }
 
-    @patch("scribe_data.cli.total.data_type_to_qid", new_callable=dict)
-    def test_get_qid_by_input_valid(self, mock_data_type_to_qid):
-        mock_data_type_to_qid.update(self.valid_data_types)
+    @patch("scribe_data.cli.total.data_type_metadata", new_callable=dict)
+    def test_get_qid_by_input_valid(self, mock_data_type_metadata):
+        mock_data_type_metadata.update(self.valid_data_types)
 
         for data_type, expected_qid in self.valid_data_types.items():
             self.assertEqual(get_qid_by_input(data_type), expected_qid)
 
-    @patch("scribe_data.cli.total.data_type_to_qid", new_callable=dict)
-    def test_get_qid_by_input_invalid(self, mock_data_type_to_qid):
-        mock_data_type_to_qid.update(self.valid_data_types)
+    @patch("scribe_data.cli.total.data_type_metadata", new_callable=dict)
+    def test_get_qid_by_input_invalid(self, mock_data_type_metadata):
+        mock_data_type_metadata.update(self.valid_data_types)
 
         self.assertIsNone(get_qid_by_input("invalid_data_type"))

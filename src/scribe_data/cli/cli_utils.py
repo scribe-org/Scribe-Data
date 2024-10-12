@@ -56,7 +56,7 @@ language_map = {
     lang["language"].lower(): lang for lang in language_metadata["languages"]
 }
 
-# Create language_to_qid dictionary
+# Create language_to_qid dictionary.
 language_to_qid = {
     lang["language"].lower(): lang["qid"] for lang in language_metadata["languages"]
 }
@@ -198,7 +198,7 @@ def correct_data_type(data_type: str) -> str:
     -------
         The data_type value or a corrected version of it.
     """
-    all_data_types = data_type_metadata["data-types"]
+    all_data_types = data_type_metadata.keys()
 
     if data_type in all_data_types:
         return data_type
@@ -228,7 +228,7 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
                 emojis = [item["emoji"] for item in value]
                 print(f"{key:<{max_key_length}} : {' '.join(emojis)}")
 
-        elif data_type in {"prepositions", "translations"}:
+        elif data_type in {"prepositions"}:
             for key, value in data.items():
                 print(f"{key:<{max_key_length}} : {value}")
 
