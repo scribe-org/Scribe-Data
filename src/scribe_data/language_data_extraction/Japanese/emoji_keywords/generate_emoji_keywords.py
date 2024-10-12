@@ -1,5 +1,5 @@
 """
-Generates keyword-emoji relationships from a selection of English words.
+Generates keyword-emoji relationships from a selection of Japanese words.
 
 .. raw:: html
     <!--
@@ -25,7 +25,7 @@ import argparse
 from scribe_data.unicode.process_unicode import gen_emoji_lexicon
 from scribe_data.utils import export_formatted_data
 
-LANGUAGE = "japanese"
+LANGUAGE = "Japanese"
 DATA_TYPE = "emoji-keywords"
 emojis_per_keyword = 3
 
