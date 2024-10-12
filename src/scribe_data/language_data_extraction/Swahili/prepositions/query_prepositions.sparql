@@ -1,14 +1,14 @@
 # tool: scribe-data
-# All Swahili (Q7838) adjectives.
+# All Swahili (Q7838) prepositions.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?prepositions
+  ?preposition
 
 WHERE {
   ?lexeme dct:language wd:Q7838 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?prepositions .
-    FILTER(lang(?prepositions) = "sw")
+    wikibase:lemma ?preposition .
+    FILTER(lang(?preposition) = "sw")
 }
