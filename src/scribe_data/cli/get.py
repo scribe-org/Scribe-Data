@@ -111,22 +111,6 @@ def get_data(
                 ["python", emoji_keyword_extraction_script]
             )
 
-    # MARK: Translations
-
-    elif data_type == "translations":
-        for lang in languages:
-            translation_generation_script = (
-                Path(__file__).parent.parent
-                / "language_data_extraction"
-                / lang
-                / "translations"
-                / "translate_words.py"
-            )
-
-            subprocess_result = subprocess.run(
-                ["python", translation_generation_script]
-            )
-
     # MARK: Query Data
 
     elif language or data_type:
