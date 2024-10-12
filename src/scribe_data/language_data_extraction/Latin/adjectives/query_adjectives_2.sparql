@@ -1,0 +1,31 @@
+# tool: scribe-data
+# All Latin (Q397) adjectives in the given cases.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?genSingular
+  ?genPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  # MARK: Genitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genSingularForm .
+    ?genSingularForm ontolex:representation ?genSingular ;
+      wikibase:grammaticalFeature wd:Q146233 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genPluralForm .
+    ?genPluralForm ontolex:representation ?genPlural ;
+      wikibase:grammaticalFeature wd:Q146233 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  } .
+}
