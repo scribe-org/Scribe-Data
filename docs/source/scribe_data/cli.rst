@@ -267,14 +267,34 @@ Examples:
 
 .. code-block:: text
 
-    $ scribe-data total -dt nouns
+    $scribe-data total -dt nouns
     Data type: nouns
-    Total number of lexemes: <NUMBER />
+    Total number of lexemes: 889594
 
-    $ scribe-data total -lang eng -dt nouns
-    Language: eng
-    Data type: nouns
-    Total number of lexemes: <NUMBER />
+.. code-block:: text
+
+    $scribe-data total -dt verbs
+    Data type: verbs
+    Total number of lexemes: 149169
+
+.. code-block:: text
+
+    $scribe-data total -lang English
+    Language: English
+    Total number of lexemes: 75267
+
+.. code-block:: text
+
+    $scribe-data total -lang Hindustani
+    Language: Hindustani
+    Total number of lexemes: 1344899
+
+.. code-block:: text
+
+    $scribe-data total -lang Hindustani -dt verbs
+    Language: Hindustani
+    Data type: verbs
+    Total number of lexemes: 149169
 
 Convert Command
 ~~~~~~~~~~~~~~~
