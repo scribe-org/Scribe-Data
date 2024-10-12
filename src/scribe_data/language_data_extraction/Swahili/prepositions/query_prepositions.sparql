@@ -8,7 +8,7 @@ SELECT
 
 WHERE {
   ?lexeme dct:language wd:Q7838 ;
-    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?preposition .
     FILTER(lang(?preposition) = "sw")
 }
