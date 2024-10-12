@@ -11,11 +11,12 @@ SELECT DISTINCT
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q58635 ;
   wikibase:lexicalCategory ?nounTypes ;
   wikibase:lemma ?singular .
+  FILTER(lang(?singular) = "pa")
 
   # MARK: Plural
 
@@ -23,6 +24,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 ;
+      FILTER(lang(?plural) = "pa")
   } .
 
   # MARK: Gender(s)
@@ -30,12 +32,9 @@ WHERE {
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
     FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .
+      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
     }
   } .
-
-  FILTER(lang(?singular) = "pa")
-  FILTER(lang(?plural) = "pa")
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

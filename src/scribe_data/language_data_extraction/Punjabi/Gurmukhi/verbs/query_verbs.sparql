@@ -1,24 +1,16 @@
 # tool: scribe-data
-# All Punjabi Gurmukhi (Q58635) verbs.
+# All Gurmukhi (from Punjabi Q58635) verbs.
 # Enter this query at https://query.wikidata.org/.
 
+# Note: We need to filter for "pa" to select Gurmukhi words.
+
 SELECT DISTINCT
-  ?lexeme
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
 
 WHERE {
-  VALUES ?verbTypes {wd:Q24905}  # Verb
-
-  # Get all lexemes for Punjabi (Gurmukhi)
   ?lexeme dct:language wd:Q58635 ;
-    wikibase:lexicalCategory ?verbTypes ;
+    wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
-
-  # Filter for the Punjabi language code (pa)
-  FILTER(lang(?verb) = "pa")
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-  }
+    FILTER(lang(?verb) = "pa")
 }

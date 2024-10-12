@@ -234,10 +234,11 @@ def query_data(
 
                 results_final.append(r_dict)
 
-            path = os.path.dirname(q)
-
             with open(
-                Path(path) / f"{target_type}_queried.json",
+                Path(PATH_TO_LANGUAGE_EXTRACTION_FILES)
+                / lang
+                / target_type
+                / f"{target_type}_queried.json",
                 "w",
                 encoding="utf-8",
             ) as f:
@@ -247,7 +248,6 @@ def query_data(
                 # Note: Only the first query was ran, so we need to run the second and append the json.
                 for suffix in ["_2", "_3", "_4"]:
                     q = Path(str(q).replace("_1", suffix).replace("_2", suffix))
-                    path = os.path.dirname(q)
 
                     if q.exists():
                         with open(q, encoding="utf-8") as file:
@@ -286,26 +286,33 @@ def query_data(
                                     results_final.append(r_dict)
 
                                 with open(
-                                    Path(path) / f"{target_type}_queried.json",
+                                    Path(PATH_TO_LANGUAGE_EXTRACTION_FILES)
+                                    / lang
+                                    / target_type
+                                    / f"{target_type}_queried.json",
                                     "w",
                                     encoding="utf-8",
                                 ) as f:
                                     json.dump(
-                                        results_final, f, ensure_ascii=False, indent=0
+                                        results_final,
+                                        f,
+                                        ensure_ascii=False,
+                                        indent=0,
                                     )
 
             with open(file_path, "w", encoding="utf-8") as json_file:
                 json.dump(results_final, json_file, ensure_ascii=False, indent=0)
 
             # Call the corresponding formatting file.
-            formatting_file_path = Path(path) / f"format_{target_type}.py"
-            if formatting_file_path.exists():
-                print("Formatting file exist, so formatting")
-                execute_formatting_script(
-                    formatting_file_path=formatting_file_path, output_dir=output_dir
-                )
-            else:
-                print("Formatting file not exist")
+            formatting_file_path = (
+                PATH_TO_LANGUAGE_EXTRACTION_FILES
+                / lang
+                / target_type
+                / f"format_{target_type}.py"
+            )
+            execute_formatting_script(
+                formatting_file_path=formatting_file_path, output_dir=output_dir
+            )
 
 
 if __name__ == "__main__":
