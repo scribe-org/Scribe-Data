@@ -1,7 +1,39 @@
 {
+  "arabic": {
+    "iso": "ar",
+    "qid": "Q13955"
+  },
+  "basque": {
+    "iso": "eu",
+    "qid": "Q8752"
+  },
+  "bengali": {
+    "iso": "bn",
+    "qid": "Q9610"
+  },
+  "czech": {
+    "iso": "cs",
+    "qid": "Q9056"
+  },
+  "danish": {
+    "iso": "da",
+    "qid": "Q9035"
+  },
   "english": {
     "iso": "en",
     "qid": "Q1860"
+  },
+  "esperanto": {
+    "iso": "eo",
+    "qid": "Q143"
+  },
+  "estonian": {
+    "iso": "et",
+    "qid": "Q9072"
+  },
+  "finnish": {
+    "iso": "fi",
+    "qid": "Q1412"
   },
   "french": {
     "iso": "fr",
@@ -11,24 +43,116 @@
     "iso": "de",
     "qid": "Q188"
   },
+  "greek": {
+    "iso": "el",
+    "qid": "Q36510"
+  },
+  "hausa": {
+    "iso": "ha",
+    "qid": "Q56475"
+  },
+  "hebrew": {
+    "iso": "he",
+    "qid": "Q9288"
+  },
+  "hindustani": {
+    "iso": "hi",
+    "qid": "Q11051"
+  },
+  "indonesian": {
+    "iso": "id",
+    "qid": "Q9240"
+  },
   "italian": {
     "iso": "it",
     "qid": "Q652"
+  },
+  "japanese": {
+    "iso": "ja",
+    "qid": "Q5287"
+  },
+  "kurmanji": {
+    "iso": "kmr",
+    "qid": "Q36163"
+  },
+  "latin": {
+    "iso": "la",
+    "qid": "Q397"
+  },
+  "malay": {
+    "iso": "ms",
+    "qid": "Q9237"
+  },
+  "malayalam": {
+    "iso": "ml",
+    "qid": "Q36236"
+  },
+  "mandarin": {
+    "iso": "zh",
+    "qid": "Q727694"
+  },
+  "norwegian": {
+    "sub_languages": {
+      "nynorsk": {
+        "iso": "nn",
+        "qid": "Q25164"
+      },
+      "bokmål": {
+        "iso": "nb",
+        "qid": "Q9043"
+      }
+    }
+  },
+  "pidgin": {
+    "iso": "pi",
+    "qid": "Q33655"
+  },
+  "polish": {
+    "iso": "pl",
+    "qid": "Q809"
   },
   "portuguese": {
     "iso": "pt",
     "qid": "Q5146"
   },
+  "punjabi": {
+    "iso": "pa",
+    "qid": "Q58635"
+  },
   "russian": {
     "iso": "ru",
     "qid": "Q7737"
+  },
+  "slovak": {
+    "iso": "sk",
+    "qid": "Q9058"
   },
   "spanish": {
     "iso": "es",
     "qid": "Q1321"
   },
+  "swahili": {
+    "iso": "sw",
+    "qid": "Q7838"
+  },
   "swedish": {
     "iso": "sv",
     "qid": "Q9027"
+  },
+  "tajik": {
+    "iso": "tg",
+    "qid": "Q9260"
+  },
+  "tamil": {
+    "iso": "ta",
+    "qid": "Q5885"
+  },
+  "ukrainian": {
+    "iso": "ua",
+    "qid": "Q8798"
+  },
+  "yoruba": {
+    "iso": "yo",
+    "qid": "Q34311"
   }
 }
