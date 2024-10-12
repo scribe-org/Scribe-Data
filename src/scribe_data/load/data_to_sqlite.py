@@ -48,9 +48,9 @@ def data_to_sqlite(
     ) as f_languages, open(
         PATH_TO_SCRIBE_DATA / "resources" / "data_type_metadata.json",
         encoding="utf-8",
-    ) as f_types:
+    ) as f_data_types:
         current_language_data = json.load(f_languages)
-        data_types = json.load(f_types)["data-types"]
+        data_types = json.load(f_data_types).keys()
 
     current_languages = [d["language"] for d in current_language_data["languages"]]
 

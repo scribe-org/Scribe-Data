@@ -46,7 +46,7 @@ language_map = {
     lang["language"].lower(): lang for lang in language_metadata["languages"]
 }
 
-# Create language_to_qid dictionary
+# Create language_to_qid dictionary.
 language_to_qid = {
     lang["language"].lower(): lang["qid"] for lang in language_metadata["languages"]
 }
@@ -65,7 +65,7 @@ def correct_data_type(data_type: str) -> str:
     -------
         The data_type value or a corrected version of it.
     """
-    all_data_types = data_type_metadata["data-types"]
+    all_data_types = data_type_metadata.keys()
 
     if data_type in all_data_types:
         return data_type
