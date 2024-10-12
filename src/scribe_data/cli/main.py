@@ -22,8 +22,12 @@ Setup and commands for the Scribe-Data command line interface.
 
 #!/usr/bin/env python3
 import argparse
-
-from scribe_data.cli.convert import convert_to_csv_or_tsv, convert_to_sqlite
+from pathlib import Path
+from scribe_data.cli.convert import (
+    convert_to_csv_or_tsv,
+    convert_to_sqlite,
+    convert_to_json,
+)
 from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
@@ -173,22 +177,56 @@ def main() -> None:
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
-    convert_parser._actions[0].help = "Show this help message and exit."
+
+    # Setting up the arguments for the convert command
     convert_parser.add_argument(
-        "-f", "--file", type=str, help="The file to convert to a new type."
+        "-lan",
+        "--language",
+        type=str,
+        required=True,
+        help="The language of the file to convert.",
+    )
+    convert_parser.add_argument(
+        "-dt",
+        "--data-type",
+        type=str,
+        required=True,
+        help="The data type(s) of the file to convert (e.g., noun, verb).",
+    )
+    convert_parser.add_argument(
+        "-i",
+        "--input-file",
+        type=Path,
+        required=True,
+        help="The path to the input file to convert.",
     )
     convert_parser.add_argument(
         "-ot",
         "--output-type",
         type=str,
         choices=["json", "csv", "tsv", "sqlite"],
+        required=True,
         help="The output file type.",
+    )
+    convert_parser.add_argument(
+        "-od",
+        "--output-dir",
+        type=Path,
+        required=True,
+        help="The directory where the output file will be saved.",
+    )
+    convert_parser.add_argument(
+        "-o",
+        "--overwrite",
+        action="store_true",
+        help="Whether to overwrite existing files (default: False).",
     )
     convert_parser.add_argument(
         "-ko",
         "--keep-original",
-        action="store_false",
-        help="Whether to keep the file to be converted (default: True).",
+        action="store_true",
+        default=True,
+        help="Whether to keep the original file to be converted (default: True).",
     )
 
     # MARK: Setup CLI
@@ -236,16 +274,29 @@ def main() -> None:
             convert_to_csv_or_tsv(
                 args.language,
                 args.data_type,
+                args.input_file,
                 args.output_dir,
                 args.overwrite,
+                args.output_type,
             )
 
         elif args.output_type == "sqlite":
             convert_to_sqlite(
                 args.language,
                 args.data_type,
+                args.input_file,
                 args.output_dir,
                 args.overwrite,
+                args.output_type,
+            )
+        elif args.output_type == "json":
+            convert_to_json(
+                args.language,
+                args.data_type,
+                args.input_file,
+                args.output_dir,
+                args.overwrite,
+                args.output_type,
             )
 
     else:
