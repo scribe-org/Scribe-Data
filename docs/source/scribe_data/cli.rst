@@ -1,9 +1,9 @@
-Command Line Interface(CLI)
+cli/
 ====
 
-Scribe-Data provides a command-line interface (CLI) for efficient interaction with its language data functionality.
-
 `View code on Github <https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/cli>`_
+
+Scribe-Data provides a command-line interface (CLI) for efficient interaction with its language data functionality.
 
 Usage
 -----
@@ -58,13 +58,7 @@ Example output:
     Language     ISO  QID
     -----------------------
     English      en   Q1860
-    French       fr   Q150
-    German       de   Q188
-    Italian      it   Q652
-    Portuguese   pt   Q5146
-    Russian      ru   Q7737
-    Spanish      es   Q1321
-    Swedish      sv   Q9027
+    ...
     -----------------------
 
     Available data types: All languages
@@ -87,13 +81,7 @@ Example output:
     Language     ISO  QID
     -----------------------
     English      en   Q1860
-    French       fr   Q150
-    German       de   Q188
-    Italian      it   Q652
-    Portuguese   pt   Q5146
-    Russian      ru   Q7737
-    Spanish      es   Q1321
-    Swedish      sv   Q9027
+    ...
     -----------------------
 
 
@@ -120,13 +108,7 @@ Example output:
     Language     ISO  QID
     -----------------------
     English      en   Q1860
-    French       fr   Q150
-    German       de   Q188
-    Italian      it   Q652
-    Portuguese   pt   Q5146
-    Russian      ru   Q7737
-    Spanish      es   Q1321
-    Swedish      sv   Q9027
+    ...
     -----------------------
 
     Available data types: All languages
@@ -267,34 +249,22 @@ Examples:
 
 .. code-block:: text
 
-    $scribe-data total -dt nouns
+    $scribe-data total -dt nouns  # verbs, adjectives, etc
     Data type: nouns
-    Total number of lexemes: 889594
-
-.. code-block:: text
-
-    $scribe-data total -dt verbs
-    Data type: verbs
-    Total number of lexemes: 149169
+    Total number of lexemes: 123456
 
 .. code-block:: text
 
     $scribe-data total -lang English
     Language: English
-    Total number of lexemes: 75267
+    Total number of lexemes: 123456
 
 .. code-block:: text
 
-    $scribe-data total -lang Hindustani
-    Language: Hindustani
-    Total number of lexemes: 1344899
-
-.. code-block:: text
-
-    $scribe-data total -lang Hindustani -dt verbs
-    Language: Hindustani
-    Data type: verbs
-    Total number of lexemes: 149169
+    $scribe-data total -lang English -dt nouns
+    Language: English
+    Data type: nouns
+    Total number of lexemes: 12345
 
 Convert Command
 ~~~~~~~~~~~~~~~
