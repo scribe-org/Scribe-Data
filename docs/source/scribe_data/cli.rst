@@ -68,7 +68,6 @@ Example output:
     emoji-keywords
     nouns
     prepositions
-    translations
     verbs
     -----------------------------------
 
@@ -96,7 +95,6 @@ Example output:
     emoji-keywords
     nouns
     prepositions
-    translations
     verbs
     -----------------------------------
 
@@ -118,7 +116,6 @@ Example output:
     emoji-keywords
     nouns
     prepositions
-    translations
     verbs
     -----------------------------------
 
@@ -222,8 +219,7 @@ Interactive Mode
     2. emoji_keywords
     3. nouns
     4. prepositions
-    5. translations
-    6. verbs
+    5. verbs
 
     ...
 

@@ -95,7 +95,7 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
                 emojis = [item["emoji"] for item in value]
                 print(f"{key:<{max_key_length}} : {' '.join(emojis)}")
 
-        elif data_type in {"prepositions", "translations"}:
+        elif data_type in {"prepositions"}:
             for key, value in data.items():
                 print(f"{key:<{max_key_length}} : {value}")
 
