@@ -70,7 +70,9 @@ class TestTotalLexemes(unittest.TestCase):
         with patch("builtins.print") as mock_print:
             get_total_lexemes("InvalidLanguage", "nouns")
 
-        mock_print.assert_called_once_with("Total number of lexemes: Not found")
+        mock_print.assert_called_once_with(
+            "The specified language does not exist. Please update your language_metadata.json file by using:\n`scribe-data update --metadata`\nAlternatively, you can manually set it with:\n`scribe-data set-metadata -lang [your_language] -qid [your_qid]`.\n\nThis will ensure that you can fetch the correct data."
+        )
 
     @patch("scribe_data.cli.total.get_qid_by_input")
     @patch("scribe_data.cli.total.sparql.query")
@@ -84,8 +86,12 @@ class TestTotalLexemes(unittest.TestCase):
             get_total_lexemes(None, "verbs")
 
         expected_calls = [
-            call("Total number of lexemes: Not found"),
-            call("Total number of lexemes: Not found"),
+            call(
+                "The specified language does not exist. Please update your language_metadata.json file by using:\n`scribe-data update --metadata`\nAlternatively, you can manually set it with:\n`scribe-data set-metadata -lang [your_language] -qid [your_qid]`.\n\nThis will ensure that you can fetch the correct data."
+            ),
+            call(
+                "The specified language does not exist. Please update your language_metadata.json file by using:\n`scribe-data update --metadata`\nAlternatively, you can manually set it with:\n`scribe-data set-metadata -lang [your_language] -qid [your_qid]`.\n\nThis will ensure that you can fetch the correct data."
+            ),
         ]
         mock_print.assert_has_calls(expected_calls, any_order=True)
 
@@ -98,7 +104,9 @@ class TestTotalLexemes(unittest.TestCase):
         with patch("builtins.print") as mock_print:
             get_total_lexemes("Martian", "nouns")
 
-        mock_print.assert_called_once_with("Total number of lexemes: Not found")
+        mock_print.assert_called_once_with(
+            "The specified language does not exist. Please update your language_metadata.json file by using:\n`scribe-data update --metadata`\nAlternatively, you can manually set it with:\n`scribe-data set-metadata -lang [your_language] -qid [your_qid]`.\n\nThis will ensure that you can fetch the correct data."
+        )
 
     @patch("scribe_data.cli.total.get_qid_by_input")
     @patch("scribe_data.cli.total.sparql.query")

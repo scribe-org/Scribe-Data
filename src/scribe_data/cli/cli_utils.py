@@ -83,7 +83,7 @@ def get_available_languages() -> list[tuple[str, str]]:
     return available_languages
 
 
-def extract_qid_from_sparql(file_path: Path) -> str | None:
+def extract_qid_from_sparql(file_path: Path) -> str:
     """
     Extract the QID from the specified SPARQL file.
 
