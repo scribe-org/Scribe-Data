@@ -42,7 +42,7 @@ class ScribeDataConfig:
         self.languages = [
             lang["language"].capitalize() for lang in language_metadata["languages"]
         ]
-        self.data_types = list(data_type_metadata["data-types"].keys())
+        self.data_types = list(data_type_metadata.keys())
         self.selected_languages: List[str] = []
         self.selected_data_types: List[str] = []
         self.output_type: str = "json"
