@@ -51,6 +51,9 @@ try:
     with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
         data_type_metadata = json.load(file)
 
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading datatype metadata: {e}")
+
 language_map = {}
 language_to_qid = {}
 
