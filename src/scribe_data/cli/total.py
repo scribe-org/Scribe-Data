@@ -217,7 +217,7 @@ def get_total_lexemes(language, data_type, doPrint=True):
         validate_language_and_data_type(language_qid, data_type_qid)
 
     except ValueError as e:
-        print(e)
+        print(str(e))
         return
 
     query_template = """
