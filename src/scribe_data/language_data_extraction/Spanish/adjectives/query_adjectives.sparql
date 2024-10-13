@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
   ?femSingular
-  ?femPlural
   ?femSingularSuperlative
+  ?femPlural
   ?femPluralSuperlative
   ?masSingular
-  ?masPlural
   ?masSingularSuperlative
+  ?masPlural
   ?masPluralSuperlative
 
 WHERE {
@@ -27,17 +27,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1775415 ;
       wikibase:grammaticalFeature wd:Q110786 .
       FILTER NOT EXISTS {
-        ?femSingular wikibase:grammaticalFeature wd:Q1817208 .
-      }
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femPluralForm .
-    ?femPluralForm ontolex:representation ?femPlural ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
-      wikibase:grammaticalFeature wd:Q146786 .
-      FILTER NOT EXISTS {
-        ?femPlural wikibase:grammaticalFeature wd:Q1817208 .
+        ?femSingularForm wikibase:grammaticalFeature wd:Q1817208 .
       }
   }
 
@@ -47,6 +37,16 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1775415 ;
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femPluralForm .
+    ?femPluralForm ontolex:representation ?femPlural ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+      FILTER NOT EXISTS {
+        ?femPluralForm wikibase:grammaticalFeature wd:Q1817208 .
+      }
   }
 
   OPTIONAL {
@@ -65,17 +65,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q499327 ;
       wikibase:grammaticalFeature wd:Q110786 .
       FILTER NOT EXISTS {
-        ?masSingular wikibase:grammaticalFeature wd:Q1817208 .
-      }
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masPluralForm .
-    ?masPluralForm ontolex:representation ?masPlural ;
-      wikibase:grammaticalFeature wd:Q499327 ;
-      wikibase:grammaticalFeature wd:Q146786 .
-      FILTER NOT EXISTS {
-        ?masPlural wikibase:grammaticalFeature wd:Q1817208 .
+        ?masSingularForm wikibase:grammaticalFeature wd:Q1817208 .
       }
   }
 
@@ -85,6 +75,16 @@ WHERE {
       wikibase:grammaticalFeature wd:Q499327 ;
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masPluralForm .
+    ?masPluralForm ontolex:representation ?masPlural ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+      FILTER NOT EXISTS {
+        ?masPluralForm wikibase:grammaticalFeature wd:Q1817208 .
+      }
   }
 
   OPTIONAL {

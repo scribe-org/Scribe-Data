@@ -10,4 +10,5 @@ WHERE {
   ?lexeme dct:language wd:Q9288 ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb .
+    FILTER(lang(?adverb) = "he")
 }
