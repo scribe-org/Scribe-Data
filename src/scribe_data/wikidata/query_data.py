@@ -86,7 +86,7 @@ def query_data(
     data_type: str = None,
     output_dir: str = None,
     overwrite: bool = None,
-    interactive: bool = False,  # Add interactive parameter
+    interactive: bool = False,
 ):
     """
     Queries language data from the Wikidata lexicographical data.

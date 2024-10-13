@@ -39,7 +39,8 @@ def get_data(
     output_dir: str = None,
     overwrite: bool = False,
     outputs_per_entry: int = None,
-    interactive: bool = False,  # Add interactive parameter
+    all: bool = False,
+    interactive: bool = False,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
@@ -91,9 +92,16 @@ def get_data(
 
     subprocess_result = False
 
+    # MARK: Get All
+
+    if all:
+        print("Updating all languages and data types ...")
+        query_data(None, None, None, overwrite)
+        subprocess_result = True
+
     # MARK: Emojis
 
-    if data_type in {"emoji-keywords", "emoji_keywords"}:
+    elif data_type in {"emoji-keywords", "emoji_keywords"}:
         for lang in languages:
             emoji_keyword_extraction_script = (
                 Path(__file__).parent.parent
