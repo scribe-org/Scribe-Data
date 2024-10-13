@@ -30,7 +30,6 @@ from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.total import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
-from scribe_data.cli.cli_utils import check_and_update_languages, set_metadata
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
 GET_DESCRIPTION = (
@@ -38,8 +37,6 @@ GET_DESCRIPTION = (
 )
 TOTAL_DESCRIPTION = "Check Wikidata for the total available data for the given languages and data types."
 CONVERT_DESCRIPTION = "Convert data returned by Scribe-Data to different file types."
-UPDATE_DESCRIPTION = "Update the metadata file with available languages and QIDs."
-SET_METADATA_DESCRIPTION = "Set the QID for a specified language in the metadata file."
 CLI_EPILOG = "Visit the codebase at https://github.com/scribe-org/Scribe-Data and documentation at https://scribe-data.readthedocs.io to learn more!"
 
 
@@ -200,40 +197,6 @@ def main() -> None:
         help="Whether to keep the file to be converted (default: True).",
     )
 
-    # MARK: Update
-
-    update_parser = subparsers.add_parser(
-        "update",
-        aliases=["u"],
-        help=UPDATE_DESCRIPTION,
-        description=UPDATE_DESCRIPTION,
-        epilog=CLI_EPILOG,
-        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
-    )
-    update_parser._actions[0].help = "Show this help message and exit."
-    update_parser.add_argument(
-        "-m",
-        "--metadata",
-        action="store_true",
-        help="Update the language metadata file.",
-    )
-
-    # MARK: Set Metadata
-
-    set_metadata_parser = subparsers.add_parser(
-        "set-metadata",
-        help=SET_METADATA_DESCRIPTION,
-        description=SET_METADATA_DESCRIPTION,
-        epilog=CLI_EPILOG,
-        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
-    )
-    set_metadata_parser.add_argument(
-        "-lang", "--l", type=str, required=True, help="The language to set."
-    )
-    set_metadata_parser.add_argument(
-        "-qid", type=str, required=True, help="The QID to associate with the language."
-    )
-
     # MARK: Setup CLI
 
     args = parser.parse_args()
@@ -283,16 +246,6 @@ def main() -> None:
                 args.output_dir,
                 args.overwrite,
             )
-
-    elif args.command in ["update", "u"]:
-        if args.metadata:
-            check_and_update_languages()
-
-    elif args.command == "set-metadata":
-        # Add functionality to set the QID for a specific language
-        language = args.l
-        qid = args.qid
-        set_metadata(language, qid)
 
     else:
         parser.print_help()
