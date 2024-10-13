@@ -54,17 +54,14 @@ def execute_formatting_script(formatting_file_path, output_dir):
     # Determine the root directory of the project.
     project_root = Path(__file__).parent.parent.parent
 
-    # Determine the root directory of the project.
-    project_root = Path(__file__).parent.parent.parent
-
-    # Use sys.executable to get the Python executable path
+    # Use sys.executable to get the Python executable path.
     python_executable = sys.executable
 
-    # Set the PYTHONPATH environment variable
+    # Set the PYTHONPATH environment variable.
     env = os.environ.copy()
     env["PYTHONPATH"] = str(project_root)
 
-    # Use subprocess.run instead of os.system.
+    # Use subprocess to run the formatting file.
     subprocess.run(
         [python_executable, str(formatting_file_path), "--file-path", output_dir],
         env=env,
