@@ -4,10 +4,46 @@
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lemma
-WHERE {
-  ?lexeme dct:language wd:Q9288 ;  # Hebrew language
-          wikibase:lexicalCategory wd:Q34698 ;  # Adjective
-          wikibase:lemma ?lemma .
+  ?adjective
+  ?femSingular
+  ?masSingular
+  ?femPlural
+  ?masPlural
 
+WHERE {
+  ?lexeme dct:language wd:Q9288 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  # Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femSingularForm .
+    ?femSingularForm ontolex:representation ?femSingular ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masSingularForm .
+    ?masSingularForm ontolex:representation ?masSingular ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+  } .
+
+  # Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femPluralForm .
+    ?femPluralForm ontolex:representation ?femPlural ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masPluralForm .
+    ?masPluralForm ontolex:representation ?masPlural ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+  } .
 }
