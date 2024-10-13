@@ -102,8 +102,8 @@ def query_data(
         output_dir : str
             The output directory path for results.
 
-        overwrite : bool
-            Whether to overwrite existing files (default: False).
+        overwrite : bool (default: False)
+            Whether to overwrite existing files.
 
     Returns
     -------

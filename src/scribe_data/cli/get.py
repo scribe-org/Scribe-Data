@@ -62,14 +62,14 @@ def get_data(
         outputs_per_entry : str
             How many outputs should be generated per data entry.
 
-        overwrite : bool
-            Whether to overwrite existing files (default: False).
+        overwrite : bool (default: False)
+            Whether to overwrite existing files.
 
         all : bool
             Get all languages and data types.
 
-        interactive : bool
-            Whether it's running in interactive mode (default: False).
+        interactive : bool (default: False)
+            Whether it's running in interactive mode.
 
     Returns
     -------

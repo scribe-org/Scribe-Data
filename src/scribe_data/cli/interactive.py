@@ -20,24 +20,25 @@ Interactive mode functionality for the Scribe-Data CLI to allow users to select 
     -->
 """
 
+import logging
 from pathlib import Path
 from typing import List
-from tqdm import tqdm
-import logging
-import questionary
 
-from rich.logging import RichHandler
+import questionary
 from questionary import Choice
 from rich import print as rprint
 from rich.console import Console
+from rich.logging import RichHandler
 from rich.table import Table
+from tqdm import tqdm
 
 from scribe_data.cli.cli_utils import data_type_metadata, language_metadata
 from scribe_data.cli.get import get_data
 from scribe_data.cli.version import get_version_message
 from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 
-# MARK: Config coloring
+# MARK: Config Setup
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(message)s",
@@ -71,7 +72,9 @@ def display_summary():
     """
     Displays a summary of the interactive mode request to run.
     """
-    table = Table(title="Scribe-Data Configuration Summary", style="bright_white")
+    table = Table(
+        title="Scribe-Data Request Configuration Summary", style="bright_white"
+    )
 
     table.add_column("Setting", style="bold cyan", no_wrap=True)
     table.add_column("Value(s)", style="magenta")
@@ -82,7 +85,9 @@ def display_summary():
     table.add_row("Output Directory", str(config.output_dir))
     table.add_row("Overwrite", "Yes" if config.overwrite else "No")
 
-    console.print(table, justify="center")
+    console.print("\n")
+    console.print(table, justify="left")
+    console.print("\n")
 
 
 def configure_settings():
@@ -185,34 +190,32 @@ def run_request():
         total=total_operations,
         desc="Exporting data",
         unit="operation",
-        colour="MAGENTA",
     ) as pbar:
         for language in config.selected_languages:
             for data_type in config.selected_data_types:
                 pbar.set_description(f"Exporting {language} {data_type} data")
 
-                result = get_data(
+                if get_data(
                     language=language,
                     data_type=data_type,
                     output_type=config.output_type,
                     output_dir=str(config.output_dir),
                     overwrite=config.overwrite,
                     interactive=True,
-                )
-                if result:
+                ):
                     logger.info(
                         f"[green]✔ Exported {language} {data_type} data.[/green]"
                     )
+
                 else:
                     logger.info(
                         f"[red]✘ Failed to export {language} {data_type} data.[/red]"
                     )
 
-                # Update the progress bar
                 pbar.update(1)
 
     if config.overwrite:
-        rprint("[bold green]Data export completed successfully![/bold green]")
+        rprint("[bold green]Data request completed successfully![/bold green]")
 
 
 # MARK: Start
@@ -245,6 +248,7 @@ def start_interactive_mode():
             break
 
         else:
+            rprint("[bold cyan]Thank you for using Scribe-Data![/bold cyan]")
             break
 
 
