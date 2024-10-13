@@ -24,10 +24,9 @@ import json
 import os
 import subprocess
 import sys
+from http.client import IncompleteRead
 from pathlib import Path
 from urllib.error import HTTPError
-import time
-from http.client import IncompleteRead
 
 from tqdm.auto import tqdm
 
@@ -219,11 +218,9 @@ def query_data(
 
         except HTTPError as http_err:
             print(f"HTTPError with {q}: {http_err}")
-            
+
         except IncompleteRead as read_err:
-            print(
-                f"Incomplete read error with {q}: {read_err}"
-            )
+            print(f"Incomplete read error with {q}: {read_err}")
 
         if results is None:
             print(f"Nothing returned by the WDQS server for {q}")
