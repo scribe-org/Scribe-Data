@@ -1,0 +1,97 @@
+# tool: scribe-data
+# All Spanish (Q1321) adjectives.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?femSingular
+  ?femSingularSuperlative
+  ?femPlural
+  ?femPluralSuperlative
+  ?masSingular
+  ?masSingularSuperlative
+  ?masPlural
+  ?masPluralSuperlative
+
+WHERE {
+  ?lexeme dct:language wd:Q1321 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  # MARK: Feminine
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femSingularForm .
+    ?femSingularForm ontolex:representation ?femSingular ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+      FILTER NOT EXISTS {
+        ?femSingularForm wikibase:grammaticalFeature wd:Q1817208 .
+      }
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femSingularSuperlativeForm .
+    ?femSingularSuperlativeForm ontolex:representation ?femSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femPluralForm .
+    ?femPluralForm ontolex:representation ?femPlural ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+      FILTER NOT EXISTS {
+        ?femPluralForm wikibase:grammaticalFeature wd:Q1817208 .
+      }
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femPluralSuperlativeForm .
+    ?femPluralSuperlativeForm ontolex:representation ?femPluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  # MARK: Masculine
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masSingularForm .
+    ?masSingularForm ontolex:representation ?masSingular ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+      FILTER NOT EXISTS {
+        ?masSingularForm wikibase:grammaticalFeature wd:Q1817208 .
+      }
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masSingularSuperlativeForm .
+    ?masSingularSuperlativeForm ontolex:representation ?masSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masPluralForm .
+    ?masPluralForm ontolex:representation ?masPlural ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+      FILTER NOT EXISTS {
+        ?masPluralForm wikibase:grammaticalFeature wd:Q1817208 .
+      }
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masPluralSuperlativeForm .
+    ?masPluralSuperlativeForm ontolex:representation ?masPluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+}

@@ -27,7 +27,7 @@ from scribe_data.cli.convert import convert_to_csv_or_tsv, convert_to_sqlite
 from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
-from scribe_data.cli.total import get_total_lexemes
+from scribe_data.cli.total import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
 
@@ -114,14 +114,14 @@ def main() -> None:
         "-dt", "--data-type", type=str, help="The data type(s) to get."
     )
     get_parser.add_argument(
-        "-od", "--output-dir", type=str, help="The output directory path for results."
-    )
-    get_parser.add_argument(
         "-ot",
         "--output-type",
         type=str,
         choices=["json", "csv", "tsv", "sqlite"],
         help="The output file type.",
+    )
+    get_parser.add_argument(
+        "-od", "--output-dir", type=str, help="The output directory path for results."
     )
     get_parser.add_argument(
         "-ope",
@@ -161,6 +161,12 @@ def main() -> None:
     )
     total_parser.add_argument(
         "-dt", "--data-type", type=str, help="The data type(s) to check totals for."
+    )
+    total_parser.add_argument(
+        "-a",
+        "--all",
+        action=argparse.BooleanOptionalAction,
+        help="Check for all languages and data types.",
     )
 
     # MARK: Convert
@@ -212,24 +218,17 @@ def main() -> None:
 
         else:
             get_data(
-                args.language,
-                args.data_type,
-                args.output_dir,
-                args.overwrite,
-                args.output_type,
-                args.outputs_per_entry,
-                args.all,
+                language=args.language,
+                data_type=args.data_type,
+                output_type=args.output_type,
+                output_dir=args.output_dir,
+                outputs_per_entry=args.outputs_per_entry,
+                overwrite=args.overwrite,
+                all=args.all,
             )
 
     elif args.command in ["total", "t"]:
-        if not args.language and not args.data_type:
-            print(
-                "Error: You must provide either at least one of the --language (-l) or --data-type (-dt) options"
-            )
-            total_parser.print_help()
-            return
-
-        get_total_lexemes(args.language, args.data_type)
+        total_wrapper(args.language, args.data_type, args.all)
 
     elif args.command in ["convert", "c"]:
         if args.output_type in ["csv", "tsv"]:

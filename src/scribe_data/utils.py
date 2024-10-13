@@ -238,7 +238,9 @@ def get_language_words_to_ignore(language: str) -> list[str]:
     )
 
 
-def load_queried_data(language: str, data_type: str) -> tuple[Any, bool, str]:
+def load_queried_data(
+    file_path: str, language: str, data_type: str
+) -> tuple[Any, bool, str]:
     """
     Loads queried data from a JSON file for a specific language and data type.
 
@@ -258,20 +260,27 @@ def load_queried_data(language: str, data_type: str) -> tuple[Any, bool, str]:
         tuple(Any, str)
             A tuple containing the loaded data and the path to the data file.
     """
-    data_path = Path(DEFAULT_JSON_EXPORT_DIR) / language / f"{data_type}.json"
+    data_path = Path(file_path) / language / f"{data_type}.json"
 
     with open(data_path, encoding="utf-8") as f:
         return json.load(f), data_path
 
 
 def export_formatted_data(
-    formatted_data: dict, language: str, data_type: str, query_data_in_use: bool = False
+    file_path: str,
+    formatted_data: dict,
+    language: str,
+    data_type: str,
+    query_data_in_use: bool = False,
 ) -> None:
     """
     Exports formatted data to a JSON file for a specific language and data type.
 
     Parameters
     ----------
+        file_path : str
+            The path to the file containing the queried data.
+
         formatted_data : dict
             The data to be exported.
 
@@ -285,9 +294,7 @@ def export_formatted_data(
     -------
         None
     """
-    export_path = (
-        Path(DEFAULT_JSON_EXPORT_DIR) / language / f"{data_type.replace('-', '_')}.json"
-    )
+    export_path = Path(file_path) / language / f"{data_type.replace('-', '_')}.json"
 
     with open(export_path, "w", encoding="utf-8") as file:
         json.dump(formatted_data, file, ensure_ascii=False, indent=0)
@@ -442,25 +449,6 @@ def check_and_return_command_line_args(
         python {all_args[0]} '["comma_separated_sets_in_quotes"]'
         """
     )
-
-
-def get_target_lang_codes(source_lang: str) -> list[str]:
-    """
-    Returns a list of target language ISO codes for translation.
-
-    Parameters
-    ----------
-        source_lang : str
-            The source language being translated from.
-
-    Returns
-    -------
-        list[str]
-            A list of target language ISO codes.
-    """
-    return [
-        get_language_iso(lang) for lang in get_scribe_languages() if lang != source_lang
-    ]
 
 
 def map_genders(wikidata_gender: str) -> str:

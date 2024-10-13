@@ -1,0 +1,67 @@
+# tool: scribe-data
+# All Estonian (Q9072) adjectives in the given cases.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?nomSingular
+  ?nomPlural
+  ?genSingular
+  ?genPlural
+  ?partSingular
+  ?partPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  # MARK: Nominative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nomSingularForm .
+    ?nomSingularForm ontolex:representation ?nomSingular ;
+      wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nomPluralForm .
+    ?nomPluralForm ontolex:representation ?nomPlural ;
+      wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  } .
+
+  # MARK: Genitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genSingularForm .
+    ?genSingularForm ontolex:representation ?genSingular ;
+      wikibase:grammaticalFeature wd:Q146233 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genPluralForm .
+    ?genPluralForm ontolex:representation ?genPlural ;
+      wikibase:grammaticalFeature wd:Q146233 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  } .
+
+  # MARK: Partitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partSingularForm .
+    ?partSingularForm ontolex:representation ?partSingular ;
+      wikibase:grammaticalFeature wd:Q857325 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partPluralForm .
+    ?partPluralForm ontolex:representation ?partPlural ;
+      wikibase:grammaticalFeature wd:Q857325 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  } .
+}

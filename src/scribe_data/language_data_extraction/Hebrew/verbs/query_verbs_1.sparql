@@ -11,9 +11,7 @@ WHERE {
   ?lexeme dct:language wd:Q9288 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?infinitive .
-
-  BIND(lang(?infinitive) as ?language)
-  FILTER(?language = "he")
+    FILTER(lang(?infinitive) = "he")
 
   # MARK: Present
 
@@ -24,6 +22,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q192613 ;
       wikibase:grammaticalFeature wd:Q1775415 ;
+      FILTER(lang(?presSF) = "he")
   } .
 
   # Singular Masculine
@@ -33,6 +32,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q192613 ;
       wikibase:grammaticalFeature wd:Q499327 ;
+      FILTER(lang(?presSM) = "he")
   } .
 
   # Plural Feminine
@@ -42,6 +42,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q192613 ;
       wikibase:grammaticalFeature wd:Q1775415 ;
+      FILTER(lang(?presPF) = "he")
   } .
 
   # Plural Masculine
@@ -51,5 +52,6 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q192613 ;
       wikibase:grammaticalFeature wd:Q499327 ;
+      FILTER(lang(?presPM) = "he")
   } .
 }

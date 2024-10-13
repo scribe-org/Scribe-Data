@@ -21,6 +21,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q22716 ;
       wikibase:grammaticalFeature wd:Q1775415 ;
+      FILTER(lang(?impSPSM) = "he")
   } .
 
   # TPS Masculine
@@ -31,6 +32,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q22716 ;
       wikibase:grammaticalFeature wd:Q1775415 ;
+      FILTER(lang(?impSPSM) = "he")
   } .
 
   # TPP Feminine
@@ -41,6 +43,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q22716 ;
       wikibase:grammaticalFeature wd:Q1775415 ;
+      FILTER(lang(?impSPPF) = "he")
   } .
 
   # TPP Masculine
@@ -51,5 +54,6 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q22716 ;
       wikibase:grammaticalFeature wd:Q499327 ;
+      FILTER(lang(?impSPPM) = "he")
   } .
 }

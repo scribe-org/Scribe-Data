@@ -43,16 +43,16 @@ def data_to_sqlite(
     PATH_TO_SCRIBE_DATA = Path(__file__).parent.parent
 
     with open(
-        PATH_TO_SCRIBE_DATA / "load" / "update_files" / "total_data.json",
+        PATH_TO_SCRIBE_DATA / "resources" / "language_metadata.json",
         encoding="utf-8",
-    ) as f_total, open(
+    ) as f_languages, open(
         PATH_TO_SCRIBE_DATA / "resources" / "data_type_metadata.json",
         encoding="utf-8",
-    ) as f_types:
-        current_data = json.load(f_total)
-        data_types = json.load(f_types)["data-types"]
+    ) as f_data_types:
+        current_language_data = json.load(f_languages)
+        data_types = json.load(f_data_types).keys()
 
-    current_languages = list(current_data.keys())
+    current_languages = [d["language"] for d in current_language_data["languages"]]
 
     if not languages:
         languages = current_languages

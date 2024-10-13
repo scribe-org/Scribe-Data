@@ -24,7 +24,6 @@ import csv
 import json
 import shutil
 from pathlib import Path
-from typing import Optional
 
 from scribe_data.cli.cli_utils import language_map
 from scribe_data.load.data_to_sqlite import data_to_sqlite
@@ -33,10 +32,33 @@ from scribe_data.utils import (
     get_language_iso,
 )
 
+# MARK: JSON
+
 
 def export_json(
     language: str, data_type: str, output_dir: Path, overwrite: bool
 ) -> None:
+    """
+    Export a JSON file from the CLI process.
+
+    Parameters
+    ----------
+        language : str
+            The language of the file to convert.
+
+        data_type : str
+            The data type to of the file to convert.
+
+        output_dir : str
+            The output directory path for results.
+
+        overwrite : bool
+            Whether to overwrite existing files.
+
+    Returns
+    -------
+        A JSON file saved in the given location.
+    """
     normalized_language = language_map.get(language.lower())
 
     if not normalized_language:
@@ -56,7 +78,7 @@ def export_json(
         return
 
     try:
-        with data_file.open("r") as file:
+        with data_file.open("r", encoding="utf-8") as file:
             data = json.load(file)
 
     except (IOError, json.JSONDecodeError) as e:
@@ -85,9 +107,40 @@ def export_json(
     )
 
 
+# MARK: CSV or TSV
+
+
 def convert_to_csv_or_tsv(
-    language: str, data_type: list, output_dir: Path, overwrite: bool, output_type: str
+    language: str,
+    data_type: list,
+    output_dir: Path,
+    overwrite: bool,
+    output_type: str,
 ) -> None:
+    """
+    Converts a Scribe-Data output file to a CSV or TSV file.
+
+    Parameters
+    ----------
+        output_type : str
+            The file type to convert to (CSV or TSV).
+
+        language : str
+            The language of the file to convert.
+
+        data_type : str
+            The data type to of the file to convert.
+
+        output_dir : str
+            The output directory path for results.
+
+        overwrite : bool
+            Whether to overwrite existing files.
+
+    Returns
+    -------
+        A CSV or TSV file saved in the given location.
+    """
     normalized_language = language_map.get(language.lower())
     if not normalized_language:
         print(f"Language '{language}' is not recognized.")
@@ -110,7 +163,7 @@ def convert_to_csv_or_tsv(
             )
 
         try:
-            with file_path.open("r") as f:
+            with file_path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
 
         except (IOError, json.JSONDecodeError) as e:
@@ -154,12 +207,36 @@ def convert_to_csv_or_tsv(
         print(f"Data for '{dtype}' written to '{output_file}'")
 
 
+# MARK: SQLITE
+
+
 def convert_to_sqlite(
-    language: Optional[str] = None,
-    data_type: Optional[str] = None,
-    output_dir: Optional[str] = None,
-    overwrite: bool = False,
+    language: str,
+    data_type: str,
+    output_dir: Path,
+    overwrite: bool,
 ) -> None:
+    """
+    Converts a Scribe-Data output file to an SQLite file.
+
+    Parameters
+    ----------
+        language : str
+            The language of the file to convert.
+
+        data_type : str
+            The data type to of the file to convert.
+
+        output_dir : str
+            The output directory path for results.
+
+        overwrite : bool
+            Whether to overwrite existing files.
+
+    Returns
+    -------
+        A SQLite file saved in the given location.
+    """
     if not language:
         raise ValueError("Language must be specified for SQLite conversion.")
 
@@ -191,3 +268,52 @@ def convert_to_sqlite(
 
     else:
         print("No output directory specified. SQLite file remains in default location.")
+
+
+# MARK: Convert
+
+
+def convert(
+    language: str, data_type: str, output_dir: str, overwrite: bool, output_type: str
+):
+    """
+    Converts a Scribe-Data output file to a different file type.
+
+    Parameters
+    ----------
+        output_type : str
+            The file type to convert to (CSV or TSV).
+
+        language : str
+            The language of the file to convert.
+
+        data_type : str
+            The data type to of the file to convert.
+
+        output_dir : str
+            The output directory path for results.
+
+        overwrite : bool
+            Whether to overwrite existing files.
+
+    Returns
+    -------
+        A SQLite file saved in the given location.
+    """
+    if output_dir:
+        output_dir = Path(output_dir).resolve()
+        if not output_dir.exists():
+            output_dir.mkdir(parents=True, exist_ok=True)
+
+        if output_type == "json" or output_type is None:
+            export_json(language, data_type, output_dir, overwrite)
+
+        elif output_type in {"csv", "tsv"}:
+            convert_to_csv_or_tsv(
+                language, data_type, output_dir, overwrite, output_type
+            )
+
+        else:
+            raise ValueError(
+                "Unsupported output type. Please use 'json', 'csv', or 'tsv'."
+            )

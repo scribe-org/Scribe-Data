@@ -22,37 +22,82 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
 
 import subprocess
 from pathlib import Path
-from typing import Optional
 
-from scribe_data.cli.convert import convert_to_csv_or_tsv, export_json
-from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
+from scribe_data.utils import (
+    DEFAULT_CSV_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_SQLITE_EXPORT_DIR,
+    DEFAULT_TSV_EXPORT_DIR,
+)
 from scribe_data.wikidata.query_data import query_data
-
-DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
 
 
 def get_data(
-    language: Optional[str] = None,
-    data_type: Optional[str] = None,
-    output_dir: Optional[str] = None,
+    language: str = None,
+    data_type: str = None,
+    output_type: str = None,
+    output_dir: str = None,
     overwrite: bool = False,
-    output_type: Optional[str] = None,
     outputs_per_entry: int = None,
     all: bool = False,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
+
+    Parameters
+    ----------
+        language : str
+            The language(s) to get.
+
+        data_type : str
+            The data type(s) to get.
+
+        output_type : str
+            The output file type.
+
+        output_dir : str
+            The output directory path for results.
+
+        outputs_per_entry : str
+            How many outputs should be generated per data entry.
+
+        overwrite : bool
+            Whether to overwrite existing files (default: False).
+
+        all : bool
+            Get all languages and data types.
+
+    Returns
+    -------
+        The requested data saved locally given file type and location arguments.
     """
+    # MARK: Defaults
+
+    output_type = output_type or "json"
+    if output_dir is None:
+        if output_type == "csv":
+            output_dir = DEFAULT_CSV_EXPORT_DIR
+        elif output_type == "json":
+            output_dir = DEFAULT_JSON_EXPORT_DIR
+        elif output_type == "sqlite":
+            output_dir = DEFAULT_SQLITE_EXPORT_DIR
+        elif output_type == "tsv":
+            output_dir = DEFAULT_TSV_EXPORT_DIR
+
     languages = [language] if language else None
 
     subprocess_result = False
 
+    # MARK: Get All
+
     if all:
         print("Updating all languages and data types ...")
-        query_data(None, None, overwrite)
+        query_data(None, None, None, overwrite)
         subprocess_result = True
 
-    elif data_type in ["emoji-keywords", "emoji_keywords"]:
+    # MARK: Emojis
+
+    elif data_type in {"emoji-keywords", "emoji_keywords"}:
         for lang in languages:
             emoji_keyword_extraction_script = (
                 Path(__file__).parent.parent
@@ -66,26 +111,21 @@ def get_data(
                 ["python", emoji_keyword_extraction_script]
             )
 
-    elif data_type == "translations":
-        for lang in languages:
-            translation_generation_script = (
-                Path(__file__).parent.parent
-                / "language_data_extraction"
-                / lang
-                / "translations"
-                / "translate_words.py"
-            )
-
-            subprocess_result = subprocess.run(
-                ["python", translation_generation_script]
-            )
+    # MARK: Query Data
 
     elif language or data_type:
         data_type = data_type[0] if isinstance(data_type, list) else data_type
 
         data_type = [data_type] if data_type else None
-        print(f"Updating data for language: {language}, data type: {data_type}")
-        query_data(languages, data_type, overwrite)
+        print(
+            f"Updating data for language(s): {language}; data type(s): {', '.join(data_type)}"
+        )
+        query_data(
+            languages=languages,
+            data_type=data_type,
+            output_dir=output_dir,
+            overwrite=overwrite,
+        )
         subprocess_result = True
 
     else:
@@ -93,34 +133,16 @@ def get_data(
             "You must provide at least one of the --language (-l) or --data-type (-dt) options, or use --all (-a)."
         )
 
-    if output_dir:
-        output_dir = Path(output_dir).resolve()
-        if not output_dir.exists():
-            output_dir.mkdir(parents=True, exist_ok=True)
-
-        if output_type == "json" or output_type is None:
-            export_json(language, data_type, output_dir, overwrite)
-
-        elif output_type in ["csv", "tsv"]:
-            convert_to_csv_or_tsv(
-                language, data_type, output_dir, overwrite, output_type
-            )
-
-        else:
-            raise ValueError(
-                "Unsupported output type. Please use 'json', 'csv', or 'tsv'."
-            )
-
-    elif (
+    if (
         isinstance(subprocess_result, subprocess.CompletedProcess)
         and subprocess_result.returncode != 1
     ) or (isinstance(subprocess_result, bool) and subprocess_result is not False):
         print(
-            "No output directory specified for exporting results.",
-            f"Updated data was saved in: {Path(DEFAULT_JSON_EXPORT_DIR).resolve()}.",
+            f"Updated data was saved in: {Path(output_dir).resolve()}.",
         )
 
-    elif data_type in ["emoji-keywords", "emoji_keywords"]:
+    # The emoji keywords process has failed.
+    elif data_type in {"emoji-keywords", "emoji_keywords"}:
         print(
             "\nThe Scribe-Data emoji functionality is powered by PyICU, which is currently not installed."
         )
