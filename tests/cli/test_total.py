@@ -178,6 +178,7 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
 
         try:
             validate_language_and_data_type(language_qid, data_type_qid)
+
         except ValueError:
             self.fail("validate_language_and_data_type raised ValueError unexpectedly!")
 
