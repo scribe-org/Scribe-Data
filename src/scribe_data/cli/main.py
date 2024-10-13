@@ -22,8 +22,13 @@ Setup and commands for the Scribe-Data command line interface.
 
 #!/usr/bin/env python3
 import argparse
+from pathlib import Path
 
-from scribe_data.cli.convert import convert_to_csv_or_tsv, convert_to_sqlite
+from scribe_data.cli.convert import (
+    convert_to_csv_or_tsv,
+    convert_to_json,
+    convert_to_sqlite,
+)
 from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
@@ -179,22 +184,56 @@ def main() -> None:
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
-    convert_parser._actions[0].help = "Show this help message and exit."
+
+    # Setting up the arguments for the convert command
     convert_parser.add_argument(
-        "-f", "--file", type=str, help="The file to convert to a new type."
+        "-lang",
+        "--language",
+        type=str,
+        required=True,
+        help="The language of the file to convert.",
+    )
+    convert_parser.add_argument(
+        "-dt",
+        "--data-type",
+        type=str,
+        required=True,
+        help="The data type(s) of the file to convert (e.g., noun, verb).",
+    )
+    convert_parser.add_argument(
+        "-if",
+        "--input-file",
+        type=Path,
+        required=True,
+        help="The path to the input file to convert.",
     )
     convert_parser.add_argument(
         "-ot",
         "--output-type",
         type=str,
         choices=["json", "csv", "tsv", "sqlite"],
+        required=True,
         help="The output file type.",
+    )
+    convert_parser.add_argument(
+        "-od",
+        "--output-dir",
+        type=Path,
+        required=True,
+        help="The directory where the output file will be saved.",
+    )
+    convert_parser.add_argument(
+        "-o",
+        "--overwrite",
+        action="store_true",
+        help="Whether to overwrite existing files (default: False).",
     )
     convert_parser.add_argument(
         "-ko",
         "--keep-original",
-        action="store_false",
-        help="Whether to keep the file to be converted (default: True).",
+        action="store_true",
+        default=True,
+        help="Whether to keep the original file to be converted (default: True).",
     )
 
     # MARK: Setup CLI
@@ -210,7 +249,9 @@ def main() -> None:
         return
 
     if args.command in ["list", "l"]:
-        list_wrapper(args.language, args.data_type, args.all)
+        list_wrapper(
+            language=args.language, data_type=args.data_type, all_bool=args.all
+        )
 
     elif args.command in ["get", "g"]:
         if args.interactive:
@@ -233,18 +274,32 @@ def main() -> None:
     elif args.command in ["convert", "c"]:
         if args.output_type in ["csv", "tsv"]:
             convert_to_csv_or_tsv(
-                args.language,
-                args.data_type,
-                args.output_dir,
-                args.overwrite,
+                language=args.language,
+                data_type=args.data_type,
+                output_type=args.output_type,
+                input_file=args.input_file,
+                output_dir=args.output_dir,
+                overwrite=args.overwrite,
             )
 
         elif args.output_type == "sqlite":
             convert_to_sqlite(
-                args.language,
-                args.data_type,
-                args.output_dir,
-                args.overwrite,
+                language=args.language,
+                data_type=args.data_type,
+                output_type=args.output_type,
+                input_file=args.input_file,
+                output_dir=args.output_dir,
+                overwrite=args.overwrite,
+            )
+
+        elif args.output_type == "json":
+            convert_to_json(
+                language=args.language,
+                data_type=args.data_type,
+                output_type=args.output_type,
+                input_file=args.input_file,
+                output_dir=args.output_dir,
+                overwrite=args.overwrite,
             )
 
     else:
