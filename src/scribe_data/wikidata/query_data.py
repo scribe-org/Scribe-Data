@@ -115,7 +115,7 @@ def query_data(
         SCRIBE_DATA_SRC_PATH / "language_data_extraction"
     )
     languages = [lang.capitalize() for lang in languages]
-    current_languages = list(language_metadata["languages"])
+    current_languages = list(language_metadata.keys())
     current_data_type = ["nouns", "verbs", "prepositions"]
 
     # Assign current_languages and current_data_type if no arguments have been passed.
