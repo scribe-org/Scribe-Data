@@ -2,8 +2,7 @@
 # All Hebrew (Q9288) adjectives.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
-  ?lexeme
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
   ?femSingular
