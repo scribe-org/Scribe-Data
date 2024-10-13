@@ -57,6 +57,7 @@ class TestGetData(unittest.TestCase):
             data_type=["nouns"],
             output_dir="./test_output",
             overwrite=False,
+            interactive=False,
         )
 
     # MARK: Capitalized Language
@@ -69,6 +70,7 @@ class TestGetData(unittest.TestCase):
             data_type=["nouns"],
             output_dir="scribe_data_json_export",
             overwrite=False,
+            interactive=False,
         )
 
     # MARK: Lowercase Language
@@ -81,6 +83,7 @@ class TestGetData(unittest.TestCase):
             data_type=["nouns"],
             output_dir="scribe_data_json_export",
             overwrite=False,
+            interactive=False,
         )
 
     # MARK: Output Directory
@@ -95,6 +98,7 @@ class TestGetData(unittest.TestCase):
             data_type=["nouns"],
             output_dir="./custom_output_test",
             overwrite=False,
+            interactive=False,
         )
 
     # MARK: Overwrite is True
@@ -107,6 +111,7 @@ class TestGetData(unittest.TestCase):
             data_type=["verbs"],
             output_dir="scribe_data_json_export",
             overwrite=True,
+            interactive=False,
         )
 
     # MARK: Overwrite is False
@@ -118,10 +123,12 @@ class TestGetData(unittest.TestCase):
             data_type="verbs",
             overwrite=False,
             output_dir="./custom_output_test",
+            interactive=False,
         )
         mock_query_data.assert_called_once_with(
             languages=["English"],
             data_type=["verbs"],
             output_dir="./custom_output_test",
             overwrite=False,
+            interactive=False,
         )
