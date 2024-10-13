@@ -52,17 +52,24 @@ try:
         data_type_metadata = json.load(file)
 
 except (IOError, json.JSONDecodeError) as e:
-    print(f"Error reading datatype metadata: {e}")
-
+    print(f"Error reading data type metadata: {e}")
 language_map = {}
 language_to_qid = {}
 
 # Process each language and its potential sub-languages in one pass
 for lang_key, lang_data in language_metadata.items():
     lang_key_lower = lang_key.lower()
+# Process each language and its potential sub-languages in one pass
+for lang_key, lang_data in language_metadata.items():
+    lang_key_lower = lang_key.lower()
 
     # Handle sub-languages if they exist
+    # Handle sub-languages if they exist
     if "sub_languages" in lang_data:
+        for sub_lang_key, sub_lang_data in lang_data["sub_languages"].items():
+            sub_lang_key_lower = sub_lang_key.lower()
+            language_map[sub_lang_key_lower] = sub_lang_data
+            language_to_qid[sub_lang_key_lower] = sub_lang_data["qid"]
         for sub_lang_key, sub_lang_data in lang_data["sub_languages"].items():
             sub_lang_key_lower = sub_lang_key.lower()
             language_map[sub_lang_key_lower] = sub_lang_data
