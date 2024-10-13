@@ -206,50 +206,6 @@ def get_language_from_iso(iso: str) -> str:
     return language_name
 
 
-def get_language_words_to_remove(language: str) -> list[str]:
-    """
-    Returns the words that should be removed during the data cleaning process for the given language.
-
-    Parameters
-    ----------
-        language : str
-            The language the words should be returned for.
-
-    Returns
-    -------
-        list[str]
-            The words that that be removed during the data cleaning process for the given language.
-    """
-    return _find(
-        "language",
-        language,
-        "remove-words",
-        f"{language.capitalize()} is currently not a supported language.",
-    )
-
-
-def get_language_words_to_ignore(language: str) -> list[str]:
-    """
-    Returns the words that should not be included as autosuggestions for the given language.
-
-    Parameters
-    ----------
-        language : str
-            The language the words should be returned for.
-
-    Returns
-    -------
-        list[str]
-            The words that should not be included as autosuggestions for the given language.
-    """
-    return _find(
-        "language",
-        language,
-        "ignore-words",
-        f"{language.capitalize()} is currently not a supported language.",
-    )
-
-
 def load_queried_data(
     file_path: str, language: str, data_type: str
 ) -> tuple[Any, bool, str]:
