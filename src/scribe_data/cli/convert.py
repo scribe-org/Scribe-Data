@@ -30,6 +30,9 @@ from scribe_data.cli.cli_utils import language_map
 from scribe_data.load.data_to_sqlite import data_to_sqlite
 from scribe_data.utils import (
     DEFAULT_SQLITE_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_CSV_EXPORT_DIR,
+    DEFAULT_TSV_EXPORT_DIR,
     get_language_iso,
 )
 
@@ -41,8 +44,8 @@ def convert_to_json(
     data_type: Union[str, List[str]],
     output_type: str,
     input_file: str,
-    output_dir: str,
-    overwrite: bool,
+    output_dir: str = None,
+    overwrite: bool = False,
 ) -> None:
     """
     Convert a CSV/TSV file to JSON.
@@ -77,6 +80,9 @@ def convert_to_json(
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
     data_types = [data_type] if isinstance(data_type, str) else data_type
+
+    if output_dir is None:
+        output_dir = DEFAULT_JSON_EXPORT_DIR
 
     json_output_dir = Path(output_dir) / normalized_language["language"].capitalize()
     json_output_dir.mkdir(parents=True, exist_ok=True)
@@ -175,8 +181,8 @@ def convert_to_csv_or_tsv(
     data_type: Union[str, List[str]],
     output_type: str,
     input_file: str,
-    output_dir: str,
-    overwrite: bool,
+    output_dir: str = None,
+    overwrite: bool = False,
 ) -> None:
     """
     Convert a JSON File to CSV/TSV file.
@@ -231,6 +237,13 @@ def convert_to_csv_or_tsv(
 
         # Determine the delimiter based on output type
         delimiter = "," if output_type == "csv" else "\t"
+
+        if output_dir is None:
+            output_dir = (
+                DEFAULT_CSV_EXPORT_DIR
+                if output_type == "csv"
+                else DEFAULT_TSV_EXPORT_DIR
+            )
 
         final_output_dir = (
             Path(output_dir) / normalized_language["language"].capitalize()
@@ -326,7 +339,7 @@ def convert_to_sqlite(
     data_type: str,
     output_type: str,
     input_file: str = None,
-    output_dir: str = DEFAULT_SQLITE_EXPORT_DIR,
+    output_dir: str = None,
     overwrite: bool = False,
 ) -> None:
     """
