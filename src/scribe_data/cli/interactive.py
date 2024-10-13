@@ -52,7 +52,7 @@ logger = logging.getLogger("rich")
 class ScribeDataConfig:
     def __init__(self):
         self.languages = [
-            lang["language"].capitalize() for lang in language_metadata["languages"]
+            [lang_key.capitalize() for lang_key in language_metadata.keys()]
         ]
         self.data_types = list(data_type_metadata.keys())
         self.selected_languages: List[str] = []
