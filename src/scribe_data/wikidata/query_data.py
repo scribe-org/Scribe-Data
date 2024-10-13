@@ -53,33 +53,21 @@ def execute_formatting_script(formatting_file_path, output_dir):
         The results of the formatting script saved in the given output directory.
     """
     # Determine the root directory of the project.
-    project_root = Path(__file__).parent.parent
+    project_root = Path(__file__).parent.parent.parent
 
-    if sys.platform.startswith("win"):
-        python_executable = sys.executable
-        pythonpath = str(project_root)
+    # Use sys.executable to get the Python executable path.
+    python_executable = sys.executable
 
-        # Create environment with updated PYTHONPATH.
-        env = os.environ.copy()
-        if "PYTHONPATH" in env:
-            env["PYTHONPATH"] = f"{pythonpath};{env['PYTHONPATH']}"
+    # Set the PYTHONPATH environment variable.
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(project_root)
 
-        else:
-            env["PYTHONPATH"] = pythonpath
-
-        # Use subprocess.run instead of os.system.
-        subprocess.run(
-            [python_executable, str(formatting_file_path), "--file-path", output_dir],
-            env=env,
-            check=True,
-        )
-
-    else:
-        # Unix-like systems (Linux, macOS).
-        subprocess.run(
-            ["python3", str(formatting_file_path), "--file-path", output_dir],
-            check=True,
-        )
+    # Use subprocess to run the formatting file.
+    subprocess.run(
+        [python_executable, str(formatting_file_path), "--file-path", output_dir],
+        env=env,
+        check=True,
+    )
 
 
 def query_data(
