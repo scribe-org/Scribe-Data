@@ -42,14 +42,23 @@ with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
 with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
     data_type_metadata = json.load(file)
 
-language_map = {
-    lang["language"].lower(): lang for lang in language_metadata["languages"]
-}
+language_map = {}
+language_to_qid = {}
 
-# Create language_to_qid dictionary.
-language_to_qid = {
-    lang["language"].lower(): lang["qid"] for lang in language_metadata["languages"]
-}
+# Process each language and its potential sub-languages in one pass
+for lang_key, lang_data in language_metadata.items():
+    lang_key_lower = lang_key.lower()
+
+    # Handle sub-languages if they exist
+    if "sub_languages" in lang_data:
+        for sub_lang_key, sub_lang_data in lang_data["sub_languages"].items():
+            sub_lang_key_lower = sub_lang_key.lower()
+            language_map[sub_lang_key_lower] = sub_lang_data
+            language_to_qid[sub_lang_key_lower] = sub_lang_data["qid"]
+    else:
+        # Handle the main language directly
+        language_map[lang_key_lower] = lang_data
+        language_to_qid[lang_key_lower] = lang_data["qid"]
 
 
 def correct_data_type(data_type: str) -> str:
