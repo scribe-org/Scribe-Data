@@ -20,6 +20,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q21714344 ;
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q1994301 ;
+      FILTER(lang(?pastTPP) = "he")
   } .
 
   # SPS Feminine
@@ -30,6 +31,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q1994301 ;
       wikibase:grammaticalFeature wd:Q1775415 ;
+      FILTER(lang(?pastSPSF) = "he")
   } .
 
   # SPS Masculine
@@ -40,6 +42,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q1994301 ;
       wikibase:grammaticalFeature wd:Q499327 ;
+      FILTER(lang(?pastSPSM) = "he")
   } .
 
   # TPS Feminine
@@ -50,6 +53,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q1994301 ;
       wikibase:grammaticalFeature wd:Q1775415 ;
+      FILTER(lang(?pastTPSF) = "he")
   } .
 
   # TPS Masculine
@@ -60,6 +64,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786 ;
       wikibase:grammaticalFeature wd:Q1994301 ;
       wikibase:grammaticalFeature wd:Q499327 ;
+      FILTER(lang(?pastTPSM) = "he")
   } .
 
   # FPP
@@ -69,6 +74,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q21714344 ;
       wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q1994301 ;
+      FILTER(lang(?pastFPP) = "he")
   } .
 
   # SPP Feminine
@@ -79,6 +85,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q1994301 ;
       wikibase:grammaticalFeature wd:Q1775415 ;
+      FILTER(lang(?pastSPPF) = "he")
   } .
 
   # SPP Masculine
@@ -89,6 +96,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q1994301 ;
       wikibase:grammaticalFeature wd:Q499327 ;
+      FILTER(lang(?pastSPPM) = "he")
   } .
 
   # TPP Feminine
@@ -99,6 +107,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q1994301 ;
       wikibase:grammaticalFeature wd:Q1775415 ;
+      FILTER(lang(?pastTPPF) = "he")
   } .
 
   # TPP Masculine
@@ -109,5 +118,6 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
       wikibase:grammaticalFeature wd:Q1994301 ;
       wikibase:grammaticalFeature wd:Q499327 ;
+      FILTER(lang(?pastTPPM) = "he")
   } .
 }
