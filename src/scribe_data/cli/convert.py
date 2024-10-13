@@ -29,6 +29,7 @@ from typing import List, Union
 from scribe_data.cli.cli_utils import language_map
 from scribe_data.load.data_to_sqlite import data_to_sqlite
 from scribe_data.utils import (
+    DEFAULT_SQLITE_EXPORT_DIR,
     get_language_iso,
 )
 
@@ -325,7 +326,7 @@ def convert_to_sqlite(
     data_type: str,
     output_type: str,
     input_file: str = None,
-    output_dir: str = None,
+    output_dir: str = DEFAULT_SQLITE_EXPORT_DIR,
     overwrite: bool = False,
 ) -> None:
     """
@@ -358,16 +359,21 @@ def convert_to_sqlite(
     if not language:
         raise ValueError("Language must be specified for SQLite conversion.")
 
+    if input_file:
+        input_file = Path(input_file)
     if not input_file.exists():
         raise ValueError(f"Input file does not exist: {input_file}")
 
-    languages = [language.lower()]
+    languages = [language]
     specific_tables = [data_type] if data_type else None
 
-    if output_dir:
+    if output_dir is None:
+        output_dir = Path(DEFAULT_SQLITE_EXPORT_DIR)
+    else:
         output_dir = Path(output_dir)
-        if not output_dir.exists():
-            output_dir.mkdir(parents=True, exist_ok=True)
+
+    if not output_dir.exists():
+        output_dir.mkdir(parents=True, exist_ok=True)
 
     print(
         f"Converting data for language: {language}, data type: {data_type} to {output_type}"

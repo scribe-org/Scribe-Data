@@ -21,9 +21,11 @@ Tests for the CLI convert functionality.
 """
 
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
-from scribe_data.cli.convert import convert_to_sqlite
+from scribe_data.cli.convert import (
+    convert_to_sqlite,
+)
 
 
 class TestConvert(unittest.TestCase):
@@ -48,17 +50,27 @@ class TestConvert(unittest.TestCase):
     @patch("scribe_data.cli.convert.Path")
     @patch("scribe_data.cli.convert.data_to_sqlite")
     def test_convert_to_sqlite_no_output_dir(self, mock_data_to_sqlite, mock_path):
+        # Create a mock for input file
+        mock_input_file = MagicMock()
+        mock_input_file.exists.return_value = True
+
+        mock_path.return_value = mock_input_file
+
+        # source and destination paths
+        mock_input_file.parent = MagicMock()
+        mock_input_file.parent.__truediv__.return_value = MagicMock()
+        mock_input_file.parent.__truediv__.return_value.exists.return_value = False
+
         convert_to_sqlite(
             language="english",
             data_type="nouns",
-            input_file="file",
+            input_file=mock_input_file,
             output_type="sqlite",
             output_dir=None,
             overwrite=True,
         )
 
         mock_data_to_sqlite.assert_called_with(["english"], ["nouns"])
-        mock_path.assert_not_called()
 
     @patch("scribe_data.cli.convert.Path")
     @patch("scribe_data.cli.convert.data_to_sqlite")
