@@ -101,6 +101,9 @@ def get_datatype_list(language):
         return data_type_metadata
 
 
+# MARK: Print
+
+
 def print_total_lexemes(language: str = None):
     """
     Displays the total number of available entities for all data types for a given language or all the languages.
@@ -174,6 +177,9 @@ def print_total_lexemes(language: str = None):
                 print(f"{'':<15} {dt.replace('_', ' '): <25} {total_lexemes:<25}")
 
         print()
+
+
+# MARK: Get Total
 
 
 def get_total_lexemes(language, data_type, doPrint=True):
@@ -261,6 +267,9 @@ def get_total_lexemes(language, data_type, doPrint=True):
     else:
         print("Total number of lexemes: Not found")
         return None
+
+
+# MARK: Wrapper
 
 
 def total_wrapper(

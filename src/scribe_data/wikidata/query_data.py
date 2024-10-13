@@ -24,6 +24,7 @@ import json
 import os
 import subprocess
 import sys
+from http.client import IncompleteRead
 from pathlib import Path
 from urllib.error import HTTPError
 
@@ -86,6 +87,7 @@ def query_data(
     data_type: str = None,
     output_dir: str = None,
     overwrite: bool = None,
+    interactive: bool = False,
 ):
     """
     Queries language data from the Wikidata lexicographical data.
@@ -101,8 +103,8 @@ def query_data(
         output_dir : str
             The output directory path for results.
 
-        overwrite : bool
-            Whether to overwrite existing files (default: False).
+        overwrite : bool (default: False)
+            Whether to overwrite existing files.
 
     Returns
     -------
@@ -147,11 +149,15 @@ def query_data(
     }
     queries_to_run = sorted(queries_to_run)
 
+    # MARK: Run Queries
+
     # Run queries and format data.
     for q in tqdm(
         queries_to_run,
         desc="Data updated",
         unit="process",
+        disable=interactive,
+        colour="MAGENTA",
     ):
         lang = q.parent.parent.name
         target_type = q.parent.name
@@ -169,24 +175,25 @@ def query_data(
                 for file in existing_files:
                     file.unlink()
             else:
-                print(
-                    f"\nExisting file(s) found for {lang} {target_type} in the {output_dir} directory:\n"
-                )
-                for i, file in enumerate(existing_files, 1):
-                    print(f"{i}. {file.name}")
+                if not interactive:
+                    print(
+                        f"\nExisting file(s) found for {lang} {target_type} in the {output_dir} directory:\n"
+                    )
+                    for i, file in enumerate(existing_files, 1):
+                        print(f"{i}. {file.name}")
 
-                # choice = input(
-                #     "\nChoose an option:\n1. Overwrite existing (press 'o')\n2. Keep all (press 'k')\n3. Skip process (press anything else)\nEnter your choice: "
-                # )
+                    # choice = input(
+                    #     "\nChoose an option:\n1. Overwrite existing (press 'o')\n2. Keep all (press 'k')\n3. Skip process (press anything else)\nEnter your choice: "
+                    # )
 
-                choice = input(
-                    "\nChoose an option:\n1. Overwrite existing data (press 'o')\n2. Skip process (press anything else)\nEnter your choice: "
-                )
+                    choice = input(
+                        "\nChoose an option:\n1. Overwrite existing data (press 'o')\n2. Skip process (press anything else)\nEnter your choice: "
+                    )
 
-                if choice.lower() == "o":
-                    print("Removing existing files ...")
-                    for file in existing_files:
-                        file.unlink()
+                    if choice.lower() == "o":
+                        print("Removing existing files ...")
+                        for file in existing_files:
+                            file.unlink()
 
                 # elif choice in ["k", "K"]:
                 #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
@@ -213,14 +220,18 @@ def query_data(
         try:
             results = sparql.query().convert()
 
-        except HTTPError as err:
-            print(f"HTTPError with {q}: {err}")
+        except HTTPError as http_err:
+            print(f"HTTPError with {q}: {http_err}")
+
+        except IncompleteRead as read_err:
+            print(f"Incomplete read error with {q}: {read_err}")
 
         if results is None:
             print(f"Nothing returned by the WDQS server for {q}")
 
             # Allow for a query to be reran up to two times.
             if queries_to_run.count(q) < 3:
+                print("The query will be retried.")
                 queries_to_run.append(q)
 
         else:
@@ -299,6 +310,8 @@ def query_data(
                                         ensure_ascii=False,
                                         indent=0,
                                     )
+
+            # MARK: Save Results
 
             with open(file_path, "w", encoding="utf-8") as json_file:
                 json.dump(results_final, json_file, ensure_ascii=False, indent=0)

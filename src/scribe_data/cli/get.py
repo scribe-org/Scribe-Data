@@ -40,6 +40,7 @@ def get_data(
     overwrite: bool = False,
     outputs_per_entry: int = None,
     all: bool = False,
+    interactive: bool = False,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
@@ -61,11 +62,14 @@ def get_data(
         outputs_per_entry : str
             How many outputs should be generated per data entry.
 
-        overwrite : bool
-            Whether to overwrite existing files (default: False).
+        overwrite : bool (default: False)
+            Whether to overwrite existing files.
 
         all : bool
             Get all languages and data types.
+
+        interactive : bool (default: False)
+            Whether it's running in interactive mode.
 
     Returns
     -------
@@ -125,6 +129,7 @@ def get_data(
             data_type=data_type,
             output_dir=output_dir,
             overwrite=overwrite,
+            interactive=interactive,
         )
         subprocess_result = True
 
@@ -140,6 +145,8 @@ def get_data(
         print(
             f"Updated data was saved in: {Path(output_dir).resolve()}.",
         )
+        if interactive:
+            return True
 
     # The emoji keywords process has failed.
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
