@@ -13,7 +13,8 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
 
-  # Imperative
+  # MARK: Imperative
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPSMForm .
     ?impSPSMForm ontolex:representation ?impSPSM ;

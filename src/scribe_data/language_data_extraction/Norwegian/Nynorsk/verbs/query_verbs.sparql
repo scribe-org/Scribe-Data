@@ -1,0 +1,171 @@
+# tool: scribe-data
+# All Norwegian Nynorsk (Q25164) verbs and the currently implemented tenses for each.
+# Enter this query at https://query.wikidata.org/.
+# Note: This query is for Nynorsk (Q25164) rather than Bokmål (Q25167).
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
+  ?aInfinitiveActive
+  ?eInfinitiveActive
+  ?presentActive
+  ?preterite
+  ?presentPreteritePerfect
+  ?imperative
+  ?genderedSingularIndefinitePastParticiple
+  ?neuterSingularIndefinitePastParticiple
+  ?singularDefinitePastParticiple
+  ?pluralPastParticiple
+  ?presentParticiple
+  ?infinitivePassive
+  ?presentPassive
+
+WHERE {
+  # MARK: Infinitive
+
+  ?lexeme dct:language wd:Q25164 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive .
+    FILTER(LANG(?infinitive) = "nn") .
+
+  # MARK: Active A Infinitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?aInfinitiveActiveForm .
+    ?aInfinitiveActiveForm ontolex:representation ?aInfinitiveActive ;
+      wikibase:grammaticalFeature wd:Q179230;
+      wikibase:grammaticalFeature wd:Q1317831;
+      wikibase:grammaticalFeature wd:Q115223950 .
+      FILTER(LANG(?aInfinitiveActive) = "nn") .
+  }
+
+  # MARK: Active E Infinitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?eInfinitiveActiveForm .
+    ?eInfinitiveActiveForm ontolex:representation ?eInfinitiveActive ;
+      wikibase:grammaticalFeature wd:Q179230;
+      wikibase:grammaticalFeature wd:Q1317831;
+      wikibase:grammaticalFeature wd:Q115223951 .
+      FILTER(LANG(?eInfinitiveActive) = "nn") .
+  }
+
+  # MARK: Present Tense Active
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentActiveForm .
+    ?presentActiveForm ontolex:representation ?presentActive ;
+      wikibase:grammaticalFeature wd:Q192613;
+      wikibase:grammaticalFeature wd:Q1317831 .
+      FILTER(LANG(?presentActive) = "nn") .
+  }
+
+  # MARK: Preterite
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteForm .
+    ?preteriteForm ontolex:representation ?preterite ;
+      wikibase:grammaticalFeature wd:Q442485 .
+      FILTER(LANG(?preterite) = "nn") .
+
+    FILTER NOT EXISTS {
+      ?preteriteForm wikibase:grammaticalFeature wd:Q192613 .  # Present tense
+      ?preteriteForm wikibase:grammaticalFeature wd:Q625420 .  # Perfect tense
+    }
+  }
+
+  # MARK: Present Tense, Preterite, Perfect Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPreteritePerfectForm .
+    ?presentPreteritePerfectForm ontolex:representation ?presentPreteritePerfect ;
+      wikibase:grammaticalFeature wd:Q192613;
+      wikibase:grammaticalFeature wd:Q442485;
+      wikibase:grammaticalFeature wd:Q625420 .
+      FILTER(LANG(?presentPreteritePerfect) = "nn") .
+  }
+
+  # MARK: Imperative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
+      FILTER(LANG(?imperative) = "nn") .
+  }
+
+  # MARK: Masculine/Feminine Singular Indefinite Past Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genderedSingularIndefinitePastParticipleForm .
+    ?genderedSingularIndefinitePastParticipleForm ontolex:representation ?genderedSingularIndefinitePastParticiple ;
+      wikibase:grammaticalFeature wd:Q499327;
+      wikibase:grammaticalFeature wd:Q1775415;
+      wikibase:grammaticalFeature wd:Q110786;
+      wikibase:grammaticalFeature wd:Q53997857;
+      wikibase:grammaticalFeature wd:Q12717679 .
+      FILTER(LANG(?genderedSingularIndefinitePastParticiple) = "nn") .
+  }
+
+  # MARK: Neuter Singular Indefinite Past Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterSingularIndefinitePastParticipleForm .
+    ?neuterSingularIndefinitePastParticipleForm ontolex:representation ?neuterSingularIndefinitePastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775461;
+      wikibase:grammaticalFeature wd:Q110786;
+      wikibase:grammaticalFeature wd:Q53997857;
+      wikibase:grammaticalFeature wd:Q12717679 .
+      FILTER(LANG(?neuterSingularIndefinitePastParticiple) = "nn") .
+  }
+
+  # MARK: Singular Definitive Past Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularDefinitePastParticipleForm .
+    ?singularDefinitePastParticipleForm ontolex:representation ?singularDefinitePastParticiple ;
+      wikibase:grammaticalFeature wd:Q110786;
+      wikibase:grammaticalFeature wd:Q53997851;
+      wikibase:grammaticalFeature wd:Q12717679 .
+      FILTER(LANG(?singularDefinitePastParticiple) = "nn") .
+  }
+
+  # MARK: Plural Past Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralPastParticipleForm .
+    ?pluralPastParticipleForm ontolex:representation ?pluralPastParticiple ;
+      wikibase:grammaticalFeature wd:Q146786;
+      wikibase:grammaticalFeature wd:Q12717679 .
+      FILTER(LANG(?pluralPastParticiple) = "nn") .
+  }
+
+  # MARK: Present Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
+    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+      FILTER(LANG(?presentParticiple) = "nn") .
+  }
+
+  # MARK: Infinitive Passive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitivePassiveForm .
+    ?infinitivePassiveForm ontolex:representation ?infinitivePassive ;
+      wikibase:grammaticalFeature wd:Q179230;
+      wikibase:grammaticalFeature wd:Q1194697 .
+      FILTER(LANG(?infinitivePassive) = "nn") .
+  }
+
+  # MARK: Present Passive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPassiveForm .
+    ?presentPassiveForm ontolex:representation ?presentPassive ;
+      wikibase:grammaticalFeature wd:Q192613;
+      wikibase:grammaticalFeature wd:Q1194697 .
+      FILTER(LANG(?presentPassive) = "nn") .
+  }
+}

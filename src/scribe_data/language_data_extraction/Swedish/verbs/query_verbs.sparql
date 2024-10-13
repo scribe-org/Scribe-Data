@@ -13,9 +13,9 @@ WHERE {
   ?lexeme dct:language wd:Q9027 ;
     wikibase:lexicalCategory wd:Q24905 .
 
-  # Active Voice
+  # MARK: Active Voice
 
-  # Infinitive (required)
+  # Infinitive
   ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
   ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
     wikibase:grammaticalFeature wd:Q1317831 ;
@@ -52,7 +52,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q442485 ;
   } .
 
-  # Passive Voice
+  # MARK: Passive Voice
 
   # Infinitive
   OPTIONAL {

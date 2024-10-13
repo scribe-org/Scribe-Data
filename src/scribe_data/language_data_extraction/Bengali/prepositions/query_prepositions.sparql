@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Bengali (Q9610) prepositions and their corresponding cases.
+# All Bengali (Bangla Q9610) prepositions and their corresponding cases.
 # Enter this query at https://query.wikidata.org/.
 # Note: This query includes postpositions that are also used in Bengali.
 
@@ -16,7 +16,8 @@ WHERE {
     wikibase:lexicalCategory ?prePostPositions ;
     wikibase:lemma ?preposition .
 
-  # Optional selection of corresponding cases.
+  # MARK: Corresponding Case
+
   OPTIONAL {
     ?lexeme wdt:P5713 ?caseForm .
   } .

@@ -10,13 +10,14 @@ SELECT DISTINCT
   ?accPlural
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?nomSingular .
 
-  # Optional selection of accusative singular forms.
+  # MARK: Accusative Singular
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accSingularForm .
     ?accSingularForm ontolex:representation ?accSingular ;
@@ -24,7 +25,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786 ;
   } .
 
-  # Optional selection of nominative plural forms.
+  # MARK: Nominative Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
@@ -32,7 +34,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
   } .
 
-  # Optional selection of accusative plural forms.
+  # MARK: Accusative Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accPluralForm .
     ?accPluralForm ontolex:representation ?accPlural ;

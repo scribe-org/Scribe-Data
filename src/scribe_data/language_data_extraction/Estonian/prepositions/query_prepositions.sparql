@@ -16,7 +16,8 @@ WHERE {
     wikibase:lexicalCategory ?prePostPositions ;
     wikibase:lemma ?preposition .
 
-  # Optional selection of corresponding cases.
+  # MARK: Corresponding Case
+
   OPTIONAL {
     ?lexeme wdt:P5713 ?caseForm .
   } .

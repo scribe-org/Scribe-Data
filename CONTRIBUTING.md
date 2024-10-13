@@ -26,7 +26,7 @@ If you have questions or would like to communicate with the team, please [join u
 
 ## First steps as a contributor [`⇧`](#contents)
 
-Thank you for your interest in contributing to Scribe-Data! We look forward to welcoming you to the community and working with you to build an tools for language learners to communicate effectively :) The following are some suggested steps for people interested in joining our community:
+Thank you for your interest in contributing to Scribe-Data! We look forward to welcoming you to the community and working with you to build tools for language learners to communicate effectively :) The following are some suggested steps for people interested in joining our community:
 
 - Please join the [public Matrix chat](https://matrix.to/#/#scribe_community:matrix.org) to connect with the community
   - [Matrix](https://matrix.org/) is a network for secure, decentralized communication

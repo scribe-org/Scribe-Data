@@ -14,7 +14,8 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
 
-  # Performative Past
+  # MARK: Performative Past
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastFPSForm .
     ?pastFPSForm ontolex:representation ?pastFPS ;

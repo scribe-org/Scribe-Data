@@ -1,0 +1,285 @@
+# tool: scribe-data
+# All Arabic (Q13955) adjectives.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?femSingularNominativeIndef
+  ?masSingularNominativeIndef
+  ?femDualNominativeIndef
+  ?masDualNominativeIndef
+  ?femPluralNominativeIndef
+  ?masPluralNominativeIndef
+  ?femSingularAccusativeIndef
+  ?masSingularAccusativeIndef
+  ?femDualAccusativeIndef
+  ?masDualAccusativeIndef
+  ?femPluralAccusativeIndef
+  ?masPluralAccusativeIndef
+  ?femSingularGenitiveIndef
+  ?masSingularGenitiveIndef
+  ?femDualGenitiveIndef
+  ?masDualGenitiveIndef
+  ?femPluralGenitiveIndef
+  ?masPluralGenitiveIndef
+  ?femSingularPausalIndef
+  ?masSingularPausalIndef
+  ?femDualPausalIndef
+  ?masDualPausalIndef
+  ?femPluralPausalIndef
+  ?masPluralPausalIndef
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  # MARK: Nominative
+
+  # Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femSingularNominativeIndefForm .
+    ?femSingularNominativeIndefForm ontolex:representation ?femSingularNominativeIndef ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masSingularNominativeIndefForm .
+    ?masSingularNominativeIndefForm ontolex:representation ?masSingularNominativeIndef ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  # Dual
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femDualNominativeIndefForm .
+    ?femDualNominativeIndefForm ontolex:representation ?femDualNominativeIndef ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110022 ;
+      wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masDualNominativeIndefForm .
+    ?masDualNominativeIndefForm ontolex:representation ?masDualNominativeIndef ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110022 ;
+      wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  # Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femPluralNominativeIndefForm .
+    ?femPluralNominativeIndefForm ontolex:representation ?femPluralNominativeIndef ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masPluralNominativeIndefForm .
+    ?masPluralNominativeIndefForm ontolex:representation ?masPluralNominativeIndef ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  # MARK: Accusative
+
+  # Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femSingularAccusativeIndefForm .
+    ?femSingularAccusativeIndefForm ontolex:representation ?femSingularAccusativeIndef ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q146078 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masSingularAccusativeIndefForm .
+    ?masSingularAccusativeIndefForm ontolex:representation ?masSingularAccusativeIndef ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q146078 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  # Dual
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femDualAccusativeIndefForm .
+    ?femDualAccusativeIndefForm ontolex:representation ?femDualAccusativeIndef ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110022 ;
+      wikibase:grammaticalFeature wd:Q146078 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masDualAccusativeIndefForm .
+    ?masDualAccusativeIndefForm ontolex:representation ?masDualAccusativeIndef ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110022 ;
+      wikibase:grammaticalFeature wd:Q146078 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  # Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femPluralAccusativeIndefForm .
+    ?femPluralAccusativeIndefForm ontolex:representation ?femPluralAccusativeIndef ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q146078 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masPluralAccusativeIndefForm .
+    ?masPluralAccusativeIndefForm ontolex:representation ?masPluralAccusativeIndef ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q146078 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  # MARK: Genitive
+
+  # Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femSingularGanitiveIndefForm .
+    ?femSingularGanitiveIndefForm ontolex:representation ?femSingularGanitiveIndef ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q146233 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masSingularGanitiveIndefForm .
+    ?masSingularGanitiveIndefForm ontolex:representation ?masSingularGanitiveIndef ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q146233 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  # Dual
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femDualGanitiveIndefForm .
+    ?femDualGanitiveIndefForm ontolex:representation ?femDualGanitiveIndef ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110022 ;
+      wikibase:grammaticalFeature wd:Q146233 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masDualGanitiveIndefForm .
+    ?masDualGanitiveIndefForm ontolex:representation ?masDualGanitiveIndef ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110022 ;
+      wikibase:grammaticalFeature wd:Q146233 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  # Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femPluralGanitiveIndefForm .
+    ?femPluralGanitiveIndefForm ontolex:representation ?femPluralGanitiveIndef ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q146233 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masPluralGanitiveIndefForm .
+    ?masPluralGanitiveIndefForm ontolex:representation ?masPluralGanitiveIndef ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q146233 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  # MARK: Pausal
+
+  # Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femSingularPausalIndefForm .
+    ?femSingularPausalIndefForm ontolex:representation ?femSingularPausalIndef ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q117262361 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masSingularPausalIndefForm .
+    ?masSingularPausalIndefForm ontolex:representation ?masSingularPausalIndef ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q117262361 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  # Dual
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femDualPausalIndefForm .
+    ?femDualPausalIndefForm ontolex:representation ?femDualPausalIndef ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110022 ;
+      wikibase:grammaticalFeature wd:Q117262361 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masDualPausalIndefForm .
+    ?masDualPausalIndefForm ontolex:representation ?masDualPausalIndef ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110022 ;
+      wikibase:grammaticalFeature wd:Q117262361 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  # Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femPluralPausalIndefForm .
+    ?femPluralPausalIndefForm ontolex:representation ?femPluralPausalIndef ;
+      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q117262361 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masPluralPausalIndefForm .
+    ?masPluralPausalIndefForm ontolex:representation ?masPluralPausalIndef ;
+      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q117262361 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+  } .
+}

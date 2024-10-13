@@ -13,12 +13,15 @@ WHERE {
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q24905 .
 
-  # Infinitive (required)
+  # MARK: Infinitive
+
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
   ?infinitiveForm ontolex:representation ?infinitive ;
     wikibase:grammaticalFeature wd:Q179230 .
 
-  # Present
+  # MARK: Present
+
+  # FPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presFPSForm .
     ?presFPSForm ontolex:representation ?presFPS ;
@@ -27,6 +30,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q192613 ;
   } .
+
+  # SPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPSForm .
     ?presSPSForm ontolex:representation ?presSPS ;
@@ -35,6 +40,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q192613 ;
   } .
+
+  # TPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPSForm .
     ?presTPSForm ontolex:representation ?presTPS ;
@@ -43,6 +50,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q192613 ;
   } .
+
+  # FPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presFPPForm .
     ?presFPPForm ontolex:representation ?presFPP ;
@@ -51,6 +60,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q192613 ;
   } .
+
+  # SPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPPForm .
     ?presSPPForm ontolex:representation ?presSPP ;
@@ -59,6 +70,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q682111 ;
       wikibase:grammaticalFeature wd:Q192613 ;
   } .
+
+  # TPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPPForm .
     ?presTPPForm ontolex:representation ?presTPP ;
@@ -68,7 +81,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q192613 ;
   } .
 
-  # Past Feminine
+  # MARK: Past Feminine
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastFeminineForm .
     ?pastFeminineForm ontolex:representation ?pastFeminine ;
@@ -77,7 +91,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1775415 ;
   } .
 
-  # Past Masculine
+  # MARK: Past Masculine
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastMasculineForm .
     ?pastMasculineForm ontolex:representation ?pastMasculine ;
@@ -86,7 +101,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q499327 ;
   } .
 
-  # Past Neutral
+  # MARK: Past Neutral
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastNeutralForm .
     ?pastNeutralForm ontolex:representation ?pastNeutral ;
@@ -95,7 +111,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1775461 ;
   } .
 
-  # Past Plural
+  # MARK: Past Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastPluralForm .
     ?pastPluralForm ontolex:representation ?pastPlural ;

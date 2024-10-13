@@ -14,30 +14,32 @@ SELECT DISTINCT
   ?femPlural
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?singular .
 
-  # Optional selection of plural forms.
+  # MARK: Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 ;
   } .
 
-  # Optional selection of genders.
+  # MARK: Gender(s)
+
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
     FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .
+      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
     }
   } .
 
   # Spansih sometimes has masculine and feminine versions on a single lexeme.
 
-  # Optional selection of masculine singular and plural forms.
+  # MARK: masculine singular and plural forms.
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masSingularForm .
     ?masSingularForm ontolex:representation ?masSingular ;
@@ -52,7 +54,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
   } .
 
-  # Optional selection of feminine singular and plural forms.
+  # MARK: feminine singular and plural forms.
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femSingularForm .
     ?femSingularForm ontolex:representation ?femSingular ;

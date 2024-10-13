@@ -9,12 +9,13 @@ SELECT DISTINCT
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory ?nounTypes .
 
-  # Optional selection of nominative singular forms.
+  # MARK: Nominative Singular
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomSingularForm .
     ?nomSingularForm ontolex:representation ?nomSingular ;
@@ -22,7 +23,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786 ;
   } .
 
-  # Optional selection of nominative plural forms.
+  # MARK: Nominative Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
@@ -30,11 +32,12 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 ;
   } .
 
-  # Optional selection of genders.
+  # MARK: Gender(s)
+
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
     FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .
+      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
     }
   } .
 

@@ -9,13 +9,14 @@ SELECT DISTINCT
   ?absPlural
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q8752 ;
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?absIndefinite .
 
-  # Optional selection of absolutive singular forms.
+  # MARK: Absolutive Singular
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?absSingularForm .
     ?absSingularForm ontolex:representation ?absSingular ;
@@ -23,7 +24,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786 ;
   } .
 
-  # Optional selection of absolutive plural forms.
+  # MARK: Absolutive Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?absPluralForm .
     ?absPluralForm ontolex:representation ?absPlural ;

@@ -1,0 +1,139 @@
+# tool: scribe-data
+# All Estonian (Q380057) adverbs and the corresponding forms per case.
+# Enter this query at https://query.wikidata.org/
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adverb
+  ?adessiveSingular
+  ?adessivePlural
+  ?ablativeSingular
+  ?ablativePlural
+  ?translativeSingular
+  ?translativePlural
+  ?terminativeSingular
+  ?terminativePlural
+  ?essiveSingular
+  ?essivePlural
+  ?abessiveSingular
+  ?abessivePlural
+  ?comitativeSingular
+  ?comitativePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+      wikibase:lexicalCategory wd:Q380057 ;
+      wikibase:lemma ?adverb .
+
+  # MARK: Adessive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessiveSingularForm .
+    ?adessiveSingularForm ontolex:representation ?adessiveSingular ;
+      wikibase:grammaticalFeature wd:Q281954 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessivePluralForm .
+    ?adessivePluralForm ontolex:representation ?adessivePlural ;
+      wikibase:grammaticalFeature wd:Q281954 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # MARK: Ablative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeSingularForm .
+    ?ablativeSingularForm ontolex:representation ?ablativeSingular ;
+      wikibase:grammaticalFeature wd:Q156986 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePluralForm .
+    ?ablativePluralForm ontolex:representation ?ablativePlural ;
+      wikibase:grammaticalFeature wd:Q156986 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # MARK: Translative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?translativeSingularForm .
+    ?translativeSingularForm ontolex:representation ?translativeSingular ;
+      wikibase:grammaticalFeature wd:Q950170 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?translativePluralForm .
+    ?translativePluralForm ontolex:representation ?translativePlural ;
+      wikibase:grammaticalFeature wd:Q950170 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # MARK: Terminative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?terminativeSingularForm .
+    ?terminativeSingularForm ontolex:representation ?terminativeSingular ;
+      wikibase:grammaticalFeature wd:Q747019 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?terminativePluralForm .
+    ?terminativePluralForm ontolex:representation ?terminativePlural ;
+      wikibase:grammaticalFeature wd:Q747019 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # MARK: Essive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?essiveSingularForm .
+    ?essiveSingularForm ontolex:representation ?essiveSingular ;
+      wikibase:grammaticalFeature wd:Q148465 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?essivePluralForm .
+    ?essivePluralForm ontolex:representation ?essivePlural ;
+      wikibase:grammaticalFeature wd:Q148465 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # MARK: Abessive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?abessiveSingularForm .
+    ?abessiveSingularForm ontolex:representation ?abessiveSingular ;
+      wikibase:grammaticalFeature wd:Q319822 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?abessivePluralForm .
+    ?abessivePluralForm ontolex:representation ?abessivePlural ;
+      wikibase:grammaticalFeature wd:Q319822 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # MARK: Comitative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comitativeSingularForm .
+    ?comitativeSingularForm ontolex:representation ?comitativeSingular ;
+      wikibase:grammaticalFeature wd:Q838581 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comitativePluralForm .
+    ?comitativePluralForm ontolex:representation ?comitativePlural ;
+      wikibase:grammaticalFeature wd:Q838581 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+}

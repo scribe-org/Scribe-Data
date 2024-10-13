@@ -20,6 +20,8 @@ Generates keyword-emoji relationships from a selection of Russian words.
     -->
 """
 
+import argparse
+
 from scribe_data.unicode.process_unicode import gen_emoji_lexicon
 from scribe_data.utils import export_formatted_data
 
@@ -27,14 +29,18 @@ LANGUAGE = "Russian"
 DATA_TYPE = "emoji-keywords"
 emojis_per_keyword = 3
 
-emoji_keywords_dict = gen_emoji_lexicon(
+parser = argparse.ArgumentParser()
+parser.add_argument("--file-path")
+args = parser.parse_args()
+
+if emoji_keywords_dict := gen_emoji_lexicon(
     language=LANGUAGE,
     emojis_per_keyword=emojis_per_keyword,
-)
-
-export_formatted_data(
-    formatted_data=emoji_keywords_dict,
-    query_data_in_use=True,
-    language=LANGUAGE,
-    data_type=DATA_TYPE,
-)
+):
+    export_formatted_data(
+        file_path=args.file_path,
+        formatted_data=emoji_keywords_dict,
+        query_data_in_use=True,
+        language=LANGUAGE,
+        data_type=DATA_TYPE,
+    )

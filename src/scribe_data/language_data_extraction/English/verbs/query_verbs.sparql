@@ -12,12 +12,14 @@ SELECT DISTINCT
   ?pastPart
 
 WHERE {
-  # Infinitive (required)
+  # MARK: Infinitive
+
   ?lexeme dct:language wd:Q1860 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?infinitive .
 
-  # Simple Present
+  # MARK: Simple Present
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSimpForm .
     ?presSimpForm ontolex:representation ?presSimp ;
@@ -28,7 +30,8 @@ WHERE {
       FILTER(LANG(?presSimp) = "en") .
   } .
 
-  # Third-person Singular
+  # MARK: Third-person Singular
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPSForm .
     ?presTPSForm ontolex:representation ?presTPS ;
@@ -40,7 +43,8 @@ WHERE {
     FILTER(LANG(?presTPS) = "en") .
   } .
 
-  # Present Participle
+  # MARK: Present Participle
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presPartForm .
     ?presPartForm ontolex:representation ?presPart ;
@@ -50,7 +54,8 @@ WHERE {
     FILTER(LANG(?presPart) = "en") .
   } .
 
-  # Simple Past
+  # MARK: Simple Past
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastSimpForm .
     ?pastSimpForm ontolex:representation ?pastSimp ;
@@ -60,7 +65,8 @@ WHERE {
     FILTER(LANG(?pastSimp) = "en") .
   } .
 
-  # Past Participle
+  # MARK: Past Participle
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastPartForm .
     ?pastPartForm ontolex:representation ?pastPart ;

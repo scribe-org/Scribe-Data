@@ -8,13 +8,14 @@ SELECT DISTINCT
   ?nomPlural
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
+  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q1412 ;
     wikibase:lexicalCategory ?nounTypes ;
     wikibase:lemma ?nomSingular .
 
-  # Optional selection of nominative plural forms.
+  # MARK: Nominative Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
