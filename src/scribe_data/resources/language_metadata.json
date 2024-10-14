@@ -56,8 +56,16 @@
     "qid": "Q9288"
   },
   "hindustani": {
-    "iso": "hi",
-    "qid": "Q11051"
+    "sub_languages": {
+      "hindi": {
+        "iso": "hi",
+        "qid": "Q11051"
+      },
+      "urdu": {
+        "iso": "ur",
+        "qid": "Q11051"
+      }
+    }
   },
   "indonesian": {
     "iso": "id",
@@ -104,8 +112,12 @@
     }
   },
   "pidgin": {
-    "iso": "pi",
-    "qid": "Q33655"
+    "sub_languages": {
+      "nigerian": {
+        "iso": "pi",
+        "qid": "Q33655"
+      }
+    }
   },
   "polish": {
     "iso": "pl",
@@ -116,8 +128,16 @@
     "qid": "Q5146"
   },
   "punjabi": {
-    "iso": "pa",
-    "qid": "Q58635"
+    "sub_languages": {
+      "gurmukhi": {
+        "iso": "pan",
+        "qid": "Q58635"
+      },
+      "shahmukhi": {
+        "iso": "pnp",
+        "qid": "Q58635"
+      }
+    }
   },
   "russian": {
     "iso": "ru",
