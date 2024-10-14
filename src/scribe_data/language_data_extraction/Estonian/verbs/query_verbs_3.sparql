@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Estonian verbs and the corresponding forms per case.
+# Enter this query at https://query.wikidata.org/
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+  ?presentFirstPlural
+  ?presentSecondPlural
+  ?presentThirdPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  # MARK: Present Tense - First Person Plural
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentFirstPluralForm .
+    ?presentFirstPluralForm ontolex:representation ?presentFirstPlural ;
+      wikibase:grammaticalFeature wd:Q192613 ;
+      wikibase:grammaticalFeature wd:Q21714344 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # MARK: Present Tense - Second Person Plural
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentSecondPluralForm .
+    ?presentSecondPluralForm ontolex:representation ?presentSecondPlural ;
+      wikibase:grammaticalFeature wd:Q192613 ;
+      wikibase:grammaticalFeature wd:Q51929049 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # MARK: Present Tense - Third Person Plural
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentThirdPluralForm .
+    ?presentThirdPluralForm ontolex:representation ?presentThirdPlural ;
+      wikibase:grammaticalFeature wd:Q192613 ;
+      wikibase:grammaticalFeature wd:Q51929074 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+}

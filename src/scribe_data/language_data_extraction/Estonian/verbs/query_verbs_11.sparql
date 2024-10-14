@@ -1,0 +1,30 @@
+# tool: scribe-data
+# All Estonian verbs and the corresponding forms per case.
+# Enter this query at https://query.wikidata.org/
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+  ?presentParticiple
+  ?pastParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  # MARK: Present Participle form
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
+    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
+
+  # MARK: Past Participle form
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q1994301 ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
+}

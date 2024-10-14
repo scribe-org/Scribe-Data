@@ -1,0 +1,66 @@
+# tool: scribe-data
+# All Estonian verbs and the corresponding forms per case.
+# Enter this query at https://query.wikidata.org/
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+  ?supine
+  ?supineAbessive
+  ?supineInessive
+  ?supineElative
+  ?supineTranslative
+  ?supineImpersonalVerb
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  # MARK: Supine Form
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?supineForm .
+    ?supineForm ontolex:representation ?supine ;
+      wikibase:grammaticalFeature wd:Q548470 .
+  }
+
+  # MARK: Supine Abessive Case
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?supineAbessiveForm .
+    ?supineAbessiveForm ontolex:representation ?supineAbessive ;
+      wikibase:grammaticalFeature wd:Q548470 ;
+      wikibase:grammaticalFeature wd:Q319822 .
+  }
+
+  # MARK: Supine Inessive Case
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?supineInessiveForm .
+    ?supineInessiveForm ontolex:representation ?supineInessive ;
+      wikibase:grammaticalFeature wd:Q548470 ;
+      wikibase:grammaticalFeature wd:Q282031 .
+  }
+
+  # MARK: Supine Elative Case
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?supineElativeForm .
+    ?supineElativeForm ontolex:representation ?supineElative ;
+      wikibase:grammaticalFeature wd:Q548470 ;
+      wikibase:grammaticalFeature wd:Q394253 .
+  }
+
+  # MARK: Supine Translative Case
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?supineTranslativeForm .
+    ?supineTranslativeForm ontolex:representation ?supineTranslative ;
+      wikibase:grammaticalFeature wd:Q548470 ;
+      wikibase:grammaticalFeature wd:Q950170 .
+  }
+
+  # MARK: Supine with Impersonal Verb
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?supineImpersonalVerbForm .
+    ?supineImpersonalVerbForm ontolex:representation ?supineImpersonalVerb ;
+      wikibase:grammaticalFeature wd:Q548470 ;
+      wikibase:grammaticalFeature wd:Q1509829 .
+  }
+}

@@ -1,0 +1,37 @@
+# tool: scribe-data
+# All Estonian verbs and the corresponding forms per case.
+# Enter this query at https://query.wikidata.org/
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+  ?quotativePresent
+  ?impersonalForm
+  ?desForm
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  # MARK: Quotative Present form
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?quotativePresentForm .
+    ?quotativePresentForm ontolex:representation ?quotativePresent ;
+      wikibase:grammaticalFeature wd:Q7272884 .
+  }
+
+  # MARK: Impersonal form
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?impersonalFormForm .
+    ?impersonalFormForm ontolex:representation ?impersonalForm ;
+      wikibase:grammaticalFeature wd:Q1509829 .
+  }
+
+  # MARK: Des-form
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?desFormForm .
+    ?desFormForm ontolex:representation ?desForm ;
+      wikibase:grammaticalFeature wd:Q12360803 .
+  }
+}
