@@ -73,6 +73,7 @@ def list_data_types(language: str = None) -> None:
     """
     languages = list_all_languages(language_metadata)
     if language:
+        language = format_sublanguage_name(language, language_metadata)
         language_data = language_map.get(language.lower())
         language_capitalized = language.capitalize()
         language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language_capitalized
@@ -132,9 +133,11 @@ def list_languages_for_data_type(data_type: str) -> None:
             The data type to check for.
     """
     data_type = correct_data_type(data_type=data_type)
+    all_languages = list_all_languages(language_metadata)
     available_languages = []
-    for lang in language_metadata["languages"]:
-        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / lang["language"].capitalize()
+    for lang in all_languages:
+        lang = format_sublanguage_name(lang, language_metadata)
+        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / lang.capitalize()
         if language_dir.is_dir():
             dt_path = language_dir / data_type
             if dt_path.exists():
