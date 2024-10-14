@@ -487,3 +487,39 @@ def order_annotations(annotation: str) -> str:
     annotation_split = sorted(list(set(filter(None, annotation.split("/")))))
 
     return "/".join(annotation_split)
+
+
+def format_sublanguage_name(lang, language_metadata):
+    """
+    Formats the name of a sub-language by appending its main language
+    in the format 'mainlang/sublang'. If the language is not a sub-language,
+    the original language name is returned as-is.
+
+    Args:
+        lang (str): The name of the language or sub-language to format.
+        language_metadata (dict): The metadata containing information about
+                                  main languages and their sub-languages.
+
+    Returns:
+        str: The formatted language name if it's a sub-language
+             (e.g., 'norwegian/nynorsk'), otherwise the original name.
+
+    Example:
+        format_sublanguage_name("nynorsk", language_metadata)
+        'norwegian/nynorsk'
+
+        format_sublanguage_name("english", language_metadata)
+        'english'
+    """
+    # Iterate through the main languages in the metadata
+    for main_lang, lang_data in language_metadata.items():
+        # Check if the main language has sub-languages
+        if "sub_languages" in lang_data:
+            # Check if the provided language is a sub-language
+            for sub_lang in lang_data["sub_languages"]:
+                if lang.lower() == sub_lang.lower():
+                    # Return the formatted name mainlang/sublang
+                    return f"{main_lang}/{sub_lang}"
+
+    # If it's not a sub-language, return the original name
+    return lang
