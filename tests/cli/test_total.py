@@ -158,62 +158,94 @@ class TestGetQidByInput(unittest.TestCase):
 
 
 class TestValidateLanguageAndDataType(unittest.TestCase):
-    def setUp(self):
-        self.qid_mapping = {
+
+    @patch("scribe_data.cli.total.suggest_correction")
+    def test_validate_language_and_data_type_valid(self, mock_suggest):
+        mock_suggest.side_effect = lambda x, options: None
+        language_mapping = {
             "english": "Q1860",
-            "nouns": "Q1084",
-            "verbs": "Q24905",
+            "spanish": "Q1321",
+            "french": "Q150",
         }
 
-    def mock_get_qid(self, input_value):
-        """Returns QID based on the input language or data type."""
-        return self.qid_mapping.get(input_value.lower())
+        data_type_mapping = {
+            "noun": "Q1084",
+            "verb": "Q24905",
+        }
 
-    @patch("scribe_data.cli.total.get_qid_by_input")
-    def test_validate_language_and_data_type_valid(self, mock_get_qid):
-        mock_get_qid.side_effect = self.mock_get_qid
+        language_qid, data_type_qid = validate_language_and_data_type("English", "noun", language_mapping, data_type_mapping)
+        
+        self.assertEqual(language_qid, "Q1860")
+        self.assertEqual(data_type_qid, "Q1084")
 
-        language_qid = mock_get_qid("English")
-        data_type_qid = mock_get_qid("nouns")
+    @patch("scribe_data.cli.total.suggest_correction")
+    def test_validate_language_and_data_type_invalid_data_type(self, mock_suggest):
+        mock_suggest.side_effect = lambda x, options: "noun" if x == "nounss" else None
+        language_mapping = {
+            "english": "Q1860",
+            "spanish": "Q1321",
+        }
 
-        try:
-            validate_language_and_data_type(language_qid, data_type_qid)
-
-        except ValueError:
-            self.fail("validate_language_and_data_type raised ValueError unexpectedly!")
-
-    @patch("scribe_data.cli.total.get_qid_by_input")
-    def test_validate_language_and_data_type_invalid_language(self, mock_get_qid):
-        mock_get_qid.side_effect = self.mock_get_qid
-
-        language_qid = mock_get_qid("InvalidLanguage")
-        data_type_qid = mock_get_qid("nouns")
-
-        with self.assertRaises(ValueError) as context:
-            validate_language_and_data_type(language_qid, data_type_qid)
-
-        self.assertEqual(str(context.exception), "Total number of lexemes: Not found")
-
-    @patch("scribe_data.cli.total.get_qid_by_input")
-    def test_validate_language_and_data_type_invalid_data_type(self, mock_get_qid):
-        mock_get_qid.side_effect = self.mock_get_qid
-
-        language_qid = mock_get_qid("English")
-        data_type_qid = mock_get_qid("InvalidDataType")
+        data_type_mapping = {
+            "noun": "Q1084",
+            "verb": "Q24905",
+        }
 
         with self.assertRaises(ValueError) as context:
-            validate_language_and_data_type(language_qid, data_type_qid)
+            validate_language_and_data_type("English", "nounss", language_mapping, data_type_mapping)
 
-        self.assertEqual(str(context.exception), "Total number of lexemes: Not found")
+        self.assertEqual(str(context.exception), "Invalid data type. Did you mean 'noun'?")
 
-    @patch("scribe_data.cli.total.get_qid_by_input")
-    def test_validate_language_and_data_type_both_invalid(self, mock_get_qid):
-        mock_get_qid.side_effect = lambda x: None  # Simulate invalid inputs
+    @patch("scribe_data.cli.total.suggest_correction")
+    def test_validate_language_and_data_type_invalid_language(self, mock_suggest):
+        mock_suggest.side_effect = lambda x, options: "English" if x == "Englishh" else None
+        language_mapping = {
+            "english": "Q1860",
+            "spanish": "Q1321",
+        }
 
-        language_qid = mock_get_qid("InvalidLanguage")
-        data_type_qid = mock_get_qid("InvalidDataType")
+        data_type_mapping = {
+            "noun": "Q1084",
+            "verb": "Q24905",
+        }
 
         with self.assertRaises(ValueError) as context:
-            validate_language_and_data_type(language_qid, data_type_qid)
+            validate_language_and_data_type("Englishh", "noun", language_mapping, data_type_mapping)
 
-        self.assertEqual(str(context.exception), "Total number of lexemes: Not found")
+        self.assertEqual(str(context.exception), "Invalid language. Did you mean 'English'?")
+
+    @patch("scribe_data.cli.total.suggest_correction")
+    def test_validate_language_and_data_type_both_invalid(self, mock_suggest):
+        mock_suggest.side_effect = lambda x, options: None
+        language_mapping = {
+            "english": "Q1860",
+            "spanish": "Q1321",
+        }
+
+        data_type_mapping = {
+            "noun": "Q1084",
+            "verb": "Q24905",
+        }
+
+        with self.assertRaises(ValueError) as context:
+            validate_language_and_data_type("German", "nounss", language_mapping, data_type_mapping)
+
+        self.assertEqual(str(context.exception), "Invalid language. No suggestions found. Invalid data type. No suggestions found.")
+
+    @patch("scribe_data.cli.total.suggest_correction")
+    def test_validate_language_and_data_type_both_misspelled(self, mock_suggest):
+        mock_suggest.side_effect = lambda x, options: ("English" if x == "Englsh" else "noun" if x == "nouns" else None)
+        language_mapping = {
+            "english": "Q1860",
+            "spanish": "Q1321",
+        }
+
+        data_type_mapping = {
+            "noun": "Q1084",
+            "verb": "Q24905",
+        }
+
+        with self.assertRaises(ValueError) as context:
+            validate_language_and_data_type("Englsh", "nouns", language_mapping, data_type_mapping)
+
+        self.assertEqual(str(context.exception), "Invalid language. Did you mean 'English'? Invalid data type. Did you mean 'noun'?")
