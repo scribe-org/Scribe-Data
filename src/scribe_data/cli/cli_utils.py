@@ -36,11 +36,21 @@ DATA_TYPE_METADATA_FILE = (
 )
 DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
 
-with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
-    language_metadata = json.load(file)
+try:
+    with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
+        language_metadata = json.load(file)
 
-with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
-    data_type_metadata = json.load(file)
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading language metadata: {e}")
+
+
+try:
+    with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
+        data_type_metadata = json.load(file)
+
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading data type metadata: {e}")
+
 
 language_map = {}
 language_to_qid = {}

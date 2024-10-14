@@ -23,7 +23,11 @@ Tests for the CLI total functionality.
 import unittest
 from unittest.mock import MagicMock, call, patch
 
-from scribe_data.cli.total import get_qid_by_input, get_total_lexemes
+from scribe_data.cli.total import (
+    get_qid_by_input,
+    get_total_lexemes,
+    validate_language_and_data_type,
+)
 
 
 class TestTotalLexemes(unittest.TestCase):
@@ -151,3 +155,65 @@ class TestGetQidByInput(unittest.TestCase):
         mock_data_type_metadata.update(self.valid_data_types)
 
         self.assertIsNone(get_qid_by_input("invalid_data_type"))
+
+
+class TestValidateLanguageAndDataType(unittest.TestCase):
+    def setUp(self):
+        self.qid_mapping = {
+            "english": "Q1860",
+            "nouns": "Q1084",
+            "verbs": "Q24905",
+        }
+
+    def mock_get_qid(self, input_value):
+        """Returns QID based on the input language or data type."""
+        return self.qid_mapping.get(input_value.lower())
+
+    @patch("scribe_data.cli.total.get_qid_by_input")
+    def test_validate_language_and_data_type_valid(self, mock_get_qid):
+        mock_get_qid.side_effect = self.mock_get_qid
+
+        language_qid = mock_get_qid("English")
+        data_type_qid = mock_get_qid("nouns")
+
+        try:
+            validate_language_and_data_type(language_qid, data_type_qid)
+
+        except ValueError:
+            self.fail("validate_language_and_data_type raised ValueError unexpectedly!")
+
+    @patch("scribe_data.cli.total.get_qid_by_input")
+    def test_validate_language_and_data_type_invalid_language(self, mock_get_qid):
+        mock_get_qid.side_effect = self.mock_get_qid
+
+        language_qid = mock_get_qid("InvalidLanguage")
+        data_type_qid = mock_get_qid("nouns")
+
+        with self.assertRaises(ValueError) as context:
+            validate_language_and_data_type(language_qid, data_type_qid)
+
+        self.assertEqual(str(context.exception), "Total number of lexemes: Not found")
+
+    @patch("scribe_data.cli.total.get_qid_by_input")
+    def test_validate_language_and_data_type_invalid_data_type(self, mock_get_qid):
+        mock_get_qid.side_effect = self.mock_get_qid
+
+        language_qid = mock_get_qid("English")
+        data_type_qid = mock_get_qid("InvalidDataType")
+
+        with self.assertRaises(ValueError) as context:
+            validate_language_and_data_type(language_qid, data_type_qid)
+
+        self.assertEqual(str(context.exception), "Total number of lexemes: Not found")
+
+    @patch("scribe_data.cli.total.get_qid_by_input")
+    def test_validate_language_and_data_type_both_invalid(self, mock_get_qid):
+        mock_get_qid.side_effect = lambda x: None  # Simulate invalid inputs
+
+        language_qid = mock_get_qid("InvalidLanguage")
+        data_type_qid = mock_get_qid("InvalidDataType")
+
+        with self.assertRaises(ValueError) as context:
+            validate_language_and_data_type(language_qid, data_type_qid)
+
+        self.assertEqual(str(context.exception), "Total number of lexemes: Not found")
