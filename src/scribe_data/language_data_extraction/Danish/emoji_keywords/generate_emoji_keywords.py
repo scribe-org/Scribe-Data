@@ -1,5 +1,5 @@
 """
-Generates keyword-emoji relationships from a selection of Malayalam words.
+Generates keyword-emoji relationships from a selection of Danish words.
 
 .. raw:: html
     <!--

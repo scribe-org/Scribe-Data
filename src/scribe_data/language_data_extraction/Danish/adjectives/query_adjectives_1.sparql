@@ -5,49 +5,31 @@
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
-  ?definite
-  ?indefinite
-  ?positive
-  ?comparative
-  ?superlative
+  ?commonSingularIndefinite
+  ?neuterSingularIndefinite
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
 
-  # MARK: Definite
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?definiteForm .
-    ?definiteForm ontolex:representation ?definite ;
-      wikibase:grammaticalFeature wd:Q53997851 .
-  } .
-
   # MARK: Indefinite
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indefiniteForm .
-    ?indefiniteForm ontolex:representation ?indefinite ;
-      wikibase:grammaticalFeature wd:Q53997857 .
+    ?lexeme ontolex:lexicalForm ?commonSingularIndefiniteForm .
+    ?commonSingularIndefiniteForm ontolex:representation ?commonSingularIndefinite ;
+      wikibase:grammaticalFeature wd:Q1305037 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+      wikibase:grammaticalFeature wd:Q3482678 .
   } .
 
-  # MARK: Comparative
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comparativeForm .
-    ?comparativeForm ontolex:representation ?comparative ;
-      wikibase:grammaticalFeature wd:Q14169499 .
-  } .
-
-  # MARK: Superlative
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?superlativeForm .
-    ?superlativeForm ontolex:representation ?superlative ;
-      wikibase:grammaticalFeature wd:Q1817208 .
-  } .
-
-  # MARK: Positive
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?positiveForm .
-    ?positiveForm ontolex:representation ?positive ;
-      wikibase:grammaticalFeature wd:Q3482678.
+    ?lexeme ontolex:lexicalForm ?neuterSingularIndefiniteForm .
+    ?neuterSingularIndefiniteForm ontolex:representation ?neuterSingularIndefinite ;
+      wikibase:grammaticalFeature wd:Q1775461 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q53997857 ;
+      wikibase:grammaticalFeature wd:Q3482678 .
   } .
 }
