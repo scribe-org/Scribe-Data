@@ -159,41 +159,15 @@ class TestGetQidByInput(unittest.TestCase):
 
 class TestValidateLanguageAndDataType(unittest.TestCase):
     def setUp(self):
-        # Updated mappings
-        self.language_mapping = {
+        self.qid_mapping = {
             "english": "Q1860",
-            "french": "Q150",
-            "german": "Q188",
-            "italian": "Q652",
-            "portuguese": "Q5146",
-            "russian": "Q7737",
-            "spanish": "Q1321",
-            "swedish": "Q9027"
-        }
-        self.data_type_mapping = {
-            "adjectives": "Q34698",
-            "adverbs": "Q380057",
-            "articles": "Q103184",
-            "autosuggestions": "",
-            "conjunctions": "Q36484",
-            "emoji_keywords": "",
             "nouns": "Q1084",
-            "personal_pronouns": "Q468801",
-            "postpositions": "Q161873",
-            "prepositions": "Q4833830",
-            "pronouns": "Q36224",
-            "proper_nouns": "Q147276",
-            "verbs": "Q24905"
+            "verbs": "Q24905",
         }
 
     def mock_get_qid(self, input_value):
         """Returns QID based on the input language or data type."""
-        input_value_lower = input_value.lower()
-        # First check for language QID
-        if input_value_lower in self.language_mapping:
-            return self.language_mapping[input_value_lower]
-        # Then check for data type QID
-        return self.data_type_mapping.get(input_value_lower)
+        return self.qid_mapping.get(input_value.lower())
 
     @patch("scribe_data.cli.total.get_qid_by_input")
     def test_validate_language_and_data_type_valid(self, mock_get_qid):
@@ -204,6 +178,7 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
 
         try:
             validate_language_and_data_type(language_qid, data_type_qid)
+
         except ValueError:
             self.fail("validate_language_and_data_type raised ValueError unexpectedly!")
 

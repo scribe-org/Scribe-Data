@@ -23,6 +23,7 @@ Setup and commands for the Scribe-Data command line interface.
 #!/usr/bin/env python3
 import argparse
 
+from scribe_data.cli.cli_utils import validate_language_and_data_type
 from scribe_data.cli.convert import convert_to_csv_or_tsv, convert_to_sqlite
 from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
@@ -200,6 +201,7 @@ def main() -> None:
     # MARK: Setup CLI
 
     args = parser.parse_args()
+    validate_language_and_data_type(language=args.language, data_type=args.data_type)
 
     if args.upgrade:
         upgrade_cli()
