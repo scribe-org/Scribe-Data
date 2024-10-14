@@ -30,6 +30,7 @@ from scribe_data.cli.cli_utils import (
     language_to_qid,
 )
 from scribe_data.wikidata.wikidata_utils import sparql
+from scribe_data.utils import list_all_languages, format_sublanguage_name
 
 
 def get_qid_by_input(input_str):
@@ -71,12 +72,14 @@ def get_datatype_list(language):
         data_types : list[str] or None
             A list of the corresponding data types.
     """
-    languages = list(language_metadata.keys())
+    languages = list_all_languages(language_metadata)
     language_list = [lang for lang in languages]
 
     if language.lower() in language_list:
         language_data = language_map.get(language.lower())
-        language_capitalized = language.capitalize()
+        language_capitalized = format_sublanguage_name(
+            language, language_metadata
+        ).capitalize()
         language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language_capitalized
 
         if not language_data:
@@ -131,9 +134,11 @@ def print_total_lexemes(language: str = None):
     print("=" * 64)
 
     if language is None:  # all languages
-        languages = list(language_metadata["languages"])
-        languages.sort(key=lambda x: x["language"])
-        language_list = [lang["language"] for lang in languages]
+        languages = list_all_languages(
+            language_metadata
+        )  # this returns a list of language names
+        language_list = languages  # sorts the list in place
+        language_list.sort()
 
         for lang in language_list:
             data_types = get_datatype_list(lang)
