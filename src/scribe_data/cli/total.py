@@ -169,7 +169,7 @@ def print_total_lexemes(language: str = None, language_mapping=None, data_type_m
 # MARK: Get Total
 
 
-def get_total_lexemes(language, data_type, doPrint=True, language_mapping=None, data_type_mapping=None):
+def get_total_lexemes(language, data_type):
     """
     Get the total number of lexemes for a given language and data type from Wikidata.
 
@@ -187,6 +187,11 @@ def get_total_lexemes(language, data_type, doPrint=True, language_mapping=None, 
         A formatted string indicating the language, data type and total number of lexemes, if found.
     """
     try:
+        language_mapping = {    "english": "Q1860",    "french": "Q150",    "german": "Q188",    "italian": "Q652",    "portuguese": "Q5146",    "russian": "Q7737",    "spanish": "Q1321",    "swedish": "Q9027"}
+
+        data_type_mapping = {  "adjectives": "Q34698",  "adverbs": "Q380057",  "articles": "Q103184",  "autosuggestions": "",  "conjunctions": "Q36484",  "emoji_keywords": "",  "nouns": "Q1084",  "personal_pronouns": "Q468801",  "postpositions": "Q161873",  "prepositions": "Q4833830",  "pronouns": "Q36224",  "proper_nouns": "Q147276",  "verbs": "Q24905"}
+
+
         # Validate language and data type, raise error if invalid.
         language_qid, data_type_qid = validate_language_and_data_type(language, data_type, language_mapping, data_type_mapping)
 
