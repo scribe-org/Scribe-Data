@@ -1,12 +1,13 @@
 # tool: scribe-data
 # All Finnish (Q1412) adjectives.
 # Enter this query at https://query.wikidata.org/.
+
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?adjectives
+  ?adjective
 
 WHERE {
   ?lexeme dct:language wd:Q1412 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjectives .
+    wikibase:lemma ?adjective .
 }
