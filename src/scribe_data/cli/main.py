@@ -201,7 +201,10 @@ def main() -> None:
     # MARK: Setup CLI
 
     args = parser.parse_args()
-    validate_language_and_data_type(language=args.language, data_type=args.data_type)
+    if args.language or args.data_type:
+        validate_language_and_data_type(
+            language=args.language, data_type=args.data_type
+        )
 
     if args.upgrade:
         upgrade_cli()

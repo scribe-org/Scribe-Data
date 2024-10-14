@@ -181,7 +181,8 @@ def validate_language_and_data_type(language: str, data_type: str):
     value_error = ""
 
     if (
-        language.lower() not in language_to_qid.keys()
+        isinstance(language, str)
+        and language.lower() not in language_to_qid.keys()
         and not language.startswith("Q")
         and not language[1:].isdigit()
     ):
@@ -194,7 +195,7 @@ def validate_language_and_data_type(language: str, data_type: str):
                 f" The closest matching language is {closest_language_match_cap}."
             )
 
-    if data_type not in data_type_metadata.keys():
+    if isinstance(data_type, str) and data_type not in data_type_metadata.keys():
         data_type_is_valid = False
 
         if closest_data_type_match := difflib.get_close_matches(
