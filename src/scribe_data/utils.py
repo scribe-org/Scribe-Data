@@ -27,7 +27,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 from iso639 import Lang
-from iso639.exceptions import DeprecatedLanguageValue, InvalidLanguageValue
+from iso639.exceptions import DeprecatedLanguageValue
 
 PROJECT_ROOT = "Scribe-Data"
 DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
@@ -174,12 +174,13 @@ def get_language_iso(language: str) -> str:
         str
             The ISO code for the language.
     """
-    try:
-        iso_code = str(Lang(language.capitalize()).pt1)
-    except InvalidLanguageValue:
-        raise ValueError(
-            f"{language.capitalize()} is currently not a supported language for ISO conversion."
-        ) from None
+
+    iso_code = _find(
+        "language",
+        language,
+        "iso",
+        f"{language.upper()} is currently not a supported language for ISO conversion.",
+    )
     return iso_code
 
 
