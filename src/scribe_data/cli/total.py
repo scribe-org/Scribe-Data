@@ -71,8 +71,8 @@ def get_datatype_list(language):
         data_types : list[str] or None
             A list of the corresponding data types.
     """
-    languages = list(language_metadata["languages"])
-    language_list = [lang["language"] for lang in languages]
+    languages = list(language_metadata.keys())
+    language_list = [lang for lang in languages]
 
     if language.lower() in language_list:
         language_data = language_map.get(language.lower())
