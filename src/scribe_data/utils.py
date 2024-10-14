@@ -523,3 +523,20 @@ def format_sublanguage_name(lang, language_metadata):
 
     # If it's not a sub-language, return the original name
     return lang
+
+
+def list_all_languages(language_metadata):
+    """List all languages from the provided metadata dictionary, including sub-languages."""
+    current_languages = []
+
+    # Iterate through the language metadata
+    for lang_key, lang_data in language_metadata.items():
+        # Check if there are sub-languages
+        if "sub_languages" in lang_data:
+            # Add the sub-languages to current_languages
+            current_languages.extend(lang_data["sub_languages"].keys())
+        else:
+            # If no sub-languages, add the main language
+            current_languages.append(lang_key)
+
+    return current_languages
