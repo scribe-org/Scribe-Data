@@ -520,10 +520,10 @@ def format_sublanguage_name(lang, language_metadata):
             for sub_lang in lang_data["sub_languages"]:
                 if lang.lower() == sub_lang.lower():
                     # Return the formatted name mainlang/sublang
-                    return f"{main_lang}/{sub_lang}"
+                    return f"{main_lang.capitalize()}/{sub_lang.capitalize()}"
 
     # If it's not a sub-language, return the original name
-    return lang
+    return lang.capitalize()
 
 
 def list_all_languages(language_metadata):
