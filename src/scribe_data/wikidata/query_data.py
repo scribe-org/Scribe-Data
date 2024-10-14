@@ -33,6 +33,7 @@ from tqdm.auto import tqdm
 from scribe_data.cli.cli_utils import (
     language_metadata,
 )
+from scribe_data.utils import format_sublanguage_name
 from scribe_data.wikidata.wikidata_utils import sparql
 
 
@@ -147,7 +148,7 @@ def query_data(
         disable=interactive,
         colour="MAGENTA",
     ):
-        lang = q.parent.parent.name
+        lang = format_sublanguage_name(q.parent.parent.name, language_metadata)
         target_type = q.parent.name
 
         updated_path = output_dir[2:] if output_dir.startswith("./") else output_dir
