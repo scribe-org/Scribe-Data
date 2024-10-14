@@ -26,18 +26,19 @@ from scribe_data.cli.cli_utils import (
     language_map,
     LANGUAGE_DATA_EXTRACTION_DIR,
 )
+from scribe_data.utils import list_all_languages, get_language_iso, get_language_qid
 
 
 def list_languages() -> None:
     """
     Generates a table of languages, their ISO-2 codes and their Wikidata QIDs.
     """
-    languages = list(language_metadata["languages"])
-    languages.sort(key=lambda x: x["language"])
+    languages = list_all_languages(language_metadata)
+    languages.sort()
 
-    language_col_width = max(len(lang["language"]) for lang in languages) + 2
-    iso_col_width = max(len(lang["iso"]) for lang in languages) + 2
-    qid_col_width = max(len(lang["qid"]) for lang in languages) + 2
+    language_col_width = max(len(lang) for lang in languages) + 2
+    iso_col_width = max(len(get_language_iso(lang)) for lang in languages) + 2
+    qid_col_width = max(len(get_language_qid(lang)) for lang in languages) + 2
 
     table_line_length = language_col_width + iso_col_width + qid_col_width
 
@@ -49,7 +50,7 @@ def list_languages() -> None:
 
     for lang in languages:
         print(
-            f"{lang['language'].capitalize():<{language_col_width}} {lang['iso']:<{iso_col_width}} {lang['qid']:<{qid_col_width}}"
+            f"{lang.capitalize():<{language_col_width}} {get_language_iso(lang):<{iso_col_width}} {get_language_qid(lang):<{qid_col_width}}"
         )
 
     print("-" * table_line_length)
