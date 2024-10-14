@@ -212,6 +212,8 @@ def get_total_lexemes(language, data_type, doPrint=True):
     else:
         data_type_qid = get_qid_by_input(data_type)
 
+    # MARK: Construct Query
+
     query_template = """
     SELECT
         (COUNT(DISTINCT ?lexeme) as ?total)
@@ -238,6 +240,8 @@ def get_total_lexemes(language, data_type, doPrint=True):
     query = query_template.format(
         language_filter=language_filter, data_type_filter=data_type_filter
     )
+
+    # MARK: Query Results
 
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)

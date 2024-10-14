@@ -23,7 +23,10 @@ Tests for the CLI total functionality.
 import unittest
 from unittest.mock import MagicMock, call, patch
 
-from scribe_data.cli.total import get_qid_by_input, get_total_lexemes
+from scribe_data.cli.total import (
+    get_qid_by_input,
+    get_total_lexemes,
+)
 
 
 class TestTotalLexemes(unittest.TestCase):
