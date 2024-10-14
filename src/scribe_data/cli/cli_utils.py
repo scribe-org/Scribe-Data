@@ -20,6 +20,7 @@ Utility functions for the Scribe-Data CLI.
     -->
 """
 
+import difflib
 import json
 from pathlib import Path
 from typing import Union
@@ -62,6 +63,9 @@ language_to_qid = {
 }
 
 
+# MARK: Correct Inputs
+
+
 def correct_data_type(data_type: str) -> str:
     """
     Corrects common versions of data type arguments so users can choose between them.
@@ -83,6 +87,9 @@ def correct_data_type(data_type: str) -> str:
     for wt in all_data_types:
         if f"{data_type}s" == wt:
             return wt
+
+
+# MARK: Print Formatted
 
 
 def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
@@ -143,3 +150,84 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
 
     else:
         print(data)
+
+
+# MARK: Validate
+
+
+def validate_language_and_data_type(language: str, data_type: str):
+    """
+    Validates that the language and data type QIDs are not None.
+
+    Parameters
+    ----------
+        language : str
+            The language to validate.
+
+        data_type : str
+            The data type to validate.
+
+    Raises
+    ------
+        ValueError
+            If either the language or data type is invalid (None).
+    """
+    # Not functional for lists of arguments yet.
+    if isinstance(language, list) or isinstance(data_type, list):
+        return
+
+    language_is_valid = True
+    data_type_is_valid = True
+
+    value_error = ""
+    closest_language_match_string = ""
+    closest_data_type_match_string = ""
+
+    if (
+        isinstance(language, str)
+        and language.lower() not in language_to_qid.keys()
+        and not language.startswith("Q")
+        and not language[1:].isdigit()
+    ):
+        language_is_valid = False
+        if closest_language_match := difflib.get_close_matches(
+            language, language_map.keys(), n=1
+        ):
+            closest_language_match_cap = closest_language_match[0].capitalize()
+            closest_language_match_string = (
+                f" The closest matching language is {closest_language_match_cap}."
+            )
+
+    if (
+        isinstance(data_type, str)
+        and data_type not in data_type_metadata.keys()
+        and not data_type.startswith("Q")
+        and not data_type[1:].isdigit()
+    ):
+        data_type_is_valid = False
+
+        if closest_data_type_match := difflib.get_close_matches(
+            data_type, data_type_metadata.keys(), n=1
+        ):
+            closest_data_type_match_string = (
+                f" The closest matching data-type is {closest_data_type_match[0]}."
+            )
+
+    if not language_is_valid and data_type_is_valid:
+        value_error = (
+            f"Invalid language {language} passed.{closest_language_match_string}"
+        )
+
+        raise ValueError(value_error)
+
+    elif language_is_valid and not data_type_is_valid:
+        value_error = (
+            f"Invalid data-type {data_type} passed.{closest_data_type_match_string}"
+        )
+
+        raise ValueError(value_error)
+
+    elif not language_is_valid and not data_type_is_valid:
+        value_error = f"Invalid language {language} and data-type {data_type} passed.{closest_language_match_string}{closest_data_type_match_string}"
+
+        raise ValueError(value_error)
