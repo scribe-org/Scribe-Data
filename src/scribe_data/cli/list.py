@@ -26,7 +26,12 @@ from scribe_data.cli.cli_utils import (
     language_map,
     LANGUAGE_DATA_EXTRACTION_DIR,
 )
-from scribe_data.utils import list_all_languages, get_language_iso, get_language_qid
+from scribe_data.utils import (
+    list_all_languages,
+    get_language_iso,
+    get_language_qid,
+    format_sublanguage_name,
+)
 
 
 def list_languages() -> None:
@@ -66,6 +71,7 @@ def list_data_types(language: str = None) -> None:
         language : str
             The language to potentially list data types for.
     """
+    languages = list_all_languages(language_metadata)
     if language:
         language_data = language_map.get(language.lower())
         language_capitalized = language.capitalize()
@@ -84,8 +90,11 @@ def list_data_types(language: str = None) -> None:
 
     else:
         data_types = set()
-        for lang in language_metadata["languages"]:
-            language_dir = LANGUAGE_DATA_EXTRACTION_DIR / lang["language"].capitalize()
+        for lang in languages:
+            language_dir = (
+                LANGUAGE_DATA_EXTRACTION_DIR
+                / format_sublanguage_name(lang, language_metadata).capitalize()
+            )
             if language_dir.is_dir():
                 data_types.update(f.name for f in language_dir.iterdir() if f.is_dir())
 
