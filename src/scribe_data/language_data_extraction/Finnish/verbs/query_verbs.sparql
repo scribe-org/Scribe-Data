@@ -1,7 +1,3 @@
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
 # tool: scribe-data
 # All Finnish (Q1412) verbs and their forms.
 # Enter this query at https://query.wikidata.org/.
