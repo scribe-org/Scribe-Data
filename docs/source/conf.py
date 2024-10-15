@@ -63,7 +63,7 @@ autodoc_mock_imports = [
     "pytest-cov",
     "ruff",
     "SPARQLWrapper",
-    "tqdm"
+    "tqdm",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
