@@ -2,7 +2,7 @@
 # All Estonian (Q380057) adverbs and the corresponding forms per case.
 # Enter this query at https://query.wikidata.org/
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adverb
   ?nominativeSingular

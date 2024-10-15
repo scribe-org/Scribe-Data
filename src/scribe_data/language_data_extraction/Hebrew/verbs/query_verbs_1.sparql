@@ -2,7 +2,7 @@
 # All Hebrew (Q9288) verbs and the currently implemented tenses for each.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
   ?presSF ?presSM ?presPF ?presPM
