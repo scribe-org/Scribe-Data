@@ -1,3 +1,7 @@
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX wd: <http://www.wikidata.org/entity/>
 # tool: scribe-data
 # All Hausa (Q56475) verbs.
 # Enter this query at https://query.wikidata.org/.
