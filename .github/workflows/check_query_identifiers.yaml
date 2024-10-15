@@ -1,4 +1,4 @@
-name: check_query_identifiers.yaml
+name: check_query_identifiers
 on:
   push:
     branches: [main]
