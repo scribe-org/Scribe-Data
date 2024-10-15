@@ -2,7 +2,7 @@
 # All Standard Mandarin Chinese (Q727694) adverbs.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adverb
 
@@ -10,4 +10,5 @@ WHERE {
   ?lexeme dct:language wd:Q727694 ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb .
+    FILTER(LANG(?adverb) = "zh") .
 }
