@@ -23,7 +23,7 @@ Utility functions for the Scribe-Data CLI.
 import difflib
 import json
 from pathlib import Path
-from typing import Union
+from typing import Union, List
 
 from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 
@@ -155,79 +155,91 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
 # MARK: Validate
 
 
-def validate_language_and_data_type(language: str, data_type: str):
+def validate_language_and_data_type(
+    language: Union[str, List[str], bool, None],
+    data_type: Union[str, List[str], bool, None],
+):
     """
     Validates that the language and data type QIDs are not None.
 
     Parameters
     ----------
-        language : str
-            The language to validate.
-
-        data_type : str
-            The data type to validate.
+    language : str or list
+        The language(s) to validate.
+    data_type : str or list
+        The data type(s) to validate.
 
     Raises
     ------
-        ValueError
-            If either the language or data type is invalid (None).
+    ValueError
+        If any of the languages or data types is invalid, with all errors reported together.
     """
-    # Not functional for lists of arguments yet.
-    if isinstance(language, list) or isinstance(data_type, list):
-        return
 
-    language_is_valid = True
-    data_type_is_valid = True
+    def validate_single_item(item, valid_options, item_type):
+        """
+        Validates a single item against a list of valid options, providing error messages and suggestions.
 
-    value_error = ""
-    closest_language_match_string = ""
-    closest_data_type_match_string = ""
+        Parameters
+        ----------
+        item : str
+            The item to validate.
+        valid_options : list
+            A list of valid options against which the item will be validated.
+        item_type : str
+            A description of the item type (e.g., "language", "data-type") used in error messages.
 
-    if (
-        isinstance(language, str)
-        and language.lower() not in language_to_qid.keys()
-        and not language.startswith("Q")
-        and not language[1:].isdigit()
-    ):
-        language_is_valid = False
-        if closest_language_match := difflib.get_close_matches(
-            language, language_map.keys(), n=1
+        Returns
+        -------
+        str or None
+            Returns an error message if the item is invalid, or None if the item is valid.
+        """
+        if (
+            isinstance(item, str)
+            and item.lower().strip() not in valid_options
+            and not item.startswith("Q")
+            and not item[1:].isdigit()
         ):
-            closest_language_match_cap = closest_language_match[0].capitalize()
-            closest_language_match_string = (
-                f" The closest matching language is {closest_language_match_cap}."
+            closest_match = difflib.get_close_matches(item, valid_options, n=1)
+            closest_match_str = (
+                f" The closest matching {item_type} is {closest_match[0]}"
+                if closest_match
+                else ""
             )
+            return f"Invalid {item_type} {item}{closest_match_str}"
+        return None
 
-    if (
-        isinstance(data_type, str)
-        and data_type not in data_type_metadata.keys()
-        and not data_type.startswith("Q")
-        and not data_type[1:].isdigit()
-    ):
-        data_type_is_valid = False
+    errors = []
 
-        if closest_data_type_match := difflib.get_close_matches(
-            data_type, data_type_metadata.keys(), n=1
-        ):
-            closest_data_type_match_string = (
-                f" The closest matching data-type is {closest_data_type_match[0]}."
-            )
+    # Handle language validation
+    if language is None or isinstance(language, bool):
+        pass
+    elif isinstance(language, str):
+        language = [language]
+    elif not isinstance(language, list):
+        errors.append("Language must be a string or a list of strings.")
 
-    if not language_is_valid and data_type_is_valid:
-        value_error = (
-            f"Invalid language {language} passed.{closest_language_match_string}"
-        )
+    if language is not None and isinstance(language, list):
+        for lang in language:
+            error = validate_single_item(lang, language_to_qid.keys(), "language")
+            if error:
+                errors.append(error)
 
-        raise ValueError(value_error)
+    # Handle data type validation
+    if data_type is None or isinstance(data_type, bool):
+        pass
+    elif isinstance(data_type, str):
+        data_type = [data_type]
+    elif not isinstance(data_type, list):
+        errors.append("Data type must be a string or a list of strings.")
 
-    elif language_is_valid and not data_type_is_valid:
-        value_error = (
-            f"Invalid data-type {data_type} passed.{closest_data_type_match_string}"
-        )
+    if data_type is not None and isinstance(data_type, list):
+        for dt in data_type:
+            error = validate_single_item(dt, data_type_metadata.keys(), "data-type")
+            if error:
+                errors.append(error)
 
-        raise ValueError(value_error)
-
-    elif not language_is_valid and not data_type_is_valid:
-        value_error = f"Invalid language {language} and data-type {data_type} passed.{closest_language_match_string}{closest_data_type_match_string}"
-
-        raise ValueError(value_error)
+    # Raise ValueError with the combined error message
+    if errors:
+        raise ValueError(" and ".join(errors) + " passed.")
+    else:
+        return True
