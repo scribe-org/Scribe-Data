@@ -5,62 +5,75 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?imperativeSecondSingular ?imperativeFirstPlural ?imperativeSecondPlural ?imperativeImpersonal
-  ?negativePresent ?negativePast
+  ?imperativeSPS
+  ?imperativeFPP
+  ?imperativeSPP
+  ?imperativeImpersonal
+  ?negativePresent
+  ?negativePast
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
-          wikibase:lexicalCategory wd:Q24905 ;
-          wikibase:lemma ?verb .
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
 
   # MARK: Imperative Second Person Singular
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeSecondSingularForm .
-    ?imperativeSecondSingularForm ontolex:representation ?imperativeSecondSingular ;
-    wikibase:grammaticalFeature wd:Q22716 ;
-    wikibase:grammaticalFeature wd:Q51929049 ;
-    wikibase:grammaticalFeature wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?imperativeSPSForm .
+    ?imperativeSPSForm ontolex:representation ?imperativeSPS ;
+      wikibase:grammaticalFeature wd:Q22716 ;
+      wikibase:grammaticalFeature wd:Q51929049 ;
+      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q192613 .
   }
 
   # MARK: Imperative First Person Plural
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeFirstPluralForm .
-    ?imperativeFirstPluralForm ontolex:representation ?imperativeFirstPlural ;
-    wikibase:grammaticalFeature wd:Q22716 ;
-    wikibase:grammaticalFeature wd:Q21714344 ;
-    wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?imperativeFPPForm .
+    ?imperativeFPPForm ontolex:representation ?imperativeFPP ;
+      wikibase:grammaticalFeature wd:Q22716 ;
+      wikibase:grammaticalFeature wd:Q21714344 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q192613 .
   }
 
   # MARK: Imperative Second Person Plural
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeSecondPluralForm .
-    ?imperativeSecondPluralForm ontolex:representation ?imperativeSecondPlural ;
-    wikibase:grammaticalFeature wd:Q22716 ;
-    wikibase:grammaticalFeature wd:Q51929049 ;
-    wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?imperativeSPPForm .
+    ?imperativeSPPForm ontolex:representation ?imperativeSPP ;
+      wikibase:grammaticalFeature wd:Q22716 ;
+      wikibase:grammaticalFeature wd:Q51929049 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q192613 .
   }
 
   # MARK: Imperative Impersonal
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperativeImpersonalForm .
     ?imperativeImpersonalForm ontolex:representation ?imperativeImpersonal ;
-    wikibase:grammaticalFeature wd:Q22716 ;
-    wikibase:grammaticalFeature wd:Q1509829 .
+      wikibase:grammaticalFeature wd:Q22716 ;
+      wikibase:grammaticalFeature wd:Q1509829 .
   }
 
   # MARK: Negative Present
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?negativePresentForm .
     ?negativePresentForm ontolex:representation ?negativePresent ;
-    wikibase:grammaticalFeature wd:Q1478451 ;
-    wikibase:grammaticalFeature wd:Q192613 .
+      wikibase:grammaticalFeature wd:Q1478451 ;
+      wikibase:grammaticalFeature wd:Q192613 .
   }
 
   # MARK: Negative Past
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?negativePastForm .
     ?negativePastForm ontolex:representation ?negativePast ;
-    wikibase:grammaticalFeature wd:Q1478451 ;
-    wikibase:grammaticalFeature wd:Q1994301 .
+      wikibase:grammaticalFeature wd:Q1478451 ;
+      wikibase:grammaticalFeature wd:Q1994301 .
   }
 }

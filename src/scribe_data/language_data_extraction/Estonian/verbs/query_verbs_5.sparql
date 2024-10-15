@@ -5,46 +5,45 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?desForm ?supineForm ?infinitiveForm
-  ?quotativePresent ?impersonalForm
+  ?des
+  ?supine
+  ?quotative
+  ?impersonal
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
-          wikibase:lexicalCategory wd:Q24905 ;
-          wikibase:lemma ?verb .
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
 
-  # MARK: Des-form
+  # MARK: Des
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?desFormForm .
-    ?desFormForm ontolex:representation ?desForm ;
-    wikibase:grammaticalFeature wd:Q12360803 .
+    ?lexeme ontolex:lexicalForm ?desForm .
+    ?desForm ontolex:representation ?des ;
+      wikibase:grammaticalFeature wd:Q12360803 .
   }
 
-  # MARK: Supine Form
+  # MARK: Supine
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?supineForm .
-    ?supineForm ontolex:representation ?supineForm ;
-    wikibase:grammaticalFeature wd:Q548470 .
+    ?supineForm ontolex:representation ?supine ;
+      wikibase:grammaticalFeature wd:Q548470 .
   }
 
-  # MARK: Infinitive Form
+  # MARK: Quotative
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitiveForm ;
-    wikibase:grammaticalFeature wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?quotativeForm .
+    ?quotativeForm ontolex:representation ?quotative ;
+      wikibase:grammaticalFeature wd:Q7272884 .
   }
 
-  # MARK: Quotative Present
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?quotativePresentForm .
-    ?quotativePresentForm ontolex:representation ?quotativePresent ;
-    wikibase:grammaticalFeature wd:Q7272884 .
-  }
+  # MARK: Impersonal
 
-  # MARK: Impersonal Form
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impersonalFormForm .
-    ?impersonalFormForm ontolex:representation ?impersonalForm ;
-    wikibase:grammaticalFeature wd:Q1509829 .
+    ?lexeme ontolex:lexicalForm ?impersonalForm .
+    ?impersonalForm ontolex:representation ?impersonal ;
+      wikibase:grammaticalFeature wd:Q1509829 .
   }
 }

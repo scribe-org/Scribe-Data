@@ -5,47 +5,53 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?presentIndicativeSingular ?presentIndicativePlural
-  ?pastIndicativeSingular ?pastIndicativePlural
+  ?presentIndicativeSingular
+  ?presentIndicativePlural
+  ?pastIndicativeSingular
+  ?pastIndicativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
-          wikibase:lexicalCategory wd:Q24905 ;
-          wikibase:lemma ?verb .
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
 
   # MARK: Present Indicative Singular
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentIndicativeSingularForm .
     ?presentIndicativeSingularForm ontolex:representation ?presentIndicativeSingular ;
-    wikibase:grammaticalFeature wd:Q192613 ;
-    wikibase:grammaticalFeature wd:Q682111 ;
-    wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q192613 ;
+      wikibase:grammaticalFeature wd:Q682111 ;
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
   # MARK: Present Indicative Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentIndicativePluralForm .
     ?presentIndicativePluralForm ontolex:representation ?presentIndicativePlural ;
-    wikibase:grammaticalFeature wd:Q192613 ;
-    wikibase:grammaticalFeature wd:Q682111 ;
-    wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q192613 ;
+      wikibase:grammaticalFeature wd:Q682111 ;
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 
   # MARK: Past Indicative Singular
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastIndicativeSingularForm .
     ?pastIndicativeSingularForm ontolex:representation ?pastIndicativeSingular ;
-    wikibase:grammaticalFeature wd:Q1994301 ;
-    wikibase:grammaticalFeature wd:Q682111 ;
-    wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q1994301 ;
+      wikibase:grammaticalFeature wd:Q682111 ;
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
   # MARK: Past Indicative Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastIndicativePluralForm .
     ?pastIndicativePluralForm ontolex:representation ?pastIndicativePlural ;
-    wikibase:grammaticalFeature wd:Q1994301 ;
-    wikibase:grammaticalFeature wd:Q682111 ;
-    wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q1994301 ;
+      wikibase:grammaticalFeature wd:Q682111 ;
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 }

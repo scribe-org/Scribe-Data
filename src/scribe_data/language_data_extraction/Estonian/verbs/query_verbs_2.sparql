@@ -5,47 +5,53 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?presentConditionalSingular ?presentConditionalPlural
-  ?pastConditionalSingular ?pastConditionalPlural
+  ?presentConditionalSingular
+  ?presentConditionalPlural
+  ?pastConditionalSingular
+  ?pastConditionalPlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
-          wikibase:lexicalCategory wd:Q24905 ;
-          wikibase:lemma ?verb .
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
 
   # MARK: Present Conditional Singular
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentConditionalSingularForm .
     ?presentConditionalSingularForm ontolex:representation ?presentConditionalSingular ;
-    wikibase:grammaticalFeature wd:Q192613 ;
-    wikibase:grammaticalFeature wd:Q625581 ;
-    wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q192613 ;
+      wikibase:grammaticalFeature wd:Q625581 ;
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
   # MARK: Present Conditional Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentConditionalPluralForm .
     ?presentConditionalPluralForm ontolex:representation ?presentConditionalPlural ;
-    wikibase:grammaticalFeature wd:Q192613 ;
-    wikibase:grammaticalFeature wd:Q625581 ;
-    wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q192613 ;
+      wikibase:grammaticalFeature wd:Q625581 ;
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 
   # MARK: Past Conditional Singular
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastConditionalSingularForm .
     ?pastConditionalSingularForm ontolex:representation ?pastConditionalSingular ;
-    wikibase:grammaticalFeature wd:Q1994301 ;
-    wikibase:grammaticalFeature wd:Q625581 ;
-    wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q1994301 ;
+      wikibase:grammaticalFeature wd:Q625581 ;
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
   # MARK: Past Conditional Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastConditionalPluralForm .
     ?pastConditionalPluralForm ontolex:representation ?pastConditionalPlural ;
-    wikibase:grammaticalFeature wd:Q1994301 ;
-    wikibase:grammaticalFeature wd:Q625581 ;
-    wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q1994301 ;
+      wikibase:grammaticalFeature wd:Q625581 ;
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 }
