@@ -207,8 +207,9 @@ def main() -> None:
             validate_language_and_data_type(
                 language=args.language, data_type=args.data_type
             )
+
     except ValueError as e:
-        print(e)
+        print(f"Input validation failed with error: {e}")
         return
 
     if args.upgrade:
