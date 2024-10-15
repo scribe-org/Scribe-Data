@@ -1,66 +1,51 @@
 # tool: scribe-data
-# All Estonian verbs and the corresponding forms per case.
+# All Estonian verbs and their present and past indicative forms.
 # Enter this query at https://query.wikidata.org/
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?supine
-  ?supineAbessive
-  ?supineInessive
-  ?supineElative
-  ?supineTranslative
-  ?supineImpersonalVerb
+  ?presentIndicativeSingular ?presentIndicativePlural
+  ?pastIndicativeSingular ?pastIndicativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
-    wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+          wikibase:lexicalCategory wd:Q24905 ;
+          wikibase:lemma ?verb .
 
-  # MARK: Supine Form
+  # MARK: Present Indicative Singular
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?supineForm .
-    ?supineForm ontolex:representation ?supine ;
-      wikibase:grammaticalFeature wd:Q548470 .
+    ?lexeme ontolex:lexicalForm ?presentIndicativeSingularForm .
+    ?presentIndicativeSingularForm ontolex:representation ?presentIndicativeSingular ;
+    wikibase:grammaticalFeature wd:Q192613 ;
+    wikibase:grammaticalFeature wd:Q682111 ;
+    wikibase:grammaticalFeature wd:Q110786 .
   }
 
-  # MARK: Supine Abessive Case
+  # MARK: Present Indicative Plural
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?supineAbessiveForm .
-    ?supineAbessiveForm ontolex:representation ?supineAbessive ;
-      wikibase:grammaticalFeature wd:Q548470 ;
-      wikibase:grammaticalFeature wd:Q319822 .
+    ?lexeme ontolex:lexicalForm ?presentIndicativePluralForm .
+    ?presentIndicativePluralForm ontolex:representation ?presentIndicativePlural ;
+    wikibase:grammaticalFeature wd:Q192613 ;
+    wikibase:grammaticalFeature wd:Q682111 ;
+    wikibase:grammaticalFeature wd:Q146786 .
   }
 
-  # MARK: Supine Inessive Case
+  # MARK: Past Indicative Singular
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?supineInessiveForm .
-    ?supineInessiveForm ontolex:representation ?supineInessive ;
-      wikibase:grammaticalFeature wd:Q548470 ;
-      wikibase:grammaticalFeature wd:Q282031 .
+    ?lexeme ontolex:lexicalForm ?pastIndicativeSingularForm .
+    ?pastIndicativeSingularForm ontolex:representation ?pastIndicativeSingular ;
+    wikibase:grammaticalFeature wd:Q1994301 ;
+    wikibase:grammaticalFeature wd:Q682111 ;
+    wikibase:grammaticalFeature wd:Q110786 .
   }
 
-  # MARK: Supine Elative Case
+  # MARK: Past Indicative Plural
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?supineElativeForm .
-    ?supineElativeForm ontolex:representation ?supineElative ;
-      wikibase:grammaticalFeature wd:Q548470 ;
-      wikibase:grammaticalFeature wd:Q394253 .
-  }
-
-  # MARK: Supine Translative Case
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?supineTranslativeForm .
-    ?supineTranslativeForm ontolex:representation ?supineTranslative ;
-      wikibase:grammaticalFeature wd:Q548470 ;
-      wikibase:grammaticalFeature wd:Q950170 .
-  }
-
-  # MARK: Supine with Impersonal Verb
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?supineImpersonalVerbForm .
-    ?supineImpersonalVerbForm ontolex:representation ?supineImpersonalVerb ;
-      wikibase:grammaticalFeature wd:Q548470 ;
-      wikibase:grammaticalFeature wd:Q1509829 .
+    ?lexeme ontolex:lexicalForm ?pastIndicativePluralForm .
+    ?pastIndicativePluralForm ontolex:representation ?pastIndicativePlural ;
+    wikibase:grammaticalFeature wd:Q1994301 ;
+    wikibase:grammaticalFeature wd:Q682111 ;
+    wikibase:grammaticalFeature wd:Q146786 .
   }
 }

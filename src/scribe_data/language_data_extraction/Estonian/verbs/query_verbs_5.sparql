@@ -1,73 +1,50 @@
 # tool: scribe-data
-# All Estonian verbs and the corresponding forms per case.
+# All Estonian verbs and their non-finite forms (Des-form, Supine, Infinitive).
 # Enter this query at https://query.wikidata.org/
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?conditionalPresentFirstSingular
-  ?conditionalPresentSecondSingular
-  ?conditionalPresentThirdSingular
-  ?conditionalPresentFirstPlural
-  ?conditionalPresentSecondPlural
-  ?conditionalPresentThirdPlural
+  ?desForm ?supineForm ?infinitiveForm
+  ?quotativePresent ?impersonalForm
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
-    wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+          wikibase:lexicalCategory wd:Q24905 ;
+          wikibase:lemma ?verb .
 
-  # MARK: Conditional Present - First Person Singular
+  # MARK: Des-form
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalPresentFirstSingularForm .
-    ?conditionalPresentFirstSingularForm ontolex:representation ?conditionalPresentFirstSingular ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?desFormForm .
+    ?desFormForm ontolex:representation ?desForm ;
+    wikibase:grammaticalFeature wd:Q12360803 .
   }
 
-  # MARK: Conditional Present - Second Person Singular
+  # MARK: Supine Form
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalPresentSecondSingularForm .
-    ?conditionalPresentSecondSingularForm ontolex:representation ?conditionalPresentSecondSingular ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?supineForm .
+    ?supineForm ontolex:representation ?supineForm ;
+    wikibase:grammaticalFeature wd:Q548470 .
   }
 
-  # MARK: Conditional Present - Third Person Singular
+  # MARK: Infinitive Form
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalPresentThirdSingularForm .
-    ?conditionalPresentThirdSingularForm ontolex:representation ?conditionalPresentThirdSingular ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitiveForm ;
+    wikibase:grammaticalFeature wd:Q179230 .
   }
 
-  # MARK: Conditional Present - First Person Plural
+  # MARK: Quotative Present
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalPresentFirstPluralForm .
-    ?conditionalPresentFirstPluralForm ontolex:representation ?conditionalPresentFirstPlural ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?quotativePresentForm .
+    ?quotativePresentForm ontolex:representation ?quotativePresent ;
+    wikibase:grammaticalFeature wd:Q7272884 .
   }
 
-  # MARK: Conditional Present - Second Person Plural
+  # MARK: Impersonal Form
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalPresentSecondPluralForm .
-    ?conditionalPresentSecondPluralForm ontolex:representation ?conditionalPresentSecondPlural ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  }
-
-  # MARK: Conditional Present - Third Person Plural
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalPresentThirdPluralForm .
-    ?conditionalPresentThirdPluralForm ontolex:representation ?conditionalPresentThirdPlural ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?impersonalFormForm .
+    ?impersonalFormForm ontolex:representation ?impersonalForm ;
+    wikibase:grammaticalFeature wd:Q1509829 .
   }
 }

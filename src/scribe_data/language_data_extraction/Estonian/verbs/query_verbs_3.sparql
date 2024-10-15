@@ -1,43 +1,66 @@
 # tool: scribe-data
-# All Estonian verbs and the corresponding forms per case.
+# All Estonian verbs and their imperative and negated forms.
 # Enter this query at https://query.wikidata.org/
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?presentFirstPlural
-  ?presentSecondPlural
-  ?presentThirdPlural
+  ?imperativeSecondSingular ?imperativeFirstPlural ?imperativeSecondPlural ?imperativeImpersonal
+  ?negativePresent ?negativePast
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
-    wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+          wikibase:lexicalCategory wd:Q24905 ;
+          wikibase:lemma ?verb .
 
-  # MARK: Present Tense - First Person Plural
+  # MARK: Imperative Second Person Singular
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentFirstPluralForm .
-    ?presentFirstPluralForm ontolex:representation ?presentFirstPlural ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?imperativeSecondSingularForm .
+    ?imperativeSecondSingularForm ontolex:representation ?imperativeSecondSingular ;
+    wikibase:grammaticalFeature wd:Q22716 ;
+    wikibase:grammaticalFeature wd:Q51929049 ;
+    wikibase:grammaticalFeature wd:Q110786 .
   }
 
-  # MARK: Present Tense - Second Person Plural
+  # MARK: Imperative First Person Plural
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentSecondPluralForm .
-    ?presentSecondPluralForm ontolex:representation ?presentSecondPlural ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?imperativeFirstPluralForm .
+    ?imperativeFirstPluralForm ontolex:representation ?imperativeFirstPlural ;
+    wikibase:grammaticalFeature wd:Q22716 ;
+    wikibase:grammaticalFeature wd:Q21714344 ;
+    wikibase:grammaticalFeature wd:Q146786 .
   }
 
-  # MARK: Present Tense - Third Person Plural
+  # MARK: Imperative Second Person Plural
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentThirdPluralForm .
-    ?presentThirdPluralForm ontolex:representation ?presentThirdPlural ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?imperativeSecondPluralForm .
+    ?imperativeSecondPluralForm ontolex:representation ?imperativeSecondPlural ;
+    wikibase:grammaticalFeature wd:Q22716 ;
+    wikibase:grammaticalFeature wd:Q51929049 ;
+    wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # MARK: Imperative Impersonal
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeImpersonalForm .
+    ?imperativeImpersonalForm ontolex:representation ?imperativeImpersonal ;
+    wikibase:grammaticalFeature wd:Q22716 ;
+    wikibase:grammaticalFeature wd:Q1509829 .
+  }
+
+  # MARK: Negative Present
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?negativePresentForm .
+    ?negativePresentForm ontolex:representation ?negativePresent ;
+    wikibase:grammaticalFeature wd:Q1478451 ;
+    wikibase:grammaticalFeature wd:Q192613 .
+  }
+
+  # MARK: Negative Past
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?negativePastForm .
+    ?negativePastForm ontolex:representation ?negativePast ;
+    wikibase:grammaticalFeature wd:Q1478451 ;
+    wikibase:grammaticalFeature wd:Q1994301 .
   }
 }

@@ -1,146 +1,29 @@
 # tool: scribe-data
-# All Estonian verbs and the corresponding forms per case.
+# All Estonian verbs and their participles (present and past).
 # Enter this query at https://query.wikidata.org/
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?pastFirstSingular
-  ?pastSecondSingular
-  ?pastThirdSingular
-  ?pastFirstPlural
-  ?pastSecondPlural
-  ?pastThirdPlural
+  ?presentParticiple ?pastParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
-    wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+          wikibase:lexicalCategory wd:Q24905 ;
+          wikibase:lemma ?verb .
 
-  # MARK: Past Tense - First Person Singular
+  # MARK: Present Participle
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastFirstSingularForm .
-    ?pastFirstSingularForm ontolex:representation ?pastFirstSingular ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
+    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+    wikibase:grammaticalFeature wd:Q10345583 .
   }
 
-  # MARK: Past Tense - Second Person Singular
+  # MARK: Past Participle
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastSecondSingularForm .
-    ?pastSecondSingularForm ontolex:representation ?pastSecondSingular ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  }
-
-  # MARK: Past Tense - Third Person Singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastThirdSingularForm .
-    ?pastThirdSingularForm ontolex:representation ?pastThirdSingular ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  }
-
-  # MARK: Past Tense - First Person Plural
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastFirstPluralForm .
-    ?pastFirstPluralForm ontolex:representation ?pastFirstPlural ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  }
-
-  # MARK: Past Tense - Second Person Plural
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastSecondPluralForm .
-    ?pastSecondPluralForm ontolex:representation ?pastSecondPlural ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  }
-
-  # MARK: Past Tense - Third Person Plural
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastThirdPluralForm .
-    ?pastThirdPluralForm ontolex:representation ?pastThirdPlural ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  }
-}
-# tool: scribe-data
-# All Estonian verbs and the corresponding forms per case.
-# Enter this query at https://query.wikidata.org/
-
-SELECT DISTINCT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?verb
-  ?conditionalPresentFirstSingular
-  ?conditionalPresentSecondSingular
-  ?conditionalPresentThirdSingular
-  ?conditionalPresentFirstPlural
-  ?conditionalPresentSecondPlural
-  ?conditionalPresentThirdPlural
-
-WHERE {
-  ?lexeme dct:language wd:Q9072 ;
-    wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
-
-  # MARK: Conditional Present - First Person Singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalPresentFirstSingularForm .
-    ?conditionalPresentFirstSingularForm ontolex:representation ?conditionalPresentFirstSingular ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  }
-
-  # MARK: Conditional Present - Second Person Singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalPresentSecondSingularForm .
-    ?conditionalPresentSecondSingularForm ontolex:representation ?conditionalPresentSecondSingular ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  }
-
-  # MARK: Conditional Present - Third Person Singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalPresentThirdSingularForm .
-    ?conditionalPresentThirdSingularForm ontolex:representation ?conditionalPresentThirdSingular ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  }
-
-  # MARK: Conditional Present - First Person Plural
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalPresentFirstPluralForm .
-    ?conditionalPresentFirstPluralForm ontolex:representation ?conditionalPresentFirstPlural ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  }
-
-  # MARK: Conditional Present - Second Person Plural
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalPresentSecondPluralForm .
-    ?conditionalPresentSecondPluralForm ontolex:representation ?conditionalPresentSecondPlural ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  }
-
-  # MARK: Conditional Present - Third Person Plural
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalPresentThirdPluralForm .
-    ?conditionalPresentThirdPluralForm ontolex:representation ?conditionalPresentThirdPlural ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+    wikibase:grammaticalFeature wd:Q1994301 ;
+    wikibase:grammaticalFeature wd:Q10345583 .
   }
 }
