@@ -29,6 +29,8 @@ from scribe_data.cli.cli_utils import (
     validate_language_and_data_type,
 )
 
+# MARK: Utils
+
 
 class TestCLIUtils(unittest.TestCase):
     def test_correct_data_type(self):
@@ -145,6 +147,9 @@ class TestCLIUtils(unittest.TestCase):
             mock_print.assert_called_once_with("unknown data type")
 
 
+# MARK: Validate
+
+
 class TestValidateLanguageAndDataType(unittest.TestCase):
     def setUp(self):
         self.qid_mapping = {
@@ -182,9 +187,7 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
                 language=language_qid, data_type=data_type_qid
             )
 
-        self.assertEqual(
-            str(context.exception), "Invalid language InvalidLanguage passed."
-        )
+        self.assertEqual(str(context.exception), "Invalid language InvalidLanguage.")
 
     @patch("scribe_data.cli.total.get_qid_by_input")
     def test_validate_language_and_data_type_invalid_data_type(self, mock_get_qid):
@@ -198,9 +201,7 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
                 language=language_qid, data_type=data_type_qid
             )
 
-        self.assertEqual(
-            str(context.exception), "Invalid data-type InvalidDataType passed."
-        )
+        self.assertEqual(str(context.exception), "Invalid data-type InvalidDataType.")
 
     @patch("scribe_data.cli.total.get_qid_by_input")
     def test_validate_language_and_data_type_both_invalid(self, mock_get_qid):
@@ -216,7 +217,7 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
 
         self.assertEqual(
             str(context.exception),
-            "Invalid language InvalidLanguage and Invalid data-type InvalidDataType passed.",
+            "Invalid language InvalidLanguage.\nInvalid data-type InvalidDataType.",
         )
 
     def test_validate_language_and_data_type_with_list(self):
@@ -240,15 +241,6 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
             self.fail(
                 "validate_language_and_data_type raised ValueError unexpectedly with valid QIDs!"
             )
-
-    def test_validate_language_and_data_type_invalid_list(self):
-        """Test validation with invalid lists."""
-        languages = ["English", "Klingon"]
-        data_types = ["nouns", "alienverbs"]
-        with self.assertRaises(ValueError) as context:
-            validate_language_and_data_type(languages, data_types)
-        self.assertIn("Invalid language Klingon", str(context.exception))
-        self.assertIn("Invalid data-type alienverbs", str(context.exception))
 
     def test_validate_language_and_data_type_mixed_validity_in_lists(self):
         """Test validation with mixed valid and invalid entries in lists."""
