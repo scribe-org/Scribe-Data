@@ -216,5 +216,45 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
 
         self.assertEqual(
             str(context.exception),
-            "Invalid language InvalidLanguage and data-type InvalidDataType passed.",
+            "Invalid language InvalidLanguage and Invalid data-type InvalidDataType passed.",
         )
+
+    def test_validate_language_and_data_type_with_list(self):
+        """Test validation with lists of languages and data types."""
+        languages = ["English", "Spanish"]
+        data_types = ["nouns", "verbs"]
+        try:
+            validate_language_and_data_type(languages, data_types)
+        except ValueError:
+            self.fail(
+                "validate_language_and_data_type raised ValueError unexpectedly with valid lists!"
+            )
+
+    def test_validate_language_and_data_type_with_qids(self):
+        """Test validation directly with QIDs."""
+        language_qid = "Q1860"  # QID for English
+        data_type_qid = "Q1084"  # QID for nouns
+        try:
+            validate_language_and_data_type(language_qid, data_type_qid)
+        except ValueError:
+            self.fail(
+                "validate_language_and_data_type raised ValueError unexpectedly with valid QIDs!"
+            )
+
+    def test_validate_language_and_data_type_invalid_list(self):
+        """Test validation with invalid lists."""
+        languages = ["English", "Klingon"]
+        data_types = ["nouns", "alienverbs"]
+        with self.assertRaises(ValueError) as context:
+            validate_language_and_data_type(languages, data_types)
+        self.assertIn("Invalid language Klingon", str(context.exception))
+        self.assertIn("Invalid data-type alienverbs", str(context.exception))
+
+    def test_validate_language_and_data_type_mixed_validity_in_lists(self):
+        """Test validation with mixed valid and invalid entries in lists."""
+        languages = ["English", "InvalidLanguage"]
+        data_types = ["nouns", "InvalidDataType"]
+        with self.assertRaises(ValueError) as context:
+            validate_language_and_data_type(languages, data_types)
+        self.assertIn("Invalid language InvalidLanguage", str(context.exception))
+        self.assertIn("Invalid data-type InvalidDataType", str(context.exception))
