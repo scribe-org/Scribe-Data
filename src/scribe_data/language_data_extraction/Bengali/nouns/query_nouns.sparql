@@ -2,7 +2,7 @@
 # All Bengali (Bangla Q9610) nouns and their forms in the various cases.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?nominative
   ?genitive

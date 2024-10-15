@@ -2,7 +2,7 @@
 # All Swedish (Q9027) nouns with their plural, gender and genitive forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?nomIndefSingular
   ?nomIndefPlural

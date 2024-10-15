@@ -3,7 +3,7 @@
 # Enter this query at https://query.wikidata.org/.
 # Note: This query is for Bokmål (Q25167) rather than Nynorsk (Q25164).
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
   ?present
