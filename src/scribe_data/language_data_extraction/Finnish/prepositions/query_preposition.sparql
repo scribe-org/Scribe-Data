@@ -1,13 +1,13 @@
 # tool: scribe-data
-# All Malayalam (Q36236) postpositions.
+# All Finnish (Q1412) prepositions.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?postposition
+  ?preposition
 
 WHERE {
-  ?lexeme dct:language wd:Q36236 ;
-    wikibase:lexicalCategory wd:Q161873 ;
-    wikibase:lemma ?postposition .
+  ?lexeme dct:language wd:Q1412 ;
+    wikibase:lexicalCategory wd:Q4833830 ;
+    wikibase:lemma ?preposition .
 }
