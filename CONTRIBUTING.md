@@ -162,7 +162,8 @@ pip install .  # or pip install scribe-data
 python setup.py egg_info
 ```
 
-Run this command every time you make any change to the code to reflect in the scribe-data command:
+Note that you may need to run this command every time you make any change to the code to have them be reflected in the development Scribe-Data:
+
 ```bash
 pip install -e .
 ```
