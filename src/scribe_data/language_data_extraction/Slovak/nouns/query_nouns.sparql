@@ -2,7 +2,7 @@
 # All Slovak (Q9058) nouns, their plurals and their genders for the given cases.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?nomSingular
   ?nomPlural

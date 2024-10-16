@@ -2,7 +2,7 @@
 # All Standard Mandarin Chinese (Q727694) nouns.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?noun
 
