@@ -36,6 +36,11 @@ jobs:
           uv venv
           uv pip install -r requirements.txt
 
+      - name: Activate virtualenv
+        run: |
+          . .venv/bin/activate
+          echo PATH=$PATH >> $GITHUB_ENV
+
       - name: Run check_query_identifiers.py
         run: python src/scribe_data/check/check_query_identifiers.py
 
