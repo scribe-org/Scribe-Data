@@ -10,22 +10,41 @@ from scribe_data.cli.cli_utils import (
 
 def extract_qid_from_sparql(file_path: Path, pattern: str) -> str:
     """
-    Extract the QID based on the pattern provided (either language or data type).
+    Extracts the QID from a SPARQL query file based on the provided pattern.
+
+    Parameters
+    ----------
+    file_path : Path
+        The path to the SPARQL query file from which to extract the QID.
+    pattern : str
+        The regex pattern used to match the QID (either for language or data type).
+
+    Returns
+    -------
+    str
+        The extracted QID if found, otherwise None.
     """
     try:
         with open(file_path, "r", encoding="utf-8") as file:
             content = file.read()
             match = re.search(pattern, content)
             if match:
-                return match.group(0).replace("wd:", "")
+                return match.group(0).split("wd:")[1]
     except Exception as e:
         print(f"Error reading {file_path}: {e}")
     return None
 
 
 def check_queries():
+    """
+    Validates SPARQL queries in the specified directory to check for correct language
+    and data type QIDs.
+
+    This function scans all SPARQL query files in the LANGUAGE_DATA_EXTRACTION_DIR
+    and prints out any files with incorrect QIDs for both languages and data types.
+    """
     language_pattern = r"\?lexeme dct:language wd:Q\d+"
-    data_type_pattern = r"wikibase:lexicalCategory wd:Q\d+"
+    data_type_pattern = r"wikibase:lexicalCategory\s+wd:Q\d+"
     incorrect_languages = []
     incorrect_data_types = []
 
@@ -41,17 +60,34 @@ def check_queries():
             incorrect_data_types.append(query_file)
 
     if incorrect_languages:
-        print("Queries with incorrect languages QIDs are:")
+        print("Incorrect Language QIDs found in the following files:")
         for file in incorrect_languages:
             print(f"- {file}")
+    print("\n----------------------------------------------------------------\n")
 
     if incorrect_data_types:
-        print("Queries with incorrect data type QIDs are:")
+        print("Incorrect Data Type QIDs found in the following files:")
         for file in incorrect_data_types:
             print(f"- {file}")
+    print("\n----------------------------------------------------------------\n")
 
 
-def is_valid_language(query_file, lang_qid):
+def is_valid_language(query_file: Path, lang_qid: str) -> bool:
+    """
+    Validates the language QID against the expected QID for the directory.
+
+    Parameters
+    ----------
+    query_file : Path
+        The path to the SPARQL query file being validated.
+    lang_qid : str
+        The QID of the language extracted from the SPARQL query.
+
+    Returns
+    -------
+    bool
+        True if the language QID is valid, otherwise False.
+    """
     lang_directory_name = query_file.parent.parent.name.lower()
     languages = language_metadata.get(
         "languages"
@@ -61,39 +97,39 @@ def is_valid_language(query_file, lang_qid):
     )
 
     if not language_entry:
-        print(
-            f"Warning: Language '{lang_directory_name}' not found in language_metadata.json."
-        )
         return False
 
     expected_language_qid = language_entry["qid"]
-    print("Expected language QID:", expected_language_qid)
 
     if lang_qid != expected_language_qid:
-        print(
-            f"Incorrect language QID in {lang_directory_name}. "
-            f"Found: {lang_qid}, Expected: {expected_language_qid}"
-        )
         return False
     return True
 
 
-def is_valid_data_type(query_file, data_type_qid):
+def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
+    """
+    Validates the data type QID against the expected QID for the directory.
+
+    Parameters
+    ----------
+    query_file : Path
+        The path to the SPARQL query file being validated.
+    data_type_qid : str
+        The QID of the data type extracted from the SPARQL query.
+
+    Returns
+    -------
+    bool
+        True if the data type QID is valid, otherwise False.
+    """
     directory_name = query_file.parent.name  # e.g., "nouns" or "verbs"
     expected_data_type_qid = data_type_metadata.get(directory_name)
 
     if data_type_qid != expected_data_type_qid:
-        print(
-            f"Warning: Incorrect data type QID in {query_file}. Found: {data_type_qid}, Expected: {expected_data_type_qid}"
-        )
         return False
     return True
 
 
-# Examples:
-
-# file_path = Path("French/verbs/query_verbs.sparql")
-# print(is_valid_data_type(file_path, "QW24907")) # check for data type
-# print(is_valid_language(file_path, "Q150")) # check for if valid language
-
-check_queries()
+# Run the check_queries function
+# MARK: TODO: Remove Call
+# check_queries()
