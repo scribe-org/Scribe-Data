@@ -1,9 +1,10 @@
 # tool: scribe-data
 # All Bokmål Norwegian (Q9043) nouns, their plurals and their genders.
 # Enter this query at https://query.wikidata.org/.
+
 # Note: This query is for Bokmål (Q25167) rather than Nynorsk (Q25164).
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?indefSingular
   ?defSingular
@@ -21,10 +22,9 @@ WHERE {
   # MARK: Definite Singular
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?  ?defSingularForm .
+    ?lexeme ontolex:lexicalForm ?defSingularForm .
     ?defSingularForm ontolex:representation ?defSingular ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q53997851 ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q53997851 ;
   } .
 
   # MARK: Indefinite Plural
@@ -32,8 +32,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indefPluralForm .
     ?indefPluralForm ontolex:representation ?indefPlural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q53997857 ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q53997857 ;
   } .
 
   # MARK: Definite Plural
@@ -41,8 +40,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?defPluralForm .
     ?defPluralForm ontolex:representation ?defPlural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q53997851 ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q53997851 ;
   } .
 
   # MARK: Gender(s)

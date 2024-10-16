@@ -18,14 +18,12 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomSingularForm .
     ?nomSingularForm ontolex:representation ?nomSingular ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-      wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
   } .
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   } .
 }

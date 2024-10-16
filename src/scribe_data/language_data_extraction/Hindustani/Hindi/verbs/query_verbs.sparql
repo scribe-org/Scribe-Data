@@ -4,7 +4,7 @@
 
 # Note: We need to filter for "hi" to remove Urdu (ur) words.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
   ?directCase

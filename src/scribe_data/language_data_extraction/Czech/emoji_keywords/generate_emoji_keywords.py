@@ -1,6 +1,6 @@
 
 """
-Generates keyword-emoji relationships from a selection of Hausa words.
+Generates keyword-emoji relationships from a selection of Czech words.
 
 .. raw:: html
     <!--
@@ -26,7 +26,7 @@ import argparse
 from scribe_data.unicode.process_unicode import gen_emoji_lexicon
 from scribe_data.utils import export_formatted_data
 
-LANGUAGE = "Hausa"
+LANGUAGE = "Czech"
 DATA_TYPE = "emoji-keywords"
 emojis_per_keyword = 3
 

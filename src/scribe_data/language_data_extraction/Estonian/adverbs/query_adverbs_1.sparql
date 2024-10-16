@@ -2,7 +2,7 @@
 # All Estonian (Q380057) adverbs and the corresponding forms per case.
 # Enter this query at https://query.wikidata.org/
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adverb
   ?nominativeSingular
@@ -30,15 +30,13 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
     ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-      wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativePluralForm .
     ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
   # MARK: Genitive
@@ -46,15 +44,13 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
     ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
-      wikibase:grammaticalFeature wd:Q146233 ;
-      wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitivePluralForm .
     ?genitivePluralForm ontolex:representation ?genitivePlural ;
-      wikibase:grammaticalFeature wd:Q146233 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
   # MARK: Partive
@@ -62,15 +58,13 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?partitiveSingularForm .
     ?partitiveSingularForm ontolex:representation ?partitiveSingular ;
-      wikibase:grammaticalFeature wd:Q857325 ;
-      wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q857325, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?partitivePluralForm .
     ?partitivePluralForm ontolex:representation ?partitivePlural ;
-      wikibase:grammaticalFeature wd:Q857325 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q857325, wd:Q146786 .
   }
 
   # MARK: Illative
@@ -78,15 +72,13 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?illativeSingularForm .
     ?illativeSingularForm ontolex:representation ?illativeSingular ;
-      wikibase:grammaticalFeature wd:Q474668 ;
-      wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q474668, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?illativePluralForm .
     ?illativePluralForm ontolex:representation ?illativePlural ;
-      wikibase:grammaticalFeature wd:Q474668 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q474668, wd:Q146786 .
   }
 
   # MARK: Inessive
@@ -94,15 +86,13 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?inessiveSingularForm .
     ?inessiveSingularForm ontolex:representation ?inessiveSingular ;
-      wikibase:grammaticalFeature wd:Q282031 ;
-      wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q282031, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?inessivePluralForm .
     ?inessivePluralForm ontolex:representation ?inessivePlural ;
-      wikibase:grammaticalFeature wd:Q282031 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q282031, wd:Q146786 .
   }
 
   # MARK: Elative
@@ -110,15 +100,13 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?elativeSingularForm .
     ?elativeSingularForm ontolex:representation ?elativeSingular ;
-      wikibase:grammaticalFeature wd:Q394253 ;
-      wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q394253, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?elativePluralForm .
     ?elativePluralForm ontolex:representation ?elativePlural ;
-      wikibase:grammaticalFeature wd:Q394253 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q394253, wd:Q146786 .
   }
 
   # MARK: Allative
@@ -126,14 +114,12 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?allativeSingularForm .
     ?allativeSingularForm ontolex:representation ?allativeSingular ;
-      wikibase:grammaticalFeature wd:Q655020 ;
-      wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q655020, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?allativePluralForm .
     ?allativePluralForm ontolex:representation ?allativePlural ;
-      wikibase:grammaticalFeature wd:Q655020 ;
-      wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q655020, wd:Q146786 .
   }
 }
