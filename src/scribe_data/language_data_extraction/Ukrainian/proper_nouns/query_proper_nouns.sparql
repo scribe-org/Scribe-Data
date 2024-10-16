@@ -1,0 +1,34 @@
+# tool: scribe-data
+# All Ukrainian (Q8798) nouns, their plurals and the given forms.s for the given cases.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?nomSingular
+  ?nomPlural
+  ?gender
+
+WHERE {
+  ?lexeme dct:language wd:Q8798 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?nomSingular .
+
+  # MARK: Nominative Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nomPluralForm .
+    ?nomPluralForm ontolex:representation ?nomPlural ;
+      wikibase:grammaticalFeature wd:Q131105 , wd:Q146786 ;
+  } .
+
+  # MARK: Gender(s)
+
+  OPTIONAL {
+    ?lexeme wdt:P5185 ?nounGender .
+  } .
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+    ?nounGender rdfs:label ?gender .
+  }
+}

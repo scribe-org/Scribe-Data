@@ -1,19 +1,17 @@
 # tool: scribe-data
-# All Nigerian Pidgin (Q33655) nouns, their plurals and their genders.
+# All Nigerian Pidgin (Q33655) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?singular
+  ?properNoun
   ?plural
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
-
   ?lexeme dct:language wd:Q33655 ; # Nigerian Pidgin
-    wikibase:lexicalCategory ?nounTypes ;
-    wikibase:lemma ?singular .
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?properNoun .
 
   # MARK: Plural
 
@@ -27,9 +25,6 @@ WHERE {
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
-    }
   } .
 
   SERVICE wikibase:label {

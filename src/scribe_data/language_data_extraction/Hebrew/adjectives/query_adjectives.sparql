@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Hebrew (Q9288) adjectives.
+# All Hebrew (Q9288) adjectives and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
