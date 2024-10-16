@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Kurmanji (Q36163) adjectives.
+# All Slovak (Q9058) adjectives and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -7,8 +7,7 @@ SELECT
   ?adjective
 
 WHERE {
-  ?lexeme dct:language wd:Q36163 ;
+  ?lexeme dct:language wd:Q9058 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
-    FILTER(lang(?adjective) = "ku") .
 }

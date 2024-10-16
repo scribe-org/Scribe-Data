@@ -89,6 +89,7 @@ class TestListFunctions(unittest.TestCase):
     @patch("builtins.print")
     def test_list_data_types_all_languages(self, mock_print):
         list_data_types()
+        print(mock_print.mock_calls)
         expected_calls = [
             call(),
             call("Available data types: All languages"),
@@ -100,6 +101,7 @@ class TestListFunctions(unittest.TestCase):
             call("personal-pronouns"),
             call("postpositions"),
             call("prepositions"),
+            call("proper-nouns"),
             call("verbs"),
             call("-----------------------------------"),
             call(),
@@ -109,6 +111,7 @@ class TestListFunctions(unittest.TestCase):
     @patch("builtins.print")
     def test_list_data_types_specific_language(self, mock_print):
         list_data_types("English")
+
         expected_calls = [
             call(),
             call("Available data types: English"),
@@ -117,6 +120,7 @@ class TestListFunctions(unittest.TestCase):
             call("adverbs"),
             call("emoji-keywords"),
             call("nouns"),
+            call("proper-nouns"),
             call("verbs"),
             call("-----------------------------"),
             call(),

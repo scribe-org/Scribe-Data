@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Finnish (Q1412) prepositions.
+# All Kurmanji (Q36163) prepositions and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -7,7 +7,8 @@ SELECT
   ?preposition
 
 WHERE {
-  ?lexeme dct:language wd:Q1412 ;
+  ?lexeme dct:language wd:Q36163 ;
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?preposition .
+    FILTER(lang(?preposition) = "ku") .
 }

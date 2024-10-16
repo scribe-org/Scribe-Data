@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Ukrainian (Q8798) prepositions and their corresponding cases.
+# All Ukrainian (Q8798) prepositions and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -17,7 +17,7 @@ WHERE {
 
   OPTIONAL {
     ?lexeme wdt:P5713 ?caseForm .
-  } .
+  } 
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

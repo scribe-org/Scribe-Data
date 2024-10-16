@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All German (Q188) prepositions and their corresponding cases.
+# All German (Q188) prepositions and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -16,7 +16,7 @@ WHERE {
 
   OPTIONAL {
     ?lexeme wdt:P5713 ?caseForm .
-  } .
+  } 
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
