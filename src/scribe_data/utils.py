@@ -26,8 +26,6 @@ from importlib import resources
 from pathlib import Path
 from typing import Any, Optional
 
-from iso639 import Lang
-from iso639.exceptions import DeprecatedLanguageValue
 
 PROJECT_ROOT = "Scribe-Data"
 DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
@@ -198,13 +196,20 @@ def get_language_from_iso(iso: str) -> str:
         str
             The name for the language which has an ISO value of iso.
     """
-    try:
-        language_name = str(Lang(iso.lower()).name)
-    except DeprecatedLanguageValue as e:
-        raise ValueError(
-            f"{iso.upper()} is currently not a supported ISO language."
-        ) from e
-    return language_name
+    # Iterate over the languages and their properties
+    for language, properties in _languages.items():
+        # Check if the current language's ISO matches the provided ISO
+        if properties.get("iso") == iso:
+            return language.capitalize()
+
+        # If there are sub-languages, check those as well
+        if "sub_languages" in properties:
+            for sub_lang, sub_properties in properties["sub_languages"].items():
+                if sub_properties.get("iso") == iso:
+                    return sub_lang.capitalize()
+
+    # If no match is found, raise a ValueError
+    raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
 
 
 def load_queried_data(
@@ -490,10 +495,10 @@ def order_annotations(annotation: str) -> str:
     return "/".join(annotation_split)
 
 
-def format_sublanguage_name(lang, language_metadata):
+def format_sublanguage_name(lang, language_metadata=_languages):
     """
     Formats the name of a sub-language by appending its main language
-    in the format 'mainlang/sublang'. If the language is not a sub-language,
+    in the format 'Mainlang/Sublang'. If the language is not a sub-language,
     the original language name is returned as-is.
 
     Args:
@@ -503,30 +508,36 @@ def format_sublanguage_name(lang, language_metadata):
 
     Returns:
         str: The formatted language name if it's a sub-language
-             (e.g., 'norwegian/nynorsk'), otherwise the original name.
+             (e.g., 'Norwegian/Nynorsk'), otherwise the original name.
+
+    Raises:
+        ValueError: If the provided language or sub-language is not found.
 
     Example:
         format_sublanguage_name("nynorsk", language_metadata)
-        'norwegian/nynorsk'
+        'Norwegian/Nynorsk'
 
         format_sublanguage_name("english", language_metadata)
-        'english'
+        'English'
     """
     # Iterate through the main languages in the metadata
     for main_lang, lang_data in language_metadata.items():
+        # If it's not a sub-language, return the original name
+        if main_lang == lang.lower():
+            return lang.capitalize()
         # Check if the main language has sub-languages
         if "sub_languages" in lang_data:
             # Check if the provided language is a sub-language
             for sub_lang in lang_data["sub_languages"]:
                 if lang.lower() == sub_lang.lower():
-                    # Return the formatted name mainlang/sublang
+                    # Return the formatted name Mainlang/Sublang
                     return f"{main_lang.capitalize()}/{sub_lang.capitalize()}"
 
-    # If it's not a sub-language, return the original name
-    return lang.capitalize()
+    # Raise ValueError if no match is found
+    raise ValueError(f"{lang.upper()} is not a valid language or sub-language.")
 
 
-def list_all_languages(language_metadata):
+def list_all_languages(language_metadata=_languages):
     """List all languages from the provided metadata dictionary, including sub-languages."""
     current_languages = []
 
