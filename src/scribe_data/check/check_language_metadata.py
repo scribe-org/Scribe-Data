@@ -51,7 +51,6 @@ def get_available_languages() -> dict[str, list[str]]:
                 lang_folder.name.lower()
             )  # Normalize keys to lowercase for case-insensitive comparison
             sub_languages = []
-            has_data_type_sub_dir = False  # Track if we find valid data type matches
 
             # Check if lang_folder contains subdirectories
             for sub_folder in lang_folder.iterdir():
@@ -65,24 +64,17 @@ def get_available_languages() -> dict[str, list[str]]:
                         sub_lang_name, all_data_types, n=1, cutoff=0.8
                     )
 
-                    if close_matches:
-                        has_data_type_sub_dir = True  # Found a valid data type match
-                    else:
+                    if not close_matches:
                         sub_languages.append(
                             sub_lang_name
                         )  # Append sub-language name if no close match found (not a data type)
 
             if (
-                has_data_type_sub_dir
-            ):  # Indicates that this language does not have sub-languages
-                available_languages[
-                    lang_name
-                ] = {}  # Initialize the language entry without sub-languages
-            else:
-                available_languages[lang_name] = {}  # Initialize the language entry
-                available_languages[lang_name]["sub_languages"] = (
-                    sub_languages  # Add the associated sub-languages
-                )
+                sub_languages
+            ):  # If we found sub-languages, add them to available_languages
+                available_languages[lang_name] = {"sub_languages": sub_languages}
+            else:  # No sub-languages found, initialize entry without them
+                available_languages[lang_name] = {}
 
     return available_languages
 
