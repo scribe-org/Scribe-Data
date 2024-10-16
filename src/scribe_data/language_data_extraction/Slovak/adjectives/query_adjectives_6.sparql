@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Slovak (Q9058) adjectives in the given cases.
+# All Slovak (Q9058) adjectives and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -21,23 +21,23 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?feminineInstrumentalSingularForm .
     ?feminineInstrumentalSingularForm ontolex:representation ?feminineInstrumentalSingular ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q192997, wd:Q110786, wd:Q3482678 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineInstrumentalSingularForm .
     ?masculineInstrumentalSingularForm ontolex:representation ?masculineInstrumentalSingular ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q192997, wd:Q110786, wd:Q3482678 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterInstrumentalSingularForm .
     ?neuterInstrumentalSingularForm ontolex:representation ?neuterInstrumentalSingular ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q192997, wd:Q110786, wd:Q3482678 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?instrumentalPluralForm .
     ?instrumentalPluralForm ontolex:representation ?instrumentalPlural ;
       wikibase:grammaticalFeature wd:Q192997, wd:Q146786, wd:Q3482678 .
-  } .
+  } 
 }

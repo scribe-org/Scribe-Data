@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Arabic (Q13955) verbs and a portion of the currently implemented tenses for each.
+# All Arabic (Q13955) verbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -19,66 +19,66 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presFPSForm .
     ?presFPSForm ontolex:representation ?presFPS ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q682111, wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPSMForm .
     ?presSPSMForm ontolex:representation ?presSPSM ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q499327, wd:Q682111, wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q499327, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPSFForm .
     ?presSPSFForm ontolex:representation ?presSPSF ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q1775415, wd:Q682111, wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q1775415, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPSMForm .
     ?presTPSMForm ontolex:representation ?presTPSM ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q499327, wd:Q682111, wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q499327, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPSFForm .
     ?presTPSFForm ontolex:representation ?presTPSF ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q1775415, wd:Q682111, wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q1775415, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPDForm .
     ?presSPDForm ontolex:representation ?presSPD ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110022, wd:Q682111, wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110022, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPDMForm .
     ?presTPDMForm ontolex:representation ?presTPDM ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q499327, wd:Q682111, wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q499327, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPDFForm .
     ?presTPDFForm ontolex:representation ?presTPDF ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q1775415, wd:Q682111, wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q1775415, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presFPPForm .
     ?presFPPForm ontolex:representation ?presFPP ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q682111, wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPPMForm .
     ?presSPPMForm ontolex:representation ?presSPPM ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q499327, wd:Q682111, wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q499327, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPPFForm .
     ?presSPPFForm ontolex:representation ?presSPPF ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q1775415, wd:Q682111, wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q1775415, wd:Q682111, wd:Q12230930 .
+  } 
 }

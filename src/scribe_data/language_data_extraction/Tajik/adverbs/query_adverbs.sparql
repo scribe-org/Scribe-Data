@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Tajik (Q9260) adverbs.
+# All Tajik (Q9260) adverbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT

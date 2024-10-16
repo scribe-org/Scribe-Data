@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Basque (Q8752) nouns and all implemented singular and plural forms.
+# All Basque (Q8752) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -9,10 +9,8 @@ SELECT
   ?absPlural
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
-
   ?lexeme dct:language wd:Q8752 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?absIndefinite .
 
   # MARK: Absolutive Singular
@@ -20,14 +18,14 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?absSingularForm .
     ?absSingularForm ontolex:representation ?absSingular ;
-      wikibase:grammaticalFeature wd:Q332734, wd:Q110786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q332734, wd:Q110786 .
+  } 
 
   # MARK: Absolutive Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?absPluralForm .
     ?absPluralForm ontolex:representation ?absPlural ;
-      wikibase:grammaticalFeature wd:Q332734, wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q332734, wd:Q146786 .
+  } 
 }

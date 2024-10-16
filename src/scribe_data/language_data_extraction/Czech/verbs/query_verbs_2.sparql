@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Czech (Q9056) verbs and a portion of the currently implemented tenses for each.
+# All Czech (Q9056) verbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -32,98 +32,98 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femSingularPassivePartForm .
     ?femSingularPassivePartForm ontolex:representation ?femSingularPassivePart ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q72249544 ;
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q72249544 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masAnimateSingularPassivePartForm .
     ?masAnimateSingularPassivePartForm ontolex:representation ?masAnimateSingularPassivePart ;
-      wikibase:grammaticalFeature wd:Q54020116, wd:Q110786, wd:Q72249544 ;
-  } .
+      wikibase:grammaticalFeature wd:Q54020116, wd:Q110786, wd:Q72249544 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masInanimateSingularPassivePartForm .
     ?masInanimateSingularPassivePartForm ontolex:representation ?masInanimateSingularPassivePart ;
-      wikibase:grammaticalFeature wd:Q52943434, wd:Q110786, wd:Q72249544 ;
-  } .
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q110786, wd:Q72249544 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neutSingularPassivePartForm .
     ?neutSingularPassivePartForm ontolex:representation ?neutSingularPassivePart ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q72249544 ;
-  } .
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q72249544 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femPluralPassivePartForm .
     ?femPluralPassivePartForm ontolex:representation ?femPluralPassivePart ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q72249544 ;
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q72249544 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masAnimatePluralPassivePartForm .
     ?masAnimatePluralPassivePartForm ontolex:representation ?masAnimatePluralPassivePart ;
-      wikibase:grammaticalFeature wd:Q54020116, wd:Q146786, wd:Q72249544 ;
-  } .
+      wikibase:grammaticalFeature wd:Q54020116, wd:Q146786, wd:Q72249544 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masInanimatePluralPassivePartForm .
     ?masInanimatePluralPassivePartForm ontolex:representation ?masInanimatePluralPassivePart ;
-      wikibase:grammaticalFeature wd:Q52943434, wd:Q146786, wd:Q72249544 ;
-  } .
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q146786, wd:Q72249544 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neutPluralPassivePartForm .
     ?neutPluralPassivePartForm ontolex:representation ?neutPluralPassivePart ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786, wd:Q72249544 ;
-  } .
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786, wd:Q72249544 .
+  } 
 
   # MARK: Past Transgressive
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femSingularPastTransgressiveForm .
     ?femSingularPastTransgressiveForm ontolex:representation ?femSingularPastTransgressive ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q12750232 ;
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q12750232 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masAnimateSingularPastTransgressiveForm .
     ?masAnimateSingularPastTransgressiveForm ontolex:representation ?masAnimateSingularPastTransgressive ;
-      wikibase:grammaticalFeature wd:Q54020116, wd:Q110786, wd:Q12750232 ;
-  } .
+      wikibase:grammaticalFeature wd:Q54020116, wd:Q110786, wd:Q12750232 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masInanimateSingularPastTransgressiveForm .
     ?masInanimateSingularPastTransgressiveForm ontolex:representation ?masInanimateSingularPastTransgressive ;
-      wikibase:grammaticalFeature wd:Q52943434, wd:Q110786, wd:Q12750232 ;
-  } .
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q110786, wd:Q12750232 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neutSingularPastTransgressiveForm .
     ?neutSingularPastTransgressiveForm ontolex:representation ?neutSingularPastTransgressive ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q12750232 ;
-  } .
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q12750232 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femPluralPastTransgressiveForm .
     ?femPluralPastTransgressiveForm ontolex:representation ?femPluralPastTransgressive ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q12750232 ;
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q12750232 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masAnimatePluralPastTransgressiveForm .
     ?masAnimatePluralPastTransgressiveForm ontolex:representation ?masAnimatePluralPastTransgressive ;
-      wikibase:grammaticalFeature wd:Q54020116, wd:Q146786, wd:Q12750232 ;
-  } .
+      wikibase:grammaticalFeature wd:Q54020116, wd:Q146786, wd:Q12750232 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masInanimatePluralPastTransgressiveForm .
     ?masInanimatePluralPastTransgressiveForm ontolex:representation ?masInanimatePluralPastTransgressive ;
-      wikibase:grammaticalFeature wd:Q52943434, wd:Q146786, wd:Q12750232 ;
-  } .
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q146786, wd:Q12750232 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neutPluralPastTransgressiveForm .
     ?neutPluralPastTransgressiveForm ontolex:representation ?neutPluralPastTransgressive ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786, wd:Q12750232 ;
-  } .
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786, wd:Q12750232 .
+  } 
 }
