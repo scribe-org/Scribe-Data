@@ -162,6 +162,12 @@ pip install .  # or pip install scribe-data
 python setup.py egg_info
 ```
 
+Note that you may need to run this command every time you make any change to the code to have them be reflected in the development Scribe-Data:
+
+```bash
+pip install -e .
+```
+
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!
 

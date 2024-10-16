@@ -20,8 +20,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accSingularForm .
     ?accSingularForm ontolex:representation ?accSingular ;
-      wikibase:grammaticalFeature wd:Q146078 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 ;
   } .
 
   # MARK: Nominative Plural
@@ -29,8 +28,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 ;
   } .
 
   # MARK: Accusative Plural
@@ -38,7 +36,6 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accPluralForm .
     ?accPluralForm ontolex:representation ?accPlural ;
-      wikibase:grammaticalFeature wd:Q146078 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 ;
   } .
 }

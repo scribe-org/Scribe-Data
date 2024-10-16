@@ -17,9 +17,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futFPSForm .
     ?futFPSForm ontolex:representation ?futFPS ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q501405 ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q501405 ;
       FILTER(lang(?futFPS) = "he")
   } .
 
@@ -27,10 +25,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futSPSFForm .
     ?futSPSFForm ontolex:representation ?futSPSF ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q501405 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q501405, wd:Q1775415 ;
       FILTER(lang(?futSPSF) = "he")
   } .
 
@@ -38,10 +33,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futSPSMForm .
     ?futSPSMForm ontolex:representation ?futSPSM ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q501405 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q501405, wd:Q499327 ;
       FILTER(lang(?futSPSM) = "he")
   } .
 
@@ -49,10 +41,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futTPSFForm .
     ?futTPSFForm ontolex:representation ?futTPSF ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q501405 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q501405, wd:Q1775415 ;
       FILTER(lang(?futTPSF) = "he")
   } .
 
@@ -60,10 +49,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futTPSMForm .
     ?futTPSMForm ontolex:representation ?futTPSM ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q501405 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q501405, wd:Q499327 ;
       FILTER(lang(?futTPSM) = "he")
   } .
 
@@ -71,9 +57,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futFPPForm .
     ?futFPPForm ontolex:representation ?futFPP ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q501405 ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q501405 ;
       FILTER(lang(?futFPP) = "he")
   } .
 
@@ -81,10 +65,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futSPPFForm .
     ?futSPPFForm ontolex:representation ?futSPPF ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q501405 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q501405, wd:Q1775415 ;
       FILTER(lang(?futSPPF) = "he")
   } .
 
@@ -92,10 +73,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futSPPMForm .
     ?futSPPMForm ontolex:representation ?futSPPM ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q501405 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q501405, wd:Q499327 ;
       FILTER(lang(?futSPPM) = "he")
   } .
 
@@ -103,10 +81,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futTPPFForm .
     ?futTPPFForm ontolex:representation ?futTPPF ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q501405 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q501405, wd:Q1775415 ;
       FILTER(lang(?futTPPF) = "he")
   } .
 
@@ -114,10 +89,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futTPPMForm .
     ?futTPPMForm ontolex:representation ?futTPPM ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q501405 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q501405, wd:Q499327 ;
       FILTER(lang(?futTPPM) = "he")
   } .
 }
