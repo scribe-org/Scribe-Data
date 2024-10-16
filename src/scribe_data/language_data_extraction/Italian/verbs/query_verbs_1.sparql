@@ -7,8 +7,7 @@ SELECT
   ?infinitive
   ?presFPS ?presSPS ?presTPS
   ?presFPP ?presSPP ?presTPP
-  ?pretFPS ?pretSPS ?pretTPS
-  ?pretFPP ?pretSPP ?pretTPP
+
 
 WHERE {
   ?lexeme dct:language wd:Q652 ;
@@ -21,43 +20,43 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presFPSForm .
     ?presFPSForm ontolex:representation ?presFPS ;
-      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929218 .
-  } 
+      wikibase:grammaticalFeature wd:Q56682909, wd:Q21714344, wd:Q110786 .
+  }
 
   # SPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPSForm .
     ?presSPSForm ontolex:representation ?presSPS ;
-      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929369 .
-  } 
+      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929049, wd:Q110786 .
+  }
 
   # TPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPSForm .
     ?presTPSForm ontolex:representation ?presTPS ;
-      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929447 .
-  } 
+      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929074, wd:Q110786 .
+  }
 
   # FPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presFPPForm .
     ?presFPPForm ontolex:representation ?presFPP ;
-      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929290 .
-  } 
+      wikibase:grammaticalFeature wd:Q56682909, wd:Q21714344, wd:Q146786 .
+  }
 
   # SPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPPForm .
     ?presSPPForm ontolex:representation ?presSPP ;
-      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929403 .
-  } 
+      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929049, wd:Q146786 .
+  }
 
   # TPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPPForm .
     ?presTPPForm ontolex:representation ?presTPP ;
-      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929517 .
-  } 
+      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929074, wd:Q146786 .
+  }
 
   # MARK: Preterite
 
@@ -66,40 +65,40 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pretFPSForm .
     ?pretFPSForm ontolex:representation ?pretFPS ;
       wikibase:grammaticalFeature wd:Q442485, wd:Q51929218 .
-  } 
+  }
 
   # SPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretSPSForm .
     ?pretSPSForm ontolex:representation ?pretSPS ;
       wikibase:grammaticalFeature wd:Q442485, wd:Q51929369 .
-  } 
+  }
 
   # TPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretTPSForm .
     ?pretTPSForm ontolex:representation ?pretTPS ;
       wikibase:grammaticalFeature wd:Q442485, wd:Q51929447 .
-  } 
+  }
 
   # FPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretFPPForm .
     ?pretFPPForm ontolex:representation ?pretFPP ;
       wikibase:grammaticalFeature wd:Q442485, wd:Q51929290 .
-  } 
+  }
 
   # SPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretSPPForm .
     ?pretSPPForm ontolex:representation ?pretSPP ;
       wikibase:grammaticalFeature wd:Q442485, wd:Q51929403 .
-  } 
+  }
 
   # TPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretTPPForm .
     ?pretTPPForm ontolex:representation ?pretTPP ;
       wikibase:grammaticalFeature wd:Q442485, wd:Q51929517 .
-  } 
+  }
 }
