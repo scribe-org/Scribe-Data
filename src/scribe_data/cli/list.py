@@ -137,11 +137,11 @@ def list_languages_for_data_type(data_type: str) -> None:
     available_languages = []
     for lang in all_languages:
         lang = format_sublanguage_name(lang, language_metadata)
-        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / lang.capitalize()
+        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / lang
         if language_dir.is_dir():
             dt_path = language_dir / data_type
             if dt_path.exists():
-                available_languages.append(lang["language"])
+                available_languages.append(lang)
 
     available_languages.sort()
     table_header = f"Available languages: {data_type}"
@@ -154,7 +154,7 @@ def list_languages_for_data_type(data_type: str) -> None:
     print("-" * table_line_length)
 
     for lang in available_languages:
-        print(f"{lang.capitalize()}")
+        print(f"{lang}")
 
     print("-" * table_line_length)
     print()
