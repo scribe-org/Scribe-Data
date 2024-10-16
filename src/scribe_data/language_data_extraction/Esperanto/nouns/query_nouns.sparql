@@ -10,10 +10,9 @@ SELECT
   ?accPlural
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q143 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?nomSingular .
 
   # MARK: Accusative Singular

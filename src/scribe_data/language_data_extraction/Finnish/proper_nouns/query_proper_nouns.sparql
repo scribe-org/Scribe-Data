@@ -1,0 +1,23 @@
+# tool: scribe-data
+# All Finnish (Q1412) nouns and their plural for the given cases.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?nomSingular
+  ?nomPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+    wikibase:lexicalCategory wd:Q147276;
+    wikibase:lemma ?nomSingular .
+
+  # MARK: Nominative Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nomPluralForm .
+    ?nomPluralForm ontolex:representation ?nomPlural ;
+      wikibase:grammaticalFeature wd:Q131105 ;
+      wikibase:grammaticalFeature wd:Q146786 ;
+  } .
+}

@@ -1,0 +1,14 @@
+# tool: scribe-data
+# All Tajik (Q9260) nouns.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?noun
+
+WHERE {
+
+  ?lexeme dct:language wd:Q9260 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?noun .
+}

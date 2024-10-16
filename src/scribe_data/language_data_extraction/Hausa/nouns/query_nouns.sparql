@@ -9,10 +9,9 @@ SELECT
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
 
   ?lexeme dct:language wd:Q56475 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?singular .
     FILTER(lang(?singular) = "ha")
     # FILTER(lang(?singular) = "ha-arabic")

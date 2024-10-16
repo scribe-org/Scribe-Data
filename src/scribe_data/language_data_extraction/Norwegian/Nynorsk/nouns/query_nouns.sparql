@@ -12,10 +12,9 @@ SELECT
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and and proper nouns
 
   ?lexeme dct:language wd:Q25164 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?indefSingular .
 
   # MARK: Definite Singular
