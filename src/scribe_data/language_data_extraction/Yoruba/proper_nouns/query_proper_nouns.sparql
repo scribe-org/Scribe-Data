@@ -4,10 +4,10 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?noun
+  ?properNoun
 
 WHERE {
   ?lexeme dct:language wd:Q34311 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?noun .
+    wikibase:lemma ?properNoun .
 }

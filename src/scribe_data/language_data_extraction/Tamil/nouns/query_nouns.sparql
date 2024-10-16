@@ -8,7 +8,6 @@ SELECT
   ?nomPlural
 
 WHERE {
-
   ?lexeme dct:language wd:Q5885 ;
     wikibase:lexicalCategory wd:Q1084 .
 

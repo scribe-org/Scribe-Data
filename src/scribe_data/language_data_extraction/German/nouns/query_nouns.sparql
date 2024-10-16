@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All German (Q188) nouns, their plurals and the given forms.s and the given forms.
+# All German (Q188) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -9,7 +9,6 @@ SELECT
   ?gender
 
 WHERE {
-
   ?lexeme dct:language wd:Q188 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?nomSingular .
@@ -26,9 +25,6 @@ WHERE {
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
-    }
   } .
 
   SERVICE wikibase:label {

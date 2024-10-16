@@ -5,7 +5,6 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?singular
-  ?plural
   ?gender
 
 WHERE {
@@ -13,21 +12,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?singular .
 
-  # MARK: Plural
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-  } .
-
   # MARK: Gender(s)
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
-    }
   } .
 
   SERVICE wikibase:label {

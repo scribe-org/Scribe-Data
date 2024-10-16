@@ -4,15 +4,14 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?singular
+  ?properNoun
   ?plural
   ?gender
 
 WHERE {
-
   ?lexeme dct:language wd:Q33655 ; # Nigerian Pidgin
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?singular .
+    wikibase:lemma ?properNoun .
 
   # MARK: Plural
 
@@ -26,9 +25,6 @@ WHERE {
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
-    }
   } .
 
   SERVICE wikibase:label {

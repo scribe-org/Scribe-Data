@@ -8,7 +8,6 @@ SELECT
   ?plural
 
 WHERE {
-
   ?lexeme dct:language wd:Q1860 ;
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?singular .

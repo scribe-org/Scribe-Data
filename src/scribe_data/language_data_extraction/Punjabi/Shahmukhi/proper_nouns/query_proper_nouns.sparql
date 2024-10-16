@@ -12,7 +12,6 @@ SELECT
   ?gender
 
 WHERE {
-
   ?lexeme dct:language wd:Q58635 ;   # Punjabi (Q58635)
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?singular .
@@ -31,9 +30,6 @@ WHERE {
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
-    }
   } .
 
   SERVICE wikibase:label {

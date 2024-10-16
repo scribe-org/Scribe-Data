@@ -9,7 +9,6 @@ SELECT
   ?gender
 
 WHERE {
-
   ?lexeme dct:language wd:Q36510;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?singular .

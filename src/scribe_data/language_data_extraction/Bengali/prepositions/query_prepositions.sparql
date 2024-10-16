@@ -8,7 +8,6 @@ SELECT
   ?case
 
 WHERE {
-
   ?lexeme dct:language wd:Q9610 ;
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?preposition .

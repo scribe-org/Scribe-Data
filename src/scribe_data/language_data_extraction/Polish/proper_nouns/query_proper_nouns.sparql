@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Polish (Q809) nouns, their plurals and the given forms.s and the given forms.
+# All Polish (Q809) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -9,7 +9,6 @@ SELECT
   ?gender
 
 WHERE {
-
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q147276 .
 
@@ -35,9 +34,6 @@ WHERE {
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
-    }
   } .
 
   SERVICE wikibase:label {

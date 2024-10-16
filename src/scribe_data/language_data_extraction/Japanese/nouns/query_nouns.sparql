@@ -10,6 +10,5 @@ WHERE {
   ?lexeme dct:language wd:Q5287 ;
     wikibase:lexicalCategory wd:Q1084  ;
     wikibase:lemma ?noun .
-    FILTER (?nounType = ?nounTypes)
     FILTER(lang(?noun) = "ja-hira")
 }

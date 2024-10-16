@@ -10,7 +10,6 @@ SELECT
   ?accPlural
 
 WHERE {
-
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?nomSingular .
