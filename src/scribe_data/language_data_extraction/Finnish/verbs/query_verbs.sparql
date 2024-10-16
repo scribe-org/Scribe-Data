@@ -10,42 +10,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
   ?infinitiveI
-  ?infinitiveII
-  ?infinitiveIII
-  ?infinitiveIV
-  ?infinitiveV
   ?presIndSg1
-  ?presIndSg2
-  ?presIndSg3
-  ?presIndPl1
-  ?presIndPl2
-  ?presIndPl3
-  ?pastIndSg1
-  ?pastIndSg2
-  ?pastIndSg3
-  ?pastIndPl1
-  ?pastIndPl2
-  ?pastIndPl3
-  ?conditionalSg1
-  ?conditionalSg2
-  ?conditionalSg3
-  ?conditionalPl1
-  ?conditionalPl2
-  ?conditionalPl3
-  ?potentialSg1
-  ?potentialSg2
-  ?potentialSg3
-  ?potentialPl1
-  ?potentialPl2
-  ?potentialPl3
   ?imperativeSg2
   ?imperativePl2
-  ?activePresParticiple
-  ?activePastParticiple
-  ?passivePresParticiple
-  ?passivePastParticiple
   ?passivePresent
-  ?passivePast
 
 WHERE {
   ?lexeme dct:language wd:Q1412 ;
