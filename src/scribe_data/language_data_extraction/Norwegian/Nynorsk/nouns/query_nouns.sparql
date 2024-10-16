@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Nynorsk Norwegian (Q25164) nouns, their plurals and their genders.
+# All Nynorsk Norwegian (Q25164) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 # Note: This query is for Nynorsk (Q25164) rather than Bokmål (Q25167).
@@ -13,10 +13,8 @@ SELECT
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and and proper nouns
-
   ?lexeme dct:language wd:Q25164 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?indefSingular .
 
   # MARK: Definite Singular
@@ -47,10 +45,7 @@ WHERE {
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
-    }
-  } 
+  }
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

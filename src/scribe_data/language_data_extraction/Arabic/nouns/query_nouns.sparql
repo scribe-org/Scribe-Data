@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Arabic (Q13955) nouns.
+# All Arabic (Q13955) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -35,10 +35,8 @@ SELECT
   ?masPluralPausalIndef
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
-
   ?lexeme dct:language wd:Q13955 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun .
 
   # MARK: Nominative
