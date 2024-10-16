@@ -133,6 +133,5 @@ def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
     return data_type_qid == expected_data_type_qid
 
 
-# Run the check_queries function
-# MARK: TODO: Remove Call
-# check_queries()
+if __name__ == "__main__":
+    check_queries()
