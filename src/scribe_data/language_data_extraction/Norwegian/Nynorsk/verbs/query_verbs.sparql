@@ -1,6 +1,7 @@
 # tool: scribe-data
 # All Norwegian Nynorsk (Q25164) verbs and the currently implemented tenses for each.
 # Enter this query at https://query.wikidata.org/.
+
 # Note: This query is for Nynorsk (Q25164) rather than Bokmål (Q25167).
 
 SELECT
@@ -33,9 +34,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?aInfinitiveActiveForm .
     ?aInfinitiveActiveForm ontolex:representation ?aInfinitiveActive ;
-      wikibase:grammaticalFeature wd:Q179230;
-      wikibase:grammaticalFeature wd:Q1317831;
-      wikibase:grammaticalFeature wd:Q115223950 .
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831, wd:Q115223950 .
       FILTER(LANG(?aInfinitiveActive) = "nn") .
   }
 
@@ -44,9 +43,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?eInfinitiveActiveForm .
     ?eInfinitiveActiveForm ontolex:representation ?eInfinitiveActive ;
-      wikibase:grammaticalFeature wd:Q179230;
-      wikibase:grammaticalFeature wd:Q1317831;
-      wikibase:grammaticalFeature wd:Q115223951 .
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831, wd:Q115223951 .
       FILTER(LANG(?eInfinitiveActive) = "nn") .
   }
 
@@ -55,8 +52,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentActiveForm .
     ?presentActiveForm ontolex:representation ?presentActive ;
-      wikibase:grammaticalFeature wd:Q192613;
-      wikibase:grammaticalFeature wd:Q1317831 .
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
       FILTER(LANG(?presentActive) = "nn") .
   }
 
@@ -79,9 +75,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentPreteritePerfectForm .
     ?presentPreteritePerfectForm ontolex:representation ?presentPreteritePerfect ;
-      wikibase:grammaticalFeature wd:Q192613;
-      wikibase:grammaticalFeature wd:Q442485;
-      wikibase:grammaticalFeature wd:Q625420 .
+      wikibase:grammaticalFeature wd:Q192613, wd:Q442485, wd:Q625420 .
       FILTER(LANG(?presentPreteritePerfect) = "nn") .
   }
 
@@ -99,11 +93,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genderedSingularIndefinitePastParticipleForm .
     ?genderedSingularIndefinitePastParticipleForm ontolex:representation ?genderedSingularIndefinitePastParticiple ;
-      wikibase:grammaticalFeature wd:Q499327;
-      wikibase:grammaticalFeature wd:Q1775415;
-      wikibase:grammaticalFeature wd:Q110786;
-      wikibase:grammaticalFeature wd:Q53997857;
-      wikibase:grammaticalFeature wd:Q12717679 .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1775415, wd:Q110786, wd:Q53997857, wd:Q12717679 .
       FILTER(LANG(?genderedSingularIndefinitePastParticiple) = "nn") .
   }
 
@@ -112,10 +102,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterSingularIndefinitePastParticipleForm .
     ?neuterSingularIndefinitePastParticipleForm ontolex:representation ?neuterSingularIndefinitePastParticiple ;
-      wikibase:grammaticalFeature wd:Q1775461;
-      wikibase:grammaticalFeature wd:Q110786;
-      wikibase:grammaticalFeature wd:Q53997857;
-      wikibase:grammaticalFeature wd:Q12717679 .
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q53997857, wd:Q12717679 .
       FILTER(LANG(?neuterSingularIndefinitePastParticiple) = "nn") .
   }
 
@@ -124,9 +111,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularDefinitePastParticipleForm .
     ?singularDefinitePastParticipleForm ontolex:representation ?singularDefinitePastParticiple ;
-      wikibase:grammaticalFeature wd:Q110786;
-      wikibase:grammaticalFeature wd:Q53997851;
-      wikibase:grammaticalFeature wd:Q12717679 .
+      wikibase:grammaticalFeature wd:Q110786, wd:Q53997851, wd:Q12717679 .
       FILTER(LANG(?singularDefinitePastParticiple) = "nn") .
   }
 
@@ -135,8 +120,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralPastParticipleForm .
     ?pluralPastParticipleForm ontolex:representation ?pluralPastParticiple ;
-      wikibase:grammaticalFeature wd:Q146786;
-      wikibase:grammaticalFeature wd:Q12717679 .
+      wikibase:grammaticalFeature wd:Q146786, wd:Q12717679 .
       FILTER(LANG(?pluralPastParticiple) = "nn") .
   }
 
@@ -154,8 +138,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?infinitivePassiveForm .
     ?infinitivePassiveForm ontolex:representation ?infinitivePassive ;
-      wikibase:grammaticalFeature wd:Q179230;
-      wikibase:grammaticalFeature wd:Q1194697 .
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1194697 .
       FILTER(LANG(?infinitivePassive) = "nn") .
   }
 
@@ -164,8 +147,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentPassiveForm .
     ?presentPassiveForm ontolex:representation ?presentPassive ;
-      wikibase:grammaticalFeature wd:Q192613;
-      wikibase:grammaticalFeature wd:Q1194697 .
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1194697 .
       FILTER(LANG(?presentPassive) = "nn") .
   }
 }

@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Slovak (Q9058) adjectives.
+# All Tamil (Q5885) adjectives.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -7,7 +7,9 @@ SELECT
   ?adjective
 
 WHERE {
-  ?lexeme dct:language wd:Q9058 ;
+  ?lexeme dct:language wd:Q5885 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
+
+  FILTER(lang(?adjective) = "ta")
 }

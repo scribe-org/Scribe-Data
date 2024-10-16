@@ -18,8 +18,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastTPPForm .
     ?pastTPPForm ontolex:representation ?pastTPP ;
       wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1994301 ;
       FILTER(lang(?pastTPP) = "he")
   } .
 
@@ -28,9 +27,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastSPSFForm .
     ?pastSPSFForm ontolex:representation ?pastSPSF ;
       wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1994301, wd:Q1775415 ;
       FILTER(lang(?pastSPSF) = "he")
   } .
 
@@ -39,9 +36,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastSPSMForm .
     ?pastSPSMForm ontolex:representation ?pastSPSM ;
       wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1994301, wd:Q499327 ;
       FILTER(lang(?pastSPSM) = "he")
   } .
 
@@ -50,9 +45,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastTPSFForm .
     ?pastTPSFForm ontolex:representation ?pastTPSF ;
       wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1994301, wd:Q1775415 ;
       FILTER(lang(?pastTPSF) = "he")
   } .
 
@@ -61,9 +54,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastTPSMForm .
     ?pastTPSMForm ontolex:representation ?pastTPSM ;
       wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1994301, wd:Q499327 ;
       FILTER(lang(?pastTPSM) = "he")
   } .
 
@@ -72,8 +63,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastFPPForm .
     ?pastFPPForm ontolex:representation ?pastFPP ;
       wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1994301 ;
       FILTER(lang(?pastFPP) = "he")
   } .
 
@@ -82,9 +72,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastSPPFForm .
     ?pastSPPFForm ontolex:representation ?pastSPPF ;
       wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1994301, wd:Q1775415 ;
       FILTER(lang(?pastSPPF) = "he")
   } .
 
@@ -93,9 +81,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastSPPMForm .
     ?pastSPPMForm ontolex:representation ?pastSPPM ;
       wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1994301, wd:Q499327 ;
       FILTER(lang(?pastSPPM) = "he")
   } .
 
@@ -104,9 +90,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastTPPFForm .
     ?pastTPPFForm ontolex:representation ?pastTPPF ;
       wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1994301, wd:Q1775415 ;
       FILTER(lang(?pastTPPF) = "he")
   } .
 
@@ -115,9 +99,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastTPPMForm .
     ?pastTPPMForm ontolex:representation ?pastTPPM ;
       wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q1994301 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1994301, wd:Q499327 ;
       FILTER(lang(?pastTPPM) = "he")
   } .
 }

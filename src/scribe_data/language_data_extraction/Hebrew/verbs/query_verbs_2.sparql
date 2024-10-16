@@ -17,10 +17,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPSMForm .
     ?impSPSMForm ontolex:representation ?impSPSM ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q22716 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q22716, wd:Q1775415 ;
       FILTER(lang(?impSPSM) = "he")
   } .
 
@@ -28,10 +25,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPSMForm .
     ?impSPSMForm ontolex:representation ?impSPSM ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q22716 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q22716, wd:Q1775415 ;
       FILTER(lang(?impSPSM) = "he")
   } .
 
@@ -39,10 +33,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPPFForm .
     ?impSPPFForm ontolex:representation ?impSPPF ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q22716 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q22716, wd:Q1775415 ;
       FILTER(lang(?impSPPF) = "he")
   } .
 
@@ -50,10 +41,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPPMForm .
     ?impSPPMForm ontolex:representation ?impSPPM ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q22716 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q22716, wd:Q499327 ;
       FILTER(lang(?impSPPM) = "he")
   } .
 }
