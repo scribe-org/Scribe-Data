@@ -1,5 +1,4 @@
 """
-<<<<<<< HEAD
 Generates keyword-emoji relationships from a selection of Hindi words, ensuring Urdu words are excluded.
 
 .. raw:: html
@@ -24,10 +23,8 @@ Generates keyword-emoji relationships from a selection of Hindi words, ensuring 
 from scribe_data.unicode.generate_emoji_keyword import generate_emoji_keyword
 from scribe_data.unicode.common_arg_parser import setup_arg_parser 
 
-LANGUAGE = "Hindi"
-
 # Define the main language.
-LANGUAGE = "Hindustani"  # Grouped language with sub-languages like Hindi, Urdu
+LANGUAGE = "Hindi"  
 
 # Set up the argument parser by calling the imported function.
 parser = setup_arg_parser()
