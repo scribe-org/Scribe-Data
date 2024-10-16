@@ -3,8 +3,8 @@ from pathlib import Path
 
 from scribe_data.cli.cli_utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
-    language_metadata,
     data_type_metadata,
+    language_metadata,
 )
 
 
@@ -14,24 +14,26 @@ def extract_qid_from_sparql(file_path: Path, pattern: str) -> str:
 
     Parameters
     ----------
-    file_path : Path
-        The path to the SPARQL query file from which to extract the QID.
-    pattern : str
-        The regex pattern used to match the QID (either for language or data type).
+        file_path : Path
+            The path to the SPARQL query file from which to extract the QID.
+
+        pattern : str
+            The regex pattern used to match the QID (either for language or data type).
 
     Returns
     -------
-    str
-        The extracted QID if found, otherwise None.
+        str
+            The extracted QID if found, otherwise None.
     """
     try:
         with open(file_path, "r", encoding="utf-8") as file:
             content = file.read()
-            match = re.search(pattern, content)
-            if match:
-                return match.group(0).split("wd:")[1]
+            if match := re.search(pattern, content):
+                return match[0].split("wd:")[1]
+
     except Exception as e:
         print(f"Error reading {file_path}: {e}")
+
     return None
 
 
@@ -63,12 +65,14 @@ def check_queries():
         print("Incorrect Language QIDs found in the following files:")
         for file in incorrect_languages:
             print(f"- {file}")
+
     print("\n----------------------------------------------------------------\n")
 
     if incorrect_data_types:
         print("Incorrect Data Type QIDs found in the following files:")
         for file in incorrect_data_types:
             print(f"- {file}")
+
     print("\n----------------------------------------------------------------\n")
 
 
@@ -103,6 +107,7 @@ def is_valid_language(query_file: Path, lang_qid: str) -> bool:
 
     if lang_qid != expected_language_qid:
         return False
+
     return True
 
 
@@ -125,9 +130,7 @@ def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
     directory_name = query_file.parent.name  # e.g., "nouns" or "verbs"
     expected_data_type_qid = data_type_metadata.get(directory_name)
 
-    if data_type_qid != expected_data_type_qid:
-        return False
-    return True
+    return data_type_qid == expected_data_type_qid
 
 
 # Run the check_queries function
