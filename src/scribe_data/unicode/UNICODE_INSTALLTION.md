@@ -15,3 +15,35 @@ export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$(brew --prefix)/opt/icu4c/lib/pkgconfi
 echo "/opt/homebrew/opt/icu4c/bin:/opt/homebrew/opt/icu4c/sbin:$PATH"
 echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/homebrew/opt/icu4c/lib/pkgconfig"
 ```
+
+# Installing PyICU for Emoji Support on Windows
+
+This guide provides step-by-step instructions on how to install the PyICU library, which is essential for proper emoji support on Windows.
+
+## Download the PyICU Wheel File
+
+1. Visit the [PyICU Release Page](https://github.com/cgohlke/pyicu-build/releases).
+2. Locate and download the wheel (`.whl`) file that matches your Python version. Make sure to select the correct architecture (e.g., `win_amd64` for 64-bit Python).
+
+## Set Up a Virtual Environment
+
+If you haven't already, You can do this with the following command:
+
+```bash
+# Create a virtual environment named 'venv'
+python -m venv venv
+
+# Activate the virtual environment
+venv\Scripts\activate
+```
+
+## Install PyICU
+```bash
+# Replace 'PyICU-2.13-cp312-cp312-win_amd64.whl' with the actual filename you downloaded
+pip install PyICU-2.13-cp312-cp312-win_amd64.whl
+
+## Verify the Installation
+# Check the installation details of PyICU
+pip show PyICU
+```
+
