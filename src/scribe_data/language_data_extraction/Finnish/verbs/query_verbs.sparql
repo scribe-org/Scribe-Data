@@ -1,8 +1,11 @@
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
 # tool: scribe-data
+# All Finnish (Q1412) verbs and their forms.
 # All Finnish (Q1412) verbs and their forms.
 # Enter this query at https://query.wikidata.org/.
 
@@ -19,6 +22,129 @@ WHERE {
   ?lexeme dct:language wd:Q1412 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
+
+  # Infinitives
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveIForm .
+    ?infinitiveIForm ontolex:representation ?infinitiveI ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveIIForm .
+    ?infinitiveIIForm ontolex:representation ?infinitiveII ;
+      wikibase:grammaticalFeature wd:Q179230 ;
+      wikibase:grammaticalFeature wd:Q66596723 .
+  }
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveIIIForm .
+    ?infinitiveIIIForm ontolex:representation ?infinitiveIII ;
+      wikibase:grammaticalFeature wd:Q179230 ;
+      wikibase:grammaticalFeature wd:Q66596786 .
+  }
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveIVForm .
+    ?infinitiveIVForm ontolex:representation ?infinitiveIV ;
+      wikibase:grammaticalFeature wd:Q179230 ;
+      wikibase:grammaticalFeature wd:Q66596828 .
+  }
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveVForm .
+    ?infinitiveVForm ontolex:representation ?infinitiveV ;
+      wikibase:grammaticalFeature wd:Q179230 ;
+      wikibase:grammaticalFeature wd:Q66596870 .
+  }
+
+  # Present Indicative
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presIndSg1Form .
+    ?presIndSg1Form ontolex:representation ?presIndSg1 ;
+      wikibase:grammaticalFeature wd:Q192613 ;
+      wikibase:grammaticalFeature wd:Q21714344 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  # Past Indicative
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastIndSg1Form .
+    ?pastIndSg1Form ontolex:representation ?pastIndSg1 ;
+      wikibase:grammaticalFeature wd:Q1240211 ;
+      wikibase:grammaticalFeature wd:Q21714344 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  # Conditional
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalSg1Form .
+    ?conditionalSg1Form ontolex:representation ?conditionalSg1 ;
+      wikibase:grammaticalFeature wd:Q52824793 ;
+      wikibase:grammaticalFeature wd:Q21714344 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+  # ... (similar OPTIONAL blocks for other conditional forms)
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?potentialSg1Form .
+    ?potentialSg1Form ontolex:representation ?potentialSg1 ;
+      wikibase:grammaticalFeature wd:Q696092 ;
+      wikibase:grammaticalFeature wd:Q21714344 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+  # ... (similar OPTIONAL blocks for other potential forms)
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeSg2Form .
+    ?imperativeSg2Form ontolex:representation ?imperativeSg2 ;
+      wikibase:grammaticalFeature wd:Q22716 ;
+      wikibase:grammaticalFeature wd:Q51929049 ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativePl2Form .
+    ?imperativePl2Form ontolex:representation ?imperativePl2 ;
+      wikibase:grammaticalFeature wd:Q22716 ;
+      wikibase:grammaticalFeature wd:Q51929049 ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # Participles
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresParticipleForm .
+    ?activePresParticipleForm ontolex:representation ?activePresParticiple ;
+      wikibase:grammaticalFeature wd:Q814722 ;
+      wikibase:grammaticalFeature wd:Q1317831 .
+  }
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePastParticipleForm .
+    ?activePastParticipleForm ontolex:representation ?activePastParticiple ;
+      wikibase:grammaticalFeature wd:Q12612262 ;
+      wikibase:grammaticalFeature wd:Q1317831 .
+  }
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePresParticipleForm .
+    ?passivePresParticipleForm ontolex:representation ?passivePresParticiple ;
+      wikibase:grammaticalFeature wd:Q814722 ;
+      wikibase:grammaticalFeature wd:Q1194697 .
+  }
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePastParticipleForm .
+    ?passivePastParticipleForm ontolex:representation ?passivePastParticiple ;
+      wikibase:grammaticalFeature wd:Q12612262 ;
+      wikibase:grammaticalFeature wd:Q1194697 .
+  }
+
+  # Passive forms
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePresentForm .
+    ?passivePresentForm ontolex:representation ?passivePresent ;
+      wikibase:grammaticalFeature wd:Q192613 ;
+      wikibase:grammaticalFeature wd:Q1194697 .
+  }
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePastForm .
+    ?passivePastForm ontolex:representation ?passivePast ;
+      wikibase:grammaticalFeature wd:Q1240211 ;
+      wikibase:grammaticalFeature wd:Q1194697 .
+  }
 
   # Infinitives
   OPTIONAL {
