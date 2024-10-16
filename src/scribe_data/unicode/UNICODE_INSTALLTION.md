@@ -38,12 +38,11 @@ venv\Scripts\activate
 ```
 
 ## Install PyICU
+
 ```bash
 # Replace 'PyICU-2.13-cp312-cp312-win_amd64.whl' with the actual filename you downloaded
 pip install PyICU-2.13-cp312-cp312-win_amd64.whl
 
-## Verify the Installation
 # Check the installation details of PyICU
 pip show PyICU
 ```
-
