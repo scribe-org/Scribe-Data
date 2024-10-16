@@ -2,7 +2,7 @@
 # All Basque (Q8752) nouns and all implemented singular and plural forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?absIndefinite
   ?absSingular

@@ -20,9 +20,10 @@ Utility functions for the Scribe-Data CLI.
     -->
 """
 
+import difflib
 import json
 from pathlib import Path
-from typing import Union
+from typing import List, Union
 
 from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 
@@ -71,6 +72,9 @@ for lang_key, lang_data in language_metadata.items():
         language_to_qid[lang_key_lower] = lang_data["qid"]
 
 
+# MARK: Correct Inputs
+
+
 def correct_data_type(data_type: str) -> str:
     """
     Corrects common versions of data type arguments so users can choose between them.
@@ -92,6 +96,9 @@ def correct_data_type(data_type: str) -> str:
     for wt in all_data_types:
         if f"{data_type}s" == wt:
             return wt
+
+
+# MARK: Print Formatted
 
 
 def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
@@ -152,3 +159,106 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
 
     else:
         print(data)
+
+
+# MARK: Validate
+
+
+def validate_language_and_data_type(
+    language: Union[str, List[str], bool, None],
+    data_type: Union[str, List[str], bool, None],
+):
+    """
+    Validates that the language and data type QIDs are not None.
+
+    Parameters
+    ----------
+        language : str or list
+            The language(s) to validate.
+
+        data_type : str or list
+            The data type(s) to validate.
+
+    Raises
+    ------
+        ValueError
+            If any of the languages or data types is invalid, with all errors reported together.
+    """
+
+    def validate_single_item(item, valid_options, item_type):
+        """
+        Validates a single item against a list of valid options, providing error messages and suggestions.
+
+        Parameters
+        ----------
+            item : str
+                The item to validate.
+            valid_options : list
+                A list of valid options against which the item will be validated.
+            item_type : str
+                A description of the item type (e.g., "language", "data-type") used in error messages.
+
+        Returns
+        -------
+            str or None
+                Returns an error message if the item is invalid, or None if the item is valid.
+        """
+        if (
+            isinstance(item, str)
+            and item.lower().strip() not in valid_options
+            and not item.startswith("Q")
+            and not item[1:].isdigit()
+        ):
+            closest_match = difflib.get_close_matches(item, valid_options, n=1)
+            closest_match_str = (
+                f" The closest matching {item_type} is {closest_match[0]}."
+                if closest_match
+                else ""
+            )
+
+            return f"Invalid {item_type} {item}.{closest_match_str}"
+
+        return None
+
+    errors = []
+
+    # Handle language validation.
+    if language is None or isinstance(language, bool):
+        pass
+
+    elif isinstance(language, str):
+        language = [language]
+
+    elif not isinstance(language, list):
+        errors.append("Language must be a string or a list of strings.")
+
+    if language is not None and isinstance(language, list):
+        for lang in language:
+            error = validate_single_item(lang, language_to_qid.keys(), "language")
+
+            if error:
+                errors.append(error)
+
+    # Handle data type validation.
+    if data_type is None or isinstance(data_type, bool):
+        pass
+
+    elif isinstance(data_type, str):
+        data_type = [data_type]
+
+    elif not isinstance(data_type, list):
+        errors.append("Data type must be a string or a list of strings.")
+
+    if data_type is not None and isinstance(data_type, list):
+        for dt in data_type:
+            error = validate_single_item(dt, data_type_metadata.keys(), "data-type")
+
+            if error:
+                errors.append(error)
+
+    # Raise ValueError with the combined error message.
+    if errors:
+        raise ValueError("\n".join(errors))
+
+    else:
+        return True

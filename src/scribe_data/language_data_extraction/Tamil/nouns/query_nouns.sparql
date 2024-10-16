@@ -2,7 +2,7 @@
 # All Tamil (Q5885) nouns and their plurals for the given cases.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?nomSingular
   ?nomPlural

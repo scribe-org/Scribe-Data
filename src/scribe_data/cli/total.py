@@ -217,13 +217,7 @@ def get_total_lexemes(language, data_type, doPrint=True):
     else:
         data_type_qid = get_qid_by_input(data_type)
 
-    # Validate language and data type, raise error if invalid.
-    try:
-        validate_language_and_data_type(language_qid, data_type_qid)
-
-    except ValueError as e:
-        print(str(e))
-        return
+    # MARK: Construct Query
 
     query_template = """
     SELECT
@@ -251,6 +245,8 @@ def get_total_lexemes(language, data_type, doPrint=True):
     query = query_template.format(
         language_filter=language_filter, data_type_filter=data_type_filter
     )
+
+    # MARK: Query Results
 
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
@@ -280,30 +276,6 @@ def get_total_lexemes(language, data_type, doPrint=True):
     else:
         print("Total number of lexemes: Not found")
         return None
-
-
-# MARK: Validate
-
-
-def validate_language_and_data_type(language: str, data_type: str):
-    """
-    Validates that the language and data type QIDs are not None.
-
-    Parameters
-    ----------
-        language : str
-            The language to validate.
-
-        data_type : str
-            The data type to validate.
-
-    Raises
-    ------
-        ValueError
-            If either the language or data type is invalid (None).
-    """
-    if language is None or data_type is None:
-        raise ValueError("Total number of lexemes: Not found")
 
 
 # MARK: Wrapper
