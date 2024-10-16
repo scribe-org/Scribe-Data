@@ -1,5 +1,3 @@
-import os
-import sys
 from scribe_data.cli.cli_utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
     data_type_metadata,
