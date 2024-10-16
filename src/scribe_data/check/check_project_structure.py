@@ -120,8 +120,9 @@ def check_data_type_folders(path, language, subdir, errors):
 
                 for file in os.listdir(item_path):
                     if file not in valid_files and file != "__init__.py":
+                        error_subdir = f"{subdir}/" or ""
                         errors.append(
-                            f"Unexpected file in {language}/{subdir or ''}/{item}: {file}"
+                            f"Unexpected file in {language}/{error_subdir}{item}: {file}"
                         )
 
 
