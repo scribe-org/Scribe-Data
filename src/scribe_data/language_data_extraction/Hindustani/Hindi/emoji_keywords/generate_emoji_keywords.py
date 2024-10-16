@@ -33,7 +33,11 @@ parser = setup_arg_parser()
 # Parse the command-line arguments.
 args = parser.parse_args()
 
-# Call the generate_emoji_keyword function with optional parameters.
+# Define the main language
+LANGUAGE = "Hindustani"  # Change to a grouped language if needed
+
+ 
+# Call the generate_emoji_keyword function with optional parameters
 generate_emoji_keyword(
     LANGUAGE,
     args.file_path,
