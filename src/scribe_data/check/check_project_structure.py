@@ -1,6 +1,6 @@
 import os
 
-# Expected languages and data types
+# Expected languages and data types.
 LANGUAGES = {
     "Arabic",
     "English",
@@ -58,7 +58,7 @@ DATA_TYPES = {
     "verbs",
 }
 
-# Sub-subdirectories expected for specific languages
+# Sub-subdirectories expected for specific languages.
 SUB_DIRECTORIES = {
     "Chinese": ["Mandarin"],
     "Hindustani": ["Urdu", "Hindi"],
@@ -68,12 +68,13 @@ SUB_DIRECTORIES = {
 }
 
 
-# Base directory path
+# Base directory path.
 BASE_DIR = "../language_data_extraction"
 
 
 def validate_project_structure():
-    """Validate that all directories follow the expected project structure and check for unexpected files and directories."""
+    """
+    Validate that all directories follow the expected project structure and check for unexpected files and directories."""
     errors = []
 
     if not os.path.exists(BASE_DIR):
@@ -134,25 +135,26 @@ def validate_project_structure():
                             errors.append(
                                 f"Unexpected file found in {language}/{subdir}: {item}"
                             )
+
                         elif os.path.isdir(item_path) and item not in DATA_TYPES:
                             errors.append(
                                 f"Unexpected directory found in {language}/{subdir}: {item}"
                             )
-        else:
-            unexpected_data_types = found_subdirs - DATA_TYPES
-            if unexpected_data_types:
-                errors.append(
-                    f"Unexpected subdirectories in '{language}': {unexpected_data_types}"
-                )
+
+        elif unexpected_data_types := found_subdirs - DATA_TYPES:
+            errors.append(
+                f"Unexpected subdirectories in '{language}': {unexpected_data_types}"
+            )
 
     if errors:
         print("Errors found:")
         for error in errors:
             print(f" - {error}")
         exit(1)
+
     else:
         print(
-            "All directories are correctly named and organized, and no unexpected files or directories were found."
+            "All directories and files are correctly named and organized, and no unexpected files or directories were found."
         )
 
 

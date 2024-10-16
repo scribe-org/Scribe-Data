@@ -1,5 +1,4 @@
-name: Structure Check
-
+name: Check Project Structure
 on:
   push:
     branches: [main]
@@ -12,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Run check_project_structure.py
-      working-directory: ./src/scribe_data/check
-      run: python check_project_structure.py
+      - name: Run check_project_structure.py
+        working-directory: ./src/scribe_data/check
+        run: python check_project_structure.py
 
-    - name: Post-run status
-      if: failure()
-      run: echo "Check failed. Please fix the errors."
+      - name: Post-run status
+        if: failure()
+        run: echo "Project structure check failed. Please fix the reported errors."

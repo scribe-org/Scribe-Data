@@ -1,4 +1,4 @@
-name: pr_maintainer_checklist
+name: PR Maintainer Checklist
 on:
   pull_request_target:
     branches:

@@ -1,4 +1,4 @@
-name: check_query_identifiers
+name: Check Query Identifiers
 on:
   push:
     branches: [main]
