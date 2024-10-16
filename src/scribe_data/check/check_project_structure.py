@@ -80,11 +80,19 @@ def check_data_type_folders(path, language, subdir, errors):
     and reports any unexpected files. It allows for multiple SPARQL query files,
     a format Python file, and a queried JSON file for each data type.
 
-    Args:
-    path (str): The path to the directory containing data type folders.
-    language (str): The name of the language being processed.
-    subdir (str or None): The name of the sub-directory (for languages with sub-dialects), or None.
-    errors (list): A list to which error messages will be appended.
+    Parameters
+    ----------
+    path : str
+        The path to the directory containing data type folders.
+
+    language : str
+        The name of the language being processed.
+
+    subdir : str or None
+        The name of the sub-directory (for languages with sub-dialects), or None.
+
+    errors : list
+        A list to which error messages will be appended.
 
     The function checks for the following valid files in each data type folder:
     - Files starting with 'query_' and ending with '.sparql'
@@ -105,11 +113,11 @@ def check_data_type_folders(path, language, subdir, errors):
                     f"Unexpected directory found in {language}/{subdir or ''}: {item}"
                 )
             else:
-                # Skip validation for emoji_keywords
+                # Skip validation for emoji_keywords.
                 if item == "emoji_keywords":
                     continue
 
-                # Check for correctly formatted files
+                # Check for correctly formatted files.
                 valid_files = [
                     f
                     for f in os.listdir(item_path)
@@ -137,13 +145,13 @@ def validate_project_structure():
         print(f"Error: Base directory '{BASE_DIR}' does not exist.")
         exit(1)
 
-    # Check for unexpected files in BASE_DIR
+    # Check for unexpected files in BASE_DIR.
     for item in os.listdir(BASE_DIR):
         item_path = os.path.join(BASE_DIR, item)
         if os.path.isfile(item_path) and item != "__init__.py":
             errors.append(f"Unexpected file found in BASE_DIR: {item}")
 
-    # Iterate through the language directories
+    # Iterate through the language directories.
     for language in os.listdir(BASE_DIR):
         language_path = os.path.join(BASE_DIR, language)
 
@@ -154,7 +162,7 @@ def validate_project_structure():
             errors.append(f"Unexpected language directory: {language}")
             continue
 
-        # Check for unexpected files in language directory
+        # Check for unexpected files in language directory.
         for item in os.listdir(language_path):
             item_path = os.path.join(language_path, item)
             if os.path.isfile(item_path) and item != "__init__.py":
