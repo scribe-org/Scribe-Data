@@ -20,8 +20,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?absSingularForm .
     ?absSingularForm ontolex:representation ?absSingular ;
-      wikibase:grammaticalFeature wd:Q332734 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
+      wikibase:grammaticalFeature wd:Q332734, wd:Q110786 ;
   } .
 
   # MARK: Absolutive Plural
@@ -29,7 +28,6 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?absPluralForm .
     ?absPluralForm ontolex:representation ?absPlural ;
-      wikibase:grammaticalFeature wd:Q332734 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q332734, wd:Q146786 ;
   } .
 }

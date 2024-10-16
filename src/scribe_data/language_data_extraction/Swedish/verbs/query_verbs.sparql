@@ -19,7 +19,7 @@ WHERE {
   ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
   ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
     wikibase:grammaticalFeature wd:Q1317831 ;
-    wikibase:grammaticalFeature wd:Q179230 ;
+    wikibase:grammaticalFeature wd:Q179230 .
 
   # Imperative
   OPTIONAL {
@@ -32,24 +32,21 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?activeSupineForm .
     ?activeSupineForm ontolex:representation ?activeSupine ;
-      wikibase:grammaticalFeature wd:Q1317831 ;
-      wikibase:grammaticalFeature wd:Q548470 ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q548470 ;
   } .
 
   # Present
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?activePresentForm .
     ?activePresentForm ontolex:representation ?activePresent ;
-      wikibase:grammaticalFeature wd:Q1317831 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613 ;
   } .
 
   # Preterite
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?activePreteriteForm .
     ?activePreteriteForm ontolex:representation ?activePreterite ;
-      wikibase:grammaticalFeature wd:Q1317831 ;
-      wikibase:grammaticalFeature wd:Q442485 ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q442485 ;
   } .
 
   # MARK: Passive Voice
@@ -58,31 +55,27 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
     ?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
-      wikibase:grammaticalFeature wd:Q1194697 ;
-      wikibase:grammaticalFeature wd:Q179230 ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q179230 ;
   } .
 
   # Supine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?passiveSupineForm .
     ?passiveSupineForm ontolex:representation ?passiveSupine ;
-      wikibase:grammaticalFeature wd:Q1194697 ;
-      wikibase:grammaticalFeature wd:Q548470 ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q548470 ;
   } .
 
   # Present
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?passivePresentForm .
     ?passivePresentForm ontolex:representation ?passivePresent ;
-      wikibase:grammaticalFeature wd:Q1194697 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613 ;
   } .
 
   # Preterite
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?passivePreteriteForm .
     ?passivePreteriteForm ontolex:representation ?passivePreterite ;
-      wikibase:grammaticalFeature wd:Q1194697 ;
-      wikibase:grammaticalFeature wd:Q442485 ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q442485 ;
   } .
 }
