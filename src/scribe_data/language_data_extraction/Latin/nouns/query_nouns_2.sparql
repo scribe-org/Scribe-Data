@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Latin (Q397) nouns in the given cases.
+# All Latin (Q397) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -19,11 +19,11 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?genSingularForm .
     ?genSingularForm ontolex:representation ?genSingular ;
       wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genPluralForm .
     ?genPluralForm ontolex:representation ?genPlural ;
       wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
-  } .
+  } 
 }

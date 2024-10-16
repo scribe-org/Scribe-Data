@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Estonian (Q380057) adverbs and the corresponding forms per case.
+# All Estonian (Q380057) adverbs and the given forms.
 # Enter this query at https://query.wikidata.org/
 
 SELECT

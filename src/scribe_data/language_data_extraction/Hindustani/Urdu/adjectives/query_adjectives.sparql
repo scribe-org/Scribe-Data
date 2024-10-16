@@ -34,7 +34,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?singulativeNumeralForm .
     ?singulativeNumeralForm ontolex:representation ?singulativeNumeral ;
       wikibase:grammaticalFeature wd:Q110786 .
-      FILTER(LANG(?singulativeNumeral) = "ur")
+      FILTER(LANG(?singulativeNumeral) = "ur") .
   }
 
   # MARK: Collective Numeral
@@ -43,7 +43,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?collectiveNumeralForm .
     ?collectiveNumeralForm ontolex:representation ?collectiveNumeral ;
       wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(LANG(?collectiveNumeral) = "ur")
+      FILTER(LANG(?collectiveNumeral) = "ur") .
   }
 
   # MARK: Direct
@@ -51,88 +51,88 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femSingularDirectForm .
     ?femSingularDirectForm ontolex:representation ?femSingularDirect ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q1751855 ;
-      FILTER(LANG(?femSingularDirect) = "ur")
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q1751855 .
+      FILTER(LANG(?femSingularDirect) = "ur") .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masSingularDirectForm .
     ?masSingularDirectForm ontolex:representation ?masSingularDirect ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q1751855 ;
-      FILTER(LANG(?masSingularDirect) = "ur")
-  } .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q1751855 .
+      FILTER(LANG(?masSingularDirect) = "ur") .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femPluralDirectForm .
     ?femPluralDirectForm ontolex:representation ?femPluralDirect ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q1751855 ;
-      FILTER(LANG(?femPluralDirect) = "ur")
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q1751855 .
+      FILTER(LANG(?femPluralDirect) = "ur") .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masPluralDirectForm .
     ?masPluralDirectForm ontolex:representation ?masPluralDirect ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q1751855 ;
-      FILTER(LANG(?masPluralDirect) = "ur")
-  } .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q1751855 .
+      FILTER(LANG(?masPluralDirect) = "ur") .
+  } 
 
   # MARK: Oblique
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femSingularObliqueForm .
     ?femSingularObliqueForm ontolex:representation ?femSingularOblique ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q1233197 ;
-      FILTER(LANG(?femSingularOblique) = "ur")
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q1233197 .
+      FILTER(LANG(?femSingularOblique) = "ur") .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masSingularObliqueForm .
     ?masSingularObliqueForm ontolex:representation ?masSingularOblique ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q1233197 ;
-      FILTER(LANG(?masSingularOblique) = "ur")
-  } .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q1233197 .
+      FILTER(LANG(?masSingularOblique) = "ur") .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femPluralObliqueForm .
     ?femPluralObliqueForm ontolex:representation ?femPluralOblique ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q1233197 ;
-      FILTER(LANG(?femPluralOblique) = "ur")
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q1233197 .
+      FILTER(LANG(?femPluralOblique) = "ur") .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masPluralObliqueForm .
     ?masPluralObliqueForm ontolex:representation ?masPluralOblique ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q1233197 ;
-      FILTER(LANG(?masPluralOblique) = "ur")
-  } .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q1233197 .
+      FILTER(LANG(?masPluralOblique) = "ur") .
+  } 
 
   # MARK: Vocative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femSingularVocativeForm .
     ?femSingularVocativeForm ontolex:representation ?femSingularVocative ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q185077 ;
-      FILTER(LANG(?femSingularVocative) = "ur")
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q185077 .
+      FILTER(LANG(?femSingularVocative) = "ur") .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masSingularVocativeForm .
     ?masSingularVocativeForm ontolex:representation ?masSingularVocative ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q185077 ;
-      FILTER(LANG(?masSingularVocative) = "ur")
-  } .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q185077 .
+      FILTER(LANG(?masSingularVocative) = "ur") .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femPluralVocativeForm .
     ?femPluralVocativeForm ontolex:representation ?femPluralVocative ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q185077 ;
-      FILTER(LANG(?femPluralVocative) = "ur")
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q185077 .
+      FILTER(LANG(?femPluralVocative) = "ur") .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masPluralVocativeForm .
     ?masPluralVocativeForm ontolex:representation ?masPluralVocative ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q185077 ;
-      FILTER(LANG(?masPluralVocative) = "ur")
-  } .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q185077 .
+      FILTER(LANG(?masPluralVocative) = "ur") .
+  } 
 }

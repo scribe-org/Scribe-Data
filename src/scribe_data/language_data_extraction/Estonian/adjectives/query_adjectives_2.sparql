@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Estonian (Q9072) adjectives in the given cases.
+# All Estonian (Q9072) adjectives and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -25,13 +25,13 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?illSingularForm .
     ?illSingularForm ontolex:representation ?illSingular ;
       wikibase:grammaticalFeature wd:Q474668, wd:Q110786 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?illPluralForm .
     ?illPluralForm ontolex:representation ?illPlural ;
       wikibase:grammaticalFeature wd:Q474668, wd:Q146786 .
-  } .
+  } 
 
   # MARK: Inessive
 
@@ -39,13 +39,13 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?ineSingularForm .
     ?ineSingularForm ontolex:representation ?ineSingular ;
       wikibase:grammaticalFeature wd:Q282031, wd:Q110786 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?inePluralForm .
     ?inePluralForm ontolex:representation ?inePlural ;
       wikibase:grammaticalFeature wd:Q282031, wd:Q146786 .
-  } .
+  } 
 
   # MARK: Elative
 
@@ -53,13 +53,13 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?elaSingularForm .
     ?elaSingularForm ontolex:representation ?elaSingular ;
       wikibase:grammaticalFeature wd:Q394253, wd:Q110786 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?elaPluralForm .
     ?elaPluralForm ontolex:representation ?elaPlural ;
       wikibase:grammaticalFeature wd:Q394253, wd:Q146786 .
-  } .
+  } 
 
   # MARK: Allative
 
@@ -67,11 +67,11 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?allSingularForm .
     ?allSingularForm ontolex:representation ?allSingular ;
       wikibase:grammaticalFeature wd:Q655020, wd:Q110786 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?allPluralForm .
     ?allPluralForm ontolex:representation ?allPlural ;
       wikibase:grammaticalFeature wd:Q655020, wd:Q146786 .
-  } .
+  } 
 }

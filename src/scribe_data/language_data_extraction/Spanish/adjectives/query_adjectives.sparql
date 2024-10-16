@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Spanish (Q1321) adjectives.
+# All Spanish (Q1321) adjectives and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

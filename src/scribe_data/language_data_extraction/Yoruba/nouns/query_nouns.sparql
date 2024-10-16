@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Yoruba (Q34311) nouns.
+# All Yoruba (Q34311) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -7,9 +7,7 @@ SELECT
   ?noun
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
-
   ?lexeme dct:language wd:Q34311 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun .
 }
