@@ -1,6 +1,7 @@
 import difflib
 import json
 from pathlib import Path
+import sys
 
 LANGUAGE_DATA_EXTRACTION_DIR = Path(__file__).parent.parent / "language_data_extraction"
 
@@ -89,9 +90,9 @@ def get_missing_languages(
     Parameters
     ----------
     reference_languages : dict
-        A dictionary where the keys are language names and values are their details.
+        A dictionary of languages from the reference source.
     target_languages : dict
-        A dictionary where the keys are language names and values may include sub-languages.
+        A dictionary of languages from the target source to check for missing entries.
 
     Returns
     -------
@@ -124,9 +125,57 @@ def get_missing_languages(
     return missing_languages
 
 
+def validate_language_properties(languages_dict: dict) -> dict:
+    """
+    Validates the presence of 'qid' and 'iso' properties for each language and its sub-languages.
+
+    Args:
+        languages_dict (dict): A dictionary where each key is a language, and the value is another
+                               dictionary containing details about the language. If the language has
+                               sub-languages, they are stored under the 'sub_languages' key.
+
+    Returns:
+        dict: A dictionary with two lists:
+              - "missing_qids": Languages or sub-languages missing the 'qid' property.
+              - "missing_isos": Languages or sub-languages missing the 'iso' property.
+
+              Each entry in these lists is in the format "parent_language - sub_language" for sub-languages,
+              or simply "parent_language" for the parent languages.
+    """
+    missing_qids = []
+    missing_isos = []
+
+    for lang, details in languages_dict.items():
+        # Check if the language has sub-languages
+        if "sub_languages" in details:
+            sub_languages = details["sub_languages"]
+
+            # Validate each sub-language
+            for sub_lang, sub_details in sub_languages.items():
+                if "qid" not in sub_details:
+                    missing_qids.append(f"{lang} - {sub_lang}")
+                if "iso" not in sub_details:
+                    missing_isos.append(f"{lang} - {sub_lang}")
+        else:
+            # Validate the parent language itself
+            if "qid" not in details:
+                missing_qids.append(lang)
+            if "iso" not in details:
+                missing_isos.append(lang)
+
+    return {"missing_qids": missing_qids, "missing_isos": missing_isos}
+
+
 def check_language_metadata():
     """
-    Check if there's any missing language in language_data_extraction or language_metadata.json
+    Validates language metadata by performing the following checks:
+
+    1. Ensures that all languages listed in `language_data_extraction` are present in `language_metadata.json`, and vice versa.
+    2. Checks if each language in `language_metadata.json` has the required properties:
+       - 'qid' (a unique identifier)
+       - 'iso' (ISO language code)
+
+    This function helps identify missing languages or missing properties, ensuring data consistency across both sources.
     """
     languages_in_directory = get_available_languages()
     missing_languages_metadata = get_missing_languages(
@@ -135,26 +184,47 @@ def check_language_metadata():
     missing_languages_extraction = get_missing_languages(
         languages_in_directory, languages_in_metadata
     )
+    languages_with_missing_properties = validate_language_properties(
+        languages_in_metadata
+    )
 
-    if missing_languages_metadata or missing_languages_extraction:
-        print(
-            "There are missing languages or inconsistencies between language_metadata.json and language_data_extraction.\n"
-        )
+    if (
+        missing_languages_metadata
+        or missing_languages_extraction
+        or languages_with_missing_properties["missing_qids"]
+        or languages_with_missing_properties["missing_isos"]
+    ):
+        if missing_languages_metadata or missing_languages_extraction:
+            print(
+                "There are missing languages or inconsistencies between language_metadata.json and language_data_extraction.\n"
+            )
 
         if missing_languages_metadata:
-            print("These languages are missing from language_metadata.json:")
+            print("Languages missing from language_metadata.json:")
             for lang in missing_languages_metadata:
-                print(lang.title())
+                print(f"  • {lang.title()}")
 
         if missing_languages_extraction:
-            print("\nThese languages are missing from language_data_extraction:")
+            print("\nLanguages missing from language_data_extraction:")
             for lang in missing_languages_extraction:
-                print(lang.title())
+                print(f"  • {lang.title()}")
 
-    else:
-        print(
-            "All languages match correctly between language_metadata.json and language_data_extraction."
-        )
+        if languages_with_missing_properties["missing_qids"]:
+            print("\nLanguages missing the `qid` property:")
+            for lang in languages_with_missing_properties["missing_qids"]:
+                print(f"  • {lang.title()}")
+
+        if languages_with_missing_properties["missing_isos"]:
+            print("\nLanguages missing the `iso` property:")
+            for lang in languages_with_missing_properties["missing_isos"]:
+                print(f"  • {lang.title()}")
+
+        # Exit with a non-zero status code to indicate failure
+        sys.exit(1)  # Indicate failure
+
+    print(
+        "All languages match between language_metadata.json and language_data_extraction; languages in language_metadata.json have the correct properties."
+    )
 
 
 if __name__ == "__main__":
