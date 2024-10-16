@@ -1,4 +1,3 @@
-
 """
 Generates keyword-emoji relationships from a selection of Hausa words.
 
