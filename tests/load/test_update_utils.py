@@ -163,6 +163,72 @@ def test_get_language_from_iso_negative():
     assert str(excp.value) == "IXI is currently not a supported ISO language."
 
 
+@pytest.mark.parametrize(
+    "lang, expected_output",
+    [
+        ("nynorsk", "Norwegian/Nynorsk"),
+        ("bokmål", "Norwegian/Bokmål"),
+        ("english", "English"),
+    ],
+)
+def test_format_sublanguage_name_positive(lang, expected_output):
+    assert utils.format_sublanguage_name(lang) == expected_output
+
+
+def test_format_sublanguage_name_negative():
+    with pytest.raises(ValueError) as excp:
+        _ = utils.format_sublanguage_name("soccer")
+
+    assert str(excp.value) == "SOCCER is not a valid language or sub-language."
+
+
+def test_list_all_languages():
+    expected_languages = [
+        "arabic",
+        "basque",
+        "bengali",
+        "czech",
+        "danish",
+        "english",
+        "esperanto",
+        "estonian",
+        "finnish",
+        "french",
+        "german",
+        "greek",
+        "hausa",
+        "hebrew",
+        "hindi",
+        "urdu",
+        "indonesian",
+        "italian",
+        "japanese",
+        "kurmanji",
+        "latin",
+        "malay",
+        "malayalam",
+        "mandarin",
+        "nynorsk",
+        "bokmål",
+        "nigerian",
+        "polish",
+        "portuguese",
+        "shahmukhi",
+        "gurmukhi",
+        "russian",
+        "slovak",
+        "spanish",
+        "swahili",
+        "swedish",
+        "tajik",
+        "tamil",
+        "ukrainian",
+        "yoruba",
+    ]
+
+    assert utils.list_all_languages() == expected_languages
+
+
 def test_get_ios_data_path():
     assert (
         utils.get_ios_data_path("suomi")
