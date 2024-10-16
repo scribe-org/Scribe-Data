@@ -25,7 +25,7 @@ import argparse
 from scribe_data.unicode.process_unicode import gen_emoji_lexicon
 from scribe_data.utils import export_formatted_data
 
-LANGUAGE = “Indonesian”
+LANGUAGE = "Indonesian"
 DATA_TYPE = "emoji-keywords"
 emojis_per_keyword = 3
 
@@ -41,6 +41,6 @@ if emoji_keywords_dict := gen_emoji_lexicon(
         file_path=args.file_path,
         formatted_data=emoji_keywords_dict,
         query_data_in_use=True,
-        language= “Indonesian”,
+        language=LANGUAGE,
         data_type=DATA_TYPE,
     )
