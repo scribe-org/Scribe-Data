@@ -95,9 +95,13 @@
     "iso": "ml",
     "qid": "Q36236"
   },
-  "mandarin": {
-    "iso": "zh",
-    "qid": "Q727694"
+  "chinese": {
+    "sub_languages": {
+      "mandarin": {
+        "iso": "zh",
+        "qid": "Q727694"
+      }
+    }
   },
   "norwegian": {
     "sub_languages": {
@@ -107,7 +111,7 @@
       },
       "bokmål": {
         "iso": "nb",
-        "qid": "Q9043"
+        "qid": "Q25167"
       }
     }
   },
@@ -129,12 +133,12 @@
   },
   "punjabi": {
     "sub_languages": {
-      "gurmukhi": {
-        "iso": "pan",
+      "shahmukhi": {
+        "iso": "pnb",
         "qid": "Q58635"
       },
-      "shahmukhi": {
-        "iso": "pnp",
+      "gurmukhi": {
+        "iso": "pa",
         "qid": "Q58635"
       }
     }
