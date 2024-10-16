@@ -43,7 +43,7 @@ jobs:
 
       - name: Run check_query_identifiers.py
         working-directory: ./src/scribe_data/check
-        run: python src/scribe_data/check/check_query_identifiers.py
+        run: python check_query_identifiers.py
 
       - name: Post-run status
         if: failure()
