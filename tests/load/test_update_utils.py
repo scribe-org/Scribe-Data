@@ -38,14 +38,46 @@ def test_get_scribe_languages():
     test_case.assertCountEqual(
         utils.get_scribe_languages(),
         [
+            "Arabic",
+            "Basque",
+            "Bengali",
+            "Bokmål",
+            "Czech",
+            "Danish",
             "English",
+            "Esperanto",
+            "Estonian",
+            "Finnish",
             "French",
             "German",
+            "Greek",
+            "Gurmukhi",
+            "Hausa",
+            "Hebrew",
+            "Hindi",
+            "Indonesian",
             "Italian",
+            "Japanese",
+            "Kurmanji",
+            "Latin",
+            "Malay",
+            "Malayalam",
+            "Mandarin",
+            "Nigerian",
+            "Nynorsk",
+            "Polish",
             "Portuguese",
             "Russian",
+            "Shahmukhi",
+            "Slovak",
             "Spanish",
+            "Swahili",
             "Swedish",
+            "Tajik",
+            "Tamil",
+            "Ukrainian",
+            "Urdu",
+            "Yoruba",
         ],
     )
 
@@ -61,6 +93,7 @@ def test_get_scribe_languages():
         ("russian", "Q7737"),
         ("spanish", "Q1321"),
         ("swedish", "Q9027"),
+        ("bokmål", "Q25167"),
     ],
 )
 def test_get_language_qid_positive(language, qid_code):
@@ -88,6 +121,7 @@ def test_get_language_qid_negative():
         ("russian", "ru"),
         ("spanish", "es"),
         ("SwedisH", "sv"),
+        ("bokmål", "nb"),
     ],
 )
 def test_get_language_iso_positive(language, iso_code):
@@ -100,7 +134,7 @@ def test_get_language_iso_negative():
 
     assert (
         str(excp.value)
-        == "Gibberish is currently not a supported language for ISO conversion."
+        == "GIBBERISH is currently not a supported language for ISO conversion."
     )
 
 
@@ -115,6 +149,7 @@ def test_get_language_iso_negative():
         ("ru", "Russian"),
         ("es", "Spanish"),
         ("sv", "Swedish"),
+        ("nb", "Bokmål"),
     ],
 )
 def test_get_language_from_iso_positive(iso_code, language):
@@ -126,92 +161,6 @@ def test_get_language_from_iso_negative():
         _ = utils.get_language_from_iso("ixi")
 
     assert str(excp.value) == "IXI is currently not a supported ISO language."
-
-
-@pytest.mark.parametrize(
-    "language, remove_words",
-    [
-        (
-            "english",
-            [
-                "of",
-                "the",
-                "The",
-                "and",
-            ],
-        ),
-        (
-            "french",
-            [
-                "of",
-                "the",
-                "The",
-                "and",
-            ],
-        ),
-        ("german", ["of", "the", "The", "and", "NeinJa", "et", "redirect"]),
-        ("italian", ["of", "the", "The", "and", "text", "from"]),
-        ("portuguese", ["of", "the", "The", "and", "jbutadptflora"]),
-        (
-            "russian",
-            [
-                "of",
-                "the",
-                "The",
-                "and",
-            ],
-        ),
-        ("spanish", ["of", "the", "The", "and"]),
-        ("swedish", ["of", "the", "The", "and", "Checklist", "Catalogue"]),
-    ],
-)
-def test_get_language_words_to_remove(language, remove_words):
-    test_case = unittest.TestCase()
-
-    # ignore order, only content matters
-    test_case.assertCountEqual(
-        utils.get_language_words_to_remove(language), remove_words
-    )
-
-
-def test_get_language_words_to_remove_negative():
-    with pytest.raises(ValueError) as excp:
-        _ = utils.get_language_words_to_remove("python")
-
-    assert str(excp.value) == "Python is currently not a supported language."
-
-
-@pytest.mark.parametrize(
-    "language, ignore_words",
-    [
-        (
-            "french",
-            [
-                "XXe",
-            ],
-        ),
-        ("german", ["Gemeinde", "Familienname"]),
-        ("italian", ["The", "ATP"]),
-        ("portuguese", []),
-        ("russian", []),
-        ("spanish", []),
-        ("swedish", ["databasdump"]),
-    ],
-)
-def test_get_language_words_to_ignore(language, ignore_words):
-    test_case = unittest.TestCase()
-
-    # ignore order, only content matters
-    test_case.assertCountEqual(
-        utils.get_language_words_to_ignore(language), ignore_words
-    )
-
-
-def test_get_language_words_to_ignore_negative():
-    with pytest.raises(ValueError) as excp:
-        _ = utils.get_language_words_to_ignore("JAVA")
-
-    assert str(excp.value) == "Java is currently not a supported language."
 
 
 def test_get_ios_data_path():
