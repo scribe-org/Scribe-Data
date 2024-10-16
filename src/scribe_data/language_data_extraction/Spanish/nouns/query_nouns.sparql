@@ -22,14 +22,14 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q146786 .
+  } 
 
   # MARK: Gender(s)
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-  } .
+  }
 
   # Spansih sometimes has masculine and feminine versions on a single lexeme.
 
@@ -37,27 +37,27 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masSingularForm .
     ?masSingularForm ontolex:representation ?masSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masPluralForm .
     ?masPluralForm ontolex:representation ?masPlural ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
+  } 
 
   # MARK: feminine singular and plural forms.
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femSingularForm .
     ?femSingularForm ontolex:representation ?femSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femPluralForm .
     ?femPluralForm ontolex:representation ?femPlural ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 .
+  } 
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

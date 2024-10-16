@@ -20,34 +20,34 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentInfForm .
     ?presentInfForm ontolex:representation ?presentInfinitive ;
-      wikibase:grammaticalFeature wd:Q52434245 ;
+      wikibase:grammaticalFeature wd:Q52434245 .
       FILTER(LANG(?presentInfinitive) = "ml") .
-  } .
+  } 
 
   # MARK: Simple Present
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?simplePresentForm .
     ?simplePresentForm ontolex:representation ?simplePresent ;
-      wikibase:grammaticalFeature wd:Q3910936 ;
+      wikibase:grammaticalFeature wd:Q3910936 .
       FILTER(LANG(?simplePresent) = "ml") .
-  } .
+  } 
 
   # MARK: Simple Past
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?simplePastForm .
     ?simplePastForm ontolex:representation ?simplePast ;
-      wikibase:grammaticalFeature wd:Q1392475 ;
+      wikibase:grammaticalFeature wd:Q1392475 .
       FILTER(LANG(?simplePast) = "ml") .
-  } .
+  } 
 
   # MARK: Simple Future
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?simpleFutureForm .
     ?simpleFutureForm ontolex:representation ?simpleFuture ;
-      wikibase:grammaticalFeature wd:Q1475560 ;
+      wikibase:grammaticalFeature wd:Q1475560 .
       FILTER(LANG(?simpleFuture) = "ml") .
-  } .
+  } 
 }

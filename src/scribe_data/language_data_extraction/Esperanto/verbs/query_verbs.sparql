@@ -26,7 +26,7 @@ WHERE {
     wikibase:grammaticalFeature wd:Q192613 ;
     wikibase:grammaticalFeature wd:Q682111 ;
     FILTER(LANG(?presIndicative) = "eo") .
-  } .
+  } 
 
   # MARK: Past Tense
 
@@ -36,7 +36,7 @@ WHERE {
     wikibase:grammaticalFeature wd:Q1994301 ;
     wikibase:grammaticalFeature wd:Q682111 ;
     FILTER(LANG(?pastIndicative) = "eo") .
-  } .
+  } 
 
   # MARK: Future Tense
 
@@ -46,7 +46,7 @@ WHERE {
     wikibase:grammaticalFeature wd:Q501405 ;
     wikibase:grammaticalFeature wd:Q682111 ;
     FILTER(LANG(?futIndicative) = "eo") .
-  } .
+  } 
 
   # MARK: Conditional
 
@@ -55,7 +55,7 @@ WHERE {
     ?conditionalForm ontolex:representation ?conditional ;
     wikibase:grammaticalFeature wd:Q625581 ;
     FILTER(LANG(?conditional) = "eo") .
-  } .
+  } 
 
   # MARK: Volitive
 
@@ -64,5 +64,5 @@ WHERE {
     ?volitiveForm ontolex:representation ?volitive ;
     wikibase:grammaticalFeature wd:Q2532941 ;
     FILTER(LANG(?volitive) = "eo") .
-  } .
+  } 
 }

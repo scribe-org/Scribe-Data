@@ -20,16 +20,16 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      FILTER(lang(?plural) = "ha")
+      wikibase:grammaticalFeature wd:Q146786 .
+      FILTER(lang(?plural) = "ha") .
       # FILTER(lang(?plural) = "ha-arabic")
-  } .
+  } 
 
   # MARK: Gender(s)
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-  } .
+  }
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
