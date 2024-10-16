@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Malayalam (Q36236) nouns and their plurals in the given cases.
+# All Malayalam (Q36236) nouns and the given forms and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

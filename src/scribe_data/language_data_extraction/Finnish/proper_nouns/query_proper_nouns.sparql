@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Finnish (Q1412) nouns and their plural for the given cases.
+# All Finnish (Q1412) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

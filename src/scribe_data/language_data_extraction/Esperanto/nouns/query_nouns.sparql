@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Esperanto (Q143) nouns and their plurals for the given cases.
+# All Esperanto (Q143) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

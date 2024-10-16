@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Italian (Q652) nouns, their plurals and their genders.
+# All Italian (Q652) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

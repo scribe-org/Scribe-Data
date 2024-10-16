@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Portuguese (Q5146) nouns, their plurals and their genders.
+# All Portuguese (Q5146) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Slovak (Q9058) nouns, their plurals and their genders for the given cases.
+# All Slovak (Q9058) nouns, their plurals and the given forms.s for the given cases.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

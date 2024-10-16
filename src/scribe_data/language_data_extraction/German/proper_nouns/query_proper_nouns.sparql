@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All German (Q188) proper nouns, their plurals and their genders in the given cases.
+# All German (Q188) proper nouns, their plurals and the given forms.s and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

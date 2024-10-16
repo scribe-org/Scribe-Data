@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Polish (Q809) nouns, their plurals and their genders in the given cases.
+# All Polish (Q809) nouns, their plurals and the given forms.s and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

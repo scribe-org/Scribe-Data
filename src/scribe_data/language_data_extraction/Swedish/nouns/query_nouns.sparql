@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Swedish (Q9027) nouns with their plural, gender and genitive forms.
+# All Swedish (Q9027) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

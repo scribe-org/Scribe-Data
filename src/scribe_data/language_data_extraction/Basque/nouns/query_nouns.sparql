@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Basque (Q8752) nouns and all implemented singular and plural forms.
+# All Basque (Q8752) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

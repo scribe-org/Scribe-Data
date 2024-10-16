@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Arabic (Q13955) nouns.
+# All Arabic (Q13955) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

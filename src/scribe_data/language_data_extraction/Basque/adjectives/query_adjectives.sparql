@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Basque (Q8752) adjectives.
+# All Basque (Q8752) adjectives and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
