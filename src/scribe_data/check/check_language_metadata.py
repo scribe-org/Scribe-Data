@@ -1,40 +1,22 @@
 import difflib
-import json
-from pathlib import Path
 import sys
 
-LANGUAGE_DATA_EXTRACTION_DIR = Path(__file__).parent.parent / "language_data_extraction"
-
-LANGUAGE_METADATA_FILE = (
-    Path(__file__).parent.parent / "resources" / "language_metadata.json"
+from scribe_data.cli.cli_utils import (
+    LANGUAGE_DATA_EXTRACTION_DIR,
+    language_metadata,
+    data_type_metadata,
 )
 
-DATA_TYPE_METADATA_FILE = (
-    Path(__file__).parent.parent / "resources" / "data_type_metadata.json"
-)
+languages_in_metadata = {
+    lang["language"]: {"iso": lang["iso"], "qid": lang["qid"]}
+    for lang in language_metadata["languages"]
+}  # current language metadata
 
-try:
-    with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
-        language_metadata = json.load(file)
-        languages_in_metadata = {
-            lang["language"]: {"iso": lang["iso"], "qid": lang["qid"]}
-            for lang in language_metadata["languages"]
-        }  # current language metadata
+# languages_in_metadata = { # proposed language metadata
+#     key.lower(): value for key, value in language_metadata.items()
+# }  # Normalize keys to lowercase for case-insensitive comparison
 
-        # languages_in_metadata = { # proposed language metadata
-        #     key.lower(): value for key, value in language_metadata.items()
-        # }  # Normalize keys to lowercase for case-insensitive comparison
-
-except (IOError, json.JSONDecodeError) as e:
-    print(f"Error reading language metadata: {e}")
-
-try:
-    with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
-        data_type_metadata = json.load(file)
-        all_data_types = tuple(data_type_metadata.keys())
-
-except (IOError, json.JSONDecodeError) as e:
-    print(f"Error reading data type metadata: {e}")
+all_data_types = tuple(data_type_metadata.keys())
 
 
 def get_available_languages() -> dict[str, list[str]]:
@@ -225,7 +207,3 @@ def check_language_metadata():
     print(
         "All languages match between language_metadata.json and language_data_extraction; languages in language_metadata.json have the correct properties."
     )
-
-
-if __name__ == "__main__":
-    check_language_metadata()
