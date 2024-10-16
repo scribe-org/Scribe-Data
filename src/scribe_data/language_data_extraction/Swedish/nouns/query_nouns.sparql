@@ -42,7 +42,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?genIndefPluralForm .
     ?genIndefPluralForm ontolex:representation ?genIndefPlural ;
       wikibase:grammaticalFeature wd:Q53997857, wd:Q146233, wd:Q146786 .
-  } .
+  } 
 
   # MARK: Definite
 
@@ -66,7 +66,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?genDefPluralForm .
     ?genDefPluralForm ontolex:representation ?genDefPlural ;
       wikibase:grammaticalFeature wd:Q53997851, wd:Q146233, wd:Q146786 .
-  } .
+  } 
 
   # MARK: Gender(s)
 
@@ -75,7 +75,7 @@ WHERE {
     FILTER NOT EXISTS {
       ?lexeme wdt:P31 wd:Q202444 .  # not for given names
     }
-  } .
+  } 
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

@@ -23,35 +23,35 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?feminineAccusativeSingularForm .
     ?feminineAccusativeSingularForm ontolex:representation ?feminineAccusativeSingular ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146078, wd:Q110786, wd:Q3482678 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineAccusativeSingularForm .
     ?masculineAccusativeSingularForm ontolex:representation ?masculineAnimateAccusativeSingular ;
       wikibase:grammaticalFeature wd:Q54020116, wd:Q146078, wd:Q110786, wd:Q3482678 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineAccusativeSingularForm .
     ?masculineAccusativeSingularForm ontolex:representation ?masculineInanimateAccusativeSingular ;
       wikibase:grammaticalFeature wd:Q52943434, wd:Q146078, wd:Q110786, wd:Q3482678 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterAccusativeSingularForm .
     ?neuterAccusativeSingularForm ontolex:representation ?neuterAccusativeSingular ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q146078, wd:Q110786, wd:Q3482678 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculinePersonalAccusativePluralForm .
     ?masculinePersonalAccusativePluralForm ontolex:representation ?masculinePersonalAccusativePlural ;
       wikibase:grammaticalFeature wd:Q27918551, wd:Q146078, wd:Q146786, wd:Q3482678 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?notMasculinePersonalAccusativePluralForm .
     ?notMasculinePersonalAccusativePluralForm ontolex:representation ?notMasculinePersonalAccusativePlural ;
       wikibase:grammaticalFeature wd:Q54152717, wd:Q146078, wd:Q146786, wd:Q3482678 .
-  } .
+  } 
 }

@@ -19,11 +19,11 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?genSingularForm .
     ?genSingularForm ontolex:representation ?genSingular ;
       wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
-  } .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genPluralForm .
     ?genPluralForm ontolex:representation ?genPlural ;
       wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
-  } .
+  } 
 }

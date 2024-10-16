@@ -23,9 +23,9 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      FILTER(lang(?plural) = "pa")
-  } .
+      wikibase:grammaticalFeature wd:Q146786 .
+      FILTER(lang(?plural) = "pa") .
+  } 
 
   # MARK: Gender(s)
 
@@ -34,7 +34,7 @@ WHERE {
     FILTER NOT EXISTS {
       ?lexeme wdt:P31 wd:Q202444 .  # not for given names
     }
-  } .
+  } 
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

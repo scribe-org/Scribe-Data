@@ -22,7 +22,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?negativeForm .
     ?negativeForm ontolex:representation ?negative ;
-      wikibase:grammaticalFeature wd:Q15737187 ;
+      wikibase:grammaticalFeature wd:Q15737187 .
       FILTER(LANG(?negative) = "ja-hira") .
   }
 
@@ -31,7 +31,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?conjunctiveForm .
     ?conjunctiveForm ontolex:representation ?conjunctive ;
-      wikibase:grammaticalFeature wd:Q2888577 ;
+      wikibase:grammaticalFeature wd:Q2888577 .
       FILTER(LANG(?conjunctive) = "ja-hira") .
   }
 
@@ -40,7 +40,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperfectiveForm .
     ?imperfectiveForm ontolex:representation ?imperfective ;
-      wikibase:grammaticalFeature wd:Q2898727 ;
+      wikibase:grammaticalFeature wd:Q2898727 .
       FILTER(LANG(?imperfective) = "ja-hira") .
   }
 
@@ -49,7 +49,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?atrributiveForm .
     ?atrributiveForm ontolex:representation ?atrributive ;
-      wikibase:grammaticalFeature wd:Q53608953 ;
+      wikibase:grammaticalFeature wd:Q53608953 .
       FILTER(LANG(?atrributive) = "ja-hira") .
   }
 
@@ -58,7 +58,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?hypotheticalForm .
     ?hypotheticalForm ontolex:representation ?hypothetical ;
-      wikibase:grammaticalFeature wd:Q53609593 ;
+      wikibase:grammaticalFeature wd:Q53609593 .
       FILTER(LANG(?hypothetical) = "ja-hira") .
   }
 }

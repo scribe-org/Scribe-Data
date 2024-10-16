@@ -18,5 +18,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?locativeForm .
     ?locativeForm ontolex:representation ?locative ;
       wikibase:grammaticalFeature wd:Q202142 .
-  } .
+  } 
 }

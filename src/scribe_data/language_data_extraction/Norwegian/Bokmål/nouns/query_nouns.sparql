@@ -24,24 +24,24 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?defSingularForm .
     ?defSingularForm ontolex:representation ?defSingular ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q53997851 ;
-  } .
+      wikibase:grammaticalFeature wd:Q110786, wd:Q53997851 .
+  } 
 
   # MARK: Indefinite Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indefPluralForm .
     ?indefPluralForm ontolex:representation ?indefPlural ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q53997857 ;
-  } .
+      wikibase:grammaticalFeature wd:Q146786, wd:Q53997857 .
+  } 
 
   # MARK: Definite Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?defPluralForm .
     ?defPluralForm ontolex:representation ?defPlural ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q53997851 ;
-  } .
+      wikibase:grammaticalFeature wd:Q146786, wd:Q53997851 .
+  } 
 
   # MARK: Gender(s)
 
@@ -50,7 +50,7 @@ WHERE {
     FILTER NOT EXISTS {
       ?lexeme wdt:P31 wd:Q202444 .  # not for given names
     }
-  } .
+  } 
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

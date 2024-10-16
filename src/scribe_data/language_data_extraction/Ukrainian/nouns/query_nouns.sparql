@@ -20,8 +20,8 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  } 
 
   # MARK: Gender(s)
 
@@ -30,7 +30,7 @@ WHERE {
     FILTER NOT EXISTS {
       ?lexeme wdt:P31 wd:Q202444 .  # not for given names
     }
-  } .
+  } 
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
