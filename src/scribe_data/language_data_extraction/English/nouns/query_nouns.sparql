@@ -1,17 +1,15 @@
 # tool: scribe-data
-# All English (Q1860) nouns and their plural.
+# All English (Q1860) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?singular
   ?plural
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
-
   ?lexeme dct:language wd:Q1860 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?singular .
 
   # MARK: Plural
@@ -19,6 +17,6 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q146786 .
+  } 
 }

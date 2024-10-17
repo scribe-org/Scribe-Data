@@ -1,15 +1,13 @@
 # tool: scribe-data
-# All Indonesian (Q9240) nouns.
+# All Indonesian (Q9240) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?noun
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
-
   ?lexeme dct:language wd:Q9240 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun .
 }

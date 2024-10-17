@@ -1,9 +1,8 @@
 # tool: scribe-data
-# All Spanish (Q1321) nouns, their plurals and their genders.
+# All Spanish (Q1321) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
-# Note: Spansih sometimes has masculine and feminine versions on a single lexeme.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?singular
   ?plural
@@ -14,10 +13,8 @@ SELECT DISTINCT
   ?femPlural
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
-
   ?lexeme dct:language wd:Q1321 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?singular .
 
   # MARK: Plural
@@ -25,17 +22,14 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q146786 .
+  } 
 
   # MARK: Gender(s)
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .
-    }
-  } .
+  }
 
   # Spansih sometimes has masculine and feminine versions on a single lexeme.
 
@@ -43,31 +37,27 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masSingularForm .
     ?masSingularForm ontolex:representation ?masSingular ;
-      wikibase:grammaticalFeature wd:Q499327 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masPluralForm .
     ?masPluralForm ontolex:representation ?masPlural ;
-      wikibase:grammaticalFeature wd:Q499327 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
+  } 
 
   # MARK: feminine singular and plural forms.
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femSingularForm .
     ?femSingularForm ontolex:representation ?femSingular ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femPluralForm .
     ?femPluralForm ontolex:representation ?femPlural ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 .
+  } 
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

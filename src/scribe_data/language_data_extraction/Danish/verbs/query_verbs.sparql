@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Danish (Q9035) verbs and the currently implemented tenses for each.
+# All Danish (Q9035) verbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -27,8 +27,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?infActiveForm .
     ?infActiveForm ontolex:representation ?infActive ;
-      wikibase:grammaticalFeature wd:Q179230 ;
-      wikibase:grammaticalFeature wd:Q1317831 .
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831 .
   }
 
   # MARK: Present Active
@@ -36,8 +35,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presActiveForm .
     ?presActiveForm ontolex:representation ?presActive ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-      wikibase:grammaticalFeature wd:Q1317831 .
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
   }
 
   # MARK: Preterite Active
@@ -45,8 +43,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretActiveForm .
     ?pretActiveForm ontolex:representation ?pretActive ;
-      wikibase:grammaticalFeature wd:Q442485 ;
-      wikibase:grammaticalFeature wd:Q1317831 .
+      wikibase:grammaticalFeature wd:Q442485, wd:Q1317831 .
   }
 
   # MARK: Past Participle
@@ -78,8 +75,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presPassiveForm .
     ?presPassiveForm ontolex:representation ?presPassive ;
-      wikibase:grammaticalFeature wd:Q442485 ;
-      wikibase:grammaticalFeature wd:Q1194697 .
+      wikibase:grammaticalFeature wd:Q442485, wd:Q1194697 .
   }
 
   # MARK: Preterite Passive
@@ -87,8 +83,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretPassiveForm .
     ?pretPassiveForm ontolex:representation ?pretPassive ;
-      wikibase:grammaticalFeature wd:Q442485 ;
-      wikibase:grammaticalFeature wd:Q1194697 .
+      wikibase:grammaticalFeature wd:Q442485, wd:Q1194697 .
   }
 
   # MARK: Infinitive Passive
@@ -96,7 +91,6 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?infPassiveForm .
     ?infPassiveForm ontolex:representation ?infPassive ;
-      wikibase:grammaticalFeature wd:Q179230 ;
-      wikibase:grammaticalFeature wd:Q1194697 .
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1194697 .
   }
 }
