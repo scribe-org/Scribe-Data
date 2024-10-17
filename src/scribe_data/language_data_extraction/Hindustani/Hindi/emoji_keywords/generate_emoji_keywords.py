@@ -1,5 +1,6 @@
 """
-Generates keyword-emoji relationships from a selection of Hindi words, ensuring Urdu words are excluded.
+<<<<<<< HEAD
+Generates keyword-emoji relationships from a selection of Hindustani words.
 
 .. raw:: html
     <!--
@@ -17,31 +18,28 @@ Generates keyword-emoji relationships from a selection of Hindi words, ensuring 
     *
     * You should have received a copy of the GNU General Public License
     * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
+    -->.
 """
 
-import argparse
+from scribe_data.unicode.generate_emoji_keyword import generate_emoji_keyword
+from scribe_data.unicode.common_arg_parser import setup_arg_parser
 
-from scribe_data.unicode.process_unicode import gen_emoji_lexicon
-from scribe_data.utils import export_formatted_data
 
-LANGUAGE = "Hindi"
-DATA_TYPE = "emoji-keywords"
-emojis_per_keyword = 3
+LANGUAGE = "Hindustani"
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--file-path")
+
+# Set up the argument parser by calling the imported function.
+parser = setup_arg_parser()
+
+# Parse the command-line arguments.
 args = parser.parse_args()
 
-# Generating emoji lexicon but filter for Hindi specifically
-if emoji_keywords_dict := gen_emoji_lexicon(
-    language=LANGUAGE,
-    emojis_per_keyword=emojis_per_keyword,
-):
-    export_formatted_data(
-        file_path=args.file_path,
-        formatted_data=emoji_keywords_dict,
-        query_data_in_use=True,
-        language="Hindi",  # Setting final language to Hindi for output purposes
-        data_type=DATA_TYPE,
-    )
+# Call the generate_emoji_keyword function with optional parameters.
+generate_emoji_keyword(
+    LANGUAGE,
+    args.file_path,
+    emojis_per_keyword=args.emojis_per_keyword,
+    gender=args.gender,
+    region=args.region,
+    sub_languages=args.sub_languages,
+)
