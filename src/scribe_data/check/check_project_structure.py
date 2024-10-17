@@ -40,6 +40,7 @@ LANGUAGES = {
     "Malay",
     "Punjabi",
     "Tajik",
+    "Igbo",
 }
 
 DATA_TYPES = {
