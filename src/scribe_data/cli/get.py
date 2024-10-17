@@ -30,6 +30,7 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
+from scribe_data.wikidata.query_data import execute_formatting_script
 
 
 def get_data(
@@ -103,6 +104,7 @@ def get_data(
 
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
         for lang in languages:
+            lang = lang.capitalize()
             emoji_keyword_extraction_script = (
                 Path(__file__).parent.parent
                 / "language_data_extraction"
@@ -111,8 +113,12 @@ def get_data(
                 / "generate_emoji_keywords.py"
             )
 
-            subprocess_result = subprocess.run(
-                ["python", emoji_keyword_extraction_script]
+            # subprocess_result = subprocess.run(
+            #     ["python", emoji_keyword_extraction_script]
+            # )
+            subprocess_result = execute_formatting_script(
+                formatting_file_path=emoji_keyword_extraction_script,
+                output_dir=output_dir,
             )
 
     # MARK: Query Data
@@ -148,11 +154,11 @@ def get_data(
         if interactive:
             return True
 
-    # The emoji keywords process has failed.
-    elif data_type in {"emoji-keywords", "emoji_keywords"}:
-        print(
-            "\nThe Scribe-Data emoji functionality is powered by PyICU, which is currently not installed."
-        )
-        print(
-            "Please check the installation guide at https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/unicode/UNICODE_INSTALLTION.md for more information.\n"
-        )
+    # # The emoji keywords process has failed.
+    # elif data_type in {"emoji-keywords", "emoji_keywords"}:
+    #     print(
+    #         "\nThe Scribe-Data emoji functionality is powered by PyICU, which is currently not installed."
+    #     )
+    #     print(
+    #         "Please check the installation guide at https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/unicode/UNICODE_INSTALLTION.md for more information.\n"
+    #     )

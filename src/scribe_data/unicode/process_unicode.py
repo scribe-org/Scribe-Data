@@ -75,7 +75,9 @@ def gen_emoji_lexicon(
     # Pre-set up the emoji popularity data.
     popularity_dict = {}
 
-    with (Path(__file__).parent / "2021_ranked.tsv").open() as popularity_file:
+    with (Path(__file__).parent / "2021_ranked.tsv").open(
+        encoding="utf-8"
+    ) as popularity_file:
         tsv_reader = csv.DictReader(popularity_file, delimiter="\t")
         for tsv_row in tsv_reader:
             popularity_dict[tsv_row["Emoji"]] = int(tsv_row["Rank"])
@@ -106,7 +108,7 @@ def gen_emoji_lexicon(
     }
 
     for cldr_file_key, cldr_file_path in cldr_file_paths.items():
-        with open(cldr_file_path, "r") as file:
+        with open(cldr_file_path, "r", encoding="utf-8") as file:
             cldr_data = json.load(file)
 
         cldr_dict = cldr_data[cldr_file_key]["annotations"]

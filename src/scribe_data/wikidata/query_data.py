@@ -34,15 +34,16 @@ from scribe_data.cli.cli_utils import (
     language_metadata,
 )
 from scribe_data.wikidata.wikidata_utils import sparql
+from scribe_data.check.check_pyICU import check_and_install_pyicu
 
 
-def execute_formatting_script(formatting_file_path, output_dir):
+def execute_formatting_script(formatting_file_path: Path, output_dir: str) -> bool:
     """
     Executes a formatting script given a filepath and output directory for the process.
 
     Parameters
     ----------
-        formatting_file_path : str
+        formatting_file_path : Path
             The formatting file to run.
 
         output_dir : str
@@ -50,7 +51,8 @@ def execute_formatting_script(formatting_file_path, output_dir):
 
     Returns
     -------
-        The results of the formatting script saved in the given output directory.
+        bool
+            True if the formatting script executed successfully, False otherwise.
     """
     # Determine the root directory of the project.
     project_root = Path(__file__).parent.parent.parent
@@ -61,13 +63,23 @@ def execute_formatting_script(formatting_file_path, output_dir):
     # Set the PYTHONPATH environment variable.
     env = os.environ.copy()
     env["PYTHONPATH"] = str(project_root)
+    if check_and_install_pyicu():
+        # Proceed with your main logic if installation was successful
+        print("Proceeding with the script...")
+    else:
+        print("Installation of PyICU failed. Exiting...")
 
-    # Use subprocess to run the formatting file.
-    subprocess.run(
-        [python_executable, str(formatting_file_path), "--file-path", output_dir],
-        env=env,
-        check=True,
-    )
+    try:
+        # Use subprocess to run the formatting file.
+        subprocess.run(
+            [python_executable, str(formatting_file_path), "--file-path", output_dir],
+            env=env,
+            check=True,
+        )
+        return True  # Return True if the script executes successfully
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing script {formatting_file_path}: {e}")
+        return False  # Return False if there was an error
 
 
 def query_data(
