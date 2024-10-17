@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Hebrew (Q9288) verbs and the currently implemented tenses for each.
+# All Hebrew (Q9288) verbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -19,39 +19,31 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSFForm .
     ?presSFForm ontolex:representation ?presSF ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
-      FILTER(lang(?presSF) = "he")
-  } .
+      wikibase:grammaticalFeature wd:Q110786, wd:Q192613, wd:Q1775415 .
+      FILTER(lang(?presSF) = "he") .
+  } 
 
   # Singular Masculine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSMForm .
     ?presSMForm ontolex:representation ?presSM ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
-      FILTER(lang(?presSM) = "he")
-  } .
+      wikibase:grammaticalFeature wd:Q110786, wd:Q192613, wd:Q499327 .
+      FILTER(lang(?presSM) = "he") .
+  } 
 
   # Plural Feminine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presPFForm .
     ?presPFForm ontolex:representation ?presPF ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
-      FILTER(lang(?presPF) = "he")
-  } .
+      wikibase:grammaticalFeature wd:Q146786, wd:Q192613, wd:Q1775415 .
+      FILTER(lang(?presPF) = "he") .
+  } 
 
   # Plural Masculine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presPMForm .
     ?presPMForm ontolex:representation ?presPM ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
-      FILTER(lang(?presPM) = "he")
-  } .
+      wikibase:grammaticalFeature wd:Q146786, wd:Q192613, wd:Q499327 .
+      FILTER(lang(?presPM) = "he") .
+  } 
 }

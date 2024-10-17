@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Estonian (Q9072) adjectives in the given cases.
+# All Estonian (Q9072) adjectives and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -23,32 +23,28 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?adeSingularForm .
     ?adeSingularForm ontolex:representation ?adeSingular ;
-      wikibase:grammaticalFeature wd:Q281954 ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  } .
+      wikibase:grammaticalFeature wd:Q281954, wd:Q110786 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?adePluralForm .
     ?adePluralForm ontolex:representation ?adePlural ;
-      wikibase:grammaticalFeature wd:Q281954 ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  } .
+      wikibase:grammaticalFeature wd:Q281954, wd:Q146786 .
+  } 
 
   # MARK: Ablative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?ablSingularForm .
     ?ablSingularForm ontolex:representation ?ablSingular ;
-      wikibase:grammaticalFeature wd:Q156986 ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  } .
+      wikibase:grammaticalFeature wd:Q156986, wd:Q110786 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?ablPluralForm .
     ?ablPluralForm ontolex:representation ?ablPlural ;
-      wikibase:grammaticalFeature wd:Q156986 ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  } .
+      wikibase:grammaticalFeature wd:Q156986, wd:Q146786 .
+  } 
 
   # MARK: Translative
 
@@ -56,30 +52,26 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?transSingularForm .
     ?transSingularForm ontolex:representation ?transSingular ;
-      wikibase:grammaticalFeature wd:Q950170 ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  } .
+      wikibase:grammaticalFeature wd:Q950170, wd:Q110786 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?transPluralForm .
     ?transPluralForm ontolex:representation ?transPlural ;
-      wikibase:grammaticalFeature wd:Q950170 ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  } .
+      wikibase:grammaticalFeature wd:Q950170, wd:Q146786 .
+  } 
 
   # MARK: Terminative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?termSingularForm .
     ?termSingularForm ontolex:representation ?termSingular ;
-      wikibase:grammaticalFeature wd:Q747019 ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  } .
+      wikibase:grammaticalFeature wd:Q747019, wd:Q110786 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?termPluralForm .
     ?termPluralForm ontolex:representation ?termPlural ;
-      wikibase:grammaticalFeature wd:Q747019 ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  } .
+      wikibase:grammaticalFeature wd:Q747019, wd:Q146786 .
+  } 
 }

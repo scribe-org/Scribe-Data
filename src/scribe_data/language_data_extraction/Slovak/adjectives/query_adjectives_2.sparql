@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Slovak (Q9058) adjectives and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?feminineGenitiveSingular
+  ?masculineGenitiveSingular
+  ?neuterGenitiveSingular
+  ?genitivePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9058;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  # MARK: Genitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineGenitiveSingularForm .
+    ?feminineGenitiveSingularForm ontolex:representation ?feminineGenitiveSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146233, wd:Q110786, wd:Q3482678 .
+  } 
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineGenitiveSingularForm .
+    ?masculineGenitiveSingularForm ontolex:representation ?masculineGenitiveSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146233, wd:Q110786, wd:Q3482678 .
+  } 
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterGenitiveSingularForm .
+    ?neuterGenitiveSingularForm ontolex:representation ?neuterGenitiveSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q146233, wd:Q110786, wd:Q3482678 .
+  } 
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q3482678 .
+  } 
+}

@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Esperanto (Q143) nouns and their plurals for the given cases.
+# All Esperanto (Q143) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -10,10 +10,8 @@ SELECT
   ?accPlural
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
-
   ?lexeme dct:language wd:Q143 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?nomSingular .
 
   # MARK: Accusative Singular
@@ -21,25 +19,22 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accSingularForm .
     ?accSingularForm ontolex:representation ?accSingular ;
-      wikibase:grammaticalFeature wd:Q146078 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+  } 
 
   # MARK: Nominative Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  } 
 
   # MARK: Accusative Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accPluralForm .
     ?accPluralForm ontolex:representation ?accPlural ;
-      wikibase:grammaticalFeature wd:Q146078 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+  } 
 }

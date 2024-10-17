@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Greek (Q36510) verb snd the currently implemented tenses for each.
+# All Greek (Q36510) verb snd the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -21,46 +21,40 @@ WHERE {
     wikibase:grammaticalFeature wd:Q179230 ;
 
   # MARK: Present
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presFPSForm .
     ?presFPSForm ontolex:representation ?presFPS ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-  } .
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q192613 .
+  } 
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPSForm .
     ?presSPSForm ontolex:representation ?presSPS ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q192613 .
+  } 
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPSForm .
     ?presTPSForm ontolex:representation ?presTPS ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-  } .
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q192613 .
+  } 
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presFPPForm .
     ?presFPPForm ontolex:representation ?presFPP ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-  } .
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q192613 .
+  } 
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSPPForm .
     ?presSPPForm ontolex:representation ?presSPP ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q192613 .
+  } 
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPPForm .
     ?presTPPForm ontolex:representation ?presTPP ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q192613 ;
-  } .
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q192613 .
+  } 
 }

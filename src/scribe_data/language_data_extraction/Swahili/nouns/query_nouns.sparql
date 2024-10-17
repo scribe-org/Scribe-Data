@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Swahili (Q7838) nouns and their plurals.
+# All Swahili (Q7838) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -18,7 +18,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      FILTER(lang(?plural) = "sw")
-  } .
+      wikibase:grammaticalFeature wd:Q146786 .
+      FILTER(lang(?plural) = "sw") .
+  } 
 }
