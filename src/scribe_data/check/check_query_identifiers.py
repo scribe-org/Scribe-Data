@@ -1,4 +1,5 @@
 import re
+import sys
 from pathlib import Path
 
 from scribe_data.cli.cli_utils import (
@@ -66,14 +67,14 @@ def check_queries():
         for file in incorrect_languages:
             print(f"- {file}")
 
-    print("\n----------------------------------------------------------------\n")
-
     if incorrect_data_types:
         print("Incorrect Data Type QIDs found in the following files:")
         for file in incorrect_data_types:
             print(f"- {file}")
 
-    print("\n----------------------------------------------------------------\n")
+    # Exit with an error code if any incorrect QIDs are found
+    if incorrect_languages or incorrect_data_types:
+        sys.exit(1)
 
 
 def is_valid_language(query_file: Path, lang_qid: str) -> bool:
