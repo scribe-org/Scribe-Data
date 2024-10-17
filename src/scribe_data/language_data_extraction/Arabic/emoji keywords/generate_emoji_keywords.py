@@ -27,7 +27,7 @@ LANGUAGE = "Arabic"
 emojis_per_keyword = 3
 
 parser = argparse.ArgumentParser(
-    description="Generate emoji keywords for the English language."
+    description="Generate emoji keywords for the specific language."
 )
 parser.add_argument(
     "--file-path", required=True, help="Path to save the generated emoji keywords."
