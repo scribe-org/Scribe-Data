@@ -32,7 +32,6 @@ def generate_emoji_keyword(
     region=None,
     sub_languages=None,
 ):
-
     # Define grouped languages and their sub-languages.
     grouped_languages = {
         "Hindustani": ["Hindi", "Urdu"],
@@ -44,12 +43,12 @@ def generate_emoji_keyword(
     if language in grouped_languages:
         # If specific sub-languages are provided, only process those.
 
-    # Define grouped languages and their sub-languages.
-     grouped_languages = {
-        "Hindustani": ["Hindi", "Urdu"],
-        "Norwegian": ["Bokmål", "Nynorsk"],
-        # Add more grouped languages as needed.
-    }
+        # Define grouped languages and their sub-languages.
+        grouped_languages = {
+            "Hindustani": ["Hindi", "Urdu"],
+            "Norwegian": ["Bokmål", "Nynorsk"],
+            # Add more grouped languages as needed.
+        }
 
     # If the language is a grouped language, handle its sub-languages.
     if language in grouped_languages:
@@ -68,45 +67,41 @@ def generate_emoji_keyword(
                 region=region,
             )
 
-
             # Export the generated emoji keywords for the sub-language.
             if emoji_keywords_dict:
                 # Save the file with the sub-language included in the file name.
 
-            # Export the generated emoji keywords for the sub-language.
-             if emoji_keywords_dict:
-                # Save the file with the sub-language included in the file name.
+                # Export the generated emoji keywords for the sub-language.
+                if emoji_keywords_dict:
+                    # Save the file with the sub-language included in the file name.
 
-                export_file_path = f"{file_path}_{sub_lang}.json"
-                export_formatted_data(
-                    file_path=export_file_path,
-                    formatted_data=emoji_keywords_dict,
-                    query_data_in_use=True,
-                    language=sub_lang,
-                    data_type="emoji-keywords",
-                )
-
+                    export_file_path = f"{file_path}_{sub_lang}.json"
+                    export_formatted_data(
+                        file_path=export_file_path,
+                        formatted_data=emoji_keywords_dict,
+                        query_data_in_use=True,
+                        language=sub_lang,
+                        data_type="emoji-keywords",
+                    )
 
     # If it's not a grouped language, process it as a single language.
-    
+
     else:
         # Generate emoji keywords for the given language.
 
-       emoji_keywords_dict = gen_emoji_lexicon(
+        emoji_keywords_dict = gen_emoji_lexicon(
             language=language,
             emojis_per_keyword=emojis_per_keyword,
             gender=gender,
             region=region,
         )
 
-
         # Export the generated emoji keywords for the language.
-
     if emoji_keywords_dict:
-            export_formatted_data(
-                file_path=file_path,
-                formatted_data=emoji_keywords_dict,
-                query_data_in_use=True,
-                language=language,
-                data_type="emoji-keywords",
-)
+        export_formatted_data(
+            file_path=file_path,
+            formatted_data=emoji_keywords_dict,
+            query_data_in_use=True,
+            language=language,
+            data_type="emoji-keywords",
+        )
