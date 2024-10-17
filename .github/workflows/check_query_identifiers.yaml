@@ -7,10 +7,6 @@ on:
       - main
     types: [opened, reopened, synchronize]
 
-permissions:
-  pull-requests: write
-  issues: write
-
 jobs:
   format_check:
     strategy:
@@ -45,22 +41,6 @@ jobs:
       - name: Run check_query_identifiers.py
         working-directory: ./src/scribe_data/check
         run: python check_query_identifiers.py
-
-      # If the previous step fails, post a comment
-      - name: Notify PR Author of invalid queries
-        if: failure()
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const prAuthor = context.payload.pull_request.user.login;
-            const issueNumber = context.payload.pull_request.number;
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issueNumber,
-              body: `Hey @${prAuthor}, please review your queries. Please fix the reported errors.`
-            })
-
 
       - name: Post-run status
         if: failure()
