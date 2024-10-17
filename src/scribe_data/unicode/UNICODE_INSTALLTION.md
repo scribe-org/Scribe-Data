@@ -22,7 +22,7 @@ echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/homebrew/opt/icu4c/lib/pkgconfig"
 
 This guide provides step-by-step instructions on how to install the PyICU library, which is essential for proper emoji support on Windows.
 
-## Download the PyICU Wheel File
+### Download the PyICU Wheel File
 
 1. Visit the [PyICU Release Page](https://github.com/cgohlke/pyicu-build/releases).
 2. Locate and download the wheel (`.whl`) file that matches your Python version. Make sure to select the correct architecture (e.g., `win_amd64` for 64-bit Python).
