@@ -168,6 +168,31 @@ Note that you may need to run this command every time you make any change to the
 pip install -e .
 ```
 
+## Set Python path for Windows
+```bash
+# open the .env file where you would see srcpath and pythonpath
+
+SRCPATH=<your-file-path>Scribe-Data\src
+PYTHONPATH=<your-file-path>\Scribe-Data\<your-virtual-env-name>\Lib\site-packages
+```
+
+Configure your activate.bat (for cmd) and Activate.ps1 (for powershell) files present at .\venv\Scripts
+
+- Configure Activate.ps1 file
+```bash
+# add this line to activate.bat file under set VIRTUAL_ENV
+
+set PYTHONPATH=%SRCPATH%;%PYTHONPATH%
+```
+
+- Configure Activate.ps1 file
+
+```bash
+#add this line to activate.ps1 file above deactivate function
+
+$env:PYTHONPATH = "$env:SRCPATH;$env:PYTHONPATH"
+```
+
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!
 
