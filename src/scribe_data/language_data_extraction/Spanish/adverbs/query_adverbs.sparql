@@ -7,6 +7,7 @@ SELECT
   ?adverb
   ?diminutive
   ?superlative
+  ?comparative
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
@@ -27,5 +28,13 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?superlativeForm .
     ?superlativeForm ontolex:representation ?superlative ;
       wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  # MARK: Comparative
+
+  OPTIONAL {
+     ?lexeme ontolex:lexicalForm ?comparativeForm .
+     ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
   }
 }
