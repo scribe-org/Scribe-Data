@@ -4,7 +4,9 @@ The Scribe-Data Unicode process is powered by [cldr-json](https://github.com/uni
 
 Please see the [installation guide for PyICU](https://gitlab.pyicu.org/main/pyicu#installing-pyicu) as the extension must be linked to ICU on your machine to work properly.
 
-Note that some of the commands may be incorrect. On macOS you may need to do the following:
+## macOS Support
+
+Note that some of the commands in the installation guide may be incorrect. On macOS you may need to do the following:
 
 ```bash
 # Instead of:
@@ -16,7 +18,7 @@ echo "/opt/homebrew/opt/icu4c/bin:/opt/homebrew/opt/icu4c/sbin:$PATH"
 echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/homebrew/opt/icu4c/lib/pkgconfig"
 ```
 
-# Installing PyICU for Emoji Support on Windows
+## Windows Support
 
 This guide provides step-by-step instructions on how to install the PyICU library, which is essential for proper emoji support on Windows.
 
@@ -25,7 +27,7 @@ This guide provides step-by-step instructions on how to install the PyICU librar
 1. Visit the [PyICU Release Page](https://github.com/cgohlke/pyicu-build/releases).
 2. Locate and download the wheel (`.whl`) file that matches your Python version. Make sure to select the correct architecture (e.g., `win_amd64` for 64-bit Python).
 
-## Set Up a Virtual Environment
+### Set Up a Virtual Environment
 
 If you haven't already, You can do this with the following command:
 
@@ -37,7 +39,7 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
-## Install PyICU
+### Install PyICU
 
 ```bash
 # Replace 'PyICU-2.13-cp312-cp312-win_amd64.whl' with the actual filename you downloaded
