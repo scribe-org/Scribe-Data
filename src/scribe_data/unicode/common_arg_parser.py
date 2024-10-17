@@ -1,6 +1,5 @@
 """
-<<<<<<< HEAD
-Generates keyword-emoji relationships from a selection of Hindi words, ensuring Urdu words are excluded.
+Common parser
 
 .. raw:: html
     <!--
@@ -18,7 +17,7 @@ Generates keyword-emoji relationships from a selection of Hindi words, ensuring 
     *
     * You should have received a copy of the GNU General Public License
     * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
+
 """
 
 import argparse

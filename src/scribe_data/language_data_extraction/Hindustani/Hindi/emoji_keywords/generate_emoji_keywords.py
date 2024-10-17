@@ -1,5 +1,5 @@
 """
-Generates keyword-emoji relationships from a selection of Hindi words, ensuring Urdu words are excluded.
+Generates keyword-emoji relationships from a selection of Hindustani words.
 
 .. raw:: html
     <!--
@@ -17,14 +17,15 @@ Generates keyword-emoji relationships from a selection of Hindi words, ensuring 
     *
     * You should have received a copy of the GNU General Public License
     * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
+    -->.
 """
 
 from scribe_data.unicode.generate_emoji_keyword import generate_emoji_keyword
-from scribe_data.unicode.common_arg_parser import setup_arg_parser 
+from scribe_data.unicode.common_arg_parser import setup_arg_parser
 
-# Define the main language.
-LANGUAGE = "Hindi"  
+
+LANGUAGE = "Hindustani"
+
 
 # Set up the argument parser by calling the imported function.
 parser = setup_arg_parser()
@@ -35,9 +36,9 @@ args = parser.parse_args()
 # Call the generate_emoji_keyword function with optional parameters.
 generate_emoji_keyword(
     LANGUAGE,
-    args.file_path,  
-    emojis_per_keyword=args.emojis_per_keyword,  
-    gender=args.gender,  
-    region=args.region,  
-    sub_languages=args.sub_languages,  
+    args.file_path,
+    emojis_per_keyword=args.emojis_per_keyword,
+    gender=args.gender,
+    region=args.region,
+    sub_languages=args.sub_languages,
 )
