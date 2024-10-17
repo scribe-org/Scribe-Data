@@ -8,13 +8,8 @@ from scribe_data.cli.cli_utils import (
 )
 
 languages_in_metadata = {
-    lang["language"]: {"iso": lang["iso"], "qid": lang["qid"]}
-    for lang in language_metadata["languages"]
-}  # current language metadata
-
-# languages_in_metadata = { # proposed language metadata
-#     key.lower(): value for key, value in language_metadata.items()
-# }  # Normalize keys to lowercase for case-insensitive comparison
+    key.lower(): value for key, value in language_metadata.items()
+}  # Normalize keys to lowercase for case-insensitive comparison
 
 all_data_types = tuple(data_type_metadata.keys())
 
