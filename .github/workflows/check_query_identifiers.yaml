@@ -50,7 +50,7 @@ jobs:
           script: |
             const prAuthor = context.payload.pull_request.user.login;
             const issueNumber = context.payload.pull_request.number;
-            github.issues.createComment({
+            await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issueNumber,
