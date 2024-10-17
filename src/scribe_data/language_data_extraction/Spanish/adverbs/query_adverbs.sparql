@@ -5,36 +5,9 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adverb
-  ?diminutive
-  ?superlative
-  ?comparative
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb .
-
-  # MARK: Diminutive
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?diminutiveForm .
-    ?diminutiveForm ontolex:representation ?diminutive ;
-      wikibase:grammaticalFeature wd:Q108709 .
-  }
-
-  # MARK: Superlative
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?superlativeForm .
-    ?superlativeForm ontolex:representation ?superlative ;
-      wikibase:grammaticalFeature wd:Q1817208 .
-  }
-
-  # MARK: Comparative
-
-  OPTIONAL {
-     ?lexeme ontolex:lexicalForm ?comparativeForm .
-     ?comparativeForm ontolex:representation ?comparative ;
-      wikibase:grammaticalFeature wd:Q14169499 .
-  }
 }
