@@ -1,4 +1,5 @@
 """
+<<<<<<< HEAD
 Generates keyword-emoji relationships from a selection of Hindustani words.
 
 .. raw:: html
