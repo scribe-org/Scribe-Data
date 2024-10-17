@@ -22,7 +22,9 @@ all_data_types = tuple(data_type_metadata.keys())
 def get_available_languages() -> dict[str, list[str]]:
     """
     Get available languages from the data extraction folder.
-    Returns:
+
+    Returns
+    -------
         dict[str, list[str]]: A dictionary with the language name as the key and a list of its sub-languages (if available) as the value.
     """
     extraction_dir = LANGUAGE_DATA_EXTRACTION_DIR
@@ -111,12 +113,12 @@ def validate_language_properties(languages_dict: dict) -> dict:
     """
     Validates the presence of 'qid' and 'iso' properties for each language and its sub-languages.
 
-    Args:
-        languages_dict (dict): A dictionary where each key is a language, and the value is another
-                               dictionary containing details about the language. If the language has
-                               sub-languages, they are stored under the 'sub_languages' key.
+    Parameters
+    ----------
+        languages_dict (dict): A dictionary where each key is a language, and the value is another dictionary containing details about the language. If the language has sub-languages, they are stored under the 'sub_languages' key.
 
-    Returns:
+    Returns
+    -------
         dict: A dictionary with two lists:
               - "missing_qids": Languages or sub-languages missing the 'qid' property.
               - "missing_isos": Languages or sub-languages missing the 'iso' property.
@@ -158,6 +160,11 @@ def check_language_metadata():
        - 'iso' (ISO language code)
 
     This function helps identify missing languages or missing properties, ensuring data consistency across both sources.
+
+    Raises:
+    -------
+        SystemExit:
+            If any missing languages or properties are found, the function exits the script with a status code of 1.
     """
     languages_in_directory = get_available_languages()
     missing_languages_metadata = get_missing_languages(
@@ -202,8 +209,12 @@ def check_language_metadata():
                 print(f"  • {lang.title()}")
 
         # Exit with a non-zero status code to indicate failure
-        sys.exit(1)  # Indicate failure
+        sys.exit(1)
 
     print(
         "All languages match between language_metadata.json and language_data_extraction; languages in language_metadata.json have the correct properties."
     )
+
+
+if __name__ == "__main__":
+    check_language_metadata()
