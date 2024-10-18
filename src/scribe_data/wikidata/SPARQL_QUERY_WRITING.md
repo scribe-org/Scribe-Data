@@ -1,5 +1,7 @@
 # SPARQL Query Writing for Wikidata Lexemes
+Wikidata is a free and open knowledge base that provides structured data to support a wide range of applications, including linguistic data through lexemes. SPARQL queries enable powerful searches and extraction of specific data from this repository, such as lexeme forms and their grammatical features.
 
+To learn more, visit the [Wikidata Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md).
 This document outlines how to write effective SPARQL queries for Wikidata lexemes, with a focus on guiding new contributors in identifying lexeme forms and using them in queries to return unique values.
 
 ## Contents
