@@ -35,7 +35,6 @@ from tqdm.auto import tqdm
 from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     get_language_qid,
-    get_language_words_to_remove,
 )
 from scribe_data.wikidata.wikidata_utils import sparql
 
@@ -137,7 +136,7 @@ def clean(
         "WPProject",
         "WPProjekt",
     ]
-    words_to_remove += get_language_words_to_remove(language)
+    words_to_remove += []
 
     if sample_size < 1:
         idxs = range(len(texts))
