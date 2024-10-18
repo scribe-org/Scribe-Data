@@ -73,6 +73,31 @@ SUB_DIRECTORIES = {
 BASE_DIR = "../language_data_extraction"
 
 
+def check_missing_query_files(item_path, item, errors, language, subdir):
+    """
+    Check for missing 'query_{item}.sparql' files in the data type directory.
+
+    Parameters
+    ----------
+    item_path : str
+        The path to the data type directory.
+    item : str
+        The data type being checked.
+    errors : list
+        A list to which error messages will be appended.
+    language : str
+        The name of the language being processed.
+    subdir : str or None
+        The name of the sub-directory (for languages with sub-dialects), or None.
+    """
+    expected_query_file = f"query_{item}.sparql"
+    if not any(f.startswith(expected_query_file) for f in os.listdir(item_path)):
+        error_subdir = f"{subdir}/" if subdir else ""
+        errors.append(
+            f"Need to add {expected_query_file} to {language}/{error_subdir}{item}"
+        )
+
+
 def check_data_type_folders(path, language, subdir, errors):
     """
     Validate the contents of data type folders within a language directory.
@@ -126,6 +151,9 @@ def check_data_type_folders(path, language, subdir, errors):
                     or f == f"format_{item}.py"
                     or f == f"{item}_queried.json"
                 ]
+
+                # Check for missing query files
+                check_missing_query_files(item_path, item, errors, language, subdir)
 
                 for file in os.listdir(item_path):
                     if file not in valid_files and file != "__init__.py":
