@@ -22,24 +22,26 @@ jobs:
     name: Run Check Query Identifiers
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      # - name: Set up Python ${{ matrix.python-version }}
-      #   uses: actions/setup-python@v4
-      #   with:
-      #     python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
 
-      # - name: Install dependencies
-      #   run: |
-      #     python -m pip install --upgrade uv
-      #     uv venv
-      #     uv pip install -r requirements.txt
+      - name: Add project root to PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
 
-      # - name: Activate virtualenv
-      #   run: |
-      #     . .venv/bin/activate
-      #     echo PATH=$PATH >> $GITHUB_ENV
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      # - name: Run Python script
-      #   run: python src/scribe_data/check/check_query_identifiers.py
+      - name: Run check_query_identifiers.py
+        working-directory: ./src/scribe_data/check
+        run: python check_query_identifiers.py
+
+      - name: Post-run status
+        if: failure()
+        run: echo "Project SPARQL queries check failed. Please fix the reported errors."

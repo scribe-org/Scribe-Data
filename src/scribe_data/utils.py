@@ -546,3 +546,36 @@ def list_all_languages(language_metadata=_languages):
             current_languages.append(lang_key)
 
     return sorted(current_languages)
+
+
+def list_languages_with_metadata_for_data_type(language_metadata=_languages):
+    """
+    Returns a sorted list of languages and their metadata (name, iso, qid) for a specific data type.
+    The list includes sub-languages where applicable.
+    """
+    current_languages = []
+
+    # Iterate through the language metadata.
+    for lang_key, lang_data in language_metadata.items():
+        # Check if there are sub-languages.
+        if "sub_languages" in lang_data:
+            # Add the sub-languages to current_languages with metadata.
+            for sub_key, sub_data in lang_data["sub_languages"].items():
+                current_languages.append(
+                    {
+                        "name": f"{lang_data.get('name', lang_key)}/{sub_data.get('name', sub_key)}",
+                        "iso": sub_data.get("iso", ""),
+                        "qid": sub_data.get("qid", ""),
+                    }
+                )
+        else:
+            # If no sub-languages, add the main language with metadata.
+            current_languages.append(
+                {
+                    "name": lang_data.get("name", lang_key),
+                    "iso": lang_data.get("iso", ""),
+                    "qid": lang_data.get("qid", ""),
+                }
+            )
+
+    return sorted(current_languages, key=lambda x: x["name"])
