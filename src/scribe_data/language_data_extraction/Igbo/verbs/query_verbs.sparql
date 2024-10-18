@@ -4,10 +4,155 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?verb
+  ?infinitive
+  ?presentTense
+  ?presentParticiple
+  ?pastTense
+  ?thirdPersonPresent
+  ?plural
+  ?singular
+  ?pastParticiple
+  ?adjective
+  ?synonym
+  ?imperative
+  ?auxiliaryVerb
+  ?transitiveVerb
+  ?intransitiveVerb
+  ?negation
 
 WHERE {
-  ?lexeme dct:language wd:Q33578 ;
-    wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
- }
+  # MARK: Infinitive
+
+  ?lexeme dct:language wd:Q33578 ;  # Igbo language
+    wikibase:lexicalCategory wd:Q24905 ;  # Verbs
+    wikibase:lemma ?infinitive .
+
+  # MARK: Present Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentTenseForm .
+    ?presentTenseForm ontolex:representation ?presentTense ;
+    wikibase:grammaticalFeature wd:Q3910936 ;  # Present tense
+    FILTER(LANG(?presentTense) = "ig") .
+  }
+
+  # MARK: Present Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
+    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+    wikibase:grammaticalFeature wd:Q10345583 ;  # Present participle
+    FILTER(LANG(?presentParticiple) = "ig") .
+  }
+
+  # MARK: Past Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastTenseForm .
+    ?pastTenseForm ontolex:representation ?pastTense ;
+    wikibase:grammaticalFeature wd:Q1392475 ;  # Past tense
+    FILTER(LANG(?pastTense) = "ig") .
+  }
+
+  # MARK: Third-person Singular Present
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonPresentForm .
+    ?thirdPersonPresentForm ontolex:representation ?thirdPersonPresent ;
+    wikibase:grammaticalFeature wd:Q51929074 ;  # Third-person present
+    FILTER(LANG(?thirdPersonPresent) = "ig") .
+  }
+
+  # MARK: Plural Form
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+    wikibase:grammaticalFeature wd:Q110786 ;  # Plural
+    FILTER(LANG(?plural) = "ig") .
+  }
+
+  # MARK: Singular Form
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+    wikibase:grammaticalFeature wd:Q110786 ;     # Singular
+    FILTER(LANG(?singular) = "ig") .
+  }
+
+  # MARK: Past Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+    wikibase:grammaticalFeature wd:Q1230649 ;     # Past participle
+    FILTER(LANG(?pastParticiple) = "ig") .
+  }
+
+  # MARK: Adjective
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adjectiveForm .
+    ?adjectiveForm ontolex:representation ?adjective ;
+    wikibase:lexicalCategory wd:Q34698 ;  # Adjective
+    FILTER(LANG(?adjective) = "ig") .
+  }
+
+  # MARK: Synonym
+
+  OPTIONAL {
+    ?lexeme skos:exactMatch ?synonymForm .
+    ?synonymForm ontolex:representation ?synonym ;
+    FILTER(LANG(?synonym) = "ig") .
+  }
+
+  # MARK: Imperative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+    wikibase:grammaticalFeature wd:Q220029 ;  # Imperative
+    FILTER(LANG(?imperative) = "ig") .
+  }
+
+  # MARK: Auxiliary Verb
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?auxiliaryVerbForm .
+    ?auxiliaryVerbForm ontolex:representation ?auxiliaryVerb ;
+    wikibase:lexicalCategory wd:Q34612 ;     # Auxiliary verb
+    FILTER(LANG(?auxiliaryVerb) = "ig") .
+  }
+
+  # MARK: Transitive Verb
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?transitiveVerbForm .
+    ?transitiveVerbForm ontolex:representation ?transitiveVerb ;
+    wikibase:lexicalCategory wd:Q177299 ;    # Transitive verb
+    FILTER(LANG(?transitiveVerb) = "ig") .
+  }
+
+  # MARK: Intransitive Verb
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?intransitiveVerbForm .
+    ?intransitiveVerbForm ontolex:representation ?intransitiveVerb ;
+    wikibase:lexicalCategory wd:Q162303 ;     # Intransitive verb
+    FILTER(LANG(?intransitiveVerb) = "ig") .
+  }
+
+  # MARK: Negation
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?negationForm .
+    ?negationForm ontolex:representation ?negation ;
+    wikibase:grammaticalFeature wd:Q168300 ;     # Negation
+    FILTER(LANG(?negation) = "ig") .
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE], ig".
+  }
+}
