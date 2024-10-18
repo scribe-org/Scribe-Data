@@ -23,7 +23,7 @@ Generates keyword-emoji relationships from a selection of Korean words.
 import argparse
 from scribe_data.unicode.generate_emoji_keyword import generate_emoji_keyword
 
-LANGUAGE = Korean"
+LANGUAGE = "Korean"
 emojis_per_keyword = 3
 
 parser = argparse.ArgumentParser(
