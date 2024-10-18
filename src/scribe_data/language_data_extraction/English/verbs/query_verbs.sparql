@@ -1,8 +1,8 @@
 # tool: scribe-data
-# All English (Q1860) verbs and the currently implemented tenses for each.
+# All English (Q1860) verbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
   ?presSimp
@@ -28,7 +28,7 @@ WHERE {
       FILTER NOT EXISTS { ?presSimpForm wdt:P6191 wd:Q181970 . }
       FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q126473 . }
       FILTER(LANG(?presSimp) = "en") .
-  } .
+  } 
 
   # MARK: Third-person Singular
 
@@ -41,7 +41,7 @@ WHERE {
     FILTER NOT EXISTS { ?presTPSForm wdt:P6191 wd:Q181970 . }
     FILTER NOT EXISTS { ?presTPSForm wikibase:grammaticalFeature wd:Q126473 . }
     FILTER(LANG(?presTPS) = "en") .
-  } .
+  } 
 
   # MARK: Present Participle
 
@@ -52,7 +52,7 @@ WHERE {
     FILTER NOT EXISTS { ?presPartForm wdt:P6191 wd:Q181970 . }
     FILTER NOT EXISTS { ?presPartForm wikibase:grammaticalFeature wd:Q126473 . }
     FILTER(LANG(?presPart) = "en") .
-  } .
+  } 
 
   # MARK: Simple Past
 
@@ -63,7 +63,7 @@ WHERE {
     FILTER NOT EXISTS { ?pastSimpForm wdt:P6191 wd:Q181970 . }
     FILTER NOT EXISTS { ?pastSimpForm wikibase:grammaticalFeature wd:Q126473 . }
     FILTER(LANG(?pastSimp) = "en") .
-  } .
+  } 
 
   # MARK: Past Participle
 
@@ -74,7 +74,7 @@ WHERE {
     FILTER NOT EXISTS { ?pastPartForm wdt:P6191 wd:Q181970 . }
     FILTER NOT EXISTS { ?pastPartForm wikibase:grammaticalFeature wd:Q126473 . }
     FILTER(LANG(?pastPart) = "en") .
-  } .
+  } 
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

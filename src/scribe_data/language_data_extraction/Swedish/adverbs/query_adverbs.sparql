@@ -2,12 +2,12 @@
 # All Swedish (Q9027) adverbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adverb
 
 WHERE {
-  ?lexeme dct:language wd:Q9027 ;
+  ?lexeme dct:language wd:Q9027  ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb .
 }

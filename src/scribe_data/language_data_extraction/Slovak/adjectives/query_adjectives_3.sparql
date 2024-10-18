@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Slovak (Q9058) adjectives and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?feminineDativeSingular
+  ?masculineDativeSingular
+  ?neuterDativeSingular
+  ?dativePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9058;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  # MARK: Dative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineDativeSingularForm .
+    ?feminineDativeSingularForm ontolex:representation ?feminineDativeSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q145599, wd:Q110786, wd:Q3482678 .
+  } 
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineDativeSingularForm .
+    ?masculineDativeSingularForm ontolex:representation ?masculineDativeSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q145599, wd:Q110786, wd:Q3482678 .
+  } 
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterDativeSingularForm .
+    ?neuterDativeSingularForm ontolex:representation ?neuterDativeSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q145599, wd:Q110786, wd:Q3482678 .
+  } 
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?DativePluralForm .
+    ?DativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786, wd:Q3482678 .
+  } 
+}

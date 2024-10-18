@@ -1,8 +1,8 @@
 # tool: scribe-data
-# All German (Q188) verbs and a portion of the currently implemented tenses for each.
+# All German (Q188) verbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
-# Not SELECT DISTINCT as we want to get verbs with both sein and haben as auxiliaries
+# Not SELECT as we want to get verbs with both sein and haben as auxiliaries
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive ?pastParticiple ?auxiliaryVerb
@@ -24,65 +24,47 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastParticipleForm .
     ?pastParticipleForm ontolex:representation ?pastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679 ;
-  } .
+      wikibase:grammaticalFeature wd:Q12717679 .
+  } 
 
   # MARK: Auxiliary Verb(s)
 
   OPTIONAL {
-    ?lexeme wdt:P5401 ?auxiliaryVerbFrom ;
-  } .
+    ?lexeme wdt:P5401 ?auxiliaryVerbFrom .
+  } 
 
   # MARK: Indicative Preterite
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretFPSForm .
     ?pretFPSForm ontolex:representation ?pretFPS ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q442485 ;
-  } .
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q682111, wd:Q442485 .
+  } 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretSPSForm .
     ?pretSPSForm ontolex:representation ?pretSPS ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q442485 ;
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q682111, wd:Q442485 .
+  } 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretTPSForm .
     ?pretTPSForm ontolex:representation ?pretTPS ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q442485 ;
-  } .
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q682111, wd:Q442485 .
+  } 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretFPPForm .
     ?pretFPPForm ontolex:representation ?pretFPP ;
-      wikibase:grammaticalFeature wd:Q21714344 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q442485 ;
-  } .
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q682111, wd:Q442485 .
+  } 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretSPPForm .
     ?pretSPPForm ontolex:representation ?pretSPP ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q442485 ;
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q682111, wd:Q442485 .
+  } 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pretTPPForm .
     ?pretTPPForm ontolex:representation ?pretTPP ;
-      wikibase:grammaticalFeature wd:Q51929074 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q442485 ;
-  } .
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q682111, wd:Q442485 .
+  } 
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

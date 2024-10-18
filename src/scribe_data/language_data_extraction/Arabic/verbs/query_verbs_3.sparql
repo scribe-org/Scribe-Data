@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Arabic (Q13955) verbs and a portion of the currently implemented tenses for each.
+# All Arabic (Q13955) verbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -18,53 +18,30 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPSMForm .
     ?impSPSMForm ontolex:representation ?impSPSM ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q499327, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPSFForm .
     ?impSPSFForm ontolex:representation ?impSPSF ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q1775415, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPDForm .
     ?impSPDForm ontolex:representation ?impSPD ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q110022 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110022, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPPMForm .
     ?impSPPMForm ontolex:representation ?impSPPM ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q499327 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q12230930
-  } .
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q499327, wd:Q682111, wd:Q12230930 .
+  } 
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPPFForm .
     ?impSPPFForm ontolex:representation ?impSPPF ;
-      wikibase:grammaticalFeature wd:Q51929049 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q1775415 ;
-      wikibase:grammaticalFeature wd:Q682111 ;
-      wikibase:grammaticalFeature wd:Q12230930
-  } .
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-  }
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q1775415, wd:Q682111, wd:Q12230930 .
+  } 
 }

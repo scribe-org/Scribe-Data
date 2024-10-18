@@ -40,6 +40,7 @@ def get_data(
     overwrite: bool = False,
     outputs_per_entry: int = None,
     all: bool = False,
+    interactive: bool = False,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
@@ -61,11 +62,14 @@ def get_data(
         outputs_per_entry : str
             How many outputs should be generated per data entry.
 
-        overwrite : bool
-            Whether to overwrite existing files (default: False).
+        overwrite : bool (default: False)
+            Whether to overwrite existing files.
 
         all : bool
             Get all languages and data types.
+
+        interactive : bool (default: False)
+            Whether it's running in interactive mode.
 
     Returns
     -------
@@ -111,22 +115,6 @@ def get_data(
                 ["python", emoji_keyword_extraction_script]
             )
 
-    # MARK: Translations
-
-    elif data_type == "translations":
-        for lang in languages:
-            translation_generation_script = (
-                Path(__file__).parent.parent
-                / "language_data_extraction"
-                / lang
-                / "translations"
-                / "translate_words.py"
-            )
-
-            subprocess_result = subprocess.run(
-                ["python", translation_generation_script]
-            )
-
     # MARK: Query Data
 
     elif language or data_type:
@@ -141,6 +129,7 @@ def get_data(
             data_type=data_type,
             output_dir=output_dir,
             overwrite=overwrite,
+            interactive=interactive,
         )
         subprocess_result = True
 
@@ -156,6 +145,8 @@ def get_data(
         print(
             f"Updated data was saved in: {Path(output_dir).resolve()}.",
         )
+        if interactive:
+            return True
 
     # The emoji keywords process has failed.
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
@@ -163,5 +154,5 @@ def get_data(
             "\nThe Scribe-Data emoji functionality is powered by PyICU, which is currently not installed."
         )
         print(
-            "Please check the installation steps at https://gitlab.pyicu.org/main/pyicu for more information.\n"
+            "Please check the installation guide at https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/unicode/UNICODE_INSTALLTION.md for more information.\n"
         )
