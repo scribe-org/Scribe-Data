@@ -58,9 +58,13 @@ language_map = {
 }
 
 # Create language_to_qid dictionary.
-language_to_qid = {
-    lang["language"].lower(): lang["qid"] for lang in language_metadata["languages"]
-}
+language_to_qid = {}
+for lang in language_metadata["languages"]:
+    qid = lang.get("qid")
+    if qid is None:
+        print(f"Warning: 'qid' missing for language {lang['language']}")
+    else:
+        language_to_qid[lang["language"].lower()] = qid
 
 
 # MARK: Correct Inputs
