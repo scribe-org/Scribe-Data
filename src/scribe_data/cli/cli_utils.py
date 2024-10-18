@@ -53,18 +53,31 @@ except (IOError, json.JSONDecodeError) as e:
     print(f"Error reading data type metadata: {e}")
 
 
-language_map = {
-    lang["language"].lower(): lang for lang in language_metadata["languages"]
-}
-
-# Create language_to_qid dictionary.
+language_map = {}
 language_to_qid = {}
+
+# Process each language and its potential sub-languages in one pass.
 for lang in language_metadata["languages"]:
+    lang_lower = lang["language"].lower()
     qid = lang.get("qid")
+    
     if qid is None:
         print(f"Warning: 'qid' missing for language {lang['language']}")
     else:
-        language_to_qid[lang["language"].lower()] = qid
+        language_map[lang_lower] = lang
+        language_to_qid[lang_lower] = qid
+
+    # Handle sub-languages if they exist.
+    if "sub_languages" in lang:
+        for sub_lang, sub_lang_data in lang["sub_languages"].items():
+            sub_lang_lower = sub_lang.lower()
+            sub_qid = sub_lang_data.get("qid")
+            
+            if sub_qid is None:
+                print(f"Warning: 'qid' missing for sub-language {sub_lang} of {lang['language']}")
+            else:
+                language_map[sub_lang_lower] = sub_lang_data
+                language_to_qid[sub_lang_lower] = sub_qid
 
 
 # MARK: Correct Inputs
