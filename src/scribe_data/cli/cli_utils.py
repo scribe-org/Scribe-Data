@@ -27,6 +27,8 @@ from typing import List, Union
 
 from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 
+# MARK: CLI Variables
+
 LANGUAGE_DATA_EXTRACTION_DIR = Path(__file__).parent.parent / "language_data_extraction"
 
 LANGUAGE_METADATA_FILE = (
@@ -56,20 +58,21 @@ except (IOError, json.JSONDecodeError) as e:
 language_map = {}
 language_to_qid = {}
 
-# Process each language and its potential sub-languages in one pass
-for lang_key, lang_data in language_metadata.items():
-    lang_key_lower = lang_key.lower()
+# Process each language and its potential sub-languages in one pass.
+for lang, lang_data in language_metadata.items():
+    lang_lower = lang.lower()
 
-    # Handle sub-languages if they exist
+    # Handle sub-languages if they exist.
     if "sub_languages" in lang_data:
-        for sub_lang_key, sub_lang_data in lang_data["sub_languages"].items():
-            sub_lang_key_lower = sub_lang_key.lower()
-            language_map[sub_lang_key_lower] = sub_lang_data
-            language_to_qid[sub_lang_key_lower] = sub_lang_data["qid"]
+        for sub_lang, sub_lang_data in lang_data["sub_languages"].items():
+            sub_lang_lower = sub_lang.lower()
+            language_map[sub_lang_lower] = sub_lang_data
+            language_to_qid[sub_lang_lower] = sub_lang_data["qid"]
+
     else:
-        # Handle the main language directly
-        language_map[lang_key_lower] = lang_data
-        language_to_qid[lang_key_lower] = lang_data["qid"]
+        # Handle the main language directly.
+        language_map[lang_lower] = lang_data
+        language_to_qid[lang_lower] = lang_data["qid"]
 
 
 # MARK: Correct Inputs
@@ -112,41 +115,37 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
     if isinstance(data, dict):
         max_key_length = max((len(key) for key in data.keys()), default=0)
 
-        if data_type == "autosuggestions":
-            for key, value in data.items():
+        for key, value in data.items():
+            if data_type == "autosuggestions":
                 print(f"{key:<{max_key_length}} : {', '.join(value)}")
 
-        elif data_type == "emoji_keywords":
-            for key, value in data.items():
+            elif data_type == "emoji_keywords":
                 emojis = [item["emoji"] for item in value]
                 print(f"{key:<{max_key_length}} : {' '.join(emojis)}")
 
-        elif data_type in {"prepositions"}:
-            for key, value in data.items():
+            elif data_type in {"prepositions"}:
                 print(f"{key:<{max_key_length}} : {value}")
 
-        else:
-            for key, value in data.items():
-                if isinstance(value, dict):
-                    print(f"{key:<{max_key_length}} : ")
-                    max_sub_key_length = max(
-                        (len(sub_key) for sub_key in value.keys()), default=0
-                    )
-                    for sub_key, sub_value in value.items():
-                        print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
+            elif isinstance(value, dict):
+                print(f"{key:<{max_key_length}} : ")
+                max_sub_key_length = max(
+                    (len(sub_key) for sub_key in value.keys()), default=0
+                )
+                for sub_key, sub_value in value.items():
+                    print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
 
-                elif isinstance(value, list):
-                    print(f"{key:<{max_key_length}} : ")
-                    for item in value:
-                        if isinstance(item, dict):
-                            for sub_key, sub_value in item.items():
-                                print(f"  {sub_key:<{max_key_length}} : {sub_value}")
+            elif isinstance(value, list):
+                print(f"{key:<{max_key_length}} : ")
+                for item in value:
+                    if isinstance(item, dict):
+                        for sub_key, sub_value in item.items():
+                            print(f"  {sub_key:<{max_key_length}} : {sub_value}")
 
-                        else:
-                            print(f"  {item}")
+                    else:
+                        print(f"  {item}")
 
-                else:
-                    print(f"{key:<{max_key_length}} : {value}")
+            else:
+                print(f"{key:<{max_key_length}} : {value}")
 
     elif isinstance(data, list):
         for item in data:
@@ -211,12 +210,12 @@ def validate_language_and_data_type(
         ):
             closest_match = difflib.get_close_matches(item, valid_options, n=1)
             closest_match_str = (
-                f" The closest matching {item_type} is {closest_match[0]}."
+                f" The closest matching {item_type} is '{closest_match[0]}'."
                 if closest_match
                 else ""
             )
 
-            return f"Invalid {item_type} {item}.{closest_match_str}"
+            return f"Invalid {item_type} '{item}'.{closest_match_str}"
 
         return None
 

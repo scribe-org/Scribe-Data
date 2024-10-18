@@ -26,7 +26,6 @@ from importlib import resources
 from pathlib import Path
 from typing import Any, Optional
 
-
 PROJECT_ROOT = "Scribe-Data"
 DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
 DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
@@ -53,8 +52,7 @@ def _load_json(package_path: str, file_name: str) -> Any:
     with resources.files(package_path).joinpath(file_name).open(
         encoding="utf-8"
     ) as in_stream:
-        contents = json.load(in_stream)
-        return contents  # No need for 'root'
+        return json.load(in_stream)
 
 
 _languages = _load_json(
@@ -90,13 +88,13 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
     ------
         ValueError : when a source_value is not supported or the language only has sub-languages.
     """
-    norm_source_value = source_value.lower()
-
-    # Check if we're searching by language name
+    # Check if we're searching by language name.
     if source_key == "language":
-        # First, check the main language entries (e.g., mandarin, french, etc.)
+        norm_source_value = source_value.lower()
+
+        # First, check the main language entries (e.g., mandarin, french, etc.).
         for language, entry in _languages.items():
-            # If the language name matches the top-level key, return the target value
+            # If the language name matches the top-level key, return the target value.
             if language.lower() == norm_source_value:
                 if "sub_languages" in entry:
                     sub_languages = ", ".join(entry["sub_languages"].keys())
@@ -105,35 +103,14 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
                     )
                 return entry.get(target_key)
 
-            # If there are sub-languages, check them too
+            # If there are sub-languages, check them too.
             if "sub_languages" in entry:
                 for sub_language, sub_entry in entry["sub_languages"].items():
                     if sub_language.lower() == norm_source_value:
                         return sub_entry.get(target_key)
 
-    # If no match was found, raise an error
+    # If no match was found, raise an error.
     raise ValueError(error_msg)
-
-
-def get_scribe_languages() -> list[str]:
-    """
-    Returns the list of currently implemented Scribe languages.
-    This version handles both regular languages and those with sub-languages (e.g., Norwegian).
-    """
-    languages = []
-
-    for language, entry in _languages.items():
-        # Add the main language (if it's directly queryable)
-        if "sub_languages" not in entry:
-            languages.append(language.capitalize())
-
-        # If there are sub-languages, add them instead
-        if "sub_languages" in entry:
-            languages.extend(
-                sub_language.capitalize() for sub_language in entry["sub_languages"]
-            )
-
-    return sorted(languages)
 
 
 def get_language_qid(language: str) -> str:
@@ -173,13 +150,12 @@ def get_language_iso(language: str) -> str:
             The ISO code for the language.
     """
 
-    iso_code = _find(
+    return _find(
         "language",
         language,
         "iso",
         f"{language.upper()} is currently not a supported language for ISO conversion.",
     )
-    return iso_code
 
 
 def get_language_from_iso(iso: str) -> str:
@@ -433,20 +409,25 @@ def map_genders(wikidata_gender: str) -> str:
     ----------
         wikidata_gender : str
             The gender of the noun that was queried from WikiData.
+
+    Returns
+    -------
+        The gender value corrected in case the Wikidata ID was queried.
     """
     gender_map = {
-        "masculine": "M",
-        "Q499327": "M",
-        "feminine": "F",
-        "Q1775415": "F",
-        "common gender": "C",
-        "Q1305037": "C",
-        "neuter": "N",
-        "Q1775461": "N",
+        "masculine": "masculine",
+        "Q499327": "masculine",
+        "feminine": "feminine",
+        "Q1775415": "feminine",
+        "common": "common",
+        "common gender": "common",
+        "Q1305037": "common",
+        "neuter": "neuter",
+        "Q1775461": "neuter",
     }
 
     return gender_map.get(
-        wikidata_gender, ""
+        wikidata_gender.lower(), ""
     )  # nouns could have a gender that is not a valid attribute
 
 
@@ -458,20 +439,24 @@ def map_cases(wikidata_case: str) -> str:
     ----------
         wikidata_case : str
             The case of the noun that was queried from WikiData.
+
+    Returns
+    -------
+        The case value corrected in case the Wikidata ID was queried.
     """
     case_map = {
-        "accusative": "Acc",
-        "Q146078": "Acc",
-        "dative": "Dat",
-        "Q145599": "Dat",
-        "genitive": "Gen",
-        "Q146233": "Gen",
-        "instrumental": "Ins",
-        "Q192997": "Ins",
-        "prepositional": "Pre",
-        "Q2114906": "Pre",
-        "locative": "Loc",
-        "Q202142": "Loc",
+        "accusative": "accusative",
+        "Q146078": "accusative",
+        "dative": "dative",
+        "Q145599": "dative",
+        "genitive": "genitive",
+        "Q146233": "genitive",
+        "instrumental": "instrumental",
+        "Q192997": "instrumental",
+        "prepositional": "prepositional",
+        "Q2114906": "prepositional",
+        "locative": "locative",
+        "Q202142": "locative",
     }
     case = wikidata_case.split(" case")[0]
     return case_map.get(case, "")
@@ -498,57 +483,66 @@ def order_annotations(annotation: str) -> str:
 def format_sublanguage_name(lang, language_metadata=_languages):
     """
     Formats the name of a sub-language by appending its main language
-    in the format 'Mainlang/Sublang'. If the language is not a sub-language,
+    in the format 'MAIN_LANG/SUB_LANG'. If the language is not a sub-language,
     the original language name is returned as-is.
 
-    Args:
-        lang (str): The name of the language or sub-language to format.
-        language_metadata (dict): The metadata containing information about
-                                  main languages and their sub-languages.
+    Parameters
+    ----------
+        lang : str
+            The name of the language or sub-language to format.
 
-    Returns:
-        str: The formatted language name if it's a sub-language
-             (e.g., 'Norwegian/Nynorsk'), otherwise the original name.
+        language_metadata : dict
+            The metadata containing information about main languages and their sub-languages.
 
-    Raises:
+    Returns
+    -------
+        str
+            The formatted language name if it's a sub-language (e.g., 'Norwegian/Nynorsk').
+            Otherwise the original name.
+
+    Raises
+    ------
         ValueError: If the provided language or sub-language is not found.
 
-    Example:
-        format_sublanguage_name("nynorsk", language_metadata)
+    Example
+    -------
+        > format_sublanguage_name("nynorsk", language_metadata)
         'Norwegian/Nynorsk'
 
-        format_sublanguage_name("english", language_metadata)
+        > format_sublanguage_name("english", language_metadata)
         'English'
     """
-    # Iterate through the main languages in the metadata
     for main_lang, lang_data in language_metadata.items():
-        # If it's not a sub-language, return the original name
+        # If it's not a sub-language, return the original name.
         if main_lang == lang.lower():
             return lang.capitalize()
-        # Check if the main language has sub-languages
+
+        # Check if the main language has sub-languages.
         if "sub_languages" in lang_data:
-            # Check if the provided language is a sub-language
+            # Check if the provided language is a sub-language.
             for sub_lang in lang_data["sub_languages"]:
                 if lang.lower() == sub_lang.lower():
-                    # Return the formatted name Mainlang/Sublang
+                    # Return the formatted name MAIN_LANG/SUB_LANG.
                     return f"{main_lang.capitalize()}/{sub_lang.capitalize()}"
 
-    # Raise ValueError if no match is found
+    # Raise ValueError if no match is found.
     raise ValueError(f"{lang.upper()} is not a valid language or sub-language.")
 
 
 def list_all_languages(language_metadata=_languages):
-    """List all languages from the provided metadata dictionary, including sub-languages."""
+    """
+    Returns a sorted list of all languages from the provided metadata dictionary, including sub-languages.
+    """
     current_languages = []
 
-    # Iterate through the language metadata
+    # Iterate through the language metadata.
     for lang_key, lang_data in language_metadata.items():
-        # Check if there are sub-languages
+        # Check if there are sub-languages.
         if "sub_languages" in lang_data:
-            # Add the sub-languages to current_languages
+            # Add the sub-languages to current_languages.
             current_languages.extend(lang_data["sub_languages"].keys())
         else:
-            # If no sub-languages, add the main language
+            # If no sub-languages, add the main language.
             current_languages.append(lang_key)
 
-    return current_languages
+    return sorted(current_languages)

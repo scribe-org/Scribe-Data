@@ -21,16 +21,16 @@ Functions for listing languages and data types for the Scribe-Data CLI.
 """
 
 from scribe_data.cli.cli_utils import (
-    correct_data_type,
-    language_metadata,
-    language_map,
     LANGUAGE_DATA_EXTRACTION_DIR,
+    correct_data_type,
+    language_map,
+    language_metadata,
 )
 from scribe_data.utils import (
-    list_all_languages,
+    format_sublanguage_name,
     get_language_iso,
     get_language_qid,
-    format_sublanguage_name,
+    list_all_languages,
 )
 
 
@@ -39,7 +39,6 @@ def list_languages() -> None:
     Generates a table of languages, their ISO-2 codes and their Wikidata QIDs.
     """
     languages = list_all_languages(language_metadata)
-    languages.sort()
 
     language_col_width = max(len(lang) for lang in languages) + 2
     iso_col_width = max(len(get_language_iso(lang)) for lang in languages) + 2
