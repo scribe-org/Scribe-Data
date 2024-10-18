@@ -19,9 +19,9 @@ def check_data_type_metadata(output_file):
             if language.is_dir():
                 meta_language = meta_lang or language.name.lower()
                 data_types_in_dir = []
-# Skip sub-languages if they are not explicitly listed in the metadata
-if is_sub_language and meta_language not in data_type_metadata:
-    continue
+
+            if is_sub_language and meta_language not in data_type_metadata:
+                continue
                 for data_type in language.iterdir():
                     if data_type.is_dir():
                         data_types_in_dir.append(data_type.name.lower())
@@ -41,6 +41,7 @@ if is_sub_language and meta_language not in data_type_metadata:
                     discrepancies.extend(check_language_subdirs(sub_lang_dir, meta_language))
         
         return discrepancies
+
 
     # Start checking from the base language directory
     discrepancies = check_language_subdirs(LANGUAGE_DATA_EXTRACTION_DIR)
