@@ -100,8 +100,6 @@ class TestListFunctions(unittest.TestCase):
             call("nouns"),
             call("personal-pronouns"),
             call("postpositions"),
-            call("personal-pronouns"),
-            call("postpositions"),
             call("prepositions"),
             call("proper-nouns"),
             call("verbs"),
