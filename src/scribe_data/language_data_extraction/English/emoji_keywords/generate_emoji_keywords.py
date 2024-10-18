@@ -24,10 +24,14 @@ import argparse
 
 from scribe_data.unicode.process_unicode import gen_emoji_lexicon
 from scribe_data.utils import export_formatted_data
+from scribe_data.utils import (
+    DEFAULT_JSON_EXPORT_DIR,
+)
 
 LANGUAGE = "English"
 DATA_TYPE = "emoji-keywords"
 emojis_per_keyword = 3
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--file-path")
@@ -38,7 +42,7 @@ if emoji_keywords_dict := gen_emoji_lexicon(
     emojis_per_keyword=emojis_per_keyword,
 ):
     export_formatted_data(
-        file_path=args.file_path,
+        file_path=DEFAULT_JSON_EXPORT_DIR,
         formatted_data=emoji_keywords_dict,
         query_data_in_use=True,
         language=LANGUAGE,
