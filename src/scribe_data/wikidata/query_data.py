@@ -33,6 +33,7 @@ from tqdm.auto import tqdm
 from scribe_data.cli.cli_utils import (
     language_metadata,
 )
+from scribe_data.utils import format_sublanguage_name, list_all_languages
 from scribe_data.wikidata.wikidata_utils import sparql
 
 
@@ -103,7 +104,7 @@ def query_data(
         SCRIBE_DATA_SRC_PATH / "language_data_extraction"
     )
     languages = [lang.capitalize() for lang in languages]
-    current_languages = list(language_metadata["languages"])
+    current_languages = list_all_languages(language_metadata)
     current_data_type = ["nouns", "verbs", "prepositions"]
 
     # Assign current_languages and current_data_type if no arguments have been passed.
@@ -147,7 +148,7 @@ def query_data(
         disable=interactive,
         colour="MAGENTA",
     ):
-        lang = q.parent.parent.name
+        lang = format_sublanguage_name(q.parent.parent.name, language_metadata)
         target_type = q.parent.name
 
         updated_path = output_dir[2:] if output_dir.startswith("./") else output_dir

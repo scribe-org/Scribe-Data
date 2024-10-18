@@ -1,70 +1,182 @@
 {
-  "used by": "Scribe-Data/src/scribe_data/utils.py",
-  "description": {
-    "entry": {
-      "language": "the supported language. All lowercase",
-      "iso": "the ISO 639 code for 'language'. See https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes. All lowercase",
-      "qid": "the unique identifier of 'language' on Wikidata. 'Q' followed by one or more digits. See https://www.wikidata.org/wiki/Q43649390",
-      "remove-words": "words that should not be included as autosuggestions for the given language.",
-      "ignore-words": "words that should be removed from the autosuggestion generation process."
+  "arabic": {
+    "iso": "ar",
+    "qid": "Q13955"
+  },
+  "basque": {
+    "iso": "eu",
+    "qid": "Q8752"
+  },
+  "bengali": {
+    "iso": "bn",
+    "qid": "Q9610"
+  },
+  "chinese": {
+    "sub_languages": {
+      "mandarin": {
+        "iso": "zh",
+        "qid": "Q727694"
+      }
     }
   },
-  "languages": [
-    {
-      "language": "english",
-      "iso": "en",
-      "qid": "Q1860",
-      "remove-words": ["of", "the", "The", "and"],
-      "ignore-words": []
-    },
-    {
-      "language": "french",
-      "iso": "fr",
-      "qid": "Q150",
-      "remove-words": ["of", "the", "The", "and"],
-      "ignore-words": ["XXe"]
-    },
-    {
-      "language": "german",
-      "iso": "de",
-      "qid": "Q188",
-      "remove-words": ["of", "the", "The", "and", "NeinJa", "et", "redirect"],
-      "ignore-words": ["Gemeinde", "Familienname"]
-    },
-    {
-      "language": "italian",
-      "iso": "it",
-      "qid": "Q652",
-      "remove-words": ["of", "the", "The", "and", "text", "from"],
-      "ignore-words": ["The", "ATP"]
-    },
-    {
-      "language": "portuguese",
-      "iso": "pt",
-      "qid": "Q5146",
-      "remove-words": ["of", "the", "The", "and", "jbutadptflora"],
-      "ignore-words": []
-    },
-    {
-      "language": "russian",
-      "iso": "ru",
-      "qid": "Q7737",
-      "remove-words": ["of", "the", "The", "and"],
-      "ignore-words": []
-    },
-    {
-      "language": "spanish",
-      "iso": "es",
-      "qid": "Q1321",
-      "remove-words": ["of", "the", "The", "and"],
-      "ignore-words": []
-    },
-    {
-      "language": "swedish",
-      "iso": "sv",
-      "qid": "Q9027",
-      "remove-words": ["of", "the", "The", "and", "Checklist", "Catalogue"],
-      "ignore-words": ["databasdump"]
+  "czech": {
+    "iso": "cs",
+    "qid": "Q9056"
+  },
+  "danish": {
+    "iso": "da",
+    "qid": "Q9035"
+  },
+  "english": {
+    "iso": "en",
+    "qid": "Q1860"
+  },
+  "esperanto": {
+    "iso": "eo",
+    "qid": "Q143"
+  },
+  "estonian": {
+    "iso": "et",
+    "qid": "Q9072"
+  },
+  "finnish": {
+    "iso": "fi",
+    "qid": "Q1412"
+  },
+  "french": {
+    "iso": "fr",
+    "qid": "Q150"
+  },
+  "german": {
+    "iso": "de",
+    "qid": "Q188"
+  },
+  "greek": {
+    "iso": "el",
+    "qid": "Q36510"
+  },
+  "hausa": {
+    "iso": "ha",
+    "qid": "Q56475"
+  },
+  "hebrew": {
+    "iso": "he",
+    "qid": "Q9288"
+  },
+  "hindustani": {
+    "sub_languages": {
+      "hindi": {
+        "iso": "hi",
+        "qid": "Q11051"
+      },
+      "urdu": {
+        "iso": "ur",
+        "qid": "Q11051"
+      }
     }
-  ]
+  },
+  "indonesian": {
+    "iso": "id",
+    "qid": "Q9240"
+  },
+  "italian": {
+    "iso": "it",
+    "qid": "Q652"
+  },
+  "japanese": {
+    "iso": "ja",
+    "qid": "Q5287"
+  },
+  "kurmanji": {
+    "iso": "kmr",
+    "qid": "Q36163"
+  },
+  "latin": {
+    "iso": "la",
+    "qid": "Q397"
+  },
+  "malay": {
+    "iso": "ms",
+    "qid": "Q9237"
+  },
+  "malayalam": {
+    "iso": "ml",
+    "qid": "Q36236"
+  },
+  "norwegian": {
+    "sub_languages": {
+      "bokmål": {
+        "iso": "nb",
+        "qid": "Q25167"
+      },
+      "nynorsk": {
+        "iso": "nn",
+        "qid": "Q25164"
+      }
+    }
+  },
+  "pidgin": {
+    "sub_languages": {
+      "nigerian": {
+        "iso": "pi",
+        "qid": "Q33655"
+      }
+    }
+  },
+  "polish": {
+    "iso": "pl",
+    "qid": "Q809"
+  },
+  "portuguese": {
+    "iso": "pt",
+    "qid": "Q5146"
+  },
+  "punjabi": {
+    "sub_languages": {
+      "gurmukhi": {
+        "iso": "pa",
+        "qid": "Q58635"
+      },
+      "shahmukhi": {
+        "iso": "pnb",
+        "qid": "Q58635"
+      }
+    }
+  },
+  "russian": {
+    "iso": "ru",
+    "qid": "Q7737"
+  },
+  "slovak": {
+    "iso": "sk",
+    "qid": "Q9058"
+  },
+  "spanish": {
+    "iso": "es",
+    "qid": "Q1321"
+  },
+  "swahili": {
+    "iso": "sw",
+    "qid": "Q7838"
+  },
+  "swedish": {
+    "iso": "sv",
+    "qid": "Q9027"
+  },
+  "tajik": {
+    "iso": "tg",
+    "qid": "Q9260"
+  },
+  "tamil": {
+    "iso": "ta",
+    "qid": "Q5885"
+  },
+  "ukrainian": {
+    "iso": "ua",
+    "qid": "Q8798"
+  },
+  "yoruba": {
+    "iso": "yo",
+    "qid": "Q34311"
+  }
 }
