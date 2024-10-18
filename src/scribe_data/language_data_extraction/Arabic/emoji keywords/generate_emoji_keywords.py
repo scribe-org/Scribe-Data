@@ -1,5 +1,5 @@
 """
-Generates keyword-emoji relationships from a selection of Madarin Chinese words.
+Generates keyword-emoji relationships from a selection of Arabic words.
 
 .. raw:: html
     <!--
@@ -23,7 +23,7 @@ Generates keyword-emoji relationships from a selection of Madarin Chinese words.
 import argparse
 from scribe_data.unicode.generate_emoji_keyword import generate_emoji_keyword
 
-LANGUAGE = "Standard Mandarin"
+LANGUAGE = "Arabic"
 emojis_per_keyword = 3
 
 parser = argparse.ArgumentParser(

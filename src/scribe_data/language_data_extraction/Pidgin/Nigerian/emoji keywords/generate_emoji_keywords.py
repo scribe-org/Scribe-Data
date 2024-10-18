@@ -1,5 +1,5 @@
 """
-Generates keyword-emoji relationships from a selection of Madarin Chinese words.
+Generates keyword-emoji relationships from a selection of Pidgin words.
 
 .. raw:: html
     <!--
@@ -23,11 +23,11 @@ Generates keyword-emoji relationships from a selection of Madarin Chinese words.
 import argparse
 from scribe_data.unicode.generate_emoji_keyword import generate_emoji_keyword
 
-LANGUAGE = "Standard Mandarin"
+LANGUAGE = "Pidgin"
 emojis_per_keyword = 3
 
 parser = argparse.ArgumentParser(
-    description="Generate emoji keywords for the specific language."
+    description="Generate emoji keywords for the language."
 )
 parser.add_argument(
     "--file-path", required=True, help="Path to save the generated emoji keywords."
