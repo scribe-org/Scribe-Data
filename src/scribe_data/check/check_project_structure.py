@@ -33,6 +33,7 @@ LANGUAGES = {
     "French",
     "Indonesian",
     "Latin",
+    "Latvian",
     "Portuguese",
     "Swedish",
     "Danish",
