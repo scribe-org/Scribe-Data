@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Persian (Q9186) nouns and the given forms.
+# All Persian (Q9168) nouns and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 # Note: We need to filter for "hi" to remove Urdu (ur) words.
