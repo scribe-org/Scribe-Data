@@ -1,0 +1,29 @@
+# tool: scribe-data
+# All Ukrainian (Q8798) adverbs and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+  ?comparativeForm
+  ?superlativeForm
+
+WHERE {
+  ?lexeme dct:language wd:Q8798 ;
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?lemma .
+
+  # Comparative Form
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeFormForm .
+    ?comparativeFormForm ontolex:representation ?comparativeForm ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  # Superlative Form
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeFormForm .
+    ?superlativeFormForm ontolex:representation ?superlativeForm ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+}

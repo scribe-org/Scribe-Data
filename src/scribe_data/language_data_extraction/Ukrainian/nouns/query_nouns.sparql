@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Ukrainian (Q8798) nouns, their plurals and the given forms.s for the given cases.
+# All Ukrainian (Q8798) nouns and their forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -7,24 +7,62 @@ SELECT
   ?nomSingular
   ?nomPlural
   ?gender
+  ?genitiveSingular
+  ?dativeSingular
+  ?accusativeSingular
+  ?instrumentalSingular
+  ?locativeSingular
 
 WHERE {
   ?lexeme dct:language wd:Q8798 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?nomSingular .
 
-  # MARK: Nominative Plural
-
+  # Nominative Plural
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   } 
 
-  # MARK: Gender(s)
-
+  # Gender(s)
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
+  }
+
+  # Genitive Singular
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+  }
+
+  # Dative Singular
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
+    ?dativeSingularForm ontolex:representation ?dativeSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
+  }
+
+  # Accusative Singular
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+  }
+
+  # Instrumental Singular
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalSingularForm .
+    ?instrumentalSingularForm ontolex:representation ?instrumentalSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q110786 .
+  }
+
+  # Locative Singular
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
+    ?locativeSingularForm ontolex:representation ?locativeSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
   }
 
   SERVICE wikibase:label {

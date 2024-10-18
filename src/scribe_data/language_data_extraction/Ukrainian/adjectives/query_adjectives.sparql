@@ -1,0 +1,61 @@
+# tool: scribe-data
+# All Ukrainian (Q8798) adjectives and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+  ?masculineSingularNominative
+  ?feminineSingularNominative
+  ?neuterSingularNominative
+  ?pluralNominative
+  ?comparativeForm
+  ?superlativeForm
+
+WHERE {
+  ?lexeme dct:language wd:Q8798 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?lemma .
+
+  # Masculine Singular Nominative
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularNominativeForm .
+    ?masculineSingularNominativeForm ontolex:representation ?masculineSingularNominative ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q131105 .
+  }
+
+  # Feminine Singular Nominative
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSingularNominativeForm .
+    ?feminineSingularNominativeForm ontolex:representation ?feminineSingularNominative ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q131105 .
+  }
+
+  # Neuter Singular Nominative
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterSingularNominativeForm .
+    ?neuterSingularNominativeForm ontolex:representation ?neuterSingularNominative ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q131105 .
+  }
+
+  # Plural Nominative
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralNominativeForm .
+    ?pluralNominativeForm ontolex:representation ?pluralNominative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q131105 .
+  }
+
+  # Comparative Form
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeFormForm .
+    ?comparativeFormForm ontolex:representation ?comparativeForm ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  # Superlative Form
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeFormForm .
+    ?superlativeFormForm ontolex:representation ?superlativeForm ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+}
