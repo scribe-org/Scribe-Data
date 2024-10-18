@@ -35,7 +35,6 @@ from tqdm.auto import tqdm
 from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     get_language_qid,
-    get_language_words_to_ignore,
     get_language_words_to_remove,
 )
 from scribe_data.wikidata.wikidata_utils import sparql
@@ -361,8 +360,7 @@ def gen_autosuggestions(
     if isinstance(ignore_words, str):
         words_to_ignore = [ignore_words]
     elif ignore_words is None:
-        words_to_ignore = []
-    words_to_ignore += get_language_words_to_ignore(language)
+        words_to_ignore += []
 
     print("Querying profanities to remove from suggestions.")
     # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
