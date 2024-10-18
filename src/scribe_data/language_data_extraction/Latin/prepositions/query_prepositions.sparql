@@ -1,0 +1,12 @@
+# tool: scribe-data
+# All Latin language (Q397) postpositions (Q4833830) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?preposition
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+          wikibase:lexicalCategory wd:Q4833830 ;
+          wikibase:lemma ?preposition .             # Retrieve the lemma (base form) of the preposition
+}
