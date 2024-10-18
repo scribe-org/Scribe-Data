@@ -15,16 +15,26 @@ def extract_qid_from_sparql(file_path: Path, pattern: str) -> str:
 
     Parameters
     ----------
-        file_path : Path
-            The path to the SPARQL query file from which to extract the QID.
+    file_path : Path
+        The path to the SPARQL query file from which to extract the QID.
 
-        pattern : str
-            The regex pattern used to match the QID (either for language or data type).
+    pattern : str
+        The regex pattern used to match the QID (either for language or data type).
 
     Returns
     -------
-        str
-            The extracted QID if found, otherwise None.
+    str
+        The extracted QID if found, otherwise None.
+
+    Raises
+    ------
+    FileNotFoundError
+        If the specified file does not exist.
+
+    Example
+    -------
+        > extract_qid_from_sparql(Path("path/to/query.sparql"), r"\?lexeme dct:language wd:Q\d+")
+        'Q123456'
     """
     try:
         with open(file_path, "r", encoding="utf-8") as file:
@@ -38,7 +48,7 @@ def extract_qid_from_sparql(file_path: Path, pattern: str) -> str:
     return None
 
 
-def check_queries():
+def check_queries() -> None:
     """
     Validates SPARQL queries in the specified directory to check for correct language
     and data type QIDs.
@@ -92,11 +102,14 @@ def is_valid_language(query_file: Path, lang_qid: str) -> bool:
     -------
     bool
         True if the language QID is valid, otherwise False.
+
+    Example
+    -------
+        > is_valid_language(Path("path/to/query.sparql"), "Q123456")
+        True
     """
     lang_directory_name = query_file.parent.parent.name.lower()
-    language_entry = language_metadata.get(
-        lang_directory_name
-    )  # might not work since language_metadata file is not fully updated
+    language_entry = language_metadata.get(lang_directory_name)
 
     if not language_entry:
         # Look for sub-languages
@@ -112,10 +125,7 @@ def is_valid_language(query_file: Path, lang_qid: str) -> bool:
 
     expected_language_qid = language_entry["qid"]
 
-    if lang_qid != expected_language_qid:
-        return False
-
-    return True
+    return lang_qid == expected_language_qid
 
 
 def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
@@ -133,6 +143,11 @@ def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
     -------
     bool
         True if the data type QID is valid, otherwise False.
+
+    Example
+    -------
+        > is_valid_data_type(Path("path/to/query.sparql"), "Q654321")
+        True
     """
     directory_name = query_file.parent.name  # e.g., "nouns" or "verbs"
     expected_data_type_qid = data_type_metadata.get(directory_name)

@@ -31,6 +31,7 @@ from scribe_data.utils import (
     get_language_iso,
     get_language_qid,
     list_all_languages,
+    list_languages_with_metadata_for_data_type,
 )
 
 
@@ -132,28 +133,26 @@ def list_languages_for_data_type(data_type: str) -> None:
             The data type to check for.
     """
     data_type = correct_data_type(data_type=data_type)
-    all_languages = list_all_languages(language_metadata)
-    available_languages = []
-    for lang in all_languages:
-        lang = format_sublanguage_name(lang, language_metadata)
-        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / lang
-        if language_dir.is_dir():
-            dt_path = language_dir / data_type
-            if dt_path.exists():
-                available_languages.append(lang)
+    all_languages = list_languages_with_metadata_for_data_type(language_metadata)
+    # Set column widths for consistent formatting
+    language_col_width = max(len(lang["name"]) for lang in all_languages) + 2
+    iso_col_width = max(len(lang["iso"]) for lang in all_languages) + 2
+    qid_col_width = max(len(lang["qid"]) for lang in all_languages) + 2
 
-    available_languages.sort()
-    table_header = f"Available languages: {data_type}"
-    table_line_length = max(
-        len(table_header), max(len(lang) for lang in available_languages)
-    )
+    table_line_length = language_col_width + iso_col_width + qid_col_width
 
+    # Print table header
     print()
-    print(table_header)
+    print(
+        f"{'Language':<{language_col_width}} {'ISO':<{iso_col_width}} {'QID':<{qid_col_width}}"
+    )
     print("-" * table_line_length)
 
-    for lang in available_languages:
-        print(f"{lang}")
+    # Iterate through the list of languages and format each row
+    for lang in all_languages:
+        print(
+            f"{lang['name'].capitalize():<{language_col_width}} {lang['iso']:<{iso_col_width}} {lang['qid']:<{qid_col_width}}"
+        )
 
     print("-" * table_line_length)
     print()
