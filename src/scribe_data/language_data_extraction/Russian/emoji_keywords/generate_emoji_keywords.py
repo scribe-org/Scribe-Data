@@ -21,26 +21,32 @@ Generates keyword-emoji relationships from a selection of Russian words.
 """
 
 import argparse
-
-from scribe_data.unicode.process_unicode import gen_emoji_lexicon
-from scribe_data.utils import export_formatted_data
+from scribe_data.unicode.generate_emoji_keyword import generate_emoji_keyword
 
 LANGUAGE = "Russian"
-DATA_TYPE = "emoji-keywords"
 emojis_per_keyword = 3
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--file-path")
+parser = argparse.ArgumentParser(
+    description="Generate emoji keywords for the language."
+)
+parser.add_argument(
+    "--file-path", required=True, help="Path to save the generated emoji keywords."
+)
+parser.add_argument(
+    "--gender",
+    choices=["male", "female", "neutral"],
+    help="Specify the gender for emoji customization.",
+)
+parser.add_argument(
+    "--region", help="Specify the region for emoji customization."
+)
+
 args = parser.parse_args()
 
-if emoji_keywords_dict := gen_emoji_lexicon(
-    language=LANGUAGE,
-    emojis_per_keyword=emojis_per_keyword,
-):
-    export_formatted_data(
-        file_path=args.file_path,
-        formatted_data=emoji_keywords_dict,
-        query_data_in_use=True,
-        language=LANGUAGE,
-        data_type=DATA_TYPE,
-    )
+generate_emoji_keyword(
+    LANGUAGE,
+    emojis_per_keyword,
+    args.file_path,
+    gender=args.gender,
+    region=args.region,
+)
