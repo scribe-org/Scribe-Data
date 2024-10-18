@@ -3,13 +3,10 @@ import sys
 
 from scribe_data.cli.cli_utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
-    language_metadata,
     data_type_metadata,
 )
 
-languages_in_metadata = {
-    key.lower(): value for key, value in language_metadata.items()
-}  # Normalize keys to lowercase for case-insensitive comparison
+from scribe_data.utils import _languages
 
 all_data_types = tuple(data_type_metadata.keys())
 
@@ -40,7 +37,7 @@ def get_available_languages() -> dict[str, list[str]]:
                     )  # Normalize to lowercase for case-insensitive comparison
 
                     # Check for almost similar keys using difflib
-                    close_matches = difflib.get_close_matches(
+                    close_matches = difflib.get_close_matches(  # verb, noun, etc.
                         sub_lang_name, all_data_types, n=1, cutoff=0.8
                     )
 
@@ -79,7 +76,7 @@ def get_missing_languages(
         A list of languages and sub-languages that are in target_languages but not in reference_languages.
     """
     missing_languages = []
-    reference_keys = {lang for lang in reference_languages.keys()}
+    reference_keys = reference_languages.keys()
 
     for lang, details in target_languages.items():
         # Check if the parent language exists
@@ -87,19 +84,18 @@ def get_missing_languages(
             # If it's a parent language, check for sub-languages and append them
             if "sub_languages" in details:
                 for sub_lang in details["sub_languages"]:
-                    missing_languages.append(f"{lang} - {sub_lang}")
+                    missing_languages.append(f"{lang}/{sub_lang}")
             else:
                 # Individual language, append directly
                 missing_languages.append(lang)
         else:
             # If the parent exists, only check for missing sub-languages
             ref_sub_languages = reference_languages[lang].get("sub_languages", {})
-            ref_sub_languages_keys = {sub for sub in ref_sub_languages}
 
             if "sub_languages" in details:
                 for sub_lang in details["sub_languages"]:
-                    if sub_lang not in ref_sub_languages_keys:
-                        missing_languages.append(f"{lang} - {sub_lang}")
+                    if sub_lang not in ref_sub_languages:
+                        missing_languages.append(f"{lang}/{sub_lang}")
 
     return missing_languages
 
@@ -132,9 +128,9 @@ def validate_language_properties(languages_dict: dict) -> dict:
             # Validate each sub-language
             for sub_lang, sub_details in sub_languages.items():
                 if "qid" not in sub_details:
-                    missing_qids.append(f"{lang} - {sub_lang}")
+                    missing_qids.append(f"{lang}/{sub_lang}")
                 if "iso" not in sub_details:
-                    missing_isos.append(f"{lang} - {sub_lang}")
+                    missing_isos.append(f"{lang}/{sub_lang}")
         else:
             # Validate the parent language itself
             if "qid" not in details:
@@ -161,6 +157,8 @@ def check_language_metadata():
         SystemExit:
             If any missing languages or properties are found, the function exits the script with a status code of 1.
     """
+    languages_in_metadata = {key.lower(): value for key, value in _languages.items()}
+
     languages_in_directory = get_available_languages()
     missing_languages_metadata = get_missing_languages(
         languages_in_metadata, languages_in_directory
