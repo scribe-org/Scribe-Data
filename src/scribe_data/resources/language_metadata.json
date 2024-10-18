@@ -11,6 +11,14 @@
     "iso": "bn",
     "qid": "Q9610"
   },
+  "chinese": {
+    "sub_languages": {
+      "mandarin": {
+        "iso": "zh",
+        "qid": "Q727694"
+      }
+    }
+  },
   "czech": {
     "iso": "cs",
     "qid": "Q9056"
@@ -95,23 +103,15 @@
     "iso": "ml",
     "qid": "Q36236"
   },
-  "chinese": {
-    "sub_languages": {
-      "mandarin": {
-        "iso": "zh",
-        "qid": "Q727694"
-      }
-    }
-  },
   "norwegian": {
     "sub_languages": {
-      "nynorsk": {
-        "iso": "nn",
-        "qid": "Q25164"
-      },
       "bokmål": {
         "iso": "nb",
         "qid": "Q25167"
+      },
+      "nynorsk": {
+        "iso": "nn",
+        "qid": "Q25164"
       }
     }
   },
@@ -133,12 +133,12 @@
   },
   "punjabi": {
     "sub_languages": {
-      "shahmukhi": {
-        "iso": "pnb",
-        "qid": "Q58635"
-      },
       "gurmukhi": {
         "iso": "pa",
+        "qid": "Q58635"
+      },
+      "shahmukhi": {
+        "iso": "pnb",
         "qid": "Q58635"
       }
     }

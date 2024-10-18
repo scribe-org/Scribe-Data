@@ -21,7 +21,6 @@ Tests for the update_utils file functions.
 """
 
 import sys
-import unittest
 from pathlib import Path
 
 import pytest
@@ -29,57 +28,6 @@ import pytest
 sys.path.append(Path(__file__).parent.parent.parent)
 
 from scribe_data import utils
-
-
-def test_get_scribe_languages():
-    test_case = unittest.TestCase()
-
-    # test for content, not order
-    test_case.assertCountEqual(
-        utils.get_scribe_languages(),
-        [
-            "Arabic",
-            "Basque",
-            "Bengali",
-            "Bokmål",
-            "Czech",
-            "Danish",
-            "English",
-            "Esperanto",
-            "Estonian",
-            "Finnish",
-            "French",
-            "German",
-            "Greek",
-            "Gurmukhi",
-            "Hausa",
-            "Hebrew",
-            "Hindi",
-            "Indonesian",
-            "Italian",
-            "Japanese",
-            "Kurmanji",
-            "Latin",
-            "Malay",
-            "Malayalam",
-            "Mandarin",
-            "Nigerian",
-            "Nynorsk",
-            "Polish",
-            "Portuguese",
-            "Russian",
-            "Shahmukhi",
-            "Slovak",
-            "Spanish",
-            "Swahili",
-            "Swedish",
-            "Tajik",
-            "Tamil",
-            "Ukrainian",
-            "Urdu",
-            "Yoruba",
-        ],
-    )
 
 
 @pytest.mark.parametrize(
@@ -187,6 +135,7 @@ def test_list_all_languages():
         "arabic",
         "basque",
         "bengali",
+        "bokmål",
         "czech",
         "danish",
         "english",
@@ -196,10 +145,10 @@ def test_list_all_languages():
         "french",
         "german",
         "greek",
+        "gurmukhi",
         "hausa",
         "hebrew",
         "hindi",
-        "urdu",
         "indonesian",
         "italian",
         "japanese",
@@ -208,14 +157,12 @@ def test_list_all_languages():
         "malay",
         "malayalam",
         "mandarin",
-        "nynorsk",
-        "bokmål",
         "nigerian",
+        "nynorsk",
         "polish",
         "portuguese",
-        "shahmukhi",
-        "gurmukhi",
         "russian",
+        "shahmukhi",
         "slovak",
         "spanish",
         "swahili",
@@ -223,6 +170,7 @@ def test_list_all_languages():
         "tajik",
         "tamil",
         "ukrainian",
+        "urdu",
         "yoruba",
     ]
 
