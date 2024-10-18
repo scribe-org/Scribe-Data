@@ -7,24 +7,30 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?present
+  ?presentTense
+  ?preterite
+  ?presentPerfect
 
 WHERE {
-  ?lexeme dct:language wd:Q25167 ;
-    wikibase:lexicalCategory wd:Q24905 .
-
-  # MARK: Active Infinitive
-
-  ?lexeme ontolex:lexicalForm ?infinitiveForm .
-  ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature wd:Q179230 ;
-    wikibase:grammaticalFeature wd:Q1317831 .
-
-  # MARK: Active Present
+  ?lexeme dct:language wd:Q25167;
+          wikibase:lexicalCategory wd:Q24905;
+          wikibase:lemma ?infinitive.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
+    ?lexeme ontolex:lexicalForm ?presentForm.
+    ?presentForm ontolex:representation ?presentTense;
+      wikibase:grammaticalFeature wd:Q192613.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteForm.
+    ?preteriteForm ontolex:representation ?preterite;
+      wikibase:grammaticalFeature wd:Q442485.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPerfectForm.
+    ?presentPerfectForm ontolex:representation ?presentPerfect;
+      wikibase:grammaticalFeature wd:Q1240211.
   }
 }

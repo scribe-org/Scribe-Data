@@ -1,0 +1,29 @@
+# tool: scribe-data
+# All Norwegian Bokmål (Q9043) verbs and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+# Note: This query is for Bokmål (Q25167) rather than Nynorsk (Q25164).
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
+  ?imperative
+  ?activeForm
+
+WHERE {
+  ?lexeme dct:language wd:Q25167;
+          wikibase:lexicalCategory wd:Q24905;
+          wikibase:lemma ?infinitive.
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeForm.
+    ?imperativeForm ontolex:representation ?imperative;
+      wikibase:grammaticalFeature wd:Q22716.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeVerbForm.
+    ?activeVerbForm ontolex:representation ?activeForm;
+      wikibase:grammaticalFeature wd:Q1317831.
+  }
+}
