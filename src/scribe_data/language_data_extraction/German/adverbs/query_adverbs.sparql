@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All German (Q188) adverbs.
+# All German (Q188) adverbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

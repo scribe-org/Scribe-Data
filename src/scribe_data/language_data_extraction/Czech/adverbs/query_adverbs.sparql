@@ -1,11 +1,11 @@
 # tool: scribe-data
-# All Czech (Q9056) adverbs in the given cases.
+# All Czech (Q9056) adverbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adverb
-  ?compararive
+  ?comparative
   ?superlative
 
 WHERE {
@@ -16,8 +16,8 @@ WHERE {
   # MARK: Comparative
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comparariveForm .
-    ?comparariveForm ontolex:representation ?compararive ;
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
       wikibase:grammaticalFeature wd:Q14169499 .
   }
 

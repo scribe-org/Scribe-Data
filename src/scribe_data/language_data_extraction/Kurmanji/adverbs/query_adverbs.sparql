@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Swahili (Q7838) adverbs.
+# All Kurmanji (Q36163) adverbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -7,8 +7,8 @@ SELECT
   ?adverb
 
 WHERE {
-  ?lexeme dct:language wd:Q7838 ;
+  ?lexeme dct:language wd:Q36163 ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb .
-    FILTER(lang(?adverb) = "sw")
+    FILTER(lang(?adverb) = "ku") .
 }

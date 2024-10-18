@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Malayalam (Q36236) nouns and their plurals in the given cases.
+# All Malayalam (Q36236) nouns and the given forms and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -8,22 +8,17 @@ SELECT
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and proper nouns
-
   ?lexeme dct:language wd:Q36236 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?nomSingular .
 
   # MARK: Gender(s)
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-        FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .  # not for given names
-    }
-  } .
+  }
 
-    SERVICE wikibase:label {
+  SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
     ?nounGender rdfs:label ?gender .
   }
