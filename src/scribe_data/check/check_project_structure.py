@@ -41,6 +41,7 @@ LANGUAGES = {
     "Punjabi",
     "Tajik",
     "Igbo",
+    "Dagbani",
 }
 
 DATA_TYPES = {
