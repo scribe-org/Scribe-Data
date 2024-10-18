@@ -6,25 +6,27 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?infinitive
-  ?present
-
+  ?infinitive ?masculineForm ?feminineForm ?neuterForm
 WHERE {
-  ?lexeme dct:language wd:Q25167 ;
-    wikibase:lexicalCategory wd:Q24905 .
-
-  # MARK: Active Infinitive
-
-  ?lexeme ontolex:lexicalForm ?infinitiveForm .
-  ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature wd:Q179230 ;
-    wikibase:grammaticalFeature wd:Q1317831 .
-
-  # MARK: Active Present
+  ?lexeme dct:language wd:Q25167;
+          wikibase:lexicalCategory wd:Q24905;
+          wikibase:lemma ?infinitive.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
+    ?lexeme ontolex:lexicalForm ?masculine.
+    ?masculine ontolex:representation ?masculineForm;
+      wikibase:grammaticalFeature wd:Q499327.  # Masculine
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminine.
+    ?feminine ontolex:representation ?feminineForm;
+      wikibase:grammaticalFeature wd:Q1775415.  # Feminine
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuter.
+    ?neuter ontolex:representation ?neuterForm;
+      wikibase:grammaticalFeature wd:Q1775461.  # Neuter
   }
 }
