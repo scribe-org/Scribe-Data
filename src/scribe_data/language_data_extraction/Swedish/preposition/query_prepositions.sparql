@@ -2,24 +2,14 @@
 # All Swedish (Q9027) prepositions and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
+
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?preposition ?case
+  ?preposition
 
 WHERE {
   ?lexeme dct:language wd:Q9027 ;
     wikibase:lexicalCategory wd:Q4833830 ;
-    wikibase:lemma ?lemma .
-
-  # MARK: Corresponding Case
-
-  OPTIONAL {
-    ?lexeme wdt:P5713 ?caseForm .
-  } 
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-    ?lemma rdfs:label ?preposition .
-    ?caseForm rdfs:label ?case .
-  }
+    wikibase:lemma ?preposition .
+    FILTER(lang(?preposition) = "sv")
 }
