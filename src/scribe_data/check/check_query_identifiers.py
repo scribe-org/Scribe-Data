@@ -94,12 +94,18 @@ def is_valid_language(query_file: Path, lang_qid: str) -> bool:
         True if the language QID is valid, otherwise False.
     """
     lang_directory_name = query_file.parent.parent.name.lower()
-    languages = language_metadata.get(
-        "languages"
+    language_entry = language_metadata.get(
+        lang_directory_name
     )  # might not work since language_metadata file is not fully updated
-    language_entry = next(
-        (lang for lang in languages if lang["language"] == lang_directory_name), None
-    )
+
+    if not language_entry:
+        # Look for sub-languages
+        for lang, details in language_metadata.items():
+            if "sub_languages" in details:
+                sub_language_entry = details["sub_languages"].get(lang_directory_name)
+                if sub_language_entry:
+                    language_entry = sub_language_entry
+                    break
 
     if not language_entry:
         return False
