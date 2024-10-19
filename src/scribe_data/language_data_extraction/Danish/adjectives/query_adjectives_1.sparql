@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Danish (Q9035) adjectives and the given forms.
+# All Danish (Q9035) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -19,11 +19,11 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?commonSingularIndefiniteForm .
     ?commonSingularIndefiniteForm ontolex:representation ?commonSingularIndefinite ;
       wikibase:grammaticalFeature wd:Q1305037, wd:Q110786, wd:Q53997857, wd:Q3482678 .
-  } 
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterSingularIndefiniteForm .
     ?neuterSingularIndefiniteForm ontolex:representation ?neuterSingularIndefinite ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q53997857, wd:Q3482678 .
-  } 
+  }
 }

@@ -159,7 +159,7 @@ We return the `?lexemeID` so that Scribe and other downstream data reusers can e
 
   ```
   # tool: scribe-data
-  # All LANGUAGE_NAME (LANGUAGE_QID) DATA_TYPE and the given forms.
+  # All LANGUAGE_NAME (LANGUAGE_QID) DATA_TYPE (DATA_TYPE_QID) and the given forms.
   # Enter this query at https://query.wikidata.org/.
   ```
 

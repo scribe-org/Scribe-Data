@@ -36,7 +36,6 @@ release = "3.3.0"
 # ones.
 extensions = [
     # "m2r2",
-    "recommonmark",
     "sphinx.ext.autodoc",
     "numpydoc",
     "sphinx.ext.viewcode",
@@ -78,11 +77,8 @@ exclude_patterns = []
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-# source_suffix = ".rst"
-source_suffix = {
-    ".rst": "restructuredtext",
-    ".md": "markdown",
-}
+source_suffix = ".rst"
+
 
 # The master toctree document.
 master_doc = "index"
@@ -96,7 +92,7 @@ pygments_style = "sphinx"
 html_theme = "sphinx_rtd_theme"
 
 # html_theme_path = [sphinx_rtd_theme]
-html_theme_path = []
+# html_theme_path = []
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -184,7 +180,7 @@ texinfo_documents = [
 html_logo = "_static/ScribeDataLogo.png"
 html_theme_options = {
     "logo_only": True,
-    # "display_version": True,
+    "display_version": True,
 }
 
 # Adding favicon to the docs.
