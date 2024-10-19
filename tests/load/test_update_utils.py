@@ -157,6 +157,7 @@ def test_list_all_languages():
         "korean",
         "kurmanji",
         "latin",
+        "latvian",
         "malay",
         "malayalam",
         "mandarin",

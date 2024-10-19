@@ -84,6 +84,8 @@ for lang, lang_data in language_metadata.items():
 
 
 # MARK: Correct Inputs
+
+
 def correct_data_type(data_type: str) -> str:
     """
     Corrects common versions of data type arguments so users can choose between them.

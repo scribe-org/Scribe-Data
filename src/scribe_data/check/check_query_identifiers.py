@@ -41,22 +41,21 @@ def extract_qid_from_sparql(file_path: Path, pattern: str) -> str:
 
     Parameters
     ----------
-    file_path : Path
-        The path to the SPARQL query file from which to extract the QID.
+        file_path : Path
+            The path to the SPARQL query file from which to extract the QID.
 
-    pattern : str
-        The regex pattern used to match the QID (either for language or data type).
+        pattern : str
+            The regex pattern used to match the QID (either for language or data type).
 
     Returns
     -------
-    str
-        The extracted QID if found, otherwise None.
+        str
+            The extracted QID if found, otherwise None.
 
     Raises
     ------
-    FileNotFoundError
-        If the specified file does not exist.
-
+        FileNotFoundError
+            If the specified file does not exist.
     """
     try:
         with open(file_path, "r", encoding="utf-8") as file:
@@ -104,7 +103,7 @@ def check_queries() -> None:
         for file in incorrect_data_types:
             print(f"- {file}")
 
-    # Exit with an error code if any incorrect QIDs are found
+    # Exit with an error code if any incorrect QIDs are found.
     if incorrect_languages or incorrect_data_types:
         sys.exit(1)
 
@@ -177,5 +176,5 @@ def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
     return data_type_qid == expected_data_type_qid
 
 
-# if __name__ == "__main__":
-check_queries()
+if __name__ == "__main__":
+    check_queries()

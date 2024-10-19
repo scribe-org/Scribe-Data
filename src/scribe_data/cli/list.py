@@ -134,21 +134,22 @@ def list_languages_for_data_type(data_type: str) -> None:
     """
     data_type = correct_data_type(data_type=data_type)
     all_languages = list_languages_with_metadata_for_data_type(language_metadata)
-    # Set column widths for consistent formatting
+
+    # Set column widths for consistent formatting.
     language_col_width = max(len(lang["name"]) for lang in all_languages) + 2
     iso_col_width = max(len(lang["iso"]) for lang in all_languages) + 2
     qid_col_width = max(len(lang["qid"]) for lang in all_languages) + 2
 
     table_line_length = language_col_width + iso_col_width + qid_col_width
 
-    # Print table header
+    # Print table header.
     print()
     print(
         f"{'Language':<{language_col_width}} {'ISO':<{iso_col_width}} {'QID':<{qid_col_width}}"
     )
     print("-" * table_line_length)
 
-    # Iterate through the list of languages and format each row
+    # Iterate through the list of languages and format each row.
     for lang in all_languages:
         print(
             f"{lang['name'].capitalize():<{language_col_width}} {lang['iso']:<{iso_col_width}} {lang['qid']:<{qid_col_width}}"
