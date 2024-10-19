@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Greek (Q36510) adverbs.
+# All Greek (Q36510) adverbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -10,5 +10,4 @@ WHERE {
   ?lexeme dct:language wd:Q36510 ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb .
-
 }
