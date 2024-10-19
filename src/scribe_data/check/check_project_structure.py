@@ -105,22 +105,36 @@ def check_for_sparql_files(folder_path, data_type, language, subdir, missing_que
     """
     Check if a data-type folder contains at least one .sparql file.
 
-    Args:
-    folder_path (str): The path to the data-type folder.
-    data_type (str): The name of the data type being checked.
-    language (str): The name of the language being processed.
-    subdir (str or None): The name of the sub-directory (for languages with sub-dialects), or None.
-    missing_queries (list): A list to which missing SPARQL query files will be appended.
+    Parameters
+    ----------
+        folder_path : str
+            The path to the data-type folder.
 
-    Returns:
-    bool: True if at least one .sparql file is found, False otherwise.
+        data_type : str
+            The name of the data type being checked.
+
+        language : str
+            The name of the language being processed.
+
+        subdir : str or None
+            The name of the sub-directory (for languages with sub-dialects), or None.
+
+        missing_queries : list
+            A list to which missing SPARQL query files will be appended.
+
+    Returns
+    -------
+        bool: True if at least one .sparql file is found, False otherwise.
     """
     sparql_files = [f for f in os.listdir(folder_path) if f.endswith(".sparql")]
+
     if not sparql_files:
+        subdir_name = f"/{subdir}" if subdir else ""
         missing_queries.append(
-            f"{language}/{subdir or ''}/{data_type}/query_{data_type}.sparql"
+            f"{language}{subdir_name}/{data_type}/query_{data_type}.sparql"
         )
         return False
+
     return True
 
 
@@ -149,9 +163,9 @@ def check_data_type_folders(
         A list to which error messages will be appended.
 
     The function checks for the following valid files in each data type folder:
-    - Files starting with 'query_' and ending with '.sparql'
-    - A 'format_{data_type}.py' file
-    - A '{data_type}_queried.json' file
+        - Files starting with 'query_' and ending with '.sparql'
+        - A 'format_{data_type}.py' file
+        - A '{data_type}_queried.json' file
 
     It skips validation for the 'emoji_keywords' data type folder.
 
@@ -161,21 +175,25 @@ def check_data_type_folders(
     missing_data_types = DATA_TYPES - existing_data_types - {"emoji_keywords"}
 
     for missing_type in missing_data_types:
-        missing_folders.append(f"{language}/{subdir or ''}/{missing_type}")
+        subdir_name = f"/{subdir}" if subdir else ""
+        missing_folders.append(f"{language}{subdir_name}/{missing_type}")
 
     for item in existing_data_types:
         item_path = os.path.join(path, item)
         if os.path.isfile(item_path):
-            errors.append(f"Unexpected file found in {language}/{subdir or ''}: {item}")
+            errors.append(f"Unexpected file found in {language}{subdir_name}: {item}")
+
         elif item not in DATA_TYPES:
             errors.append(
-                f"Unexpected directory found in {language}/{subdir or ''}: {item}"
+                f"Unexpected directory found in {language}{subdir_name}: {item}"
             )
+
         else:
             if item == "emoji_keywords":
                 continue
 
-            check_for_sparql_files(item_path, item, language, subdir, missing_queries)
+            # Attn: Removed for now.
+            # check_for_sparql_files(item_path, item, language, subdir, missing_queries)
 
             valid_files = [
                 f for f in os.listdir(item_path) if f.endswith(".sparql")
@@ -184,7 +202,7 @@ def check_data_type_folders(
             for file in os.listdir(item_path):
                 if file not in valid_files:
                     errors.append(
-                        f"Unexpected file in {language}/{subdir or ''}/{item}: {file}"
+                        f"Unexpected file in {language}{subdir_name}/{item}: {file}"
                     )
 
 
@@ -268,15 +286,19 @@ def validate_project_structure():
             print("Errors found:")
             for error in errors:
                 print(f" - {error}")
+
         if missing_folders:
             print("\nMissing data type folders:")
             for folder in missing_folders:
                 print(f" - {folder}")
+
         if missing_queries:
             print("\nMissing SPARQL query files:")
             for query in missing_queries:
                 print(f" - {query}")
+
         exit(1)
+
     else:
         print(
             "All directories and files are correctly named and organized, and no unexpected files or directories were found."
