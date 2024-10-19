@@ -1,73 +1,17 @@
 # tool: scribe-data
-# All Ukrainian (Q8798) verbs and their forms.
+# All Ukrainian (Q8798) verbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?presentFirstSingular
-  ?presentSecondSingular
-  ?presentThirdSingular
-  ?pastMasculineSingular
-  ?pastFeminineSingular
-  ?pastNeuterSingular
-  ?imperativeSecondSingular
 
 WHERE {
   ?lexeme dct:language wd:Q8798 ;
     wikibase:lexicalCategory wd:Q24905 .
 
-  # Infinitive
+  # MARK: Infinitive
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
   ?infinitiveForm ontolex:representation ?infinitive ;
     wikibase:grammaticalFeature wd:Q179230 .
-
-  # Present tense, first person singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentFirstSingularForm .
-    ?presentFirstSingularForm ontolex:representation ?presentFirstSingular ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q21714344, wd:Q110786 .
-  }
-
-  # Present tense, second person singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentSecondSingularForm .
-    ?presentSecondSingularForm ontolex:representation ?presentSecondSingular ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q51929049, wd:Q110786 .
-  }
-
-  # Present tense, third person singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentThirdSingularForm .
-    ?presentThirdSingularForm ontolex:representation ?presentThirdSingular ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q110786 .
-  }
-
-  # Past tense, masculine singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastMasculineSingularForm .
-    ?pastMasculineSingularForm ontolex:representation ?pastMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q1240211, wd:Q499327, wd:Q110786 .
-  }
-
-  # Past tense, feminine singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastFeminineSingularForm .
-    ?pastFeminineSingularForm ontolex:representation ?pastFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q1240211, wd:Q1775415, wd:Q110786 .
-  }
-
-  # Past tense, neuter singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastNeuterSingularForm .
-    ?pastNeuterSingularForm ontolex:representation ?pastNeuterSingular ;
-      wikibase:grammaticalFeature wd:Q1240211, wd:Q1775461, wd:Q110786 .
-  }
-
-  # Imperative, second person singular
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeSecondSingularForm .
-    ?imperativeSecondSingularForm ontolex:representation ?imperativeSecondSingular ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q51929049, wd:Q110786 .
-  }
 }
