@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Ukrainian (Q8798) nouns, their plurals and the given forms.s for the given cases.
+# All Ukrainian (Q8798) proper nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
