@@ -1,13 +1,13 @@
 # tool: scribe-data
-# All Igbo (Q33578) verbs and the given forms.
+# All Ukrainian (Q8798) adverbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?verb
+  ?adverb
 
 WHERE {
-  ?lexeme dct:language wd:Q33578 ;
-    wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+  ?lexeme dct:language wd:Q8798 ;
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?adverb .
 }
