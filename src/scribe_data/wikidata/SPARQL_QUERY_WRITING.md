@@ -1,101 +1,168 @@
 # SPARQL Query Writing for Wikidata Lexemes
-Wikidata is a free and open knowledge base that provides structured data to support a wide range of applications, including linguistic data through lexemes. SPARQL queries enable powerful searches and extraction of specific data from this repository, such as lexeme forms and their grammatical features.
 
-To learn more, visit the [Wikidata Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md).
-This document outlines how to write effective SPARQL queries for Wikidata lexemes, with a focus on guiding new contributors in identifying lexeme forms and using them in queries to return unique values.
+[Wikidata](https://www.wikidata.org/) is a free and open knowledge base that provides structured data to support a wide range of applications, including linguistic data through lexemes. SPARQL queries enable powerful searches and extraction of specific data from this repository, such as lexeme forms and their grammatical features.
 
-## Contents
-1. [Key Steps for Querying Wikidata Lexemes](#key-steps-for-querying-wikidata-lexemes)
-2. [Example Query](#example-query)
-   - [Step 1: Run the Query](#step-1-run-the-query)
-   - [Step 2: Analyze the Results](#step-2-analyze-the-results)
-   - [Step 3: Identify Forms](#step-3-identify-forms)
-   - [Step 4: Construct Queries for Forms](#step-4-construct-queries-for-forms)
-3. [Best Practices](#best-practices)
+If you're totally new to [Wikidata](https://www.wikidata.org/) and SPARQL, we'd suggest you read the [Scribe community Wikidata Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md). After that you'll be ready to follow along here.
 
----
+<a id="contents"></a>
 
-## Key Steps for Querying Wikidata Lexemes
+## **Contents**
+
+1. [Key Steps](#key-steps)
+2. [Example Process](#example-process)
+   - [Exploration Query](#exploration-query)
+   - [Identify Forms](#identify-forms)
+   - [Select Forms](#select-forms)
+3. [Example Query](#example-query)
+4. [Best Practices](#best-practices)
+
+<a id="key-steps"></a>
+
+## Key Steps [`⇧`](#contents)
+
+The general steps to creating a SPARQL query of [Wikidata](https://www.wikidata.org/) lexemes for Scribe-Data are:
 
 1. Run the base query for the chosen language and lexical category on the [Wikidata Query Service](https://query.wikidata.org)
 2. Use the result to identify forms associated with the language
-3. Use the identified forms to create optional selections in the query that return unique values.
+3. Create optional selections of the identified forms via all of their properties to
 
----
+At the end the goal is to have a query that returns unique values for all lexemes for the given language and word type.
 
-## Example Query
+<a id="example-process"></a>
 
-Let’s consider an example using Slovak adjectives. The base query returns the Wikidata lexeme ID and lemma. Note that you can easily modify this base query to point to another language (e.g Italian:Q652) or another lexical category (e.g verb:Q24905).
+## Example Process [`⇧`](#contents)
 
-### Step 1: Run the Query
+Let’s consider an example using Spanish adjectives. The base query returns the [Wikidata](https://www.wikidata.org/) lexeme and lemma so we can inspect the forms. Note that you can easily modify this base query to point to another language (e.g [Italian (Q652)](https://www.wikidata.org/wiki/Q652)) or another lexical category (e.g [verb (Q24905)](<](https://www.wikidata.org/wiki/Q652)>)).
 
-1. Navigate to the [Wikidata Query Service](https://query.wikidata.org).
-2. Enter and run the following SPARQL query, which returns all Slovak adjectives:
+<a id="exploration-query"></a>
 
-    ```bash
-    # tool: scribe-data
-    # All Slovak (Q9058) adjectives.
-    # Enter this query at https://query.wikidata.org/.
+### Exploration Query [`⇧`](#contents)
 
-    SELECT
-      ?lexeme
-      (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-      ?adjective
+1. Navigate to the [Wikidata Query Service](https://query.wikidata.org)
+2. Enter and run the following SPARQL query, which returns all Spanish adjectives:
 
-    WHERE {
-      ?lexeme dct:language wd:Q9058 ;
-        wikibase:lexicalCategory wd:Q34698 ;
-        wikibase:lemma ?adjective .
-    }
-    ```
+   ```sparql
+   SELECT
+     ?lexeme  # unique ID for the data entry
+     ?adjective  # lemma or label of the ID
 
-### Step 2: Analyze the Results
+   WHERE {
+     ?lexeme dct:language wd:Q1321 ;  # Spanish language
+       wikibase:lexicalCategory wd:Q34698 ;  # adjectives
+       wikibase:lemma ?adjective .
+   }
+   ```
 
-1. Click on the first result (which could be any word) to view the lexeme page. For example, you might land on:
-   - [wikidata.org/wiki/Lexeme:L238355](https://wikidata.org/wiki/Lexeme:L238355)
-2. This lexeme represents the Slovak adjective "slovenský" (meaning "Slovak").
+<a id="identify-forms"></a>
 
-### Step 3: Identify Forms
+### Identify Forms [`⇧`](#contents)
 
-On the lexeme page, scroll down to find the various forms associated with Slovak adjectives, such as:
+Click on the first result (which could be any Spanish adjective) to view the lexeme page. For example, you might land on [wikidata.org/wiki/Lexeme:L55756](https://wikidata.org/wiki/Lexeme:L55756). This lexeme represents the Spanish adjective "español" meaning "Spanish".
 
-- **Gender**: Masculine vs. Feminine
-- **Number**: Singular vs. Plural
-- **Case**: Nominative, Accusative, etc.
+On the lexeme page, scroll down to find the various forms associated with Spanish adjectives, such as:
 
-The forms vary depending on the language and the lexical category. For some languages, forms may not exist. Be sure to check for these before proceeding.
+- **Gender**: [masculine](https://www.wikidata.org/wiki/Q499327) vs. [feminine](https://www.wikidata.org/wiki/Q1775415)
+- **Number**: [singular](https://www.wikidata.org/wiki/Q110786) vs. [plural](https://www.wikidata.org/wiki/Q146786)
 
-### Step 4: Construct Queries for Forms
+The forms vary depending on the language and the lexical category. For other languages there could be forms for cases (nominative, accusative, etc) or there could be other genders (neuter, common, etc). Forms may not exist for some languages, but please check a few lexemes before sending along a query that just returns the lexeme ID and the lemma. For this example we'll look into the combination of each of the above two properties.
+
+<a id="select-forms"></a>
+
+### Select Forms [`⇧`](#contents)
 
 To construct queries for specific forms:
 
-- Identify the relevant properties for a form (e.g., masculine, nominative case, singular).
-- Locate the Wikidata QIDs for these properties. You can get the QID of a form by hovering over it on the Wikidata lexeme page.
-- Use these QIDs in your SPARQL query, incorporating them with optional selections to ensure unique and accurate results.
+- Identify the relevant properties for a form (e.g., masculine + singular)
+- Locate the [Wikidata](https://www.wikidata.org/) QIDs for these properties
+  - You can get the QID of a property by opening the link in a new page so it's easy for you to copy it
+- Use these QIDs in your SPARQL query, incorporating them with optional selections to ensure unique and accurate results
+  - We specifically do an `OPTIONAL` selection so that lexemes that don't have the form - either because the data is incomplete or maybe it just doesn't exist - will also be returned
 
-For example, if you're querying for Estonian adjectives, and you want to retrieve forms in the ***Nominative plural***, you could use the following optional selection:
+For example, if you wanted to retrieve form for feminine singular, you could use the following optional selection:
 
-```bash
+```sparql
 OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
-    ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q131105 ; # Nominative case
-      wikibase:grammaticalFeature wd:Q146786 . # Plural
+  # A unique identifier for the form defined below.
+  ?lexeme ontolex:lexicalForm ?feminineSingularForm .
+  # Convert it to its literal representation that we'll return.
+  ?feminineSingularForm ontolex:representation ?feminineSingular ;
+    # This form is defined by feminine and singular QIDs.
+    wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+}
+```
+
+Putting this optional selection in your query and adding `?feminineSingular` to your return statement in the query above will retrieve the given forms for all of the lexemes.
+
+<a id="example-query"></a>
+
+## Example Query [`⇧`](#contents)
+
+The following is an example query for Spanish adjectives. The full query is a bit more complex as there are more forms possible in Spanish adjectives, but this should give you an impression of a query that returns all possible forms for a word type of a language:
+
+```sparql
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?femSingular
+  ?femPlural
+  ?masSingular
+  ?masPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1321 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  # MARK: Feminine
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femSingularForm .
+    ?femSingularForm ontolex:representation ?femSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
   }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femPluralForm .
+    ?femPluralForm ontolex:representation ?femPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 .
+  }
+
+  # MARK: Masculine
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masSingularForm .
+    ?masSingularForm ontolex:representation ?masSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masPluralForm .
+    ?masPluralForm ontolex:representation ?masPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
+  }
+}
+```
+
+We return the `?lexemeID` so that Scribe and other downstream data reusers can easily identify the lexeme that this data came from. From there we also get the given forms so that these can be used for all kinds of language based applications.
+
+<a id="best-practices"></a>
+
+## Best Practices [`⇧`](#contents)
+
+- **Understand Lexeme Structures**: Study how lexemes and their forms are structured in [Wikidata](https://www.wikidata.org/) for each language
+- **Verify Forms**: Always verify the forms listed on the lexeme page to ensure you're capturing all variations in your query results
+- **Use Optional Selections**: Leverage optional selections in queries to account for various grammatical properties without data loss
+- **Filter Out Results**: Using `FILTER NOT EXISTS` can make sure that forms are not overlapping
+- **MARK Your Queries**: Including `MARK:` comments allows easy navigation of queries by adding labels to the minimaps in many development IDEs
+- **Identify Scribe-Data**: [Wikidata](https://www.wikidata.org/) is a common resource, so please add the following to the top of all queries to assure that people can see our impact on the servers
+
+  ```
+  # tool: scribe-data
+  # All LANGUAGE_NAME (LANGUAGE_QID) DATA_TYPE and the given forms.
+  # Enter this query at https://query.wikidata.org/.
   ```
 
-This optional selection retrieves forms that are **Nominative** and **Plural**.
+- **Assure Unique Results**: Your query should return only one entry for each lexeme
+- **Test Your Query**: Ensure that your query runs on the [Wikidata Query Service](https://query.wikidata.org) without errors
 
-For a detailed example involving multiple forms, see:
-
-[src/scribe_data/language_data_extraction/Estonian/adverbs/query_adverbs_1.sparql](https://github.com/scribe-org/Scribe-Data/blob/c64ea865531ff2de7fe493266d0be0f6be7e5518/src/scribe_data/language_data_extraction/Estonian/adverbs/query_adverbs_1.sparql)
-
-
----
-
-## Best Practices
-
-- **Understand Lexeme Structures**: Study how lexemes and their properties are structured in Wikidata for each language.
-- **Use Optional Selections**: Leverage optional selections in queries to account for various grammatical properties without generating duplicates.
-- **Verify Forms**: Always verify the forms listed on the lexeme page to ensure you're capturing all variations in your query results.
-- **Test Your Query**: Ensure that your query runs on the [Wikidata Query Service](https://query.wikidata.org) without errors.
+Thanks for your interest in expanding Scribe-Data's Wikidata queries! We look forward to working with you :)
