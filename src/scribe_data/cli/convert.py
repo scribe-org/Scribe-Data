@@ -192,6 +192,23 @@ def convert_to_csv_or_tsv(
 ) -> None:
     """
     Convert a JSON File to CSV/TSV file.
+    Parameters
+    ----------
+    language : str
+        The language of the file to convert.
+    data_type : Union[str, List[str]]
+        The data type of the file to convert.
+    output_type : str
+        The output format, should be "csv" or "tsv".
+    input_file : str
+        The input JSON file path.
+    output_dir : str
+        The output directory path for results.
+    overwrite : bool
+        Whether to overwrite existing files.
+    Returns
+    -------
+        None
     """
 
     # Normalize the language
