@@ -1,16 +1,13 @@
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
-
 # tool: scribe-data
-# Dagbani (Q32238) verbs and their forms: Present Tense and Imperative Forms.
+# Dagbani (Q32238) verbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?presentTense
+  ?presentContinuous
+  ?past
+  ?future
   ?imperative
 
 WHERE {
@@ -18,17 +15,34 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
 
-  # Present Tense forms
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentTenseForm .
-    ?presentTenseForm ontolex:representation ?presentTense ;
-    wikibase:grammaticalFeature wd:Q192613
-  } .
+  # MARK: Present Continuous
 
-  # Imperative forms
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
+    ?presentContinuousForm ontolex:representation ?presentContinuous ;
+    wikibase:grammaticalFeature wd:Q7240943 .
+  }
+
+  # MARK: Past
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+    wikibase:grammaticalFeature wd:Q1994301 .
+  }
+
+  # MARK: Future
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureForm .
+    ?futureForm ontolex:representation ?future ;
+    wikibase:grammaticalFeature wd:Q501405 .
+  }
+
+  # MARK: Imperative
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperativeForm .
     ?imperativeForm ontolex:representation ?imperative ;
-    wikibase:grammaticalFeature wd:Q22716
-  } .
+    wikibase:grammaticalFeature wd:Q22716 .
+  }
 }
