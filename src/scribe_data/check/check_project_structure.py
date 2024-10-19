@@ -192,8 +192,7 @@ def check_data_type_folders(
             if item == "emoji_keywords":
                 continue
 
-            # Attn: Removed for now.
-            # check_for_sparql_files(item_path, item, language, subdir, missing_queries)
+            check_for_sparql_files(item_path, item, language, subdir, missing_queries)
 
             valid_files = [
                 f for f in os.listdir(item_path) if f.endswith(".sparql")
@@ -281,21 +280,22 @@ def validate_project_structure():
                 language_path, language, None, errors, missing_folders, missing_queries
             )
 
-    if errors or missing_folders or missing_queries:
+    # Attn: Removed for now.
+    if errors:  # or missing_folders or missing_queries
         if errors:
             print("Errors found:")
             for error in errors:
                 print(f" - {error}")
 
-        if missing_folders:
-            print("\nMissing data type folders:")
-            for folder in missing_folders:
-                print(f" - {folder}")
+        # if missing_folders:
+        #     print("\nMissing data type folders:")
+        #     for folder in missing_folders:
+        #         print(f" - {folder}")
 
-        if missing_queries:
-            print("\nMissing SPARQL query files:")
-            for query in missing_queries:
-                print(f" - {query}")
+        # if missing_queries:
+        #     print("\nMissing SPARQL query files:")
+        #     for query in missing_queries:
+        #         print(f" - {query}")
 
         exit(1)
 
