@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Hebrew (Q9288) verbs and the given forms.
+# All Hebrew (Q9288) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -20,7 +20,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q21714344 ;
       wikibase:grammaticalFeature wd:Q110786, wd:Q1994301 .
       FILTER(lang(?pastTPP) = "he") .
-  } 
+  }
 
   # SPS Feminine
   OPTIONAL {
@@ -29,7 +29,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929049 ;
       wikibase:grammaticalFeature wd:Q110786, wd:Q1994301, wd:Q1775415 .
       FILTER(lang(?pastSPSF) = "he") .
-  } 
+  }
 
   # SPS Masculine
   OPTIONAL {
@@ -38,7 +38,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929049 ;
       wikibase:grammaticalFeature wd:Q110786, wd:Q1994301, wd:Q499327 .
       FILTER(lang(?pastSPSM) = "he") .
-  } 
+  }
 
   # TPS Feminine
   OPTIONAL {
@@ -47,7 +47,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074 ;
       wikibase:grammaticalFeature wd:Q110786, wd:Q1994301, wd:Q1775415 .
       FILTER(lang(?pastTPSF) = "he") .
-  } 
+  }
 
   # TPS Masculine
   OPTIONAL {
@@ -56,7 +56,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074 ;
       wikibase:grammaticalFeature wd:Q110786, wd:Q1994301, wd:Q499327 .
       FILTER(lang(?pastTPSM) = "he") .
-  } 
+  }
 
   # FPP
   OPTIONAL {
@@ -65,7 +65,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q21714344 ;
       wikibase:grammaticalFeature wd:Q146786, wd:Q1994301 .
       FILTER(lang(?pastFPP) = "he") .
-  } 
+  }
 
   # SPP Feminine
   OPTIONAL {
@@ -74,7 +74,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929049 ;
       wikibase:grammaticalFeature wd:Q146786, wd:Q1994301, wd:Q1775415 .
       FILTER(lang(?pastSPPF) = "he") .
-  } 
+  }
 
   # SPP Masculine
   OPTIONAL {
@@ -83,7 +83,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929049 ;
       wikibase:grammaticalFeature wd:Q146786, wd:Q1994301, wd:Q499327 .
       FILTER(lang(?pastSPPM) = "he") .
-  } 
+  }
 
   # TPP Feminine
   OPTIONAL {
@@ -92,7 +92,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074 ;
       wikibase:grammaticalFeature wd:Q146786, wd:Q1994301, wd:Q1775415 .
       FILTER(lang(?pastTPPF) = "he") .
-  } 
+  }
 
   # TPP Masculine
   OPTIONAL {
@@ -101,5 +101,5 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074 ;
       wikibase:grammaticalFeature wd:Q146786, wd:Q1994301, wd:Q499327 .
       FILTER(lang(?pastTPPM) = "he") .
-  } 
+  }
 }
