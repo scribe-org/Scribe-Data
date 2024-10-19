@@ -54,7 +54,6 @@ try:
 except (IOError, json.JSONDecodeError) as e:
     print(f"Error reading data type metadata: {e}")
 
-
 language_map = {}
 language_to_qid = {}
 
