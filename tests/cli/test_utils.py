@@ -187,7 +187,7 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
                 language=language_qid, data_type=data_type_qid
             )
 
-        self.assertEqual(str(context.exception), "Invalid language InvalidLanguage.")
+        self.assertEqual(str(context.exception), "Invalid language 'InvalidLanguage'.")
 
     @patch("scribe_data.cli.total.get_qid_by_input")
     def test_validate_language_and_data_type_invalid_data_type(self, mock_get_qid):
@@ -201,7 +201,7 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
                 language=language_qid, data_type=data_type_qid
             )
 
-        self.assertEqual(str(context.exception), "Invalid data-type InvalidDataType.")
+        self.assertEqual(str(context.exception), "Invalid data-type 'InvalidDataType'.")
 
     @patch("scribe_data.cli.total.get_qid_by_input")
     def test_validate_language_and_data_type_both_invalid(self, mock_get_qid):
@@ -217,7 +217,7 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
 
         self.assertEqual(
             str(context.exception),
-            "Invalid language InvalidLanguage.\nInvalid data-type InvalidDataType.",
+            "Invalid language 'InvalidLanguage'.\nInvalid data-type 'InvalidDataType'.",
         )
 
     def test_validate_language_and_data_type_with_list(self):
@@ -248,5 +248,5 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
         data_types = ["nouns", "InvalidDataType"]
         with self.assertRaises(ValueError) as context:
             validate_language_and_data_type(languages, data_types)
-        self.assertIn("Invalid language InvalidLanguage", str(context.exception))
-        self.assertIn("Invalid data-type InvalidDataType", str(context.exception))
+        self.assertIn("Invalid language 'InvalidLanguage'", str(context.exception))
+        self.assertIn("Invalid data-type 'InvalidDataType'", str(context.exception))
