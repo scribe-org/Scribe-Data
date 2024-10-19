@@ -14,4 +14,3 @@ WHERE {
     wikibase:lemma ?adverb .
 
 }
-Order by ?lexemeID
