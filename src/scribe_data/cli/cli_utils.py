@@ -27,6 +27,8 @@ from typing import List, Union
 
 from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
 
+# MARK: CLI Variables
+
 LANGUAGE_DATA_EXTRACTION_DIR = Path(__file__).parent.parent / "language_data_extraction"
 
 LANGUAGE_METADATA_FILE = (
@@ -217,12 +219,12 @@ def validate_language_and_data_type(
         ):
             closest_match = difflib.get_close_matches(item, valid_options, n=1)
             closest_match_str = (
-                f" The closest matching {item_type} is {closest_match[0]}."
+                f" The closest matching {item_type} is '{closest_match[0]}'."
                 if closest_match
                 else ""
             )
 
-            return f"Invalid {item_type} {item}.{closest_match_str}"
+            return f"Invalid {item_type} '{item}'.{closest_match_str}"
 
         return None
 
