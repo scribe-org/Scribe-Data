@@ -1,33 +1,29 @@
 # tool: scribe-data
-# All Tamil (Q5885) nouns and their plurals for the given cases.
+# All Tamil (Q5885) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?nomSingular
   ?nomPlural
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
-
   ?lexeme dct:language wd:Q5885 ;
-    wikibase:lexicalCategory ?nounTypes .
+    wikibase:lexicalCategory wd:Q1084 .
 
   # MARK: Nominative Singular
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomSingularForm .
     ?nomSingularForm ontolex:representation ?nomSingular ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+  }
 
   # MARK: Nominative Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  }
 }

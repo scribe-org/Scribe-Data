@@ -1,18 +1,16 @@
 # tool: scribe-data
-# All German (Q188) nouns, their plurals and their genders in the given cases.
+# All German (Q188) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?nomSingular
   ?nomPlural
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
-
   ?lexeme dct:language wd:Q188 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?nomSingular .
 
   # MARK: Nominative Plural
@@ -20,18 +18,14 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-  } .
+      wikibase:grammaticalFeature wd:Q146786, wd:Q131105 .
+  }
 
   # MARK: Gender(s)
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .
-    }
-  } .
+  }
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

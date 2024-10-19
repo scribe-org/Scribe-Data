@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Slovak (Q9058) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?feminineLocativeSingular
+  ?masculineLocativeSingular
+  ?neuterLocativeSingular
+  ?locativePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9058;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  # MARK: Locative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineLocativeSingularForm .
+    ?feminineLocativeSingularForm ontolex:representation ?feminineLocativeSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q202142, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineLocativeSingularForm .
+    ?masculineLocativeSingularForm ontolex:representation ?masculineLocativeSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q202142, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterLocativeSingularForm .
+    ?neuterLocativeSingularForm ontolex:representation ?neuterLocativeSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q202142, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativePluralForm .
+    ?locativePluralForm ontolex:representation ?locativePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786, wd:Q3482678 .
+  }
+}

@@ -1,18 +1,14 @@
 # tool: scribe-data
-# All Malay (Q9237) nouns.
+# All Malay (Q9237) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?noun
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
-
   ?lexeme dct:language wd:Q9237 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun .
-
-  BIND(lang(?noun) as ?language)
-  FILTER(?language = "ms")
+    FILTER(lang(?noun) = "ms")
 }

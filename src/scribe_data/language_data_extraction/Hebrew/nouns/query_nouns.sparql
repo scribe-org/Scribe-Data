@@ -1,41 +1,33 @@
 # tool: scribe-data
-# All Hebrew (Q9288) nouns, their plurals and their genders.
+# All Hebrew (Q9288) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?noun
   ?plural
   ?gender
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
-
   ?lexeme dct:language wd:Q9288 ;
-    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun .
+    FILTER(lang(?noun) = "he")
 
   # MARK: Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-  } .
+      wikibase:grammaticalFeature wd:Q146786 .
+      FILTER(lang(?plural) = "he") .
+  }
 
   # MARK: Gender(s)
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-    FILTER NOT EXISTS {
-      ?lexeme wdt:P31 wd:Q202444 .
-    }
-  } .
-
-  BIND(lang(?noun) as ?langSingular)
-  BIND(lang(?plural) as ?langPlural)
-  FILTER(?langSingular = "he")
-  FILTER(?langPlural = "he")
+  }
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

@@ -1,6 +1,6 @@
 # tool: scribe-data
 # tool: scribe-data
-# All Indonesian (Q9240) verbs.
+# All Indonesian (Q9240) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

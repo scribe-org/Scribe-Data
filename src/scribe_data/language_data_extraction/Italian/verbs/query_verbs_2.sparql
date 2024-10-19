@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Italian (Q652) verbs and the currently implemented tenses for each.
+# All Italian (Q652) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -19,47 +19,41 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impFPSForm .
     ?impFPSForm ontolex:representation ?impFPS ;
-      wikibase:grammaticalFeature wd:Q12547192 ;
-      wikibase:grammaticalFeature wd:Q51929218 ;
-  } .
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q110786 .
+  }
 
   # SPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPSForm .
     ?impSPSForm ontolex:representation ?impSPS ;
-      wikibase:grammaticalFeature wd:Q12547192 ;
-      wikibase:grammaticalFeature wd:Q51929369 ;
-  } .
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q110786 .
+  }
 
   # TPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impTPSForm .
     ?impTPSForm ontolex:representation ?impTPS ;
-      wikibase:grammaticalFeature wd:Q12547192 ;
-      wikibase:grammaticalFeature wd:Q51929447 ;
-  } .
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929074, wd:Q110786 .
+  }
 
   # FPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impFPPForm .
     ?impFPPForm ontolex:representation ?impFPP ;
-      wikibase:grammaticalFeature wd:Q12547192 ;
-      wikibase:grammaticalFeature wd:Q51929290 ;
-  } .
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q146786 .
+  }
 
   # SPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPPForm .
     ?impSPPForm ontolex:representation ?impSPP ;
-      wikibase:grammaticalFeature wd:Q12547192 ;
-      wikibase:grammaticalFeature wd:Q51929403 ;
-  } .
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q146786 .
+  }
 
   # TPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impTPPForm .
     ?impTPPForm ontolex:representation ?impTPP ;
-      wikibase:grammaticalFeature wd:Q12547192 ;
-      wikibase:grammaticalFeature wd:Q51929517 ;
-  } .
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929074, wd:Q146786 .
+  }
 }

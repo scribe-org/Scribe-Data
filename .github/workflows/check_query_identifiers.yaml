@@ -1,0 +1,47 @@
+name: Check Query Identifiers
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches:
+      - main
+    types: [opened, reopened, synchronize]
+
+jobs:
+  format_check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        python-version:
+          - "3.9"
+
+    runs-on: ${{ matrix.os }}
+
+    name: Run Check Query Identifiers
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Add project root to PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run check_query_identifiers.py
+        working-directory: ./src/scribe_data/check
+        run: python check_query_identifiers.py
+
+      - name: Post-run status
+        if: failure()
+        run: echo "Project SPARQL queries check failed. Please fix the reported errors."

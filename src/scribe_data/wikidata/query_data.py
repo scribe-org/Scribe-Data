@@ -22,6 +22,9 @@ Updates data for Scribe by running all or desired WDQS queries and formatting sc
 
 import json
 import os
+import subprocess
+import sys
+from http.client import IncompleteRead
 from pathlib import Path
 from urllib.error import HTTPError
 
@@ -30,7 +33,42 @@ from tqdm.auto import tqdm
 from scribe_data.cli.cli_utils import (
     language_metadata,
 )
+from scribe_data.utils import format_sublanguage_name, list_all_languages
 from scribe_data.wikidata.wikidata_utils import sparql
+
+
+def execute_formatting_script(formatting_file_path, output_dir):
+    """
+    Executes a formatting script given a filepath and output directory for the process.
+
+    Parameters
+    ----------
+        formatting_file_path : str
+            The formatting file to run.
+
+        output_dir : str
+            The output directory path for results.
+
+    Returns
+    -------
+        The results of the formatting script saved in the given output directory.
+    """
+    # Determine the root directory of the project.
+    project_root = Path(__file__).parent.parent.parent
+
+    # Use sys.executable to get the Python executable path.
+    python_executable = sys.executable
+
+    # Set the PYTHONPATH environment variable.
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(project_root)
+
+    # Use subprocess to run the formatting file.
+    subprocess.run(
+        [python_executable, str(formatting_file_path), "--file-path", output_dir],
+        env=env,
+        check=True,
+    )
 
 
 def query_data(
@@ -38,6 +76,7 @@ def query_data(
     data_type: str = None,
     output_dir: str = None,
     overwrite: bool = None,
+    interactive: bool = False,
 ):
     """
     Queries language data from the Wikidata lexicographical data.
@@ -53,8 +92,8 @@ def query_data(
         output_dir : str
             The output directory path for results.
 
-        overwrite : bool
-            Whether to overwrite existing files (default: False).
+        overwrite : bool (default: False)
+            Whether to overwrite existing files.
 
     Returns
     -------
@@ -64,8 +103,8 @@ def query_data(
     PATH_TO_LANGUAGE_EXTRACTION_FILES = (
         SCRIBE_DATA_SRC_PATH / "language_data_extraction"
     )
-
-    current_languages = list(language_metadata["languages"])
+    languages = [lang.capitalize() for lang in languages]
+    current_languages = list_all_languages(language_metadata)
     current_data_type = ["nouns", "verbs", "prepositions"]
 
     # Assign current_languages and current_data_type if no arguments have been passed.
@@ -99,13 +138,17 @@ def query_data(
     }
     queries_to_run = sorted(queries_to_run)
 
+    # MARK: Run Queries
+
     # Run queries and format data.
     for q in tqdm(
         queries_to_run,
         desc="Data updated",
         unit="process",
+        disable=interactive,
+        colour="MAGENTA",
     ):
-        lang = q.parent.parent.name
+        lang = format_sublanguage_name(q.parent.parent.name, language_metadata)
         target_type = q.parent.name
 
         updated_path = output_dir[2:] if output_dir.startswith("./") else output_dir
@@ -121,24 +164,25 @@ def query_data(
                 for file in existing_files:
                     file.unlink()
             else:
-                print(
-                    f"\nExisting file(s) found for {lang} {target_type} in the {output_dir} directory:\n"
-                )
-                for i, file in enumerate(existing_files, 1):
-                    print(f"{i}. {file.name}")
+                if not interactive:
+                    print(
+                        f"\nExisting file(s) found for {lang} {target_type} in the {output_dir} directory:\n"
+                    )
+                    for i, file in enumerate(existing_files, 1):
+                        print(f"{i}. {file.name}")
 
-                # choice = input(
-                #     "\nChoose an option:\n1. Overwrite existing (press 'o')\n2. Keep all (press 'k')\n3. Skip process (press anything else)\nEnter your choice: "
-                # )
+                    # choice = input(
+                    #     "\nChoose an option:\n1. Overwrite existing (press 'o')\n2. Keep all (press 'k')\n3. Skip process (press anything else)\nEnter your choice: "
+                    # )
 
-                choice = input(
-                    "\nChoose an option:\n1. Overwrite existing data (press 'o')\n2. Skip process (press anything else)\nEnter your choice: "
-                )
+                    choice = input(
+                        "\nChoose an option:\n1. Overwrite existing data (press 'o')\n2. Skip process (press anything else)\nEnter your choice: "
+                    )
 
-                if choice.lower() == "o":
-                    print("Removing existing files ...")
-                    for file in existing_files:
-                        file.unlink()
+                    if choice.lower() == "o":
+                        print("Removing existing files ...")
+                        for file in existing_files:
+                            file.unlink()
 
                 # elif choice in ["k", "K"]:
                 #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
@@ -165,14 +209,18 @@ def query_data(
         try:
             results = sparql.query().convert()
 
-        except HTTPError as err:
-            print(f"HTTPError with {q}: {err}")
+        except HTTPError as http_err:
+            print(f"HTTPError with {q}: {http_err}")
+
+        except IncompleteRead as read_err:
+            print(f"Incomplete read error with {q}: {read_err}")
 
         if results is None:
             print(f"Nothing returned by the WDQS server for {q}")
 
             # Allow for a query to be reran up to two times.
             if queries_to_run.count(q) < 3:
+                print("The query will be retried.")
                 queries_to_run.append(q)
 
         else:
@@ -252,6 +300,8 @@ def query_data(
                                         indent=0,
                                     )
 
+            # MARK: Save Results
+
             with open(file_path, "w", encoding="utf-8") as json_file:
                 json.dump(results_final, json_file, ensure_ascii=False, indent=0)
 
@@ -262,7 +312,9 @@ def query_data(
                 / target_type
                 / f"format_{target_type}.py"
             )
-            os.system(f"python3 {formatting_file_path} --file-path {output_dir}")
+            execute_formatting_script(
+                formatting_file_path=formatting_file_path, output_dir=output_dir
+            )
 
 
 if __name__ == "__main__":

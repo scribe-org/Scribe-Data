@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Bengali (Q9610) verbs.
+# All Bengali (Bangla Q9610) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

@@ -15,6 +15,7 @@ If you have questions or would like to communicate with the team, please [join u
 - [First steps as a contributor](#first-steps)
 - [Learning the tech stack](#learning-the-tech)
 - [Development environment](#dev-env)
+- [Testing](#testing)
 - [Issues and projects](#issues-projects)
 - [Bug reports](#bug-reports)
 - [Feature requests](#feature-requests)
@@ -162,8 +163,24 @@ pip install .  # or pip install scribe-data
 python setup.py egg_info
 ```
 
+Note that you may need to run this command every time you make any change to the code to have them be reflected in the development Scribe-Data:
+
+```bash
+pip install -e .
+```
+
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!
+
+<a id="testing"></a>
+
+## Testing [`⇧`](#contents)
+
+In addition to the [pre-commit](https://pre-commit.com/) hooks that are set up during the [development environment section](#dev-env), Scribe-Data also includes a testing suite that should be ran before all pull requests and subsequent commits. Please run the following in the project root:
+
+```bash
+pytest
+```
 
 <a id="issues-projects"></a>
 

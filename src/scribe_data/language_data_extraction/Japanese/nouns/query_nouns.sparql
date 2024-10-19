@@ -1,23 +1,14 @@
 # tool: scribe-data
-# All Japanese (Q5287) nouns.
+# All Japanese (Q5287) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?noun
 
 WHERE {
-  VALUES ?nounTypes {wd:Q1084 wd:Q147276} # Nouns and pronouns
-
   ?lexeme dct:language wd:Q5287 ;
-    wikibase:lexicalCategory ?nounType ;
+    wikibase:lexicalCategory wd:Q1084  ;
     wikibase:lemma ?noun .
-
-  FILTER (?nounType = ?nounTypes)
-
-  BIND (lang(?noun) as ?language)
-
-  FILTER (
-    CONTAINS(?language, "ja-hira") || CONTAINS(?language, "ja")
-  )
+    FILTER(lang(?noun) = "ja-hira")
 }

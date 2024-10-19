@@ -35,6 +35,7 @@ from scribe_data.utils import (
     DEFAULT_SQLITE_EXPORT_DIR,
     get_language_iso,
 )
+from scribe_data.utils import list_all_languages
 
 
 def data_to_sqlite(
@@ -48,12 +49,11 @@ def data_to_sqlite(
     ) as f_languages, open(
         PATH_TO_SCRIBE_DATA / "resources" / "data_type_metadata.json",
         encoding="utf-8",
-    ) as f_types:
+    ) as f_data_types:
         current_language_data = json.load(f_languages)
-        data_types = json.load(f_types)["data-types"]
+        data_types = json.load(f_data_types).keys()
 
-    current_languages = [d["language"] for d in current_language_data["languages"]]
-
+    current_languages = list_all_languages(current_language_data)
     if not languages:
         languages = current_languages
 

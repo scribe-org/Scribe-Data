@@ -54,19 +54,68 @@ Example output:
 .. code-block:: text
 
     $ scribe-data list
+
     Language     ISO  QID
     -----------------------
     English      en   Q1860
-    French       fr   Q150
-    German       de   Q188
     ...
     -----------------------
 
     Available data types: All languages
     -----------------------------------
+    adjectives
+    adverbs
+    emoji-keywords
     nouns
     prepositions
-    translations
+    verbs
+    -----------------------------------
+
+
+
+.. code-block:: text
+
+    $scribe-data list --language
+
+    Language     ISO  QID
+    -----------------------
+    English      en   Q1860
+    ...
+    -----------------------
+
+
+.. code-block:: text
+
+    $scribe-data list -dt
+
+    Available data types: All languages
+    -----------------------------------
+    adjectives
+    adverbs
+    emoji-keywords
+    nouns
+    prepositions
+    verbs
+    -----------------------------------
+
+
+.. code-block:: text
+
+    $scribe-data list -a
+
+    Language     ISO  QID
+    -----------------------
+    English      en   Q1860
+    ...
+    -----------------------
+
+    Available data types: All languages
+    -----------------------------------
+    adjectives
+    adverbs
+    emoji-keywords
+    nouns
+    prepositions
     verbs
     -----------------------------------
 
@@ -170,8 +219,7 @@ Interactive Mode
     2. emoji_keywords
     3. nouns
     4. prepositions
-    5. translations
-    6. verbs
+    5. verbs
 
     ...
 
@@ -197,14 +245,22 @@ Examples:
 
 .. code-block:: text
 
-    $ scribe-data total -dt nouns
+    $scribe-data total -dt nouns  # verbs, adjectives, etc
     Data type: nouns
-    Total number of lexemes: <NUMBER />
+    Total number of lexemes: 123456
 
-    $ scribe-data total -lang eng -dt nouns
-    Language: eng
+.. code-block:: text
+
+    $scribe-data total -lang English
+    Language: English
+    Total number of lexemes: 123456
+
+.. code-block:: text
+
+    $scribe-data total -lang English -dt nouns
+    Language: English
     Data type: nouns
-    Total number of lexemes: <NUMBER />
+    Total number of lexemes: 12345
 
 Convert Command
 ~~~~~~~~~~~~~~~

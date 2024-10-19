@@ -1,10 +1,15 @@
 {
-  "data-types": {
-    "autosuggestions":"",
-    "emoji_keywords":"",
-    "nouns": "Q1084",
-    "prepositions": "Q37649",
-    "translations": "Q7553789",
-    "verbs": "Q24905"
-  }
+  "adjectives": "Q34698",
+  "adverbs": "Q380057",
+  "articles": "Q103184",
+  "autosuggestions": "",
+  "conjunctions": "Q36484",
+  "emoji_keywords": "",
+  "nouns": "Q1084",
+  "personal_pronouns": "Q468801",
+  "postpositions": "Q161873",
+  "prepositions": "Q4833830",
+  "pronouns": "Q36224",
+  "proper_nouns": "Q147276",
+  "verbs": "Q24905"
 }

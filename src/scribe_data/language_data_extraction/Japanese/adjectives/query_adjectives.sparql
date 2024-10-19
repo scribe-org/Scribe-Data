@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Japanese (Q5287) adjectives.
+# All Japanese (Q5287) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -10,9 +10,5 @@ WHERE {
   ?lexeme dct:language wd:Q5287 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
-
-  BIND (lang(?adjective) as ?language)
-  FILTER (
-    CONTAINS(?language, "ja-hira") || CONTAINS(?language, "ja")
-  )
+    FILTER(lang(?adjective) = "ja-hira")
 }
