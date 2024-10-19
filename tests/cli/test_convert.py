@@ -57,15 +57,12 @@ class TestConvert(unittest.TestCase):
             },
         }.get(lang.lower())
 
-        # Mocking Path object behavior
         mock_path_obj = MagicMock(spec=Path)
         mock_path.return_value = mock_path_obj
 
-        # Set the file extension to .csv/ .tsv
         mock_path_obj.suffix = ".csv"
         mock_path_obj.exists.return_value = True
 
-        # Call the function with 'English'
         convert_to_json(
             language="English",
             data_type="nouns",
@@ -75,7 +72,6 @@ class TestConvert(unittest.TestCase):
             overwrite=True,
         )
 
-        # Verify that the mock's get method was called with 'english' (lowercased by the function)
         mock_language_map.get.assert_called_with("english")
 
     @patch("scribe_data.cli.convert.language_map", autospec=True)
@@ -105,7 +101,6 @@ class TestConvert(unittest.TestCase):
 
     @patch("scribe_data.cli.convert.Path")
     def test_convert_to_json_with_input_file(self, mock_path):
-        # Sample Data
         csv_data = "key,value\na,1\nb,2"
         mock_file = StringIO(csv_data)
 
@@ -126,7 +121,6 @@ class TestConvert(unittest.TestCase):
 
         mock_path_obj.exists.assert_called_once()
 
-        # Verify the file was opened for reading
         mock_path_obj.open.assert_called_once_with("r", encoding="utf-8")
 
     @patch("scribe_data.cli.convert.Path")
@@ -211,7 +205,6 @@ class TestConvert(unittest.TestCase):
             "Unsupported file extension '.txt' for test.txt. Please provide a '.csv' or '.tsv' file.",
         )
 
-    # ====================================================================================================================
     @patch("scribe_data.cli.convert.language_map", autospec=True)
     @patch("scribe_data.cli.convert.Path", autospec=True)
     def test_convert_to_json_standard_csv(self, mock_path_class, mock_language_map):
@@ -250,7 +243,6 @@ class TestConvert(unittest.TestCase):
         with patch("pathlib.Path.open", mocked_open), patch(
             "pathlib.Path.mkdir"
         ) as mock_mkdir:
-            # Prevent actual directory creation
             mock_mkdir.return_value = None
             convert_to_json(
                 language="English",
@@ -392,7 +384,6 @@ class TestConvert(unittest.TestCase):
     def test_convert_to_csv_or_json_normalized_language(
         self, mock_path, mock_language_map
     ):
-        # Mock the language map to return a normalized language for testing
         mock_language_map.get.side_effect = lambda lang: {
             "english": {
                 "language": "english",
@@ -420,7 +411,6 @@ class TestConvert(unittest.TestCase):
         mock_open_function = mock_open(read_data=mock_json_data)
         mock_path_obj.open = mock_open_function
 
-        # Call the function with 'English'
         convert_to_csv_or_tsv(
             language="English",
             data_type="nouns",
@@ -536,7 +526,6 @@ class TestConvert(unittest.TestCase):
             call.args[0] for call in mock_file_handle.write.call_args_list
         )
 
-        # Normalize the line endings for comparison
         written_data = written_data.replace("\r\n", "\n").replace("\r", "\n")
         expected_csv_output = expected_csv_output.replace("\r\n", "\n").replace(
             "\r", "\n"
@@ -952,7 +941,6 @@ class TestConvert(unittest.TestCase):
             },
         }.get(lang.lower())
 
-        # Mock input file path
         mock_input_file_path = MagicMock(spec=Path)
         mock_input_file_path.suffix = ".json"
         mock_input_file_path.exists.return_value = True
@@ -967,7 +955,6 @@ class TestConvert(unittest.TestCase):
         with patch("pathlib.Path.open", mocked_open), patch(
             "pathlib.Path.mkdir"
         ) as mock_mkdir:
-            # Prevent actual directory creation
             mock_mkdir.return_value = None
             convert_to_csv_or_tsv(
                 language="English",
