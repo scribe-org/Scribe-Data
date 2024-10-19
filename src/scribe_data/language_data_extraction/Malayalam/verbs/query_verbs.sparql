@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Malayalam (Q36236) verbs and the given forms.
+# All Malayalam (Q36236) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -22,7 +22,7 @@ WHERE {
     ?presentInfForm ontolex:representation ?presentInfinitive ;
       wikibase:grammaticalFeature wd:Q52434245 .
       FILTER(LANG(?presentInfinitive) = "ml") .
-  } 
+  }
 
   # MARK: Simple Present
 
@@ -31,7 +31,7 @@ WHERE {
     ?simplePresentForm ontolex:representation ?simplePresent ;
       wikibase:grammaticalFeature wd:Q3910936 .
       FILTER(LANG(?simplePresent) = "ml") .
-  } 
+  }
 
   # MARK: Simple Past
 
@@ -40,7 +40,7 @@ WHERE {
     ?simplePastForm ontolex:representation ?simplePast ;
       wikibase:grammaticalFeature wd:Q1392475 .
       FILTER(LANG(?simplePast) = "ml") .
-  } 
+  }
 
   # MARK: Simple Future
 
@@ -49,5 +49,5 @@ WHERE {
     ?simpleFutureForm ontolex:representation ?simpleFuture ;
       wikibase:grammaticalFeature wd:Q1475560 .
       FILTER(LANG(?simpleFuture) = "ml") .
-  } 
+  }
 }
