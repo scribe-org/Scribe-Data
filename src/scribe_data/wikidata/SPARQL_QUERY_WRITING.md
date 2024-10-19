@@ -152,13 +152,14 @@ We return the `?lexemeID` so that Scribe and other downstream data reusers can e
 - **Understand Lexeme Structures**: Study how lexemes and their forms are structured in [Wikidata](https://www.wikidata.org/) for each language
 - **Verify Forms**: Always verify the forms listed on the lexeme page to ensure you're capturing all variations in your query results
 - **Use Optional Selections**: Leverage optional selections in queries to account for various grammatical properties without data loss
+- **No Complex Operations**: Please do not include `ORDER BY` or `SELECT DISTINCT` as these operations make the queries take longer and don't add value to the output
 - **Filter Out Results**: Using `FILTER NOT EXISTS` can make sure that forms are not overlapping
 - **MARK Your Queries**: Including `MARK:` comments allows easy navigation of queries by adding labels to the minimaps in many development IDEs
 - **Identify Scribe-Data**: [Wikidata](https://www.wikidata.org/) is a common resource, so please add the following to the top of all queries to assure that people can see our impact on the servers
 
   ```
   # tool: scribe-data
-  # All LANGUAGE_NAME (LANGUAGE_QID) DATA_TYPE and the given forms.
+  # All LANGUAGE_NAME (LANGUAGE_QID) DATA_TYPE (DATA_TYPE_QID) and the given forms.
   # Enter this query at https://query.wikidata.org/.
   ```
 

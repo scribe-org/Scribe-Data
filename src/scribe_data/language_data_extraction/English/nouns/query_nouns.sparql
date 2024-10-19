@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All English (Q1860) nouns and the given forms.
+# All English (Q1860) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -18,5 +18,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
-  } 
+  }
 }
