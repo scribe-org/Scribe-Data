@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Danish (Q9035) verbs and the given forms.
+# All Danish (Q9035) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
