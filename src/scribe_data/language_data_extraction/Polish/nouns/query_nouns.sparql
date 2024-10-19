@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Polish (Q809) nouns and the given forms.
+# All Polish (Q809) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -18,7 +18,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?nomSingularForm .
     ?nomSingularForm ontolex:representation ?nomSingular ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
-  } 
+  }
 
   # MARK: Nominative Plural
 
@@ -26,7 +26,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
-  } 
+  }
 
   # MARK: Gender(s)
 

@@ -137,6 +137,7 @@ def test_list_all_languages():
         "bengali",
         "bokmål",
         "czech",
+        "dagbani",
         "danish",
         "english",
         "esperanto",

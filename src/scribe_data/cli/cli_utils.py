@@ -61,17 +61,26 @@ language_to_qid = {}
 for lang, lang_data in language_metadata.items():
     lang_lower = lang.lower()
 
-    # Handle sub-languages if they exist.
     if "sub_languages" in lang_data:
         for sub_lang, sub_lang_data in lang_data["sub_languages"].items():
             sub_lang_lower = sub_lang.lower()
-            language_map[sub_lang_lower] = sub_lang_data
-            language_to_qid[sub_lang_lower] = sub_lang_data["qid"]
+            sub_qid = sub_lang_data.get("qid")
+
+            if sub_qid is None:
+                print(f"Warning: 'qid' missing for sub-language {sub_lang} of {lang}")
+
+            else:
+                language_map[sub_lang_lower] = sub_lang_data
+                language_to_qid[sub_lang_lower] = sub_qid
 
     else:
-        # Handle the main language directly.
-        language_map[lang_lower] = lang_data
-        language_to_qid[lang_lower] = lang_data["qid"]
+        qid = lang_data.get("qid")
+        if qid is None:
+            print(f"Warning: 'qid' missing for language {lang}")
+
+        else:
+            language_map[lang_lower] = lang_data
+            language_to_qid[lang_lower] = qid
 
 
 # MARK: Correct Inputs
@@ -136,7 +145,7 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
                 for item in value:
                     if isinstance(item, dict):
                         for sub_key, sub_value in item.items():
-                            print(f"  {sub_key:<{max_key_length}} : {sub_value}")
+                            print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
 
                     else:
                         print(f"  {item}")
