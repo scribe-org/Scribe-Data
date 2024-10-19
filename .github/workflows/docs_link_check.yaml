@@ -2,11 +2,10 @@ name: Link Checker for Sphinx Documentation
 # Trigger the workflow on push to main branch or pull request to main branch
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
+    types: [opened, reopened, synchronize]
 
 jobs:
   link-check:
