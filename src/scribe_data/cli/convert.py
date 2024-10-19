@@ -91,10 +91,16 @@ def convert_to_json(
         input_file_path = Path(input_file)
 
         if not input_file_path.exists():
-            print(f"No data found for input file '{input_file_path}'.")
-            continue
+            raise FileNotFoundError(
+                f"No data found for input file '{input_file_path}'."
+            )
 
-        delimiter = "," if input_file_path.suffix.lower() == ".csv" else "\t"
+        delimiter = {".csv": ",", ".tsv": "\t"}.get(input_file_path.suffix.lower())
+
+        if not delimiter:
+            raise ValueError(
+                f"Unsupported file extension '{input_file_path.suffix}' for {input_file}. Please provide a '.csv' or '.tsv' file."
+            )
 
         try:
             with input_file_path.open("r", encoding="utf-8") as file:
@@ -186,37 +192,13 @@ def convert_to_csv_or_tsv(
 ) -> None:
     """
     Convert a JSON File to CSV/TSV file.
-
-    Parameters
-    ----------
-    language : str
-        The language of the file to convert.
-
-    data_type : Union[str, List[str]]
-        The data type of the file to convert.
-
-    output_type : str
-        The output format, should be "csv" or "tsv".
-
-    input_file : str
-        The input JSON file path.
-
-    output_dir : str
-        The output directory path for results.
-
-    overwrite : bool
-        Whether to overwrite existing files.
-
-    Returns
-    -------
-        None
     """
 
     # Normalize the language
     normalized_language = language_map.get(language.lower())
+
     if not normalized_language:
-        print(f"Language '{language}' is not recognized.")
-        return
+        raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
     # Split the data_type string by commas
     data_types = [dtype.strip() for dtype in data_type.split(",")]
@@ -262,17 +244,15 @@ def convert_to_csv_or_tsv(
         try:
             with output_file.open("w", newline="", encoding="utf-8") as file:
                 writer = csv.writer(file, delimiter=delimiter)
-
                 # Handle different JSON structures based on the format
+
                 if isinstance(data, dict):
                     first_key = list(data.keys())[0]
 
                     if isinstance(data[first_key], dict):
                         # Handle case: { key: { value1: ..., value2: ... } }
-                        columns = set()
-                        for value in data.values():
-                            columns.update(value.keys())
-                        writer.writerow([dtype[:-1]] + list(columns))
+                        columns = sorted(next(iter(data.values())).keys())
+                        writer.writerow([dtype[:-1]] + columns)
 
                         for key, value in data.items():
                             row = [key] + [value.get(col, "") for col in columns]
