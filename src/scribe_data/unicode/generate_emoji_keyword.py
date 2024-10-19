@@ -1,6 +1,5 @@
 """
-Centralize emoji keyword generation logic
-
+centralized emoji_keyword file
 .. raw:: html
     <!--
     * Copyright (C) 2024 Scribe
@@ -17,91 +16,67 @@ Centralize emoji keyword generation logic
     *
     * You should have received a copy of the GNU General Public License
     * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->.
+    -->
 """
 
-from .process_unicode import gen_emoji_lexicon
+import argparse
+import json
+from pathlib import Path
+
+from scribe_data.unicode.process_unicode import gen_emoji_lexicon
 from scribe_data.utils import export_formatted_data
 
+DATA_TYPE = "emoji-keywords"
+EMOJIS_PER_KEYWORD = 3
 
-def generate_emoji_keyword(
-    language,
-    file_path,
-    emojis_per_keyword=3,  # default value for emojis_per_keyword
-    gender=None,
-    region=None,
-    sub_languages=None,
-):
-    # Define grouped languages and their sub-languages.
-    grouped_languages = {
-        "Hindustani": ["Hindi", "Urdu"],
-        "Norwegian": ["Bokmål", "Nynorsk"],
-        # Add more grouped languages as needed.
-    }
+# Define the path to the languages JSON file.
+LANGUAGES_JSON = Path(__file__).parent / "supported_language.json"
 
-    # If the language is a grouped language, handle its sub-languages.
-    if language in grouped_languages:
-        # If specific sub-languages are provided, only process those.
 
-        # Define grouped languages and their sub-languages.
-        grouped_languages = {
-            "Hindustani": ["Hindi", "Urdu"],
-            "Norwegian": ["Bokmål", "Nynorsk"],
-            # Add more grouped languages as needed.
-        }
+def main(file_path):
+    # Read the language codes and names from the JSON.
+    with open(LANGUAGES_JSON, "r", encoding="utf-8") as f:
+        languages = json.load(f)
 
-    # If the language is a grouped language, handle its sub-languages.
-    if language in grouped_languages:
-        # If specific sub-languages are provided, only process those.
+    for code, language in languages.items():
+        print(f"Generating emoji keywords for {language} ({code})...")
 
-        sub_languages_to_process = sub_languages or grouped_languages[language]
+        language_dir = file_path / f"{language}"
+        emoji_dir = language_dir / "emoji_keywords"
+        init_file = emoji_dir / "__init__.py"
 
-        for sub_lang in sub_languages_to_process:
-            print(f"Processing sub-language: {sub_lang}")
+        # Ensure that the emoji_keywords directory and __init__.py file exist.
+        emoji_dir.mkdir(parents=True, exist_ok=True)
 
-            # Generate emoji keywords for the sub-language.
-            emoji_keywords_dict = gen_emoji_lexicon(
-                language=sub_lang,
-                emojis_per_keyword=emojis_per_keyword,
-                gender=gender,
-                region=region,
+        if not init_file.exists():
+            # Create the __init__.py file if it doesn't exist.
+            init_file.touch()
+            print(f"Created __init__.py in {emoji_dir}.")
+
+        if emoji_keywords_dict := gen_emoji_lexicon(
+            language=language,
+            emojis_per_keyword=EMOJIS_PER_KEYWORD,
+        ):
+            export_formatted_data(
+                file_path=emoji_dir / f"{code}_emoji_keywords.json",
+                formatted_data=emoji_keywords_dict,
+                query_data_in_use=True,
+                language=language,
+                data_type=DATA_TYPE,
             )
+            print(f"Emoji keywords for {language} saved.\n")
 
-            # Export the generated emoji keywords for the sub-language.
-            if emoji_keywords_dict:
-                # Save the file with the sub-language included in the file name.
 
-                # Export the generated emoji keywords for the sub-language.
-                if emoji_keywords_dict:
-                    # Save the file with the sub-language included in the file name.
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--file-path", required=True, help="Path to save the emoji keywords files."
+    )
+    args = parser.parse_args()
 
-                    export_file_path = f"{file_path}_{sub_lang}.json"
-                    export_formatted_data(
-                        file_path=export_file_path,
-                        formatted_data=emoji_keywords_dict,
-                        query_data_in_use=True,
-                        language=sub_lang,
-                        data_type="emoji-keywords",
-                    )
+    # Ensure the directory exists.
+    output_dir = Path(args.file_path)
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    # If it's not a grouped language, process it as a single language.
-
-    else:
-        # Generate emoji keywords for the given language.
-
-        emoji_keywords_dict = gen_emoji_lexicon(
-            language=language,
-            emojis_per_keyword=emojis_per_keyword,
-            gender=gender,
-            region=region,
-        )
-
-        # Export the generated emoji keywords for the language.
-    if emoji_keywords_dict:
-        export_formatted_data(
-            file_path=file_path,
-            formatted_data=emoji_keywords_dict,
-            query_data_in_use=True,
-            language=language,
-            data_type="emoji-keywords",
-        )
+    # Call the main function.
+    main(output_dir)
