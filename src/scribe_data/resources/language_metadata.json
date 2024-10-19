@@ -95,9 +95,9 @@
     "iso": "ja",
     "qid": "Q5287"
   },
-  "korean":{
-    "iso":"ko",
-    "qid":"Q9176"
+  "korean": {
+    "iso": "ko",
+    "qid": "Q9176"
   },
   "kurmanji": {
     "iso": "kmr",
@@ -106,6 +106,10 @@
   "latin": {
     "iso": "la",
     "qid": "Q397"
+  },
+  "latvian": {
+    "iso": "lv",
+    "qid": "Q9078"
   },
   "malay": {
     "iso": "ms",
