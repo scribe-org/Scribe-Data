@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Greek (Q36510) proper nouns and the given forms.
+# All Greek (Q36510) proper nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
