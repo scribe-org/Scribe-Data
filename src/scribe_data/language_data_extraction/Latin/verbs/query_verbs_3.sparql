@@ -1,0 +1,105 @@
+# tool: scribe-data
+# All Latin (Q397) verbs and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+  ?ThrPluIndiPass
+  ?ThrPluIndiAct
+  ?FirSingIndiPass
+  ?ThrSingIndiPass
+  ?SecSingIndiAct
+  ?ThrSingIndiAct
+  ?FirPluIndiPass
+  ?FirPluIndiAct
+  ?SecPluIndiPass
+  ?SecPluActPass
+  ?SecPluImpPass
+
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  # Common value for Future Tense
+  VALUES ?presenttense { wd:Q192613 }
+  
+  # third person, plural, present tense, indicative, passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ThrPluIndiPassForm .
+    ?ThrPluIndiPassForm ontolex:representation ?ThrPluIndiPass ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, ?presenttense, wd:Q682111, wd:Q1194697 .
+  }
+  
+  # third person, plural, present tense, indicative, active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ThrPluIndiActForm .
+    ?ThrPluIndiActForm ontolex:representation ?ThrPluIndiAct ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, ?presenttense, wd:Q682111, wd:Q1317831 .
+  }
+  
+  # first person, singular, present tense, indicative, passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirSingIndiPassForm .
+    ?FirSingIndiPassForm ontolex:representation ?FirSingIndiPass ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, ?presenttense, wd:Q682111, wd:Q1194697 .
+  }
+  
+  # third person, singular, present tense, indicative, passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ThrSingIndiPassForm .
+    ?ThrSingIndiPassForm ontolex:representation ?ThrSingIndiPass ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, ?presenttense, wd:Q682111, wd:Q1194697 .
+  }
+  
+  # second person, singular, present tense, indicative, active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecSingIndiActForm .
+    ?SecSingIndiActForm ontolex:representation ?SecSingIndiAct ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?presenttense, wd:Q682111, wd:Q1317831 .
+  }
+  
+  # third person, singular, present tense, indicative, active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ThrSingIndiActForm .
+    ?ThrSingIndiActForm ontolex:representation ?ThrSingIndiAct ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, ?presenttense, wd:Q682111, wd:Q1317831 .
+  }
+  
+  # first person, plural, present tense, indicative, passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirPluIndiPassForm .
+    ?FirPluIndiPassForm ontolex:representation ?FirPluIndiPass ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, ?presenttense, wd:Q682111, wd:Q1194697 .
+  }
+  
+  # first person, plural, present tense, indicative, active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirPluIndiActForm .
+    ?FirPluIndiActForm ontolex:representation ?FirPluIndiAct ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, ?presenttense, wd:Q682111, wd:Q1317831 .
+  }
+  
+  # second person, plural, present tense, indicative, passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecPluIndiPassForm .
+    ?SecPluIndiPassForm ontolex:representation ?SecPluIndiPass ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, ?presenttense, wd:Q682111, wd:Q1194697 .
+  }
+  
+  # second person, plural, present tense, imperative, active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecPluImpActForm .
+    ?SecPluImpActForm ontolex:representation ?SecPluActPass ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, ?presenttense, wd:Q22716, wd:Q1317831 .
+  }
+  
+  # second person, plural, present tense, imperative, passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecPluImpPassForm .
+    ?SecPluImpPassForm ontolex:representation ?SecPluImpPass ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, ?presenttense, wd:Q22716, wd:Q1194697 .
+  }
+}
