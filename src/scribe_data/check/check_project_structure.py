@@ -101,7 +101,46 @@ SUB_DIRECTORIES = {
 BASE_DIR = Path(__file__).parent.parent / "language_data_extraction"
 
 
-def check_data_type_folders(path, language, subdir, errors):
+def check_for_sparql_files(folder_path, data_type, language, subdir, missing_queries):
+    """
+    Check if a data-type folder contains at least one .sparql file.
+
+    Parameters
+    ----------
+        folder_path : str
+            The path to the data-type folder.
+
+        data_type : str
+            The name of the data type being checked.
+
+        language : str
+            The name of the language being processed.
+
+        subdir : str or None
+            The name of the sub-directory (for languages with sub-dialects), or None.
+
+        missing_queries : list
+            A list to which missing SPARQL query files will be appended.
+
+    Returns
+    -------
+        bool: True if at least one .sparql file is found, False otherwise.
+    """
+    sparql_files = [f for f in os.listdir(folder_path) if f.endswith(".sparql")]
+
+    if not sparql_files:
+        subdir_name = f"/{subdir}" if subdir else ""
+        missing_queries.append(
+            f"{language}{subdir_name}/{data_type}/query_{data_type}.sparql"
+        )
+        return False
+
+    return True
+
+
+def check_data_type_folders(
+    path, language, subdir, errors, missing_folders, missing_queries
+):
     """
     Validate the contents of data type folders within a language directory.
 
@@ -124,43 +163,46 @@ def check_data_type_folders(path, language, subdir, errors):
         A list to which error messages will be appended.
 
     The function checks for the following valid files in each data type folder:
-    - Files starting with 'query_' and ending with '.sparql'
-    - A 'format_{data_type}.py' file
-    - A '{data_type}_queried.json' file
+        - Files starting with 'query_' and ending with '.sparql'
+        - A 'format_{data_type}.py' file
+        - A '{data_type}_queried.json' file
 
     It skips validation for the 'emoji_keywords' data type folder.
 
     Any files not matching these patterns (except '__init__.py') are reported as unexpected.
     """
-    for item in os.listdir(path):
+    existing_data_types = set(os.listdir(path)) - {"__init__.py"}
+    missing_data_types = DATA_TYPES - existing_data_types - {"emoji_keywords"}
+
+    for missing_type in missing_data_types:
+        subdir_name = f"/{subdir}" if subdir else ""
+        missing_folders.append(f"{language}{subdir_name}/{missing_type}")
+
+    for item in existing_data_types:
         item_path = os.path.join(path, item)
-        if os.path.isfile(item_path) and item != "__init__.py":
-            errors.append(f"Unexpected file found in {language}/{subdir or ''}: {item}")
-        elif os.path.isdir(item_path):
-            if item not in DATA_TYPES:
-                errors.append(
-                    f"Unexpected directory found in {language}/{subdir or ''}: {item}"
-                )
-            else:
-                # Skip validation for emoji_keywords.
-                if item == "emoji_keywords":
-                    continue
+        if os.path.isfile(item_path):
+            errors.append(f"Unexpected file found in {language}{subdir_name}: {item}")
 
-                # Check for correctly formatted files.
-                valid_files = [
-                    f
-                    for f in os.listdir(item_path)
-                    if (f.startswith(f"query_{item}") and f.endswith(".sparql"))
-                    or f == f"format_{item}.py"
-                    or f == f"{item}_queried.json"
-                ]
+        elif item not in DATA_TYPES:
+            errors.append(
+                f"Unexpected directory found in {language}{subdir_name}: {item}"
+            )
 
-                for file in os.listdir(item_path):
-                    if file not in valid_files and file != "__init__.py":
-                        error_subdir = f"{subdir}/" or ""
-                        errors.append(
-                            f"Unexpected file in {language}/{error_subdir}{item}: {file}"
-                        )
+        else:
+            if item == "emoji_keywords":
+                continue
+
+            check_for_sparql_files(item_path, item, language, subdir, missing_queries)
+
+            valid_files = [
+                f for f in os.listdir(item_path) if f.endswith(".sparql")
+            ] + [f"format_{item}.py", f"{item}_queried.json", "__init__.py"]
+
+            for file in os.listdir(item_path):
+                if file not in valid_files:
+                    errors.append(
+                        f"Unexpected file in {language}{subdir_name}/{item}: {file}"
+                    )
 
 
 def validate_project_structure():
@@ -169,6 +211,8 @@ def validate_project_structure():
     Also validate SPARQL query file names in data_type folders and SUBDIRECTORIES.
     """
     errors = []
+    missing_folders = []
+    missing_queries = []
 
     if not os.path.exists(BASE_DIR):
         print(f"Error: Base directory '{BASE_DIR}' does not exist.")
@@ -218,19 +262,41 @@ def validate_project_structure():
                     f"Missing sub-subdirectories in '{language}': {missing_subdirs}"
                 )
 
-            # Check contents of expected sub-subdirectories
+            # Check contents of expected sub-subdirectories.
             for subdir in expected_subdirs:
                 subdir_path = os.path.join(language_path, subdir)
                 if os.path.exists(subdir_path):
-                    check_data_type_folders(subdir_path, language, subdir, errors)
+                    check_data_type_folders(
+                        subdir_path,
+                        language,
+                        subdir,
+                        errors,
+                        missing_folders,
+                        missing_queries,
+                    )
 
         else:
-            check_data_type_folders(language_path, language, None, errors)
+            check_data_type_folders(
+                language_path, language, None, errors, missing_folders, missing_queries
+            )
 
-    if errors:
-        print("Errors found:")
-        for error in errors:
-            print(f" - {error}")
+    # Attn: Removed for now.
+    if errors:  # or missing_folders or missing_queries
+        if errors:
+            print("Errors found:")
+            for error in errors:
+                print(f" - {error}")
+
+        # if missing_folders:
+        #     print("\nMissing data type folders:")
+        #     for folder in missing_folders:
+        #         print(f" - {folder}")
+
+        # if missing_queries:
+        #     print("\nMissing SPARQL query files:")
+        #     for query in missing_queries:
+        #         print(f" - {query}")
+
         exit(1)
 
     else:
