@@ -79,6 +79,10 @@
       }
     }
   },
+  "igbo": {
+    "iso": "ig",
+    "qid": "Q33578"
+  },
   "indonesian": {
     "iso": "id",
     "qid": "Q9240"
