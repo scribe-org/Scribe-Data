@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All German (Q188) nouns and the given forms.
+# All German (Q188) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -19,7 +19,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
       wikibase:grammaticalFeature wd:Q146786, wd:Q131105 .
-  } 
+  }
 
   # MARK: Gender(s)
 

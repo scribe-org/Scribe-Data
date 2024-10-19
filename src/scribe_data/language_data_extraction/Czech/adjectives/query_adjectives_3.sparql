@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Czech (Q9056) adjectives and the given forms.
+# All Czech (Q9056) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -18,5 +18,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?locativeForm .
     ?locativeForm ontolex:representation ?locative ;
       wikibase:grammaticalFeature wd:Q202142 .
-  } 
+  }
 }
