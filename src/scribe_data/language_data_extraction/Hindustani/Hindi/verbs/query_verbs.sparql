@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Hindi (from Hindustani Q11051) verbs and the currently implemented forms for each.
+# All Hindi (from Hindustani Q11051) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 # Note: We need to filter for "hi" to remove Urdu (ur) words.
@@ -33,7 +33,7 @@ WHERE {
     ?directCaseForm ontolex:representation ?directCase ;
       wikibase:grammaticalFeature wd:Q1751855 .
       FILTER(LANG(?directCase) = "hi") .
-  } 
+  }
 
   # MARK: Gerund
 
@@ -42,7 +42,7 @@ WHERE {
     ?gerundForm ontolex:representation ?gerund ;
       wikibase:grammaticalFeature wd:Q1923028 .
       FILTER(LANG(?gerund) = "hi") .
-  } 
+  }
 
   # MARK: Intransitive Phase
 
@@ -51,7 +51,7 @@ WHERE {
     ?intransitivePhaseForm ontolex:representation ?intransitivePhase ;
       wikibase:grammaticalFeature wd:Q113330736 .
       FILTER(LANG(?intransitivePhase) = "hi") .
-  } 
+  }
 
   # MARK: Basic Phase
 
@@ -60,7 +60,7 @@ WHERE {
     ?basicPhaseForm ontolex:representation ?basicPhase ;
       wikibase:grammaticalFeature wd:Q113330960 .
       FILTER(LANG(?basicPhase) = "hi") .
-  } 
+  }
 
 # MARK: Conjunctive Participle
 
@@ -69,7 +69,7 @@ WHERE {
     ?conjParticipleForm ontolex:representation ?conjParticiple ;
       wikibase:grammaticalFeature wd:Q113133303 .
       FILTER(LANG(?conjParticiple) = "hi") .
-  } 
+  }
 
   # MARK: Adverbial
 
@@ -78,7 +78,7 @@ WHERE {
     ?adverbialForm ontolex:representation ?adverbial ;
       wikibase:grammaticalFeature wd:Q380012 .
       FILTER(LANG(?adverbial) = "hi") .
-  } 
+  }
 
   # MARK: Absolute Construction
 
@@ -87,7 +87,7 @@ WHERE {
     ?absConstructionForm ontolex:representation ?absConstruction ;
       wikibase:grammaticalFeature wd:Q4669807 .
       FILTER(LANG(?absConstruction) = "hi") .
-  } 
+  }
 
   # MARK: Accusative
 
@@ -96,7 +96,7 @@ WHERE {
     ?accusativeForm ontolex:representation ?accusative ;
       wikibase:grammaticalFeature wd:Q1233197 .
       FILTER(LANG(?accusative) = "hi") .
-  } 
+  }
 
   # MARK: Ergative
 
@@ -105,5 +105,5 @@ WHERE {
     ?ergativeForm ontolex:representation ?ergative ;
       wikibase:grammaticalFeature wd:Q1233197 .
       FILTER(LANG(?ergative) = "hi") .
-  } 
+  }
 }

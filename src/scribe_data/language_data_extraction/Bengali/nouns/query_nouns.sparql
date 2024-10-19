@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Bengali (Bangla Q9610) nouns and the given forms.
+# All Bengali (Bangla Q9610) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -19,7 +19,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?nomForm .
     ?nomForm ontolex:representation ?nominative ;
       wikibase:grammaticalFeature wd:Q131105 .
-  } 
+  }
 
   # MARK: Genitive
 
@@ -27,7 +27,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?genForm .
     ?genForm ontolex:representation ?genitive ;
       wikibase:grammaticalFeature wd:Q146233 .
-  } 
+  }
 
   # MARK: Accusative
 
@@ -35,7 +35,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?accForm .
     ?accForm ontolex:representation ?accusative ;
       wikibase:grammaticalFeature wd:Q146078 .
-  } 
+  }
 
   # MARK: Locative
 
@@ -43,5 +43,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?locForm .
     ?locForm ontolex:representation ?locative ;
       wikibase:grammaticalFeature wd:Q202142 .
-  } 
+  }
 }

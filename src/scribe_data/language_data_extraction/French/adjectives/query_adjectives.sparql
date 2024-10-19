@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All French (Q150) adjectives and the given forms.
+# All French (Q150) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

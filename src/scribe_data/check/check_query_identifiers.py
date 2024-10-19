@@ -1,4 +1,31 @@
+"""
+Check the queries within Scribe-Data to make sure the data they're accessing is correct.
+
+Example
+-------
+    python3 src/scribe_data/check/check_query_identifiers.py
+
+.. raw:: html
+    <!--
+    * Copyright (C) 2024 Scribe
+    *
+    * This program is free software: you can redistribute it and/or modify
+    * it under the terms of the GNU General Public License as published by
+    * the Free Software Foundation, either version 3 of the License, or
+    * (at your option) any later version.
+    *
+    * This program is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    * GNU General Public License for more details.
+    *
+    * You should have received a copy of the GNU General Public License
+    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    -->
+"""
+
 import re
+import sys
 from pathlib import Path
 
 from scribe_data.cli.cli_utils import (
@@ -24,6 +51,11 @@ def extract_qid_from_sparql(file_path: Path, pattern: str) -> str:
     -------
         str
             The extracted QID if found, otherwise None.
+
+    Raises
+    ------
+        FileNotFoundError
+            If the specified file does not exist.
     """
     try:
         with open(file_path, "r", encoding="utf-8") as file:
@@ -37,7 +69,7 @@ def extract_qid_from_sparql(file_path: Path, pattern: str) -> str:
     return None
 
 
-def check_queries():
+def check_queries() -> None:
     """
     Validates SPARQL queries in the specified directory to check for correct language
     and data type QIDs.
@@ -66,14 +98,14 @@ def check_queries():
         for file in incorrect_languages:
             print(f"- {file}")
 
-    print("\n----------------------------------------------------------------\n")
-
     if incorrect_data_types:
         print("Incorrect Data Type QIDs found in the following files:")
         for file in incorrect_data_types:
             print(f"- {file}")
 
-    print("\n----------------------------------------------------------------\n")
+    # Exit with an error code if any incorrect QIDs are found.
+    if incorrect_languages or incorrect_data_types:
+        sys.exit(1)
 
 
 def is_valid_language(query_file: Path, lang_qid: str) -> bool:
@@ -91,24 +123,30 @@ def is_valid_language(query_file: Path, lang_qid: str) -> bool:
     -------
     bool
         True if the language QID is valid, otherwise False.
+
+    Example
+    -------
+        > is_valid_language(Path("path/to/query.sparql"), "Q123456")
+        True
     """
     lang_directory_name = query_file.parent.parent.name.lower()
-    languages = language_metadata.get(
-        "languages"
-    )  # might not work since language_metadata file is not fully updated
-    language_entry = next(
-        (lang for lang in languages if lang["language"] == lang_directory_name), None
-    )
+    language_entry = language_metadata.get(lang_directory_name)
+
+    if not language_entry:
+        # Look for sub-languages
+        for lang, details in language_metadata.items():
+            if "sub_languages" in details:
+                sub_language_entry = details["sub_languages"].get(lang_directory_name)
+                if sub_language_entry:
+                    language_entry = sub_language_entry
+                    break
 
     if not language_entry:
         return False
 
     expected_language_qid = language_entry["qid"]
 
-    if lang_qid != expected_language_qid:
-        return False
-
-    return True
+    return lang_qid == expected_language_qid
 
 
 def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
@@ -126,6 +164,11 @@ def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
     -------
     bool
         True if the data type QID is valid, otherwise False.
+
+    Example
+    -------
+        > is_valid_data_type(Path("path/to/query.sparql"), "Q654321")
+        True
     """
     directory_name = query_file.parent.name  # e.g., "nouns" or "verbs"
     expected_data_type_qid = data_type_metadata.get(directory_name)
@@ -133,6 +176,5 @@ def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
     return data_type_qid == expected_data_type_qid
 
 
-# Run the check_queries function
-# MARK: TODO: Remove Call
-# check_queries()
+if __name__ == "__main__":
+    check_queries()

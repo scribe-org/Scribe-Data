@@ -12,5 +12,4 @@ WHERE {
   ?lexeme dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb .
-
 }
