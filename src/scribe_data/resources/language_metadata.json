@@ -75,6 +75,10 @@
       }
     }
   },
+  "igbo":{
+    "iso":"ig",
+    "qid": "Q33578"
+  },
   "indonesian": {
     "iso": "id",
     "qid": "Q9240"
@@ -86,6 +90,10 @@
   "japanese": {
     "iso": "ja",
     "qid": "Q5287"
+  },
+  "korean":{
+    "iso":"ko",
+    "qid":"Q9176"
   },
   "kurmanji": {
     "iso": "kmr",

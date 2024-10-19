@@ -31,10 +31,6 @@ def extract_qid_from_sparql(file_path: Path, pattern: str) -> str:
     FileNotFoundError
         If the specified file does not exist.
 
-    Example
-    -------
-        > extract_qid_from_sparql(Path("path/to/query.sparql"), r"\?lexeme dct:language wd:Q\d+")
-        'Q123456'
     """
     try:
         with open(file_path, "r", encoding="utf-8") as file:
@@ -155,5 +151,5 @@ def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
     return data_type_qid == expected_data_type_qid
 
 
-if __name__ == "__main__":
-    check_queries()
+# if __name__ == "__main__":
+check_queries()
