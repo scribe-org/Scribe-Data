@@ -68,7 +68,6 @@ LANGUAGES = {
     "Malay",
     "Punjabi",
     "Tajik",
-    "Dagbani",
     "Igbo",
 }
 

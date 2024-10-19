@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Dagbani (Q32238) adverbs and their forms.
+# All Dagbani (Q32238) adverbs and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -17,60 +17,60 @@ SELECT
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
-          wikibase:lexicalCategory wd:Q380057 ;
-          wikibase:lemma ?adverb .
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?adverb .
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?adverbialForm .
     ?adverbialForm ontolex:representation ?adverbial ;
-    wikibase:grammaticalFeature wd:Q380012 .
+      wikibase:grammaticalFeature wd:Q380012 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-    wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentTenseForm .
     ?presentTenseForm ontolex:representation ?presentTense ;
-    wikibase:grammaticalFeature wd:Q192613 .
+      wikibase:grammaticalFeature wd:Q192613 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?adverbialLocationForm .
     ?adverbialLocationForm ontolex:representation ?adverbialLocation ;
-    wikibase:grammaticalFeature wd:Q5978303 .
+      wikibase:grammaticalFeature wd:Q5978303 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastTenseForm .
     ?pastTenseForm ontolex:representation ?pastTense ;
-    wikibase:grammaticalFeature wd:Q1994301 .
+      wikibase:grammaticalFeature wd:Q1994301 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularForm .
     ?singularForm ontolex:representation ?singular ;
-    wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?adverbOfMannerForm .
     ?adverbOfMannerForm ontolex:representation ?adverbOfManner ;
-    wikibase:grammaticalFeature wd:Q113320444 .
+      wikibase:grammaticalFeature wd:Q113320444 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?phraseForm .
     ?phraseForm ontolex:representation ?phrase ;
-    wikibase:grammaticalFeature wd:Q187931 .
+      wikibase:grammaticalFeature wd:Q187931 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?locativeAdverbForm .
     ?locativeAdverbForm ontolex:representation ?locativeAdverb ;
-    wikibase:grammaticalFeature wd:Q1522423 .
+      wikibase:grammaticalFeature wd:Q1522423 .
   }
 }
