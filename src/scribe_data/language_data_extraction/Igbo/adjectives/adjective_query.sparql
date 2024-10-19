@@ -1,0 +1,216 @@
+# tool: scribe-data
+# Igbo adjective and their corresponding grammatical features.
+# Enter this query at https://query.wikidata.org/
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?singular
+  ?plural
+  ?pastParticiple
+  ?presentParticiple
+  ?presentTense
+  ?gerund
+  ?adjectivalAttribute
+  ?naAdjective
+  ?comparative
+  ?superlative
+  ?numeral
+  ?positive
+  ?demonstrativeAdjective
+  ?abstractNoun
+  ?verb
+  ?synonym
+  ?preposition
+  ?numeralSystem
+  ?adjectiveReduplication
+  ?adjectivePrenomial
+  ?pastTense
+  ?presentContinuous
+  ?noun
+  ?presentTensePastTense
+  ?nominal
+
+WHERE {
+  ?lexeme dct:language wd:Q33578;
+          wikibase:lexicalCategory wd:Q34698;
+          wikibase:lemma ?adjective .
+
+  # MARK: Singular
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  # MARK: Plural
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # MARK: Past Participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
+  }
+
+  # MARK: Present Participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
+    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
+
+  # MARK: Present Tense
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentTenseForm .
+    ?presentTenseForm ontolex:representation ?presentTense ;
+      wikibase:grammaticalFeature wd:Q192613 .
+
+  # MARK: Gerund
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+  }
+
+  # MARK: Adjectival Attribute
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adjectivalAttributeForm .
+    ?adjectivalAttributeForm ontolex:representation ?adjectivalAttribute ;
+      wikibase:grammaticalFeature wd:Q10401368 .
+  }
+
+  # MARK: Na-Adjective
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?naAdjectiveForm .
+    ?naAdjectiveForm ontolex:representation ?naAdjective ;
+      wikibase:grammaticalFeature wd:Q1091269 .
+  }
+
+  # MARK: Comparative
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  # MARK: Superlative
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  # MARK: Numeral
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?numeralForm .
+    ?numeralForm ontolex:representation ?numeral ;
+      wikibase:grammaticalFeature wd:Q63116 .
+  }
+
+  # MARK: Positive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
+  }
+
+  # MARK: Demonstrative Adjective
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?demonstrativeAdjectiveForm .
+    ?demonstrativeAdjectiveForm ontolex:representation ?demonstrativeAdjective ;
+      wikibase:grammaticalFeature wd:Q2824480 .
+  }
+
+  # MARK: Abstract Noun
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?abstractNounForm .
+    ?abstractNounForm ontolex:representation ?abstractNoun ;
+      wikibase:grammaticalFeature wd:Q2712963 .
+  }
+
+  # MARK: Verb
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?verbForm .
+    ?verbForm ontolex:representation ?verb ;
+      wikibase:grammaticalFeature wd:Q24905 .
+  }
+
+  # MARK: Synonym
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?synonymForm .
+    ?synonymForm ontolex:representation ?synonym ;
+      wikibase:grammaticalFeature wd:Q42106 .
+  }
+
+  # MARK: Preposition
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?prepositionForm .
+    ?prepositionForm ontolex:representation ?preposition ;
+      wikibase:grammaticalFeature wd:Q4833830 .
+  }
+
+  # MARK: Numeral System
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?numeralSystemForm .
+    ?numeralSystemForm ontolex:representation ?numeralSystem ;
+      wikibase:grammaticalFeature wd:Q122653 .
+  }
+
+  # MARK: Adjective Reduplication
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adjectiveReduplicationForm .
+    ?adjectiveReduplicationForm ontolex:representation ?adjectiveReduplication ;
+      wikibase:grammaticalFeature wd:Q221446 .
+  }
+
+  # MARK: Prenominal adjective
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adjectivePositiveForm .
+    ?adjectivePositiveForm ontolex:representation ?adjectivePositive ;
+      wikibase:grammaticalFeature wd:Q12259986 .
+  }
+
+  # MARK: Past Tense
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastTenseForm .
+    ?pastTenseForm ontolex:representation ?pastTense ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
+
+  # MARK: Present Continuous
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
+    ?presentContinuousForm ontolex:representation ?presentContinuous ;
+      wikibase:grammaticalFeature wd:Q7240943 .
+  }
+
+  # MARK: Noun
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adjectiveSuperlativeForm .
+    ?adjectiveSuperlativeForm ontolex:representation ?adjectiveSuperlative ;
+      wikibase:grammaticalFeature wd:Q1084 .
+  }
+
+  # MARK: Present Tense and Past Tense
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentTensePastTenseForm .
+    ?presentTensePastTenseForm ontolex:representation ?presentTensePastTense ;
+      wikibase:grammaticalFeature wd:Q192613 ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
+
+  # MARK: Nominal
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adjectiveNaAdjectiveForm .
+    ?adjectiveNaAdjectiveForm ontolex:representation ?adjectiveNaAdjective ;
+      wikibase:grammaticalFeature wd:Q503992 .
+  }
+
+}
+
+}

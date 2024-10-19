@@ -1,0 +1,141 @@
+# tool: scribe-data
+# Igbo nouns and their corresponding grammatical features.
+# Enter this query at https://query.wikidata.org/
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?noun
+  ?presentParticiple
+  ?pastParticiple
+  ?presentTense
+  ?imperative
+  ?pastTense
+  ?adjective
+  ?verbalNoun
+  ?infinitive
+  ?agent
+  ?verbPhrase
+  ?syntax
+  ?phoneme
+  ?phonology
+  ?soundSymbolism
+  ?suffix
+  ?numeralAdjective
+
+WHERE {
+  ?lexeme dct:language wd:Q33578 ;  # Igbo language
+    wikibase:lexicalCategory wd:Q1084 ;  # Lexical category: noun
+    wikibase:lemma ?noun .
+
+  # MARK: Present Participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
+    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
+
+  # MARK: Past Participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
+  }
+
+  # MARK: Present Tense
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentTenseForm .
+    ?presentTenseForm ontolex:representation ?presentTense ;
+      wikibase:grammaticalFeature wd:Q192613 .
+  }
+
+  # MARK: Imperative
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
+  }
+
+  # MARK: Past Tense
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastTenseForm .
+    ?pastTenseForm ontolex:representation ?pastTense ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
+
+  # MARK: Adjective
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adjectiveForm .
+    ?adjectiveForm ontolex:representation ?adjective ;
+      wikibase:grammaticalFeature wd:Q34698 .
+  }
+
+  # MARK: Verbal Noun
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?verbalNounForm .
+    ?verbalNounForm ontolex:representation ?verbalNoun ;
+      wikibase:grammaticalFeature wd:Q7920975 .
+  }
+
+  # MARK: Infinitive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  # MARK: Agent
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?agentForm .
+    ?agentForm ontolex:representation ?agent ;
+      wikibase:grammaticalFeature wd:Q392648 .
+  }
+
+  # MARK: Verb Phrase
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?verbPhraseForm .
+    ?verbPhraseForm ontolex:representation ?verbPhrase ;
+      wikibase:grammaticalFeature wd:Q1778442 .
+  }
+
+  # MARK: Syntax
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?syntaxForm .
+    ?syntaxForm ontolex:representation ?syntax ;
+      wikibase:grammaticalFeature wd:Q37437 .
+  }
+
+  # MARK: Phoneme
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?phonemeForm .
+    ?phonemeForm ontolex:representation ?phoneme ;
+      wikibase:grammaticalFeature wd:Q8183 .
+  }
+
+  # MARK: Phonology
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?phonologyForm .
+    ?phonologyForm ontolex:representation ?phonology ;
+      wikibase:grammaticalFeature wd:Q40998 .
+  }
+
+  # MARK: Sound Symbolism
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?soundSymbolismForm .
+    ?soundSymbolismForm ontolex:representation ?soundSymbolism ;
+      wikibase:grammaticalFeature wd:Q2475268 .
+  }
+
+  # MARK: Suffix
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?suffixForm .
+    ?suffixForm ontolex:representation ?suffix ;
+      wikibase:grammaticalFeature wd:Q102047 .
+  }
+
+  # MARK: Numeral Adjective
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?numeralAdjectiveForm .
+    ?numeralAdjectiveForm ontolex:representation ?numeralAdjective ;
+      wikibase:grammaticalFeature wd:Q55951821.
+  }
+}

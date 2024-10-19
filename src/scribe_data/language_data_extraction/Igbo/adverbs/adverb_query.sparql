@@ -1,0 +1,69 @@
+# tool: scribe-data
+# Igbo adverbs and their corresponding grammatical features.
+# Enter this query at https://query.wikidata.org/
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adverb
+  ?adverbialPhrase
+  ?pastParticiple
+  ?synonym
+  ?adverbial
+  ?determiner
+  ?futureTense
+  ?noun
+WHERE {
+  ?lexeme dct:language wd:Q33578 ;
+          wikibase:lexicalCategory wd:Q380057 ;
+          wikibase:lemma ?adverb .
+
+  # MARK: Adverbial phrases
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adverbialPhraseForm .
+    ?adverbialPhraseForm ontolex:representation ?adverbialPhrase ;
+      wikibase:grammaticalFeature wd:Q3734650 .
+  }
+
+  # MARK: Past participles
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
+  }
+
+  # MARK: Synonyms
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?synonymForm .
+    ?synonymForm ontolex:representation ?synonym ;
+      wikibase:grammaticalFeature wd:Q42106 .
+  }
+
+  # MARK: Adverbials
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adverbialForm .
+    ?adverbialForm ontolex:representation ?adverbial ;
+      wikibase:grammaticalFeature wd:Q380012.
+  }
+
+  # MARK: Determiners
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?determinerForm .
+    ?determinerForm ontolex:representation ?determiner ;
+      wikibase:grammaticalFeature wd:Q576271 .
+  }
+
+  # MARK: Future tense forms
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureTenseForm .
+    ?futureTenseForm ontolex:representation ?futureTense ;
+      wikibase:grammaticalFeature wd:Q501405 .
+  }
+
+  # MARK: Nouns
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nounForm .
+    ?nounForm ontolex:representation ?noun ;
+      wikibase:grammaticalFeature wd:Q1084 .
+  }
+
+}

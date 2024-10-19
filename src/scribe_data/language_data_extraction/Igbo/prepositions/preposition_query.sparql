@@ -1,0 +1,28 @@
+# tool: scribe-data
+# Igbo preposition and their corresponding grammatical features.
+# Enter this query at https://query.wikidata.org/
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?preposition
+  ?synonym
+  ?contraction
+WHERE {
+  ?lexeme dct:language wd:Q33578 ;
+          wikibase:lexicalCategory wd:Q4833830 ;
+          wikibase:lemma ?preposition .
+
+  # MARK: Synonym
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?synonymForm .
+    ?synonymForm ontolex:representation ?synonym ;
+      wikibase:grammaticalFeature wd:Q42106.
+  }
+
+  # MARK: Contraction
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?contractionForm .
+    ?contractionForm ontolex:representation ?contraction ;
+      wikibase:grammaticalFeature wd:Q126473 .
+  }
+ }
