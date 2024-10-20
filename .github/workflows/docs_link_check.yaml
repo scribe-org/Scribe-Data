@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r docs/requirements.txt  
+          pip install -r docs/requirements.txt   #installing the required packages from repo docs/requirements.txt
           echo "Dependencies installed."
 
       # Run Sphinx linkcheck to check for broken URLs
@@ -35,7 +35,7 @@ jobs:
         run: |
           cd docs
           sphinx-build -b linkcheck source _build/linkcheck || true # link from source docs to be checked
-          grep "broken" _build/linkcheck/output.txt > broken_links.txt
+          grep "broken" _build/linkcheck/output.txt > broken_links.txt   #output of broken links to broken_links.txt from _builds/linkcheck/output.txt
           if [ -s broken_links.txt ]; then
             echo "Broken links found:"
             cat broken_links.txt
@@ -43,14 +43,4 @@ jobs:
             echo "No broken links found."
           fi
 
-      # Display linkcheck results and fail on broken links
-      #- name: Display linkcheck results
-      #  run: |
-      #   cat _build/linkcheck/output.txt
-          # Check if the output contains "broken" & list the broken links
-      #    if grep -q "broken" _build/linkcheck/output.txt; then
-      #      echo "Broken links detected!"
-      #      exit 1           # Fail the job if broken links are found
-      #    else
-      #      echo "No broken links found."      
-      #    fi
+      
