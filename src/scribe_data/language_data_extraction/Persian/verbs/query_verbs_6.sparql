@@ -1,0 +1,61 @@
+# tool: scribe-data
+# All Persian (Q9168) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
+  ?indicative1PS
+  ?indicative2PS
+  ?indicative3PS
+  ?indicative1PP
+  ?indicative2PP
+  ?indicative3PP
+
+
+WHERE {
+  ?lexeme dct:language wd:Q9168 ;
+    wikibase:lexicalCategory wd:Q24905 .
+
+  #MARK: infinitive
+  ?lexeme ontolex:lexicalForm ?infinitiveForm .
+  ?infinitiveForm ontolex:representation ?infinitive ;
+    wikibase:grammaticalFeature wd:Q179230 .
+
+  # MARK: Indicative
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicative1PSForm .
+    ?indicative1PSForm ontolex:representation ?indicative1PS ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q682111 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicative2PSForm .
+    ?indicative2PSForm ontolex:representation ?indicative2PS ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q682111 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicative3PSForm .
+    ?indicative3PSForm ontolex:representation ?indicative3PS ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q682111 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicative1PPForm .
+    ?indicative1PPForm ontolex:representation ?indicative1PP ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q682111 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicative2PPForm .
+    ?indicative2PPForm ontolex:representation ?indicative2PP ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q682111 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicative3PPForm .
+    ?indicative3PPForm ontolex:representation ?indicative3PP ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q682111 .
+  }
+}

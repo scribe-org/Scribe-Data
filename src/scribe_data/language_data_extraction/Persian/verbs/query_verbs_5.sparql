@@ -1,0 +1,61 @@
+# tool: scribe-data
+# All Persian (Q9168) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
+  ?firstPersonSingSubjunctive
+  ?secondPersonSingSubjunctive
+  ?thirdPersonSingSubjunctive
+  ?firstPersonPluralSubjunctive
+  ?secondPersonPluralSubjunctive
+  ?thirdPersonPluralSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q9168;
+          wikibase:lexicalCategory wd:Q24905;
+          wikibase:lemma ?infinitiveForm.
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveLexForm.
+    ?infinitiveLexForm ontolex:representation ?infinitive;
+      wikibase:grammaticalFeature wd:Q179230.
+  }
+    #MARK: subjunctive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonSingSubjunctiveForm.
+    ?firstPersonSingSubjunctiveForm ontolex:representation ?firstPersonSingSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746 , wd:Q21714344 , wd:Q110786.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?secondPersonSingSubjunctiveForm.
+    ?secondPersonSingSubjunctiveForm ontolex:representation ?secondPersonSingSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746 , wd:Q51929049 , wd:Q110786.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonSingSubjunctiveForm.
+    ?thirdPersonSingSubjunctiveForm ontolex:representation ?thirdPersonSingSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746 , wd:Q51929074 , wd:Q110786.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonPluralSubjunctiveForm.
+    ?firstPersonPluralSubjunctiveForm ontolex:representation ?firstPersonPluralSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746 , wd:Q21714344 , wd:Q146786.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?secondPersonPluralSubjunctiveForm.
+    ?secondPersonPluralSubjunctiveForm ontolex:representation ?secondPersonPluralSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746 , wd:Q51929049 , wd:Q146786.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonPluralSubjunctiveForm.
+    ?thirdPersonPluralSubjunctiveForm ontolex:representation ?thirdPersonPluralSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746 , wd:Q51929074 , wd:Q146786.
+  }
+}

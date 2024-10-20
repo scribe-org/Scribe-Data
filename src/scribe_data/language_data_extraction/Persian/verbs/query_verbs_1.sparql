@@ -1,0 +1,44 @@
+# tool: scribe-data
+# All Persian (Q9168) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
+  ?aorist
+  ?participle
+  ?wordStem
+
+WHERE {
+  ?lexeme dct:language wd:Q9168;
+          wikibase:lexicalCategory wd:Q24905;
+          wikibase:lemma ?infinitiveForm.
+
+      #MARK: infinitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveLexForm.
+    ?infinitiveLexForm ontolex:representation ?infinitive;
+      wikibase:grammaticalFeature wd:Q179230.
+  }
+       #MARK: aorist
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?aoristForm.
+    ?aoristForm ontolex:representation ?aorist;
+      wikibase:grammaticalFeature wd:Q216497.
+  }
+       #MARK: participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participleForm.
+    ?participleForm ontolex:representation ?participle;
+      wikibase:grammaticalFeature wd:Q814722.
+      FILTER(lang(?participle) = "fa") .
+  }
+       #MARK: wordStem
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?wordStemForm.
+    ?wordStemForm ontolex:representation ?wordStem;
+      wikibase:grammaticalFeature wd:Q210523.
+      FILTER(lang(?wordStem) = "fa") .
+  }
+}

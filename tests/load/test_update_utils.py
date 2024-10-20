@@ -159,6 +159,7 @@ def test_list_all_languages():
         "mandarin",
         "nigerian",
         "nynorsk",
+        "persian",
         "polish",
         "portuguese",
         "russian",
