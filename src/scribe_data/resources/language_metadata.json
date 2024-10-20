@@ -119,6 +119,10 @@
     "iso": "ml",
     "qid": "Q36236"
   },
+  "Northern Sami": {
+    "iso": "se",
+    "qid": "Q33947"
+  },
   "norwegian": {
     "sub_languages": {
       "bokmål": {
