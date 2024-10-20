@@ -34,17 +34,25 @@ jobs:
       - name: Run Sphinx linkcheck
         run: |
           cd docs
-          sphinx-build -b linkcheck source _build/linkcheck || true # link from source docs to be checked
-          cat _build/linkcheck/output.txt  # Display the full output of the linkcheck
-          grep "broken" _build/linkcheck/output.txt > broken_links.txt  # Search for 'broken' links in the output
-
-      # Separate step to check for broken links
-      - name: Check for broken links
-        run: |
-          if [ -s broken_links.txt ]; then  # If broken_links.txt is not empty (contains broken links)
+          sphinx-build -b linkcheck source _build/linkcheck > broken_links.txt || true # link from source docs to be checked
+          grep "broken" _build/linkcheck/output.txt > broken_links.txt
+          if [ -s broken_links.txt ]; then
             echo "Broken links found:"
-            cat broken_links.txt  # Display the broken links
-            exit 1  # Fail the workflow
+            cat broken_links.txt
+            exit 1
           else
-            echo "No broken links found."  # No broken links, proceed
+            echo "No broken links found."
           fi
+
+
+      # Display linkcheck results and fail on broken links
+      #- name: Display linkcheck results
+      #  run: |
+      #   cat _build/linkcheck/output.txt
+          # Check if the output contains "broken" & list the broken links
+      #    if grep -q "broken" _build/linkcheck/output.txt; then
+      #      echo "Broken links detected!"
+      #      exit 1           # Fail the job if broken links are found
+      #    else
+      #      echo "No broken links found."      
+      #    fi
