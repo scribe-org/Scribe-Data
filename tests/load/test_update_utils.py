@@ -162,6 +162,7 @@ def test_list_all_languages():
         "malayalam",
         "mandarin",
         "nigerian",
+        "northern sami",
         "nynorsk",
         "polish",
         "portuguese",
