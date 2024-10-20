@@ -31,16 +31,17 @@ SELECT
   ?prepositionalPlural
   ?inanimateAccusativeSingular
   ?inanimateAccusativePlural
-  ?masculineShortFormSingular
-  ?neuterShortFormSingular
-  ?feminineShortFormSingular
-  ?ShortFormplural
+  ?masculineShortSingular
+  ?neuterShortSingular
+  ?feminineShortSingular
+  ?pluralShort
+
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
 
-  # MARK: Nominative Forms
+  # MARK: Nominative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineNominativeSingularForm .
@@ -66,7 +67,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
-  # MARK: Genitive Forms
+  # MARK: Genitive
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineGenitiveSingularForm .
@@ -92,7 +93,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
-  # MARK: Dative Forms
+  # MARK: Dative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineDativeSingularForm .
@@ -118,7 +119,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
   }
 
-  # MARK: Accusative Forms
+  # MARK: Accusative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineAnimateAccusativeSingularForm .
@@ -156,7 +157,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51927539, wd:Q146078, wd:Q146786 .
   }
 
-  # MARK: Instrumental Forms
+  # MARK: Instrumental
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineInstrumentalSingularForm .
@@ -182,7 +183,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q192997, wd:Q146786 .
   }
 
-  # MARK: Prepositional Forms
+  # MARK: Prepositional
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculinePrepositionalSingularForm .
@@ -207,29 +208,30 @@ WHERE {
     ?prepositionalPluralForm ontolex:representation ?prepositionalPlural ;
       wikibase:grammaticalFeature wd:Q2114906, wd:Q146786  .
   }
-  # MARK: Short Form
+
+  # MARK: Short
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineShortFormSingularForm .
-    ?masculineShortFormSingularForm ontolex:representation ?masculineShortFormSingular ;
+    ?lexeme ontolex:lexicalForm ?masculineShortSingularForm .
+    ?masculineShortSingularForm ontolex:representation ?masculineShortSingular ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q4239848, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterShortFormSingularForm .
-    ?neuterShortFormSingularForm ontolex:representation ?neuterShortFormSingular ;
+    ?lexeme ontolex:lexicalForm ?neuterShortSingularForm .
+    ?neuterShortSingularForm ontolex:representation ?neuterShortSingular ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q4239848, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineShortFormSingularForm .
-    ?feminineShortFormSingularForm ontolex:representation ?feminineShortFormSingular ;
+    ?lexeme ontolex:lexicalForm ?feminineShortSingularForm .
+    ?feminineShortSingularForm ontolex:representation ?feminineShortSingular ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q4239848, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ShortFormpluralForm .
-    ?ShortFormpluralForm ontolex:representation ?ShortFormplural ;
+    ?lexeme ontolex:lexicalForm ?pluralShortForm .
+    ?pluralShortForm ontolex:representation ?pluralShort ;
       wikibase:grammaticalFeature wd:Q4239848, wd:Q146786 .
   }
 }
