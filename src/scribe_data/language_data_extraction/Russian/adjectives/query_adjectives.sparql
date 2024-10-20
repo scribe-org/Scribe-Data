@@ -1,0 +1,97 @@
+# tool: scribe-data
+# All Russian (Q7737) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?masculineNominativeSingular
+  ?neuterNominativeSingular
+  ?feminineNominativeSingular
+  ?nominativePlural
+  ?genitivePlural
+  ?dativePlural
+  ?animateAccusativePlural
+  ?inanimateAccusativePlural
+  ?femininePrepositionalSingular
+  ?prepositionalPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q7737 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  # MARK: Nominative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineNominativeSingularForm .
+    ?masculineNominativeSingularForm ontolex:representation ?masculineNominativeSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q131105, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterNominativeSingularForm .
+    ?neuterNominativeSingularForm ontolex:representation ?neuterNominativeSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q131105, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineNominativeSingularForm .
+    ?feminineNominativeSingularForm ontolex:representation ?feminineNominativeSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q131105, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  }
+
+  # MARK: Genitive, Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+  }
+
+  # MARK: Dative Case, Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
+  }
+
+  # MARK: Animate, Accusative, Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?animateAccusativePluralForm .
+    ?animateAccusativePluralForm ontolex:representation ?animateAccusativePlural ;
+      wikibase:grammaticalFeature wd:Q51927507, wd:Q146078, wd:Q146786 .
+  }
+
+  # MARK: Inanimate, Accusative, Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inanimateAccusativePluralForm .
+    ?inanimateAccusativePluralForm ontolex:representation ?inanimateAccusativePlural ;
+      wikibase:grammaticalFeature wd:Q51927539, wd:Q146078, wd:Q146786 .
+  }
+
+  # MARK: Prepositional, Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePrepositionalSingularForm .
+    ?femininePrepositionalSingularForm ontolex:representation ?femininePrepositionalSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q2114906, wd:Q110786 .
+  }
+
+  # MARK: Prepositional, Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?prepositionalPluralForm .
+    ?prepositionalPluralForm ontolex:representation ?prepositionalPlural ;
+      wikibase:grammaticalFeature wd:Q2114906, wd:Q146786 .
+  }
+}
