@@ -20,7 +20,7 @@ SELECT DISTINCT
   ?vocativePlural
 
 WHERE {
-  ?lexeme dct:language wd:Q9078 ;
+  ?lexeme dct:language wd:Q33947 ;
     wikibase:lexicalCategory wd:Q1084 .
 
   # MARK: Nominative
