@@ -4,10 +4,10 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?verb
+  ?adverb
 
 WHERE {
   ?lexeme dct:language wd:Q33947 ;
     wikibase:lexicalCategory wd:Q380057 ;
-    wikibase:lemma ?verb .
+    wikibase:lemma ?adverb .
 }
