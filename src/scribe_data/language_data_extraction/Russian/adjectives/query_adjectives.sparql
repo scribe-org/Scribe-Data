@@ -9,19 +9,34 @@ SELECT
   ?neuterNominativeSingular
   ?feminineNominativeSingular
   ?nominativePlural
+  ?masculineGenitiveSingular
+  ?neuterGenitiveSingular
+  ?feminineGenitiveSingular
   ?genitivePlural
+  ?masculineDativeSingular
+  ?neuterDativeSingular
+  ?feminineDativeSingular
   ?dativePlural
+  ?masculineAnimateAccusativeSingular
+  ?neuterAnimateAccusativeSingular
+  ?feminineAnimateAccusativeSingular
   ?animateAccusativePlural
-  ?inanimateAccusativePlural
+  ?masculineInstrumentalSingular
+  ?neuterInstrumentalSingular
+  ?feminineInstrumentalSingular
+  ?instrumentalPlural
+  ?masculinePrepositionalSingular
+  ?neuterPrepositionalSingular
   ?femininePrepositionalSingular
   ?prepositionalPlural
-
+  ?inanimateAccusativeSingular
+  ?inanimateAccusativePlural
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
 
-  # MARK: Nominative
+  # MARK: Nominative Forms
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineNominativeSingularForm .
@@ -47,7 +62,25 @@ WHERE {
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
-  # MARK: Genitive, Plural
+  # MARK: Genitive Forms
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineGenitiveSingularForm .
+    ?masculineGenitiveSingularForm ontolex:representation ?masculineGenitiveSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterGenitiveSingularForm .
+    ?neuterGenitiveSingularForm ontolex:representation ?neuterGenitiveSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineGenitiveSingularForm .
+    ?feminineGenitiveSingularForm ontolex:representation ?feminineGenitiveSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146233, wd:Q110786 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitivePluralForm .
@@ -55,7 +88,25 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
-  # MARK: Dative Case, Plural
+  # MARK: Dative Forms
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineDativeSingularForm .
+    ?masculineDativeSingularForm ontolex:representation ?masculineDativeSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q145599, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterDativeSingularForm .
+    ?neuterDativeSingularForm ontolex:representation ?neuterDativeSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q145599, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineDativeSingularForm .
+    ?feminineDativeSingularForm ontolex:representation ?feminineDativeSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q145599, wd:Q110786 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?dativePluralForm .
@@ -63,7 +114,25 @@ WHERE {
       wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
   }
 
-  # MARK: Animate, Accusative, Plural
+  # MARK: Accusative Forms
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineAnimateAccusativeSingularForm .
+    ?masculineAnimateAccusativeSingularForm ontolex:representation ?masculineAnimateAccusativeSingular ;
+      wikibase:grammaticalFeature wd:Q499327,wd:Q51927507, wd:Q146078, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterAnimateAccusativeSingularForm .
+    ?neuterAnimateAccusativeSingularForm ontolex:representation ?neuterAnimateAccusativeSingular ;
+      wikibase:grammaticalFeature wd:Q1775461,wd:Q51927507, wd:Q146078, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineAnimateAccusativeSingularForm .
+    ?feminineAnimateAccusativeSingularForm ontolex:representation ?feminineAnimateAccusativeSingular ;
+      wikibase:grammaticalFeature wd:Q1775415,wd:Q51927507 ,wd:Q146078, wd:Q110786 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?animateAccusativePluralForm .
@@ -71,7 +140,11 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51927507, wd:Q146078, wd:Q146786 .
   }
 
-  # MARK: Inanimate, Accusative, Plural
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inanimateAccusativeSingularForm .
+    ?inanimateAccusativeSingularForm ontolex:representation ?inanimateAccusativeSingular ;
+      wikibase:grammaticalFeature wd:Q51927539, wd:Q146078, wd:Q110786 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?inanimateAccusativePluralForm .
@@ -79,19 +152,55 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51927539, wd:Q146078, wd:Q146786 .
   }
 
-  # MARK: Prepositional, Singular
+  # MARK: Instrumental Forms
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineInstrumentalSingularForm .
+    ?masculineInstrumentalSingularForm ontolex:representation ?masculineInstrumentalSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q192997, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterInstrumentalSingularForm .
+    ?neuterInstrumentalSingularForm ontolex:representation ?neuterInstrumentalSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q192997, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineInstrumentalSingularForm .
+    ?feminineInstrumentalSingularForm ontolex:representation ?feminineInstrumentalSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q192997, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalPluralForm .
+    ?instrumentalPluralForm ontolex:representation ?instrumentalPlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q146786 .
+  }
+
+  # MARK: Prepositional Forms
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePrepositionalSingularForm .
+    ?masculinePrepositionalSingularForm ontolex:representation ?masculinePrepositionalSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q2114906, wd:Q110786  .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterPrepositionalSingularForm .
+    ?neuterPrepositionalSingularForm ontolex:representation ?neuterPrepositionalSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q2114906, wd:Q110786  .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePrepositionalSingularForm .
     ?femininePrepositionalSingularForm ontolex:representation ?femininePrepositionalSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q2114906, wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q2114906, wd:Q110786  .
   }
-
-  # MARK: Prepositional, Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?prepositionalPluralForm .
     ?prepositionalPluralForm ontolex:representation ?prepositionalPlural ;
-      wikibase:grammaticalFeature wd:Q2114906, wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q2114906, wd:Q146786  .
   }
 }
