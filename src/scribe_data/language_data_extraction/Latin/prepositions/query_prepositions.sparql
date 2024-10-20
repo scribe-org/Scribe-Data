@@ -5,8 +5,28 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?preposition
+  ?accusative
+  ?ablative
+
 WHERE {
   ?lexeme dct:language wd:Q397 ;
-          wikibase:lexicalCategory wd:Q4833830 ;
-          wikibase:lemma ?preposition .             # Retrieve the lemma (base form) of the preposition
+    wikibase:lexicalCategory wd:Q4833830 ;
+    wikibase:lemma ?preposition .
+
+
+  # MARK: Accusative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
+  }
+
+  # MARK: Ablative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeForm .
+    ?ablativeForm ontolex:representation ?ablative ;
+      wikibase:grammaticalFeature wd:Q156986 .
+  }
 }
