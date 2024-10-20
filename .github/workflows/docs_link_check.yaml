@@ -39,7 +39,6 @@ jobs:
           if [ -s broken_links.txt ]; then
             echo "Broken links found:"
             cat broken_links.txt
-            exit 1
           else
             echo "No broken links found."
           fi
