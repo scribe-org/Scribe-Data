@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Slovak (Q9058) nouns, their plurals and the given forms.s for the given cases.
+# All Slovak (Q9058) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -19,7 +19,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?nomPluralForm .
     ?nomPluralForm ontolex:representation ?nomPlural ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
-  } 
+  }
 
   # MARK: Gender(s)
 

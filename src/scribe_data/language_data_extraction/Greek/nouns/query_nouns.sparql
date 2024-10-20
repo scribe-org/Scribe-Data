@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Greek (Q36510) nouns and the given forms.
+# All Greek (Q36510) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -19,7 +19,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
-  } 
+  }
 
   # MARK: Gender(s)
 
@@ -28,7 +28,7 @@ WHERE {
     FILTER NOT EXISTS {
       ?lexeme wdt:P31 wd:Q202444 .
     }
-  } 
+  }
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

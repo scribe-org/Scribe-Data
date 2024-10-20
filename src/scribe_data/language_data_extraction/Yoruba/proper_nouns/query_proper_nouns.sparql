@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Yoruba (Q34311) nouns and the given forms.
+# All Yoruba (Q34311) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
