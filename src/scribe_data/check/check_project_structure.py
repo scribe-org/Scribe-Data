@@ -25,81 +25,21 @@ Example
 """
 
 import os
-from pathlib import Path
+
+from scribe_data.cli.cli_utils import (
+    LANGUAGE_DATA_EXTRACTION_DIR,
+    data_type_metadata,
+    language_metadata,
+)
 
 # Expected languages and data types.
-LANGUAGES = {
-    "Arabic",
-    "English",
-    "Greek",
-    "Italian",
-    "Malayalam",
-    "Russian",
-    "Tamil",
-    "Basque",
-    "Esperanto",
-    "Hausa",
-    "Japanese",
-    "Norwegian",
-    "Slovak",
-    "Dagbani",
-    "Ukrainian",
-    "Bengali",
-    "Estonian",
-    "Hebrew",
-    "Korean",
-    "Pidgin",
-    "Spanish",
-    "Yoruba",
-    "Chinese",
-    "Finnish",
-    "Hindustani",
-    "Kurmanji",
-    "Polish",
-    "Swahili",
-    "Czech",
-    "French",
-    "Indonesian",
-    "Latin",
-    "Latvian",
-    "Portuguese",
-    "Swedish",
-    "Danish",
-    "German",
-    "Malay",
-    "Punjabi",
-    "Tajik",
-    "Igbo",
-}
-
-DATA_TYPES = {
-    "adjectives",
-    "adverbs",
-    "articles",
-    "autosuggestions",
-    "conjunctions",
-    "emoji_keywords",
-    "nouns",
-    "personal_pronouns",
-    "postpositions",
-    "prepositions",
-    "pronouns",
-    "proper_nouns",
-    "verbs",
-}
-
-# Sub-subdirectories expected for specific languages.
+LANGUAGES = [lang.capitalize() for lang in language_metadata.keys()]
+DATA_TYPES = data_type_metadata.keys()
 SUB_DIRECTORIES = {
-    "Chinese": ["Mandarin"],
-    "Hindustani": ["Urdu", "Hindi"],
-    "Norwegian": ["Nynorsk", "Bokmål"],
-    "Pidgin": ["Nigerian"],
-    "Punjabi": ["Shahmukhi", "Gurmukhi"],
+    k.capitalize(): [lang.capitalize() for lang in v["sub_languages"].keys()]
+    for k, v in language_metadata.items()
+    if len(v.keys()) == 1 and "sub_languages" in v.keys()
 }
-
-
-# Base directory path.
-BASE_DIR = Path(__file__).parent.parent / "language_data_extraction"
 
 
 def check_for_sparql_files(folder_path, data_type, language, subdir, missing_queries):
@@ -215,19 +155,21 @@ def validate_project_structure():
     missing_folders = []
     missing_queries = []
 
-    if not os.path.exists(BASE_DIR):
-        print(f"Error: Base directory '{BASE_DIR}' does not exist.")
+    if not os.path.exists(LANGUAGE_DATA_EXTRACTION_DIR):
+        print(f"Error: Base directory '{LANGUAGE_DATA_EXTRACTION_DIR}' does not exist.")
         exit(1)
 
-    # Check for unexpected files in BASE_DIR.
-    for item in os.listdir(BASE_DIR):
-        item_path = os.path.join(BASE_DIR, item)
+    # Check for unexpected files in LANGUAGE_DATA_EXTRACTION_DIR.
+    for item in os.listdir(LANGUAGE_DATA_EXTRACTION_DIR):
+        item_path = os.path.join(LANGUAGE_DATA_EXTRACTION_DIR, item)
         if os.path.isfile(item_path) and item != "__init__.py":
-            errors.append(f"Unexpected file found in BASE_DIR: {item}")
+            errors.append(
+                f"Unexpected file found in the 'language_data_extraction' files: {item}"
+            )
 
     # Iterate through the language directories.
-    for language in os.listdir(BASE_DIR):
-        language_path = os.path.join(BASE_DIR, language)
+    for language in os.listdir(LANGUAGE_DATA_EXTRACTION_DIR):
+        language_path = os.path.join(LANGUAGE_DATA_EXTRACTION_DIR, language)
 
         if not os.path.isdir(language_path) or language == "__init__.py":
             continue
