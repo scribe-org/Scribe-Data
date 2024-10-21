@@ -1,0 +1,18 @@
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?pronoun ?noun
+WHERE {
+  ?lexeme dct:language wd:Q9176 ;  # Ukrainian language
+          wikibase:lemma ?lemma ;
+          wikibase:lexicalCategory ?category .
+
+  # Separate pronouns and nouns into different columns
+  OPTIONAL {
+    ?lexeme wikibase:lexicalCategory wd:Q1084 ;  # Pronoun category
+            wikibase:lemma ?noun.
+  }
+  OPTIONAL {
+    ?lexeme wikibase:lexicalCategory wd:Q36224 ;  # Noun category
+            wikibase:lemma ?pronoun .
+  }
+}
