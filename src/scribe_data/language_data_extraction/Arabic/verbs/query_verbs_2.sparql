@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Arabic (Q13955) verbs and the given forms.
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -20,65 +20,65 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastFPSForm .
     ?pastFPSForm ontolex:representation ?pastFPS ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q1317831, wd:Q124351233 .
-  } 
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastSPSMForm .
     ?pastSPSMForm ontolex:representation ?pastSPSM ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q499327, wd:Q1317831, wd:Q124351233 .
-  } 
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastSPSFForm .
     ?pastSPSFForm ontolex:representation ?pastSPSF ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q1775415, wd:Q1317831, wd:Q124351233 .
-  } 
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastTPSMForm .
     ?pastTPSMForm ontolex:representation ?pastTPSM ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q499327, wd:Q1317831, wd:Q124351233 .
-  } 
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastTPSFForm .
     ?pastTPSFForm ontolex:representation ?pastTPSF ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q1775415, wd:Q1317831, wd:Q124351233 .
-  } 
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastSPDForm .
     ?pastSPDForm ontolex:representation ?pastSPD ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110022, wd:Q1317831, wd:Q124351233 .
-  } 
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastTPDMForm .
     ?pastTPDMForm ontolex:representation ?pastTPDM ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q499327, wd:Q1317831, wd:Q124351233 .
-  } 
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastTPDFForm .
     ?pastTPDFForm ontolex:representation ?pastTPDF ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q1775415, wd:Q1317831, wd:Q124351233 .
-  } 
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastFPPForm .
     ?pastFPPForm ontolex:representation ?pastFPP ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q1317831, wd:Q124351233 .
-  } 
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastSPPMForm .
     ?pastSPPMForm ontolex:representation ?pastSPPM ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q499327, wd:Q1317831, wd:Q124351233 .
-  } 
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastSPPFForm .
     ?pastSPPFForm ontolex:representation ?pastSPPF ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q1775415, wd:Q1317831, wd:Q124351233 .
-  } 
+  }
 }
