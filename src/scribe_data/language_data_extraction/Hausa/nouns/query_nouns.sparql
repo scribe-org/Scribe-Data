@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Hausa (Q56475) nouns and the given forms.
+# All Hausa (Q56475) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -21,9 +21,9 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(lang(?plural) = "ha") .
+      FILTER(lang(?plural) = "ha")
       # FILTER(lang(?plural) = "ha-arabic")
-  } 
+  }
 
   # MARK: Gender(s)
 

@@ -1,11 +1,11 @@
 # tool: scribe-data
-# All Estonian (Q9072) nouns and the given forms.
+# All Estonian (Q9072) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?singular
-  ?plural
+  ?nominativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
@@ -15,8 +15,8 @@ WHERE {
   # MARK: Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
-  } 
+  }
 }
