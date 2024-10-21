@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Hebrew (Q9288) verbs and the given forms.
+# All Hebrew (Q9288) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -19,7 +19,7 @@ WHERE {
     ?impSPSMForm ontolex:representation ?impSPSM ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q22716, wd:Q1775415 .
       FILTER(lang(?impSPSM) = "he") .
-  } 
+  }
 
   # TPS Masculine
   OPTIONAL {
@@ -27,7 +27,7 @@ WHERE {
     ?impSPSMForm ontolex:representation ?impSPSM ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q22716, wd:Q1775415 .
       FILTER(lang(?impSPSM) = "he") .
-  } 
+  }
 
   # TPP Feminine
   OPTIONAL {
@@ -35,7 +35,7 @@ WHERE {
     ?impSPPFForm ontolex:representation ?impSPPF ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q22716, wd:Q1775415 .
       FILTER(lang(?impSPPF) = "he") .
-  } 
+  }
 
   # TPP Masculine
   OPTIONAL {
