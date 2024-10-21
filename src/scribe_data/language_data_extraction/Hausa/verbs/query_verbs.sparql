@@ -1,15 +1,70 @@
 # tool: scribe-data
-# All Hausa (Q56475) verbs and the given forms.
+# All Hausa (Q56475) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?verb
+  ?infinitive
+  ?pastSimple
+  ?presentContinuous
+  ?futureTense
+  ?imperativeSingular
+  ?imperativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q56475 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
-    FILTER(lang(?verb) = "ha")
-    # FILTER(lang(?verb) = "ha-arabic")
+    wikibase:lemma ?infinitive .
+  FILTER(lang(?infinitive) = "ha")
+  # FILTER(lang(?infinitive) = "ha-arabic")
+
+  # MARK: Past Simple
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastSimpleForm .
+    ?pastSimpleForm ontolex:representation ?pastSimple ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q1240211 .
+    FILTER(lang(?pastSimple) = "ha")
+    # FILTER(lang(?pastSimple) = "ha-arabic")
+  }
+
+  # MARK: Present Continuous
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
+    ?presentContinuousForm ontolex:representation ?presentContinuous ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1423695 .
+    FILTER(lang(?presentContinuous) = "ha")
+    # FILTER(lang(?presentContinuous) = "ha-arabic")
+  }
+
+  # MARK: Future Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureTenseForm .
+    ?futureTenseForm ontolex:representation ?futureTense ;
+      wikibase:grammaticalFeature wd:Q618612 .
+    FILTER(lang(?futureTense) = "ha")
+    # FILTER(lang(?futureTense) = "ha-arabic")
+  }
+
+  # MARK: Imperative Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeSingularForm .
+    ?imperativeSingularForm ontolex:representation ?imperativeSingular ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q110786 .
+    FILTER(lang(?imperativeSingular) = "ha")
+    # FILTER(lang(?imperativeSingular) = "ha-arabic")
+  }
+
+  # MARK: Imperative Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativePluralForm .
+    ?imperativePluralForm ontolex:representation ?imperativePlural ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q146786 .
+    FILTER(lang(?imperativePlural) = "ha")
+    # FILTER(lang(?imperativePlural) = "ha-arabic")
+  }
 }

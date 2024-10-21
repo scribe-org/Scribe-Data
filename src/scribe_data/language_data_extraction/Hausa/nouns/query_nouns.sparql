@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Hausa (Q56475) nouns and the given forms.
+# All Hausa (Q56475) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -7,13 +7,15 @@ SELECT
   ?singular
   ?plural
   ?gender
+  ?definite
+  ?indefinite
 
 WHERE {
   ?lexeme dct:language wd:Q56475 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?singular .
-    FILTER(lang(?singular) = "ha")
-    # FILTER(lang(?singular) = "ha-arabic")
+  FILTER(lang(?singular) = "ha")
+  # FILTER(lang(?singular) = "ha-arabic")
 
   # MARK: Plural
 
@@ -21,14 +23,34 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(lang(?plural) = "ha") .
-      # FILTER(lang(?plural) = "ha-arabic")
-  } 
+    FILTER(lang(?plural) = "ha")
+    # FILTER(lang(?plural) = "ha-arabic")
+  }
 
   # MARK: Gender(s)
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
+  }
+
+  # MARK: Definite form
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?definiteForm .
+    ?definiteForm ontolex:representation ?definite ;
+      wikibase:grammaticalFeature wd:Q53997851 .
+    FILTER(lang(?definite) = "ha")
+    # FILTER(lang(?definite) = "ha-arabic")
+  }
+
+  # MARK: Indefinite form
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indefiniteForm .
+    ?indefiniteForm ontolex:representation ?indefinite ;
+      wikibase:grammaticalFeature wd:Q53997857 .
+    FILTER(lang(?indefinite) = "ha")
+    # FILTER(lang(?indefinite) = "ha-arabic")
   }
 
   SERVICE wikibase:label {
