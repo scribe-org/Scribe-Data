@@ -28,15 +28,14 @@ from pathlib import Path
 DATA_TYPE = "emoji-keywords"
 EMOJI_KEYWORDS_DICT = 3
 
-SUPPORTED_LANGUAGE_FILE =  Path(__file__).parent/"supported_languages.json"
+SUPPORTED_LANGUAGE_FILE = Path(__file__).parent / "supported_languages.json"
 
 def generate_emoji(language, output_dir: str = None):
     print(f"Got the language {language} for emoji generation")
-    
+
     # check if this language is supported
-    with open(SUPPORTED_LANGUAGE_FILE, 'r', encoding='utf-8') as file:
+    with open(SUPPORTED_LANGUAGE_FILE, "r", encoding="utf-8") as file:
         languages = json.load(file)
-    
     # Check if the language code exists in the dictionary
     for code, name in languages.items():
         if name == language:
@@ -51,14 +50,12 @@ def generate_emoji(language, output_dir: str = None):
     export_dir.mkdir(parents=True, exist_ok=True)
 
     if emoji_keywords_dict := gen_emoji_lexicon(
-    language=language,
-    emojis_per_keyword=EMOJI_KEYWORDS_DICT,
-    ): export_formatted_data(
-        file_path=output_dir,
-        formatted_data=emoji_keywords_dict,
-        query_data_in_use=True,
         language=language,
-        data_type=DATA_TYPE,
-    )
-
-    
+        emojis_per_keyword=EMOJI_KEYWORDS_DICT,
+    ):export_formatted_data(
+            file_path=output_dir,
+            formatted_data=emoji_keywords_dict,
+            query_data_in_use=True,
+            language=language,
+            data_type=DATA_TYPE,
+        )
