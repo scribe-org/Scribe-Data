@@ -1,0 +1,54 @@
+ # tool: scribe-data
+# All Persian (Q9168) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
+  ?presentTenseParticiple
+  ?pastTenseParticiple
+  ?presentTenseWordStem
+  ?pastTenseWordStem
+
+WHERE {
+  ?lexeme dct:language wd:Q9168;
+          wikibase:lexicalCategory wd:Q24905;
+          wikibase:lemma ?infinitiveForm.
+
+  #MARK: infinitive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveLexForm.
+    ?infinitiveLexForm ontolex:representation ?infinitive;
+      wikibase:grammaticalFeature wd:Q179230.
+  }
+
+  #MARK: present tense and past participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentParticipleForm.
+    ?presentParticipleForm ontolex:representation ?presentTenseParticiple;
+      wikibase:grammaticalFeature wd:Q192613 , wd:Q814722.
+    FILTER(lang(?presentTenseParticiple) = "fa").
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm.
+    ?pastParticipleForm ontolex:representation ?pastTenseParticiple;
+      wikibase:grammaticalFeature wd:Q814722 , wd:Q1994301.
+    FILTER(lang(?pastTenseParticiple) = "fa").
+  }
+
+  #MARK: present tense and past word stem
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentWordStemForm.
+    ?presentWordStemForm ontolex:representation ?presentTenseWordStem;
+      wikibase:grammaticalFeature wd:Q192613 , wd:Q210523.
+    FILTER(lang(?presentTenseWordStem) = "fa").
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastWordStemForm.
+    ?pastWordStemForm ontolex:representation ?pastTenseWordStem;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q210523.
+    FILTER(lang(?pastTenseWordStem) = "fa").
+  }
+}

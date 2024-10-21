@@ -1,0 +1,62 @@
+# tool: scribe-data
+# All Persian (Q9168) verbs (Q24905) and the given forms, including present subjunctive.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
+  ?firstPersonSingularPresentSubjunctive
+  ?secondPersonSingularPresentSubjunctive
+  ?thirdPersonSingularPresentSubjunctive
+  ?firstPersonPluralPresentSubjunctive
+  ?secondPersonPluralPresentSubjunctive
+  ?thirdPersonPluralPresentSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q9168;
+          wikibase:lexicalCategory wd:Q24905;
+          wikibase:lemma ?infinitiveForm.
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveLexForm.
+    ?infinitiveLexForm ontolex:representation ?infinitive;
+      wikibase:grammaticalFeature wd:Q192613.
+  }
+
+  # MARK: Subjunctive Present and Past
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonSingularPresentForm.
+    ?firstPersonSingularPresentForm ontolex:representation ?firstPersonSingularPresentSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q21714344, wd:Q192613 , wd:Q110786.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?secondPersonSingularPresentForm.
+    ?secondPersonSingularPresentForm ontolex:representation ?secondPersonSingularPresentSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q51929049, wd:Q192613 , wd:Q110786.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonSingularPresentForm.
+    ?thirdPersonSingularPresentForm ontolex:representation ?thirdPersonSingularPresentSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q51929074, wd:Q192613 ,wd:Q110786.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonPluralPresentForm.
+    ?firstPersonPluralPresentForm ontolex:representation ?firstPersonPluralPresentSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q21714344, wd:Q192613 ,wd:Q146786.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?secondPersonPluralPresentForm.
+    ?secondPersonPluralPresentForm ontolex:representation ?secondPersonPluralPresentSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q51929049, wd:Q192613 ,wd:Q146786.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonPluralPresentForm.
+    ?thirdPersonPluralPresentForm ontolex:representation ?thirdPersonPluralPresentSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q51929074, wd:Q192613 , wd:Q146786.
+  }
+}

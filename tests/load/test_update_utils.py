@@ -164,6 +164,7 @@ def test_list_all_languages():
         "nigerian",
         "northern",
         "nynorsk",
+        "persian",
         "polish",
         "portuguese",
         "russian",

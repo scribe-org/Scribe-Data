@@ -1,0 +1,69 @@
+# tool: scribe-data
+# All Persian (Q9168) verbs (Q24905) and their indicative aorist forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
+  ?firstPersonSingularIndicativeAorist
+  ?secondPersonSingularIndicativeAorist
+  ?thirdPersonSingularIndicativeAorist
+  ?firstPersonPluralIndicativeAorist
+  ?secondPersonPluralIndicativeAorist
+  ?thirdPersonPluralIndicativeAorist
+
+WHERE {
+  ?lexeme dct:language wd:Q9168;
+          wikibase:lexicalCategory wd:Q24905;
+          wikibase:lemma ?infinitiveForm.
+
+  #MARK: infinitive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveLexForm.
+    ?infinitiveLexForm ontolex:representation ?infinitive;
+      wikibase:grammaticalFeature wd:Q179230.
+  }
+
+  #MARK: indicative aorist
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstSingularAoristForm.
+    ?firstSingularAoristForm ontolex:representation ?firstPersonSingularIndicativeAorist;
+      wikibase:grammaticalFeature wd:Q21714344 , wd:Q110786 , wd:Q682111 , wd:Q216497.
+    FILTER(lang(?firstPersonSingularIndicativeAorist) = "fa").
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?secondSingularAoristForm.
+    ?secondSingularAoristForm ontolex:representation ?secondPersonSingularIndicativeAorist;
+      wikibase:grammaticalFeature wd:Q51929049 , wd:Q110786, wd:Q682111 , wd:Q216497.
+    FILTER(lang(?secondPersonSingularIndicativeAorist) = "fa").
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdSingularAoristForm.
+    ?thirdSingularAoristForm ontolex:representation ?thirdPersonSingularIndicativeAorist;
+      wikibase:grammaticalFeature wd:Q51929074 , wd:Q110786 , wd:Q682111 , wd:Q216497.
+    FILTER(lang(?thirdPersonSingularIndicativeAorist) = "fa").
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPluralAoristForm.
+    ?firstPluralAoristForm ontolex:representation ?firstPersonPluralIndicativeAorist;
+      wikibase:grammaticalFeature wd:Q21714344 ,wd:Q146786 , wd:Q682111 , wd:Q216497.
+    FILTER(lang(?firstPersonPluralIndicativeAorist) = "fa").
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?secondPluralAoristForm.
+    ?secondPluralAoristForm ontolex:representation ?secondPersonPluralIndicativeAorist;
+      wikibase:grammaticalFeature wd:Q51929049 ,wd:Q146786 , wd:Q682111 ,wd:Q216497.
+    FILTER(lang(?secondPersonPluralIndicativeAorist) = "fa").
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPluralAoristForm.
+    ?thirdPluralAoristForm ontolex:representation ?thirdPersonPluralIndicativeAorist;
+      wikibase:grammaticalFeature wd:Q51929074 , wd:Q146786 ,wd:Q682111 ,wd:Q216497.
+    FILTER(lang(?thirdPersonPluralIndicativeAorist) = "fa").
+  }
+}
