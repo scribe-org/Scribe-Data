@@ -1,0 +1,14 @@
+# tool: scribe-data
+# Enter this query at https://query.wikidata.org/.
+
+SELECT DISTINCT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+?pronoun
+
+WHERE {
+  VALUES ?nounTypes {wd:Q36224 wd:Q1084}
+
+  ?lexeme dct:language wd:Q9176 ;
+    wikibase:lexicalCategory ?nounTypes ;
+    wikibase:lemma ?pronoun
+}
