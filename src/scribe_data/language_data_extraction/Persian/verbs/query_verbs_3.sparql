@@ -21,40 +21,40 @@ WHERE {
   ?infinitiveForm ontolex:representation ?infinitive ;
     wikibase:grammaticalFeature wd:Q179230 .
 
-  # MARK: Indicative
+  # MARK: Past and Present Indicative
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?firstPersonSingularPastTenseForm .
     ?firstPersonSingularPastTenseForm ontolex:representation ?firstPersonSingularPastTenseIndicative ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q1994301 , wd:Q682111; # Past tense for 1st person singular
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q1994301 , wd:Q682111;
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?secondPersonSingularPastTenseForm .
     ?secondPersonSingularPastTenseForm ontolex:representation ?secondPersonSingularPastTenseIndicative ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q1994301 , wd:Q682111; # Past tense for 2nd person singular
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q1994301 , wd:Q682111;
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?thirdPersonSingularPastTenseForm .
     ?thirdPersonSingularPastTenseForm ontolex:representation ?thirdPersonSingularPastTenseIndicative ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q1994301 , wd:Q682111; # Past tense for 3rd person singular
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q1994301 , wd:Q682111;
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?firstPersonPluralPastTenseForm .
     ?firstPersonPluralPastTenseForm ontolex:representation ?firstPersonPluralPastTenseIndicative ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q1994301 , wd:Q682111; # Past tense for 1st person plural
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q1994301 , wd:Q682111;
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?secondPersonPluralPastTenseForm .
     ?secondPersonPluralPastTenseForm ontolex:representation ?secondPersonPluralPastTenseIndicative ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q1994301 , wd:Q682111; # Past tense for 2nd person plural
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q1994301 , wd:Q682111;
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?thirdPersonPluralPastTenseForm .
     ?thirdPersonPluralPastTenseForm ontolex:representation ?thirdPersonPluralPastTenseIndicative ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q1994301 , wd:Q682111; # Past tense for 3rd person plural
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q1994301 , wd:Q682111;
   }
 }

@@ -24,7 +24,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q179230.
   }
 
-  #MARK: 1st person singular indicative aorist
+  #MARK: indicative aorist
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?firstSingularAoristForm.
     ?firstSingularAoristForm ontolex:representation ?firstPersonSingularIndicativeAorist;
@@ -32,7 +32,6 @@ WHERE {
     FILTER(lang(?firstPersonSingularIndicativeAorist) = "fa").
   }
 
-  #MARK: 2nd person singular indicative aorist
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?secondSingularAoristForm.
     ?secondSingularAoristForm ontolex:representation ?secondPersonSingularIndicativeAorist;
@@ -40,7 +39,6 @@ WHERE {
     FILTER(lang(?secondPersonSingularIndicativeAorist) = "fa").
   }
 
-  #MARK: 3rd person singular indicative aorist
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?thirdSingularAoristForm.
     ?thirdSingularAoristForm ontolex:representation ?thirdPersonSingularIndicativeAorist;
@@ -48,7 +46,6 @@ WHERE {
     FILTER(lang(?thirdPersonSingularIndicativeAorist) = "fa").
   }
 
-  #MARK: 1st person plural indicative aorist
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?firstPluralAoristForm.
     ?firstPluralAoristForm ontolex:representation ?firstPersonPluralIndicativeAorist;
@@ -56,7 +53,6 @@ WHERE {
     FILTER(lang(?firstPersonPluralIndicativeAorist) = "fa").
   }
 
-  #MARK: 2nd person plural indicative aorist
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?secondPluralAoristForm.
     ?secondPluralAoristForm ontolex:representation ?secondPersonPluralIndicativeAorist;
@@ -64,7 +60,6 @@ WHERE {
     FILTER(lang(?secondPersonPluralIndicativeAorist) = "fa").
   }
 
-  #MARK: 3rd person plural indicative aorist
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?thirdPluralAoristForm.
     ?thirdPluralAoristForm ontolex:representation ?thirdPersonPluralIndicativeAorist;

@@ -22,7 +22,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q179230.
   }
 
-  #MARK: present tense participle
+  #MARK: present tense and past participle
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentParticipleForm.
     ?presentParticipleForm ontolex:representation ?presentTenseParticiple;
@@ -30,7 +30,6 @@ WHERE {
     FILTER(lang(?presentTenseParticiple) = "fa").
   }
 
-  #MARK: past tense participle
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastParticipleForm.
     ?pastParticipleForm ontolex:representation ?pastTenseParticiple;
@@ -38,7 +37,7 @@ WHERE {
     FILTER(lang(?pastTenseParticiple) = "fa").
   }
 
-  #MARK: present tense word stem
+  #MARK: present tense and past word stem
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentWordStemForm.
     ?presentWordStemForm ontolex:representation ?presentTenseWordStem;
@@ -46,7 +45,6 @@ WHERE {
     FILTER(lang(?presentTenseWordStem) = "fa").
   }
 
-  #MARK: past tense word stem
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastWordStemForm.
     ?pastWordStemForm ontolex:representation ?pastTenseWordStem;
