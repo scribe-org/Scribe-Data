@@ -5,7 +5,6 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?properNoun
-  ?nomPlural
   ?gender
 
 WHERE {

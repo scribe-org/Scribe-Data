@@ -224,7 +224,7 @@ def check_query_forms() -> None:
 
                 if incorrect_query_labels:
                     current_rep_label_to_correct_label_str = [
-                        f"{incorrect_query_labels[i][0]}: {incorrect_query_labels[i][1]}"
+                        f"{incorrect_query_labels[i][0]} : {incorrect_query_labels[i][1]}"
                         for i in range(len(incorrect_query_labels))
                     ]
                     incorrect_query_form_rep_labels_str = "\n  - ".join(
@@ -241,6 +241,9 @@ def check_query_forms() -> None:
         print(error_output)
         print("Please correct the above lexeme form representation labels.")
         exit(1)
+
+    else:
+        print("All query forms are labeled and formatted correctly.")
 
 
 if __name__ == "__main__":

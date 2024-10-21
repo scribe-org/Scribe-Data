@@ -5,7 +5,7 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?properNoun
-  ?nomPlural
+  ?nominativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q5885 ;
@@ -15,8 +15,8 @@ WHERE {
   # MARK: Nominative Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nomPluralForm .
-    ?nomPluralForm ontolex:representation ?nomPlural ;
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 }

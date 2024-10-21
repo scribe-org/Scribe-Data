@@ -18,10 +18,10 @@ WHERE {
   # MARK: Present Infinitive
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentInfForm .
-    ?presentInfForm ontolex:representation ?presentInfinitive ;
+    ?lexeme ontolex:lexicalForm ?presentInfinitiveForm .
+    ?presentInfinitiveForm ontolex:representation ?presentInfinitive ;
       wikibase:grammaticalFeature wd:Q52434245 .
-      FILTER(LANG(?presentInfinitive) = "ml") .
+      FILTER(LANG(?presentInfinitive) = "ml")
   }
 
   # MARK: Simple Present
@@ -30,7 +30,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?simplePresentForm .
     ?simplePresentForm ontolex:representation ?simplePresent ;
       wikibase:grammaticalFeature wd:Q3910936 .
-      FILTER(LANG(?simplePresent) = "ml") .
+      FILTER(LANG(?simplePresent) = "ml")
   }
 
   # MARK: Simple Past
@@ -39,7 +39,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?simplePastForm .
     ?simplePastForm ontolex:representation ?simplePast ;
       wikibase:grammaticalFeature wd:Q1392475 .
-      FILTER(LANG(?simplePast) = "ml") .
+      FILTER(LANG(?simplePast) = "ml")
   }
 
   # MARK: Simple Future
@@ -48,6 +48,6 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?simpleFutureForm .
     ?simpleFutureForm ontolex:representation ?simpleFuture ;
       wikibase:grammaticalFeature wd:Q1475560 .
-      FILTER(LANG(?simpleFuture) = "ml") .
+      FILTER(LANG(?simpleFuture) = "ml")
   }
 }

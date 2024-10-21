@@ -10,5 +10,5 @@ WHERE {
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
-    FILTER(LANG(?adjective) = "eo") .
+    FILTER(LANG(?adjective) = "eo")
 }

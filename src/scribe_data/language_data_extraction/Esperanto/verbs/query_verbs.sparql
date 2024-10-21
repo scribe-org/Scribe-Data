@@ -5,9 +5,9 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?presIndicative
-  ?pastIndicative
-  ?futIndicative
+  ?indicativePresent
+  ?indicativePast
+  ?indicativeFuture
   ?conditional
   ?volitive
 
@@ -21,28 +21,28 @@ WHERE {
   # MARK: Present Tense
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presIndicativeForm .
-    ?presIndicativeForm ontolex:representation ?presIndicative ;
+    ?lexeme ontolex:lexicalForm ?indicativePresentForm .
+    ?indicativePresentForm ontolex:representation ?indicativePresent ;
       wikibase:grammaticalFeature wd:Q192613, wd:Q682111 .
-      FILTER(LANG(?presIndicative) = "eo") .
+      FILTER(LANG(?indicativePresent) = "eo")
   }
 
   # MARK: Past Tense
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastIndicativeForm .
-    ?pastIndicativeForm ontolex:representation ?pastIndicative ;
-      wikibase:grammaticalFeature wd:Q1994301, wd:Q682111 ;
-      FILTER(LANG(?pastIndicative) = "eo") .
+    ?lexeme ontolex:lexicalForm ?indicativePastForm .
+    ?indicativePastForm ontolex:representation ?indicativePast ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q682111 .
+      FILTER(LANG(?indicativePast) = "eo")
   }
 
   # MARK: Future Tense
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futIndicativeForm .
-    ?futIndicativeForm ontolex:representation ?futIndicative ;
-      wikibase:grammaticalFeature wd:Q501405, wd:Q682111 ;
-      FILTER(LANG(?futIndicative) = "eo") .
+    ?lexeme ontolex:lexicalForm ?indicativeFutureForm .
+    ?indicativeFutureForm ontolex:representation ?indicativeFuture ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q682111 .
+      FILTER(LANG(?indicativeFuture) = "eo")
   }
 
   # MARK: Conditional
@@ -50,8 +50,8 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?conditionalForm .
     ?conditionalForm ontolex:representation ?conditional ;
-      wikibase:grammaticalFeature wd:Q625581 ;
-      FILTER(LANG(?conditional) = "eo") .
+      wikibase:grammaticalFeature wd:Q625581 .
+      FILTER(LANG(?conditional) = "eo")
   }
 
   # MARK: Volitive
@@ -59,7 +59,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?volitiveForm .
     ?volitiveForm ontolex:representation ?volitive ;
-      wikibase:grammaticalFeature wd:Q2532941 ;
-      FILTER(LANG(?volitive) = "eo") .
+      wikibase:grammaticalFeature wd:Q2532941 .
+      FILTER(LANG(?volitive) = "eo")
   }
 }

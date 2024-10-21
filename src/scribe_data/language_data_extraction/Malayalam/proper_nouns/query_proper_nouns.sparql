@@ -4,13 +4,13 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?nomSingular
+  ?nominativeSingular
   ?gender
 
 WHERE {
   ?lexeme dct:language wd:Q36236 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?nomSingular .
+    wikibase:lemma ?nominativeSingular .
 
   # MARK: Gender(s)
 

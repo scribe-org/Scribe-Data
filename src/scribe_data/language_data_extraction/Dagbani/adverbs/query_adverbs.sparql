@@ -7,9 +7,9 @@ SELECT
   ?adverb
   ?adverbial
   ?plural
-  ?presentTense
+  ?present
   ?adverbialLocation
-  ?pastTense
+  ?past
   ?singular
   ?adverbOfManner
   ?phrase
@@ -33,8 +33,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentTenseForm .
-    ?presentTenseForm ontolex:representation ?presentTense ;
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
       wikibase:grammaticalFeature wd:Q192613 .
   }
 
@@ -45,8 +45,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastTenseForm .
-    ?pastTenseForm ontolex:representation ?pastTense ;
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
       wikibase:grammaticalFeature wd:Q1994301 .
   }
 
