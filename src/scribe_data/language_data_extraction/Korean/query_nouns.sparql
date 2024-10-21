@@ -1,14 +1,18 @@
-# tool: scribe-data
-# Enter this query at https://query.wikidata.org/.
-
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-?pronoun
-
+  ?pronoun ?noun
 WHERE {
-  VALUES ?nounTypes {wd:Q36224 wd:Q1084}
+  ?lexeme dct:language wd:Q9176 ;  # Ukrainian language
+          wikibase:lemma ?lemma ;
+          wikibase:lexicalCategory ?category .
 
-  ?lexeme dct:language wd:Q9176 ;
-    wikibase:lexicalCategory ?nounTypes ;
-    wikibase:lemma ?pronoun
+  # Separate pronouns and nouns into different columns
+  OPTIONAL {
+    ?lexeme wikibase:lexicalCategory wd:Q1084 ;  # Pronoun category
+            wikibase:lemma ?noun.
+  }
+  OPTIONAL {
+    ?lexeme wikibase:lexicalCategory wd:Q36224 ;  # Noun category
+            wikibase:lemma ?pronoun .
+  }
 }
