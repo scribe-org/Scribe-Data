@@ -1,0 +1,84 @@
+# tool: scribe-data
+# All Latin (Q397) verbs and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+  ?SecSingIndPassFuture
+  ?SecSingIndActFuture
+  ?PastImperfectIndAct
+  ?PastImperfectIndPass
+  ?PerfectIndAct
+  ?PerfectIndPass
+  ?PluperfectIndAct
+  ?PluperfectIndPass
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  # Common values for tenses
+  VALUES ?futuretense { wd:Q501405 }
+  VALUES ?pastimperfect { wd:Q186603 }
+  VALUES ?perfecttense { wd:Q960658 }
+  VALUES ?pluperfect { wd:Q3488005 }
+
+  # second person, singular person, singular, indicative, future tense passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecSingIndPassFutureForm .
+    ?SecSingIndPassFutureForm ontolex:representation ?SecSingIndPassFuture ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?futuretense, wd:Q682111, wd:Q1194697 .
+  }
+
+  # second person, singular, indicative, future tense, active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecSingIndActFutureForm .
+    ?SecSingIndActFutureForm ontolex:representation ?SecSingIndActFuture ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?futuretense, wd:Q682111, wd:Q1317831 .
+  }
+
+  # past imperfect tense, indicative, active 
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?PastImperfectIndActForm .
+    ?PastImperfectIndActForm ontolex:representation ?PastImperfectIndAct ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?pastimperfect, wd:Q682111, wd:Q1317831 .
+  }
+
+  # past imperfect tense, indicative, passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?PastImperfectIndPassForm .
+    ?PastImperfectIndPassForm ontolex:representation ?PastImperfectIndPass ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?pastimperfect, wd:Q682111, wd:Q1194697 .
+  }
+
+  # perfect tense, indicative, active 
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?PerfectIndActForm .
+    ?PerfectIndActForm ontolex:representation ?PerfectIndAct ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?perfecttense, wd:Q682111, wd:Q1317831 .
+  }
+
+  # perfect tense, indicative, passive 
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?PerfectIndPassForm .
+    ?PerfectIndPassForm ontolex:representation ?PerfectIndPass ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?perfecttense, wd:Q682111, wd:Q1194697 .
+  }
+
+  # pluperfect tense, indicative, active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?PluperfectIndActForm .
+    ?PluperfectIndActForm ontolex:representation ?PluperfectIndAct ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?pluperfect, wd:Q682111, wd:Q1317831 .
+  }
+
+  # pluperfect tense, indicative, passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?PluperfectIndPassForm .
+    ?PluperfectIndPassForm ontolex:representation ?PluperfectIndPass ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?pluperfect, wd:Q682111, wd:Q1194697 .
+  }
+}
