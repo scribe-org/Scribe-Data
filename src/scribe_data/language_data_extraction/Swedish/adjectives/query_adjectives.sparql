@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Swedish (Q9027) adjectives and the given forms.
+# All Swedish (Q9027) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
