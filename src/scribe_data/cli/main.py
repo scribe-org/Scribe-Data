@@ -202,6 +202,11 @@ def main() -> None:
 
     args = parser.parse_args()
 
+    # Lowercase all args on first parse
+    args.language = args.language.lower() if args.language else None
+    args.data_type = args.data_type.lower() if args.data_type else None
+    args.output_type = args.output_type.lower() if args.output_type else None
+
     try:
         if args.language or args.data_type:
             validate_language_and_data_type(
