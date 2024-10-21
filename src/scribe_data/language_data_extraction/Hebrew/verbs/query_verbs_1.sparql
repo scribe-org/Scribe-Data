@@ -5,7 +5,10 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?presSF ?presSM ?presPF ?presPM
+  ?femininePresentSingular
+  ?masculinePresentSingular
+  ?femininePresentPlural
+  ?masculinePresentPlural
 
 WHERE {
   ?lexeme dct:language wd:Q9288 ;
@@ -15,35 +18,31 @@ WHERE {
 
   # MARK: Present
 
-  # Singular Feminine
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSFForm .
-    ?presSFForm ontolex:representation ?presSF ;
+    ?lexeme ontolex:lexicalForm ?femininePresentSingularForm .
+    ?femininePresentSingularForm ontolex:representation ?femininePresentSingular ;
       wikibase:grammaticalFeature wd:Q110786, wd:Q192613, wd:Q1775415 .
-      FILTER(lang(?presSF) = "he") .
+      FILTER(lang(?femininePresentSingular) = "he")
   }
 
-  # Singular Masculine
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSMForm .
-    ?presSMForm ontolex:representation ?presSM ;
+    ?lexeme ontolex:lexicalForm ?masculinePresentSingularForm .
+    ?masculinePresentSingularForm ontolex:representation ?masculinePresentSingular ;
       wikibase:grammaticalFeature wd:Q110786, wd:Q192613, wd:Q499327 .
-      FILTER(lang(?presSM) = "he") .
+      FILTER(lang(?masculinePresentSingular) = "he")
   }
 
-  # Plural Feminine
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presPFForm .
-    ?presPFForm ontolex:representation ?presPF ;
+    ?lexeme ontolex:lexicalForm ?femininePresentPluralForm .
+    ?femininePresentPluralForm ontolex:representation ?femininePresentPlural ;
       wikibase:grammaticalFeature wd:Q146786, wd:Q192613, wd:Q1775415 .
-      FILTER(lang(?presPF) = "he") .
+      FILTER(lang(?femininePresentPlural) = "he")
   }
 
-  # Plural Masculine
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presPMForm .
-    ?presPMForm ontolex:representation ?presPM ;
+    ?lexeme ontolex:lexicalForm ?masculinePresentPluralForm .
+    ?masculinePresentPluralForm ontolex:representation ?masculinePresentPlural ;
       wikibase:grammaticalFeature wd:Q146786, wd:Q192613, wd:Q499327 .
-      FILTER(lang(?presPM) = "he") .
+      FILTER(lang(?masculinePresentPlural) = "he")
   }
 }

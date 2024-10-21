@@ -10,5 +10,5 @@ WHERE {
   ?lexeme dct:language wd:Q36163 ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb .
-    FILTER(lang(?adverb) = "ku") .
+    FILTER(lang(?adverb) = "ku")
 }

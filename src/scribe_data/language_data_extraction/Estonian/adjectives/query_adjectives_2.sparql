@@ -5,14 +5,14 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
-  ?illSingular
-  ?illPlural
-  ?ineSingular
-  ?inePlural
-  ?eleSingular
-  ?elePlural
-  ?allSingular
-  ?allPlural
+  ?illativeSingular
+  ?illativePlural
+  ?inessiveSingular
+  ?inessivePlural
+  ?elativeSingular
+  ?elativePlural
+  ?allativeSingular
+  ?allativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
@@ -22,56 +22,56 @@ WHERE {
   # MARK: Illative
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?illSingularForm .
-    ?illSingularForm ontolex:representation ?illSingular ;
+    ?lexeme ontolex:lexicalForm ?illativeSingularForm .
+    ?illativeSingularForm ontolex:representation ?illativeSingular ;
       wikibase:grammaticalFeature wd:Q474668, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?illPluralForm .
-    ?illPluralForm ontolex:representation ?illPlural ;
+    ?lexeme ontolex:lexicalForm ?illativePluralForm .
+    ?illativePluralForm ontolex:representation ?illativePlural ;
       wikibase:grammaticalFeature wd:Q474668, wd:Q146786 .
   }
 
   # MARK: Inessive
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ineSingularForm .
-    ?ineSingularForm ontolex:representation ?ineSingular ;
+    ?lexeme ontolex:lexicalForm ?inessiveSingularForm .
+    ?inessiveSingularForm ontolex:representation ?inessiveSingular ;
       wikibase:grammaticalFeature wd:Q282031, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?inePluralForm .
-    ?inePluralForm ontolex:representation ?inePlural ;
+    ?lexeme ontolex:lexicalForm ?inessivePluralForm .
+    ?inessivePluralForm ontolex:representation ?inessivePlural ;
       wikibase:grammaticalFeature wd:Q282031, wd:Q146786 .
   }
 
   # MARK: Elative
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?elaSingularForm .
-    ?elaSingularForm ontolex:representation ?elaSingular ;
+    ?lexeme ontolex:lexicalForm ?elativeSingularForm .
+    ?elativeSingularForm ontolex:representation ?elativeSingular ;
       wikibase:grammaticalFeature wd:Q394253, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?elaPluralForm .
-    ?elaPluralForm ontolex:representation ?elaPlural ;
+    ?lexeme ontolex:lexicalForm ?elativePluralForm .
+    ?elativePluralForm ontolex:representation ?elativePlural ;
       wikibase:grammaticalFeature wd:Q394253, wd:Q146786 .
   }
 
   # MARK: Allative
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?allSingularForm .
-    ?allSingularForm ontolex:representation ?allSingular ;
+    ?lexeme ontolex:lexicalForm ?allativeSingularForm .
+    ?allativeSingularForm ontolex:representation ?allativeSingular ;
       wikibase:grammaticalFeature wd:Q655020, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?allPluralForm .
-    ?allPluralForm ontolex:representation ?allPlural ;
+    ?lexeme ontolex:lexicalForm ?allativePluralForm .
+    ?allativePluralForm ontolex:representation ?allativePlural ;
       wikibase:grammaticalFeature wd:Q655020, wd:Q146786 .
   }
 }

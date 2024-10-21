@@ -23,7 +23,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futureForm .
     ?futureForm ontolex:representation ?future ;
-    wikibase:grammaticalFeature wd:Q501405 .
+      wikibase:grammaticalFeature wd:Q501405 .
   }
 
   # MARK: Gerund
@@ -31,7 +31,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?gerundForm .
     ?gerundForm ontolex:representation ?gerund ;
-    wikibase:grammaticalFeature wd:Q1923028 .
+      wikibase:grammaticalFeature wd:Q1923028 .
   }
 
   # MARK: Imperfective
@@ -39,7 +39,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperfectiveForm .
     ?imperfectiveForm ontolex:representation ?imperfective ;
-    wikibase:grammaticalFeature wd:Q54556033 .
+      wikibase:grammaticalFeature wd:Q54556033 .
   }
 
   # MARK: Nominalized
@@ -47,7 +47,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominalizedForm .
     ?nominalizedForm ontolex:representation ?nominalized ;
-    wikibase:grammaticalFeature wd:Q74674960 .
+      wikibase:grammaticalFeature wd:Q74674960 .
   }
 
   # MARK: Participle
@@ -55,6 +55,6 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?participleForm .
     ?participleForm ontolex:representation ?participle ;
-    wikibase:grammaticalFeature wd:Q814722 .
+      wikibase:grammaticalFeature wd:Q814722 .
   }
 }
