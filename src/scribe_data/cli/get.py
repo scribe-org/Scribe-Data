@@ -30,7 +30,7 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
-
+from scribe_data.wikipedia.process_wiki import gen_autosuggestions  # New import
 
 def get_data(
     language: str = None,
@@ -115,6 +115,23 @@ def get_data(
                 ["python", emoji_keyword_extraction_script]
             )
 
+    # MARK: Autosuggestions
+
+    elif data_type in {"autosuggestions", "auto_suggestions"}:
+        for lang in languages:
+            print(f"Generating autosuggestions for {lang}...")
+            # Here we need to load the text corpus for the language
+            # This is a placeholder, you'll need to implement the actual loading of the corpus
+            text_corpus = load_text_corpus(lang)  
+            autosuggestions = gen_autosuggestions(
+                text_corpus,
+                language=lang,
+                update_local_data=True,
+                verbose=interactive
+            )
+            subprocess_result = True
+            print(f"Autosuggestions for {lang} generated and saved.")
+
     # MARK: Query Data
 
     elif language or data_type:
@@ -156,3 +173,12 @@ def get_data(
         print(
             "Please check the installation guide at https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/unicode/UNICODE_INSTALLTION.md for more information.\n"
         )
+
+def load_text_corpus(language):
+    """
+    Placeholder function to load the text corpus for a given language.
+    This needs to be implemented to actually load the corpus from wherever it's stored.
+    """
+    # This is just a placeholder. You need to implement the actual loading of the corpus.
+    print(f"Loading text corpus for {language}...")
+    return []  # Return an empty list as a placeholder
