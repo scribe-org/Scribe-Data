@@ -1,16 +1,16 @@
 # tool: scribe-data
-# All Persian (Q9168) verbs (Q24905) and the given forms.
+# All Persian (Q9168) verbs (Q24905) and the given forms, including present subjunctive.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?firstPersonSingSubjunctive
-  ?secondPersonSingSubjunctive
-  ?thirdPersonSingSubjunctive
-  ?firstPersonPluralSubjunctive
-  ?secondPersonPluralSubjunctive
-  ?thirdPersonPluralSubjunctive
+  ?firstPersonSingularPresentSubjunctive
+  ?secondPersonSingularPresentSubjunctive
+  ?thirdPersonSingularPresentSubjunctive
+  ?firstPersonPluralPresentSubjunctive
+  ?secondPersonPluralPresentSubjunctive
+  ?thirdPersonPluralPresentSubjunctive
 
 WHERE {
   ?lexeme dct:language wd:Q9168;
@@ -20,42 +20,43 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?infinitiveLexForm.
     ?infinitiveLexForm ontolex:representation ?infinitive;
-      wikibase:grammaticalFeature wd:Q179230.
+      wikibase:grammaticalFeature wd:Q192613.
   }
-    #MARK: subjunctive
+
+  # MARK: Subjunctive Present and Past
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonSingSubjunctiveForm.
-    ?firstPersonSingSubjunctiveForm ontolex:representation ?firstPersonSingSubjunctive;
-      wikibase:grammaticalFeature wd:Q473746 , wd:Q21714344 , wd:Q110786.
+    ?lexeme ontolex:lexicalForm ?firstPersonSingularPresentForm.
+    ?firstPersonSingularPresentForm ontolex:representation ?firstPersonSingularPresentSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q21714344, wd:Q192613 , wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?secondPersonSingSubjunctiveForm.
-    ?secondPersonSingSubjunctiveForm ontolex:representation ?secondPersonSingSubjunctive;
-      wikibase:grammaticalFeature wd:Q473746 , wd:Q51929049 , wd:Q110786.
+    ?lexeme ontolex:lexicalForm ?secondPersonSingularPresentForm.
+    ?secondPersonSingularPresentForm ontolex:representation ?secondPersonSingularPresentSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q51929049, wd:Q192613 , wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonSingSubjunctiveForm.
-    ?thirdPersonSingSubjunctiveForm ontolex:representation ?thirdPersonSingSubjunctive;
-      wikibase:grammaticalFeature wd:Q473746 , wd:Q51929074 , wd:Q110786.
+    ?lexeme ontolex:lexicalForm ?thirdPersonSingularPresentForm.
+    ?thirdPersonSingularPresentForm ontolex:representation ?thirdPersonSingularPresentSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q51929074, wd:Q192613 ,wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonPluralSubjunctiveForm.
-    ?firstPersonPluralSubjunctiveForm ontolex:representation ?firstPersonPluralSubjunctive;
-      wikibase:grammaticalFeature wd:Q473746 , wd:Q21714344 , wd:Q146786.
+    ?lexeme ontolex:lexicalForm ?firstPersonPluralPresentForm.
+    ?firstPersonPluralPresentForm ontolex:representation ?firstPersonPluralPresentSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q21714344, wd:Q192613 ,wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?secondPersonPluralSubjunctiveForm.
-    ?secondPersonPluralSubjunctiveForm ontolex:representation ?secondPersonPluralSubjunctive;
-      wikibase:grammaticalFeature wd:Q473746 , wd:Q51929049 , wd:Q146786.
+    ?lexeme ontolex:lexicalForm ?secondPersonPluralPresentForm.
+    ?secondPersonPluralPresentForm ontolex:representation ?secondPersonPluralPresentSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q51929049, wd:Q192613 ,wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonPluralSubjunctiveForm.
-    ?thirdPersonPluralSubjunctiveForm ontolex:representation ?thirdPersonPluralSubjunctive;
-      wikibase:grammaticalFeature wd:Q473746 , wd:Q51929074 , wd:Q146786.
+    ?lexeme ontolex:lexicalForm ?thirdPersonPluralPresentForm.
+    ?thirdPersonPluralPresentForm ontolex:representation ?thirdPersonPluralPresentSubjunctive;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q51929074, wd:Q192613 , wd:Q146786.
   }
 }

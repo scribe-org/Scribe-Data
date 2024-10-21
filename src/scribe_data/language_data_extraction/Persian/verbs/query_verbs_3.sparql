@@ -1,55 +1,60 @@
 # tool: scribe-data
-# All Persian (Q9168) verbs and the given perfect tense forms.
+# All Persian (Q9168) verbs (Q24905) and the given forms, including past tense.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?firstPersonSingPerfect
-  ?secondPersonSingPerfect
-  ?thirdPersonSingPerfect
-  ?firstPersonPluralPerfect
-  ?secondPersonPluralPerfect
-  ?thirdPersonPluralPerfect
+  ?firstPersonSingularPastTenseIndicative
+  ?secondPersonSingularPastTenseIndicative
+  ?thirdPersonSingularPastTenseIndicative
+  ?firstPersonPluralPastTenseIndicative
+  ?secondPersonPluralPastTenseIndicative
+  ?thirdPersonPluralPastTenseIndicative
 
 WHERE {
-  ?lexeme dct:language wd:Q9168;
-          wikibase:lexicalCategory wd:Q24905.
+  ?lexeme dct:language wd:Q9168 ;
+          wikibase:lexicalCategory wd:Q24905 .
 
-  # MARK: Infinitive
+  #MARK: infinitive
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
   ?infinitiveForm ontolex:representation ?infinitive ;
     wikibase:grammaticalFeature wd:Q179230 .
 
-  # MARK: Perfect Tense Forms
+  # MARK: Indicative
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonSingPerfectForm.
-    ?firstPersonSingPerfectForm ontolex:representation ?firstPersonSingPerfect;
-      wikibase:grammaticalFeature wd:Q625420 , wd:Q21714344 , wd:Q110786.
+    ?lexeme ontolex:lexicalForm ?firstPersonSingularPastTenseForm .
+    ?firstPersonSingularPastTenseForm ontolex:representation ?firstPersonSingularPastTenseIndicative ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q1994301 , wd:Q682111; # Past tense for 1st person singular
   }
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?secondPersonSingPerfectForm.
-    ?secondPersonSingPerfectForm ontolex:representation ?secondPersonSingPerfect;
-      wikibase:grammaticalFeature wd:Q625420 , wd:Q51929049 , wd:Q110786.
+    ?lexeme ontolex:lexicalForm ?secondPersonSingularPastTenseForm .
+    ?secondPersonSingularPastTenseForm ontolex:representation ?secondPersonSingularPastTenseIndicative ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q1994301 , wd:Q682111; # Past tense for 2nd person singular
   }
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonSingPerfectForm.
-    ?thirdPersonSingPerfectForm ontolex:representation ?thirdPersonSingPerfect;
-      wikibase:grammaticalFeature wd:Q625420 , wd:Q51929074 , wd:Q110786.
+    ?lexeme ontolex:lexicalForm ?thirdPersonSingularPastTenseForm .
+    ?thirdPersonSingularPastTenseForm ontolex:representation ?thirdPersonSingularPastTenseIndicative ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q1994301 , wd:Q682111; # Past tense for 3rd person singular
   }
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonPluralPerfectForm.
-    ?firstPersonPluralPerfectForm ontolex:representation ?firstPersonPluralPerfect;
-      wikibase:grammaticalFeature wd:Q625420 , wd:Q21714344 , wd:Q146786.
+    ?lexeme ontolex:lexicalForm ?firstPersonPluralPastTenseForm .
+    ?firstPersonPluralPastTenseForm ontolex:representation ?firstPersonPluralPastTenseIndicative ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q1994301 , wd:Q682111; # Past tense for 1st person plural
   }
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?secondPersonPluralPerfectForm.
-    ?secondPersonPluralPerfectForm ontolex:representation ?secondPersonPluralPerfect;
-      wikibase:grammaticalFeature wd:Q625420 , wd:Q51929049 , wd:Q146786.
+    ?lexeme ontolex:lexicalForm ?secondPersonPluralPastTenseForm .
+    ?secondPersonPluralPastTenseForm ontolex:representation ?secondPersonPluralPastTenseIndicative ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q1994301 , wd:Q682111; # Past tense for 2nd person plural
   }
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonPluralPerfectForm.
-    ?thirdPersonPluralPerfectForm ontolex:representation ?thirdPersonPluralPerfect;
-      wikibase:grammaticalFeature wd:Q625420 , wd:Q51929074 , wd:Q146786.
+    ?lexeme ontolex:lexicalForm ?thirdPersonPluralPastTenseForm .
+    ?thirdPersonPluralPastTenseForm ontolex:representation ?thirdPersonPluralPastTenseIndicative ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q1994301 , wd:Q682111; # Past tense for 3rd person plural
   }
 }

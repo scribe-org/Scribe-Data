@@ -1,55 +1,74 @@
 # tool: scribe-data
-# All Persian (Q9168) verbs (Q24905) and the given forms.
+# All Persian (Q9168) verbs (Q24905) and their indicative aorist forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?firstPersonSingPresent
-  ?secondPersonSingPresent
-  ?thirdPersonSingPresent
-  ?firstPersonPluralPresent
-  ?secondPersonPluralPresent
-  ?thirdPersonPluralPresent
+  ?firstPersonSingularIndicativeAorist
+  ?secondPersonSingularIndicativeAorist
+  ?thirdPersonSingularIndicativeAorist
+  ?firstPersonPluralIndicativeAorist
+  ?secondPersonPluralIndicativeAorist
+  ?thirdPersonPluralIndicativeAorist
 
 WHERE {
   ?lexeme dct:language wd:Q9168;
-          wikibase:lexicalCategory wd:Q24905.
+          wikibase:lexicalCategory wd:Q24905;
+          wikibase:lemma ?infinitiveForm.
 
-  # MARK: Infinitive
-  ?lexeme ontolex:lexicalForm ?infinitiveForm .
-  ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature wd:Q179230 .
+  #MARK: infinitive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveLexForm.
+    ?infinitiveLexForm ontolex:representation ?infinitive;
+      wikibase:grammaticalFeature wd:Q179230.
+  }
 
-  # MARK: Present Tense Forms
+  #MARK: 1st person singular indicative aorist
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonSingPresentForm.
-    ?firstPersonSingPresentForm ontolex:representation ?firstPersonSingPresent;
-      wikibase:grammaticalFeature wd:Q21714344 , wd:Q110786 , wd:Q192613.
+    ?lexeme ontolex:lexicalForm ?firstSingularAoristForm.
+    ?firstSingularAoristForm ontolex:representation ?firstPersonSingularIndicativeAorist;
+      wikibase:grammaticalFeature wd:Q21714344 , wd:Q110786 , wd:Q682111 , wd:Q216497.
+    FILTER(lang(?firstPersonSingularIndicativeAorist) = "fa").
   }
+
+  #MARK: 2nd person singular indicative aorist
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?secondPersonSingPresentForm.
-    ?secondPersonSingPresentForm ontolex:representation ?secondPersonSingPresent;
-      wikibase:grammaticalFeature wd:Q51929049 , wd:Q110786 , wd:Q192613.
+    ?lexeme ontolex:lexicalForm ?secondSingularAoristForm.
+    ?secondSingularAoristForm ontolex:representation ?secondPersonSingularIndicativeAorist;
+      wikibase:grammaticalFeature wd:Q51929049 , wd:Q110786, wd:Q682111 , wd:Q216497.
+    FILTER(lang(?secondPersonSingularIndicativeAorist) = "fa").
   }
+
+  #MARK: 3rd person singular indicative aorist
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonSingPresentForm.
-    ?thirdPersonSingPresentForm ontolex:representation ?thirdPersonSingPresent;
-      wikibase:grammaticalFeature wd:Q51929074 , wd:Q110786 , wd:Q192613.
+    ?lexeme ontolex:lexicalForm ?thirdSingularAoristForm.
+    ?thirdSingularAoristForm ontolex:representation ?thirdPersonSingularIndicativeAorist;
+      wikibase:grammaticalFeature wd:Q51929074 , wd:Q110786 , wd:Q682111 , wd:Q216497.
+    FILTER(lang(?thirdPersonSingularIndicativeAorist) = "fa").
   }
+
+  #MARK: 1st person plural indicative aorist
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonPluralPresentForm.
-    ?firstPersonPluralPresentForm ontolex:representation ?firstPersonPluralPresent;
-      wikibase:grammaticalFeature wd:Q21714344 , wd:Q146786 , wd:Q192613.
+    ?lexeme ontolex:lexicalForm ?firstPluralAoristForm.
+    ?firstPluralAoristForm ontolex:representation ?firstPersonPluralIndicativeAorist;
+      wikibase:grammaticalFeature wd:Q21714344 ,wd:Q146786 , wd:Q682111 , wd:Q216497.
+    FILTER(lang(?firstPersonPluralIndicativeAorist) = "fa").
   }
+
+  #MARK: 2nd person plural indicative aorist
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?secondPersonPluralPresentForm.
-    ?secondPersonPluralPresentForm ontolex:representation ?secondPersonPluralPresent;
-      wikibase:grammaticalFeature wd:Q51929049 , wd:Q146786 , wd:Q192613.
+    ?lexeme ontolex:lexicalForm ?secondPluralAoristForm.
+    ?secondPluralAoristForm ontolex:representation ?secondPersonPluralIndicativeAorist;
+      wikibase:grammaticalFeature wd:Q51929049 ,wd:Q146786 , wd:Q682111 ,wd:Q216497.
+    FILTER(lang(?secondPersonPluralIndicativeAorist) = "fa").
   }
+
+  #MARK: 3rd person plural indicative aorist
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonPluralPresentForm.
-    ?thirdPersonPluralPresentForm ontolex:representation ?thirdPersonPluralPresent;
-      wikibase:grammaticalFeature wd:Q51929074 , wd:Q146786 , wd:Q192613.
+    ?lexeme ontolex:lexicalForm ?thirdPluralAoristForm.
+    ?thirdPluralAoristForm ontolex:representation ?thirdPersonPluralIndicativeAorist;
+      wikibase:grammaticalFeature wd:Q51929074 , wd:Q146786 ,wd:Q682111 ,wd:Q216497.
+    FILTER(lang(?thirdPersonPluralIndicativeAorist) = "fa").
   }
 }
