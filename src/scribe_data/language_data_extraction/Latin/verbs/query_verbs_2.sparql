@@ -1,0 +1,49 @@
+# tool: scribe-data
+# All Latin (Q397) verbs and the given cases.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+  ?NeuAccSingActPart
+  ?NomSingActPart
+  ?VocSingActPart
+  ?AblSingActPart
+  
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  # Common value for Future Tense
+  VALUES ?presenttense { wd:Q192613 }
+
+  # neuter, accusative case, singular, present tense, active, participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?NeuAccSingActPartForm .
+    ?NeuAccSingActPartForm ontolex:representation ?NeuAccSingActPart ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q146078, wd:Q110786, ?presenttense, wd:Q1317831, wd:Q814722 .
+  }
+  
+  # nominative case, singular, present tense, active, participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?NomSingActPartForm .
+    ?NomSingActPartForm ontolex:representation ?NomSingActPart ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786, ?presenttense, wd:Q1317831, wd:Q814722 .
+  }
+  
+  # vocative case, singular, present tense, active, participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?VocSingActPartForm .
+    ?VocSingActPartForm ontolex:representation ?VocSingActPart ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q110786, ?presenttense, wd:Q1317831, wd:Q814722 .
+  }
+  
+  # ablative case, singular, present tense, active, participle
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?AblSingActPartForm .
+    ?AblSingActPartForm ontolex:representation ?AblSingActPart ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q110786, ?presenttense, wd:Q1317831, wd:Q814722 .
+  }
+}

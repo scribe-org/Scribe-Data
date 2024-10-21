@@ -1,0 +1,81 @@
+# tool: scribe-data
+# All Latin (Q397) verbs and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+  ?SecSingImpAct
+  ?FirSingIndPass
+  ?FirSingIndAct
+  ?SecPluIndPass
+  ?FirPluIndPass
+  ?FirPluIndAct
+  ?ThrPluIndAct
+  ?ThrPluIndPass
+
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  # Common value for Future Tense
+  VALUES ?futuretense { wd:Q501405 }
+
+  # Second Person, Singular, Future Tense, Imperative, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecSingImpActForm .
+    ?SecSingImpActForm ontolex:representation ?SecSingImpAct ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?futuretense, wd:Q22716, wd:Q1317831 .
+  }
+  
+  # First Person, Singular, Future Tense, Indicative, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirSingIndPassForm .
+    ?FirSingIndPassForm ontolex:representation ?FirSingIndPass ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, ?futuretense, wd:Q682111, wd:Q1194697 .
+  }
+  
+  # First Person, Singular, Future Tense, Indicative, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirSingIndActForm .
+    ?FirSingIndActForm ontolex:representation ?FirSingIndAct ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, ?futuretense, wd:Q682111, wd:Q1317831 .
+  }  
+  
+  # Second Person, Plural, Future Tense, Indicative, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecPluIndPassForm .
+    ?SecPluIndPassForm ontolex:representation ?SecPluIndPass ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, ?futuretense, wd:Q682111, wd:Q1194697 .
+  }
+  
+  # First Person, Plural, Future Tense, Indicative, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirPluIndPassForm .
+    ?FirPluIndPassForm ontolex:representation ?FirPluIndPass ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, ?futuretense, wd:Q682111, wd:Q1194697 .
+  }
+  
+  # First Person, Plural, Future Tense, Indicative, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirPluIndActForm .
+    ?FirPluIndActForm ontolex:representation ?FirPluIndAct ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, ?futuretense, wd:Q682111, wd:Q1317831 .
+  }
+  
+  # Third Person, Plural, Future Tense, Indicative, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ThrPluIndActForm .
+    ?ThrPluIndActForm ontolex:representation ?ThrPluIndAct ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, ?futuretense, wd:Q682111, wd:Q1317831 .
+  }
+  
+  # Third Person, Plural, Future Tense, Indicative, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ThrPluIndPassForm .
+    ?ThrPluIndPassForm ontolex:representation ?ThrPluIndPass ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, ?futuretense, wd:Q682111, wd:Q1194697 .
+   }
+}
