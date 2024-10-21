@@ -5,7 +5,10 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?presSF ?presSM ?presPF ?presPM
+  ?presSF
+  ?presSM
+  ?presPF
+  ?presPM
 
 WHERE {
   ?lexeme dct:language wd:Q9288 ;
@@ -15,7 +18,6 @@ WHERE {
 
   # MARK: Present
 
-  # Singular Feminine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSFForm .
     ?presSFForm ontolex:representation ?presSF ;
@@ -23,7 +25,6 @@ WHERE {
       FILTER(lang(?presSF) = "he") .
   }
 
-  # Singular Masculine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSMForm .
     ?presSMForm ontolex:representation ?presSM ;
@@ -31,7 +32,6 @@ WHERE {
       FILTER(lang(?presSM) = "he") .
   }
 
-  # Plural Feminine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presPFForm .
     ?presPFForm ontolex:representation ?presPF ;
@@ -39,7 +39,6 @@ WHERE {
       FILTER(lang(?presPF) = "he") .
   }
 
-  # Plural Masculine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presPMForm .
     ?presPMForm ontolex:representation ?presPM ;

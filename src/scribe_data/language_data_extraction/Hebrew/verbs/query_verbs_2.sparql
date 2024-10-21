@@ -5,7 +5,10 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?impSPSF ?impSPSM ?impSPPF ?impSPPM
+  ?impSPSF
+  ?impSPSM
+  ?impSPPF
+  ?impSPPM
 
 WHERE {
   ?lexeme dct:language wd:Q9288 ;
@@ -13,7 +16,6 @@ WHERE {
 
   # MARK: Imerpative
 
-  # TPS Feminine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPSMForm .
     ?impSPSMForm ontolex:representation ?impSPSM ;
@@ -21,7 +23,6 @@ WHERE {
       FILTER(lang(?impSPSM) = "he") .
   }
 
-  # TPS Masculine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPSMForm .
     ?impSPSMForm ontolex:representation ?impSPSM ;
@@ -29,7 +30,6 @@ WHERE {
       FILTER(lang(?impSPSM) = "he") .
   }
 
-  # TPP Feminine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPPFForm .
     ?impSPPFForm ontolex:representation ?impSPPF ;
@@ -37,7 +37,6 @@ WHERE {
       FILTER(lang(?impSPPF) = "he") .
   }
 
-  # TPP Masculine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPPMForm .
     ?impSPPMForm ontolex:representation ?impSPPM ;

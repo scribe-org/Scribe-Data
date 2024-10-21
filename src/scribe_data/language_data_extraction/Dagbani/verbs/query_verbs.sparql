@@ -20,7 +20,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentContinuousForm .
     ?presentContinuousForm ontolex:representation ?presentContinuous ;
-    wikibase:grammaticalFeature wd:Q7240943 .
+      wikibase:grammaticalFeature wd:Q7240943 .
   }
 
   # MARK: Past
@@ -28,7 +28,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastForm .
     ?pastForm ontolex:representation ?past ;
-    wikibase:grammaticalFeature wd:Q1994301 .
+      wikibase:grammaticalFeature wd:Q1994301 .
   }
 
   # MARK: Future
@@ -36,13 +36,13 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futureForm .
     ?futureForm ontolex:representation ?future ;
-    wikibase:grammaticalFeature wd:Q501405 .
+      wikibase:grammaticalFeature wd:Q501405 .
   }
 
   # MARK: Imperative
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperativeForm .
     ?imperativeForm ontolex:representation ?imperative ;
-    wikibase:grammaticalFeature wd:Q22716 .
+      wikibase:grammaticalFeature wd:Q22716 .
   }
 }

@@ -17,8 +17,7 @@ WHERE {
 
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
   ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature wd:Q179230 ;
-    wikibase:grammaticalFeature wd:Q1317831 .
+    wikibase:grammaticalFeature wd:Q179230, wd:Q1317831 .
 
   # MARK: Active Present
 

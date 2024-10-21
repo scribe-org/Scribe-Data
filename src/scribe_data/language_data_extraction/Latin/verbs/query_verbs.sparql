@@ -3,7 +3,6 @@
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
-  ?lexeme
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
 

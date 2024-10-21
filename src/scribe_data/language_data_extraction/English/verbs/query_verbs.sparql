@@ -35,12 +35,10 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPSForm .
     ?presTPSForm ontolex:representation ?presTPS ;
-    wikibase:grammaticalFeature wd:Q51929074 ;
-    wikibase:grammaticalFeature wd:Q110786 ;
-    wikibase:grammaticalFeature wd:Q3910936 ;
-    FILTER NOT EXISTS { ?presTPSForm wdt:P6191 wd:Q181970 . }
-    FILTER NOT EXISTS { ?presTPSForm wikibase:grammaticalFeature wd:Q126473 . }
-    FILTER(LANG(?presTPS) = "en") .
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q3910936 ;
+      FILTER NOT EXISTS { ?presTPSForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?presTPSForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?presTPS) = "en") .
   }
 
   # MARK: Present Participle
@@ -48,10 +46,10 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presPartForm .
     ?presPartForm ontolex:representation ?presPart ;
-    wikibase:grammaticalFeature wd:Q10345583 ;
-    FILTER NOT EXISTS { ?presPartForm wdt:P6191 wd:Q181970 . }
-    FILTER NOT EXISTS { ?presPartForm wikibase:grammaticalFeature wd:Q126473 . }
-    FILTER(LANG(?presPart) = "en") .
+      wikibase:grammaticalFeature wd:Q10345583 ;
+      FILTER NOT EXISTS { ?presPartForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?presPartForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?presPart) = "en") .
   }
 
   # MARK: Simple Past
@@ -59,10 +57,10 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastSimpForm .
     ?pastSimpForm ontolex:representation ?pastSimp ;
-    wikibase:grammaticalFeature wd:Q1392475 ;
-    FILTER NOT EXISTS { ?pastSimpForm wdt:P6191 wd:Q181970 . }
-    FILTER NOT EXISTS { ?pastSimpForm wikibase:grammaticalFeature wd:Q126473 . }
-    FILTER(LANG(?pastSimp) = "en") .
+      wikibase:grammaticalFeature wd:Q1392475 ;
+      FILTER NOT EXISTS { ?pastSimpForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?pastSimpForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?pastSimp) = "en") .
   }
 
   # MARK: Past Participle
@@ -70,13 +68,9 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastPartForm .
     ?pastPartForm ontolex:representation ?pastPart ;
-    wikibase:grammaticalFeature wd:Q1230649 ;
-    FILTER NOT EXISTS { ?pastPartForm wdt:P6191 wd:Q181970 . }
-    FILTER NOT EXISTS { ?pastPartForm wikibase:grammaticalFeature wd:Q126473 . }
-    FILTER(LANG(?pastPart) = "en") .
-  }
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+      wikibase:grammaticalFeature wd:Q1230649 ;
+      FILTER NOT EXISTS { ?pastPartForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?pastPartForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?pastPart) = "en") .
   }
 }
