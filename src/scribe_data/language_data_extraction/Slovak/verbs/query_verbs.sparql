@@ -13,22 +13,27 @@ SELECT
   ?futSimp
 
 WHERE {
+
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+  
   # MARK: Infinitive
 
-  ?lexeme dct:language wd:Q9056 ; 
-    wikibase:lexicalCategory wd:Q24905 ;  # Q24905 = Verbs
-    wikibase:lemma ?infinitive .
+  ?lexeme ontolex:lexicalForm ?infinitiveForm .
+  ?infinitiveForm ontolex:representation ?infinitive ;
+    wikibase:grammaticalFeature wd:Q179230 ;
 
   # MARK: Simple Present
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presSimpForm .
     ?presSimpForm ontolex:representation ?presSimp ;
-      wikibase:grammaticalFeature wd:Q3910936 ;  # Q3910936 = Present tense
-      FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q51929074 . }  # Exclude 3rd person singular
-      FILTER NOT EXISTS { ?presSimpForm wdt:P6191 wd:Q181970 . }  # Exclude imperative
-      FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q126473 . }  # Exclude negative
-      FILTER(LANG(?presSimp) = "sk") .  # Slovak language
+      wikibase:grammaticalFeature wd:Q3910936 ; 
+      FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q51929074 . }  
+      FILTER NOT EXISTS { ?presSimpForm wdt:P6191 wd:Q181970 . } 
+      FILTER NOT EXISTS { ?presSimpForm wikibase:grammaticalFeature wd:Q126473 . }  
+      FILTER(LANG(?presSimp) = "sk") . 
   } 
 
   # MARK: Third-person Singular Present
@@ -36,12 +41,12 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presTPSForm .
     ?presTPSForm ontolex:representation ?presTPS ;
-    wikibase:grammaticalFeature wd:Q51929074 ;  # Q51929074 = 3rd person singular
-    wikibase:grammaticalFeature wd:Q110786 ;    # Q110786 = Singular
-    wikibase:grammaticalFeature wd:Q3910936 ;   # Q3910936 = Present tense
-    FILTER NOT EXISTS { ?presTPSForm wdt:P6191 wd:Q181970 . }  # Exclude imperative
-    FILTER NOT EXISTS { ?presTPSForm wikibase:grammaticalFeature wd:Q126473 . }  # Exclude negative
-    FILTER(LANG(?presTPS) = "sk") .  # Slovak language
+    wikibase:grammaticalFeature wd:Q51929074 ; 
+    wikibase:grammaticalFeature wd:Q110786 ;   
+    wikibase:grammaticalFeature wd:Q3910936 ;   
+    FILTER NOT EXISTS { ?presTPSForm wdt:P6191 wd:Q181970 . }  
+    FILTER NOT EXISTS { ?presTPSForm wikibase:grammaticalFeature wd:Q126473 . } 
+    FILTER(LANG(?presTPS) = "sk") . 
   } 
 
   # MARK: Present Participle
@@ -49,10 +54,10 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presPartForm .
     ?presPartForm ontolex:representation ?presPart ;
-    wikibase:grammaticalFeature wd:Q10345583 ;  # Q10345583 = Present participle
-    FILTER NOT EXISTS { ?presPartForm wdt:P6191 wd:Q181970 . }  # Exclude imperative
-    FILTER NOT EXISTS { ?presPartForm wikibase:grammaticalFeature wd:Q126473 . }  # Exclude negative
-    FILTER(LANG(?presPart) = "sk") .  # Slovak language
+    wikibase:grammaticalFeature wd:Q10345583 ;  
+    FILTER NOT EXISTS { ?presPartForm wdt:P6191 wd:Q181970 . }  
+    FILTER NOT EXISTS { ?presPartForm wikibase:grammaticalFeature wd:Q126473 . }  
+    FILTER(LANG(?presPart) = "sk") . 
   } 
 
   # MARK: Simple Past
@@ -60,10 +65,10 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastSimpForm .
     ?pastSimpForm ontolex:representation ?pastSimp ;
-    wikibase:grammaticalFeature wd:Q1392475 ;  # Q1392475 = Past tense
-    FILTER NOT EXISTS { ?pastSimpForm wdt:P6191 wd:Q181970 . }  # Exclude imperative
-    FILTER NOT EXISTS { ?pastSimpForm wikibase:grammaticalFeature wd:Q126473 . }  # Exclude negative
-    FILTER(LANG(?pastSimp) = "sk") .  # Slovak language
+    wikibase:grammaticalFeature wd:Q1392475 ;
+    FILTER NOT EXISTS { ?pastSimpForm wdt:P6191 wd:Q181970 . } 
+    FILTER NOT EXISTS { ?pastSimpForm wikibase:grammaticalFeature wd:Q126473 . }  
+    FILTER(LANG(?pastSimp) = "sk") .  
   } 
 
   # MARK: Past Participle
@@ -71,10 +76,10 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastPartForm .
     ?pastPartForm ontolex:representation ?pastPart ;
-    wikibase:grammaticalFeature wd:Q1230649 ;  # Q1230649 = Past participle
-    FILTER NOT EXISTS { ?pastPartForm wdt:P6191 wd:Q181970 . }  # Exclude imperative
-    FILTER NOT EXISTS { ?pastPartForm wikibase:grammaticalFeature wd:Q126473 . }  # Exclude negative
-    FILTER(LANG(?pastPart) = "sk") .  # Slovak language
+    wikibase:grammaticalFeature wd:Q1230649 ;  
+    FILTER NOT EXISTS { ?pastPartForm wdt:P6191 wd:Q181970 . }  
+    FILTER NOT EXISTS { ?pastPartForm wikibase:grammaticalFeature wd:Q126473 . } 
+    FILTER(LANG(?pastPart) = "sk") . 
   } 
 
   # MARK: Future Simple
@@ -82,10 +87,10 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futSimpForm .
     ?futSimpForm ontolex:representation ?futSimp ;
-    wikibase:grammaticalFeature wd:Q18668199 ;  # Q18668199 = Future tense
-    FILTER NOT EXISTS { ?futSimpForm wdt:P6191 wd:Q181970 . }  # Exclude imperative
-    FILTER NOT EXISTS { ?futSimpForm wikibase:grammaticalFeature wd:Q126473 . }  # Exclude negative
-    FILTER(LANG(?futSimp) = "sk") .  # Slovak language
+    wikibase:grammaticalFeature wd:Q18668199 ;  
+    FILTER NOT EXISTS { ?futSimpForm wdt:P6191 wd:Q181970 . }  
+    FILTER NOT EXISTS { ?futSimpForm wikibase:grammaticalFeature wd:Q126473 . } 
+    FILTER(LANG(?futSimp) = "sk") . 
   }
 
   SERVICE wikibase:label {
