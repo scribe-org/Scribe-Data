@@ -23,6 +23,10 @@
     "iso": "cs",
     "qid": "Q9056"
   },
+  "dagbani": {
+    "iso": "dag",
+    "qid": "Q32238"
+  },
   "danish": {
     "iso": "da",
     "qid": "Q9035"
@@ -75,6 +79,10 @@
       }
     }
   },
+  "igbo": {
+    "iso": "ig",
+    "qid": "Q33578"
+  },
   "indonesian": {
     "iso": "id",
     "qid": "Q9240"
@@ -87,6 +95,10 @@
     "iso": "ja",
     "qid": "Q5287"
   },
+  "korean": {
+    "iso": "ko",
+    "qid": "Q9176"
+  },
   "kurmanji": {
     "iso": "kmr",
     "qid": "Q36163"
@@ -94,6 +106,10 @@
   "latin": {
     "iso": "la",
     "qid": "Q397"
+  },
+  "latvian": {
+    "iso": "lv",
+    "qid": "Q9078"
   },
   "malay": {
     "iso": "ms",
@@ -146,6 +162,14 @@
   "russian": {
     "iso": "ru",
     "qid": "Q7737"
+  },
+  "sami": {
+    "sub_languages": {
+      "northern": {
+        "iso": "se",
+        "qid": "Q33947"
+      }
+    }
   },
   "slovak": {
     "iso": "sk",

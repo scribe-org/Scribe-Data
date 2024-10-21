@@ -1,32 +1,32 @@
 # tool: scribe-data
-# All Polish (Q809) verbs and the given forms.
+# All Polish (Q809) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?presFPS
-  ?presSPS
-  ?presTPS
-  ?presFPP
-  ?presSPP
-  ?presTPP
-  ?femSingActivePart
-  ?masAnimateSingActivePart
-  ?masInanimateSingActivePart
-  ?neutSingActivePart
-  ?femPluralActivePart
-  ?masAnimatePluralActivePart
-  ?masInanimatePluralActivePart
-  ?neutPluralActivePart
-  ?femSingPassivePart
-  ?masAnimateSingPassivePart
-  ?masInanimateSingPassivePart
-  ?neutSingPassivePart
-  ?femPluralPassivePart
-  ?masAnimatePluralPassivePart
-  ?masInanimatePluralPassivePart
-  ?neutPluralPassivePart
+  ?indicativePresentFirstPersonSingular
+  ?indicativePresentSecondPersonSingular
+  ?indicativePresentThirdPersonSingular
+  ?indicativePresentFirstPersonPlural
+  ?indicativePresentSecondPersonPlural
+  ?indicativePresentThirdPersonPlural
+  ?feminineSingularActiveParticiple
+  ?masculineAnimateSingularActiveParticiple
+  ?masculineInanimateSingularActiveParticiple
+  ?neuterSingularActiveParticiple
+  ?femininePluralActiveParticiple
+  ?masculineAnimatePluralActiveParticiple
+  ?masculineInanimatePluralActiveParticiple
+  ?neuterPluralActiveParticiple
+  ?feminineSingularPassiveParticiple
+  ?masculineAnimateSingularPassiveParticiple
+  ?masculineInanimateSingularPassiveParticiple
+  ?neuterSingularPassiveParticiple
+  ?femininePluralPassiveParticiple
+  ?masculineAnimatePluralPassiveParticiple
+  ?masculineInanimatePluralPassiveParticiple
+  ?neuterPluralPassiveParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
@@ -36,138 +36,138 @@ WHERE {
   # MARK: Present
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presFPSForm .
-    ?presFPSForm ontolex:representation ?presFPS ;
+    ?lexeme ontolex:lexicalForm ?indicativePresentFirstPersonSingularForm .
+    ?indicativePresentFirstPersonSingularForm ontolex:representation ?indicativePresentFirstPersonSingular ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q192613, wd:Q682111 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSPSForm .
-    ?presSPSForm ontolex:representation ?presSPS ;
+    ?lexeme ontolex:lexicalForm ?indicativePresentSecondPersonSingularForm .
+    ?indicativePresentSecondPersonSingularForm ontolex:representation ?indicativePresentSecondPersonSingular ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q192613, wd:Q682111 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presTPSForm .
-    ?presTPSForm ontolex:representation ?presTPS ;
+    ?lexeme ontolex:lexicalForm ?indicativePresentThirdPersonSingularForm .
+    ?indicativePresentThirdPersonSingularForm ontolex:representation ?indicativePresentThirdPersonSingular ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q192613, wd:Q682111 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presFPPForm .
-    ?presFPPForm ontolex:representation ?presFPP ;
+    ?lexeme ontolex:lexicalForm ?indicativePresentFirstPersonPluralForm .
+    ?indicativePresentFirstPersonPluralForm ontolex:representation ?indicativePresentFirstPersonPlural ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q192613, wd:Q682111 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSPPForm .
-    ?presSPPForm ontolex:representation ?presSPP ;
+    ?lexeme ontolex:lexicalForm ?indicativePresentSecondPersonPluralForm .
+    ?indicativePresentSecondPersonPluralForm ontolex:representation ?indicativePresentSecondPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q192613, wd:Q682111 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presTPPForm .
-    ?presTPPForm ontolex:representation ?presTPP ;
+    ?lexeme ontolex:lexicalForm ?indicativePresentThirdPersonPluralForm .
+    ?indicativePresentThirdPersonPluralForm ontolex:representation ?indicativePresentThirdPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q192613, wd:Q682111 .
   }
 
   # MARK: Active Participle
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femSingActivePartForm .
-    ?femSingActivePartForm ontolex:representation ?femSingActivePart ;
+    ?lexeme ontolex:lexicalForm ?feminineSingularActiveParticipleForm .
+    ?feminineSingularActiveParticipleForm ontolex:representation ?feminineSingularActiveParticiple ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q72249355 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masAnimateSingActivePartForm .
-    ?masAnimateSingActivePartForm ontolex:representation ?masAnimateSingActivePart ;
+    ?lexeme ontolex:lexicalForm ?masculineAnimateSingularActiveParticipleForm .
+    ?masculineAnimateSingularActiveParticipleForm ontolex:representation ?masculineAnimateSingularActiveParticiple ;
       wikibase:grammaticalFeature wd:Q54020116, wd:Q110786, wd:Q72249355 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masInanimateSingActivePartForm .
-    ?masInanimateSingActivePartForm ontolex:representation ?masInanimateSingActivePart ;
+    ?lexeme ontolex:lexicalForm ?masculineInanimateSingularActiveParticipleForm .
+    ?masculineInanimateSingularActiveParticipleForm ontolex:representation ?masculineInanimateSingularActiveParticiple ;
       wikibase:grammaticalFeature wd:Q52943434, wd:Q110786, wd:Q72249355 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neutSingActivePartForm .
-    ?neutSingActivePartForm ontolex:representation ?neutSingActivePart ;
+    ?lexeme ontolex:lexicalForm ?neuterSingularActiveParticipleForm .
+    ?neuterSingularActiveParticipleForm ontolex:representation ?neuterSingularActiveParticiple ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q72249355 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femPluralActivePartForm .
-    ?femPluralActivePartForm ontolex:representation ?femPluralActivePart ;
+    ?lexeme ontolex:lexicalForm ?femininePluralActiveParticipleForm .
+    ?femininePluralActiveParticipleForm ontolex:representation ?femininePluralActiveParticiple ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q72249355 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masAnimatePluralActivePartForm .
-    ?masAnimatePluralActivePartForm ontolex:representation ?masAnimatePluralActivePart ;
+    ?lexeme ontolex:lexicalForm ?masculineAnimatePluralActiveParticipleForm .
+    ?masculineAnimatePluralActiveParticipleForm ontolex:representation ?masculineAnimatePluralActiveParticiple ;
       wikibase:grammaticalFeature wd:Q54020116, wd:Q146786, wd:Q72249355 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masInanimatePluralActivePartForm .
-    ?masInanimatePluralActivePartForm ontolex:representation ?masInanimatePluralActivePart ;
+    ?lexeme ontolex:lexicalForm ?masculineInanimatePluralActiveParticipleForm .
+    ?masculineInanimatePluralActiveParticipleForm ontolex:representation ?masculineInanimatePluralActiveParticiple ;
       wikibase:grammaticalFeature wd:Q52943434, wd:Q146786, wd:Q72249355 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neutPluralActivePartForm .
-    ?neutPluralActivePartForm ontolex:representation ?neutPluralActivePart ;
+    ?lexeme ontolex:lexicalForm ?neuterPluralActiveParticipleForm .
+    ?neuterPluralActiveParticipleForm ontolex:representation ?neuterPluralActiveParticiple ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q146786, wd:Q72249355 .
   }
 
   # MARK: Passive Participle
 
 OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femSingPassivePartForm .
-    ?femSingPassivePartForm ontolex:representation ?femSingPassivePart ;
+    ?lexeme ontolex:lexicalForm ?feminineSingularPassiveParticipleForm .
+    ?feminineSingularPassiveParticipleForm ontolex:representation ?feminineSingularPassiveParticiple ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q72249544 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masAnimateSingPassivePartForm .
-    ?masAnimateSingPassivePartForm ontolex:representation ?masAnimateSingPassivePart ;
+    ?lexeme ontolex:lexicalForm ?masculineAnimateSingularPassiveParticipleForm .
+    ?masculineAnimateSingularPassiveParticipleForm ontolex:representation ?masculineAnimateSingularPassiveParticiple ;
       wikibase:grammaticalFeature wd:Q54020116, wd:Q110786, wd:Q72249544 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masInanimateSingPassivePartForm .
-    ?masInanimateSingPassivePartForm ontolex:representation ?masInanimateSingPassivePart ;
+    ?lexeme ontolex:lexicalForm ?masculineInanimateSingularPassiveParticipleForm .
+    ?masculineInanimateSingularPassiveParticipleForm ontolex:representation ?masculineInanimateSingularPassiveParticiple ;
       wikibase:grammaticalFeature wd:Q52943434, wd:Q110786, wd:Q72249544 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neutSingPassivePartForm .
-    ?neutSingPassivePartForm ontolex:representation ?neutSingPassivePart ;
+    ?lexeme ontolex:lexicalForm ?neuterSingularPassiveParticipleForm .
+    ?neuterSingularPassiveParticipleForm ontolex:representation ?neuterSingularPassiveParticiple ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q72249544 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femPluralPassivePartForm .
-    ?femPluralPassivePartForm ontolex:representation ?femPluralPassivePart ;
+    ?lexeme ontolex:lexicalForm ?femininePluralPassiveParticipleForm .
+    ?femininePluralPassiveParticipleForm ontolex:representation ?femininePluralPassiveParticiple ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q72249544 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masAnimatePluralPassivePartForm .
-    ?masAnimatePluralPassivePartForm ontolex:representation ?masAnimatePluralPassivePart ;
+    ?lexeme ontolex:lexicalForm ?masculineAnimatePluralPassiveParticipleForm .
+    ?masculineAnimatePluralPassiveParticipleForm ontolex:representation ?masculineAnimatePluralPassiveParticiple ;
       wikibase:grammaticalFeature wd:Q54020116, wd:Q146786, wd:Q72249544 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masInanimatePluralPassivePartForm .
-    ?masInanimatePluralPassivePartForm ontolex:representation ?masInanimatePluralPassivePart ;
+    ?lexeme ontolex:lexicalForm ?masculineInanimatePluralPassiveParticipleForm .
+    ?masculineInanimatePluralPassiveParticipleForm ontolex:representation ?masculineInanimatePluralPassiveParticiple ;
       wikibase:grammaticalFeature wd:Q52943434, wd:Q146786, wd:Q72249544 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neutPluralPassivePartForm .
-    ?neutPluralPassivePartForm ontolex:representation ?neutPluralPassivePart ;
+    ?lexeme ontolex:lexicalForm ?neuterPluralPassiveParticipleForm .
+    ?neuterPluralPassiveParticipleForm ontolex:representation ?neuterPluralPassiveParticiple ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q146786, wd:Q72249544 .
   }
 }

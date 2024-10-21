@@ -1,15 +1,15 @@
 # tool: scribe-data
-# All Slovak (Q9058) adjectives and the given forms.
+# All Slovak (Q9058) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
-  ?feminineNominativeSingular
-  ?masculineNominativeSingular
-  ?neuterNominativeSingular
-  ?masculinePersonalNominativePlural
-  ?notMasculinePersonalNominativePlural
+  ?nominativeFeminineSingularPositive
+  ?nominativeMasculineSingularPositive
+  ?nominativeNeuterSingularPositive
+  ?nominativeMasculinePersonalPluralPositive
+  ?nominativeNotMasculinePersonalPluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9058;
@@ -19,32 +19,32 @@ WHERE {
   # MARK: Nominative
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineNominativeSingularForm .
-    ?feminineNominativeSingularForm ontolex:representation ?feminineNominativeSingular ;
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularPositiveForm .
+    ?nominativeFeminineSingularPositiveForm ontolex:representation ?nominativeFeminineSingularPositive ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q131105, wd:Q110786, wd:Q3482678 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineNominativeSingularForm .
-    ?masculineNominativeSingularForm ontolex:representation ?masculineNominativeSingular ;
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularPositiveForm .
+    ?nominativeMasculineSingularPositiveForm ontolex:representation ?nominativeMasculineSingularPositive ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q131105, wd:Q110786, wd:Q3482678 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterNominativeSingularForm .
-    ?neuterNominativeSingularForm ontolex:representation ?neuterNominativeSingular ;
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterSingularPositiveForm .
+    ?nominativeNeuterSingularPositiveForm ontolex:representation ?nominativeNeuterSingularPositive ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q131105, wd:Q110786, wd:Q3482678 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePersonalNominativePluralForm .
-    ?masculinePersonalNominativePluralForm ontolex:representation ?masculinePersonalNominativePlural ;
+    ?lexeme ontolex:lexicalForm ?nominativeMasculinePersonalPluralPositiveForm .
+    ?nominativeMasculinePersonalPluralPositiveForm ontolex:representation ?nominativeMasculinePersonalPluralPositive ;
       wikibase:grammaticalFeature wd:Q27918551, wd:Q131105, wd:Q146786, wd:Q3482678 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?notMasculinePersonalNominativePluralForm .
-    ?notMasculinePersonalNominativePluralForm ontolex:representation ?notMasculinePersonalNominativePlural ;
+    ?lexeme ontolex:lexicalForm ?nominativeNotMasculinePersonalPluralPositiveForm .
+    ?nominativeNotMasculinePersonalPluralPositiveForm ontolex:representation ?nominativeNotMasculinePersonalPluralPositive ;
       wikibase:grammaticalFeature wd:Q54152717, wd:Q131105, wd:Q146786, wd:Q3482678 .
-  } 
+  }
 }
