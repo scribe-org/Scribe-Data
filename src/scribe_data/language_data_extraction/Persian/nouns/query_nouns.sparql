@@ -13,7 +13,6 @@ WHERE {
   ?lexeme dct:language wd:Q9168 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?singular .
-    FILTER(lang(?singular) = "fa")
 
   # MARK: Plural
 
@@ -21,6 +20,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(lang(?plural) = "fa") .
   }
 }

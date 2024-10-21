@@ -20,7 +20,6 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?singularForm .
     ?singularForm ontolex:representation ?singular ;
       wikibase:grammaticalFeature wd:Q110786 .
-      FILTER(lang(?singular) = "fa") .
   }
 
     # MARK: Plural
@@ -29,6 +28,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(lang(?plural) = "fa") .
   }
 }
