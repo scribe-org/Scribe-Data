@@ -18,8 +18,7 @@ WHERE {
   # Infinitive
   ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
   ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
-    wikibase:grammaticalFeature wd:Q1317831 ;
-    wikibase:grammaticalFeature wd:Q179230 .
+    wikibase:grammaticalFeature wd:Q1317831, wd:Q179230 .
 
   # Imperative
   OPTIONAL {

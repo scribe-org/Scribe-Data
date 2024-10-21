@@ -37,6 +37,9 @@ LANGUAGE_METADATA_FILE = (
 DATA_TYPE_METADATA_FILE = (
     Path(__file__).parent.parent / "resources" / "data_type_metadata.json"
 )
+LEXEME_FORM_METADATA_FILE = (
+    Path(__file__).parent.parent / "resources" / "lexeme_form_metadata.json"
+)
 DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
 
 try:
@@ -53,6 +56,13 @@ try:
 
 except (IOError, json.JSONDecodeError) as e:
     print(f"Error reading data type metadata: {e}")
+
+try:
+    with LEXEME_FORM_METADATA_FILE.open("r", encoding="utf-8") as file:
+        lexeme_form_metadata = json.load(file)
+
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading lexeme form metadata: {e}")
 
 language_map = {}
 language_to_qid = {}

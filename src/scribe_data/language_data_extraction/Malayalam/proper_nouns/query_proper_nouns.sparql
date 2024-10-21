@@ -16,9 +16,9 @@ WHERE {
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-  } .
+  }
 
-    SERVICE wikibase:label {
+  SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
     ?nounGender rdfs:label ?gender .
   }

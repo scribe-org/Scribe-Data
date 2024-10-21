@@ -15,42 +15,36 @@ WHERE {
 
   # MARK: Imperfect
 
-  # FPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impFPSForm .
     ?impFPSForm ontolex:representation ?impFPS ;
       wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q110786 .
   }
 
-  # SPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPSForm .
     ?impSPSForm ontolex:representation ?impSPS ;
       wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q110786 .
   }
 
-  # TPS
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impTPSForm .
     ?impTPSForm ontolex:representation ?impTPS ;
       wikibase:grammaticalFeature wd:Q12547192, wd:Q51929074, wd:Q110786 .
   }
 
-  # FPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impFPPForm .
     ?impFPPForm ontolex:representation ?impFPP ;
       wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q146786 .
   }
 
-  # SPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impSPPForm .
     ?impSPPForm ontolex:representation ?impSPP ;
       wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q146786 .
   }
 
-  # TPP
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?impTPPForm .
     ?impTPPForm ontolex:representation ?impTPP ;

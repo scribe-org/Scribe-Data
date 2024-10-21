@@ -1,0 +1,98 @@
+{
+  "1_case": {
+    "1": {
+      "label": "Nominative",
+      "qid": "Q131105"
+    },
+    "2": {
+      "label": "Genitive",
+      "qid": "Q146233"
+    },
+    "3": {
+      "label": "Dative",
+      "qid": "Q145599"
+    },
+    "4": {
+      "label": "Accusative",
+      "qid": "Q146078"
+    },
+    "5": {
+      "label": "Instrumental",
+      "qid": "Q192997"
+    },
+    "6": {
+      "label": "Prepositional",
+      "qid": "Q2114906"
+    },
+    "7": {
+      "label": "Locative",
+      "qid": "Q202142"
+    },
+    "8": {
+      "label": "Vocative",
+      "qid": "Q185077"
+    }
+  },
+  "2_gender": {
+    "1": {
+      "label": "Feminine",
+      "qid": "Q1775415"
+    },
+    "2": {
+      "label": "Masculine",
+      "qid": "Q499327"
+    },
+    "3": {
+      "label": "Common",
+      "qid": "Q1305037"
+    },
+    "4": {
+      "label": "Neuter",
+      "qid": "Q1775461"
+    }
+  },
+  "3_mood": {
+    "1": {
+      "label": "Indicative",
+      "qid": "Q682111"
+    }
+  },
+  "4_tense": {
+    "1": {
+      "label": "Present",
+      "qid": "Q192613"
+    },
+    "2": {
+      "label": "Preterite",
+      "qid": "Q442485"
+    },
+    "3": {
+      "label": "Future",
+      "qid": "Q501405"
+    }
+  },
+  "5_person": {
+    "1": {
+      "label": "FirstPerson",
+      "qid": "Q21714344"
+    },
+    "2": {
+      "label": "SecondPerson",
+      "qid": "Q51929049"
+    },
+    "3": {
+      "label": "ThirdPerson",
+      "qid": "Q51929074"
+    }
+  },
+  "6_number": {
+    "1": {
+      "label": "Singular",
+      "qid": "Q110786"
+    },
+    "2": {
+      "label": "Plural",
+      "qid": "Q146786"
+    }
+  }
+}

@@ -19,7 +19,7 @@ WHERE {
     FILTER NOT EXISTS {
       ?lexeme wdt:P31 wd:Q202444
     }
-  } .
+  }
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
