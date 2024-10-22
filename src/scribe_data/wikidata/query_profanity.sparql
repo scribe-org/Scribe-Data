@@ -18,7 +18,6 @@ WHERE {
   }.
 
   FILTER EXISTS {?sense wdt:P6191 ?filter.}.
-
 }
 
 ORDER BY

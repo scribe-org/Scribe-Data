@@ -24,8 +24,7 @@ Queries all profane words from a given language to be removed from autosuggest o
         }.
 
         FILTER EXISTS {?sense wdt:P6191 ?filter.}.
-
-        }
+    }
 
     ORDER BY
         lcase(?lemma)
