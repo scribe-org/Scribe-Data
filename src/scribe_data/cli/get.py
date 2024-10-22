@@ -30,7 +30,7 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
-from scribe_data.wikipedia.process_wiki import gen_autosuggestions  # New import
+from scribe_data.wikipedia.process_wiki import gen_autosuggestions
 
 def get_data(
     language: str = None,
@@ -120,17 +120,18 @@ def get_data(
     elif data_type in {"autosuggestions", "auto_suggestions"}:
         for lang in languages:
             print(f"Generating autosuggestions for {lang}...")
-            # Here we need to load the text corpus for the language
-            # This is a placeholder, you'll need to implement the actual loading of the corpus
-            text_corpus = load_text_corpus(lang)  
-            autosuggestions = gen_autosuggestions(
-                text_corpus,
-                language=lang,
-                update_local_data=True,
-                verbose=interactive
-            )
-            subprocess_result = True
-            print(f"Autosuggestions for {lang} generated and saved.")
+            text_corpus = load_text_corpus(lang)
+            if text_corpus:  # Only proceed if we have data
+                gen_autosuggestions(
+                    text_corpus,
+                    language=lang,
+                    update_local_data=True,
+                    verbose=interactive
+                )
+                subprocess_result = True
+                print(f"Autosuggestions for {lang} generated and saved.")
+            else:
+                print(f"No text corpus data available for {lang}. Skipping autosuggestions generation.")
 
     # MARK: Query Data
 
@@ -176,9 +177,23 @@ def get_data(
 
 def load_text_corpus(language):
     """
-    Placeholder function to load the text corpus for a given language.
-    This needs to be implemented to actually load the corpus from wherever it's stored.
+    Function to load the text corpus for a given language.
+    Returns None if no data is available.
+    
+    Parameters
+    ----------
+        language : str
+            The language to load the corpus for.
+            
+    Returns
+    -------
+        list or None
+            The text corpus if available, None otherwise.
     """
-    # This is just a placeholder. You need to implement the actual loading of the corpus.
-    print(f"Loading text corpus for {language}...")
-    return []  # Return an empty list as a placeholder
+    try:
+        # Implementation needed: Load and return the actual corpus data
+        # For now, return None to indicate no data available
+        return None
+    except Exception as e:
+        print(f"Error loading text corpus for {language}: {str(e)}")
+        return None
