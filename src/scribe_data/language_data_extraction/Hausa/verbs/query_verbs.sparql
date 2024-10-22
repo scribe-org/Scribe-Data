@@ -4,20 +4,21 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?infinitive
-  ?imperativeSingular
-  ?imperativePlural
+  ?verb
   ?past
   ?present
+  ?future
+  ?imperativeSg
+  ?imperativePl
 
 WHERE {
   ?lexeme dct:language wd:Q56475 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive .
-  FILTER(lang(?infinitive) = "ha")
-  # FILTER(lang(?infinitive) = "ha-arabic")
+    wikibase:lemma ?verb .
+  FILTER(lang(?verb) = "ha")
+  # FILTER(lang(?verb) = "ha-arabic")
 
-  # MARK: Past
+  # MARK: Past Tense
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastForm .
@@ -27,7 +28,7 @@ WHERE {
     # FILTER(lang(?past) = "ha-arabic")
   }
 
-  # MARK: Present
+  # MARK: Present Tense
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentForm .
@@ -37,23 +38,33 @@ WHERE {
     # FILTER(lang(?present) = "ha-arabic")
   }
 
+  # MARK: Future Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureForm .
+    ?futureForm ontolex:representation ?future ;
+      wikibase:grammaticalFeature wd:Q7240364 .
+    FILTER(lang(?future) = "ha")
+    # FILTER(lang(?future) = "ha-arabic")
+  }
+
   # MARK: Imperative Singular
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeSingularForm .
-    ?imperativeSingularForm ontolex:representation ?imperativeSingular ;
+    ?lexeme ontolex:lexicalForm ?imperativeSgForm .
+    ?imperativeSgForm ontolex:representation ?imperativeSg ;
       wikibase:grammaticalFeature wd:Q22716, wd:Q110786 .
-    FILTER(lang(?imperativeSingular) = "ha")
-    # FILTER(lang(?imperativeSingular) = "ha-arabic")
+    FILTER(lang(?imperativeSg) = "ha")
+    # FILTER(lang(?imperativeSg) = "ha-arabic")
   }
 
   # MARK: Imperative Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativePluralForm .
-    ?imperativePluralForm ontolex:representation ?imperativePlural ;
+    ?lexeme ontolex:lexicalForm ?imperativePlForm .
+    ?imperativePlForm ontolex:representation ?imperativePl ;
       wikibase:grammaticalFeature wd:Q22716, wd:Q146786 .
-    FILTER(lang(?imperativePlural) = "ha")
-    # FILTER(lang(?imperativePlural) = "ha-arabic")
+    FILTER(lang(?imperativePl) = "ha")
+    # FILTER(lang(?imperativePl) = "ha-arabic")
   }
 }
