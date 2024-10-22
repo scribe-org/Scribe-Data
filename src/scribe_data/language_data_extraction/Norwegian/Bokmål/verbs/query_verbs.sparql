@@ -26,9 +26,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831 .
+  ?lexeme ontolex:lexicalForm ?infinitiveForm .
+  ?infinitiveForm ontolex:representation ?infinitive ;
+    wikibase:grammaticalFeature wd:Q179230, wd:Q1317831 .
   }
 
   # MARK: imperative
@@ -74,7 +74,7 @@ WHERE {
   }
 
   OPTIONAL{
-   ?lexeme ontolex:lexicalForm ?activePresentForm .
+    ?lexeme ontolex:lexicalForm ?activePresentForm .
     ?activePresentForm ontolex:representation ?activePresent ;
       wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
   }
