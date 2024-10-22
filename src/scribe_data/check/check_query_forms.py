@@ -173,7 +173,7 @@ def return_correct_form_label(qids: list):
     if not set(qids) <= set(lexeme_form_qid_order):
         not_included_qids = sorted(set(qids) - set(lexeme_form_qid_order))
         qid_label = "QIDs" if len(not_included_qids) > 1 else "QID"
-        return f"{qid_label} {', '.join(not_included_qids)} not included in metadata"
+        return f"{qid_label} {', '.join(not_included_qids)} not included in lexeme_form.metadata.json"
 
     qids_ordered = [q for q in lexeme_form_qid_order if q in qids]
     correct_label = ""
