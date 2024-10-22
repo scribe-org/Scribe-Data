@@ -2,6 +2,7 @@
 Updates data for Scribe by running all or desired WDQS queries and formatting scripts.
 
 .. raw:: html
+
     <!--
     * Copyright (C) 2024 Scribe
     *
