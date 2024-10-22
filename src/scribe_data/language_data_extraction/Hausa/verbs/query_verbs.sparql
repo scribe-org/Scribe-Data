@@ -5,11 +5,10 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?pastSimple
-  ?presentContinuous
-  ?futureTense
   ?imperativeSingular
   ?imperativePlural
+  ?past
+  ?present
 
 WHERE {
   ?lexeme dct:language wd:Q56475 ;
@@ -18,34 +17,24 @@ WHERE {
   FILTER(lang(?infinitive) = "ha")
   # FILTER(lang(?infinitive) = "ha-arabic")
 
-  # MARK: Past Simple
+  # MARK: Past
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastSimpleForm .
-    ?pastSimpleForm ontolex:representation ?pastSimple ;
-      wikibase:grammaticalFeature wd:Q1392475, wd:Q1240211 .
-    FILTER(lang(?pastSimple) = "ha")
-    # FILTER(lang(?pastSimple) = "ha-arabic")
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1240211 .
+    FILTER(lang(?past) = "ha")
+    # FILTER(lang(?past) = "ha-arabic")
   }
 
-  # MARK: Present Continuous
+  # MARK: Present
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
-    ?presentContinuousForm ontolex:representation ?presentContinuous ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1423695 .
-    FILTER(lang(?presentContinuous) = "ha")
-    # FILTER(lang(?presentContinuous) = "ha-arabic")
-  }
-
-  # MARK: Future Tense
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futureTenseForm .
-    ?futureTenseForm ontolex:representation ?futureTense ;
-      wikibase:grammaticalFeature wd:Q618612 .
-    FILTER(lang(?futureTense) = "ha")
-    # FILTER(lang(?futureTense) = "ha-arabic")
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
+    FILTER(lang(?present) = "ha")
+    # FILTER(lang(?present) = "ha-arabic")
   }
 
   # MARK: Imperative Singular
