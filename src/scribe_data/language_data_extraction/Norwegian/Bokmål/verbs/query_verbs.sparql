@@ -25,11 +25,13 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1240211.
   }
 
+  # MARK: infinitive
   OPTIONAL {
-  ?lexeme ontolex:lexicalForm ?infinitiveForm .
-  ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature wd:Q179230, wd:Q1317831 .
+    ?lexeme ontolex:lexicalForm ?infinitiveForm.
+    ?infinitiveForm ontolex:representation ?infinitive;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831.
   }
+
   # MARK: imperative
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperativeForm.
@@ -39,7 +41,6 @@ WHERE {
 
   # MARK: preterite
   OPTIONAL {
-
     ?lexeme ontolex:lexicalForm ?preteriteForm.
     ?preteriteForm ontolex:representation ?preterite;
       wikibase:grammaticalFeature wd:Q442485.
@@ -73,10 +74,10 @@ WHERE {
       wikibase:grammaticalFeature wd:Q192613, wd:Q1194697.
   }
 
-  OPTIONAL{
-
-    ?lexeme ontolex:lexicalForm ?activePresentForm .
-    ?activePresentForm ontolex:representation ?activePresent ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
+  # MARK: active present
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresentForm.
+    ?activePresentForm ontolex:representation ?activePresent;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831.
   }
 }
