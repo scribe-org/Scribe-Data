@@ -20,6 +20,7 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
     -->
 """
 
+import json
 import subprocess
 from pathlib import Path
 
@@ -30,7 +31,32 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
-from scribe_data.wikipedia.process_wiki import gen_autosuggestions
+from scribe_data.wikipedia.wikipedia_utils import get_wikipedia_articles
+from scribe_data.wikipedia.process_wiki import gen_autosuggestions, clean
+
+
+def load_text_corpus(language):
+    """
+    Load and process the Wikipedia text corpus for a given language.
+    
+    Parameters
+    ----------
+    language : str
+        The language to load the corpus for.
+        
+    Returns
+    -------
+    list
+        The processed text corpus ready for autosuggestion generation.
+    """
+    # Get Wikipedia articles for the language
+    articles = get_wikipedia_articles(language=language)
+    
+    # Clean the articles
+    cleaned_corpus = clean(articles, language=language)
+    
+    return cleaned_corpus
+
 
 def get_data(
     language: str = None,
@@ -47,36 +73,29 @@ def get_data(
 
     Parameters
     ----------
-        language : str
-            The language(s) to get.
-
-        data_type : str
-            The data type(s) to get.
-
-        output_type : str
-            The output file type.
-
-        output_dir : str
-            The output directory path for results.
-
-        outputs_per_entry : str
-            How many outputs should be generated per data entry.
-
-        overwrite : bool (default: False)
-            Whether to overwrite existing files.
-
-        all : bool
-            Get all languages and data types.
-
-        interactive : bool (default: False)
-            Whether it's running in interactive mode.
+    language : str
+        The language(s) to get.
+    data_type : str
+        The data type(s) to get.
+    output_type : str
+        The output file type.
+    output_dir : str
+        The output directory path for results.
+    outputs_per_entry : str
+        How many outputs should be generated per data entry.
+    overwrite : bool (default: False)
+        Whether to overwrite existing files.
+    all : bool
+        Get all languages and data types.
+    interactive : bool (default: False)
+        Whether it's running in interactive mode.
 
     Returns
     -------
+    None
         The requested data saved locally given file type and location arguments.
     """
     # MARK: Defaults
-
     output_type = output_type or "json"
     if output_dir is None:
         if output_type == "csv":
@@ -89,18 +108,15 @@ def get_data(
             output_dir = DEFAULT_TSV_EXPORT_DIR
 
     languages = [language] if language else None
-
     subprocess_result = False
 
     # MARK: Get All
-
     if all:
         print("Updating all languages and data types ...")
         query_data(None, None, None, overwrite)
         subprocess_result = True
 
     # MARK: Emojis
-
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
         for lang in languages:
             emoji_keyword_extraction_script = (
@@ -110,37 +126,47 @@ def get_data(
                 / "emoji_keywords"
                 / "generate_emoji_keywords.py"
             )
-
             subprocess_result = subprocess.run(
                 ["python", emoji_keyword_extraction_script]
             )
 
     # MARK: Autosuggestions
-
     elif data_type in {"autosuggestions", "auto_suggestions"}:
+        subprocess_result = True
         for lang in languages:
-            print(f"Generating autosuggestions for {lang}...")
-            text_corpus = load_text_corpus(lang)
-            if text_corpus:  # Only proceed if we have data
-                gen_autosuggestions(
+            try:
+                print(f"Loading text corpus for {lang}...")
+                text_corpus = load_text_corpus(lang)
+                
+                print(f"Generating autosuggestions for {lang}...")
+                autosuggestions = gen_autosuggestions(
                     text_corpus,
                     language=lang,
+                    num_words=500,
                     update_local_data=True,
                     verbose=interactive
                 )
-                subprocess_result = True
+                
+                output_path = Path(output_dir) / lang
+                output_path.mkdir(parents=True, exist_ok=True)
+                
+                # Save autosuggestions according to output type
+                if output_type == "json":
+                    with open(output_path / "autosuggestions.json", "w", encoding="utf-8") as f:
+                        json.dump(autosuggestions, f, ensure_ascii=False, indent=2)
+                
                 print(f"Autosuggestions for {lang} generated and saved.")
-            else:
-                print(f"No text corpus data available for {lang}. Skipping autosuggestions generation.")
+                
+            except Exception as e:
+                print(f"Error generating autosuggestions for {lang}: {str(e)}")
+                subprocess_result = False
 
     # MARK: Query Data
-
     elif language or data_type:
         data_type = data_type[0] if isinstance(data_type, list) else data_type
-
         data_type = [data_type] if data_type else None
         print(
-            f"Updating data for language(s): {language}; data type(s): {', '.join(data_type)}"
+            f"Updating data for language(s): {language}; data type(s): {', '.join(data_type) if data_type else ''}"
         )
         query_data(
             languages=languages,
@@ -174,26 +200,3 @@ def get_data(
         print(
             "Please check the installation guide at https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/unicode/UNICODE_INSTALLTION.md for more information.\n"
         )
-
-def load_text_corpus(language):
-    """
-    Function to load the text corpus for a given language.
-    Returns None if no data is available.
-    
-    Parameters
-    ----------
-        language : str
-            The language to load the corpus for.
-            
-    Returns
-    -------
-        list or None
-            The text corpus if available, None otherwise.
-    """
-    try:
-        # Implementation needed: Load and return the actual corpus data
-        # For now, return None to indicate no data available
-        return None
-    except Exception as e:
-        print(f"Error loading text corpus for {language}: {str(e)}")
-        return None
