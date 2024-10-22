@@ -2,6 +2,7 @@
 Module for cleaning Wikipedia based corpuses for autosuggestion generation.
 
 .. raw:: html
+
     <!--
     * Copyright (C) 2024 Scribe
     *
