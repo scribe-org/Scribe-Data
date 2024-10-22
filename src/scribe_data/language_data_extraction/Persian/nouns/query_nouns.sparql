@@ -1,8 +1,6 @@
 # tool: scribe-data
-# All Persian (Q9168) nouns and the given forms.
+# All Persian (Q9168) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
-
-# Note: We need to filter for "hi" to remove Urdu (ur) words.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
@@ -16,7 +14,7 @@ WHERE {
 
   # MARK: Plural
 
-    OPTIONAL {
+  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
