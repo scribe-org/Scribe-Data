@@ -297,6 +297,10 @@
     "8": {
       "label": "Hypothetical",
       "qid": "Q53609593"
+    },
+    "9": {
+      "label": "Aorist",
+      "qid": "Q216497"
     }
   },
   "07_definiteness": {
@@ -405,6 +409,10 @@
     "24": {
       "label": "Short",
       "qid": "Q4239848"
+    },
+    "25": {
+      "label": "WordStem",
+      "qid": "Q210523"
     }
   },
   "09_degree": {
@@ -417,6 +425,10 @@
       "qid": "Q1817208"
     },
     "3": {
+      "label": "Subjunctive",
+      "qid": "Q473746"
+    },
+    "4": {
       "label": "Positive",
       "qid": "Q3482678"
     }

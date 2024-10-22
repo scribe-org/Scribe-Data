@@ -96,6 +96,9 @@ def check_form_label(form_text: str):
             form_label = label_match[1].strip()
             current_form_rep_label = form_label.split("Form")[0]
 
+    if not line_match:
+        return False
+
     onto_rep_pattern = r"{form_label} ontolex:representation .* ;".format(
         form_label=form_label
     )

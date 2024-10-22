@@ -131,6 +131,10 @@
       }
     }
   },
+  "persian": {
+    "iso": "fa",
+    "qid": "Q9168"
+  },
   "pidgin": {
     "sub_languages": {
       "nigerian": {
