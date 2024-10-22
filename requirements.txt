@@ -6,6 +6,7 @@ flax>=0.8.2
 iso639-lang>=2.2.3
 m2r2>=0.3.3
 mwparserfromhell>=0.6
+nbsphinx>=0.9.5
 numpydoc>=1.6.0
 packaging>=20.9
 pandas>=1.5.3
