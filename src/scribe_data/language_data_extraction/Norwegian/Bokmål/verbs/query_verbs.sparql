@@ -31,6 +31,7 @@ WHERE {
     wikibase:grammaticalFeature wd:Q179230, wd:Q1317831 .
   }
 
+
   # MARK: imperative
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperativeForm.
@@ -40,6 +41,7 @@ WHERE {
 
   # MARK: preterite
   OPTIONAL {
+
     ?lexeme ontolex:lexicalForm ?preteriteForm.
     ?preteriteForm ontolex:representation ?preterite;
       wikibase:grammaticalFeature wd:Q442485.
