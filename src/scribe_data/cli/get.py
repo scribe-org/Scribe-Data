@@ -20,9 +20,10 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
     -->
 """
 
-import json
 import subprocess
+import logging
 from pathlib import Path
+from typing import Optional, List, Union
 
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
@@ -31,32 +32,36 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
-from scribe_data.wikipedia.wikipedia_utils import get_wikipedia_articles
-from scribe_data.wikipedia.process_wiki import gen_autosuggestions, clean
+from scribe_data.wikipedia.process_wiki import gen_autosuggestions
+from scribe_data.utils.validation import validate_lexeme_forms
 
-
-def load_text_corpus(language):
+def validate_data_availability(language: str, data_type: str) -> bool:
     """
-    Load and process the Wikipedia text corpus for a given language.
+    Validates if the requested data type is available for the given language.
     
     Parameters
     ----------
     language : str
-        The language to load the corpus for.
+        The language to check
+    data_type : str
+        The type of data to validate
         
     Returns
     -------
-    list
-        The processed text corpus ready for autosuggestion generation.
+    bool
+        True if data is available, False otherwise
     """
-    # Get Wikipedia articles for the language
-    articles = get_wikipedia_articles(language=language)
-    
-    # Clean the articles
-    cleaned_corpus = clean(articles, language=language)
-    
-    return cleaned_corpus
-
+    try:
+        # Check if lexeme forms metadata exists and is valid for this language
+        if data_type in ['verbs', 'nouns']:
+            forms_valid = validate_lexeme_forms(language, data_type)
+            if not forms_valid:
+                logging.warning(f"No valid lexeme form data available for {language} {data_type}")
+                return False
+        return True
+    except Exception as e:
+        logging.error(f"Error validating data availability: {str(e)}")
+        return False
 
 def get_data(
     language: str = None,
@@ -67,34 +72,39 @@ def get_data(
     outputs_per_entry: int = None,
     all: bool = False,
     interactive: bool = False,
-) -> None:
+) -> Optional[bool]:
     """
     Function for controlling the data get process for the CLI.
 
     Parameters
     ----------
-    language : str
-        The language(s) to get.
-    data_type : str
-        The data type(s) to get.
-    output_type : str
-        The output file type.
-    output_dir : str
-        The output directory path for results.
-    outputs_per_entry : str
-        How many outputs should be generated per data entry.
-    overwrite : bool (default: False)
-        Whether to overwrite existing files.
-    all : bool
-        Get all languages and data types.
-    interactive : bool (default: False)
-        Whether it's running in interactive mode.
+        language : str
+            The language(s) to get.
+        data_type : str
+            The data type(s) to get.
+        output_type : str
+            The output file type.
+        output_dir : str
+            The output directory path for results.
+        outputs_per_entry : str
+            How many outputs should be generated per data entry.
+        overwrite : bool (default: False)
+            Whether to overwrite existing files.
+        all : bool
+            Get all languages and data types.
+        interactive : bool (default: False)
+            Whether it's running in interactive mode.
 
     Returns
     -------
-    None
-        The requested data saved locally given file type and location arguments.
+        Optional[bool]: True if successful, None if failed
     """
+    # Configure logging
+    logging.basicConfig(
+        level=logging.INFO if interactive else logging.WARNING,
+        format='%(levelname)s: %(message)s'
+    )
+
     # MARK: Defaults
     output_type = output_type or "json"
     if output_dir is None:
@@ -110,93 +120,129 @@ def get_data(
     languages = [language] if language else None
     subprocess_result = False
 
-    # MARK: Get All
-    if all:
-        print("Updating all languages and data types ...")
-        query_data(None, None, None, overwrite)
-        subprocess_result = True
+    try:
+        # MARK: Get All
+        if all:
+            logging.info("Updating all languages and data types ...")
+            query_data(None, None, None, overwrite)
+            subprocess_result = True
 
-    # MARK: Emojis
-    elif data_type in {"emoji-keywords", "emoji_keywords"}:
-        for lang in languages:
-            emoji_keyword_extraction_script = (
-                Path(__file__).parent.parent
-                / "language_data_extraction"
-                / lang
-                / "emoji_keywords"
-                / "generate_emoji_keywords.py"
-            )
-            subprocess_result = subprocess.run(
-                ["python", emoji_keyword_extraction_script]
-            )
-
-    # MARK: Autosuggestions
-    elif data_type in {"autosuggestions", "auto_suggestions"}:
-        subprocess_result = True
-        for lang in languages:
-            try:
-                print(f"Loading text corpus for {lang}...")
-                text_corpus = load_text_corpus(lang)
-                
-                print(f"Generating autosuggestions for {lang}...")
-                autosuggestions = gen_autosuggestions(
-                    text_corpus,
-                    language=lang,
-                    num_words=500,
-                    update_local_data=True,
-                    verbose=interactive
+        # MARK: Emojis
+        elif data_type in {"emoji-keywords", "emoji_keywords"}:
+            for lang in languages:
+                if not validate_data_availability(lang, "emoji_keywords"):
+                    continue
+                    
+                emoji_keyword_extraction_script = (
+                    Path(__file__).parent.parent
+                    / "language_data_extraction"
+                    / lang
+                    / "emoji_keywords"
+                    / "generate_emoji_keywords.py"
                 )
-                
-                output_path = Path(output_dir) / lang
-                output_path.mkdir(parents=True, exist_ok=True)
-                
-                # Save autosuggestions according to output type
-                if output_type == "json":
-                    with open(output_path / "autosuggestions.json", "w", encoding="utf-8") as f:
-                        json.dump(autosuggestions, f, ensure_ascii=False, indent=2)
-                
-                print(f"Autosuggestions for {lang} generated and saved.")
-                
-            except Exception as e:
-                print(f"Error generating autosuggestions for {lang}: {str(e)}")
-                subprocess_result = False
 
-    # MARK: Query Data
-    elif language or data_type:
-        data_type = data_type[0] if isinstance(data_type, list) else data_type
-        data_type = [data_type] if data_type else None
-        print(
-            f"Updating data for language(s): {language}; data type(s): {', '.join(data_type) if data_type else ''}"
-        )
-        query_data(
-            languages=languages,
-            data_type=data_type,
-            output_dir=output_dir,
-            overwrite=overwrite,
-            interactive=interactive,
-        )
-        subprocess_result = True
+                if not emoji_keyword_extraction_script.exists():
+                    logging.error(f"Emoji keyword script not found for language: {lang}")
+                    continue
 
-    else:
-        raise ValueError(
-            "You must provide at least one of the --language (-l) or --data-type (-dt) options, or use --all (-a)."
-        )
+                subprocess_result = subprocess.run(
+                    ["python", str(emoji_keyword_extraction_script)],
+                    capture_output=True
+                )
 
-    if (
-        isinstance(subprocess_result, subprocess.CompletedProcess)
-        and subprocess_result.returncode != 1
-    ) or (isinstance(subprocess_result, bool) and subprocess_result is not False):
-        print(
-            f"Updated data was saved in: {Path(output_dir).resolve()}.",
-        )
-        if interactive:
-            return True
+        # MARK: Autosuggestions
+        elif data_type in {"autosuggestions", "auto_suggestions"}:
+            for lang in languages:
+                if not validate_data_availability(lang, "autosuggestions"):
+                    logging.warning(f"Skipping autosuggestions for {lang} - no data available")
+                    continue
+                    
+                logging.info(f"Generating autosuggestions for {lang}...")
+                try:
+                    corpus = load_text_corpus(lang)
+                    if not corpus:
+                        logging.warning(f"No text corpus available for {lang}")
+                        continue
+                        
+                    autosuggestions = gen_autosuggestions(
+                        text_corpus=corpus,
+                        language=lang,
+                        update_local_data=True,
+                        verbose=interactive
+                    )
+                    subprocess_result = True if autosuggestions else False
+                except Exception as e:
+                    logging.error(f"Error generating autosuggestions for {lang}: {str(e)}")
+                    continue
 
-    # The emoji keywords process has failed.
-    elif data_type in {"emoji-keywords", "emoji_keywords"}:
-        print(
-            "\nThe Scribe-Data emoji functionality is powered by PyICU, which is currently not installed."
-        )
-        print(
-            "Please check the installation guide at https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/unicode/UNICODE_INSTALLTION.md for more information.\n"
-        )
+        # MARK: Query Data
+        elif language or data_type:
+            data_type = data_type[0] if isinstance(data_type, list) else data_type
+            data_type = [data_type] if data_type else None
+
+            if data_type and language:
+                # Validate data availability before querying
+                if not all(validate_data_availability(lang, dt) for lang in languages for dt in data_type):
+                    logging.warning("Some requested data is not available")
+                
+            logging.info(f"Updating data for language(s): {language}; data type(s): {', '.join(data_type) if data_type else 'all'}")
+            
+            query_data(
+                languages=languages,
+                data_type=data_type,
+                output_dir=output_dir,
+                overwrite=overwrite,
+                interactive=interactive,
+            )
+            subprocess_result = True
+
+        else:
+            raise ValueError(
+                "You must provide at least one of the --language (-l) or --data-type (-dt) options, or use --all (-a)."
+            )
+
+        # Handle results
+        if (
+            isinstance(subprocess_result, subprocess.CompletedProcess)
+            and subprocess_result.returncode == 0
+        ) or subprocess_result is True:
+            logging.info(f"Updated data was saved in: {Path(output_dir).resolve()}")
+            if interactive:
+                return True
+
+        # Handle emoji keywords failure
+        elif data_type in {"emoji-keywords", "emoji_keywords"}:
+            logging.error(
+                "\nThe Scribe-Data emoji functionality is powered by PyICU, which is currently not installed."
+                "\nPlease check the installation guide at "
+                "https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/unicode/UNICODE_INSTALLTION.md "
+                "for more information.\n"
+            )
+            
+        return None
+
+    except Exception as e:
+        logging.error(f"Error in get_data: {str(e)}")
+        return None
+
+def load_text_corpus(language: str) -> List[str]:
+    """
+    Load the text corpus for a given language.
+    This is a placeholder that should be implemented based on your data storage.
+    
+    Parameters
+    ----------
+    language : str
+        The language to load corpus for
+        
+    Returns
+    -------
+    List[str]
+        The text corpus for the language
+    """
+    try:
+        # Implement actual corpus loading logic here
+        return []
+    except Exception as e:
+        logging.error(f"Error loading text corpus for {language}: {str(e)}")
+        return []
