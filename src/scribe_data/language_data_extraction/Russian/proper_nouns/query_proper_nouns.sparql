@@ -1,11 +1,11 @@
 # tool: scribe-data
-# All Russian (Q7737) nouns and the given forms.
+# All Russian (Q7737) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?nomSingular
-  ?nomPlural
+  ?nominativeSingular
+  ?nominativePlural
   ?gender
 
 WHERE {
@@ -15,26 +15,24 @@ WHERE {
   # MARK: Nominative Singular
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nomSingularForm .
-    ?nomSingularForm ontolex:representation ?nomSingular ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-      wikibase:grammaticalFeature wd:Q110786 ;
-  } .
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+  }
 
   # MARK: Nominative Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nomPluralForm .
-    ?nomPluralForm ontolex:representation ?nomPlural ;
-      wikibase:grammaticalFeature wd:Q131105 ;
-      wikibase:grammaticalFeature wd:Q146786 ;
-  } .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  }
 
   # MARK: Gender(s)
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-  } .
+  }
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

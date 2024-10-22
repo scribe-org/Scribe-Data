@@ -1,12 +1,12 @@
 # tool: scribe-data
-# All Danish (Q9035) adjectives and the given forms.
+# All Danish (Q9035) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
-  ?indefiniteSuperlative
-  ?definiteSuperlative
+  ?indefiniteSingularSuperlative
+  ?definiteSingularSuperlative
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
@@ -16,14 +16,14 @@ WHERE {
   # MARK: Superlative
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indefiniteSuperlativeForm .
-    ?indefiniteSuperlativeFrom ontolex:representation ?indefiniteSuperlative ;
+    ?lexeme ontolex:lexicalForm ?indefiniteSingularSuperlativeForm .
+    ?indefiniteSingularSuperlativeForm ontolex:representation ?indefiniteSingularSuperlative ;
       wikibase:grammaticalFeature wd:Q110786, wd:Q53997857, wd:Q1817208 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?definiteSuperlativeForm .
-    ?definiteSuperlativeForm ontolex:representation ?definiteSuperlative ;
+    ?lexeme ontolex:lexicalForm ?definiteSingularSuperlativeForm .
+    ?definiteSingularSuperlativeForm ontolex:representation ?definiteSingularSuperlative ;
       wikibase:grammaticalFeature wd:Q110786, wd:Q53997851, wd:Q1817208 .
-  } 
+  }
 }

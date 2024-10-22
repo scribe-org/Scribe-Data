@@ -1,14 +1,15 @@
 # tool: scribe-data
-# All Estonian (Q9072) adjectives and the given forms.
+# All Estonian (Q9072) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?essPlural
-  ?abeSingular
-  ?abePlural
-  ?comSingular
-  ?comPlural
+  ?essiveSingular
+  ?essivePlural
+  ?abessiveSingular
+  ?abessivePlural
+  ?comitativeSingular
+  ?comitativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
@@ -18,42 +19,42 @@ WHERE {
   # MARK: Essive
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?essSingularForm .
-    ?essSingularForm ontolex:representation ?essSingular ;
+    ?lexeme ontolex:lexicalForm ?essiveSingularForm .
+    ?essiveSingularForm ontolex:representation ?essiveSingular ;
       wikibase:grammaticalFeature wd:Q148465, wd:Q110786 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?essPluralForm .
-    ?essPluralForm ontolex:representation ?essPlural ;
+    ?lexeme ontolex:lexicalForm ?essivePluralForm .
+    ?essivePluralForm ontolex:representation ?essivePlural ;
       wikibase:grammaticalFeature wd:Q148465, wd:Q146786 .
-  } 
+  }
 
   # MARK: Abessive
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?abeSingularForm .
-    ?abeSingularForm ontolex:representation ?abeSingular ;
+    ?lexeme ontolex:lexicalForm ?abessiveSingularForm .
+    ?abessiveSingularForm ontolex:representation ?abessiveSingular ;
       wikibase:grammaticalFeature wd:Q319822, wd:Q110786 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?abePluralForm .
-    ?abePluralForm ontolex:representation ?abePlural ;
+    ?lexeme ontolex:lexicalForm ?abessivePluralForm .
+    ?abessivePluralForm ontolex:representation ?abessivePlural ;
       wikibase:grammaticalFeature wd:Q319822, wd:Q146786 .
-  } 
+  }
 
   # MARK: Comitative
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comSingularForm .
-    ?comSingularForm ontolex:representation ?comSingular ;
+    ?lexeme ontolex:lexicalForm ?comitativeSingularForm .
+    ?comitativeSingularForm ontolex:representation ?comitativeSingular ;
       wikibase:grammaticalFeature wd:Q838581, wd:Q110786 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comPluralForm .
-    ?comPluralForm ontolex:representation ?comPlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
-  } 
+    ?lexeme ontolex:lexicalForm ?comitativePluralForm .
+    ?comitativePluralForm ontolex:representation ?comitativePlural ;
+      wikibase:grammaticalFeature wd:Q838581, wd:Q146786 .
+  }
 }

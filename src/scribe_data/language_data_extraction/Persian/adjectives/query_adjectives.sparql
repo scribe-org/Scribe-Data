@@ -1,0 +1,32 @@
+# tool: scribe-data
+# All Persian (Q9168) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?singular
+  ?plural
+
+WHERE {
+  ?lexeme dct:language wd:Q9168 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+    FILTER(lang(?adjective) = "fa")
+
+  # MARK: Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  # MARK: Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+}

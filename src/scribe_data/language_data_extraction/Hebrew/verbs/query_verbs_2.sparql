@@ -1,11 +1,14 @@
 # tool: scribe-data
-# All Hebrew (Q9288) verbs and the given forms.
+# All Hebrew (Q9288) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?impSPSF ?impSPSM ?impSPPF ?impSPPM
+  ?feminineImperativeSecondPersonSingular
+  ?masculineImperativeSecondPersonSingular
+  ?feminineImperativeSecondPersonPlural
+  ?masculineImperativeSecondPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q9288 ;
@@ -13,35 +16,31 @@ WHERE {
 
   # MARK: Imerpative
 
-  # TPS Feminine
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impSPSMForm .
-    ?impSPSMForm ontolex:representation ?impSPSM ;
+    ?lexeme ontolex:lexicalForm ?feminineImperativeSecondPersonSingularForm .
+    ?feminineImperativeSecondPersonSingularForm ontolex:representation ?feminineImperativeSecondPersonSingular ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q22716, wd:Q1775415 .
-      FILTER(lang(?impSPSM) = "he") .
-  } 
+      FILTER(lang(?feminineImperativeSecondPersonSingular) = "he")
+  }
 
-  # TPS Masculine
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impSPSMForm .
-    ?impSPSMForm ontolex:representation ?impSPSM ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q22716, wd:Q1775415 .
-      FILTER(lang(?impSPSM) = "he") .
-  } 
+    ?lexeme ontolex:lexicalForm ?masculineImperativeSecondPersonSingularForm .
+    ?masculineImperativeSecondPersonSingularForm ontolex:representation ?masculineImperativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q22716, wd:Q499327 .
+      FILTER(lang(?masculineImperativeSecondPersonSingular) = "he")
+  }
 
-  # TPP Feminine
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impSPPFForm .
-    ?impSPPFForm ontolex:representation ?impSPPF ;
+    ?lexeme ontolex:lexicalForm ?feminineImperativeSecondPersonPluralForm .
+    ?feminineImperativeSecondPersonPluralForm ontolex:representation ?feminineImperativeSecondPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q22716, wd:Q1775415 .
-      FILTER(lang(?impSPPF) = "he") .
-  } 
+      FILTER(lang(?feminineImperativeSecondPersonPlural) = "he")
+  }
 
-  # TPP Masculine
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impSPPMForm .
-    ?impSPPMForm ontolex:representation ?impSPPM ;
+    ?lexeme ontolex:lexicalForm ?masculineImperativeSecondPersonPluralForm .
+    ?masculineImperativeSecondPersonPluralForm ontolex:representation ?masculineImperativeSecondPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q22716, wd:Q499327 .
-      FILTER(lang(?impSPPM) = "he") .
+      FILTER(lang(?masculineImperativeSecondPersonPlural) = "he")
   }
 }

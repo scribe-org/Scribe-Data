@@ -1,14 +1,16 @@
 # tool: scribe-data
-# All Greek (Q36510) verb snd the given forms.
+# All Greek (Q36510) verb (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?presFPS ?presSPS ?presTPS
-  ?presFPP ?presSPP ?presTPP
-  ?pastFPS ?pastSPS ?pastTPS
-  ?pastFPP ?pastSPP ?pastTPP
+  ?presentFirstPersonSingular
+  ?presentSecondPersonSingular
+  ?presentThirdPersonSingular
+  ?presentFirstPersonPlural
+  ?presentSecondPersonPlural
+  ?presentThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q36510 ;
@@ -23,38 +25,38 @@ WHERE {
   # MARK: Present
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presFPSForm .
-    ?presFPSForm ontolex:representation ?presFPS ;
+    ?lexeme ontolex:lexicalForm ?presentFirstPersonSingularForm .
+    ?presentFirstPersonSingularForm ontolex:representation ?presentFirstPersonSingular ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q192613 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSPSForm .
-    ?presSPSForm ontolex:representation ?presSPS ;
+    ?lexeme ontolex:lexicalForm ?presentSecondPersonSingularForm .
+    ?presentSecondPersonSingularForm ontolex:representation ?presentSecondPersonSingular ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q192613 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presTPSForm .
-    ?presTPSForm ontolex:representation ?presTPS ;
+    ?lexeme ontolex:lexicalForm ?presentThirdPersonSingularForm .
+    ?presentThirdPersonSingularForm ontolex:representation ?presentThirdPersonSingular ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q192613 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presFPPForm .
-    ?presFPPForm ontolex:representation ?presFPP ;
+    ?lexeme ontolex:lexicalForm ?presentFirstPersonPluralForm .
+    ?presentFirstPersonPluralForm ontolex:representation ?presentFirstPersonPlural ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q192613 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSPPForm .
-    ?presSPPForm ontolex:representation ?presSPP ;
+    ?lexeme ontolex:lexicalForm ?presentSecondPersonPluralForm .
+    ?presentSecondPersonPluralForm ontolex:representation ?presentSecondPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q192613 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presTPPForm .
-    ?presTPPForm ontolex:representation ?presTPP ;
+    ?lexeme ontolex:lexicalForm ?presentThirdPersonPluralForm .
+    ?presentThirdPersonPluralForm ontolex:representation ?presentThirdPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q192613 .
-  } 
+  }
 }
