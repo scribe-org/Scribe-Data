@@ -18,7 +18,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularForm .
     ?singularForm ontolex:representation ?singular ;
-    wikibase:grammaticalFeature wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
   # MARK: Plural
@@ -26,6 +26,6 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-    wikibase:grammaticalFeature wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 }

@@ -5,8 +5,8 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
-  ?commonSingularIndefinite
-  ?neuterSingularIndefinite
+  ?commonIndefiniteSingularPositive
+  ?neuterIndefiniteSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
@@ -16,14 +16,14 @@ WHERE {
   # MARK: Indefinite
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?commonSingularIndefiniteForm .
-    ?commonSingularIndefiniteForm ontolex:representation ?commonSingularIndefinite ;
+    ?lexeme ontolex:lexicalForm ?commonIndefiniteSingularPositiveForm .
+    ?commonIndefiniteSingularPositiveForm ontolex:representation ?commonIndefiniteSingularPositive ;
       wikibase:grammaticalFeature wd:Q1305037, wd:Q110786, wd:Q53997857, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterSingularIndefiniteForm .
-    ?neuterSingularIndefiniteForm ontolex:representation ?neuterSingularIndefinite ;
+    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularPositiveForm .
+    ?neuterIndefiniteSingularPositiveForm ontolex:representation ?neuterIndefiniteSingularPositive ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q53997857, wd:Q3482678 .
   }
 }

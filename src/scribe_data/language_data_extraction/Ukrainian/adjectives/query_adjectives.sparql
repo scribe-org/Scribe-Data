@@ -5,12 +5,12 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lemma
-  ?feminineSingularNominative
-  ?masculineSingularNominative
-  ?neuterSingularNominative
-  ?pluralNominative
-  ?comparativeForm
-  ?superlativeForm
+  ?nominativeFeminineSingular
+  ?nominativeMasculineSingular
+  ?nominativeNeuterSingular
+  ?nominativePlural
+  ?comparative
+  ?superlative
 
 WHERE {
   ?lexeme dct:language wd:Q8798 ;
@@ -18,38 +18,38 @@ WHERE {
     wikibase:lemma ?lemma .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSingularNominativeForm .
-    ?feminineSingularNominativeForm ontolex:representation ?feminineSingularNominative ;
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularForm .
+    ?nominativeFeminineSingularForm ontolex:representation ?nominativeFeminineSingular ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q131105 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSingularNominativeForm .
-    ?masculineSingularNominativeForm ontolex:representation ?masculineSingularNominative ;
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularForm .
+    ?nominativeMasculineSingularForm ontolex:representation ?nominativeMasculineSingular ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q131105 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterSingularNominativeForm .
-    ?neuterSingularNominativeForm ontolex:representation ?neuterSingularNominative ;
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterSingularForm .
+    ?nominativeNeuterSingularForm ontolex:representation ?nominativeNeuterSingular ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q131105 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralNominativeForm .
-    ?pluralNominativeForm ontolex:representation ?pluralNominative ;
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
       wikibase:grammaticalFeature wd:Q146786, wd:Q131105 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comparativeFormForm .
-    ?comparativeFormForm ontolex:representation ?comparativeForm ;
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
       wikibase:grammaticalFeature wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?superlativeFormForm .
-    ?superlativeFormForm ontolex:representation ?superlativeForm ;
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
       wikibase:grammaticalFeature wd:Q1817208 .
   }
 }
