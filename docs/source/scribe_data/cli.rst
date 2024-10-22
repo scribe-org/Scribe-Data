@@ -67,7 +67,10 @@ Example output:
     adverbs
     emoji-keywords
     nouns
+    personal-pronouns
+    postpositions
     prepositions
+    proper-nouns
     verbs
     -----------------------------------
 
@@ -94,7 +97,10 @@ Example output:
     adverbs
     emoji-keywords
     nouns
+    personal-pronouns
+    postpositions
     prepositions
+    proper-nouns
     verbs
     -----------------------------------
 
@@ -115,7 +121,10 @@ Example output:
     adverbs
     emoji-keywords
     nouns
+    personal-pronouns
+    postpositions
     prepositions
+    proper-nouns
     verbs
     -----------------------------------
 
