@@ -4,7 +4,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?nomSingular
+  ?nominativeSingular
   ?genitiveSingular
   ?dativeSingular
   ?accusativeSingular
@@ -16,7 +16,7 @@ SELECT
 WHERE {
   ?lexeme dct:language wd:Q8798 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?nomSingular .
+    wikibase:lemma ?nominativeSingular .
 
   # MARK: Genitive
 

@@ -4,37 +4,37 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?nomSingular
-  ?accSingular
-  ?nomPlural
-  ?accPlural
+  ?nominativeSingular
+  ?accusativeSingular
+  ?nominativePlural
+  ?accusativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?nomSingular .
+    wikibase:lemma ?nominativeSingular .
 
   # MARK: Accusative Singular
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accSingularForm .
-    ?accSingularForm ontolex:representation ?accSingular ;
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
       wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
   }
 
   # MARK: Nominative Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nomPluralForm .
-    ?nomPluralForm ontolex:representation ?nomPlural ;
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
   # MARK: Accusative Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accPluralForm .
-    ?accPluralForm ontolex:representation ?accPlural ;
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
       wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
   }
 }

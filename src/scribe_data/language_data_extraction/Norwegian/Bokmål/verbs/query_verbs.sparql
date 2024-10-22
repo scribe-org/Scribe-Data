@@ -7,7 +7,7 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?present
+  ?activePresent
 
 WHERE {
   ?lexeme dct:language wd:Q25167 ;
@@ -17,14 +17,13 @@ WHERE {
 
   ?lexeme ontolex:lexicalForm ?infinitiveForm .
   ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature wd:Q179230 ;
-    wikibase:grammaticalFeature wd:Q1317831 .
+    wikibase:grammaticalFeature wd:Q179230, wd:Q1317831 .
 
   # MARK: Active Present
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
+    ?lexeme ontolex:lexicalForm ?activePresentForm .
+    ?activePresentForm ontolex:representation ?activePresent ;
       wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
   }
 }

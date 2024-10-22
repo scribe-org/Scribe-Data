@@ -10,5 +10,5 @@ WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?preposition ;
-    FILTER(lang(?preposition) = "es") .
+    FILTER(lang(?preposition) = "es")
 }
