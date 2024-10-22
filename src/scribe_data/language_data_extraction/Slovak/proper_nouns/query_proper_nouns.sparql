@@ -1,11 +1,10 @@
 # tool: scribe-data
-# All Slovak (Q9058) nouns, their plurals and the given forms.s for the given cases.
+# All Slovak (Q9058) proper nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?properNoun
-  ?nomPlural
   ?gender
 
 WHERE {
@@ -17,7 +16,7 @@ WHERE {
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-  } .
+  }
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

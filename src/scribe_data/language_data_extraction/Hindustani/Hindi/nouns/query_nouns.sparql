@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Hindi (from Hindustani Q11051) nouns and the given forms.
+# All Hindi (from Hindustani Q11051) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 # Note: We need to filter for "hi" to remove Urdu (ur) words.
@@ -22,8 +22,8 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(lang(?plural) = "hi") .
-  } 
+      FILTER(lang(?plural) = "hi")
+  }
 
   # MARK: Gender(s)
 

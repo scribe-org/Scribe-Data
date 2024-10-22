@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Italian (Q652) nouns and the given forms.
+# All Italian (Q652) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -17,7 +17,7 @@ WHERE {
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-  } .
+  }
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".

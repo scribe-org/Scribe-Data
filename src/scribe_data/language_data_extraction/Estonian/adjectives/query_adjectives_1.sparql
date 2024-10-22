@@ -1,16 +1,16 @@
 # tool: scribe-data
-# All Estonian (Q9072) adjectives and the given forms.
+# All Estonian (Q9072) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
-  ?nomSingular
-  ?nomPlural
-  ?genSingular
-  ?genPlural
-  ?partSingular
-  ?partPlural
+  ?nominativeSingular
+  ?nominativePlural
+  ?genitiveSingular
+  ?genitivePlural
+  ?partitiveSingular
+  ?partitivePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
@@ -20,42 +20,42 @@ WHERE {
   # MARK: Nominative
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nomSingularForm .
-    ?nomSingularForm ontolex:representation ?nomSingular ;
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nomPluralForm .
-    ?nomPluralForm ontolex:representation ?nomPlural ;
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
-  } 
+  }
 
   # MARK: Genitive
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genSingularForm .
-    ?genSingularForm ontolex:representation ?genSingular ;
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
       wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genPluralForm .
-    ?genPluralForm ontolex:representation ?genPlural ;
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
       wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
-  } 
+  }
 
   # MARK: Partitive
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?partSingularForm .
-    ?partSingularForm ontolex:representation ?partSingular ;
+    ?lexeme ontolex:lexicalForm ?partitiveSingularForm .
+    ?partitiveSingularForm ontolex:representation ?partitiveSingular ;
       wikibase:grammaticalFeature wd:Q857325, wd:Q110786 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?partPluralForm .
-    ?partPluralForm ontolex:representation ?partPlural ;
+    ?lexeme ontolex:lexicalForm ?partitivePluralForm .
+    ?partitivePluralForm ontolex:representation ?partitivePlural ;
       wikibase:grammaticalFeature wd:Q857325, wd:Q146786 .
-  } 
+  }
 }

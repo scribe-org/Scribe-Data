@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Urdu (from Hindustani Q11051) proper nouns and the given forms.
+# All Urdu (from Hindustani Q11051) proper nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 # Note: We need to filter for "ur" to remove Hindi (hi) words.
@@ -21,15 +21,15 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 ;
+      wikibase:grammaticalFeature wd:Q146786 .
       FILTER(lang(?plural) = "ur")
-  } .
+  }
 
   # MARK: Gender(s)
 
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender .
-  } .
+  }
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
