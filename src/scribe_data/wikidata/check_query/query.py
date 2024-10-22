@@ -2,6 +2,7 @@
 Classes and methods for querying a file in the query check process.
 
 .. raw:: html
+
     <!--
     * Copyright (C) 2024 Scribe
     *
