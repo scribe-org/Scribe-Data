@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Shahmukhi (from Punjabi Q58635) nouns and the given forms.
+# All Shahmukhi (from Punjabi Q58635) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 # Note: We need to filter for "pnb" to select Shahmukhi words.
@@ -23,8 +23,8 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(lang(?plural) = "pnb") .
-  } 
+      FILTER(lang(?plural) = "pnb")
+  }
 
   # MARK: Gender(s)
 

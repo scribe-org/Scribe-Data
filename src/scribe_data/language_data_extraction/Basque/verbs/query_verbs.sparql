@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Basque (Q8752) verbs and the given forms.
+# All Basque (Q8752) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -23,38 +23,38 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futureForm .
     ?futureForm ontolex:representation ?future ;
-    wikibase:grammaticalFeature wd:Q501405 .
-  } 
+      wikibase:grammaticalFeature wd:Q501405 .
+  }
 
   # MARK: Gerund
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?gerundForm .
     ?gerundForm ontolex:representation ?gerund ;
-    wikibase:grammaticalFeature wd:Q1923028 .
-  } 
+      wikibase:grammaticalFeature wd:Q1923028 .
+  }
 
   # MARK: Imperfective
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperfectiveForm .
     ?imperfectiveForm ontolex:representation ?imperfective ;
-    wikibase:grammaticalFeature wd:Q54556033 .
-  } 
+      wikibase:grammaticalFeature wd:Q54556033 .
+  }
 
   # MARK: Nominalized
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominalizedForm .
     ?nominalizedForm ontolex:representation ?nominalized ;
-    wikibase:grammaticalFeature wd:Q74674960 .
-  } 
+      wikibase:grammaticalFeature wd:Q74674960 .
+  }
 
   # MARK: Participle
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?participleForm .
     ?participleForm ontolex:representation ?participle ;
-    wikibase:grammaticalFeature wd:Q814722 .
-  } 
+      wikibase:grammaticalFeature wd:Q814722 .
+  }
 }

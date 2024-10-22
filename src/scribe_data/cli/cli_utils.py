@@ -37,6 +37,9 @@ LANGUAGE_METADATA_FILE = (
 DATA_TYPE_METADATA_FILE = (
     Path(__file__).parent.parent / "resources" / "data_type_metadata.json"
 )
+LEXEME_FORM_METADATA_FILE = (
+    Path(__file__).parent.parent / "resources" / "lexeme_form_metadata.json"
+)
 DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
 
 try:
@@ -54,6 +57,12 @@ try:
 except (IOError, json.JSONDecodeError) as e:
     print(f"Error reading data type metadata: {e}")
 
+try:
+    with LEXEME_FORM_METADATA_FILE.open("r", encoding="utf-8") as file:
+        lexeme_form_metadata = json.load(file)
+
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading lexeme form metadata: {e}")
 
 language_map = {}
 language_to_qid = {}
@@ -62,17 +71,26 @@ language_to_qid = {}
 for lang, lang_data in language_metadata.items():
     lang_lower = lang.lower()
 
-    # Handle sub-languages if they exist.
     if "sub_languages" in lang_data:
         for sub_lang, sub_lang_data in lang_data["sub_languages"].items():
             sub_lang_lower = sub_lang.lower()
-            language_map[sub_lang_lower] = sub_lang_data
-            language_to_qid[sub_lang_lower] = sub_lang_data["qid"]
+            sub_qid = sub_lang_data.get("qid")
+
+            if sub_qid is None:
+                print(f"Warning: 'qid' missing for sub-language {sub_lang} of {lang}")
+
+            else:
+                language_map[sub_lang_lower] = sub_lang_data
+                language_to_qid[sub_lang_lower] = sub_qid
 
     else:
-        # Handle the main language directly.
-        language_map[lang_lower] = lang_data
-        language_to_qid[lang_lower] = lang_data["qid"]
+        qid = lang_data.get("qid")
+        if qid is None:
+            print(f"Warning: 'qid' missing for language {lang}")
+
+        else:
+            language_map[lang_lower] = lang_data
+            language_to_qid[lang_lower] = qid
 
 
 # MARK: Correct Inputs
@@ -139,7 +157,7 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
                 for item in value:
                     if isinstance(item, dict):
                         for sub_key, sub_value in item.items():
-                            print(f"  {sub_key:<{max_key_length}} : {sub_value}")
+                            print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
 
                     else:
                         print(f"  {item}")

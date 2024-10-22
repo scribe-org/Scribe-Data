@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Kurmanji (Q36163) adjectives and the given forms.
+# All Kurmanji (Q36163) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -10,5 +10,5 @@ WHERE {
   ?lexeme dct:language wd:Q36163 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
-    FILTER(lang(?adjective) = "ku") .
+    FILTER(lang(?adjective) = "ku")
 }

@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Danish (Q9035) adverbs and the given forms.
+# All Danish (Q9035) adverbs (Q380057) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
