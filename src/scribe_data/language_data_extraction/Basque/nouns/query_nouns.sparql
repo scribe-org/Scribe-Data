@@ -5,8 +5,8 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?absIndefinite
-  ?absSingular
-  ?absPlural
+  ?absolutiveSingular
+  ?absolutivePlural
 
 WHERE {
   ?lexeme dct:language wd:Q8752 ;
@@ -16,16 +16,16 @@ WHERE {
   # MARK: Absolutive Singular
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?absSingularForm .
-    ?absSingularForm ontolex:representation ?absSingular ;
+    ?lexeme ontolex:lexicalForm ?absolutiveSingularForm .
+    ?absolutiveSingularForm ontolex:representation ?absolutiveSingular ;
       wikibase:grammaticalFeature wd:Q332734, wd:Q110786 .
   }
 
   # MARK: Absolutive Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?absPluralForm .
-    ?absPluralForm ontolex:representation ?absPlural ;
+    ?lexeme ontolex:lexicalForm ?absolutivePluralForm .
+    ?absolutivePluralForm ontolex:representation ?absolutivePlural ;
       wikibase:grammaticalFeature wd:Q332734, wd:Q146786 .
   }
 }

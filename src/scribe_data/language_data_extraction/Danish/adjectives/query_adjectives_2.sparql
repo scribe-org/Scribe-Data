@@ -17,8 +17,8 @@ WHERE {
   # MARK: Definite
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularDefiniteForm .
-    ?singularDefiniteForm ontolex:representation ?singularDefinite ;
+    ?lexeme ontolex:lexicalForm ?definiteSingularPositiveForm .
+    ?definiteSingularPositiveForm ontolex:representation ?definiteSingularPositive ;
       wikibase:grammaticalFeature wd:Q110786, wd:Q53997851, wd:Q3482678 .
   }
 

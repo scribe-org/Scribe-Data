@@ -19,6 +19,6 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(lang(?plural) = "sw") .
+      FILTER(lang(?plural) = "sw")
   }
 }

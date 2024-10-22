@@ -5,10 +5,18 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?impFPS ?impSPS ?impTPS
-  ?impFPP ?impSPP ?impTPP
-  ?futFPS ?futSPS ?futTPS
-  ?futFPP ?futSPP ?futTPP
+  ?indicativeImperfectFirstPersonSingular
+  ?indicativeImperfectSecondPersonSingular
+  ?indicativeImperfectThirdPersonSingular
+  ?indicativeImperfectFirstPersonPlural
+  ?indicativeImperfectSecondPersonPlural
+  ?indicativeImperfectThirdPersonPlural
+  ?indicativeSimpleFutureFirstPersonSingular
+  ?indicativeSimpleFutureSecondPersonSingular
+  ?indicativeSimpleFutureThirdPersonSingular
+  ?indicativeSimpleFutureFirstPersonPlural
+  ?indicativeSimpleFutureSecondPersonPlural
+  ?indicativeSimpleFutureThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q150 ;
@@ -22,89 +30,77 @@ WHERE {
 
   # MARK: Imperfect
 
-  # FPS
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impFPSForm .
-    ?impFPSForm ontolex:representation ?impFPS ;
+    ?lexeme ontolex:lexicalForm ?indicativeImperfectFirstPersonSingularForm .
+    ?indicativeImperfectFirstPersonSingularForm ontolex:representation ?indicativeImperfectFirstPersonSingular ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q682111, wd:Q108524486 .
   }
 
-  # SPS
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impSPSForm .
-    ?impSPSForm ontolex:representation ?impSPS ;
+    ?lexeme ontolex:lexicalForm ?indicativeImperfectSecondPersonSingularForm .
+    ?indicativeImperfectSecondPersonSingularForm ontolex:representation ?indicativeImperfectSecondPersonSingular ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q682111, wd:Q108524486 .
   }
 
-  # TPS
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impTPSForm .
-    ?impTPSForm ontolex:representation ?impTPS ;
+    ?lexeme ontolex:lexicalForm ?indicativeImperfectThirdPersonSingularForm .
+    ?indicativeImperfectThirdPersonSingularForm ontolex:representation ?indicativeImperfectThirdPersonSingular ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q682111, wd:Q108524486 .
   }
 
-  # FPP
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impFPPForm .
-    ?impFPPForm ontolex:representation ?impFPP ;
+    ?lexeme ontolex:lexicalForm ?indicativeImperfectFirstPersonPluralForm .
+    ?indicativeImperfectFirstPersonPluralForm ontolex:representation ?indicativeImperfectFirstPersonPlural ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q682111, wd:Q108524486 .
   }
 
-  # SPP
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impSPPForm .
-    ?impSPPForm ontolex:representation ?impSPP ;
+    ?lexeme ontolex:lexicalForm ?indicativeImperfectSecondPersonPluralForm .
+    ?indicativeImperfectSecondPersonPluralForm ontolex:representation ?indicativeImperfectSecondPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q682111, wd:Q108524486 .
   }
 
-  # TPP
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impTPPForm .
-    ?impTPPForm ontolex:representation ?impTPP ;
+    ?lexeme ontolex:lexicalForm ?indicativeImperfectThirdPersonPluralForm .
+    ?indicativeImperfectThirdPersonPluralForm ontolex:representation ?indicativeImperfectThirdPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q682111, wd:Q108524486 .
   }
 
   # MARK: Future
 
-  # FPS
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futFPSForm .
-    ?futFPSForm ontolex:representation ?futFPS ;
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureFirstPersonSingularForm .
+    ?indicativeSimpleFutureFirstPersonSingularForm ontolex:representation ?indicativeSimpleFutureFirstPersonSingular ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q682111, wd:Q1475560 .
   }
 
-  # SPS
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futSPSForm .
-    ?futSPSForm ontolex:representation ?futSPS ;
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureSecondPersonSingularForm .
+    ?indicativeSimpleFutureSecondPersonSingularForm ontolex:representation ?indicativeSimpleFutureSecondPersonSingular ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q682111, wd:Q1475560 .
   }
 
-  # TPS
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futTPSForm .
-    ?futTPSForm ontolex:representation ?futTPS ;
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureThirdPersonSingularForm .
+    ?indicativeSimpleFutureThirdPersonSingularForm ontolex:representation ?indicativeSimpleFutureThirdPersonSingular  ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q682111, wd:Q1475560 .
   }
 
-  # FPP
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futFPPForm .
-    ?futFPPForm ontolex:representation ?futFPP ;
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureFirstPersonPluralForm .
+    ?indicativeSimpleFutureFirstPersonPluralForm ontolex:representation ?indicativeSimpleFutureFirstPersonPlural ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q682111, wd:Q1475560 .
   }
 
-  # SPP
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futSPPForm .
-    ?futSPPForm ontolex:representation ?futSPP ;
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureSecondPersonPluralForm .
+    ?indicativeSimpleFutureSecondPersonPluralForm ontolex:representation ?indicativeSimpleFutureSecondPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q682111, wd:Q1475560 .
   }
 
-  # TPP
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futTPPForm .
-    ?futTPPForm ontolex:representation ?futTPP ;
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureThirdPersonPluralForm .
+    ?indicativeSimpleFutureThirdPersonPluralForm ontolex:representation ?indicativeSimpleFutureThirdPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q682111, wd:Q1475560 .
   }
 }

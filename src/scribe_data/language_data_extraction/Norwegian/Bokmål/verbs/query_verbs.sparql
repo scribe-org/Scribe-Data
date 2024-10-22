@@ -11,7 +11,6 @@ SELECT
   ?presentTenseActive
   ?infinitivePassive
   ?presentTensePassive
-  ?infinitive
   ?activePresent
 
 WHERE {
@@ -76,8 +75,8 @@ WHERE {
 
   # MARK: active present
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePresentForm.
-    ?activePresentForm ontolex:representation ?activePresent;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831.
+    ?lexeme ontolex:lexicalForm ?activePresentForm .
+    ?activePresentForm ontolex:representation ?activePresent ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
   }
 }
