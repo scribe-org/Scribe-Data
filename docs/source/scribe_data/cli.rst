@@ -146,6 +146,7 @@ Options:
 - ``-dt, --data-type DATA_TYPE``: The data type(s) to get.
 - ``-od, --output-dir OUTPUT_DIR``: The output directory path for results.
 - ``-ot, --output-type {json,csv,tsv}``: The output file type.
+- ``-ope, --outputs-per-entry OUTPUTS_PER_ENTRY``: How many outputs should be generated per data entry.
 - ``-o, --overwrite``: Whether to overwrite existing files (default: False).
 - ``-a, --all ALL``: Get all languages and data types.
 - ``-i, --interactive``: Run in interactive mode.
