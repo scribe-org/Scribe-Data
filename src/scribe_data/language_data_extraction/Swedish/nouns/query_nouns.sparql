@@ -1,17 +1,17 @@
 # tool: scribe-data
-# All Swedish (Q9027) nouns and the given forms.
+# All Swedish (Q9027) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?nomIndefSingular
-  ?nomIndefPlural
-  ?genIndefSingular
-  ?genIndefPlural
-  ?nomDefSingular
-  ?nomDefPlural
-  ?genDefSingular
-  ?genDefPlural
+  ?nominativeIndefiniteSingular
+  ?nominativeIndefinitePlural
+  ?genitiveIndefiniteSingular
+  ?genitiveIndefinitePlural
+  ?nominativeDefiniteSingular
+  ?nominativeDefinitePlural
+  ?genitiveDefiniteSingular
+  ?genitiveDefinitePlural
   ?gender
 
 WHERE {
@@ -21,50 +21,54 @@ WHERE {
   # MARK: Indefinite
 
   OPTIONAL {
-    # Nominative Singular
-    ?lexeme ontolex:lexicalForm ?nomIndefSingularForm .
-    ?nomIndefSingularForm ontolex:representation ?nomIndefSingular ;
+    ?lexeme ontolex:lexicalForm ?nominativeIndefiniteSingularForm .
+    ?nominativeIndefiniteSingularForm ontolex:representation ?nominativeIndefiniteSingular ;
       wikibase:grammaticalFeature wd:Q53997857, wd:Q131105, wd:Q110786 .
+  }
 
-    # Nominative Plural
-    ?lexeme ontolex:lexicalForm ?nomIndefPluralForm .
-    ?nomIndefPluralForm ontolex:representation ?nomIndefPlural ;
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeIndefinitePluralForm .
+    ?nominativeIndefinitePluralForm ontolex:representation ?nominativeIndefinitePlural ;
       wikibase:grammaticalFeature wd:Q53997857, wd:Q131105, wd:Q146786 .
+  }
 
-    # Genitive Singular
-    ?lexeme ontolex:lexicalForm ?genIndefSingularForm .
-    ?genIndefSingularForm ontolex:representation ?genIndefSingular ;
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveIndefiniteSingularForm .
+    ?genitiveIndefiniteSingularForm ontolex:representation ?genitiveIndefiniteSingular ;
       wikibase:grammaticalFeature wd:Q53997857, wd:Q146233, wd:Q110786 .
+  }
 
-    # Genitive Plural
-    ?lexeme ontolex:lexicalForm ?genIndefPluralForm .
-    ?genIndefPluralForm ontolex:representation ?genIndefPlural ;
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveIndefinitePluralForm .
+    ?genitiveIndefinitePluralForm ontolex:representation ?genitiveIndefinitePlural ;
       wikibase:grammaticalFeature wd:Q53997857, wd:Q146233, wd:Q146786 .
-  } 
+  }
 
   # MARK: Definite
 
   OPTIONAL {
-    # Nominative Singular
-    ?lexeme ontolex:lexicalForm ?nomDefSingularForm .
-    ?nomDefSingularForm ontolex:representation ?nomDefSingular ;
+    ?lexeme ontolex:lexicalForm ?nominativeDefiniteSingularForm .
+    ?nominativeDefiniteSingularForm ontolex:representation ?nominativeDefiniteSingular ;
       wikibase:grammaticalFeature wd:Q53997851, wd:Q131105, wd:Q110786 .
+  }
 
-    # Nominative Plural
-    ?lexeme ontolex:lexicalForm ?nomDefPluralForm .
-    ?nomDefPluralForm ontolex:representation ?nomDefPlural ;
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeDefinitePluralForm .
+    ?nominativeDefinitePluralForm ontolex:representation ?nominativeDefinitePlural ;
       wikibase:grammaticalFeature wd:Q53997851, wd:Q131105, wd:Q146786 .
+  }
 
-    # Genitive Singular
-    ?lexeme ontolex:lexicalForm ?genDefSingularForm .
-    ?genDefSingularForm ontolex:representation ?genDefSingular ;
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveDefiniteSingularForm .
+    ?genitiveDefiniteSingularForm ontolex:representation ?genitiveDefiniteSingular ;
       wikibase:grammaticalFeature wd:Q53997851, wd:Q146233, wd:Q110786 .
+  }
 
-    # Genitive Plural
-    ?lexeme ontolex:lexicalForm ?genDefPluralForm .
-    ?genDefPluralForm ontolex:representation ?genDefPlural ;
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveDefinitePluralForm .
+    ?genitiveDefinitePluralForm ontolex:representation ?genitiveDefinitePlural ;
       wikibase:grammaticalFeature wd:Q53997851, wd:Q146233, wd:Q146786 .
-  } 
+  }
 
   # MARK: Gender(s)
 

@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Spanish (Q1321) prepositions and the given forms.
+# All Spanish (Q1321) prepositions (Q4833830) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -10,5 +10,5 @@ WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?preposition ;
-    FILTER(lang(?preposition) = "es") .
+    FILTER(lang(?preposition) = "es")
 }

@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Japanese (Q5287) verbs and the given forms.
+# All Japanese (Q5287) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -8,7 +8,7 @@ SELECT
   ?negative
   ?conjunctive
   ?imperfective
-  ?atrributive
+  ?attributive
   ?hypothetical
 
 WHERE {
@@ -23,7 +23,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?negativeForm .
     ?negativeForm ontolex:representation ?negative ;
       wikibase:grammaticalFeature wd:Q15737187 .
-      FILTER(LANG(?negative) = "ja-hira") .
+      FILTER(LANG(?negative) = "ja-hira")
   }
 
   # MARK: Conjunctive
@@ -32,7 +32,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?conjunctiveForm .
     ?conjunctiveForm ontolex:representation ?conjunctive ;
       wikibase:grammaticalFeature wd:Q2888577 .
-      FILTER(LANG(?conjunctive) = "ja-hira") .
+      FILTER(LANG(?conjunctive) = "ja-hira")
   }
 
   # MARK: Imperfective
@@ -41,16 +41,16 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?imperfectiveForm .
     ?imperfectiveForm ontolex:representation ?imperfective ;
       wikibase:grammaticalFeature wd:Q2898727 .
-      FILTER(LANG(?imperfective) = "ja-hira") .
+      FILTER(LANG(?imperfective) = "ja-hira")
   }
 
   # MARK: Attributive
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?atrributiveForm .
-    ?atrributiveForm ontolex:representation ?atrributive ;
+    ?lexeme ontolex:lexicalForm ?attributiveForm .
+    ?attributiveForm ontolex:representation ?attributive ;
       wikibase:grammaticalFeature wd:Q53608953 .
-      FILTER(LANG(?atrributive) = "ja-hira") .
+      FILTER(LANG(?attributive) = "ja-hira")
   }
 
   # MARK: Hypothetical
@@ -59,6 +59,6 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?hypotheticalForm .
     ?hypotheticalForm ontolex:representation ?hypothetical ;
       wikibase:grammaticalFeature wd:Q53609593 .
-      FILTER(LANG(?hypothetical) = "ja-hira") .
+      FILTER(LANG(?hypothetical) = "ja-hira")
   }
 }

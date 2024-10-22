@@ -35,7 +35,7 @@ from tqdm import tqdm
 from scribe_data.cli.cli_utils import data_type_metadata, language_metadata
 from scribe_data.cli.get import get_data
 from scribe_data.cli.version import get_version_message
-from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
+from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR, list_all_languages
 
 # MARK: Config Setup
 
@@ -51,9 +51,7 @@ logger = logging.getLogger("rich")
 
 class ScribeDataConfig:
     def __init__(self):
-        self.languages = [
-            lang["language"].capitalize() for lang in language_metadata["languages"]
-        ]
+        self.languages = list_all_languages(language_metadata)
         self.data_types = list(data_type_metadata.keys())
         self.selected_languages: List[str] = []
         self.selected_data_types: List[str] = []

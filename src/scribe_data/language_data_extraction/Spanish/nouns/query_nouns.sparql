@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Spanish (Q1321) nouns and the given forms.
+# All Spanish (Q1321) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -7,10 +7,10 @@ SELECT
   ?singular
   ?plural
   ?gender
-  ?masSingular
-  ?masPlural
-  ?femSingular
-  ?femPlural
+  ?masculineSingular
+  ?masculinePlural
+  ?feminineSingular
+  ?femininePlural
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
@@ -23,7 +23,7 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
-  } 
+  }
 
   # MARK: Gender(s)
 
@@ -35,29 +35,29 @@ WHERE {
 
   # MARK: masculine singular and plural forms.
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masSingularForm .
-    ?masSingularForm ontolex:representation ?masSingular ;
+    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
+    ?masculineSingularForm ontolex:representation ?masculineSingular ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masPluralForm .
-    ?masPluralForm ontolex:representation ?masPlural ;
+    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
+    ?masculinePluralForm ontolex:representation ?masculinePlural ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
-  } 
+  }
 
   # MARK: feminine singular and plural forms.
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femSingularForm .
-    ?femSingularForm ontolex:representation ?femSingular ;
+    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
+    ?feminineSingularForm ontolex:representation ?feminineSingular ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
-  } 
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femPluralForm .
-    ?femPluralForm ontolex:representation ?femPlural ;
+    ?lexeme ontolex:lexicalForm ?femininePluralForm .
+    ?femininePluralForm ontolex:representation ?femininePlural ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 .
-  } 
+  }
 
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
