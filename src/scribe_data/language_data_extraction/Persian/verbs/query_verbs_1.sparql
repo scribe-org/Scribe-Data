@@ -1,54 +1,49 @@
- # tool: scribe-data
+# tool: scribe-data
 # All Persian (Q9168) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?presentTenseParticiple
-  ?pastTenseParticiple
-  ?presentTenseWordStem
-  ?pastTenseWordStem
+  ?presentParticiple
+  ?pastParticiple
+  ?presentWordStem
+  ?pastWordStem
 
 WHERE {
   ?lexeme dct:language wd:Q9168;
-          wikibase:lexicalCategory wd:Q24905;
-          wikibase:lemma ?infinitiveForm.
+    wikibase:lexicalCategory wd:Q24905;
+    wikibase:lemma ?infinitive.
 
-  #MARK: infinitive
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveLexForm.
-    ?infinitiveLexForm ontolex:representation ?infinitive;
-      wikibase:grammaticalFeature wd:Q179230.
-  }
+  #MARK: Past Participle
 
-  #MARK: present tense and past participle
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentParticipleForm.
-    ?presentParticipleForm ontolex:representation ?presentTenseParticiple;
-      wikibase:grammaticalFeature wd:Q192613 , wd:Q814722.
-    FILTER(lang(?presentTenseParticiple) = "fa").
+    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
+    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q814722 .
+    FILTER(lang(?presentParticiple) = "fa").
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastParticipleForm.
-    ?pastParticipleForm ontolex:representation ?pastTenseParticiple;
-      wikibase:grammaticalFeature wd:Q814722 , wd:Q1994301.
-    FILTER(lang(?pastTenseParticiple) = "fa").
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q814722, wd:Q1994301 .
+    FILTER(lang(?pastParticiple) = "fa").
   }
 
-  #MARK: present tense and past word stem
+  #MARK: Word Stem
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentWordStemForm.
-    ?presentWordStemForm ontolex:representation ?presentTenseWordStem;
-      wikibase:grammaticalFeature wd:Q192613 , wd:Q210523.
-    FILTER(lang(?presentTenseWordStem) = "fa").
+    ?lexeme ontolex:lexicalForm ?presentWordStemForm .
+    ?presentWordStemForm ontolex:representation ?presentWordStem ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q210523 .
+    FILTER(lang(?presentWordStem) = "fa").
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastWordStemForm.
-    ?pastWordStemForm ontolex:representation ?pastTenseWordStem;
-      wikibase:grammaticalFeature wd:Q1994301, wd:Q210523.
-    FILTER(lang(?pastTenseWordStem) = "fa").
+    ?lexeme ontolex:lexicalForm ?pastWordStemForm .
+    ?pastWordStemForm ontolex:representation ?pastWordStem ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q210523 .
+    FILTER(lang(?pastWordStem) = "fa").
   }
 }

@@ -5,51 +5,53 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?firstPersonSingPresentPerfect
-  ?secondPersonSingPresentPerfect
-  ?thirdPersonSingPresentPerfect
-  ?firstPersonPluralPresentPerfect
-  ?secondPersonPluralPresentPerfect
-  ?thirdPersonPluralPresentPerfect
+  ?presentPerfectFirstPersonSingular
+  ?presentPerfectSecondPersonSingular
+  ?presentPerfectThirdPersonSingular
+  ?presentPerfectFirstPersonPlural
+  ?presentPerfectSecondPersonPlural
+  ?presentPerfectThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q9168;
-          wikibase:lexicalCategory wd:Q24905.
+    wikibase:lexicalCategory wd:Q24905;
+    wikibase:lemma ?infinitive.
 
-  # MARK: Infinitive
-  ?lexeme ontolex:lexicalForm ?infinitiveForm .
-  ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature wd:Q179230 .
+  # MARK: Present Perfect
 
-  # MARK: Present Perfect Forms
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonSingPresentPerfectForm.
-    ?firstPersonSingPresentPerfectForm ontolex:representation ?firstPersonSingPresentPerfect;
-      wikibase:grammaticalFeature wd:Q625420 , wd:Q21714344 , wd:Q192613 , wd:Q110786.
+    ?lexeme ontolex:lexicalForm ?presentPerfectFirstPersonSingularForm .
+    ?presentPerfectFirstPersonSingularForm ontolex:representation ?presentPerfectFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q21714344, wd:Q192613, wd:Q110786 .
   }
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?secondPersonSingPresentPerfectForm.
-    ?secondPersonSingPresentPerfectForm ontolex:representation ?secondPersonSingPresentPerfect;
-      wikibase:grammaticalFeature wd:Q625420 , wd:Q51929049 ,wd:Q192613 , wd:Q110786.
+    ?lexeme ontolex:lexicalForm ?presentPerfectSecondPersonSingularForm .
+    ?presentPerfectSecondPersonSingularForm ontolex:representation ?presentPerfectSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q51929049, wd:Q192613, wd:Q110786 .
   }
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonSingPresentPerfectForm.
-    ?thirdPersonSingPresentPerfectForm ontolex:representation ?thirdPersonSingPresentPerfect;
-      wikibase:grammaticalFeature wd:Q625420 , wd:Q51929074 ,wd:Q192613 , wd:Q110786.
+    ?lexeme ontolex:lexicalForm ?presentPerfectThirdPersonSingularForm .
+    ?presentPerfectThirdPersonSingularForm ontolex:representation ?presentPerfectThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074, wd:Q192613, wd:Q110786 .
   }
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonPluralPresentPerfectForm.
-    ?firstPersonPluralPresentPerfectForm ontolex:representation ?firstPersonPluralPresentPerfect;
-      wikibase:grammaticalFeature wd:Q625420 , wd:Q21714344 ,wd:Q192613 , wd:Q146786.
+    ?lexeme ontolex:lexicalForm ?presentPerfectFirstPersonPluralForm .
+    ?presentPerfectFirstPersonPluralForm ontolex:representation ?presentPerfectFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q21714344, wd:Q192613, wd:Q146786 .
   }
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?secondPersonPluralPresentPerfectForm.
-    ?secondPersonPluralPresentPerfectForm ontolex:representation ?secondPersonPluralPresentPerfect;
-      wikibase:grammaticalFeature wd:Q625420 , wd:Q51929049 ,wd:Q192613 , wd:Q146786.
+    ?lexeme ontolex:lexicalForm ?presentPerfectSecondPersonPluralForm .
+    ?presentPerfectSecondPersonPluralForm ontolex:representation ?presentPerfectSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q51929049, wd:Q192613, wd:Q146786 .
   }
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonPluralPresentPerfectForm.
-    ?thirdPersonPluralPresentPerfectForm ontolex:representation ?thirdPersonPluralPresentPerfect;
-      wikibase:grammaticalFeature wd:Q625420 , wd:Q51929074 ,wd:Q192613 , wd:Q146786.
+    ?lexeme ontolex:lexicalForm ?presentPerfectThirdPersonPluralForm .
+    ?presentPerfectThirdPersonPluralForm ontolex:representation ?presentPerfectThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074, wd:Q192613, wd:Q146786 .
   }
 }
