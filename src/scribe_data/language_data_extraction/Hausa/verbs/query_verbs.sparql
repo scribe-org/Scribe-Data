@@ -5,66 +5,11 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?past
-  ?present
-  ?future
-  ?imperativeSg
-  ?imperativePl
 
 WHERE {
   ?lexeme dct:language wd:Q56475 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
-  FILTER(lang(?verb) = "ha")
-  # FILTER(lang(?verb) = "ha-arabic")
-
-  # MARK: Past Tense
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastForm .
-    ?pastForm ontolex:representation ?past ;
-      wikibase:grammaticalFeature wd:Q1240211 .
-    FILTER(lang(?past) = "ha")
-    # FILTER(lang(?past) = "ha-arabic")
-  }
-
-  # MARK: Present Tense
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613 .
-    FILTER(lang(?present) = "ha")
-    # FILTER(lang(?present) = "ha-arabic")
-  }
-
-  # MARK: Future Tense
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futureForm .
-    ?futureForm ontolex:representation ?future ;
-      wikibase:grammaticalFeature wd:Q7240364 .
-    FILTER(lang(?future) = "ha")
-    # FILTER(lang(?future) = "ha-arabic")
-  }
-
-  # MARK: Imperative Singular
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeSgForm .
-    ?imperativeSgForm ontolex:representation ?imperativeSg ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q110786 .
-    FILTER(lang(?imperativeSg) = "ha")
-    # FILTER(lang(?imperativeSg) = "ha-arabic")
-  }
-
-  # MARK: Imperative Plural
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativePlForm .
-    ?imperativePlForm ontolex:representation ?imperativePl ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q146786 .
-    FILTER(lang(?imperativePl) = "ha")
-    # FILTER(lang(?imperativePl) = "ha-arabic")
-  }
+    FILTER(lang(?verb) = "ha")
+    # FILTER(lang(?verb) = "ha-arabic")
 }

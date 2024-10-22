@@ -12,9 +12,9 @@ SELECT
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
-  wikibase:lexicalCategory wd:Q147276;
-  wikibase:lemma ?singular .
-  FILTER(lang(?singular) = "pa")
+    wikibase:lexicalCategory wd:Q147276;
+    wikibase:lemma ?singular .
+    FILTER(lang(?singular) = "pa")
 
   # MARK: Plural
 

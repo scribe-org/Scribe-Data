@@ -10,6 +10,5 @@ WHERE {
   ?lexeme dct:language wd:Q5885 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
-
-  FILTER(lang(?adjective) = "ta")
+    FILTER(lang(?adjective) = "ta")
 }

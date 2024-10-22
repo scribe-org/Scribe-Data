@@ -220,37 +220,33 @@
     },
     "13": {
       "label": "Perfect",
-      "qid": "Q1240211"
-    },
-    "14": {
-      "label": "Perfect",
       "qid": "Q625420"
     },
-    "15": {
+    "14": {
       "label": "PresentPerfect",
       "qid": "Q1240211"
     },
-    "16": {
+    "15": {
       "label": "PresentIndicative",
       "qid": "Q56682909"
     },
-    "17": {
+    "16": {
       "label": "Imperfect",
       "qid": "Q108524486"
     },
-    "18": {
+    "17": {
       "label": "PastImperfect",
       "qid": "Q12547192"
     },
-    "19": {
+    "18": {
       "label": "PastPerfect",
       "qid": "Q64005357"
     },
-    "20": {
+    "19": {
       "label": "Pluperfect",
       "qid": "Q623742"
     },
-    "21": {
+    "20": {
       "label": "PastTransgressive",
       "qid": "Q12750232"
     }
