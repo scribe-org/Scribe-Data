@@ -11,16 +11,24 @@ SELECT
   ?presentTenseActive
   ?infinitivePassive
   ?presentTensePassive
+  ?infinitive
+  ?activePresent
 
 WHERE {
   ?lexeme dct:language wd:Q25167;
-          wikibase:lexicalCategory wd:Q24905. # Assuming the lexical category for verbs
+          wikibase:lexicalCategory wd:Q24905.
 
   # MARK: present perfect
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentPerfectForm.
     ?presentPerfectForm ontolex:representation ?presentPerfect;
       wikibase:grammaticalFeature wd:Q1240211.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831 .
   }
 
   # MARK: imperative
@@ -63,5 +71,11 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?presentTensePassiveForm.
     ?presentTensePassiveForm ontolex:representation ?presentTensePassive;
       wikibase:grammaticalFeature wd:Q192613, wd:Q1194697.
+  }
+
+  OPTIONAL{
+   ?lexeme ontolex:lexicalForm ?activePresentForm .
+    ?activePresentForm ontolex:representation ?activePresent ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
   }
 }
