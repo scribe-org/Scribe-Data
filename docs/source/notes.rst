@@ -1,4 +1,4 @@
-.. mdinclude:: _static/CONTRIBUTING.rst
+.. include:: _static/CONTRIBUTING.rst
 
 License
 =======
@@ -6,4 +6,4 @@ License
 .. literalinclude:: ../../LICENSE.txt
     :language: text
 
-.. mdinclude:: ../../CHANGELOG.md
+.. include:: ../../CHANGELOG.md

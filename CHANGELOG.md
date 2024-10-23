@@ -16,9 +16,9 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - Scribe-Data is now a fully functional CLI.
   - Querying Wikidata lexicographical data can be done via the `--query` command ([#159](https://github.com/scribe-org/Scribe-Data/issues/159)).
-    - The output type of queries can be in JSON, CSV, TSV and SQLite, with conversions output types also being possible ([#145](https://github.com/scribe-org/Scribe-Data/issues/145), [#146](https://github.com/scribe-org/Scribe-Data/issues/146))
-    - Output paths can be set for query results ([#144](https://github.com/scribe-org/Scribe-Data/issues/144)).
-    - The version of the CLI can be printed to the command line and the CLI can further be used to upgrade itself ([#186](https://github.com/scribe-org/Scribe-Data/issues/186), [#157 ](https://github.com/scribe-org/Scribe-Data/issues/157)).
+  - The output type of queries can be in JSON, CSV, TSV and SQLite, with conversions output types also being possible ([#145](https://github.com/scribe-org/Scribe-Data/issues/145), [#146](https://github.com/scribe-org/Scribe-Data/issues/146))
+  - Output paths can be set for query results ([#144](https://github.com/scribe-org/Scribe-Data/issues/144)).
+  - The version of the CLI can be printed to the command line and the CLI can further be used to upgrade itself ([#186](https://github.com/scribe-org/Scribe-Data/issues/186), [#157 ](https://github.com/scribe-org/Scribe-Data/issues/157)).
   - Total Wikidata lexemes for languages and data types can be derived with the `--total` command ([#147](https://github.com/scribe-org/Scribe-Data/issues/147)).
   - Commands can be used via an interactive mode with the `--interactive` command ([#158](https://github.com/scribe-org/Scribe-Data/issues/158)).
 - Articles are removed from machine translations so they're more directly useful in Scribe applications ([#96](https://github.com/scribe-org/Scribe-Data/issues/96)).
