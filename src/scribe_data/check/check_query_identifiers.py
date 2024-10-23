@@ -28,7 +28,7 @@ import re
 import sys
 from pathlib import Path
 
-from scribe_data.cli.cli_utils import (
+from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
     data_type_metadata,
     language_metadata,

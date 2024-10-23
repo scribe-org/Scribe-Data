@@ -25,11 +25,11 @@ import json
 import shutil
 from pathlib import Path
 
-from scribe_data.cli.cli_utils import language_map
 from scribe_data.load.data_to_sqlite import data_to_sqlite
 from scribe_data.utils import (
     DEFAULT_SQLITE_EXPORT_DIR,
     get_language_iso,
+    language_map,
 )
 
 # MARK: JSON
