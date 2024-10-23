@@ -26,17 +26,17 @@ Example
 
 import os
 
-from scribe_data.cli.cli_utils import (
+from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
     data_type_metadata,
     language_metadata,
 )
 
 # Expected languages and data types.
-LANGUAGES = [lang.capitalize() for lang in language_metadata.keys()]
+LANGUAGES = list(language_metadata.keys())
 DATA_TYPES = data_type_metadata.keys()
 SUB_DIRECTORIES = {
-    k.capitalize(): [lang.capitalize() for lang in v["sub_languages"].keys()]
+    k: list(v["sub_languages"].keys())
     for k, v in language_metadata.items()
     if len(v.keys()) == 1 and "sub_languages" in v.keys()
 }

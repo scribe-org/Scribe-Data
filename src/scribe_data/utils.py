@@ -2,6 +2,7 @@
 Utility functions for data extraction, formatting and loading.
 
 .. raw:: html
+
     <!--
     * Copyright (C) 2024 Scribe
     *
@@ -26,11 +27,77 @@ from importlib import resources
 from pathlib import Path
 from typing import Any, Optional
 
+# MARK: Utils Variables
+
 PROJECT_ROOT = "Scribe-Data"
 DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
 DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
 DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
+
+LANGUAGE_DATA_EXTRACTION_DIR = (
+    Path(__file__).parent / "wikidata" / "language_data_extraction"
+)
+
+LANGUAGE_METADATA_FILE = Path(__file__).parent / "resources" / "language_metadata.json"
+DATA_TYPE_METADATA_FILE = (
+    Path(__file__).parent / "resources" / "data_type_metadata.json"
+)
+LEXEME_FORM_METADATA_FILE = (
+    Path(__file__).parent / "resources" / "lexeme_form_metadata.json"
+)
+DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
+
+try:
+    with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
+        language_metadata = json.load(file)
+
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading language metadata: {e}")
+
+
+try:
+    with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
+        data_type_metadata = json.load(file)
+
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading data type metadata: {e}")
+
+try:
+    with LEXEME_FORM_METADATA_FILE.open("r", encoding="utf-8") as file:
+        lexeme_form_metadata = json.load(file)
+
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading lexeme form metadata: {e}")
+
+
+language_map = {}
+language_to_qid = {}
+
+# Process each language and its potential sub-languages in one pass.
+for lang, lang_data in language_metadata.items():
+    lang_lower = lang.lower()
+
+    if "sub_languages" in lang_data:
+        for sub_lang, sub_lang_data in lang_data["sub_languages"].items():
+            sub_lang_lower = sub_lang.lower()
+            sub_qid = sub_lang_data.get("qid")
+
+            if sub_qid is None:
+                print(f"Warning: 'qid' missing for sub-language {sub_lang} of {lang}")
+
+            else:
+                language_map[sub_lang_lower] = sub_lang_data
+                language_to_qid[sub_lang_lower] = sub_qid
+
+    else:
+        qid = lang_data.get("qid")
+        if qid is None:
+            print(f"Warning: 'qid' missing for language {lang}")
+
+        else:
+            language_map[lang_lower] = lang_data
+            language_to_qid[lang_lower] = qid
 
 
 def _load_json(package_path: str, file_name: str) -> Any:
@@ -172,19 +239,19 @@ def get_language_from_iso(iso: str) -> str:
         str
             The name for the language which has an ISO value of iso.
     """
-    # Iterate over the languages and their properties
+    # Iterate over the languages and their properties.
     for language, properties in _languages.items():
-        # Check if the current language's ISO matches the provided ISO
+        # Check if the current language's ISO matches the provided ISO.
         if properties.get("iso") == iso:
             return language.capitalize()
 
-        # If there are sub-languages, check those as well
+        # If there are sub-languages, check those as well.
         if "sub_languages" in properties:
             for sub_lang, sub_properties in properties["sub_languages"].items():
                 if sub_properties.get("iso") == iso:
                     return sub_lang.capitalize()
 
-    # If no match is found, raise a ValueError
+    # If no match is found, raise a ValueError.
     raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
 
 
@@ -515,7 +582,7 @@ def format_sublanguage_name(lang, language_metadata=_languages):
     for main_lang, lang_data in language_metadata.items():
         # If it's not a sub-language, return the original name.
         if main_lang == lang.lower():
-            return lang.capitalize()
+            return lang
 
         # Check if the main language has sub-languages.
         if "sub_languages" in lang_data:
@@ -523,7 +590,7 @@ def format_sublanguage_name(lang, language_metadata=_languages):
             for sub_lang in lang_data["sub_languages"]:
                 if lang.lower() == sub_lang.lower():
                     # Return the formatted name MAIN_LANG/SUB_LANG.
-                    return f"{main_lang.capitalize()}/{sub_lang.capitalize()}"
+                    return f"{main_lang}/{sub_lang}"
 
     # Raise ValueError if no match is found.
     raise ValueError(f"{lang.upper()} is not a valid language or sub-language.")

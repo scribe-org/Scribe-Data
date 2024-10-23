@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Basque (Q8752) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
+  ?future
+  ?gerund
+  ?imperfective
+  ?nominalized
+  ?participle
+
+WHERE {
+  # MARK: Infinitive
+
+  ?lexeme dct:language wd:Q8752 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive .
+
+  # MARK: Future
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureForm .
+    ?futureForm ontolex:representation ?future ;
+      wikibase:grammaticalFeature wd:Q501405 .
+  }
+
+  # MARK: Gerund
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+  }
+
+  # MARK: Imperfective
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectiveForm .
+    ?imperfectiveForm ontolex:representation ?imperfective ;
+      wikibase:grammaticalFeature wd:Q54556033 .
+  }
+
+  # MARK: Nominalized
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominalizedForm .
+    ?nominalizedForm ontolex:representation ?nominalized ;
+      wikibase:grammaticalFeature wd:Q74674960 .
+  }
+
+  # MARK: Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participleForm .
+    ?participleForm ontolex:representation ?participle ;
+      wikibase:grammaticalFeature wd:Q814722 .
+  }
+}

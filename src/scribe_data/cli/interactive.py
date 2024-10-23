@@ -32,10 +32,14 @@ from rich.logging import RichHandler
 from rich.table import Table
 from tqdm import tqdm
 
-from scribe_data.cli.cli_utils import data_type_metadata, language_metadata
 from scribe_data.cli.get import get_data
 from scribe_data.cli.version import get_version_message
-from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR, list_all_languages
+from scribe_data.utils import (
+    DEFAULT_JSON_EXPORT_DIR,
+    data_type_metadata,
+    language_metadata,
+    list_all_languages,
+)
 
 # MARK: Config Setup
 
