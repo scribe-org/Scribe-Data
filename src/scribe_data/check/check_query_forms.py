@@ -186,6 +186,7 @@ def return_correct_form_label(qids: list):
     return correct_label[:1].lower() + correct_label[1:]
 
 
+# MARK: Unique Return Forms
 def check_unique_return_forms(query_text: str) -> bool:
     """
     Checks that each form returned by the SELECT statement is unique.
@@ -200,6 +201,8 @@ def check_unique_return_forms(query_text: str) -> bool:
     bool
         True if all returned forms are unique, False otherwise.
     """
+
+    error_output = ""
     select_pattern = r"SELECT\s*(.*?)\s*WHERE"
     if match := re.search(pattern=select_pattern, string=query_text, flags=re.DOTALL):
         # Extracting forms after '?' and handling cases where 'AS' is used for aliasing
@@ -213,20 +216,199 @@ def check_unique_return_forms(query_text: str) -> bool:
 
         unique_forms = set(return_forms)
         if len(return_forms) != len(unique_forms):
-            print(
-                "Duplicate forms found:",
-                [form for form in return_forms if return_forms.count(form) > 1],
-            )
-            return False
+            error_output += f"\nDuplicate forms found: {', '.join([form for form in return_forms if return_forms.count(form) > 1])}"
+            return error_output
         return True
 
     return True
 
 
+# MARK: Unreturned Optional Forms
+def check_unreturned_optional_forms(query_text: str) -> str:
+    """
+    Checks if there are any optional forms in the query that aren't returned in the SELECT statement.
+
+    Parameters
+    ----------
+    query_text : str
+        The full text of the SPARQL query.
+
+    Returns
+    -------
+    str
+        Error message listing any unreturned forms, or empty string if all forms are returned.
+    """
+
+    # Extract forms from SELECT statement
+    select_pattern = r"SELECT\s*(.*?)\s*WHERE"
+    select_forms = set()
+    if select_match := re.search(
+        pattern=select_pattern, string=query_text, flags=re.DOTALL
+    ):
+        for part in select_match[1].split():
+            if "?" in part:
+                form = part.split("?")[-1]
+                if "AS" in form:
+                    form = form.split("AS")[0].strip()
+                select_forms.add(form)
+
+    # Extract forms from OPTIONAL blocks
+    optional_forms = set()
+    optional_pattern = r"OPTIONAL\s*\{([^}]*)\}"
+    for match in re.finditer(optional_pattern, query_text):
+        form_text = match.group(1)
+        rep_pattern = r"ontolex:representation\s+\?([\w]+)\s*;"
+        if rep_match := re.search(rep_pattern, form_text):
+            optional_forms.add(rep_match.group(1))
+
+    # Find forms that appear in OPTIONAL blocks but not in SELECT
+    unreturned_forms = optional_forms - select_forms
+
+    if unreturned_forms:
+        return f"Unreturned optional forms: {', '.join(sorted(unreturned_forms))}"
+    return ""
+
+
+# MARK: Undefined Return Forms
+def check_undefined_return_forms(query_text: str) -> str:
+    """
+    Checks if the query is trying to return forms that aren't defined in the WHERE clause
+    when there are no OPTIONAL blocks.
+
+    Parameters
+    ----------
+    query_text : str
+        The full text of the SPARQL query.
+
+    Returns
+    -------
+    str
+        Error message listing any undefined forms being returned, or empty string if all
+        returned forms are properly defined.
+    """
+
+    # Check if query has any OPTIONAL blocks
+    optional_pattern = r"OPTIONAL\s*\{"
+    has_optional_blocks = bool(re.search(optional_pattern, query_text))
+
+    if has_optional_blocks:
+        return ""  # Skip check for queries with OPTIONAL blocks
+
+    # Extract forms from SELECT statement and track aliases
+    select_pattern = r"SELECT\s*(.*?)\s*WHERE"
+    select_forms = set()
+    aliases = set()
+
+    if select_match := re.search(
+        pattern=select_pattern, string=query_text, flags=re.DOTALL
+    ):
+        select_clause = select_match.group(1)
+
+        # Process each SELECT item
+        items = select_clause.split("\n")
+        for item in items:
+            item = item.strip()
+            if not item:
+                continue
+
+            # Handle REPLACE...AS statements
+            if "AS ?" in item:
+                # Get the alias (the part after AS)
+                alias_match = re.search(r"AS \?(\w+)", item)
+                if alias_match:
+                    aliases.add(alias_match.group(1))
+                # Get the source variable
+                var_match = re.findall(r"\?(\w+)", item)
+                if var_match:
+                    select_forms.update(v for v in var_match if v not in aliases)
+            # Handle regular variables
+            elif "?" in item:
+                var_match = re.findall(r"\?(\w+)", item)
+                select_forms.update(var_match)
+
+    # Extract defined variables from WHERE clause
+    where_pattern = r"WHERE\s*\{(.*?)\}(?:\s*ORDER BY|\s*$)"
+    defined_vars = set()
+    if where_match := re.search(
+        pattern=where_pattern, string=query_text, flags=re.DOTALL
+    ):
+        where_clause = where_match.group(1)
+        var_pattern = r"\?(\w+)"
+        defined_vars = set(re.findall(var_pattern, where_clause))
+
+    # Find undefined forms, excluding aliases
+    undefined_forms = {
+        form for form in select_forms - defined_vars if form not in aliases
+    }
+
+    if undefined_forms:
+        return f"Undefined forms in SELECT: {', '.join(sorted(undefined_forms))}"
+    return ""
+
+
+# MARK: Defined Return Forms
+
+
+# Function to ensure all variables defined in WHERE are returned in SELECT
+def check_defined_return_forms(query_text: str) -> str:
+    """
+    Ensures that all variables defined in the WHERE clause are returned in the SELECT clause,
+    excluding specific variables that are allowed to be unreturned (e.g., 'infinitiveForm' in Ukrainian verbs query).
+
+    Parameters
+    ----------
+    query_text : str
+        The full text of the SPARQL query.
+
+    Returns
+    -------
+    str
+        Error message listing any defined but unreturned forms, or empty string if all forms are returned.
+    """
+    # Check if query has any OPTIONAL blocks.
+    optional_pattern = r"OPTIONAL\s*\{"
+    has_optional_blocks = bool(re.search(optional_pattern, query_text))
+
+    if has_optional_blocks:
+        return ""  # Skip check for queries with OPTIONAL blocks
+
+    # Extract forms from WHERE clause
+    where_pattern = r"WHERE\s*\{(.*?)\}"
+    where_forms = set()
+    if where_match := re.search(
+        pattern=where_pattern, string=query_text, flags=re.DOTALL
+    ):
+        where_clause = where_match.group(1)
+        where_forms = set(re.findall(r"\?(\w+)", where_clause))
+
+    # Extract forms from SELECT statement.
+    select_pattern = r"SELECT\s*(.*?)\s*WHERE"
+    select_forms = set()
+    if select_match := re.search(
+        pattern=select_pattern, string=query_text, flags=re.DOTALL
+    ):
+        select_clause = select_match.group(1)
+        select_forms = set(re.findall(r"\?(\w+)", select_clause))
+
+    # Define variables that are allowed to be unreturned.
+    allowed_unreturned_pattern = r"ontolex:lexicalForm\s+\?([\w]+)\s*."
+    allowed_unreturned = set(re.findall(allowed_unreturned_pattern, query_text))
+    # print(where_forms,select_forms,allowed_unreturned)
+
+    # Find forms that are defined but not returned, excluding allowed unreturned variables.
+    unreturned_forms = where_forms - select_forms - allowed_unreturned
+
+    if unreturned_forms:
+        return f"Defined but unreturned forms: {', '.join(sorted(unreturned_forms))}"
+    return ""
+
+
+# MARK: Main Query Forms Validation
 def check_query_forms() -> None:
     """
     Validates SPARQL queries in the language data directory to check for correct form QIDs.
     """
+
     error_output = ""
     index = 0
     for query_file in LANGUAGE_DATA_EXTRACTION_DIR.glob("**/*.sparql"):
@@ -234,8 +416,30 @@ def check_query_forms() -> None:
         with open(query_file, "r", encoding="utf-8") as file:
             query_text = file.read()
 
-        if not check_unique_return_forms(query_text):
-            error_output += f"\n{index}. {query_file_str}: Duplicate return form\n"
+        # Check for unique return forms and handle the error message if any
+        unique_check_result = check_unique_return_forms(query_text)
+        if unique_check_result is not True:
+            error_output += f"\n{index}. {query_file_str}: {unique_check_result}\n"
+            index += 1
+
+        # Check for undefined return forms
+        undefined_forms = check_undefined_return_forms(query_text)
+        if undefined_forms:
+            error_output += f"\n{index}. {query_file_str}: {undefined_forms}\n"
+            index += 1
+
+        # Check for unreturned optional forms
+        unreturned_optional_forms = check_unreturned_optional_forms(query_text)
+        if unreturned_optional_forms:
+            error_output += (
+                f"\n{index}. {query_file_str}: {unreturned_optional_forms}\n"
+            )
+            index += 1
+
+        # Check for defined but unreturned forms
+        defined_unreturned_forms = check_defined_return_forms(query_text)
+        if defined_unreturned_forms:
+            error_output += f"\n{index}. {query_file_str}: {defined_unreturned_forms}\n"
             index += 1
         if extract_forms_from_sparql(query_file):
             query_form_check_dict = {}

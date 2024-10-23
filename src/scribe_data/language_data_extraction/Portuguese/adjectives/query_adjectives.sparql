@@ -8,6 +8,7 @@ SELECT
   ?femininePlural
   ?masculineSingular
   ?masculinePlural
+  ?feminineSingular
 
 WHERE {
   ?lexeme dct:language wd:Q5146 ;
