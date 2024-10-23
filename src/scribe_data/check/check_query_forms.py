@@ -27,10 +27,7 @@ Example
 import re
 from pathlib import Path
 
-from scribe_data.cli.cli_utils import (
-    LANGUAGE_DATA_EXTRACTION_DIR,
-    lexeme_form_metadata,
-)
+from scribe_data.utils import LANGUAGE_DATA_EXTRACTION_DIR, lexeme_form_metadata
 
 lexeme_form_qid_order = []
 for key, value in lexeme_form_metadata.items():

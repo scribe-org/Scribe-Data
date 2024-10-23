@@ -46,7 +46,7 @@ class TestListFunctions(unittest.TestCase):
         expected_calls = [
             call(),
             call("Available data types: All languages"),
-            call("-----------------------------------"),
+            call("==================================="),
             call("adjectives"),
             call("adverbs"),
             call("emoji-keywords"),
@@ -56,7 +56,6 @@ class TestListFunctions(unittest.TestCase):
             call("prepositions"),
             call("proper-nouns"),
             call("verbs"),
-            call("-----------------------------------"),
             call(),
         ]
         mock_print.assert_has_calls(expected_calls)
@@ -68,14 +67,13 @@ class TestListFunctions(unittest.TestCase):
         expected_calls = [
             call(),
             call("Available data types: English"),
-            call("-----------------------------"),
+            call("============================="),
             call("adjectives"),
             call("adverbs"),
             call("emoji-keywords"),
             call("nouns"),
             call("proper-nouns"),
             call("verbs"),
-            call("-----------------------------"),
             call(),
         ]
         mock_print.assert_has_calls(expected_calls)

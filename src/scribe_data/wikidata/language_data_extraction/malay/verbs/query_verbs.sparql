@@ -1,0 +1,14 @@
+# tool: scribe-data
+# All Malay (Q9237) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+
+WHERE {
+  ?lexeme dct:language wd:Q9237 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+    FILTER(lang(?verb) = "ms")
+}

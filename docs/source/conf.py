@@ -40,11 +40,8 @@ extensions = [
     "numpydoc",
     "sphinx.ext.viewcode",
     "sphinx.ext.imgmath",
-    "nbsphinx",
 ]
 
-nbsphinx_allow_errors = True
-nbsphinx_execute = "never"
 numpydoc_show_inherited_class_members = False
 numpydoc_show_class_members = False
 
