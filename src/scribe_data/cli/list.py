@@ -105,9 +105,8 @@ def list_data_types(language: str = None) -> None:
     else:
         data_types = set()
         for lang in languages:
-            language_dir = (
-                LANGUAGE_DATA_EXTRACTION_DIR
-                / format_sublanguage_name(lang, language_metadata).capitalize()
+            language_dir = LANGUAGE_DATA_EXTRACTION_DIR / format_sublanguage_name(
+                lang, language_metadata
             )
             if language_dir.is_dir():
                 data_types.update(f.name for f in language_dir.iterdir() if f.is_dir())
