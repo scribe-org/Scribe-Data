@@ -1,51 +1,66 @@
 # tool: scribe-data
-# All Bokmål (Q25167) verbs and additional forms.
+# All Bokmål (Q25167) verbs and basic forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?presentParticiple
-  ?feminineMasculineIndefiniteSingularPastParticiple
-  ?neuterIndefiniteSingularPastParticiple
-  ?definiteSingularPastParticiple
-  ?pluralPastParticiple
+  ?activeInfinitive
+  ?presentPerfect
+  ?imperative
+  ?preterite
+  ?passiveInfinitive
+  ?passivePresent
+  ?activePresent
 
 WHERE {
   ?lexeme dct:language wd:Q25167 ;
           wikibase:lexicalCategory wd:Q24905 .
 
-  # MARK: present participle
+  # MARK: active Infinitive
+
+  ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
+  ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
+    wikibase:grammaticalFeature wd:Q1317831 , wd:Q179230 .
+
+  # MARK: present perfect
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
-    ?presentParticipleForm ontolex:representation ?presentParticiple ;
-      wikibase:grammaticalFeature wd:Q10345583 .
+    ?lexeme ontolex:lexicalForm ?presentPerfectForm .
+    ?presentPerfectForm ontolex:representation ?presentPerfect ;
+      wikibase:grammaticalFeature wd:Q1240211 .
   }
 
-  # MARK: masculine feminine singular indefinite past participle
+  # MARK: imperative
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularPastParticipleForm .
-    ?feminineMasculineIndefiniteSingularPastParticipleForm ontolex:representation ?feminineMasculineIndefiniteSingularPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q53997857, wd:Q110786, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
   }
 
-  # MARK: neuter singular indefinite past participle
+  # MARK: preterite
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularPastParticipleForm .
-    ?neuterIndefiniteSingularPastParticipleForm ontolex:representation ?neuterIndefiniteSingularPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679, wd:Q1775461, wd:Q110786, wd:Q53997857 .
+    ?lexeme ontolex:lexicalForm ?preteriteForm .
+    ?preteriteForm ontolex:representation ?preterite ;
+      wikibase:grammaticalFeature wd:Q442485 .
   }
 
-  # MARK: definite singular past participle
+  # MARK: passive infinitive
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?definiteSingularPastParticipleForm .
-    ?definiteSingularPastParticipleForm ontolex:representation ?definiteSingularPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679, wd:Q110786, wd:Q53997851 .
+    ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
+    ?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q179230 .
   }
 
-  # MARK: plural past participle
+  # MARK: passive Present
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralPastParticipleForm .
-    ?pluralPastParticipleForm ontolex:representation ?pluralPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?passivePresentForm .
+    ?passivePresentForm ontolex:representation ?passivePresent ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613 .
+  }
+
+  # MARK: active present
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresentForm .
+    ?activePresentForm ontolex:representation ?activePresent ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613 .
   }
 }
