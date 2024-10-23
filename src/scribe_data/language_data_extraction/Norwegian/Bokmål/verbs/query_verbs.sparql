@@ -8,8 +8,8 @@ SELECT
   ?presentPerfect
   ?imperative
   ?preterite
-  #?passiveInfinitive
-  #?passivePresent
+  ?passiveInfinitive
+  ?passivePresent
   ?activePresent
 
 WHERE {

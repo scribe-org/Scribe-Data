@@ -35,7 +35,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q12717679, wd:Q1775461, wd:Q110786, wd:Q53997857 .
   }
 
-  # MARK: singular definite past participle
+  # MARK: definite singular past participle
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?definiteSingularPastParticipleForm .
     ?definiteSingularPastParticipleForm ontolex:representation ?definiteSingularPastParticiple ;
