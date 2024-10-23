@@ -20,16 +20,19 @@ Functions for listing languages and data types for the Scribe-Data CLI.
     -->
 """
 
+import os
+from pathlib import Path
+
 from scribe_data.cli.cli_utils import (
-    LANGUAGE_DATA_EXTRACTION_DIR,
     correct_data_type,
-    language_map,
-    language_metadata,
 )
 from scribe_data.utils import (
+    LANGUAGE_DATA_EXTRACTION_DIR,
     format_sublanguage_name,
     get_language_iso,
     get_language_qid,
+    language_map,
+    language_metadata,
     list_all_languages,
     list_languages_with_metadata_for_data_type,
 )
@@ -75,19 +78,30 @@ def list_data_types(language: str = None) -> None:
     if language:
         language = format_sublanguage_name(language, language_metadata)
         language_data = language_map.get(language.lower())
-        language_capitalized = language.capitalize()
-        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language_capitalized
+        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language
 
         if not language_data:
             raise ValueError(f"Language '{language}' is not recognized.")
 
-        data_types = [f.name for f in language_dir.iterdir() if f.is_dir()]
+        data_types = {f.name for f in language_dir.iterdir() if f.is_dir()}
+
+        # Add emoji keywords if available.
+        iso = get_language_iso(language=language)
+        path_to_cldr_annotations = (
+            Path(__file__).parent.parent
+            / "unicode"
+            / "cldr-annotations-full"
+            / "annotations"
+        )
+        if iso in os.listdir(path_to_cldr_annotations):
+            data_types.add("emoji-keywords")
+
         if not data_types:
             raise ValueError(
-                f"No data types available for language '{language_capitalized}'."
+                f"No data types available for language '{language.capitalize()}'."
             )
 
-        table_header = f"Available data types: {language_capitalized}"
+        table_header = f"Available data types: {language.capitalize()}"
 
     else:
         data_types = set()
@@ -98,6 +112,8 @@ def list_data_types(language: str = None) -> None:
             )
             if language_dir.is_dir():
                 data_types.update(f.name for f in language_dir.iterdir() if f.is_dir())
+
+        data_types.add("emoji-keywords")
 
         table_header = "Available data types: All languages"
 

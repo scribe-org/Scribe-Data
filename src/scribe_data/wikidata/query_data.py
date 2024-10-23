@@ -31,10 +31,12 @@ from urllib.error import HTTPError
 
 from tqdm.auto import tqdm
 
-from scribe_data.cli.cli_utils import (
+from scribe_data.utils import (
+    LANGUAGE_DATA_EXTRACTION_DIR,
+    format_sublanguage_name,
     language_metadata,
+    list_all_languages,
 )
-from scribe_data.utils import format_sublanguage_name, list_all_languages
 from scribe_data.wikidata.wikidata_utils import sparql
 
 
@@ -100,22 +102,16 @@ def query_data(
     -------
         Formatted data from Wikidata saved in the output directory.
     """
-    SCRIBE_DATA_SRC_PATH = Path(__file__).parent.parent
-    PATH_TO_LANGUAGE_EXTRACTION_FILES = (
-        SCRIBE_DATA_SRC_PATH / "language_data_extraction"
-    )
-    languages = [lang.capitalize() for lang in languages]
     current_languages = list_all_languages(language_metadata)
     current_data_type = ["nouns", "verbs", "prepositions"]
 
     # Assign current_languages and current_data_type if no arguments have been passed.
     languages_update = current_languages if languages is None else languages
+    languages_update = [lang.lower() for lang in languages_update]
     data_type_update = current_data_type if data_type is None else data_type
 
     all_language_data_extraction_files = [
-        path
-        for path in Path(PATH_TO_LANGUAGE_EXTRACTION_FILES).rglob("*")
-        if path.is_file()
+        path for path in Path(LANGUAGE_DATA_EXTRACTION_DIR).rglob("*") if path.is_file()
     ]
 
     language_data_extraction_files_in_use = [
@@ -164,6 +160,7 @@ def query_data(
                 print("Overwrite is enabled. Removing existing files ...")
                 for file in existing_files:
                     file.unlink()
+
             else:
                 if not interactive:
                     print(
@@ -236,7 +233,7 @@ def query_data(
                 results_final.append(r_dict)
 
             with open(
-                Path(PATH_TO_LANGUAGE_EXTRACTION_FILES)
+                Path(LANGUAGE_DATA_EXTRACTION_DIR)
                 / lang
                 / target_type
                 / f"{target_type}_queried.json",
@@ -287,7 +284,7 @@ def query_data(
                                     results_final.append(r_dict)
 
                                 with open(
-                                    Path(PATH_TO_LANGUAGE_EXTRACTION_FILES)
+                                    Path(LANGUAGE_DATA_EXTRACTION_DIR)
                                     / lang
                                     / target_type
                                     / f"{target_type}_queried.json",
@@ -308,7 +305,7 @@ def query_data(
 
             # Call the corresponding formatting file.
             formatting_file_path = (
-                PATH_TO_LANGUAGE_EXTRACTION_FILES
+                LANGUAGE_DATA_EXTRACTION_DIR
                 / lang
                 / target_type
                 / f"format_{target_type}.py"

@@ -5,8 +5,4 @@ gen_autosuggestions.ipynb
 
 This notebook is used to run the functions found in Scribe-Data to extract, clean and load autosuggestion files into Scribe apps.
 
-.. toctree::
-
-   notebook.ipynb
-
 Use the :code:`View code on GitHub` link above to view the notebook and explore the process!
