@@ -186,6 +186,43 @@ def return_correct_form_label(qids: list):
     return correct_label[:1].lower() + correct_label[1:]
 
 
+def check_unique_return_forms(query_text: str) -> bool:
+    """
+    Checks that each form returned by the SELECT statement is unique.
+
+    Parameters
+    ----------
+    query_text : str
+        The full text of the SPARQL query.
+
+    Returns
+    -------
+    bool
+        True if all returned forms are unique, False otherwise.
+    """
+    select_pattern = r"SELECT\s*(.*?)\s*WHERE"
+    if match := re.search(pattern=select_pattern, string=query_text, flags=re.DOTALL):
+        # Extracting forms after '?' and handling cases where 'AS' is used for aliasing
+        return_forms = []
+        for part in match[1].split():
+            if "?" in part:
+                form = part.split("?")[-1]
+                if "AS" in form:
+                    form = form.split("AS")[0].strip()
+                return_forms.append(form)
+
+        unique_forms = set(return_forms)
+        if len(return_forms) != len(unique_forms):
+            print(
+                "Duplicate forms found:",
+                [form for form in return_forms if return_forms.count(form) > 1],
+            )
+            return False
+        return True
+
+    return True
+
+
 def check_query_forms() -> None:
     """
     Validates SPARQL queries in the language data directory to check for correct form QIDs.
@@ -194,6 +231,12 @@ def check_query_forms() -> None:
     index = 0
     for query_file in LANGUAGE_DATA_EXTRACTION_DIR.glob("**/*.sparql"):
         query_file_str = str(query_file)
+        with open(query_file, "r", encoding="utf-8") as file:
+            query_text = file.read()
+
+        if not check_unique_return_forms(query_text):
+            error_output += f"\n{index}. {query_file_str}: Duplicate return form\n"
+            index += 1
         if extract_forms_from_sparql(query_file):
             query_form_check_dict = {}
             for form_text in extract_forms_from_sparql(query_file):

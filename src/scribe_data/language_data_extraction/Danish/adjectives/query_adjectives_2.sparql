@@ -8,6 +8,7 @@ SELECT
   ?pluralPositive
   ?pluralSuperlative
   ?comparative
+  ?definiteSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;

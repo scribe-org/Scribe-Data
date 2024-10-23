@@ -7,7 +7,6 @@ SELECT
   ?adjective
   ?femininePlural
   ?masculineSingular
-  ?femininePlural
   ?masculinePlural
 
 WHERE {
