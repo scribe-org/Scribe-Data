@@ -445,7 +445,7 @@ def convert(
     """
     output_type = output_type.lower()
 
-    # Route the function call to the correct conversion method
+    # Route the function call to the correct conversion function
     if output_type == "json":
         convert_to_json(
             language=language,

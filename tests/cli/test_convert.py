@@ -28,6 +28,7 @@ from unittest.mock import MagicMock, Mock, mock_open, patch
 
 
 from scribe_data.cli.convert import (
+    convert,
     convert_to_json,
     convert_to_sqlite,
     convert_to_csv_or_tsv,
@@ -71,10 +72,6 @@ class TestConvert(unittest.TestCase):
         """
         Normalize line endings in a given string.
 
-        This method replaces Windows-style line endings (`\r\n`) and
-        standalone carriage return characters (`\r`) with Unix-style
-        line endings (`\n`). This is useful for ensuring consistent
-        line endings when comparing strings or writing to files.
 
         Parameters
         ----------
@@ -877,3 +874,19 @@ class TestConvert(unittest.TestCase):
                 output_dir="/output",
                 overwrite=True,
             )
+
+    def test_convert(self):
+        with self.assertRaises(ValueError) as context:
+            convert(
+                language="English",
+                data_type="nouns",
+                output_type="parquet",
+                input_file="Data/ecode.csv",
+                output_dir="/output_dir",
+                overwrite=True,
+            )
+
+        self.assertEqual(
+            str(context.exception),
+            "Unsupported output type 'parquet'. Must be 'json', 'csv', 'tsv', or 'sqlite'.",
+        )
