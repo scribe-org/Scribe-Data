@@ -22,6 +22,8 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
 
 import subprocess
 from pathlib import Path
+from typing import List, Union
+import os  # For removing the JSON file
 
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
@@ -30,11 +32,12 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
+from scribe_data.cli.convert import convert
 
 
 def get_data(
     language: str = None,
-    data_type: str = None,
+    data_type: Union[str, List[str]] = None,
     output_type: str = None,
     output_dir: str = None,
     overwrite: bool = False,
@@ -110,7 +113,6 @@ def get_data(
                 / "emoji_keywords"
                 / "generate_emoji_keywords.py"
             )
-
             subprocess_result = subprocess.run(
                 ["python", emoji_keyword_extraction_script]
             )
@@ -120,9 +122,8 @@ def get_data(
     elif language or data_type:
         data_type = data_type[0] if isinstance(data_type, list) else data_type
 
-        data_type = [data_type] if data_type else None
         print(
-            f"Updating data for language(s): {language}; data type(s): {', '.join(data_type)}"
+            f"Updating data for language(s): {language}; data type(s): {', '.join([data_type])}"
         )
         query_data(
             languages=languages,
@@ -142,13 +143,30 @@ def get_data(
         isinstance(subprocess_result, subprocess.CompletedProcess)
         and subprocess_result.returncode != 1
     ) or (isinstance(subprocess_result, bool) and subprocess_result is not False):
-        print(
-            f"Updated data was saved in: {Path(output_dir).resolve()}.",
-        )
+        print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
+
+        json_input_path = Path(output_dir) / f"{language}/{data_type}.json"
+
+        # Proceed with conversion only if the output type is not JSON
+        if output_type != "json":
+            if json_input_path.exists():
+                convert(
+                    language=language,
+                    data_type=data_type,
+                    output_type=output_type,
+                    input_file=str(json_input_path),
+                    output_dir=output_dir,
+                    overwrite=overwrite,
+                )
+
+                os.remove(json_input_path)
+            else:
+                print(f"Error: Input file '{json_input_path}' does not exist.")
+
         if interactive:
             return True
 
-    # The emoji keywords process has failed.
+    # Handle emoji keywords process failure
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
         print(
             "\nThe Scribe-Data emoji functionality is powered by PyICU, which is currently not installed."

@@ -25,11 +25,8 @@ import argparse
 from pathlib import Path
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
-from scribe_data.cli.convert import (
-    convert_to_csv_or_tsv,
-    convert_to_json,
-    convert_to_sqlite,
-)
+from scribe_data.cli.convert import convert
+
 from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
@@ -276,35 +273,14 @@ def main() -> None:
         total_wrapper(args.language, args.data_type, args.all)
 
     elif args.command in ["convert", "c"]:
-        if args.output_type in ["csv", "tsv"]:
-            convert_to_csv_or_tsv(
-                language=args.language,
-                data_type=args.data_type,
-                output_type=args.output_type,
-                input_file=args.input_file,
-                output_dir=args.output_dir,
-                overwrite=args.overwrite,
-            )
-
-        elif args.output_type == "sqlite":
-            convert_to_sqlite(
-                language=args.language,
-                data_type=args.data_type,
-                output_type=args.output_type,
-                input_file=args.input_file,
-                output_dir=args.output_dir,
-                overwrite=args.overwrite,
-            )
-
-        elif args.output_type == "json":
-            convert_to_json(
-                language=args.language,
-                data_type=args.data_type,
-                output_type=args.output_type,
-                input_file=args.input_file,
-                output_dir=args.output_dir,
-                overwrite=args.overwrite,
-            )
+        convert(
+            language=args.language,
+            data_type=args.data_type,
+            output_type=args.output_type,
+            input_file=args.input_file,
+            output_dir=args.output_dir,
+            overwrite=args.overwrite,
+        )
 
     else:
         parser.print_help()

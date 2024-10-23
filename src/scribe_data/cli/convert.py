@@ -217,8 +217,10 @@ def convert_to_csv_or_tsv(
     if not normalized_language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
-    # Split the data_type string by commas
-    data_types = [dtype.strip() for dtype in data_type.split(",")]
+    if isinstance(data_type, str):
+        data_types = [data_type.strip()]
+    else:
+        data_types = [dtype.strip() for dtype in data_type]
 
     for dtype in data_types:
         input_file = Path(input_file)
@@ -325,7 +327,7 @@ def convert_to_csv_or_tsv(
             print(f"Error writing to '{output_file}': {e}")
             continue
 
-        print(f"Data for '{dtype}' written to '{output_file}'")
+        print(f"Data for '{language} {dtype}' written to '{output_file}'")
 
 
 # MARK: SQLITE
@@ -404,3 +406,74 @@ def convert_to_sqlite(
         print(f"Warning: SQLite file not found at {source_path}")
 
     print("SQLite file conversion complete.")
+
+
+def convert(
+    language: str,
+    data_type: Union[str, List[str]],
+    output_type: str,
+    input_file: str,
+    output_dir: str = None,
+    overwrite: bool = False,
+):
+    """
+    Convert data to the specified output type: JSON, CSV/TSV, or SQLite.
+
+    Parameters
+    ----------
+    language : str
+        The language of the data to convert.
+
+    data_type : Union[str, List[str]]
+        The data type(s) of the data to convert.
+
+    output_type : str
+        The desired output format. It can be 'json', 'csv', 'tsv', or 'sqlite'.
+
+    input_file : str
+        The path to the input file.
+
+    output_dir : str, optional
+        The output directory where converted files will be stored. Defaults to None.
+
+    overwrite : bool, optional
+        Whether to overwrite existing output files. Defaults to False.
+
+    Returns
+    -------
+    None
+    """
+    output_type = output_type.lower()
+
+    # Route the function call to the correct conversion method
+    if output_type == "json":
+        convert_to_json(
+            language=language,
+            data_type=data_type,
+            output_type=output_type,
+            input_file=input_file,
+            output_dir=output_dir,
+            overwrite=overwrite,
+        )
+    elif output_type in {"csv", "tsv"}:
+        convert_to_csv_or_tsv(
+            language=language,
+            data_type=data_type,
+            output_type=output_type,
+            input_file=input_file,
+            output_dir=output_dir,
+            overwrite=overwrite,
+        )
+    elif output_type == "sqlite":
+        convert_to_sqlite(
+            language=language,
+            data_type=data_type,
+            output_type=output_type,
+            input_file=input_file,
+            output_dir=output_dir,
+            overwrite=overwrite,
+        )
+    else:
+        raise ValueError(
+            f"Unsupported output type '{output_type}'. Must be 'json', 'csv', 'tsv', or 'sqlite'."
+        )
