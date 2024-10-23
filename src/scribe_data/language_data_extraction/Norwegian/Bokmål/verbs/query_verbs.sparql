@@ -47,7 +47,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
     ?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
-      wikibase:grammaticalFeature wd:Q1194697 , wd:Q179230 .
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q179230 .
   }
 
   # MARK: passive Present
