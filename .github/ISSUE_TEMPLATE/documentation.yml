@@ -1,4 +1,4 @@
-name: 📚 Documentation Enhancement
+name: 📝 Documentation
 description: Suggest improvements or updates to the documentation of Scribe-Data.
 labels: ["documentation"]
 projects: ["scribe-org/1"]
@@ -26,13 +26,6 @@ body:
         Describe the improvements or changes you'd like to see in the documentation.
     validations:
       required: true
-  - type: textarea
-    attributes:
-      label: Benefit
-      placeholder: |
-        How will this enhancement benefit the users or contributors of Scribe-Data?
-    validations:
-      required: false
   - type: markdown
     attributes:
       value: |
