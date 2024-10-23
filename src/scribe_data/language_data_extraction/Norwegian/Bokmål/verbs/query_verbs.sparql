@@ -44,11 +44,11 @@ WHERE {
   }
 
   # MARK: passive infinitive
-  #OPTIONAL {
-   # ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
-    #?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
-     # wikibase:grammaticalFeature wd:Q1194697 , wd:Q179230 .
-  #}
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
+    ?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
+      wikibase:grammaticalFeature wd:Q1194697 , wd:Q179230 .
+  }
 
   # MARK: passive Present
   OPTIONAL {
