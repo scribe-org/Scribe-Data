@@ -11,9 +11,7 @@ SELECT
   ?PastImperfectIndAct
   ?PastImperfectIndPass
   ?PerfectIndAct
-  ?PerfectIndPass
   ?PluperfectIndAct
-  ?PluperfectIndPass
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -22,9 +20,9 @@ WHERE {
 
   # Common values for tenses
   VALUES ?futuretense { wd:Q501405 }
-  VALUES ?pastimperfect { wd:Q186603 }
-  VALUES ?perfecttense { wd:Q960658 }
-  VALUES ?pluperfect { wd:Q3488005 }
+  VALUES ?pastimperfect { wd:Q12547192 }
+  VALUES ?perfecttense { wd:Q625420 }
+  VALUES ?pluperfect { wd:Q623742 }
 
   # second person, singular person, singular, indicative, future tense passive
   OPTIONAL {
@@ -61,24 +59,10 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?perfecttense, wd:Q682111, wd:Q1317831 .
   }
 
-  # perfect tense, indicative, passive 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?PerfectIndPassForm .
-    ?PerfectIndPassForm ontolex:representation ?PerfectIndPass ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?perfecttense, wd:Q682111, wd:Q1194697 .
-  }
-
   # pluperfect tense, indicative, active
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?PluperfectIndActForm .
     ?PluperfectIndActForm ontolex:representation ?PluperfectIndAct ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?pluperfect, wd:Q682111, wd:Q1317831 .
-  }
-
-  # pluperfect tense, indicative, passive
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?PluperfectIndPassForm .
-    ?PluperfectIndPassForm ontolex:representation ?PluperfectIndPass ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?pluperfect, wd:Q682111, wd:Q1194697 .
   }
 }
