@@ -11,6 +11,10 @@
     "iso": "bn",
     "qid": "Q9610"
   },
+  "ibibio": {
+    "iso": "ibb",
+    "qid": "Q33792"
+  },
   "chinese": {
     "sub_languages": {
       "mandarin": {

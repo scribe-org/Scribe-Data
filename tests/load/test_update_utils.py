@@ -150,6 +150,7 @@ def test_list_all_languages():
         "hausa",
         "hebrew",
         "hindi",
+        "ibibio",
         "igbo",
         "indonesian",
         "italian",
