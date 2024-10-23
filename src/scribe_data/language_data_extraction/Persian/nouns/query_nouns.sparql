@@ -1,0 +1,22 @@
+# tool: scribe-data
+# All Persian (Q9168) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?singular
+  ?plural
+
+WHERE {
+  ?lexeme dct:language wd:Q9168 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?singular .
+
+  # MARK: Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+}

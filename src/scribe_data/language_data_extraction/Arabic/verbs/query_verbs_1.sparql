@@ -5,9 +5,17 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?presFPS ?presSPSM ?presSPSF ?presTPSM ?presTPSF
-  ?presSPD ?presTPDM ?presTPDF
-  ?presFPP ?presSPPM ?presSPPF
+  ?indicativeFirstPersonSingularFiilMudari
+  ?feminineIndicativeSecondPersonSingularFiilMudari
+  ?masculineIndicativeSecondPersonSingularFiilMudari
+  ?feminineIndicativeThirdPersonSingularFiilMudari
+  ?masculineIndicativeThirdPersonSingularFiilMudari
+  ?indicativeSecondPersonDualFiilMudari
+  ?feminineIndicativeThirdPersonDualFiilMudari
+  ?masculineIndicativeThirdPersonDualFiilMudari
+  ?indicativeFirstPersonPluralFiilMudari
+  ?feminineIndicativeSecondPersonPluralFiilMudari
+  ?masculineIndicativeSecondPersonPluralFiilMudari
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
@@ -17,68 +25,68 @@ WHERE {
   # MARK: Present
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presFPSForm .
-    ?presFPSForm ontolex:representation ?presFPS ;
+    ?lexeme ontolex:lexicalForm ?indicativeFirstPersonSingularFiilMudariForm .
+    ?indicativeFirstPersonSingularFiilMudariForm ontolex:representation ?indicativeFirstPersonSingularFiilMudari ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q682111, wd:Q12230930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSPSMForm .
-    ?presSPSMForm ontolex:representation ?presSPSM ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q499327, wd:Q682111, wd:Q12230930 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSPSFForm .
-    ?presSPSFForm ontolex:representation ?presSPSF ;
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeSecondPersonSingularFiilMudariForm .
+    ?feminineIndicativeSecondPersonSingularFiilMudariForm ontolex:representation ?feminineIndicativeSecondPersonSingularFiilMudari ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q1775415, wd:Q682111, wd:Q12230930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presTPSMForm .
-    ?presTPSMForm ontolex:representation ?presTPSM ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q499327, wd:Q682111, wd:Q12230930 .
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeSecondPersonSingularFiilMudariForm .
+    ?masculineIndicativeSecondPersonSingularFiilMudariForm ontolex:representation ?masculineIndicativeSecondPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q499327, wd:Q682111, wd:Q12230930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presTPSFForm .
-    ?presTPSFForm ontolex:representation ?presTPSF ;
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeThirdPersonSingularFiilMudariForm .
+    ?feminineIndicativeThirdPersonSingularFiilMudariForm ontolex:representation ?feminineIndicativeThirdPersonSingularFiilMudari ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q1775415, wd:Q682111, wd:Q12230930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSPDForm .
-    ?presSPDForm ontolex:representation ?presSPD ;
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeThirdPersonSingularFiilMudariForm .
+    ?masculineIndicativeThirdPersonSingularFiilMudariForm ontolex:representation ?masculineIndicativeThirdPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q499327, wd:Q682111, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSecondPersonDualFiilMudariForm .
+    ?indicativeSecondPersonDualFiilMudariForm ontolex:representation ?indicativeSecondPersonDualFiilMudari ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110022, wd:Q682111, wd:Q12230930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presTPDMForm .
-    ?presTPDMForm ontolex:representation ?presTPDM ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q499327, wd:Q682111, wd:Q12230930 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presTPDFForm .
-    ?presTPDFForm ontolex:representation ?presTPDF ;
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeThirdPersonDualFiilMudariForm .
+    ?feminineIndicativeThirdPersonDualFiilMudariForm ontolex:representation ?feminineIndicativeThirdPersonDualFiilMudari ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q1775415, wd:Q682111, wd:Q12230930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presFPPForm .
-    ?presFPPForm ontolex:representation ?presFPP ;
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeThirdPersonDualFiilMudariForm .
+    ?masculineIndicativeThirdPersonDualFiilMudariForm ontolex:representation ?masculineIndicativeThirdPersonDualFiilMudari ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q499327, wd:Q682111, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeFirstPersonPluralFiilMudariForm .
+    ?indicativeFirstPersonPluralFiilMudariForm ontolex:representation ?indicativeFirstPersonPluralFiilMudari ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q682111, wd:Q12230930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSPPMForm .
-    ?presSPPMForm ontolex:representation ?presSPPM ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q499327, wd:Q682111, wd:Q12230930 .
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeSecondPersonPluralFiilMudariForm .
+    ?feminineIndicativeSecondPersonPluralFiilMudariForm ontolex:representation ?feminineIndicativeSecondPersonPluralFiilMudari ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q1775415, wd:Q682111, wd:Q12230930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presSPPFForm .
-    ?presSPPFForm ontolex:representation ?presSPPF ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q1775415, wd:Q682111, wd:Q12230930 .
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeSecondPersonPluralFiilMudariForm .
+    ?masculineIndicativeSecondPersonPluralFiilMudariForm ontolex:representation ?masculineIndicativeSecondPersonPluralFiilMudari ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q499327, wd:Q682111, wd:Q12230930 .
   }
 }

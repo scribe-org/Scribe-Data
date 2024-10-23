@@ -119,11 +119,6 @@
     "iso": "ml",
     "qid": "Q36236"
   },
-  "sami": {
-    "sub_languages": {
-      "northern": { "iso": "se", "qid": "Q33947" }
-    }
-  },
   "norwegian": {
     "sub_languages": {
       "bokmål": {
@@ -135,6 +130,10 @@
         "qid": "Q25164"
       }
     }
+  },
+  "persian": {
+    "iso": "fa",
+    "qid": "Q9168"
   },
   "pidgin": {
     "sub_languages": {
@@ -167,6 +166,14 @@
   "russian": {
     "iso": "ru",
     "qid": "Q7737"
+  },
+  "sami": {
+    "sub_languages": {
+      "northern": {
+        "iso": "se",
+        "qid": "Q33947"
+      }
+    }
   },
   "slovak": {
     "iso": "sk",

@@ -2,6 +2,7 @@
 Utility functions for data extraction, formatting and loading.
 
 .. raw:: html
+
     <!--
     * Copyright (C) 2024 Scribe
     *

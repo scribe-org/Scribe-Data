@@ -2,6 +2,7 @@
 Module for processing Unicode based corpuses for autosuggestion and autocompletion generation.
 
 .. raw:: html
+
     <!--
     * Copyright (C) 2024 Scribe
     *

@@ -5,8 +5,12 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
-  ?impFPS ?impSPS ?impTPS
-  ?impFPP ?impSPP ?impTPP
+  ?pastImperfectFirstPersonSingular
+  ?pastImperfectSecondPersonSingular
+  ?pastImperfectThirdPersonSingular
+  ?pastImperfectFirstPersonPlural
+  ?pastImperfectSecondPersonPlural
+  ?pastImperfectThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
@@ -19,45 +23,39 @@ WHERE {
 
   # MARK: Imperfect
 
-  # FPS
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impFPSForm .
-    ?impFPSForm ontolex:representation ?impFPS ;
+    ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonSingularForm .
+    ?pastImperfectFirstPersonSingularForm ontolex:representation ?pastImperfectFirstPersonSingular ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q12547192 .
   }
 
-  # SPS
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impSPSForm .
-    ?impSPSForm ontolex:representation ?impSPS ;
+    ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonSingularForm .
+    ?pastImperfectSecondPersonSingularForm ontolex:representation ?pastImperfectSecondPersonSingular ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q12547192 .
   }
 
-  # TPS
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impTPSForm .
-    ?impTPSForm ontolex:representation ?impTPS ;
+    ?lexeme ontolex:lexicalForm ?pastImperfectThirdPersonSingularForm .
+    ?pastImperfectThirdPersonSingularForm ontolex:representation ?pastImperfectThirdPersonSingular ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q12547192 .
   }
 
-  # FPP
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impFPPForm .
-    ?impFPPForm ontolex:representation ?impFPP ;
+    ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonPluralForm .
+    ?pastImperfectFirstPersonPluralForm ontolex:representation ?pastImperfectFirstPersonPlural ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q12547192 .
   }
 
-  # SPP
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impSPPForm .
-    ?impSPPForm ontolex:representation ?impSPP ;
+    ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonPluralForm .
+    ?pastImperfectSecondPersonPluralForm ontolex:representation ?pastImperfectSecondPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q12547192 .
   }
 
-  # TPP
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?impTPPForm .
-    ?impTPPForm ontolex:representation ?impTPP ;
+    ?lexeme ontolex:lexicalForm ?pastImperfectThirdPersonPluralForm .
+    ?pastImperfectThirdPersonPluralForm ontolex:representation ?pastImperfectThirdPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q12547192 .
   }
 }

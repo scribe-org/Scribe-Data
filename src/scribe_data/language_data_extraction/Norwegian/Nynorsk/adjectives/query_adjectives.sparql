@@ -7,9 +7,9 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
-  ?commonSingularIndefinite
-  ?neuterSingularIndefinite
-  ?singularDefinite
+  ?feminineMasculineIndefiniteSingular
+  ?neuterIndefiniteSingular
+  ?definiteSingular
   ?plural
 
 
@@ -21,24 +21,24 @@ WHERE {
   # MARK: Common Indefinite
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?commonSingularIndefiniteForm .
-    ?commonSingularIndefiniteForm ontolex:representation ?commonSingularIndefinite ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q110786, wd:Q53997857.
+    ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularForm .
+    ?feminineMasculineIndefiniteSingularForm ontolex:representation ?feminineMasculineIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q110786, wd:Q53997857 .
   }
 
   # MARK: Neuter Indefinite
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterSingularIndefiniteForm .
-    ?neuterSingularIndefiniteForm ontolex:representation ?neuterSingularIndefinite ;
+    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularForm .
+    ?neuterIndefiniteSingularForm ontolex:representation ?neuterIndefiniteSingular ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q53997857 .
   }
 
   # MARK: Definite
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularDefiniteForm .
-    ?singularDefiniteForm ontolex:representation ?singularDefinite ;
+    ?lexeme ontolex:lexicalForm ?definiteSingularForm .
+    ?definiteSingularForm ontolex:representation ?definiteSingular ;
       wikibase:grammaticalFeature wd:Q110786, wd:Q53997851 .
   }
 

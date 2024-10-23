@@ -5,14 +5,14 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
-  ?femSingular
-  ?femSingularSuperlative
-  ?femPlural
-  ?femPluralSuperlative
-  ?masSingular
-  ?masSingularSuperlative
-  ?masPlural
-  ?masPluralSuperlative
+  ?feminineSingular
+  ?feminineSingularSuperlative
+  ?femininePlural
+  ?femininePluralSuperlative
+  ?masculineSingular
+  ?masculineSingularSuperlative
+  ?masculinePlural
+  ?masculinePluralSuperlative
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
@@ -22,64 +22,64 @@ WHERE {
   # MARK: Feminine
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femSingularForm .
-    ?femSingularForm ontolex:representation ?femSingular ;
+    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
+    ?feminineSingularForm ontolex:representation ?feminineSingular ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
       FILTER NOT EXISTS {
-        ?femSingularForm wikibase:grammaticalFeature wd:Q1817208 .
+        ?feminineSingularForm wikibase:grammaticalFeature wd:Q1817208 .
       }
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femSingularSuperlativeForm .
-    ?femSingularSuperlativeForm ontolex:representation ?femSingularSuperlative ;
+    ?lexeme ontolex:lexicalForm ?feminineSingularSuperlativeForm .
+    ?feminineSingularSuperlativeForm ontolex:representation ?feminineSingularSuperlative ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femPluralForm .
-    ?femPluralForm ontolex:representation ?femPlural ;
+    ?lexeme ontolex:lexicalForm ?femininePluralForm .
+    ?femininePluralForm ontolex:representation ?femininePlural ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 .
       FILTER NOT EXISTS {
-        ?femPluralForm wikibase:grammaticalFeature wd:Q1817208 .
+        ?femininePluralForm wikibase:grammaticalFeature wd:Q1817208 .
       }
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femPluralSuperlativeForm .
-    ?femPluralSuperlativeForm ontolex:representation ?femPluralSuperlative ;
+    ?lexeme ontolex:lexicalForm ?femininePluralSuperlativeForm .
+    ?femininePluralSuperlativeForm ontolex:representation ?femininePluralSuperlative ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q1817208 .
   }
 
   # MARK: Masculine
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masSingularForm .
-    ?masSingularForm ontolex:representation ?masSingular ;
+    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
+    ?masculineSingularForm ontolex:representation ?masculineSingular ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
       FILTER NOT EXISTS {
-        ?masSingularForm wikibase:grammaticalFeature wd:Q1817208 .
+        ?masculineSingularForm wikibase:grammaticalFeature wd:Q1817208 .
       }
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masSingularSuperlativeForm .
-    ?masSingularSuperlativeForm ontolex:representation ?masSingularSuperlative ;
+    ?lexeme ontolex:lexicalForm ?masculineSingularSuperlativeForm .
+    ?masculineSingularSuperlativeForm ontolex:representation ?masculineSingularSuperlative ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masPluralForm .
-    ?masPluralForm ontolex:representation ?masPlural ;
+    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
+    ?masculinePluralForm ontolex:representation ?masculinePlural ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
       FILTER NOT EXISTS {
-        ?masPluralForm wikibase:grammaticalFeature wd:Q1817208 .
+        ?masculinePluralForm wikibase:grammaticalFeature wd:Q1817208 .
       }
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masPluralSuperlativeForm .
-    ?masPluralSuperlativeForm ontolex:representation ?masPluralSuperlative ;
+    ?lexeme ontolex:lexicalForm ?masculinePluralSuperlativeForm .
+    ?masculinePluralSuperlativeForm ontolex:representation ?masculinePluralSuperlative ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q1817208 .
   }
 }
