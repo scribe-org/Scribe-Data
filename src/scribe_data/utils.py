@@ -582,7 +582,7 @@ def format_sublanguage_name(lang, language_metadata=_languages):
     for main_lang, lang_data in language_metadata.items():
         # If it's not a sub-language, return the original name.
         if main_lang == lang.lower():
-            return lang.capitalize()
+            return lang
 
         # Check if the main language has sub-languages.
         if "sub_languages" in lang_data:
@@ -590,7 +590,7 @@ def format_sublanguage_name(lang, language_metadata=_languages):
             for sub_lang in lang_data["sub_languages"]:
                 if lang.lower() == sub_lang.lower():
                     # Return the formatted name MAIN_LANG/SUB_LANG.
-                    return f"{main_lang.capitalize()}/{sub_lang.capitalize()}"
+                    return f"{main_lang}/{sub_lang}"
 
     # Raise ValueError if no match is found.
     raise ValueError(f"{lang.upper()} is not a valid language or sub-language.")
