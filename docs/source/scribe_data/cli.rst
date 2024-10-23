@@ -56,13 +56,12 @@ Example output:
     $ scribe-data list
 
     Language     ISO  QID
-    -----------------------
+    ==========================
     English      en   Q1860
     ...
-    -----------------------
 
     Available data types: All languages
-    -----------------------------------
+    ===================================
     adjectives
     adverbs
     emoji-keywords
@@ -72,7 +71,7 @@ Example output:
     prepositions
     proper-nouns
     verbs
-    -----------------------------------
+
 
 
 
@@ -81,10 +80,9 @@ Example output:
     $scribe-data list --language
 
     Language     ISO  QID
-    -----------------------
+    ==========================
     English      en   Q1860
     ...
-    -----------------------
 
 
 .. code-block:: text
@@ -92,7 +90,7 @@ Example output:
     $scribe-data list -dt
 
     Available data types: All languages
-    -----------------------------------
+    ===================================
     adjectives
     adverbs
     emoji-keywords
@@ -102,7 +100,6 @@ Example output:
     prepositions
     proper-nouns
     verbs
-    -----------------------------------
 
 
 .. code-block:: text
@@ -110,13 +107,12 @@ Example output:
     $scribe-data list -a
 
     Language     ISO  QID
-    -----------------------
+    ==========================
     English      en   Q1860
     ...
-    -----------------------
 
     Available data types: All languages
-    -----------------------------------
+    ===================================
     adjectives
     adverbs
     emoji-keywords
@@ -126,7 +122,6 @@ Example output:
     prepositions
     proper-nouns
     verbs
-    -----------------------------------
 
 Get Command
 ~~~~~~~~~~~
