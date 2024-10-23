@@ -51,14 +51,13 @@ def list_languages() -> None:
     print(
         f"{'Language':<{language_col_width}} {'ISO':<{iso_col_width}} {'QID':<{qid_col_width}}"
     )
-    print("-" * table_line_length)
+    print("=" * table_line_length)
 
     for lang in languages:
         print(
             f"{lang.capitalize():<{language_col_width}} {get_language_iso(lang):<{iso_col_width}} {get_language_qid(lang):<{qid_col_width}}"
         )
 
-    print("-" * table_line_length)
     print()
 
 
@@ -105,13 +104,12 @@ def list_data_types(language: str = None) -> None:
 
     print()
     print(table_header)
-    print("-" * table_line_length)
+    print("=" * table_line_length)
 
     data_types = sorted(data_types)
     for dt in data_types:
         print(dt.replace("_", "-"))
 
-    print("-" * table_line_length)
     print()
 
 
@@ -147,7 +145,7 @@ def list_languages_for_data_type(data_type: str) -> None:
     print(
         f"{'Language':<{language_col_width}} {'ISO':<{iso_col_width}} {'QID':<{qid_col_width}}"
     )
-    print("-" * table_line_length)
+    print("=" * table_line_length)
 
     # Iterate through the list of languages and format each row.
     for lang in all_languages:
@@ -155,7 +153,6 @@ def list_languages_for_data_type(data_type: str) -> None:
             f"{lang['name'].capitalize():<{language_col_width}} {lang['iso']:<{iso_col_width}} {lang['qid']:<{qid_col_width}}"
         )
 
-    print("-" * table_line_length)
     print()
 
 
