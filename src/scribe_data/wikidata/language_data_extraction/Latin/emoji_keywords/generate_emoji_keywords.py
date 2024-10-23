@@ -1,6 +1,5 @@
-
 """
-Generates keyword-emoji relationships from a selection of Czech words.
+Generates keyword-emoji relationships from a selection of Latin words.
 
 .. raw:: html
     <!--
@@ -26,7 +25,7 @@ import argparse
 from scribe_data.unicode.process_unicode import gen_emoji_lexicon
 from scribe_data.utils import export_formatted_data
 
-LANGUAGE = "Czech"
+LANGUAGE = "Latin"
 DATA_TYPE = "emoji-keywords"
 emojis_per_keyword = 3
 
