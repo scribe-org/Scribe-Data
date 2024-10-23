@@ -77,10 +77,10 @@ def list_data_types(language: str = None) -> None:
     if language:
         language = format_sublanguage_name(language, language_metadata)
         language_data = language_map.get(language.lower())
-        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language
+        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language.lower()
 
         if not language_data:
-            raise ValueError(f"Language '{language}' is not recognized.")
+            raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
         data_types = {f.name for f in language_dir.iterdir() if f.is_dir()}
 
@@ -105,9 +105,8 @@ def list_data_types(language: str = None) -> None:
     else:
         data_types = set()
         for lang in languages:
-            language_dir = (
-                LANGUAGE_DATA_EXTRACTION_DIR
-                / format_sublanguage_name(lang, language_metadata).capitalize()
+            language_dir = LANGUAGE_DATA_EXTRACTION_DIR / format_sublanguage_name(
+                lang, language_metadata
             )
             if language_dir.is_dir():
                 data_types.update(f.name for f in language_dir.iterdir() if f.is_dir())

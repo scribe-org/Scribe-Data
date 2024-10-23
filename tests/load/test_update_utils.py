@@ -114,9 +114,9 @@ def test_get_language_from_iso_negative():
 @pytest.mark.parametrize(
     "lang, expected_output",
     [
-        ("nynorsk", "Norwegian/Nynorsk"),
-        ("bokmål", "Norwegian/Bokmål"),
-        ("english", "English"),
+        ("nynorsk", "norwegian/nynorsk"),
+        ("bokmål", "norwegian/bokmål"),
+        ("english", "english"),
     ],
 )
 def test_format_sublanguage_name_positive(lang, expected_output):
@@ -150,6 +150,7 @@ def test_list_all_languages():
         "hausa",
         "hebrew",
         "hindi",
+        "ibibio",
         "igbo",
         "indonesian",
         "italian",
