@@ -1,13 +1,78 @@
 # tool: scribe-data
-# All Latin (Q397) verbs (Q24905) and the given forms.
-# Enter this query at https://query.wikidata.org/.
+# Extended query for Latin (Q397) verbs (Q24905) and their conjugated forms
+# Including: Present, Future, Past Imperfect, Perfect, and Pluperfect forms
+# Enter this query at https://query.wikidata.org/
 
-SELECT
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+
+SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-
+  ?presentForm
+  ?futureForm
+  ?pastImperfectForm
+  ?perfectForm
+  ?pluperfectForm
 WHERE {
+  # Basic verb identification
   ?lexeme dct:language wd:Q397 ;
-    wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+          wikibase:lexicalCategory wd:Q24905 ;
+          wikibase:lemma ?verb .
+  
+  # Present forms
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentFormNode .
+    ?presentFormNode wikibase:grammaticalFeature wd:Q192613 ; # present tense
+                    wikibase:grammaticalFeature ?mood ;
+                    wikibase:grammaticalFeature ?person ;
+                    wikibase:grammaticalFeature ?number ;
+                    wikibase:representation ?presentForm .
+    FILTER(?mood IN (wd:Q179230, wd:Q179339)) # indicative or subjunctive
+  }
+  
+  # Future forms
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureFormNode .
+    ?futureFormNode wikibase:grammaticalFeature wd:Q22716 ; # future tense
+                    wikibase:grammaticalFeature ?futureMood ;
+                    wikibase:grammaticalFeature ?futurePerson ;
+                    wikibase:grammaticalFeature ?futureNumber ;
+                    wikibase:representation ?futureForm .
+  }
+  
+  # Past Imperfect forms
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectFormNode .
+    ?imperfectFormNode wikibase:grammaticalFeature wd:Q442485 ; # imperfect tense
+                      wikibase:grammaticalFeature ?imperfectMood ;
+                      wikibase:grammaticalFeature ?imperfectPerson ;
+                      wikibase:grammaticalFeature ?imperfectNumber ;
+                      wikibase:representation ?pastImperfectForm .
+  }
+  
+  # Perfect forms
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectFormNode .
+    ?perfectFormNode wikibase:grammaticalFeature wd:Q442485 ; # perfect tense
+                    wikibase:grammaticalFeature ?perfectMood ;
+                    wikibase:grammaticalFeature ?perfectPerson ;
+                    wikibase:grammaticalFeature ?perfectNumber ;
+                    wikibase:representation ?perfectForm .
+  }
+  
+  # Pluperfect forms
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectFormNode .
+    ?pluperfectFormNode wikibase:grammaticalFeature wd:Q625581 ; # pluperfect tense
+                      wikibase:grammaticalFeature ?pluperfectMood ;
+                      wikibase:grammaticalFeature ?pluperfectPerson ;
+                      wikibase:grammaticalFeature ?pluperfectNumber ;
+                      wikibase:representation ?pluperfectForm .
+  }
 }
+ORDER BY ?verb
+LIMIT 1000
