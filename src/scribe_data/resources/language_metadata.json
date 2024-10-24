@@ -131,6 +131,10 @@
       }
     }
   },
+  "persian": {
+    "iso": "fa",
+    "qid": "Q9168"
+  },
   "pidgin": {
     "sub_languages": {
       "nigerian": {
@@ -162,6 +166,14 @@
   "russian": {
     "iso": "ru",
     "qid": "Q7737"
+  },
+  "sami": {
+    "sub_languages": {
+      "northern": {
+        "iso": "se",
+        "qid": "Q33947"
+      }
+    }
   },
   "slovak": {
     "iso": "sk",

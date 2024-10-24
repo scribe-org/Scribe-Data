@@ -22,14 +22,15 @@ Functions to check the total language data available on Wikidata.
 
 from SPARQLWrapper import JSON
 
-from scribe_data.cli.cli_utils import (
+from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
     data_type_metadata,
+    format_sublanguage_name,
     language_map,
     language_metadata,
     language_to_qid,
+    list_all_languages,
 )
-from scribe_data.utils import format_sublanguage_name, list_all_languages
 from scribe_data.wikidata.wikidata_utils import sparql
 
 
@@ -76,10 +77,8 @@ def get_datatype_list(language):
 
     if language.lower() in languages:
         language_data = language_map.get(language.lower())
-        language_capitalized = format_sublanguage_name(
-            language, language_metadata
-        ).capitalize()
-        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language_capitalized
+        languages = format_sublanguage_name(language, language_metadata)
+        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language
 
         if not language_data:
             raise ValueError(f"Language '{language}' is not recognized.")
@@ -87,7 +86,7 @@ def get_datatype_list(language):
         data_types = [f.name for f in language_dir.iterdir() if f.is_dir()]
         if not data_types:
             raise ValueError(
-                f"No data types available for language '{language_capitalized}'."
+                f"No data types available for language '{language.capitalize()}'."
             )
 
         data_types = sorted(data_types)
