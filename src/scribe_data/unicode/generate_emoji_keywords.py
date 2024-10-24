@@ -23,12 +23,12 @@ Centralized keyword-emoji generation file to generated emoji for a specified Lan
 import os
 from pathlib import Path
 
-from scribe_data.unicode.process_unicode import gen_emoji_lexicon
-from scribe_data.utils import export_formatted_data, get_language_iso
-from scribe_data.check.check_pyICU import (
+from scribe_data.check.check_pyicu import (
     check_and_install_pyicu,
     check_if_pyicu_installed,
 )
+from scribe_data.unicode.process_unicode import gen_emoji_lexicon
+from scribe_data.utils import export_formatted_data, get_language_iso
 
 DATA_TYPE = "emoji-keywords"
 EMOJI_KEYWORDS_DICT = 3
@@ -42,13 +42,18 @@ def generate_emoji(language, output_dir: str = None):
     If the installation is successful, it proceeds with generating emoji keywords based on the specified language.
     The results are then exported to the provided output directory.
 
-    Parameters:
-    - language (str): The ISO code of the language for which to generate emoji keywords.
-    - output_dir (str, optional): The directory where the generated data will be saved. If not specified,
-      the data will be saved in a default directory.
+    Parameters
+    ----------
+        language : str
+            The ISO code of the language for which to generate emoji keywords.
 
-    Returns:
-    - None: The function does not return any value but outputs data to the specified directory.
+        output_dir : str, optional
+            The directory where the generated data will be saved.
+            If not specified, the data will be saved in a default directory.
+
+    Returns
+    -------
+        None: The function does not return any value but outputs data to the specified directory.
     """
     if check_and_install_pyicu() and check_if_pyicu_installed() is False:
         print("Thank you.")

@@ -1,17 +1,39 @@
-import requests
-import pkg_resources
-import sys
+"""
+Check to see if the requirements of the emoji process are installed.
+
+.. raw:: html
+    <!--
+    * Copyright (C) 2024 Scribe
+    *
+    * This program is free software: you can redistribute it and/or modify
+    * it under the terms of the GNU General Public License as published by
+    * the Free Software Foundation, either version 3 of the License, or
+    * (at your option) any later version.
+    *
+    * This program is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    * GNU General Public License for more details.
+    *
+    * You should have received a copy of the GNU General Public License
+    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    -->
+"""
+
 import os
-import platform  # Added to check the OS
-from pathlib import Path
+import platform  # added to check the OS
 import subprocess
+import sys
+from pathlib import Path
+
+import pkg_resources
+import requests
 
 
 def check_if_pyicu_installed():
     installed_packages = {pkg.key for pkg in pkg_resources.working_set}
-    if "pyicu" in installed_packages:
-        return True
-    return False
+
+    return "pyicu" in installed_packages
 
 
 def get_python_version_and_architecture():
@@ -20,9 +42,10 @@ def get_python_version_and_architecture():
 
     Returns
     -------
-        str : python_version
+        python_version : str
             The Python version in the format 'cpXY'.
-        str : architecture
+
+        architecture : str
             The architecture type ('amd64' or 'win32').
     """
     version = sys.version_info
@@ -37,14 +60,15 @@ def fetch_wheel_releases():
 
     Returns
     -------
-        list : available_wheels
+        available_wheels : list
             A list of tuples containing wheel file names and their download URLs.
-        float : total_size_mb
+
+        total_size_mb : float
             The total size of all available wheels in MB.
     """
     url = "https://api.github.com/repos/cgohlke/pyicu-build/releases"
     response = requests.get(url)
-    response.raise_for_status()  # Raise an error for bad responses
+    response.raise_for_status()  # raise an error for bad responses
 
     available_wheels = []
     total_size_bytes = 0
@@ -55,7 +79,7 @@ def fetch_wheel_releases():
                 available_wheels.append((asset["name"], asset["browser_download_url"]))
                 total_size_bytes += asset["size"]
 
-    total_size_mb = total_size_bytes / (1024 * 1024)  # Convert bytes to MB
+    total_size_mb = total_size_bytes / (1024 * 1024)  # convert bytes to MB
     return available_wheels, total_size_mb
 
 
@@ -67,6 +91,7 @@ def download_wheel_file(wheel_url, output_dir):
     ----------
         wheel_url : str
             The URL of the wheel file to download.
+
         output_dir : str
             The directory to save the downloaded file.
 
@@ -75,7 +100,7 @@ def download_wheel_file(wheel_url, output_dir):
         str : path to the downloaded wheel file.
     """
     response = requests.get(wheel_url)
-    response.raise_for_status()  # Raise an error for bad responses
+    response.raise_for_status()  # raise an error for bad responses
 
     wheel_filename = os.path.basename(wheel_url)
     wheel_path = os.path.join(output_dir, wheel_filename)
@@ -94,8 +119,10 @@ def find_matching_wheel(wheels, python_version, architecture):
     ----------
         wheels : list
             The list of available wheels.
+
         python_version : str
             The Python version (e.g., 'cp311').
+
         architecture : str
             The architecture type (e.g., 'win_amd64').
 
@@ -103,10 +130,14 @@ def find_matching_wheel(wheels, python_version, architecture):
     -------
         str : The download URL of the matching wheel or None if not found.
     """
-    for name, download_url in wheels:
-        if python_version in name and architecture in name:
-            return download_url
-    return None
+    return next(
+        (
+            download_url
+            for name, download_url in wheels
+            if python_version in name and architecture in name
+        ),
+        None,
+    )
 
 
 def check_and_install_pyicu():
@@ -115,7 +146,7 @@ def check_and_install_pyicu():
     if package_name.lower() not in installed_packages:
         # print(f"{package_name} not found. Installing...")
 
-        # Fetch available wheels from GitHub to estimate download size
+        # Fetch available wheels from GitHub to estimate download size.
         wheels, total_size_mb = fetch_wheel_releases()
 
         print(
@@ -124,28 +155,31 @@ def check_and_install_pyicu():
         )
 
         user_input = input().strip().lower()
-        if user_input == "" or user_input in ["y", "yes"]:
+        if user_input in ["", "y", "yes"]:
             print("Proceeding with installation...")
+
         else:
             print("Installation aborted by the user.")
             return False
 
-        # Check the operating system
+        # Check the operating system.
         if platform.system() != "Windows":
-            # If not Windows, directly use pip to install PyICU
+            # If not Windows, directly use pip to install PyICU.
             try:
                 subprocess.run(
                     [sys.executable, "-m", "pip", "install", package_name], check=True
                 )
                 print(f"{package_name} has been installed successfully.")
+
             except subprocess.CalledProcessError as e:
                 print(f"Error occurred while installing {package_name}: {e}")
                 return False
+
         else:
-            # Windows-specific installation using wheel files
+            # Windows-specific installation using wheel files.
             python_version, architecture = get_python_version_and_architecture()
 
-            # Find the matching wheel for the current Python version and architecture
+            # Find the matching wheel for the current Python version and architecture.
             wheel_url = find_matching_wheel(wheels, python_version, architecture)
 
             if not wheel_url:
@@ -154,11 +188,11 @@ def check_and_install_pyicu():
                 )
                 return False
 
-            # Download the wheel file
-            output_dir = Path.cwd()  # Use the current directory for simplicity
+            # Download the wheel file.
+            output_dir = Path.cwd()  # use the current directory for simplicity
             wheel_path = download_wheel_file(wheel_url, output_dir)
 
-            # Install PyICU using pip
+            # Install PyICU using pip.
             try:
                 subprocess.run(
                     [sys.executable, "-m", "pip", "install", wheel_path],
@@ -166,15 +200,12 @@ def check_and_install_pyicu():
                 )
                 print(f"{package_name} has been installed successfully.")
 
-                # Remove the downloaded wheel file
+                # Remove the downloaded wheel file.
                 os.remove(wheel_path)
                 print(f"Removed temporary file: {wheel_path}")
 
             except subprocess.CalledProcessError as e:
                 print(f"Error occurred while installing {package_name}: {e}")
                 return False
-
-    # else:
-    #     print(f"{package_name} is already installed.")
 
     return True
