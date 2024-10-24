@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Japanese (Q5287) nouns (Q1084) and the given forms.
+# All Japanese (Q5287) proper nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
