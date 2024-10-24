@@ -143,7 +143,6 @@ def query_data(
         desc="Data updated",
         unit="process",
         disable=interactive,
-        colour="MAGENTA",
     ):
         lang = format_sublanguage_name(q.parent.parent.name, language_metadata)
         target_type = q.parent.name
