@@ -7,7 +7,7 @@ SELECT
   ?properNoun
 
 WHERE {
-  ?lexeme dct:language wd:Q5146 ;
+  ?lexeme dct:language wd:Q33947 ;
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?properNoun .
 }

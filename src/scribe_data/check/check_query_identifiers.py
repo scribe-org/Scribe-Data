@@ -173,6 +173,9 @@ def check_query_identifiers() -> None:
     if incorrect_languages or incorrect_data_types:
         sys.exit(1)
 
+    else:
+        print("All query language and data type QIDs are correct.")
+
 
 if __name__ == "__main__":
     check_query_identifiers()
