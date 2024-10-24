@@ -93,6 +93,7 @@ def get_data(
             output_dir = DEFAULT_TSV_EXPORT_DIR
 
     languages = [language] if language else None
+    data_types = [data_type] if data_type else None
 
     subprocess_result = False
 
@@ -118,7 +119,7 @@ def get_data(
         )
         query_data(
             languages=languages,
-            data_type=data_type,
+            data_type=data_types,
             output_dir=output_dir,
             overwrite=overwrite,
             interactive=interactive,

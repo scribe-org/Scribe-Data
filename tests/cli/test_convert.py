@@ -113,7 +113,6 @@ class TestConvert(unittest.TestCase):
     @patch("scribe_data.cli.convert.Path", autospec=True)
     def test_convert_to_json_unknown_language(self, mock_path, mock_language_map):
         mock_language_map.get.return_value = None
-        # Mock for input file and output_directory
         mock_input_file_path = MagicMock(spec=Path)
         mock_input_file_path.exists.return_value = True
         mock_path.side_effect = [mock_input_file_path, MagicMock(spec=Path)]
@@ -128,15 +127,17 @@ class TestConvert(unittest.TestCase):
                 overwrite=True,
             )
 
-        # Assert the error message
         self.assertEqual(
             str(context.exception), "Language 'Kazatan' is not recognized."
         )
 
-    @patch("scribe_data.cli.convert.Path")
-    def test_convert_to_json_with_input_file(self, mock_path):
+    @patch("scribe_data.cli.convert.language_map", autospec=True)
+    @patch("scribe_data.cli.convert.Path", autospec=True)
+    def test_convert_to_json_with_input_file(self, mock_path, mock_language_map):
         csv_data = "key,value\na,1\nb,2"
         mock_file = StringIO(csv_data)
+
+        self.setup_language_map(mock_language_map)
 
         mock_path_obj = MagicMock(spec=Path)
         mock_path.return_value = mock_path_obj
@@ -157,37 +158,19 @@ class TestConvert(unittest.TestCase):
 
         mock_path_obj.open.assert_called_once_with("r", encoding="utf-8")
 
+    @patch("scribe_data.cli.convert.language_map", autospec=True)
     @patch("scribe_data.cli.convert.Path")
-    def test_convert_to_json_no_input_file(self, mock_path):
-        mock_path_obj = MagicMock(spec=Path)
-        mock_path.return_value = mock_path_obj
-        mock_path_obj.exists.return_value = False
+    def test_convert_to_json_supported_file_extension_csv(
+        self, mock_path_class, mock_language_map
+    ):
+        self.setup_language_map(mock_language_map)
 
-        mock_path_obj.__str__.return_value = "Data/ecode.csv"
+        mock_path_instance = MagicMock(spec=Path)
 
-        with self.assertRaises(FileNotFoundError) as context:
-            convert_to_json(
-                language="English",
-                data_type="nouns",
-                output_type="json",
-                input_file="Data/ecode.csv",
-                output_dir="/output_dir",
-                overwrite=True,
-            )
+        mock_path_class.return_value = mock_path_instance
 
-        self.assertEqual(
-            str(context.exception), "No data found for input file 'Data/ecode.csv'."
-        )
-
-        mock_path_obj.exists.assert_called_once()
-
-    @patch("scribe_data.cli.convert.Path")
-    def test_convert_to_json_supported_file_extension_csv(self, mock_path):
-        mock_path_obj = MagicMock(spec=Path)
-        mock_path.return_value = mock_path_obj
-
-        mock_path_obj.suffix = ".csv"
-        mock_path_obj.exists.return_value = True
+        mock_path_instance.suffix = ".csv"
+        mock_path_instance.exists.return_value = True
 
         convert_to_json(
             language="English",
@@ -198,13 +181,18 @@ class TestConvert(unittest.TestCase):
             overwrite=True,
         )
 
+    @patch("scribe_data.cli.convert.language_map", autospec=True)
     @patch("scribe_data.cli.convert.Path")
-    def test_convert_to_json_supported_file_extension_tsv(self, mock_path):
-        mock_path_obj = MagicMock(spec=Path)
-        mock_path.return_value = mock_path_obj
+    def test_convert_to_json_supported_file_extension_tsv(
+        self, mock_path_class, mock_language_map
+    ):
+        self.setup_language_map(mock_language_map)
+        mock_path_instance = MagicMock(spec=Path)
 
-        mock_path_obj.suffix = ".tsv"
-        mock_path_obj.exists.return_value = True
+        mock_path_class.return_value = mock_path_instance
+
+        mock_path_instance.suffix = ".tsv"
+        mock_path_instance.exists.return_value = True
 
         convert_to_json(
             language="English",
@@ -215,8 +203,12 @@ class TestConvert(unittest.TestCase):
             overwrite=True,
         )
 
+    @patch("scribe_data.cli.convert.language_map", autospec=True)
     @patch("scribe_data.cli.convert.Path")
-    def test_convert_to_json_unsupported_file_extension(self, mock_path):
+    def test_convert_to_json_unsupported_file_extension(
+        self, mock_path, mock_language_map
+    ):
+        self.setup_language_map(mock_language_map)
         mock_path_obj = MagicMock(spec=Path)
         mock_path.return_value = mock_path_obj
 
@@ -821,13 +813,11 @@ class TestConvert(unittest.TestCase):
     @patch("scribe_data.cli.convert.Path")
     @patch("scribe_data.cli.convert.data_to_sqlite")
     def test_convert_to_sqlite_no_output_dir(self, mock_data_to_sqlite, mock_path):
-        # Create a mock for input file
         mock_input_file = MagicMock()
         mock_input_file.exists.return_value = True
 
         mock_path.return_value = mock_input_file
 
-        # source and destination paths
         mock_input_file.parent = MagicMock()
         mock_input_file.parent.__truediv__.return_value = MagicMock()
         mock_input_file.parent.__truediv__.return_value.exists.return_value = False

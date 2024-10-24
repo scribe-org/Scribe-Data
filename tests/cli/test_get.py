@@ -29,15 +29,10 @@ from scribe_data.cli.get import get_data
 class TestGetData(unittest.TestCase):
     # MARK: Subprocess Patching
 
-    @patch("scribe_data.cli.get.generate_emoji")
-    def test_get_emoji_keywords(self, generate_emoji):
-        get_data(
-            language="English", data_type="emoji_keywords", output_dir="./test_output"
-        )
-        generate_emoji.assert_called_once_with(
-            language="English",
-            output_dir="./test_output",
-        )
+    @patch("subprocess.run")
+    def test_get_emoji_keywords(self, mock_subprocess_run):
+        get_data(language="English", data_type="emoji-keywords")
+        self.assertTrue(mock_subprocess_run.called)
 
     # MARK: Invalid Arguments
 

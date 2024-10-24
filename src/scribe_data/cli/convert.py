@@ -91,9 +91,7 @@ def convert_to_json(
         input_file_path = Path(input_file)
 
         if not input_file_path.exists():
-            raise FileNotFoundError(
-                f"No data found for input file '{input_file_path}'."
-            )
+            raise FileNotFoundError(f"Input file '{input_file_path}' does not exist.")
 
         delimiter = {".csv": ",", ".tsv": "\t"}.get(input_file_path.suffix.lower())
 
