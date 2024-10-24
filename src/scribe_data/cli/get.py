@@ -25,6 +25,7 @@ from pathlib import Path
 from typing import List, Union
 import os  # For removing the JSON file
 
+from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
@@ -105,17 +106,7 @@ def get_data(
     # MARK: Emojis
 
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
-        for lang in languages:
-            emoji_keyword_extraction_script = (
-                Path(__file__).parent.parent
-                / "language_data_extraction"
-                / lang
-                / "emoji_keywords"
-                / "generate_emoji_keywords.py"
-            )
-            subprocess_result = subprocess.run(
-                ["python", emoji_keyword_extraction_script]
-            )
+        generate_emoji(language=language, output_dir=output_dir)
 
     # MARK: Query Data
 

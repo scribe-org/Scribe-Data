@@ -237,6 +237,9 @@ def main() -> None:
 
     args = parser.parse_args()
 
+    if args.data_type and isinstance(args.data_type, str):
+        args.data_type = args.data_type.replace("-", "_")
+
     try:
         if args.language or args.data_type:
             validate_language_and_data_type(
