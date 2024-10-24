@@ -201,7 +201,9 @@ def main() -> None:
     # MARK: Setup CLI
 
     args = parser.parse_args()
-    args.data_type = args.data_type.replace("-", "_")
+
+    if args.data_type and isinstance(args.data_type, str):
+        args.data_type = args.data_type.replace("-", "_")
 
     try:
         if args.language or args.data_type:

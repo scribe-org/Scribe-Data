@@ -31,17 +31,15 @@ EMOJI_KEYWORDS_DICT = 3
 
 
 def generate_emoji(language, output_dir: str = None):
-    print(f"Got the language {language} for emoji generation")
-
     iso = get_language_iso(language=language)
     path_to_cldr_annotations = (
         Path(__file__).parent / "cldr-annotations-full" / "annotations"
     )
     if iso in os.listdir(path_to_cldr_annotations):
-        print(f"Emoji Generation for language : {language} is supported")
+        print(f"Emoji Generation for language {language} is supported")
 
     else:
-        print(f"Emoji Generation for language : {language} is not supported")
+        print(f"Emoji Generation for language {language} is not supported")
         return
 
     updated_path = output_dir[2:] if output_dir.startswith("./") else output_dir
