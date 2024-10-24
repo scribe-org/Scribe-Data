@@ -103,7 +103,6 @@ def get_data(
     # MARK: Emojis
 
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
-        print(language)
         generate_emoji(language, output_dir)
 
     # MARK: Query Data
