@@ -95,6 +95,7 @@ def gen_emoji_lexicon(
         / f"{iso}"
         / "annotations.json"
     )
+
     annotations_derived_file_path = (
         Path(__file__).parent
         / "cldr-annotations-derived-full"
@@ -187,9 +188,9 @@ def gen_emoji_lexicon(
             noun_data = json.load(f)
 
         plurals_to_singulars_dict = {
-            noun["singular"].lower(): noun["lexemeID"].lower()
-            for noun in noun_data
-            if noun.get("singular")  # Ensure the singular field exists
+            noun_data[row]["plural"].lower(): row.lower()
+            for row in noun_data
+            if noun_data[row]["plural"] != "isPlural"
         }
 
         for plural, singular in plurals_to_singulars_dict.items():

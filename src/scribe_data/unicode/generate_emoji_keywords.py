@@ -1,5 +1,5 @@
 """
-Centralized keyword-emoji generation file to generated emoji for a specified Language
+Centralized keyword-emoji generation file to generated emoji for a specified Language.
 
 .. raw:: html
     <!--
@@ -20,27 +20,26 @@ Centralized keyword-emoji generation file to generated emoji for a specified Lan
     -->
 """
 
-import json
-from scribe_data.unicode.process_unicode import gen_emoji_lexicon
-from scribe_data.utils import export_formatted_data
+import os
 from pathlib import Path
+
+from scribe_data.unicode.process_unicode import gen_emoji_lexicon
+from scribe_data.utils import export_formatted_data, get_language_iso
 
 DATA_TYPE = "emoji-keywords"
 EMOJI_KEYWORDS_DICT = 3
 
-SUPPORTED_LANGUAGE_FILE = Path(__file__).parent / "supported_languages.json"
 
 def generate_emoji(language, output_dir: str = None):
     print(f"Got the language {language} for emoji generation")
 
-    # check if this language is supported
-    with open(SUPPORTED_LANGUAGE_FILE, "r", encoding="utf-8") as file:
-        languages = json.load(file)
-    # Check if the language code exists in the dictionary
-    for code, name in languages.items():
-        if name == language:
-            print(f"Emoji Generation for language : {language} is supported")
-            break
+    iso = get_language_iso(language=language)
+    path_to_cldr_annotations = (
+        Path(__file__).parent / "cldr-annotations-full" / "annotations"
+    )
+    if iso in os.listdir(path_to_cldr_annotations):
+        print(f"Emoji Generation for language : {language} is supported")
+
     else:
         print(f"Emoji Generation for language : {language} is not supported")
         return
@@ -52,7 +51,8 @@ def generate_emoji(language, output_dir: str = None):
     if emoji_keywords_dict := gen_emoji_lexicon(
         language=language,
         emojis_per_keyword=EMOJI_KEYWORDS_DICT,
-    ):export_formatted_data(
+    ):
+        export_formatted_data(
             file_path=output_dir,
             formatted_data=emoji_keywords_dict,
             query_data_in_use=True,

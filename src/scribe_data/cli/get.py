@@ -23,6 +23,7 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
 import subprocess
 from pathlib import Path
 
+from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
@@ -30,7 +31,6 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
-from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 
 
 def get_data(
@@ -103,6 +103,7 @@ def get_data(
     # MARK: Emojis
 
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
+        print(language)
         generate_emoji(language, output_dir)
 
     # MARK: Query Data
