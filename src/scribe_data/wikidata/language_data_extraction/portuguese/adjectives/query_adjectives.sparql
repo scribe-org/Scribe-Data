@@ -5,7 +5,7 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
-  ?femininePlural
+  ?feminineSingular
   ?masculineSingular
   ?femininePlural
   ?masculinePlural

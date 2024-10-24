@@ -4,14 +4,10 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?infinitive
+  ?verb
 
 WHERE {
   ?lexeme dct:language wd:Q8798 ;
-    wikibase:lexicalCategory wd:Q24905 .
-
-  # MARK: Infinitive
-  ?lexeme ontolex:lexicalForm ?infinitiveForm .
-  ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature wd:Q179230 .
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
 }
