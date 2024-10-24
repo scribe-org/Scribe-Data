@@ -2,6 +2,7 @@
 Module for a function to get emojis we want to filter from suggestions.
 
 .. raw:: html
+
     <!--
     * Copyright (C) 2024 Scribe
     *

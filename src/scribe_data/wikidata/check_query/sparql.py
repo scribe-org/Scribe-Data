@@ -2,6 +2,7 @@
 Functions for running SPARQL queries within the query check process.
 
 .. raw:: html
+
     <!--
     * Copyright (C) 2024 Scribe
     *

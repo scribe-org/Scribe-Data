@@ -21,67 +21,9 @@ Utility functions for the Scribe-Data CLI.
 """
 
 import difflib
-import json
-from pathlib import Path
 from typing import List, Union
 
-from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
-
-# MARK: CLI Variables
-
-LANGUAGE_DATA_EXTRACTION_DIR = Path(__file__).parent.parent / "language_data_extraction"
-
-LANGUAGE_METADATA_FILE = (
-    Path(__file__).parent.parent / "resources" / "language_metadata.json"
-)
-DATA_TYPE_METADATA_FILE = (
-    Path(__file__).parent.parent / "resources" / "data_type_metadata.json"
-)
-DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
-
-try:
-    with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
-        language_metadata = json.load(file)
-
-except (IOError, json.JSONDecodeError) as e:
-    print(f"Error reading language metadata: {e}")
-
-
-try:
-    with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
-        data_type_metadata = json.load(file)
-
-except (IOError, json.JSONDecodeError) as e:
-    print(f"Error reading data type metadata: {e}")
-
-language_map = {}
-language_to_qid = {}
-
-# Process each language and its potential sub-languages in one pass.
-for lang, lang_data in language_metadata.items():
-    lang_lower = lang.lower()
-
-    if "sub_languages" in lang_data:
-        for sub_lang, sub_lang_data in lang_data["sub_languages"].items():
-            sub_lang_lower = sub_lang.lower()
-            sub_qid = sub_lang_data.get("qid")
-
-            if sub_qid is None:
-                print(f"Warning: 'qid' missing for sub-language {sub_lang} of {lang}")
-
-            else:
-                language_map[sub_lang_lower] = sub_lang_data
-                language_to_qid[sub_lang_lower] = sub_qid
-
-    else:
-        qid = lang_data.get("qid")
-        if qid is None:
-            print(f"Warning: 'qid' missing for language {lang}")
-
-        else:
-            language_map[lang_lower] = lang_data
-            language_to_qid[lang_lower] = qid
-
+from scribe_data.utils import data_type_metadata, language_to_qid
 
 # MARK: Correct Inputs
 

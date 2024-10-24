@@ -1,0 +1,14 @@
+# tool: scribe-data
+# All Esperanto (Q143) personal pronouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?personalPronouns
+
+WHERE {
+  ?lexeme dct:language wd:Q143 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalPronouns .
+    FILTER(LANG(?personalPronouns) = "eo")
+}
