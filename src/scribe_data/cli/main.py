@@ -25,8 +25,7 @@ import argparse
 from pathlib import Path
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
-from scribe_data.cli.convert import convert
-
+from scribe_data.cli.convert import convert_wrapper
 from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
@@ -90,7 +89,7 @@ def main() -> None:
         "--data-type",
         nargs="?",
         const=True,
-        help="List options for all or given data types.",
+        help="List options for all or given data types (e.g., nouns, verbs).",
     )
     list_parser.add_argument(
         "-a",
@@ -111,10 +110,13 @@ def main() -> None:
     )
     get_parser._actions[0].help = "Show this help message and exit."
     get_parser.add_argument(
-        "-lang", "--language", type=str, help="The language(s) to get."
+        "-lang", "--language", type=str, help="The language(s) to get data for."
     )
     get_parser.add_argument(
-        "-dt", "--data-type", type=str, help="The data type(s) to get."
+        "-dt",
+        "--data-type",
+        type=str,
+        help="The data type(s) to get data for (e.g., nouns, verbs).",
     )
     get_parser.add_argument(
         "-ot",
@@ -163,7 +165,10 @@ def main() -> None:
         "-lang", "--language", type=str, help="The language(s) to check totals for."
     )
     total_parser.add_argument(
-        "-dt", "--data-type", type=str, help="The data type(s) to check totals for."
+        "-dt",
+        "--data-type",
+        type=str,
+        help="The data type(s) to check totals for (e.g., nouns, verbs).",
     )
     total_parser.add_argument(
         "-a",
@@ -183,7 +188,7 @@ def main() -> None:
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
 
-    # Setting up the arguments for the convert command
+    convert_parser._actions[0].help = "Show this help message and exit."
     convert_parser.add_argument(
         "-lang",
         "--language",
@@ -196,7 +201,7 @@ def main() -> None:
         "--data-type",
         type=str,
         required=True,
-        help="The data type(s) of the file to convert (e.g., noun, verb).",
+        help="The data type(s) of the file to convert (e.g., nouns, verbs).",
     )
     convert_parser.add_argument(
         "-if",
@@ -279,10 +284,12 @@ def main() -> None:
             )
 
     elif args.command in ["total", "t"]:
-        total_wrapper(args.language, args.data_type, args.all)
+        total_wrapper(
+            language=args.language, data_type=args.data_type, all_bool=args.all
+        )
 
     elif args.command in ["convert", "c"]:
-        convert(
+        convert_wrapper(
             language=args.language,
             data_type=args.data_type,
             output_type=args.output_type,

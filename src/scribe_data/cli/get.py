@@ -20,11 +20,12 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
     -->
 """
 
+import os  # for removing original JSON files
 import subprocess
 from pathlib import Path
 from typing import List, Union
-import os  # For removing the JSON file
 
+from scribe_data.cli.convert import convert_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
@@ -33,7 +34,6 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
-from scribe_data.cli.convert import convert
 
 
 def get_data(
@@ -139,10 +139,10 @@ def get_data(
 
         json_input_path = Path(output_dir) / f"{language}/{data_type}.json"
 
-        # Proceed with conversion only if the output type is not JSON
+        # Proceed with conversion only if the output type is not JSON.
         if output_type != "json":
             if json_input_path.exists():
-                convert(
+                convert_wrapper(
                     language=language,
                     data_type=data_type,
                     output_type=output_type,
@@ -152,13 +152,16 @@ def get_data(
                 )
 
                 os.remove(json_input_path)
+
             else:
-                print(f"Error: Input file '{json_input_path}' does not exist.")
+                print(
+                    f"Error: Input file '{json_input_path}' does not exist for conversion."
+                )
 
         if interactive:
             return True
 
-    # Handle emoji keywords process failure
+    # Handle emoji keywords process failure.
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
         print(
             "\nThe Scribe-Data emoji functionality is powered by PyICU, which is currently not installed."

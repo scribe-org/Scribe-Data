@@ -28,12 +28,11 @@ from typing import List, Union
 
 from scribe_data.load.data_to_sqlite import data_to_sqlite
 from scribe_data.utils import (
-    DEFAULT_SQLITE_EXPORT_DIR,
-    DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_CSV_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
     get_language_iso,
-    language_map,
 )
 
 # MARK: JSON
@@ -74,7 +73,7 @@ def convert_to_json(
     -------
         None
     """
-    normalized_language = language_map.get(language.lower())
+    normalized_language = language.lower()
 
     if not normalized_language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
@@ -84,7 +83,7 @@ def convert_to_json(
     if output_dir is None:
         output_dir = DEFAULT_JSON_EXPORT_DIR
 
-    json_output_dir = Path(output_dir) / normalized_language["language"].capitalize()
+    json_output_dir = Path(output_dir) / normalized_language.capitalize()
     json_output_dir.mkdir(parents=True, exist_ok=True)
 
     for dtype in data_types:
@@ -109,17 +108,17 @@ def convert_to_json(
                     print(f"No data found in '{input_file_path}'.")
                     continue
 
-                # Use the first row to inspect column headers
+                # Use the first row to inspect column headers.
                 first_row = rows[0]
                 keys = list(first_row.keys())
                 data = {}
 
                 if len(keys) == 1:
-                    # Handle Case: { key: None }
+                    # Handle Case: { key: None }.
                     data[first_row[keys[0]]] = None
 
                 elif len(keys) == 2:
-                    # Handle Case: { key: value }
+                    # Handle Case: { key: value }.
                     for row in rows:
                         key = row[keys[0]]
                         value = row[keys[1]]
@@ -127,7 +126,7 @@ def convert_to_json(
 
                 elif len(keys) > 2:
                     if all(col in first_row for col in ["emoji", "is_base", "rank"]):
-                        # Handle Case: { key: [ { emoji: ..., is_base: ..., rank: ... }, { emoji: ..., is_base: ..., rank: ... } ] }
+                        # Handle Case: { key: [ { emoji: ..., is_base: ..., rank: ... }, { emoji: ..., is_base: ..., rank: ... } ] }.
                         for row in rows:
                             key = row.get(reader.fieldnames[0])
                             emoji = row.get("emoji", "").strip()
@@ -144,7 +143,7 @@ def convert_to_json(
                             data[key].append(entry)
 
                     else:
-                        # Handle Case: { key: { value1: ..., value2: ... } }
+                        # Handle Case: { key: { value1: ..., value2: ... } }.
                         for row in rows:
                             data[row[keys[0]]] = {k: row[k] for k in keys[1:]}
 
@@ -171,12 +170,9 @@ def convert_to_json(
             print(f"Error writing to '{output_file}': {e}")
             continue
 
-        print(
-            f"Data for {normalized_language['language'].capitalize()} {dtype} written to {output_file}"
-        )
+        print(f"Data for {language.capitalize()} {dtype} written to {output_file}")
 
 
-#
 # MARK: CSV or TSV
 
 
@@ -190,33 +186,39 @@ def convert_to_csv_or_tsv(
 ) -> None:
     """
     Convert a JSON File to CSV/TSV file.
+
     Parameters
     ----------
-    language : str
-        The language of the file to convert.
-    data_type : Union[str, List[str]]
-        The data type of the file to convert.
-    output_type : str
-        The output format, should be "csv" or "tsv".
-    input_file : str
-        The input JSON file path.
-    output_dir : str
-        The output directory path for results.
-    overwrite : bool
-        Whether to overwrite existing files.
+        language : str
+            The language of the file to convert.
+
+        data_type : Union[str, List[str]]
+            The data type of the file to convert.
+
+        output_type : str
+            The output format, should be "csv" or "tsv".
+
+        input_file : str
+            The input JSON file path.
+
+        output_dir : str
+            The output directory path for results.
+
+        overwrite : bool
+            Whether to overwrite existing files.
+
     Returns
     -------
         None
     """
-
-    # Normalize the language
-    normalized_language = language_map.get(language.lower())
+    normalized_language = language.lower()
 
     if not normalized_language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
     if isinstance(data_type, str):
         data_types = [data_type.strip()]
+
     else:
         data_types = [dtype.strip() for dtype in data_type]
 
@@ -234,7 +236,7 @@ def convert_to_csv_or_tsv(
             print(f"Error reading '{input_file}': {e}")
             continue
 
-        # Determine the delimiter based on output type
+        # Determine the delimiter based on output type.
         delimiter = "," if output_type == "csv" else "\t"
 
         if output_dir is None:
@@ -244,9 +246,7 @@ def convert_to_csv_or_tsv(
                 else DEFAULT_TSV_EXPORT_DIR
             )
 
-        final_output_dir = (
-            Path(output_dir) / normalized_language["language"].capitalize()
-        )
+        final_output_dir = Path(output_dir) / language.capitalize()
         final_output_dir.mkdir(parents=True, exist_ok=True)
 
         output_file = final_output_dir / f"{dtype}.{output_type}"
@@ -261,13 +261,13 @@ def convert_to_csv_or_tsv(
         try:
             with output_file.open("w", newline="", encoding="utf-8") as file:
                 writer = csv.writer(file, delimiter=delimiter)
-                # Handle different JSON structures based on the format
+                # Handle different JSON structures based on the format.
 
                 if isinstance(data, dict):
                     first_key = list(data.keys())[0]
 
                     if isinstance(data[first_key], dict):
-                        # Handle case: { key: { value1: ..., value2: ... } }
+                        # Handle case: { key: { value1: ..., value2: ... } }.
                         columns = sorted(next(iter(data.values())).keys())
                         writer.writerow([dtype[:-1]] + columns)
 
@@ -277,8 +277,8 @@ def convert_to_csv_or_tsv(
 
                     elif isinstance(data[first_key], list):
                         if all(isinstance(item, dict) for item in data[first_key]):
-                            # Handle case: { key: [ { value1: ..., value2: ... } ] }
-                            if "emoji" in data[first_key][0]:  # Emoji specific case
+                            # Handle case: { key: [ { value1: ..., value2: ... } ] }.
+                            if "emoji" in data[first_key][0]:  # emoji specific case
                                 columns = ["word", "emoji", "is_base", "rank"]
                                 writer.writerow(columns)
 
@@ -303,7 +303,7 @@ def convert_to_csv_or_tsv(
                                         writer.writerow(row)
 
                         elif all(isinstance(item, str) for item in data[first_key]):
-                            # Handle case: { key: [value1, value2, ...] }
+                            # Handle case: { key: [value1, value2, ...] }.
                             writer.writerow(
                                 [dtype[:-1]]
                                 + [
@@ -316,7 +316,7 @@ def convert_to_csv_or_tsv(
                                 writer.writerow(row)
 
                     else:
-                        # Handle case: { key: value }
+                        # Handle case: { key: value }.
                         writer.writerow([dtype[:-1], "value"])
                         for key, value in data.items():
                             writer.writerow([key, value])
@@ -325,7 +325,7 @@ def convert_to_csv_or_tsv(
             print(f"Error writing to '{output_file}': {e}")
             continue
 
-        print(f"Data for '{language} {dtype}' written to '{output_file}'")
+        print(f"Data for {language} {dtype} written to '{output_file}'")
 
 
 # MARK: SQLITE
@@ -371,6 +371,7 @@ def convert_to_sqlite(
 
     if input_file:
         input_file = Path(input_file)
+
     if not input_file.exists():
         raise ValueError(f"Input file does not exist: {input_file}")
 
@@ -379,15 +380,13 @@ def convert_to_sqlite(
 
     if output_dir is None:
         output_dir = Path(DEFAULT_SQLITE_EXPORT_DIR)
+
     else:
         output_dir = Path(output_dir)
 
     if not output_dir.exists():
         output_dir.mkdir(parents=True, exist_ok=True)
 
-    print(
-        f"Converting data for language: {language}, data type: {data_type} to {output_type}"
-    )
     data_to_sqlite(languages, specific_tables)
 
     source_file = f"{get_language_iso(language).upper()}LanguageData.sqlite"
@@ -397,16 +396,18 @@ def convert_to_sqlite(
     if source_path.exists():
         if target_path.exists() and not overwrite:
             print(f"File {target_path} already exists. Use --overwrite to replace.")
+
         else:
             shutil.copy(source_path, target_path)
             print(f"SQLite database copied to: {target_path}")
+
     else:
         print(f"Warning: SQLite file not found at {source_path}")
 
     print("SQLite file conversion complete.")
 
 
-def convert(
+def convert_wrapper(
     language: str,
     data_type: Union[str, List[str]],
     output_type: str,
@@ -442,8 +443,9 @@ def convert(
     None
     """
     output_type = output_type.lower()
+    print(f"Converting data for {language} {data_type} to {output_type} ...")
 
-    # Route the function call to the correct conversion function
+    # Route the function call to the correct conversion function.
     if output_type == "json":
         convert_to_json(
             language=language,
@@ -453,6 +455,7 @@ def convert(
             output_dir=output_dir,
             overwrite=overwrite,
         )
+
     elif output_type in {"csv", "tsv"}:
         convert_to_csv_or_tsv(
             language=language,
@@ -462,6 +465,7 @@ def convert(
             output_dir=output_dir,
             overwrite=overwrite,
         )
+
     elif output_type == "sqlite":
         convert_to_sqlite(
             language=language,
@@ -471,7 +475,8 @@ def convert(
             output_dir=output_dir,
             overwrite=overwrite,
         )
+
     else:
         raise ValueError(
-            f"Unsupported output type '{output_type}'. Must be 'json', 'csv', 'tsv', or 'sqlite'."
+            f"Unsupported output type '{output_type}'. Must be 'json', 'csv', 'tsv' or 'sqlite'."
         )
