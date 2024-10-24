@@ -286,7 +286,9 @@ def check_unreturned_optional_forms(query_text: str) -> str:
     return ""
 
 
-# MARK: Undefined Return Forms
+# MARK: Undefined Forms
+
+
 def check_undefined_return_forms(query_text: str) -> str:
     """
     Checks if the query is trying to return forms that aren't defined in the WHERE clause
@@ -304,14 +306,14 @@ def check_undefined_return_forms(query_text: str) -> str:
             returned forms are properly defined.
     """
 
-    # Check if query has any OPTIONAL blocks
+    # Check if query has any OPTIONAL blocks.
     optional_pattern = r"OPTIONAL\s*\{"
     has_optional_blocks = bool(re.search(optional_pattern, query_text))
 
     if has_optional_blocks:
-        return ""  # Skip check for queries with OPTIONAL blocks
+        return ""  # skip check for queries with OPTIONAL blocks
 
-    # Extract forms from SELECT statement and track aliases
+    # Extract forms from SELECT statement and track aliases.
     select_pattern = r"SELECT\s*(.*?)\s*WHERE"
     select_forms = set()
     aliases = set()
@@ -321,14 +323,14 @@ def check_undefined_return_forms(query_text: str) -> str:
     ):
         select_clause = select_match[1]
 
-        # Process each SELECT item
+        # Process each SELECT item.
         items = select_clause.split("\n")
         for item in items:
             item = item.strip()
             if not item:
                 continue
 
-            # Handle REPLACE...AS statements
+            # Handle REPLACE...AS statements.
             if "AS ?" in item:
                 if alias_match := re.search(r"AS \?(\w+)", item):
                     aliases.add(alias_match[1])
@@ -340,7 +342,7 @@ def check_undefined_return_forms(query_text: str) -> str:
                 var_match = re.findall(r"\?(\w+)", item)
                 select_forms.update(var_match)
 
-    # Extract defined variables from WHERE clause
+    # Extract defined variables from WHERE clause.
     where_pattern = r"WHERE\s*\{(.*?)\}(?:\s*ORDER BY|\s*$)"
     defined_vars = set()
     if where_match := re.search(
@@ -380,9 +382,9 @@ def check_defined_return_forms(query_text: str) -> str:
     has_optional_blocks = bool(re.search(optional_pattern, query_text))
 
     if has_optional_blocks:
-        return ""  # Skip check for queries with OPTIONAL blocks
+        return ""  # skip check for queries with OPTIONAL blocks
 
-    # Extract forms from WHERE clause
+    # Extract forms from WHERE clause.
     where_pattern = r"WHERE\s*\{(.*?)\}"
     where_forms = set()
     if where_match := re.search(
