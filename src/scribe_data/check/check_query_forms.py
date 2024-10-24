@@ -36,6 +36,9 @@ for key, value in lexeme_form_metadata.items():
     )
 
 
+# MARK: Extract Forms
+
+
 def extract_forms_from_sparql(file_path: Path) -> str:
     """
     Extracts the QID from a SPARQL query file based on the provided pattern.
@@ -69,6 +72,9 @@ def extract_forms_from_sparql(file_path: Path) -> str:
         print(f"Error reading {file_path}: {e}")
 
     return None
+
+
+# MARK: Check Label
 
 
 def check_form_label(form_text: str):
@@ -110,6 +116,9 @@ def check_form_label(form_text: str):
     return form_rep_label == current_form_rep_label
 
 
+# MARK: Get Label
+
+
 def extract_form_rep_label(form_text: str):
     """
     Extracts the representation label from an optional query form.
@@ -131,6 +140,9 @@ def extract_form_rep_label(form_text: str):
             return label_match[1].strip()
 
 
+# MARK: Get QIDs
+
+
 def extract_form_qids(form_text: str):
     """
     Extracts all QIDs from an optional query form.
@@ -148,6 +160,9 @@ def extract_form_qids(form_text: str):
     qids_pattern = r"wikibase:grammaticalFeature .+ \."
     if match := re.search(pattern=qids_pattern, string=form_text):
         return [q.split("wd:")[1].split(" .")[0] for q in match[0].split(", ")]
+
+
+# MARK: Correct Label
 
 
 def return_correct_form_label(qids: list):
@@ -183,26 +198,28 @@ def return_correct_form_label(qids: list):
     return correct_label[:1].lower() + correct_label[1:]
 
 
-# MARK: Unique Return Forms
+# MARK: Return Forms
+
+
 def check_unique_return_forms(query_text: str) -> bool:
     """
     Checks that each form returned by the SELECT statement is unique.
 
     Parameters
     ----------
-    query_text : str
-        The full text of the SPARQL query.
+        query_text : str
+            The full text of the SPARQL query.
 
     Returns
     -------
-    bool
-        True if all returned forms are unique, False otherwise.
+        bool
+            True if all returned forms are unique, False otherwise.
     """
 
     error_output = ""
     select_pattern = r"SELECT\s*(.*?)\s*WHERE"
     if match := re.search(pattern=select_pattern, string=query_text, flags=re.DOTALL):
-        # Extracting forms after '?' and handling cases where 'AS' is used for aliasing
+        # Extracting forms after '?' and handling cases where 'AS' is used for aliasing.
         return_forms = []
         for part in match[1].split():
             if "?" in part:
@@ -215,12 +232,15 @@ def check_unique_return_forms(query_text: str) -> bool:
         if len(return_forms) != len(unique_forms):
             error_output += f"\nDuplicate forms found: {', '.join([form for form in return_forms if return_forms.count(form) > 1])}"
             return error_output
+
         return True
 
     return True
 
 
-# MARK: Unreturned Optional Forms
+# MARK: Unreturned Forms
+
+
 def check_unreturned_optional_forms(query_text: str) -> str:
     """
     Checks if there are any optional forms in the query that aren't returned in the SELECT statement.
@@ -235,8 +255,7 @@ def check_unreturned_optional_forms(query_text: str) -> str:
     str
         Error message listing any unreturned forms, or empty string if all forms are returned.
     """
-
-    # Extract forms from SELECT statement
+    # Extract forms from SELECT statement.
     select_pattern = r"SELECT\s*(.*?)\s*WHERE"
     select_forms = set()
     if select_match := re.search(
@@ -256,13 +275,14 @@ def check_unreturned_optional_forms(query_text: str) -> str:
         form_text = match.group(1)
         rep_pattern = r"ontolex:representation\s+\?([\w]+)\s*;"
         if rep_match := re.search(rep_pattern, form_text):
-            optional_forms.add(rep_match.group(1))
+            optional_forms.add(rep_match[1])
 
     # Find forms that appear in OPTIONAL blocks but not in SELECT
     unreturned_forms = optional_forms - select_forms
 
     if unreturned_forms:
         return f"Unreturned optional forms: {', '.join(sorted(unreturned_forms))}"
+
     return ""
 
 
@@ -274,14 +294,14 @@ def check_undefined_return_forms(query_text: str) -> str:
 
     Parameters
     ----------
-    query_text : str
-        The full text of the SPARQL query.
+        query_text : str
+            The full text of the SPARQL query.
 
     Returns
     -------
-    str
-        Error message listing any undefined forms being returned, or empty string if all
-        returned forms are properly defined.
+        str
+            Error message listing any undefined forms being returned, or empty string if all
+            returned forms are properly defined.
     """
 
     # Check if query has any OPTIONAL blocks
@@ -299,7 +319,7 @@ def check_undefined_return_forms(query_text: str) -> str:
     if select_match := re.search(
         pattern=select_pattern, string=query_text, flags=re.DOTALL
     ):
-        select_clause = select_match.group(1)
+        select_clause = select_match[1]
 
         # Process each SELECT item
         items = select_clause.split("\n")
@@ -310,15 +330,12 @@ def check_undefined_return_forms(query_text: str) -> str:
 
             # Handle REPLACE...AS statements
             if "AS ?" in item:
-                # Get the alias (the part after AS)
-                alias_match = re.search(r"AS \?(\w+)", item)
-                if alias_match:
-                    aliases.add(alias_match.group(1))
-                # Get the source variable
-                var_match = re.findall(r"\?(\w+)", item)
-                if var_match:
+                if alias_match := re.search(r"AS \?(\w+)", item):
+                    aliases.add(alias_match[1])
+
+                if var_match := re.findall(r"\?(\w+)", item):
                     select_forms.update(v for v in var_match if v not in aliases)
-            # Handle regular variables
+
             elif "?" in item:
                 var_match = re.findall(r"\?(\w+)", item)
                 select_forms.update(var_match)
@@ -329,38 +346,34 @@ def check_undefined_return_forms(query_text: str) -> str:
     if where_match := re.search(
         pattern=where_pattern, string=query_text, flags=re.DOTALL
     ):
-        where_clause = where_match.group(1)
+        where_clause = where_match[1]
         var_pattern = r"\?(\w+)"
         defined_vars = set(re.findall(var_pattern, where_clause))
 
-    # Find undefined forms, excluding aliases
-    undefined_forms = {
+    if undefined_forms := {
         form for form in select_forms - defined_vars if form not in aliases
-    }
-
-    if undefined_forms:
+    }:
         return f"Undefined forms in SELECT: {', '.join(sorted(undefined_forms))}"
+
     return ""
 
 
 # MARK: Defined Return Forms
 
 
-# Function to ensure all variables defined in WHERE are returned in SELECT
 def check_defined_return_forms(query_text: str) -> str:
     """
-    Ensures that all variables defined in the WHERE clause are returned in the SELECT clause,
-    excluding specific variables that are allowed to be unreturned (e.g., 'infinitiveForm' in Ukrainian verbs query).
+    Ensures that all variables defined in the WHERE clause are returned in the SELECT clause.
 
     Parameters
     ----------
-    query_text : str
-        The full text of the SPARQL query.
+        query_text : str
+            The full text of the SPARQL query.
 
     Returns
     -------
-    str
-        Error message listing any defined but unreturned forms, or empty string if all forms are returned.
+        str
+            Error message listing any defined but unreturned forms, or empty string if all forms are returned.
     """
     # Check if query has any OPTIONAL blocks.
     optional_pattern = r"OPTIONAL\s*\{"
@@ -375,7 +388,7 @@ def check_defined_return_forms(query_text: str) -> str:
     if where_match := re.search(
         pattern=where_pattern, string=query_text, flags=re.DOTALL
     ):
-        where_clause = where_match.group(1)
+        where_clause = where_match[1]
         where_forms = set(re.findall(r"\?(\w+)", where_clause))
 
     # Extract forms from SELECT statement.
@@ -384,16 +397,11 @@ def check_defined_return_forms(query_text: str) -> str:
     if select_match := re.search(
         pattern=select_pattern, string=query_text, flags=re.DOTALL
     ):
-        select_clause = select_match.group(1)
+        select_clause = select_match[1]
         select_forms = set(re.findall(r"\?(\w+)", select_clause))
 
-    # Define variables that are allowed to be unreturned.
-    allowed_unreturned_pattern = r"ontolex:lexicalForm\s+\?([\w]+)\s*."
-    allowed_unreturned = set(re.findall(allowed_unreturned_pattern, query_text))
-    # print(where_forms,select_forms,allowed_unreturned)
-
     # Find forms that are defined but not returned, excluding allowed unreturned variables.
-    unreturned_forms = where_forms - select_forms - allowed_unreturned
+    unreturned_forms = where_forms - select_forms
 
     if unreturned_forms:
         return f"Defined but unreturned forms: {', '.join(sorted(unreturned_forms))}"
@@ -419,23 +427,17 @@ def check_query_forms() -> None:
             error_output += f"\n{index}. {query_file_str}: {unique_check_result}\n"
             index += 1
 
-        # Check for undefined return forms
-        undefined_forms = check_undefined_return_forms(query_text)
-        if undefined_forms:
+        if undefined_forms := check_undefined_return_forms(query_text):
             error_output += f"\n{index}. {query_file_str}: {undefined_forms}\n"
             index += 1
 
-        # Check for unreturned optional forms
-        unreturned_optional_forms = check_unreturned_optional_forms(query_text)
-        if unreturned_optional_forms:
+        if unreturned_optional_forms := check_unreturned_optional_forms(query_text):
             error_output += (
                 f"\n{index}. {query_file_str}: {unreturned_optional_forms}\n"
             )
             index += 1
 
-        # Check for defined but unreturned forms
-        defined_unreturned_forms = check_defined_return_forms(query_text)
-        if defined_unreturned_forms:
+        if defined_unreturned_forms := check_defined_return_forms(query_text):
             error_output += f"\n{index}. {query_file_str}: {defined_unreturned_forms}\n"
             index += 1
         if extract_forms_from_sparql(query_file):
