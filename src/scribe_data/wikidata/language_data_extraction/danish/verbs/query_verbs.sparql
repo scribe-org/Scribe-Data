@@ -20,7 +20,7 @@ WHERE {
 
   ?lexeme dct:language wd:Q9035 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive
+    wikibase:lemma ?infinitive .
 
   # MARK: Infinitive Active
 

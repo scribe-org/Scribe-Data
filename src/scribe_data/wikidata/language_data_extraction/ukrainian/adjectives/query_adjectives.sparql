@@ -4,7 +4,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lemma
+  ?adjective
   ?nominativeFeminineSingular
   ?nominativeMasculineSingular
   ?nominativeNeuterSingular
@@ -15,7 +15,7 @@ SELECT
 WHERE {
   ?lexeme dct:language wd:Q8798 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?lemma .
+    wikibase:lemma ?adjective .
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularForm .
