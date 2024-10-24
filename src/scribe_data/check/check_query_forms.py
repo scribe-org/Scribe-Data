@@ -410,6 +410,60 @@ def check_defined_return_forms(query_text: str) -> str:
     return ""
 
 
+# MARK: forms order within the query
+
+
+def check_forms_order(query_text: str) -> bool:
+    """
+    Checks that the order of variables in the SELECT statement (excluding lexeme and lexemeID)
+    matches the order of the same variables in the WHERE clause in the given SPARQL query file.
+
+    Parameters
+    ----------
+    query_file : str
+        The SPARQL query text as a string.
+
+    Returns
+    -------
+    bool
+        True if the order of the matches, False otherwise.
+    """
+
+    # Regex pattern to capture the variables in the SELECT statement.
+    select_pattern = r"SELECT\s+(.*?)\s+WHERE"
+
+    # Extracting the variables from the SELECT statement.
+    if select_match := re.search(select_pattern, query_text, flags=re.DOTALL):
+        select_vars = re.findall(r"\?(\w+)", select_match.group(1))
+    else:
+        return False  # Invalid query format if no SELECT match.
+
+    # Exclude the first two variables from select_vars
+    select_vars = select_vars[2:]
+    # Regex pattern to capture the variables in the WHERE clause.
+    dt_pattern = r"WHERE\s*\{[^}]*?wikibase:lemma\s*\?\s*(\w+)\s*[;.]\s*"
+    forms_pattern = r"ontolex:representation \?([^ ;]+)"
+    where_vars = []
+
+    # Extracting variables from the WHERE clause
+    dt_match = re.findall(dt_pattern, query_text)
+    if dt_match == ["lemma"]:
+        where_vars.append("preposition")
+    elif dt_match:
+        where_vars.append(dt_match[0])
+    where_vars += re.findall(forms_pattern, query_text)
+
+    # Handling specific variables like 'case' and 'gender' in the same order as in select_vars
+    for var in ["case", "gender"]:
+        if var in select_vars:
+            # Insert in the corresponding index of where_vars
+            index = select_vars.index(var)
+            where_vars.insert(index, var)
+
+    # Check if the order of variables matches
+    return select_vars == where_vars
+
+
 # MARK: Main Query Forms Validation
 def check_query_forms() -> None:
     """
@@ -441,6 +495,12 @@ def check_query_forms() -> None:
 
         if defined_unreturned_forms := check_defined_return_forms(query_text):
             error_output += f"\n{index}. {query_file_str}: {defined_unreturned_forms}\n"
+            index += 1
+
+        # Check the order of variables in the WHERE clause
+        select_where_labels_matching = check_forms_order(query_text)
+        if not select_where_labels_matching:
+            error_output += f"\n{index}. {query_file_str}: The order of variables in the SELECT statement does not match the WHERE clause.\n"
             index += 1
 
         if extract_forms_from_sparql(query_file):
