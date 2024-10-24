@@ -146,7 +146,7 @@ def check_data_type_folders(
                     )
 
 
-def validate_project_structure():
+def check_project_structure():
     """
     Validate that all directories follow the expected project structure and check for unexpected files and directories.
     Also validate SPARQL query file names in data_type folders and SUBDIRECTORIES.
@@ -175,7 +175,7 @@ def validate_project_structure():
             continue
 
         if language not in LANGUAGES:
-            errors.append(f"Unexpected language directory: {language}")
+            errors.append(f"Unexpected language directory given: {language}")
             continue
 
         # Check for unexpected files in language directory.
@@ -249,4 +249,4 @@ def validate_project_structure():
 
 
 if __name__ == "__main__":
-    validate_project_structure()
+    check_project_structure()
