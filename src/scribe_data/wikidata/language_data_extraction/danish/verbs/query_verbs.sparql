@@ -1,0 +1,96 @@
+# tool: scribe-data
+# All Danish (Q9035) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
+  ?activeInfinitive
+  ?activePresent
+  ?activePreterite
+  ?pastParticiple
+  ?presentParticiple
+  ?imperative
+  ?passivePresent
+  ?passivePreterite
+  ?passiveInfinitive
+
+WHERE {
+  # MARK: Infinitive
+
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive
+
+  # MARK: Infinitive Active
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
+    ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831 .
+  }
+
+  # MARK: Present Active
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresentForm .
+    ?activePresentForm ontolex:representation ?activePresent ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
+  }
+
+  # MARK: Preterite Active
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePreteriteForm .
+    ?activePreteriteForm ontolex:representation ?activePreterite ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q1317831 .
+  }
+
+  # MARK: Past Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
+  }
+
+  # MARK: Present Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
+    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
+
+  # MARK: Imperative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
+  }
+
+  # MARK: Present Passive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePresentForm .
+    ?passivePresentForm ontolex:representation ?passivePresent ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1194697 .
+  }
+
+  # MARK: Preterite Passive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePreteriteForm .
+    ?passivePreteriteForm ontolex:representation ?passivePreterite ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q1194697 .
+  }
+
+  # MARK: Infinitive Passive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
+    ?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1194697 .
+  }
+}

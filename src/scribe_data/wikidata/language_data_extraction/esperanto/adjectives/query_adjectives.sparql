@@ -1,0 +1,14 @@
+# tool: scribe-data
+# All Esperanto (Q143) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+
+WHERE {
+  ?lexeme dct:language wd:Q143 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+    FILTER(LANG(?adjective) = "eo")
+}

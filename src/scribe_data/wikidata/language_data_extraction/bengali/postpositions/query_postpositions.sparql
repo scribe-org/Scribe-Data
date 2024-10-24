@@ -1,0 +1,26 @@
+# tool: scribe-data
+# All Bengali (Bangla Q9610) postpositions (Q161873) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?preposition
+  ?case
+
+WHERE {
+  ?lexeme dct:language wd:Q9610 ;
+    wikibase:lexicalCategory wd:Q161873 ;
+    wikibase:lemma ?preposition .
+
+  # MARK: Corresponding Case
+
+  OPTIONAL {
+    ?lexeme wdt:P5713 ?caseForm .
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+    ?caseForm rdfs:label ?case .
+  }
+}

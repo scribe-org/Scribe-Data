@@ -2,6 +2,7 @@
 Command line tool for testing SPARQl queries against an endpoint.
 
 .. raw:: html
+
     <!--
     * Copyright (C) 2024 Scribe
     *

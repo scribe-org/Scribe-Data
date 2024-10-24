@@ -2,6 +2,7 @@
 Module for downloading and creating workable files from Wikipedia dumps.
 
 .. raw:: html
+
     <!--
     * Copyright (C) 2024 Scribe
     *

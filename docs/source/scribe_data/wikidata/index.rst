@@ -7,6 +7,7 @@ wikidata/
     :maxdepth: 2
 
     check_query/index
+    language_data_extraction/index
 
 .. toctree::
     :maxdepth: 1

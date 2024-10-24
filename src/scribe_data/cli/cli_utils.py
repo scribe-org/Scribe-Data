@@ -21,47 +21,9 @@ Utility functions for the Scribe-Data CLI.
 """
 
 import difflib
-import json
-from pathlib import Path
-from typing import Union
+from typing import List, Union
 
-from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
-
-LANGUAGE_DATA_EXTRACTION_DIR = Path(__file__).parent.parent / "language_data_extraction"
-
-LANGUAGE_METADATA_FILE = (
-    Path(__file__).parent.parent / "resources" / "language_metadata.json"
-)
-DATA_TYPE_METADATA_FILE = (
-    Path(__file__).parent.parent / "resources" / "data_type_metadata.json"
-)
-DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
-
-try:
-    with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
-        language_metadata = json.load(file)
-
-except (IOError, json.JSONDecodeError) as e:
-    print(f"Error reading language metadata: {e}")
-
-
-try:
-    with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
-        data_type_metadata = json.load(file)
-
-except (IOError, json.JSONDecodeError) as e:
-    print(f"Error reading data type metadata: {e}")
-
-
-language_map = {
-    lang["language"].lower(): lang for lang in language_metadata["languages"]
-}
-
-# Create language_to_qid dictionary.
-language_to_qid = {
-    lang["language"].lower(): lang["qid"] for lang in language_metadata["languages"]
-}
-
+from scribe_data.utils import data_type_metadata, language_to_qid
 
 # MARK: Correct Inputs
 
@@ -103,41 +65,37 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
     if isinstance(data, dict):
         max_key_length = max((len(key) for key in data.keys()), default=0)
 
-        if data_type == "autosuggestions":
-            for key, value in data.items():
+        for key, value in data.items():
+            if data_type == "autosuggestions":
                 print(f"{key:<{max_key_length}} : {', '.join(value)}")
 
-        elif data_type == "emoji_keywords":
-            for key, value in data.items():
+            elif data_type == "emoji_keywords":
                 emojis = [item["emoji"] for item in value]
                 print(f"{key:<{max_key_length}} : {' '.join(emojis)}")
 
-        elif data_type in {"prepositions"}:
-            for key, value in data.items():
+            elif data_type in {"prepositions"}:
                 print(f"{key:<{max_key_length}} : {value}")
 
-        else:
-            for key, value in data.items():
-                if isinstance(value, dict):
-                    print(f"{key:<{max_key_length}} : ")
-                    max_sub_key_length = max(
-                        (len(sub_key) for sub_key in value.keys()), default=0
-                    )
-                    for sub_key, sub_value in value.items():
-                        print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
+            elif isinstance(value, dict):
+                print(f"{key:<{max_key_length}} : ")
+                max_sub_key_length = max(
+                    (len(sub_key) for sub_key in value.keys()), default=0
+                )
+                for sub_key, sub_value in value.items():
+                    print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
 
-                elif isinstance(value, list):
-                    print(f"{key:<{max_key_length}} : ")
-                    for item in value:
-                        if isinstance(item, dict):
-                            for sub_key, sub_value in item.items():
-                                print(f"  {sub_key:<{max_key_length}} : {sub_value}")
+            elif isinstance(value, list):
+                print(f"{key:<{max_key_length}} : ")
+                for item in value:
+                    if isinstance(item, dict):
+                        for sub_key, sub_value in item.items():
+                            print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
 
-                        else:
-                            print(f"  {item}")
+                    else:
+                        print(f"  {item}")
 
-                else:
-                    print(f"{key:<{max_key_length}} : {value}")
+            else:
+                print(f"{key:<{max_key_length}} : {value}")
 
     elif isinstance(data, list):
         for item in data:
@@ -155,79 +113,101 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
 # MARK: Validate
 
 
-def validate_language_and_data_type(language: str, data_type: str):
+def validate_language_and_data_type(
+    language: Union[str, List[str], bool, None],
+    data_type: Union[str, List[str], bool, None],
+):
     """
     Validates that the language and data type QIDs are not None.
 
     Parameters
     ----------
-        language : str
-            The language to validate.
+        language : str or list
+            The language(s) to validate.
 
-        data_type : str
-            The data type to validate.
+        data_type : str or list
+            The data type(s) to validate.
 
     Raises
     ------
         ValueError
-            If either the language or data type is invalid (None).
+            If any of the languages or data types is invalid, with all errors reported together.
     """
-    # Not functional for lists of arguments yet.
-    if isinstance(language, list) or isinstance(data_type, list):
-        return
 
-    language_is_valid = True
-    data_type_is_valid = True
+    def validate_single_item(item, valid_options, item_type):
+        """
+        Validates a single item against a list of valid options, providing error messages and suggestions.
 
-    value_error = ""
-    closest_language_match_string = ""
-    closest_data_type_match_string = ""
+        Parameters
+        ----------
+            item : str
+                The item to validate.
+            valid_options : list
+                A list of valid options against which the item will be validated.
+            item_type : str
+                A description of the item type (e.g., "language", "data-type") used in error messages.
 
-    if (
-        isinstance(language, str)
-        and language.lower() not in language_to_qid.keys()
-        and not language.startswith("Q")
-        and not language[1:].isdigit()
-    ):
-        language_is_valid = False
-        if closest_language_match := difflib.get_close_matches(
-            language, language_map.keys(), n=1
+        Returns
+        -------
+            str or None
+                Returns an error message if the item is invalid, or None if the item is valid.
+        """
+        if (
+            isinstance(item, str)
+            and item.lower().strip() not in valid_options
+            and not item.startswith("Q")
+            and not item[1:].isdigit()
         ):
-            closest_language_match_cap = closest_language_match[0].capitalize()
-            closest_language_match_string = (
-                f" The closest matching language is {closest_language_match_cap}."
+            closest_match = difflib.get_close_matches(item, valid_options, n=1)
+            closest_match_str = (
+                f" The closest matching {item_type} is '{closest_match[0]}'."
+                if closest_match
+                else ""
             )
 
-    if (
-        isinstance(data_type, str)
-        and data_type not in data_type_metadata.keys()
-        and not data_type.startswith("Q")
-        and not data_type[1:].isdigit()
-    ):
-        data_type_is_valid = False
+            return f"Invalid {item_type} '{item}'.{closest_match_str}"
 
-        if closest_data_type_match := difflib.get_close_matches(
-            data_type, data_type_metadata.keys(), n=1
-        ):
-            closest_data_type_match_string = (
-                f" The closest matching data-type is {closest_data_type_match[0]}."
-            )
+        return None
 
-    if not language_is_valid and data_type_is_valid:
-        value_error = (
-            f"Invalid language {language} passed.{closest_language_match_string}"
-        )
+    errors = []
 
-        raise ValueError(value_error)
+    # Handle language validation.
+    if language is None or isinstance(language, bool):
+        pass
 
-    elif language_is_valid and not data_type_is_valid:
-        value_error = (
-            f"Invalid data-type {data_type} passed.{closest_data_type_match_string}"
-        )
+    elif isinstance(language, str):
+        language = [language]
 
-        raise ValueError(value_error)
+    elif not isinstance(language, list):
+        errors.append("Language must be a string or a list of strings.")
 
-    elif not language_is_valid and not data_type_is_valid:
-        value_error = f"Invalid language {language} and data-type {data_type} passed.{closest_language_match_string}{closest_data_type_match_string}"
+    if language is not None and isinstance(language, list):
+        for lang in language:
+            error = validate_single_item(lang, language_to_qid.keys(), "language")
 
-        raise ValueError(value_error)
+            if error:
+                errors.append(error)
+
+    # Handle data type validation.
+    if data_type is None or isinstance(data_type, bool):
+        pass
+
+    elif isinstance(data_type, str):
+        data_type = [data_type]
+
+    elif not isinstance(data_type, list):
+        errors.append("Data type must be a string or a list of strings.")
+
+    if data_type is not None and isinstance(data_type, list):
+        for dt in data_type:
+            error = validate_single_item(dt, data_type_metadata.keys(), "data-type")
+
+            if error:
+                errors.append(error)
+
+    # Raise ValueError with the combined error message.
+    if errors:
+        raise ValueError("\n".join(errors))
+
+    else:
+        return True

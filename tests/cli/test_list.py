@@ -24,10 +24,14 @@ import unittest
 from unittest.mock import call, patch
 
 from scribe_data.cli.list import (
+    get_language_iso,
+    get_language_qid,
     list_all,
+    list_all_languages,
     list_data_types,
     list_languages,
     list_languages_for_data_type,
+    list_languages_with_metadata_for_data_type,
     list_wrapper,
 )
 from scribe_data.cli.main import main
@@ -37,37 +41,47 @@ class TestListFunctions(unittest.TestCase):
     @patch("builtins.print")
     def test_list_languages(self, mock_print):
         list_languages()
-        expected_calls = [
-            call(),
-            call("Language     ISO  QID    "),
-            call("-----------------------"),
-            call("English      en   Q1860  "),
-            call("French       fr   Q150   "),
-            call("German       de   Q188   "),
-            call("Italian      it   Q652   "),
-            call("Portuguese   pt   Q5146  "),
-            call("Russian      ru   Q7737  "),
-            call("Spanish      es   Q1321  "),
-            call("Swedish      sv   Q9027  "),
-            call("-----------------------"),
-            call(),
-        ]
-        mock_print.assert_has_calls(expected_calls)
+
+        # Verify the headers
+        mock_print.assert_any_call("Language     ISO   QID      ")
+        mock_print.assert_any_call("==========================")
+
+        # Dynamically get the first language from the metadata.
+        languages = list_all_languages()
+        first_language = languages[0]
+        first_iso = get_language_iso(first_language)
+        first_qid = get_language_qid(first_language)
+
+        # Verify the first language entry.
+        # Calculate column widths as in the actual function.
+        language_col_width = max(len(lang) for lang in languages) + 2
+        iso_col_width = max(len(get_language_iso(lang)) for lang in languages) + 2
+        qid_col_width = max(len(get_language_qid(lang)) for lang in languages) + 2
+
+        # Verify the first language entry with dynamic spacing.
+        mock_print.assert_any_call(
+            f"{first_language.capitalize():<{language_col_width}} {first_iso:<{iso_col_width}} {first_qid:<{qid_col_width}}"
+        )
+        # Total print calls: N (languages) + 5 (initial line, header, one separator, final line).
+        self.assertEqual(mock_print.call_count, len(languages) + 4)
 
     @patch("builtins.print")
     def test_list_data_types_all_languages(self, mock_print):
         list_data_types()
+        print(mock_print.mock_calls)
         expected_calls = [
             call(),
             call("Available data types: All languages"),
-            call("-----------------------------------"),
+            call("==================================="),
             call("adjectives"),
             call("adverbs"),
             call("emoji-keywords"),
             call("nouns"),
+            call("personal-pronouns"),
+            call("postpositions"),
             call("prepositions"),
+            call("proper-nouns"),
             call("verbs"),
-            call("-----------------------------------"),
             call(),
         ]
         mock_print.assert_has_calls(expected_calls)
@@ -75,15 +89,17 @@ class TestListFunctions(unittest.TestCase):
     @patch("builtins.print")
     def test_list_data_types_specific_language(self, mock_print):
         list_data_types("English")
+
         expected_calls = [
             call(),
             call("Available data types: English"),
-            call("-----------------------------"),
+            call("============================="),
             call("adjectives"),
+            call("adverbs"),
             call("emoji-keywords"),
             call("nouns"),
+            call("proper-nouns"),
             call("verbs"),
-            call("-----------------------------"),
             call(),
         ]
         mock_print.assert_has_calls(expected_calls)
@@ -139,23 +155,41 @@ class TestListFunctions(unittest.TestCase):
 
     @patch("builtins.print")
     def test_list_languages_for_data_type_valid(self, mock_print):
+        # Call the function with a specific data type.
         list_languages_for_data_type("nouns")
-        expected_calls = [
-            call(),
-            call("Available languages: nouns"),
-            call("--------------------------"),
-            call("English"),
-            call("French"),
-            call("German"),
-            call("Italian"),
-            call("Portuguese"),
-            call("Russian"),
-            call("Spanish"),
-            call("Swedish"),
-            call("--------------------------"),
-            call(),
-        ]
-        mock_print.assert_has_calls(expected_calls)
+
+        # Dynamically create the header based on column widths.
+        all_languages = list_languages_with_metadata_for_data_type()
+
+        # Calculate column widths as in the actual function.
+        language_col_width = max(len(lang["name"]) for lang in all_languages) + 2
+        iso_col_width = max(len(lang["iso"]) for lang in all_languages) + 2
+        qid_col_width = max(len(lang["qid"]) for lang in all_languages) + 2
+
+        # Dynamically generate the expected header string.
+        expected_header = f"{'Language':<{language_col_width}} {'ISO':<{iso_col_width}} {'QID':<{qid_col_width}}"
+
+        # Verify the headers dynamically
+        mock_print.assert_any_call(expected_header)
+        mock_print.assert_any_call(
+            "=" * (language_col_width + iso_col_width + qid_col_width)
+        )
+
+        # Verify the first language entry if there are any languages.
+
+        first_language = all_languages[0]["name"].capitalize()
+        first_iso = all_languages[0]["iso"]
+        first_qid = all_languages[0]["qid"]
+
+        # Verify the first language entry with dynamic spacing.
+        mock_print.assert_any_call(
+            f"{first_language:<{language_col_width}} {first_iso:<{iso_col_width}} {first_qid:<{qid_col_width}}"
+        )
+
+        # Check the total number of calls.
+        # Total calls = N (languages) + 5 (initial line, header, one separator, final line)
+        expected_calls = len(all_languages) + 4
+        self.assertEqual(mock_print.call_count, expected_calls)
 
     @patch("scribe_data.cli.list.list_languages")
     def test_list_languages_command(self, mock_list_languages):

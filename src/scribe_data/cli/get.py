@@ -172,5 +172,5 @@ def get_data(
             "\nThe Scribe-Data emoji functionality is powered by PyICU, which is currently not installed."
         )
         print(
-            "Please check the installation steps at https://gitlab.pyicu.org/main/pyicu for more information.\n"
+            "Please check the installation guide at https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/unicode/UNICODE_INSTALLTION.md for more information.\n"
         )

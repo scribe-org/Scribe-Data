@@ -16,5 +16,5 @@ regex>=2023.3.23
 rich>=10.0.0
 ruff>=0.3.3
 SPARQLWrapper>=2.0.0
-sphinx-rtd-theme>=2.0.0
+sphinx-rtd-theme>=3.0.0
 tqdm==4.66.4
