@@ -5,7 +5,6 @@
 # Note: We need to filter for "pnb" to select Shahmukhi words.
 
 SELECT
-  ?lexeme
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?singular
   ?plural

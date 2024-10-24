@@ -436,7 +436,7 @@ def check_forms_order(query_text: str) -> bool:
     if select_match := re.search(select_pattern, query_text, flags=re.DOTALL):
         select_vars = re.findall(r"\?(\w+)", select_match.group(1))
     else:
-        return False  # Invalid query format if no SELECT match.
+        return False  # invalid query format if no SELECT match.
 
     # Exclude the first two variables from select_vars
     select_vars = select_vars[2:]
@@ -453,8 +453,8 @@ def check_forms_order(query_text: str) -> bool:
         where_vars.append(dt_match[0])
     where_vars += re.findall(forms_pattern, query_text)
 
-    # Handling specific variables like 'case' and 'gender' in the same order as in select_vars
-    for var in ["case", "gender"]:
+    # Handling labels provided by the labeling service  like 'case' and 'gender' in the same order as in select_vars
+    for var in ["case", "gender", "auxiliaryVerb"]:
         if var in select_vars:
             # Insert in the corresponding index of where_vars
             index = select_vars.index(var)
@@ -497,7 +497,7 @@ def check_query_forms() -> None:
             error_output += f"\n{index}. {query_file_str}: {defined_unreturned_forms}\n"
             index += 1
 
-        # Check the order of variables in the WHERE clause
+        # Check the order of variables in the WHERE and SELECT clauses.
         select_where_labels_matching = check_forms_order(query_text)
         if not select_where_labels_matching:
             error_output += f"\n{index}. {query_file_str}: The order of variables in the SELECT statement does not match the WHERE clause.\n"
