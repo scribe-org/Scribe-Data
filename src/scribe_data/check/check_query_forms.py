@@ -277,7 +277,7 @@ def check_unreturned_optional_forms(query_text: str) -> str:
         if rep_match := re.search(rep_pattern, form_text):
             optional_forms.add(rep_match[1])
 
-    # Find forms that appear in OPTIONAL blocks but not in SELECT
+    # Find forms that appear in OPTIONAL blocks but not in SELECT.
     unreturned_forms = optional_forms - select_forms
 
     if unreturned_forms:
@@ -423,7 +423,7 @@ def check_query_forms() -> None:
         with open(query_file, "r", encoding="utf-8") as file:
             query_text = file.read()
 
-        # Check for unique return forms and handle the error message if any
+        # Check for unique return forms and handle the error message.
         unique_check_result = check_unique_return_forms(query_text)
         if unique_check_result is not True:
             error_output += f"\n{index}. {query_file_str}: {unique_check_result}\n"
@@ -442,6 +442,7 @@ def check_query_forms() -> None:
         if defined_unreturned_forms := check_defined_return_forms(query_text):
             error_output += f"\n{index}. {query_file_str}: {defined_unreturned_forms}\n"
             index += 1
+
         if extract_forms_from_sparql(query_file):
             query_form_check_dict = {}
             for form_text in extract_forms_from_sparql(query_file):
