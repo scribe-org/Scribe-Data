@@ -20,7 +20,6 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
     -->
 """
 
-import json
 import subprocess
 from pathlib import Path
 
@@ -31,67 +30,7 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
-from scribe_data.wikipedia.process_wiki import gen_autosuggestions
-from scribe_data.wikidata.wikidata_utils import sparql
 
-def load_lexeme_metadata():
-    """
-    Load the lexeme form metadata from the JSON file.
-    """
-    metadata_path = Path(__file__).parent / "lexeme_form.metadata.json"
-    try:
-        with open(metadata_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        print(f"Warning: Could not find lexeme metadata file at {metadata_path}")
-        return {}
-
-def load_text_corpus(language):
-    """
-    Load the text corpus for a given language with consideration for lexeme forms.
-    
-    Parameters
-    ----------
-    language : str
-        The language to load the corpus for
-        
-    Returns
-    -------
-    list
-        The processed text corpus
-    """
-    # Load lexeme metadata
-    lexeme_metadata = load_lexeme_metadata()
-    
-    # Create SPARQL query to get relevant lexemes for the language
-    query = """
-    SELECT DISTINCT ?lexeme ?form ?representation WHERE {
-      ?lexeme dct:language ?language .
-      ?lexeme ontolex:lexicalForm ?form .
-      ?form ontolex:representation ?representation .
-      
-      # Filter for specific language
-      FILTER(LANG(?representation) = "%s")
-    }
-    LIMIT 10000
-    """ % language.lower()
-    
-    sparql.setQuery(query)
-    
-    try:
-        results = sparql.query().convert()
-        corpus = []
-        
-        # Process results
-        for result in results["results"]["bindings"]:
-            representation = result["representation"]["value"]
-            corpus.append(representation)
-            
-        return corpus
-        
-    except Exception as e:
-        print(f"Error loading corpus for {language}: {str(e)}")
-        return []
 
 def get_data(
     language: str = None,
@@ -137,6 +76,7 @@ def get_data(
         The requested data saved locally given file type and location arguments.
     """
     # MARK: Defaults
+
     output_type = output_type or "json"
     if output_dir is None:
         if output_type == "csv":
@@ -149,18 +89,18 @@ def get_data(
             output_dir = DEFAULT_TSV_EXPORT_DIR
 
     languages = [language] if language else None
+
     subprocess_result = False
 
-    # Load lexeme metadata
-    lexeme_metadata = load_lexeme_metadata()
-
     # MARK: Get All
+
     if all:
         print("Updating all languages and data types ...")
         query_data(None, None, None, overwrite)
         subprocess_result = True
 
     # MARK: Emojis
+
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
         for lang in languages:
             emoji_keyword_extraction_script = (
@@ -175,49 +115,11 @@ def get_data(
                 ["python", emoji_keyword_extraction_script]
             )
 
-    # MARK: Autosuggestions
-    elif data_type in {"autosuggestions", "auto_suggestions"}:
-        for lang in languages:
-            print(f"Generating autosuggestions for {lang}...")
-            
-            # Load text corpus with lexeme forms consideration
-            text_corpus = load_text_corpus(lang)
-            
-            if text_corpus:
-                try:
-                    # Generate autosuggestions using the loaded corpus
-                    autosuggestions = gen_autosuggestions(
-                        text_corpus,
-                        language=lang,
-                        num_words=500,  # Default number of words
-                        update_local_data=True,
-                        verbose=interactive
-                    )
-                    
-                    # Save autosuggestions with lexeme metadata
-                    output_path = Path(output_dir) / lang / "autosuggestions.json"
-                    output_path.parent.mkdir(parents=True, exist_ok=True)
-                    
-                    # Combine autosuggestions with lexeme metadata
-                    output_data = {
-                        "autosuggestions": autosuggestions,
-                        "lexeme_metadata": lexeme_metadata
-                    }
-                    
-                    with open(output_path, 'w', encoding='utf-8') as f:
-                        json.dump(output_data, f, ensure_ascii=False, indent=2)
-                    
-                    subprocess_result = True
-                    print(f"Autosuggestions for {lang} generated and saved to {output_path}")
-                    
-                except Exception as e:
-                    print(f"Error generating autosuggestions for {lang}: {str(e)}")
-            else:
-                print(f"No corpus data found for {lang}")
-
     # MARK: Query Data
+
     elif language or data_type:
         data_type = data_type[0] if isinstance(data_type, list) else data_type
+
         data_type = [data_type] if data_type else None
         print(
             f"Updating data for language(s): {language}; data type(s): {', '.join(data_type)}"
