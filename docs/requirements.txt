@@ -2,4 +2,5 @@ m2r2
 numpydoc
 scribe-data
 sphinx
+sphinx-linkcheck
 sphinx_rtd_theme
