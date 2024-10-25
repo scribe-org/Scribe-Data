@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Greek (Q36510) adjectives and the given forms.
+# All Greek (Q36510) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

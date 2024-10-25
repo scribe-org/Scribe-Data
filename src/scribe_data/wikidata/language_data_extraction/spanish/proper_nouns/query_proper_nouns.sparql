@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Spanish (Q1321) nouns (Q1084) and the given forms.
+# All Spanish (Q1321) proper nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
