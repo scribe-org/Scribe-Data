@@ -30,12 +30,12 @@ from typing import List, Optional
 
 from tqdm.auto import tqdm
 
-from scribe_data.cli.convert import camel_to_snake
 from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
     get_language_iso,
     list_all_languages,
+    camel_to_snake,
 )
 
 

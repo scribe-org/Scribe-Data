@@ -20,7 +20,6 @@ Functions to convert data returned from the Scribe-Data CLI to other file types.
     -->
 """
 
-import re
 import csv
 import json
 import shutil
@@ -34,15 +33,8 @@ from scribe_data.utils import (
     DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
     get_language_iso,
+    camel_to_snake,
 )
-
-
-# MARK: convert camelCase to snake_case
-
-
-def camel_to_snake(name: str) -> str:
-    """Convert camelCase to snake_case."""
-    return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
 
 
 # MARK: JSON
