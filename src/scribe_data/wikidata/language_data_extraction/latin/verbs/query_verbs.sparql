@@ -2,12 +2,318 @@
 # All Latin (Q397) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?verb
-
+SELECT DISTINCT
+  ?lexemeID
+  ?lemma
+  ?presentIndActiveSg1
+  ?presentIndActiveSg2
+  ?presentIndActiveSg3
+  ?presentIndActivePl1
+  ?presentIndActivePl2
+  ?presentIndActivePl3
+  ?imperfectIndActiveSg1
+  ?imperfectIndActiveSg2
+  ?imperfectIndActiveSg3
+  ?imperfectIndActivePl1
+  ?imperfectIndActivePl2
+  ?imperfectIndActivePl3
+  ?perfectIndActiveSg1
+  ?perfectIndActiveSg2
+  ?perfectIndActiveSg3
+  ?perfectIndActivePl1
+  ?perfectIndActivePl2
+  ?perfectIndActivePl3
+  ?pluperfectIndActiveSg1
+  ?pluperfectIndActiveSg2
+  ?pluperfectIndActiveSg3
+  ?pluperfectIndActivePl1
+  ?pluperfectIndActivePl2
+  ?pluperfectIndActivePl3
+  ?futureIndActiveSg1
+  ?futureIndActiveSg2
+  ?futureIndActiveSg3
+  ?futureIndActivePl1
+  ?futureIndActivePl2
+  ?futureIndActivePl3
 WHERE {
-  ?lexeme dct:language wd:Q397 ;
-    wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
-}
+  BIND(IRI(CONCAT(STR(?lexeme), "")) AS ?lexemeURL)
+  BIND(REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  
+  ?lexeme dct:language wd:Q397;
+          wikibase:lexicalCategory wd:Q24905;
+          wikibase:lemma ?lemma.
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentIndActiveSg1Form.
+    ?presentIndActiveSg1Form wikibase:grammaticalFeature wd:Q110786;
+                            wikibase:grammaticalFeature wd:Q192613;
+                            wikibase:grammaticalFeature wd:Q21714344;
+                            wikibase:grammaticalFeature wd:Q131105;
+                            ontolex:representation ?presentIndActiveSg1.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentIndActiveSg2Form.
+    ?presentIndActiveSg2Form wikibase:grammaticalFeature wd:Q110786;
+                            wikibase:grammaticalFeature wd:Q192613;
+                            wikibase:grammaticalFeature wd:Q21714344;
+                            wikibase:grammaticalFeature wd:Q131106;
+                            ontolex:representation ?presentIndActiveSg2.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentIndActiveSg3Form.
+    ?presentIndActiveSg3Form wikibase:grammaticalFeature wd:Q110786;
+                            wikibase:grammaticalFeature wd:Q192613;
+                            wikibase:grammaticalFeature wd:Q21714344;
+                            wikibase:grammaticalFeature wd:Q131107;
+                            ontolex:representation ?presentIndActiveSg3.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentIndActivePl1Form.
+    ?presentIndActivePl1Form wikibase:grammaticalFeature wd:Q110786;
+                            wikibase:grammaticalFeature wd:Q192613;
+                            wikibase:grammaticalFeature wd:Q21714344;
+                            wikibase:grammaticalFeature wd:Q131108;
+                            ontolex:representation ?presentIndActivePl1.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentIndActivePl2Form.
+    ?presentIndActivePl2Form wikibase:grammaticalFeature wd:Q110786;
+                            wikibase:grammaticalFeature wd:Q192613;
+                            wikibase:grammaticalFeature wd:Q21714344;
+                            wikibase:grammaticalFeature wd:Q131109;
+                            ontolex:representation ?presentIndActivePl2.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentIndActivePl3Form.
+    ?presentIndActivePl3Form wikibase:grammaticalFeature wd:Q110786;
+                            wikibase:grammaticalFeature wd:Q192613;
+                            wikibase:grammaticalFeature wd:Q21714344;
+                            wikibase:grammaticalFeature wd:Q131110;
+                            ontolex:representation ?presentIndActivePl3.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectIndActiveSg1Form.
+    ?imperfectIndActiveSg1Form wikibase:grammaticalFeature wd:Q442485;
+                               wikibase:grammaticalFeature wd:Q192613;
+                               wikibase:grammaticalFeature wd:Q21714344;
+                               wikibase:grammaticalFeature wd:Q131105;
+                               ontolex:representation ?imperfectIndActiveSg1.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectIndActiveSg2Form.
+    ?imperfectIndActiveSg2Form wikibase:grammaticalFeature wd:Q442485;
+                               wikibase:grammaticalFeature wd:Q192613;
+                               wikibase:grammaticalFeature wd:Q21714344;
+                               wikibase:grammaticalFeature wd:Q131106;
+                               ontolex:representation ?imperfectIndActiveSg2.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectIndActiveSg3Form.
+    ?imperfectIndActiveSg3Form wikibase:grammaticalFeature wd:Q442485;
+                               wikibase:grammaticalFeature wd:Q192613;
+                               wikibase:grammaticalFeature wd:Q21714344;
+                               wikibase:grammaticalFeature wd:Q131107;
+                               ontolex:representation ?imperfectIndActiveSg3.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectIndActivePl1Form.
+    ?imperfectIndActivePl1Form wikibase:grammaticalFeature wd:Q442485;
+                               wikibase:grammaticalFeature wd:Q192613;
+                               wikibase:grammaticalFeature wd:Q21714344;
+                               wikibase:grammaticalFeature wd:Q131108;
+                               ontolex:representation ?imperfectIndActivePl1.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectIndActivePl2Form.
+    ?imperfectIndActivePl2Form wikibase:grammaticalFeature wd:Q442485;
+                               wikibase:grammaticalFeature wd:Q192613;
+                               wikibase:grammaticalFeature wd:Q21714344;
+                               wikibase:grammaticalFeature wd:Q131109;
+                               ontolex:representation ?imperfectIndActivePl2.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectIndActivePl3Form.
+    ?imperfectIndActivePl3Form wikibase:grammaticalFeature wd:Q442485;
+                               wikibase:grammaticalFeature wd:Q192613;
+                               wikibase:grammaticalFeature wd:Q21714344;
+                               wikibase:grammaticalFeature wd:Q131110;
+                               ontolex:representation ?imperfectIndActivePl3.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectIndActiveSg1Form.
+    ?perfectIndActiveSg1Form wikibase:grammaticalFeature wd:Q442485;
+                            wikibase:grammaticalFeature wd:Q192613;
+                            wikibase:grammaticalFeature wd:Q21714344;
+                            wikibase:grammaticalFeature wd:Q131105;
+                            ontolex:representation ?perfectIndActiveSg1.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectIndActiveSg2Form.
+    ?perfectIndActiveSg2Form wikibase:grammaticalFeature wd:Q442485;
+                            wikibase:grammaticalFeature wd:Q192613;
+                            wikibase:grammaticalFeature wd:Q21714344;
+                            wikibase:grammaticalFeature wd:Q131106;
+                            ontolex:representation ?perfectIndActiveSg2.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectIndActiveSg3Form.
+    ?perfectIndActiveSg3Form wikibase:grammaticalFeature wd:Q442485;
+                            wikibase:grammaticalFeature wd:Q192613;
+                            wikibase:grammaticalFeature wd:Q21714344;
+                            wikibase:grammaticalFeature wd:Q131107;
+                            ontolex:representation ?perfectIndActiveSg3.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectIndActivePl1Form.
+    ?perfectIndActivePl1Form wikibase:grammaticalFeature wd:Q442485;
+                            wikibase:grammaticalFeature wd:Q192613;
+                            wikibase:grammaticalFeature wd:Q21714344;
+                            wikibase:grammaticalFeature wd:Q131108;
+                            ontolex:representation ?perfectIndActivePl1.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectIndActivePl2Form.
+    ?perfectIndActivePl2Form wikibase:grammaticalFeature wd:Q442485;
+                            wikibase:grammaticalFeature wd:Q192613;
+                            wikibase:grammaticalFeature wd:Q21714344;
+                            wikibase:grammaticalFeature wd:Q131109;
+                            ontolex:representation ?perfectIndActivePl2.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectIndActivePl3Form.
+    ?perfectIndActivePl3Form wikibase:grammaticalFeature wd:Q442485;
+                            wikibase:grammaticalFeature wd:Q192613;
+                            wikibase:grammaticalFeature wd:Q21714344;
+                            wikibase:grammaticalFeature wd:Q131110;
+                            ontolex:representation ?perfectIndActivePl3.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectIndActiveSg1Form.
+    ?pluperfectIndActiveSg1Form wikibase:grammaticalFeature wd:Q623451;
+                                wikibase:grammaticalFeature wd:Q192613;
+                                wikibase:grammaticalFeature wd:Q21714344;
+                                wikibase:grammaticalFeature wd:Q131105;
+                                ontolex:representation ?pluperfectIndActiveSg1.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectIndActiveSg2Form.
+    ?pluperfectIndActiveSg2Form wikibase:grammaticalFeature wd:Q623451;
+                                wikibase:grammaticalFeature wd:Q192613;
+                                wikibase:grammaticalFeature wd:Q21714344;
+                                wikibase:grammaticalFeature wd:Q131106;
+                                ontolex:representation ?pluperfectIndActiveSg2.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectIndActiveSg3Form.
+    ?pluperfectIndActiveSg3Form wikibase:grammaticalFeature wd:Q623451;
+                                wikibase:grammaticalFeature wd:Q192613;
+                                wikibase:grammaticalFeature wd:Q21714344;
+                                wikibase:grammaticalFeature wd:Q131107;
+                                ontolex:representation ?pluperfectIndActiveSg3.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectIndActivePl1Form.
+    ?pluperfectIndActivePl1Form wikibase:grammaticalFeature wd:Q623451;
+                                wikibase:grammaticalFeature wd:Q192613;
+                                wikibase:grammaticalFeature wd:Q21714344;
+                                wikibase:grammaticalFeature wd:Q131108;
+                                ontolex:representation ?pluperfectIndActivePl1.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectIndActivePl2Form.
+    ?pluperfectIndActivePl2Form wikibase:grammaticalFeature wd:Q623451;
+                                wikibase:grammaticalFeature wd:Q192613;
+                                wikibase:grammaticalFeature wd:Q21714344;
+                                wikibase:grammaticalFeature wd:Q131109;
+                                ontolex:representation ?pluperfectIndActivePl2.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectIndActivePl3Form.
+    ?pluperfectIndActivePl3Form wikibase:grammaticalFeature wd:Q623451;
+                                wikibase:grammaticalFeature wd:Q192613;
+                                wikibase:grammaticalFeature wd:Q21714344;
+                                wikibase:grammaticalFeature wd:Q131110;
+                                ontolex:representation ?pluperfectIndActivePl3.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureIndActiveSg1Form.
+    ?futureIndActiveSg1Form wikibase:grammaticalFeature wd:Q442485;
+                           wikibase:grammaticalFeature wd:Q192613;
+                           wikibase:grammaticalFeature wd:Q21714344;
+                           wikibase:grammaticalFeature wd:Q131105;
+                           ontolex:representation ?futureIndActiveSg1.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureIndActiveSg2Form.
+    ?futureIndActiveSg2Form wikibase:grammaticalFeature wd:Q442485;
+                           wikibase:grammaticalFeature wd:Q192613;
+                           wikibase:grammaticalFeature wd:Q21714344;
+                           wikibase:grammaticalFeature wd:Q131106;
+                           ontolex:representation ?futureIndActiveSg2.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureIndActiveSg3Form.
+    ?futureIndActiveSg3Form wikibase:grammaticalFeature wd:Q442485;
+                           wikibase:grammaticalFeature wd:Q192613;
+                           wikibase:grammaticalFeature wd:Q21714344;
+                           wikibase:grammaticalFeature wd:Q131107;
+                           ontolex:representation ?futureIndActiveSg3.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureIndActivePl1Form.
+    ?futureIndActivePl1Form wikibase:grammaticalFeature wd:Q442485;
+                           wikibase:grammaticalFeature wd:Q192613;
+                           wikibase:grammaticalFeature wd:Q21714344;
+                           wikibase:grammaticalFeature wd:Q131108;
+                           ontolex:representation ?futureIndActivePl1.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureIndActivePl2Form.
+    ?futureIndActivePl2Form wikibase:grammaticalFeature wd:Q442485;
+                           wikibase:grammaticalFeature wd:Q192613;
+                           wikibase:grammaticalFeature wd:Q21714344;
+                           wikibase:grammaticalFeature wd:Q131109;
+                           ontolex:representation ?futureIndActivePl2.
+  }
+  
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureIndActivePl3Form.
+    ?futureIndActivePl3Form wikibase:grammaticalFeature wd:Q442485;
+                           wikibase:grammaticalFeature wd:Q192613;
+                           wikibase:grammaticalFeature wd:Q21714344;
+                           wikibase:grammaticalFeature wd:Q131110;
+                           ontolex:representation ?futureIndActivePl3.
+  }
+
+  }
+
+ORDER BY ?lexemeID
+LIMIT 1000
