@@ -11,9 +11,9 @@ SELECT
   ?pastWordStem
 
 WHERE {
-  ?lexeme dct:language wd:Q9168;
-    wikibase:lexicalCategory wd:Q24905;
-    wikibase:lemma ?infinitive.
+  ?lexeme dct:language wd:Q9168 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive .
 
   #MARK: Past Participle
 
@@ -21,14 +21,14 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?presentParticipleForm .
     ?presentParticipleForm ontolex:representation ?presentParticiple ;
       wikibase:grammaticalFeature wd:Q192613, wd:Q814722 .
-    FILTER(lang(?presentParticiple) = "fa").
+    FILTER(lang(?presentParticiple) = "fa") .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastParticipleForm .
     ?pastParticipleForm ontolex:representation ?pastParticiple ;
       wikibase:grammaticalFeature wd:Q814722, wd:Q1994301 .
-    FILTER(lang(?pastParticiple) = "fa").
+    FILTER(lang(?pastParticiple) = "fa") .
   }
 
   #MARK: Word Stem
@@ -37,13 +37,13 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?presentWordStemForm .
     ?presentWordStemForm ontolex:representation ?presentWordStem ;
       wikibase:grammaticalFeature wd:Q192613, wd:Q210523 .
-    FILTER(lang(?presentWordStem) = "fa").
+    FILTER(lang(?presentWordStem) = "fa") .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastWordStemForm .
     ?pastWordStemForm ontolex:representation ?pastWordStem ;
       wikibase:grammaticalFeature wd:Q1994301, wd:Q210523 .
-    FILTER(lang(?pastWordStem) = "fa").
+    FILTER(lang(?pastWordStem) = "fa") .
   }
 }
