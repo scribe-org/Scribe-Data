@@ -30,6 +30,7 @@ from typing import List, Optional
 
 from tqdm.auto import tqdm
 
+from scribe_data.cli.convert import camel_to_snake
 from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
@@ -108,11 +109,14 @@ def data_to_sqlite(
         Parameters
         ----------
             data_type : str
-                The name of the table to be created
+                The name of the table to be created.
 
             cols : list of strings
-                The names of columns for the new table
+                The names of columns for the new table.
         """
+        # Convert column names to snake_case
+        cols = [camel_to_snake(col) for col in cols]
+
         cursor.execute(
             f"CREATE TABLE IF NOT EXISTS {data_type} ({' Text, '.join(cols)} Text, UNIQUE({cols[0]}))"
         )
