@@ -20,6 +20,7 @@ Functions to convert data returned from the Scribe-Data CLI to other file types.
     -->
 """
 
+import re
 import csv
 import json
 import shutil
@@ -34,6 +35,15 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
     get_language_iso,
 )
+
+
+# MARK: convert camelCase to snake_case
+
+
+def camel_to_snake(name: str) -> str:
+    """Convert camelCase to snake_case."""
+    return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
+
 
 # MARK: JSON
 
@@ -115,12 +125,12 @@ def convert_to_json(
 
                 if len(keys) == 1:
                     # Handle Case: { key: None }.
-                    data[first_row[keys[0]]] = None
+                    data[camel_to_snake(first_row[keys[0]])] = None
 
                 elif len(keys) == 2:
                     # Handle Case: { key: value }.
                     for row in rows:
-                        key = row[keys[0]]
+                        key = camel_to_snake(row[keys[0]])
                         value = row[keys[1]]
                         data[key] = value
 
@@ -128,7 +138,7 @@ def convert_to_json(
                     if all(col in first_row for col in ["emoji", "is_base", "rank"]):
                         # Handle Case: { key: [ { emoji: ..., is_base: ..., rank: ... }, { emoji: ..., is_base: ..., rank: ... } ] }.
                         for row in rows:
-                            key = row.get(reader.fieldnames[0])
+                            key = camel_to_snake(row.get(reader.fieldnames[0]))
                             emoji = row.get("emoji", "").strip()
                             is_base = (
                                 row.get("is_base", "false").strip().lower() == "true"
@@ -145,7 +155,9 @@ def convert_to_json(
                     else:
                         # Handle Case: { key: { value1: ..., value2: ... } }.
                         for row in rows:
-                            data[row[keys[0]]] = {k: row[k] for k in keys[1:]}
+                            data[camel_to_snake(row[keys[0]])] = {
+                                camel_to_snake(k): row[k] for k in keys[1:]
+                            }
 
         except (IOError, csv.Error) as e:
             print(f"Error reading '{input_file_path}': {e}")
@@ -269,7 +281,10 @@ def convert_to_csv_or_tsv(
                     if isinstance(data[first_key], dict):
                         # Handle case: { key: { value1: ..., value2: ... } }.
                         columns = sorted(next(iter(data.values())).keys())
-                        writer.writerow([dtype[:-1]] + columns)
+                        writer.writerow(
+                            [camel_to_snake(dtype[:-1])]
+                            + [camel_to_snake(col) for col in columns]
+                        )
 
                         for key, value in data.items():
                             row = [key] + [value.get(col, "") for col in columns]
@@ -280,7 +295,9 @@ def convert_to_csv_or_tsv(
                             # Handle case: { key: [ { value1: ..., value2: ... } ] }.
                             if "emoji" in data[first_key][0]:  # emoji specific case
                                 columns = ["word", "emoji", "is_base", "rank"]
-                                writer.writerow(columns)
+                                writer.writerow(
+                                    [camel_to_snake(col) for col in columns]
+                                )
 
                                 for key, value in data.items():
                                     for item in value:
@@ -292,7 +309,10 @@ def convert_to_csv_or_tsv(
                                         ]
                                         writer.writerow(row)
                             else:
-                                columns = [dtype[:-1]] + list(data[first_key][0].keys())
+                                columns = [camel_to_snake(dtype[:-1])] + [
+                                    camel_to_snake(col)
+                                    for col in data[first_key][0].keys()
+                                ]
                                 writer.writerow(columns)
 
                                 for key, value in data.items():
@@ -305,7 +325,7 @@ def convert_to_csv_or_tsv(
                         elif all(isinstance(item, str) for item in data[first_key]):
                             # Handle case: { key: [value1, value2, ...] }.
                             writer.writerow(
-                                [dtype[:-1]]
+                                [camel_to_snake(dtype[:-1])]
                                 + [
                                     f"autosuggestion_{i+1}"
                                     for i in range(len(data[first_key]))
@@ -317,7 +337,7 @@ def convert_to_csv_or_tsv(
 
                     else:
                         # Handle case: { key: value }.
-                        writer.writerow([dtype[:-1], "value"])
+                        writer.writerow([camel_to_snake(dtype[:-1]), "value"])
                         for key, value in data.items():
                             writer.writerow([key, value])
 
