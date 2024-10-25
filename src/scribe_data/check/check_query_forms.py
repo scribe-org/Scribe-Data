@@ -162,6 +162,34 @@ def extract_form_qids(form_text: str):
         return [q.split("wd:")[1].split(" .")[0] for q in match[0].split(", ")]
 
 
+# MARK: Punctuation
+
+
+def check_query_formatting(form_text: str):
+    """
+    Checks the formatting of the given SPARQL query text for common formatting issues.
+
+    Parameters
+    ----------
+        query_text : str
+            The SPARQL query text to check.
+
+    Returns
+    -------
+        bool
+            Whether there are formatting errors with the query.
+    """
+    # Check for spaces before commas that should not exist.
+    if re.search(r"\s,", form_text):
+        return False
+
+    # Check for non space characters before periods and semicolons that should not exist.
+    if re.search(r"\S[.;]", form_text):
+        return False
+
+    return True
+
+
 # MARK: Correct Label
 
 
@@ -450,6 +478,7 @@ def check_query_forms() -> None:
                     "ontolex:lexicalForm" in form_text
                     and "ontolex:representation" in form_text
                 ):
+                    correct_formatting = check_query_formatting(form_text=form_text)
                     form_rep_label = extract_form_rep_label(form_text=form_text)
                     check = check_form_label(form_text=form_text)
                     qids = extract_form_qids(form_text=form_text)
@@ -457,18 +486,25 @@ def check_query_forms() -> None:
 
                     query_form_check_dict[form_rep_label] = {
                         "form_rep_match": check,
+                        "correct_formatting": correct_formatting,
                         "qids": qids,
                         "correct_form_rep_label": correct_form_rep_label,
                     }
 
             if query_form_check_dict:
                 incorrect_query_labels = []
-                for k in query_form_check_dict:
-                    if k != query_form_check_dict[k]["correct_form_rep_label"]:
+                for k, v in query_form_check_dict.items():
+                    if k != v["correct_formatting"] is False:
+                        incorrect_query_labels.append(
+                            (
+                                k,
+                                "Invalid query formatting found - please put spaces before all periods and semicolons and also remove spaces before commas.",
+                            )
+                        )
+                    elif k != query_form_check_dict[k]["correct_form_rep_label"]:
                         incorrect_query_labels.append(
                             (k, query_form_check_dict[k]["correct_form_rep_label"])
                         )
-
                     elif query_form_check_dict[k]["form_rep_match"] is False:
                         incorrect_query_labels.append(
                             (k, "Form and representation labels don't match")
