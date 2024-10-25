@@ -23,6 +23,8 @@ Interactive mode functionality for the Scribe-Data CLI to allow users to select 
 import logging
 from pathlib import Path
 from typing import List
+from prompt_toolkit import prompt
+from prompt_toolkit.completion import WordCompleter
 
 import questionary
 from questionary import Choice
@@ -104,76 +106,75 @@ def configure_settings():
         - Whether to overwrite
     """
     # MARK: Languages
-
+    language_completer = WordCompleter(["All"] + config.languages, ignore_case=True)
     if not config.selected_languages:
-        language_selected = False
-        language_choices = ["All"] + config.languages
-        selected_languages = questionary.checkbox(
-            message="Select languages and press enter:",
-            choices=language_choices,
-        ).ask()
+        selected_languages = prompt(
+            "Select languages (comma-separated or type 'All'): ",
+            completer=language_completer,
+        )
 
         if "All" in selected_languages:
             config.selected_languages = config.languages
-            language_selected = True
-
-        elif selected_languages:
-            config.selected_languages = selected_languages
-            language_selected = True
-
         else:
-            rprint(
-                "[yellow]No language selected. Please select at least one option with space followed by enter.[/yellow]"
-            )
-            if questionary.confirm("Continue?", default=True).ask():
-                return configure_settings()
+            config.selected_languages = [
+                lang.strip()
+                for lang in selected_languages.split(",")
+                if lang.strip() in config.languages
+            ]
 
+        if not config.selected_languages:
+            rprint("[yellow]No language selected. Please try again.[/yellow]")
+            return configure_settings()
+
+    # MARK: Data Types
+
+    data_type_completer = WordCompleter(["All"] + config.data_types, ignore_case=True)
+    selected_data_types = prompt(
+        "Select data types (comma-separated or type 'All'): ",
+        completer=data_type_completer,
+    )
+
+    if "All" in selected_data_types.capitalize():
+        config.selected_data_types = config.data_types
     else:
-        language_selected = True
+        config.selected_data_types = [
+            dt.strip()
+            for dt in selected_data_types.split(",")
+            if dt.strip() in config.data_types
+        ]
 
-    if language_selected:
-        # MARK: Data Types
+    if not config.selected_data_types:
+        rprint("[yellow]No data type selected. Please try again.[/yellow]")
+        return configure_settings()
 
-        data_type_selected = False
-        data_type_choices = ["All"] + config.data_types
-        selected_data_types = questionary.checkbox(
-            "Select data types and press enter:",
-            choices=data_type_choices,
-        ).ask()
+    # MARK: Output Type
 
-        if "All" in selected_data_types:
-            config.selected_data_types = config.data_types
-            data_type_selected = True
+    output_type_completer = WordCompleter(["json", "csv", "tsv"], ignore_case=True)
+    config.output_type = prompt(
+        "Select output type (json/csv/tsv): ", completer=output_type_completer
+    )
+    while config.output_type not in ["json", "csv", "tsv"]:
+        rprint("[yellow]Invalid output type selected. Please try again.[/yellow]")
+        config.output_type = prompt(
+            "Select output type (json/csv/tsv): ", completer=output_type_completer
+        )
 
-        elif selected_data_types:
-            config.selected_data_types = selected_data_types
-            data_type_selected = True
+    # MARK: Output Directory
 
-        else:
-            rprint(
-                "[yellow]No data type selected. Please select at least one option with space followed by enter.[/yellow]"
-            )
-            if questionary.confirm("Continue?", default=True).ask():
-                return configure_settings()
+    output_dir = prompt(f"Enter output directory (default: {config.output_dir}): ")
+    if output_dir:
+        config.output_dir = Path(output_dir)
 
-        if data_type_selected:
-            # MARK: Output Type
+    # MARK: Overwrite Confirmation
 
-            config.output_type = questionary.select(
-                "Select output type:", choices=["json", "csv", "tsv"]
-            ).ask()
+    overwrite_completer = WordCompleter(["Y", "n"], ignore_case=True)
+    overwrite = (
+        prompt("Overwrite existing files? (Y/n): ", completer=overwrite_completer)
+        or "y"
+    )
+    config.overwrite = overwrite.lower() == "y"
 
-            config.output_dir = Path(
-                questionary.text(
-                    "Enter output directory:", default=str(config.output_dir)
-                ).ask()
-            )
-
-            config.overwrite = questionary.confirm(
-                "Overwrite existing files?", default=config.overwrite
-            ).ask()
-
-            display_summary()
+    display_summary()
 
 
 def run_request():
