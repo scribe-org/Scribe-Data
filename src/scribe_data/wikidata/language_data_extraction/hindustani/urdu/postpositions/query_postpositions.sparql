@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Urdu (from Hindustani Q11051) postpositions (Q161873) and the given forms.
+# All Urdu Hindustani (Q11051) postpositions (Q161873) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 # Note: We need to filter for "ur" to remove Hindi (hi) words.
