@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Italian (Q652) nouns (Q1084) and the given forms.
+# All Italian (Q652) proper nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
