@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Urdu (from Hindustani Q11051) verbs and the currently implemented conjugations for each.
+# All Urdu (Q11051) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 # Note: We need to filter for "ur" to remove Hindustani (hi) words.

@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Bokmål (Q25167) verbs and basic forms.
+# All Bokmål (Q25167) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
