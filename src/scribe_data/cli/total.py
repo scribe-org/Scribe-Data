@@ -20,6 +20,9 @@ Functions to check the total language data available on Wikidata.
     -->
 """
 
+from http.client import IncompleteRead
+from urllib.error import HTTPError
+
 from SPARQLWrapper import JSON
 
 from scribe_data.utils import (
@@ -244,7 +247,28 @@ def get_total_lexemes(language, data_type, doPrint=True):
 
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
+    try_count = 0
+    max_retries = 2
+    results = None
+
+    while try_count <= max_retries and results is None:
+        try:
+            results = sparql.query().convert()
+
+        except HTTPError as http_err:
+            print(f"HTTPError occurred: {http_err}")
+
+        except IncompleteRead as read_err:
+            print(f"Incomplete read error occurred: {read_err}")
+
+        try_count += 1
+
+        if results is None:
+            if try_count <= max_retries:
+                print("The query will be retried ...")
+
+            else:
+                print("Query failed after retries.")
 
     # Check if the query returned any results.
     if (
