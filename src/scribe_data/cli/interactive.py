@@ -23,10 +23,10 @@ Interactive mode functionality for the Scribe-Data CLI to allow users to select 
 import logging
 from pathlib import Path
 from typing import List
-from prompt_toolkit import prompt
-from prompt_toolkit.completion import WordCompleter
 
 import questionary
+from prompt_toolkit import prompt
+from prompt_toolkit.completion import WordCompleter
 from questionary import Choice
 from rich import print as rprint
 from rich.console import Console
@@ -105,6 +105,9 @@ def configure_settings():
         - Output directory
         - Whether to overwrite
     """
+    rprint(
+        "[cyan]Follow the prompts below. Press tab for completions and enter to select.[/cyan]"
+    )
     # MARK: Languages
     language_completer = WordCompleter(["All"] + config.languages, ignore_case=True)
     if not config.selected_languages:
@@ -122,9 +125,9 @@ def configure_settings():
                 if lang.strip() in config.languages
             ]
 
-        if not config.selected_languages:
-            rprint("[yellow]No language selected. Please try again.[/yellow]")
-            return configure_settings()
+    if not config.selected_languages:
+        rprint("[yellow]No language selected. Please try again.[/yellow]")
+        return configure_settings()
 
     # MARK: Data Types
 
@@ -161,8 +164,7 @@ def configure_settings():
 
     # MARK: Output Directory
 
-    output_dir = prompt(f"Enter output directory (default: {config.output_dir}): ")
-    if output_dir:
+    if output_dir := prompt(f"Enter output directory (default: {config.output_dir}): "):
         config.output_dir = Path(output_dir)
 
     # MARK: Overwrite Confirmation
@@ -229,7 +231,7 @@ def start_interactive_mode():
     Provides base options and forwarding to other interactive mode functionality.
     """
     rprint(
-        f"[bold green]Welcome to {get_version_message()} interactive mode![/bold green]"
+        f"[bold cyan]Welcome to {get_version_message()} interactive mode![/bold cyan]"
     )
 
     while True:
