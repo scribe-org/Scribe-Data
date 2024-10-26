@@ -493,7 +493,7 @@ def check_forms_order(query_text: str) -> bool:
     return select_vars == where_vars
 
 
-# MARK: docstring Format
+# MARK: Docstring Format
 
 
 def check_docstring(query_text: str) -> bool:
@@ -502,16 +502,16 @@ def check_docstring(query_text: str) -> bool:
 
     Parameters
     ----------
-    query_text : str
-        The SPARQL query's text to be checked.
+        query_text : str
+            The SPARQL query's text to be checked.
 
     Returns
     -------
-    bool
-        True if the docstring is correctly formatted; otherwise, .
+        bool
+            True if the docstring is correctly formatted.
     """
     # Split the text into lines.
-    lines = query_text.splitlines(keepends=True)
+    query_lines = query_text.splitlines(keepends=True)
 
     # Regex patterns for each line in the docstring and corresponding error messages.
     patterns = [
@@ -525,11 +525,14 @@ def check_docstring(query_text: str) -> bool:
             "Error in line 3:",
         ),
     ]
-    # Check each line against its corresponding pattern.
-    for i, (pattern, error_line_number) in enumerate(patterns):
-        if not re.match(pattern, lines[i]):
-            return (False, f"{error_line_number} {lines[i].strip()}")
-    return True
+    return next(
+        (
+            (False, f"{error_line_number} {query_lines[i].strip()}")
+            for i, (pattern, error_line_number) in enumerate(patterns)
+            if not re.match(pattern, query_lines[i])
+        ),
+        True,
+    )
 
 
 # MARK: Main Query Forms Validation
