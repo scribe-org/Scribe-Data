@@ -494,6 +494,8 @@ def check_forms_order(query_text: str) -> bool:
 
 
 # MARK: Main Query Forms Validation
+
+
 def check_query_forms() -> None:
     """
     Validates SPARQL queries in the language data directory to check for correct form QIDs.
@@ -593,6 +595,46 @@ def check_query_forms() -> None:
 
     else:
         print("All query forms are labeled and formatted correctly.")
+
+
+# Mark: Docstring Validation
+
+
+def check_sparql_docstring_format(file_path: Path) -> bool:
+    """
+    Checks if the SPARQL query docstring at the beginning of the file is correct and follows the specified format.
+
+    Parameters
+    ----------
+        file_path : Path
+            The path to the SPARQL query file to check.
+
+    Returns
+    -------
+        bool
+            True if the docstring format is correct, False otherwise.
+    """
+
+    docstring_patterns = [
+        r"# tool: scribe-data",
+        r"# All [A-Za-z]+ \(Q\d+\) [A-Za-z\s]+\ \(Q\d+\) and the given forms\.",
+        r"# Enter this query at https://query.wikidata.org/\."
+    ]
+
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            # Read the first few lines for the docstring
+            lines = [file.readline().strip() for _ in range(3)]
+
+            for line, pattern in zip(lines, docstring_patterns):
+                if not re.match(pattern, line):
+                    print(f"Docstring format error in {file_path}: '{line}' does not match '{pattern}'")
+                    return False
+            return True
+
+    except Exception as e:
+        print(f"Error reading {file_path}: {e}")
+        return False
 
 
 if __name__ == "__main__":
