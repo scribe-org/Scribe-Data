@@ -95,7 +95,7 @@ def get_data(
 
     subprocess_result = False
 
-    # MARK: Get All for Specified Language
+    # MARK: Get All
     if all:
         if language:
             print(f"Updating all data types for language for {language}")
