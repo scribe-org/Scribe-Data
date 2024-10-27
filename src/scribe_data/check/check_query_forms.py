@@ -493,6 +493,48 @@ def check_forms_order(query_text: str) -> bool:
     return select_vars == where_vars
 
 
+# MARK: Docstring Format
+
+
+def check_docstring(query_text: str) -> bool:
+    """
+    Checks the docstring of a SPARQL query text to ensure it follows the standard format.
+
+    Parameters
+    ----------
+        query_text : str
+            The SPARQL query's text to be checked.
+
+    Returns
+    -------
+        bool
+            True if the docstring is correctly formatted.
+    """
+    # Split the text into lines.
+    query_lines = query_text.splitlines(keepends=True)
+
+    # Regex patterns for each line in the docstring and corresponding error messages.
+    patterns = [
+        (r"^# tool: scribe-data\n", "Error in line 1:"),
+        (
+            r"^# All (.+?) \(Q\d+\) .+ \(Q\d+\) and the given forms\.\n",
+            "Error in line 2:",
+        ),
+        (
+            r"^# Enter this query at https://query\.wikidata\.org/\.\n",
+            "Error in line 3:",
+        ),
+    ]
+    return next(
+        (
+            (False, f"{error_line_number} {query_lines[i].strip()}")
+            for i, (pattern, error_line_number) in enumerate(patterns)
+            if not re.match(pattern, query_lines[i])
+        ),
+        True,
+    )
+
+
 # MARK: Main Query Forms Validation
 
 
@@ -507,6 +549,14 @@ def check_query_forms() -> None:
         query_file_str = str(query_file)
         with open(query_file, "r", encoding="utf-8") as file:
             query_text = file.read()
+
+        # Check the docstring format.
+        docstring_check_result = check_docstring(query_text)
+        if docstring_check_result is not True:
+            error_output += (
+                f"\n{index}. {query_file_str}:\n  - {docstring_check_result}\n"
+            )
+            index += 1
 
         # Check for unique return forms and handle the error message.
         unique_check_result = check_unique_return_forms(query_text)

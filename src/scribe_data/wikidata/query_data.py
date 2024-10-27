@@ -181,13 +181,13 @@ def query_data(
                         for file in existing_files:
                             file.unlink()
 
-                # elif choice in ["k", "K"]:
-                #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-                #     file_name = f"{target_type}_{timestamp}.json"
+                    # elif choice in ["k", "K"]:
+                    #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+                    #     file_name = f"{target_type}_{timestamp}.json"
 
-                else:
-                    print(f"Skipping update for {lang} {target_type}.")
-                    continue
+                    else:
+                        print(f"Skipping update for {lang} {target_type}.")
+                        break
 
         print(f"Querying and formatting {lang} {target_type}")
 
