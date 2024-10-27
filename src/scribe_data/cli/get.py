@@ -96,34 +96,38 @@ def get_data(
     subprocess_result = False
 
     # Mark: Get All for Specified Language
-
-    if all and language:
-        print(f"Updating all data types for language: {language}")
-        query_data(
-            languages=[language],
-            data_type=None,
-            output_dir=output_dir,
-            overwrite=overwrite,
-        )
-        subprocess_result = True
-
-    # Mark: Get All for Specified Data Type
-
-    if all and data_type:
-        print(f"Updating all languages for data type: {data_type}")
-        query_data(
-            languages=None,
-            data_type=[data_type],
-            output_dir=output_dir,
-            overwrite=overwrite,
-        )
-        subprocess_result = True
-
-    # Mark: Get All for All Languages and Data Types
-
-    elif all:
-        print("Updating all languages and data types ...")
-        query_data(None, None, output_dir, overwrite)
+    if all:
+        if language:
+            print(f"Updating all data types for language for {language}")
+            query_data(
+                languages=[language],
+                data_type=None,
+                output_dir=output_dir,
+                overwrite=overwrite,
+            )
+            print(
+                f"Query completed for all data types with specified language for {language}."
+            )
+        elif data_type:
+            print(f"Updating all languages for data type: {data_type}")
+            query_data(
+                languages=None,
+                data_type=[data_type],
+                output_dir=output_dir,
+                overwrite=overwrite,
+            )
+            print(
+                f"Query completed for all languages with specified data type for {data_type}."
+            )
+        else:
+            print("Updating all languages and data types ...")
+            query_data(
+                languages=None,
+                data_type=None,
+                output_dir=output_dir,
+                overwrite=overwrite,
+            )
+            print("Query completed for all languages and all data types.")
         subprocess_result = True
 
     # Mark: Emojis

@@ -23,6 +23,7 @@ Setup and commands for the Scribe-Data command line interface.
 #!/usr/bin/env python3
 import argparse
 from pathlib import Path
+from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
 from scribe_data.cli.convert import convert_wrapper
@@ -298,7 +299,7 @@ def main() -> None:
             parser.print_help()
 
     except KeyboardInterrupt:
-        print("Execution was interrupted by the user.")
+        rprint("[bold red]Execution was interrupted by the user.[/bold red]")
 
 
 if __name__ == "__main__":
