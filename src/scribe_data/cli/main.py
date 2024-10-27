@@ -23,6 +23,7 @@ Setup and commands for the Scribe-Data command line interface.
 #!/usr/bin/env python3
 import argparse
 from pathlib import Path
+
 from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
@@ -269,9 +270,11 @@ def main() -> None:
             list_wrapper(
                 language=args.language, data_type=args.data_type, all_bool=args.all
             )
+
         elif args.command in ["get", "g"]:
             if args.interactive:
                 start_interactive_mode()
+
             else:
                 get_data(
                     language=args.language,
@@ -282,10 +285,12 @@ def main() -> None:
                     overwrite=args.overwrite,
                     all=args.all,
                 )
+
         elif args.command in ["total", "t"]:
             total_wrapper(
                 language=args.language, data_type=args.data_type, all_bool=args.all
             )
+
         elif args.command in ["convert", "c"]:
             convert_wrapper(
                 language=args.language,
@@ -295,6 +300,7 @@ def main() -> None:
                 output_dir=args.output_dir,
                 overwrite=args.overwrite,
             )
+
         else:
             parser.print_help()
 

@@ -79,7 +79,7 @@ def get_data(
     -------
         The requested data saved locally given file type and location arguments.
     """
-    # Mark: Defaults
+    # MARK: Defaults
 
     output_type = output_type or "json"
     if output_dir is None:
@@ -95,7 +95,7 @@ def get_data(
 
     subprocess_result = False
 
-    # Mark: Get All for Specified Language
+    # MARK: Get All for Specified Language
     if all:
         if language:
             print(f"Updating all data types for language for {language}")
@@ -108,6 +108,7 @@ def get_data(
             print(
                 f"Query completed for all data types with specified language for {language}."
             )
+
         elif data_type:
             print(f"Updating all languages for data type: {data_type}")
             query_data(
@@ -119,6 +120,7 @@ def get_data(
             print(
                 f"Query completed for all languages with specified data type for {data_type}."
             )
+
         else:
             print("Updating all languages and data types ...")
             query_data(
@@ -128,14 +130,15 @@ def get_data(
                 overwrite=overwrite,
             )
             print("Query completed for all languages and all data types.")
+
         subprocess_result = True
 
-    # Mark: Emojis
+    # MARK: Emojis
 
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
         generate_emoji(language=language, output_dir=output_dir)
 
-    # Mark: Query Data for Specific Language or Data Type
+    # MARK: Query Data
 
     elif language or data_type:
         data_type = data_type[0] if isinstance(data_type, list) else data_type
@@ -155,9 +158,13 @@ def get_data(
         )
 
     if (
-        isinstance(subprocess_result, subprocess.CompletedProcess)
-        and subprocess_result.returncode != 1
-    ) or (isinstance(subprocess_result, bool) and subprocess_result is not False):
+        (
+            isinstance(subprocess_result, subprocess.CompletedProcess)
+            and subprocess_result.returncode != 1
+        )
+        or isinstance(subprocess_result, bool)
+        and subprocess_result
+    ):
         print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
 
         json_input_path = Path(output_dir) / f"{language}/{data_type}.json"
