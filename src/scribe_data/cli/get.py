@@ -122,7 +122,7 @@ def get_data(
             )
 
         else:
-            print("Updating all languages and data types ...")
+            print("Updating all languages and data types...")
             query_data(
                 languages=None,
                 data_type=None,

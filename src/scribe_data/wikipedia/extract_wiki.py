@@ -94,7 +94,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
     dump_html = requests.get(dump_url, timeout=5).text
     soup_dump = BeautifulSoup(dump_html, "html.parser")
 
-    print(f"Downloading Wikipedia dump found at {dump_url} ...")
+    print(f"Downloading Wikipedia dump found at {dump_url}...")
 
     files = []
     for file in soup_dump.find_all("li", {"class": "file"}):

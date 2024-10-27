@@ -162,7 +162,7 @@ def query_data(
 
         if existing_files := list(export_dir.glob(f"{target_type}*.json")):
             if overwrite:
-                print("Overwrite is enabled. Removing existing files ...")
+                print("Overwrite is enabled. Removing existing files...")
                 for file in existing_files:
                     file.unlink()
 
@@ -183,7 +183,7 @@ def query_data(
                     )
 
                     if choice.lower() == "o":
-                        print("Removing existing files ...")
+                        print("Removing existing files...")
                         for file in existing_files:
                             file.unlink()
 
