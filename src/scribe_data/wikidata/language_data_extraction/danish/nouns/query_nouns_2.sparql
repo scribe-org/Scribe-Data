@@ -6,9 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?nonGenitiveDefiniteSingular
 
-# MARK: Singular
-
 WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+
+  # MARK: Singular
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nonGenitiveDefiniteSingularForm .
     ?nonGenitiveDefiniteSingularForm ontolex:representation ?nonGenitiveDefiniteSingular ;

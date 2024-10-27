@@ -7,8 +7,10 @@ SELECT
   ?nonGenitiveIndefiniteSingular
 
 WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q1084 ;
 
-# MARK: Singular
+  # MARK: Singular
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nonGenitiveIndefiniteSingularForm .

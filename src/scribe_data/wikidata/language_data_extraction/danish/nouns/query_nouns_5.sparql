@@ -7,6 +7,9 @@ SELECT
   ?genitiveIndefiniteSingular
 
 WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+
   # MARK: Genitive
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveIndefiniteSingularForm .
