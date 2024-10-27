@@ -43,20 +43,30 @@ jobs:
           # -s flag checks if the file is not empty
           # Display broken links if found
           if [ -s broken_links.txt ]; then
+            echo "==============================="
             echo "Broken links found:"
+            echo "==============================="
             cat broken_links.txt
           fi
         
 
           # Display 'Not Found for url' links if found
           if [ -s not_found_links.txt ]; then
+            echo "==============================="
             echo "Not Found for url:"
+            echo "==============================="
             cat not_found_links.txt
           fi
 
           # Exit with error if any broken or not found links exist
           if [ -s broken_links.txt ] || [ -s not_found_links.txt ]; then
+            echo "!!!!!!!!!!!!!!!!!!!!!!!!"
+            echo "Broken links found."
+            echo "!!!!!!!!!!!!!!!!!!!!!!!!"
             exit 1
+
           else
+            echo "#########################"
             echo "No broken links found."
+            echo "#########################"
           fi
