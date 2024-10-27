@@ -6,7 +6,7 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?genitiveIndefinitePlural
 
-MARK: Genitive
+# MARK: Genitive
 
 WHERE {
   # MARK: Genitive

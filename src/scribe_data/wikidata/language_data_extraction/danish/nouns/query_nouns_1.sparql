@@ -12,11 +12,11 @@ WHERE {
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun .
 
-  # MARK: Singular
+ # MARK: Singular
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nonGenitiveDefiniteSingularForm .
     ?nonGenitiveDefiniteSingularForm ontolex:representation ?nonGenitiveDefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997857, wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997851, wd:Q110786 .
   }
 }

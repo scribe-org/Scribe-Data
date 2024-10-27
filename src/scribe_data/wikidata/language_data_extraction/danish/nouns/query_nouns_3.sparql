@@ -8,7 +8,7 @@ SELECT
 
 WHERE {
 
-  # MARK: Singular
+# MARK: Singular
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nonGenitiveIndefiniteSingularForm .
