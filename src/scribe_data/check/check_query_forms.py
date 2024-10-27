@@ -77,6 +77,52 @@ def extract_forms_from_sparql(file_path: Path) -> str:
     return None
 
 
+# MARK: Extract Label
+
+
+def extract_form_rep_label(form_text: str):
+    """
+    Extracts the representation label from an optional query form.
+
+    Parameters
+    ----------
+        form_text : str
+            The text that defines the form within the query.
+
+    Returns
+    -------
+        str
+            The label of the form representation.
+    """
+    onto_rep_pattern = r"ontolex:representation .* ;"
+    if line_match := re.search(pattern=onto_rep_pattern, string=form_text):
+        rep_label_pattern = r".*\?(.*);"
+        if label_match := re.search(pattern=rep_label_pattern, string=line_match[0]):
+            return label_match[1].strip()
+
+
+# MARK: Extract QIDs
+
+
+def extract_form_qids(form_text: str):
+    """
+    Extracts all QIDs from an optional query form.
+
+    Parameters
+    ----------
+        form_text : str
+            The text that defines the form within the query.
+
+    Returns
+    -------
+        list[str]
+            All QIDS that make up the form.
+    """
+    qids_pattern = r"wikibase:grammaticalFeature .+ \."
+    if match := re.search(pattern=qids_pattern, string=form_text):
+        return [q.split("wd:")[1].split(" .")[0] for q in match[0].split(", ")]
+
+
 # MARK: Check Label
 
 
@@ -119,53 +165,7 @@ def check_form_label(form_text: str):
     return form_rep_label == current_form_rep_label
 
 
-# MARK: Get Label
-
-
-def extract_form_rep_label(form_text: str):
-    """
-    Extracts the representation label from an optional query form.
-
-    Parameters
-    ----------
-        form_text : str
-            The text that defines the form within the query.
-
-    Returns
-    -------
-        str
-            The label of the form representation.
-    """
-    onto_rep_pattern = r"ontolex:representation .* ;"
-    if line_match := re.search(pattern=onto_rep_pattern, string=form_text):
-        rep_label_pattern = r".*\?(.*);"
-        if label_match := re.search(pattern=rep_label_pattern, string=line_match[0]):
-            return label_match[1].strip()
-
-
-# MARK: Get QIDs
-
-
-def extract_form_qids(form_text: str):
-    """
-    Extracts all QIDs from an optional query form.
-
-    Parameters
-    ----------
-        form_text : str
-            The text that defines the form within the query.
-
-    Returns
-    -------
-        list[str]
-            All QIDS that make up the form.
-    """
-    qids_pattern = r"wikibase:grammaticalFeature .+ \."
-    if match := re.search(pattern=qids_pattern, string=form_text):
-        return [q.split("wd:")[1].split(" .")[0] for q in match[0].split(", ")]
-
-
-# MARK: Punctuation
+# MARK: Check Format
 
 
 def check_query_formatting(form_text: str):
@@ -229,16 +229,16 @@ def return_correct_form_label(qids: list):
     return correct_label[:1].lower() + correct_label[1:]
 
 
-# MARK: validate Forms
+# MARK: Validate Forms
 
 
-def validate_query_forms(query_text: str) -> str:
+def validate_forms(query_text: str) -> str:
     """
-     Validates the SPARQL query by checking:
-    1. Order of variables in SELECT vs WHERE clauses
-    2. Presence and correct definition of forms
-    3. Form labels and representations
-    4. Query formatting
+    Validates the SPARQL query by checking:
+        1. Order of variables in SELECT and WHERE clauses
+        2. Presence and correct definition of forms
+        3. Form labels and representations
+        4. Query formatting
 
     Parameters
     ----------
@@ -285,11 +285,6 @@ def validate_query_forms(query_text: str) -> str:
             index = select_vars.index(var)
             where_vars.insert(index, var)
 
-    #  # Check if select_vars are in lexeme_form_labels
-    # if not set(select_vars).issubset(lexeme_form_labels):
-    #     missing_labels = set(select_vars) - set(lexeme_form_labels)
-    #     error_messages.append(f"Variables in SELECT not found in lexeme_form_labels: {', '.join(sorted(missing_labels))}")
-
     uniqueness_forms_check = len(select_vars) != len(set(select_vars))
     undefined_forms = set(select_vars) - set(where_vars)
     unreturned_forms = set(where_vars) - set(select_vars)
@@ -304,21 +299,18 @@ def validate_query_forms(query_text: str) -> str:
         )
 
     # Check for undefined forms in SELECT.
-
     elif undefined_forms:
         error_messages.append(
-            f"Undefined forms in SELECT: {', '.join(sorted(undefined_forms))}"
+            f"Undefined forms found in SELECT: {', '.join(sorted(undefined_forms))}"
         )
 
     # Check for unreturned forms in WHERE.
-
     elif unreturned_forms:
         error_messages.append(
-            f"Defined but unreturned forms: {', '.join(sorted(unreturned_forms))}"
+            f"Defined but unreturned forms found: {', '.join(sorted(unreturned_forms))}"
         )
 
     # Check if the order of variables matches, excluding lexeme and lexemeID.
-
     elif select_vars != where_vars:
         error_messages.append(
             "The order of variables in the SELECT statement does not match their order in the WHERE clause."
@@ -369,12 +361,13 @@ def check_docstring(query_text: str) -> bool:
     )
 
 
-# MARK: Main Query Forms Validation
+# MARK: Main Validation
+
+
 def check_query_forms() -> None:
     """
-    Validates SPARQL queries in the language data directory to check for correct form QIDs.
+    Validates SPARQL queries in the language data directory to check for correct form QIDs and formatting.
     """
-
     error_output = ""
     index = 0
     for query_file in LANGUAGE_DATA_EXTRACTION_DIR.glob("**/*.sparql"):
@@ -390,9 +383,8 @@ def check_query_forms() -> None:
             )
             index += 1
 
-        # Check the order of variables in the WHERE and SELECT clauses, and if all forms are defined and returned.
-        forms_order_and_definition_check = validate_query_forms(query_text)
-        if forms_order_and_definition_check:
+        # Check that all variables in the WHERE and SELECT clauses are ordered, defined and returned.
+        if forms_order_and_definition_check := validate_forms(query_text):
             error_output += f"\n{index}. {query_file_str}:\n  - {forms_order_and_definition_check}\n"
             index += 1
 
@@ -426,10 +418,12 @@ def check_query_forms() -> None:
                                 "Invalid query formatting found - please put spaces before all periods and semicolons and also remove spaces before commas.",
                             )
                         )
+
                     elif k != query_form_check_dict[k]["correct_form_rep_label"]:
                         incorrect_query_labels.append(
                             (k, query_form_check_dict[k]["correct_form_rep_label"])
                         )
+
                     elif query_form_check_dict[k]["form_rep_match"] is False:
                         incorrect_query_labels.append(
                             (k, "Form and representation labels don't match")
