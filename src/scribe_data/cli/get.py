@@ -79,44 +79,63 @@ def get_data(
     -------
         The requested data saved locally given file type and location arguments.
     """
-    # MARK: Defaults
+    # Mark: Defaults
 
     output_type = output_type or "json"
     if output_dir is None:
-        if output_type == "csv":
-            output_dir = DEFAULT_CSV_EXPORT_DIR
-        elif output_type == "json":
-            output_dir = DEFAULT_JSON_EXPORT_DIR
-        elif output_type == "sqlite":
-            output_dir = DEFAULT_SQLITE_EXPORT_DIR
-        elif output_type == "tsv":
-            output_dir = DEFAULT_TSV_EXPORT_DIR
+        output_dir = {
+            "csv": DEFAULT_CSV_EXPORT_DIR,
+            "json": DEFAULT_JSON_EXPORT_DIR,
+            "sqlite": DEFAULT_SQLITE_EXPORT_DIR,
+            "tsv": DEFAULT_TSV_EXPORT_DIR,
+        }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
 
     languages = [language] if language else None
     data_types = [data_type] if data_type else None
 
     subprocess_result = False
 
-    # MARK: Get All
+    # Mark: Get All for Specified Language
 
-    if all:
-        print("Updating all languages and data types ...")
-        query_data(None, None, None, overwrite)
+    if all and language:
+        print(f"Updating all data types for language: {language}")
+        query_data(
+            languages=[language],
+            data_type=None,
+            output_dir=output_dir,
+            overwrite=overwrite,
+        )
         subprocess_result = True
 
-    # MARK: Emojis
+    # Mark: Get All for Specified Data Type
+
+    if all and data_type:
+        print(f"Updating all languages for data type: {data_type}")
+        query_data(
+            languages=None,
+            data_type=[data_type],
+            output_dir=output_dir,
+            overwrite=overwrite,
+        )
+        subprocess_result = True
+
+    # Mark: Get All for All Languages and Data Types
+
+    elif all:
+        print("Updating all languages and data types ...")
+        query_data(None, None, output_dir, overwrite)
+        subprocess_result = True
+
+    # Mark: Emojis
 
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
         generate_emoji(language=language, output_dir=output_dir)
 
-    # MARK: Query Data
+    # Mark: Query Data for Specific Language or Data Type
 
     elif language or data_type:
         data_type = data_type[0] if isinstance(data_type, list) else data_type
-
-        print(
-            f"Updating data for language(s): {language}; data type(s): {', '.join([data_type])}"
-        )
+        print(f"Updating data for language(s): {language}; data type(s): {data_type}")
         query_data(
             languages=languages,
             data_type=data_types,
