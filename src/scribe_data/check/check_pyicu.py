@@ -28,6 +28,7 @@ from pathlib import Path
 
 import pkg_resources
 import requests
+from questionary import confirm
 
 
 def check_if_pyicu_installed():
@@ -144,20 +145,17 @@ def check_and_install_pyicu():
     package_name = "PyICU"
     installed_packages = {pkg.key for pkg in pkg_resources.working_set}
     if package_name.lower() not in installed_packages:
-        # print(f"{package_name} not found. Installing...")
-
         # Fetch available wheels from GitHub to estimate download size.
         wheels, total_size_mb = fetch_wheel_releases()
 
-        print(
-            f"{package_name} is not installed.\nIt will be downloaded from 'https://github.com/repos/cgohlke/pyicu'"
-            f"\nApproximately {total_size_mb:.2f} MB will be downloaded.\nDo you want to proceed? (Y/n)?"
-        )
+        # Use questionary to ask for user confirmation
+        user_wants_to_proceed = confirm(
+            f"{package_name} is not installed.\nIt will be downloaded from 'https://github.com/repos/cgohlke/pyicu-build'"
+            f"\nApproximately {total_size_mb:.2f} MB will be downloaded.\nDo you want to proceed?"
+        ).ask()
 
-        user_input = input().strip().lower()
-        if user_input in ["", "y", "yes"]:
+        if user_wants_to_proceed:
             print("Proceeding with installation...")
-
         else:
             print("Installation aborted by the user.")
             return False

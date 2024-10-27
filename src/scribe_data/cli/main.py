@@ -24,6 +24,8 @@ Setup and commands for the Scribe-Data command line interface.
 import argparse
 from pathlib import Path
 
+from rich import print as rprint
+
 from scribe_data.cli.cli_utils import validate_language_and_data_type
 from scribe_data.cli.convert import convert_wrapper
 from scribe_data.cli.get import get_data
@@ -263,43 +265,47 @@ def main() -> None:
         parser.print_help()
         return
 
-    if args.command in ["list", "l"]:
-        list_wrapper(
-            language=args.language, data_type=args.data_type, all_bool=args.all
-        )
+    try:
+        if args.command in ["list", "l"]:
+            list_wrapper(
+                language=args.language, data_type=args.data_type, all_bool=args.all
+            )
 
-    elif args.command in ["get", "g"]:
-        if args.interactive:
-            start_interactive_mode()
+        elif args.command in ["get", "g"]:
+            if args.interactive:
+                start_interactive_mode()
 
-        else:
-            get_data(
+            else:
+                get_data(
+                    language=args.language,
+                    data_type=args.data_type,
+                    output_type=args.output_type,
+                    output_dir=args.output_dir,
+                    outputs_per_entry=args.outputs_per_entry,
+                    overwrite=args.overwrite,
+                    all=args.all,
+                )
+
+        elif args.command in ["total", "t"]:
+            total_wrapper(
+                language=args.language, data_type=args.data_type, all_bool=args.all
+            )
+
+        elif args.command in ["convert", "c"]:
+            convert_wrapper(
                 language=args.language,
                 data_type=args.data_type,
                 output_type=args.output_type,
+                input_file=args.input_file,
                 output_dir=args.output_dir,
-                outputs_per_entry=args.outputs_per_entry,
                 overwrite=args.overwrite,
-                all=args.all,
             )
 
-    elif args.command in ["total", "t"]:
-        total_wrapper(
-            language=args.language, data_type=args.data_type, all_bool=args.all
-        )
+        else:
+            parser.print_help()
 
-    elif args.command in ["convert", "c"]:
-        convert_wrapper(
-            language=args.language,
-            data_type=args.data_type,
-            output_type=args.output_type,
-            input_file=args.input_file,
-            output_dir=args.output_dir,
-            overwrite=args.overwrite,
-        )
-
-    else:
-        parser.print_help()
+    except KeyboardInterrupt:
+        rprint("[bold red]Execution was interrupted by the user.[/bold red]")
 
 
 if __name__ == "__main__":

@@ -66,12 +66,18 @@ def execute_formatting_script(formatting_file_path, output_dir):
     env = os.environ.copy()
     env["PYTHONPATH"] = str(project_root)
 
-    # Use subprocess to run the formatting file.
-    subprocess.run(
-        [python_executable, str(formatting_file_path), "--file-path", output_dir],
-        env=env,
-        check=True,
-    )
+    try:
+        subprocess.run(
+            [python_executable, str(formatting_file_path), "--file-path", output_dir],
+            env=env,
+            check=True,
+        )
+    except FileNotFoundError:
+        print(
+            f"Error: The formatting script file '{formatting_file_path}' does not exist."
+        )
+    except subprocess.CalledProcessError as e:
+        print(f"Error: The formatting script failed with exit status {e.returncode}.")
 
 
 def query_data(
