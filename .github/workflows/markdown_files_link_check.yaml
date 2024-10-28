@@ -27,11 +27,11 @@ jobs:
         run: |
           npm install -g markdown-link-check
 
-      # Find and check all Markdown files
+      # Find and check all Markdown files, using the config file
       - name: Check links in Markdown files
         run: |
           # Find all .md files and check their links
           find . -name "*.md" | while read file; do
             echo "Checking $file"
-            markdown-link-check "$file" -q || echo "$file contains broken links"
+            markdown-link-check "$file" -c .markdown-link-check.json -q || echo "$file contains broken links"
           done
