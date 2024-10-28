@@ -28,8 +28,6 @@ from SPARQLWrapper import JSON
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
     data_type_metadata,
-    format_sublanguage_name,
-    language_map,
     language_metadata,
     language_to_qid,
     list_all_languages,
@@ -64,7 +62,7 @@ def get_qid_by_input(input_str):
 
 def get_datatype_list(language):
     """
-    Get the data types for a given language based on the project directory structure.
+    Get the data types for a given language based on the project directory structure, including handling sub-languages.
 
     Parameters
     ----------
@@ -76,32 +74,50 @@ def get_datatype_list(language):
         data_types : list[str] or None
             A list of the corresponding data types.
     """
+    language_key = language.strip().lower()  # Normalize input
     languages = list_all_languages(language_metadata)
 
-    if language.lower() in languages:
-        language_data = language_map.get(language.lower())
-        languages = format_sublanguage_name(language, language_metadata)
-        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language
+    # Adjust language_key for sub-languages
+    for lang, data in language_metadata.items():
+        if "sub_languages" in data:
+            for sub_lang in data["sub_languages"]:
+                if sub_lang.lower() == language_key:
+                    language_key = lang.lower()
+                    break
 
-        if not language_data:
-            raise ValueError(f"Language '{language}' is not recognized.")
+    if language_key in languages:
+        # language_data = language_map.get(language_key)
+        if "sub_languages" in language_metadata[language_key]:
+            sub_languages = language_metadata[language_key]["sub_languages"]
+            data_types = []
+            for sub_lang_key in sub_languages:
+                sub_lang_dir = (
+                    LANGUAGE_DATA_EXTRACTION_DIR / sub_languages[sub_lang_key]["iso"]
+                )
+                if sub_lang_dir.exists():
+                    data_types.extend(
+                        [f.name for f in sub_lang_dir.iterdir() if f.is_dir()]
+                    )
+            if not data_types:
+                raise ValueError(
+                    f"No data types available for sub-languages of '{language.capitalize()}'."
+                )
+            return sorted(set(data_types))  # Remove duplicates and sort
+        else:
+            language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language_key
+            if not language_dir.exists():
+                raise ValueError(f"Directory '{language_dir}' does not exist.")
+            data_types = [f.name for f in language_dir.iterdir() if f.is_dir()]
+            if not data_types:
+                raise ValueError(
+                    f"No data types available for language '{language.capitalize()}'."
+                )
+            return sorted(data_types)
 
-        data_types = [f.name for f in language_dir.iterdir() if f.is_dir()]
-        if not data_types:
-            raise ValueError(
-                f"No data types available for language '{language.capitalize()}'."
-            )
-
-        data_types = sorted(data_types)
-
-        for t in ["autosuggestions", "emoji_keywords"]:
-            if t in data_types:
-                data_types.remove(t)
-
-        return data_types
-
-    else:  # return all data types
-        print("Language is not present in Scribe-Data. Checking all data types.")
+    else:
+        print(
+            f"Language '{language}' is a sub-language for {language_key}. Checking all data types.\n"
+        )
         return data_type_metadata
 
 
