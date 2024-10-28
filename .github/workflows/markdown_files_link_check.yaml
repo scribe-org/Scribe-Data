@@ -29,14 +29,14 @@ jobs:
 
       - name: Verify config file exists
         run: |
-          ls -la .markdown-link-check.json
-          cat .markdown-link-check.json
+          ls -la .github/workflows/.markdown-link-check.json
+          cat .github/workflows/.markdown-link-check.json
 
-      # Find and check all Markdown files, using the config file
+      # Check links in all Markdown files
       - name: Check links in Markdown files
         run: |
           # Find all .md files and check their links
           find . -name "*.md" | while read file; do
             echo "Checking $file"
-            markdown-link-check "$file" -c .markdown-link-check.json -q || echo "$file contains broken links"
+            markdown-link-check "$file" -c .github/workflows/.markdown-link-check.json -q || echo "$file contains broken links"
           done
