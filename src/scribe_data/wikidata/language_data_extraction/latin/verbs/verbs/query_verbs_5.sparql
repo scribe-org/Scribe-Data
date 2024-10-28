@@ -1,0 +1,81 @@
+# tool: scribe-data
+# All Latin (Q397) verbs and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+  ?SecondSingularImperativeActive
+  ?FirstSingularIndicativePassive
+  ?FirstSingularIndicativeActive
+  ?SecondPluralIndicativePassive
+  ?FirstPluralIndicativePassive
+  ?FirstPluralIndicativeActive
+  ?ThirdPluralIndicativeActive
+  ?ThirdPluralIndicativePassive
+
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  # Common value for Future Tense
+  VALUES ?futuretense { wd:Q501405 }
+
+  # Second Person, Singular, Future Tense, Imperative, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecondSingularImperativeActiveForm .
+    ?SecondSingularImperativeActiveForm ontolex:representation ?SecondSingularImperativeActive ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?futuretense, wd:Q22716, wd:Q1317831 .
+  }
+
+  # First Person, Singular, Future Tense, Indicative, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirstSingularIndicativePassiveForm .
+    ?FirstSingularIndicativePassiveForm ontolex:representation ?FirstSingularIndicativePassive ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, ?futuretense, wd:Q682111, wd:Q1194697 .
+  }
+
+  # First Person, Singular, Future Tense, Indicative, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirstSingularIndicativeActiveForm .
+    ?FirstSingularIndicativeActiveForm ontolex:representation ?FirstSingularIndicativeActive ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, ?futuretense, wd:Q682111, wd:Q1317831 .
+  }
+
+  # Second Person, Plural, Future Tense, Indicative, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecondPluralIndicativePassiveForm .
+    ?SecondPluralIndicativePassiveForm ontolex:representation ?SecondPluralIndicativePassive ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, ?futuretense, wd:Q682111, wd:Q1194697 .
+  }
+
+  # First Person, Plural, Future Tense, Indicative, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirstPluralIndicativePassiveForm .
+    ?FirstPluralIndicativePassiveForm ontolex:representation ?FirstPluralIndicativePassive ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, ?futuretense, wd:Q682111, wd:Q1194697 .
+  }
+
+  # First Person, Plural, Future Tense, Indicative, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirstPluralIndicativeActiveForm .
+    ?FirstPluralIndicativeActiveForm ontolex:representation ?FirstPluralIndicativeActive ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, ?futuretense, wd:Q682111, wd:Q1317831 .
+  }
+
+  # Third Person, Plural, Future Tense, Indicative, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ThirdPluralIndicativeActiveForm .
+    ?ThirdPluralIndicativeActiveForm ontolex:representation ?ThirdPluralIndicativeActive ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, ?futuretense, wd:Q682111, wd:Q1317831 .
+  }
+
+  # Third Person, Plural, Future Tense, Indicative, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ThirdPluralIndicativePassiveForm .
+    ?ThirdPluralIndicativePassiveForm ontolex:representation ?ThirdPluralIndicativePassive ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, ?futuretense, wd:Q682111, wd:Q1194697 .
+   }
+}

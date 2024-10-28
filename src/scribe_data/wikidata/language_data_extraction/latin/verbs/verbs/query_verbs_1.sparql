@@ -1,0 +1,112 @@
+# tool: scribe-data
+# All Latin (Q397) verbs in the present tense with the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verb
+  ?SecondSingularImperativeActive
+  ?FirstSingularSubjunctiveActive
+  ?SecondPluralSubjunctivePassive
+  ?SecondPluralSubjunctiveActive
+  ?FirstPluralSubjunctiveActive
+  ?ThirdPluralSubjunctiveActive
+  ?ThirdPluralPassiveActive
+  ?FirstSingularIndActive
+  ?FirstSingularSubjunctivePassive
+  ?SecondSingularSubjunctivePassive
+  ?ThirdSingularSubjunctiveActive
+  ?ThirdSingularSubjunctivePassive
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb .
+
+  # Common value for Present Tense
+  VALUES ?presentTense { wd:Q192613 }
+
+  # Second Person, Singular, Present Tense, Imperative, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecondSingularImperativeActiveForm .
+    ?SecondSingularImperativeActiveForm ontolex:representation ?SecondSingularImperativeActive ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?presentTense, wd:Q22716, wd:Q1317831 .
+  }
+
+  # First Person, Singular, Present Tense, Subjunctive, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirstSingularSubjunctiveActiveForm .
+    ?FirstSingularSubjunctiveActiveForm ontolex:representation ?FirstSingularSubjunctiveActive ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, ?presentTense, wd:Q473746, wd:Q1317831 .
+  }
+
+  # Second Person, Plural, Present Tense, Subjunctive, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecondPluralSubjunctivePassiveForm .
+    ?SecondPluralSubjunctivePassiveForm ontolex:representation ?SecondPluralSubjunctivePassive ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, ?presentTense, wd:Q473746, wd:Q1194697 .
+  }
+
+  # Second Person, Plural, Present Tense, Subjunctive, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecondPluralSubjunctiveActiveForm .
+    ?SecondPluralSubjunctiveActiveForm ontolex:representation ?SecondPluralSubjunctiveActive ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, ?presentTense, wd:Q473746, wd:Q1317831 .
+  }
+
+  # First Person, Plural, Present Tense, Subjunctive, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirstPluralSubjunctiveActiveForm .
+    ?FirstPluralSubjunctiveActiveForm ontolex:representation ?FirstPluralSubjunctiveActive ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, ?presentTense, wd:Q473746, wd:Q1317831 .
+  }
+
+  # Third Person, Plural, Present Tense, Subjunctive, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ThirdPluralSubjunctiveActiveForm .
+    ?ThirdPluralSubjunctiveActiveForm ontolex:representation ?ThirdPluralSubjunctiveActive ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, ?presentTense, wd:Q473746, wd:Q1317831 .
+  }
+
+  # Third Person, Plural, Present Tense, Subjunctive, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ThirdPluralSubjunctivePassiveForm .
+    ?ThirdPluralSubjunctivePassiveForm ontolex:representation ?ThirdPluralPassiveActive ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, ?presentTense, wd:Q473746, wd:Q1194697 .
+  }
+
+  # First Person, Singular, Present Tense, Indicative, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirstSingularIndActiveForm .
+    ?FirstSingularIndActiveForm ontolex:representation ?FirstSingularIndActive ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, ?presentTense, wd:Q682111, wd:Q1194697 .
+  }
+
+  # First Person, Singular, Present Tense, Subjunctive, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?FirstSingularSubjunctivePassiveForm .
+    ?FirstSingularSubjunctivePassiveForm ontolex:representation ?FirstSingularSubjunctivePassive ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, ?presentTense, wd:Q473746, wd:Q1194697 .
+  }
+
+  # Second Person, Singular, Present Tense, Subjunctive, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?SecondSingularSubjunctivePassiveForm .
+    ?SecondSingularSubjunctivePassiveForm ontolex:representation ?SecondSingularSubjunctivePassive ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, ?presentTense, wd:Q473746, wd:Q1194697 .
+  }
+
+  # Third Person, Singular, Present Tense, Subjunctive, Active
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ThirdSingularSubjunctiveActiveForm .
+    ?ThirdSingularSubjunctiveActiveForm ontolex:representation ?ThirdSingularSubjunctiveActive ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, ?presentTense, wd:Q473746, wd:Q1317831 .
+  }
+
+  # Third Person, Singular, Present Tense, Subjunctive, Passive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ThirdSingularSubjunctivePassiveForm .
+    ?ThirdSingularSubjunctivePassiveForm ontolex:representation ?ThirdSingularSubjunctivePassive ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, ?presentTense, wd:Q473746, wd:Q1194697 .
+  }
+}
