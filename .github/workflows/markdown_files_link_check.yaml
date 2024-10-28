@@ -38,5 +38,13 @@ jobs:
           # Find all .md files and check their links
           find . -name "*.md" | while read file; do
             echo "Checking $file"
-            markdown-link-check "$file" -c .github/workflows/.markdown-link-check.json -q || echo "$file contains broken links"
+            if [ markdown-link-check "$file" -c .github/workflows/.markdown-link-check.json -q ]; then
+              echo -------------------------------------
+              echo "$file contains broken links"
+              echo -------------------------------------
+            else
+              echo -------------------------------------
+              echo "$file contains no broken links"
+              echo -------------------------------------
+            fi 
           done
