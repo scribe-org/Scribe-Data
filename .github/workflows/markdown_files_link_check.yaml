@@ -27,6 +27,11 @@ jobs:
         run: |
           npm install -g markdown-link-check
 
+      - name: Verify config file exists
+        run: |
+          ls -la .markdown-link-check.json
+          cat .markdown-link-check.json
+
       # Find and check all Markdown files, using the config file
       - name: Check links in Markdown files
         run: |
