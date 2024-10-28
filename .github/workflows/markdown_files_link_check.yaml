@@ -1,0 +1,37 @@
+name: Check Markdown Links
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize]
+
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js (required for markdown-link-check)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # Install markdown-link-check
+      - name: Install markdown-link-check
+        run: |
+          npm install -g markdown-link-check
+
+      # Find and check all Markdown files
+      - name: Check links in Markdown files
+        run: |
+          # Find all .md files and check their links
+          find . -name "*.md" | while read file; do
+            echo "Checking $file"
+            markdown-link-check "$file" -q || echo "$file contains broken links"
+          done
