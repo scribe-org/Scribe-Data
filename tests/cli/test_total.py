@@ -133,6 +133,42 @@ class TestTotalLexemes(unittest.TestCase):
         ]
         mock_print.assert_has_calls(expected_calls)
 
+    @patch("scribe_data.cli.total.get_qid_by_input")
+    @patch("scribe_data.cli.total.sparql.query")
+    @patch("scribe_data.cli.total.LANGUAGE_DATA_EXTRACTION_DIR")
+    def test_get_total_lexemes_sub_languages(self, mock_dir, mock_query, mock_get_qid):
+        # Setup for sub-languages
+        mock_get_qid.side_effect = lambda x: {
+            "bokmål": "Q25167",
+            "nynorsk": "Q25164",
+        }.get(x.lower())
+        mock_results = MagicMock()
+        mock_results.convert.return_value = {
+            "results": {"bindings": [{"total": {"value": "30"}}]}
+        }
+        mock_query.return_value = mock_results
+
+        # Mocking directory paths and contents
+        mock_dir.__truediv__.return_value.exists.return_value = True
+        mock_dir.__truediv__.return_value.iterdir.return_value = [
+            MagicMock(name="verbs", is_dir=lambda: True),
+            MagicMock(name="nouns", is_dir=lambda: True),
+        ]
+
+        with patch("builtins.print") as mock_print:
+            get_total_lexemes("Norwegian", "verbs")
+            get_total_lexemes("Norwegian", "nouns")
+
+        expected_calls = [
+            call(
+                "\nLanguage: Norwegian\nData type: verbs\nTotal number of lexemes: 30\n"
+            ),
+            call(
+                "\nLanguage: Norwegian\nData type: nouns\nTotal number of lexemes: 30\n"
+            ),
+        ]
+        mock_print.assert_has_calls(expected_calls)
+
 
 class TestGetQidByInput(unittest.TestCase):
     def setUp(self):
