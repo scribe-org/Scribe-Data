@@ -23,6 +23,7 @@ Functions to check the total language data available on Wikidata.
 from http.client import IncompleteRead
 from urllib.error import HTTPError
 
+import requests
 from SPARQLWrapper import JSON
 
 from scribe_data.utils import (
@@ -114,11 +115,41 @@ def get_datatype_list(language):
                 )
             return sorted(data_types)
 
-    else:
-        print(
-            f"Language '{language}' is a sub-language for {language_key}. Checking all data types.\n"
-        )
+    else:  # return all data types
         return data_type_metadata
+
+
+def check_qid_is_language(qid: str):
+    """
+    Parameters
+    ----------
+        qid : str
+            The QID to check Wikidata to see if it's a language and return its English label.
+
+    Outputs
+    -------
+        str
+            The English label of the Wikidata language entity.
+
+    Raises
+    ------
+        ValueError
+            An invalid QID that's not a language has been passed.
+    """
+    api_endpoint = "https://www.wikidata.org/w/rest.php/wikibase/v0"
+    request_string = f"{api_endpoint}/entities/items/{qid}"
+
+    request = requests.get(request_string, timeout=5)
+    request_result = request.json()
+
+    if request_result["statements"]["P31"]:
+        instance_of_values = request_result["statements"]["P31"]
+        for val in instance_of_values:
+            if val["value"]["content"] == "Q34770":
+                print(f"{request_result['labels']['en']} ({qid}) is a language.\n")
+                return request_result["labels"]["en"]
+
+    raise ValueError("The passed Wikidata QID is not a language.")
 
 
 # MARK: Print
@@ -141,14 +172,28 @@ def print_total_lexemes(language: str = None):
     if language is None:
         print("Returning total counts for all languages and data types...\n")
 
-    elif language.startswith("Q") and language[1:].isdigit():
-        print(f"Wikidata QID {language} passed. Checking all data types.\n")
+    elif (
+        isinstance(language, str)
+        and language.startswith("Q")
+        and language[1:].isdigit()
+    ):
+        print(
+            f"Wikidata QID {language} passed. Checking validity and then all data types."
+        )
+        language = check_qid_is_language(qid=language)
 
     else:
         print(f"Returning total counts for {language} data types...\n")
 
-    print(f"{'Language':<15} {'Data Type':<25} {'Total Wikidata Lexemes':<25}")
-    print("=" * 64)
+    def print_total_header():
+        """
+        Prints the header of the total command output.
+        """
+        print(f"{'Language':<20} {'Data Type':<25} {'Total Wikidata Lexemes':<25}")
+        print("=" * 70)
+        print(
+            f"{language.capitalize():<20} {dt.replace('_', '-'): <25} {total_lexemes:<25}"
+        )
 
     if language is None:  # all languages
         languages = list_all_languages(language_metadata)
@@ -161,13 +206,11 @@ def print_total_lexemes(language: str = None):
                 total_lexemes = get_total_lexemes(lang, dt, False)
                 total_lexemes = f"{total_lexemes:,}"
                 if first_row:
-                    print(
-                        f"{lang.capitalize():<15} {dt.replace('_', '-'): <25} {total_lexemes:<25}"
-                    )
+                    print_total_header()
                     first_row = False
 
                 else:
-                    print(f"{'':<15} {dt.replace('_', ' '): <25} {total_lexemes:<25}")
+                    print(f"{'':<20} {dt.replace('_', ' '): <25} {total_lexemes:<25}")
 
             print()
 
@@ -186,13 +229,11 @@ def print_total_lexemes(language: str = None):
             total_lexemes = get_total_lexemes(language, dt, False)
             total_lexemes = f"{total_lexemes:,}"
             if first_row:
-                print(
-                    f"{language.capitalize():<15} {dt.replace('_', '-'): <25} {total_lexemes:<25}"
-                )
+                print_total_header()
                 first_row = False
 
             else:
-                print(f"{'':<15} {dt.replace('_', ' '): <25} {total_lexemes:<25}")
+                print(f"{'':<20} {dt.replace('_', ' '): <25} {total_lexemes:<25}")
 
         print()
 
