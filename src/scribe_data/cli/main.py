@@ -22,12 +22,16 @@ Setup and commands for the Scribe-Data command line interface.
 
 #!/usr/bin/env python3
 import argparse
+from pathlib import Path
 
-from scribe_data.cli.convert import convert_to_csv_or_tsv, convert_to_sqlite
+from rich import print as rprint
+
+from scribe_data.cli.cli_utils import validate_language_and_data_type
+from scribe_data.cli.convert import convert_wrapper
 from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
-from scribe_data.cli.total import get_total_lexemes
+from scribe_data.cli.total import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
 
@@ -87,7 +91,7 @@ def main() -> None:
         "--data-type",
         nargs="?",
         const=True,
-        help="List options for all or given data types.",
+        help="List options for all or given data types (e.g., nouns, verbs).",
     )
     list_parser.add_argument(
         "-a",
@@ -108,10 +112,13 @@ def main() -> None:
     )
     get_parser._actions[0].help = "Show this help message and exit."
     get_parser.add_argument(
-        "-lang", "--language", type=str, help="The language(s) to get."
+        "-lang", "--language", type=str, help="The language(s) to get data for."
     )
     get_parser.add_argument(
-        "-dt", "--data-type", type=str, help="The data type(s) to get."
+        "-dt",
+        "--data-type",
+        type=str,
+        help="The data type(s) to get data for (e.g., nouns, verbs).",
     )
     get_parser.add_argument(
         "-ot",
@@ -160,7 +167,16 @@ def main() -> None:
         "-lang", "--language", type=str, help="The language(s) to check totals for."
     )
     total_parser.add_argument(
-        "-dt", "--data-type", type=str, help="The data type(s) to check totals for."
+        "-dt",
+        "--data-type",
+        type=str,
+        help="The data type(s) to check totals for (e.g., nouns, verbs).",
+    )
+    total_parser.add_argument(
+        "-a",
+        "--all",
+        action=argparse.BooleanOptionalAction,
+        help="Check for all languages and data types.",
     )
 
     # MARK: Convert
@@ -173,27 +189,73 @@ def main() -> None:
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
+
     convert_parser._actions[0].help = "Show this help message and exit."
     convert_parser.add_argument(
-        "-f", "--file", type=str, help="The file to convert to a new type."
+        "-lang",
+        "--language",
+        type=str,
+        required=True,
+        help="The language of the file to convert.",
+    )
+    convert_parser.add_argument(
+        "-dt",
+        "--data-type",
+        type=str,
+        required=True,
+        help="The data type(s) of the file to convert (e.g., nouns, verbs).",
+    )
+    convert_parser.add_argument(
+        "-if",
+        "--input-file",
+        type=Path,
+        required=True,
+        help="The path to the input file to convert.",
     )
     convert_parser.add_argument(
         "-ot",
         "--output-type",
         type=str,
         choices=["json", "csv", "tsv", "sqlite"],
+        required=True,
         help="The output file type.",
+    )
+    convert_parser.add_argument(
+        "-od",
+        "--output-dir",
+        type=str,
+        help="The directory where the output file will be saved.",
+    )
+    convert_parser.add_argument(
+        "-o",
+        "--overwrite",
+        action="store_true",
+        help="Whether to overwrite existing files (default: False).",
     )
     convert_parser.add_argument(
         "-ko",
         "--keep-original",
-        action="store_false",
-        help="Whether to keep the file to be converted (default: True).",
+        action="store_true",
+        default=True,
+        help="Whether to keep the original file to be converted (default: True).",
     )
 
     # MARK: Setup CLI
 
     args = parser.parse_args()
+
+    if args.data_type and isinstance(args.data_type, str):
+        args.data_type = args.data_type.replace("-", "_")
+
+    try:
+        if args.language or args.data_type:
+            validate_language_and_data_type(
+                language=args.language, data_type=args.data_type
+            )
+
+    except ValueError as e:
+        print(f"Input validation failed with error: {e}")
+        return
 
     if args.upgrade:
         upgrade_cli()
@@ -203,53 +265,47 @@ def main() -> None:
         parser.print_help()
         return
 
-    if args.command in ["list", "l"]:
-        list_wrapper(args.language, args.data_type, args.all)
+    try:
+        if args.command in ["list", "l"]:
+            list_wrapper(
+                language=args.language, data_type=args.data_type, all_bool=args.all
+            )
 
-    elif args.command in ["get", "g"]:
-        if args.interactive:
-            start_interactive_mode()
+        elif args.command in ["get", "g"]:
+            if args.interactive:
+                start_interactive_mode()
 
-        else:
-            get_data(
+            else:
+                get_data(
+                    language=args.language,
+                    data_type=args.data_type,
+                    output_type=args.output_type,
+                    output_dir=args.output_dir,
+                    outputs_per_entry=args.outputs_per_entry,
+                    overwrite=args.overwrite,
+                    all=args.all,
+                )
+
+        elif args.command in ["total", "t"]:
+            total_wrapper(
+                language=args.language, data_type=args.data_type, all_bool=args.all
+            )
+
+        elif args.command in ["convert", "c"]:
+            convert_wrapper(
                 language=args.language,
                 data_type=args.data_type,
                 output_type=args.output_type,
+                input_file=args.input_file,
                 output_dir=args.output_dir,
-                outputs_per_entry=args.outputs_per_entry,
                 overwrite=args.overwrite,
-                all=args.all,
             )
 
-    elif args.command in ["total", "t"]:
-        if not args.language and not args.data_type:
-            print(
-                "Error: You must provide either at least one of the --language (-l) or --data-type (-dt) options"
-            )
-            total_parser.print_help()
-            return
+        else:
+            parser.print_help()
 
-        get_total_lexemes(args.language, args.data_type)
-
-    elif args.command in ["convert", "c"]:
-        if args.output_type in ["csv", "tsv"]:
-            convert_to_csv_or_tsv(
-                args.language,
-                args.data_type,
-                args.output_dir,
-                args.overwrite,
-            )
-
-        elif args.output_type == "sqlite":
-            convert_to_sqlite(
-                args.language,
-                args.data_type,
-                args.output_dir,
-                args.overwrite,
-            )
-
-    else:
-        parser.print_help()
+    except KeyboardInterrupt:
+        rprint("[bold red]Execution was interrupted by the user.[/bold red]")
 
 
 if __name__ == "__main__":

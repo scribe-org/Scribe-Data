@@ -1,0 +1,13 @@
+# tool: scribe-data
+# All Dagbani (Q32238) prepositions (Q4833830) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?preposition
+
+WHERE {
+  ?lexeme dct:language wd:Q32238 ;
+    wikibase:lexicalCategory wd:Q4833830 ;
+    wikibase:lemma ?preposition .
+}

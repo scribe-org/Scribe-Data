@@ -54,21 +54,74 @@ Example output:
 .. code-block:: text
 
     $ scribe-data list
+
     Language     ISO  QID
-    -----------------------
+    ==========================
     English      en   Q1860
-    French       fr   Q150
-    German       de   Q188
     ...
-    -----------------------
 
     Available data types: All languages
-    -----------------------------------
+    ===================================
+    adjectives
+    adverbs
+    emoji-keywords
     nouns
+    personal-pronouns
+    postpositions
     prepositions
-    translations
+    proper-nouns
     verbs
-    -----------------------------------
+
+
+
+
+.. code-block:: text
+
+    $scribe-data list --language
+
+    Language     ISO  QID
+    ==========================
+    English      en   Q1860
+    ...
+
+
+.. code-block:: text
+
+    $scribe-data list -dt
+
+    Available data types: All languages
+    ===================================
+    adjectives
+    adverbs
+    emoji-keywords
+    nouns
+    personal-pronouns
+    postpositions
+    prepositions
+    proper-nouns
+    verbs
+
+
+.. code-block:: text
+
+    $scribe-data list -a
+
+    Language     ISO  QID
+    ==========================
+    English      en   Q1860
+    ...
+
+    Available data types: All languages
+    ===================================
+    adjectives
+    adverbs
+    emoji-keywords
+    nouns
+    personal-pronouns
+    postpositions
+    prepositions
+    proper-nouns
+    verbs
 
 Get Command
 ~~~~~~~~~~~
@@ -88,6 +141,7 @@ Options:
 - ``-dt, --data-type DATA_TYPE``: The data type(s) to get.
 - ``-od, --output-dir OUTPUT_DIR``: The output directory path for results.
 - ``-ot, --output-type {json,csv,tsv}``: The output file type.
+- ``-ope, --outputs-per-entry OUTPUTS_PER_ENTRY``: How many outputs should be generated per data entry.
 - ``-o, --overwrite``: Whether to overwrite existing files (default: False).
 - ``-a, --all ALL``: Get all languages and data types.
 - ``-i, --interactive``: Run in interactive mode.
@@ -170,8 +224,7 @@ Interactive Mode
     2. emoji_keywords
     3. nouns
     4. prepositions
-    5. translations
-    6. verbs
+    5. verbs
 
     ...
 
@@ -197,14 +250,22 @@ Examples:
 
 .. code-block:: text
 
-    $ scribe-data total -dt nouns
+    $scribe-data total -dt nouns  # verbs, adjectives, etc
     Data type: nouns
-    Total number of lexemes: <NUMBER />
+    Total number of lexemes: 123456
 
-    $ scribe-data total -lang eng -dt nouns
-    Language: eng
+.. code-block:: text
+
+    $scribe-data total -lang English
+    Language: English
+    Total number of lexemes: 123456
+
+.. code-block:: text
+
+    $scribe-data total -lang English -dt nouns  # verbs, adjectives, etc
+    Language: English
     Data type: nouns
-    Total number of lexemes: <NUMBER />
+    Total number of lexemes: 12345
 
 Convert Command
 ~~~~~~~~~~~~~~~
@@ -222,7 +283,4 @@ Options:
 
 - ``-f, --file FILE``: The file to convert to a new type.
 - ``-ko, --keep-original``: Whether to keep the file to be converted (default: True).
-- ``-json, --to-json TO_JSON``: Convert the file to JSON format.
-- ``-csv, --to-csv TO_CSV``: Convert the file to CSV format.
-- ``-tsv, --to-tsv TO_TSV``: Convert the file to TSV format.
-- ``-sqlite, --to-sqlite TO_SQLITE``: Convert the file to SQLite format.
+- ``-ot, --output-type {json,csv,tsv,sqlite}``: The output file type.

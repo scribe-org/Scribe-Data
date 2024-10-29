@@ -6,9 +6,7 @@ Scribe-Data
 .. toctree::
     :maxdepth: 2
 
-    language_data_extraction/index
     load/index
-    translation/index
     unicode/index
     wikidata/index
     wikipedia/index
@@ -17,6 +15,5 @@ Scribe-Data
 .. toctree::
     :maxdepth: 1
 
-    check_language_data
     cli
     utils

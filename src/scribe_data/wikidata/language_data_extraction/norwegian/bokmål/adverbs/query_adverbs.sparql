@@ -1,0 +1,15 @@
+# tool: scribe-data
+# All Bokmål Norwegian (Q25167) adverbs (Q380057) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+# Note: This query is for Bokmål (Q25167) rather than Nynorsk (Q25164).
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adverb
+
+WHERE {
+  ?lexeme dct:language wd:Q25167 ;
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?adverb .
+}

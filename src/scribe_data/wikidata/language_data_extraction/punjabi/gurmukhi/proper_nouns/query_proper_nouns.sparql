@@ -1,0 +1,38 @@
+# tool: scribe-data
+# All Punjabi Gurmukhi (Q58635) proper nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+# Note: We need to filter for "pa" to select Gurmukhi words.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?singular
+  ?plural
+  ?gender
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q147276;
+    wikibase:lemma ?singular .
+    FILTER(lang(?singular) = "pa")
+
+  # MARK: Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+      FILTER(lang(?plural) = "pa")
+  }
+
+  # MARK: Gender(s)
+
+  OPTIONAL {
+    ?lexeme wdt:P5185 ?nounGender .
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+    ?nounGender rdfs:label ?gender .
+  }
+}

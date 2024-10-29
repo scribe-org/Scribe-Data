@@ -1,0 +1,22 @@
+# tool: scribe-data
+# All Tamil (Q5885) adverbs (Q380057) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adverb
+  ?vocative
+
+WHERE {
+  ?lexeme dct:language wd:Q5885 ;
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?adverb .
+
+  # MARK: Vocative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeForm .
+    ?vocativeForm ontolex:representation ?vocative ;
+      wikibase:grammaticalFeature wd:Q185077 .
+  }
+}

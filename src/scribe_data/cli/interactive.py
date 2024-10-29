@@ -1,8 +1,5 @@
 """
-Interactive mode functionality for the Scribe-Data CLI.
-
-This module provides an interactive interface for users to select languages,
-data types and output options for getting Wikidata data using Scribe-Data.
+Interactive mode functionality for the Scribe-Data CLI to allow users to select request arguments.
 
 .. raw:: html
     <!--
@@ -23,168 +20,242 @@ data types and output options for getting Wikidata data using Scribe-Data.
     -->
 """
 
-from scribe_data.cli.cli_utils import (
+import logging
+from pathlib import Path
+from typing import List
+
+import questionary
+from prompt_toolkit import prompt
+from prompt_toolkit.completion import WordCompleter
+from questionary import Choice
+from rich import print as rprint
+from rich.console import Console
+from rich.logging import RichHandler
+from rich.table import Table
+from tqdm import tqdm
+
+from scribe_data.cli.get import get_data
+from scribe_data.cli.version import get_version_message
+from scribe_data.utils import (
+    DEFAULT_JSON_EXPORT_DIR,
     data_type_metadata,
     language_metadata,
-)
-from scribe_data.cli.get import get_data
-from scribe_data.utils import (
-    DEFAULT_CSV_EXPORT_DIR,
-    DEFAULT_JSON_EXPORT_DIR,
-    DEFAULT_TSV_EXPORT_DIR,
+    list_all_languages,
 )
 
+# MARK: Config Setup
 
-def get_selection(user_input: str, options: list[str]) -> list[str]:
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(message)s",
+    datefmt="[%X]",
+    handlers=[RichHandler(markup=True)],  # Enable markup for colors
+)
+console = Console()
+logger = logging.getLogger("rich")
+
+
+class ScribeDataConfig:
+    def __init__(self):
+        self.languages = list_all_languages(language_metadata)
+        self.data_types = list(data_type_metadata.keys())
+        self.selected_languages: List[str] = []
+        self.selected_data_types: List[str] = []
+        self.output_type: str = "json"
+        self.output_dir: Path = Path(DEFAULT_JSON_EXPORT_DIR)
+        self.overwrite: bool = False
+
+
+config = ScribeDataConfig()
+
+
+# MARK: Summary
+
+
+def display_summary():
     """
-    Parse user input to get selected options.
-
-    Parameters
-    ----------
-        user_input : str
-            The user's input string.
-
-        options : List[str]
-            The list of available options given the interactive mode stage.
-
-    Returns
-    -------
-        List[str]
-            The options available in interactive mode and CLI directions.
+    Displays a summary of the interactive mode request to run.
     """
-    if user_input.lower() == "a":
-        return options
-
-    try:
-        indices = [int(i.strip()) - 1 for i in user_input.split(",")]
-
-        return [options[i] for i in indices]
-
-    except (ValueError, IndexError):
-        return [opt for opt in user_input.split(",") if opt in options]
-
-
-def select_languages() -> list[str]:
-    """
-    Display language options and get user selection.
-
-    Returns
-    -------
-        List[str]
-            The languages available in Scribe-Data and CLI directions.
-    """
-    print("\nLanguage options:")
-    languages = [
-        lang["language"].capitalize() for lang in language_metadata["languages"]
-    ]
-    for i, lang in enumerate(languages, 1):
-        print(f"{i}. {lang}")
-
-    lang_input = input(
-        "\nPlease enter the languages to get data for, their numbers or (a) for all languages: "
+    table = Table(
+        title="Scribe-Data Request Configuration Summary", style="bright_white"
     )
 
-    return get_selection(lang_input, languages)
+    table.add_column("Setting", style="bold cyan", no_wrap=True)
+    table.add_column("Value(s)", style="magenta")
+
+    table.add_row("Languages", ", ".join(config.selected_languages) or "None")
+    table.add_row("Data Types", ", ".join(config.selected_data_types) or "None")
+    table.add_row("Output Type", config.output_type)
+    table.add_row("Output Directory", str(config.output_dir))
+    table.add_row("Overwrite", "Yes" if config.overwrite else "No")
+
+    console.print("\n")
+    console.print(table, justify="left")
+    console.print("\n")
 
 
-def select_data_types() -> list[str]:
+def configure_settings():
     """
-    Display data type options and get user selection.
+    Configures the settings of the interactive mode request.
 
-    Returns
-    -------
-        List[str]
-            The data types available in Scribe-Data and CLI directions.
+    Asks for:
+        - Languages
+        - Data types
+        - Output type
+        - Output directory
+        - Whether to overwrite
     """
-    print("\nData type options:")
-    data_types = data_type_metadata["data-types"]
-
-    for i, dt in enumerate(data_types, 1):
-        print(f"{i}. {dt}")
-
-    dt_input = input(
-        "\nPlease enter the data types to get, their numbers or (a) for all data types: "
+    rprint(
+        "[cyan]Follow the prompts below. Press tab for completions and enter to select.[/cyan]"
     )
-
-    return get_selection(dt_input, list(data_types.keys()))
-
-
-def get_output_options() -> dict:
-    """
-    Get output options from user.
-
-    Returns
-    -------
-        dict
-            Output options including type, directory, and overwrite flag
-    """
-    valid_types = ["json", "csv", "tsv"]
-    output_type = (
-        input("File type to export (json, csv, tsv) [json]: ").strip().lower() or "json"
-    )
-
-    while output_type not in valid_types:
-        print(
-            f"Invalid output type '{output_type}'. Please choose from 'json', 'csv', or 'tsv'."
-        )
-        output_type = (
-            input("File type to export (json, csv, tsv) [json]: ").strip().lower()
-            or "json"
+    # MARK: Languages
+    language_completer = WordCompleter(["All"] + config.languages, ignore_case=True)
+    if not config.selected_languages:
+        selected_languages = prompt(
+            "Select languages (comma-separated or type 'All'): ",
+            completer=language_completer,
         )
 
-    if output_type == "csv":
-        default_export_dir = DEFAULT_CSV_EXPORT_DIR
+        if "All" in selected_languages:
+            config.selected_languages = config.languages
+        else:
+            config.selected_languages = [
+                lang.strip()
+                for lang in selected_languages.split(",")
+                if lang.strip() in config.languages
+            ]
 
-    elif output_type == "tsv":
-        default_export_dir = DEFAULT_TSV_EXPORT_DIR
+    if not config.selected_languages:
+        rprint("[yellow]No language selected. Please try again.[/yellow]")
+        return configure_settings()
 
+    # MARK: Data Types
+
+    data_type_completer = WordCompleter(["All"] + config.data_types, ignore_case=True)
+    selected_data_types = prompt(
+        "Select data types (comma-separated or type 'All'): ",
+        completer=data_type_completer,
+    )
+
+    if "All" in selected_data_types.capitalize():
+        config.selected_data_types = config.data_types
     else:
-        default_export_dir = DEFAULT_JSON_EXPORT_DIR
+        config.selected_data_types = [
+            dt.strip()
+            for dt in selected_data_types.split(",")
+            if dt.strip() in config.data_types
+        ]
 
-    output_dir = (
-        input(f"Export directory path [./{default_export_dir}]: ").strip()
-        or f"./{default_export_dir}"
+    if not config.selected_data_types:
+        rprint("[yellow]No data type selected. Please try again.[/yellow]")
+        return configure_settings()
+
+    # MARK: Output Type
+
+    output_type_completer = WordCompleter(["json", "csv", "tsv"], ignore_case=True)
+    config.output_type = prompt(
+        "Select output type (json/csv/tsv): ", completer=output_type_completer
     )
+    while config.output_type not in ["json", "csv", "tsv"]:
+        rprint("[yellow]Invalid output type selected. Please try again.[/yellow]")
+        config.output_type = prompt(
+            "Select output type (json/csv/tsv): ", completer=output_type_completer
+        )
+
+    # MARK: Output Directory
+
+    if output_dir := prompt(f"Enter output directory (default: {config.output_dir}): "):
+        config.output_dir = Path(output_dir)
+
+    # MARK: Overwrite Confirmation
+
+    overwrite_completer = WordCompleter(["Y", "n"], ignore_case=True)
     overwrite = (
-        input("Overwrite existing data without asking (y/n) [n]: ").strip().lower()
-        == "y"
+        prompt("Overwrite existing files? (Y/n): ", completer=overwrite_completer)
+        or "y"
     )
+    config.overwrite = overwrite.lower() == "y"
 
-    return {"type": output_type, "dir": output_dir, "overwrite": overwrite}
+    display_summary()
 
 
-def run_interactive_mode():
+def run_request():
     """
-    Run the interactive mode for Scribe-Data CLI.
-
-    This function guides the user through selecting languages, data types and output options.
-    The process is then executed based on these selections.
+    Runs the interactive mode request given the configuration.
     """
-    selected_languages = select_languages()
-    selected_data_types = select_data_types()
-    output_options = get_output_options()
+    if not config.selected_languages or not config.selected_data_types:
+        rprint("[bold red]Error: Please configure languages and data types.[/bold red]")
+        return
 
-    print(
-        f"Data will be exported as {output_options['type'].upper()} files to '{output_options['dir']}'."
-    )
+    # Calculate total operations
+    total_operations = len(config.selected_languages) * len(config.selected_data_types)
 
-    for language in selected_languages:
-        for data_type in selected_data_types:
-            get_data(
-                language,
-                data_type,
-                output_options["dir"],
-                output_options["overwrite"],
-                output_options["type"],
-            )
+    # MARK: Export Data
+    with tqdm(
+        total=total_operations,
+        desc="Exporting data",
+        unit="operation",
+    ) as pbar:
+        for language in config.selected_languages:
+            for data_type in config.selected_data_types:
+                pbar.set_description(f"Exporting {language} {data_type} data")
+
+                if get_data(
+                    language=language,
+                    data_type=data_type,
+                    output_type=config.output_type,
+                    output_dir=str(config.output_dir),
+                    overwrite=config.overwrite,
+                    interactive=True,
+                ):
+                    logger.info(
+                        f"[green]✔ Exported {language} {data_type} data.[/green]"
+                    )
+
+                else:
+                    logger.info(
+                        f"[red]✘ Failed to export {language} {data_type} data.[/red]"
+                    )
+
+                pbar.update(1)
+
+    if config.overwrite:
+        rprint("[bold green]Data request completed successfully![/bold green]")
 
 
-# This function can be called from main.py when the -i or --interactive flag is used.
+# MARK: Start
+
+
 def start_interactive_mode():
-    print("Welcome to Scribe-Data interactive mode!")
-    run_interactive_mode()
+    """
+    Provides base options and forwarding to other interactive mode functionality.
+    """
+    rprint(
+        f"[bold cyan]Welcome to {get_version_message()} interactive mode![/bold cyan]"
+    )
+
+    while True:
+        choice = questionary.select(
+            "What would you like to do?",
+            choices=[
+                Choice("Configure request", "configure"),
+                Choice("Run configured data request", "run"),
+                Choice("Exit", "exit"),
+            ],
+        ).ask()
+
+        if choice == "configure":
+            configure_settings()
+
+        elif choice == "run":
+            run_request()
+            rprint("[bold cyan]Thank you for using Scribe-Data![/bold cyan]")
+            break
+
+        else:
+            rprint("[bold cyan]Thank you for using Scribe-Data![/bold cyan]")
+            break
 
 
 if __name__ == "__main__":
-    # This allows for testing the interactive mode directly.
     start_interactive_mode()

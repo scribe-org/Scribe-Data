@@ -26,27 +26,139 @@ from unittest.mock import patch
 from scribe_data.cli.get import get_data
 
 
-class TestCLIGetCommand(unittest.TestCase):
-    @unittest.skip("Mocking doesn't work as expected.")
-    def test_get_command(self):
-        with patch("scribe_data.cli.get.get_data") as mock_get_data:
-            # Call the function you're testing
-            get_data(
-                language="English",
-                data_type="nouns",
-                output_dir="tests_output",
-                output_type="json",
-            )
+class TestGetData(unittest.TestCase):
+    # MARK: Subprocess Patching
 
-            get_data(all=True)
+    @patch("scribe_data.cli.get.generate_emoji")
+    def test_get_emoji_keywords(self, generate_emoji):
+        get_data(
+            language="English", data_type="emoji_keywords", output_dir="./test_output"
+        )
+        generate_emoji.assert_called_once_with(
+            language="English",
+            output_dir="./test_output",
+        )
 
-            # Validate the calls.
-            assert mock_get_data.call_count == 2
+    # MARK: Invalid Arguments
 
-            args, kwargs = mock_get_data.mock_calls[0]
-            self.assertEqual(args, ("English", "nouns", "tests_output"))
-            self.assertFalse(kwargs.get("all"))
+    def test_invalid_arguments(self):
+        with self.assertRaises(ValueError):
+            get_data()
 
-            args, kwargs = mock_get_data.mock_calls[-1]  # Get the last call
-            self.assertIsNone(args)
-            self.assertTrue(kwargs["all"])
+    # MARK: All Data
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_all_data_types_for_language(self, mock_query_data):
+        get_data(all=True, language="English")
+        mock_query_data.assert_called_once_with(
+            languages=["English"],
+            data_type=None,
+            output_dir="scribe_data_json_export",
+            overwrite=False,
+        )
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_all_languages_for_data_type(self, mock_query_data):
+        get_data(all=True, data_type="nouns")
+        mock_query_data.assert_called_once_with(
+            languages=None,
+            data_type=["nouns"],
+            output_dir="scribe_data_json_export",
+            overwrite=False,
+        )
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_all_languages_and_data_types(self, mock_query_data):
+        get_data(all=True, output_dir="./test_output")
+        mock_query_data.assert_called_once_with(
+            languages=None,
+            data_type=None,
+            output_dir="./test_output",
+            overwrite=False,
+        )
+
+    # MARK: Language and Data Type
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_specific_language_and_data_type(self, mock_query_data):
+        get_data(language="german", data_type="nouns", output_dir="./test_output")
+        mock_query_data.assert_called_once_with(
+            languages=["german"],
+            data_type=["nouns"],
+            output_dir="./test_output",
+            overwrite=False,
+            interactive=False,
+        )
+
+    # MARK: Capitalized Language
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_data_with_capitalized_language(self, mock_query_data):
+        get_data(language="German", data_type="nouns")
+        mock_query_data.assert_called_once_with(
+            languages=["German"],
+            data_type=["nouns"],
+            output_dir="scribe_data_json_export",
+            overwrite=False,
+            interactive=False,
+        )
+
+    # MARK: Lowercase Language
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_data_with_lowercase_language(self, mock_query_data):
+        get_data(language="german", data_type="nouns")
+        mock_query_data.assert_called_once_with(
+            languages=["german"],
+            data_type=["nouns"],
+            output_dir="scribe_data_json_export",
+            overwrite=False,
+            interactive=False,
+        )
+
+    # MARK: Output Directory
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_data_with_different_output_directory(self, mock_query_data):
+        get_data(
+            language="german", data_type="nouns", output_dir="./custom_output_test"
+        )
+        mock_query_data.assert_called_once_with(
+            languages=["german"],
+            data_type=["nouns"],
+            output_dir="./custom_output_test",
+            overwrite=False,
+            interactive=False,
+        )
+
+    # MARK: Overwrite is True
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_data_with_overwrite_true(self, mock_query_data):
+        get_data(language="English", data_type="verbs", overwrite=True)
+        mock_query_data.assert_called_once_with(
+            languages=["English"],
+            data_type=["verbs"],
+            output_dir="scribe_data_json_export",
+            overwrite=True,
+            interactive=False,
+        )
+
+    # MARK: Overwrite is False
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_data_with_overwrite_false(self, mock_query_data):
+        get_data(
+            language="English",
+            data_type="verbs",
+            overwrite=False,
+            output_dir="./custom_output_test",
+            interactive=False,
+        )
+        mock_query_data.assert_called_once_with(
+            languages=["English"],
+            data_type=["verbs"],
+            output_dir="./custom_output_test",
+            overwrite=False,
+            interactive=False,
+        )

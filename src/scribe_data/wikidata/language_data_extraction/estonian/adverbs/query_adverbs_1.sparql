@@ -1,0 +1,125 @@
+# tool: scribe-data
+# All Estonian (Q380057) adverbs (Q380057) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adverb
+  ?nominativeSingular
+  ?nominativePlural
+  ?genitiveSingular
+  ?genitivePlural
+  ?partitiveSingular
+  ?partitivePlural
+  ?illativeSingular
+  ?illativePlural
+  ?inessiveSingular
+  ?inessivePlural
+  ?elativeSingular
+  ?elativePlural
+  ?allativeSingular
+  ?allativePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?adverb .
+
+  # MARK: Nominative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  }
+
+  # MARK: Genitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+  }
+
+  # MARK: Partive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partitiveSingularForm .
+    ?partitiveSingularForm ontolex:representation ?partitiveSingular ;
+      wikibase:grammaticalFeature wd:Q857325, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partitivePluralForm .
+    ?partitivePluralForm ontolex:representation ?partitivePlural ;
+      wikibase:grammaticalFeature wd:Q857325, wd:Q146786 .
+  }
+
+  # MARK: Illative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?illativeSingularForm .
+    ?illativeSingularForm ontolex:representation ?illativeSingular ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?illativePluralForm .
+    ?illativePluralForm ontolex:representation ?illativePlural ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q146786 .
+  }
+
+  # MARK: Inessive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveSingularForm .
+    ?inessiveSingularForm ontolex:representation ?inessiveSingular ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessivePluralForm .
+    ?inessivePluralForm ontolex:representation ?inessivePlural ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q146786 .
+  }
+
+  # MARK: Elative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?elativeSingularForm .
+    ?elativeSingularForm ontolex:representation ?elativeSingular ;
+      wikibase:grammaticalFeature wd:Q394253, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?elativePluralForm .
+    ?elativePluralForm ontolex:representation ?elativePlural ;
+      wikibase:grammaticalFeature wd:Q394253, wd:Q146786 .
+  }
+
+  # MARK: Allative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativeSingularForm .
+    ?allativeSingularForm ontolex:representation ?allativeSingular ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativePluralForm .
+    ?allativePluralForm ontolex:representation ?allativePlural ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q146786 .
+  }
+}

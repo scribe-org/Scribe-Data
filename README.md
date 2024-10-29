@@ -41,7 +41,7 @@ Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organiz
 
 The CLI commands defined within [scribe_data/cli](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/cli) and the notebooks within the various [scribe_data](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data) directories are used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) once they're active.
 
-The main data update process in triggers [language based SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/language_data_extraction) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The autosuggestion process derives popular words from [Wikipedia](https://www.wikipedia.org/) as well as those words that normally follow them for an effective baseline feature until natural language processing methods are employed. Functions to generate autosuggestions are ran in [gen_autosuggestions.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikipedia/gen_autosuggestions.ipynb). Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran via the `scribe-data get -lang LANGUAGE -dt emoji-keywords` command.
+The main data update process in triggers [language based SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/language_data_extraction) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The autosuggestion process derives popular words from [Wikipedia](https://www.wikipedia.org/) as well as those words that normally follow them for an effective baseline feature until natural language processing methods are employed. Functions to generate autosuggestions are ran in [gen_autosuggestions.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikipedia/gen_autosuggestions.ipynb). Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran via the `scribe-data get -lang LANGUAGE -dt emoji-keywords` command.
 
 <a id="cli-usage"></a>
 
@@ -197,7 +197,7 @@ See the [contribution guidelines](https://github.com/scribe-org/Scribe-Data/blob
 
 # Supported Languages [`⇧`](#contents)
 
-Scribe's goal is functional, feature-rich keyboards and interfaces for all languages. Check the [language_data_extraction](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/language_data_extraction) directory for queries for currently supported languages and those that have substantial data on [Wikidata](https://www.wikidata.org/).
+Scribe's goal is functional, feature-rich keyboards and interfaces for all languages. Check the [language_data_extraction](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/language_data_extraction) directory for queries for currently supported languages and those that have substantial data on [Wikidata](https://www.wikidata.org/).
 
 The following table shows the supported languages and the amount of data available for each on [Wikidata](https://www.wikidata.org/) and via [Unicode CLDR](https://github.com/unicode-org/cldr) for emojis:
 
@@ -253,7 +253,14 @@ The following table shows the supported languages and the amount of data availab
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://www.mediawiki.org/wiki/New_Developers#Scribe"><img height="120" src="https://raw.githubusercontent.com/scribe-org/Organization/main/resources/images/logos/WikimediaFoundationLogo.png" alt="Wikimedia Foundation logo linking to the MediaWiki new developers page."></a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <br>
+</div>
+
+<div align="center">
+  <br>
     <a href="https://summerofcode.withgoogle.com/"><img height="120" src="https://raw.githubusercontent.com/scribe-org/Organization/main/resources/images/logos/GSoCLogo.png" alt="Google Summer of Code logo linking to its website."></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://www.outreachy.org/"><img height="90" src="https://raw.githubusercontent.com/scribe-org/Organization/main/resources/images/logos/OutreachyLogo.png" alt="Outreachy logo linking to its website."></a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <br>
 </div>
