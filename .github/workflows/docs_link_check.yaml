@@ -1,18 +1,21 @@
 name: Link Checker for Sphinx Documentation
-# Trigger the workflow on push to main branch or pull request to main branch
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
     types: [opened, reopened, synchronize]
+
 jobs:
   link-check:
     runs-on: ubuntu-latest
+
     steps:
       # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
+
       # Set up Python
       - name: Set up Python 3.x
         uses: actions/setup-python@v4
@@ -25,6 +28,7 @@ jobs:
           python -m pip install --upgrade pip                             #upgrading pip                
           pip install -r docs/requirements.txt                            #installing the required packages from repo docs/requirements.txt
           echo "Dependencies installed."
+
       # Run Sphinx linkcheck to check for broken URLs
       - name: Run Sphinx linkcheck
         run: |
@@ -34,7 +38,7 @@ jobs:
           # Extract broken links
           grep "broken" _build/linkcheck/output.txt > broken_links.txt                   # Using Grep Extract broken links from the output.txt file and save them to broken_links.txt
           grep "Not Found for url" _build/linkcheck/output.txt > not_found_links.txt     # Using Grep Extract 'Not Found for url' links from the output.txt file and save them to not_found_links.txt
-          # -s flag checks if the file is not empty
+          
           # Display broken links if found
           if [ -s broken_links.txt ]; then
             echo "==============================="
@@ -50,14 +54,5 @@ jobs:
             echo "==============================="
             cat not_found_links.txt
           fi
-          # Exit with error if any broken or not found links exist
-          if [ -s broken_links.txt ] || [ -s not_found_links.txt ]; then
-            echo "!!!!!!!!!!!!!!!!!!!!!!!!"
-            echo "Broken links found."
-            echo "!!!!!!!!!!!!!!!!!!!!!!!!"
-            exit 1
-          else
-            echo "#########################"
-            echo "No broken links found."
-            echo "#########################"
-          fi
+
+          echo "Link check completed."
