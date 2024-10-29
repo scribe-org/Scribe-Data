@@ -36,6 +36,7 @@ from scribe_data.cli.convert import (
 
 class TestConvert(unittest.TestCase):
     # MARK: Helper Function
+
     def normalize_line_endings(self, data: str) -> str:
         """
         Normalize line endings in a given string.
@@ -54,6 +55,7 @@ class TestConvert(unittest.TestCase):
         return data.replace("\r\n", "\n").replace("\r", "\n")
 
     # MARK: JSON
+
     @patch("scribe_data.cli.convert.Path", autospec=True)
     def test_convert_to_json_empty_language(self, mock_path):
         csv_data = "key,value\na,1\nb,2"
