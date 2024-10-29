@@ -55,4 +55,4 @@ jobs:
             cat not_found_links.txt
           fi
 
-          echo "Link check completed."
+          echo "No Links broken."
