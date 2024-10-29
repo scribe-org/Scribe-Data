@@ -31,7 +31,7 @@ jobs:
           sphinx-build -b linkcheck source _build/linkcheck > /dev/null 2>&1 || true  # Suppress full output
 
           grep "broken" _build/linkcheck/output.txt > broken_links.txt                # Extract broken links
-          grep "Not Found for url" _build/linkcheck/output.txt > not_found_links.txt  # Extract 'Not Found for url' links
+          grep "Not Found for url" _build/linkcheck/output.txt > not_found_links.txt  # Extract not found links
 
           # -s flag checks if the file is not empty.
           if [ -s broken_links.txt ]; then
@@ -41,8 +41,6 @@ jobs:
             cat broken_links.txt
           fi
 
-
-          # Display 'Not Found for url' links if found
           if [ -s not_found_links.txt ]; then
             echo "==============="
             echo "Not Found Links"
