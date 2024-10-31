@@ -76,15 +76,15 @@ language_to_qid = {}
 
 # Process each language and its potential sub-languages in one pass.
 for lang, lang_data in language_metadata.items():
-    lang_lower = lang.lower()
+    lang_lower = lang
 
     if "sub_languages" in lang_data:
         for sub_lang, sub_lang_data in lang_data["sub_languages"].items():
-            sub_lang_lower = sub_lang.lower()
+            sub_lang_lower = sub_lang
             sub_qid = sub_lang_data.get("qid")
 
             if sub_qid is None:
-                print(f"Warning: 'qid' missing for sub-language {sub_lang} of {lang}")
+                print(f"Warning: 'qid' missing for sub-language {sub_lang.capitalize()} of {lang.capitalize()}")
 
             else:
                 language_map[sub_lang_lower] = sub_lang_data
@@ -93,7 +93,7 @@ for lang, lang_data in language_metadata.items():
     else:
         qid = lang_data.get("qid")
         if qid is None:
-            print(f"Warning: 'qid' missing for language {lang}")
+            print(f"Warning: 'qid' missing for language {lang.capitalize()}")
 
         else:
             language_map[lang_lower] = lang_data
@@ -157,23 +157,23 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
     """
     # Check if we're searching by language name.
     if source_key == "language":
-        norm_source_value = source_value.lower()
+        norm_source_value = source_value
 
         # First, check the main language entries (e.g., mandarin, french, etc.).
         for language, entry in _languages.items():
             # If the language name matches the top-level key, return the target value.
-            if language.lower() == norm_source_value:
+            if language == norm_source_value:
                 if "sub_languages" in entry:
                     sub_languages = ", ".join(entry["sub_languages"].keys())
                     raise ValueError(
-                        f"'{language}' has sub-languages, but is not queryable directly. Available sub-languages: {sub_languages}"
+                        f"'{language.capitalize()}' has sub-languages, but is not queryable directly. Available sub-languages: {sub_languages.capitalize()}"
                     )
                 return entry.get(target_key)
 
             # If there are sub-languages, check them too.
             if "sub_languages" in entry:
                 for sub_language, sub_entry in entry["sub_languages"].items():
-                    if sub_language.lower() == norm_source_value:
+                    if sub_language == norm_source_value:
                         return sub_entry.get(target_key)
 
     # If no match was found, raise an error.
@@ -311,14 +311,14 @@ def export_formatted_data(
     -------
         None
     """
-    export_path = Path(file_path) / language / f"{data_type.replace('-', '_')}.json"
+    export_path = Path(file_path) / language.capitalize() / f"{data_type.replace('-', '_')}.json"
 
     with open(export_path, "w", encoding="utf-8") as file:
         json.dump(formatted_data, file, ensure_ascii=False, indent=0)
         file.write("\n")
 
     print(
-        f"Wrote file {language}/{data_type.replace('-', '_')}.json with {len(formatted_data):,} {data_type}."
+        f"Wrote file {language.capitalize()}/{data_type.replace('-', '_')}.json with {len(formatted_data):,} {data_type}."
     )
 
 
@@ -581,14 +581,14 @@ def format_sublanguage_name(lang, language_metadata=_languages):
     """
     for main_lang, lang_data in language_metadata.items():
         # If it's not a sub-language, return the original name.
-        if main_lang == lang.lower():
+        if main_lang == lang:
             return lang
 
         # Check if the main language has sub-languages.
         if "sub_languages" in lang_data:
             # Check if the provided language is a sub-language.
             for sub_lang in lang_data["sub_languages"]:
-                if lang.lower() == sub_lang.lower():
+                if lang == sub_lang:
                     # Return the formatted name MAIN_LANG/SUB_LANG.
                     return f"{main_lang}/{sub_lang}"
 

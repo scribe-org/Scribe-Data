@@ -113,7 +113,7 @@ def query_data(
 
     # Assign current_languages and current_data_type if no arguments have been passed.
     languages_update = current_languages if languages is None else languages
-    languages_update = [lang.lower() for lang in languages_update]
+    languages_update = [lang for lang in languages_update]
     data_type_update = current_data_type if data_type is None else data_type
 
     all_language_data_extraction_files = [
@@ -169,7 +169,7 @@ def query_data(
             else:
                 if not interactive:
                     print(
-                        f"\nExisting file(s) found for {lang} {target_type} in the {output_dir} directory:\n"
+                        f"\nExisting file(s) found for {lang.capitalize()} {target_type} in the {output_dir} directory:\n"
                     )
                     for i, file in enumerate(existing_files, 1):
                         print(f"{i}. {file.name}")
@@ -192,10 +192,10 @@ def query_data(
                     #     file_name = f"{target_type}_{timestamp}.json"
 
                     else:
-                        print(f"Skipping update for {lang} {target_type}.")
+                        print(f"Skipping update for {lang.capitalize()} {target_type}.")
                         break
 
-        print(f"Querying and formatting {lang} {target_type}")
+        print(f"Querying and formatting {lang.capitalize()} {target_type}")
 
         # Mark the query as the first in a set of queries if needed.
         if not q.exists():

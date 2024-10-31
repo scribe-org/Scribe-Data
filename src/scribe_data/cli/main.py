@@ -277,8 +277,8 @@ def main() -> None:
 
             else:
                 get_data(
-                    language=args.language,
-                    data_type=args.data_type,
+                    language=args.language.lower(),
+                    data_type=args.data_type.lower(),
                     output_type=args.output_type,
                     output_dir=args.output_dir,
                     outputs_per_entry=args.outputs_per_entry,
@@ -288,12 +288,14 @@ def main() -> None:
 
         elif args.command in ["total", "t"]:
             total_wrapper(
-                language=args.language, data_type=args.data_type, all_bool=args.all
-            )
+                language=args.language.lower() if args.language is not None else None,
+                data_type=args.data_type.lower() if args.data_type is not None else None,
+                all_bool=args.all
+        )
 
         elif args.command in ["convert", "c"]:
             convert_wrapper(
-                language=args.language,
+                language=args.language.lower(),
                 data_type=args.data_type,
                 output_type=args.output_type,
                 input_file=args.input_file,

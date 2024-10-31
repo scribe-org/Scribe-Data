@@ -98,7 +98,7 @@ def get_data(
     # MARK: Get All
     if all:
         if language:
-            print(f"Updating all data types for language for {language}")
+            print(f"Updating all data types for language for {language.capitalize()}")
             query_data(
                 languages=[language],
                 data_type=None,
@@ -106,11 +106,11 @@ def get_data(
                 overwrite=overwrite,
             )
             print(
-                f"Query completed for all data types with specified language for {language}."
+                f"Query completed for all data types with specified language for {language.capitalize()}."
             )
 
         elif data_type:
-            print(f"Updating all languages for data type: {data_type}")
+            print(f"Updating all languages for data type: {data_type.capitalize()}")
             query_data(
                 languages=None,
                 data_type=[data_type],
@@ -118,7 +118,7 @@ def get_data(
                 overwrite=overwrite,
             )
             print(
-                f"Query completed for all languages with specified data type for {data_type}."
+                f"Query completed for all languages with specified data type for {data_type.capitalize()}."
             )
 
         else:
@@ -142,7 +142,7 @@ def get_data(
 
     elif language or data_type:
         data_type = data_type[0] if isinstance(data_type, list) else data_type
-        print(f"Updating data for language(s): {language}; data type(s): {data_type}")
+        print(f"Updating data for language(s): {language.capitalize()}; data type(s): {data_type.capitalize()}")
         query_data(
             languages=languages,
             data_type=data_types,
@@ -167,7 +167,7 @@ def get_data(
     ):
         print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
 
-        json_input_path = Path(output_dir) / f"{language}/{data_type}.json"
+        json_input_path = Path(output_dir) / f"{language.capitalize()}/{data_type}.json"
 
         # Proceed with conversion only if the output type is not JSON.
         if output_type != "json":

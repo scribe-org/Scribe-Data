@@ -73,7 +73,7 @@ def convert_to_json(
     -------
         None
     """
-    normalized_language = language.lower()
+    normalized_language = language
 
     if not normalized_language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
@@ -211,7 +211,7 @@ def convert_to_csv_or_tsv(
     -------
         None
     """
-    normalized_language = language.lower()
+    normalized_language = language
 
     if not normalized_language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
@@ -325,7 +325,7 @@ def convert_to_csv_or_tsv(
             print(f"Error writing to '{output_file}': {e}")
             continue
 
-        print(f"Data for {language} {dtype} written to '{output_file}'")
+        print(f"Data for {language.capitalize()} {dtype} written to '{output_file}'")
 
 
 # MARK: SQLITE
@@ -443,7 +443,7 @@ def convert_wrapper(
     None
     """
     output_type = output_type.lower()
-    print(f"Converting data for {language} {data_type} to {output_type}...")
+    print(f"Converting data for {language.capitalize()} {data_type.capitalize()} to {output_type}...")
 
     # Route the function call to the correct conversion function.
     if output_type == "json":
