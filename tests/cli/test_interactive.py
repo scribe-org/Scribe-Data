@@ -97,7 +97,7 @@ class TestScribeDataInteractive(unittest.TestCase):
                 self.assertEqual(self.config.selected_languages, ["english", "spanish"])
                 self.assertEqual(self.config.selected_data_types, ["nouns", "verbs"])
                 self.assertEqual(self.config.output_type, "csv")
-                self.assertEqual(str(self.config.output_dir), "/custom/path")
+                self.assertEqual(self.config.output_dir.as_posix(), "/custom/path")
                 self.assertFalse(self.config.overwrite)
 
     @patch("scribe_data.cli.interactive.get_data")
