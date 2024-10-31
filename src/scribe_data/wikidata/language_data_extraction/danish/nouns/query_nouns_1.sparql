@@ -61,5 +61,4 @@ WHERE {
     ?nonGenitiveIndefiniteSingularForm ontolex:representation ?nonGenitiveIndefiniteSingular ;
       wikibase:grammaticalFeature wd:Q98946930, wd:Q53997857, wd:Q110786 .
   }
-
 }
