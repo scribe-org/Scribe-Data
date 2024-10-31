@@ -25,12 +25,11 @@ from urllib.error import HTTPError
 
 import requests
 from SPARQLWrapper import JSON
-
+from typing import List, Union
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
     data_type_metadata,
     format_sublanguage_name,
-    language_map,
     language_metadata,
     language_to_qid,
     list_all_languages,
@@ -65,7 +64,7 @@ def get_qid_by_input(input_str):
 
 def get_datatype_list(language):
     """
-    Get the data types for a given language based on the project directory structure.
+    Get the data types for a given language based on the project directory structure, including handling sub-languages.
 
     Parameters
     ----------
@@ -77,29 +76,42 @@ def get_datatype_list(language):
         data_types : list[str] or None
             A list of the corresponding data types.
     """
+    language_key = language.strip().lower()  # Normalize input
     languages = list_all_languages(language_metadata)
 
-    if language.lower() in languages:
-        language_data = language_map.get(language.lower())
-        languages = format_sublanguage_name(language, language_metadata)
-        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language
+    # Adjust language_key for sub-languages using the format_sublanguage_name function
+    formatted_language = format_sublanguage_name(language_key, language_metadata)
+    language_key = formatted_language.split("/")[
+        0
+    ].lower()  # Use the main language part if formatted
 
-        if not language_data:
-            raise ValueError(f"Language '{language}' is not recognized.")
-
-        data_types = [f.name for f in language_dir.iterdir() if f.is_dir()]
-        if not data_types:
-            raise ValueError(
-                f"No data types available for language '{language.capitalize()}'."
-            )
-
-        data_types = sorted(data_types)
-
-        for t in ["autosuggestions", "emoji_keywords"]:
-            if t in data_types:
-                data_types.remove(t)
-
-        return data_types
+    if language_key in languages:
+        if "sub_languages" in language_metadata[language_key]:
+            sub_languages = language_metadata[language_key]["sub_languages"]
+            data_types = []
+            for sub_lang_key in sub_languages:
+                sub_lang_dir = (
+                    LANGUAGE_DATA_EXTRACTION_DIR / sub_languages[sub_lang_key]["iso"]
+                )
+                if sub_lang_dir.exists():
+                    data_types.extend(
+                        [f.name for f in sub_lang_dir.iterdir() if f.is_dir()]
+                    )
+            if not data_types:
+                raise ValueError(
+                    f"No data types available for sub-languages of '{formatted_language}'."
+                )
+            return sorted(set(data_types))  # Remove duplicates and sort
+        else:
+            language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language_key
+            if not language_dir.exists():
+                raise ValueError(f"Directory '{language_dir}' does not exist.")
+            data_types = [f.name for f in language_dir.iterdir() if f.is_dir()]
+            if not data_types:
+                raise ValueError(
+                    f"No data types available for language '{formatted_language}'."
+                )
+            return sorted(data_types)
 
     else:  # return all data types
         return data_type_metadata
@@ -171,15 +183,16 @@ def print_total_lexemes(language: str = None):
     else:
         print(f"Returning total counts for {language} data types...\n")
 
-    def print_total_header():
+    def print_total_header(language, dt, total_lexemes):
         """
         Prints the header of the total command output.
         """
+        language_display = (
+            "All Languages" if language is None else language.capitalize()
+        )
         print(f"{'Language':<20} {'Data Type':<25} {'Total Wikidata Lexemes':<25}")
         print("=" * 70)
-        print(
-            f"{language.capitalize():<20} {dt.replace('_', '-'): <25} {total_lexemes:<25}"
-        )
+        print(f"{language_display:<20} {dt.replace('_', '-'): <25} {total_lexemes:<25}")
 
     if language is None:  # all languages
         languages = list_all_languages(language_metadata)
@@ -192,7 +205,7 @@ def print_total_lexemes(language: str = None):
                 total_lexemes = get_total_lexemes(lang, dt, False)
                 total_lexemes = f"{total_lexemes:,}"
                 if first_row:
-                    print_total_header()
+                    print_total_header(lang, dt, total_lexemes)
                     first_row = False
 
                 else:
@@ -215,7 +228,7 @@ def print_total_lexemes(language: str = None):
             total_lexemes = get_total_lexemes(language, dt, False)
             total_lexemes = f"{total_lexemes:,}"
             if first_row:
-                print_total_header()
+                print_total_header(language, dt, total_lexemes)
                 first_row = False
 
             else:
@@ -343,25 +356,51 @@ def get_total_lexemes(language, data_type, doPrint=True):
 
 
 def total_wrapper(
-    language: str = None, data_type: str = None, all_bool: bool = False
+    language: Union[str, List[str]] = None,
+    data_type: Union[str, List[str]] = None,
+    all_bool: bool = False,
 ) -> None:
     """
     Conditionally provides the full functionality of the total command.
+    Now accepts lists for language and data type to output a table of total lexemes.
 
     Parameters
     ----------
-        language : str
-            The language to potentially total data types for.
-
-        data_type : str
-            The data type to check for.
-
+        language : Union[str, List[str]]
+            The language(s) to potentially total data types for.
+        data_type : Union[str, List[str]]
+            The data type(s) to check for.
         all_bool : boolean
             Whether all languages and data types should be listed.
     """
 
     if (not language and not data_type) and all_bool:
         print_total_lexemes()
+
+    elif isinstance(language, list) or isinstance(data_type, list):
+        languages = language if isinstance(language, list) else [language]
+        data_types = data_type if isinstance(data_type, list) else [data_type]
+
+        print(f"{'Language':<20} {'Data Type':<25} {'Total Lexemes':<25}")
+        print("=" * 70)
+
+        for lang in languages:
+            first_row = (
+                True  # Flag to check if it's the first data type for the language
+            )
+            for dt in data_types:
+                total_lexemes = get_total_lexemes(lang, dt, False)
+                total_lexemes = (
+                    f"{total_lexemes:,}" if total_lexemes is not None else "N/A"
+                )
+                if first_row:
+                    print(f"{lang:<20} {dt:<25} {total_lexemes:<25}")
+                    first_row = False
+                else:
+                    print(
+                        f"{'':<20} {dt:<25} {total_lexemes:<25}"
+                    )  # Print empty space for language
+            print()
 
     elif language is not None and data_type is None:
         print_total_lexemes(language)
