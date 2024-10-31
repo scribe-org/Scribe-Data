@@ -27,17 +27,23 @@ Example
 import re
 from pathlib import Path
 
-from scribe_data.utils import LANGUAGE_DATA_EXTRACTION_DIR, lexeme_form_metadata
+from scribe_data.utils import (
+    LANGUAGE_DATA_EXTRACTION_DIR,
+    lexeme_form_metadata,
+    data_type_metadata,
+)
 
 lexeme_form_qid_order = []
-# lexeme_form_labels = []
+lexeme_form_labels_order = []
 for key, value in lexeme_form_metadata.items():
     lexeme_form_qid_order.extend(
         sub_value["qid"] for sub_key, sub_value in value.items() if "qid" in sub_value
     )
-    # lexeme_form_labels.extend(
-    #     sub_value["label"] for sub_key, sub_value in value.items() if "label" in sub_value
-    # )
+    lexeme_form_labels_order.extend(
+        sub_value["label"]
+        for sub_key, sub_value in value.items()
+        if "label" in sub_value
+    )
 
 # MARK: Extract Forms
 
@@ -361,6 +367,96 @@ def check_docstring(query_text: str) -> bool:
     )
 
 
+# MARK: Variable Order
+
+
+def check_forms_order(query_text):
+    """
+    Parses and orders variable names from a SPARQL query text based on a lexeme_form_metadata.json.
+
+    Parameters
+    ----------
+        query_text : str
+            The SPARQL query text containing the SELECT statement with variables.
+
+    Returns
+    -------
+        list or bool
+            A sorted list of variables if the ordering differs from the original,
+            otherwise a boolean indicating that the order matches.
+    """
+    select_pattern = r"SELECT\s+(.*?)\s+WHERE"
+    # Extracting the variables from the SELECT statement.
+    if select_match := re.search(select_pattern, query_text, flags=re.DOTALL):
+        select_vars = re.findall(r"\?(\w+)", select_match[1])
+    # Hardcoded labels provided by the labeling service.
+    labeling_service_cols = ["case", "gender", "auxiliaryVerb"]
+    select_vars = select_vars[2:]
+    # Split each column label into components.
+    split_vars = []
+    for col in set(select_vars) - set(labeling_service_cols):
+        components = re.findall(r"[A-Za-z][^A-Z]*", col)
+        valid_components = []
+        temp_component = ""
+
+        for component in components:
+            temp_component += component.lower()
+
+            # Append valid components in lexeme_form_labels_order.
+            if temp_component in map(str.lower, lexeme_form_labels_order):
+                valid_components.append(temp_component)
+                temp_component = ""  # Reset temp component.
+        if temp_component:
+            valid_components.append(temp_component)
+
+        split_vars.append(valid_components)
+
+    # Create a map for fast component position lookup.
+    order_map = {
+        item.lower(): index for index, item in enumerate(lexeme_form_labels_order)
+    }
+
+    # Group columns by component length for sorting.
+    grouped_columns = {}
+    for col in split_vars:
+        grouped_columns.setdefault(len(col), []).append(col)
+
+    # Sorting function for multi-level component-based sorting.
+    def compare_key(components):
+        return [order_map.get(comp, float("inf")) for comp in components]
+
+    # Sort and reassemble columns.
+    sorted_columns = []
+    for length in sorted(grouped_columns.keys()):
+        sorted_group = sorted(grouped_columns[length], key=compare_key)
+        sorted_columns.extend(
+            "".join(comp.capitalize() for comp in col) for col in sorted_group
+        )
+
+    # Append labeling service columns to the end.
+    sorted_columns.extend(
+        col.lower() for col in labeling_service_cols if col in select_vars
+    )
+
+    # Ensure specific types appear at the start if in select_vars.
+    data_types = [
+        re.sub(r"[^a-zA-Z]", "", key).lower() for key in data_type_metadata.keys()
+    ]
+    for dt in data_types:
+        base_dt = dt[:-1]
+        if base_dt in select_vars:
+            sorted_columns.remove(base_dt.capitalize())
+            sorted_columns.insert(0, base_dt)
+    # Return sorted columns or validate if it matches select_vars.
+    sorted_lower = [i.lower() for i in sorted_columns]
+    select_lower = [i.lower() for i in select_vars]
+    if select_lower != sorted_lower:
+        # Note : I returned the sorted cols in the state they are in the sparql file for easier comparison.
+        return sorted_columns
+
+    return sorted_lower == select_lower
+
+
 # MARK: Main Validation
 
 
@@ -381,6 +477,11 @@ def check_query_forms() -> None:
             error_output += (
                 f"\n{index}. {query_file_str}:\n  - {docstring_check_result}\n"
             )
+            index += 1
+        # Check forms ordering.
+        forms_order_result = check_forms_order(query_text)
+        if forms_order_result is not True:
+            error_output += f"\n{index}. {query_file_str}:\n  Forms ordering for above file should be:\n- {forms_order_result}\n"
             index += 1
 
         # Check that all variables in the WHERE and SELECT clauses are ordered, defined and returned.
