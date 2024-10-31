@@ -86,7 +86,7 @@ def get_datatype_list(language):
 
         if not language_data:
             raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
-        
+
         data_types = [f.name for f in language_dir.iterdir() if f.is_dir()]
         if not data_types:
             raise ValueError(

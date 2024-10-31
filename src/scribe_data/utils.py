@@ -84,7 +84,9 @@ for lang, lang_data in language_metadata.items():
             sub_qid = sub_lang_data.get("qid")
 
             if sub_qid is None:
-                print(f"Warning: 'qid' missing for sub-language {sub_lang.capitalize()} of {lang.capitalize()}")
+                print(
+                    f"Warning: 'qid' missing for sub-language {sub_lang.capitalize()} of {lang.capitalize()}"
+                )
 
             else:
                 language_map[sub_lang_lower] = sub_lang_data
@@ -311,7 +313,9 @@ def export_formatted_data(
     -------
         None
     """
-    export_path = Path(file_path) / language.capitalize() / f"{data_type.replace('-', '_')}.json"
+    export_path = (
+        Path(file_path) / language.capitalize() / f"{data_type.replace('-', '_')}.json"
+    )
 
     with open(export_path, "w", encoding="utf-8") as file:
         json.dump(formatted_data, file, ensure_ascii=False, indent=0)

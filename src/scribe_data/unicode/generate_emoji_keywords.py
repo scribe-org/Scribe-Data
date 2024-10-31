@@ -67,7 +67,9 @@ def generate_emoji(language, output_dir: str = None):
             print(f"Emoji Generation for language {language.capitalize()} is supported")
 
         else:
-            print(f"Emoji Generation for language {language.capitalize()} is not supported")
+            print(
+                f"Emoji Generation for language {language.capitalize()} is not supported"
+            )
             return
 
         updated_path = output_dir[2:] if output_dir.startswith("./") else output_dir

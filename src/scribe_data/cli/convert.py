@@ -443,7 +443,9 @@ def convert_wrapper(
     None
     """
     output_type = output_type.lower()
-    print(f"Converting data for {language.capitalize()} {data_type.capitalize()} to {output_type}...")
+    print(
+        f"Converting data for {language.capitalize()} {data_type.capitalize()} to {output_type}..."
+    )
 
     # Route the function call to the correct conversion function.
     if output_type == "json":

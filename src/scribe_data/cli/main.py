@@ -289,9 +289,11 @@ def main() -> None:
         elif args.command in ["total", "t"]:
             total_wrapper(
                 language=args.language.lower() if args.language is not None else None,
-                data_type=args.data_type.lower() if args.data_type is not None else None,
-                all_bool=args.all
-        )
+                data_type=args.data_type.lower()
+                if args.data_type is not None
+                else None,
+                all_bool=args.all,
+            )
 
         elif args.command in ["convert", "c"]:
             convert_wrapper(

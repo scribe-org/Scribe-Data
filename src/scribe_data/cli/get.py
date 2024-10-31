@@ -142,7 +142,9 @@ def get_data(
 
     elif language or data_type:
         data_type = data_type[0] if isinstance(data_type, list) else data_type
-        print(f"Updating data for language(s): {language.capitalize()}; data type(s): {data_type.capitalize()}")
+        print(
+            f"Updating data for language(s): {language.capitalize()}; data type(s): {data_type.capitalize()}"
+        )
         query_data(
             languages=languages,
             data_type=data_types,
