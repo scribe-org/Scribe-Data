@@ -25,8 +25,9 @@ import collections
 
 from scribe_data.utils import export_formatted_data, load_queried_data
 
-LANGUAGE = "English"
+LANGUAGE = "english"
 DATA_TYPE = "verbs"
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--file-path")

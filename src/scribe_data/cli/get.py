@@ -169,7 +169,7 @@ def get_data(
     ):
         print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
 
-        json_input_path = Path(output_dir) / f"{language.capitalize()}/{data_type}.json"
+        json_input_path = Path(output_dir) / f"{language}/{data_type}.json"
 
         # Proceed with conversion only if the output type is not JSON.
         if output_type != "json":

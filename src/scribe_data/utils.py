@@ -279,7 +279,7 @@ def load_queried_data(
         tuple(Any, str)
             A tuple containing the loaded data and the path to the data file.
     """
-    data_path = Path(file_path) / language / f"{data_type}.json"
+    data_path = Path(file_path) / language.lower() / f"{data_type}.json"
 
     with open(data_path, encoding="utf-8") as f:
         return json.load(f), data_path
@@ -314,7 +314,7 @@ def export_formatted_data(
         None
     """
     export_path = (
-        Path(file_path) / language.capitalize() / f"{data_type.replace('-', '_')}.json"
+        Path(file_path) / language.lower() / f"{data_type.replace('-', '_')}.json"
     )
 
     with open(export_path, "w", encoding="utf-8") as file:
@@ -322,7 +322,7 @@ def export_formatted_data(
         file.write("\n")
 
     print(
-        f"Wrote file {language.capitalize()}/{data_type.replace('-', '_')}.json with {len(formatted_data):,} {data_type}."
+        f"Wrote file {language.lower()}/{data_type.replace('-', '_')}.json with {len(formatted_data):,} {data_type}."
     )
 
 

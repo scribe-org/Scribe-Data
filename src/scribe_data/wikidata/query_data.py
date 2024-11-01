@@ -154,7 +154,7 @@ def query_data(
         target_type = q.parent.name
 
         updated_path = output_dir[2:] if output_dir.startswith("./") else output_dir
-        export_dir = Path(updated_path) / lang.capitalize()
+        export_dir = Path(updated_path) / lang
         export_dir.mkdir(parents=True, exist_ok=True)
 
         file_name = f"{target_type}.json"
