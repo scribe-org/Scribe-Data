@@ -34,6 +34,7 @@ from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
     get_language_iso,
+    list_all_languages,
 )
 
 
@@ -52,10 +53,27 @@ def data_to_sqlite(
         current_language_data = json.load(f_languages)
         data_types = json.load(f_data_types).keys()
 
-    current_languages = [d["language"] for d in current_language_data["languages"]]
+    # TODO: Switch to all languages.
+    current_languages = list_all_languages(current_language_data)
+    current_languages = [
+        "english",
+        "french",
+        "german",
+        "italian",
+        "portuguese",
+        "russian",
+        "spanish",
+        "swedish",
+    ]
 
     if not languages:
         languages = current_languages
+
+    elif isinstance(languages, str):
+        languages = languages.lower()
+
+    elif isinstance(languages, list):
+        languages = [lang.lower() for lang in languages]
 
     if not set(languages).issubset(current_languages):
         raise ValueError(

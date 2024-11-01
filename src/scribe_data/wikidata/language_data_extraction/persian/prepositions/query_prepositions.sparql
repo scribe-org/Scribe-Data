@@ -1,0 +1,13 @@
+# tool: scribe-data
+# All persian (Q9168) prepositions (Q4833830) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?prepositions
+
+WHERE {
+  ?lexeme dct:language wd:Q9168 ;
+    wikibase:lexicalCategory wd:Q4833830 ;
+    wikibase:lemma ?prepositions .
+}

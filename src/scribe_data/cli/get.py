@@ -20,9 +20,13 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
     -->
 """
 
+import os  # for removing original JSON files
 import subprocess
 from pathlib import Path
+from typing import List, Union
 
+from scribe_data.cli.convert import convert_wrapper
+from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
@@ -34,12 +38,13 @@ from scribe_data.wikidata.query_data import query_data
 
 def get_data(
     language: str = None,
-    data_type: str = None,
+    data_type: Union[str, List[str]] = None,
     output_type: str = None,
     output_dir: str = None,
     overwrite: bool = False,
     outputs_per_entry: int = None,
     all: bool = False,
+    interactive: bool = False,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
@@ -61,11 +66,14 @@ def get_data(
         outputs_per_entry : str
             How many outputs should be generated per data entry.
 
-        overwrite : bool
-            Whether to overwrite existing files (default: False).
+        overwrite : bool (default: False)
+            Whether to overwrite existing files.
 
         all : bool
             Get all languages and data types.
+
+        interactive : bool (default: False)
+            Whether it's running in interactive mode.
 
     Returns
     -------
@@ -75,56 +83,72 @@ def get_data(
 
     output_type = output_type or "json"
     if output_dir is None:
-        if output_type == "csv":
-            output_dir = DEFAULT_CSV_EXPORT_DIR
-        elif output_type == "json":
-            output_dir = DEFAULT_JSON_EXPORT_DIR
-        elif output_type == "sqlite":
-            output_dir = DEFAULT_SQLITE_EXPORT_DIR
-        elif output_type == "tsv":
-            output_dir = DEFAULT_TSV_EXPORT_DIR
+        output_dir = {
+            "csv": DEFAULT_CSV_EXPORT_DIR,
+            "json": DEFAULT_JSON_EXPORT_DIR,
+            "sqlite": DEFAULT_SQLITE_EXPORT_DIR,
+            "tsv": DEFAULT_TSV_EXPORT_DIR,
+        }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
 
     languages = [language] if language else None
+    data_types = [data_type] if data_type else None
 
     subprocess_result = False
 
     # MARK: Get All
-
     if all:
-        print("Updating all languages and data types ...")
-        query_data(None, None, None, overwrite)
+        if language:
+            print(f"Updating all data types for language for {language}")
+            query_data(
+                languages=[language],
+                data_type=None,
+                output_dir=output_dir,
+                overwrite=overwrite,
+            )
+            print(
+                f"Query completed for all data types with specified language for {language}."
+            )
+
+        elif data_type:
+            print(f"Updating all languages for data type: {data_type}")
+            query_data(
+                languages=None,
+                data_type=[data_type],
+                output_dir=output_dir,
+                overwrite=overwrite,
+            )
+            print(
+                f"Query completed for all languages with specified data type for {data_type}."
+            )
+
+        else:
+            print("Updating all languages and data types...")
+            query_data(
+                languages=None,
+                data_type=None,
+                output_dir=output_dir,
+                overwrite=overwrite,
+            )
+            print("Query completed for all languages and all data types.")
+
         subprocess_result = True
 
     # MARK: Emojis
 
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
-        for lang in languages:
-            emoji_keyword_extraction_script = (
-                Path(__file__).parent.parent
-                / "language_data_extraction"
-                / lang
-                / "emoji_keywords"
-                / "generate_emoji_keywords.py"
-            )
-
-            subprocess_result = subprocess.run(
-                ["python", emoji_keyword_extraction_script]
-            )
+        generate_emoji(language=language, output_dir=output_dir)
 
     # MARK: Query Data
 
     elif language or data_type:
         data_type = data_type[0] if isinstance(data_type, list) else data_type
-
-        data_type = [data_type] if data_type else None
-        print(
-            f"Updating data for language(s): {language}; data type(s): {', '.join(data_type)}"
-        )
+        print(f"Updating data for language(s): {language}; data type(s): {data_type}")
         query_data(
             languages=languages,
-            data_type=data_type,
+            data_type=data_types,
             output_dir=output_dir,
             overwrite=overwrite,
+            interactive=interactive,
         )
         subprocess_result = True
 
@@ -134,18 +158,35 @@ def get_data(
         )
 
     if (
-        isinstance(subprocess_result, subprocess.CompletedProcess)
-        and subprocess_result.returncode != 1
-    ) or (isinstance(subprocess_result, bool) and subprocess_result is not False):
-        print(
-            f"Updated data was saved in: {Path(output_dir).resolve()}.",
+        (
+            isinstance(subprocess_result, subprocess.CompletedProcess)
+            and subprocess_result.returncode != 1
         )
+        or isinstance(subprocess_result, bool)
+        and subprocess_result
+    ):
+        print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
 
-    # The emoji keywords process has failed.
-    elif data_type in {"emoji-keywords", "emoji_keywords"}:
-        print(
-            "\nThe Scribe-Data emoji functionality is powered by PyICU, which is currently not installed."
-        )
-        print(
-            "Please check the installation steps at https://gitlab.pyicu.org/main/pyicu for more information.\n"
-        )
+        json_input_path = Path(output_dir) / f"{language}/{data_type}.json"
+
+        # Proceed with conversion only if the output type is not JSON.
+        if output_type != "json":
+            if json_input_path.exists():
+                convert_wrapper(
+                    language=language,
+                    data_type=data_type,
+                    output_type=output_type,
+                    input_file=str(json_input_path),
+                    output_dir=output_dir,
+                    overwrite=overwrite,
+                )
+
+                os.remove(json_input_path)
+
+            else:
+                print(
+                    f"Error: Input file '{json_input_path}' does not exist for conversion."
+                )
+
+        if interactive:
+            return True

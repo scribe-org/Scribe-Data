@@ -21,7 +21,6 @@ Tests for the update_utils file functions.
 """
 
 import sys
-import unittest
 from pathlib import Path
 
 import pytest
@@ -29,25 +28,6 @@ import pytest
 sys.path.append(Path(__file__).parent.parent.parent)
 
 from scribe_data import utils
-
-
-def test_get_scribe_languages():
-    test_case = unittest.TestCase()
-
-    # test for content, not order
-    test_case.assertCountEqual(
-        utils.get_scribe_languages(),
-        [
-            "English",
-            "French",
-            "German",
-            "Italian",
-            "Portuguese",
-            "Russian",
-            "Spanish",
-            "Swedish",
-        ],
-    )
 
 
 @pytest.mark.parametrize(
@@ -61,6 +41,7 @@ def test_get_scribe_languages():
         ("russian", "Q7737"),
         ("spanish", "Q1321"),
         ("swedish", "Q9027"),
+        ("bokmål", "Q25167"),
     ],
 )
 def test_get_language_qid_positive(language, qid_code):
@@ -88,6 +69,7 @@ def test_get_language_qid_negative():
         ("russian", "ru"),
         ("spanish", "es"),
         ("SwedisH", "sv"),
+        ("bokmål", "nb"),
     ],
 )
 def test_get_language_iso_positive(language, iso_code):
@@ -100,7 +82,7 @@ def test_get_language_iso_negative():
 
     assert (
         str(excp.value)
-        == "Gibberish is currently not a supported language for ISO conversion."
+        == "GIBBERISH is currently not a supported language for ISO conversion."
     )
 
 
@@ -115,6 +97,7 @@ def test_get_language_iso_negative():
         ("ru", "Russian"),
         ("es", "Spanish"),
         ("sv", "Swedish"),
+        ("nb", "Bokmål"),
     ],
 )
 def test_get_language_from_iso_positive(iso_code, language):
@@ -129,89 +112,75 @@ def test_get_language_from_iso_negative():
 
 
 @pytest.mark.parametrize(
-    "language, remove_words",
+    "lang, expected_output",
     [
-        (
-            "english",
-            [
-                "of",
-                "the",
-                "The",
-                "and",
-            ],
-        ),
-        (
-            "french",
-            [
-                "of",
-                "the",
-                "The",
-                "and",
-            ],
-        ),
-        ("german", ["of", "the", "The", "and", "NeinJa", "et", "redirect"]),
-        ("italian", ["of", "the", "The", "and", "text", "from"]),
-        ("portuguese", ["of", "the", "The", "and", "jbutadptflora"]),
-        (
-            "russian",
-            [
-                "of",
-                "the",
-                "The",
-                "and",
-            ],
-        ),
-        ("spanish", ["of", "the", "The", "and"]),
-        ("swedish", ["of", "the", "The", "and", "Checklist", "Catalogue"]),
+        ("nynorsk", "norwegian/nynorsk"),
+        ("bokmål", "norwegian/bokmål"),
+        ("english", "english"),
     ],
 )
-def test_get_language_words_to_remove(language, remove_words):
-    test_case = unittest.TestCase()
-
-    # ignore order, only content matters
-    test_case.assertCountEqual(
-        utils.get_language_words_to_remove(language), remove_words
-    )
+def test_format_sublanguage_name_positive(lang, expected_output):
+    assert utils.format_sublanguage_name(lang) == expected_output
 
 
-def test_get_language_words_to_remove_negative():
+def test_format_sublanguage_name_negative():
     with pytest.raises(ValueError) as excp:
-        _ = utils.get_language_words_to_remove("python")
+        _ = utils.format_sublanguage_name("soccer")
 
-    assert str(excp.value) == "Python is currently not a supported language."
-
-
-@pytest.mark.parametrize(
-    "language, ignore_words",
-    [
-        (
-            "french",
-            [
-                "XXe",
-            ],
-        ),
-        ("german", ["Gemeinde", "Familienname"]),
-        ("italian", ["The", "ATP"]),
-        ("portuguese", []),
-        ("russian", []),
-        ("spanish", []),
-        ("swedish", ["databasdump"]),
-    ],
-)
-def test_get_language_words_to_ignore(language, ignore_words):
-    test_case = unittest.TestCase()
-
-    # ignore order, only content matters
-    test_case.assertCountEqual(
-        utils.get_language_words_to_ignore(language), ignore_words
-    )
+    assert str(excp.value) == "SOCCER is not a valid language or sub-language."
 
 
-def test_get_language_words_to_ignore_negative():
-    with pytest.raises(ValueError) as excp:
-        _ = utils.get_language_words_to_ignore("JAVA")
+def test_list_all_languages():
+    expected_languages = [
+        "arabic",
+        "basque",
+        "bengali",
+        "bokmål",
+        "czech",
+        "dagbani",
+        "danish",
+        "english",
+        "esperanto",
+        "estonian",
+        "finnish",
+        "french",
+        "german",
+        "greek",
+        "gurmukhi",
+        "hausa",
+        "hebrew",
+        "hindi",
+        "igbo",
+        "indonesian",
+        "italian",
+        "japanese",
+        "korean",
+        "kurmanji",
+        "latin",
+        "latvian",
+        "malay",
+        "malayalam",
+        "mandarin",
+        "nigerian",
+        "northern",
+        "nynorsk",
+        "persian",
+        "polish",
+        "portuguese",
+        "russian",
+        "shahmukhi",
+        "slovak",
+        "spanish",
+        "swahili",
+        "swedish",
+        "tajik",
+        "tamil",
+        "ukrainian",
+        "urdu",
+        "yoruba",
+    ]
 
-    assert str(excp.value) == "Java is currently not a supported language."
+    assert utils.list_all_languages() == expected_languages
 
 
 def test_get_ios_data_path():

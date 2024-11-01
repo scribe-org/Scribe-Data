@@ -1,0 +1,436 @@
+{
+  "01_case": {
+    "01": {
+      "label": "Nominative",
+      "qid": "Q131105"
+    },
+    "02": {
+      "label": "Genitive",
+      "qid": "Q146233"
+    },
+    "03": {
+      "label": "Dative",
+      "qid": "Q145599"
+    },
+    "04": {
+      "label": "Accusative",
+      "qid": "Q146078"
+    },
+    "05": {
+      "label": "Instrumental",
+      "qid": "Q192997"
+    },
+    "06": {
+      "label": "Prepositional",
+      "qid": "Q2114906"
+    },
+    "07": {
+      "label": "Locative",
+      "qid": "Q202142"
+    },
+    "08": {
+      "label": "Vocative",
+      "qid": "Q185077"
+    },
+    "09": {
+      "label": "Absolutive",
+      "qid": "Q332734"
+    },
+    "10": {
+      "label": "Pausal",
+      "qid": "Q117262361"
+    },
+    "11": {
+      "label": "Direct",
+      "qid": "Q1751855"
+    },
+    "12": {
+      "label": "Oblique",
+      "qid": "Q1233197"
+    },
+    "13": {
+      "label": "Volitive",
+      "qid": "Q2532941"
+    },
+    "14": {
+      "label": "Ablative",
+      "qid": "Q156986"
+    },
+    "15": {
+      "label": "Partitive",
+      "qid": "Q857325"
+    },
+    "16": {
+      "label": "Illative",
+      "qid": "Q474668"
+    },
+    "17": {
+      "label": "Inessive",
+      "qid": "Q282031"
+    },
+    "18": {
+      "label": "Elative",
+      "qid": "Q394253"
+    },
+    "19": {
+      "label": "Allative",
+      "qid": "Q655020"
+    },
+    "20": {
+      "label": "Adessive",
+      "qid": "Q281954"
+    },
+    "21": {
+      "label": "Translative",
+      "qid": "Q950170"
+    },
+    "22": {
+      "label": "Terminative",
+      "qid": "Q747019"
+    },
+    "23": {
+      "label": "Essive",
+      "qid": "Q148465"
+    },
+    "24": {
+      "label": "Abessive",
+      "qid": "Q319822"
+    },
+    "25": {
+      "label": "Comitative",
+      "qid": "Q838581"
+    },
+    "26": {
+      "label": "NonGenitive",
+      "qid": "Q98946930"
+    }
+  },
+  "02_gender": {
+    "01": {
+      "label": "Feminine",
+      "qid": "Q1775415"
+    },
+    "02": {
+      "label": "Masculine",
+      "qid": "Q499327"
+    },
+    "03": {
+      "label": "Inanimate",
+      "qid": "Q51927539"
+    },
+    "04": {
+      "label": "Animate",
+      "qid": "Q51927507"
+    },
+    "05": {
+      "label": "MasculineInanimate",
+      "qid": "Q52943434"
+    },
+    "06": {
+      "label": "MasculineAnimate",
+      "qid": "Q54020116"
+    },
+    "07": {
+      "label": "MasculinePersonal",
+      "qid": "Q27918551"
+    },
+    "08": {
+      "label": "NotMasculinePersonal",
+      "qid": "Q54152717"
+    },
+    "09": {
+      "label": "Common",
+      "qid": "Q1305037"
+    },
+    "10": {
+      "label": "Neuter",
+      "qid": "Q1775461"
+    }
+  },
+  "03_mood": {
+    "1": {
+      "label": "Indicative",
+      "qid": "Q682111"
+    },
+    "2": {
+      "label": "Passive",
+      "qid": "Q1194697"
+    },
+    "3": {
+      "label": "Active",
+      "qid": "Q1317831"
+    },
+    "4": {
+      "label": "Imperative",
+      "qid": "Q22716"
+    },
+    "5": {
+      "label": "Performative",
+      "qid": "Q124351233"
+    },
+    "6": {
+      "label": "Conditional",
+      "qid": "Q625581"
+    }
+  },
+  "04_tense": {
+    "01": {
+      "label": "Infinitive",
+      "qid": "Q179230"
+    },
+    "02": {
+      "label": "AInfinitive",
+      "qid": "Q115223950"
+    },
+    "03": {
+      "label": "EInfinitive",
+      "qid": "Q115223951"
+    },
+    "04": {
+      "label": "Present",
+      "qid": "Q192613"
+    },
+    "05": {
+      "label": "SimplePresent",
+      "qid": "Q3910936"
+    },
+    "06": {
+      "label": "PresentInfinitive",
+      "qid": "Q52434245"
+    },
+    "07": {
+      "label": "PresentContinuous",
+      "qid": "Q7240943"
+    },
+    "08": {
+      "label": "Past",
+      "qid": "Q1994301"
+    },
+    "09": {
+      "label": "SimplePast",
+      "qid": "Q1392475"
+    },
+    "10": {
+      "label": "Preterite",
+      "qid": "Q442485"
+    },
+    "11": {
+      "label": "Future",
+      "qid": "Q501405"
+    },
+    "12": {
+      "label": "SimpleFuture",
+      "qid": "Q1475560"
+    },
+    "13": {
+      "label": "Perfect",
+      "qid": "Q625420"
+    },
+    "14": {
+      "label": "PresentPerfect",
+      "qid": "Q1240211"
+    },
+    "15": {
+      "label": "PresentIndicative",
+      "qid": "Q56682909"
+    },
+    "16": {
+      "label": "Imperfect",
+      "qid": "Q108524486"
+    },
+    "17": {
+      "label": "PastImperfect",
+      "qid": "Q12547192"
+    },
+    "18": {
+      "label": "PastPerfect",
+      "qid": "Q64005357"
+    },
+    "19": {
+      "label": "Pluperfect",
+      "qid": "Q623742"
+    },
+    "20": {
+      "label": "PastTransgressive",
+      "qid": "Q12750232"
+    }
+  },
+  "05_phase": {
+    "1": {
+      "label": "IntransitivePhase",
+      "qid": "Q113330736"
+    },
+    "2": {
+      "label": "BasicPhase",
+      "qid": "Q113330960"
+    }
+  },
+  "06_person": {
+    "1": {
+      "label": "FirstPerson",
+      "qid": "Q21714344"
+    },
+    "2": {
+      "label": "SecondPerson",
+      "qid": "Q51929049"
+    },
+    "3": {
+      "label": "ThirdPerson",
+      "qid": "Q51929074"
+    },
+    "4": {
+      "label": "Negative",
+      "qid": "Q15737187"
+    },
+    "5": {
+      "label": "Conjunctive",
+      "qid": "Q2888577"
+    },
+    "6": {
+      "label": "Imperfective",
+      "qid": "Q2898727"
+    },
+    "7": {
+      "label": "Attributive",
+      "qid": "Q53608953"
+    },
+    "8": {
+      "label": "Hypothetical",
+      "qid": "Q53609593"
+    },
+    "9": {
+      "label": "Aorist",
+      "qid": "Q216497"
+    }
+  },
+  "07_definiteness": {
+    "1": {
+      "label": "Indefinite",
+      "qid": "Q53997857"
+    },
+    "2": {
+      "label": "Definite",
+      "qid": "Q53997851"
+    }
+  },
+  "08_number": {
+    "01": {
+      "label": "Singular",
+      "qid": "Q110786"
+    },
+    "02": {
+      "label": "Plural",
+      "qid": "Q146786"
+    },
+    "03": {
+      "label": "Dual",
+      "qid": "Q110022"
+    },
+    "04": {
+      "label": "Gerund",
+      "qid": "Q1923028"
+    },
+    "05": {
+      "label": "Imperfective",
+      "qid": "Q54556033"
+    },
+    "06": {
+      "label": "Nominalized",
+      "qid": "Q74674960"
+    },
+    "07": {
+      "label": "Supine",
+      "qid": "Q548470"
+    },
+    "08": {
+      "label": "Construct",
+      "qid": "Q1641446"
+    },
+    "09": {
+      "label": "Participle",
+      "qid": "Q814722"
+    },
+    "10": {
+      "label": "PresentParticiple",
+      "qid": "Q10345583"
+    },
+    "11": {
+      "label": "PastParticiple",
+      "qid": "Q12717679"
+    },
+    "12": {
+      "label": "PastParticiple",
+      "qid": "Q1230649"
+    },
+    "13": {
+      "label": "PassiveParticiple",
+      "qid": "Q72249544"
+    },
+    "14": {
+      "label": "ActiveParticiple",
+      "qid": "Q72249355"
+    },
+    "15": {
+      "label": "ConjunctiveParticiple",
+      "qid": "Q113133303"
+    },
+    "16": {
+      "label": "Adverbial",
+      "qid": "Q380012"
+    },
+    "17": {
+      "label": "AdverbialLocation",
+      "qid": "Q5978303"
+    },
+    "18": {
+      "label": "AdverbOfManner",
+      "qid": "Q113320444"
+    },
+    "19": {
+      "label": "LocativeAdverb",
+      "qid": "Q1522423"
+    },
+    "20": {
+      "label": "AbsoluteConstruction",
+      "qid": "Q4669807"
+    },
+    "21": {
+      "label": "Phrase",
+      "qid": "Q187931"
+    },
+    "22": {
+      "label": "FiilMudari",
+      "qid": "Q12230930"
+    },
+    "23": {
+      "label": "Contraction",
+      "qid": "Q126473"
+    },
+    "24": {
+      "label": "Short",
+      "qid": "Q4239848"
+    },
+    "25": {
+      "label": "WordStem",
+      "qid": "Q210523"
+    }
+  },
+  "09_degree": {
+    "1": {
+      "label": "Comparative",
+      "qid": "Q14169499"
+    },
+    "2": {
+      "label": "Superlative",
+      "qid": "Q1817208"
+    },
+    "3": {
+      "label": "Subjunctive",
+      "qid": "Q473746"
+    },
+    "4": {
+      "label": "Positive",
+      "qid": "Q3482678"
+    }
+  }
+}

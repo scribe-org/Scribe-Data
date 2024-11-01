@@ -1,0 +1,13 @@
+# tool: scribe-data
+# All Tajik (Q9260) proper nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?properNoun
+
+WHERE {
+  ?lexeme dct:language wd:Q9260 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?properNoun .
+}

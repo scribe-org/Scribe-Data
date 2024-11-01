@@ -2,6 +2,7 @@
 Updates data for Scribe by running all or desired WDQS queries and formatting scripts.
 
 .. raw:: html
+
     <!--
     * Copyright (C) 2024 Scribe
     *
@@ -24,13 +25,17 @@ import json
 import os
 import subprocess
 import sys
+from http.client import IncompleteRead
 from pathlib import Path
 from urllib.error import HTTPError
 
 from tqdm.auto import tqdm
 
-from scribe_data.cli.cli_utils import (
+from scribe_data.utils import (
+    LANGUAGE_DATA_EXTRACTION_DIR,
+    format_sublanguage_name,
     language_metadata,
+    list_all_languages,
 )
 from scribe_data.wikidata.wikidata_utils import sparql
 
@@ -52,33 +57,27 @@ def execute_formatting_script(formatting_file_path, output_dir):
         The results of the formatting script saved in the given output directory.
     """
     # Determine the root directory of the project.
-    project_root = Path(__file__).parent.parent
+    project_root = Path(__file__).parent.parent.parent
 
-    if sys.platform.startswith("win"):
-        python_executable = sys.executable
-        pythonpath = str(project_root)
+    # Use sys.executable to get the Python executable path.
+    python_executable = sys.executable
 
-        # Create environment with updated PYTHONPATH.
-        env = os.environ.copy()
-        if "PYTHONPATH" in env:
-            env["PYTHONPATH"] = f"{pythonpath};{env['PYTHONPATH']}"
+    # Set the PYTHONPATH environment variable.
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(project_root)
 
-        else:
-            env["PYTHONPATH"] = pythonpath
-
-        # Use subprocess.run instead of os.system.
+    try:
         subprocess.run(
             [python_executable, str(formatting_file_path), "--file-path", output_dir],
             env=env,
             check=True,
         )
-
-    else:
-        # Unix-like systems (Linux, macOS).
-        subprocess.run(
-            ["python3", str(formatting_file_path), "--file-path", output_dir],
-            check=True,
+    except FileNotFoundError:
+        print(
+            f"Error: The formatting script file '{formatting_file_path}' does not exist."
         )
+    except subprocess.CalledProcessError as e:
+        print(f"Error: The formatting script failed with exit status {e.returncode}.")
 
 
 def query_data(
@@ -86,6 +85,7 @@ def query_data(
     data_type: str = None,
     output_dir: str = None,
     overwrite: bool = None,
+    interactive: bool = False,
 ):
     """
     Queries language data from the Wikidata lexicographical data.
@@ -101,29 +101,23 @@ def query_data(
         output_dir : str
             The output directory path for results.
 
-        overwrite : bool
-            Whether to overwrite existing files (default: False).
+        overwrite : bool (default: False)
+            Whether to overwrite existing files.
 
     Returns
     -------
         Formatted data from Wikidata saved in the output directory.
     """
-    SCRIBE_DATA_SRC_PATH = Path(__file__).parent.parent
-    PATH_TO_LANGUAGE_EXTRACTION_FILES = (
-        SCRIBE_DATA_SRC_PATH / "language_data_extraction"
-    )
-    languages = [lang.capitalize() for lang in languages]
-    current_languages = list(language_metadata["languages"])
+    current_languages = list_all_languages(language_metadata)
     current_data_type = ["nouns", "verbs", "prepositions"]
 
     # Assign current_languages and current_data_type if no arguments have been passed.
     languages_update = current_languages if languages is None else languages
+    languages_update = [lang.lower() for lang in languages_update]
     data_type_update = current_data_type if data_type is None else data_type
 
     all_language_data_extraction_files = [
-        path
-        for path in Path(PATH_TO_LANGUAGE_EXTRACTION_FILES).rglob("*")
-        if path.is_file()
+        path for path in Path(LANGUAGE_DATA_EXTRACTION_DIR).rglob("*") if path.is_file()
     ]
 
     language_data_extraction_files_in_use = [
@@ -154,8 +148,9 @@ def query_data(
         queries_to_run,
         desc="Data updated",
         unit="process",
+        disable=interactive,
     ):
-        lang = q.parent.parent.name
+        lang = format_sublanguage_name(q.parent.parent.name, language_metadata)
         target_type = q.parent.name
 
         updated_path = output_dir[2:] if output_dir.startswith("./") else output_dir
@@ -167,36 +162,38 @@ def query_data(
 
         if existing_files := list(export_dir.glob(f"{target_type}*.json")):
             if overwrite:
-                print("Overwrite is enabled. Removing existing files ...")
+                print("Overwrite is enabled. Removing existing files...")
                 for file in existing_files:
                     file.unlink()
+
             else:
-                print(
-                    f"\nExisting file(s) found for {lang} {target_type} in the {output_dir} directory:\n"
-                )
-                for i, file in enumerate(existing_files, 1):
-                    print(f"{i}. {file.name}")
+                if not interactive:
+                    print(
+                        f"\nExisting file(s) found for {lang} {target_type} in the {output_dir} directory:\n"
+                    )
+                    for i, file in enumerate(existing_files, 1):
+                        print(f"{i}. {file.name}")
 
-                # choice = input(
-                #     "\nChoose an option:\n1. Overwrite existing (press 'o')\n2. Keep all (press 'k')\n3. Skip process (press anything else)\nEnter your choice: "
-                # )
+                    # choice = input(
+                    #     "\nChoose an option:\n1. Overwrite existing (press 'o')\n2. Keep all (press 'k')\n3. Skip process (press anything else)\nEnter your choice: "
+                    # )
 
-                choice = input(
-                    "\nChoose an option:\n1. Overwrite existing data (press 'o')\n2. Skip process (press anything else)\nEnter your choice: "
-                )
+                    choice = input(
+                        "\nChoose an option:\n1. Overwrite existing data (press 'o')\n2. Skip process (press anything else)\nEnter your choice: "
+                    )
 
-                if choice.lower() == "o":
-                    print("Removing existing files ...")
-                    for file in existing_files:
-                        file.unlink()
+                    if choice.lower() == "o":
+                        print("Removing existing files...")
+                        for file in existing_files:
+                            file.unlink()
 
-                # elif choice in ["k", "K"]:
-                #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-                #     file_name = f"{target_type}_{timestamp}.json"
+                    # elif choice in ["k", "K"]:
+                    #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+                    #     file_name = f"{target_type}_{timestamp}.json"
 
-                else:
-                    print(f"Skipping update for {lang} {target_type}.")
-                    continue
+                    else:
+                        print(f"Skipping update for {lang} {target_type}.")
+                        break
 
         print(f"Querying and formatting {lang} {target_type}")
 
@@ -215,14 +212,18 @@ def query_data(
         try:
             results = sparql.query().convert()
 
-        except HTTPError as err:
-            print(f"HTTPError with {q}: {err}")
+        except HTTPError as http_err:
+            print(f"HTTPError with {q}: {http_err}")
+
+        except IncompleteRead as read_err:
+            print(f"Incomplete read error with {q}: {read_err}")
 
         if results is None:
             print(f"Nothing returned by the WDQS server for {q}")
 
             # Allow for a query to be reran up to two times.
             if queries_to_run.count(q) < 3:
+                print("The query will be retried.")
                 queries_to_run.append(q)
 
         else:
@@ -237,7 +238,7 @@ def query_data(
                 results_final.append(r_dict)
 
             with open(
-                Path(PATH_TO_LANGUAGE_EXTRACTION_FILES)
+                Path(LANGUAGE_DATA_EXTRACTION_DIR)
                 / lang
                 / target_type
                 / f"{target_type}_queried.json",
@@ -288,7 +289,7 @@ def query_data(
                                     results_final.append(r_dict)
 
                                 with open(
-                                    Path(PATH_TO_LANGUAGE_EXTRACTION_FILES)
+                                    Path(LANGUAGE_DATA_EXTRACTION_DIR)
                                     / lang
                                     / target_type
                                     / f"{target_type}_queried.json",
@@ -309,7 +310,7 @@ def query_data(
 
             # Call the corresponding formatting file.
             formatting_file_path = (
-                PATH_TO_LANGUAGE_EXTRACTION_FILES
+                LANGUAGE_DATA_EXTRACTION_DIR
                 / lang
                 / target_type
                 / f"format_{target_type}.py"

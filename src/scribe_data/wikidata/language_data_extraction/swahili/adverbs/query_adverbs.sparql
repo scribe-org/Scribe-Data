@@ -1,0 +1,14 @@
+# tool: scribe-data
+# All Swahili (Q7838) adverbs (Q380057) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adverb
+
+WHERE {
+  ?lexeme dct:language wd:Q7838 ;
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?adverb .
+    FILTER(lang(?adverb) = "sw")
+}

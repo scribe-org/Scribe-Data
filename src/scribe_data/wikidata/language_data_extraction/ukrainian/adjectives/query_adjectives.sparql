@@ -1,0 +1,55 @@
+# tool: scribe-data
+# All Ukrainian (Q8798) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjective
+  ?nominativeFeminineSingular
+  ?nominativeMasculineSingular
+  ?nominativeNeuterSingular
+  ?nominativePlural
+  ?comparative
+  ?superlative
+
+WHERE {
+  ?lexeme dct:language wd:Q8798 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularForm .
+    ?nominativeFeminineSingularForm ontolex:representation ?nominativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularForm .
+    ?nominativeMasculineSingularForm ontolex:representation ?nominativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterSingularForm .
+    ?nominativeNeuterSingularForm ontolex:representation ?nominativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+}

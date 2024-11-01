@@ -2,6 +2,7 @@
 Utility functions for data extraction, formatting and loading.
 
 .. raw:: html
+
     <!--
     * Copyright (C) 2024 Scribe
     *
@@ -26,8 +27,7 @@ from importlib import resources
 from pathlib import Path
 from typing import Any, Optional
 
-from iso639 import Lang
-from iso639.exceptions import DeprecatedLanguageValue, InvalidLanguageValue
+# MARK: Utils Variables
 
 PROJECT_ROOT = "Scribe-Data"
 DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
@@ -35,8 +35,72 @@ DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
 DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
 
+LANGUAGE_DATA_EXTRACTION_DIR = (
+    Path(__file__).parent / "wikidata" / "language_data_extraction"
+)
 
-def _load_json(package_path: str, file_name: str, root: str) -> Any:
+LANGUAGE_METADATA_FILE = Path(__file__).parent / "resources" / "language_metadata.json"
+DATA_TYPE_METADATA_FILE = (
+    Path(__file__).parent / "resources" / "data_type_metadata.json"
+)
+LEXEME_FORM_METADATA_FILE = (
+    Path(__file__).parent / "resources" / "lexeme_form_metadata.json"
+)
+DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
+
+try:
+    with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
+        language_metadata = json.load(file)
+
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading language metadata: {e}")
+
+
+try:
+    with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
+        data_type_metadata = json.load(file)
+
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading data type metadata: {e}")
+
+try:
+    with LEXEME_FORM_METADATA_FILE.open("r", encoding="utf-8") as file:
+        lexeme_form_metadata = json.load(file)
+
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading lexeme form metadata: {e}")
+
+
+language_map = {}
+language_to_qid = {}
+
+# Process each language and its potential sub-languages in one pass.
+for lang, lang_data in language_metadata.items():
+    lang_lower = lang.lower()
+
+    if "sub_languages" in lang_data:
+        for sub_lang, sub_lang_data in lang_data["sub_languages"].items():
+            sub_lang_lower = sub_lang.lower()
+            sub_qid = sub_lang_data.get("qid")
+
+            if sub_qid is None:
+                print(f"Warning: 'qid' missing for sub-language {sub_lang} of {lang}")
+
+            else:
+                language_map[sub_lang_lower] = sub_lang_data
+                language_to_qid[sub_lang_lower] = sub_qid
+
+    else:
+        qid = lang_data.get("qid")
+        if qid is None:
+            print(f"Warning: 'qid' missing for language {lang}")
+
+        else:
+            language_map[lang_lower] = lang_data
+            language_to_qid[lang_lower] = qid
+
+
+def _load_json(package_path: str, file_name: str) -> Any:
     """
     Loads a JSON resource from a package into a python entity.
 
@@ -48,52 +112,37 @@ def _load_json(package_path: str, file_name: str, root: str) -> Any:
         file_name : str
             The name of the file (resource) that contains the JSON data.
 
-        root : str
-            The root node of the JSON document.
-
     Returns
     -------
-        A python entity starting at 'root'.
+        A python entity representing the JSON content.
     """
-
     with resources.files(package_path).joinpath(file_name).open(
         encoding="utf-8"
     ) as in_stream:
-        contents = json.load(in_stream)
-        return contents[root]
+        return json.load(in_stream)
 
 
 _languages = _load_json(
-    package_path="scribe_data.resources",
-    file_name="language_metadata.json",
-    root="languages",
+    package_path="scribe_data.resources", file_name="language_metadata.json"
 )
 
 
 def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -> Any:
     """
-    Each 'language', (english, german,..., etc) is a dictionary of key/value pairs:
+    Finds a target value based on a source key/value pair from the language metadata.
 
-        entry = {
-            "language": "english",
-            "iso": "en",
-            "qid": "Q1860",
-            "remove-words": [...],
-            "ignore-words": [...]
-        }
-
-    Given a key/value pair, the 'source' and the 'target' key get the 'target' value.
+    This version handles both regular languages and those with sub-languages (e.g., Norwegian).
 
     Parameters
     ----------
         source_value : str
-            The source value to find equivalents for (e.g. 'english').
+            The source value to find equivalents for (e.g., 'english', 'nynorsk').
 
         source_key : str
-            The source key to reference (e.g. 'language').
+            The source key to reference (e.g., 'language').
 
         target_key : str
-            The key to target (e.g. 'iso').
+            The key to target (e.g., 'qid').
 
         error_msg : str
             The message displayed when a value cannot be found.
@@ -104,26 +153,31 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
 
     Raises
     ------
-        ValueError : when a source_value is not supported.
+        ValueError : when a source_value is not supported or the language only has sub-languages.
     """
-    norm_source_value = source_value.lower()
+    # Check if we're searching by language name.
+    if source_key == "language":
+        norm_source_value = source_value.lower()
 
-    if target_value := [
-        entry[target_key]
-        for entry in _languages
-        if entry[source_key] == norm_source_value
-    ]:
-        assert len(target_value) == 1, f"More than one entry for '{norm_source_value}'"
-        return target_value[0]
+        # First, check the main language entries (e.g., mandarin, french, etc.).
+        for language, entry in _languages.items():
+            # If the language name matches the top-level key, return the target value.
+            if language.lower() == norm_source_value:
+                if "sub_languages" in entry:
+                    sub_languages = ", ".join(entry["sub_languages"].keys())
+                    raise ValueError(
+                        f"'{language}' has sub-languages, but is not queryable directly. Available sub-languages: {sub_languages}"
+                    )
+                return entry.get(target_key)
 
+            # If there are sub-languages, check them too.
+            if "sub_languages" in entry:
+                for sub_language, sub_entry in entry["sub_languages"].items():
+                    if sub_language.lower() == norm_source_value:
+                        return sub_entry.get(target_key)
+
+    # If no match was found, raise an error.
     raise ValueError(error_msg)
-
-
-def get_scribe_languages() -> list[str]:
-    """
-    Returns the list of currently implemented Scribe languages.
-    """
-    return sorted(entry["language"].capitalize() for entry in _languages)
 
 
 def get_language_qid(language: str) -> str:
@@ -162,13 +216,13 @@ def get_language_iso(language: str) -> str:
         str
             The ISO code for the language.
     """
-    try:
-        iso_code = str(Lang(language.capitalize()).pt1)
-    except InvalidLanguageValue:
-        raise ValueError(
-            f"{language.capitalize()} is currently not a supported language for ISO conversion."
-        ) from None
-    return iso_code
+
+    return _find(
+        "language",
+        language,
+        "iso",
+        f"{language.upper()} is currently not a supported language for ISO conversion.",
+    )
 
 
 def get_language_from_iso(iso: str) -> str:
@@ -185,57 +239,20 @@ def get_language_from_iso(iso: str) -> str:
         str
             The name for the language which has an ISO value of iso.
     """
-    try:
-        language_name = str(Lang(iso.lower()).name)
-    except DeprecatedLanguageValue as e:
-        raise ValueError(
-            f"{iso.upper()} is currently not a supported ISO language."
-        ) from e
-    return language_name
+    # Iterate over the languages and their properties.
+    for language, properties in _languages.items():
+        # Check if the current language's ISO matches the provided ISO.
+        if properties.get("iso") == iso:
+            return language.capitalize()
 
+        # If there are sub-languages, check those as well.
+        if "sub_languages" in properties:
+            for sub_lang, sub_properties in properties["sub_languages"].items():
+                if sub_properties.get("iso") == iso:
+                    return sub_lang.capitalize()
 
-def get_language_words_to_remove(language: str) -> list[str]:
-    """
-    Returns the words that should be removed during the data cleaning process for the given language.
-
-    Parameters
-    ----------
-        language : str
-            The language the words should be returned for.
-
-    Returns
-    -------
-        list[str]
-            The words that that be removed during the data cleaning process for the given language.
-    """
-    return _find(
-        "language",
-        language,
-        "remove-words",
-        f"{language.capitalize()} is currently not a supported language.",
-    )
-
-
-def get_language_words_to_ignore(language: str) -> list[str]:
-    """
-    Returns the words that should not be included as autosuggestions for the given language.
-
-    Parameters
-    ----------
-        language : str
-            The language the words should be returned for.
-
-    Returns
-    -------
-        list[str]
-            The words that should not be included as autosuggestions for the given language.
-    """
-    return _find(
-        "language",
-        language,
-        "ignore-words",
-        f"{language.capitalize()} is currently not a supported language.",
-    )
+    # If no match is found, raise a ValueError.
+    raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
 
 
 def load_queried_data(
@@ -459,20 +476,25 @@ def map_genders(wikidata_gender: str) -> str:
     ----------
         wikidata_gender : str
             The gender of the noun that was queried from WikiData.
+
+    Returns
+    -------
+        The gender value corrected in case the Wikidata ID was queried.
     """
     gender_map = {
-        "masculine": "M",
-        "Q499327": "M",
-        "feminine": "F",
-        "Q1775415": "F",
-        "common gender": "C",
-        "Q1305037": "C",
-        "neuter": "N",
-        "Q1775461": "N",
+        "masculine": "masculine",
+        "Q499327": "masculine",
+        "feminine": "feminine",
+        "Q1775415": "feminine",
+        "common": "common",
+        "common gender": "common",
+        "Q1305037": "common",
+        "neuter": "neuter",
+        "Q1775461": "neuter",
     }
 
     return gender_map.get(
-        wikidata_gender, ""
+        wikidata_gender.lower(), ""
     )  # nouns could have a gender that is not a valid attribute
 
 
@@ -484,20 +506,24 @@ def map_cases(wikidata_case: str) -> str:
     ----------
         wikidata_case : str
             The case of the noun that was queried from WikiData.
+
+    Returns
+    -------
+        The case value corrected in case the Wikidata ID was queried.
     """
     case_map = {
-        "accusative": "Acc",
-        "Q146078": "Acc",
-        "dative": "Dat",
-        "Q145599": "Dat",
-        "genitive": "Gen",
-        "Q146233": "Gen",
-        "instrumental": "Ins",
-        "Q192997": "Ins",
-        "prepositional": "Pre",
-        "Q2114906": "Pre",
-        "locative": "Loc",
-        "Q202142": "Loc",
+        "accusative": "accusative",
+        "Q146078": "accusative",
+        "dative": "dative",
+        "Q145599": "dative",
+        "genitive": "genitive",
+        "Q146233": "genitive",
+        "instrumental": "instrumental",
+        "Q192997": "instrumental",
+        "prepositional": "prepositional",
+        "Q2114906": "prepositional",
+        "locative": "locative",
+        "Q202142": "locative",
     }
     case = wikidata_case.split(" case")[0]
     return case_map.get(case, "")
@@ -519,3 +545,104 @@ def order_annotations(annotation: str) -> str:
     annotation_split = sorted(list(set(filter(None, annotation.split("/")))))
 
     return "/".join(annotation_split)
+
+
+def format_sublanguage_name(lang, language_metadata=_languages):
+    """
+    Formats the name of a sub-language by appending its main language
+    in the format 'MAIN_LANG/SUB_LANG'. If the language is not a sub-language,
+    the original language name is returned as-is.
+
+    Parameters
+    ----------
+        lang : str
+            The name of the language or sub-language to format.
+
+        language_metadata : dict
+            The metadata containing information about main languages and their sub-languages.
+
+    Returns
+    -------
+        str
+            The formatted language name if it's a sub-language (e.g., 'Norwegian/Nynorsk').
+            Otherwise the original name.
+
+    Raises
+    ------
+        ValueError: If the provided language or sub-language is not found.
+
+    Example
+    -------
+        > format_sublanguage_name("nynorsk", language_metadata)
+        'Norwegian/Nynorsk'
+
+        > format_sublanguage_name("english", language_metadata)
+        'English'
+    """
+    for main_lang, lang_data in language_metadata.items():
+        # If it's not a sub-language, return the original name.
+        if main_lang == lang.lower():
+            return lang
+
+        # Check if the main language has sub-languages.
+        if "sub_languages" in lang_data:
+            # Check if the provided language is a sub-language.
+            for sub_lang in lang_data["sub_languages"]:
+                if lang.lower() == sub_lang.lower():
+                    # Return the formatted name MAIN_LANG/SUB_LANG.
+                    return f"{main_lang}/{sub_lang}"
+
+    # Raise ValueError if no match is found.
+    raise ValueError(f"{lang.upper()} is not a valid language or sub-language.")
+
+
+def list_all_languages(language_metadata=_languages):
+    """
+    Returns a sorted list of all languages from the provided metadata dictionary, including sub-languages.
+    """
+    current_languages = []
+
+    # Iterate through the language metadata.
+    for lang_key, lang_data in language_metadata.items():
+        # Check if there are sub-languages.
+        if "sub_languages" in lang_data:
+            # Add the sub-languages to current_languages.
+            current_languages.extend(lang_data["sub_languages"].keys())
+        else:
+            # If no sub-languages, add the main language.
+            current_languages.append(lang_key)
+
+    return sorted(current_languages)
+
+
+def list_languages_with_metadata_for_data_type(language_metadata=_languages):
+    """
+    Returns a sorted list of languages and their metadata (name, iso, qid) for a specific data type.
+    The list includes sub-languages where applicable.
+    """
+    current_languages = []
+
+    # Iterate through the language metadata.
+    for lang_key, lang_data in language_metadata.items():
+        # Check if there are sub-languages.
+        if "sub_languages" in lang_data:
+            # Add the sub-languages to current_languages with metadata.
+            for sub_key, sub_data in lang_data["sub_languages"].items():
+                current_languages.append(
+                    {
+                        "name": f"{lang_data.get('name', lang_key)}/{sub_data.get('name', sub_key)}",
+                        "iso": sub_data.get("iso", ""),
+                        "qid": sub_data.get("qid", ""),
+                    }
+                )
+        else:
+            # If no sub-languages, add the main language with metadata.
+            current_languages.append(
+                {
+                    "name": lang_data.get("name", lang_key),
+                    "iso": lang_data.get("iso", ""),
+                    "qid": lang_data.get("qid", ""),
+                }
+            )
+
+    return sorted(current_languages, key=lambda x: x["name"])

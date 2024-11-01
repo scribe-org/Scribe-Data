@@ -29,10 +29,15 @@ from scribe_data.cli.get import get_data
 class TestGetData(unittest.TestCase):
     # MARK: Subprocess Patching
 
-    @patch("subprocess.run")
-    def test_get_emoji_keywords(self, mock_subprocess_run):
-        get_data(language="English", data_type="emoji-keywords")
-        self.assertTrue(mock_subprocess_run.called)
+    @patch("scribe_data.cli.get.generate_emoji")
+    def test_get_emoji_keywords(self, generate_emoji):
+        get_data(
+            language="English", data_type="emoji_keywords", output_dir="./test_output"
+        )
+        generate_emoji.assert_called_once_with(
+            language="English",
+            output_dir="./test_output",
+        )
 
     # MARK: Invalid Arguments
 
@@ -43,9 +48,34 @@ class TestGetData(unittest.TestCase):
     # MARK: All Data
 
     @patch("scribe_data.cli.get.query_data")
-    def test_get_all_data(self, mock_query_data):
-        get_data(all=True)
-        mock_query_data.assert_called_once_with(None, None, None, False)
+    def test_get_all_data_types_for_language(self, mock_query_data):
+        get_data(all=True, language="English")
+        mock_query_data.assert_called_once_with(
+            languages=["English"],
+            data_type=None,
+            output_dir="scribe_data_json_export",
+            overwrite=False,
+        )
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_all_languages_for_data_type(self, mock_query_data):
+        get_data(all=True, data_type="nouns")
+        mock_query_data.assert_called_once_with(
+            languages=None,
+            data_type=["nouns"],
+            output_dir="scribe_data_json_export",
+            overwrite=False,
+        )
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_all_languages_and_data_types(self, mock_query_data):
+        get_data(all=True, output_dir="./test_output")
+        mock_query_data.assert_called_once_with(
+            languages=None,
+            data_type=None,
+            output_dir="./test_output",
+            overwrite=False,
+        )
 
     # MARK: Language and Data Type
 
@@ -57,6 +87,7 @@ class TestGetData(unittest.TestCase):
             data_type=["nouns"],
             output_dir="./test_output",
             overwrite=False,
+            interactive=False,
         )
 
     # MARK: Capitalized Language
@@ -69,6 +100,7 @@ class TestGetData(unittest.TestCase):
             data_type=["nouns"],
             output_dir="scribe_data_json_export",
             overwrite=False,
+            interactive=False,
         )
 
     # MARK: Lowercase Language
@@ -81,6 +113,7 @@ class TestGetData(unittest.TestCase):
             data_type=["nouns"],
             output_dir="scribe_data_json_export",
             overwrite=False,
+            interactive=False,
         )
 
     # MARK: Output Directory
@@ -95,6 +128,7 @@ class TestGetData(unittest.TestCase):
             data_type=["nouns"],
             output_dir="./custom_output_test",
             overwrite=False,
+            interactive=False,
         )
 
     # MARK: Overwrite is True
@@ -107,6 +141,7 @@ class TestGetData(unittest.TestCase):
             data_type=["verbs"],
             output_dir="scribe_data_json_export",
             overwrite=True,
+            interactive=False,
         )
 
     # MARK: Overwrite is False
@@ -118,10 +153,12 @@ class TestGetData(unittest.TestCase):
             data_type="verbs",
             overwrite=False,
             output_dir="./custom_output_test",
+            interactive=False,
         )
         mock_query_data.assert_called_once_with(
             languages=["English"],
             data_type=["verbs"],
             output_dir="./custom_output_test",
             overwrite=False,
+            interactive=False,
         )

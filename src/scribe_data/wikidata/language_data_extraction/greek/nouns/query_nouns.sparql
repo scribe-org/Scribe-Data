@@ -1,0 +1,37 @@
+# tool: scribe-data
+# All Greek (Q36510) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?singular
+  ?nominativePlural
+  ?gender
+
+WHERE {
+  ?lexeme dct:language wd:Q36510 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?singular .
+
+  # MARK: Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  }
+
+  # MARK: Gender(s)
+
+  OPTIONAL {
+    ?lexeme wdt:P5185 ?nounGender .
+    FILTER NOT EXISTS {
+      ?lexeme wdt:P31 wd:Q202444 .
+    }
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+    ?nounGender rdfs:label ?gender .
+  }
+}

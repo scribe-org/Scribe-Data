@@ -1,0 +1,16 @@
+# tool: scribe-data
+# All Urdu Hindustani (Q11051) postpositions (Q161873) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+# Note: We need to filter for "ur" to remove Hindi (hi) words.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?postposition
+
+WHERE {
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q161873 ;
+    wikibase:lemma ?postposition .
+    FILTER(lang(?postposition) = "ur")
+}
