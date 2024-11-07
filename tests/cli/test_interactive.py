@@ -21,15 +21,16 @@ Interactive for the list file functions.
 """
 
 import unittest
-from unittest.mock import patch, MagicMock, call
 from pathlib import Path
+from unittest.mock import MagicMock, call, patch
+
 from scribe_data.cli.interactive import (
     ScribeDataConfig,
     configure_settings,
     display_summary,
-    run_request,
-    prompt_for_languages,
     prompt_for_data_types,
+    prompt_for_languages,
+    run_request,
 )
 
 
@@ -54,7 +55,7 @@ class TestScribeDataInteractive(unittest.TestCase):
     @patch("scribe_data.cli.interactive.rprint")
     def test_configure_settings_all_languages(self, mock_rprint, mock_prompt):
         """Test configure_settings with 'All' languages selection."""
-        # Set up mock responses
+        # Set up mock responses.
         responses = iter(
             [
                 "All",  # languages
@@ -79,7 +80,7 @@ class TestScribeDataInteractive(unittest.TestCase):
     @patch("scribe_data.cli.interactive.rprint")
     def test_configure_settings_specific_languages(self, mock_rprint, mock_prompt):
         """Test configure_settings with specific language selection."""
-        # Set up mock responses
+        # Set up mock responses.
         responses = iter(
             [
                 "english, spanish",  # languages
@@ -106,7 +107,6 @@ class TestScribeDataInteractive(unittest.TestCase):
     @patch("scribe_data.cli.interactive.logger")
     def test_run_request(self, mock_logger, mock_tqdm, mock_get_data):
         """Test run_request functionality."""
-        # Setup
         self.config.selected_languages = ["english"]
         self.config.selected_data_types = ["nouns"]
         self.config.configured = True
@@ -131,10 +131,10 @@ class TestScribeDataInteractive(unittest.TestCase):
     @patch("scribe_data.cli.interactive.rprint")
     def test_request_total_lexeme(self, mock_rprint, mock_prompt):
         """Test request_total_lexeme functionality."""
-        # Set up mock responses
+        # Set up mock responses.
         mock_prompt.side_effect = [
-            "english, french",  # First call for languages
-            "nouns",  # First call for data types
+            "english, french",  # first call for languages
+            "nouns",  # first call for data types
         ]
 
         with patch("scribe_data.cli.interactive.config", self.config):
@@ -145,11 +145,11 @@ class TestScribeDataInteractive(unittest.TestCase):
                 prompt_for_languages()
                 prompt_for_data_types()
 
-                # Verify the config was updated correctly
+                # Verify the config was updated correctly.
                 self.assertEqual(self.config.selected_languages, ["english", "french"])
                 self.assertEqual(self.config.selected_data_types, ["nouns"])
 
-                # Verify prompt was called with correct arguments
+                # Verify prompt was called with correct arguments.
                 expected_calls = [
                     call(
                         "Select languages (comma-separated or 'All'): ",

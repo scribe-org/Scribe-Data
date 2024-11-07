@@ -24,10 +24,10 @@ import unittest
 from unittest.mock import MagicMock, call, patch
 
 from scribe_data.cli.total import (
+    check_qid_is_language,
+    get_datatype_list,
     get_qid_by_input,
     get_total_lexemes,
-    get_datatype_list,
-    check_qid_is_language,
     total_wrapper,
 )
 
@@ -140,7 +140,7 @@ class TestTotalLexemes(unittest.TestCase):
     @patch("scribe_data.cli.total.sparql.query")
     @patch("scribe_data.cli.total.LANGUAGE_DATA_EXTRACTION_DIR")
     def test_get_total_lexemes_sub_languages(self, mock_dir, mock_query, mock_get_qid):
-        # Setup for sub-languages
+        # Setup for sub-languages.
         mock_get_qid.side_effect = lambda x: {
             "bokmål": "Q25167",
             "nynorsk": "Q25164",
@@ -151,7 +151,7 @@ class TestTotalLexemes(unittest.TestCase):
         }
         mock_query.return_value = mock_results
 
-        # Mocking directory paths and contents
+        # Mocking directory paths and contents.
         mock_dir.__truediv__.return_value.exists.return_value = True
         mock_dir.__truediv__.return_value.iterdir.return_value = [
             MagicMock(name="verbs", is_dir=lambda: True),

@@ -167,7 +167,7 @@ Examples:
 
     $ scribe-data get -l English --data-type verbs -od ~/path/for/output
     Getting and formatting English verbs
-    Data updated: 100%|████████████████████████| 1/1 [00:29<00:00, 29.73s/process]
+    Data updated: 100%|████████████████████████| 1/1 [00:XY<00:00, XY.Zs/process]
 
 Behavior and Output:
 ^^^^^^^^^^^^^^^^^^^^
@@ -197,7 +197,7 @@ Behavior and Output:
     .. code-block:: text
 
         Getting and formatting English verbs
-        Data updated: 100%|████████████████████████| 1/1 [00:29<00:00, 29.73s/process]
+        Data updated: 100%|████████████████████████| 1/1 [00:XY<00:00, XY.Zs/process]
 
 4. If no data is found, you'll see a warning:
 
@@ -272,8 +272,8 @@ Examples:
     ==============================================
     Language     Data Type     Total Lexemes
     ==============================================
-    English      nouns         123456
-                 verbs         234567
+    English      nouns         123,456
+                 verbs         234,567
     ...
 
 .. code-block:: text
@@ -283,9 +283,9 @@ Examples:
 
     Language        Data Type                 Total Wikidata Lexemes
     ================================================================
-    English         adjectives                12,848
-                    adverbs                   19,998
-                    nouns                     30,786
+    English         adjectives                12,345
+                    adverbs                   23,456
+                    nouns                     34,567
     ...
 
 .. code-block:: text
@@ -295,12 +295,12 @@ Examples:
 
     Language        Data Type                 Total Wikidata Lexemes
     ================================================================
-    Q1860           adjectives                12,848
-                    adverbs                   19,998
-                    articles                  0
-                    conjunctions              72
-                    nouns                     30,786
-                    personal pronouns         32
+    Q1860           adjectives                12,345
+                    adverbs                   23,456
+                    articles                  30
+                    conjunctions              40
+                    nouns                     56,789
+                    personal pronouns         60
     ...
 
 .. code-block:: text
@@ -308,14 +308,14 @@ Examples:
     $ scribe-data total --language English -dt nouns
     Language: English
     Data type: nouns
-    Total number of lexemes: 12345
+    Total number of lexemes: 12,345
 
 .. code-block:: text
 
     $ scribe-data total --language Q1860 -dt verbs
     Language: Q1860
     Data type: verbs
-    Total number of lexemes: 23456
+    Total number of lexemes: 23,456
 
 Convert Command
 ~~~~~~~~~~~~~~~
