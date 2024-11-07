@@ -452,7 +452,7 @@ def check_forms_order(query_text):
     select_lower = [i.lower() for i in select_vars]
     if select_lower != sorted_lower:
         # Note : I returned the sorted cols in the state they are in the sparql file for easier comparison.
-        return sorted_columns
+        return [i[0].lower() + i[1:] for i in sorted_columns]
 
     return sorted_lower == select_lower
 
