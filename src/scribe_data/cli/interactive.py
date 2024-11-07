@@ -34,7 +34,8 @@ from rich.logging import RichHandler
 from rich.table import Table
 from tqdm import tqdm
 from scribe_data.cli.total import total_wrapper
-from scribe_data.cli.list import list_wrapper
+
+# from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.get import get_data
 from scribe_data.cli.version import get_version_message
 from scribe_data.utils import (
@@ -54,7 +55,7 @@ logging.basicConfig(
 )
 console = Console()
 logger = logging.getLogger("rich")
-MESSAGE = "[bold cyan]Thank you for using Scribe-Data![/bold cyan]"
+THANK_YOU_MESSAGE = "[bold cyan]Thank you for using Scribe-Data![/bold cyan]"
 
 
 class ScribeDataConfig:
@@ -97,6 +98,67 @@ def display_summary():
     console.print("\n")
 
 
+# Helper function to create a WordCompleter
+def create_word_completer(
+    options: List[str], include_all: bool = False
+) -> WordCompleter:
+    if include_all:
+        options = ["All"] + options
+    return WordCompleter(options, ignore_case=True)
+
+
+# MARK: Language Selection
+def prompt_for_languages():
+    """
+    Requests language and data type for lexeme totals.
+    """
+    # MARK: Language Selection
+    language_completer = create_word_completer(config.languages, include_all=True)
+    initial_language_selection = ", ".join(config.selected_languages)
+    selected_languages = prompt(
+        "Select languages (comma-separated or 'All'): ",
+        default=initial_language_selection,
+        completer=language_completer,
+    )
+    if "All" in selected_languages:
+        config.selected_languages = config.languages
+    elif selected_languages.strip():  # Check if input is not just whitespace
+        config.selected_languages = [
+            lang.strip()
+            for lang in selected_languages.split(",")
+            if lang.strip() in config.languages
+        ]
+
+    if not config.selected_languages:
+        rprint("[yellow]No language selected. Please try again.[/yellow]")
+        return prompt_for_languages()
+
+
+# MARK: Data Type Selection
+def prompt_for_data_types():
+    data_type_completer = create_word_completer(config.data_types, include_all=True)
+    initial_data_type_selection = ", ".join(config.selected_data_types)
+    while True:
+        selected_data_types = prompt(
+            "Select data types (comma-separated or 'All'): ",
+            default=initial_data_type_selection,
+            completer=data_type_completer,
+        )
+        if "All" in selected_data_types.capitalize():
+            config.selected_data_types = config.data_types
+            break
+        elif selected_data_types.strip():  # Check if input is not just whitespace
+            config.selected_data_types = [
+                dt.strip()
+                for dt in selected_data_types.split(",")
+                if dt.strip() in config.data_types
+            ]
+            if config.selected_data_types:
+                break  # Exit loop if valid data types are selected
+
+        rprint("[yellow]No data type selected. Please try again.[/yellow]")
+
+
 def configure_settings():
     """
     Configures the settings of the interactive mode request.
@@ -112,51 +174,12 @@ def configure_settings():
         "[cyan]Follow the prompts below. Press tab for completions and enter to select.[/cyan]"
     )
     # MARK: Languages
-    language_completer = WordCompleter(["All"] + config.languages, ignore_case=True)
-    initial_language_selection = ", ".join(config.selected_languages)
-    selected_languages = prompt(
-        "Select languages (comma-separated or type 'All'): ",
-        default=initial_language_selection,
-        completer=language_completer,
-    )
-
-    if "All" in selected_languages:
-        config.selected_languages = config.languages
-    else:
-        config.selected_languages = [
-            lang.strip()
-            for lang in selected_languages.split(",")
-            if lang.strip() in config.languages
-        ]
-
-    if not config.selected_languages:
-        rprint("[yellow]No language selected. Please try again.[/yellow]")
-        return configure_settings()
-
+    prompt_for_languages()
     # MARK: Data Types
-    data_type_completer = WordCompleter(["All"] + config.data_types, ignore_case=True)
-    initial_data_type_selection = ", ".join(config.selected_data_types)
-    selected_data_types = prompt(
-        "Select data types (comma-separated or type 'All'): ",
-        default=initial_data_type_selection,
-        completer=data_type_completer,
-    )
-
-    if "All" in selected_data_types.capitalize():
-        config.selected_data_types = config.data_types
-    else:
-        config.selected_data_types = [
-            dt.strip()
-            for dt in selected_data_types.split(",")
-            if dt.strip() in config.data_types
-        ]
-
-    if not config.selected_data_types:
-        rprint("[yellow]No data type selected. Please try again.[/yellow]")
-        return configure_settings()
+    prompt_for_data_types()
 
     # MARK: Output Type
-    output_type_completer = WordCompleter(["json", "csv", "tsv"], ignore_case=True)
+    output_type_completer = create_word_completer(["json", "csv", "tsv"])
     config.output_type = prompt(
         "Select output type (json/csv/tsv): ", completer=output_type_completer
     )
@@ -171,7 +194,7 @@ def configure_settings():
         config.output_dir = Path(output_dir)
 
     # MARK: Overwrite Confirmation
-    overwrite_completer = WordCompleter(["Y", "n"], ignore_case=True)
+    overwrite_completer = create_word_completer(["Y", "n"])
     overwrite = (
         prompt("Overwrite existing files? (Y/n): ", completer=overwrite_completer)
         or "y"
@@ -226,56 +249,6 @@ def run_request():
         rprint("[bold green]Data request completed successfully![/bold green]")
 
 
-# MARK: Start
-
-
-def request_total_lexeme():
-    """
-    Requests language and data type for lexeme totals.
-    """
-    # MARK: Language Selection
-    language_completer = WordCompleter(["All"] + config.languages, ignore_case=True)
-    initial_language_selection = ", ".join(config.selected_languages)
-    selected_languages = prompt(
-        "Select languages (comma-separated or 'All'): ",
-        default=initial_language_selection,
-        completer=language_completer,
-    )
-    if "All" in selected_languages:
-        config.selected_languages = config.languages
-    elif selected_languages.strip():  # Check if input is not just whitespace
-        config.selected_languages = [
-            lang.strip()
-            for lang in selected_languages.split(",")
-            if lang.strip() in config.languages
-        ]
-
-    if not config.selected_languages:
-        rprint("[yellow]No language selected. Please try again.[/yellow]")
-        return request_total_lexeme()
-
-    # MARK: Data Type Selection
-    data_type_completer = WordCompleter(["All"] + config.data_types, ignore_case=True)
-    initial_data_type_selection = ", ".join(config.selected_data_types)
-    selected_data_types = prompt(
-        "Select data types (comma-separated or 'All'): ",
-        default=initial_data_type_selection,
-        completer=data_type_completer,
-    )
-    if "All" in selected_data_types.capitalize():
-        config.selected_data_types = config.data_types
-    elif selected_data_types.strip():  # Check if input is not just whitespace
-        config.selected_data_types = [
-            dt.strip()
-            for dt in selected_data_types.split(",")
-            if dt.strip() in config.data_types
-        ]
-
-    if not config.selected_data_types:
-        rprint("[yellow]No data type selected. Please try again.[/yellow]")
-        return request_total_lexeme()
-
-
 def request_total_lexeme_loop():
     """
     Continuously prompts for lexeme requests until exit.
@@ -297,38 +270,41 @@ def request_total_lexeme_loop():
                 all_bool=False,
             )
             config.selected_languages, config.selected_data_types = [], []
-            rprint(MESSAGE)
+            rprint(THANK_YOU_MESSAGE)
             break
         elif choice == "exit":
             return
         else:
-            # config.selected_languages, config.selected_data_types = [], []
-            request_total_lexeme()
+            prompt_for_languages()
+            prompt_for_data_types()
 
 
-def see_list_languages():
-    """
-    See list of languages.
-    """
+# MARK: List
 
-    choice = questionary.select(
-        "What would you like to list?",
-        choices=[
-            Choice("All languages", "all_languages"),
-            Choice("Languages for a specific data type", "languages_for_data_type"),
-            Choice("Data types for a specific language", "data_types_for_language"),
-        ],
-    ).ask()
+# def see_list_languages():
+#     """
+#     See list of languages.
+#     """
 
-    if choice == "all_languages":
-        list_wrapper(all_bool=True)
-    elif choice == "languages_for_data_type":
-        list_wrapper(data_type=True)
-    elif choice == "data_types_for_language":
-        list_wrapper(language=True)
+#     choice = questionary.select(
+#         "What would you like to list?",
+#         choices=[
+#             Choice("All languages", "all_languages"),
+#             Choice("Languages for a specific data type", "languages_for_data_type"),
+#             Choice("Data types for a specific language", "data_types_for_language"),
+#         ],
+#     ).ask()
+
+#     if choice == "all_languages":
+#         list_wrapper(all_bool=True)
+#     elif choice == "languages_for_data_type":
+#         list_wrapper(data_type=True)
+#     elif choice == "data_types_for_language":
+#         list_wrapper(language=True)
 
 
-def start_interactive_mode():
+# MARK: Start
+def start_interactive_mode(selectMode: str = None):
     """
     Entry point for interactive mode.
     """
@@ -338,39 +314,47 @@ def start_interactive_mode():
     while True:
         # Check if both selected_languages and selected_data_types are empty
         if not config.selected_languages and not config.selected_data_types:
-            choices = [
-                Choice("Request get data", "configure"),
-                Choice("Request total lexeme", "total"),
-                Choice("See list of languages", "languages"),
-                Choice("Exit", "exit"),
-            ]
+            if selectMode == "Get":
+                choices = [
+                    Choice("Request get data", "configure"),
+                    # Choice("See list of languages", "languages"),
+                    Choice("Exit", "exit"),
+                ]
+            elif selectMode == "Total":
+                choices = [
+                    Choice("Request total lexeme", "total"),
+                    # Choice("See list of languages", "languages"),
+                    Choice("Exit", "exit"),
+                ]
+
         else:
             choices = [
                 Choice("Request get data", "configure"),
                 Choice("Exit", "exit"),
             ]
             if config.configured:
-                choices.insert(1, Choice("Run configured data request", "run"))
+                choices.insert(1, Choice("Request for get data", "run"))
             else:
-                choices.insert(1, Choice("Request total lexeme", "total"))
+                choices.insert(1, Choice("Request for total lexeme", "total"))
 
         choice = questionary.select("What would you like to do?", choices=choices).ask()
 
         if choice == "configure":
             configure_settings()
         elif choice == "total":
-            request_total_lexeme()
+            prompt_for_languages()
+            prompt_for_data_types()
             request_total_lexeme_loop()
             break
-        elif choice == "languages":
-            see_list_languages()
-            break
+        # elif choice == "languages":
+        #     see_list_languages()
+        #     break
         elif choice == "run":
             run_request()
-            rprint(MESSAGE)
+            rprint(THANK_YOU_MESSAGE)
             break
         else:
-            rprint(MESSAGE)
+            rprint(THANK_YOU_MESSAGE)
             break
 
 
