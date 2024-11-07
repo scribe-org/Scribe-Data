@@ -57,7 +57,7 @@ def get_python_version_and_architecture():
 
 def fetch_wheel_releases():
     """
-    Fetch the release data for PyICU from GitHub.
+    Fetch the release data for PyICU from GitHub with error handling for rate limits.
 
     Returns
     -------
@@ -69,6 +69,9 @@ def fetch_wheel_releases():
     """
     url = "https://api.github.com/repos/cgohlke/pyicu-build/releases"
     response = requests.get(url)
+    if response.status_code == 403 and "rate limit exceeded" in response.text.lower():
+        print("GitHub API rate limit exceeded. Please try again later.")
+        return [], 0.0  # Return empty list and zero size when rate limit is hit
     response.raise_for_status()  # raise an error for bad responses
 
     available_wheels = []
