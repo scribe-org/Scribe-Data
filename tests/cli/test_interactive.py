@@ -28,7 +28,8 @@ from scribe_data.cli.interactive import (
     configure_settings,
     display_summary,
     run_request,
-    request_total_lexeme,
+    prompt_for_languages,
+    prompt_for_data_types,
 )
 
 
@@ -141,7 +142,8 @@ class TestScribeDataInteractive(unittest.TestCase):
                 "scribe_data.cli.interactive.list_all_languages",
                 return_value=["english", "french"],
             ):
-                request_total_lexeme()
+                prompt_for_languages()
+                prompt_for_data_types()
 
                 # Verify the config was updated correctly
                 self.assertEqual(self.config.selected_languages, ["english", "french"])
