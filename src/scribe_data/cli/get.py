@@ -22,7 +22,6 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
 
 import os  # for removing original JSON files
 import subprocess
-import sys
 from pathlib import Path
 from typing import List, Union
 
@@ -35,11 +34,6 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
-
-from scribe_data.check.check_pyicu import (
-    check_and_install_pyicu,
-    check_if_pyicu_installed,
-)
 
 
 def get_data(
@@ -142,14 +136,7 @@ def get_data(
     # MARK: Emojis
 
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
-        if not check_if_pyicu_installed():
-            check_and_install_pyicu()
-        # Try to dynamically import the PyICU module
-        try:
-            generate_emoji(language=language, output_dir=output_dir)
-        except ImportError:
-            os.execv(sys.executable, ["python"] + sys.argv)
-            generate_emoji(language=language, output_dir=output_dir)
+        generate_emoji(language=language, output_dir=output_dir)
 
     # MARK: Query Data
 
