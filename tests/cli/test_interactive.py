@@ -38,7 +38,7 @@ class TestScribeDataInteractive(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures before each test method."""
         self.config = ScribeDataConfig()
-        # Mock the language_metadata and data_type_metadata
+        # Mock the language_metadata and data_type_metadata.
         self.config.languages = ["english", "spanish", "french"]
         self.config.data_types = ["nouns", "verbs"]
 

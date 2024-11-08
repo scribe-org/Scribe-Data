@@ -21,11 +21,12 @@ Functions to check the total language data available on Wikidata.
 """
 
 from http.client import IncompleteRead
+from typing import List, Union
 from urllib.error import HTTPError
 
 import requests
 from SPARQLWrapper import JSON
-from typing import List, Union
+
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
     data_type_metadata,
@@ -76,19 +77,20 @@ def get_datatype_list(language):
         data_types : list[str] or None
             A list of the corresponding data types.
     """
-    language_key = language.strip().lower()  # Normalize input
+    language_key = language.strip().lower()  # normalize input
     languages = list_all_languages(language_metadata)
 
-    # Adjust language_key for sub-languages using the format_sublanguage_name function
+    # Adjust language_key for sub-languages using the format_sublanguage_name function.
     formatted_language = format_sublanguage_name(language_key, language_metadata)
     language_key = formatted_language.split("/")[
         0
-    ].lower()  # Use the main language part if formatted
+    ].lower()  # use the main language part if formatted
 
     if language_key in languages:
         if "sub_languages" in language_metadata[language_key]:
             sub_languages = language_metadata[language_key]["sub_languages"]
             data_types = []
+
             for sub_lang_key in sub_languages:
                 sub_lang_dir = (
                     LANGUAGE_DATA_EXTRACTION_DIR / sub_languages[sub_lang_key]["iso"]
@@ -97,20 +99,26 @@ def get_datatype_list(language):
                     data_types.extend(
                         [f.name for f in sub_lang_dir.iterdir() if f.is_dir()]
                     )
+
             if not data_types:
                 raise ValueError(
                     f"No data types available for sub-languages of '{formatted_language}'."
                 )
-            return sorted(set(data_types))  # Remove duplicates and sort
+
+            return sorted(set(data_types))  # remove duplicates and sort
+
         else:
             language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language_key
             if not language_dir.exists():
                 raise ValueError(f"Directory '{language_dir}' does not exist.")
+
             data_types = [f.name for f in language_dir.iterdir() if f.is_dir()]
+
             if not data_types:
                 raise ValueError(
                     f"No data types available for language '{formatted_language}'."
                 )
+
             return sorted(data_types)
 
     else:  # return all data types
@@ -368,8 +376,10 @@ def total_wrapper(
     ----------
         language : Union[str, List[str]]
             The language(s) to potentially total data types for.
+
         data_type : Union[str, List[str]]
             The data type(s) to check for.
+
         all_bool : boolean
             Whether all languages and data types should be listed.
     """
@@ -386,7 +396,7 @@ def total_wrapper(
 
         for lang in languages:
             first_row = (
-                True  # Flag to check if it's the first data type for the language
+                True  # flag to check if it's the first data type for the language
             )
             for dt in data_types:
                 total_lexemes = get_total_lexemes(lang, dt, False)
@@ -399,7 +409,7 @@ def total_wrapper(
                 else:
                     print(
                         f"{'':<20} {dt:<25} {total_lexemes:<25}"
-                    )  # Print empty space for language
+                    )  # print empty space for language
             print()
 
     elif language is not None and data_type is None:

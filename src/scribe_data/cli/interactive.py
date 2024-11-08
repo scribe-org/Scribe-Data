@@ -306,9 +306,14 @@ def request_total_lexeme_loop():
 
 
 # MARK: Start
-def start_interactive_mode(selectMode: str = None):
+def start_interactive_mode(operation: str = None):
     """
     Entry point for interactive mode.
+
+    Parameters
+    ----------
+        operation : str
+            The type of operation that interactive mode is being ran with.
     """
     rprint(
         f"[bold cyan]Welcome to {get_version_message()} interactive mode![/bold cyan]"
@@ -316,14 +321,14 @@ def start_interactive_mode(selectMode: str = None):
     while True:
         # Check if both selected_languages and selected_data_types are empty.
         if not config.selected_languages and not config.selected_data_types:
-            if selectMode == "Get":
+            if operation == "get":
                 choices = [
                     Choice("Configure get data request", "configure"),
                     # Choice("See list of languages", "languages"),
                     Choice("Exit", "exit"),
                 ]
 
-            elif selectMode == "Total":
+            elif operation == "total":
                 choices = [
                     Choice("Configure total lexemes request", "total"),
                     # Choice("See list of languages", "languages"),

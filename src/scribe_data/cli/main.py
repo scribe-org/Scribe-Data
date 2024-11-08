@@ -276,7 +276,7 @@ def main() -> None:
 
         elif args.command in ["get", "g"]:
             if args.interactive:
-                start_interactive_mode(selectMode="Get")
+                start_interactive_mode(operation="get")
 
             else:
                 get_data(
@@ -291,7 +291,7 @@ def main() -> None:
 
         elif args.command in ["total", "t"]:
             if args.interactive:
-                start_interactive_mode(selectMode="Total")
+                start_interactive_mode(operation="total")
             else:
                 total_wrapper(
                     language=args.language, data_type=args.data_type, all_bool=args.all
