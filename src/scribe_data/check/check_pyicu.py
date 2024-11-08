@@ -150,12 +150,13 @@ def check_and_install_pyicu():
 
         # Use questionary to ask for user confirmation
         user_wants_to_proceed = confirm(
-            f"{package_name} is not installed.\nIt will be downloaded from 'https://github.com/repos/cgohlke/pyicu-build'"
+            f"{package_name} is not installed.\nScribe-Data can install the package and the needed dependencies."
             f"\nApproximately {total_size_mb:.2f} MB will be downloaded.\nDo you want to proceed?"
         ).ask()
 
         if user_wants_to_proceed:
             print("Proceeding with installation...")
+
         else:
             print("Installation aborted by the user.")
             return False
