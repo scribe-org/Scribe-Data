@@ -57,7 +57,7 @@ def get_python_version_and_architecture():
 
 def fetch_wheel_releases():
     """
-    Fetch the release data for PyICU from GitHub.
+    Fetch the release data for PyICU from GitHub with error handling for rate limits.
 
     Returns
     -------

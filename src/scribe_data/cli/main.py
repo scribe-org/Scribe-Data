@@ -178,6 +178,9 @@ def main() -> None:
         action=argparse.BooleanOptionalAction,
         help="Check for all languages and data types.",
     )
+    total_parser.add_argument(
+        "-i", "--interactive", action="store_true", help="Run in interactive mode"
+    )
 
     # MARK: Convert
 
@@ -273,7 +276,7 @@ def main() -> None:
 
         elif args.command in ["get", "g"]:
             if args.interactive:
-                start_interactive_mode()
+                start_interactive_mode(operation="get")
 
             else:
                 get_data(
@@ -287,9 +290,12 @@ def main() -> None:
                 )
 
         elif args.command in ["total", "t"]:
-            total_wrapper(
-                language=args.language, data_type=args.data_type, all_bool=args.all
-            )
+            if args.interactive:
+                start_interactive_mode(operation="total")
+            else:
+                total_wrapper(
+                    language=args.language, data_type=args.data_type, all_bool=args.all
+                )
 
         elif args.command in ["convert", "c"]:
             convert_wrapper(
