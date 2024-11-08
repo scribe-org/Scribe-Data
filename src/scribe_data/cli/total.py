@@ -53,12 +53,11 @@ def get_qid_by_input(input_str):
             The QID corresponding to the input string, or- None if not found.
     """
     if input_str:
-        input_str_lower = input_str.lower()
-        if input_str_lower in language_to_qid:
-            return language_to_qid[input_str_lower]
+        if input_str in language_to_qid:
+            return language_to_qid[input_str]
 
-        elif input_str_lower in data_type_metadata:
-            return data_type_metadata[input_str_lower]
+        elif input_str in data_type_metadata:
+            return data_type_metadata[input_str]
 
     return None
 
@@ -102,7 +101,7 @@ def get_datatype_list(language):
 
             if not data_types:
                 raise ValueError(
-                    f"No data types available for sub-languages of '{formatted_language}'."
+                    f"No data types available for sub-languages of '{formatted_language.capitalize()}'."
                 )
 
             return sorted(set(data_types))  # remove duplicates and sort
@@ -116,7 +115,7 @@ def get_datatype_list(language):
 
             if not data_types:
                 raise ValueError(
-                    f"No data types available for language '{formatted_language}'."
+                    f"No data types available for language '{formatted_language.capitalize()}'."
                 )
 
             return sorted(data_types)
@@ -184,12 +183,12 @@ def print_total_lexemes(language: str = None):
         and language[1:].isdigit()
     ):
         print(
-            f"Wikidata QID {language} passed. Checking validity and then all data types."
+            f"Wikidata QID {language.capitalize()} passed. Checking validity and then all data types."
         )
         language = check_qid_is_language(qid=language)
 
     else:
-        print(f"Returning total counts for {language} data types...\n")
+        print(f"Returning total counts for {language.capitalize()} data types...\n")
 
     def print_total_header(language, dt, total_lexemes):
         """
@@ -210,7 +209,9 @@ def print_total_lexemes(language: str = None):
 
             first_row = True
             for dt in data_types:
-                total_lexemes = get_total_lexemes(lang, dt, False)
+                total_lexemes = get_total_lexemes(
+                    language=lang, data_type=dt, do_print=False
+                )
                 total_lexemes = f"{total_lexemes:,}"
                 if first_row:
                     print_total_header(lang, dt, total_lexemes)
@@ -233,7 +234,9 @@ def print_total_lexemes(language: str = None):
             data_types = get_datatype_list(language)
 
         for dt in data_types:
-            total_lexemes = get_total_lexemes(language, dt, False)
+            total_lexemes = get_total_lexemes(
+                language=language, data_type=dt, do_print=False
+            )
             total_lexemes = f"{total_lexemes:,}"
             if first_row:
                 print_total_header(language, dt, total_lexemes)
@@ -248,7 +251,7 @@ def print_total_lexemes(language: str = None):
 # MARK: Get Total
 
 
-def get_total_lexemes(language, data_type, doPrint=True):
+def get_total_lexemes(language, data_type, do_print=True):
     """
     Get the total number of lexemes for a given language and data type from Wikidata.
 
@@ -344,13 +347,13 @@ def get_total_lexemes(language, data_type, doPrint=True):
 
         output_template = ""
         if language:
-            output_template += f"\nLanguage: {language}\n"
+            output_template += f"\nLanguage: {language.capitalize()}\n"
 
         if data_type:
             output_template += f"Data type: {data_type}\n"
 
-        output_template += f"Total number of lexemes: {total_lexemes}\n"
-        if doPrint:
+        output_template += f"Total number of lexemes: {total_lexemes:,}\n"
+        if do_print:
             print(output_template)
 
         return total_lexemes
@@ -399,7 +402,9 @@ def total_wrapper(
                 True  # flag to check if it's the first data type for the language
             )
             for dt in data_types:
-                total_lexemes = get_total_lexemes(lang, dt, False)
+                total_lexemes = get_total_lexemes(
+                    language=lang, data_type=dt, do_print=False
+                )
                 total_lexemes = (
                     f"{total_lexemes:,}" if total_lexemes is not None else "N/A"
                 )
@@ -413,16 +418,16 @@ def total_wrapper(
             print()
 
     elif language is not None and data_type is None:
-        print_total_lexemes(language)
+        print_total_lexemes(language=language)
 
     elif language is not None and not all_bool:
-        get_total_lexemes(language, data_type)
+        get_total_lexemes(language=language, data_type=data_type)
 
     elif language is not None:
         print(
-            f"You have already specified language {language} and data type {data_type} - no need to specify --all."
+            f"You have already specified language {language.capitalize()} and data type {data_type} - no need to specify --all."
         )
-        get_total_lexemes(language, data_type)
+        get_total_lexemes(language=language, data_type=data_type)
 
     else:
         raise ValueError("Invalid input or missing information")

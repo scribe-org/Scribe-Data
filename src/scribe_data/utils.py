@@ -76,15 +76,15 @@ language_to_qid = {}
 
 # Process each language and its potential sub-languages in one pass.
 for lang, lang_data in language_metadata.items():
-    lang_lower = lang.lower()
-
     if "sub_languages" in lang_data:
         for sub_lang, sub_lang_data in lang_data["sub_languages"].items():
-            sub_lang_lower = sub_lang.lower()
+            sub_lang_lower = sub_lang
             sub_qid = sub_lang_data.get("qid")
 
             if sub_qid is None:
-                print(f"Warning: 'qid' missing for sub-language {sub_lang} of {lang}")
+                print(
+                    f"Warning: 'qid' missing for sub-language {sub_lang.capitalize()} of {lang.capitalize()}"
+                )
 
             else:
                 language_map[sub_lang_lower] = sub_lang_data
@@ -93,11 +93,11 @@ for lang, lang_data in language_metadata.items():
     else:
         qid = lang_data.get("qid")
         if qid is None:
-            print(f"Warning: 'qid' missing for language {lang}")
+            print(f"Warning: 'qid' missing for language {lang.capitalize()}")
 
         else:
-            language_map[lang_lower] = lang_data
-            language_to_qid[lang_lower] = qid
+            language_map[lang] = lang_data
+            language_to_qid[lang] = qid
 
 
 def _load_json(package_path: str, file_name: str) -> Any:
@@ -157,23 +157,24 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
     """
     # Check if we're searching by language name.
     if source_key == "language":
-        norm_source_value = source_value.lower()
-
         # First, check the main language entries (e.g., mandarin, french, etc.).
         for language, entry in _languages.items():
             # If the language name matches the top-level key, return the target value.
-            if language.lower() == norm_source_value:
+            if language == source_value:
                 if "sub_languages" in entry:
-                    sub_languages = ", ".join(entry["sub_languages"].keys())
+                    sub_languages = entry["sub_languages"].keys()
+                    sub_languages = ", ".join(
+                        lang.capitalize() for lang in sub_languages
+                    )
                     raise ValueError(
-                        f"'{language}' has sub-languages, but is not queryable directly. Available sub-languages: {sub_languages}"
+                        f"'{language.capitalize()}' has sub-languages, but is not queryable directly. Available sub-languages: {sub_languages}"
                     )
                 return entry.get(target_key)
 
             # If there are sub-languages, check them too.
             if "sub_languages" in entry:
                 for sub_language, sub_entry in entry["sub_languages"].items():
-                    if sub_language.lower() == norm_source_value:
+                    if sub_language == source_value:
                         return sub_entry.get(target_key)
 
     # If no match was found, raise an error.
@@ -195,10 +196,10 @@ def get_language_qid(language: str) -> str:
             The Wikidata QID for the language.
     """
     return _find(
-        "language",
-        language,
-        "qid",
-        f"{language.upper()} is currently not a supported language for QID conversion.",
+        source_key="language",
+        source_value=language,
+        target_key="qid",
+        error_msg=f"{language.capitalize()} is currently not a supported language for QID conversion.",
     )
 
 
@@ -218,10 +219,10 @@ def get_language_iso(language: str) -> str:
     """
 
     return _find(
-        "language",
-        language,
-        "iso",
-        f"{language.upper()} is currently not a supported language for ISO conversion.",
+        source_key="language",
+        source_value=language,
+        target_key="iso",
+        error_msg=f"{language.capitalize()} is currently not a supported language for ISO conversion.",
     )
 
 
@@ -277,7 +278,7 @@ def load_queried_data(
         tuple(Any, str)
             A tuple containing the loaded data and the path to the data file.
     """
-    data_path = Path(file_path) / language / f"{data_type}.json"
+    data_path = Path(file_path) / language.lower() / f"{data_type}.json"
 
     with open(data_path, encoding="utf-8") as f:
         return json.load(f), data_path
@@ -311,14 +312,16 @@ def export_formatted_data(
     -------
         None
     """
-    export_path = Path(file_path) / language / f"{data_type.replace('-', '_')}.json"
+    export_path = (
+        Path(file_path) / language.lower() / f"{data_type.replace('-', '_')}.json"
+    )
 
     with open(export_path, "w", encoding="utf-8") as file:
         json.dump(formatted_data, file, ensure_ascii=False, indent=0)
         file.write("\n")
 
     print(
-        f"Wrote file {language}/{data_type.replace('-', '_')}.json with {len(formatted_data):,} {data_type}."
+        f"Wrote file {language.lower()}/{data_type.replace('-', '_')}.json with {len(formatted_data):,} {data_type}."
     )
 
 
@@ -581,19 +584,19 @@ def format_sublanguage_name(lang, language_metadata=_languages):
     """
     for main_lang, lang_data in language_metadata.items():
         # If it's not a sub-language, return the original name.
-        if main_lang == lang.lower():
+        if main_lang == lang:
             return lang
 
         # Check if the main language has sub-languages.
         if "sub_languages" in lang_data:
             # Check if the provided language is a sub-language.
             for sub_lang in lang_data["sub_languages"]:
-                if lang.lower() == sub_lang.lower():
+                if lang == sub_lang:
                     # Return the formatted name MAIN_LANG/SUB_LANG.
                     return f"{main_lang}/{sub_lang}"
 
     # Raise ValueError if no match is found.
-    raise ValueError(f"{lang.upper()} is not a valid language or sub-language.")
+    raise ValueError(f"{lang.capitalize()} is not a valid language or sub-language.")
 
 
 def list_all_languages(language_metadata=_languages):
