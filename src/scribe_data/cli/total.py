@@ -53,12 +53,11 @@ def get_qid_by_input(input_str):
             The QID corresponding to the input string, or- None if not found.
     """
     if input_str:
-        input_str_lower = input_str
-        if input_str_lower in language_to_qid:
-            return language_to_qid[input_str_lower]
+        if input_str in language_to_qid:
+            return language_to_qid[input_str]
 
-        elif input_str_lower in data_type_metadata:
-            return data_type_metadata[input_str_lower]
+        elif input_str in data_type_metadata:
+            return data_type_metadata[input_str]
 
     return None
 

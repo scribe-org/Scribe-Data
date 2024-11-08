@@ -73,9 +73,7 @@ def convert_to_json(
     -------
         None
     """
-    normalized_language = language
-
-    if not normalized_language:
+    if not language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
     data_types = [data_type] if isinstance(data_type, str) else data_type
@@ -83,7 +81,7 @@ def convert_to_json(
     if output_dir is None:
         output_dir = DEFAULT_JSON_EXPORT_DIR
 
-    json_output_dir = Path(output_dir) / normalized_language.capitalize()
+    json_output_dir = Path(output_dir) / language.capitalize()
     json_output_dir.mkdir(parents=True, exist_ok=True)
 
     for dtype in data_types:
@@ -159,7 +157,7 @@ def convert_to_json(
                 f"File '{output_file}' already exists. Overwrite? (y/n): "
             )
             if user_input.lower() != "y":
-                print(f"Skipping {normalized_language['language']} - {dtype}")
+                print(f"Skipping {language['language']} - {dtype}")
                 continue
 
         try:
@@ -211,9 +209,7 @@ def convert_to_csv_or_tsv(
     -------
         None
     """
-    normalized_language = language
-
-    if not normalized_language:
+    if not language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
     if isinstance(data_type, str):
