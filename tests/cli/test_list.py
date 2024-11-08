@@ -88,7 +88,7 @@ class TestListFunctions(unittest.TestCase):
 
     @patch("builtins.print")
     def test_list_data_types_specific_language(self, mock_print):
-        list_data_types("English")
+        list_data_types("english")
 
         expected_calls = [
             call(),

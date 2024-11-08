@@ -389,7 +389,7 @@ def convert_to_sqlite(
 
     data_to_sqlite(languages, specific_tables)
 
-    source_file = f"{get_language_iso(language).upper()}LanguageData.sqlite"
+    source_file = f"{get_language_iso(language).capitalize()}LanguageData.sqlite"
     source_path = input_file.parent / source_file
     target_path = output_dir / source_file
 

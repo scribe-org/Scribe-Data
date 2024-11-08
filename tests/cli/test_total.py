@@ -46,7 +46,7 @@ class TestTotalLexemes(unittest.TestCase):
         mock_query.return_value = mock_results
 
         with patch("builtins.print") as mock_print:
-            get_total_lexemes("English", "nouns")
+            get_total_lexemes(language="English", data_type="nouns")
 
         mock_print.assert_called_once_with(
             "\nLanguage: English\nData type: nouns\nTotal number of lexemes: 42\n"
@@ -63,7 +63,7 @@ class TestTotalLexemes(unittest.TestCase):
         mock_query.return_value = mock_results
 
         with patch("builtins.print") as mock_print:
-            get_total_lexemes("English", "nouns")
+            get_total_lexemes(language="English", data_type="nouns")
 
         mock_print.assert_called_once_with("Total number of lexemes: Not found")
 
@@ -74,7 +74,7 @@ class TestTotalLexemes(unittest.TestCase):
         mock_query.return_value = MagicMock()
 
         with patch("builtins.print") as mock_print:
-            get_total_lexemes("InvalidLanguage", "nouns")
+            get_total_lexemes(language="InvalidLanguage", data_type="nouns")
 
         mock_print.assert_called_once_with("Total number of lexemes: Not found")
 
@@ -86,7 +86,7 @@ class TestTotalLexemes(unittest.TestCase):
 
         # Call the function with empty and None inputs
         with patch("builtins.print") as mock_print:
-            get_total_lexemes("", "nouns")
+            get_total_lexemes(language="", data_type="nouns")
             get_total_lexemes(None, "verbs")
 
         expected_calls = [
@@ -102,7 +102,7 @@ class TestTotalLexemes(unittest.TestCase):
         mock_query.return_value = MagicMock()
 
         with patch("builtins.print") as mock_print:
-            get_total_lexemes("Martian", "nouns")
+            get_total_lexemes(language="Martian", data_type="nouns")
 
         mock_print.assert_called_once_with("Total number of lexemes: Not found")
 
@@ -123,8 +123,8 @@ class TestTotalLexemes(unittest.TestCase):
 
         # Call the function with different data types
         with patch("builtins.print") as mock_print:
-            get_total_lexemes("English", "verbs")
-            get_total_lexemes("English", "nouns")
+            get_total_lexemes(language="English", data_type="verbs")
+            get_total_lexemes(language="English", data_type="nouns")
 
         expected_calls = [
             call(
@@ -159,8 +159,8 @@ class TestTotalLexemes(unittest.TestCase):
         ]
 
         with patch("builtins.print") as mock_print:
-            get_total_lexemes("Norwegian", "verbs")
-            get_total_lexemes("Norwegian", "nouns")
+            get_total_lexemes(language="Norwegian", data_type="verbs")
+            get_total_lexemes(language="Norwegian", data_type="nouns")
 
         expected_calls = [
             call(
@@ -250,12 +250,14 @@ class TestTotalWrapper(unittest.TestCase):
     @patch("scribe_data.cli.total.print_total_lexemes")
     def test_total_wrapper_language_only(self, mock_print_total_lexemes):
         total_wrapper(language="English")
-        mock_print_total_lexemes.assert_called_once_with("English")
+        mock_print_total_lexemes.assert_called_once_with(language="English")
 
     @patch("scribe_data.cli.total.get_total_lexemes")
     def test_total_wrapper_language_and_data_type(self, mock_get_total_lexemes):
         total_wrapper(language="English", data_type="nouns")
-        mock_get_total_lexemes.assert_called_once_with("English", "nouns")
+        mock_get_total_lexemes.assert_called_once_with(
+            language="English", data_type="nouns"
+        )
 
     def test_total_wrapper_invalid_input(self):
         with self.assertRaises(ValueError):

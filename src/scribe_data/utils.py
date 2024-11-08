@@ -159,23 +159,24 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
     """
     # Check if we're searching by language name.
     if source_key == "language":
-        norm_source_value = source_value
-
         # First, check the main language entries (e.g., mandarin, french, etc.).
         for language, entry in _languages.items():
             # If the language name matches the top-level key, return the target value.
-            if language == norm_source_value:
+            if language == source_value:
                 if "sub_languages" in entry:
-                    sub_languages = ", ".join(entry["sub_languages"].keys())
+                    sub_languages = entry["sub_languages"].keys()
+                    sub_languages = ", ".join(
+                        lang.capitalize() for lang in sub_languages
+                    )
                     raise ValueError(
-                        f"'{language.capitalize()}' has sub-languages, but is not queryable directly. Available sub-languages: {sub_languages.capitalize()}"
+                        f"'{language.capitalize()}' has sub-languages, but is not queryable directly. Available sub-languages: {sub_languages}"
                     )
                 return entry.get(target_key)
 
             # If there are sub-languages, check them too.
             if "sub_languages" in entry:
                 for sub_language, sub_entry in entry["sub_languages"].items():
-                    if sub_language == norm_source_value:
+                    if sub_language == source_value:
                         return sub_entry.get(target_key)
 
     # If no match was found, raise an error.
@@ -197,10 +198,10 @@ def get_language_qid(language: str) -> str:
             The Wikidata QID for the language.
     """
     return _find(
-        "language",
-        language,
-        "qid",
-        f"{language.upper()} is currently not a supported language for QID conversion.",
+        source_key="language",
+        source_value=language,
+        target_key="qid",
+        error_msg=f"{language.capitalize()} is currently not a supported language for QID conversion.",
     )
 
 
@@ -220,10 +221,10 @@ def get_language_iso(language: str) -> str:
     """
 
     return _find(
-        "language",
-        language,
-        "iso",
-        f"{language.upper()} is currently not a supported language for ISO conversion.",
+        source_key="language",
+        source_value=language,
+        target_key="iso",
+        error_msg=f"{language.capitalize()} is currently not a supported language for ISO conversion.",
     )
 
 
@@ -597,7 +598,7 @@ def format_sublanguage_name(lang, language_metadata=_languages):
                     return f"{main_lang}/{sub_lang}"
 
     # Raise ValueError if no match is found.
-    raise ValueError(f"{lang.upper()} is not a valid language or sub-language.")
+    raise ValueError(f"{lang.capitalize()} is not a valid language or sub-language.")
 
 
 def list_all_languages(language_metadata=_languages):
