@@ -6,18 +6,18 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?infinitive
+  ?verb
   ?direct
-  ?gerund
   ?intransitivePhase
   ?basicPhase
+  ?gerund
 
 WHERE {
   # MARK: Infinitive
 
   ?lexeme dct:language wd:Q11051 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive .
+    wikibase:lemma ?verb .
     FILTER(lang(?infinitive) = "ur")
 
   # MARK: Direct Case
@@ -27,15 +27,6 @@ WHERE {
     ?directForm ontolex:representation ?direct ;
       wikibase:grammaticalFeature wd:Q1751855 .
       FILTER(LANG(?direct) = "ur")
-  }
-
-  # MARK: Gerund
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?gerundForm .
-    ?gerundForm ontolex:representation ?gerund ;
-      wikibase:grammaticalFeature wd:Q1923028 .
-      FILTER(LANG(?gerund) = "ur")
   }
 
   # MARK: Intransitive Phase
@@ -54,5 +45,14 @@ WHERE {
     ?basicPhaseForm ontolex:representation ?basicPhase ;
       wikibase:grammaticalFeature wd:Q113330960 .
       FILTER(LANG(?basicPhase) = "ur")
+  }
+
+  # MARK: Gerund
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+      FILTER(LANG(?gerund) = "ur")
   }
 }

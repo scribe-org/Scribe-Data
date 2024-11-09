@@ -4,30 +4,17 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?activeInfinitive
-  ?presentPerfect
   ?imperative
   ?preterite
+  ?presentPerfect
   ?passiveInfinitive
   ?passivePresent
+  ?activeInfinitive
   ?activePresent
 
 WHERE {
   ?lexeme dct:language wd:Q25167 ;
           wikibase:lexicalCategory wd:Q24905 .
-
-  # MARK: active Infinitive
-
-  ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
-  ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
-    wikibase:grammaticalFeature wd:Q1317831 , wd:Q179230 .
-
-  # MARK: present perfect
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentPerfectForm .
-    ?presentPerfectForm ontolex:representation ?presentPerfect ;
-      wikibase:grammaticalFeature wd:Q1240211 .
-  }
 
   # MARK: imperative
   OPTIONAL {
@@ -43,6 +30,13 @@ WHERE {
       wikibase:grammaticalFeature wd:Q442485 .
   }
 
+  # MARK: present perfect
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPerfectForm .
+    ?presentPerfectForm ontolex:representation ?presentPerfect ;
+      wikibase:grammaticalFeature wd:Q1240211 .
+  }
+
   # MARK: passive infinitive
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
@@ -56,6 +50,12 @@ WHERE {
     ?passivePresentForm ontolex:representation ?passivePresent ;
       wikibase:grammaticalFeature wd:Q1194697, wd:Q192613 .
   }
+
+  # MARK: active Infinitive
+
+  ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
+  ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
+    wikibase:grammaticalFeature wd:Q1317831 , wd:Q179230 .
 
   # MARK: active present
   OPTIONAL {

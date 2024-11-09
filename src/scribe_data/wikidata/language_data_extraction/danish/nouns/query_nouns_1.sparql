@@ -5,12 +5,12 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?genitiveIndefiniteSingular
+  ?genitiveIndefinitePlural
   ?genitiveDefiniteSingular
   ?genitiveDefinitePlural
-  ?genitiveIndefinitePlural
-  ?nonGenitiveDefinitePlural
-  ?nonGenitiveIndefinitePlural
   ?nonGenitiveIndefiniteSingular
+  ?nonGenitiveIndefinitePlural
+  ?nonGenitiveDefinitePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
@@ -25,6 +25,12 @@ WHERE {
   }
 
   OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveIndefinitePluralForm .
+    ?genitiveIndefinitePluralForm ontolex:representation ?genitiveIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveDefiniteSingularForm .
     ?genitiveDefiniteSingularForm ontolex:representation ?genitiveDefiniteSingular ;
       wikibase:grammaticalFeature wd:Q146233, wd:Q53997851, wd:Q110786 .
@@ -36,18 +42,14 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146233, wd:Q53997851, wd:Q146786 .
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveIndefinitePluralForm .
-    ?genitiveIndefinitePluralForm ontolex:representation ?genitiveIndefinitePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q53997857, wd:Q146786 .
-  }
+
 
   # MARK: Non-genitive
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nonGenitiveDefinitePluralForm .
-    ?nonGenitiveDefinitePluralForm ontolex:representation ?nonGenitiveDefinitePlural ;
-      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997851, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?nonGenitiveIndefiniteSingularForm .
+    ?nonGenitiveIndefiniteSingularForm ontolex:representation ?nonGenitiveIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997857, wd:Q110786 .
   }
 
   OPTIONAL {
@@ -57,8 +59,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nonGenitiveIndefiniteSingularForm .
-    ?nonGenitiveIndefiniteSingularForm ontolex:representation ?nonGenitiveIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997857, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nonGenitiveDefinitePluralForm .
+    ?nonGenitiveDefinitePluralForm ontolex:representation ?nonGenitiveDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997851, wd:Q146786 .
   }
 }

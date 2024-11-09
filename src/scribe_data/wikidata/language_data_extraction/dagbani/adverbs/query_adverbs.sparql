@@ -5,32 +5,21 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adverb
-  ?adverbial
-  ?plural
   ?present
-  ?adverbialLocation
   ?past
   ?singular
+  ?plural
+  ?adverbial
+  ?adverbialLocation
   ?adverbOfManner
-  ?phrase
   ?locativeAdverb
+  ?phrase
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb .
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?adverbialForm .
-    ?adverbialForm ontolex:representation ?adverbial ;
-      wikibase:grammaticalFeature wd:Q380012 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentForm .
@@ -39,16 +28,11 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?adverbialLocationForm .
-    ?adverbialLocationForm ontolex:representation ?adverbialLocation ;
-      wikibase:grammaticalFeature wd:Q5978303 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastForm .
     ?pastForm ontolex:representation ?past ;
       wikibase:grammaticalFeature wd:Q1994301 .
   }
+
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularForm .
@@ -57,9 +41,34 @@ WHERE {
   }
 
   OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adverbialForm .
+    ?adverbialForm ontolex:representation ?adverbial ;
+      wikibase:grammaticalFeature wd:Q380012 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adverbialLocationForm .
+    ?adverbialLocationForm ontolex:representation ?adverbialLocation ;
+      wikibase:grammaticalFeature wd:Q5978303 .
+  }
+
+
+
+  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?adverbOfMannerForm .
     ?adverbOfMannerForm ontolex:representation ?adverbOfManner ;
       wikibase:grammaticalFeature wd:Q113320444 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeAdverbForm .
+    ?locativeAdverbForm ontolex:representation ?locativeAdverb ;
+      wikibase:grammaticalFeature wd:Q1522423 .
   }
 
   OPTIONAL {
@@ -68,9 +77,4 @@ WHERE {
       wikibase:grammaticalFeature wd:Q187931 .
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeAdverbForm .
-    ?locativeAdverbForm ontolex:representation ?locativeAdverb ;
-      wikibase:grammaticalFeature wd:Q1522423 .
-  }
 }

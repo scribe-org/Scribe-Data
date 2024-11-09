@@ -5,17 +5,36 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
+  ?comparative
+  ?superlative
+  ?nominativePlural
   ?nominativeFeminineSingular
   ?nominativeMasculineSingular
   ?nominativeNeuterSingular
-  ?nominativePlural
-  ?comparative
-  ?superlative
 
 WHERE {
   ?lexeme dct:language wd:Q8798 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
+
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q131105 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularForm .
@@ -33,23 +52,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?nominativeNeuterSingularForm .
     ?nominativeNeuterSingularForm ontolex:representation ?nominativeNeuterSingular ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q131105 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
-    ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q131105 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comparativeForm .
-    ?comparativeForm ontolex:representation ?comparative ;
-      wikibase:grammaticalFeature wd:Q14169499 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?superlativeForm .
-    ?superlativeForm ontolex:representation ?superlative ;
-      wikibase:grammaticalFeature wd:Q1817208 .
   }
 }

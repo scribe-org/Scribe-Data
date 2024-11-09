@@ -318,6 +318,7 @@ def validate_forms(query_text: str) -> str:
 
     # Check if the order of variables matches, excluding lexeme and lexemeID.
     elif select_vars != where_vars:
+        # print('select vars is ',select_vars, '\n where vars is \n', where_vars)
         error_messages.append(
             "The order of variables in the SELECT statement does not match their order in the WHERE clause."
         )
@@ -399,22 +400,25 @@ def check_forms_order(query_text):
         valid_components = []
         temp_component = ""
 
-        for component in components:
-            temp_component += component.lower()
+        for index, component in enumerate(components):
+            temp_component += component.capitalize()
 
             # Append valid components in lexeme_form_labels_order.
-            if temp_component in map(str.lower, lexeme_form_labels_order):
-                valid_components.append(temp_component)
-                temp_component = ""  # Reset temp component.
+            if index + 1 != len(components):
+                if (
+                    temp_component.lower() in map(str.lower, lexeme_form_labels_order)
+                    and temp_component + components[index + 1]
+                    not in lexeme_form_labels_order
+                ):
+                    valid_components.append(temp_component)
+                    temp_component = ""  # Reset temp component.
         if temp_component:
             valid_components.append(temp_component)
 
         split_vars.append(valid_components)
 
     # Create a map for fast component position lookup.
-    order_map = {
-        item.lower(): index for index, item in enumerate(lexeme_form_labels_order)
-    }
+    order_map = {item: index for index, item in enumerate(lexeme_form_labels_order)}
 
     # Group columns by component length for sorting.
     grouped_columns = {}
@@ -429,9 +433,7 @@ def check_forms_order(query_text):
     sorted_columns = []
     for length in sorted(grouped_columns.keys()):
         sorted_group = sorted(grouped_columns[length], key=compare_key)
-        sorted_columns.extend(
-            "".join(comp.capitalize() for comp in col) for col in sorted_group
-        )
+        sorted_columns.extend("".join(comp for comp in col) for col in sorted_group)
 
     # Append labeling service columns to the end.
     sorted_columns.extend(

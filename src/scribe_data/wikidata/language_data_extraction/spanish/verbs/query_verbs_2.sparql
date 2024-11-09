@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
   ?preteriteFirstPersonSingular
-  ?preteriteSecondPersonSingular
-  ?preteriteThirdPersonSingular
   ?preteriteFirstPersonPlural
+  ?preteriteSecondPersonSingular
   ?preteriteSecondPersonPlural
+  ?preteriteThirdPersonSingular
   ?preteriteThirdPersonPlural
 
 WHERE {
@@ -28,6 +28,11 @@ WHERE {
     ?preteriteFirstPersonSingularForm ontolex:representation ?preteriteFirstPersonSingular ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q442485 .
   }
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteFirstPersonPluralForm .
+    ?preteriteFirstPersonPluralForm ontolex:representation ?preteriteFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q442485 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?preteriteSecondPersonSingularForm .
@@ -36,21 +41,15 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonSingularForm .
-    ?preteriteThirdPersonSingularForm ontolex:representation ?preteriteThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q442485 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteFirstPersonPluralForm .
-    ?preteriteFirstPersonPluralForm ontolex:representation ?preteriteFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q442485 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?preteriteSecondPersonPluralForm .
     ?preteriteSecondPersonPluralForm ontolex:representation ?preteriteSecondPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q442485 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonSingularForm .
+    ?preteriteThirdPersonSingularForm ontolex:representation ?preteriteThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q442485 .
   }
 
   OPTIONAL {

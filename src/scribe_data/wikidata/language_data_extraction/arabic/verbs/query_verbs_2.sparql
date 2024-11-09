@@ -4,18 +4,21 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?verb
-  ?activePerformativeFirstPersonSingular
-  ?feminineActivePerformativeSecondPersonSingular
-  ?masculineActivePerformativeSecondPersonSingular
-  ?feminineActivePerformativeThirdPersonSingular
-  ?masculineActivePerformativeThirdPersonSingular
-  ?activePerformativeSecondPersonDual
-  ?feminineActivePerformativeThirdPersonDual
-  ?masculineActivePerformativeThirdPersonDual
-  ?activePerformativeFirstPersonPlural
-  ?feminineActivePerformativeSecondPersonPlural
-  ?masculineActivePerformativeSecondPersonPlural
+?verb
+?activePerformativeFirstPersonSingular
+?activePerformativeFirstPersonPlural
+?activePerformativeSecondPersonDual
+
+?feminineActivePerformativeSecondPersonSingular
+?feminineActivePerformativeSecondPersonPlural
+?feminineActivePerformativeThirdPersonSingular
+?feminineActivePerformativeThirdPersonDual
+
+?masculineActivePerformativeSecondPersonSingular
+?masculineActivePerformativeSecondPersonPlural
+?masculineActivePerformativeThirdPersonSingular
+?masculineActivePerformativeThirdPersonDual
+
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
@@ -31,27 +34,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineActivePerformativeSecondPersonSingularForm .
-    ?feminineActivePerformativeSecondPersonSingularForm ontolex:representation ?feminineActivePerformativeSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q1775415, wd:Q1317831, wd:Q124351233 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineActivePerformativeSecondPersonSingularForm .
-    ?masculineActivePerformativeSecondPersonSingularForm ontolex:representation ?masculineActivePerformativeSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q499327, wd:Q1317831, wd:Q124351233 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineActivePerformativeThirdPersonSingularForm .
-    ?feminineActivePerformativeThirdPersonSingularForm ontolex:representation ?feminineActivePerformativeThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q1775415, wd:Q1317831, wd:Q124351233 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineActivePerformativeThirdPersonSingularForm .
-    ?masculineActivePerformativeThirdPersonSingularForm ontolex:representation ?masculineActivePerformativeThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q499327, wd:Q1317831, wd:Q124351233 .
+    ?lexeme ontolex:lexicalForm ?activePerformativeFirstPersonPluralForm .
+    ?activePerformativeFirstPersonPluralForm ontolex:representation ?activePerformativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q1317831, wd:Q124351233 .
   }
 
   OPTIONAL {
@@ -61,21 +46,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineActivePerformativeThirdPersonDualForm .
-    ?feminineActivePerformativeThirdPersonDualForm ontolex:representation ?feminineActivePerformativeThirdPersonDual ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q1775415, wd:Q1317831, wd:Q124351233 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineActivePerformativeThirdPersonDualForm .
-    ?masculineActivePerformativeThirdPersonDualForm ontolex:representation ?masculineActivePerformativeThirdPersonDual ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q499327, wd:Q1317831, wd:Q124351233 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePerformativeFirstPersonPluralForm .
-    ?activePerformativeFirstPersonPluralForm ontolex:representation ?activePerformativeFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q1317831, wd:Q124351233 .
+    ?lexeme ontolex:lexicalForm ?feminineActivePerformativeSecondPersonSingularForm .
+    ?feminineActivePerformativeSecondPersonSingularForm ontolex:representation ?feminineActivePerformativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q1775415, wd:Q1317831, wd:Q124351233 .
   }
 
   OPTIONAL {
@@ -85,8 +58,41 @@ WHERE {
   }
 
   OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActivePerformativeThirdPersonSingularForm .
+    ?feminineActivePerformativeThirdPersonSingularForm ontolex:representation ?feminineActivePerformativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q1775415, wd:Q1317831, wd:Q124351233 .
+  }
+
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActivePerformativeThirdPersonDualForm .
+    ?feminineActivePerformativeThirdPersonDualForm ontolex:representation ?feminineActivePerformativeThirdPersonDual ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q1775415, wd:Q1317831, wd:Q124351233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActivePerformativeSecondPersonSingularForm .
+    ?masculineActivePerformativeSecondPersonSingularForm ontolex:representation ?masculineActivePerformativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q499327, wd:Q1317831, wd:Q124351233 .
+  }
+
+  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineActivePerformativeSecondPersonPluralForm .
     ?masculineActivePerformativeSecondPersonPluralForm ontolex:representation ?masculineActivePerformativeSecondPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q499327, wd:Q1317831, wd:Q124351233 .
   }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActivePerformativeThirdPersonSingularForm .
+    ?masculineActivePerformativeThirdPersonSingularForm ontolex:representation ?masculineActivePerformativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q499327, wd:Q1317831, wd:Q124351233 .
+  }
+
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActivePerformativeThirdPersonDualForm .
+    ?masculineActivePerformativeThirdPersonDualForm ontolex:representation ?masculineActivePerformativeThirdPersonDual ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q499327, wd:Q1317831, wd:Q124351233 .
+  }
+
 }

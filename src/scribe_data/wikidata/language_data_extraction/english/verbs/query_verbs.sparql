@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
   ?simplePresent
-  ?simplePresentThirdPersonSingular
-  ?presentParticiple
   ?simplePast
+  ?presentParticiple
   ?pastParticiple
+  ?simplePresentThirdPersonSingular
 
 WHERE {
   # MARK: Infinitive
@@ -30,15 +30,15 @@ WHERE {
       FILTER(LANG(?simplePresent) = "en")
   }
 
-  # MARK: Third-person Singular
+  # MARK: Simple Past
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePresentThirdPersonSingularForm .
-    ?simplePresentThirdPersonSingularForm ontolex:representation ?simplePresentThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q3910936 .
-      FILTER NOT EXISTS { ?simplePresentThirdPersonSingularForm wdt:P6191 wd:Q181970 . }
-      FILTER NOT EXISTS { ?simplePresentThirdPersonSingularForm wikibase:grammaticalFeature wd:Q126473 . }
-      FILTER(LANG(?simplePresentThirdPersonSingular) = "en")
+    ?lexeme ontolex:lexicalForm ?simplePastForm .
+    ?simplePastForm ontolex:representation ?simplePast ;
+      wikibase:grammaticalFeature wd:Q1392475 .
+      FILTER NOT EXISTS { ?simplePastForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?simplePastForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?simplePast) = "en")
   }
 
   # MARK: Present Participle
@@ -52,16 +52,6 @@ WHERE {
       FILTER(LANG(?presentParticiple) = "en")
   }
 
-  # MARK: Simple Past
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePastForm .
-    ?simplePastForm ontolex:representation ?simplePast ;
-      wikibase:grammaticalFeature wd:Q1392475 .
-      FILTER NOT EXISTS { ?simplePastForm wdt:P6191 wd:Q181970 . }
-      FILTER NOT EXISTS { ?simplePastForm wikibase:grammaticalFeature wd:Q126473 . }
-      FILTER(LANG(?simplePast) = "en")
-  }
 
   # MARK: Past Participle
 
@@ -73,4 +63,17 @@ WHERE {
       FILTER NOT EXISTS { ?pastParticipleForm wikibase:grammaticalFeature wd:Q126473 . }
       FILTER(LANG(?pastParticiple) = "en")
   }
+
+  # MARK: Third-person Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePresentThirdPersonSingularForm .
+    ?simplePresentThirdPersonSingularForm ontolex:representation ?simplePresentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q3910936 .
+      FILTER NOT EXISTS { ?simplePresentThirdPersonSingularForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?simplePresentThirdPersonSingularForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?simplePresentThirdPersonSingular) = "en")
+  }
+
+
 }

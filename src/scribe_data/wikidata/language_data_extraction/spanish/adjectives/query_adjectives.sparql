@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
   ?feminineSingular
-  ?feminineSingularSuperlative
   ?femininePlural
-  ?femininePluralSuperlative
   ?masculineSingular
-  ?masculineSingularSuperlative
   ?masculinePlural
+  ?feminineSingularSuperlative
+  ?femininePluralSuperlative
+  ?masculineSingularSuperlative
   ?masculinePluralSuperlative
 
 WHERE {
@@ -30,11 +30,6 @@ WHERE {
       }
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSingularSuperlativeForm .
-    ?feminineSingularSuperlativeForm ontolex:representation ?feminineSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q1817208 .
-  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePluralForm .
@@ -45,13 +40,6 @@ WHERE {
       }
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePluralSuperlativeForm .
-    ?femininePluralSuperlativeForm ontolex:representation ?femininePluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q1817208 .
-  }
-
-  # MARK: Masculine
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineSingularForm .
@@ -63,18 +51,35 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSingularSuperlativeForm .
-    ?masculineSingularSuperlativeForm ontolex:representation ?masculineSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q1817208 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculinePluralForm .
     ?masculinePluralForm ontolex:representation ?masculinePlural ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
       FILTER NOT EXISTS {
         ?masculinePluralForm wikibase:grammaticalFeature wd:Q1817208 .
       }
+  }
+
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSingularSuperlativeForm .
+    ?feminineSingularSuperlativeForm ontolex:representation ?feminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePluralSuperlativeForm .
+    ?femininePluralSuperlativeForm ontolex:representation ?femininePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q1817208 .
+  }
+
+  # MARK: Masculine
+
+
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularSuperlativeForm .
+    ?masculineSingularSuperlativeForm ontolex:representation ?masculineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {

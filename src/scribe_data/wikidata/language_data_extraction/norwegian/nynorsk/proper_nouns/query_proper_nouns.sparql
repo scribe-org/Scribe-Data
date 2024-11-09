@@ -7,23 +7,16 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?indefiniteSingular
-  ?definiteSingular
   ?indefinitePlural
+  ?definiteSingular
   ?definitePlural
   ?gender
+
 
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q147276;
     wikibase:lemma ?indefiniteSingular .
-
-  # MARK: Definite Singular
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?  ?definiteSingularForm .
-    ?definiteSingularForm ontolex:representation ?definiteSingular ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q53997851 .
-  }
 
   # MARK: Indefinite Plural
 
@@ -31,6 +24,14 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?indefinitePluralForm .
     ?indefinitePluralForm ontolex:representation ?indefinitePlural ;
       wikibase:grammaticalFeature wd:Q146786, wd:Q53997857 .
+  }
+
+  # MARK: Definite Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?  ?definiteSingularForm .
+    ?definiteSingularForm ontolex:representation ?definiteSingular ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q53997851 .
   }
 
   # MARK: Definite Plural
