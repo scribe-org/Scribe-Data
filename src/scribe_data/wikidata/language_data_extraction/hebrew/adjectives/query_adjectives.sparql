@@ -42,7 +42,6 @@ WHERE {
     FILTER(lang(?femininePlural) = "he")
   }
 
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineSingularForm .
     ?masculineSingularForm ontolex:representation ?masculineSingular ;

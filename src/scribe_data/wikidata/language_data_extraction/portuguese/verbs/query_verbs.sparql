@@ -5,24 +5,28 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
+
   ?indicativePresentFirstPersonSingular
   ?indicativePresentFirstPersonPlural
   ?indicativePresentSecondPersonSingular
   ?indicativePresentSecondPersonPlural
   ?indicativePresentThirdPersonSingular
   ?indicativePresentThirdPersonPlural
+
   ?indicativePastImperfectFirstPersonSingular
   ?indicativePastImperfectFirstPersonPlural
   ?indicativePastImperfectSecondPersonSingular
   ?indicativePastImperfectSecondPersonPlural
   ?indicativePastImperfectThirdPersonSingular
   ?indicativePastImperfectThirdPersonPlural
+
   ?indicativePastPerfectFirstPersonSingular
   ?indicativePastPerfectFirstPersonPlural
   ?indicativePastPerfectSecondPersonSingular
   ?indicativePastPerfectSecondPersonPlural
   ?indicativePastPerfectThirdPersonSingular
   ?indicativePastPerfectThirdPersonPlural
+
   ?indicativePluperfectFirstPersonSingular
   ?indicativePluperfectFirstPersonPlural
   ?indicativePluperfectSecondPersonSingular
@@ -82,7 +86,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q682111, wd:Q192613 .
   }
 
- # MARK: Past Imperfect
+  # MARK: Past Imperfect
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePastImperfectFirstPersonSingularForm .
@@ -157,7 +161,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q682111, wd:Q64005357 .
   }
 
-  # MARK: Future Simple
+  # MARK: Pluperfect
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePluperfectFirstPersonSingularForm .

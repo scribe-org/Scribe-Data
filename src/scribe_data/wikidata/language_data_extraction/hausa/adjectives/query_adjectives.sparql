@@ -15,6 +15,7 @@ WHERE {
     wikibase:lemma ?adjective .
     FILTER(lang(?adjective) = "ha")
 
+  # MARK: Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
@@ -23,12 +24,16 @@ WHERE {
       FILTER(lang(?plural) = "ha")
   }
 
+  # MARK: Feminine
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineSingularForm .
     ?feminineSingularForm ontolex:representation ?feminineSingular ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
       FILTER(lang(?feminineSingular) = "ha")
   }
+
+  # MARK: Masculine
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineSingularForm .

@@ -4,40 +4,38 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?infinitive
 
-?infinitive
+  ?feminineSingularActiveParticiple
+  ?femininePluralActiveParticiple
 
-?feminineSingularActiveParticiple
-?femininePluralActiveParticiple
+  ?masculineInanimateSingularActiveParticiple
+  ?masculineInanimatePluralActiveParticiple
+  ?masculineAnimateSingularActiveParticiple
+  ?masculineAnimatePluralActiveParticiple
 
-?masculineInanimateSingularActiveParticiple
-?masculineInanimatePluralActiveParticiple
-?masculineAnimateSingularActiveParticiple
-?masculineAnimatePluralActiveParticiple
+  ?neuterSingularActiveParticiple
+  ?neuterPluralActiveParticiple
 
-?neuterSingularActiveParticiple
-?neuterPluralActiveParticiple
+  ?imperativeFirstPersonPlural
+  ?imperativeSecondPersonSingular
+  ?imperativeSecondPersonPlural
 
-?imperativeFirstPersonPlural
-?imperativeSecondPersonSingular
-?imperativeSecondPersonPlural
-
-?indicativePresentFirstPersonSingular
-?indicativePresentFirstPersonPlural
-?indicativePresentSecondPersonSingular
-?indicativePresentSecondPersonPlural
-?indicativePresentThirdPersonSingular
-?indicativePresentThirdPersonPlural
-
+  ?indicativePresentFirstPersonSingular
+  ?indicativePresentFirstPersonPlural
+  ?indicativePresentSecondPersonSingular
+  ?indicativePresentSecondPersonPlural
+  ?indicativePresentThirdPersonSingular
+  ?indicativePresentThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?infinitive .
 
+  # MARK: Active Participle
 
-  # MARK: Imperative
-
+  # Feminine
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineSingularActiveParticipleForm .
@@ -45,12 +43,13 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q72249355 .
   }
 
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePluralActiveParticipleForm .
     ?femininePluralActiveParticipleForm ontolex:representation ?femininePluralActiveParticiple ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q72249355 .
   }
+
+  # Maculine
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineInanimateSingularActiveParticipleForm .
@@ -70,15 +69,15 @@ WHERE {
       wikibase:grammaticalFeature wd:Q54020116, wd:Q110786, wd:Q72249355 .
   }
 
-
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineAnimatePluralActiveParticipleForm .
     ?masculineAnimatePluralActiveParticipleForm ontolex:representation ?masculineAnimatePluralActiveParticiple ;
       wikibase:grammaticalFeature wd:Q54020116, wd:Q146786, wd:Q72249355 .
   }
 
- OPTIONAL {
+  # Neuter
+
+  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterSingularActiveParticipleForm .
     ?neuterSingularActiveParticipleForm ontolex:representation ?neuterSingularActiveParticiple ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q72249355 .
@@ -90,6 +89,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1775461, wd:Q146786, wd:Q72249355 .
   }
 
+  # MARK: Imperative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperativeFirstPersonPluralForm .
@@ -108,11 +108,6 @@ WHERE {
     ?imperativeSecondPersonPluralForm ontolex:representation ?imperativeSecondPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q22716 .
   }
-
-  # MARK: Active Participle
-
-
-
 
   # MARK: Indicative Present
 
@@ -146,11 +141,9 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q682111, wd:Q192613 .
   }
 
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePresentThirdPersonPluralForm .
     ?indicativePresentThirdPersonPluralForm ontolex:representation ?indicativePresentThirdPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q682111, wd:Q192613 .
   }
-
 }

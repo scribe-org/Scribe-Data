@@ -6,7 +6,6 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
   ?comparative
-  ?pluralSuperlative
   ?pluralPositive
   ?definiteSingularPositive
 
@@ -16,17 +15,14 @@ WHERE {
     wikibase:lemma ?adjective .
 
   # MARK: Comparative
-    OPTIONAL {
+
+  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?comparativeForm .
     ?comparativeForm ontolex:representation ?comparative ;
       wikibase:grammaticalFeature wd:Q14169499 .
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralSuperlativeForm .
-    ?pluralSuperlativeForm ontolex:representation ?pluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q1817208 .
-  }
+  # MARK: Positive
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralPositiveForm .
@@ -34,16 +30,9 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786, wd:Q3482678 .
   }
 
-
-
-  # MARK: Definite
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?definiteSingularPositiveForm .
     ?definiteSingularPositiveForm ontolex:representation ?definiteSingularPositive ;
       wikibase:grammaticalFeature wd:Q110786, wd:Q53997851, wd:Q3482678 .
   }
-
-  # MARK: Plural
-
 }

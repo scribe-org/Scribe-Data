@@ -29,8 +29,8 @@ from pathlib import Path
 
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
-    lexeme_form_metadata,
     data_type_metadata,
+    lexeme_form_metadata,
 )
 
 lexeme_form_qid_order = []
@@ -387,12 +387,15 @@ def check_forms_order(query_text):
             otherwise a boolean indicating that the order matches.
     """
     select_pattern = r"SELECT\s+(.*?)\s+WHERE"
+
     # Extracting the variables from the SELECT statement.
     if select_match := re.search(select_pattern, query_text, flags=re.DOTALL):
         select_vars = re.findall(r"\?(\w+)", select_match[1])
+
     # Hardcoded labels provided by the labeling service.
     labeling_service_cols = ["case", "gender", "auxiliaryVerb"]
     select_vars = select_vars[2:]
+
     # Split each column label into components.
     split_vars = []
     for col in set(select_vars) - set(labeling_service_cols):
@@ -404,14 +407,14 @@ def check_forms_order(query_text):
             temp_component += component.capitalize()
 
             # Append valid components in lexeme_form_labels_order.
-            if index + 1 != len(components):
-                if (
-                    temp_component.lower() in map(str.lower, lexeme_form_labels_order)
-                    and temp_component + components[index + 1]
-                    not in lexeme_form_labels_order
-                ):
-                    valid_components.append(temp_component)
-                    temp_component = ""  # Reset temp component.
+            if index + 1 != len(components) and (
+                temp_component.lower() in map(str.lower, lexeme_form_labels_order)
+                and temp_component + components[index + 1]
+                not in lexeme_form_labels_order
+            ):
+                valid_components.append(temp_component)
+                temp_component = ""
+
         if temp_component:
             valid_components.append(temp_component)
 
@@ -433,7 +436,7 @@ def check_forms_order(query_text):
     sorted_columns = []
     for length in sorted(grouped_columns.keys()):
         sorted_group = sorted(grouped_columns[length], key=compare_key)
-        sorted_columns.extend("".join(comp for comp in col) for col in sorted_group)
+        sorted_columns.extend("".join(col) for col in sorted_group)
 
     # Append labeling service columns to the end.
     sorted_columns.extend(
@@ -449,12 +452,13 @@ def check_forms_order(query_text):
         if base_dt in select_vars:
             sorted_columns.remove(base_dt.capitalize())
             sorted_columns.insert(0, base_dt)
+
     # Return sorted columns or validate if it matches select_vars.
     sorted_lower = [i.lower() for i in sorted_columns]
     select_lower = [i.lower() for i in select_vars]
+
     if select_lower != sorted_lower:
-        # Note : I returned the sorted cols in the state they are in the sparql file for easier comparison.
-        return [i[0].lower() + i[1:] for i in sorted_columns]
+        return ", ".join([i[0].lower() + i[1:] for i in sorted_columns])
 
     return sorted_lower == select_lower
 
@@ -483,7 +487,7 @@ def check_query_forms() -> None:
         # Check forms ordering.
         forms_order_result = check_forms_order(query_text)
         if forms_order_result is not True:
-            error_output += f"\n{index}. {query_file_str}:\n  Forms ordering for above file should be:\n- {forms_order_result}\n"
+            error_output += f"\n{index}. {query_file_str}:\n  Form ordering for the above file should be:\n- {forms_order_result}\n"
             index += 1
 
         # Check that all variables in the WHERE and SELECT clauses are ordered, defined and returned.

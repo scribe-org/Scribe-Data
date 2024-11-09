@@ -5,8 +5,10 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
+
   ?comparative
   ?superlative
+
   ?nominativePlural
   ?nominativeFeminineSingular
   ?nominativeMasculineSingular
@@ -17,6 +19,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
 
+# MARK: Comparative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?comparativeForm .
@@ -24,11 +27,15 @@ WHERE {
       wikibase:grammaticalFeature wd:Q14169499 .
   }
 
+  # MARK: Superlative
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?superlativeForm .
     ?superlativeForm ontolex:representation ?superlative ;
       wikibase:grammaticalFeature wd:Q1817208 .
   }
+
+  # MARK: Nominative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativePluralForm .

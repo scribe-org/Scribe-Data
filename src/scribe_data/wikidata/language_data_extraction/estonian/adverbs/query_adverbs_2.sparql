@@ -20,12 +20,10 @@ SELECT
   ?comitativeSingular
   ?comitativePlural
 
-
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
       wikibase:lexicalCategory wd:Q380057 ;
       wikibase:lemma ?adverb .
-
 
   # MARK: Ablative
 

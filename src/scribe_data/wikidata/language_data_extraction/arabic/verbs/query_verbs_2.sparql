@@ -5,6 +5,7 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
 ?verb
+
 ?activePerformativeFirstPersonSingular
 ?activePerformativeFirstPersonPlural
 ?activePerformativeSecondPersonDual
@@ -18,7 +19,6 @@ SELECT
 ?masculineActivePerformativeSecondPersonPlural
 ?masculineActivePerformativeThirdPersonSingular
 ?masculineActivePerformativeThirdPersonDual
-
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
@@ -63,7 +63,6 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q1775415, wd:Q1317831, wd:Q124351233 .
   }
 
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineActivePerformativeThirdPersonDualForm .
     ?feminineActivePerformativeThirdPersonDualForm ontolex:representation ?feminineActivePerformativeThirdPersonDual ;
@@ -88,11 +87,9 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q499327, wd:Q1317831, wd:Q124351233 .
   }
 
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineActivePerformativeThirdPersonDualForm .
     ?masculineActivePerformativeThirdPersonDualForm ontolex:representation ?masculineActivePerformativeThirdPersonDual ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q499327, wd:Q1317831, wd:Q124351233 .
   }
-
 }

@@ -8,6 +8,7 @@ SELECT
   ?feminineIndicativePast
   ?masculineIndicativePast
   ?neuterIndicativePast
+
   ?indicativePastPlural
   ?indicativePresentFirstPersonSingular
   ?indicativePresentFirstPersonPlural
@@ -15,7 +16,6 @@ SELECT
   ?indicativePresentSecondPersonPlural
   ?indicativePresentThirdPersonSingular
   ?indicativePresentThirdPersonPlural
-
 
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
@@ -59,7 +59,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786, wd:Q682111, wd:Q1994301 .
   }
 
-  # MARK: Present
+  # MARK: Indicative Present
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePresentFirstPersonSingularForm .
@@ -78,7 +78,6 @@ WHERE {
     ?indicativePresentSecondPersonSingularForm ontolex:representation ?indicativePresentSecondPersonSingular ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q682111, wd:Q192613 .
   }
-
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePresentSecondPersonPluralForm .

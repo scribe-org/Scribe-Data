@@ -6,15 +6,16 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?pastFirstPersonSingular
   ?pastFirstPersonPlural
+
   ?femininePastSecondPersonSingular
   ?femininePastSecondPersonPlural
   ?femininePastThirdPersonSingular
   ?femininePastThirdPersonPlural
+
   ?masculinePastSecondPersonSingular
   ?masculinePastSecondPersonPlural
   ?masculinePastThirdPersonSingular
   ?masculinePastThirdPersonPlural
-
 
 WHERE {
   ?lexeme dct:language wd:Q9288 ;
@@ -35,6 +36,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q1994301 .
       FILTER(lang(?pastFirstPersonPlural) = "he")
   }
+
+  # Feminine
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePastSecondPersonSingularForm .
@@ -63,6 +66,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q1994301, wd:Q1775415 .
       FILTER(lang(?femininePastThirdPersonPlural) = "he")
   }
+
+  # Masculine
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculinePastSecondPersonSingularForm .

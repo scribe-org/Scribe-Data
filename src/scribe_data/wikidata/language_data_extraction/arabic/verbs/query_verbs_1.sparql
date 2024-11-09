@@ -5,6 +5,7 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
+
   ?indicativeFirstPersonSingularFiilMudari
   ?indicativeFirstPersonPluralFiilMudari
   ?indicativeSecondPersonDualFiilMudari
@@ -19,14 +20,12 @@ SELECT
   ?masculineIndicativeThirdPersonSingularFiilMudari
   ?masculineIndicativeThirdPersonDualFiilMudari
 
-
-
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
 
-  # MARK: Present
+  # MARK: Indicative Present
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeFirstPersonSingularFiilMudariForm .
@@ -76,7 +75,6 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q499327, wd:Q682111, wd:Q12230930 .
   }
 
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineIndicativeSecondPersonPluralFiilMudariForm .
     ?masculineIndicativeSecondPersonPluralFiilMudariForm ontolex:representation ?masculineIndicativeSecondPersonPluralFiilMudari ;
@@ -94,5 +92,4 @@ WHERE {
     ?masculineIndicativeThirdPersonDualFiilMudariForm ontolex:representation ?masculineIndicativeThirdPersonDualFiilMudari ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q110022, wd:Q499327, wd:Q682111, wd:Q12230930 .
   }
-
 }

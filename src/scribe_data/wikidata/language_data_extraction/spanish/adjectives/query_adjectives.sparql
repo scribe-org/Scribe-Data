@@ -5,10 +5,12 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
+
   ?feminineSingular
   ?femininePlural
   ?masculineSingular
   ?masculinePlural
+
   ?feminineSingularSuperlative
   ?femininePluralSuperlative
   ?masculineSingularSuperlative
@@ -30,7 +32,6 @@ WHERE {
       }
   }
 
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePluralForm .
     ?femininePluralForm ontolex:representation ?femininePlural ;
@@ -39,7 +40,6 @@ WHERE {
         ?femininePluralForm wikibase:grammaticalFeature wd:Q1817208 .
       }
   }
-
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineSingularForm .
@@ -59,7 +59,6 @@ WHERE {
       }
   }
 
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineSingularSuperlativeForm .
     ?feminineSingularSuperlativeForm ontolex:representation ?feminineSingularSuperlative ;
@@ -73,8 +72,6 @@ WHERE {
   }
 
   # MARK: Masculine
-
-
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineSingularSuperlativeForm .

@@ -12,7 +12,6 @@ SELECT
   ?definitePlural
   ?gender
 
-
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q147276;

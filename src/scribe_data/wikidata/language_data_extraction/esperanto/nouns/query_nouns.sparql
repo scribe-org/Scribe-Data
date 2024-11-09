@@ -10,11 +10,11 @@ SELECT
   ?accusativePlural
 
 WHERE {
+  # MARK: Nominative
+
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?nominativeSingular .
-
-  # MARK: Nominative Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativePluralForm .
@@ -22,7 +22,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
-  # MARK: Accusative Singular
+  # MARK: Accusative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
@@ -30,8 +30,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
   }
 
-
-  # MARK: Accusative Plural
+  # MARK: Accusative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativePluralForm .

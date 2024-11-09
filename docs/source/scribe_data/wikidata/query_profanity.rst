@@ -13,8 +13,8 @@ Queries all profane words from a given language to be removed from autosuggest o
 
     WHERE {
         ?lexemeId dct:language wd:LANGUAGE_QID; # replace language qid here
-                    wikibase:lemma ?lemma;
-                    ontolex:sense ?sense.
+            wikibase:lemma ?lemma;
+            ontolex:sense ?sense.
 
         VALUES ?filter {
             wd:Q8102

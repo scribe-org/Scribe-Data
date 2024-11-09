@@ -28,7 +28,7 @@ WHERE {
     wikibase:lemma ?adjective .
     FILTER(lang(?adjective) = "ur")
 
-  # MARK: Singulative Numeral
+  # MARK: Singular
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularForm .
@@ -37,7 +37,7 @@ WHERE {
       FILTER(LANG(?singular) = "ur")
   }
 
-  # MARK: Collective Numeral
+  # MARK: Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .

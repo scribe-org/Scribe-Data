@@ -12,7 +12,6 @@ SELECT
   ?neuterIndefiniteSingular
   ?feminineMasculineIndefiniteSingular
 
-
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q34698 ;

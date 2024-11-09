@@ -30,7 +30,6 @@ WHERE {
       wikibase:grammaticalFeature wd:Q499327, wd:Q131105, wd:Q110786, wd:Q3482678 .
   }
 
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeMasculinePersonalPluralPositiveForm .
     ?nominativeMasculinePersonalPluralPositiveForm ontolex:representation ?nominativeMasculinePersonalPluralPositive ;

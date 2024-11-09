@@ -5,31 +5,34 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
+
   ?nominativeFeminineIndefiniteSingular
   ?nominativeFeminineIndefinitePlural
   ?nominativeFeminineIndefiniteDual
   ?nominativeMasculineIndefiniteSingular
   ?nominativeMasculineIndefinitePlural
   ?nominativeMasculineIndefiniteDual
+
   ?genitiveFeminineIndefiniteSingular
   ?genitiveFeminineIndefinitePlural
   ?genitiveFeminineIndefiniteDual
   ?genitiveMasculineIndefiniteSingular
   ?genitiveMasculineIndefinitePlural
   ?genitiveMasculineIndefiniteDual
+
   ?accusativeFeminineIndefiniteSingular
   ?accusativeFeminineIndefinitePlural
   ?accusativeFeminineIndefiniteDual
   ?accusativeMasculineIndefiniteSingular
   ?accusativeMasculineIndefinitePlural
   ?accusativeMasculineIndefiniteDual
+
   ?pausalFeminineIndefiniteSingular
   ?pausalFeminineIndefinitePlural
   ?pausalFeminineIndefiniteDual
   ?pausalMasculineIndefiniteSingular
   ?pausalMasculineIndefinitePlural
   ?pausalMasculineIndefiniteDual
-
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
@@ -52,7 +55,6 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q131105, wd:Q53997857 .
   }
 
-  # Dual
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeFeminineIndefiniteDualForm .
     ?nominativeFeminineIndefiniteDualForm ontolex:representation ?nominativeFeminineIndefiniteDual ;
@@ -115,17 +117,15 @@ WHERE {
       wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q146233, wd:Q53997857 .
   }
 
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveMasculineIndefiniteDualForm .
     ?genitiveMasculineIndefiniteDualForm ontolex:representation ?genitiveMasculineIndefiniteDual ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q110022, wd:Q146233, wd:Q53997857 .
   }
 
-
   # MARK: Accusative
 
-  # Singular
+  # Feminine
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeFeminineIndefiniteSingularForm .
@@ -145,6 +145,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1775415, wd:Q110022, wd:Q146078, wd:Q53997857 .
   }
 
+  # Masculine
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeMasculineIndefiniteSingularForm .
     ?accusativeMasculineIndefiniteSingularForm ontolex:representation ?accusativeMasculineIndefiniteSingular ;
@@ -162,7 +164,6 @@ WHERE {
     ?accusativeMasculineIndefiniteDualForm ontolex:representation ?accusativeMasculineIndefiniteDual ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q110022, wd:Q146078, wd:Q53997857 .
   }
-
 
   # MARK: Pausal
 
@@ -193,8 +194,6 @@ WHERE {
     ?pausalMasculineIndefiniteSingularForm ontolex:representation ?pausalMasculineIndefiniteSingular ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q117262361, wd:Q53997857 .
   }
-
-  # Dual
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pausalMasculineIndefinitePluralForm .

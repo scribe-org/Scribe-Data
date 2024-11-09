@@ -12,7 +12,6 @@ SELECT
   ?preteriteThirdPersonSingular
   ?preteriteThirdPersonPlural
 
-
 WHERE {
   ?lexeme dct:language wd:Q652 ;
     wikibase:lexicalCategory wd:Q24905 ;

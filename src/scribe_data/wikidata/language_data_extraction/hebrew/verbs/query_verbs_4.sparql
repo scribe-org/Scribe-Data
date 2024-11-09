@@ -37,6 +37,8 @@ WHERE {
       FILTER(lang(?futureFirstPersonPlural) = "he") .
   }
 
+  # Feminine
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineFutureSecondPersonSingularForm .
     ?feminineFutureSecondPersonSingularForm ontolex:representation ?feminineFutureSecondPersonSingular ;
@@ -64,6 +66,8 @@ WHERE {
       wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q501405, wd:Q1775415 .
       FILTER(lang(?feminineFutureThirdPersonPlural) = "he") .
   }
+
+  # Masculine
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineFutureSecondPersonSingularForm .

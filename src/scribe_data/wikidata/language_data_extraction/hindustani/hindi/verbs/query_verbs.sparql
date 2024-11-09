@@ -17,7 +17,6 @@ SELECT
   ?adverbial
   ?absoluteConstruction
 
-
 WHERE {
   # MARK: Infinitive
 
@@ -25,7 +24,6 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
     FILTER(lang(?infinitive) = "hi")
-
 
   # MARK: Accusative
 
@@ -53,7 +51,6 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1233197 .
       FILTER(LANG(?oblique) = "hi")
   }
-
 
   # MARK: Intransitive Phase
 

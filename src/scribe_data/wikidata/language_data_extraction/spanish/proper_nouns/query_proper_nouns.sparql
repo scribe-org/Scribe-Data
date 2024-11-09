@@ -12,7 +12,6 @@ SELECT
   ?masculinePlural
   ?gender
 
-
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q147276 ;
@@ -26,16 +25,13 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 .
   }
 
+  # MARK: Feminine
 
-
-
-  # MARK: feminine singular and plural forms.
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineSingularForm .
     ?feminineSingularForm ontolex:representation ?feminineSingular ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
   }
-
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePluralForm .
@@ -43,16 +39,7 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 .
   }
 
-
-  # MARK: Gender(s)
-
-  OPTIONAL {
-    ?lexeme wdt:P5185 ?nounGender .
-  }
-
-  # Spansih sometimes has masculine and feminine versions on a single lexeme.
-
-  # MARK: masculine singular and plural forms.
+  # MARK: Masculine
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineSingularForm .
     ?masculineSingularForm ontolex:representation ?masculineSingular ;
@@ -64,6 +51,13 @@ WHERE {
     ?masculinePluralForm ontolex:representation ?masculinePlural ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
   }
+
+  # MARK: Gender(s)
+
+  OPTIONAL {
+    ?lexeme wdt:P5185 ?nounGender .
+  }
+
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
     ?nounGender rdfs:label ?gender .

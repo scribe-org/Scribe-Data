@@ -9,6 +9,7 @@ SELECT
   ?adjective
   ?singular
   ?plural
+
   ?vocativeFeminineSingular
   ?vocativeFemininePlural
   ?vocativeMasculineSingular
@@ -30,7 +31,7 @@ WHERE {
     wikibase:lemma ?adjective .
     FILTER(lang(?adjective) = "hi")
 
-  # MARK: Singulative Numeral
+  # MARK: Singular
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularForm .
@@ -39,7 +40,7 @@ WHERE {
       FILTER(LANG(?singular) = "hi")
   }
 
-  # MARK: Collective Numeral
+  # MARK: Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
@@ -47,7 +48,6 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 .
       FILTER(LANG(?plural) = "hi")
   }
-
 
   # MARK: Vocative
 

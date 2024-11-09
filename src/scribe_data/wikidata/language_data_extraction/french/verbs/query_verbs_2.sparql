@@ -5,6 +5,7 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
+
   ?indicativeSimpleFutureFirstPersonSingular
   ?indicativeSimpleFutureFirstPersonPlural
   ?indicativeSimpleFutureSecondPersonSingular
@@ -19,23 +20,18 @@ SELECT
   ?indicativeImperfectThirdPersonSingular
   ?indicativeImperfectThirdPersonPlural
 
-
 WHERE {
   ?lexeme dct:language wd:Q150 ;
-    wikibase:lexicalCategory wd:Q24905 .
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive .
 
-  # MARK: Infinitive
-
-  ?lexeme ontolex:lexicalForm ?infinitiveForm .
-  ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature wd:Q179230 ;
+  # MARK: Future
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureFirstPersonSingularForm .
     ?indicativeSimpleFutureFirstPersonSingularForm ontolex:representation ?indicativeSimpleFutureFirstPersonSingular ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q682111, wd:Q1475560 .
   }
-
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureFirstPersonPluralForm .

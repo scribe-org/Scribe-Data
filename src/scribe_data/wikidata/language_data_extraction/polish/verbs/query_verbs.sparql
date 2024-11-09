@@ -5,6 +5,7 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
+
   ?feminineSingularPassiveParticiple
   ?feminineSingularActiveParticiple
   ?femininePluralPassiveParticiple
@@ -36,6 +37,8 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?infinitive .
 
+# MARK: Feminine
+
 OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineSingularPassiveParticipleForm .
     ?feminineSingularPassiveParticipleForm ontolex:representation ?feminineSingularPassiveParticiple ;
@@ -47,7 +50,6 @@ OPTIONAL {
     ?feminineSingularActiveParticipleForm ontolex:representation ?feminineSingularActiveParticiple ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q72249355 .
   }
-
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePluralPassiveParticipleForm .
@@ -61,8 +63,7 @@ OPTIONAL {
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q72249355 .
   }
 
-  # MARK: Present
-  # MARK: Active Participle
+  # MARK: Masculine
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineInanimateSingularPassiveParticipleForm .
@@ -112,7 +113,7 @@ OPTIONAL {
       wikibase:grammaticalFeature wd:Q54020116, wd:Q146786, wd:Q72249355 .
   }
 
-  # MARK: Passive Participle
+  # MARK: Neuter
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterSingularPassiveParticipleForm .
@@ -136,6 +137,8 @@ OPTIONAL {
     ?neuterPluralActiveParticipleForm ontolex:representation ?neuterPluralActiveParticiple ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q146786, wd:Q72249355 .
   }
+
+  # MARK: Indicative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePresentFirstPersonSingularForm .

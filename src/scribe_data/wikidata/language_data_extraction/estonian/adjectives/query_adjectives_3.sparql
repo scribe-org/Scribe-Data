@@ -19,7 +19,6 @@ WHERE {
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
 
-
   # MARK: Ablative
 
   OPTIONAL {
@@ -49,7 +48,6 @@ WHERE {
   }
 
   # MARK: Translative
-
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?translativeSingularForm .
