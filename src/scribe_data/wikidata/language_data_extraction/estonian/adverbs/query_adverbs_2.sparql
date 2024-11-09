@@ -5,10 +5,10 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adverb
-  ?adessiveSingular
-  ?adessivePlural
   ?ablativeSingular
   ?ablativePlural
+  ?adessiveSingular
+  ?adessivePlural
   ?translativeSingular
   ?translativePlural
   ?terminativeSingular
@@ -25,20 +25,6 @@ WHERE {
       wikibase:lexicalCategory wd:Q380057 ;
       wikibase:lemma ?adverb .
 
-  # MARK: Adessive
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?adessiveSingularForm .
-    ?adessiveSingularForm ontolex:representation ?adessiveSingular ;
-      wikibase:grammaticalFeature wd:Q281954, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?adessivePluralForm .
-    ?adessivePluralForm ontolex:representation ?adessivePlural ;
-      wikibase:grammaticalFeature wd:Q281954, wd:Q146786 .
-  }
-
   # MARK: Ablative
 
   OPTIONAL {
@@ -51,6 +37,20 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?ablativePluralForm .
     ?ablativePluralForm ontolex:representation ?ablativePlural ;
       wikibase:grammaticalFeature wd:Q156986, wd:Q146786 .
+  }
+
+  # MARK: Adessive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessiveSingularForm .
+    ?adessiveSingularForm ontolex:representation ?adessiveSingular ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessivePluralForm .
+    ?adessivePluralForm ontolex:representation ?adessivePlural ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q146786 .
   }
 
   # MARK: Translative

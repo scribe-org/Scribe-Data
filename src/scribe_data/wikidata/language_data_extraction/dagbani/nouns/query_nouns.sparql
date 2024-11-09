@@ -12,6 +12,8 @@ WHERE {
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun .
 
+  # MARK: Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;

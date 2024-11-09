@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
   ?indicativePastFirstPersonSingular
-  ?indicativePastSecondPersonSingular
-  ?indicativePastThirdPersonSingular
   ?indicativePastFirstPersonPlural
+  ?indicativePastSecondPersonSingular
   ?indicativePastSecondPersonPlural
+  ?indicativePastThirdPersonSingular
   ?indicativePastThirdPersonPlural
 
 WHERE {
@@ -26,27 +26,27 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePastSecondPersonSingularForm .
-    ?indicativePastSecondPersonSingularForm ontolex:representation ?indicativePastSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q1994301, wd:Q682111 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePastThirdPersonSingularForm .
-    ?indicativePastThirdPersonSingularForm ontolex:representation ?indicativePastThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q1994301, wd:Q682111 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePastFirstPersonPluralForm .
     ?indicativePastFirstPersonPluralForm ontolex:representation ?indicativePastFirstPersonPlural ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q1994301, wd:Q682111 .
   }
 
   OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastSecondPersonSingularForm .
+    ?indicativePastSecondPersonSingularForm ontolex:representation ?indicativePastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q1994301, wd:Q682111 .
+  }
+
+  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePastSecondPersonPluralForm .
     ?indicativePastSecondPersonPluralForm ontolex:representation ?indicativePastSecondPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q1994301, wd:Q682111 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastThirdPersonSingularForm .
+    ?indicativePastThirdPersonSingularForm ontolex:representation ?indicativePastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q1994301, wd:Q682111 .
   }
 
   OPTIONAL {

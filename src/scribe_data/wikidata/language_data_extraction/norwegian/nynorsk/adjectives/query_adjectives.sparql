@@ -7,31 +7,22 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
-  ?feminineMasculineIndefiniteSingular
-  ?neuterIndefiniteSingular
-  ?definiteSingular
   ?plural
-
+  ?definiteSingular
+  ?neuterIndefiniteSingular
+  ?feminineMasculineIndefiniteSingular
 
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective .
 
-  # MARK: Common Indefinite
+  # MARK: Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularForm .
-    ?feminineMasculineIndefiniteSingularForm ontolex:representation ?feminineMasculineIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q110786, wd:Q53997857 .
-  }
-
-  # MARK: Neuter Indefinite
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularForm .
-    ?neuterIndefiniteSingularForm ontolex:representation ?neuterIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q53997857 .
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 
   # MARK: Definite
@@ -42,11 +33,19 @@ WHERE {
       wikibase:grammaticalFeature wd:Q110786, wd:Q53997851 .
   }
 
-  # MARK: Plural
+  # MARK: Neuter Indefinite
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularForm .
+    ?neuterIndefiniteSingularForm ontolex:representation ?neuterIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q53997857 .
+  }
+
+  # MARK: Common Indefinite
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularForm .
+    ?feminineMasculineIndefiniteSingularForm ontolex:representation ?feminineMasculineIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q110786, wd:Q53997857 .
   }
 }

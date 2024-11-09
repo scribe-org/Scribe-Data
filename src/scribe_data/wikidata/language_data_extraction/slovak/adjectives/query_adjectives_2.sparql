@@ -5,10 +5,10 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
+  ?genitivePluralPositive
   ?genitiveFeminineSingularPositive
   ?genitiveMasculineSingularPositive
   ?genitiveNeuterSingularPositive
-  ?genitivePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9058;
@@ -16,6 +16,12 @@ WHERE {
     wikibase:lemma ?adjective .
 
   # MARK: Genitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralPositiveForm .
+    ?genitivePluralPositiveForm ontolex:representation ?genitivePluralPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q3482678 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularPositiveForm .
@@ -33,11 +39,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?genitiveNeuterSingularPositiveForm .
     ?genitiveNeuterSingularPositiveForm ontolex:representation ?genitiveNeuterSingularPositive ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q146233, wd:Q110786, wd:Q3482678 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralPositiveForm .
-    ?genitivePluralPositiveForm ontolex:representation ?genitivePluralPositive ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q3482678 .
   }
 }

@@ -13,7 +13,6 @@ WHERE {
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?preposition .
 
-
   # MARK: Accusative
 
   OPTIONAL {

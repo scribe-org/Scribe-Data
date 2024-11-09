@@ -8,12 +8,11 @@ SELECT
   ?case
 
 WHERE {
-  # All Ukrainian prepositions.
   ?lexeme dct:language wd:Q8798 ;
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?lemma .
 
-  # MARK: Corresponding Case
+  # MARK: Case
 
   OPTIONAL {
     ?lexeme wdt:P5713 ?caseForm .
