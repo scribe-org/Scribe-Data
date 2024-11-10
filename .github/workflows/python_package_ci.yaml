@@ -14,10 +14,15 @@ jobs:
         os:
           - macos-latest
           - ubuntu-latest
+          - windows-latest
         python-version:
           - "3.9"
 
     runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - uses: actions/checkout@v3
@@ -28,13 +33,20 @@ jobs:
 
       - name: Create and Activate Virtual Environment
         run: |
-          python3 -m venv venv
-          source venv/bin/activate
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            python -m venv venv
+            source venv/Scripts/activate
+          else
+            python3 -m venv venv
+            source venv/bin/activate
+          fi
 
       - name: Set up Homebrew
+        if: matrix.os == 'macos-latest'
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Install PyICU dependencies
+        if: matrix.os == 'macos-latest'
         run: |
           brew bundle install --file=Brewfile
           # configure PATH & PKG_CONFIG_PATH as per
