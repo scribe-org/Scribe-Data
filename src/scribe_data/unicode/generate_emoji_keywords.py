@@ -64,10 +64,12 @@ def generate_emoji(language, output_dir: str = None):
             Path(__file__).parent / "cldr-annotations-full" / "annotations"
         )
         if iso in os.listdir(path_to_cldr_annotations):
-            print(f"Emoji Generation for language {language} is supported")
+            print(f"Emoji Generation for language {language.capitalize()} is supported")
 
         else:
-            print(f"Emoji Generation for language {language} is not supported")
+            print(
+                f"Emoji Generation for language {language.capitalize()} is not supported"
+            )
             return
 
         updated_path = output_dir[2:] if output_dir.startswith("./") else output_dir
@@ -82,6 +84,6 @@ def generate_emoji(language, output_dir: str = None):
                 file_path=output_dir,
                 formatted_data=emoji_keywords_dict,
                 query_data_in_use=True,
-                language=language.capitalize(),
+                language=language,
                 data_type=DATA_TYPE,
             )

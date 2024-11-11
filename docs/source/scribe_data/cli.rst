@@ -143,15 +143,32 @@ Options:
 - ``-ot, --output-type {json,csv,tsv}``: The output file type.
 - ``-ope, --outputs-per-entry OUTPUTS_PER_ENTRY``: How many outputs should be generated per data entry.
 - ``-o, --overwrite``: Whether to overwrite existing files (default: False).
-- ``-a, --all ALL``: Get all languages and data types.
+- ``-a, --all``: Get all languages and data types. Can be combined with `-dt` to get all languages for a specific data type, or with `-lang` to get all data types for a specific language.
 - ``-i, --interactive``: Run in interactive mode.
 - ``-ic, --identifier-case``: The case format for identifiers in the output data (default: camel).
 
-Example:
+Examples:
+
+.. code-block:: bash
+
+    $ scribe-data get --all
+    Getting data for all languages and all data types...
+
+.. code-block:: bash
+
+    $ scribe-data get --all -dt nouns
+    Getting all nouns for all languages...
+
+.. code-block:: bash
+
+    $ scribe-data get --all -lang English
+    Getting all data types for English...
 
 .. code-block:: bash
 
     $ scribe-data get -l English --data-type verbs -od ~/path/for/output
+    Getting and formatting English verbs
+    Data updated: 100%|████████████████████████| 1/1 [00:XY<00:00, XY.Zs/process]
 
 Behavior and Output:
 ^^^^^^^^^^^^^^^^^^^^
@@ -181,7 +198,7 @@ Behavior and Output:
     .. code-block:: text
 
         Getting and formatting English verbs
-        Data updated: 100%|████████████████████████| 1/1 [00:29<00:00, 29.73s/process]
+        Data updated: 100%|████████████████████████| 1/1 [00:XY<00:00, XY.Zs/process]
 
 4. If no data is found, you'll see a warning:
 
@@ -243,30 +260,63 @@ Usage:
 Options:
 ^^^^^^^^
 
-- ``-lang, --language LANGUAGE``: The language(s) to check totals for.
+- ``-lang, --language LANGUAGE``: The language(s) to check totals for. Can be a language name or QID.
 - ``-dt, --data-type DATA_TYPE``: The data type(s) to check totals for.
-- ``-a, --all ALL``: Get totals for all languages and data types.
+- ``-a, --all``: Get totals for all languages and data types.
 
 Examples:
 
 .. code-block:: text
 
-    $scribe-data total -dt nouns  # verbs, adjectives, etc
-    Data type: nouns
-    Total number of lexemes: 123456
+    $ scribe-data total --all
+    Total lexemes for all languages and data types:
+    ==============================================
+    Language     Data Type     Total Lexemes
+    ==============================================
+    English      nouns         123,456
+                 verbs         234,567
+    ...
 
 .. code-block:: text
 
-    $scribe-data total -lang English
-    Language: English
-    Total number of lexemes: 123456
+    $ scribe-data total --language English
+    Returning total counts for English data types...
+
+    Language        Data Type                 Total Wikidata Lexemes
+    ================================================================
+    English         adjectives                12,345
+                    adverbs                   23,456
+                    nouns                     34,567
+    ...
 
 .. code-block:: text
 
-    $scribe-data total -lang English -dt nouns  # verbs, adjectives, etc
+    $ scribe-data total --language Q1860
+    Wikidata QID Q1860 passed. Checking all data types.
+
+    Language        Data Type                 Total Wikidata Lexemes
+    ================================================================
+    Q1860           adjectives                12,345
+                    adverbs                   23,456
+                    articles                  30
+                    conjunctions              40
+                    nouns                     56,789
+                    personal pronouns         60
+    ...
+
+.. code-block:: text
+
+    $ scribe-data total --language English -dt nouns
     Language: English
     Data type: nouns
-    Total number of lexemes: 12345
+    Total number of lexemes: 12,345
+
+.. code-block:: text
+
+    $ scribe-data total --language Q1860 -dt verbs
+    Language: Q1860
+    Data type: verbs
+    Total number of lexemes: 23,456
 
 Convert Command
 ~~~~~~~~~~~~~~~

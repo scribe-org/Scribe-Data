@@ -1,19 +1,27 @@
 # tool: scribe-data
-# Dagbani (Q32238) verbs and the given forms.
+# All Dagbani (Q32238) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
+  ?imperative
   ?presentContinuous
   ?past
   ?future
-  ?imperative
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
+
+  # MARK: Imperative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
+  }
 
   # MARK: Present Continuous
 
@@ -37,12 +45,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?futureForm .
     ?futureForm ontolex:representation ?future ;
       wikibase:grammaticalFeature wd:Q501405 .
-  }
-
-  # MARK: Imperative
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeForm .
-    ?imperativeForm ontolex:representation ?imperative ;
-      wikibase:grammaticalFeature wd:Q22716 .
   }
 }

@@ -79,9 +79,7 @@ def convert_to_json(
     -------
         None
     """
-    normalized_language = language.lower()
-
-    if not normalized_language:
+    if not language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
     data_types = [data_type] if isinstance(data_type, str) else data_type
@@ -89,7 +87,7 @@ def convert_to_json(
     if output_dir is None:
         output_dir = DEFAULT_JSON_EXPORT_DIR
 
-    json_output_dir = Path(output_dir) / normalized_language.capitalize()
+    json_output_dir = Path(output_dir) / language.capitalize()
     json_output_dir.mkdir(parents=True, exist_ok=True)
 
     for dtype in data_types:
@@ -179,7 +177,7 @@ def convert_to_json(
                 f"File '{output_file}' already exists. Overwrite? (y/n): "
             )
             if user_input.lower() != "y":
-                print(f"Skipping {normalized_language['language']} - {dtype}")
+                print(f"Skipping {language['language']} - {dtype}")
                 continue
 
         try:
@@ -235,9 +233,7 @@ def convert_to_csv_or_tsv(
     -------
         None
     """
-    normalized_language = language.lower()
-
-    if not normalized_language:
+    if not language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
     if isinstance(data_type, str):
@@ -378,7 +374,7 @@ def convert_to_csv_or_tsv(
             print(f"Error writing to '{output_file}': {e}")
             continue
 
-        print(f"Data for {language} {dtype} written to '{output_file}'")
+        print(f"Data for {language.capitalize()} {dtype} written to '{output_file}'")
 
 
 # MARK: SQLITE
@@ -446,7 +442,7 @@ def convert_to_sqlite(
 
     data_to_sqlite(languages, specific_tables, identifier_case)
 
-    source_file = f"{get_language_iso(language).upper()}LanguageData.sqlite"
+    source_file = f"{get_language_iso(language).capitalize()}LanguageData.sqlite"
     source_path = input_file.parent / source_file
     target_path = output_dir / source_file
 
@@ -504,7 +500,9 @@ def convert_wrapper(
     None
     """
     output_type = output_type.lower()
-    print(f"Converting data for {language} {data_type} to {output_type} ...")
+    print(
+        f"Converting data for {language.capitalize()} {data_type.capitalize()} to {output_type}..."
+    )
 
     # Route the function call to the correct conversion function.
     if output_type == "json":

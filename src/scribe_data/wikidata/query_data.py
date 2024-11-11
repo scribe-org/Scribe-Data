@@ -66,12 +66,18 @@ def execute_formatting_script(formatting_file_path, output_dir):
     env = os.environ.copy()
     env["PYTHONPATH"] = str(project_root)
 
-    # Use subprocess to run the formatting file.
-    subprocess.run(
-        [python_executable, str(formatting_file_path), "--file-path", output_dir],
-        env=env,
-        check=True,
-    )
+    try:
+        subprocess.run(
+            [python_executable, str(formatting_file_path), "--file-path", output_dir],
+            env=env,
+            check=True,
+        )
+    except FileNotFoundError:
+        print(
+            f"Error: The formatting script file '{formatting_file_path}' does not exist."
+        )
+    except subprocess.CalledProcessError as e:
+        print(f"Error: The formatting script failed with exit status {e.returncode}.")
 
 
 def query_data(
@@ -107,7 +113,7 @@ def query_data(
 
     # Assign current_languages and current_data_type if no arguments have been passed.
     languages_update = current_languages if languages is None else languages
-    languages_update = [lang.lower() for lang in languages_update]
+    languages_update = [lang for lang in languages_update]
     data_type_update = current_data_type if data_type is None else data_type
 
     all_language_data_extraction_files = [
@@ -148,7 +154,7 @@ def query_data(
         target_type = q.parent.name
 
         updated_path = output_dir[2:] if output_dir.startswith("./") else output_dir
-        export_dir = Path(updated_path) / lang.capitalize()
+        export_dir = Path(updated_path) / lang
         export_dir.mkdir(parents=True, exist_ok=True)
 
         file_name = f"{target_type}.json"
@@ -156,14 +162,14 @@ def query_data(
 
         if existing_files := list(export_dir.glob(f"{target_type}*.json")):
             if overwrite:
-                print("Overwrite is enabled. Removing existing files ...")
+                print("Overwrite is enabled. Removing existing files...")
                 for file in existing_files:
                     file.unlink()
 
             else:
                 if not interactive:
                     print(
-                        f"\nExisting file(s) found for {lang} {target_type} in the {output_dir} directory:\n"
+                        f"\nExisting file(s) found for {lang.capitalize()} {target_type} in the {output_dir} directory:\n"
                     )
                     for i, file in enumerate(existing_files, 1):
                         print(f"{i}. {file.name}")
@@ -177,19 +183,19 @@ def query_data(
                     )
 
                     if choice.lower() == "o":
-                        print("Removing existing files ...")
+                        print("Removing existing files...")
                         for file in existing_files:
                             file.unlink()
 
-                # elif choice in ["k", "K"]:
-                #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-                #     file_name = f"{target_type}_{timestamp}.json"
+                    # elif choice in ["k", "K"]:
+                    #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+                    #     file_name = f"{target_type}_{timestamp}.json"
 
-                else:
-                    print(f"Skipping update for {lang} {target_type}.")
-                    continue
+                    else:
+                        print(f"Skipping update for {lang.capitalize()} {target_type}.")
+                        break
 
-        print(f"Querying and formatting {lang} {target_type}")
+        print(f"Querying and formatting {lang.capitalize()} {target_type}")
 
         # Mark the query as the first in a set of queries if needed.
         if not q.exists():

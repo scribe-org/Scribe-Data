@@ -1,21 +1,27 @@
 # tool: scribe-data
-# All Northern Sami(Q33947) nouns (Q1084) and the given forms.
+# All Northern Sami (Q33947) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?nominativeSingular
   ?nominativePlural
+
   ?genitiveSingular
   ?genitivePlural
+
   ?dativeSingular
   ?dativePlural
+
   ?accusativeSingular
   ?accusativePlural
+
   ?instrumentalSingular
   ?instrumentalPlural
+
   ?locativeSingular
   ?locativePlural
+
   ?vocativeSingular
   ?vocativePlural
 

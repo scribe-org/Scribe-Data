@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Danish (Q9035) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?noun
+  ?nonGenitiveIndefiniteSingular
+  ?nonGenitiveIndefinitePlural
+  ?nonGenitiveDefiniteSingular
+  ?nonGenitiveDefinitePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun .
+
+  # MARK: Non-genitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveIndefiniteSingularForm .
+    ?nonGenitiveIndefiniteSingularForm ontolex:representation ?nonGenitiveIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveIndefinitePluralForm .
+    ?nonGenitiveIndefinitePluralForm ontolex:representation ?nonGenitiveIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveDefiniteSingularForm .
+    ?nonGenitiveDefiniteSingularForm ontolex:representation ?nonGenitiveDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveDefinitePluralForm .
+    ?nonGenitiveDefinitePluralForm ontolex:representation ?nonGenitiveDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997851, wd:Q146786 .
+  }
+}

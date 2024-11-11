@@ -5,14 +5,16 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?futureFirstPersonSingular
-  ?feminineFutureSecondPersonSingular
-  ?masculineFutureSecondPersonSingular
-  ?feminineFutureThirdPersonSingular
-  ?masculineFutureThirdPersonSingular
   ?futureFirstPersonPlural
+
+  ?feminineFutureSecondPersonSingular
   ?feminineFutureSecondPersonPlural
-  ?masculineFutureSecondPersonPlural
+  ?feminineFutureThirdPersonSingular
   ?feminineFutureThirdPersonPlural
+
+  ?masculineFutureSecondPersonSingular
+  ?masculineFutureSecondPersonPlural
+  ?masculineFutureThirdPersonSingular
   ?masculineFutureThirdPersonPlural
 
 WHERE {
@@ -29,38 +31,19 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineFutureSecondPersonSingularForm .
-    ?feminineFutureSecondPersonSingularForm ontolex:representation ?feminineFutureSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q501405, wd:Q1775415 .
-      FILTER(lang(?feminineFutureSecondPersonSingular) = "he") .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineFutureSecondPersonSingularForm .
-    ?masculineFutureSecondPersonSingularForm ontolex:representation ?masculineFutureSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q501405, wd:Q499327 .
-      FILTER(lang(?masculineFutureSecondPersonSingular) = "he") .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineFutureThirdPersonSingularForm .
-    ?feminineFutureThirdPersonSingularForm ontolex:representation ?feminineFutureThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q501405, wd:Q1775415 .
-      FILTER(lang(?feminineFutureThirdPersonSingular) = "he") .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineFutureThirdPersonSingularForm .
-    ?masculineFutureThirdPersonSingularForm ontolex:representation ?masculineFutureThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q501405, wd:Q499327 .
-      FILTER(lang(?masculineFutureThirdPersonSingular) = "he") .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futureFirstPersonPluralForm .
     ?futureFirstPersonPluralForm ontolex:representation ?futureFirstPersonPlural ;
       wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q501405 .
       FILTER(lang(?futureFirstPersonPlural) = "he") .
+  }
+
+  # Feminine
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineFutureSecondPersonSingularForm .
+    ?feminineFutureSecondPersonSingularForm ontolex:representation ?feminineFutureSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q501405, wd:Q1775415 .
+      FILTER(lang(?feminineFutureSecondPersonSingular) = "he") .
   }
 
   OPTIONAL {
@@ -71,10 +54,10 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineFutureSecondPersonPluralForm .
-    ?masculineFutureSecondPersonPluralForm ontolex:representation ?masculineFutureSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q501405, wd:Q499327 .
-      FILTER(lang(?masculineFutureSecondPersonPlural) = "he") .
+    ?lexeme ontolex:lexicalForm ?feminineFutureThirdPersonSingularForm .
+    ?feminineFutureThirdPersonSingularForm ontolex:representation ?feminineFutureThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q501405, wd:Q1775415 .
+      FILTER(lang(?feminineFutureThirdPersonSingular) = "he") .
   }
 
   OPTIONAL {
@@ -82,6 +65,29 @@ WHERE {
     ?feminineFutureThirdPersonPluralForm ontolex:representation ?feminineFutureThirdPersonPlural ;
       wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q501405, wd:Q1775415 .
       FILTER(lang(?feminineFutureThirdPersonPlural) = "he") .
+  }
+
+  # Masculine
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineFutureSecondPersonSingularForm .
+    ?masculineFutureSecondPersonSingularForm ontolex:representation ?masculineFutureSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q501405, wd:Q499327 .
+      FILTER(lang(?masculineFutureSecondPersonSingular) = "he") .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineFutureSecondPersonPluralForm .
+    ?masculineFutureSecondPersonPluralForm ontolex:representation ?masculineFutureSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q501405, wd:Q499327 .
+      FILTER(lang(?masculineFutureSecondPersonPlural) = "he") .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineFutureThirdPersonSingularForm .
+    ?masculineFutureThirdPersonSingularForm ontolex:representation ?masculineFutureThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q501405, wd:Q499327 .
+      FILTER(lang(?masculineFutureThirdPersonSingular) = "he") .
   }
 
   OPTIONAL {

@@ -4,19 +4,37 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?infinitive
+  ?verb
+  ?volitive
+  ?conditional
   ?indicativePresent
   ?indicativePast
   ?indicativeFuture
-  ?conditional
-  ?volitive
 
 WHERE {
   # MARK: Infinitive
 
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive .
+    wikibase:lemma ?verb .
+
+  # MARK: Volitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?volitiveForm .
+    ?volitiveForm ontolex:representation ?volitive ;
+      wikibase:grammaticalFeature wd:Q2532941 .
+      FILTER(LANG(?volitive) = "eo")
+  }
+
+  # MARK: Conditional
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalForm .
+    ?conditionalForm ontolex:representation ?conditional ;
+      wikibase:grammaticalFeature wd:Q625581 .
+      FILTER(LANG(?conditional) = "eo")
+  }
 
   # MARK: Present Tense
 
@@ -43,23 +61,5 @@ WHERE {
     ?indicativeFutureForm ontolex:representation ?indicativeFuture ;
       wikibase:grammaticalFeature wd:Q501405, wd:Q682111 .
       FILTER(LANG(?indicativeFuture) = "eo")
-  }
-
-  # MARK: Conditional
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?conditionalForm .
-    ?conditionalForm ontolex:representation ?conditional ;
-      wikibase:grammaticalFeature wd:Q625581 .
-      FILTER(LANG(?conditional) = "eo")
-  }
-
-  # MARK: Volitive
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?volitiveForm .
-    ?volitiveForm ontolex:representation ?volitive ;
-      wikibase:grammaticalFeature wd:Q2532941 .
-      FILTER(LANG(?volitive) = "eo")
   }
 }

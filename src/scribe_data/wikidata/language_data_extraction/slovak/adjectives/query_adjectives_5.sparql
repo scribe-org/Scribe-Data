@@ -5,10 +5,10 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
+  ?locativePluralPositive
   ?locativeFeminineSingularPositive
   ?locativeMasculineSingularPositive
   ?locativeNeuterSingularPositive
-  ?locativePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9058;
@@ -16,6 +16,12 @@ WHERE {
     wikibase:lemma ?adjective .
 
   # MARK: Locative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativePluralPositiveForm .
+    ?locativePluralPositiveForm ontolex:representation ?locativePluralPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786, wd:Q3482678 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?locativeFeminineSingularPositiveForm .
@@ -33,11 +39,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?locativeNeuterSingularPositiveForm .
     ?locativeNeuterSingularPositiveForm ontolex:representation ?locativeNeuterSingularPositive ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q202142, wd:Q110786, wd:Q3482678 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativePluralPositiveForm .
-    ?locativePluralPositiveForm ontolex:representation ?locativePluralPositive ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q146786, wd:Q3482678 .
   }
 }

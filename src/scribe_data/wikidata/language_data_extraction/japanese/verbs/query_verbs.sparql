@@ -7,9 +7,9 @@ SELECT
   ?verb
   ?negative
   ?conjunctive
-  ?imperfective
   ?attributive
   ?hypothetical
+  ?imperfective
 
 WHERE {
   ?lexeme dct:language wd:Q5287 ;
@@ -35,15 +35,6 @@ WHERE {
       FILTER(LANG(?conjunctive) = "ja-hira")
   }
 
-  # MARK: Imperfective
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperfectiveForm .
-    ?imperfectiveForm ontolex:representation ?imperfective ;
-      wikibase:grammaticalFeature wd:Q2898727 .
-      FILTER(LANG(?imperfective) = "ja-hira")
-  }
-
   # MARK: Attributive
 
   OPTIONAL {
@@ -60,5 +51,14 @@ WHERE {
     ?hypotheticalForm ontolex:representation ?hypothetical ;
       wikibase:grammaticalFeature wd:Q53609593 .
       FILTER(LANG(?hypothetical) = "ja-hira")
+  }
+
+  # MARK: Imperfective
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectiveForm .
+    ?imperfectiveForm ontolex:representation ?imperfective ;
+      wikibase:grammaticalFeature wd:Q2898727 .
+      FILTER(LANG(?imperfective) = "ja-hira")
   }
 }

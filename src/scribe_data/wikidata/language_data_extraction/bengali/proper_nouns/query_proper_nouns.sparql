@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Bengali (Bangla Q9610) proper nouns (Q147276) and the given forms.
+# All Bengali (Q9610) proper nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -13,7 +13,7 @@ WHERE {
   ?lexeme dct:language wd:Q9610 ;
     wikibase:lexicalCategory wd:Q147276 ;
 
-  # MARK: Nminative
+  # MARK: Nominative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeForm .

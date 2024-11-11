@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Bengali (Bangla Q9610) postpositions (Q161873) and the given forms.
+# All Bengali (Q9610) postpositions (Q161873) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 
@@ -13,7 +13,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q161873 ;
     wikibase:lemma ?preposition .
 
-  # MARK: Corresponding Case
+  # MARK: Case
 
   OPTIONAL {
     ?lexeme wdt:P5713 ?caseForm .

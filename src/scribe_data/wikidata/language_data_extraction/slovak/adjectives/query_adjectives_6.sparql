@@ -5,10 +5,10 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
+  ?instrumentalPluralPositive
   ?instrumentalFeminineSingularPositive
   ?instrumentalMasculineSingularPositive
   ?instrumentalNeuterSingularPositive
-  ?instrumentalPluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9058;
@@ -16,6 +16,12 @@ WHERE {
     wikibase:lemma ?adjective .
 
   # MARK: Instrumental
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalPluralPositiveForm .
+    ?instrumentalPluralPositiveForm ontolex:representation ?instrumentalPluralPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q146786, wd:Q3482678 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularPositiveForm .
@@ -33,11 +39,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?instrumentalNeuterSingularPositiveForm .
     ?instrumentalNeuterSingularPositiveForm ontolex:representation ?instrumentalNeuterSingularPositive ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q192997, wd:Q110786, wd:Q3482678 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalPluralPositiveForm .
-    ?instrumentalPluralPositiveForm ontolex:representation ?instrumentalPluralPositive ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q146786, wd:Q3482678 .
   }
 }

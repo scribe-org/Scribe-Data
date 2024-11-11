@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Gurmukhi (from Punjabi Q58635) adverbs (Q380057) and the given forms.
+# All Punjabi Shahmukhi (Q58635) adverbs (Q380057) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

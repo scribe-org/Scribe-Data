@@ -1,29 +1,38 @@
 # tool: scribe-data
-# All Hindi (from Hindustani Q11051) verbs (Q24905) and the given forms.
+# All Hindi Hindustani (Q11051) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 # Note: We need to filter for "hi" to remove Urdu (ur) words.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?infinitive
+  ?verb
+  ?accusative
   ?direct
-  ?gerund
+  ?oblique
   ?intransitivePhase
   ?basicPhase
+  ?gerund
   ?conjunctiveParticiple
   ?adverbial
   ?absoluteConstruction
-  ?accusative
-  ?oblique
 
 WHERE {
   # MARK: Infinitive
 
   ?lexeme dct:language wd:Q11051 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive .
+    wikibase:lemma ?verb .
     FILTER(lang(?infinitive) = "hi")
+
+  # MARK: Accusative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
+      FILTER(LANG(?accusative) = "hi")
+  }
 
   # MARK: Direct Case
 
@@ -34,13 +43,13 @@ WHERE {
       FILTER(LANG(?direct) = "hi")
   }
 
-  # MARK: Gerund
+  # MARK: Oblique
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?gerundForm .
-    ?gerundForm ontolex:representation ?gerund ;
-      wikibase:grammaticalFeature wd:Q1923028 .
-      FILTER(LANG(?gerund) = "hi")
+    ?lexeme ontolex:lexicalForm ?obliqueForm .
+    ?obliqueForm ontolex:representation ?oblique ;
+      wikibase:grammaticalFeature wd:Q1233197 .
+      FILTER(LANG(?oblique) = "hi")
   }
 
   # MARK: Intransitive Phase
@@ -59,6 +68,15 @@ WHERE {
     ?basicPhaseForm ontolex:representation ?basicPhase ;
       wikibase:grammaticalFeature wd:Q113330960 .
       FILTER(LANG(?basicPhase) = "hi")
+  }
+
+  # MARK: Gerund
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+      FILTER(LANG(?gerund) = "hi")
   }
 
 # MARK: Conjunctive Participle
@@ -86,23 +104,5 @@ WHERE {
     ?absoluteConstructionForm ontolex:representation ?absoluteConstruction ;
       wikibase:grammaticalFeature wd:Q4669807 .
       FILTER(LANG(?absoluteConstruction) = "hi")
-  }
-
-  # MARK: Accusative
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeForm .
-    ?accusativeForm ontolex:representation ?accusative ;
-      wikibase:grammaticalFeature wd:Q146078 .
-      FILTER(LANG(?accusative) = "hi")
-  }
-
-  # MARK: Oblique
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueForm .
-    ?obliqueForm ontolex:representation ?oblique ;
-      wikibase:grammaticalFeature wd:Q1233197 .
-      FILTER(LANG(?oblique) = "hi")
   }
 }

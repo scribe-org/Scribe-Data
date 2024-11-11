@@ -87,14 +87,12 @@ def get_data(
 
     output_type = output_type or "json"
     if output_dir is None:
-        if output_type == "csv":
-            output_dir = DEFAULT_CSV_EXPORT_DIR
-        elif output_type == "json":
-            output_dir = DEFAULT_JSON_EXPORT_DIR
-        elif output_type == "sqlite":
-            output_dir = DEFAULT_SQLITE_EXPORT_DIR
-        elif output_type == "tsv":
-            output_dir = DEFAULT_TSV_EXPORT_DIR
+        output_dir = {
+            "csv": DEFAULT_CSV_EXPORT_DIR,
+            "json": DEFAULT_JSON_EXPORT_DIR,
+            "sqlite": DEFAULT_SQLITE_EXPORT_DIR,
+            "tsv": DEFAULT_TSV_EXPORT_DIR,
+        }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
 
     languages = [language] if language else None
     data_types = [data_type] if data_type else None
@@ -102,10 +100,41 @@ def get_data(
     subprocess_result = False
 
     # MARK: Get All
-
     if all:
-        print("Updating all languages and data types ...")
-        query_data(None, None, None, overwrite)
+        if language:
+            print(f"Updating all data types for language for {language.capitalize()}")
+            query_data(
+                languages=[language],
+                data_type=None,
+                output_dir=output_dir,
+                overwrite=overwrite,
+            )
+            print(
+                f"Query completed for all data types with specified language for {language.capitalize()}."
+            )
+
+        elif data_type:
+            print(f"Updating all languages for data type: {data_type.capitalize()}")
+            query_data(
+                languages=None,
+                data_type=[data_type],
+                output_dir=output_dir,
+                overwrite=overwrite,
+            )
+            print(
+                f"Query completed for all languages with specified data type for {data_type.capitalize()}."
+            )
+
+        else:
+            print("Updating all languages and data types...")
+            query_data(
+                languages=None,
+                data_type=None,
+                output_dir=output_dir,
+                overwrite=overwrite,
+            )
+            print("Query completed for all languages and all data types.")
+
         subprocess_result = True
 
     # MARK: Emojis
@@ -117,9 +146,8 @@ def get_data(
 
     elif language or data_type:
         data_type = data_type[0] if isinstance(data_type, list) else data_type
-
         print(
-            f"Updating data for language(s): {language}; data type(s): {', '.join([data_type])}"
+            f"Updating data for language(s): {language.capitalize()}; data type(s): {data_type.capitalize()}"
         )
         query_data(
             languages=languages,
@@ -136,9 +164,13 @@ def get_data(
         )
 
     if (
-        isinstance(subprocess_result, subprocess.CompletedProcess)
-        and subprocess_result.returncode != 1
-    ) or (isinstance(subprocess_result, bool) and subprocess_result is not False):
+        (
+            isinstance(subprocess_result, subprocess.CompletedProcess)
+            and subprocess_result.returncode != 1
+        )
+        or isinstance(subprocess_result, bool)
+        and subprocess_result
+    ):
         print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
 
         json_input_path = Path(output_dir) / f"{language}/{data_type}.json"

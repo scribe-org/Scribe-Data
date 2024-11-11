@@ -1,11 +1,10 @@
 # tool: scribe-data
-# All Urdu (from Hindustani Q11051) prepositions (Q4833830) and the given forms.
+# All Urdu Hindustani (Q11051) prepositions (Q4833830) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 # Note: We need to filter for "ur" to remove Hindi (hi) words.
 
 SELECT
-  ?lexeme
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?preposition
 

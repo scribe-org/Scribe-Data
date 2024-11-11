@@ -5,6 +5,7 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
+  ?pluralSuperlative
   ?indefiniteSingularSuperlative
   ?definiteSingularSuperlative
 
@@ -14,6 +15,12 @@ WHERE {
     wikibase:lemma ?adjective .
 
   # MARK: Superlative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralSuperlativeForm .
+    ?pluralSuperlativeForm ontolex:representation ?pluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1817208 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indefiniteSingularSuperlativeForm .
