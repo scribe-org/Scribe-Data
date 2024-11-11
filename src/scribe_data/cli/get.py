@@ -45,6 +45,7 @@ def get_data(
     outputs_per_entry: int = None,
     all: bool = False,
     interactive: bool = False,
+    identifier_case: str = "camel",
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
@@ -74,6 +75,9 @@ def get_data(
 
         interactive : bool (default: False)
             Whether it's running in interactive mode.
+
+        identifier_case : str
+            The case format for identifiers. Default is "camel".
 
     Returns
     -------
@@ -149,6 +153,7 @@ def get_data(
                     input_file=str(json_input_path),
                     output_dir=output_dir,
                     overwrite=overwrite,
+                    identifier_case=identifier_case,
                 )
 
                 os.remove(json_input_path)

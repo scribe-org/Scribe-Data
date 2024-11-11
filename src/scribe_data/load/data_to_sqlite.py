@@ -40,7 +40,9 @@ from scribe_data.utils import (
 
 
 def data_to_sqlite(
-    languages: Optional[List[str]] = None, specific_tables: Optional[List[str]] = None
+    languages: Optional[List[str]] = None,
+    specific_tables: Optional[List[str]] = None,
+    identifier_case: str = "camel",
 ) -> None:
     PATH_TO_SCRIBE_DATA = Path(__file__).parent.parent
 
@@ -115,7 +117,9 @@ def data_to_sqlite(
                 The names of columns for the new table.
         """
         # Convert column names to snake_case
-        cols = [camel_to_snake(col) for col in cols]
+        cols = [
+            camel_to_snake(col) if identifier_case == "snake" else col for col in cols
+        ]
 
         cursor.execute(
             f"CREATE TABLE IF NOT EXISTS {data_type} ({' Text, '.join(cols)} Text, UNIQUE({cols[0]}))"

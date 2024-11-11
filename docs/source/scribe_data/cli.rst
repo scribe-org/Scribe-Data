@@ -145,6 +145,7 @@ Options:
 - ``-o, --overwrite``: Whether to overwrite existing files (default: False).
 - ``-a, --all ALL``: Get all languages and data types.
 - ``-i, --interactive``: Run in interactive mode.
+- ``-ic, --identifier-case``: The case format for identifiers in the output data (default: camel).
 
 Example:
 
