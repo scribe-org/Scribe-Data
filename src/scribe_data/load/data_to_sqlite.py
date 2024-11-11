@@ -33,9 +33,9 @@ from tqdm.auto import tqdm
 from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
+    camel_to_snake,
     get_language_iso,
     list_all_languages,
-    camel_to_snake,
 )
 
 
@@ -116,7 +116,7 @@ def data_to_sqlite(
             cols : list of strings
                 The names of columns for the new table.
         """
-        # Convert column names to snake_case
+        # Convert column names to snake_case if requested.
         cols = [
             camel_to_snake(col) if identifier_case == "snake" else col for col in cols
         ]

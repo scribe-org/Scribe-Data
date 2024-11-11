@@ -21,9 +21,9 @@ Utility functions for data extraction, formatting and loading.
     -->
 """
 
-import re
 import ast
 import json
+import re
 from importlib import resources
 from pathlib import Path
 from typing import Any, Optional
@@ -652,7 +652,7 @@ def list_languages_with_metadata_for_data_type(language_metadata=_languages):
     return sorted(current_languages, key=lambda x: x["name"])
 
 
-# MARK: convert camelCase to snake_case
+# MARK: Case Conversion
 
 
 def camel_to_snake(name: str) -> str:
