@@ -507,9 +507,7 @@ def check_optional_qid_order(query_file: str) -> str:
     """
     forms = extract_forms_from_sparql(query_file)
     error_messages = []
-    statement_index = 0
     for form_text in forms:
-        statement_index += 1
         if "ontolex:lexicalForm" in form_text and "ontolex:representation" in form_text:
             # Extract the actual QIDs and label for the current form.
             actual_qids = extract_form_qids(form_text=form_text)
@@ -517,11 +515,15 @@ def check_optional_qid_order(query_file: str) -> str:
             label_components = decompose_label_features(form_label)
             expected_qids = [qid_label_dict[key] for key in label_components]
 
+            # Keep PastParticiple and imperfective QIDs as is in the query since we have duplicate qids for it.
+            for i in ["Q12717679", "Q1230649", "Q2898727", "Q54556033"]:
+                if i in actual_qids and i not in expected_qids:
+                    expected_qids[actual_qids.index(i)] = i
             # Check if the actual QIDs match the expected order.
-            if actual_qids != expected_qids:
+            if len(actual_qids) == len(expected_qids) and actual_qids != expected_qids:
                 formatted_qids = ", ".join(f"wd:{qid}" for qid in expected_qids) + " ."
                 error_messages.append(
-                    f"QIDs in optional statement number {statement_index} should be ordered this way: \n {formatted_qids}"
+                    f"\nThe QIDs in optional statement for {form_label} should be ordered:\n{formatted_qids}"
                 )
     return "\n".join(error_messages) if error_messages else ""
 

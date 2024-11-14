@@ -25,12 +25,12 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indefiniteSingularSuperlativeForm .
     ?indefiniteSingularSuperlativeForm ontolex:representation ?indefiniteSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q53997857, wd:Q1817208 .
+      wikibase:grammaticalFeature wd:Q53997857, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?definiteSingularSuperlativeForm .
     ?definiteSingularSuperlativeForm ontolex:representation ?definiteSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q53997851, wd:Q1817208 .
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786, wd:Q1817208 .
   }
 }

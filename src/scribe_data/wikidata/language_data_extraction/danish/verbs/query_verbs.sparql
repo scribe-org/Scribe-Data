@@ -51,19 +51,19 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
     ?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q1194697 .
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q179230 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?passivePresentForm .
     ?passivePresentForm ontolex:representation ?passivePresent ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1194697 .
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?passivePreteriteForm .
     ?passivePreteriteForm ontolex:representation ?passivePreterite ;
-      wikibase:grammaticalFeature wd:Q442485, wd:Q1194697 .
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q442485 .
   }
 
   # MARK: Active
@@ -71,18 +71,18 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
     ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831 .
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?activePresentForm .
     ?activePresentForm ontolex:representation ?activePresent ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?activePreteriteForm .
     ?activePreteriteForm ontolex:representation ?activePreterite ;
-      wikibase:grammaticalFeature wd:Q442485, wd:Q1317831 .
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q442485 .
   }
 }

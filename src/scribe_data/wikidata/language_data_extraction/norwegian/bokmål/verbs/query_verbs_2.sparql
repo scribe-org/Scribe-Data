@@ -27,19 +27,19 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralPastParticipleForm .
     ?pluralPastParticipleForm ontolex:representation ?pluralPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679, wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q146786, wd:Q12717679 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?definiteSingularPastParticipleForm .
     ?definiteSingularPastParticipleForm ontolex:representation ?definiteSingularPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679, wd:Q110786, wd:Q53997851 .
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786, wd:Q12717679 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularPastParticipleForm .
     ?neuterIndefiniteSingularPastParticipleForm ontolex:representation ?neuterIndefiniteSingularPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679, wd:Q1775461, wd:Q110786, wd:Q53997857 .
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786, wd:Q12717679 .
   }
 
   OPTIONAL {

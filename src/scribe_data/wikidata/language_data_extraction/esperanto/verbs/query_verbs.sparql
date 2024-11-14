@@ -41,7 +41,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePresentForm .
     ?indicativePresentForm ontolex:representation ?indicativePresent ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q682111 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q192613 .
       FILTER(LANG(?indicativePresent) = "eo")
   }
 
@@ -50,7 +50,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePastForm .
     ?indicativePastForm ontolex:representation ?indicativePast ;
-      wikibase:grammaticalFeature wd:Q1994301, wd:Q682111 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1994301 .
       FILTER(LANG(?indicativePast) = "eo")
   }
 
@@ -59,7 +59,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeFutureForm .
     ?indicativeFutureForm ontolex:representation ?indicativeFuture ;
-      wikibase:grammaticalFeature wd:Q501405, wd:Q682111 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q501405 .
       FILTER(LANG(?indicativeFuture) = "eo")
   }
 }

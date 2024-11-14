@@ -33,35 +33,37 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonSingularForm .
     ?indicativePreteriteFirstPersonSingularForm ontolex:representation ?indicativePreteriteFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q682111, wd:Q442485 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q110786 .
   }
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonPluralForm .
     ?indicativePreteriteFirstPersonPluralForm ontolex:representation ?indicativePreteriteFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q682111, wd:Q442485 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonSingularForm .
     ?indicativePreteriteSecondPersonSingularForm ontolex:representation ?indicativePreteriteSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q682111, wd:Q442485 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049, wd:Q110786 .
   }
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonPluralForm .
     ?indicativePreteriteSecondPersonPluralForm ontolex:representation ?indicativePreteriteSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q682111, wd:Q442485 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonSingularForm .
     ?indicativePreteriteThirdPersonSingularForm ontolex:representation ?indicativePreteriteThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q682111, wd:Q442485 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonPluralForm .
     ?indicativePreteriteThirdPersonPluralForm ontolex:representation ?indicativePreteriteThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q682111, wd:Q442485 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q146786 .
   }
 
   # MARK: Auxiliary Verb(s)
