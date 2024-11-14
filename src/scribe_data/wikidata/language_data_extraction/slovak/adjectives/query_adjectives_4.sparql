@@ -22,36 +22,36 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularPositiveForm .
     ?accusativeFeminineSingularPositiveForm ontolex:representation ?accusativeFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146078, wd:Q110786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimateSingularPositiveForm .
     ?accusativeMasculineInanimateSingularPositiveForm ontolex:representation ?accusativeMasculineInanimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q52943434, wd:Q146078, wd:Q110786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeMasculineAnimateSingularPositiveForm .
     ?accusativeMasculineAnimateSingularPositiveForm ontolex:representation ?accusativeMasculineAnimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q54020116, wd:Q146078, wd:Q110786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q146078, wd:Q54020116, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeMasculinePersonalPluralPositiveForm .
     ?accusativeMasculinePersonalPluralPositiveForm ontolex:representation ?accusativeMasculinePersonalPluralPositive ;
-      wikibase:grammaticalFeature wd:Q27918551, wd:Q146078, wd:Q146786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q146078, wd:Q27918551, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeNotMasculinePersonalPluralPositiveForm .
     ?accusativeNotMasculinePersonalPluralPositiveForm ontolex:representation ?accusativeNotMasculinePersonalPluralPositive ;
-      wikibase:grammaticalFeature wd:Q54152717, wd:Q146078, wd:Q146786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q146078, wd:Q54152717, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularPositiveForm .
     ?accusativeNeuterSingularPositiveForm ontolex:representation ?accusativeNeuterSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q146078, wd:Q110786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786, wd:Q3482678 .
   }
 }

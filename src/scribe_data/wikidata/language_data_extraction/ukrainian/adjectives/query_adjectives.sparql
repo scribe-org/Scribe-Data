@@ -40,24 +40,24 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativePluralForm .
     ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q131105 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularForm .
     ?nominativeFeminineSingularForm ontolex:representation ?nominativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q131105 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularForm .
     ?nominativeMasculineSingularForm ontolex:representation ?nominativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q131105 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeNeuterSingularForm .
     ?nominativeNeuterSingularForm ontolex:representation ?nominativeNeuterSingular ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q131105 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q110786 .
   }
 }

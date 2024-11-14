@@ -36,13 +36,13 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePastTransgressiveSingularForm .
     ?femininePastTransgressiveSingularForm ontolex:representation ?femininePastTransgressiveSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q12750232 .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q12750232, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePastTransgressivePluralForm .
     ?femininePastTransgressivePluralForm ontolex:representation ?femininePastTransgressivePlural ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q12750232 .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q12750232, wd:Q146786 .
   }
 
   OPTIONAL {
@@ -57,18 +57,17 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q72249544 .
   }
 
-  # Masculine
-
+  # Masculine Inanimate
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineInanimatePastTransgressiveSingularForm .
     ?masculineInanimatePastTransgressiveSingularForm ontolex:representation ?masculineInanimatePastTransgressiveSingular ;
-      wikibase:grammaticalFeature wd:Q52943434, wd:Q110786, wd:Q12750232 .
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q12750232, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineInanimatePastTransgressivePluralForm .
     ?masculineInanimatePastTransgressivePluralForm ontolex:representation ?masculineInanimatePastTransgressivePlural ;
-      wikibase:grammaticalFeature wd:Q52943434, wd:Q146786, wd:Q12750232 .
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q12750232, wd:Q146786 .
   }
 
   OPTIONAL {
@@ -83,16 +82,17 @@ WHERE {
       wikibase:grammaticalFeature wd:Q52943434, wd:Q146786, wd:Q72249544 .
   }
 
+  # Masculine Animate
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineAnimatePastTransgressiveSingularForm .
     ?masculineAnimatePastTransgressiveSingularForm ontolex:representation ?masculineAnimatePastTransgressiveSingular ;
-      wikibase:grammaticalFeature wd:Q54020116, wd:Q110786, wd:Q12750232 .
+      wikibase:grammaticalFeature wd:Q54020116, wd:Q12750232, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineAnimatePastTransgressivePluralForm .
     ?masculineAnimatePastTransgressivePluralForm ontolex:representation ?masculineAnimatePastTransgressivePlural ;
-      wikibase:grammaticalFeature wd:Q54020116, wd:Q146786, wd:Q12750232 .
+      wikibase:grammaticalFeature wd:Q54020116, wd:Q12750232, wd:Q146786 .
   }
 
   OPTIONAL {
@@ -108,21 +108,19 @@ WHERE {
   }
 
   # Neuter
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterPastTransgressiveSingularForm .
     ?neuterPastTransgressiveSingularForm ontolex:representation ?neuterPastTransgressiveSingular ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q12750232 .
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q12750232, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterPastTransgressivePluralForm .
     ?neuterPastTransgressivePluralForm ontolex:representation ?neuterPastTransgressivePlural ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786, wd:Q12750232 .
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q12750232, wd:Q146786 .
   }
 
-  # MARK: Passive Participle
-
+  # Passive Participle
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterSingularPassiveParticipleForm .
     ?neuterSingularPassiveParticipleForm ontolex:representation ?neuterSingularPassiveParticiple ;

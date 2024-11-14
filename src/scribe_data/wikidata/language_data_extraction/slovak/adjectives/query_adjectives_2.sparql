@@ -26,18 +26,18 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularPositiveForm .
     ?genitiveFeminineSingularPositiveForm ontolex:representation ?genitiveFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146233, wd:Q110786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularPositiveForm .
     ?genitiveMasculineSingularPositiveForm ontolex:representation ?genitiveMasculineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q146233, wd:Q110786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveNeuterSingularPositiveForm .
     ?genitiveNeuterSingularPositiveForm ontolex:representation ?genitiveNeuterSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q146233, wd:Q110786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775461, wd:Q110786, wd:Q3482678 .
   }
 }

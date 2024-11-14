@@ -22,36 +22,36 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentPerfectFirstPersonSingularForm .
     ?presentPerfectFirstPersonSingularForm ontolex:representation ?presentPerfectFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q625420, wd:Q21714344, wd:Q192613, wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q1240211, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentPerfectFirstPersonPluralForm .
     ?presentPerfectFirstPersonPluralForm ontolex:representation ?presentPerfectFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q625420, wd:Q21714344, wd:Q192613, wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q1240211, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentPerfectSecondPersonSingularForm .
     ?presentPerfectSecondPersonSingularForm ontolex:representation ?presentPerfectSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q625420, wd:Q51929049, wd:Q192613, wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q1240211, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentPerfectSecondPersonPluralForm .
     ?presentPerfectSecondPersonPluralForm ontolex:representation ?presentPerfectSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q625420, wd:Q51929049, wd:Q192613, wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q1240211, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentPerfectThirdPersonSingularForm .
     ?presentPerfectThirdPersonSingularForm ontolex:representation ?presentPerfectThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074, wd:Q192613, wd:Q110786 .
+      wikibase:grammaticalFeature wd:Q1240211, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentPerfectThirdPersonPluralForm .
     ?presentPerfectThirdPersonPluralForm ontolex:representation ?presentPerfectThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074, wd:Q192613, wd:Q146786 .
+      wikibase:grammaticalFeature wd:Q1240211, wd:Q51929074, wd:Q146786 .
   }
 }

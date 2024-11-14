@@ -27,7 +27,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastParticipleForm .
     ?pastParticipleForm ontolex:representation ?pastParticiple ;
-      wikibase:grammaticalFeature wd:Q814722, wd:Q1994301 .
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q814722 .
     FILTER(lang(?pastParticiple) = "fa") .
   }
 

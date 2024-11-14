@@ -67,7 +67,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
     ?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q1194697 .
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q179230 .
       FILTER(LANG(?passiveInfinitive) = "nn")
   }
 
@@ -76,7 +76,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?passivePresentForm .
     ?passivePresentForm ontolex:representation ?passivePresent ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1194697 .
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613 .
       FILTER(LANG(?passivePresent) = "nn")
   }
 
@@ -102,7 +102,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?activePresentForm .
     ?activePresentForm ontolex:representation ?activePresent ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613 .
       FILTER(LANG(?activePresent) = "nn")
   }
 
@@ -129,7 +129,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?definiteSingularPastParticipleForm .
     ?definiteSingularPastParticipleForm ontolex:representation ?definiteSingularPastParticiple ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q53997851, wd:Q12717679 .
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786, wd:Q12717679 .
       FILTER(LANG(?definiteSingularPastParticiple) = "nn")
   }
 
@@ -138,7 +138,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularPastParticipleForm .
     ?neuterIndefiniteSingularPastParticipleForm ontolex:representation ?neuterIndefiniteSingularPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q53997857, wd:Q12717679 .
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786, wd:Q12717679 .
       FILTER(LANG(?neuterIndefiniteSingularPastParticiple) = "nn")
   }
 
@@ -147,7 +147,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularPastParticipleForm .
     ?feminineMasculineIndefiniteSingularPastParticipleForm ontolex:representation ?feminineMasculineIndefiniteSingularPastParticiple ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1775415, wd:Q110786, wd:Q53997857, wd:Q12717679 .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q53997857, wd:Q110786, wd:Q12717679 .
       FILTER(LANG(?feminineMasculineIndefiniteSingularPastParticiple) = "nn")
   }
 }

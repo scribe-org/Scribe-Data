@@ -21,28 +21,28 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePresentSingularForm .
     ?femininePresentSingularForm ontolex:representation ?femininePresentSingular ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q192613, wd:Q1775415 .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q192613, wd:Q110786 .
       FILTER(lang(?femininePresentSingular) = "he")
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePresentPluralForm .
     ?femininePresentPluralForm ontolex:representation ?femininePresentPlural ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q192613, wd:Q1775415 .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q192613, wd:Q146786 .
       FILTER(lang(?femininePresentPlural) = "he")
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculinePresentSingularForm .
     ?masculinePresentSingularForm ontolex:representation ?masculinePresentSingular ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q192613, wd:Q499327 .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q192613, wd:Q110786 .
       FILTER(lang(?masculinePresentSingular) = "he")
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculinePresentPluralForm .
     ?masculinePresentPluralForm ontolex:representation ?masculinePresentPlural ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q192613, wd:Q499327 .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q192613, wd:Q146786 .
       FILTER(lang(?masculinePresentPlural) = "he")
   }
 }
