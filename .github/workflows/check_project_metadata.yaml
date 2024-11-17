@@ -1,10 +1,11 @@
 name: Check Project Metadata
 on:
   push:
-    branches: [main]
+    paths:
+      - 'src/scribe_data/resources/**/*.json'  # Trigger when any .json file in the resources folder is modified
   pull_request:
-    branches: [main]
-    types: [opened, reopened, synchronize]
+    paths:
+      - 'src/scribe_data/resources/**/*.json'  # Trigger on pull requests that modify .json files in the resources folder
 
 jobs:
   structure-check:
