@@ -1,11 +1,15 @@
 name: Check Query Forms
+
 on:
   push:
+    branches: [main]
     paths:
-      - 'src/scribe_data/language_data_extraction/**/**/*.sparql'  # Trigger only when .sparql files in subdirectories are changed
+      - 'src/scribe_data/language_data_extraction/**/**/*.sparql'
   pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize]
     paths:
-      - 'src/scribe_data/language_data_extraction/**/**/*.sparql'  # Trigger on pull request changes to .sparql files
+      - 'src/scribe_data/language_data_extraction/**/**/*.sparql'
 
 jobs:
   format_check:
