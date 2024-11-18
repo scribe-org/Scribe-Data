@@ -95,7 +95,7 @@ if __name__ == "__main__":
         print("No broken links found.")
 
     # Print summary statistics
-    print(f"\nStatistics:")
+    print("\nStatistics:")
     print(f"Total links checked: {total_links_checked}")
     print(f"Total broken links: {total_broken_links}")
     print(f"Total working links: {total_working_links}")
