@@ -180,7 +180,7 @@ texinfo_documents = [
 html_logo = "_static/ScribeDataLogo.png"
 html_theme_options = {
     "logo_only": True,
-    "display_version": True,
+    # "display_version": True,
 }
 
 # Adding favicon to the docs.
