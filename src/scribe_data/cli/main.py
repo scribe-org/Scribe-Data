@@ -151,6 +151,14 @@ def main() -> None:
     get_parser.add_argument(
         "-i", "--interactive", action="store_true", help="Run in interactive mode"
     )
+    get_parser.add_argument(
+        "-ic",
+        "--identifier-case",
+        type=str,
+        choices=["camel", "snake"],
+        default="camel",
+        help="The case format for identifiers in the output data (default: camel).",
+    )
 
     # MARK: Total
 
@@ -242,6 +250,14 @@ def main() -> None:
         default=True,
         help="Whether to keep the original file to be converted (default: True).",
     )
+    convert_parser.add_argument(
+        "-ic",
+        "--identifier-case",
+        type=str,
+        choices=["camel", "snake"],
+        default="camel",
+        help="The case format for identifiers in the output data (default: camel).",
+    )
 
     # MARK: Setup CLI
 
@@ -287,6 +303,7 @@ def main() -> None:
                     outputs_per_entry=args.outputs_per_entry,
                     overwrite=args.overwrite,
                     all=args.all,
+                    identifier_case=args.identifier_case,
                 )
 
         elif args.command in ["total", "t"]:
@@ -295,8 +312,12 @@ def main() -> None:
 
             else:
                 total_wrapper(
-                    language=args.language.lower() if args.language is not None else None,
-                    data_type=args.data_type.lower() if args.data_type is not None else None,
+                    language=args.language.lower()
+                    if args.language is not None
+                    else None,
+                    data_type=args.data_type.lower()
+                    if args.data_type is not None
+                    else None,
                     all_bool=args.all,
                 )
 
@@ -308,6 +329,7 @@ def main() -> None:
                 input_file=args.input_file,
                 output_dir=args.output_dir,
                 overwrite=args.overwrite,
+                identifier_case=args.identifier_case,
             )
 
         else:

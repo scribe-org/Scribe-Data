@@ -648,7 +648,7 @@ class TestConvert(unittest.TestCase):
             overwrite=True,
         )
 
-        mock_data_to_sqlite.assert_called_with(["english"], ["nouns"])
+        mock_data_to_sqlite.assert_called_with(["english"], ["nouns"], "snake")
         mock_shutil_copy.assert_called()
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
@@ -672,7 +672,7 @@ class TestConvert(unittest.TestCase):
             overwrite=True,
         )
 
-        mock_data_to_sqlite.assert_called_with(["english"], ["nouns"])
+        mock_data_to_sqlite.assert_called_with(["english"], ["nouns"], "snake")
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
     @patch("scribe_data.cli.convert.data_to_sqlite", autospec=True)
@@ -693,7 +693,7 @@ class TestConvert(unittest.TestCase):
             overwrite=True,
         )
 
-        mock_data_to_sqlite.assert_called_with(["English"], ["data_type"])
+        mock_data_to_sqlite.assert_called_with(["English"], ["data_type"], "snake")
         mock_copy.assert_called()
 
     def test_convert_to_sqlite_no_language(self):

@@ -68,7 +68,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?simplePresentThirdPersonSingularForm .
     ?simplePresentThirdPersonSingularForm ontolex:representation ?simplePresentThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q3910936 .
+      wikibase:grammaticalFeature wd:Q3910936, wd:Q51929074, wd:Q110786 .
       FILTER NOT EXISTS { ?simplePresentThirdPersonSingularForm wdt:P6191 wd:Q181970 . }
       FILTER NOT EXISTS { ?simplePresentThirdPersonSingularForm wikibase:grammaticalFeature wd:Q126473 . }
       FILTER(LANG(?simplePresentThirdPersonSingular) = "en")

@@ -18,12 +18,12 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?commonIndefiniteSingularPositiveForm .
     ?commonIndefiniteSingularPositiveForm ontolex:representation ?commonIndefiniteSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1305037, wd:Q110786, wd:Q53997857, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q53997857, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularPositiveForm .
     ?neuterIndefiniteSingularPositiveForm ontolex:representation ?neuterIndefiniteSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q53997857, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786, wd:Q3482678 .
   }
 }

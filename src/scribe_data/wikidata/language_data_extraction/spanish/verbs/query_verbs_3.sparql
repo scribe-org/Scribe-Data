@@ -22,35 +22,35 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonSingularForm .
     ?pastImperfectFirstPersonSingularForm ontolex:representation ?pastImperfectFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q12547192 .
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonPluralForm .
     ?pastImperfectFirstPersonPluralForm ontolex:representation ?pastImperfectFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q12547192 .
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonSingularForm .
     ?pastImperfectSecondPersonSingularForm ontolex:representation ?pastImperfectSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q12547192 .
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonPluralForm .
     ?pastImperfectSecondPersonPluralForm ontolex:representation ?pastImperfectSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q12547192 .
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q146786 .
   }
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastImperfectThirdPersonSingularForm .
     ?pastImperfectThirdPersonSingularForm ontolex:representation ?pastImperfectThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q12547192 .
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastImperfectThirdPersonPluralForm .
     ?pastImperfectThirdPersonPluralForm ontolex:representation ?pastImperfectThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q12547192 .
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929074, wd:Q146786 .
   }
 }

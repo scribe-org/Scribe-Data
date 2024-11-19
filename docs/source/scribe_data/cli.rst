@@ -145,6 +145,7 @@ Options:
 - ``-o, --overwrite``: Whether to overwrite existing files (default: False).
 - ``-a, --all``: Get all languages and data types. Can be combined with `-dt` to get all languages for a specific data type, or with `-lang` to get all data types for a specific language.
 - ``-i, --interactive``: Run in interactive mode.
+- ``-ic, --identifier-case``: The case format for identifiers in the output data (default: camel).
 
 Examples:
 

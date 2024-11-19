@@ -33,6 +33,6 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?definiteSingularPositiveForm .
     ?definiteSingularPositiveForm ontolex:representation ?definiteSingularPositive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q53997851, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786, wd:Q3482678 .
   }
 }
