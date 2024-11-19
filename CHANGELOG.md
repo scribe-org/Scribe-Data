@@ -22,7 +22,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - The version of the CLI can be printed to the command line and the CLI can further be used to upgrade itself ([#186](https://github.com/scribe-org/Scribe-Data/issues/186), [#157 ](https://github.com/scribe-org/Scribe-Data/issues/157)).
   - Total Wikidata lexemes for languages and data types can be derived with the `--total` command ([#147](https://github.com/scribe-org/Scribe-Data/issues/147)).
   - Commands can be used via an interactive mode with the `--interactive` command ([#158](https://github.com/scribe-org/Scribe-Data/issues/158), [#203](https://github.com/scribe-org/Scribe-Data/issues/203)).
-    - Interactive mode works for `get` and `total` commands
+  - Interactive mode works for `get` and `total` commands
   - Outputs were standardized to assure that the CLI experience is consistent
 - The machine translation process has been removed to make way for the Wiktionary based implementation ([#292](https://github.com/scribe-org/Scribe-Data/issues/292)).
 - Package metadata files were standardized for languages, data types and Wikidata lexeme forms.
