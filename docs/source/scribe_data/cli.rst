@@ -270,6 +270,7 @@ Get Command Interactive Example:
 
     ? What would you like to do? (Use arrow keys)
     » Configure get data request
+    » Request for get data
     » Exit
 
 2. If user selects ``Request for get data``:
