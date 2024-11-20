@@ -50,7 +50,7 @@ def get_available_languages() -> dict[str, list[str]]:
     for lang_folder in extraction_dir.iterdir():
         if lang_folder.is_dir():  # check if it's a directory
             lang_name = (
-                lang_folder.name.lower()
+                lang_folder.name
             )  # normalize keys to lowercase for case-insensitive comparison
             sub_languages = []
 
@@ -58,7 +58,7 @@ def get_available_languages() -> dict[str, list[str]]:
             for sub_folder in lang_folder.iterdir():
                 if sub_folder.is_dir():
                     sub_lang_name = (
-                        sub_folder.name.lower()
+                        sub_folder.name
                     )  # normalize to lowercase for case-insensitive comparison.
 
                     # Check for almost similar keys using difflib.
@@ -183,7 +183,7 @@ def check_language_metadata():
         SystemExit:
             If any missing languages or properties are found, the function exits the script with a status code of 1.
     """
-    languages_in_metadata = {key.lower(): value for key, value in _languages.items()}
+    languages_in_metadata = {key: value for key, value in _languages.items()}
 
     languages_in_directory = get_available_languages()
 

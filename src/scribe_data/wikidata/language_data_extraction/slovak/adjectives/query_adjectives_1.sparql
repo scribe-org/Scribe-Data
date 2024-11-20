@@ -7,9 +7,9 @@ SELECT
   ?adjective
   ?nominativeFeminineSingularPositive
   ?nominativeMasculineSingularPositive
-  ?nominativeNeuterSingularPositive
   ?nominativeMasculinePersonalPluralPositive
   ?nominativeNotMasculinePersonalPluralPositive
+  ?nominativeNeuterSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9058;
@@ -21,30 +21,30 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularPositiveForm .
     ?nominativeFeminineSingularPositiveForm ontolex:representation ?nominativeFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q131105, wd:Q110786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularPositiveForm .
     ?nominativeMasculineSingularPositiveForm ontolex:representation ?nominativeMasculineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q131105, wd:Q110786, wd:Q3482678 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNeuterSingularPositiveForm .
-    ?nominativeNeuterSingularPositiveForm ontolex:representation ?nominativeNeuterSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q131105, wd:Q110786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeMasculinePersonalPluralPositiveForm .
     ?nominativeMasculinePersonalPluralPositiveForm ontolex:representation ?nominativeMasculinePersonalPluralPositive ;
-      wikibase:grammaticalFeature wd:Q27918551, wd:Q131105, wd:Q146786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q27918551, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeNotMasculinePersonalPluralPositiveForm .
     ?nominativeNotMasculinePersonalPluralPositiveForm ontolex:representation ?nominativeNotMasculinePersonalPluralPositive ;
-      wikibase:grammaticalFeature wd:Q54152717, wd:Q131105, wd:Q146786, wd:Q3482678 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q54152717, wd:Q146786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterSingularPositiveForm .
+    ?nominativeNeuterSingularPositiveForm ontolex:representation ?nominativeNeuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q110786, wd:Q3482678 .
   }
 }

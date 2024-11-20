@@ -7,23 +7,18 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
   ?pastParticiple
-  ?auxiliaryVerb
   ?indicativePreteriteFirstPersonSingular
-  ?indicativePreteriteSecondPersonSingular
-  ?indicativePreteriteThirdPersonSingular
   ?indicativePreteriteFirstPersonPlural
+  ?indicativePreteriteSecondPersonSingular
   ?indicativePreteriteSecondPersonPlural
+  ?indicativePreteriteThirdPersonSingular
   ?indicativePreteriteThirdPersonPlural
+  ?auxiliaryVerb
 
 WHERE {
   ?lexeme dct:language wd:Q188 ;
-    wikibase:lexicalCategory wd:Q24905 .
-
-  # MARK: Infinitive
-
-  ?lexeme ontolex:lexicalForm ?infinitiveForm .
-  ?infinitiveForm ontolex:representation ?infinitive ;
-    wikibase:grammaticalFeature wd:Q179230 .
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive .
 
   # MARK: Past Participle
 
@@ -33,43 +28,48 @@ WHERE {
       wikibase:grammaticalFeature wd:Q12717679 .
   }
 
-  # MARK: Auxiliary Verb(s)
-
-  OPTIONAL {
-    ?lexeme wdt:P5401 ?auxiliaryVerbFrom .
-  }
-
   # MARK: Indicative Preterite
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonSingularForm .
     ?indicativePreteriteFirstPersonSingularForm ontolex:representation ?indicativePreteriteFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q682111, wd:Q442485 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q110786 .
   }
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonSingularForm .
-    ?indicativePreteriteSecondPersonSingularForm ontolex:representation ?indicativePreteriteSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q682111, wd:Q442485 .
-  }
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonSingularForm .
-    ?indicativePreteriteThirdPersonSingularForm ontolex:representation ?indicativePreteriteThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q682111, wd:Q442485 .
-  }
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonPluralForm .
     ?indicativePreteriteFirstPersonPluralForm ontolex:representation ?indicativePreteriteFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q682111, wd:Q442485 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q146786 .
   }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonSingularForm .
+    ?indicativePreteriteSecondPersonSingularForm ontolex:representation ?indicativePreteriteSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049, wd:Q110786 .
+  }
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonPluralForm .
     ?indicativePreteriteSecondPersonPluralForm ontolex:representation ?indicativePreteriteSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q682111, wd:Q442485 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049, wd:Q146786 .
   }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonSingularForm .
+    ?indicativePreteriteThirdPersonSingularForm ontolex:representation ?indicativePreteriteThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q110786 .
+  }
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonPluralForm .
     ?indicativePreteriteThirdPersonPluralForm ontolex:representation ?indicativePreteriteThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q682111, wd:Q442485 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q146786 .
+  }
+
+  # MARK: Auxiliary Verb(s)
+
+  OPTIONAL {
+    ?lexeme wdt:P5401 ?auxiliaryVerbFrom .
   }
 
   SERVICE wikibase:label {

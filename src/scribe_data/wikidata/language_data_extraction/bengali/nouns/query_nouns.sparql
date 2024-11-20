@@ -13,7 +13,7 @@ WHERE {
   ?lexeme dct:language wd:Q9610 ;
     wikibase:lexicalCategory wd:Q1084 ;
 
-  # MARK: Nminative
+  # MARK: Nominative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeForm .

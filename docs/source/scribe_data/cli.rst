@@ -143,14 +143,32 @@ Options:
 - ``-ot, --output-type {json,csv,tsv}``: The output file type.
 - ``-ope, --outputs-per-entry OUTPUTS_PER_ENTRY``: How many outputs should be generated per data entry.
 - ``-o, --overwrite``: Whether to overwrite existing files (default: False).
-- ``-a, --all ALL``: Get all languages and data types.
+- ``-a, --all``: Get all languages and data types. Can be combined with `-dt` to get all languages for a specific data type, or with `-lang` to get all data types for a specific language.
 - ``-i, --interactive``: Run in interactive mode.
+- ``-ic, --identifier-case``: The case format for identifiers in the output data (default: camel).
 
-Example:
+Examples:
+
+.. code-block:: bash
+
+    $ scribe-data get --all
+    Getting data for all languages and all data types...
+
+.. code-block:: bash
+
+    $ scribe-data get --all -dt nouns
+    Getting all nouns for all languages...
+
+.. code-block:: bash
+
+    $ scribe-data get --all -lang English
+    Getting all data types for English...
 
 .. code-block:: bash
 
     $ scribe-data get -l English --data-type verbs -od ~/path/for/output
+    Getting and formatting English verbs
+    Data updated: 100%|████████████████████████| 1/1 [00:XY<00:00, XY.Zs/process]
 
 Behavior and Output:
 ^^^^^^^^^^^^^^^^^^^^
@@ -180,7 +198,7 @@ Behavior and Output:
     .. code-block:: text
 
         Getting and formatting English verbs
-        Data updated: 100%|████████████████████████| 1/1 [00:29<00:00, 29.73s/process]
+        Data updated: 100%|████████████████████████| 1/1 [00:XY<00:00, XY.Zs/process]
 
 4. If no data is found, you'll see a warning:
 
@@ -207,26 +225,118 @@ Troubleshooting:
 Interactive Mode
 ----------------
 
+The interactive mode provides a user-friendly interface for interacting with Scribe-Data commands.
+
+Usage:
+
+.. code-block:: bash
+
+    scribe-data get -i
+    scribe-data total -i
+
+Get Command Interactive Example:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 .. code-block:: text
 
     $ scribe-data get -i
-    Welcome to Scribe-Data interactive mode!
-    Language options:
-    1. English
-    2. French
-    3. German
-    ...
+    Welcome to Scribe-Data v3.3.0 interactive mode!
+    ? What would you like to do? (Use arrow keys)
+    » Configure get data request
+    » Exit
 
-    Please enter the languages to get data for, their numbers or (a) for all languages: 1
+1. If user selects ``Configure get data request``:
 
-    Data type options:
-    1. autosuggestions
-    2. emoji_keywords
-    3. nouns
-    4. prepositions
-    5. verbs
+.. code-block:: text
 
-    ...
+    ? What would you like to do? Configure get data request
+    Follow the prompts below. Press tab for completions and enter to select.
+    Select languages (comma-separated or 'All'): english
+    Select data types (comma-separated or 'All'): nouns
+    Select output type (json/csv/tsv): json
+    Enter output directory (default: scribe_data_json_export):
+    Overwrite existing files? (Y/n): Y
+
+    Scribe-Data Request Configuration Summary
+    ┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓
+    ┃ Setting          ┃ Value(s)                ┃
+    ┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━┩
+    │ Languages        │ english                 │
+    │ Data Types       │ nouns                   │
+    │ Output Type      │ json                    │
+    │ Output Directory │ scribe_data_json_export │
+    │ Overwrite        │ Yes                     │
+    └──────────────────┴─────────────────────────┘
+
+    ? What would you like to do? (Use arrow keys)
+    » Configure get data request
+    » Request for get data
+    » Exit
+
+2. If user selects ``Request for get data``:
+
+.. code-block:: text
+
+    ? What would you like to do? Request for get data
+    Exporting english nouns data:   0%|                                                               | 0/1 [00:00<?, ?operation/s]
+    Updating data for language(s): English; data type(s): Nouns
+    Overwrite is enabled. Removing existing files...
+    Querying and formatting English nouns
+    Wrote file english/nouns.json with 59,255 nouns.
+    Updated data was saved in: Scribe-Data/scribe_data_json_export.
+    [01:26:58] INFO     ✔ Exported english nouns data.                                               interactive.py:239
+    Exporting english nouns data: 100%|████████████████████████████████████████████████████| 1/1 [00:16<00:00, 16.36s/operation]
+
+3. After the process is complete, we'll see a confirmation message:
+
+.. code-block:: text
+
+    Data request completed successfully!
+    Thank you for using Scribe-Data!
+
+Total Command Interactive Example:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: text
+
+    $ scribe-data total -i
+    Welcome to Scribe-Data v3.3.0 interactive mode!
+    ? What would you like to do? (Use arrow keys)
+    » Configure total lexemes request
+    » Exit
+
+If user selects ``Configure total lexemes request``:
+
+.. code-block:: text
+
+    ? What would you like to do? Configure total lexemes request
+    Select languages (comma-separated or 'All'): english,basque
+    Select data types (comma-separated or 'All'): nouns,adjectives
+
+    Language             Data Type                 Total Lexemes
+    ======================================================================
+    english              nouns                     30,841
+                         adjectives                12,840
+
+    basque               nouns                     14,498
+                         adjectives                278
+
+Features:
+^^^^^^^^^
+
+1. Step-by-step prompts for all options.
+2. Tab completion support.
+3. Clear configuration summary before execution.
+4. Progress tracking during data retrieval.
+5. Multiple language and data type selection support.
+6. Formatted table output for results.
+7. User can select ``All languages`` or ``All data types`` at once.
+8. User can exit the interactive mode at any time by selecting ``Exit``.
+
+The interactive mode is particularly useful for:
+- First-time users learning the CLI options.
+- Complex queries with multiple parameters.
+- Viewing available options without memorizing commands.
 
 Total Command
 ~~~~~~~~~~~~~
@@ -242,30 +352,73 @@ Usage:
 Options:
 ^^^^^^^^
 
-- ``-lang, --language LANGUAGE``: The language(s) to check totals for.
+- ``-lang, --language LANGUAGE``: The language(s) to check totals for. Can be a language name or QID.
 - ``-dt, --data-type DATA_TYPE``: The data type(s) to check totals for.
-- ``-a, --all ALL``: Get totals for all languages and data types.
+- ``-a, --all``: Get totals for all languages and data types.
 
 Examples:
 
-.. code-block:: text
-
-    $scribe-data total -dt nouns  # verbs, adjectives, etc
-    Data type: nouns
-    Total number of lexemes: 123456
+1. Get totals for all languages and data types:
 
 .. code-block:: text
 
-    $scribe-data total -lang English
+    $ scribe-data total --all
+    Total lexemes for all languages and data types:
+    ==============================================
+    Language     Data Type     Total Lexemes
+    ==============================================
+    English      nouns         123,456
+                 verbs         234,567
+    ...
+
+2. Get totals for all data types in English:
+
+.. code-block:: text
+
+    $ scribe-data total --language English
+    Returning total counts for English data types...
+
+    Language        Data Type                 Total Wikidata Lexemes
+    ================================================================
+    English         adjectives                12,345
+                    adverbs                   23,456
+                    nouns                     34,567
+    ...
+
+3. Get totals using a Wikidata QID:
+
+.. code-block:: text
+
+    $ scribe-data total --language Q1860
+    Wikidata QID Q1860 passed. Checking all data types.
+
+    Language        Data Type                 Total Wikidata Lexemes
+    ================================================================
+    Q1860           adjectives                12,345
+                    adverbs                   23,456
+                    articles                  30
+                    conjunctions              40
+                    nouns                     56,789
+                    personal pronouns         60
+    ...
+
+4. Get totals for a specific language and data type combination:
+
+.. code-block:: text
+
+    $ scribe-data total --language English -dt nouns
     Language: English
-    Total number of lexemes: 123456
+    Data type: nouns
+    Total number of lexemes: 12,345
+
+5. Get totals for a specific QID and data type combination:
 
 .. code-block:: text
 
-    $scribe-data total -lang English -dt nouns  # verbs, adjectives, etc
-    Language: English
-    Data type: nouns
-    Total number of lexemes: 12345
+    $ scribe-data total --language Q1860 -dt verbs
+    Language: Q1860
+    Data type: verbs
+    Total number of lexemes: 23,456
 
 Convert Command
 ~~~~~~~~~~~~~~~

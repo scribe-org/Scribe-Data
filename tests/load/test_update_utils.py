@@ -33,11 +33,11 @@ from scribe_data import utils
 @pytest.mark.parametrize(
     "language, qid_code",
     [
-        ("English", "Q1860"),
+        ("english", "Q1860"),
         ("french", "Q150"),
-        ("GERMAN", "Q188"),
-        ("iTalian", "Q652"),
-        ("poRTUGuese", "Q5146"),
+        ("german", "Q188"),
+        ("italian", "Q652"),
+        ("portuguese", "Q5146"),
         ("russian", "Q7737"),
         ("spanish", "Q1321"),
         ("swedish", "Q9027"),
@@ -54,21 +54,21 @@ def test_get_language_qid_negative():
 
     assert (
         str(excp.value)
-        == "NEWSPEAK is currently not a supported language for QID conversion."
+        == "Newspeak is currently not a supported language for QID conversion."
     )
 
 
 @pytest.mark.parametrize(
     "language, iso_code",
     [
-        ("English", "en"),
+        ("english", "en"),
         ("french", "fr"),
-        ("GERMAN", "de"),
-        ("iTalian", "it"),
-        ("poRTUGuese", "pt"),
+        ("german", "de"),
+        ("italian", "it"),
+        ("portuguese", "pt"),
         ("russian", "ru"),
         ("spanish", "es"),
-        ("SwedisH", "sv"),
+        ("swedish", "sv"),
         ("bokmål", "nb"),
     ],
 )
@@ -78,11 +78,11 @@ def test_get_language_iso_positive(language, iso_code):
 
 def test_get_language_iso_negative():
     with pytest.raises(ValueError) as excp:
-        _ = utils.get_language_iso("gibberish")
+        _ = utils.get_language_iso("Gibberish")
 
     assert (
         str(excp.value)
-        == "GIBBERISH is currently not a supported language for ISO conversion."
+        == "Gibberish is currently not a supported language for ISO conversion."
     )
 
 
@@ -125,9 +125,9 @@ def test_format_sublanguage_name_positive(lang, expected_output):
 
 def test_format_sublanguage_name_negative():
     with pytest.raises(ValueError) as excp:
-        _ = utils.format_sublanguage_name("soccer")
+        _ = utils.format_sublanguage_name("Silence")
 
-    assert str(excp.value) == "SOCCER is not a valid language or sub-language."
+    assert str(excp.value) == "Silence is not a valid language or sub-language."
 
 
 def test_list_all_languages():

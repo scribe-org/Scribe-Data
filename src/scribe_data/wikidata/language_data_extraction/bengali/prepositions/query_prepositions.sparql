@@ -12,7 +12,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?preposition .
 
-  # MARK: Corresponding Case
+  # MARK: Case
 
   OPTIONAL {
     ?lexeme wdt:P5713 ?caseForm .

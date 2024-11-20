@@ -33,7 +33,9 @@ from scribe_data.utils import (
     DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
     get_language_iso,
+    camel_to_snake,
 )
+
 
 # MARK: JSON
 
@@ -45,6 +47,7 @@ def convert_to_json(
     input_file: str,
     output_dir: str = None,
     overwrite: bool = False,
+    identifier_case: str = "camel",
 ) -> None:
     """
     Convert a CSV/TSV file to JSON.
@@ -69,13 +72,14 @@ def convert_to_json(
         overwrite : bool
             Whether to overwrite existing files.
 
+        identifier_case : str
+            The case format for identifiers. Default is "camel".
+
     Returns
     -------
         None
     """
-    normalized_language = language.lower()
-
-    if not normalized_language:
+    if not language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
     data_types = [data_type] if isinstance(data_type, str) else data_type
@@ -83,7 +87,7 @@ def convert_to_json(
     if output_dir is None:
         output_dir = DEFAULT_JSON_EXPORT_DIR
 
-    json_output_dir = Path(output_dir) / normalized_language.capitalize()
+    json_output_dir = Path(output_dir) / language.capitalize()
     json_output_dir.mkdir(parents=True, exist_ok=True)
 
     for dtype in data_types:
@@ -120,7 +124,11 @@ def convert_to_json(
                 elif len(keys) == 2:
                     # Handle Case: { key: value }.
                     for row in rows:
-                        key = row[keys[0]]
+                        key = (
+                            camel_to_snake(row[keys[0]])
+                            if identifier_case == "snake"
+                            else row[keys[0]]
+                        )
                         value = row[keys[1]]
                         data[key] = value
 
@@ -128,7 +136,10 @@ def convert_to_json(
                     if all(col in first_row for col in ["emoji", "is_base", "rank"]):
                         # Handle Case: { key: [ { emoji: ..., is_base: ..., rank: ... }, { emoji: ..., is_base: ..., rank: ... } ] }.
                         for row in rows:
-                            key = row.get(reader.fieldnames[0])
+                            if identifier_case == "snake":
+                                key = camel_to_snake(row.get(reader.fieldnames[0]))
+                            else:
+                                key = row.get(reader.fieldnames[0])
                             emoji = row.get("emoji", "").strip()
                             is_base = (
                                 row.get("is_base", "false").strip().lower() == "true"
@@ -145,7 +156,14 @@ def convert_to_json(
                     else:
                         # Handle Case: { key: { value1: ..., value2: ... } }.
                         for row in rows:
-                            data[row[keys[0]]] = {k: row[k] for k in keys[1:]}
+                            data[row[keys[0]]] = {
+                                (
+                                    camel_to_snake(k)
+                                    if identifier_case == "snake"
+                                    else k
+                                ): row[k]
+                                for k in keys[1:]
+                            }
 
         except (IOError, csv.Error) as e:
             print(f"Error reading '{input_file_path}': {e}")
@@ -159,7 +177,7 @@ def convert_to_json(
                 f"File '{output_file}' already exists. Overwrite? (y/n): "
             )
             if user_input.lower() != "y":
-                print(f"Skipping {normalized_language['language']} - {dtype}")
+                print(f"Skipping {language['language']} - {dtype}")
                 continue
 
         try:
@@ -183,6 +201,7 @@ def convert_to_csv_or_tsv(
     input_file: str,
     output_dir: str = None,
     overwrite: bool = False,
+    identifier_case: str = "camel",
 ) -> None:
     """
     Convert a JSON File to CSV/TSV file.
@@ -207,13 +226,14 @@ def convert_to_csv_or_tsv(
         overwrite : bool
             Whether to overwrite existing files.
 
+        identifier_case : str
+            The case format for identifiers. Default is "camel".
+
     Returns
     -------
         None
     """
-    normalized_language = language.lower()
-
-    if not normalized_language:
+    if not language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
     if isinstance(data_type, str):
@@ -269,7 +289,16 @@ def convert_to_csv_or_tsv(
                     if isinstance(data[first_key], dict):
                         # Handle case: { key: { value1: ..., value2: ... } }.
                         columns = sorted(next(iter(data.values())).keys())
-                        writer.writerow([dtype[:-1]] + columns)
+                        header = [
+                            camel_to_snake(dtype[:-1])
+                            if identifier_case == "snake"
+                            else dtype[:-1]
+                        ]
+                        header += [
+                            camel_to_snake(col) if identifier_case == "snake" else col
+                            for col in columns
+                        ]
+                        writer.writerow(header)
 
                         for key, value in data.items():
                             row = [key] + [value.get(col, "") for col in columns]
@@ -280,7 +309,11 @@ def convert_to_csv_or_tsv(
                             # Handle case: { key: [ { value1: ..., value2: ... } ] }.
                             if "emoji" in data[first_key][0]:  # emoji specific case
                                 columns = ["word", "emoji", "is_base", "rank"]
-                                writer.writerow(columns)
+                                writer.writerow(
+                                    [camel_to_snake(col) for col in columns]
+                                    if identifier_case == "snake"
+                                    else columns
+                                )
 
                                 for key, value in data.items():
                                     for item in value:
@@ -292,7 +325,13 @@ def convert_to_csv_or_tsv(
                                         ]
                                         writer.writerow(row)
                             else:
-                                columns = [dtype[:-1]] + list(data[first_key][0].keys())
+                                if identifier_case == "snake":
+                                    columns = [camel_to_snake(dtype[:-1])] + [
+                                        camel_to_snake(col)
+                                        for col in data[first_key][0].keys()
+                                    ]
+                                else:
+                                    writer.writerow(columns)
                                 writer.writerow(columns)
 
                                 for key, value in data.items():
@@ -304,20 +343,30 @@ def convert_to_csv_or_tsv(
 
                         elif all(isinstance(item, str) for item in data[first_key]):
                             # Handle case: { key: [value1, value2, ...] }.
-                            writer.writerow(
-                                [dtype[:-1]]
-                                + [
-                                    f"autosuggestion_{i+1}"
-                                    for i in range(len(data[first_key]))
-                                ]
-                            )
+                            header = [
+                                camel_to_snake(dtype[:-1])
+                                if identifier_case == "snake"
+                                else dtype[:-1]
+                            ]
+                            header += [
+                                f"autosuggestion_{i+1}"
+                                for i in range(len(data[first_key]))
+                            ]
+                            writer.writerow(header)
                             for key, value in data.items():
                                 row = [key] + value
                                 writer.writerow(row)
 
                     else:
                         # Handle case: { key: value }.
-                        writer.writerow([dtype[:-1], "value"])
+                        writer.writerow(
+                            [
+                                camel_to_snake(dtype[:-1])
+                                if identifier_case == "snake"
+                                else dtype[:-1],
+                                "value",
+                            ]
+                        )
                         for key, value in data.items():
                             writer.writerow([key, value])
 
@@ -325,7 +374,7 @@ def convert_to_csv_or_tsv(
             print(f"Error writing to '{output_file}': {e}")
             continue
 
-        print(f"Data for {language} {dtype} written to '{output_file}'")
+        print(f"Data for {language.capitalize()} {dtype} written to '{output_file}'")
 
 
 # MARK: SQLITE
@@ -338,6 +387,7 @@ def convert_to_sqlite(
     input_file: str = None,
     output_dir: str = None,
     overwrite: bool = False,
+    identifier_case: str = "snake",
 ) -> None:
     """
     Converts a Scribe-Data output file to an SQLite file.
@@ -361,6 +411,9 @@ def convert_to_sqlite(
 
         overwrite : bool
             Whether to overwrite existing files.
+
+        identifier_case : str
+            The case format for identifiers. Default is "camel".
 
     Returns
     -------
@@ -387,9 +440,9 @@ def convert_to_sqlite(
     if not output_dir.exists():
         output_dir.mkdir(parents=True, exist_ok=True)
 
-    data_to_sqlite(languages, specific_tables)
+    data_to_sqlite(languages, specific_tables, identifier_case)
 
-    source_file = f"{get_language_iso(language).upper()}LanguageData.sqlite"
+    source_file = f"{get_language_iso(language).capitalize()}LanguageData.sqlite"
     source_path = input_file.parent / source_file
     target_path = output_dir / source_file
 
@@ -414,6 +467,7 @@ def convert_wrapper(
     input_file: str,
     output_dir: str = None,
     overwrite: bool = False,
+    identifier_case: str = "snake",
 ):
     """
     Convert data to the specified output type: JSON, CSV/TSV, or SQLite.
@@ -438,12 +492,17 @@ def convert_wrapper(
     overwrite : bool, optional
         Whether to overwrite existing output files. Defaults to False.
 
+    identifier_case : str
+        The case format for identifiers. Default is "camel".
+
     Returns
     -------
     None
     """
     output_type = output_type.lower()
-    print(f"Converting data for {language} {data_type} to {output_type}...")
+    print(
+        f"Converting data for {language.capitalize()} {data_type.capitalize()} to {output_type}..."
+    )
 
     # Route the function call to the correct conversion function.
     if output_type == "json":
@@ -454,6 +513,7 @@ def convert_wrapper(
             input_file=input_file,
             output_dir=output_dir,
             overwrite=overwrite,
+            identifier_case=identifier_case,
         )
 
     elif output_type in {"csv", "tsv"}:
@@ -464,6 +524,7 @@ def convert_wrapper(
             input_file=input_file,
             output_dir=output_dir,
             overwrite=overwrite,
+            identifier_case=identifier_case,
         )
 
     elif output_type == "sqlite":
@@ -474,6 +535,7 @@ def convert_wrapper(
             input_file=input_file,
             output_dir=output_dir,
             overwrite=overwrite,
+            identifier_case=identifier_case,
         )
 
     else:

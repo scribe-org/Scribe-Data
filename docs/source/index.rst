@@ -9,7 +9,7 @@
     :target: https://github.com/scribe-org/Scribe-Data
 
 .. |rtd| image:: https://img.shields.io/readthedocs/scribe-data.svg?label=%20&logo=read-the-docs&logoColor=ffffff
-    :target: http://scribe-datareadthedocs.io/en/latest/
+    :target: http://scribe-data.readthedocs.io/en/latest/
 
 .. |issues| image:: https://img.shields.io/github/issues/scribe-org/Scribe-Data?label=%20&logo=github
     :target: https://github.com/scribe-org/Scribe-Data/issues

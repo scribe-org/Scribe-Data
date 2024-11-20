@@ -151,6 +151,14 @@ def main() -> None:
     get_parser.add_argument(
         "-i", "--interactive", action="store_true", help="Run in interactive mode"
     )
+    get_parser.add_argument(
+        "-ic",
+        "--identifier-case",
+        type=str,
+        choices=["camel", "snake"],
+        default="camel",
+        help="The case format for identifiers in the output data (default: camel).",
+    )
 
     # MARK: Total
 
@@ -177,6 +185,9 @@ def main() -> None:
         "--all",
         action=argparse.BooleanOptionalAction,
         help="Check for all languages and data types.",
+    )
+    total_parser.add_argument(
+        "-i", "--interactive", action="store_true", help="Run in interactive mode"
     )
 
     # MARK: Convert
@@ -239,6 +250,14 @@ def main() -> None:
         default=True,
         help="Whether to keep the original file to be converted (default: True).",
     )
+    convert_parser.add_argument(
+        "-ic",
+        "--identifier-case",
+        type=str,
+        choices=["camel", "snake"],
+        default="camel",
+        help="The case format for identifiers in the output data (default: camel).",
+    )
 
     # MARK: Setup CLI
 
@@ -273,32 +292,44 @@ def main() -> None:
 
         elif args.command in ["get", "g"]:
             if args.interactive:
-                start_interactive_mode()
+                start_interactive_mode(operation="get")
 
             else:
                 get_data(
-                    language=args.language,
-                    data_type=args.data_type,
+                    language=args.language.lower(),
+                    data_type=args.data_type.lower(),
                     output_type=args.output_type,
                     output_dir=args.output_dir,
                     outputs_per_entry=args.outputs_per_entry,
                     overwrite=args.overwrite,
                     all=args.all,
+                    identifier_case=args.identifier_case,
                 )
 
         elif args.command in ["total", "t"]:
-            total_wrapper(
-                language=args.language, data_type=args.data_type, all_bool=args.all
-            )
+            if args.interactive:
+                start_interactive_mode(operation="total")
+
+            else:
+                total_wrapper(
+                    language=args.language.lower()
+                    if args.language is not None
+                    else None,
+                    data_type=args.data_type.lower()
+                    if args.data_type is not None
+                    else None,
+                    all_bool=args.all,
+                )
 
         elif args.command in ["convert", "c"]:
             convert_wrapper(
-                language=args.language,
+                language=args.language.lower(),
                 data_type=args.data_type,
                 output_type=args.output_type,
                 input_file=args.input_file,
                 output_dir=args.output_dir,
                 overwrite=args.overwrite,
+                identifier_case=args.identifier_case,
             )
 
         else:

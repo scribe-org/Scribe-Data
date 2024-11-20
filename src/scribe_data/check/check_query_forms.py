@@ -27,17 +27,26 @@ Example
 import re
 from pathlib import Path
 
-from scribe_data.utils import LANGUAGE_DATA_EXTRACTION_DIR, lexeme_form_metadata
+from scribe_data.utils import (
+    LANGUAGE_DATA_EXTRACTION_DIR,
+    data_type_metadata,
+    lexeme_form_metadata,
+)
 
 lexeme_form_qid_order = []
-# lexeme_form_labels = []
+lexeme_form_labels_order = []
 for key, value in lexeme_form_metadata.items():
     lexeme_form_qid_order.extend(
         sub_value["qid"] for sub_key, sub_value in value.items() if "qid" in sub_value
     )
-    # lexeme_form_labels.extend(
-    #     sub_value["label"] for sub_key, sub_value in value.items() if "label" in sub_value
-    # )
+    lexeme_form_labels_order.extend(
+        sub_value["label"]
+        for sub_key, sub_value in value.items()
+        if "label" in sub_value
+    )
+
+qid_label_dict = dict(zip(lexeme_form_labels_order, lexeme_form_qid_order))
+
 
 # MARK: Extract Forms
 
@@ -99,6 +108,44 @@ def extract_form_rep_label(form_text: str):
         rep_label_pattern = r".*\?(.*);"
         if label_match := re.search(pattern=rep_label_pattern, string=line_match[0]):
             return label_match[1].strip()
+
+
+# MARK: Decompose Label
+
+
+def decompose_label_features(label):
+    """
+    Decomposes a concatenated grammatical label into a list of individual features.
+
+    Parameters
+    ----------
+        label : str
+            The concatenated label string composed of several grammatical features.
+
+    Returns
+    -------
+        list
+            A list of grammatical features extracted from the label in their original order.
+    """
+    components = re.findall(r"[A-Za-z][^A-Z]*", label)
+    valid_components = []
+    temp_component = ""
+
+    for index, component in enumerate(components):
+        temp_component += component.capitalize()
+
+        # Append valid components in lexeme_form_labels_order.
+        if index + 1 != len(components) and (
+            temp_component.lower() in map(str.lower, lexeme_form_labels_order)
+            and temp_component + components[index + 1] not in lexeme_form_labels_order
+        ):
+            valid_components.append(temp_component)
+            temp_component = ""
+
+    if temp_component:
+        valid_components.append(temp_component)
+
+    return valid_components
 
 
 # MARK: Extract QIDs
@@ -312,6 +359,7 @@ def validate_forms(query_text: str) -> str:
 
     # Check if the order of variables matches, excluding lexeme and lexemeID.
     elif select_vars != where_vars:
+        # print('select vars is ',select_vars, '\n where vars is \n', where_vars)
         error_messages.append(
             "The order of variables in the SELECT statement does not match their order in the WHERE clause."
         )
@@ -361,6 +409,125 @@ def check_docstring(query_text: str) -> bool:
     )
 
 
+# MARK: Variable Order
+
+
+def check_forms_order(query_text):
+    """
+    Parses and orders variable names from a SPARQL query text based on a lexeme_form_metadata.json.
+
+    Parameters
+    ----------
+        query_text : str
+            The SPARQL query text containing the SELECT statement with variables.
+
+    Returns
+    -------
+        list or bool
+            A sorted list of variables if the ordering differs from the original,
+            otherwise a boolean indicating that the order matches.
+    """
+    select_pattern = r"SELECT\s+(.*?)\s+WHERE"
+
+    # Extracting the variables from the SELECT statement.
+    if select_match := re.search(select_pattern, query_text, flags=re.DOTALL):
+        select_vars = re.findall(r"\?(\w+)", select_match[1])
+
+    # Hardcoded labels provided by the labeling service.
+    labeling_service_cols = ["case", "gender", "auxiliaryVerb"]
+    select_vars = select_vars[2:]
+
+    # Split each column label into components.
+    split_vars = []
+    for col in set(select_vars) - set(labeling_service_cols):
+        valid_components = decompose_label_features(col)
+        split_vars.append(valid_components)
+
+    # Create a map for fast component position lookup.
+    order_map = {item: index for index, item in enumerate(lexeme_form_labels_order)}
+
+    # Group columns by component length for sorting.
+    grouped_columns = {}
+    for col in split_vars:
+        grouped_columns.setdefault(len(col), []).append(col)
+
+    # Sorting function for multi-level component-based sorting.
+    def compare_key(components):
+        return [order_map.get(comp, float("inf")) for comp in components]
+
+    # Sort and reassemble columns.
+    sorted_columns = []
+    for length in sorted(grouped_columns.keys()):
+        sorted_group = sorted(grouped_columns[length], key=compare_key)
+        sorted_columns.extend("".join(col) for col in sorted_group)
+
+    # Append labeling service columns to the end.
+    sorted_columns.extend(
+        col.lower() for col in labeling_service_cols if col in select_vars
+    )
+
+    # Ensure specific types appear at the start if in select_vars.
+    data_types = [
+        re.sub(r"[^a-zA-Z]", "", key).lower() for key in data_type_metadata.keys()
+    ]
+    for dt in data_types:
+        base_dt = dt[:-1]
+        if base_dt in select_vars:
+            sorted_columns.remove(base_dt.capitalize())
+            sorted_columns.insert(0, base_dt)
+
+    # Return sorted columns or validate if it matches select_vars.
+    sorted_lower = [i.lower() for i in sorted_columns]
+    select_lower = [i.lower() for i in select_vars]
+
+    if select_lower != sorted_lower:
+        return ", ".join([i[0].lower() + i[1:] for i in sorted_columns])
+
+    return sorted_lower == select_lower
+
+
+# MARK: Optional Validation
+
+
+def check_optional_qid_order(query_file: str) -> str:
+    """
+    Checks the order of QIDs in optional statements within a SPARQL query file to ensure they
+    align with the expected sequence based on label features.
+
+    Parameters
+    ----------
+        query_file : str
+            The path to the SPARQL query file to be checked.
+
+    Returns
+    -------
+        str
+            A formatted string with details on any order mismatches in the QIDs, or an empty
+            string if all QIDs are correctly ordered.
+    """
+    forms = extract_forms_from_sparql(query_file)
+    error_messages = []
+    for form_text in forms:
+        if "ontolex:lexicalForm" in form_text and "ontolex:representation" in form_text:
+            # Extract the actual QIDs and label for the current form.
+            actual_qids = extract_form_qids(form_text=form_text)
+            form_label = extract_form_rep_label(form_text)
+            label_components = decompose_label_features(form_label)
+            expected_qids = [qid_label_dict[key] for key in label_components]
+
+            # Keep PastParticiple and imperfective QIDs as is in the query since we have duplicate qids for it.
+            for i in ["Q12717679", "Q1230649", "Q2898727", "Q54556033"]:
+                if i in actual_qids and i not in expected_qids:
+                    expected_qids[actual_qids.index(i)] = i
+            # Check if the actual QIDs match the expected order.
+            if len(actual_qids) == len(expected_qids) and actual_qids != expected_qids:
+                formatted_qids = ", ".join(f"wd:{qid}" for qid in expected_qids) + " ."
+                error_messages.append(
+                    f"\nThe QIDs in optional statement for {form_label} should be ordered:\n{formatted_qids}"
+                )
+    return "\n".join(error_messages) if error_messages else ""
+
+
 # MARK: Main Validation
 
 
@@ -382,10 +549,20 @@ def check_query_forms() -> None:
                 f"\n{index}. {query_file_str}:\n  - {docstring_check_result}\n"
             )
             index += 1
+        # Check forms ordering.
+        forms_order_result = check_forms_order(query_text)
+        if forms_order_result is not True:
+            error_output += f"\n{index}. {query_file_str}:\n  Form ordering for the above file should be:\n- {forms_order_result}\n"
+            index += 1
 
         # Check that all variables in the WHERE and SELECT clauses are ordered, defined and returned.
         if forms_order_and_definition_check := validate_forms(query_text):
             error_output += f"\n{index}. {query_file_str}:\n  - {forms_order_and_definition_check}\n"
+            index += 1
+
+        # Check that all variables in the OPTIONAL clauses have their QIDs in the correct order.
+        if labels_qids_order_check := check_optional_qid_order(query_file_str):
+            error_output += f"\n{index}. {query_file_str}:\n{labels_qids_order_check}\n"
             index += 1
 
         if extract_forms_from_sparql(query_file):

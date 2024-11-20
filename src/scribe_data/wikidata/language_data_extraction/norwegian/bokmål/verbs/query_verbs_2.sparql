@@ -5,47 +5,46 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?presentParticiple
-  ?feminineMasculineIndefiniteSingularPastParticiple
-  ?neuterIndefiniteSingularPastParticiple
-  ?definiteSingularPastParticiple
   ?pluralPastParticiple
+  ?definiteSingularPastParticiple
+  ?neuterIndefiniteSingularPastParticiple
+  ?feminineMasculineIndefiniteSingularPastParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q25167 ;
-          wikibase:lexicalCategory wd:Q24905 .
+    wikibase:lexicalCategory wd:Q24905 .
 
-  # MARK: present participle
+  # MARK: Present Participle
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentParticipleForm .
     ?presentParticipleForm ontolex:representation ?presentParticiple ;
       wikibase:grammaticalFeature wd:Q10345583 .
   }
 
-  # MARK: masculine feminine singular indefinite past participle
+  # MARK: Past Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralPastParticipleForm .
+    ?pluralPastParticipleForm ontolex:representation ?pluralPastParticiple ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?definiteSingularPastParticipleForm .
+    ?definiteSingularPastParticipleForm ontolex:representation ?definiteSingularPastParticiple ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularPastParticipleForm .
+    ?neuterIndefiniteSingularPastParticipleForm ontolex:representation ?neuterIndefiniteSingularPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786, wd:Q12717679 .
+  }
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularPastParticipleForm .
     ?feminineMasculineIndefiniteSingularPastParticipleForm ontolex:representation ?feminineMasculineIndefiniteSingularPastParticiple ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q53997857, wd:Q110786, wd:Q12717679 .
-  }
-
-  # MARK: neuter singular indefinite past participle
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularPastParticipleForm .
-    ?neuterIndefiniteSingularPastParticipleForm ontolex:representation ?neuterIndefiniteSingularPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679, wd:Q1775461, wd:Q110786, wd:Q53997857 .
-  }
-
-  # MARK: definite singular past participle
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?definiteSingularPastParticipleForm .
-    ?definiteSingularPastParticipleForm ontolex:representation ?definiteSingularPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679, wd:Q110786, wd:Q53997851 .
-  }
-
-  # MARK: plural past participle
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralPastParticipleForm .
-    ?pluralPastParticipleForm ontolex:representation ?pluralPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679, wd:Q146786 .
   }
 }

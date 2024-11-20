@@ -160,7 +160,7 @@ def validate_language_and_data_type(
         ):
             closest_match = difflib.get_close_matches(item, valid_options, n=1)
             closest_match_str = (
-                f" The closest matching {item_type} is '{closest_match[0]}'."
+                f" The closest matching {item_type} is '{closest_match[0].capitalize()}'."
                 if closest_match
                 else ""
             )

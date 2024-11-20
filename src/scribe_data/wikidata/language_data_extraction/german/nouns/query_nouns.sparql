@@ -18,7 +18,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativePluralForm .
     ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q131105 .
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
   # MARK: Gender(s)

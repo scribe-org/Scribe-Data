@@ -1,10 +1,15 @@
 name: Check Project Metadata
+
 on:
   push:
     branches: [main]
+    paths:
+      - 'src/scribe_data/resources/**/*.json'
   pull_request:
     branches: [main]
     types: [opened, reopened, synchronize]
+    paths:
+      - 'src/scribe_data/resources/**/*.json'
 
 jobs:
   structure-check:
@@ -17,6 +22,8 @@ jobs:
           - "3.9"
 
     runs-on: ${{ matrix.os }}
+
+    name: Run Check Project Metadata
 
     steps:
       - name: Checkout repository

@@ -5,8 +5,8 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
-  ?presentInfinitive
   ?simplePresent
+  ?presentInfinitive
   ?simplePast
   ?simpleFuture
 
@@ -15,15 +15,6 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb .
 
-  # MARK: Present Infinitive
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentInfinitiveForm .
-    ?presentInfinitiveForm ontolex:representation ?presentInfinitive ;
-      wikibase:grammaticalFeature wd:Q52434245 .
-      FILTER(LANG(?presentInfinitive) = "ml")
-  }
-
   # MARK: Simple Present
 
   OPTIONAL {
@@ -31,6 +22,15 @@ WHERE {
     ?simplePresentForm ontolex:representation ?simplePresent ;
       wikibase:grammaticalFeature wd:Q3910936 .
       FILTER(LANG(?simplePresent) = "ml")
+  }
+
+  # MARK: Present Infinitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentInfinitiveForm .
+    ?presentInfinitiveForm ontolex:representation ?presentInfinitive ;
+      wikibase:grammaticalFeature wd:Q52434245 .
+      FILTER(LANG(?presentInfinitive) = "ml")
   }
 
   # MARK: Simple Past

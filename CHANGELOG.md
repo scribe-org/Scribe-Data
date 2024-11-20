@@ -14,16 +14,19 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ### ✨ Features
 
+- Queries for countless data types for countless languages were expanded and added ❤️
 - Scribe-Data is now a fully functional CLI.
   - Querying Wikidata lexicographical data can be done via the `--query` command ([#159](https://github.com/scribe-org/Scribe-Data/issues/159)).
   - The output type of queries can be in JSON, CSV, TSV and SQLite, with conversions output types also being possible ([#145](https://github.com/scribe-org/Scribe-Data/issues/145), [#146](https://github.com/scribe-org/Scribe-Data/issues/146))
   - Output paths can be set for query results ([#144](https://github.com/scribe-org/Scribe-Data/issues/144)).
   - The version of the CLI can be printed to the command line and the CLI can further be used to upgrade itself ([#186](https://github.com/scribe-org/Scribe-Data/issues/186), [#157 ](https://github.com/scribe-org/Scribe-Data/issues/157)).
   - Total Wikidata lexemes for languages and data types can be derived with the `--total` command ([#147](https://github.com/scribe-org/Scribe-Data/issues/147)).
-  - Commands can be used via an interactive mode with the `--interactive` command ([#158](https://github.com/scribe-org/Scribe-Data/issues/158)).
-- Articles are removed from machine translations so they're more directly useful in Scribe applications ([#96](https://github.com/scribe-org/Scribe-Data/issues/96)).
-- Queries for Basque verbs and adjectives were expanded and added respectively ([#222](https://github.com/scribe-org/Scribe-Data/issues/222)).
-- The query for Danish verbs was expanded ([#225](https://github.com/scribe-org/Scribe-Data/issues/225)).
+  - Commands can be used via an interactive mode with the `--interactive` command ([#158](https://github.com/scribe-org/Scribe-Data/issues/158), [#203](https://github.com/scribe-org/Scribe-Data/issues/203)).
+  - Interactive mode works for `get` and `total` commands
+  - Outputs were standardized to assure that the CLI experience is consistent
+- The machine translation process has been removed to make way for the Wiktionary based implementation ([#292](https://github.com/scribe-org/Scribe-Data/issues/292)).
+- Package metadata files were standardized for languages, data types and Wikidata lexeme forms.
+- CLI commands have an argument check that can suggest correct languages and data types ([#341](https://github.com/scribe-org/Scribe-Data/issues/341)).
 
 ### 🐞 Bug Fixes
 
@@ -32,10 +35,13 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 ### ✅ Tests
 
 - Tests have been written for the CLI to assure that it's functionality remains consistent.
+- Workflows were created to assure that the Wikidata queries and project structure are consistent to assure package functionality ([#339](https://github.com/scribe-org/Scribe-Data/issues/339), [#357](https://github.com/scribe-org/Scribe-Data/issues/357))
+  - Project queries and its structure have been updated to match the rules developed for the checks.
 
 ### 📝 Documentation
 
-- The CLI's functionality has been fully documented ([#152](https://github.com/scribe-org/Scribe-Data/issues/152)).
+- The CLI's functionality has been fully documented ([#152](https://github.com/scribe-org/Scribe-Data/issues/152), [#208](https://github.com/scribe-org/Scribe-Data/issues/208)).
+- Documentation was created to show how to write Scribe-Data queries ([#395](https://github.com/scribe-org/Scribe-Data/issues/395)).
 
 ### ♻️ Code Refactoring
 
@@ -47,6 +53,9 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - Paths within the package have been updated to work for all operating systems via `pathlib` ([#125](https://github.com/scribe-org/Scribe-Data/issues/125)).
 - The language formatting scripts have been dramatically simplified given changes to export paths all being the same.
 - The `update_files` directory was removed in preparation of other means of showing data totals.
+- The `language_data_extraction` directory was moved under the Wikidata directory as it's only used for those processes now ([#446](https://github.com/scribe-org/Scribe-Data/issues/446)).
+- The emoji keyword process was centralized to simplify project maintenance ([#359](https://github.com/scribe-org/Scribe-Data/issues/359)).
+- PyICU was removed as a dependency and a process was made to install it and its needed dependencies given the operating system of the user ([#196](https://github.com/scribe-org/Scribe-Data/issues/196)).
 
 ## Scribe-Data 3.3.0
 

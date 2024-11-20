@@ -5,8 +5,8 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?feminineImperativeSecondPersonSingular
-  ?masculineImperativeSecondPersonSingular
   ?feminineImperativeSecondPersonPlural
+  ?masculineImperativeSecondPersonSingular
   ?masculineImperativeSecondPersonPlural
 
 WHERE {
@@ -18,28 +18,28 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineImperativeSecondPersonSingularForm .
     ?feminineImperativeSecondPersonSingularForm ontolex:representation ?feminineImperativeSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q22716, wd:Q1775415 .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q22716, wd:Q51929049, wd:Q110786 .
       FILTER(lang(?feminineImperativeSecondPersonSingular) = "he")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineImperativeSecondPersonSingularForm .
-    ?masculineImperativeSecondPersonSingularForm ontolex:representation ?masculineImperativeSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q22716, wd:Q499327 .
-      FILTER(lang(?masculineImperativeSecondPersonSingular) = "he")
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineImperativeSecondPersonPluralForm .
     ?feminineImperativeSecondPersonPluralForm ontolex:representation ?feminineImperativeSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q22716, wd:Q1775415 .
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q22716, wd:Q51929049, wd:Q146786 .
       FILTER(lang(?feminineImperativeSecondPersonPlural) = "he")
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineImperativeSecondPersonSingularForm .
+    ?masculineImperativeSecondPersonSingularForm ontolex:representation ?masculineImperativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q22716, wd:Q51929049, wd:Q110786 .
+      FILTER(lang(?masculineImperativeSecondPersonSingular) = "he")
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineImperativeSecondPersonPluralForm .
     ?masculineImperativeSecondPersonPluralForm ontolex:representation ?masculineImperativeSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q22716, wd:Q499327 .
+      wikibase:grammaticalFeature wd:Q499327, wd:Q22716, wd:Q51929049, wd:Q146786 .
       FILTER(lang(?masculineImperativeSecondPersonPlural) = "he")
   }
 }

@@ -5,24 +5,16 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?nominativeSingular
-  ?accusativeSingular
   ?nominativePlural
+  ?accusativeSingular
   ?accusativePlural
 
 WHERE {
+  # MARK: Nominative
+
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?nominativeSingular .
-
-  # MARK: Accusative Singular
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
-    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
-  }
-
-  # MARK: Nominative Plural
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativePluralForm .
@@ -30,7 +22,13 @@ WHERE {
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
-  # MARK: Accusative Plural
+  # MARK: Accusative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativePluralForm .

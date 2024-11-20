@@ -4,45 +4,27 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?infinitive
+  ?verb
+  ?volitive
+  ?conditional
   ?indicativePresent
   ?indicativePast
   ?indicativeFuture
-  ?conditional
-  ?volitive
 
 WHERE {
   # MARK: Infinitive
 
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive .
+    wikibase:lemma ?verb .
 
-  # MARK: Present Tense
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePresentForm .
-    ?indicativePresentForm ontolex:representation ?indicativePresent ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q682111 .
-      FILTER(LANG(?indicativePresent) = "eo")
-  }
-
-  # MARK: Past Tense
+  # MARK: Volitive
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePastForm .
-    ?indicativePastForm ontolex:representation ?indicativePast ;
-      wikibase:grammaticalFeature wd:Q1994301, wd:Q682111 .
-      FILTER(LANG(?indicativePast) = "eo")
-  }
-
-  # MARK: Future Tense
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeFutureForm .
-    ?indicativeFutureForm ontolex:representation ?indicativeFuture ;
-      wikibase:grammaticalFeature wd:Q501405, wd:Q682111 .
-      FILTER(LANG(?indicativeFuture) = "eo")
+    ?lexeme ontolex:lexicalForm ?volitiveForm .
+    ?volitiveForm ontolex:representation ?volitive ;
+      wikibase:grammaticalFeature wd:Q2532941 .
+      FILTER(LANG(?volitive) = "eo")
   }
 
   # MARK: Conditional
@@ -54,12 +36,30 @@ WHERE {
       FILTER(LANG(?conditional) = "eo")
   }
 
-  # MARK: Volitive
+  # MARK: Present Tense
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?volitiveForm .
-    ?volitiveForm ontolex:representation ?volitive ;
-      wikibase:grammaticalFeature wd:Q2532941 .
-      FILTER(LANG(?volitive) = "eo")
+    ?lexeme ontolex:lexicalForm ?indicativePresentForm .
+    ?indicativePresentForm ontolex:representation ?indicativePresent ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q192613 .
+      FILTER(LANG(?indicativePresent) = "eo")
+  }
+
+  # MARK: Past Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastForm .
+    ?indicativePastForm ontolex:representation ?indicativePast ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1994301 .
+      FILTER(LANG(?indicativePast) = "eo")
+  }
+
+  # MARK: Future Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeFutureForm .
+    ?indicativeFutureForm ontolex:representation ?indicativeFuture ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q501405 .
+      FILTER(LANG(?indicativeFuture) = "eo")
   }
 }

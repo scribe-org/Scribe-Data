@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?infinitive
   ?indicativeFirstPersonAoristSingular
-  ?indicativeSecondPersonAoristSingular
-  ?indicativeThirdPersonAoristSingular
   ?indicativeFirstPersonAoristPlural
+  ?indicativeSecondPersonAoristSingular
   ?indicativeSecondPersonAoristPlural
+  ?indicativeThirdPersonAoristSingular
   ?indicativeThirdPersonAoristPlural
 
 WHERE {
@@ -22,42 +22,42 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeFirstPersonAoristSingularForm .
     ?indicativeFirstPersonAoristSingularForm ontolex:representation ?indicativeFirstPersonAoristSingular ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q682111, wd:Q216497 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q21714344, wd:Q216497, wd:Q110786 .
     FILTER(lang(?indicativeFirstPersonAoristSingular) = "fa") .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeSecondPersonAoristSingularForm .
-    ?indicativeSecondPersonAoristSingularForm ontolex:representation ?indicativeSecondPersonAoristSingular ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q682111, wd:Q216497 .
-    FILTER(lang(?indicativeSecondPersonAoristSingular) = "fa") .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeThirdPersonAoristSingularForm .
-    ?indicativeThirdPersonAoristSingularForm ontolex:representation ?indicativeThirdPersonAoristSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q682111, wd:Q216497 .
-    FILTER(lang(?indicativeThirdPersonAoristSingular) = "fa") .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeFirstPersonAoristPluralForm .
     ?indicativeFirstPersonAoristPluralForm ontolex:representation ?indicativeFirstPersonAoristPlural ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786, wd:Q682111, wd:Q216497 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q21714344, wd:Q216497, wd:Q146786 .
     FILTER(lang(?indicativeFirstPersonAoristPlural) = "fa") .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSecondPersonAoristSingularForm .
+    ?indicativeSecondPersonAoristSingularForm ontolex:representation ?indicativeSecondPersonAoristSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q51929049, wd:Q216497, wd:Q110786 .
+    FILTER(lang(?indicativeSecondPersonAoristSingular) = "fa") .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeSecondPersonAoristPluralForm .
     ?indicativeSecondPersonAoristPluralForm ontolex:representation ?indicativeSecondPersonAoristPlural ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q682111, wd:Q216497 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q51929049, wd:Q216497, wd:Q146786 .
     FILTER(lang(?indicativeSecondPersonAoristPlural) = "fa") .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeThirdPersonAoristSingularForm .
+    ?indicativeThirdPersonAoristSingularForm ontolex:representation ?indicativeThirdPersonAoristSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q51929074, wd:Q216497, wd:Q110786 .
+    FILTER(lang(?indicativeThirdPersonAoristSingular) = "fa") .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeThirdPersonAoristPluralForm .
     ?indicativeThirdPersonAoristPluralForm ontolex:representation ?indicativeThirdPersonAoristPlural ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786, wd:Q682111, wd:Q216497 .
+      wikibase:grammaticalFeature wd:Q682111, wd:Q51929074, wd:Q216497, wd:Q146786 .
     FILTER(lang(?indicativeThirdPersonAoristPlural) = "fa") .
   }
 }

@@ -33,13 +33,16 @@ from tqdm.auto import tqdm
 from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
+    camel_to_snake,
     get_language_iso,
     list_all_languages,
 )
 
 
 def data_to_sqlite(
-    languages: Optional[List[str]] = None, specific_tables: Optional[List[str]] = None
+    languages: Optional[List[str]] = None,
+    specific_tables: Optional[List[str]] = None,
+    identifier_case: str = "camel",
 ) -> None:
     PATH_TO_SCRIBE_DATA = Path(__file__).parent.parent
 
@@ -108,11 +111,16 @@ def data_to_sqlite(
         Parameters
         ----------
             data_type : str
-                The name of the table to be created
+                The name of the table to be created.
 
             cols : list of strings
-                The names of columns for the new table
+                The names of columns for the new table.
         """
+        # Convert column names to snake_case if requested.
+        cols = [
+            camel_to_snake(col) if identifier_case == "snake" else col for col in cols
+        ]
+
         cursor.execute(
             f"CREATE TABLE IF NOT EXISTS {data_type} ({' Text, '.join(cols)} Text, UNIQUE({cols[0]}))"
         )

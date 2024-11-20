@@ -6,16 +6,22 @@ SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?nominativeSingular
   ?nominativePlural
+
   ?genitiveSingular
   ?genitivePlural
+
   ?dativeSingular
   ?dativePlural
+
   ?accusativeSingular
   ?accusativePlural
+
   ?instrumentalSingular
   ?instrumentalPlural
+
   ?locativeSingular
   ?locativePlural
+
   ?vocativeSingular
   ?vocativePlural
 
