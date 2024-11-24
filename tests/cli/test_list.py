@@ -43,8 +43,8 @@ class TestListFunctions(unittest.TestCase):
         list_languages()
 
         # Verify the headers
-        mock_print.assert_any_call("Language     ISO   QID      ")
-        mock_print.assert_any_call("==========================")
+        mock_print.assert_any_call("Language            ISO   QID      ")
+        mock_print.assert_any_call("=================================")
 
         # Dynamically get the first language from the metadata.
         languages = list_all_languages()

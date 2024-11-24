@@ -23,6 +23,7 @@ Utility functions for data extraction, formatting and loading.
 
 import ast
 import json
+import os
 import re
 from importlib import resources
 from pathlib import Path
@@ -198,7 +199,7 @@ def get_language_qid(language: str) -> str:
     """
     return _find(
         source_key="language",
-        source_value=language,
+        source_value=language.split(" ")[0],
         target_key="qid",
         error_msg=f"{language.capitalize()} is currently not a supported language for QID conversion.",
     )
@@ -221,7 +222,7 @@ def get_language_iso(language: str) -> str:
 
     return _find(
         source_key="language",
-        source_value=language,
+        source_value=language.split(" ")[0],
         target_key="iso",
         error_msg=f"{language.capitalize()} is currently not a supported language for ISO conversion.",
     )
@@ -258,15 +259,15 @@ def get_language_from_iso(iso: str) -> str:
 
 
 def load_queried_data(
-    file_path: str, language: str, data_type: str
+    dir_path: str, language: str, data_type: str
 ) -> tuple[Any, bool, str]:
     """
     Loads queried data from a JSON file for a specific language and data type.
 
     Parameters
     ----------
-        file_path : str
-            The path to the file containing the queried data.
+        dir_path : str
+            The path to the directory containing the queried data.
 
         language : str
             The language for which the data is being loaded.
@@ -279,14 +280,48 @@ def load_queried_data(
         tuple(Any, str)
             A tuple containing the loaded data and the path to the data file.
     """
-    data_path = Path(file_path) / language.lower() / f"{data_type}.json"
+    data_path = (
+        Path(dir_path) / language.lower().replace(" ", "_") / f"{data_type}.json"
+    )
 
     with open(data_path, encoding="utf-8") as f:
         return json.load(f), data_path
 
 
+def remove_queried_data(dir_path: str, language: str, data_type: str) -> None:
+    """
+    Removes queried data for a specific language and data type as a new formatted file has been generated.
+
+    Parameters
+    ----------
+        dir_path : str
+            The path to the directory containing the queried data.
+
+        language : str
+            The language for which the data is being loaded.
+
+        data_type : str
+            The type of data being loaded (e.g. 'nouns', 'verbs').
+
+    Returns
+    -------
+        None : The file is deleted.
+    """
+    data_path = (
+        Path(dir_path)
+        / language.lower().replace(" ", "_")
+        / f"{data_type}_queried.json"
+    )
+
+    try:
+        os.remove(data_path)
+
+    except OSError:
+        pass
+
+
 def export_formatted_data(
-    file_path: str,
+    dir_path: str,
     formatted_data: dict,
     language: str,
     data_type: str,
@@ -297,8 +332,8 @@ def export_formatted_data(
 
     Parameters
     ----------
-        file_path : str
-            The path to the file containing the queried data.
+        dir_path : str
+            The path to the directory containing the queried data.
 
         formatted_data : dict
             The data to be exported.
@@ -314,7 +349,9 @@ def export_formatted_data(
         None
     """
     export_path = (
-        Path(file_path) / language.lower() / f"{data_type.replace('-', '_')}.json"
+        Path(dir_path)
+        / language.lower().replace(" ", "_")
+        / f"{data_type.replace('-', '_')}.json"
     )
 
     with open(export_path, "w", encoding="utf-8") as file:
@@ -554,7 +591,7 @@ def order_annotations(annotation: str) -> str:
 def format_sublanguage_name(lang, language_metadata=_languages):
     """
     Formats the name of a sub-language by appending its main language
-    in the format 'MAIN_LANG/SUB_LANG'. If the language is not a sub-language,
+    in the format 'SUB_LANG MAIN_LANG'. If the language is not a sub-language,
     the original language name is returned as-is.
 
     Parameters
@@ -568,7 +605,7 @@ def format_sublanguage_name(lang, language_metadata=_languages):
     Returns
     -------
         str
-            The formatted language name if it's a sub-language (e.g., 'Norwegian/Nynorsk').
+            The formatted language name if it's a sub-language (e.g., 'Nynorsk Norwegian').
             Otherwise the original name.
 
     Raises
@@ -578,7 +615,7 @@ def format_sublanguage_name(lang, language_metadata=_languages):
     Example
     -------
         > format_sublanguage_name("nynorsk", language_metadata)
-        'Norwegian/Nynorsk'
+        'Nynorsk Norwegian'
 
         > format_sublanguage_name("english", language_metadata)
         'English'
@@ -589,12 +626,13 @@ def format_sublanguage_name(lang, language_metadata=_languages):
             return lang
 
         # Check if the main language has sub-languages.
+        lang = lang.split(" ")[0]
         if "sub_languages" in lang_data:
             # Check if the provided language is a sub-language.
             for sub_lang in lang_data["sub_languages"]:
                 if lang == sub_lang:
-                    # Return the formatted name MAIN_LANG/SUB_LANG.
-                    return f"{main_lang}/{sub_lang}"
+                    # Return the formatted name SUB_LANG MAIN_LANG.
+                    return f"{sub_lang} {main_lang}"
 
     # Raise ValueError if no match is found.
     raise ValueError(f"{lang.capitalize()} is not a valid language or sub-language.")
@@ -611,7 +649,9 @@ def list_all_languages(language_metadata=_languages):
         # Check if there are sub-languages.
         if "sub_languages" in lang_data:
             # Add the sub-languages to current_languages.
-            current_languages.extend(lang_data["sub_languages"].keys())
+            current_languages.extend(
+                [f"{sub} {lang_key}" for sub in lang_data["sub_languages"].keys()]
+            )
         else:
             # If no sub-languages, add the main language.
             current_languages.append(lang_key)

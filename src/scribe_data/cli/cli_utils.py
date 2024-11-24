@@ -143,7 +143,9 @@ def validate_language_and_data_type(
             item : str
                 The item to validate.
             valid_options : list
+
                 A list of valid options against which the item will be validated.
+
             item_type : str
                 A description of the item type (e.g., "language", "data-type") used in error messages.
 
@@ -183,6 +185,7 @@ def validate_language_and_data_type(
 
     if language is not None and isinstance(language, list):
         for lang in language:
+            lang = lang.split(" ")[0]
             error = validate_single_item(lang, language_to_qid.keys(), "language")
 
             if error:
