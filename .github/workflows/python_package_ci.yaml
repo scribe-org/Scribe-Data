@@ -48,11 +48,10 @@ jobs:
       - name: Install PyICU dependencies
         if: matrix.os == 'macos-latest'
         run: |
-          brew bundle install --file=Brewfile
-          # configure PATH & PKG_CONFIG_PATH as per
-          # https://gitlab.pyicu.org/main/pyicu
-          echo "/opt/homebrew/opt/icu4c/bin:/opt/homebrew/opt/icu4c/sbin:$PATH" >> $GITHUB_PATH
-          echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/homebrew/opt/icu4c/lib/pkgconfig" >> $GITHUB_ENV
+          brew install icu4c
+          # Configure PATH & PKG_CONFIG_PATH as in https://gitlab.pyicu.org/main/pyicu.
+          export PATH="$(brew --prefix)/opt/icu4c/bin:$(brew --prefix)/opt/icu4c/sbin:$PATH"
+          export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$(brew --prefix)/opt/icu4c/lib/pkgconfig"
 
       - name: Install Python Dependencies
         run: |
