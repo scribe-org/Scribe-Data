@@ -94,7 +94,6 @@ def get_data(
             "tsv": DEFAULT_TSV_EXPORT_DIR,
         }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
 
-    languages = [language] if language else None
     data_types = [data_type] if data_type else None
 
     subprocess_result = False
@@ -102,15 +101,16 @@ def get_data(
     # MARK: Get All
     if all:
         if language:
-            print(f"Updating all data types for language for {language.capitalize()}")
+            language_or_sub_language = language.split(" ")[0]
+            print(f"Updating all data types for language for {language.title()}")
             query_data(
-                languages=[language],
+                languages=[language_or_sub_language],
                 data_type=None,
                 output_dir=output_dir,
                 overwrite=overwrite,
             )
             print(
-                f"Query completed for all data types with specified language for {language.capitalize()}."
+                f"Query completed for all data types with specified language for {language.title()}."
             )
 
         elif data_type:
@@ -145,12 +145,13 @@ def get_data(
     # MARK: Query Data
 
     elif language or data_type:
+        language_or_sub_language = language.split(" ")[0]
         data_type = data_type[0] if isinstance(data_type, list) else data_type
         print(
-            f"Updating data for language(s): {language.capitalize()}; data type(s): {data_type.capitalize()}"
+            f"Updating data for language(s): {language.title()}; data type(s): {data_type.capitalize()}"
         )
         query_data(
-            languages=languages,
+            languages=[language_or_sub_language],
             data_type=data_types,
             output_dir=output_dir,
             overwrite=overwrite,

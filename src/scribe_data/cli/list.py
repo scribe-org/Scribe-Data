@@ -58,7 +58,7 @@ def list_languages() -> None:
 
     for lang in languages:
         print(
-            f"{lang.capitalize():<{language_col_width}} {get_language_iso(lang):<{iso_col_width}} {get_language_qid(lang):<{qid_col_width}}"
+            f"{lang.title():<{language_col_width}} {get_language_iso(lang):<{iso_col_width}} {get_language_qid(lang):<{qid_col_width}}"
         )
 
     print()

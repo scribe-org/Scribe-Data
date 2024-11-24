@@ -23,6 +23,7 @@ Updates data for Scribe by running all or desired WDQS queries and formatting sc
 
 import json
 import os
+import re
 import subprocess
 import sys
 from http.client import IncompleteRead
@@ -40,22 +41,27 @@ from scribe_data.utils import (
 from scribe_data.wikidata.wikidata_utils import sparql
 
 
-def execute_formatting_script(formatting_file_path, output_dir):
+def execute_formatting_script(output_dir: str, language: str, data_type: str):
     """
     Executes a formatting script given a filepath and output directory for the process.
 
     Parameters
     ----------
-        formatting_file_path : str
-            The formatting file to run.
-
         output_dir : str
             The output directory path for results.
+
+        language : str
+            The language for which the data is being loaded.
+
+        data_type : str
+            The type of data being loaded (e.g. 'nouns', 'verbs').
 
     Returns
     -------
         The results of the formatting script saved in the given output directory.
     """
+    formatting_file_path = Path(__file__).parent / "format_data.py"
+
     # Determine the root directory of the project.
     project_root = Path(__file__).parent.parent.parent
 
@@ -66,16 +72,26 @@ def execute_formatting_script(formatting_file_path, output_dir):
     env = os.environ.copy()
     env["PYTHONPATH"] = str(project_root)
 
+    subprocess_args = [
+        "--dir-path",
+        output_dir,
+        "--language",
+        language,
+        "--data_type",
+        data_type,
+    ]
+
     try:
         subprocess.run(
-            [python_executable, str(formatting_file_path), "--file-path", output_dir],
+            [
+                python_executable,
+                str(formatting_file_path),
+                *subprocess_args,
+            ],
             env=env,
             check=True,
         )
-    except FileNotFoundError:
-        print(
-            f"Error: The formatting script file '{formatting_file_path}' does not exist."
-        )
+
     except subprocess.CalledProcessError as e:
         print(f"Error: The formatting script failed with exit status {e.returncode}.")
 
@@ -128,14 +144,21 @@ def query_data(
         and path.name != "__init__.py"
     ]
 
+    # Derive the maximum query interval for use in looping through all queries.
+    query_intervals = []
+    for f in language_data_extraction_files_in_use:
+        if f.name[-len(".sparql") :] == ".sparql":
+            if re.findall(r".+_\d+.sparql", str(f.name)):
+                query_intervals.append(int(re.search(r"_(\d+)\.", f.name).group(1)))
+
+    if query_intervals:
+        max_query_interval = max(query_intervals)
+
+    else:
+        max_query_interval = None
+
     queries_to_run = {
-        Path(
-            str(f)
-            .replace("_1.sparql", ".sparql")
-            .replace("_2.sparql", ".sparql")
-            .replace("_3.sparql", ".sparql")
-            .replace("_4.sparql", ".sparql")
-        )
+        Path(re.sub(r"_\d+.sparql", ".sparql", str(f)))
         for f in language_data_extraction_files_in_use
         if f.name[-len(".sparql") :] == ".sparql"
     }
@@ -154,7 +177,7 @@ def query_data(
         target_type = q.parent.name
 
         updated_path = output_dir[2:] if output_dir.startswith("./") else output_dir
-        export_dir = Path(updated_path) / lang
+        export_dir = Path(updated_path) / lang.replace(" ", "_")
         export_dir.mkdir(parents=True, exist_ok=True)
 
         file_name = f"{target_type}.json"
@@ -169,7 +192,7 @@ def query_data(
             else:
                 if not interactive:
                     print(
-                        f"\nExisting file(s) found for {lang.capitalize()} {target_type} in the {output_dir} directory:\n"
+                        f"\nExisting file(s) found for {lang.title()} {target_type} in the {output_dir} directory:\n"
                     )
                     for i, file in enumerate(existing_files, 1):
                         print(f"{i}. {file.name}")
@@ -192,10 +215,10 @@ def query_data(
                     #     file_name = f"{target_type}_{timestamp}.json"
 
                     else:
-                        print(f"Skipping update for {lang.capitalize()} {target_type}.")
+                        print(f"Skipping update for {lang.title()} {target_type}.")
                         break
 
-        print(f"Querying and formatting {lang.capitalize()} {target_type}")
+        print(f"Querying and formatting {lang.title()} {target_type}")
 
         # Mark the query as the first in a set of queries if needed.
         if not q.exists():
@@ -238,9 +261,8 @@ def query_data(
                 results_final.append(r_dict)
 
             with open(
-                Path(LANGUAGE_DATA_EXTRACTION_DIR)
-                / lang
-                / target_type
+                Path(output_dir)
+                / lang.replace(" ", "_")
                 / f"{target_type}_queried.json",
                 "w",
                 encoding="utf-8",
@@ -249,8 +271,9 @@ def query_data(
 
             if "_1" in q.name:
                 # Note: Only the first query was ran, so we need to run the second and append the json.
-                for suffix in ["_2", "_3", "_4"]:
-                    q = Path(str(q).replace("_1", suffix).replace("_2", suffix))
+                for i in range(max_query_interval + 1)[2:]:
+                    suffix = f"_{i}"
+                    q = Path(str(q).replace(f"_{i-1}", suffix))
 
                     if q.exists():
                         with open(q, encoding="utf-8") as file:
@@ -289,9 +312,8 @@ def query_data(
                                     results_final.append(r_dict)
 
                                 with open(
-                                    Path(LANGUAGE_DATA_EXTRACTION_DIR)
-                                    / lang
-                                    / target_type
+                                    Path(output_dir)
+                                    / lang.replace(" ", "_")
                                     / f"{target_type}_queried.json",
                                     "w",
                                     encoding="utf-8",
@@ -308,15 +330,9 @@ def query_data(
             with open(file_path, "w", encoding="utf-8") as json_file:
                 json.dump(results_final, json_file, ensure_ascii=False, indent=0)
 
-            # Call the corresponding formatting file.
-            formatting_file_path = (
-                LANGUAGE_DATA_EXTRACTION_DIR
-                / lang
-                / target_type
-                / f"format_{target_type}.py"
-            )
+            # Call the formatting script.
             execute_formatting_script(
-                formatting_file_path=formatting_file_path, output_dir=output_dir
+                output_dir=output_dir, language=lang, data_type=target_type
             )
 
 
