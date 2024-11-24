@@ -50,8 +50,8 @@ jobs:
         run: |
           brew bundle install --file=Brewfile
           # Configure PATH & PKG_CONFIG_PATH as in https://gitlab.pyicu.org/main/pyicu.
-          echo "PATH='$(brew --prefix)/opt/icu4c/bin:$(brew --prefix)/opt/icu4c/sbin:$PATH'" >> $GITHUB_PATH
-          echo "PKG_CONFIG_PATH='$PKG_CONFIG_PATH:$(brew --prefix)/opt/icu4c/lib/pkgconfig'" >> $GITHUB_ENV
+          echo "PATH=/opt/homebrew/opt/icu4c/bin:/opt/homebrew/opt/icu4c/sbin:$PATH" >> $GITHUB_PATH
+          echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/homebrew/opt/icu4c/lib/pkgconfig" >> $GITHUB_ENV
 
       - name: Install Python Dependencies
         run: |
