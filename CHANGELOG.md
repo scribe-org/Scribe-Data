@@ -56,6 +56,8 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - The `language_data_extraction` directory was moved under the Wikidata directory as it's only used for those processes now ([#446](https://github.com/scribe-org/Scribe-Data/issues/446)).
 - The emoji keyword process was centralized to simplify project maintenance ([#359](https://github.com/scribe-org/Scribe-Data/issues/359)).
 - PyICU was removed as a dependency and a process was made to install it and its needed dependencies given the operating system of the user ([#196](https://github.com/scribe-org/Scribe-Data/issues/196)).
+- The data formatting step was centralized such that we only have one for all languages ([#142](https://github.com/scribe-org/Scribe-Data/issues/142)).
+- Sub-query processes are now no longer hard coded such that we'd need to maintain the total possible sub-queries within the `query_data.py` process.
 
 ## Scribe-Data 3.3.0
 
