@@ -69,8 +69,8 @@ scribe-data [command] [options]
   <img src="https://github.com/user-attachments/assets/653941a7-68bb-4d72-a0f1-3e29c75c5a16" alt="List, Total and Get GIF" width="500" height="300">
 </p>
 
-<details open><summary><strong>Used Commands List, Total and Get in GIF</strong></summary>
-<p>
+<details>
+<summary><strong>Used Commands List, Total and Get in GIF (Click to expand)</strong></summary><p>
 
 ```bash
 scribe-data list --language
@@ -94,9 +94,9 @@ scribe-data total --language English
   <img src="https://github.com/user-attachments/assets/4cbb85ed-d853-4008-8db9-b77ffcbe2e84" alt="Interactive GIF" width="500" height="300">
 </p>
 
-<details open><summary><strong>Used Command for Interactive in GIF</strong></summary>
-<p>
-
+<details>
+<summary><strong>Used Command for Interactive in GIF (Click to expand)</strong></summary>
+ 
 ```bash
 scribe-data get -i
 ```
