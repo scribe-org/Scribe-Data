@@ -74,7 +74,7 @@ scribe-data [command] [options]
 # Commands used in the above GIF::
 scribe-data list --language
 scribe-data list --data-type
-scribe-data get -l English --data-type verbs -od ./scribe-data
+scribe-data get --language English --data-type verbs -od ./scribe-data
 scribe-data total --language English
 ```
 
