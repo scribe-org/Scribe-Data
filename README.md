@@ -64,6 +64,30 @@ scribe-data [command] [options]
 - `total` (`t`): Display the total available data for given languages and data types.
 - `convert` (`c`): Transform data returned by Scribe-Data into different file formats.
 
+### Command Examples
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/653941a7-68bb-4d72-a0f1-3e29c75c5a16" alt="List, Total and Get GIF" width="500" height="300">
+</p>
+
+```bash
+# Commands used in the above GIF::
+scribe-data list --language
+scribe-data list --data-type
+scribe-data get -l English --data-type verbs -od ./scribe-data
+scribe-data total --language English
+```
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4cbb85ed-d853-4008-8db9-b77ffcbe2e84" alt="Interactive GIF" width="500" height="300">
+</p>
+
+```bash
+# Commands used in the above GIF:
+scribe-data get -i
+scribe-data total -i
+```
+
 <a id="contributing"></a>
 
 # Contributing [`⇧`](#contents)

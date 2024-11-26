@@ -51,6 +51,8 @@ Options:
 
 Example output:
 
+The scribe-data list command (also accessible via ``scribe-data list -a``) displays both the available languages and data types.
+
 .. code-block:: text
 
     $ scribe-data list
@@ -88,28 +90,6 @@ Example output:
 .. code-block:: text
 
     $scribe-data list -dt
-
-    Available data types: All languages
-    ===================================
-    adjectives
-    adverbs
-    emoji-keywords
-    nouns
-    personal-pronouns
-    postpositions
-    prepositions
-    proper-nouns
-    verbs
-
-
-.. code-block:: text
-
-    $scribe-data list -a
-
-    Language     ISO  QID
-    ==========================
-    English      en   Q1860
-    ...
 
     Available data types: All languages
     ===================================
