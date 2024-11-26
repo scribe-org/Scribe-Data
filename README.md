@@ -65,8 +65,9 @@ scribe-data [command] [options]
 - `convert` (`c`): Transform data returned by Scribe-Data into different file formats.
 
 ### Used Commands in GIF
-<img src="![List,Total and Get](https://github.com/user-attachments/assets/c22364a4-ddf1-4b3d-80f6-6931e16c2cd6)" width="600">
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/653941a7-68bb-4d72-a0f1-3e29c75c5a16" alt="List, Total and Get GIF" width="500" height="300">
+</p>
 
 <details open><summary><strong>Used Commands List, Total and Get in GIF</strong></summary>
 <p>
@@ -82,11 +83,16 @@ scribe-data list --data-type
 ```bash
 scribe-data get -l English --data-type verbs -od ./scribe-data
 ```
+```bash
+scribe-data total --language English  
+```
 
 </p>
 </details>
 
-<img src="![interactive](https://github.com/user-attachments/assets/ecc8689d-82c0-419a-8c44-8af3820e1c79)" width="600">
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4cbb85ed-d853-4008-8db9-b77ffcbe2e84" alt="Interactive GIF" width="500" height="300">
+</p>
 
 <details open><summary><strong>Used Command for Interactive in GIF</strong></summary>
 <p>
