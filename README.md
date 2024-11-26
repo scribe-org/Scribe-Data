@@ -64,6 +64,48 @@ scribe-data [command] [options]
 - `total` (`t`): Display the total available data for given languages and data types.
 - `convert` (`c`): Transform data returned by Scribe-Data into different file formats.
 
+### Used Commands in GIF
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/66010854/389692202-7147a6bd-607e-48e7-b7f8-6f17c564fe6c.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241125%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241125T214802Z&X-Amz-Expires=300&X-Amz-Signature=62329db54ce503da3983269401aced7e134621d0e8df6d9ea9c239b425da0032&X-Amz-SignedHeaders=host" width="600">
+
+
+<details open><summary><strong>Used Commands List, Total and Get in GIF</strong></summary>
+<p>
+
+```bash
+scribe-data list --language
+```
+
+```bash
+scribe-data list --data-type
+```
+
+```bash
+scribe-data get -l English --data-type verbs -od ./scribe-data
+```
+
+</p>
+</details>
+
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/66010854/389684869-c0513980-8b03-4ef3-b9a3-607ebdb4dd19.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20241125%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241125T214735Z&X-Amz-Expires=300&X-Amz-Signature=6a52f11322702b7227cb0e4a2a5b152adcb45f95381c31237bf444a956a15e64&X-Amz-SignedHeaders=host" width="600">
+
+<details open><summary><strong>Used Command for Interactive in GIF</strong></summary>
+<p>
+
+```bash
+scribe-data get -i
+```
+
+```bash
+scribe-data total -i
+```
+
+
+</p>
+</details>
+
+
+
+
 <a id="contributing"></a>
 
 # Contributing [`⇧`](#contents)
