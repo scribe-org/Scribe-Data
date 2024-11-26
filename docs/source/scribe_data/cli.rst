@@ -51,7 +51,7 @@ Options:
 
 Example output:
 
-The scribe-data list command (also accessible via scribe-data list -a) displays both the available languages and data types.
+The scribe-data list command (also accessible via ``scribe-data list -a``) displays both the available languages and data types.
 
 .. code-block:: text
 
