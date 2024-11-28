@@ -9,7 +9,12 @@ To utilize the Scribe-Data CLI, you can execute the following command in your te
 ```bash
 pip install scribe-data
 
-scribe-data [command] [options]
+# For a development build:
+git clone https://github.com/scribe-org/Scribe-Data.git  # or ideally your fork
+cd Scribe-Data
+pip install -e .
+
+scribe-data [command] [arguments]
 ```
 
 ## Available Commands

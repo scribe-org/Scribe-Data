@@ -58,7 +58,7 @@ To utilize the Scribe-Data CLI, you can execute variations of the following comm
 
 .. code-block:: shell
 
-    scribe-data [command] [options]
+    scribe-data [command] [arguments]
 
 Available Commands
 ==================

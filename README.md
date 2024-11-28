@@ -69,7 +69,7 @@ Scribe-Data provides a command-line interface (CLI) for efficient interaction wi
 To utilize the Scribe-Data CLI, you can execute variations of the following command in your terminal:
 
 ```bash
-scribe-data [command] [options]
+scribe-data [command] [arguments]
 ```
 
 ### Available Commands

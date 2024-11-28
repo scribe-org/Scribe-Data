@@ -49,7 +49,7 @@ Usage:
 
 .. code-block:: bash
 
-    scribe-data list [options]
+    scribe-data list [arguments]
 
 Options:
 ^^^^^^^^
@@ -121,7 +121,7 @@ Usage:
 
 .. code-block:: bash
 
-    scribe-data get [options]
+    scribe-data get [arguments]
 
 Options:
 ^^^^^^^^
@@ -336,7 +336,7 @@ Usage:
 
 .. code-block:: bash
 
-    scribe-data total [options]
+    scribe-data total [arguments]
 
 Options:
 ^^^^^^^^
@@ -418,7 +418,7 @@ Usage:
 
 .. code-block:: bash
 
-    scribe-data convert [options]
+    scribe-data convert [arguments]
 
 Options:
 ^^^^^^^^
