@@ -16,13 +16,12 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - Queries for countless data types for countless languages were expanded and added ❤️
 - Scribe-Data is now a fully functional CLI.
-  - Querying Wikidata lexicographical data can be done via the `--query` command ([#159](https://github.com/scribe-org/Scribe-Data/issues/159)).
-  - The output type of queries can be in JSON, CSV, TSV and SQLite, with conversions output types also being possible ([#145](https://github.com/scribe-org/Scribe-Data/issues/145), [#146](https://github.com/scribe-org/Scribe-Data/issues/146))
+  - Querying Wikidata lexicographical data can be done via the `get` command ([#159](https://github.com/scribe-org/Scribe-Data/issues/159)).
+  - The output type of queries can be in JSON, CSV, TSV and SQLite, with converting output types also being possible ([#145](https://github.com/scribe-org/Scribe-Data/issues/145), [#146](https://github.com/scribe-org/Scribe-Data/issues/146))
   - Output paths can be set for query results ([#144](https://github.com/scribe-org/Scribe-Data/issues/144)).
   - The version of the CLI can be printed to the command line and the CLI can further be used to upgrade itself ([#186](https://github.com/scribe-org/Scribe-Data/issues/186), [#157 ](https://github.com/scribe-org/Scribe-Data/issues/157)).
-  - Total Wikidata lexemes for languages and data types can be derived with the `--total` command ([#147](https://github.com/scribe-org/Scribe-Data/issues/147)).
-  - Commands can be used via an interactive mode with the `--interactive` command ([#158](https://github.com/scribe-org/Scribe-Data/issues/158), [#203](https://github.com/scribe-org/Scribe-Data/issues/203)).
-  - Interactive mode works for `get` and `total` commands
+  - Total Wikidata lexemes for languages and data types can be derived with the `total` command ([#147](https://github.com/scribe-org/Scribe-Data/issues/147)).
+  - Interactive and total commands can be used via an interactive mode with the `--interactive` argument ([#158](https://github.com/scribe-org/Scribe-Data/issues/158), [#203](https://github.com/scribe-org/Scribe-Data/issues/203)).
   - Outputs were standardized to assure that the CLI experience is consistent
 - The machine translation process has been removed to make way for the Wiktionary based implementation ([#292](https://github.com/scribe-org/Scribe-Data/issues/292)).
 - Package metadata files were standardized for languages, data types and Wikidata lexeme forms.
@@ -46,7 +45,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 ### ♻️ Code Refactoring
 
 - `word_type` has been switched to `data_type` throughout the codebase ([#160](https://github.com/scribe-org/Scribe-Data/issues/160)).
-- Case and gender map reference functions were updated to use hashmaps.
+- Case, gender and annotation utility functions were removed as the formatting process that used them has changed.
 - The SPARQLWrapper access method has been extracted to the Wikidata utils and is imported into the files that need it ([#164](https://github.com/scribe-org/Scribe-Data/issues/164)).
 - Export data paths have been converted to centrally saved variables to reduce hard coded string repetition.
 - Many files were renamed including `update_data.py` being renamed `query_data.py`

@@ -509,67 +509,6 @@ def check_and_return_command_line_args(
     )
 
 
-def map_genders(wikidata_gender: str) -> str:
-    """
-    Maps genders from Wikidata to succinct versions.
-
-    Parameters
-    ----------
-        wikidata_gender : str
-            The gender of the noun that was queried from WikiData.
-
-    Returns
-    -------
-        The gender value corrected in case the Wikidata ID was queried.
-    """
-    gender_map = {
-        "masculine": "masculine",
-        "Q499327": "masculine",
-        "feminine": "feminine",
-        "Q1775415": "feminine",
-        "common": "common",
-        "common gender": "common",
-        "Q1305037": "common",
-        "neuter": "neuter",
-        "Q1775461": "neuter",
-    }
-
-    return gender_map.get(
-        wikidata_gender.lower(), ""
-    )  # nouns could have a gender that is not a valid attribute
-
-
-def map_cases(wikidata_case: str) -> str:
-    """
-    Maps cases from Wikidata to more succinct versions.
-
-    Parameters
-    ----------
-        wikidata_case : str
-            The case of the noun that was queried from WikiData.
-
-    Returns
-    -------
-        The case value corrected in case the Wikidata ID was queried.
-    """
-    case_map = {
-        "accusative": "accusative",
-        "Q146078": "accusative",
-        "dative": "dative",
-        "Q145599": "dative",
-        "genitive": "genitive",
-        "Q146233": "genitive",
-        "instrumental": "instrumental",
-        "Q192997": "instrumental",
-        "prepositional": "prepositional",
-        "Q2114906": "prepositional",
-        "locative": "locative",
-        "Q202142": "locative",
-    }
-    case = wikidata_case.split(" case")[0]
-    return case_map.get(case, "")
-
-
 def format_sublanguage_name(lang, language_metadata=_languages):
     """
     Formats the name of a sub-language by appending its main language
