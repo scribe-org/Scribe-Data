@@ -35,7 +35,7 @@
 .. |matrix| image:: https://img.shields.io/badge/Matrix-000000.svg?logo=matrix&logoColor=ffffff
     :target: https://matrix.to/#/#scribe_community:matrix.org
 
-**Wikidata, Wiktionary and Wikipedia language data extraction**
+**Wikidata and Wikipedia language data extraction**
 
 Installation
 ============

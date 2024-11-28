@@ -26,7 +26,7 @@ copyright = "2024, Scribe-Data developers (GPL 3.0 License)"
 author = "Scribe-Data developers"
 
 # The full version, including alpha/beta/rc tags
-release = "3.3.0"
+release = "4.0.0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -171,7 +171,7 @@ texinfo_documents = [
         "Scribe-Data Documentation",
         author,
         "Scribe-Data",
-        "Wikidata, Wiktionary and Wikipedia language data extraction",
+        "Wikidata and Wikipedia language data extraction",
         "Miscellaneous",
     )
 ]
