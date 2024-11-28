@@ -29,6 +29,7 @@ Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organiz
 # **Contents**
 
 - [Process](#process)
+- [Installation](#installation)
 - [CLI Usage](#cli-usage)
 - [Contributing](#contributing)
 - [Environment Setup](#environment-setup)
@@ -43,6 +44,21 @@ The CLI commands defined within [scribe_data/cli](https://github.com/scribe-org/
 
 The main data update process in triggers [language based SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/language_data_extraction) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The autosuggestion process derives popular words from [Wikipedia](https://www.wikipedia.org/) as well as those words that normally follow them for an effective baseline feature until natural language processing methods are employed. Functions to generate autosuggestions are ran in [gen_autosuggestions.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikipedia/gen_autosuggestions.ipynb). Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran via the `scribe-data get -lang LANGUAGE -dt emoji-keywords` command.
 
+<a id="installation"></a>
+
+# Installation [`⇧`](#contents)
+
+Scribe-Data is available for installation via [pip](https://pypi.org/project/scribe-data/):
+
+```bash
+pip install scribe-data
+
+# For a development build:
+git clone https://github.com/scribe-org/Scribe-Data.git  # or ideally your fork
+cd Scribe-Data
+pip install -e .
+```
+
 <a id="cli-usage"></a>
 
 # CLI Usage [`⇧`](#contents)
@@ -51,11 +67,9 @@ Scribe-Data provides a command-line interface (CLI) for efficient interaction wi
 
 ### Basic Usage
 
-To utilize the Scribe-Data CLI, you can execute the following command in your terminal:
+To utilize the Scribe-Data CLI, you can execute variations of the following command in your terminal:
 
 ```bash
-pip install scribe-data
-
 scribe-data [command] [options]
 ```
 

@@ -40,7 +40,7 @@
 Installation
 ============
 
-Scribe-Data can be installed via `pip <https://pypi.org/project/scribe-data/>`_:
+Scribe-Data is available for installation via `pip <https://pypi.org/project/scribe-data/>`_:
 
 .. code-block:: shell
 
@@ -52,13 +52,21 @@ The latest development version can further be installed the `source code on GitH
 
     git clone https://github.com/scribe-org/Scribe-Data.git
     cd Scribe-Data
-    python setup.py install
+    pip install -e .
 
-Then execute the following import statement to use Scribe-Data:
+To utilize the Scribe-Data CLI, you can execute variations of the following command in your terminal:
 
-.. code-block:: python
+.. code-block:: shell
 
-    import scribe_data
+    scribe-data [command] [options]
+
+Available Commands
+==================
+
+- ``list`` (``l``): Enumerate available languages, data types and their combinations.
+- ``get`` (``g``): Retrieve data from Wikidata for specified languages and data types.
+- ``total`` (``t``): Display the total available data for given languages and data types.
+- ``convert`` (``c``): Transform data returned by Scribe-Data into different file formats.
 
 Contents
 ========
