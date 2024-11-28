@@ -570,24 +570,6 @@ def map_cases(wikidata_case: str) -> str:
     return case_map.get(case, "")
 
 
-def order_annotations(annotation: str) -> str:
-    """
-    Standardizes the annotations that are provided to users where more than one is applicable.
-
-    Parameters
-    ----------
-        annotation : str
-            The annotation to be returned to the user in the command bar.
-    """
-    if "/" not in annotation:
-        return annotation
-
-    # Remove repeat annotations, if present.
-    annotation_split = sorted(list(set(filter(None, annotation.split("/")))))
-
-    return "/".join(annotation_split)
-
-
 def format_sublanguage_name(lang, language_metadata=_languages):
     """
     Formats the name of a sub-language by appending its main language

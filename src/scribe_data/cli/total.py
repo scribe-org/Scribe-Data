@@ -81,7 +81,7 @@ def get_datatype_list(language):
 
     # Adjust language_key for sub-languages using the format_sublanguage_name function.
     formatted_language = format_sublanguage_name(language_key, language_metadata)
-    language_key = formatted_language.split("/")[
+    language_key = formatted_language.split(" ")[
         0
     ].lower()  # use the main language part if formatted
 
