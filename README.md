@@ -54,6 +54,8 @@ Scribe-Data provides a command-line interface (CLI) for efficient interaction wi
 To utilize the Scribe-Data CLI, you can execute the following command in your terminal:
 
 ```bash
+pip install scribe-data
+
 scribe-data [command] [options]
 ```
 
@@ -71,7 +73,7 @@ scribe-data [command] [options]
 </p>
 
 ```bash
-# Commands used in the above GIF::
+# Commands used in the above GIF:
 scribe-data list --language
 scribe-data list --data-type
 scribe-data get --language English --data-type verbs -od ./scribe-data

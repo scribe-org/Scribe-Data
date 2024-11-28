@@ -7,6 +7,8 @@ Scribe-Data provides a command-line interface (CLI) for efficient interaction wi
 To utilize the Scribe-Data CLI, you can execute the following command in your terminal:
 
 ```bash
+pip install scribe-data
+
 scribe-data [command] [options]
 ```
 
