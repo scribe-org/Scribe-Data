@@ -31,6 +31,15 @@ The Scribe-Data CLI supports the following commands:
 3. ``total`` (alias: ``t``)
 4. ``convert`` (alias: ``c``)
 
+Note: For all language arguments, if the language is more than one word then the argument value needs to be passed with double quotes around it.
+
+For example:
+
+.. code-block:: bash
+
+    scribe-data total --language German --data-type nouns
+    scribe-data total --language "Hindi Hindustani" --data-type nouns
+
 List Command
 ~~~~~~~~~~~~
 
