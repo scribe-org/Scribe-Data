@@ -33,7 +33,6 @@ Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organiz
 - [CLI Usage](#cli-usage)
 - [Contributing](#contributing)
 - [Environment Setup](#environment-setup)
-- [Supported Languages](#supported-languages)
 - [Featured By](#featured-by)
 
 <a id="Process"></a>
@@ -232,28 +231,6 @@ See the [contribution guidelines](https://github.com/scribe-org/Scribe-Data/blob
 
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!
-
-<a id="supported-languages"></a>
-
-# Supported Languages [`⇧`](#contents)
-
-Scribe's goal is functional, feature-rich keyboards and interfaces for all languages. Check the [language_data_extraction](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/language_data_extraction) directory for queries for currently supported languages and those that have substantial data on [Wikidata](https://www.wikidata.org/).
-
-The following table shows the supported languages and the amount of data available for each on [Wikidata](https://www.wikidata.org/) and via [Unicode CLDR](https://github.com/unicode-org/cldr) for emojis:
-
-| Languages  |   Nouns | Verbs | Translations\* | Prepositions† | Emoji Keywords |
-| :--------- | ------: | ----: | -------------: | ------------: | -------------: |
-| French     |  18,082 | 6,575 |         67,652 |             - |          2,488 |
-| German     | 194,762 | 3,637 |         67,652 |           215 |          2,898 |
-| Italian    |  59,910 | 7,654 |         67,652 |             - |          2,457 |
-| Portuguese |   5,281 |   539 |         67,652 |             - |          2,327 |
-| Russian    | 194,567 |    15 |         67,652 |            15 |          3,827 |
-| Spanish    |  62,949 | 7,938 |         67,652 |             - |          3,134 |
-| Swedish    |  47,039 | 4,682 |         67,652 |             - |          2,913 |
-
-`*` Given the current **`beta`** status where words are machine translated.
-
-`†` Only for languages for which preposition annotation is needed.
 
 <a id="featured-by"></a>
 
