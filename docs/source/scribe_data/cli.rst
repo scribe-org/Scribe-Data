@@ -229,7 +229,7 @@ Get Command Interactive Example:
 .. code-block:: text
 
     $ scribe-data get -i
-    Welcome to Scribe-Data v3.3.0 interactive mode!
+    Welcome to Scribe-Data vX.Y.Z interactive mode!
     ? What would you like to do? (Use arrow keys)
     » Configure get data request
     » Exit
@@ -289,7 +289,7 @@ Total Command Interactive Example:
 .. code-block:: text
 
     $ scribe-data total -i
-    Welcome to Scribe-Data v3.3.0 interactive mode!
+    Welcome to Scribe-Data vX.Y.Z interactive mode!
     ? What would you like to do? (Use arrow keys)
     » Configure total lexemes request
     » Exit
