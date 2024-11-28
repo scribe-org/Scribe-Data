@@ -14,6 +14,7 @@ git clone https://github.com/scribe-org/Scribe-Data.git  # or ideally your fork
 cd Scribe-Data
 pip install -e .
 
+scribe-data -h  # view the cli options
 scribe-data [command] [arguments]
 ```
 
