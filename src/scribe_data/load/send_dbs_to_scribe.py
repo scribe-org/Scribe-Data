@@ -42,7 +42,7 @@ dbs_to_send = list(
 db_names = [Path(db).stem for db in dbs_to_send]
 db_names = sorted(db_names)
 language_db_dict = {
-    get_language_from_iso(db[:2]): {
+    get_language_from_iso(db[:2].lower()): {
         "db_location": PATH_TO_SCRIBE_DATA_ROOT
         / DEFAULT_SQLITE_EXPORT_DIR
         / f"{db}.sqlite"
