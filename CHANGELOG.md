@@ -12,6 +12,17 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 4.x
 
+## Scribe-Data 4.1.0
+
+### ✨ Features
+
+- Queries for noun genders and other properties that require the Wikidata label service now return their English label rather than auto label that was returning just the Wikidata QID.
+
+### 🐞 Bug Fixes
+
+- SQLite conversion was fixed for all queries ([#527](https://github.com/scribe-org/Scribe-Data/issues/527)).
+- The data conversion process outputs were improved including capitalizing language names and repeat notices to the user were removed.
+
 ## Scribe-Data 4.0.0
 
 ### ✨ Features

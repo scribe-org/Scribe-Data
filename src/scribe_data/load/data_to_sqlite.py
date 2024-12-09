@@ -98,8 +98,9 @@ def data_to_sqlite(
             if "autocomplete_lexicon" not in language_data_type_dict[lang]:
                 language_data_type_dict[lang].append("autocomplete_lexicon")
 
+    languages_capitalized = [lang.capitalize() for lang in languages]
     print(
-        f"Creating/Updating SQLite databases for the following languages: {', '.join(languages)}"
+        f"Creating/Updating SQLite databases for the following languages: {', '.join(languages_capitalized)}"
     )
     if specific_tables:
         print(f"Updating only the following tables: {', '.join(specific_tables)}")
@@ -193,7 +194,7 @@ def data_to_sqlite(
             print(f"Error creating/updating {lang} translations table: {e}")
 
     connection.close()
-    print("Translations database processing completed.")
+    print("Translations database processing completed.\n")
 
     for lang in tqdm(
         language_data_type_dict,
@@ -235,36 +236,28 @@ def data_to_sqlite(
                 with open(json_file_path, "r", encoding="utf-8") as f:
                     json_data = json.load(f)
 
-                if dt == "nouns":
-                    cols = ["noun", "plural", "form"]
-                    create_table(data_type=dt, cols=cols)
-                    cursor.execute(f"DELETE FROM {dt}")  # clear existing data
-                    for row in json_data:
-                        keys = [row, json_data[row]["plural"], json_data[row]["form"]]
-                        table_insert(data_type=dt, keys=keys)
-
-                    if "Scribe" not in json_data and lang != "Russian":
-                        table_insert(data_type=dt, keys=["Scribe", "Scribes", ""])
-
-                    connection.commit()
-
-                elif dt == "verbs":
-                    cols = ["verb"] if dt == "verbs" else ["word"]
+                if dt in ["nouns", "verbs", "prepositions"]:
+                    cols = ["wdLexemeId"]
                     cols += json_data[list(json_data.keys())[0]].keys()
                     create_table(data_type=dt, cols=cols)
                     cursor.execute(f"DELETE FROM {dt}")  # clear existing data
+
                     for row in json_data:
                         keys = [row]
-                        keys += [json_data[row][col_name] for col_name in cols[1:]]
+                        keys += [
+                            json_data[row][col_name]
+                            if col_name in json_data[row]
+                            else None
+                            for col_name in cols[1:]
+                        ]
                         table_insert(data_type=dt, keys=keys)
 
-                elif dt == "prepositions":
-                    cols = ["preposition", "form"]
-                    create_table(data_type=dt, cols=cols)
-                    cursor.execute(f"DELETE FROM {dt}")  # clear existing data
-                    for row in json_data:
-                        keys = [row, json_data[row]]
-                        table_insert(data_type=dt, keys=keys)
+                    if dt == "nouns" and lang != "Russian":
+                        table_insert(
+                            data_type=dt, keys=["L0", "Scribe"] + [""] * (len(cols) - 2)
+                        )
+
+                    connection.commit()
 
                 elif dt in ["autosuggestions", "emoji_keywords"]:
                     cols = ["word"] + [f"{dt[:-1]}_{i}" for i in range(3)]
@@ -406,13 +399,14 @@ def data_to_sqlite(
                     print(f"Error creating/updating autocomplete_lexicon table: {e}")
 
             connection.close()
-            print(f"{lang} database processing completed.")
+            print(f"{lang.capitalize()} database processing completed.")
+
         else:
             print(
-                f"Skipping {lang} database creation/update as no relevant JSON data files were found."
+                f"Skipping {lang.capitalize()} database creation/update as no related JSON data files were found."
             )
 
-    print("Database creation/update process completed.")
+    print("Database creation/update process completed.\n")
 
 
 if __name__ == "__main__":

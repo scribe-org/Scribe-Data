@@ -22,7 +22,6 @@ Functions to convert data returned from the Scribe-Data CLI to other file types.
 
 import csv
 import json
-import shutil
 from pathlib import Path
 from typing import List, Union
 
@@ -32,10 +31,8 @@ from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
-    get_language_iso,
     camel_to_snake,
 )
-
 
 # MARK: JSON
 
@@ -377,7 +374,7 @@ def convert_to_csv_or_tsv(
         print(f"Data for {language.capitalize()} {dtype} written to '{output_file}'")
 
 
-# MARK: SQLITE
+# MARK: SQLite
 
 
 def convert_to_sqlite(
@@ -440,24 +437,16 @@ def convert_to_sqlite(
     if not output_dir.exists():
         output_dir.mkdir(parents=True, exist_ok=True)
 
-    data_to_sqlite(languages, specific_tables, identifier_case)
-
-    source_file = f"{get_language_iso(language).capitalize()}LanguageData.sqlite"
-    source_path = input_file.parent / source_file
-    target_path = output_dir / source_file
-
-    if source_path.exists():
-        if target_path.exists() and not overwrite:
-            print(f"File {target_path} already exists. Use --overwrite to replace.")
-
-        else:
-            shutil.copy(source_path, target_path)
-            print(f"SQLite database copied to: {target_path}")
-
-    else:
-        print(f"Warning: SQLite file not found at {source_path}")
+    data_to_sqlite(
+        languages=languages,
+        specific_tables=specific_tables,
+        identifier_case=identifier_case,
+    )
 
     print("SQLite file conversion complete.")
+
+
+# MARK: Convert Wrapper
 
 
 def convert_wrapper(

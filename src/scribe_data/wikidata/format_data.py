@@ -71,7 +71,7 @@ def format_data(
         if lexeme_id not in data_formatted:
             data_formatted[lexeme_id] = {}
 
-        # Reverse to make sre that we're getting the same order as the query.
+        # Reverse to make sure that we're getting the same order as the query.
         query_identifiers = list(reversed(data_vals.keys()))
         query_identifiers.remove("lexemeID")
 
