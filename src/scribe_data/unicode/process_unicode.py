@@ -117,7 +117,7 @@ def gen_emoji_lexicon(
 
         for cldr_char in tqdm(
             iterable=cldr_dict,
-            desc=f"Characters processed from '{cldr_file_key}' CLDR file for {language}",
+            desc=f"Characters processed from '{cldr_file_key}' CLDR file for {language.capitalize()}",
             unit="cldr characters",
         ):
             # Filter CLDR data for emoji characters while not including certain emojis.
@@ -187,11 +187,24 @@ def gen_emoji_lexicon(
         ) as f:
             noun_data = json.load(f)
 
-        plurals_to_singulars_dict = {
-            noun_data[row]["plural"].lower(): row.lower()
-            for row in noun_data
-            if noun_data[row]["plural"] != "isPlural"
-        }
+        if language not in ["german", "russian"]:
+            plurals_to_singulars_dict = {
+                noun_data[row]["plural"].lower(): row.lower()
+                for row in noun_data
+                if "singular" in noun_data[row]
+                and "plural" in noun_data[row]
+                and noun_data[row]["singular"] != noun_data[row]["plural"]
+            }
+
+        else:
+            plurals_to_singulars_dict = {
+                noun_data[row]["nominativePlural"].lower(): row.lower()
+                for row in noun_data
+                if "nominativeSingular" in noun_data[row]
+                and "nominativePlural" in noun_data[row]
+                and noun_data[row]["nominativeSingular"]
+                != noun_data[row]["nominativePlural"]
+            }
 
         for plural, singular in plurals_to_singulars_dict.items():
             if plural not in keyword_dict and singular in keyword_dict:

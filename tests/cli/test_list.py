@@ -98,6 +98,7 @@ class TestListFunctions(unittest.TestCase):
             call("adverbs"),
             call("emoji-keywords"),
             call("nouns"),
+            call("prepositions"),
             call("proper-nouns"),
             call("verbs"),
             call(),

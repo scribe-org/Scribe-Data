@@ -123,7 +123,7 @@ def data_to_sqlite(
         ]
 
         cursor.execute(
-            f"CREATE TABLE IF NOT EXISTS {data_type} ({' Text, '.join(cols)} Text, UNIQUE({cols[0]}))"
+            f"CREATE TABLE IF NOT EXISTS {data_type} ({' Text, '.join(cols)} Text, unique({cols[0]}))"
         )
 
     def table_insert(data_type, keys):
@@ -238,7 +238,13 @@ def data_to_sqlite(
 
                 if dt in ["nouns", "verbs", "prepositions"]:
                     cols = ["wdLexemeId"]
-                    cols += json_data[list(json_data.keys())[0]].keys()
+
+                    all_elem_keys = [
+                        json_data[k].keys() for k in list(json_data.keys())
+                    ]
+                    all_keys_flat = list({k for ks in all_elem_keys for k in ks})
+
+                    cols += all_keys_flat
                     create_table(data_type=dt, cols=cols)
                     cursor.execute(f"DELETE FROM {dt}")  # clear existing data
 

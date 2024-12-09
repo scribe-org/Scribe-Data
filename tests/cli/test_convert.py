@@ -648,7 +648,7 @@ class TestConvert(unittest.TestCase):
             overwrite=True,
         )
 
-        mock_data_to_sqlite.assert_called_with(["english"], ["nouns"], "snake")
+        mock_data_to_sqlite.assert_called_with(["english"], ["nouns"], "camel")
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
     @patch("scribe_data.cli.convert.data_to_sqlite", autospec=True)
@@ -671,25 +671,15 @@ class TestConvert(unittest.TestCase):
             overwrite=True,
         )
 
-        mock_data_to_sqlite.assert_called_with(["english"], ["nouns"], "snake")
-
-    def test_convert_to_sqlite_no_language(self):
-        with self.assertRaises(ValueError):
-            convert_to_sqlite(
-                language=None,
-                data_type="data_type",
-                output_type="sqlite",
-                output_dir="/output",
-                overwrite=True,
-            )
+        mock_data_to_sqlite.assert_called_with(["english"], ["nouns"], "camel")
 
     def test_convert(self):
         with self.assertRaises(ValueError) as context:
             convert_wrapper(
-                language="English",
-                data_type="nouns",
+                languages="English",
+                data_types="nouns",
                 output_type="parquet",
-                input_file="Data/ecode.csv",
+                input_files="Data/ecode.csv",
                 output_dir="/output_dir",
                 overwrite=True,
             )

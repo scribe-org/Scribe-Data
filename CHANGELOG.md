@@ -17,11 +17,19 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 ### ✨ Features
 
 - Queries for noun genders and other properties that require the Wikidata label service now return their English label rather than auto label that was returning just the Wikidata QID.
+- SPARQL queries for English and Portuguese prepositions were added to allow the CLI to query these types of data.
+- The convert functionality once again works for lists of languages all data types for them.
 
 ### 🐞 Bug Fixes
 
 - SQLite conversion was fixed for all queries ([#527](https://github.com/scribe-org/Scribe-Data/issues/527)).
 - The data conversion process outputs were improved including capitalizing language names and repeat notices to the user were removed.
+- The CLI's `get` command now returns all data types if none is passed.
+- The Portuguese verbs query was fixed as it wasn't formatted correctly.
+- The emoji keyword functionality was fixed given the new lexeme ID based form of the data.
+  - Arguments were fixed that were breaking the functionality.
+  - Languages for the user were capitalized.
+- `case` has been renamed `grammaticalCase` in preposition queries to assure that SQLite reserved keywords are not used.
 
 ## Scribe-Data 4.0.0
 
