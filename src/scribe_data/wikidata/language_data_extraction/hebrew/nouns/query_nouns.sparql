@@ -30,7 +30,7 @@ WHERE {
   }
 
   SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+    bd:serviceParam wikibase:language "en" .
     ?nounGender rdfs:label ?gender .
   }
 }

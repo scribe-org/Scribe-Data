@@ -19,7 +19,7 @@ WHERE {
   }
 
   SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
+    bd:serviceParam wikibase:language "en" .
     ?lemma rdfs:label ?preposition .
     ?caseForm rdfs:label ?case .
   }
