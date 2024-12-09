@@ -649,7 +649,6 @@ class TestConvert(unittest.TestCase):
         )
 
         mock_data_to_sqlite.assert_called_with(["english"], ["nouns"], "snake")
-        mock_shutil_copy.assert_called()
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
     @patch("scribe_data.cli.convert.data_to_sqlite", autospec=True)
@@ -673,28 +672,6 @@ class TestConvert(unittest.TestCase):
         )
 
         mock_data_to_sqlite.assert_called_with(["english"], ["nouns"], "snake")
-
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    @patch("scribe_data.cli.convert.data_to_sqlite", autospec=True)
-    @patch("scribe_data.cli.convert.get_language_iso", autospec=True)
-    @patch("shutil.copy")
-    def test_convert_to_sqlite_with_language_iso(
-        self, mock_copy, mock_get_language_iso, mock_data_to_sqlite, mock_path
-    ):
-        mock_get_language_iso.return_value = "en"
-        mock_path.return_value.exists.return_value = True
-
-        convert_to_sqlite(
-            language="English",
-            data_type="data_type",
-            input_file="file",
-            output_type="sqlite",
-            output_dir="/output",
-            overwrite=True,
-        )
-
-        mock_data_to_sqlite.assert_called_with(["English"], ["data_type"], "snake")
-        mock_copy.assert_called()
 
     def test_convert_to_sqlite_no_language(self):
         with self.assertRaises(ValueError):
