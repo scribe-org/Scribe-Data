@@ -28,6 +28,7 @@ import re
 from importlib import resources
 from pathlib import Path
 from typing import Any, Optional
+from rich import print as rprint
 
 # MARK: Utils Variables
 
@@ -36,6 +37,7 @@ DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
 DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
 DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
+DEFAULT_DUMP_EXPORT_DIR = "scribe_data_wiki-dumps_export"
 
 LANGUAGE_DATA_EXTRACTION_DIR = (
     Path(__file__).parent / "wikidata" / "language_data_extraction"
@@ -619,3 +621,29 @@ def list_languages_with_metadata_for_data_type(language_metadata=_languages):
 def camel_to_snake(name: str) -> str:
     """Convert camelCase to snake_case."""
     return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
+
+
+# MARK : Check Dump
+
+
+def check_existing_lexeme_dump(output_dir):
+    existing_dumps = list(Path(output_dir).glob("*.json.bz2"))
+    if existing_dumps:
+        rprint("[bold yellow]Existing dump files found:[/bold yellow]")
+        for dump in existing_dumps:
+            rprint(f"  - {Path(output_dir)}/{dump.name}")
+
+        user_input = input(
+            "\nDo you want to\n (d)elete existing dumps,\n (s)kip download,\n or download (n)ew version? [d/s/n]: "
+        ).lower()
+        if user_input == "d":
+            for dump in existing_dumps:
+                dump.unlink()
+            rprint("[bold green]Existing dumps deleted.[/bold green]")
+            user_input = input("Do you want to download latest lexeme dump now?(y/N)")
+            if user_input == "y" or user_input == "":
+                return False
+            return True
+        else:
+            rprint("[bold blue]Skipping download.[/bold blue]")
+            return True
