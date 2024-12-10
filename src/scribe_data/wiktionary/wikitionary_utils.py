@@ -131,6 +131,7 @@ def download_wiki_lexeme_dump(target_entity="latest-lexemes"):
     if target_entity != "latest-lexemes":
         try:
             if parse_date(target_entity):
+                target_entity = target_entity.replace("/", "").replace("-", "")
                 return try_old_dump(target_entity)
 
         except requests.exceptions.HTTPError as http_err:
