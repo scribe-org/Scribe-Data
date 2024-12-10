@@ -29,6 +29,7 @@ from importlib import resources
 from pathlib import Path
 from typing import Any, Optional
 from rich import print as rprint
+from datetime import datetime
 
 # MARK: Utils Variables
 
@@ -634,16 +635,42 @@ def check_lexeme_dump_prompt_download(output_dir):
             rprint(f"  - {Path(output_dir)}/{dump.name}")
 
         user_input = input(
-            "\nDo you want to\n (d)elete existing dumps,\n (s)kip download,\n or download (n)ew version? [d/s/n]: "
+            "\nDo you want to\n (d)elete existing dumps,\n (s)kip download,\n (u)se existing latest dump\n or download (n)ew version? [d/s/u/n]: "
         ).lower()
         if user_input == "d":
             for dump in existing_dumps:
                 dump.unlink()
             rprint("[bold green]Existing dumps deleted.[/bold green]")
-            user_input = input("Do you want to download latest lexeme dump now?(y/N)")
-            if user_input == "y" or user_input == "":
-                return False
-            return True
+            user_input = input("Do you want to download latest lexeme dump? (y/N): ")
+            return user_input != "y"
+
+        elif user_input == "u":
+            # Check for the latest dump file
+            latest_dump = None
+            if any(dump.name == "latest-lexemes.json.bz2" for dump in existing_dumps):
+                latest_dump = Path(output_dir) / "latest-lexemes.json.bz2"
+            else:
+                # Extract dates from filenames using datetime validation
+                dated_dumps = []
+                for dump in existing_dumps:
+                    parts = dump.stem.split("-")
+                    if len(parts) > 1:
+                        try:
+                            date = datetime.strptime(parts[1], "%Y%m%d")
+                            dated_dumps.append((dump, date))
+                        except ValueError:
+                            continue  # Skip files without a valid date
+
+                if dated_dumps:
+                    # Find the dump with the most recent date
+                    latest_dump = max(dated_dumps, key=lambda x: x[1])[0]
+
+            if latest_dump:
+                rprint(f"[bold green]Using latest dump:[/bold green] {latest_dump}")
+                return latest_dump
+            else:
+                rprint("[bold red]No valid dumps found.[/bold red]")
+                return None
         else:
             rprint("[bold blue]Skipping download.[/bold blue]")
             return True

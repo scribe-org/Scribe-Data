@@ -160,6 +160,12 @@ def main() -> None:
         default="camel",
         help="The case format for identifiers in the output data (default: camel).",
     )
+    get_parser.add_argument(
+        "-wd",
+        "--wikidata-dump",
+        type=str,
+        help="Path to a local Wikidata lexemes dump required for running with '--all'.",
+    )
 
     # MARK: Total
 
@@ -348,6 +354,7 @@ def main() -> None:
                     overwrite=args.overwrite,
                     all=args.all,
                     identifier_case=args.identifier_case,
+                    wiki_dump=args.wikidata_dump,
                 )
 
         elif args.command in ["total", "t"]:

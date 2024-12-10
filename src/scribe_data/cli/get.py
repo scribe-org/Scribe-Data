@@ -24,6 +24,7 @@ import os  # for removing original JSON files
 import subprocess
 from pathlib import Path
 from typing import List, Union
+from rich import print as rprint
 
 from scribe_data.cli.convert import convert_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
@@ -34,6 +35,7 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
+from scribe_data.cli.download import download_wrapper
 
 
 def get_data(
@@ -46,6 +48,7 @@ def get_data(
     all: bool = False,
     interactive: bool = False,
     identifier_case: str = "camel",
+    wiki_dump: str = None,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
@@ -100,40 +103,62 @@ def get_data(
 
     # MARK: Get All
     if all:
-        if language:
-            language_or_sub_language = language.split(" ")[0]
-            print(f"Updating all data types for language for {language.title()}")
-            query_data(
-                languages=[language_or_sub_language],
-                data_type=None,
-                output_dir=output_dir,
-                overwrite=overwrite,
-            )
-            print(
-                f"Query completed for all data types with specified language for {language.title()}."
-            )
-
-        elif data_type:
-            print(f"Updating all languages for data type: {data_type.capitalize()}")
-            query_data(
-                languages=None,
-                data_type=[data_type],
-                output_dir=output_dir,
-                overwrite=overwrite,
-            )
-            print(
-                f"Query completed for all languages with specified data type for {data_type.capitalize()}."
-            )
-
+        if wiki_dump:
+            print("wiki_dump", wiki_dump)
+            download_wrapper(None, wiki_dump)
         else:
-            print("Updating all languages and data types...")
-            query_data(
-                languages=None,
-                data_type=None,
-                output_dir=output_dir,
-                overwrite=overwrite,
-            )
-            print("Query completed for all languages and all data types.")
+            # user_response = input(
+            #     "We'll using lexeme dump from dumps.wikimedia.org/wikidatawiki/entities."
+            #     "Do you want to Use it? (Yes/Cancel): "
+            # ).strip().lower()
+            # if user_response == "yes" or user_response=="":
+            print("Using wikimedia lexeme dump...")
+            file_path = download_wrapper()
+            if file_path:
+                rprint("[bold green]we'll use this lexeme dump[/bold green]", file_path)
+                rprint(
+                    "[bold red]Parsing lexeme dump feature will be available soon...[/bold red]"
+                )
+            else:
+                print("Error occurred! Please check the dump file")
+        # else:
+        #     print("canceled...")
+        #     return
+
+        # if language:
+        #     language_or_sub_language = language.split(" ")[0]
+        #     print(f"Updating all data types for language for {language.title()}")
+        #     query_data(
+        #         languages=[language_or_sub_language],
+        #         data_type=None,
+        #         output_dir=output_dir,
+        #         overwrite=overwrite,
+        #     )
+        #     print(
+        #         f"Query completed for all data types with specified language for {language.title()}."
+        #     )
+
+        # elif data_type:
+        #     print(f"Updating all languages for data type: {data_type.capitalize()}")
+        #     query_data(
+        #         languages=None,
+        #         data_type=[data_type],
+        #         output_dir=output_dir,
+        #         overwrite=overwrite,
+        #     )
+        #     print(
+        #         f"Query completed for all languages with specified data type for {data_type.capitalize()}."
+        #     )
+
+        # else:
+        #     print("Updating all languages and data types...")
+        #     query_data(
+        #         languages=None,
+        #         data_type=None,
+        #         output_dir=output_dir,
+        #         overwrite=overwrite,
+        #     )
+        #     print("Query completed for all languages and all data types.")
 
         subprocess_result = True
 
@@ -172,7 +197,8 @@ def get_data(
         or isinstance(subprocess_result, bool)
         and subprocess_result
     ):
-        print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
+        if not all:
+            print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
 
         json_input_path = Path(output_dir) / f"{language}/{data_type}.json"
 

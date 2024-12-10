@@ -46,35 +46,50 @@ def download_wrapper(
 
     if not dump_url:
         rprint("[bold red]No dump URL found.[/bold red]")
-        return
+        return False
 
     try:
         output_dir = output_dir if output_dir else DEFAULT_DUMP_EXPORT_DIR
 
         os.makedirs(output_dir, exist_ok=True)
 
-        # Check for existing .json.bz2 files
-        if check_lexeme_dump_prompt_download(output_dir):
-            return
+        # Don't check for lexeme if date given
+        if not wikidata_dump:
+            useable_file_dir = check_lexeme_dump_prompt_download(output_dir)
+
+            # Check for existing .json.bz2 files
+            if useable_file_dir:
+                return useable_file_dir
 
         filename = dump_url.split("/")[-1]
         output_path = str(Path(output_dir) / filename)
 
-        rprint(f"[bold blue]Downloading dump to {output_path}...[/bold blue]")
+        user_response = (
+            input(
+                "We'll using lexeme dump from dumps.wikimedia.org/wikidatawiki/entities."
+                "Do you want to Use it? (Yes/Cancel): "
+            )
+            .strip()
+            .lower()
+        )
 
-        response = requests.get(dump_url, stream=True)
-        total_size = int(response.headers.get("content-length", 0))
+        if user_response == "yes" or user_response == "":
+            rprint(f"[bold blue]Downloading dump to {output_path}...[/bold blue]")
 
-        with open(output_path, "wb") as f:
-            with tqdm(
-                total=total_size, unit="iB", unit_scale=True, desc=output_path
-            ) as pbar:
-                for chunk in response.iter_content(chunk_size=8192):
-                    if chunk:
-                        f.write(chunk)
-                        pbar.update(len(chunk))
+            response = requests.get(dump_url, stream=True)
+            total_size = int(response.headers.get("content-length", 0))
 
-        rprint("[bold green]Download completed successfully![/bold green]")
+            with open(output_path, "wb") as f:
+                with tqdm(
+                    total=total_size, unit="iB", unit_scale=True, desc=output_path
+                ) as pbar:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+                            pbar.update(len(chunk))
+
+            rprint("[bold green]Download completed successfully![/bold green]")
+            return output_path
 
     except requests.exceptions.RequestException as e:
         rprint(f"[bold red]Error downloading dump: {e}[/bold red]")
