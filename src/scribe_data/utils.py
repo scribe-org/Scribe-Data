@@ -626,7 +626,7 @@ def camel_to_snake(name: str) -> str:
 # MARK : Check Dump
 
 
-def check_existing_lexeme_dump(output_dir):
+def check_lexeme_dump_prompt_download(output_dir):
     existing_dumps = list(Path(output_dir).glob("*.json.bz2"))
     if existing_dumps:
         rprint("[bold yellow]Existing dump files found:[/bold yellow]")

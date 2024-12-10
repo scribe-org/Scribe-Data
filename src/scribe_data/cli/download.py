@@ -28,7 +28,7 @@ from rich import print as rprint
 from tqdm import tqdm
 from scribe_data.utils import DEFAULT_DUMP_EXPORT_DIR
 from scribe_data.wiktionary.wikitionary_utils import download_wiki_lexeme_dump
-from scribe_data.utils import check_existing_lexeme_dump
+from scribe_data.utils import check_lexeme_dump_prompt_download
 
 
 def download_wrapper(
@@ -54,7 +54,7 @@ def download_wrapper(
         os.makedirs(output_dir, exist_ok=True)
 
         # Check for existing .json.bz2 files
-        if check_existing_lexeme_dump(output_dir):
+        if check_lexeme_dump_prompt_download(output_dir):
             return
 
         filename = dump_url.split("/")[-1]
