@@ -101,7 +101,7 @@ def main() -> None:
         help="List all languages and data types.",
     )
 
-    # MARK: GET
+    # MARK: Get
 
     get_parser = subparsers.add_parser(
         "get",
@@ -207,21 +207,21 @@ def main() -> None:
         "-lang",
         "--language",
         type=str,
-        required=True,
+        required=False,
         help="The language of the file to convert.",
     )
     convert_parser.add_argument(
         "-dt",
         "--data-type",
         type=str,
-        required=True,
+        required=False,
         help="The data type(s) of the file to convert (e.g., nouns, verbs).",
     )
     convert_parser.add_argument(
         "-if",
         "--input-file",
         type=Path,
-        required=True,
+        required=False,
         help="The path to the input file to convert.",
     )
     convert_parser.add_argument(
@@ -258,6 +258,12 @@ def main() -> None:
         choices=["camel", "snake"],
         default="camel",
         help="The case format for identifiers in the output data (default: camel).",
+    )
+    convert_parser.add_argument(
+        "-a",
+        "--all",
+        action=argparse.BooleanOptionalAction,
+        help="Convert all languages and data types.",
     )
 
     # MARK: Download
@@ -330,8 +336,12 @@ def main() -> None:
 
             else:
                 get_data(
-                    language=args.language.lower(),
-                    data_type=args.data_type.lower(),
+                    language=args.language.lower()
+                    if args.language is not None
+                    else None,
+                    data_type=args.data_type.lower()
+                    if args.data_type is not None
+                    else None,
                     output_type=args.output_type,
                     output_dir=args.output_dir,
                     outputs_per_entry=args.outputs_per_entry,
@@ -357,13 +367,16 @@ def main() -> None:
 
         elif args.command in ["convert", "c"]:
             convert_wrapper(
-                language=args.language.lower(),
-                data_type=args.data_type,
+                languages=args.language.lower() if args.language is not None else None,
+                data_types=args.data_type.lower()
+                if args.data_type is not None
+                else None,
                 output_type=args.output_type,
-                input_file=args.input_file,
+                input_files=args.input_file,
                 output_dir=args.output_dir,
                 overwrite=args.overwrite,
                 identifier_case=args.identifier_case,
+                all=args.all,
             )
 
         elif args.command in ["download", "d"]:

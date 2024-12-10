@@ -6,7 +6,7 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?preposition
-  ?case
+  ?grammaticalCase
 
 WHERE {
   ?lexeme dct:language wd:Q9610 ;
@@ -20,7 +20,7 @@ WHERE {
   }
 
   SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "[AUTO_LANGUAGE]".
-    ?caseForm rdfs:label ?case .
+    bd:serviceParam wikibase:language "en" .
+    ?caseForm rdfs:label ?grammaticalCase .
   }
 }
