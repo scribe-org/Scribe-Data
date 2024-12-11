@@ -103,27 +103,21 @@ def get_data(
 
     # MARK: Get All
     if all:
+        # Using wikimedia lexeme based dump
+
         if wiki_dump:
             print("wiki_dump", wiki_dump)
             download_wrapper(None, wiki_dump)
         else:
-            # user_response = input(
-            #     "We'll using lexeme dump from dumps.wikimedia.org/wikidatawiki/entities."
-            #     "Do you want to Use it? (Yes/Cancel): "
-            # ).strip().lower()
-            # if user_response == "yes" or user_response=="":
             print("Using wikimedia lexeme dump...")
             file_path = download_wrapper()
-            if file_path:
+            if isinstance(file_path, str) and file_path:
                 rprint("[bold green]we'll use this lexeme dump[/bold green]", file_path)
                 rprint(
                     "[bold red]Parsing lexeme dump feature will be available soon...[/bold red]"
                 )
-            else:
-                print("Error occurred! Please check the dump file")
-        # else:
-        #     print("canceled...")
-        #     return
+
+        # Using sparql based data extract
 
         # if language:
         #     language_or_sub_language = language.split(" ")[0]

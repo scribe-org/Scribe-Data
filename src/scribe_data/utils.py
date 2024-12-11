@@ -38,7 +38,7 @@ DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
 DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
 DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
-DEFAULT_DUMP_EXPORT_DIR = "scribe_data_wiki-dumps_export"
+DEFAULT_DUMP_EXPORT_DIR = "scribe_data_wiki_dumps_export"
 
 LANGUAGE_DATA_EXTRACTION_DIR = (
     Path(__file__).parent / "wikidata" / "language_data_extraction"
@@ -635,7 +635,7 @@ def check_lexeme_dump_prompt_download(output_dir):
             rprint(f"  - {Path(output_dir)}/{dump.name}")
 
         user_input = input(
-            "\nDo you want to\n (d)elete existing dumps,\n (s)kip download,\n (u)se existing latest dump\n or download (n)ew version? [d/s/u/n]: "
+            "\nDo you want to\n - Delete existing dumps,\n - Skip download,\n - Use existing latest dump\n -Download (n)ew version?\n [d/s/u/n]: "
         ).lower()
         if user_input == "d":
             for dump in existing_dumps:
