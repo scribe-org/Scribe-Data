@@ -106,9 +106,9 @@ def get_data(
     subprocess_result = False
 
     # MARK: Get All
-    if all:
-        # Using wikimedia lexeme based dump
 
+    if all:
+        # Using Wikidata lexeme based dumps.
         if wikidata_dump:
             print("wikidata_dump", wikidata_dump)
             download_wrapper(None, wikidata_dump)
@@ -125,7 +125,7 @@ def get_data(
                     "[bold red]Parsing lexeme dump feature will be available soon...[/bold red]"
                 )
 
-        # Using sparql based data extract
+        # Using Wikidata Query Service based data extraction.
 
         # if language:
         #     language_or_sub_language = language.split(" ")[0]

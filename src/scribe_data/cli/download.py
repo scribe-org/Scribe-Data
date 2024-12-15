@@ -1,5 +1,5 @@
 """
-Functions for downloading Wikidata dumps.
+Functions for downloading Wikidata lexeme dumps.
 
 .. raw:: html
     <!--
@@ -29,7 +29,7 @@ from rich import print as rprint
 from tqdm import tqdm
 
 from scribe_data.utils import DEFAULT_DUMP_EXPORT_DIR, check_lexeme_dump_prompt_download
-from scribe_data.wiktionary.wikitionary_utils import download_wiki_lexeme_dump
+from scribe_data.wikidata.wikidata_utils import download_wiki_lexeme_dump
 
 
 def download_wrapper(
@@ -41,25 +41,20 @@ def download_wrapper(
         wikidata_dump: Optional date string in YYYYMMDD format for specific dumps
         output_dir: Optional directory path for the downloaded file. Defaults to 'scribe_data_wikidumps' directory
     """
-    dump_url = download_wiki_lexeme_dump(
-        "latest-lexemes" if not wikidata_dump else wikidata_dump
-    )
+    dump_url = download_wiki_lexeme_dump(wikidata_dump or "latest-lexemes")
 
     if not dump_url:
         rprint("[bold red]No dump URL found.[/bold red]")
         return False
 
     try:
-        output_dir = output_dir if output_dir else DEFAULT_DUMP_EXPORT_DIR
+        output_dir = output_dir or DEFAULT_DUMP_EXPORT_DIR
 
         os.makedirs(output_dir, exist_ok=True)
 
-        # Don't check for lexeme if date given
+        # Don't check for lexeme if date given.
         if not wikidata_dump:
-            useable_file_dir = check_lexeme_dump_prompt_download(output_dir)
-
-            # Check for existing .json.bz2 files
-            if useable_file_dir:
+            if useable_file_dir := check_lexeme_dump_prompt_download(output_dir):
                 return useable_file_dir
 
         filename = dump_url.split("/")[-1]
@@ -68,13 +63,13 @@ def download_wrapper(
         user_response = (
             input(
                 "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities."
-                "Do you want to proceed? (Yes/Cancel): "
+                "Do you want to proceed? (y/n): "
             )
             .strip()
             .lower()
         )
 
-        if user_response == "yes" or user_response == "":
+        if user_response == "y":
             rprint(f"[bold blue]Downloading dump to {output_path}...[/bold blue]")
 
             response = requests.get(dump_url, stream=True)
@@ -90,9 +85,14 @@ def download_wrapper(
                             pbar.update(len(chunk))
 
             rprint("[bold green]Download completed successfully![/bold green]")
+
             return output_path
+
+        else:
+            return
 
     except requests.exceptions.RequestException as e:
         rprint(f"[bold red]Error downloading dump: {e}[/bold red]")
+
     except Exception as e:
         rprint(f"[bold red]An error occurred: {e}[/bold red]")

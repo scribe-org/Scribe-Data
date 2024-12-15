@@ -10,7 +10,6 @@ Scribe-Data
     unicode/index
     wikidata/index
     wikipedia/index
-    wiktionary/index
 
 .. toctree::
     :maxdepth: 1

@@ -25,11 +25,12 @@ import ast
 import json
 import os
 import re
+from datetime import datetime
 from importlib import resources
 from pathlib import Path
 from typing import Any, Optional
+
 from rich import print as rprint
-from datetime import datetime
 
 # MARK: Utils Variables
 
@@ -620,14 +621,28 @@ def list_languages_with_metadata_for_data_type(language_metadata=_languages):
 
 
 def camel_to_snake(name: str) -> str:
-    """Convert camelCase to snake_case."""
+    """
+    Convert camelCase to snake_case.
+    """
     return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
 
 
-# MARK : Check Dump
+# MARK: Check Dump
 
 
-def check_lexeme_dump_prompt_download(output_dir):
+def check_lexeme_dump_prompt_download(output_dir: str):
+    """
+    Checks to see if a Wikidata lexeme dump exists and prompts the user to download one if not.
+
+    Parameters
+    ----------
+        output_dir : str
+            The directory to check for the existence of a Wikidata lexeme dump.
+
+    Returns
+    -------
+        None : The user is prompted to download a new Wikidata dump after the existence of one is checked.
+    """
     existing_dumps = list(Path(output_dir).glob("*.json.bz2"))
     if existing_dumps:
         rprint("[bold yellow]Existing dump files found:[/bold yellow]")
@@ -635,22 +650,25 @@ def check_lexeme_dump_prompt_download(output_dir):
             rprint(f"  - {Path(output_dir)}/{dump.name}")
 
         user_input = input(
-            "\nDo you want to\n - Delete existing dumps,\n - Skip download,\n - Use existing latest dump\n -Download (n)ew version?\n [d/s/u/n]: "
+            "\nDo you want to:\n - Delete existing dumps (d)?\n - Skip download (s)?\n - Use existing latest dump (u)?\n -Download new version(n)?\n[d/s/u/n]: "
         ).lower()
+
         if user_input == "d":
             for dump in existing_dumps:
                 dump.unlink()
+
             rprint("[bold green]Existing dumps deleted.[/bold green]")
             user_input = input("Do you want to download latest lexeme dump? (y/N): ")
             return user_input != "y"
 
         elif user_input == "u":
-            # Check for the latest dump file
+            # Check for the latest dump file.
             latest_dump = None
             if any(dump.name == "latest-lexemes.json.bz2" for dump in existing_dumps):
                 latest_dump = Path(output_dir) / "latest-lexemes.json.bz2"
+
             else:
-                # Extract dates from filenames using datetime validation
+                # Extract dates from filenames using datetime validation.
                 dated_dumps = []
                 for dump in existing_dumps:
                     parts = dump.stem.split("-")
@@ -658,19 +676,22 @@ def check_lexeme_dump_prompt_download(output_dir):
                         try:
                             date = datetime.strptime(parts[1], "%Y%m%d")
                             dated_dumps.append((dump, date))
+
                         except ValueError:
-                            continue  # Skip files without a valid date
+                            continue  # skip files without a valid date
 
                 if dated_dumps:
-                    # Find the dump with the most recent date
+                    # Find the dump with the most recent date.
                     latest_dump = max(dated_dumps, key=lambda x: x[1])[0]
 
             if latest_dump:
                 rprint(f"[bold green]Using latest dump:[/bold green] {latest_dump}")
                 return latest_dump
+
             else:
                 rprint("[bold red]No valid dumps found.[/bold red]")
                 return None
+
         else:
             rprint("[bold blue]Skipping download.[/bold blue]")
             return True
