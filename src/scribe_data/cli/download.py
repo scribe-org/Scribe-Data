@@ -66,8 +66,8 @@ def download_wrapper(
 
         user_response = (
             input(
-                "We'll using lexeme dump from dumps.wikimedia.org/wikidatawiki/entities."
-                "Do you want to Use it? (Yes/Cancel): "
+                "We'll be using the wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities."
+                "Do you want to proceed? (Yes/Cancel): "
             )
             .strip()
             .lower()

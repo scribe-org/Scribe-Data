@@ -100,7 +100,7 @@ def download_wiki_lexeme_dump(target_entity="latest-lexemes"):
     Args:
         target_entity (str, optional): The target dump to download. Defaults to "latest-lexemes".
             - If "latest-lexemes", downloads the latest dump.
-            - If a valid date (e.g., YYYY/MM/DD), attempts to download the dump for that date.
+            - If a valid date (e.g., YYYYMMDD), attempts to download the dump for that date.
 
     Returns:
         str: The URL of the requested or closest available dump.
@@ -138,7 +138,7 @@ def download_wiki_lexeme_dump(target_entity="latest-lexemes"):
             print(
                 f"HTTP error occurred: {http_err} Status code: {http_err.response.status_code}"
             )
-            print("We could not found for your requested lexeme dump wikitionary.")
+            print("We could not find your requested wikidata lexeme dump.")
 
             response = requests.get(base_url)
             other_old_dumps = re.findall(r'href="([^"]+)/"', response.text)
@@ -156,7 +156,7 @@ def download_wiki_lexeme_dump(target_entity="latest-lexemes"):
                         target_entity, other_old_dumps, try_old_dump
                     )
                     print(
-                        f"\nAvailable Closest old dumps(yyyy/mm/dd): {parse_date(closest_date)}"
+                        f"\nClosest available older dumps(YYYYMMDD): {parse_date(closest_date)}"
                     )
                     fileurl = f"{closest_date}/wikidata-{closest_date}-lexemes.json.bz2"
                     if closest_date:

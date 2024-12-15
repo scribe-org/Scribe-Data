@@ -105,14 +105,14 @@ def get_data(
     if all:
         # Using wikimedia lexeme based dump
 
-        if wiki_dump:
+        if wikidata_dump:
             print("wiki_dump", wiki_dump)
             download_wrapper(None, wiki_dump)
         else:
-            print("Using wikimedia lexeme dump...")
+            print("Using wikidata lexeme dump...")
             file_path = download_wrapper()
             if isinstance(file_path, str) and file_path:
-                rprint("[bold green]we'll use this lexeme dump[/bold green]", file_path)
+                rprint("[bold green]We'll use the following lexeme dump[/bold green]", file_path)
                 rprint(
                     "[bold red]Parsing lexeme dump feature will be available soon...[/bold red]"
                 )

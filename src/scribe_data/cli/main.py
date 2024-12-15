@@ -162,7 +162,7 @@ def main() -> None:
     )
     get_parser.add_argument(
         "-wd",
-        "--wikidata-dump",
+        "--wikidata-dump-path",
         type=str,
         help="Path to a local Wikidata lexemes dump required for running with '--all'.",
     )
@@ -285,7 +285,7 @@ def main() -> None:
     download_parser._actions[0].help = "Show this help message and exit."
     download_parser.add_argument(
         "-wd",
-        "--wikidata-dump",
+        "--wikidata-dump-version",
         nargs="?",
         const="latest",
         help="Download Wikidata dump. Optionally specify date in YYYYMMDD format.",
