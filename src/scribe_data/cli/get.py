@@ -24,9 +24,11 @@ import os  # for removing original JSON files
 import subprocess
 from pathlib import Path
 from typing import List, Union
+
 from rich import print as rprint
 
 from scribe_data.cli.convert import convert_wrapper
+from scribe_data.cli.download import download_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
@@ -35,7 +37,6 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
-from scribe_data.cli.download import download_wrapper
 
 
 def get_data(
@@ -48,7 +49,7 @@ def get_data(
     all: bool = False,
     interactive: bool = False,
     identifier_case: str = "camel",
-    wiki_dump: str = None,
+    wikidata_dump: str = None,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
@@ -82,6 +83,9 @@ def get_data(
         identifier_case : str
             The case format for identifiers. Default is "camel".
 
+        wikidata_dump : str
+            The local Wikidata dump that should be used to get data.
+
     Returns
     -------
         The requested data saved locally given file type and location arguments.
@@ -106,13 +110,17 @@ def get_data(
         # Using wikimedia lexeme based dump
 
         if wikidata_dump:
-            print("wiki_dump", wiki_dump)
-            download_wrapper(None, wiki_dump)
+            print("wikidata_dump", wikidata_dump)
+            download_wrapper(None, wikidata_dump)
+
         else:
-            print("Using wikidata lexeme dump...")
+            print("Using Wikidata lexeme dump...")
             file_path = download_wrapper()
             if isinstance(file_path, str) and file_path:
-                rprint("[bold green]We'll use the following lexeme dump[/bold green]", file_path)
+                rprint(
+                    "[bold green]We'll use the following lexeme dump[/bold green]",
+                    file_path,
+                )
                 rprint(
                     "[bold red]Parsing lexeme dump feature will be available soon...[/bold red]"
                 )

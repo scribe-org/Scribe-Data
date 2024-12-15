@@ -23,12 +23,13 @@ Functions for downloading Wikidata dumps.
 import os
 from pathlib import Path
 from typing import Optional
+
 import requests
 from rich import print as rprint
 from tqdm import tqdm
-from scribe_data.utils import DEFAULT_DUMP_EXPORT_DIR
+
+from scribe_data.utils import DEFAULT_DUMP_EXPORT_DIR, check_lexeme_dump_prompt_download
 from scribe_data.wiktionary.wikitionary_utils import download_wiki_lexeme_dump
-from scribe_data.utils import check_lexeme_dump_prompt_download
 
 
 def download_wrapper(
@@ -66,7 +67,7 @@ def download_wrapper(
 
         user_response = (
             input(
-                "We'll be using the wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities."
+                "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities."
                 "Do you want to proceed? (Yes/Cancel): "
             )
             .strip()

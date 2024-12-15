@@ -21,9 +21,10 @@ Module for downloading Wikipedia based lexeme JSON dump.
     -->
 """
 
-import requests
 import re
 from datetime import datetime
+
+import requests
 
 
 def parse_date(date_string):
@@ -138,13 +139,13 @@ def download_wiki_lexeme_dump(target_entity="latest-lexemes"):
             print(
                 f"HTTP error occurred: {http_err} Status code: {http_err.response.status_code}"
             )
-            print("We could not find your requested wikidata lexeme dump.")
+            print("We could not find your requested Wikidata lexeme dump.")
 
             response = requests.get(base_url)
             other_old_dumps = re.findall(r'href="([^"]+)/"', response.text)
 
             user_input = input(
-                "Do you want to see the closest vailable old dumps? [Y/n]"
+                "Do you want to see the closest available older dumps? [Y/n]"
             ).lower()
 
             if user_input == "n":

@@ -41,5 +41,6 @@ scribe_data_json_export/*
 scribe_data_sqlite_export/*
 scribe_data_tsv_export/*
 
-# MARK: Wiki lexeme dump
+# MARK: Wiki Dumps
+
 *.json.bz2
