@@ -40,12 +40,15 @@ def parse_date(date_string):
         - YYYY/MM/DD
         - YYYY-MM-DD
 
-    Args:
-        date_string (str): The date string to be parsed.
+    Parameters
+    ----------
+        date_string : str
+            The date string to be parsed.
 
-    Returns:
-        datetime.date: Parsed date object if the format is valid.
-        None: If the date format is invalid.
+    Returns
+    -------
+        datetime.date : Parsed date object if the format is valid.
+        None : If the date format is invalid.
     """
     formats = ["%Y%m%d", "%Y/%m/%d", "%Y-%m-%d"]
     for fmt in formats:
@@ -63,14 +66,21 @@ def available_closest_lexeme_dumpfile(target_entity, other_old_dumps, try_old_du
     """
     Finds the closest available dump file based on the target date.
 
-    Args:
-        target_entity (str): The target date for which the dump is requested (format: YYYY/MM/DD or similar).
-        other_old_dumps (list): List of available dump folders as strings.
-        try_old_dump (function): A function to validate if the dump file exists.
+    Parameters
+    ----------
+        target_entity : str
+            The target date for which the dump is requested (format: YYYY/MM/DD or similar).
 
-    Returns:
-        str: The closest available dump file date (as a string).
-        None: If no suitable dump is found.
+        other_old_dumps : list
+            List of available dump folders as strings.
+
+        try_old_dump : function
+            A function to validate if the dump file exists.
+
+    Returns
+    -------
+        str : The closest available dump file date (as a string).
+        None : If no suitable dump is found.
     """
     available_dates = []
     target_date = parse_date(target_entity)
@@ -102,14 +112,18 @@ def download_wiki_lexeme_dump(target_entity="latest-lexemes"):
     """
     Downloads a Wikimedia lexeme dump based on the specified target entity or date.
 
-    Args:
-        target_entity (str, optional): The target dump to download. Defaults to "latest-lexemes".
+    Parameters
+    ----------
+        target_entity : str, optional
+            The target dump to download. Defaults to "latest-lexemes".
+
             - If "latest-lexemes", downloads the latest dump.
             - If a valid date (e.g., YYYYMMDD), attempts to download the dump for that date.
 
-    Returns:
-        str: The URL of the requested or closest available dump.
-        None: If no suitable dump is found or the request fails.
+    Returns
+    -------
+        str : The URL of the requested or closest available dump.
+        None : If no suitable dump is found or the request fails.
     """
     base_url = "https://dumps.wikimedia.org/wikidatawiki/entities"
 
@@ -117,12 +131,15 @@ def download_wiki_lexeme_dump(target_entity="latest-lexemes"):
         """
         Checks if the specified dump file exists for a target entity.
 
-        Args:
-            target_entity (str): The target entity or date folder to check.
+        Parameters
+        ----------
+            target_entity : str
+                The target entity or date folder to check.
 
-        Returns:
-            str: The URL of the dump file if it exists.
-            None: If the dump file does not exist.
+        Returns
+        -------
+            str : The URL of the dump file if it exists.
+            None : If the dump file does not exist.
         """
         entity_url = f"{base_url}/{target_entity}/"
         entity_response = requests.get(entity_url)

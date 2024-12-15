@@ -35,11 +35,16 @@ from scribe_data.wikidata.wikidata_utils import download_wiki_lexeme_dump
 def download_wrapper(
     wikidata_dump: Optional[str] = None, output_dir: Optional[str] = None
 ) -> None:
-    """Download Wikidata dumps.
+    """
+    Download Wikidata lexeme dumps given user preferences.
 
-    Args:
-        wikidata_dump: Optional date string in YYYYMMDD format for specific dumps
-        output_dir: Optional directory path for the downloaded file. Defaults to 'scribe_data_wikidumps' directory
+    Parameters
+    ----------
+        wikidata_dump : str
+            Optional date string in YYYYMMDD format for specific dumps.
+
+        output_dir : str
+            Optional directory path for the downloaded file. Defaults to 'scribe_data_wikidumps' directory.
     """
     dump_url = download_wiki_lexeme_dump(wikidata_dump or "latest-lexemes")
 
