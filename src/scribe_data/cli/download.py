@@ -222,7 +222,8 @@ def wd_lexeme_dump_download_wrapper(
             Optional date string in YYYYMMDD format for specific dumps.
 
         output_dir : str
-            Optional directory path for the downloaded file. Defaults to 'scribe_data_wikidumps' directory.
+            Optional directory path for the downloaded file.
+            Defaults to 'scribe_data_wikidata_dumps_export' directory.
     """
     dump_url = download_wd_lexeme_dump(wikidata_dump or "latest-lexemes")
 
@@ -246,7 +247,7 @@ def wd_lexeme_dump_download_wrapper(
         user_response = (
             input(
                 "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities."
-                "Do you want to proceed? (y/n): "
+                "\nDo you want to proceed? (y/n): "
             )
             .strip()
             .lower()

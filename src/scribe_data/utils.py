@@ -39,7 +39,7 @@ DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
 DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
 DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
-DEFAULT_DUMP_EXPORT_DIR = "scribe_data_wiki_dumps_export"
+DEFAULT_DUMP_EXPORT_DIR = "scribe_data_wikidata_dumps_export"
 
 LANGUAGE_DATA_EXTRACTION_DIR = (
     Path(__file__).parent / "wikidata" / "language_data_extraction"
