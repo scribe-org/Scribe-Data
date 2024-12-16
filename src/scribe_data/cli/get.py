@@ -84,7 +84,7 @@ def get_data(
             The case format for identifiers. Default is "camel".
 
         wikidata_dump : str
-            The local Wikidata dump that should be used to get data.
+            The local Wikidata dump that can be used to process data.
 
     Returns
     -------

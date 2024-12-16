@@ -164,7 +164,7 @@ def main() -> None:
         "-wdp",
         "--wikidata-dump-path",
         type=str,
-        help="Path to a local Wikidata lexemes dump required for running with '--all'.",
+        help="Path to a local Wikidata lexemes dump for running with '--all'.",
     )
 
     # MARK: Total
@@ -195,6 +195,12 @@ def main() -> None:
     )
     total_parser.add_argument(
         "-i", "--interactive", action="store_true", help="Run in interactive mode"
+    )
+    total_parser.add_argument(
+        "-wdp",
+        "--wikidata-dump-path",
+        type=str,
+        help="Path to a local Wikidata lexemes dump for running with '--all'.",
     )
 
     # MARK: Convert
@@ -371,6 +377,7 @@ def main() -> None:
                     if args.data_type is not None
                     else None,
                     all_bool=args.all,
+                    wikidata_dump=args.wikidata_dump_path,
                 )
 
         elif args.command in ["convert", "c"]:

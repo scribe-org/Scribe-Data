@@ -370,6 +370,7 @@ def total_wrapper(
     language: Union[str, List[str]] = None,
     data_type: Union[str, List[str]] = None,
     all_bool: bool = False,
+    wikidata_dump: str = None,
 ) -> None:
     """
     Conditionally provides the full functionality of the total command.
@@ -385,6 +386,9 @@ def total_wrapper(
 
         all_bool : boolean
             Whether all languages and data types should be listed.
+
+        wikidata_dump : str
+            The local Wikidata dump that can be used to process data.
     """
 
     if (not language and not data_type) and all_bool:
