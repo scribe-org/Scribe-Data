@@ -28,7 +28,7 @@ from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
 from scribe_data.cli.convert import convert_wrapper
-from scribe_data.cli.download import download_wrapper
+from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
@@ -388,7 +388,7 @@ def main() -> None:
             )
 
         elif args.command in ["download", "d"]:
-            download_wrapper(
+            wd_lexeme_dump_download_wrapper(
                 wikidata_dump=args.wikidata_dump
                 if args.wikidata_dump != "latest"
                 else None,

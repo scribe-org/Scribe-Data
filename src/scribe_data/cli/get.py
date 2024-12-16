@@ -28,7 +28,6 @@ from typing import List, Union
 from rich import print as rprint
 
 from scribe_data.cli.convert import convert_wrapper
-from scribe_data.cli.download import download_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
@@ -37,6 +36,7 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
+from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 
 
 def get_data(
@@ -107,60 +107,55 @@ def get_data(
 
     # MARK: Get All
 
+    def prompt_user_download_all():
+        """
+        Checks with the user if they'd rather use Wikidata lexeme dumps before a download all call.
+        """
+        download_all_input = input(
+            "Do you want to query Wikidata, or would you rather use Wikidata lexeme dumps? (y/N): "
+        )
+        return download_all_input == "y"
+
     if all:
-        # Using Wikidata lexeme based dumps.
-        if wikidata_dump:
-            print("wikidata_dump", wikidata_dump)
-            download_wrapper(None, wikidata_dump)
+        if language:
+            if prompt_user_download_all():
+                parse_wd_lexeme_dump()
+
+            else:
+                language_or_sub_language = language.split(" ")[0]
+                print(f"Updating all data types for language: {language.title()}")
+                query_data(
+                    languages=[language_or_sub_language],
+                    data_type=None,
+                    output_dir=output_dir,
+                    overwrite=overwrite,
+                )
+                print(
+                    f"Query completed for all data types for language {language.title()}."
+                )
+
+        elif data_type:
+            if prompt_user_download_all():
+                parse_wd_lexeme_dump()
+
+            else:
+                print(f"Updating all languages for data type: {data_type.capitalize()}")
+                query_data(
+                    languages=None,
+                    data_type=[data_type],
+                    output_dir=output_dir,
+                    overwrite=overwrite,
+                )
+                print(
+                    f"Query completed for all languages for data type {data_type.capitalize()}."
+                )
 
         else:
-            print("Using Wikidata lexeme dump...")
-            file_path = download_wrapper()
-            if isinstance(file_path, str) and file_path:
-                rprint(
-                    "[bold green]We'll use the following lexeme dump[/bold green]",
-                    file_path,
-                )
-                rprint(
-                    "[bold red]Parsing lexeme dump feature will be available soon...[/bold red]"
-                )
-
-        # Using Wikidata Query Service based data extraction.
-
-        # if language:
-        #     language_or_sub_language = language.split(" ")[0]
-        #     print(f"Updating all data types for language for {language.title()}")
-        #     query_data(
-        #         languages=[language_or_sub_language],
-        #         data_type=None,
-        #         output_dir=output_dir,
-        #         overwrite=overwrite,
-        #     )
-        #     print(
-        #         f"Query completed for all data types with specified language for {language.title()}."
-        #     )
-
-        # elif data_type:
-        #     print(f"Updating all languages for data type: {data_type.capitalize()}")
-        #     query_data(
-        #         languages=None,
-        #         data_type=[data_type],
-        #         output_dir=output_dir,
-        #         overwrite=overwrite,
-        #     )
-        #     print(
-        #         f"Query completed for all languages with specified data type for {data_type.capitalize()}."
-        #     )
-
-        # else:
-        #     print("Updating all languages and data types...")
-        #     query_data(
-        #         languages=None,
-        #         data_type=None,
-        #         output_dir=output_dir,
-        #         overwrite=overwrite,
-        #     )
-        #     print("Query completed for all languages and all data types.")
+            print("Updating all languages and data types...")
+            rprint(
+                "[bold red]Note that the download all functionality must use Wikidata dumps to observe responsible Wikidata Query Service usage practices.[/bold red]"
+            )
+            parse_wd_lexeme_dump()
 
         subprocess_result = True
 
