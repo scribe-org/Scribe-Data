@@ -355,7 +355,7 @@ def main() -> None:
                     overwrite=args.overwrite,
                     all=args.all,
                     identifier_case=args.identifier_case,
-                    wiki_dump=args.wikidata_dump,
+                    wikidata_dump=args.wikidata_dump_path,
                 )
 
         elif args.command in ["total", "t"]:
@@ -389,8 +389,8 @@ def main() -> None:
 
         elif args.command in ["download", "d"]:
             wd_lexeme_dump_download_wrapper(
-                wikidata_dump=args.wikidata_dump
-                if args.wikidata_dump != "latest"
+                wikidata_dump=args.wikidata_dump_version
+                if args.wikidata_dump_version != "latest"
                 else None,
                 output_dir=args.output_dir,
             )

@@ -650,7 +650,7 @@ def check_lexeme_dump_prompt_download(output_dir: str):
             rprint(f"  - {Path(output_dir)}/{dump.name}")
 
         user_input = input(
-            "\nDo you want to:\n - Delete existing dumps (d)?\n - Skip download (s)?\n - Use existing latest dump (u)?\n -Download new version(n)?\n[d/s/u/n]: "
+            "\nDo you want to:\n - Delete existing dumps (d)?\n - Skip download (s)?\n - Use existing latest dump (u)?\n - Download new version(n)?\n[d/s/u/n]: "
         ).lower()
 
         if user_input == "d":
