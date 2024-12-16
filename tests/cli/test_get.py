@@ -48,6 +48,7 @@ class TestGetData(unittest.TestCase):
     # MARK: All Data
 
     @patch("scribe_data.cli.get.query_data")
+    @patch("builtins.input", lambda _: "N")  # don't use dump
     def test_get_all_data_types_for_language(self, mock_query_data):
         get_data(all=True, language="English")
         mock_query_data.assert_called_once_with(
@@ -58,6 +59,7 @@ class TestGetData(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.get.query_data")
+    @patch("builtins.input", lambda _: "N")  # don't use dump
     def test_get_all_languages_for_data_type(self, mock_query_data):
         get_data(all=True, data_type="nouns")
         mock_query_data.assert_called_once_with(
@@ -67,15 +69,16 @@ class TestGetData(unittest.TestCase):
             overwrite=False,
         )
 
-    @patch("scribe_data.cli.get.query_data")
-    def test_get_all_languages_and_data_types(self, mock_query_data):
-        get_data(all=True, output_dir="./test_output")
-        mock_query_data.assert_called_once_with(
-            languages=None,
-            data_type=None,
-            output_dir="./test_output",
-            overwrite=False,
-        )
+    # Note: Wikidata dumps are required for extracting all data.
+    # @patch("scribe_data.cli.get.query_data")
+    # def test_get_all_languages_and_data_types(self, mock_query_data):
+    #     get_data(all=True, output_dir="./test_output")
+    #     mock_query_data.assert_called_once_with(
+    #         languages=None,
+    #         data_type=None,
+    #         output_dir="./test_output",
+    #         overwrite=False,
+    #     )
 
     # MARK: Language and Data Type
 

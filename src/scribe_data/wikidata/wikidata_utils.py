@@ -20,8 +20,39 @@ Utility functions for accessing data from Wikidata.
     -->
 """
 
+from rich import print as rprint
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
+
+from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 sparql.setReturnFormat(JSON)
 sparql.setMethod(POST)
+
+
+def parse_wd_lexeme_dump(wikidata_dump: str = None):
+    """
+    Checks for the existence of a Wikidata dump and parses it if possible.
+
+    Parameters
+    ----------
+        wikidata_dump : str
+            The local Wikidata dump that should be used to get data.
+
+    Returns
+    -------
+        The requested data saved locally given file type and location arguments.
+    """
+    if wikidata_dump:
+        wd_lexeme_dump_download_wrapper(None, wikidata_dump)
+
+    else:
+        file_path = wd_lexeme_dump_download_wrapper()
+        if isinstance(file_path, str) and file_path:
+            rprint(
+                "[bold green]We'll use the following lexeme dump[/bold green]",
+                file_path,
+            )
+            rprint(
+                "[bold red]Parsing Wikidata lexeme dump feature will be available soon...[/bold red]"
+            )

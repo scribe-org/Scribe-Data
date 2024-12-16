@@ -28,6 +28,7 @@ from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
 from scribe_data.cli.convert import convert_wrapper
+from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
@@ -159,6 +160,12 @@ def main() -> None:
         default="camel",
         help="The case format for identifiers in the output data (default: camel).",
     )
+    get_parser.add_argument(
+        "-wdp",
+        "--wikidata-dump-path",
+        type=str,
+        help="Path to a local Wikidata lexemes dump required for running with '--all'.",
+    )
 
     # MARK: Total
 
@@ -265,22 +272,34 @@ def main() -> None:
         help="Convert all languages and data types.",
     )
 
+    # MARK: Download
+
+    download_parser = subparsers.add_parser(
+        "download",
+        aliases=["d"],
+        help="Download Wikidata dumps.",
+        description="Download Wikidata dumps from dumps.wikimedia.org.",
+        epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
+    )
+    download_parser._actions[0].help = "Show this help message and exit."
+    download_parser.add_argument(
+        "-wdv",
+        "--wikidata-dump-version",
+        nargs="?",
+        const="latest",
+        help="Download Wikidata dump. Optionally specify date in YYYYMMDD format.",
+    )
+    download_parser.add_argument(
+        "-od",
+        "--output-dir",
+        type=str,
+        help="The output directory path for the downloaded dump.",
+    )
+
     # MARK: Setup CLI
 
     args = parser.parse_args()
-
-    if args.data_type and isinstance(args.data_type, str):
-        args.data_type = args.data_type.replace("-", "_")
-
-    try:
-        if args.language or args.data_type:
-            validate_language_and_data_type(
-                language=args.language, data_type=args.data_type
-            )
-
-    except ValueError as e:
-        print(f"Input validation failed with error: {e}")
-        return
 
     if args.upgrade:
         upgrade_cli()
@@ -291,6 +310,28 @@ def main() -> None:
         return
 
     try:
+        # Only validate language and data_type for relevant commands.
+        if args.command in ["list", "l", "get", "g", "total", "t", "convert", "c"]:
+            if (
+                hasattr(args, "data_type")
+                and args.data_type
+                and isinstance(args.data_type, str)
+            ):
+                args.data_type = args.data_type.replace("-", "_")
+
+            if hasattr(args, "language") or hasattr(args, "data_type"):
+                try:
+                    validate_language_and_data_type(
+                        language=args.language if hasattr(args, "language") else None,
+                        data_type=args.data_type
+                        if hasattr(args, "data_type")
+                        else None,
+                    )
+
+                except ValueError as e:
+                    print(f"Input validation failed with error: {e}")
+                    return
+
         if args.command in ["list", "l"]:
             list_wrapper(
                 language=args.language, data_type=args.data_type, all_bool=args.all
@@ -314,6 +355,7 @@ def main() -> None:
                     overwrite=args.overwrite,
                     all=args.all,
                     identifier_case=args.identifier_case,
+                    wikidata_dump=args.wikidata_dump_path,
                 )
 
         elif args.command in ["total", "t"]:
@@ -343,6 +385,14 @@ def main() -> None:
                 overwrite=args.overwrite,
                 identifier_case=args.identifier_case,
                 all=args.all,
+            )
+
+        elif args.command in ["download", "d"]:
+            wd_lexeme_dump_download_wrapper(
+                wikidata_dump=args.wikidata_dump_version
+                if args.wikidata_dump_version != "latest"
+                else None,
+                output_dir=args.output_dir,
             )
 
         else:

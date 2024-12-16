@@ -287,6 +287,33 @@ Scribe does not accept direct edits to the grammar JSON files as they are source
 
 The documentation for Scribe-Data can be found at [scribe-data.readthedocs.io](https://scribe-data.readthedocs.io/en/latest/). Documentation is an invaluable way to contribute to coding projects as it allows others to more easily understand the project structure and contribute. Issues related to documentation are marked with the [`documentation`](https://github.com/scribe-org/Scribe-Data/labels/documentation) label.
 
+### Function Docstrings
+
+Scribe-Data generally follows [NumPy conventions](https://numpydoc.readthedocs.io/en/latest/format.html) for documenting functions and Python code in general. Function docstrings should have the following format:
+
+```py
+def example_function(argument: argument_type) -> return_type:
+    """
+    An example docstring for a function so others understand your work.
+
+    Parameters
+    ----------
+        argument: argument_type
+            Description of your argument.
+
+    Returns
+    -------
+        return_value : return_type
+            Description of your return value.
+    """
+
+    ...
+
+    return return_value
+```
+
+### Building the Docs
+
 Use the following commands to build the documentation locally:
 
 ```bash
