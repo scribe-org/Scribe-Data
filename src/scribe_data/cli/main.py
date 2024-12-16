@@ -28,13 +28,13 @@ from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
 from scribe_data.cli.convert import convert_wrapper
+from scribe_data.cli.download import download_wrapper
 from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.total import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
-from scribe_data.cli.download import download_wrapper
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
 GET_DESCRIPTION = (
@@ -161,7 +161,7 @@ def main() -> None:
         help="The case format for identifiers in the output data (default: camel).",
     )
     get_parser.add_argument(
-        "-wd",
+        "-wdp",
         "--wikidata-dump-path",
         type=str,
         help="Path to a local Wikidata lexemes dump required for running with '--all'.",
@@ -284,7 +284,7 @@ def main() -> None:
     )
     download_parser._actions[0].help = "Show this help message and exit."
     download_parser.add_argument(
-        "-wd",
+        "-wdv",
         "--wikidata-dump-version",
         nargs="?",
         const="latest",
@@ -310,7 +310,7 @@ def main() -> None:
         return
 
     try:
-        # Only validate language and data_type for relevant commands
+        # Only validate language and data_type for relevant commands.
         if args.command in ["list", "l", "get", "g", "total", "t", "convert", "c"]:
             if (
                 hasattr(args, "data_type")
@@ -327,6 +327,7 @@ def main() -> None:
                         if hasattr(args, "data_type")
                         else None,
                     )
+
                 except ValueError as e:
                     print(f"Input validation failed with error: {e}")
                     return

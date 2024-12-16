@@ -20,6 +20,7 @@ Utility functions for accessing data from Wikidata.
     -->
 """
 
+import contextlib
 import re
 from datetime import datetime
 
@@ -54,15 +55,19 @@ def parse_date(date_string):
     for fmt in formats:
         try:
             return datetime.strptime(date_string, fmt).date()
+
         except ValueError:
             continue
+
     print(
         f"Invalid date format: {date_string}. Expected formats: YYYYMMDD, YYYY/MM/DD, or YYYY-MM-DD."
     )
     return None
 
 
-def available_closest_lexeme_dumpfile(target_entity, other_old_dumps, try_old_dump):
+def available_closest_lexeme_dumpfile(
+    target_entity: str, other_old_dumps: str, check_wd_dump_exists
+):
     """
     Finds the closest available dump file based on the target date.
 
@@ -74,7 +79,7 @@ def available_closest_lexeme_dumpfile(target_entity, other_old_dumps, try_old_du
         other_old_dumps : list
             List of available dump folders as strings.
 
-        try_old_dump : function
+        check_wd_dump_exists : function
             A function to validate if the dump file exists.
 
     Returns
@@ -82,17 +87,18 @@ def available_closest_lexeme_dumpfile(target_entity, other_old_dumps, try_old_du
         str : The closest available dump file date (as a string).
         None : If no suitable dump is found.
     """
-    available_dates = []
     target_date = parse_date(target_entity)
     closest_date = None
     closest_diff = None
 
     if target_date:
+        available_dates = []
         for i in other_old_dumps:
             if i == "..":
                 continue
-            try:
-                if try_old_dump(i):
+
+            with contextlib.suppress(requests.exceptions.HTTPError):
+                if check_wd_dump_exists(i):
                     available_dates.append(i)
                     current_date = parse_date(i)
                     diff = abs((current_date - target_date).days)
@@ -103,12 +109,11 @@ def available_closest_lexeme_dumpfile(target_entity, other_old_dumps, try_old_du
 
                     if current_date >= target_date:
                         break
-            except requests.exceptions.HTTPError:
-                pass
+
         return closest_date
 
 
-def download_wiki_lexeme_dump(target_entity="latest-lexemes"):
+def download_wiki_lexeme_dump(target_entity: str = "latest-lexemes"):
     """
     Downloads a Wikimedia lexeme dump based on the specified target entity or date.
 
@@ -127,7 +132,7 @@ def download_wiki_lexeme_dump(target_entity="latest-lexemes"):
     """
     base_url = "https://dumps.wikimedia.org/wikidatawiki/entities"
 
-    def try_old_dump(target_entity):
+    def check_wd_dump_exists(target_entity):
         """
         Checks if the specified dump file exists for a target entity.
 
@@ -146,15 +151,16 @@ def download_wiki_lexeme_dump(target_entity="latest-lexemes"):
         entity_response.raise_for_status()
         dump_filenames = re.findall(r'href="([^"]+)"', entity_response.text)
 
-        fileurl = f"wikidata-{target_entity}-lexemes.json.bz2"
-        if fileurl in dump_filenames:
+        file_url = f"wikidata-{target_entity}-lexemes.json.bz2"
+
+        if file_url in dump_filenames:
             return f"{base_url}/{target_entity}/{fileurl}"
 
     if target_entity != "latest-lexemes":
         try:
             if parse_date(target_entity):
                 target_entity = target_entity.replace("/", "").replace("-", "")
-                return try_old_dump(target_entity)
+                return check_wd_dump_exists(target_entity)
 
         except requests.exceptions.HTTPError as http_err:
             print(
@@ -175,16 +181,19 @@ def download_wiki_lexeme_dump(target_entity="latest-lexemes"):
             if user_input == "y" or user_input == "":
                 if other_old_dumps:
                     closest_date = available_closest_lexeme_dumpfile(
-                        target_entity, other_old_dumps, try_old_dump
+                        target_entity, other_old_dumps, check_wd_dump_exists
                     )
                     print(
                         f"\nClosest available older dumps(YYYYMMDD): {parse_date(closest_date)}"
                     )
                     fileurl = f"{closest_date}/wikidata-{closest_date}-lexemes.json.bz2"
+
                     if closest_date:
                         return f"{base_url}/{fileurl}"
+
                     else:
                         return
+
             return other_old_dumps
 
     try:

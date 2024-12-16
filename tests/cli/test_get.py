@@ -47,7 +47,8 @@ class TestGetData(unittest.TestCase):
 
     # MARK: All Data
 
-    # Using sparql based data extract tests
+    # Note: Wikidata dumps are required for extracting all data.
+
     # @patch("scribe_data.cli.get.query_data")
     # def test_get_all_data_types_for_language(self, mock_query_data):
     #     get_data(all=True, language="English")
