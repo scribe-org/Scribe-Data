@@ -10,7 +10,13 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
-## [Upcoming] Scribe-Data 4.x
+## [Upcoming] Scribe-Data 5.0.0
+
+### ✨ Features
+
+- Scribe-Data now has the ability to download the most recent or a specific Wikidata lexemes dump ([#517](https://github.com/scribe-org/Scribe-Data/issues/517)).
+  - The user is prompted to download a dump for calls for all data ([#518](https://github.com/scribe-org/Scribe-Data/issues/518)).
+  - Scribe-Data must now use a lexeme dump to download all Wikidata lexeme data ([#519](https://github.com/scribe-org/Scribe-Data/issues/519)).
 
 ## Scribe-Data 4.1.0
 
