@@ -21,14 +21,14 @@ Tests for the CLI download functionality.
 """
 
 import unittest
-from unittest.mock import MagicMock, patch, mock_open
 from datetime import date
 from pathlib import Path
+from unittest.mock import MagicMock, mock_open, patch
 
 from scribe_data.cli.download import (
-    parse_date,
     available_closest_lexeme_dumpfile,
     download_wd_lexeme_dump,
+    parse_date,
     wd_lexeme_dump_download_wrapper,
 )
 from scribe_data.utils import check_lexeme_dump_prompt_download
@@ -36,19 +36,24 @@ from scribe_data.utils import check_lexeme_dump_prompt_download
 
 class TestDownloadCLI(unittest.TestCase):
     def test_parse_date_valid_formats(self):
-        """Test parse_date function with valid date formats."""
+        """
+        Test parse_date function with valid date formats.
+        """
         self.assertEqual(parse_date("20240101"), date(2024, 1, 1))
         self.assertEqual(parse_date("2024/01/01"), date(2024, 1, 1))
         self.assertEqual(parse_date("2024-01-01"), date(2024, 1, 1))
 
     def test_parse_date_invalid_format(self):
-        """Test parse_date function with invalid date formats."""
+        """
+        Test parse_date function with invalid date formats.
+        """
         self.assertIsNone(parse_date("99-16-77"))
         self.assertIsNone(parse_date("invalid-date"))
 
     @patch("scribe_data.cli.download.requests.get")
     def test_available_closest_lexeme_dumpfile(self, mock_get):
-        """Test finding closest available lexeme dump file.
+        """
+        Test finding closest available lexeme dump file.
 
         Tests a scenario where three dates are available: 20240101, 20240105, 20240110.
         Should return the closest date that appears first.
@@ -68,7 +73,9 @@ class TestDownloadCLI(unittest.TestCase):
     @patch("scribe_data.cli.download.requests.get")
     @patch("scribe_data.cli.download.re.findall")
     def test_download_wd_lexeme_dump_latest(self, mock_findall, mock_get):
-        """Test downloading latest Wikidata lexeme dump."""
+        """
+        Test downloading latest Wikidata lexeme dump.
+        """
         mock_get.return_value.text = 'href="latest-all.json.bz2"'
         mock_get.return_value.raise_for_status = MagicMock()
         mock_findall.return_value = ["latest-all.json.bz2"]
@@ -81,7 +88,9 @@ class TestDownloadCLI(unittest.TestCase):
     @patch("scribe_data.cli.download.requests.get")
     @patch("scribe_data.cli.download.re.findall")
     def test_download_wd_lexeme_dump_by_date(self, mock_findall, mock_get):
-        """Test downloading Wikidata lexeme dump for a specific date."""
+        """
+        Test downloading Wikidata lexeme dump for a specific date.
+        """
         mock_get.return_value.text = 'href="wikidata-20241127-lexemes.json.bz2"'
         mock_get.return_value.raise_for_status = MagicMock()
         mock_findall.return_value = ["wikidata-20241127-lexemes.json.bz2"]
@@ -102,7 +111,9 @@ class TestDownloadCLI(unittest.TestCase):
     def test_wd_lexeme_dump_download_wrapper_latest(
         self, mock_tqdm, mock_file, mock_check_prompt, mock_input, mock_get
     ):
-        """Test wrapper function for downloading latest Wikidata lexeme dump."""
+        """
+        Test wrapper function for downloading latest Wikidata lexeme dump.
+        """
         mock_get.return_value.text = 'href="latest-all.json.bz2"'
         mock_get.return_value.raise_for_status = MagicMock()
         mock_get.return_value.headers = {"content-length": "100"}
@@ -114,7 +125,9 @@ class TestDownloadCLI(unittest.TestCase):
             mock_makedirs.assert_called_with("test_export_dir", exist_ok=True)
 
     def test_check_lexeme_dump_prompt_download_existing(self):
-        """Test prompt for using existing lexeme dump files."""
+        """
+        Test prompt for using existing lexeme dump files.
+        """
         with patch(
             "scribe_data.utils.Path.glob",
             return_value=[Path("dump1.json.bz2"), Path("latest-lexemes.json.bz2")],
@@ -126,7 +139,9 @@ class TestDownloadCLI(unittest.TestCase):
                 self.assertEqual(result.name, "latest-lexemes.json.bz2")
 
     def test_check_lexeme_dump_prompt_download_delete(self):
-        """Test prompt for deleting existing lexeme dump files."""
+        """
+        Test prompt for deleting existing lexeme dump files.
+        """
         mock_existing_files = [Path("dump1.json.bz2"), Path("latest-lexemes.json.bz2")]
         with patch("scribe_data.utils.Path.glob", return_value=mock_existing_files):
             with patch("builtins.input", side_effect=["d", "n"]):
