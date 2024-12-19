@@ -156,7 +156,7 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
         file_url = f"wikidata-{target_entity}-lexemes.json.bz2"
 
         if file_url in dump_filenames:
-            return f"{base_url}/{target_entity}/{fileurl}"
+            return f"{base_url}/{target_entity}/{file_url}"
 
     if target_entity != "latest-lexemes":
         try:
