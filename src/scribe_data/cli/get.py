@@ -172,6 +172,26 @@ def get_data(
         print(
             f"Updating data for language(s): {language.title()}; data type(s): {data_type.capitalize()}"
         )
+        existing_files = list(Path(output_dir).glob(f"{language}/{data_type}.json"))
+        if existing_files:
+            print(
+                f"Existing file(s) found for {language.title()} and {data_type.capitalize()} in the {output_dir} directory."
+            )
+            for idx, file in enumerate(existing_files, start=1):
+                print(f"{idx}. {file.name}")
+
+            print("\nChoose an option:")
+            print("1. Overwrite existing data (press 'o')")
+            print("2. Skip process (press anything else)")
+            user_choice = input("Enter your choice: ").strip().lower()
+
+            if user_choice == "o":
+                print("Overwrite chosen. Removing existing files...")
+                for file in existing_files:
+                    file.unlink()
+            else:
+                print(f"Skipping update for {language.title()} {data_type}.")
+                return {"success": False, "skipped": True}
         query_data(
             languages=[language_or_sub_language],
             data_type=data_types,
