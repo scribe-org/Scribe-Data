@@ -22,6 +22,7 @@ Tests for the CLI get functionality.
 
 import unittest
 from unittest.mock import patch
+from pathlib import Path
 
 from scribe_data.cli.get import get_data
 
@@ -162,6 +163,39 @@ class TestGetData(unittest.TestCase):
             languages=["English"],
             data_type=["verbs"],
             output_dir="./custom_output_test",
+            overwrite=False,
+            interactive=False,
+        )
+
+    # MARK : User Chooses to skip
+
+    @patch("scribe_data.cli.get.query_data")
+    @patch("scribe_data.cli.get.Path.glob")
+    @patch("builtins.input", return_value="s")
+    def test_user_skips_existing_file(self, mock_input, mock_glob, mock_query_data):
+        mock_glob.return_value = [Path("./test_output/English/nouns.json")]
+        result = get_data(
+            language="English", data_type="nouns", output_dir="./test_output"
+        )
+        self.assertEqual(result, {"success": False, "skipped": True})
+        mock_query_data.assert_not_called()
+
+    # MARK : User Chooses to overwrite
+
+    @patch("scribe_data.cli.get.query_data")
+    @patch("scribe_data.cli.get.Path.glob")
+    @patch("builtins.input", return_value="o")
+    @patch("scribe_data.cli.get.Path.unlink")
+    def test_user_overwrites_existing_file(
+        self, mock_unlink, mock_input, mock_glob, mock_query_data
+    ):
+        mock_glob.return_value = [Path("./test_output/English/nouns.json")]
+        get_data(language="English", data_type="nouns", output_dir="./test_output")
+        mock_unlink.assert_called_once_with()
+        mock_query_data.assert_called_once_with(
+            languages=["English"],
+            data_type=["nouns"],
+            output_dir="./test_output",
             overwrite=False,
             interactive=False,
         )
