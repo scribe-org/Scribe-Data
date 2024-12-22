@@ -25,6 +25,7 @@ import argparse
 from pathlib import Path
 
 from rich import print as rprint
+from questionary import select
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
 from scribe_data.cli.convert import convert_wrapper
@@ -303,6 +304,16 @@ def main() -> None:
         help="The output directory path for the downloaded dump.",
     )
 
+    # MARK: Interactive
+
+    interactive_parser = subparsers.add_parser(
+        "interactive",
+        aliases=["i"],
+        help="Run in interactive mode.",
+        description="Run in interactive mode.",
+    )
+    interactive_parser._actions[0].help = "Show this help message and exit."
+
     # MARK: Setup CLI
 
     args = parser.parse_args()
@@ -402,6 +413,28 @@ def main() -> None:
                 output_dir=args.output_dir,
             )
 
+        elif args.command in ["interactive", "i"]:
+            action = select(
+                "What would you like to do?",
+                choices=[
+                    "Download a Wikidata dump",
+                    "Check for totals",
+                    "Get data",
+                    "Get translations",
+                    "Exit",
+                ],
+            ).ask()
+
+            if action == "Download a Wikidata dump":
+                wd_lexeme_dump_download_wrapper()
+            elif action == "Check for totals":
+                start_interactive_mode(operation="total")
+            elif action == "Get data":
+                start_interactive_mode(operation="get")
+            elif action == "Get translations":
+                print("Coming soon!")
+            else:
+                print("Skipping action")
         else:
             parser.print_help()
 

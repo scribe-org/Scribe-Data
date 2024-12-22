@@ -31,6 +31,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 from rich import print as rprint
+from questionary import select
 
 # MARK: Utils Variables
 
@@ -649,19 +650,27 @@ def check_lexeme_dump_prompt_download(output_dir: str):
         for dump in existing_dumps:
             rprint(f"  - {Path(output_dir)}/{dump.name}")
 
-        user_input = input(
-            "\nDo you want to:\n - Delete existing dumps (d)?\n - Skip download (s)?\n - Use existing latest dump (u)?\n - Download new version(n)?\n[d/s/u/n]: "
-        ).lower()
+        user_input = select(
+            "Do you want to:",
+            choices=[
+                "Delete existing dumps",
+                "Skip download",
+                "Use existing latest dump",
+                "Download new version",
+            ],
+        ).ask()
 
-        if user_input == "d":
+        if user_input.startswith("Delete"):
             for dump in existing_dumps:
                 dump.unlink()
 
             rprint("[bold green]Existing dumps deleted.[/bold green]")
-            user_input = input("Do you want to download latest lexeme dump? (y/N): ")
-            return user_input != "y"
+            download_input = select(
+                "Do you want to download the latest lexeme dump?", choices=["Yes", "No"]
+            ).ask()
+            return download_input != "Yes"
 
-        elif user_input == "u":
+        elif user_input.startswith("Use"):
             # Check for the latest dump file.
             latest_dump = None
             if any(dump.name == "latest-lexemes.json.bz2" for dump in existing_dumps):

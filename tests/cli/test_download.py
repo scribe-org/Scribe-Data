@@ -101,15 +101,23 @@ class TestDownloadCLI(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.download.requests.get")
-    @patch("scribe_data.cli.download.input", return_value="y")
     @patch(
-        "scribe_data.cli.download.check_lexeme_dump_prompt_download", return_value=None
+        "scribe_data.cli.download.check_lexeme_dump_prompt_download", return_value=False
     )
     @patch("scribe_data.cli.download.open", new_callable=mock_open)
     @patch("scribe_data.cli.download.tqdm")
-    @patch("scribe_data.cli.download.DEFAULT_DUMP_EXPORT_DIR", new="test_export_dir")
+    @patch("scribe_data.cli.download.os.makedirs")
+    @patch(
+        "scribe_data.cli.download.input", return_value="y"
+    )  # Mocking input to return 'y'
     def test_wd_lexeme_dump_download_wrapper_latest(
-        self, mock_tqdm, mock_file, mock_check_prompt, mock_input, mock_get
+        self,
+        mock_input,
+        mock_makedirs,
+        mock_tqdm,
+        mock_file,
+        mock_check_prompt,
+        mock_get,
     ):
         """
         Test wrapper function for downloading latest Wikidata lexeme dump.
@@ -119,35 +127,53 @@ class TestDownloadCLI(unittest.TestCase):
         mock_get.return_value.headers = {"content-length": "100"}
         mock_get.return_value.iter_content = lambda chunk_size: [b"data"] * 10
 
-        with patch("scribe_data.cli.download.os.makedirs") as mock_makedirs:
+        # Mock DEFAULT_DUMP_EXPORT_DIR
+        with patch(
+            "scribe_data.cli.download.DEFAULT_DUMP_EXPORT_DIR", new="test_export_dir"
+        ):
             download_path = wd_lexeme_dump_download_wrapper()
+            self.assertIsNotNone(download_path, "Download path should not be None")
             self.assertIn("latest-lexemes.json.bz2", download_path)
             mock_makedirs.assert_called_with("test_export_dir", exist_ok=True)
+            mock_input.assert_called_with(
+                "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities.\nDo you want to proceed? (y/n): "
+            )
 
-    def test_check_lexeme_dump_prompt_download_existing(self):
+    @patch("scribe_data.utils.select")
+    @patch(
+        "scribe_data.utils.Path.glob",
+        return_value=[Path("dump1.json.bz2"), Path("latest-lexemes.json.bz2")],
+    )
+    def test_check_lexeme_dump_prompt_download_existing(self, mock_glob, mock_select):
         """
         Test prompt for using existing lexeme dump files.
         """
-        with patch(
-            "scribe_data.utils.Path.glob",
-            return_value=[Path("dump1.json.bz2"), Path("latest-lexemes.json.bz2")],
-        ):
-            with patch("builtins.input", return_value="u"):
-                result = check_lexeme_dump_prompt_download(
-                    "scribe_data/tests/cli/test_export_dir"
-                )
-                self.assertEqual(result.name, "latest-lexemes.json.bz2")
+        # Mock the select dialog to return "Use existing latest dump"
+        mock_select.return_value.ask.return_value = "Use existing latest dump"
 
-    def test_check_lexeme_dump_prompt_download_delete(self):
+        result = check_lexeme_dump_prompt_download(
+            "scribe_data/tests/cli/test_export_dir"
+        )
+        self.assertEqual(result.name, "latest-lexemes.json.bz2")
+
+    @patch("scribe_data.utils.select")
+    @patch(
+        "scribe_data.utils.Path.glob",
+        return_value=[Path("dump1.json.bz2"), Path("latest-lexemes.json.bz2")],
+    )
+    def test_check_lexeme_dump_prompt_download_delete(self, mock_glob, mock_select):
         """
         Test prompt for deleting existing lexeme dump files.
         """
-        mock_existing_files = [Path("dump1.json.bz2"), Path("latest-lexemes.json.bz2")]
-        with patch("scribe_data.utils.Path.glob", return_value=mock_existing_files):
-            with patch("builtins.input", side_effect=["d", "n"]):
-                with patch("scribe_data.utils.Path.unlink") as mock_unlink:
-                    result = check_lexeme_dump_prompt_download(
-                        "scribe_data/tests/cli/test_export_dir"
-                    )
-                    self.assertTrue(mock_unlink.called)
-                    self.assertTrue(result)
+        # Configure the mock to return "Delete existing dumps" first and then "No"
+        mock_select.side_effect = [
+            MagicMock(ask=MagicMock(return_value="Delete existing dumps")),
+            MagicMock(ask=MagicMock(return_value="No")),
+        ]
+
+        with patch("scribe_data.utils.Path.unlink") as mock_unlink:
+            result = check_lexeme_dump_prompt_download(
+                "scribe_data/tests/cli/test_export_dir"
+            )
+            self.assertTrue(mock_unlink.called)
+            self.assertTrue(result)
