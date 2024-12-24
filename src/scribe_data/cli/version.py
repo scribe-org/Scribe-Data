@@ -44,19 +44,22 @@ def get_latest_version():
 
 
 def get_version_message():
-    local_version = f"Scribe-Data v{get_local_version()}"
+    local_version = get_local_version()
     latest_version = get_latest_version()
 
-    if (
-        local_version == "Unknown (Not installed via pip)"
-        or latest_version == "Unknown (Unable to fetch version)"
-    ):
-        return f"{local_version}"
+    if local_version == "Unknown (Not installed via pip)":
+        return f"Scribe-Data {local_version}"
+    elif latest_version == "Unknown (Unable to fetch version)":
+        return f"Scribe-Data {latest_version}"
 
-    if local_version == latest_version:
-        return f"{local_version}"
+    local_version_clean = local_version.strip()
+    latest_version_clean = latest_version.replace("Scribe-Data", "").strip()
 
-    update_message = f"{local_version} (Upgrade available: {latest_version})\n"
-    update_message += "To update: pip scribe-data --upgrade"
+    if local_version_clean == latest_version_clean:
+        return f"Scribe-Data v{local_version_clean}"
 
+    update_message = (
+        f"Scribe-Data v{local_version_clean} (Upgrade available: Scribe-Data v{latest_version_clean})\n"
+        "To update: pip install --upgrade scribe-data"
+    )
     return update_message
