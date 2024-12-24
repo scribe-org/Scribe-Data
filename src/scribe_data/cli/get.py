@@ -21,7 +21,6 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
 """
 
 import os  # for removing original JSON files
-import subprocess
 from pathlib import Path
 from typing import List, Union
 
@@ -103,8 +102,6 @@ def get_data(
 
     data_types = [data_type] if data_type else None
 
-    subprocess_result = False
-
     # MARK: Get All
 
     def prompt_user_download_all():
@@ -157,8 +154,6 @@ def get_data(
             )
             parse_wd_lexeme_dump()
 
-        subprocess_result = True
-
     # MARK: Emojis
 
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
@@ -192,52 +187,35 @@ def get_data(
             else:
                 print(f"Skipping update for {language.title()} {data_type}.")
                 return {"success": False, "skipped": True}
-        query_data(
+
+        query_result = query_data(
             languages=[language_or_sub_language],
             data_type=data_types,
             output_dir=output_dir,
             overwrite=overwrite,
             interactive=interactive,
         )
-        subprocess_result = True
+
+        if not all and not query_result.get("skipped", False):
+            print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
 
     else:
         raise ValueError(
             "You must provide at least one of the --language (-l) or --data-type (-dt) options, or use --all (-a)."
         )
 
-    if (
-        (
-            isinstance(subprocess_result, subprocess.CompletedProcess)
-            and subprocess_result.returncode != 1
+    # Output Conversion
+
+    json_input_path = Path(output_dir) / f"{language}/{data_type}.json"
+
+    if output_type != "json" and json_input_path.exists():
+        convert_wrapper(
+            language=language,
+            data_type=data_type,
+            output_type=output_type,
+            input_file=str(json_input_path),
+            output_dir=output_dir,
+            overwrite=overwrite,
+            identifier_case=identifier_case,
         )
-        or isinstance(subprocess_result, bool)
-        and subprocess_result
-    ):
-        if not all:
-            print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
-
-        json_input_path = Path(output_dir) / f"{language}/{data_type}.json"
-
-        # Proceed with conversion only if the output type is not JSON.
-        if output_type != "json":
-            if json_input_path.exists():
-                convert_wrapper(
-                    language=language,
-                    data_type=data_type,
-                    output_type=output_type,
-                    input_file=str(json_input_path),
-                    output_dir=output_dir,
-                    overwrite=overwrite,
-                    identifier_case=identifier_case,
-                )
-
-                os.remove(json_input_path)
-
-            else:
-                print(
-                    f"Error: Input file '{json_input_path}' does not exist for conversion."
-                )
-
-        if interactive:
-            return True
+        os.remove(json_input_path)
