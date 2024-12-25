@@ -298,8 +298,8 @@ def main() -> None:
         help="Download Wikidata dump. Optionally specify date in YYYYMMDD format.",
     )
     download_parser.add_argument(
-        "-od",
-        "--output-dir",
+        "-wdp",
+        "--wikidata-dump-path",
         type=str,
         help="The output directory path for the downloaded dump.",
     )
@@ -410,7 +410,7 @@ def main() -> None:
                 wikidata_dump=args.wikidata_dump_version
                 if args.wikidata_dump_version != "latest"
                 else None,
-                output_dir=args.output_dir,
+                output_dir=args.wikidata_dump_path,
             )
 
         elif args.command in ["interactive", "i"]:

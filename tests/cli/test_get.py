@@ -48,8 +48,10 @@ class TestGetData(unittest.TestCase):
     # MARK: All Data
 
     @patch("scribe_data.cli.get.query_data")
-    @patch("builtins.input", lambda _: "N")  # don't use dump
-    def test_get_all_data_types_for_language(self, mock_query_data):
+    @patch("scribe_data.cli.get.questionary.confirm")
+    def test_get_all_data_types_for_language(self, mock_confirm, mock_query_data):
+        mock_confirm.return_value.ask.return_value = False
+
         get_data(all=True, language="English")
         mock_query_data.assert_called_once_with(
             languages=["English"],
@@ -59,8 +61,10 @@ class TestGetData(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.get.query_data")
-    @patch("builtins.input", lambda _: "N")  # don't use dump
-    def test_get_all_languages_for_data_type(self, mock_query_data):
+    @patch("scribe_data.cli.get.questionary.confirm")
+    def test_get_all_languages_for_data_type(self, mock_confirm, mock_query_data):
+        mock_confirm.return_value.ask.return_value = False
+
         get_data(all=True, data_type="nouns")
         mock_query_data.assert_called_once_with(
             languages=None,

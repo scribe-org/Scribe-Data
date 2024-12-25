@@ -694,7 +694,6 @@ def check_lexeme_dump_prompt_download(output_dir: str):
                     latest_dump = max(dated_dumps, key=lambda x: x[1])[0]
 
             if latest_dump:
-                rprint(f"[bold green]Using latest dump:[/bold green] {latest_dump}")
                 return latest_dump
 
             else:

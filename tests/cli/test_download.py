@@ -107,12 +107,10 @@ class TestDownloadCLI(unittest.TestCase):
     @patch("scribe_data.cli.download.open", new_callable=mock_open)
     @patch("scribe_data.cli.download.tqdm")
     @patch("scribe_data.cli.download.os.makedirs")
-    @patch(
-        "scribe_data.cli.download.input", return_value="y"
-    )  # Mocking input to return 'y'
+    @patch("scribe_data.cli.download.questionary.confirm")
     def test_wd_lexeme_dump_download_wrapper_latest(
         self,
-        mock_input,
+        mock_confirm,
         mock_makedirs,
         mock_tqdm,
         mock_file,
@@ -122,6 +120,8 @@ class TestDownloadCLI(unittest.TestCase):
         """
         Test wrapper function for downloading latest Wikidata lexeme dump.
         """
+        mock_confirm.return_value.ask.return_value = True
+
         mock_get.return_value.text = 'href="latest-all.json.bz2"'
         mock_get.return_value.raise_for_status = MagicMock()
         mock_get.return_value.headers = {"content-length": "100"}
@@ -135,9 +135,7 @@ class TestDownloadCLI(unittest.TestCase):
             self.assertIsNotNone(download_path, "Download path should not be None")
             self.assertIn("latest-lexemes.json.bz2", download_path)
             mock_makedirs.assert_called_with("test_export_dir", exist_ok=True)
-            mock_input.assert_called_with(
-                "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities.\nDo you want to proceed? (y/n): "
-            )
+            mock_confirm.assert_called_once()
 
     @patch("scribe_data.utils.select")
     @patch(

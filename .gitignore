@@ -44,3 +44,4 @@ scribe_data_tsv_export/*
 # MARK: Wiki Dumps
 
 *.json.bz2
+*.log

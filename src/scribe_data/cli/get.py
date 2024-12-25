@@ -26,6 +26,7 @@ from pathlib import Path
 from typing import List, Union
 
 from rich import print as rprint
+import questionary
 
 from scribe_data.cli.convert import convert_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
@@ -111,10 +112,10 @@ def get_data(
         """
         Checks with the user if they'd rather use Wikidata lexeme dumps before a download all call.
         """
-        download_all_input = input(
-            "Do you want to query Wikidata, or would you rather use Wikidata lexeme dumps? (y/N): "
-        )
-        return download_all_input == "y"
+        return questionary.confirm(
+            "Do you want to query Wikidata directly? (selecting 'no' will use Wikidata lexeme dumps)",
+            default=False,
+        ).ask()
 
     if all:
         if language:
@@ -163,6 +164,17 @@ def get_data(
 
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
         generate_emoji(language=language, output_dir=output_dir)
+
+    # MARK: Translations
+
+    elif data_type == "translations":
+        parse_wd_lexeme_dump(
+            language=language,
+            wikidata_dump_type="translations",
+            type_output_dir=output_dir,
+            wikidata_dump_path=wikidata_dump,
+        )
+        return
 
     # MARK: Query Data
 
