@@ -5,7 +5,6 @@ import time
 import json
 from typing import Dict, Any
 from pathlib import Path
-import logging
 from scribe_data.utils import DEFAULT_DUMP_EXPORT_DIR
 from scribe_data.utils import language_metadata
 from tqdm import tqdm
@@ -13,77 +12,75 @@ from collections import Counter
 
 from scribe_data.utils import data_type_metadata
 
-# MARK: Logging
-logging.basicConfig(
-    filename="lexeme_processor.log",
-    filemode="a",
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    level=logging.ERROR,
-)
-
 
 class LexemeProcessor:
     def __init__(self, target_iso: str = None, parse_type: str = None):
-        self.word_index = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
+        self.word_index = {}
         self.stats = {"processed_entries": 0, "unique_words": 0, "processing_time": 0}
         self.target_iso = target_iso
         self.parse_type = parse_type
-        self.lexical_category_counts = defaultdict(Counter)
-        # Used to filter the language_metadata to only include the target language and its sublanguages
-        # If target_iso is not set, then all languages are included
-        self.iso_to_name = {}
+        self.lexical_category_counts = {}
+        self.translation_counts = {}
+        self._category_lookup = {v: k for k, v in data_type_metadata.items() if v}
+        self.iso_to_name = self._build_iso_mapping()
+
+    def _build_iso_mapping(self) -> dict:
+        """Build mapping of ISO codes to language names"""
+        iso_mapping = {}
+
         for lang_name, data in language_metadata.items():
-            if lang_name == self.target_iso:
-                self.iso_to_name[data["iso"]] = lang_name
-                break
-            if not self.target_iso:
-                if "iso" in data:
-                    self.iso_to_name[data["iso"]] = lang_name
-                elif "sub_languages" in data:
-                    for sublang_data in data["sub_languages"].values():
-                        if "iso" in sublang_data:
-                            self.iso_to_name[sublang_data["iso"]] = lang_name
+            if self.target_iso and lang_name != self.target_iso:
+                continue
+
+            if "iso" in data:
+                iso_mapping[data["iso"]] = lang_name
+
+            if not self.target_iso and "sub_languages" in data:
+                for sublang_data in data["sub_languages"].values():
+                    if "iso" in sublang_data:
+                        iso_mapping[sublang_data["iso"]] = lang_name
+
+        return iso_mapping
 
     def _process_lexeme_translations(self, lexeme: dict) -> dict:
-        """
-        Process lexeme translations from lemmas, datatype and senses.
-        Returns a dictionary with word translations or empty dict if invalid.
-        """
+        """Process lexeme translations from lemmas and senses"""
         lemmas = lexeme.get("lemmas", {})
-        datatype = lexeme.get("lexicalCategory")
-        senses = lexeme.get("senses", [])
+        q_code = lexeme.get("lexicalCategory")
 
-        # Skip invalid entries
-        if not lemmas or not datatype:
+        # Convert Q-code to actual category name (e.g., Q1084 -> nouns)
+        category_name = self._category_lookup.get(q_code)
+
+        if not (lemmas and category_name):
             return {}
 
-        # Get the first lemma
-        first_lang, first_lemma = next(iter(lemmas.items()))
-        word = first_lemma.get("value", "").lower()  # Normalize to lowercase
-        word_lang = first_lemma.get("language", "")
+        try:
+            first_lang, first_lemma = next(iter(lemmas.items()))
+            word = first_lemma.get("value", "").lower()
+            word_lang = first_lemma.get("language", "")
 
-        # Skip if word is empty or language ISO is not in our metadata
-        if not word or word_lang not in self.iso_to_name:
-            return {}
+            if not (word and word_lang in self.iso_to_name):
+                return {}
 
-        # Process all senses and their translations
-        translations = {}
-        for sense in senses:
-            glosses = sense.get("glosses", {})
-            translations.update(
-                {
-                    lang_code: gloss["value"]
-                    for lang_code, gloss in glosses.items()
-                    if lang_code
-                    in self.iso_to_name  # Only keep translations for known languages
-                }
-            )
+            translations = {
+                lang_code: gloss["value"]
+                for sense in lexeme.get("senses", [])
+                for lang_code, gloss in sense.get("glosses", {}).items()
+                if lang_code in self.iso_to_name
+            }
 
-        if not translations:
-            return {}
+            if translations:
+                if word not in self.word_index:
+                    self.word_index[word] = {}
+                if word_lang not in self.word_index[word]:
+                    self.word_index[word][word_lang] = {}
 
-        self.word_index[word][word_lang][datatype] = translations
-        return {word: {word_lang: {datatype: translations}}}
+                self.word_index[word][word_lang][category_name] = translations
+                return {word: {word_lang: {category_name: translations}}}
+
+        except (StopIteration, AttributeError):
+            pass
+
+        return {}
 
     def _process_lexeme_total(self, lexeme: dict) -> Dict[str, Any]:
         """
@@ -98,22 +95,26 @@ class LexemeProcessor:
             return {}
         lemmas = lexeme.get("lemmas", {})
 
+        category_name = self._category_lookup.get(lexicalCategory)
+        if not category_name:
+            return {}
+
+        # Process only the first valid language entry
         for lemma in lemmas.values():
             lang = lemma.get("language")
             if lang in self.iso_to_name:
-                # Convert QID to category name
-                category_name = next(
-                    (
-                        key
-                        for key, qid in data_type_metadata.items()
-                        if qid == lexicalCategory
-                    ),
-                    None,
+                if lang not in self.lexical_category_counts:
+                    self.lexical_category_counts[lang] = Counter()
+                    self.translation_counts[lang] = Counter()
+                # Update counts
+                self.lexical_category_counts[lang][category_name] += 1
+                translation_count = sum(
+                    len(sense.get("glosses", {})) for sense in lexeme.get("senses", [])
                 )
-                if category_name:
-                    # Store counts per language
-                    self.lexical_category_counts[lang][category_name] += 1
+                self.translation_counts[lang][category_name] += translation_count
                 break
+
+        return {}
 
     def process_lines(self, line: str) -> Dict[str, Any]:
         """
@@ -128,7 +129,7 @@ class LexemeProcessor:
                 return self._process_lexeme_total(lexeme)
 
         except Exception as e:
-            logging.error(f"Error processing line: {e}")
+            print(f"Error processing line: {e}")
             return {}
 
     def process_file(self, file_path: str, batch_size: int = 1000) -> None:
@@ -176,9 +177,9 @@ class LexemeProcessor:
             )
             if self.parse_type == "total":
                 print(
-                    f"{'Language':<20} {'Data Type':<25} {'Total Wikidata Lexemes':<25}"
+                    f"{'Language':<20} {'Data Type':<25} {'Total Wikidata Lexemes':<25} {'Total Translations':<20}"
                 )
-                print("=" * 70)
+                print("=" * 90)
 
                 # Print counts for each language
                 for lang, counts in self.lexical_category_counts.items():
@@ -186,24 +187,27 @@ class LexemeProcessor:
                     # Print first row with language name
                     first_category = True
                     for category, count in counts.most_common():
+                        translation_count = self.translation_counts[lang][category]
                         if first_category:
-                            print(f"{lang_name:<20} {category:<25} {count:<25,}")
+                            print(
+                                f"{lang_name:<20} {category:<25} {count:<25,} {translation_count:<20,}"
+                            )
                             first_category = False
                         else:
                             # Print subsequent rows with blank language column
-                            print(f"{'':<20} {category:<25} {count:<25,}")
+                            print(
+                                f"{'':<20} {category:<25} {count:<25,} {translation_count:<20,}"
+                            )
                     # Add blank line between languages, but not after the last language
                     if lang != list(self.lexical_category_counts.keys())[-1]:
                         print(
-                            f"\n{'Language':<20} {'Data Type':<25} {'Total Wikidata Lexemes':<25}"
+                            f"\n{'Language':<20} {'Data Type':<25} {'Total Wikidata Lexemes':<25} {'Total Translations':<20}"
                         )
-                        print("=" * 70)
+                        print("=" * 90)
 
         except FileNotFoundError:
-            logging.error(f"File not found: {file_path}")
             print(f"Error: File not found - {file_path}")
         except Exception as e:
-            logging.error(f"Error processing file: {e}")
             print(f"Error processing file: {e}")
 
     def _process_batch(self, batch: list) -> None:
@@ -263,10 +267,8 @@ class LexemeProcessor:
                 )
                 self._recursive_update(self.word_index, loaded_data)
         except FileNotFoundError:
-            logging.error(f"Index file not found: {filepath}")
             print(f"Error: Index file not found - {filepath}")
         except Exception as e:
-            logging.error(f"Error loading index: {e}")
             print(f"Error loading index: {e}")
 
     def _recursive_update(self, dd, data):
