@@ -36,6 +36,7 @@ from scribe_data.utils import (
     list_all_languages,
 )
 from scribe_data.wikidata.wikidata_utils import sparql
+from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 
 
 def get_qid_by_input(input_str):
@@ -370,7 +371,7 @@ def total_wrapper(
     language: Union[str, List[str]] = None,
     data_type: Union[str, List[str]] = None,
     all_bool: bool = False,
-    wikidata_dump: str = None,
+    wikidata_dump: Union[str, bool] = None,
 ) -> None:
     """
     Conditionally provides the full functionality of the total command.
@@ -387,9 +388,32 @@ def total_wrapper(
         all_bool : boolean
             Whether all languages and data types should be listed.
 
-        wikidata_dump : str
-            The local Wikidata dump that can be used to process data.
+        wikidata_dump : Union[str, bool]
+            The local Wikidata dump path that can be used to process data.
+            If True, indicates the flag was used without a path.
     """
+
+    if wikidata_dump is True:  # flag without a wikidata dump path
+        if all_bool:
+            language = "all"
+        parse_wd_lexeme_dump(
+            language=language,
+            wikidata_dump_type="total",
+            type_output_dir=None,
+            wikidata_dump_path=None,
+        )
+        return
+
+    if isinstance(wikidata_dump, str):  # if user provided a wikidata dump path
+        if all_bool:
+            language = "all"
+        parse_wd_lexeme_dump(
+            language=language,
+            wikidata_dump_type="total",
+            type_output_dir=None,
+            wikidata_dump_path=wikidata_dump,
+        )
+        return
 
     if (not language and not data_type) and all_bool:
         print_total_lexemes()

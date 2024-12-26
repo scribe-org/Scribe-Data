@@ -200,7 +200,8 @@ def main() -> None:
     total_parser.add_argument(
         "-wdp",
         "--wikidata-dump-path",
-        type=str,
+        nargs="?",
+        const=True,
         help="Path to a local Wikidata lexemes dump for running with '--all'.",
     )
 
