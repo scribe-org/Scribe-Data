@@ -415,6 +415,9 @@ def main() -> None:
             )
 
         elif args.command in ["interactive", "i"]:
+            rprint(
+                f"[bold cyan]Welcome to {get_version_message()} interactive mode![/bold cyan]"
+            )
             action = select(
                 "What would you like to do?",
                 choices=[

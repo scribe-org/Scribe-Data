@@ -9,6 +9,7 @@ from scribe_data.utils import DEFAULT_DUMP_EXPORT_DIR
 from scribe_data.utils import language_metadata
 from tqdm import tqdm
 from collections import Counter
+import questionary
 
 from scribe_data.utils import data_type_metadata
 
@@ -283,6 +284,19 @@ class LexemeProcessor:
         return self.word_index.get(word.lower(), {})
 
 
+def check_index_exists(index_path: Path) -> bool:
+    """Check if index file exists and prompt user for action if it does."""
+    if index_path.exists():
+        print(f"\nIndex file already exists at: {index_path}")
+        choice = questionary.select(
+            "Choose an action:",
+            choices=["Overwrite existing data", "Skip process"],
+            default="Skip process",
+        ).ask()
+        return choice == "Skip process"
+    return False
+
+
 def parse_dump(
     language: str = None,
     parse_type: str = None,
@@ -303,7 +317,17 @@ def parse_dump(
         # Create the output directory if it doesn't exist
         Path(type_output_dir).mkdir(parents=True, exist_ok=True)
 
-        index_path = Path(type_output_dir) / f"lexeme_index_{parse_type}.json"
+        if language:
+            index_path = (
+                Path(type_output_dir) / language / f"lexeme_index_{parse_type}.json"
+            )
+            if check_index_exists(index_path):
+                return
+        else:
+            index_path = Path(type_output_dir) / f"lexeme_index_{parse_type}.json"
+            if check_index_exists(index_path):
+                return
+
         print(f"Will save index to: {index_path}")
 
         processor = LexemeProcessor(target_iso=language, parse_type=parse_type)
