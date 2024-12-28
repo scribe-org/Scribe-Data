@@ -21,9 +21,8 @@ Functions for parsing Wikidata lexeme dumps.
 """
 
 import bz2
-import orjson
-import time
 import json
+import time
 
 from tqdm import tqdm
 from pathlib import Path
@@ -143,7 +142,7 @@ class LexemeProcessor:
         Process a single line of lexeme data.
         """
         try:
-            lexeme = orjson.loads(line.strip().rstrip(","))
+            lexeme = json.loads(line.strip().rstrip(","))
 
             if self.parse_type == "translations":
                 return self._process_lexeme_translations(lexeme)
