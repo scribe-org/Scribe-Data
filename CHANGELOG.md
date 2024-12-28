@@ -18,6 +18,11 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - The user is prompted to download a dump for calls for all data ([#518](https://github.com/scribe-org/Scribe-Data/issues/518)).
   - Scribe-Data must now use a lexeme dump to download all Wikidata lexeme data ([#519](https://github.com/scribe-org/Scribe-Data/issues/519)).
 
+### 🐞 Bug Fixes
+
+- The version command was fixed to account for cases where the version has a `v` before it ([#534](https://github.com/scribe-org/Scribe-Data/issues/534)).
+- The functionality to check for current data and prompt its deletion was centralized and messages to the user were made more clear ([#336](https://github.com/scribe-org/Scribe-Data/issues/336)).
+
 ## Scribe-Data 4.1.0
 
 ### ✨ Features
