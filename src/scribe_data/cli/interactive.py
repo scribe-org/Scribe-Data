@@ -37,7 +37,7 @@ from tqdm import tqdm
 # from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.get import get_data
 from scribe_data.cli.total import total_wrapper
-from scribe_data.cli.version import get_version_message
+from scribe_data.cli.version import get_local_version
 from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     data_type_metadata,
@@ -316,9 +316,7 @@ def start_interactive_mode(operation: str = None):
         operation : str
             The type of operation that interactive mode is being ran with.
     """
-    rprint(
-        f"[bold cyan]Welcome to {get_version_message()} interactive mode![/bold cyan]"
-    )
+    rprint(f"[bold cyan]Welcome to {get_local_version()} interactive mode![/bold cyan]")
     while True:
         # Check if both selected_languages and selected_data_types are empty.
         if not config.selected_languages and not config.selected_data_types:
