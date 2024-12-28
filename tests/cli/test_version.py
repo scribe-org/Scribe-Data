@@ -53,9 +53,9 @@ class TestVersionFunctions(unittest.TestCase):
     def test_get_latest_version_failure(self, mock_get):
         self.assertEqual(get_latest_version(), "Unknown (Unable to fetch version)")
 
-    @patch("scribe_data.cli.version.get_local_version", return_value="4.1.0")
+    @patch("scribe_data.cli.version.get_local_version", return_value="X.Y.Z")
     @patch(
-        "scribe_data.cli.version.get_latest_version", return_value="Scribe-Data 4.1.0"
+        "scribe_data.cli.version.get_latest_version", return_value="Scribe-Data X.Y.Z"
     )
     def test_get_version_message_up_to_date(
         self, mock_latest_version, mock_local_version
@@ -63,19 +63,19 @@ class TestVersionFunctions(unittest.TestCase):
         """
         Tests the scenario where the local version is up to date with the latest version.
         """
-        expected_message = "Scribe-Data v4.1.0"
+        expected_message = "Scribe-Data vX.Y.Z"
         self.assertEqual(get_version_message(), expected_message)
 
-    @patch("scribe_data.cli.version.get_local_version", return_value="4.0.0")
+    @patch("scribe_data.cli.version.get_local_version", return_value="X.Y.Y")
     @patch(
-        "scribe_data.cli.version.get_latest_version", return_value="Scribe-Data 4.1.0"
+        "scribe_data.cli.version.get_latest_version", return_value="Scribe-Data X.Y.Z"
     )
     def test_upgrade_available(self, mock_latest_version, mock_local_version):
         """
         Test case where a newer version is available.
         """
         expected_message = (
-            "Scribe-Data v4.0.0 (Upgrade available: Scribe-Data v4.1.0)\n"
+            "Scribe-Data vX.Y.Y (Upgrade available: Scribe-Data vX.Y.Z)\n"
             "To update: pip install --upgrade scribe-data"
         )
         self.assertEqual(get_version_message(), expected_message)
@@ -85,7 +85,7 @@ class TestVersionFunctions(unittest.TestCase):
         return_value="Unknown (Not installed via pip)",
     )
     @patch(
-        "scribe_data.cli.version.get_latest_version", return_value="Scribe-Data 4.1.0"
+        "scribe_data.cli.version.get_latest_version", return_value="Scribe-Data X.Y.Z"
     )
     def test_local_version_unknown(self, mock_latest_version, mock_local_version):
         """
@@ -94,7 +94,7 @@ class TestVersionFunctions(unittest.TestCase):
         expected_message = "Scribe-Data Unknown (Not installed via pip)"
         self.assertEqual(get_version_message(), expected_message)
 
-    @patch("scribe_data.cli.version.get_local_version", return_value="4.1.0")
+    @patch("scribe_data.cli.version.get_local_version", return_value="X.Y.Z")
     @patch(
         "scribe_data.cli.version.get_latest_version",
         return_value="Unknown (Unable to fetch version)",

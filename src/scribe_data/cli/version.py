@@ -58,8 +58,4 @@ def get_version_message():
     if local_version_clean == latest_version_clean:
         return f"Scribe-Data v{local_version_clean}"
 
-    update_message = (
-        f"Scribe-Data v{local_version_clean} (Upgrade available: Scribe-Data v{latest_version_clean})\n"
-        "To update: pip install --upgrade scribe-data"
-    )
-    return update_message
+    return f"Scribe-Data v{local_version_clean} (Upgrade available: Scribe-Data v{latest_version_clean})\nTo update: pip install --upgrade scribe-data"
