@@ -45,7 +45,7 @@ def get_data(
     output_dir: str = None,
     overwrite: bool = False,
     outputs_per_entry: int = None,
-    all: bool = False,
+    all_bool: bool = False,
     interactive: bool = False,
     identifier_case: str = "camel",
     wikidata_dump: str = None,
@@ -73,7 +73,7 @@ def get_data(
         overwrite : bool (default: False)
             Whether to overwrite existing files.
 
-        all : bool
+        all_bool : bool
             Get all languages and data types.
 
         interactive : bool (default: False)
@@ -113,7 +113,7 @@ def get_data(
         )
         return download_all_input == "y"
 
-    if all:
+    if all_bool:
         if language:
             if prompt_user_download_all():
                 parse_wd_lexeme_dump()
@@ -196,7 +196,7 @@ def get_data(
             interactive=interactive,
         )
 
-        if not all and not query_result.get("skipped", False):
+        if not all_bool and not query_result.get("skipped", False):
             print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
 
     else:

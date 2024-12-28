@@ -21,8 +21,8 @@ Tests for the CLI get functionality.
 """
 
 import unittest
-from unittest.mock import patch
 from pathlib import Path
+from unittest.mock import patch
 
 from scribe_data.cli.get import get_data
 
@@ -70,7 +70,7 @@ class TestGetData(unittest.TestCase):
 
         Ensures that `query_data` is called properly when `--all` flag is used with a language.
         """
-        get_data(all=True, language="English")
+        get_data(all_bool=True, language="English")
         mock_query_data.assert_called_once_with(
             languages=["English"],
             data_type=None,
@@ -86,7 +86,7 @@ class TestGetData(unittest.TestCase):
 
         Ensures that `query_data` is called properly when `--all` flag is used with a data type.
         """
-        get_data(all=True, data_type="nouns")
+        get_data(all_bool=True, data_type="nouns")
         mock_query_data.assert_called_once_with(
             languages=None,
             data_type=["nouns"],
