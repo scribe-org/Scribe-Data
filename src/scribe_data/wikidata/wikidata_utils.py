@@ -43,12 +43,14 @@ def parse_wd_lexeme_dump(
 
     Parameters
     ----------
-        wikidata_dump_path : str
-            The local Wikidata dump that should be used to get data.
-        output_dir : str
-            The directory to save the parsed data.
-        language : str
-            The language to parse the data for.
+    language : str
+        The language to parse the data for.
+    wikidata_dump_type : str
+        The type of Wikidata dump to parse (e.g. "total", "translations").
+    type_output_dir : str
+        The directory to save the parsed JSON data.
+    wikidata_dump_path : str
+        The local Wikidata dump directory that should be used to get data.
     Returns
     -------
         The requested data saved locally given file type and location arguments.

@@ -1,27 +1,51 @@
+"""
+Functions for parsing Wikidata lexeme dumps.
+
+.. raw:: html
+    <!--
+    * Copyright (C) 2024 Scribe
+    *
+    * This program is free software: you can redistribute it and/or modify
+    * it under the terms of the GNU General Public License as published by
+    * the Free Software Foundation, either version 3 of the License, or
+    * (at your option) any later version.
+    *
+    * This program is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    * GNU General Public License for more details.
+    *
+    * You should have received a copy of the GNU General Public License
+    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+    -->
+"""
+
 import bz2
 import orjson
-from collections import defaultdict
 import time
 import json
-from typing import Dict, Any
-from pathlib import Path
-from scribe_data.utils import DEFAULT_DUMP_EXPORT_DIR
-from scribe_data.utils import language_metadata
-from tqdm import tqdm
-from collections import Counter
-import questionary
 
-from scribe_data.utils import data_type_metadata
+from tqdm import tqdm
+from pathlib import Path
+from collections import defaultdict, Counter
+from typing import Dict, Any
+from scribe_data.utils import (
+    DEFAULT_DUMP_EXPORT_DIR,
+    language_metadata,
+    data_type_metadata,
+    check_index_exists,
+)
 
 
 class LexemeProcessor:
     def __init__(self, target_iso: str = None, parse_type: str = None):
-        self.word_index = {}
+        # Pre-compute lookups once during initialization
+        self.word_index = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
         self.stats = {"processed_entries": 0, "unique_words": 0, "processing_time": 0}
         self.target_iso = target_iso
         self.parse_type = parse_type
-        self.lexical_category_counts = {}
-        self.translation_counts = {}
+        self.lexical_category_counts = defaultdict(Counter)
+        self.translation_counts = defaultdict(Counter)
         self._category_lookup = {v: k for k, v in data_type_metadata.items() if v}
         self.iso_to_name = self._build_iso_mapping()
 
@@ -46,40 +70,37 @@ class LexemeProcessor:
     def _process_lexeme_translations(self, lexeme: dict) -> dict:
         """Process lexeme translations from lemmas and senses"""
         lemmas = lexeme.get("lemmas", {})
-        q_code = lexeme.get("lexicalCategory")
+        qid = lexeme.get("lexicalCategory")
 
-        # Convert Q-code to actual category name (e.g., Q1084 -> nouns)
-        category_name = self._category_lookup.get(q_code)
-
-        if not (lemmas and category_name):
+        # Early return if missing required data
+        if not (lemmas and qid):
+            return {}
+        # Convert Qid to actual category name (e.g., Q1084 -> nouns)
+        category_name = self._category_lookup.get(qid)
+        if not category_name:
             return {}
 
-        try:
-            first_lang, first_lemma = next(iter(lemmas.items()))
-            word = first_lemma.get("value", "").lower()
-            word_lang = first_lemma.get("language", "")
+        # Process first valid lemma
+        for lang_code, lemma_data in lemmas.items():
+            if lang_code not in self.iso_to_name:
+                continue
 
-            if not (word and word_lang in self.iso_to_name):
-                return {}
+            word = lemma_data.get("value", "").lower()
+            if not word:
+                continue
 
-            translations = {
-                lang_code: gloss["value"]
-                for sense in lexeme.get("senses", [])
-                for lang_code, gloss in sense.get("glosses", {}).items()
-                if lang_code in self.iso_to_name
-            }
+            # Collect all valid translations in one pass
+            translations = {}
+            for sense in lexeme.get("senses", []):
+                for lang_code, gloss in sense.get("glosses", {}).items():
+                    if lang_code in self.iso_to_name:
+                        translations[lang_code] = gloss["value"]
 
             if translations:
-                if word not in self.word_index:
-                    self.word_index[word] = {}
-                if word_lang not in self.word_index[word]:
-                    self.word_index[word][word_lang] = {}
+                self.word_index[word][lang_code][category_name] = translations
+                return {word: {lang_code: {category_name: translations}}}
 
-                self.word_index[word][word_lang][category_name] = translations
-                return {word: {word_lang: {category_name: translations}}}
-
-        except (StopIteration, AttributeError):
-            pass
+            break  # Process only first valid lemma
 
         return {}
 
@@ -133,7 +154,7 @@ class LexemeProcessor:
             print(f"Error processing line: {e}")
             return {}
 
-    def process_file(self, file_path: str, batch_size: int = 1000) -> None:
+    def process_file(self, file_path: str, batch_size: int = 50000):
         start_time = time.time()
 
         try:
@@ -146,7 +167,6 @@ class LexemeProcessor:
                     bzfile.seek(0)
 
                 batch = []
-                # Use dynamic total based on file size
                 for line in tqdm(
                     bzfile, desc="Processing entries", total=total_entries
                 ):
@@ -212,11 +232,13 @@ class LexemeProcessor:
             print(f"Error processing file: {e}")
 
     def _process_batch(self, batch: list) -> None:
+        """
+        Process multiple lines at once
+        """
         for line in batch:
-            # self.process_lines_for_forms(line)
             self.process_lines(line)
 
-    def save_index(self, filepath: str, language_iso: str = None) -> None:
+    def export_json(self, filepath: str, language_iso: str = None) -> None:
         """
         Save index to file, optionally filtering by language ISO code.
         """
@@ -235,8 +257,13 @@ class LexemeProcessor:
                 if language_iso in lang_data:
                     filtered_index[word] = {language_iso: lang_data[language_iso]}
 
-            # Create language-specific filepath using full name
+            # Create language-specific filepath, removing potential double paths
             base_path = Path(filepath)
+            # Remove language name from base_path if it exists to prevent duplication
+            if full_language_name in base_path.parts:
+                parts = [p for p in base_path.parts if p != full_language_name]
+                base_path = Path(*parts)
+
             lang_filepath = base_path.parent / full_language_name / base_path.name
             lang_filepath.parent.mkdir(parents=True, exist_ok=True)
 
@@ -258,44 +285,6 @@ class LexemeProcessor:
             dd = {k: self._convert_defaultdict_to_dict(v) for k, v in dd.items()}
         return dd
 
-    def load_index(self, filepath: str) -> None:
-        print(f"Loading index from {filepath}...")
-        try:
-            with open(filepath, "r", encoding="utf-8") as f:
-                loaded_data = json.load(f)
-                self.word_index = defaultdict(
-                    lambda: defaultdict(lambda: defaultdict(dict))
-                )
-                self._recursive_update(self.word_index, loaded_data)
-        except FileNotFoundError:
-            print(f"Error: Index file not found - {filepath}")
-        except Exception as e:
-            print(f"Error loading index: {e}")
-
-    def _recursive_update(self, dd, data):
-        for key, value in data.items():
-            if isinstance(value, dict):
-                dd[key] = defaultdict(lambda: defaultdict(dict))
-                self._recursive_update(dd[key], value)
-            else:
-                dd[key] = value
-
-    def get_word_info(self, word: str) -> Dict[str, Any]:
-        return self.word_index.get(word.lower(), {})
-
-
-def check_index_exists(index_path: Path) -> bool:
-    """Check if index file exists and prompt user for action if it does."""
-    if index_path.exists():
-        print(f"\nIndex file already exists at: {index_path}")
-        choice = questionary.select(
-            "Choose an action:",
-            choices=["Overwrite existing data", "Skip process"],
-            default="Skip process",
-        ).ask()
-        return choice == "Skip process"
-    return False
-
 
 def parse_dump(
     language: str = None,
@@ -303,6 +292,34 @@ def parse_dump(
     type_output_dir: str = DEFAULT_DUMP_EXPORT_DIR,
     file_path: str = "latest-lexemes.json.bz2",
 ):
+    """
+    Process and parse Wikidata lexeme dumps, either analyzing all
+    or filtering for a specific language.
+
+    Parameters
+    ----------
+    language : str,
+        ISO code of the language to process. If 'all', processes all languages.
+    parse_type : str
+        Type of parsing to perform. Options are:
+        - 'total': Generate statistics about lexeme counts
+        - 'translations': Create translation indexes
+    type_output_dir : str
+        Directory where output files will be saved. Defaults to DEFAULT_DUMP_EXPORT_DIR.
+    file_path : str
+        Path to the lexeme dump file. Defaults to 'latest-lexemes.json.bz2'.
+
+    Notes
+    -----
+    When parse_type is 'total':
+    - Total number of lexemes per language along with different lexical categories
+    - Number of total translations available
+
+    When parse_type is 'translations', it creates JSON index files containing:
+    - Word-to-translation mappings
+    - Lexical category information
+
+    """
     if parse_type == "total":
         if language == "all":
             print("Processing all lexemes...")
@@ -318,13 +335,11 @@ def parse_dump(
         Path(type_output_dir).mkdir(parents=True, exist_ok=True)
 
         if language:
-            index_path = (
-                Path(type_output_dir) / language / f"lexeme_index_{parse_type}.json"
-            )
+            index_path = Path(type_output_dir) / language / f"lexeme_{parse_type}.json"
             if check_index_exists(index_path):
                 return
         else:
-            index_path = Path(type_output_dir) / f"lexeme_index_{parse_type}.json"
+            index_path = Path(type_output_dir) / f"lexeme_{parse_type}.json"
             if check_index_exists(index_path):
                 return
 
@@ -345,4 +360,4 @@ def parse_dump(
         # Save individual files for each valid language
         for iso_code in iso_codes:
             if iso_code in processor.iso_to_name:  # Only process known ISO codes
-                processor.save_index(str(index_path), iso_code)
+                processor.export_json(str(index_path), iso_code)

@@ -25,6 +25,7 @@ import ast
 import json
 import os
 import re
+import questionary
 from datetime import datetime
 from importlib import resources
 from pathlib import Path
@@ -703,3 +704,18 @@ def check_lexeme_dump_prompt_download(output_dir: str):
         else:
             rprint("[bold blue]Skipping download.[/bold blue]")
             return True
+
+
+def check_index_exists(index_path: Path) -> bool:
+    """
+    Check if JSON wiktionary dump file exists and prompt user for action if it does.
+    """
+    if index_path.exists():
+        print(f"\nIndex file already exists at: {index_path}")
+        choice = questionary.select(
+            "Choose an action:",
+            choices=["Overwrite existing data", "Skip process"],
+            default="Skip process",
+        ).ask()
+        return choice == "Skip process"
+    return False
