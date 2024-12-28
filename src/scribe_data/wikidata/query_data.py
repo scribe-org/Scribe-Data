@@ -216,7 +216,7 @@ def query_data(
 
                     else:
                         print(f"Skipping update for {lang.title()} {target_type}.")
-                        break
+                        return {"success": False, "skipped": True}
 
         print(f"Querying and formatting {lang.title()} {target_type}")
 
@@ -237,9 +237,10 @@ def query_data(
 
         except HTTPError as http_err:
             print(f"HTTPError with {q}: {http_err}")
-
+            return {"success": False, "skipped": False}
         except IncompleteRead as read_err:
             print(f"Incomplete read error with {q}: {read_err}")
+            return {"success": False, "skipped": False}
 
         if results is None:
             print(f"Nothing returned by the WDQS server for {q}")
@@ -248,6 +249,9 @@ def query_data(
             if queries_to_run.count(q) < 3:
                 print("The query will be retried.")
                 queries_to_run.append(q)
+            else:
+                print("Max retries reached. Skipping this query.")
+                return {"success": False, "skipped": False}
 
         else:
             # Subset the returned JSON and the individual results before saving.
@@ -334,6 +338,11 @@ def query_data(
             execute_formatting_script(
                 output_dir=output_dir, language=lang, data_type=target_type
             )
+
+            print(
+                f"Successfully queried and formatted data for {lang.title()} {target_type}."
+            )
+            return {"success": True, "skipped": False}
 
 
 # if __name__ == "__main__":
