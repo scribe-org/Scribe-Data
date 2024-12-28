@@ -371,7 +371,7 @@ def main() -> None:
                     output_dir=args.output_dir,
                     outputs_per_entry=args.outputs_per_entry,
                     overwrite=args.overwrite,
-                    all=args.all,
+                    all_bool=args.all,
                     identifier_case=args.identifier_case,
                     wikidata_dump=args.wikidata_dump_path,
                 )

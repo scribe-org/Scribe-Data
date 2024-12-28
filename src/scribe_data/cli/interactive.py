@@ -219,6 +219,7 @@ def run_request():
     total_operations = len(config.selected_languages) * len(config.selected_data_types)
 
     # MARK: Export Data
+
     with tqdm(
         total=total_operations,
         desc="Exporting data",
