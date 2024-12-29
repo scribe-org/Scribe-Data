@@ -55,11 +55,12 @@ def main() -> None:
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
     subparsers = parser.add_subparsers(dest="command")
+
     parser.add_argument(
         "-v",
         "--version",
         action="version",
-        version=f"{get_version_message()}",
+        version=get_version_message(),
         help="Show the version of the Scribe-Data CLI.",
     )
 
