@@ -177,6 +177,8 @@ def get_data(
     # MARK: Translations
 
     elif data_type == "translations":
+        if language is None:
+            language = "all"
         parse_wd_lexeme_dump(
             language=language,
             wikidata_dump_type=["translations"],
