@@ -392,25 +392,22 @@ def total_wrapper(
             The local Wikidata dump path that can be used to process data.
             If True, indicates the flag was used without a path.
     """
+    # Handle --all flag
+    if all_bool and wikidata_dump:
+        language = "all"
 
     if wikidata_dump is True:  # flag without a wikidata dump path
-        if all_bool:
-            language = "all"
         parse_wd_lexeme_dump(
             language=language,
-            wikidata_dump_type="total",
-            type_output_dir=None,
+            wikidata_dump_type=["total"],
             wikidata_dump_path=None,
         )
         return
 
     if isinstance(wikidata_dump, str):  # if user provided a wikidata dump path
-        if all_bool:
-            language = "all"
         parse_wd_lexeme_dump(
             language=language,
-            wikidata_dump_type="total",
-            type_output_dir=None,
+            wikidata_dump_type=["total"],
             wikidata_dump_path=wikidata_dump,
         )
         return

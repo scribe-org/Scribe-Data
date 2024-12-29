@@ -38,8 +38,10 @@ from tqdm import tqdm
 from scribe_data.cli.get import get_data
 from scribe_data.cli.total import total_wrapper
 from scribe_data.cli.version import get_version_message
+from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_DUMP_EXPORT_DIR,
     data_type_metadata,
     language_metadata,
     list_all_languages,
@@ -262,6 +264,7 @@ def request_total_lexeme_loop():
             choices=[
                 Choice("Configure total lexemes request", "total"),
                 Choice("Run total lexemes request", "run"),
+                Choice("Run total lexemes request with lexeme dumps", "run_all"),
                 Choice("Exit", "exit"),
             ],
         ).ask()
@@ -274,6 +277,18 @@ def request_total_lexeme_loop():
             )
             config.selected_languages, config.selected_data_types = [], []
             rprint(THANK_YOU_MESSAGE)
+            break
+        elif choice == "run_all":
+            if wikidata_dump_path := prompt(
+                f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
+            ):
+                wikidata_dump_path = Path(wikidata_dump_path)
+
+            parse_wd_lexeme_dump(
+                language=config.selected_languages,
+                wikidata_dump_type=["total"],
+                wikidata_dump_path=wikidata_dump_path,
+            )
             break
         elif choice == "exit":
             return
@@ -335,6 +350,12 @@ def start_interactive_mode(operation: str = None):
                     # Choice("See list of languages", "languages"),
                     Choice("Exit", "exit"),
                 ]
+            elif operation == "translations":
+                choices = [
+                    Choice("Configure translations request", "translations"),
+                    # Choice("See list of languages", "languages"),
+                    Choice("Exit", "exit"),
+                ]
 
         else:
             choices = [
@@ -356,6 +377,29 @@ def start_interactive_mode(operation: str = None):
             prompt_for_languages()
             prompt_for_data_types()
             request_total_lexeme_loop()
+            break
+
+        elif choice == "translations":
+            prompt_for_languages()
+
+            if wikidata_dump_path := prompt(
+                f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
+            ):
+                wikidata_dump_path = Path(wikidata_dump_path)
+
+            if output_dir := prompt(
+                f"Enter output directory (default: {config.output_dir}): "
+            ):
+                config.output_dir = Path(output_dir)
+
+            parse_wd_lexeme_dump(
+                language=config.selected_languages,
+                wikidata_dump_type=["translations"],
+                data_types=None,
+                type_output_dir=config.output_dir,
+                wikidata_dump_path=wikidata_dump_path,
+            )
+
             break
 
         # elif choice == "languages":

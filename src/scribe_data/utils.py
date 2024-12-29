@@ -706,16 +706,27 @@ def check_lexeme_dump_prompt_download(output_dir: str):
             return True
 
 
-def check_index_exists(index_path: Path) -> bool:
+def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
     """
     Check if JSON wiktionary dump file exists and prompt user for action if it does.
+    Returns True if user chooses to skip (i.e., we do NOT proceed).
+    Returns False if the file doesn't exist or user chooses to overwrite (i.e., we DO proceed).
+
+    Parameters:
+        index_path: Path to check
+        overwrite_all: If True, automatically overwrite without prompting
     """
     if index_path.exists():
+        if overwrite_all:
+            return False
+
         print(f"\nIndex file already exists at: {index_path}")
         choice = questionary.select(
             "Choose an action:",
             choices=["Overwrite existing data", "Skip process"],
             default="Skip process",
         ).ask()
+
+        # If user selects "Skip process", return True meaning "don't proceed"
         return choice == "Skip process"
     return False

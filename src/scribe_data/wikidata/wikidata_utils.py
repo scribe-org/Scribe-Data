@@ -23,9 +23,11 @@ Utility functions for accessing data from Wikidata.
 from pathlib import Path
 from rich import print as rprint
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
+from typing import List, Union
 
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.wiktionary.parse_dump import parse_dump
+from scribe_data.utils import language_metadata, data_type_metadata
 
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 sparql.setReturnFormat(JSON)
@@ -33,8 +35,9 @@ sparql.setMethod(POST)
 
 
 def parse_wd_lexeme_dump(
-    language: str = None,
-    wikidata_dump_type: str = None,
+    language: Union[str, List[str]] = None,
+    wikidata_dump_type: List[str] = None,
+    data_types: List[str] = None,
     type_output_dir: str = None,
     wikidata_dump_path: str = None,
 ):
@@ -43,18 +46,28 @@ def parse_wd_lexeme_dump(
 
     Parameters
     ----------
-    language : str
-        The language to parse the data for.
-    wikidata_dump_type : str
-        The type of Wikidata dump to parse (e.g. "total", "translations").
-    type_output_dir : str
-        The directory to save the parsed JSON data.
-    wikidata_dump_path : str
+    language : Union[str, List[str]]
+        The language(s) to parse the data for. Use "all" for all languages.
+    wikidata_dump_type : List[str]
+        The type(s) of Wikidata dump to parse (e.g. ["total", "translations", "form"]).
+    data_types : List[str]
+        The categories to parse when using "form" type (e.g. ["nouns", "adverbs"]).
+    type_output_dir : str, optional
+        The directory to save the parsed JSON data. If None, uses default directory.
+    wikidata_dump_path : str, optional
         The local Wikidata dump directory that should be used to get data.
-    Returns
-    -------
-        The requested data saved locally given file type and location arguments.
     """
+    # Convert "all" to list of all languages
+    if isinstance(language, str) and language.lower() == "all":
+        language = list(language_metadata.keys())
+    if isinstance(data_types, str) and data_types.lower() == "all":
+        # Exclude translations as it's a separate section
+        data_types = [
+            dt
+            for dt in data_type_metadata.keys()
+            if dt != "translations" and dt != "emoji-keywords"
+        ]
+
     file_path = wd_lexeme_dump_download_wrapper(None, wikidata_dump_path)
 
     if isinstance(file_path, (str, Path)):
@@ -67,10 +80,10 @@ def parse_wd_lexeme_dump(
             parse_dump(
                 language=language,
                 parse_type=wikidata_dump_type,
-                type_output_dir=type_output_dir,
+                data_types=data_types,
                 file_path=file_path,
+                output_dir=type_output_dir,
             )
-
             return
 
     rprint(f"[bold red]No valid dumps found in {file_path}.[/bold red]")

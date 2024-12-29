@@ -436,7 +436,7 @@ def main() -> None:
             elif action == "Get data":
                 start_interactive_mode(operation="get")
             elif action == "Get translations":
-                print("Coming soon!")
+                start_interactive_mode(operation="translations")
             else:
                 print("Skipping action")
         else:
