@@ -20,8 +20,8 @@ Tests for the accessibility of resources.
     -->
 """
 
-from unittest import TestCase
 import pathlib
+from unittest import TestCase
 
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
 LANGUAGE_METADATA_PATH = (
