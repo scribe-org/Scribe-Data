@@ -37,6 +37,8 @@ from scribe_data.cli.total import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
 
+from scribe_data.wiktionary.parse_mediaWiki import parse_wiktionary_translations
+
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
 GET_DESCRIPTION = (
     "Get data from Wikidata and other sources for the given languages and data types."
@@ -167,6 +169,9 @@ def main() -> None:
         "--wikidata-dump-path",
         type=str,
         help="Path to a local Wikidata lexemes dump for running with '--all'.",
+    )
+    get_parser.add_argument(
+        "-t", "--translation", type=str, help="parse a single word using MediaWiki API"
     )
 
     # MARK: Total
@@ -359,7 +364,8 @@ def main() -> None:
         elif args.command in ["get", "g"]:
             if args.interactive:
                 start_interactive_mode(operation="get")
-
+            if args.translation:
+                parse_wiktionary_translations(args.translation)
             else:
                 get_data(
                     language=args.language.lower()

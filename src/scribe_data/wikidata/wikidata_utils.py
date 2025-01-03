@@ -24,6 +24,7 @@ from pathlib import Path
 from rich import print as rprint
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from typing import List, Union
+import requests
 
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.wiktionary.parse_dump import parse_dump
@@ -32,6 +33,28 @@ from scribe_data.utils import language_metadata, data_type_metadata
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 sparql.setReturnFormat(JSON)
 sparql.setMethod(POST)
+
+
+def mediaWiki_query(query: str) -> dict:
+    """
+    Query the Wikidata API using a MediaWiki query.
+
+    Parameters
+    ----------
+    query : str
+        The MediaWiki query to execute.
+
+    Returns
+    -------
+    dict
+        The JSON response from the API.
+    """
+    url = (
+        f"https://en.wiktionary.org/w/api.php?"
+        f"action=query&format=json&titles={query}/translations&prop=revisions&rvprop=content"
+    )
+    response = requests.get(url)
+    return response.json()
 
 
 def parse_wd_lexeme_dump(
