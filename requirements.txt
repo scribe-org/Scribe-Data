@@ -18,3 +18,4 @@ ruff>=0.3.3
 SPARQLWrapper>=2.0.0
 sphinx-rtd-theme>=3.0.0
 tqdm==4.66.4
+orjson>=3.10.12

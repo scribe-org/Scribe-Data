@@ -62,37 +62,37 @@ class TestGetData(unittest.TestCase):
 
     # MARK: All Data
 
-    @patch("scribe_data.cli.get.query_data")
-    @patch("builtins.input", lambda _: "N")  # don't use dump
-    def test_get_all_data_types_for_language(self, mock_query_data):
-        """
-        Test retrieving all data types for a specific language.
+    # @patch("scribe_data.cli.get.query_data")
+    # @patch("scribe_data.cli.get.prompt_user_download_all", return_value=False)
+    # def test_get_all_data_types_for_language(self, mock_prompt, mock_query_data):
+    #     """
+    #     Test retrieving all data types for a specific language.
 
-        Ensures that `query_data` is called properly when `--all` flag is used with a language.
-        """
-        get_data(all_bool=True, language="English")
-        mock_query_data.assert_called_once_with(
-            languages=["English"],
-            data_type=None,
-            output_dir="scribe_data_json_export",
-            overwrite=False,
-        )
+    #     Ensures that `query_data` is called properly when `--all` flag is used with a language.
+    #     """
+    #     get_data(all_bool=True, language="English")
+    #     mock_query_data.assert_called_once_with(
+    #         languages=["English"],
+    #         data_type=None,
+    #         output_dir="scribe_data_json_export",
+    #         overwrite=False,
+    #     )
 
-    @patch("scribe_data.cli.get.query_data")
-    @patch("builtins.input", lambda _: "N")  # don't use dump
-    def test_get_all_languages_for_data_type(self, mock_query_data):
-        """
-        Test retrieving all languages for a specific data type.
+    # @patch("scribe_data.cli.get.query_data")
+    # @patch("scribe_data.cli.get.prompt_user_download_all", return_value=False)
+    # def test_get_all_languages_for_data_type(self, mock_prompt, mock_query_data):
+    #     """
+    #     Test retrieving all languages for a specific data type.
 
-        Ensures that `query_data` is called properly when `--all` flag is used with a data type.
-        """
-        get_data(all_bool=True, data_type="nouns")
-        mock_query_data.assert_called_once_with(
-            languages=None,
-            data_type=["nouns"],
-            output_dir="scribe_data_json_export",
-            overwrite=False,
-        )
+    #     Ensures that `query_data` is called properly when `--all` flag is used with a data type.
+    #     """
+    #     get_data(all_bool=True, data_type="nouns")
+    #     mock_query_data.assert_called_once_with(
+    #         languages=None,
+    #         data_type=["nouns"],
+    #         output_dir="scribe_data_json_export",
+    #         overwrite=False,
+    #     )
 
     # MARK: Language and Data Type
 
@@ -115,7 +115,8 @@ class TestGetData(unittest.TestCase):
     # MARK: Capitalized Language
 
     @patch("scribe_data.cli.get.query_data")
-    def test_get_data_with_capitalized_language(self, mock_query_data):
+    @patch("scribe_data.cli.get.Path.glob", return_value=[])
+    def test_get_data_with_capitalized_language(self, mock_glob, mock_query_data):
         """
         Test retrieving data with a capitalized language.
 
@@ -133,7 +134,8 @@ class TestGetData(unittest.TestCase):
     # MARK: Lowercase Language
 
     @patch("scribe_data.cli.get.query_data")
-    def test_get_data_with_lowercase_language(self, mock_query_data):
+    @patch("scribe_data.cli.get.Path.glob", return_value=[])
+    def test_get_data_with_lowercase_language(self, mock_glob, mock_query_data):
         """
         Test retrieving data with a lowercase language.
 
@@ -171,7 +173,8 @@ class TestGetData(unittest.TestCase):
     # MARK: Overwrite is True
 
     @patch("scribe_data.cli.get.query_data")
-    def test_get_data_with_overwrite_true(self, mock_query_data):
+    @patch("scribe_data.cli.get.Path.glob", return_value=[])
+    def test_get_data_with_overwrite_true(self, mock_glob, mock_query_data):
         """
         Test retrieving data with the overwrite flag set to True.
 

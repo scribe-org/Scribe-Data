@@ -30,6 +30,7 @@ from typing import Optional
 import requests
 from rich import print as rprint
 from tqdm import tqdm
+import questionary
 
 from scribe_data.utils import DEFAULT_DUMP_EXPORT_DIR, check_lexeme_dump_prompt_download
 
@@ -244,16 +245,12 @@ def wd_lexeme_dump_download_wrapper(
         filename = dump_url.split("/")[-1]
         output_path = str(Path(output_dir) / filename)
 
-        user_response = (
-            input(
-                "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities."
-                "\nDo you want to proceed? (y/n): "
-            )
-            .strip()
-            .lower()
-        )
+        user_response = questionary.confirm(
+            "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities. Do you want to proceed?",
+            default=True,
+        ).ask()
 
-        if user_response == "y":
+        if user_response:
             rprint(f"[bold blue]Downloading dump to {output_path}...[/bold blue]")
 
             response = requests.get(dump_url, stream=True)
