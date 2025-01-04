@@ -291,7 +291,7 @@ The documentation for Scribe-Data can be found at [scribe-data.readthedocs.io](h
 
 ### Function Docstrings
 
-Scribe-Data generally follows [NumPy conventions](https://numpydoc.readthedocs.io/en/latest/format.html) for documenting functions and Python code in general. Function docstrings should have the following format:
+Scribe-Data generally follows [numpydoc conventions](https://numpydoc.readthedocs.io/en/latest/format.html) for documenting functions and Python code in general. Function docstrings should have the following format:
 
 ```py
 def example_function(argument: argument_type) -> return_type:
