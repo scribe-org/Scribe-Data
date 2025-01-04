@@ -48,24 +48,24 @@ def check_for_sparql_files(folder_path, data_type, language, subdir, missing_que
 
     Parameters
     ----------
-        folder_path : str
-            The path to the data-type folder.
+    folder_path : str
+        The path to the data-type folder.
 
-        data_type : str
-            The name of the data type being checked.
+    data_type : str
+        The name of the data type being checked.
 
-        language : str
-            The name of the language being processed.
+    language : str
+        The name of the language being processed.
 
-        subdir : str or None
-            The name of the sub-directory (for languages with sub-dialects), or None.
+    subdir : str or None
+        The name of the sub-directory (for languages with sub-dialects), or None.
 
-        missing_queries : list
-            A list to which missing SPARQL query files will be appended.
+    missing_queries : list
+        A list to which missing SPARQL query files will be appended.
 
     Returns
     -------
-        bool: True if at least one .sparql file is found, False otherwise.
+    bool: True if at least one .sparql file is found, False otherwise.
     """
     sparql_files = [f for f in os.listdir(folder_path) if f.endswith(".sparql")]
 

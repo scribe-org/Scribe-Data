@@ -57,18 +57,18 @@ def extract_forms_from_sparql(file_path: Path) -> str:
 
     Parameters
     ----------
-        file_path : Path
-            The path to the SPARQL query file from which to extract forms.
+    file_path : Path
+        The path to the SPARQL query file from which to extract forms.
 
     Returns
     -------
-        query_form_dict : dict
-            The file path with form labels of the query and their respective QIDs.
+    query_form_dict : dict
+        The file path with form labels of the query and their respective QIDs.
 
     Raises
     ------
-        FileNotFoundError
-            If the specified file does not exist.
+    FileNotFoundError
+        If the specified file does not exist.
     """
     optional_pattern = r"\s\sOPTIONAL\s*\{([^}]*)\}"
     try:
@@ -95,13 +95,13 @@ def extract_form_rep_label(form_text: str):
 
     Parameters
     ----------
-        form_text : str
-            The text that defines the form within the query.
+    form_text : str
+        The text that defines the form within the query.
 
     Returns
     -------
-        str
-            The label of the form representation.
+    str
+        The label of the form representation.
     """
     onto_rep_pattern = r"ontolex:representation .* ;"
     if line_match := re.search(pattern=onto_rep_pattern, string=form_text):
@@ -119,13 +119,13 @@ def decompose_label_features(label):
 
     Parameters
     ----------
-        label : str
-            The concatenated label string composed of several grammatical features.
+    label : str
+        The concatenated label string composed of several grammatical features.
 
     Returns
     -------
-        list
-            A list of grammatical features extracted from the label in their original order.
+    list
+        A list of grammatical features extracted from the label in their original order.
     """
     components = re.findall(r"[A-Za-z][^A-Z]*", label)
     valid_components = []
@@ -157,13 +157,13 @@ def extract_form_qids(form_text: str):
 
     Parameters
     ----------
-        form_text : str
-            The text that defines the form within the query.
+    form_text : str
+        The text that defines the form within the query.
 
     Returns
     -------
-        list[str]
-            All QIDS that make up the form.
+    list[str]
+        All QIDS that make up the form.
     """
     qids_pattern = r"wikibase:grammaticalFeature .+ \."
     if match := re.search(pattern=qids_pattern, string=form_text):
@@ -179,13 +179,13 @@ def check_form_label(form_text: str):
 
     Parameters
     ----------
-        form_text : str
-            The text that defines the form within the query.
+    form_text : str
+        The text that defines the form within the query.
 
     Returns
     -------
-        bool
-            Whether the form and its current representation label match (repForm and rep).
+    bool
+        Whether the form and its current representation label match (repForm and rep).
     """
     form_label_line_pattern = r"\?lexeme ontolex:lexicalForm .* \."
 
@@ -221,13 +221,13 @@ def check_query_formatting(form_text: str):
 
     Parameters
     ----------
-        query_text : str
-            The SPARQL query text to check.
+    query_text : str
+        The SPARQL query text to check.
 
     Returns
     -------
-        bool
-            Whether there are formatting errors with the query.
+    bool
+        Whether there are formatting errors with the query.
     """
     # Check for spaces before commas that should not exist.
     if re.search(r"\s,", form_text):
@@ -249,13 +249,13 @@ def return_correct_form_label(qids: list):
 
     Parameters
     ----------
-        qids : list[str]
-            All QIDS that make up the form.
+    qids : list[str]
+        All QIDS that make up the form.
 
     Returns
     -------
-        correct_label : str
-            The label for the representation given the QIDs.
+    correct_label : str
+        The label for the representation given the QIDs.
     """
     if not qids:
         return "Invalid query formatting found"
@@ -289,14 +289,14 @@ def validate_forms(query_text: str) -> str:
 
     Parameters
     ----------
-        query_file : str
-            The SPARQL query text as a string.
+    query_file : str
+        The SPARQL query text as a string.
 
     Returns
     -------
-        str
-            Error message if there are any issues with the order of variables or forms,
-            otherwise an empty string.
+    str
+        Error message if there are any issues with the order of variables or forms,
+        otherwise an empty string.
     """
     select_pattern = r"SELECT\s+(.*?)\s+WHERE"
 
@@ -376,13 +376,13 @@ def check_docstring(query_text: str) -> bool:
 
     Parameters
     ----------
-        query_text : str
-            The SPARQL query's text to be checked.
+    query_text : str
+        The SPARQL query's text to be checked.
 
     Returns
     -------
-        bool
-            True if the docstring is correctly formatted.
+    bool
+        True if the docstring is correctly formatted.
     """
     # Split the text into lines.
     query_lines = query_text.splitlines(keepends=True)
@@ -418,14 +418,14 @@ def check_forms_order(query_text):
 
     Parameters
     ----------
-        query_text : str
-            The SPARQL query text containing the SELECT statement with variables.
+    query_text : str
+        The SPARQL query text containing the SELECT statement with variables.
 
     Returns
     -------
-        list or bool
-            A sorted list of variables if the ordering differs from the original,
-            otherwise a boolean indicating that the order matches.
+    list or bool
+        A sorted list of variables if the ordering differs from the original,
+        otherwise a boolean indicating that the order matches.
     """
     select_pattern = r"SELECT\s+(.*?)\s+WHERE"
 
@@ -496,14 +496,14 @@ def check_optional_qid_order(query_file: str) -> str:
 
     Parameters
     ----------
-        query_file : str
-            The path to the SPARQL query file to be checked.
+    query_file : str
+        The path to the SPARQL query file to be checked.
 
     Returns
     -------
-        str
-            A formatted string with details on any order mismatches in the QIDs, or an empty
-            string if all QIDs are correctly ordered.
+    str
+        A formatted string with details on any order mismatches in the QIDs, or an empty
+        string if all QIDs are correctly ordered.
     """
     forms = extract_forms_from_sparql(query_file)
     error_messages = []

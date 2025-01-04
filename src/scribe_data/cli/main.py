@@ -24,6 +24,7 @@ Setup and commands for the Scribe-Data command line interface.
 import argparse
 from pathlib import Path
 
+from questionary import select
 from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
@@ -35,6 +36,7 @@ from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.total import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
+from scribe_data.wiktionary.parse_mediaWiki import parse_wiktionary_translations
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
 GET_DESCRIPTION = (
@@ -167,6 +169,9 @@ def main() -> None:
         type=str,
         help="Path to a local Wikidata lexemes dump for running with '--all'.",
     )
+    get_parser.add_argument(
+        "-t", "--translation", type=str, help="parse a single word using MediaWiki API"
+    )
 
     # MARK: Total
 
@@ -200,7 +205,8 @@ def main() -> None:
     total_parser.add_argument(
         "-wdp",
         "--wikidata-dump-path",
-        type=str,
+        nargs="?",
+        const=True,
         help="Path to a local Wikidata lexemes dump for running with '--all'.",
     )
 
@@ -284,8 +290,8 @@ def main() -> None:
     download_parser = subparsers.add_parser(
         "download",
         aliases=["d"],
-        help="Download Wikidata dumps.",
-        description="Download Wikidata dumps from dumps.wikimedia.org.",
+        help="Download Wikidata lexeme dumps.",
+        description="Download Wikidata lexeme dumps from dumps.wikimedia.org.",
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
@@ -295,14 +301,24 @@ def main() -> None:
         "--wikidata-dump-version",
         nargs="?",
         const="latest",
-        help="Download Wikidata dump. Optionally specify date in YYYYMMDD format.",
+        help="Download Wikidata lexeme dump. Optionally specify date in YYYYMMDD format.",
     )
     download_parser.add_argument(
-        "-od",
-        "--output-dir",
+        "-wdp",
+        "--wikidata-dump-path",
         type=str,
         help="The output directory path for the downloaded dump.",
     )
+
+    # MARK: Interactive
+
+    interactive_parser = subparsers.add_parser(
+        "interactive",
+        aliases=["i"],
+        help="Run in interactive mode.",
+        description="Run in interactive mode.",
+    )
+    interactive_parser._actions[0].help = "Show this help message and exit."
 
     # MARK: Setup CLI
 
@@ -347,7 +363,8 @@ def main() -> None:
         elif args.command in ["get", "g"]:
             if args.interactive:
                 start_interactive_mode(operation="get")
-
+            if args.translation:
+                parse_wiktionary_translations(args.translation)
             else:
                 get_data(
                     language=args.language.lower()
@@ -400,8 +417,38 @@ def main() -> None:
                 wikidata_dump=args.wikidata_dump_version
                 if args.wikidata_dump_version != "latest"
                 else None,
-                output_dir=args.output_dir,
+                output_dir=args.wikidata_dump_path,
             )
+
+        elif args.command in ["interactive", "i"]:
+            rprint(
+                f"[bold cyan]Welcome to {get_version_message()} interactive mode![/bold cyan]"
+            )
+            action = select(
+                "What would you like to do?",
+                choices=[
+                    "Download a Wikidata lexemes dump",
+                    "Check for totals",
+                    "Get data",
+                    "Get translations",
+                    "Exit",
+                ],
+            ).ask()
+
+            if action == "Download a Wikidata lexemes dump":
+                wd_lexeme_dump_download_wrapper()
+
+            elif action == "Check for totals":
+                start_interactive_mode(operation="total")
+
+            elif action == "Get data":
+                start_interactive_mode(operation="get")
+
+            elif action == "Get translations":
+                start_interactive_mode(operation="translations")
+
+            else:
+                print("Skipping action")
 
         else:
             parser.print_help()

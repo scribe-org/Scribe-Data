@@ -24,6 +24,7 @@ import os  # for removing original JSON files
 from pathlib import Path
 from typing import List, Union
 
+import questionary
 from rich import print as rprint
 
 from scribe_data.cli.convert import convert_wrapper
@@ -55,39 +56,39 @@ def get_data(
 
     Parameters
     ----------
-        language : str
-            The language(s) to get.
+    language : str
+        The language(s) to get.
 
-        data_type : str
-            The data type(s) to get.
+    data_type : str
+        The data type(s) to get.
 
-        output_type : str
-            The output file type.
+    output_type : str
+        The output file type.
 
-        output_dir : str
-            The output directory path for results.
+    output_dir : str
+        The output directory path for results.
 
-        outputs_per_entry : str
-            How many outputs should be generated per data entry.
+    outputs_per_entry : str
+        How many outputs should be generated per data entry.
 
-        overwrite : bool (default: False)
-            Whether to overwrite existing files.
+    overwrite : bool (default: False)
+        Whether to overwrite existing files.
 
-        all_bool : bool
-            Get all languages and data types.
+    all_bool : bool
+        Get all languages and data types.
 
-        interactive : bool (default: False)
-            Whether it's running in interactive mode.
+    interactive : bool (default: False)
+        Whether it's running in interactive mode.
 
-        identifier_case : str
-            The case format for identifiers. Default is "camel".
+    identifier_case : str
+        The case format for identifiers. Default is "camel".
 
-        wikidata_dump : str
-            The local Wikidata dump that can be used to process data.
+    wikidata_dump : str
+        The local Wikidata lexeme dump that can be used to process data.
 
     Returns
     -------
-        The requested data saved locally given file type and location arguments.
+    The requested data saved locally given file type and location arguments.
     """
     # MARK: Defaults
 
@@ -108,16 +109,20 @@ def get_data(
         """
         Checks with the user if they'd rather use Wikidata lexeme dumps before a download all call.
         """
-        download_all_input = input(
-            "Do you want to query Wikidata, or would you rather use Wikidata lexeme dumps? (y/N): "
-        )
-        return download_all_input == "y"
+        return questionary.confirm(
+            "Do you want to query Wikidata directly? (selecting 'no' will use Wikidata lexeme dumps)",
+            default=False,
+        ).ask()
 
     if all_bool:
         if language:
             if prompt_user_download_all():
-                parse_wd_lexeme_dump()
-
+                parse_wd_lexeme_dump(
+                    language=language,
+                    wikidata_dump_type=["form"],
+                    data_types=data_types,
+                    type_output_dir=output_dir,
+                )
             else:
                 language_or_sub_language = language.split(" ")[0]
                 print(f"Updating all data types for language: {language.title()}")
@@ -133,8 +138,12 @@ def get_data(
 
         elif data_type:
             if prompt_user_download_all():
-                parse_wd_lexeme_dump()
-
+                parse_wd_lexeme_dump(
+                    language=None,
+                    wikidata_dump_type=["form"],
+                    data_types=[data_type],
+                    type_output_dir=output_dir,
+                )
             else:
                 print(f"Updating all languages for data type: {data_type.capitalize()}")
                 query_data(
@@ -150,14 +159,45 @@ def get_data(
         else:
             print("Updating all languages and data types...")
             rprint(
-                "[bold red]Note that the download all functionality must use Wikidata dumps to observe responsible Wikidata Query Service usage practices.[/bold red]"
+                "[bold red]Note that the download all functionality must use Wikidata lexeme dumps to observe responsible Wikidata Query Service usage practices.[/bold red]"
             )
-            parse_wd_lexeme_dump()
+            parse_wd_lexeme_dump(
+                language="all",
+                wikidata_dump_type=["form", "translations"],
+                data_types="all",
+                type_output_dir=output_dir,
+                wikidata_dump_path=wikidata_dump,
+            )
 
     # MARK: Emojis
 
     elif data_type in {"emoji-keywords", "emoji_keywords"}:
         generate_emoji(language=language, output_dir=output_dir)
+
+    # MARK: Translations
+
+    elif data_type == "translations":
+        if language is None:
+            language = "all"
+        parse_wd_lexeme_dump(
+            language=language,
+            wikidata_dump_type=["translations"],
+            type_output_dir=output_dir,
+            wikidata_dump_path=wikidata_dump,
+        )
+        return
+
+    # MARK: Form Dump
+
+    elif wikidata_dump:
+        parse_wd_lexeme_dump(
+            language=language,
+            wikidata_dump_type=["form"],
+            data_types=data_types,
+            type_output_dir=output_dir,
+            wikidata_dump_path=wikidata_dump,
+        )
+        return
 
     # MARK: Query Data
 

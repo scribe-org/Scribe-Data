@@ -47,24 +47,24 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
 
     Parameters
     ----------
-        language : str (default=en)
-            The language of Wikipedia to download.
+    language : str (default=en)
+        The language of Wikipedia to download.
 
-        target_dir : pathlib.Path (default=wiki_dump)
-            The directory in the pwd into which files should be downloaded.
+    target_dir : pathlib.Path (default=wiki_dump)
+        The directory in the pwd into which files should be downloaded.
 
-        file_limit : int (default=None, all files)
-            The limit for the number of files to download.
+    file_limit : int (default=None, all files)
+        The limit for the number of files to download.
 
-        dump_id : str (default=None)
-            The id of an explicit Wikipedia dump that the user wants to download.
+    dump_id : str (default=None)
+        The id of an explicit Wikipedia dump that the user wants to download.
 
-            Note: a value of None will select the third from the last (latest stable dump).
+        Note: a value of None will select the third from the last (latest stable dump).
 
     Returns
     -------
-        file_info : list of lists
-            Information on the downloaded Wikipedia dump files.
+    file_info : list of lists
+        Information on the downloaded Wikipedia dump files.
     """
     if file_limit is not None:
         assert isinstance(
@@ -148,16 +148,16 @@ def _process_article(title, text):
 
     Parameters
     ----------
-        title : str
-            The title of the article.
+    title : str
+        The title of the article.
 
-        text : str
-            The text to be processed.
+    text : str
+        The text to be processed.
 
     Returns
     -------
-        title, text:  string, string
-            The data from the article.
+    title, text:  string, string
+        The data from the article.
     """
     wikicode = mwparserfromhell.parse(text)
 
@@ -173,24 +173,24 @@ def iterate_and_parse_file(args):
 
     Parameters
     ----------
-        args : tuple
-            The below arguments as a tuple for pool.imap_unordered rather than pool.starmap.
+    args : tuple
+        The below arguments as a tuple for pool.imap_unordered rather than pool.starmap.
 
-        input_path : pathlib.Path
-            The path to the data file.
+    input_path : pathlib.Path
+        The path to the data file.
 
-        partitions_dir : pathlib.Path
-            The path to where output file should be stored.
+    partitions_dir : pathlib.Path
+        The path to where output file should be stored.
 
-        article_limit : int (default=None)
-            An optional article_limit of the number of articles to find.
+    article_limit : int (default=None)
+        An optional article_limit of the number of articles to find.
 
-        verbose : bool (default=True)
-            Whether to show a tqdm progress bar for the processes.
+    verbose : bool (default=True)
+        Whether to show a tqdm progress bar for the processes.
 
     Returns
     -------
-        A parsed file Wikipedia dump file with articles.
+    A parsed file Wikipedia dump file with articles.
     """
     input_path, partitions_dir, article_limit, verbose = args
 
@@ -296,30 +296,30 @@ def parse_to_ndjson(
 
     Parameters
     ----------
-        output_path : str (default=articles)
-            The name of the final output ndjson file.
+    output_path : str (default=articles)
+        The name of the final output ndjson file.
 
-        input_dir : str (default=wikipedia_dump)
-            The path to the directory where the data is stored.
+    input_dir : str (default=wikipedia_dump)
+        The path to the directory where the data is stored.
 
-        partitions_dir : str (default=partitions)
-            The path to the directory where the output should be stored.
+    partitions_dir : str (default=partitions)
+        The path to the directory where the output should be stored.
 
-        article_limit : int (default=None)
-            An optional limit of the number of articles per dump file to find.
+    article_limit : int (default=None)
+        An optional limit of the number of articles per dump file to find.
 
-        delete_parsed_files : bool (default=False)
-            Whether to delete the separate parsed files after combining them.
+    delete_parsed_files : bool (default=False)
+        Whether to delete the separate parsed files after combining them.
 
-        multicore : bool (default=True)
-            Whether to use multicore processing.
+    multicore : bool (default=True)
+        Whether to use multicore processing.
 
-        verbose : bool (default=True)
-            Whether to show a tqdm progress bar for the processes.
+    verbose : bool (default=True)
+        Whether to show a tqdm progress bar for the processes.
 
     Returns
     -------
-        Wikipedia dump files parsed and converted to json files.
+    Wikipedia dump files parsed and converted to json files.
     """
     output_dir = "/".join(list(output_path.split("/")[:-1]))
     if not output_dir.exists():

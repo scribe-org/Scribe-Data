@@ -52,15 +52,15 @@ def gen_emoji_lexicon(
 
     Parameters
     ----------
-        language : string (default=None)
-            The language keywords are being generated for.
+    language : string (default=None)
+        The language keywords are being generated for.
 
-        emojis_per_keyword : int (default=None)
-            The limit for number of emoji keywords that should be generated per keyword.
+    emojis_per_keyword : int (default=None)
+        The limit for number of emoji keywords that should be generated per keyword.
 
     Returns
     -------
-        Keywords dictionary for emoji keywords-to-unicode are saved locally or uploaded to Scribe apps.
+    Keywords dictionary for emoji keywords-to-unicode are saved locally or uploaded to Scribe apps.
     """
     if not icu_installed:
         raise ImportError("Could not import required PyICU functionality.")
