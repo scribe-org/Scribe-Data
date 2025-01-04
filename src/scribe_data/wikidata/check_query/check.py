@@ -49,15 +49,15 @@ def ping(url: str, timeout: int) -> bool:
 
     Parameters
     ----------
-        url : str
-            The URL to test.
+    url : str
+        The URL to test.
 
-        timeout : int
-            The maximum number of seconds to wait for a reply.
+    timeout : int
+        The maximum number of seconds to wait for a reply.
 
     Returns
     -------
-        bool : True if connectivity is established or False otherwise.
+    bool : True if connectivity is established or False otherwise.
     """
     try:
         with urllib.request.urlopen(url, timeout=timeout) as response:
@@ -132,12 +132,12 @@ def check_sparql_file(fpath: str) -> Path:
 
     Parameters
     ----------
-        fpath : str
-            The file to validate.
+    fpath : str
+        The file to validate.
 
     Returns
     -------
-        Path : the validated file.
+    Path : the validated file.
     """
     path = Path(fpath)
 
@@ -156,19 +156,20 @@ def check_positive_int(value: str, err_msg: str) -> int:
 
     Parameters
     ----------
-        value : str
-            The value to be validated.
+    value : str
+        The value to be validated.
 
-        err_msg : str
-            Used when value fails validation.
+    err_msg : str
+        Used when value fails validation.
 
     Returns
     -------
-        int : the validated number.
+    int
+        The validated number.
 
     Raises
     ------
-        argparse.ArgumentTypeError
+    argparse.ArgumentTypeError
     """
     with contextlib.suppress(ValueError):
         number = int(value)
@@ -184,16 +185,17 @@ def check_limit(limit: str) -> int:
 
     Parameters
     ----------
-        limit : str
-            The LIMIT to be validated.
+    limit : str
+        The LIMIT to be validated.
 
     Returns
     -------
-        int : the validated LIMIT.
+    int
+        The validated LIMIT.
 
     Raises
     ------
-        argparse.ArgumentTypeError
+    argparse.ArgumentTypeError
     """
     return check_positive_int(limit, "LIMIT must be an integer of value 1 or greater.")
 
@@ -204,16 +206,17 @@ def check_timeout(timeout: str) -> int:
 
     Parameters
     ----------
-        timeout : str
-            The timeout to be validated.
+    timeout : str
+        The timeout to be validated.
 
     Returns
     -------
-        int : the validated timeout.
+    int
+        The validated timeout.
 
     Raises
     ------
-        argparse.ArgumentTypeError
+    argparse.ArgumentTypeError
     """
     return check_positive_int(
         timeout, "timeout must be an integer of value 1 or greater."
@@ -226,12 +229,13 @@ def main(argv=None) -> int:
 
     Parameters
     ----------
-        argv (default=None)
-            If set to None then argparse will use sys.argv as the arguments.
+    argv (default=None)
+        If set to None then argparse will use sys.argv as the arguments.
 
     Returns
     --------
-        int : the exit status - 0 - success; any other value - failure.
+    int
+        The exit status - 0 - success; any other value - failure.
     """
     cli = argparse.ArgumentParser(
         description=f"run SPARQL queries from the '{PROJECT_ROOT}' project",
@@ -356,7 +360,8 @@ def error_report(failures: list[QueryExecutionException]) -> None:
 
     Parameters
     ----------
-        failures (list[QueryExecutionException]) : failed queries.
+    failures : list[QueryExecutionException]
+        Failed queries.
     """
     if not failures:
         return
@@ -373,11 +378,11 @@ def success_report(successes: list[tuple[QueryFile, dict]], display: bool) -> No
 
     Parameters
     ----------
-        successes : list[tuple[QueryFile, dict]]
-            Successful queries.
+    successes : list[tuple[QueryFile, dict]]
+        Successful queries.
 
-        display : bool
-            Whether there should be an output or not.
+    display : bool
+        Whether there should be an output or not.
     """
     if not (display and successes):
         return

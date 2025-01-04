@@ -35,7 +35,7 @@ from scribe_data.utils import (
     language_to_qid,
     list_all_languages,
 )
-from scribe_data.wikidata.wikidata_utils import sparql
+from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump, sparql
 
 
 def get_qid_by_input(input_str):
@@ -44,13 +44,13 @@ def get_qid_by_input(input_str):
 
     Parameters
     ----------
-        input_str : str
-            The input string representing a language or data type.
+    input_str : str
+        The input string representing a language or data type.
 
     Returns
     -------
-        str or None
-            The QID corresponding to the input string, or- None if not found.
+    str or None
+        The QID corresponding to the input string, or- None if not found.
     """
     if input_str:
         if input_str in language_to_qid:
@@ -68,13 +68,13 @@ def get_datatype_list(language):
 
     Parameters
     ----------
-        language : str
-            The language to return data types for.
+    language : str
+        The language to return data types for.
 
     Returns
     -------
-        data_types : list[str] or None
-            A list of the corresponding data types.
+    data_types : list[str] or None
+        A list of the corresponding data types.
     """
     language_key = language.strip().lower()  # normalize input
     languages = list_all_languages(language_metadata)
@@ -128,18 +128,18 @@ def check_qid_is_language(qid: str):
     """
     Parameters
     ----------
-        qid : str
-            The QID to check Wikidata to see if it's a language and return its English label.
+    qid : str
+        The QID to check Wikidata to see if it's a language and return its English label.
 
     Outputs
     -------
-        str
-            The English label of the Wikidata language entity.
+    str
+        The English label of the Wikidata language entity.
 
     Raises
     ------
-        ValueError
-            An invalid QID that's not a language has been passed.
+    ValueError
+        An invalid QID that's not a language has been passed.
     """
     api_endpoint = "https://www.wikidata.org/w/rest.php/wikibase/v0"
     request_string = f"{api_endpoint}/entities/items/{qid}"
@@ -166,13 +166,13 @@ def print_total_lexemes(language: str = None):
 
     Parameters
     ----------
-        language : str (Default=None)
-            The language to display data type entity counts for.
+    language : str (Default=None)
+        The language to display data type entity counts for.
 
     Outputs
     -------
-        str
-            A formatted string indicating the language, data type, and total number of lexemes for all the languages, if found.
+    str
+        A formatted string indicating the language, data type, and total number of lexemes for all the languages, if found.
     """
     if language is None:
         print("Returning total counts for all languages and data types...\n")
@@ -370,7 +370,7 @@ def total_wrapper(
     language: Union[str, List[str]] = None,
     data_type: Union[str, List[str]] = None,
     all_bool: bool = False,
-    wikidata_dump: str = None,
+    wikidata_dump: Union[str, bool] = None,
 ) -> None:
     """
     Conditionally provides the full functionality of the total command.
@@ -378,18 +378,38 @@ def total_wrapper(
 
     Parameters
     ----------
-        language : Union[str, List[str]]
-            The language(s) to potentially total data types for.
+    language : Union[str, List[str]]
+        The language(s) to potentially total data types for.
 
-        data_type : Union[str, List[str]]
-            The data type(s) to check for.
+    data_type : Union[str, List[str]]
+        The data type(s) to check for.
 
-        all_bool : boolean
-            Whether all languages and data types should be listed.
+    all_bool : boolean
+        Whether all languages and data types should be listed.
 
-        wikidata_dump : str
-            The local Wikidata dump that can be used to process data.
+    wikidata_dump : Union[str, bool]
+        The local Wikidata lexeme dump path that can be used to process data.
+        If True, indicates the flag was used without a path.
     """
+    # Handle --all flag
+    if all_bool and wikidata_dump:
+        language = "all"
+
+    if wikidata_dump is True:  # flag without a wikidata lexeme dump path
+        parse_wd_lexeme_dump(
+            language=language,
+            wikidata_dump_type=["total"],
+            wikidata_dump_path=None,
+        )
+        return
+
+    if isinstance(wikidata_dump, str):  # if user provided a wikidata lexeme dump path
+        parse_wd_lexeme_dump(
+            language=language,
+            wikidata_dump_type=["total"],
+            wikidata_dump_path=wikidata_dump,
+        )
+        return
 
     if (not language and not data_type) and all_bool:
         print_total_lexemes()

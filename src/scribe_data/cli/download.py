@@ -27,6 +27,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+import questionary
 import requests
 from rich import print as rprint
 from tqdm import tqdm
@@ -45,13 +46,16 @@ def parse_date(date_string):
 
     Parameters
     ----------
-        date_string : str
-            The date string to be parsed.
+    date_string : str
+        The date string to be parsed.
 
     Returns
     -------
-        datetime.date : Parsed date object if the format is valid.
-        None : If the date format is invalid.
+    datetime.date
+        Parsed date object if the format is valid.
+
+    None
+        If the date format is invalid.
     """
     formats = ["%Y%m%d", "%Y/%m/%d", "%Y-%m-%d"]
     for fmt in formats:
@@ -75,19 +79,22 @@ def available_closest_lexeme_dumpfile(
 
     Parameters
     ----------
-        target_entity : str
-            The target date for which the dump is requested (format: YYYY/MM/DD or similar).
+    target_entity : str
+        The target date for which the dump is requested (format: YYYY/MM/DD or similar).
 
-        other_old_dumps : list
-            List of available dump folders as strings.
+    other_old_dumps : list
+        List of available dump folders as strings.
 
-        check_wd_dump_exists : function
-            A function to validate if the dump file exists.
+    check_wd_dump_exists : function
+        A function to validate if the dump file exists.
 
     Returns
     -------
-        str : The closest available dump file date (as a string).
-        None : If no suitable dump is found.
+    str
+        The closest available dump file date (as a string).
+
+    None
+        If no suitable dump is found.
     """
     target_date = parse_date(target_entity)
     closest_date = None
@@ -121,16 +128,19 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
 
     Parameters
     ----------
-        target_entity : str, optional
-            The target dump to download. Defaults to "latest-lexemes".
+    target_entity : str, optional
+        The target dump to download. Defaults to "latest-lexemes".
 
-            - If "latest-lexemes", downloads the latest dump.
-            - If a valid date (e.g., YYYYMMDD), attempts to download the dump for that date.
+        - If "latest-lexemes", downloads the latest dump.
+        - If a valid date (e.g., YYYYMMDD), attempts to download the dump for that date.
 
     Returns
     -------
-        str : The URL of the requested or closest available dump.
-        None : If no suitable dump is found or the request fails.
+    str
+        The URL of the requested or closest available dump.
+
+    None
+        If no suitable dump is found or the request fails.
     """
     base_url = "https://dumps.wikimedia.org/wikidatawiki/entities"
 
@@ -218,12 +228,12 @@ def wd_lexeme_dump_download_wrapper(
 
     Parameters
     ----------
-        wikidata_dump : str
-            Optional date string in YYYYMMDD format for specific dumps.
+    wikidata_dump : str
+        Optional date string in YYYYMMDD format for specific dumps.
 
-        output_dir : str
-            Optional directory path for the downloaded file.
-            Defaults to 'scribe_data_wikidata_dumps_export' directory.
+    output_dir : str
+        Optional directory path for the downloaded file.
+        Defaults to 'scribe_data_wikidata_dumps_export' directory.
     """
     dump_url = download_wd_lexeme_dump(wikidata_dump or "latest-lexemes")
 
@@ -244,16 +254,12 @@ def wd_lexeme_dump_download_wrapper(
         filename = dump_url.split("/")[-1]
         output_path = str(Path(output_dir) / filename)
 
-        user_response = (
-            input(
-                "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities."
-                "\nDo you want to proceed? (y/n): "
-            )
-            .strip()
-            .lower()
-        )
+        user_response = questionary.confirm(
+            "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities. Do you want to proceed?",
+            default=True,
+        ).ask()
 
-        if user_response == "y":
+        if user_response:
             rprint(f"[bold blue]Downloading dump to {output_path}...[/bold blue]")
 
             response = requests.get(dump_url, stream=True)

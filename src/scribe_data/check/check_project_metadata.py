@@ -88,16 +88,16 @@ def get_missing_languages(
 
     Parameters
     ----------
-        reference_languages : dict
-            A dictionary of languages from the reference source.
+    reference_languages : dict
+        A dictionary of languages from the reference source.
 
-        target_languages : dict
-            A dictionary of languages from the target source to check for missing entries.
+    target_languages : dict
+        A dictionary of languages from the target source to check for missing entries.
 
     Returns
     -------
-        list[str]
-            A list of languages and sub-languages that are in target_languages but not in reference_languages.
+    list[str]
+        A list of languages and sub-languages that are in target_languages but not in reference_languages.
     """
     missing_languages = []
     reference_keys = reference_languages.keys()
@@ -130,17 +130,17 @@ def validate_language_properties(languages_dict: dict) -> dict:
 
     Parameters
     ----------
-        languages_dict : dict
-            A dictionary where each key is a language, and the value is another dictionary containing details about the language. If the language has sub-languages, they are stored under the 'sub_languages' key.
+    languages_dict : dict
+        A dictionary where each key is a language, and the value is another dictionary containing details about the language. If the language has sub-languages, they are stored under the 'sub_languages' key.
 
     Returns
     -------
-        dict: A dictionary with two lists:
-            - "missing_qids": Languages or sub-languages missing the 'qid' property.
-            - "missing_isos": Languages or sub-languages missing the 'iso' property.
+    dict: A dictionary with two lists:
+        - "missing_qids": Languages or sub-languages missing the 'qid' property.
+        - "missing_isos": Languages or sub-languages missing the 'iso' property.
 
-            Each entry in these lists is in the format "parent_language - sub_language" for sub-languages,
-            or simply "parent_language" for the parent languages.
+        Each entry in these lists is in the format "parent_language - sub_language" for sub-languages,
+        or simply "parent_language" for the parent languages.
     """
     missing_qids = []
     missing_isos = []

@@ -70,8 +70,8 @@ def list_data_types(language: str = None) -> None:
 
     Parameters
     ----------
-        language : str
-            The language to potentially list data types for.
+    language : str
+        The language to potentially list data types for.
     """
     languages = list_all_languages(language_metadata)
     if language:
@@ -142,8 +142,8 @@ def list_languages_for_data_type(data_type: str) -> None:
 
     Parameters
     ----------
-        data_type : str
-            The data type to check for.
+    data_type : str
+        The data type to check for.
     """
     data_type = correct_data_type(data_type=data_type)
     all_languages = list_languages_with_metadata_for_data_type(language_metadata)
@@ -179,14 +179,14 @@ def list_wrapper(
 
     Parameters
     ----------
-        language : str
-            The language to potentially list data types for.
+    language : str
+        The language to potentially list data types for.
 
-        data_type : str
-            The data type to check for.
+    data_type : str
+        The data type to check for.
 
-        all_bool : boolean
-            Whether all languages and data types should be listed.
+    all_bool : boolean
+        Whether all languages and data types should be listed.
     """
     if (not language and not data_type) or all_bool:
         list_all()

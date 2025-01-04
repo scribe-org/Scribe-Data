@@ -47,18 +47,18 @@ def execute_formatting_script(output_dir: str, language: str, data_type: str):
 
     Parameters
     ----------
-        output_dir : str
-            The output directory path for results.
+    output_dir : str
+        The output directory path for results.
 
-        language : str
-            The language for which the data is being loaded.
+    language : str
+        The language for which the data is being loaded.
 
-        data_type : str
-            The type of data being loaded (e.g. 'nouns', 'verbs').
+    data_type : str
+        The type of data being loaded (e.g. 'nouns', 'verbs').
 
     Returns
     -------
-        The results of the formatting script saved in the given output directory.
+    The results of the formatting script saved in the given output directory.
     """
     formatting_file_path = Path(__file__).parent / "format_data.py"
 
@@ -108,21 +108,21 @@ def query_data(
 
     Parameters
     ----------
-        language : str
-            The language(s) to get.
+    language : str
+        The language(s) to get.
 
-        data_type : str
-            The data type(s) to get.
+    data_type : str
+        The data type(s) to get.
 
-        output_dir : str
-            The output directory path for results.
+    output_dir : str
+        The output directory path for results.
 
-        overwrite : bool (default: False)
-            Whether to overwrite existing files.
+    overwrite : bool (default: False)
+        Whether to overwrite existing files.
 
     Returns
     -------
-        Formatted data from Wikidata saved in the output directory.
+    Formatted data from Wikidata saved in the output directory.
     """
     current_languages = list_all_languages(language_metadata)
     current_data_type = ["nouns", "verbs", "prepositions"]

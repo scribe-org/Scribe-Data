@@ -51,30 +51,30 @@ def convert_to_json(
 
     Parameters
     ----------
-        language : str
-            The language of the file to convert.
+    language : str
+        The language of the file to convert.
 
-        data_type : Union[str, List[str]]
-            The data type of the file to convert.
+    data_type : Union[str, List[str]]
+        The data type of the file to convert.
 
-        output_type : str
-            The output format, should be "json".
+    output_type : str
+        The output format, should be "json".
 
-        input_file : str
-            The input CSV/TSV file path.
+    input_file : str
+        The input CSV/TSV file path.
 
-        output_dir : Path
-            The output directory path for results.
+    output_dir : Path
+        The output directory path for results.
 
-        overwrite : bool
-            Whether to overwrite existing files.
+    overwrite : bool
+        Whether to overwrite existing files.
 
-        identifier_case : str
-            The case format for identifiers. Default is "camel".
+    identifier_case : str
+        The case format for identifiers. Default is "camel".
 
     Returns
     -------
-        None
+    None
     """
     if not language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
@@ -205,30 +205,30 @@ def convert_to_csv_or_tsv(
 
     Parameters
     ----------
-        language : str
-            The language of the file to convert.
+    language : str
+        The language of the file to convert.
 
-        data_type : Union[str, List[str]]
-            The data type of the file to convert.
+    data_type : Union[str, List[str]]
+        The data type of the file to convert.
 
-        output_type : str
-            The output format, should be "csv" or "tsv".
+    output_type : str
+        The output format, should be "csv" or "tsv".
 
-        input_file : str
-            The input JSON file path.
+    input_file : str
+        The input JSON file path.
 
-        output_dir : str
-            The output directory path for results.
+    output_dir : str
+        The output directory path for results.
 
-        overwrite : bool
-            Whether to overwrite existing files.
+    overwrite : bool
+        Whether to overwrite existing files.
 
-        identifier_case : str
-            The case format for identifiers. Default is "camel".
+    identifier_case : str
+        The case format for identifiers. Default is "camel".
 
     Returns
     -------
-        None
+    None
     """
     if not language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
@@ -391,30 +391,30 @@ def convert_to_sqlite(
 
     Parameters
     ----------
-        language : str
-            The language of the file to convert.
+    language : str
+        The language of the file to convert.
 
-        data_type : str
-            The data type of the file to convert.
+    data_type : str
+        The data type of the file to convert.
 
-        output_type : str
-            The output format, should be "sqlite".
+    output_type : str
+        The output format, should be "sqlite".
 
-        input_file : Path
-            The input file path for the data to be converted.
+    input_file : Path
+        The input file path for the data to be converted.
 
-        output_dir : Path
-            The output directory path for results.
+    output_dir : Path
+        The output directory path for results.
 
-        overwrite : bool
-            Whether to overwrite existing files.
+    overwrite : bool
+        Whether to overwrite existing files.
 
-        identifier_case : str
-            The case format for identifiers. Default is "camel".
+    identifier_case : str
+        The case format for identifiers. Default is "camel".
 
     Returns
     -------
-        A SQLite file saved in the given location.
+    A SQLite file saved in the given location.
     """
     if input_file:
         input_file = Path(input_file)
@@ -487,7 +487,7 @@ def convert_wrapper(
 
     Returns
     -------
-        None
+    None
     """
     output_type = output_type.lower()
 
