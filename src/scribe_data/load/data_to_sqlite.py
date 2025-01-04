@@ -46,13 +46,16 @@ def data_to_sqlite(
 ) -> None:
     PATH_TO_SCRIBE_DATA = Path(__file__).parent.parent
 
-    with open(
-        PATH_TO_SCRIBE_DATA / "resources" / "language_metadata.json",
-        encoding="utf-8",
-    ) as f_languages, open(
-        PATH_TO_SCRIBE_DATA / "resources" / "data_type_metadata.json",
-        encoding="utf-8",
-    ) as f_data_types:
+    with (
+        open(
+            PATH_TO_SCRIBE_DATA / "resources" / "language_metadata.json",
+            encoding="utf-8",
+        ) as f_languages,
+        open(
+            PATH_TO_SCRIBE_DATA / "resources" / "data_type_metadata.json",
+            encoding="utf-8",
+        ) as f_data_types,
+    ):
         current_language_data = json.load(f_languages)
         data_types = json.load(f_data_types).keys()
 

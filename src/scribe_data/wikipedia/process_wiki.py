@@ -33,10 +33,7 @@ import numpy as np
 import regex
 from tqdm.auto import tqdm
 
-from scribe_data.utils import (
-    DEFAULT_JSON_EXPORT_DIR,
-    get_language_qid,
-)
+from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR, get_language_qid
 from scribe_data.wikidata.wikidata_utils import sparql
 
 warnings.filterwarnings("ignore", message=r"Passing", category=FutureWarning)

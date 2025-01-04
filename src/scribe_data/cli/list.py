@@ -23,9 +23,7 @@ Functions for listing languages and data types for the Scribe-Data CLI.
 import os
 from pathlib import Path
 
-from scribe_data.cli.cli_utils import (
-    correct_data_type,
-)
+from scribe_data.cli.cli_utils import correct_data_type
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
     format_sublanguage_name,

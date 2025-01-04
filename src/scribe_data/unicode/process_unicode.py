@@ -37,13 +37,8 @@ except ImportError:
 
 from tqdm.auto import tqdm
 
-from scribe_data.unicode.unicode_utils import (
-    get_emoji_codes_to_ignore,
-)
-from scribe_data.utils import (
-    DEFAULT_JSON_EXPORT_DIR,
-    get_language_iso,
-)
+from scribe_data.unicode.unicode_utils import get_emoji_codes_to_ignore
+from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR, get_language_iso
 
 emoji_codes_to_ignore = get_emoji_codes_to_ignore()
 
