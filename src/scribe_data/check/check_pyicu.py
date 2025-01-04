@@ -27,8 +27,8 @@ import sys
 from pathlib import Path
 
 import pkg_resources
+import questionary
 import requests
-from questionary import confirm
 
 
 def check_if_pyicu_installed():
@@ -90,15 +90,15 @@ def download_wheel_file(wheel_url, output_dir):
 
     Parameters
     ----------
-        wheel_url : str
-            The URL of the wheel file to download.
+    wheel_url : str
+        The URL of the wheel file to download.
 
-        output_dir : str
-            The directory to save the downloaded file.
+    output_dir : str
+        The directory to save the downloaded file.
 
     Returns
     -------
-        str : path to the downloaded wheel file.
+    str : path to the downloaded wheel file.
     """
     response = requests.get(wheel_url)
     response.raise_for_status()  # raise an error for bad responses
@@ -118,18 +118,18 @@ def find_matching_wheel(wheels, python_version, architecture):
 
     Parameters
     ----------
-        wheels : list
-            The list of available wheels.
+    wheels : list
+        The list of available wheels.
 
-        python_version : str
-            The Python version (e.g., 'cp311').
+    python_version : str
+        The Python version (e.g., 'cp311').
 
-        architecture : str
-            The architecture type (e.g., 'win_amd64').
+    architecture : str
+        The architecture type (e.g., 'win_amd64').
 
     Returns
     -------
-        str : The download URL of the matching wheel or None if not found.
+    str : The download URL of the matching wheel or None if not found.
     """
     return next(
         (
@@ -148,8 +148,7 @@ def check_and_install_pyicu():
         # Fetch available wheels from GitHub to estimate download size.
         wheels, total_size_mb = fetch_wheel_releases()
 
-        # Use questionary to ask for user confirmation
-        user_wants_to_proceed = confirm(
+        user_wants_to_proceed = questionary.confirm(
             f"{package_name} is not installed.\nScribe-Data can install the package and the needed dependencies."
             f"\nApproximately {total_size_mb:.2f} MB will be downloaded.\nDo you want to proceed?"
         ).ask()

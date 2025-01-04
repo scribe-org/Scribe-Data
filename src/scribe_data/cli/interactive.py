@@ -27,7 +27,6 @@ from typing import List
 import questionary
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
-from questionary import Choice
 from rich import print as rprint
 from rich.console import Console
 from rich.logging import RichHandler
@@ -37,14 +36,14 @@ from tqdm import tqdm
 # from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.get import get_data
 from scribe_data.cli.total import total_wrapper
-from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 from scribe_data.utils import (
-    DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_DUMP_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
     data_type_metadata,
     language_metadata,
     list_all_languages,
 )
+from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 
 # MARK: Config Setup
 
@@ -261,10 +260,12 @@ def request_total_lexeme_loop():
         choice = questionary.select(
             "What would you like to do?",
             choices=[
-                Choice("Configure total lexemes request", "total"),
-                Choice("Run total lexemes request", "run"),
-                Choice("Run total lexemes request with lexeme dumps", "run_all"),
-                Choice("Exit", "exit"),
+                questionary.Choice("Configure total lexemes request", "total"),
+                questionary.Choice("Run total lexemes request", "run"),
+                questionary.Choice(
+                    "Run total lexemes request with lexeme dumps", "run_all"
+                ),
+                questionary.Choice("Exit", "exit"),
             ],
         ).ask()
 
@@ -303,7 +304,7 @@ def request_total_lexeme_loop():
 #     See list of languages.
 #     """
 
-#     choice = questionary.select(
+#     choice = select(
 #         "What would you like to list?",
 #         choices=[
 #             Choice("All languages", "all_languages"),
@@ -327,42 +328,46 @@ def start_interactive_mode(operation: str = None):
 
     Parameters
     ----------
-        operation : str
-            The type of operation that interactive mode is being ran with.
+    operation : str
+        The type of operation that interactive mode is being ran with.
     """
     while True:
         # Check if both selected_languages and selected_data_types are empty.
         if not config.selected_languages and not config.selected_data_types:
             if operation == "get":
                 choices = [
-                    Choice("Configure get data request", "configure"),
+                    questionary.Choice("Configure get data request", "configure"),
                     # Choice("See list of languages", "languages"),
-                    Choice("Exit", "exit"),
+                    questionary.Choice("Exit", "exit"),
                 ]
 
             elif operation == "total":
                 choices = [
-                    Choice("Configure total lexemes request", "total"),
+                    questionary.Choice("Configure total lexemes request", "total"),
                     # Choice("See list of languages", "languages"),
-                    Choice("Exit", "exit"),
+                    questionary.Choice("Exit", "exit"),
                 ]
             elif operation == "translations":
                 choices = [
-                    Choice("Configure translations request", "translations"),
+                    questionary.Choice(
+                        "Configure translations request", "translations"
+                    ),
                     # Choice("See list of languages", "languages"),
-                    Choice("Exit", "exit"),
+                    questionary.Choice("Exit", "exit"),
                 ]
 
         else:
             choices = [
-                Choice("Configure get data request", "configure"),
-                Choice("Exit", "exit"),
+                questionary.Choice("Configure get data request", "configure"),
+                questionary.Choice("Exit", "exit"),
             ]
             if config.configured:
-                choices.insert(1, Choice("Request for get data", "run"))
+                choices.insert(1, questionary.Choice("Request for get data", "run"))
 
             else:
-                choices.insert(1, Choice("Request for total lexeme", "total"))
+                choices.insert(
+                    1, questionary.Choice("Request for total lexeme", "total")
+                )
 
         choice = questionary.select("What would you like to do?", choices=choices).ask()
 

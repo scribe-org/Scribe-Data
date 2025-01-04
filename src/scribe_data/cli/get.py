@@ -24,8 +24,8 @@ import os  # for removing original JSON files
 from pathlib import Path
 from typing import List, Union
 
-from rich import print as rprint
 import questionary
+from rich import print as rprint
 
 from scribe_data.cli.convert import convert_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
@@ -56,39 +56,39 @@ def get_data(
 
     Parameters
     ----------
-        language : str
-            The language(s) to get.
+    language : str
+        The language(s) to get.
 
-        data_type : str
-            The data type(s) to get.
+    data_type : str
+        The data type(s) to get.
 
-        output_type : str
-            The output file type.
+    output_type : str
+        The output file type.
 
-        output_dir : str
-            The output directory path for results.
+    output_dir : str
+        The output directory path for results.
 
-        outputs_per_entry : str
-            How many outputs should be generated per data entry.
+    outputs_per_entry : str
+        How many outputs should be generated per data entry.
 
-        overwrite : bool (default: False)
-            Whether to overwrite existing files.
+    overwrite : bool (default: False)
+        Whether to overwrite existing files.
 
-        all_bool : bool
-            Get all languages and data types.
+    all_bool : bool
+        Get all languages and data types.
 
-        interactive : bool (default: False)
-            Whether it's running in interactive mode.
+    interactive : bool (default: False)
+        Whether it's running in interactive mode.
 
-        identifier_case : str
-            The case format for identifiers. Default is "camel".
+    identifier_case : str
+        The case format for identifiers. Default is "camel".
 
-        wikidata_dump : str
-            The local Wikidata dump that can be used to process data.
+    wikidata_dump : str
+        The local Wikidata lexeme dump that can be used to process data.
 
     Returns
     -------
-        The requested data saved locally given file type and location arguments.
+    The requested data saved locally given file type and location arguments.
     """
     # MARK: Defaults
 
@@ -159,7 +159,7 @@ def get_data(
         else:
             print("Updating all languages and data types...")
             rprint(
-                "[bold red]Note that the download all functionality must use Wikidata dumps to observe responsible Wikidata Query Service usage practices.[/bold red]"
+                "[bold red]Note that the download all functionality must use Wikidata lexeme dumps to observe responsible Wikidata Query Service usage practices.[/bold red]"
             )
             parse_wd_lexeme_dump(
                 language="all",
@@ -187,7 +187,7 @@ def get_data(
         )
         return
 
-    # MARK: Query Data using Wikidata Dump
+    # MARK: Form Dump
 
     elif wikidata_dump:
         parse_wd_lexeme_dump(

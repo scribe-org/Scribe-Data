@@ -39,12 +39,13 @@ def sparql_context(url: str) -> SPARQL.SPARQLWrapper:
 
     Parameters
     ----------
-        url : str
-            A valid URL of a SPARQL endpoint.
+    url : str
+        A valid URL of a SPARQL endpoint.
 
     Returns
     -------
-        SPARQLWrapper : the context.
+    SPARQLWrapper
+        The context.
     """
     context = SPARQL.SPARQLWrapper(url)
     context.setReturnFormat(SPARQL.JSON)
@@ -61,21 +62,22 @@ def execute(
 
     Parameters
     ----------
-        query : QueryFile
-            The SPARQL query to run.
+    query : QueryFile
+        The SPARQL query to run.
 
-        limit : int
-            The maximum number of results a query should return.
+    limit : int
+        The maximum number of results a query should return.
 
-        context : SPARQLWrapper
-            The SPARQL context.
+    context : SPARQLWrapper
+        The SPARQL context.
 
-        tries : int
-            The maximum number of times the query should be executed after failure.
+    tries : int
+        The maximum number of times the query should be executed after failure.
 
     Returns
     -------
-        dict : the results of the query.
+    dict
+        The results of the query.
     """
 
     def delay_in_seconds() -> int:

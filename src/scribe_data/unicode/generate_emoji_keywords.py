@@ -44,16 +44,17 @@ def generate_emoji(language, output_dir: str = None):
 
     Parameters
     ----------
-        language : str
-            The ISO code of the language for which to generate emoji keywords.
+    language : str
+        The ISO code of the language for which to generate emoji keywords.
 
-        output_dir : str, optional
-            The directory where the generated data will be saved.
-            If not specified, the data will be saved in a default directory.
+    output_dir : str, optional
+        The directory where the generated data will be saved.
+        If not specified, the data will be saved in a default directory.
 
     Returns
     -------
-        None: The function does not return any value but outputs data to the specified directory.
+    None
+        The function does not return any value but outputs data to the specified directory.
     """
     if check_and_install_pyicu() and check_if_pyicu_installed() is False:
         print("Thank you.")

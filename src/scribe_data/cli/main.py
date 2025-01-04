@@ -24,8 +24,8 @@ Setup and commands for the Scribe-Data command line interface.
 import argparse
 from pathlib import Path
 
-from rich import print as rprint
 from questionary import select
+from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
 from scribe_data.cli.convert import convert_wrapper
@@ -36,7 +36,6 @@ from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.total import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
-
 from scribe_data.wiktionary.parse_mediaWiki import parse_wiktionary_translations
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
@@ -291,8 +290,8 @@ def main() -> None:
     download_parser = subparsers.add_parser(
         "download",
         aliases=["d"],
-        help="Download Wikidata dumps.",
-        description="Download Wikidata dumps from dumps.wikimedia.org.",
+        help="Download Wikidata lexeme dumps.",
+        description="Download Wikidata lexeme dumps from dumps.wikimedia.org.",
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
@@ -302,7 +301,7 @@ def main() -> None:
         "--wikidata-dump-version",
         nargs="?",
         const="latest",
-        help="Download Wikidata dump. Optionally specify date in YYYYMMDD format.",
+        help="Download Wikidata lexeme dump. Optionally specify date in YYYYMMDD format.",
     )
     download_parser.add_argument(
         "-wdp",
@@ -428,7 +427,7 @@ def main() -> None:
             action = select(
                 "What would you like to do?",
                 choices=[
-                    "Download a Wikidata dump",
+                    "Download a Wikidata lexemes dump",
                     "Check for totals",
                     "Get data",
                     "Get translations",
@@ -436,16 +435,21 @@ def main() -> None:
                 ],
             ).ask()
 
-            if action == "Download a Wikidata dump":
+            if action == "Download a Wikidata lexemes dump":
                 wd_lexeme_dump_download_wrapper()
+
             elif action == "Check for totals":
                 start_interactive_mode(operation="total")
+
             elif action == "Get data":
                 start_interactive_mode(operation="get")
+
             elif action == "Get translations":
                 start_interactive_mode(operation="translations")
+
             else:
                 print("Skipping action")
+
         else:
             parser.print_help()
 

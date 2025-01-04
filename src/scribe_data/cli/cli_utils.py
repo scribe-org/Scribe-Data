@@ -34,12 +34,12 @@ def correct_data_type(data_type: str) -> str:
 
     Parameters
     ----------
-        data_type : str
-            The data type to potentially correct.
+    data_type : str
+        The data type to potentially correct.
 
     Returns
     -------
-        The data_type value or a corrected version of it.
+    The data_type value or a corrected version of it.
     """
     all_data_types = data_type_metadata.keys()
 
@@ -122,16 +122,16 @@ def validate_language_and_data_type(
 
     Parameters
     ----------
-        language : str or list
-            The language(s) to validate.
+    language : str or list
+        The language(s) to validate.
 
-        data_type : str or list
-            The data type(s) to validate.
+    data_type : str or list
+        The data type(s) to validate.
 
     Raises
     ------
-        ValueError
-            If any of the languages or data types is invalid, with all errors reported together.
+    ValueError
+        If any of the languages or data types is invalid, with all errors reported together.
     """
 
     def validate_single_item(item, valid_options, item_type):
@@ -140,19 +140,19 @@ def validate_language_and_data_type(
 
         Parameters
         ----------
-            item : str
-                The item to validate.
-            valid_options : list
+        item : str
+            The item to validate.
 
-                A list of valid options against which the item will be validated.
+        valid_options : list
+            A list of valid options against which the item will be validated.
 
-            item_type : str
-                A description of the item type (e.g., "language", "data-type") used in error messages.
+        item_type : str
+            A description of the item type (e.g., "language", "data-type") used in error messages.
 
         Returns
         -------
-            str or None
-                Returns an error message if the item is invalid, or None if the item is valid.
+        str or None
+            Returns an error message if the item is invalid, or None if the item is valid.
         """
         if (
             isinstance(item, str)

@@ -21,14 +21,15 @@ Utility functions for accessing data from Wikidata.
 """
 
 from pathlib import Path
+from typing import List, Union
+
+import requests
 from rich import print as rprint
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
-from typing import List, Union
-import requests
 
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
+from scribe_data.utils import data_type_metadata, language_metadata
 from scribe_data.wiktionary.parse_dump import parse_dump
-from scribe_data.utils import language_metadata, data_type_metadata
 
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 sparql.setReturnFormat(JSON)
@@ -65,20 +66,24 @@ def parse_wd_lexeme_dump(
     wikidata_dump_path: str = None,
 ):
     """
-    Checks for the existence of a Wikidata dump and parses it if possible.
+    Checks for the existence of a Wikidata lexeme dump and parses it if possible.
 
     Parameters
     ----------
     language : Union[str, List[str]]
         The language(s) to parse the data for. Use "all" for all languages.
+
     wikidata_dump_type : List[str]
-        The type(s) of Wikidata dump to parse (e.g. ["total", "translations", "form"]).
+        The type(s) of Wikidata lexeme dump to parse (e.g. ["total", "translations", "form"]).
+
     data_types : List[str]
         The categories to parse when using "form" type (e.g. ["nouns", "adverbs"]).
+
     type_output_dir : str, optional
         The directory to save the parsed JSON data. If None, uses default directory.
+
     wikidata_dump_path : str, optional
-        The local Wikidata dump directory that should be used to get data.
+        The local Wikidata lexeme dump directory that should be used to get data.
     """
     # Convert "all" to list of all languages
     if isinstance(language, str) and language.lower() == "all":

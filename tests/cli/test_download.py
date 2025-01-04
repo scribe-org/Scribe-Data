@@ -127,7 +127,7 @@ class TestDownloadCLI(unittest.TestCase):
         mock_get.return_value.headers = {"content-length": "100"}
         mock_get.return_value.iter_content = lambda chunk_size: [b"data"] * 10
 
-        # Mock DEFAULT_DUMP_EXPORT_DIR
+        # Mock DEFAULT_DUMP_EXPORT_DIR.
         with patch(
             "scribe_data.cli.download.DEFAULT_DUMP_EXPORT_DIR", new="test_export_dir"
         ):
@@ -137,7 +137,7 @@ class TestDownloadCLI(unittest.TestCase):
             mock_makedirs.assert_called_with("test_export_dir", exist_ok=True)
             mock_confirm.assert_called_once()
 
-    @patch("scribe_data.utils.select")
+    @patch("scribe_data.utils.questionary.select")
     @patch(
         "scribe_data.utils.Path.glob",
         return_value=[Path("dump1.json.bz2"), Path("latest-lexemes.json.bz2")],
@@ -146,7 +146,7 @@ class TestDownloadCLI(unittest.TestCase):
         """
         Test prompt for using existing lexeme dump files.
         """
-        # Mock the select dialog to return "Use existing latest dump"
+        # Mock the select dialog to return "Use existing latest dump".
         mock_select.return_value.ask.return_value = "Use existing latest dump"
 
         result = check_lexeme_dump_prompt_download(
@@ -154,7 +154,7 @@ class TestDownloadCLI(unittest.TestCase):
         )
         self.assertEqual(result.name, "latest-lexemes.json.bz2")
 
-    @patch("scribe_data.utils.select")
+    @patch("scribe_data.utils.questionary.select")
     @patch(
         "scribe_data.utils.Path.glob",
         return_value=[Path("dump1.json.bz2"), Path("latest-lexemes.json.bz2")],
@@ -163,7 +163,7 @@ class TestDownloadCLI(unittest.TestCase):
         """
         Test prompt for deleting existing lexeme dump files.
         """
-        # Configure the mock to return "Delete existing dumps" first and then "No"
+        # Configure the mock to return "Delete existing dumps" first and then "No".
         mock_select.side_effect = [
             MagicMock(ask=MagicMock(return_value="Delete existing dumps")),
             MagicMock(ask=MagicMock(return_value="No")),

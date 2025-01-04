@@ -300,13 +300,18 @@ def example_function(argument: argument_type) -> return_type:
 
     Parameters
     ----------
-        argument: argument_type
-            Description of your argument.
+    argument: argument_type
+        Description of your argument.
 
     Returns
     -------
-        return_value : return_type
-            Description of your return value.
+    return_value : return_type
+        Description of your return value.
+
+    Raises
+    ------
+    ErrorType
+        Description of the error and the condition that raises it.
     """
 
     ...

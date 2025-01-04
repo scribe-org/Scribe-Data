@@ -25,6 +25,7 @@ from http import HTTPStatus
 from pathlib import Path
 from unittest.mock import MagicMock, mock_open, patch
 from urllib.error import HTTPError
+
 import pytest
 from scribe_data.wikidata.check_query.check import (
     all_queries,

@@ -54,25 +54,25 @@ def clean(
 
     Parameters
     ----------
-        texts : str or list
-            The texts to be cleaned and tokenized.
+    texts : str or list
+        The texts to be cleaned and tokenized.
 
-        language : string (default=en)
-            The language of the texts being cleaned.
+    language : string (default=en)
+        The language of the texts being cleaned.
 
-        remove_words : str or list (default=None)
-            Strings that should be removed from the text body.
+    remove_words : str or list (default=None)
+        Strings that should be removed from the text body.
 
-        sample_size : float (default=1)
-            The amount of data to be randomly sampled.
+    sample_size : float (default=1)
+        The amount of data to be randomly sampled.
 
-        verbose : bool (default=True)
-            Whether to show a tqdm progress bar for the process.
+    verbose : bool (default=True)
+        Whether to show a tqdm progress bar for the process.
 
     Returns
     -------
-        cleaned_texts : list
-            The texts formatted for analysis.
+    cleaned_texts : list
+        The texts formatted for analysis.
     """
     if isinstance(texts, str):
         texts = [texts]
@@ -331,27 +331,27 @@ def gen_autosuggestions(
 
     Parameters
     ----------
-        text_corpus : list
-            The Wikipedia texts formatted for word relation extraction.
+    text_corpus : list
+        The Wikipedia texts formatted for word relation extraction.
 
-        language : string (default=en)
-            The language autosuggestions are being generated for.
+    language : string (default=en)
+        The language autosuggestions are being generated for.
 
-        num_words: int (default=500)
-            The number of words that autosuggestions should be generated for.
+    num_words: int (default=500)
+        The number of words that autosuggestions should be generated for.
 
-        ignore_words : str or list (default=None)
-            Strings that should be removed from the text body.
+    ignore_words : str or list (default=None)
+        Strings that should be removed from the text body.
 
-        update_local_data : bool (default=False)
-            Saves the created dictionaries as JSONs in the target directories.
+    update_local_data : bool (default=False)
+        Saves the created dictionaries as JSONs in the target directories.
 
-        verbose : bool (default=True)
-            Whether to show a tqdm progress bar for the process.
+    verbose : bool (default=True)
+        Whether to show a tqdm progress bar for the process.
 
     Returns
     -------
-        Autosuggestions dictionaries for common words are saved locally or uploaded to Scribe apps.
+    Autosuggestions dictionaries for common words are saved locally or uploaded to Scribe apps.
     """
     counter_obj = Counter(chain.from_iterable(text_corpus))
 

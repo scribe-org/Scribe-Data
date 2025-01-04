@@ -22,19 +22,19 @@ Functions for parsing Wikidata lexeme dumps.
 
 import bz2
 import time
-import orjson
-
-from tqdm import tqdm
+from collections import Counter, defaultdict
 from pathlib import Path
-from collections import defaultdict, Counter
-from typing import Union, List
+from typing import List, Union
+
+import orjson
+import questionary
 from scribe_data.utils import (
     DEFAULT_DUMP_EXPORT_DIR,
-    language_metadata,
-    data_type_metadata,
     check_index_exists,
+    data_type_metadata,
+    language_metadata,
 )
-import questionary
+from tqdm import tqdm
 
 
 class LexemeProcessor:
@@ -51,38 +51,38 @@ class LexemeProcessor:
             - 'total'
         data_types is a list of categories (e.g., ["nouns", "adverbs"]) for forms.
         """
-        # Pre-compute sets for faster lookups
+        # Pre-compute sets for faster lookups.
         self.parse_type = set(parse_type or [])
         self.data_types = set(data_types or [])
         self.target_iso = set(
             [target_iso] if isinstance(target_iso, str) else target_iso or []
         )
 
-        # Pre-compute valid categories and languages
+        # Pre-compute valid categories and languages.
         self._category_lookup = {v: k for k, v in data_type_metadata.items()}
         self.valid_categories = set(data_type_metadata.values())
 
-        # Build optimized language mapping
+        # Build optimized language mapping.
         self.iso_to_name = self._build_iso_mapping()
         self.valid_iso_codes = set(self.iso_to_name.keys())
 
-        # Separate data structures
+        # Separate data structures.
         self.translations_index = defaultdict(
             lambda: defaultdict(lambda: defaultdict(dict))
         )
         self.forms_index = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
 
-        # Stats
+        # Stats.
         self.stats = {"processed_entries": 0, "unique_words": 0, "processing_time": 0}
 
-        # For category lookups, invert data_type_metadata
-        # E.g., {"Q1084": "nouns", "Q24905": "verbs", ...}
+        # For category lookups, invert data_type_metadata.
+        # E.g., {"Q1084": "nouns", "Q24905": "verbs", ...}.
         self._category_lookup = {v: k for k, v in data_type_metadata.items()}
 
-        # Build map from ISO to full language name
+        # Build map from ISO to full language name.
         self.iso_to_name = self._build_iso_mapping()
 
-        # For "total" usage
+        # For "total" usage.
         self.lexical_category_counts = defaultdict(Counter)
         self.translation_counts = defaultdict(Counter)
         self.forms_counts = defaultdict(Counter)
@@ -97,9 +97,10 @@ class LexemeProcessor:
         for lang_name, data in language_metadata.items():
             if self.target_iso and lang_name not in self.target_iso:
                 continue
-            iso_code = data.get("iso")
-            if iso_code:
+
+            if iso_code := data.get("iso"):
                 iso_mapping[iso_code] = lang_name
+
         return iso_mapping
 
     # MARK: process total
@@ -116,16 +117,18 @@ class LexemeProcessor:
         if not category_name:
             return
 
-        # Update counters
+        # Update counters.
         lemmas = lexeme.get("lemmas", {})
         for lemma in lemmas.values():
             lang = lemma.get("language")
+
             if lang in self.iso_to_name:
                 self.lexical_category_counts[lang][category_name] += 1
                 translation_count = sum(
                     len(sense.get("glosses", {})) for sense in lexeme.get("senses", [])
                 )
                 self.translation_counts[lang][category_name] += translation_count
+
                 break
 
     # MARK: process translations
@@ -144,7 +147,7 @@ class LexemeProcessor:
         if not category_name:
             return
 
-        # Only store first valid lemma for translations
+        # Only store first valid lemma for translations.
         for lang_code, lemma_data in lemmas.items():
             if lang_code not in self.iso_to_name:
                 continue
@@ -153,7 +156,7 @@ class LexemeProcessor:
             if not word:
                 continue
 
-            # Build translations from sense glosses
+            # Build translations from sense glosses.
             translations = {}
             for sense in lexeme.get("senses", []):
                 for sense_lang_code, gloss in sense.get("glosses", {}).items():
@@ -162,7 +165,8 @@ class LexemeProcessor:
 
             if translations:
                 self.translations_index[word][lang_code][category_name] = translations
-            break  # Only handle the first lemma
+
+            break  # only handle the first lemma
 
     # MARK: process forms
     def _process_lexeme_forms(self, lexeme: dict) -> None:
@@ -173,7 +177,7 @@ class LexemeProcessor:
         lemmas = lexeme.get("lemmas", {})
         lexical_category = lexeme.get("lexicalCategory")
 
-        # Skip if category missing or not recognized
+        # Skip if category missing or not recognized.
         if not lexical_category or lexical_category not in data_type_metadata.values():
             return
 
@@ -183,11 +187,11 @@ class LexemeProcessor:
             return
 
         # If the category_name is NOT in our data_types list, skip
-        # e.g., category_name = "nouns", but user didn't request "nouns" in data_types
+        # e.g., category_name = "nouns", but user didn't request "nouns" in data_types.
         if category_name not in self.data_types:
             return
 
-        # Process forms
+        # Process forms.
         for lang_code, lemma_data in lemmas.items():
             if lang_code not in self.iso_to_name:
                 continue
@@ -203,29 +207,29 @@ class LexemeProcessor:
 
                 for rep_lang, rep_data in representations.items():
                     if rep_lang == lang_code:
-                        form_value = rep_data.get("value")
-                        if form_value:
+                        if form_value := rep_data.get("value"):
                             forms_data[form_value].extend(grammatical_features)
 
             if forms_data:
                 self.forms_index[word][lang_code][category_name] = dict(forms_data)
                 self.forms_counts[lang_code][category_name] += len(forms_data)
+
             break  # only first valid lemma
 
     # MARK: process lines
     def process_lines(self, line: str) -> None:
         """
         Process one line of data. Depending on parse_type, we do:
-           - total stats
-           - translations
-           - form categories (filtered by data_types)
+            - total stats
+            - translations
+            - form categories (filtered by data_types)
         """
         try:
             lexeme = orjson.loads(line.strip().rstrip(","))
             if not lexeme:
                 return
 
-            # Get common values once
+            # Get common values once.
             lemmas = lexeme.get("lemmas", {})
             lexical_category = lexeme.get("lexicalCategory")
 
@@ -236,7 +240,7 @@ class LexemeProcessor:
             if not category_name:
                 return
 
-            # Process each type in a single pass through the data
+            # Process each type in a single pass through the data.
             for lang_code, lemma_data in lemmas.items():
                 if lang_code not in self.valid_iso_codes:
                     continue
@@ -256,13 +260,12 @@ class LexemeProcessor:
                     )
 
                 if "translations" in self.parse_type:
-                    translations = {
+                    if translations := {
                         lang: gloss["value"]
                         for sense in lexeme.get("senses", [])
                         for lang, gloss in sense.get("glosses", {}).items()
                         if lang in self.valid_iso_codes
-                    }
-                    if translations:
+                    }:
                         self.translations_index[word][lang_code][category_name] = (
                             translations
                         )
@@ -274,8 +277,7 @@ class LexemeProcessor:
                             "representations", {}
                         ).items():
                             if rep_lang == lang_code:
-                                form_value = rep_data.get("value")
-                                if form_value:
+                                if form_value := rep_data.get("value"):
                                     forms_data[form_value].extend(
                                         form.get("grammaticalFeatures", [])
                                     )
@@ -286,7 +288,7 @@ class LexemeProcessor:
                         )
                         self.forms_counts[lang_code][category_name] += len(forms_data)
 
-                break  # Only process first valid lemma
+                break  # only process first valid lemma
 
         except Exception as e:
             print(f"Error processing line: {e}")
@@ -296,14 +298,14 @@ class LexemeProcessor:
         """
         Main loop: read lines from file (bz2) in batches, call process_lines on each.
         """
-        # Use context manager for better resource handling
+        # Use context manager for better resource handling.
         with bz2.open(file_path, "rt", encoding="utf-8") as bzfile:
-            # Skip header if present
+            # Skip header if present.
             first_line = bzfile.readline()
             if not first_line.strip().startswith("["):
                 bzfile.seek(0)
 
-            # Process in larger batches for better performance
+            # Process in larger batches for better performance.
             batch = []
             start_time = time.time()
             total_entries = int(Path(file_path).stat().st_size / 263)
@@ -311,28 +313,29 @@ class LexemeProcessor:
             for line in tqdm(bzfile, total=total_entries, desc="Processing entries"):
                 if line.strip() not in ["[", "]", ",", ""]:
                     batch.append(line)
+
                     if len(batch) >= batch_size:
                         self._process_batch(batch)
-                        batch.clear()  # More efficient than creating new list
+                        batch.clear()  # more efficient than creating new list
                     self.stats["processed_entries"] += 1
 
-            # Process remaining items
+            # Process remaining items.
             if batch:
                 self._process_batch(batch)
 
-        # Update stats
+        # Update stats.
         self.stats["processing_time"] = time.time() - start_time
         self.stats["unique_words"] = len(self.forms_index) + len(
             self.translations_index
         )
 
-        # Print summary if "total" was requested
+        # Print summary if "total" was requested.
         if "total" in self.parse_type:
             self._print_total_summary()
 
     def _process_batch(self, batch: list) -> None:
         """
-        Process a batch of lines
+        Process a batch of lines.
         """
         for line in batch:
             self.process_lines(line)
@@ -340,7 +343,7 @@ class LexemeProcessor:
     # MARK: print total summary
     def _print_total_summary(self):
         """
-        Print stats if parse_type == total
+        Print stats if parse_type == total.
         """
         print(
             f"{'Language':<20} {'Data Type':<25} {'Total Lexemes':<25} {'Total Translations':<20}"
@@ -349,15 +352,19 @@ class LexemeProcessor:
         for lang, counts in self.lexical_category_counts.items():
             lang_name = self.iso_to_name[lang]
             first_row = True
+
             for category, count in counts.most_common():
                 trans_count = self.translation_counts[lang][category]
+
                 if first_row:
                     print(
                         f"{lang_name:<20} {category:<25} {count:<25,} {trans_count:<20,}"
                     )
                     first_row = False
+
                 else:
                     print(f"{'':<20} {category:<25} {count:<25,} {trans_count:<20,}")
+
             if lang != list(self.lexical_category_counts.keys())[-1]:
                 print("\n" + "=" * 90 + "\n")
 
@@ -372,12 +379,12 @@ class LexemeProcessor:
                     f"Warning: ISO {language_iso} unknown, skipping translations export..."
                 )
                 return
-            # Filter
-            filtered = {}
-            for word, lang_data in self.translations_index.items():
-                if language_iso in lang_data:
-                    filtered[word] = {language_iso: lang_data[language_iso]}
 
+            filtered = {
+                word: {language_iso: lang_data[language_iso]}
+                for word, lang_data in self.translations_index.items()
+                if language_iso in lang_data
+            }
             self._save_by_language(filtered, filepath, language_iso, "translations")
 
     # MARK: export forms
@@ -386,8 +393,8 @@ class LexemeProcessor:
     ) -> None:
         """
         Save forms_index to file, optionally filtering by:
-         - language_iso
-         - data_type (e.g. "nouns", "adverbs")
+            - language_iso
+            - data_type (e.g. "nouns", "adverbs")
 
         If data_type is given, we only export that one category from forms.
         """
@@ -395,10 +402,11 @@ class LexemeProcessor:
             if language_iso not in self.iso_to_name:
                 print(f"Warning: ISO {language_iso} unknown, skipping forms export...")
                 return
+
             filtered = {}
             for word, lang_data in self.forms_index.items():
                 if language_iso in lang_data:
-                    # If data_type is given, only keep that category
+                    # If data_type is given, only keep that category.
                     if data_type:
                         if data_type in lang_data[language_iso]:
                             filtered[word] = {
@@ -406,15 +414,17 @@ class LexemeProcessor:
                                     data_type: lang_data[language_iso][data_type]
                                 }
                             }
+
                     else:
                         filtered[word] = {language_iso: lang_data[language_iso]}
+
             self._save_by_language(
                 filtered, filepath, language_iso, data_type or "forms"
             )
 
     def _save_by_language(self, data, filepath, language_iso, category_type):
         """
-        Save data to exports/<langName>/filename
+        Save data to exports/<langName>/filename.
         """
         base_path = Path(filepath)
         lang_name = self.iso_to_name[language_iso]
@@ -437,6 +447,7 @@ class LexemeProcessor:
         """
         if isinstance(dd, defaultdict):
             dd = {k: self._to_dict(v) for k, v in dd.items()}
+
         return dd
 
 
@@ -456,18 +467,23 @@ def parse_dump(
     ----------
     language : str or list of str, optional
         Language(s) to parse data for. Must match language names in language_metadata.
+
     parse_type : list of str, optional
         Types of parsing to perform. Valid options are:
         - 'translations': Extract word translations
         - 'form': Extract grammatical forms
         - 'total': Gather statistical totals
+
     data_types : list of str, optional
         Categories to parse when using 'form' type (e.g. ["nouns", "adverbs"]).
         Only used if 'form' is in parse_type.
+
     file_path : str, default="latest-lexemes.json.bz2"
         Path to the lexeme dump file
+
     output_dir : str, optional
         Directory to save output files. If None, uses DEFAULT_DUMP_EXPORT_DIR.
+
     overwrite_all : bool, default=False
         If True, automatically overwrite existing files without prompting
 
@@ -480,11 +496,11 @@ def parse_dump(
     If a requested index file already exists, that language/category combination
     will be skipped.
     """
-    # 1) Prepare environment - Use default if output_dir is None
+    # Prepare environment - Use default if output_dir is None.
     output_dir = output_dir or DEFAULT_DUMP_EXPORT_DIR
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
-    # Convert single strings to lists
+    # Convert single strings to lists.
     languages = [language] if isinstance(language, str) else language
     parse_type = parse_type or []
     data_types = data_types or []
@@ -503,20 +519,22 @@ def parse_dump(
         if choice == "Overwrite existing data":
             overwrite_all = True
 
-        # For translations, we only need to check the translations index
+        # For translations, we only need to check the translations index.
         if "translations" in parse_type:
             languages_to_process = []
             for lang in languages:
                 index_path = Path(output_dir) / lang / "lexeme_translations.json"
+
                 if not check_index_exists(index_path, overwrite_all):
                     languages_to_process.append(lang)
+
                 else:
                     print(f"Skipping {lang}/translations.json - already exists")
 
-            # Update languages list but keep data_types as is
+            # Update languages list but keep data_types as is.
             languages = languages_to_process
 
-        # For forms, check each language/data_type combination
+        # For forms, check each language/data_type combination.
         elif "form" in parse_type:
             languages_to_process = []
             data_types_to_process = set()
@@ -525,16 +543,18 @@ def parse_dump(
                 needs_processing = False
                 for data_type in data_types:
                     index_path = Path(output_dir) / lang / f"lexeme_{data_type}.json"
+
                     if not check_index_exists(index_path, overwrite_all):
                         needs_processing = True
                         data_types_to_process.add(data_type)
+
                     else:
                         print(f"Skipping {lang}/{data_type}.json - already exists")
 
                 if needs_processing:
                     languages_to_process.append(lang)
 
-            # Update both lists
+            # Update both lists.
             languages = languages_to_process
             data_types = list(data_types_to_process)
 
@@ -553,11 +573,11 @@ def parse_dump(
 
     # MARK: Handle JSON exports
 
-    # (a) If "translations" in parse_type -> export them
+    # (a) If "translations" in parse_type -> export them.
     if "translations" in parse_type:
         index_path = Path(output_dir) / "lexeme_translations.json"
 
-        # Export translations for each ISO found
+        # Export translations for each ISO found.
         iso_codes = set()
         for word_data in processor.translations_index.values():
             iso_codes.update(word_data.keys())
@@ -565,9 +585,9 @@ def parse_dump(
             if iso_code in processor.iso_to_name:
                 processor.export_translations_json(str(index_path), iso_code)
 
-    # (b) If "form" in parse_type -> export forms for each data_type in data_types
+    # (b) If "form" in parse_type -> export forms for each data_type in data_types.
     if "form" in parse_type:
-        # For each data_type, we create a separate file, e.g. lexeme_nouns.json
+        # For each data_type, we create a separate file, e.g. lexeme_nouns.json.
         for dt in data_types:
             index_path = Path(output_dir) / f"lexeme_{dt}.json"
             print(f"Exporting forms for {dt} to {index_path}...")

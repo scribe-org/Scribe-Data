@@ -22,17 +22,17 @@ Utility functions for data extraction, formatting and loading.
 """
 
 import ast
+import contextlib
 import json
 import os
 import re
-import questionary
 from datetime import datetime
 from importlib import resources
 from pathlib import Path
 from typing import Any, Optional
 
+import questionary
 from rich import print as rprint
-from questionary import select
 
 # MARK: Utils Variables
 
@@ -86,7 +86,6 @@ language_to_qid = {}
 for lang, lang_data in language_metadata.items():
     if "sub_languages" in lang_data:
         for sub_lang, sub_lang_data in lang_data["sub_languages"].items():
-            sub_lang_lower = sub_lang
             sub_qid = sub_lang_data.get("qid")
 
             if sub_qid is None:
@@ -95,8 +94,8 @@ for lang, lang_data in language_metadata.items():
                 )
 
             else:
-                language_map[sub_lang_lower] = sub_lang_data
-                language_to_qid[sub_lang_lower] = sub_qid
+                language_map[sub_lang] = sub_lang_data
+                language_to_qid[sub_lang] = sub_qid
 
     else:
         qid = lang_data.get("qid")
@@ -114,15 +113,15 @@ def _load_json(package_path: str, file_name: str) -> Any:
 
     Parameters
     ----------
-        package_path : str
-            The fully qualified package that contains the resource.
+    package_path : str
+        The fully qualified package that contains the resource.
 
-        file_name : str
-            The name of the file (resource) that contains the JSON data.
+    file_name : str
+        The name of the file (resource) that contains the JSON data.
 
     Returns
     -------
-        A python entity representing the JSON content.
+    A python entity representing the JSON content.
     """
     with resources.files(package_path).joinpath(file_name).open(
         encoding="utf-8"
@@ -143,25 +142,26 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
 
     Parameters
     ----------
-        source_value : str
-            The source value to find equivalents for (e.g., 'english', 'nynorsk').
+    source_value : str
+        The source value to find equivalents for (e.g., 'english', 'nynorsk').
 
-        source_key : str
-            The source key to reference (e.g., 'language').
+    source_key : str
+        The source key to reference (e.g., 'language').
 
-        target_key : str
-            The key to target (e.g., 'qid').
+    target_key : str
+        The key to target (e.g., 'qid').
 
-        error_msg : str
-            The message displayed when a value cannot be found.
+    error_msg : str
+        The message displayed when a value cannot be found.
 
     Returns
     -------
-        The 'target' value given the passed arguments.
+    The 'target' value given the passed arguments.
 
     Raises
     ------
-        ValueError : when a source_value is not supported or the language only has sub-languages.
+    ValueError
+        When a source_value is not supported or the language only has sub-languages.
     """
     # Check if we're searching by language name.
     if source_key == "language":
@@ -195,13 +195,13 @@ def get_language_qid(language: str) -> str:
 
     Parameters
     ----------
-        language : str
-            The language the QID should be returned for.
+    language : str
+        The language the QID should be returned for.
 
     Returns
     -------
-        str
-            The Wikidata QID for the language.
+    str
+        The Wikidata QID for the language.
     """
     return _find(
         source_key="language",
@@ -217,13 +217,13 @@ def get_language_iso(language: str) -> str:
 
     Parameters
     ----------
-        language : str
-            The language the ISO should be returned for.
+    language : str
+        The language the ISO should be returned for.
 
     Returns
     -------
-        str
-            The ISO code for the language.
+    str
+        The ISO code for the language.
     """
 
     return _find(
@@ -240,13 +240,13 @@ def get_language_from_iso(iso: str) -> str:
 
     Parameters
     ----------
-        iso : str
-            The ISO the language name should be returned for.
+    iso : str
+        The ISO the language name should be returned for.
 
     Returns
     -------
-        str
-            The name for the language which has an ISO value of iso.
+    str
+        The name for the language which has an ISO value of iso.
     """
     # Iterate over the languages and their properties.
     for language, properties in _languages.items():
@@ -272,19 +272,19 @@ def load_queried_data(
 
     Parameters
     ----------
-        dir_path : str
-            The path to the directory containing the queried data.
+    dir_path : str
+        The path to the directory containing the queried data.
 
-        language : str
-            The language for which the data is being loaded.
+    language : str
+        The language for which the data is being loaded.
 
-        data_type : str
-            The type of data being loaded (e.g. 'nouns', 'verbs').
+    data_type : str
+        The type of data being loaded (e.g. 'nouns', 'verbs').
 
     Returns
     -------
-        tuple(Any, str)
-            A tuple containing the loaded data and the path to the data file.
+    tuple(Any, str)
+        A tuple containing the loaded data and the path to the data file.
     """
     data_path = (
         Path(dir_path) / language.lower().replace(" ", "_") / f"{data_type}.json"
@@ -300,18 +300,18 @@ def remove_queried_data(dir_path: str, language: str, data_type: str) -> None:
 
     Parameters
     ----------
-        dir_path : str
-            The path to the directory containing the queried data.
+    dir_path : str
+        The path to the directory containing the queried data.
 
-        language : str
-            The language for which the data is being loaded.
+    language : str
+        The language for which the data is being loaded.
 
-        data_type : str
-            The type of data being loaded (e.g. 'nouns', 'verbs').
+    data_type : str
+        The type of data being loaded (e.g. 'nouns', 'verbs').
 
     Returns
     -------
-        None : The file is deleted.
+    None : The file is deleted.
     """
     data_path = (
         Path(dir_path)
@@ -319,11 +319,8 @@ def remove_queried_data(dir_path: str, language: str, data_type: str) -> None:
         / f"{data_type}_queried.json"
     )
 
-    try:
+    with contextlib.suppress(OSError):
         os.remove(data_path)
-
-    except OSError:
-        pass
 
 
 def export_formatted_data(
@@ -338,21 +335,21 @@ def export_formatted_data(
 
     Parameters
     ----------
-        dir_path : str
-            The path to the directory containing the queried data.
+    dir_path : str
+        The path to the directory containing the queried data.
 
-        formatted_data : dict
-            The data to be exported.
+    formatted_data : dict
+        The data to be exported.
 
-        language : str
-            The language for which the data is being exported.
+    language : str
+        The language for which the data is being exported.
 
-        data_type : str
-            The type of data being exported (e.g. 'nouns', 'verbs').
+    data_type : str
+        The type of data being exported (e.g. 'nouns', 'verbs').
 
     Returns
     -------
-        None
+    None
     """
     export_path = (
         Path(dir_path)
@@ -375,13 +372,13 @@ def get_ios_data_path(language: str) -> str:
 
     Parameters
     ----------
-        language : str
-            The language the path should be returned for.
+    language : str
+        The language the path should be returned for.
 
     Returns
     -------
-        str
-            The path to the language folder for the given language.
+    str
+        The path to the language folder for the given language.
     """
     return Path("Scribe-iOS") / "Keyboards" / "LanguageKeyboards" / f"{language}"
 
@@ -392,13 +389,13 @@ def get_android_data_path() -> str:
 
     Parameters
     ----------
-        language : str
-            The language the path should be returned for.
+    language : str
+        The language the path should be returned for.
 
     Returns
     -------
-        str
-            The path to the assets data folder for the application.
+    str
+        The path to the assets data folder for the application.
     """
     return Path("Scribe-Android") / "app" / "src" / "main" / "assets" / "data"
 
@@ -411,19 +408,19 @@ def check_command_line_args(
 
     Parameters
     ----------
-        file_name : str
-            The name of the file for clear error outputs if necessary.
+    file_name : str
+        The name of the file for clear error outputs if necessary.
 
-        passed_values : UNKNOWN (will be checked)
-            An argument to be checked against known values.
+    passed_values : UNKNOWN (will be checked)
+        An argument to be checked against known values.
 
-        values_to_check : list(str)
-            The values that should be checked against.
+    values_to_check : list(str)
+        The values that should be checked against.
 
     Returns
     -------
-        args: list(str)
-            The arguments or an error are returned depending on if they're correct.
+    args: list(str)
+        The arguments or an error are returned depending on if they're correct.
     """
     try:
         args = ast.literal_eval(passed_values)
@@ -466,19 +463,19 @@ def check_and_return_command_line_args(
 
     Parameters
     ----------
-        all_args : list[str]
-            The arguments passed to the Scribe-Data file.
+    all_args : list[str]
+        The arguments passed to the Scribe-Data file.
 
-        first_args_check : list[str]
-            The values that the first argument should be checked against.
+    first_args_check : list[str]
+        The values that the first argument should be checked against.
 
-        second_args_check : list[str]
-            The values that the second argument should be checked against.
+    second_args_check : list[str]
+        The values that the second argument should be checked against.
 
     Returns
     -------
-        first_args, second_args: Tuple[Optional[list[str]], Optional[list[str]]]
-            The subset of possible first and second arguments that have been verified as being valid.
+    first_args, second_args: Tuple[Optional[list[str]], Optional[list[str]]]
+        The subset of possible first and second arguments that have been verified as being valid.
     """
     if len(all_args) == 1:
         return None, None
@@ -523,29 +520,30 @@ def format_sublanguage_name(lang, language_metadata=_languages):
 
     Parameters
     ----------
-        lang : str
-            The name of the language or sub-language to format.
+    lang : str
+        The name of the language or sub-language to format.
 
-        language_metadata : dict
-            The metadata containing information about main languages and their sub-languages.
+    language_metadata : dict
+        The metadata containing information about main languages and their sub-languages.
 
     Returns
     -------
-        str
-            The formatted language name if it's a sub-language (e.g., 'Nynorsk Norwegian').
-            Otherwise the original name.
+    str
+        The formatted language name if it's a sub-language (e.g., 'Nynorsk Norwegian').
+        Otherwise the original name.
 
     Raises
     ------
-        ValueError: If the provided language or sub-language is not found.
+    ValueError
+        If the provided language or sub-language is not found.
 
-    Example
-    -------
-        > format_sublanguage_name("nynorsk", language_metadata)
-        'Nynorsk Norwegian'
+    Examples
+    --------
+    > format_sublanguage_name("nynorsk", language_metadata)
+    'Nynorsk Norwegian'
 
-        > format_sublanguage_name("english", language_metadata)
-        'English'
+    > format_sublanguage_name("english", language_metadata)
+    'English'
     """
     for main_lang, lang_data in language_metadata.items():
         # If it's not a sub-language, return the original name.
@@ -598,14 +596,15 @@ def list_languages_with_metadata_for_data_type(language_metadata=_languages):
         # Check if there are sub-languages.
         if "sub_languages" in lang_data:
             # Add the sub-languages to current_languages with metadata.
-            for sub_key, sub_data in lang_data["sub_languages"].items():
-                current_languages.append(
-                    {
-                        "name": f"{lang_data.get('name', lang_key)}/{sub_data.get('name', sub_key)}",
-                        "iso": sub_data.get("iso", ""),
-                        "qid": sub_data.get("qid", ""),
-                    }
-                )
+            current_languages.extend(
+                {
+                    "name": f"{lang_data.get('name', lang_key)}/{sub_data.get('name', sub_key)}",
+                    "iso": sub_data.get("iso", ""),
+                    "qid": sub_data.get("qid", ""),
+                }
+                for sub_key, sub_data in lang_data["sub_languages"].items()
+            )
+
         else:
             # If no sub-languages, add the main language with metadata.
             current_languages.append(
@@ -638,12 +637,12 @@ def check_lexeme_dump_prompt_download(output_dir: str):
 
     Parameters
     ----------
-        output_dir : str
-            The directory to check for the existence of a Wikidata lexeme dump.
+    output_dir : str
+        The directory to check for the existence of a Wikidata lexeme dump.
 
     Returns
     -------
-        None : The user is prompted to download a new Wikidata dump after the existence of one is checked.
+    None : The user is prompted to download a new Wikidata lexeme dump after the existence of one is checked.
     """
     existing_dumps = list(Path(output_dir).glob("*.json.bz2"))
     if existing_dumps:
@@ -651,7 +650,7 @@ def check_lexeme_dump_prompt_download(output_dir: str):
         for dump in existing_dumps:
             rprint(f"  - {Path(output_dir)}/{dump.name}")
 
-        user_input = select(
+        user_input = questionary.select(
             "Do you want to:",
             choices=[
                 "Delete existing dumps",
@@ -661,17 +660,17 @@ def check_lexeme_dump_prompt_download(output_dir: str):
             ],
         ).ask()
 
-        if user_input.startswith("Delete"):
+        if user_input == "Delete existing dumps":
             for dump in existing_dumps:
                 dump.unlink()
 
             rprint("[bold green]Existing dumps deleted.[/bold green]")
-            download_input = select(
+            download_input = questionary.select(
                 "Do you want to download the latest lexeme dump?", choices=["Yes", "No"]
             ).ask()
             return download_input != "Yes"
 
-        elif user_input.startswith("Use"):
+        elif user_input == "Use existing latest dump":
             # Check for the latest dump file.
             latest_dump = None
             if any(dump.name == "latest-lexemes.json.bz2" for dump in existing_dumps):
@@ -712,9 +711,13 @@ def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
     Returns True if user chooses to skip (i.e., we do NOT proceed).
     Returns False if the file doesn't exist or user chooses to overwrite (i.e., we DO proceed).
 
-    Parameters:
-        index_path: Path to check
-        overwrite_all: If True, automatically overwrite without prompting
+    Parameters
+    ----------
+    index_path : pathlib.Path
+        The path to check.
+
+    overwrite_all : cool (default=False)
+        If True, automatically overwrite without prompting.
     """
     if index_path.exists():
         if overwrite_all:
@@ -727,6 +730,7 @@ def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
             default="Skip process",
         ).ask()
 
-        # If user selects "Skip process", return True meaning "don't proceed"
+        # If user selects "Skip process", return True meaning "don't proceed".
         return choice == "Skip process"
+
     return False

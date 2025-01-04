@@ -46,18 +46,18 @@ def format_data(
 
     Parameters
     ----------
-        dir_path : str
-            The output directory path for results.
+    dir_path : str
+        The output directory path for results.
 
-        language : str
-            The language for which the data is being loaded.
+    language : str
+        The language for which the data is being loaded.
 
-        data_type : str
-            The type of data being loaded (e.g. 'nouns', 'verbs').
+    data_type : str
+        The type of data being loaded (e.g. 'nouns', 'verbs').
 
     Returns
     _______
-        A saved and formatted data file for the given language and data type.
+    A saved and formatted data file for the given language and data type.
     """
     data_list, data_path = load_queried_data(
         dir_path=dir_path, language=language, data_type=data_type
