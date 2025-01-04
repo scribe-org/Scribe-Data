@@ -300,7 +300,7 @@ def example_function(argument: argument_type) -> return_type:
 
     Parameters
     ----------
-    argument: argument_type
+    argument : argument_type
         Description of your argument.
 
     Returns
