@@ -179,9 +179,10 @@ class TestConvert(unittest.TestCase):
 
         mocked_open = mock_open()
 
-        with patch("pathlib.Path.open", mocked_open), patch(
-            "pathlib.Path.mkdir"
-        ) as mock_mkdir:
+        with (
+            patch("pathlib.Path.open", mocked_open),
+            patch("pathlib.Path.mkdir") as mock_mkdir,
+        ):
             mock_mkdir.return_value = None
             convert_to_json(
                 language="English",
@@ -220,9 +221,10 @@ class TestConvert(unittest.TestCase):
         )
 
         mocked_open = mock_open()
-        with patch("pathlib.Path.open", mocked_open), patch(
-            "pathlib.Path.mkdir"
-        ) as mock_mkdir:
+        with (
+            patch("pathlib.Path.open", mocked_open),
+            patch("pathlib.Path.mkdir") as mock_mkdir,
+        ):
             mock_mkdir.return_value = None
             convert_to_json(
                 language="English",
@@ -257,9 +259,10 @@ class TestConvert(unittest.TestCase):
         )
 
         mocked_open = mock_open()
-        with patch("pathlib.Path.open", mocked_open), patch(
-            "pathlib.Path.mkdir"
-        ) as mock_mkdir:
+        with (
+            patch("pathlib.Path.open", mocked_open),
+            patch("pathlib.Path.mkdir") as mock_mkdir,
+        ):
             mock_mkdir.return_value = None
             convert_to_json(
                 language="English",
@@ -319,9 +322,10 @@ class TestConvert(unittest.TestCase):
 
         mocked_open = mock_open()
 
-        with patch("pathlib.Path.open", mocked_open), patch(
-            "pathlib.Path.mkdir"
-        ) as mock_mkdir:
+        with (
+            patch("pathlib.Path.open", mocked_open),
+            patch("pathlib.Path.mkdir") as mock_mkdir,
+        ):
             mock_mkdir.return_value = None
 
             convert_to_csv_or_tsv(
@@ -361,9 +365,10 @@ class TestConvert(unittest.TestCase):
 
         mocked_open = mock_open()
 
-        with patch("pathlib.Path.open", mocked_open), patch(
-            "pathlib.Path.mkdir"
-        ) as mock_mkdir:
+        with (
+            patch("pathlib.Path.open", mocked_open),
+            patch("pathlib.Path.mkdir") as mock_mkdir,
+        ):
             mock_mkdir.return_value = None
             convert_to_csv_or_tsv(
                 language="English",
@@ -402,9 +407,10 @@ class TestConvert(unittest.TestCase):
         )
 
         mocked_open = mock_open()
-        with patch("pathlib.Path.open", mocked_open), patch(
-            "pathlib.Path.mkdir"
-        ) as mock_mkdir:
+        with (
+            patch("pathlib.Path.open", mocked_open),
+            patch("pathlib.Path.mkdir") as mock_mkdir,
+        ):
             mock_mkdir.return_value = None
             convert_to_csv_or_tsv(
                 language="English",
@@ -443,9 +449,10 @@ class TestConvert(unittest.TestCase):
         )
 
         mocked_open = mock_open()
-        with patch("pathlib.Path.open", mocked_open), patch(
-            "pathlib.Path.mkdir"
-        ) as mock_mkdir:
+        with (
+            patch("pathlib.Path.open", mocked_open),
+            patch("pathlib.Path.mkdir") as mock_mkdir,
+        ):
             mock_mkdir.return_value = None
             convert_to_csv_or_tsv(
                 language="English",
@@ -484,9 +491,10 @@ class TestConvert(unittest.TestCase):
         )
 
         mocked_open = mock_open()
-        with patch("pathlib.Path.open", mocked_open), patch(
-            "pathlib.Path.mkdir"
-        ) as mock_mkdir:
+        with (
+            patch("pathlib.Path.open", mocked_open),
+            patch("pathlib.Path.mkdir") as mock_mkdir,
+        ):
             mock_mkdir.return_value = None
             convert_to_csv_or_tsv(
                 language="English",
@@ -525,9 +533,10 @@ class TestConvert(unittest.TestCase):
         )
 
         mocked_open = mock_open()
-        with patch("pathlib.Path.open", mocked_open), patch(
-            "pathlib.Path.mkdir"
-        ) as mock_mkdir:
+        with (
+            patch("pathlib.Path.open", mocked_open),
+            patch("pathlib.Path.mkdir") as mock_mkdir,
+        ):
             # Prevent actual directory creation
             mock_mkdir.return_value = None
             convert_to_csv_or_tsv(
@@ -568,9 +577,10 @@ class TestConvert(unittest.TestCase):
 
         mocked_open = mock_open()
 
-        with patch("pathlib.Path.open", mocked_open), patch(
-            "pathlib.Path.mkdir"
-        ) as mock_mkdir:
+        with (
+            patch("pathlib.Path.open", mocked_open),
+            patch("pathlib.Path.mkdir") as mock_mkdir,
+        ):
             mock_mkdir.return_value = None
             convert_to_csv_or_tsv(
                 language="English",
@@ -610,9 +620,10 @@ class TestConvert(unittest.TestCase):
 
         mocked_open = mock_open()
 
-        with patch("pathlib.Path.open", mocked_open), patch(
-            "pathlib.Path.mkdir"
-        ) as mock_mkdir:
+        with (
+            patch("pathlib.Path.open", mocked_open),
+            patch("pathlib.Path.mkdir") as mock_mkdir,
+        ):
             mock_mkdir.return_value = None
             convert_to_csv_or_tsv(
                 language="English",

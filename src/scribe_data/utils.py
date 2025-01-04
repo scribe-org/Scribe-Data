@@ -122,9 +122,11 @@ def _load_json(package_path: str, file_name: str) -> Any:
     -------
         A python entity representing the JSON content.
     """
-    with resources.files(package_path).joinpath(file_name).open(
-        encoding="utf-8"
-    ) as in_stream:
+    with (
+        resources.files(package_path)
+        .joinpath(file_name)
+        .open(encoding="utf-8") as in_stream
+    ):
         return json.load(in_stream)
 
 

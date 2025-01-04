@@ -25,9 +25,10 @@ repos:
     hooks:
       - id: sphinx-lint
 
-  - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.5
     hooks:
-      - id: isort
-        name: isort (python)
-        args: ["--profile=black"]
+      - id: ruff
+        args: [--fix]
+
+      - id: ruff-format
