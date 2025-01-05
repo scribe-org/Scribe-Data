@@ -139,7 +139,7 @@ def get_data(
         elif data_type:
             if prompt_user_download_all():
                 parse_wd_lexeme_dump(
-                    language=None,
+                    language="all",
                     wikidata_dump_type=["form"],
                     data_types=[data_type],
                     type_output_dir=output_dir,
@@ -208,27 +208,27 @@ def get_data(
             f"Updating data for language(s): {language.title()}; data type(s): {data_type.capitalize()}"
         )
         existing_files = list(Path(output_dir).glob(f"{language}/{data_type}.json"))
-        if existing_files:
+        if existing_files and not overwrite:
             print(
                 f"Existing file(s) found for {language.title()} and {data_type.capitalize()} in the {output_dir} directory."
             )
             for idx, file in enumerate(existing_files, start=1):
                 print(f"{idx}. {file.name}")
 
-            print("\nChoose an option:")
-            print("1. Overwrite existing data (press 'o')")
-            print("2. Skip process (press anything else)")
-            user_choice = input("Enter your choice: ").strip().lower()
+            user_choice = questionary.confirm(
+                "Overwrite existing data?", default=False
+            ).ask()
 
-            if user_choice == "o":
+            if user_choice:
                 print("Overwrite chosen. Removing existing files...")
                 for file in existing_files:
-                    file.unlink()
+                    if file.exists():  # Check if the file exists before unlinking
+                        file.unlink()
             else:
                 print(f"Skipping update for {language.title()} {data_type}.")
                 return {"success": False, "skipped": True}
 
-        query_result = query_data(
+        query_data(
             languages=[language_or_sub_language],
             data_type=data_types,
             output_dir=output_dir,
@@ -236,7 +236,7 @@ def get_data(
             interactive=interactive,
         )
 
-        if not all_bool and not query_result.get("skipped", False):
+        if not all_bool:
             print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
 
     else:

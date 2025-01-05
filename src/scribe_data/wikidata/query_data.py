@@ -216,7 +216,7 @@ def query_data(
 
                     else:
                         print(f"Skipping update for {lang.title()} {target_type}.")
-                        return {"success": False, "skipped": True}
+                        # return {"success": False, "skipped": True}
 
         print(f"Querying and formatting {lang.title()} {target_type}")
 
@@ -342,7 +342,7 @@ def query_data(
             print(
                 f"Successfully queried and formatted data for {lang.title()} {target_type}."
             )
-            return {"success": True, "skipped": False}
+            # return {"success": True, "skipped": False}
 
 
 # if __name__ == "__main__":
