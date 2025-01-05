@@ -312,6 +312,7 @@ def validate_forms(query_text: str) -> str:
     select_vars = select_vars[2:]
     # Regex pattern to capture the variables in the WHERE clause.
     dt_pattern = r"WHERE\s*\{[^}]*?wikibase:lemma\s*\?\s*(\w+)\s*[;.]\s*"
+    potential_prep_case_pattern = r"caseForm rdfs:label.*[.]"
     forms_pattern = r"ontolex:representation \?([^ ;]+)"
     where_vars = []
 
@@ -322,6 +323,10 @@ def validate_forms(query_text: str) -> str:
 
     elif dt_match:
         where_vars.append(dt_match[0])
+
+    potential_prep_case_match = re.findall(potential_prep_case_pattern, query_text)
+    if potential_prep_case_match and "grammaticalCase" in potential_prep_case_match[0]:
+        where_vars.append("grammaticalCase")
 
     where_vars += re.findall(forms_pattern, query_text)
 
