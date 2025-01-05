@@ -8,8 +8,8 @@ SELECT
   ?feminineIndicativePast
   ?masculineIndicativePast
   ?neuterIndicativePast
-
   ?indicativePastPlural
+
   ?indicativePresentFirstPersonSingular
   ?indicativePresentFirstPersonPlural
   ?indicativePresentSecondPersonSingular
