@@ -217,7 +217,7 @@ class TestGetData(unittest.TestCase):
             interactive=False,
         )
 
-    # MARK : User Chooses to skip
+    # MARK: User Chooses Skip
 
     @patch("scribe_data.cli.get.query_data")
     @patch(
@@ -238,11 +238,11 @@ class TestGetData(unittest.TestCase):
             language="English", data_type="nouns", output_dir="./test_output"
         )
 
-        # Validate the skip result
+        # Validate the skip result.
         self.assertEqual(result, {"success": False, "skipped": True})
         mock_query_data.assert_not_called()
 
-    # MARK : User Chooses to overwrite
+    # MARK: User Chooses Overwrite
 
     @patch("scribe_data.cli.get.query_data")
     @patch(
@@ -270,6 +270,7 @@ class TestGetData(unittest.TestCase):
         )
 
     # MARK: Translations
+
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
     def test_get_translations_no_language_specified(self, mock_parse):
         """

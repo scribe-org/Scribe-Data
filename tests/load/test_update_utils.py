@@ -123,11 +123,22 @@ def test_format_sublanguage_name_positive(lang, expected_output):
     assert utils.format_sublanguage_name(lang) == expected_output
 
 
+@pytest.mark.parametrize(
+    "lang, expected_output",
+    [
+        ("Q42", "Q42"),  # test that any QID is returned
+        ("Q1860", "Q1860"),
+    ],
+)
+def test_format_sublanguage_name_qid_positive(lang, expected_output):
+    assert utils.format_sublanguage_name(lang) == expected_output
+
+
 def test_format_sublanguage_name_negative():
     with pytest.raises(ValueError) as excp:
-        _ = utils.format_sublanguage_name("Silence")
+        _ = utils.format_sublanguage_name("Newspeak")
 
-    assert str(excp.value) == "Silence is not a valid language or sub-language."
+    assert str(excp.value) == "Newspeak is not a valid language or sub-language."
 
 
 def test_list_all_languages():
