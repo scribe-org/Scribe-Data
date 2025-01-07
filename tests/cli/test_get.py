@@ -62,37 +62,46 @@ class TestGetData(unittest.TestCase):
 
     # MARK: All Data
 
-    # @patch("scribe_data.cli.get.query_data")
-    # @patch("scribe_data.cli.get.prompt_user_download_all", return_value=False)
-    # def test_get_all_data_types_for_language(self, mock_prompt, mock_query_data):
-    #     """
-    #     Test retrieving all data types for a specific language.
+    @patch("scribe_data.cli.get.query_data")
+    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    @patch("scribe_data.cli.get.questionary.confirm")
+    def test_get_all_data_types_for_language_user_says_yes(
+        self, mock_questionary_confirm, mock_parse, mock_query_data
+    ):
+        """
+        Test the behavior when the user agrees to query Wikidata directly.
 
-    #     Ensures that `query_data` is called properly when `--all` flag is used with a language.
-    #     """
-    #     get_data(all_bool=True, language="English")
-    #     mock_query_data.assert_called_once_with(
-    #         languages=["English"],
-    #         data_type=None,
-    #         output_dir="scribe_data_json_export",
-    #         overwrite=False,
-    #     )
+        This test checks that `parse_wd_lexeme_dump` is called with the correct parameters
+        when the user confirms they want to query Wikidata.
+        """
+        mock_questionary_confirm.return_value.ask.return_value = True
 
-    # @patch("scribe_data.cli.get.query_data")
-    # @patch("scribe_data.cli.get.prompt_user_download_all", return_value=False)
-    # def test_get_all_languages_for_data_type(self, mock_prompt, mock_query_data):
-    #     """
-    #     Test retrieving all languages for a specific data type.
+        get_data(all_bool=True, language="English")
 
-    #     Ensures that `query_data` is called properly when `--all` flag is used with a data type.
-    #     """
-    #     get_data(all_bool=True, data_type="nouns")
-    #     mock_query_data.assert_called_once_with(
-    #         languages=None,
-    #         data_type=["nouns"],
-    #         output_dir="scribe_data_json_export",
-    #         overwrite=False,
-    #     )
+        mock_parse.assert_called_once_with(
+            language="English",
+            wikidata_dump_type=["form"],
+            data_types=None,  # because data_types = [data_type] if provided else None
+            type_output_dir="scribe_data_json_export",  # default for JSON
+        )
+        mock_query_data.assert_not_called()
+
+    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    def test_get_all_languages_and_data_types(self, mock_parse):
+        """
+        Test retrieving all languages for a specific data type.
+
+        Ensures that `query_data` is called properly when `--all` flag is used with a data type.
+        """
+        get_data(all_bool=True)
+
+        mock_parse.assert_called_once_with(
+            language="all",
+            wikidata_dump_type=["form", "translations"],
+            data_types="all",
+            type_output_dir="scribe_data_json_export",
+            wikidata_dump_path=None,
+        )
 
     # MARK: Language and Data Type
 
@@ -208,45 +217,103 @@ class TestGetData(unittest.TestCase):
             interactive=False,
         )
 
-    # MARK : User Chooses to skip
+    # MARK: User Chooses Skip
 
     @patch("scribe_data.cli.get.query_data")
-    @patch("scribe_data.cli.get.Path.glob")
-    @patch("builtins.input", return_value="s")
-    def test_user_skips_existing_file(self, mock_input, mock_glob, mock_query_data):
+    @patch(
+        "scribe_data.cli.get.Path.glob",
+        return_value=[Path("./test_output/English/nouns.json")],
+    )
+    @patch("scribe_data.cli.get.questionary.confirm")
+    def test_user_skips_existing_file(
+        self, mock_questionary_confirm, mock_glob, mock_query_data
+    ):
         """
         Test the behavior when the user chooses to skip an existing file.
 
         Ensures that the file is not overwritten and the function returns the correct result.
         """
-        mock_glob.return_value = [Path("./test_output/English/nouns.json")]
+        mock_questionary_confirm.return_value.ask.return_value = False
         result = get_data(
             language="English", data_type="nouns", output_dir="./test_output"
         )
+
+        # Validate the skip result.
         self.assertEqual(result, {"success": False, "skipped": True})
         mock_query_data.assert_not_called()
 
-    # MARK : User Chooses to overwrite
+    # MARK: User Chooses Overwrite
 
     @patch("scribe_data.cli.get.query_data")
-    @patch("scribe_data.cli.get.Path.glob")
-    @patch("builtins.input", return_value="o")
-    @patch("scribe_data.cli.get.Path.unlink")
+    @patch(
+        "scribe_data.cli.get.Path.glob",
+        return_value=[Path("./test_output/English/nouns.json")],
+    )
+    @patch("scribe_data.cli.get.questionary.confirm")
     def test_user_overwrites_existing_file(
-        self, mock_unlink, mock_input, mock_glob, mock_query_data
+        self, mock_questionary_confirm, mock_glob, mock_query_data
     ):
         """
         Test the behavior when the user chooses to overwrite an existing file.
 
         Ensures that the file is overwritten and the function returns the correct result.
         """
-        mock_glob.return_value = [Path("./test_output/English/nouns.json")]
+        mock_questionary_confirm.return_value.ask.return_value = True
         get_data(language="English", data_type="nouns", output_dir="./test_output")
-        mock_unlink.assert_called_once_with()
+
         mock_query_data.assert_called_once_with(
             languages=["English"],
             data_type=["nouns"],
             output_dir="./test_output",
             overwrite=False,
             interactive=False,
+        )
+
+    # MARK: Translations
+
+    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    def test_get_translations_no_language_specified(self, mock_parse):
+        """
+        Test behavior when no language is specified for 'translations'.
+        Expect language="all".
+        """
+        get_data(data_type="translations")
+        mock_parse.assert_called_once_with(
+            language="all",
+            wikidata_dump_type=["translations"],
+            type_output_dir="scribe_data_json_export",  # default output dir for JSON
+            wikidata_dump_path=None,
+        )
+
+    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    def test_get_translations_with_specific_language(self, mock_parse):
+        """
+        Test behavior when a specific language is provided for 'translations'.
+        Expect parse_wd_lexeme_dump to be called with that language.
+        """
+        get_data(
+            language="Spanish", data_type="translations", output_dir="./test_output"
+        )
+        mock_parse.assert_called_once_with(
+            language="Spanish",
+            wikidata_dump_type=["translations"],
+            type_output_dir="./test_output",
+            wikidata_dump_path=None,
+        )
+
+    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    def test_get_translations_with_dump(self, mock_parse):
+        """
+        Test behavior when a Wikidata dump path is specified for 'translations'.
+        Even with a language, it should call parse_wd_lexeme_dump
+        passing that dump path.
+        """
+        get_data(
+            language="German", data_type="translations", wikidata_dump="./wikidump.json"
+        )
+        mock_parse.assert_called_once_with(
+            language="German",
+            wikidata_dump_type=["translations"],
+            type_output_dir="scribe_data_json_export",  # default for JSON
+            wikidata_dump_path="./wikidump.json",
         )

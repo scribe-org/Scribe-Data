@@ -123,11 +123,8 @@ def _load_json(package_path: str, file_name: str) -> Any:
     -------
     A python entity representing the JSON content.
     """
-    with (
-        resources.files(package_path)
-        .joinpath(file_name)
-        .open(encoding="utf-8") as in_stream
-    ):
+    json_file = resources.files(package_path).joinpath(file_name)
+    with json_file.open(encoding="utf-8") as in_stream:
         return json.load(in_stream)
 
 
@@ -547,6 +544,9 @@ def format_sublanguage_name(lang, language_metadata=_languages):
     > format_sublanguage_name("english", language_metadata)
     'English'
     """
+    if (lang.startswith("Q") or lang.startswith("q")) and lang[1:].isdigit():
+        return lang
+
     for main_lang, lang_data in language_metadata.items():
         # If it's not a sub-language, return the original name.
         if main_lang == lang:

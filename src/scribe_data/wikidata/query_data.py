@@ -166,7 +166,6 @@ def query_data(
 
     # MARK: Run Queries
 
-    # Run queries and format data.
     for q in tqdm(
         queries_to_run,
         desc="Data updated",
@@ -216,7 +215,6 @@ def query_data(
 
                     else:
                         print(f"Skipping update for {lang.title()} {target_type}.")
-                        return {"success": False, "skipped": True}
 
         print(f"Querying and formatting {lang.title()} {target_type}")
 
@@ -342,8 +340,3 @@ def query_data(
             print(
                 f"Successfully queried and formatted data for {lang.title()} {target_type}."
             )
-            return {"success": True, "skipped": False}
-
-
-# if __name__ == "__main__":
-#     query_data()
