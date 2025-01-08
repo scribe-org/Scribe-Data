@@ -81,14 +81,14 @@ language_db_dict["translation"]["scribe_ios_db_path"] = (
 )
 language_db_dict["translation"]["full_path_to_scribe_ios_db"] = (
     PATH_TO_SCRIBE_DATA_ROOT.parent
-    / f"{language_db_dict["translation"]['scribe_ios_db_path']}"
+    / f"{language_db_dict['translation']['scribe_ios_db_path']}"
 )
 language_db_dict["translation"]["scribe_android_db_path"] = (
     get_android_data_path() / "TranslationData.sqlite"
 )
 language_db_dict["translation"]["full_path_to_scribe_android_db"] = (
     PATH_TO_SCRIBE_DATA_ROOT.parent
-    / f"{language_db_dict["translation"]['scribe_android_db_path']}"
+    / f"{language_db_dict['translation']['scribe_android_db_path']}"
 )
 
 for language in language_db_dict:
