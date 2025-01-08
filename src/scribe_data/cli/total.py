@@ -235,15 +235,22 @@ def get_total_lexemes(language, data_type, do_print=True):
     str
         A formatted string indicating the language, data type and total number of lexemes, if found.
     """
-
-    if language is not None and language.startswith("Q") and language[1:].isdigit():
-        language_qid = language
+    if (
+        language is not None
+        and (language.startswith("Q") or language.startswith("q"))
+        and language[1:].isdigit()
+    ):
+        language_qid = language.capitalize()
 
     else:
         language_qid = get_qid_by_input(language)
 
-    if data_type is not None and data_type.startswith("Q") and data_type[1:].isdigit():
-        data_type_qid = data_type
+    if (
+        data_type is not None
+        and (data_type.startswith("Q") or data_type.startswith("q"))
+        and data_type[1:].isdigit()
+    ):
+        data_type_qid = data_type.capitalize()
 
     else:
         data_type_qid = get_qid_by_input(data_type)

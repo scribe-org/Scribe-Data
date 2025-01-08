@@ -222,7 +222,7 @@ def get_data(
             if user_choice:
                 print("Overwrite chosen. Removing existing files...")
                 for file in existing_files:
-                    if file.exists():  # Check if the file exists before unlinking
+                    if file.exists():  # check if the file exists before unlinking
                         file.unlink()
             else:
                 print(f"Skipping update for {language.title()} {data_type}.")
