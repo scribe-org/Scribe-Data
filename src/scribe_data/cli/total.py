@@ -24,7 +24,6 @@ from http.client import IncompleteRead
 from typing import List, Union
 from urllib.error import HTTPError
 
-import requests
 from SPARQLWrapper import JSON
 
 from scribe_data.utils import (
@@ -34,6 +33,7 @@ from scribe_data.utils import (
     language_metadata,
     language_to_qid,
     list_all_languages,
+    check_qid_is_language,
 )
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump, sparql
 
@@ -122,39 +122,6 @@ def get_datatype_list(language):
 
     else:  # return all data types
         return data_type_metadata
-
-
-def check_qid_is_language(qid: str):
-    """
-    Parameters
-    ----------
-    qid : str
-        The QID to check Wikidata to see if it's a language and return its English label.
-
-    Outputs
-    -------
-    str
-        The English label of the Wikidata language entity.
-
-    Raises
-    ------
-    ValueError
-        An invalid QID that's not a language has been passed.
-    """
-    api_endpoint = "https://www.wikidata.org/w/rest.php/wikibase/v0"
-    request_string = f"{api_endpoint}/entities/items/{qid}"
-
-    request = requests.get(request_string, timeout=5)
-    request_result = request.json()
-
-    if request_result["statements"]["P31"]:
-        instance_of_values = request_result["statements"]["P31"]
-        for val in instance_of_values:
-            if val["value"]["content"] == "Q34770":
-                print(f"{request_result['labels']['en']} ({qid}) is a language.\n")
-                return request_result["labels"]["en"]
-
-    raise ValueError("The passed Wikidata QID is not a language.")
 
 
 # MARK: Print

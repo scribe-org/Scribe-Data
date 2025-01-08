@@ -23,6 +23,7 @@ Utility functions for data extraction, formatting and loading.
 
 import ast
 import contextlib
+import requests
 import json
 import os
 import re
@@ -736,3 +737,70 @@ def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
         return choice == "Skip process"
 
     return False
+
+
+def check_qid_is_language(qid: str):
+    """
+    Parameters
+    ----------
+    qid : str
+        The QID to check Wikidata to see if it's a language and return its English label.
+
+    Outputs
+    -------
+    str
+        The English label of the Wikidata language entity.
+
+    Raises
+    ------
+    ValueError
+        An invalid QID that's not a language has been passed.
+    """
+    api_endpoint = "https://www.wikidata.org/w/rest.php/wikibase/v0"
+    request_string = f"{api_endpoint}/entities/items/{qid}"
+
+    request = requests.get(request_string, timeout=5)
+    request_result = request.json()
+
+    if request_result["statements"]["P31"]:
+        instance_of_values = request_result["statements"]["P31"]
+        for val in instance_of_values:
+            if val["value"]["content"] == "Q34770":
+                print(f"{request_result['labels']['en']} ({qid}) is a language.\n")
+                return request_result["labels"]["en"]
+
+    raise ValueError("The passed Wikidata QID is not a language.")
+
+
+def get_language_iso_code(qid: str):
+    """
+    Parameters
+    ----------
+    qid : str
+        Get the ISO code of a language given its Wikidata QID.
+
+    Outputs
+    -------
+    str
+        The ISO code of the language.
+
+    Raises
+    ------
+    ValueError
+        An invalid QID that's not a language has been passed.
+    KeyError
+        The ISO code for the language is not available.
+    """
+
+    api_endpoint = f"https://www.wikidata.org/w/api.php?action=wbgetentities&ids={qid}&props=claims&format=json"
+    response = requests.get(api_endpoint)
+    data = response.json()
+    try:
+        return data["entities"][qid]["claims"]["P305"][0]["mainsnak"]["datavalue"][
+            "value"
+        ]
+
+    except ValueError:
+        raise ValueError("The passed Wikidata QID is not a language.")
+    except KeyError:
+        return KeyError("The ISO code for the language is not available.")
