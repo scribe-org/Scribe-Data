@@ -4,14 +4,11 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?nominativeSingular
   ?nominativePlural
-  ?gender
 
 WHERE {
   ?lexeme dct:language wd:Q188 ;
-    wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?nominativeSingular .
+    wikibase:lexicalCategory wd:Q1084 .
 
   # MARK: Nominative Plural
 
@@ -19,16 +16,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?nominativePluralForm .
     ?nominativePluralForm ontolex:representation ?nominativePlural ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
-  }
-
-  # MARK: Gender(s)
-
-  OPTIONAL {
-    ?lexeme wdt:P5185 ?nounGender .
-  }
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en" .
-    ?nounGender rdfs:label ?gender .
   }
 }
