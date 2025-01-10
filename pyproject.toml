@@ -1,2 +1,10 @@
 [tool.pytest.ini_options]
 pythonpath = "src"
+
+[tool.numpydoc_validation]
+checks = [
+    "all",  # report on all checks, except the below
+    "ES01",
+    "EX01",
+    "SA01",
+]
