@@ -104,8 +104,7 @@ class LexemeProcessor:
 
         for language in self.target_iso:
             if (
-                language.startswith("Q")
-                or language.startswith("q")
+                language.lower().startswith("q")
                 and language[1:].isdigit()
             ):
                 qid_to_lang = check_qid_is_language(language)
