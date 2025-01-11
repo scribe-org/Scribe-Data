@@ -23,7 +23,6 @@ Utility functions for data extraction, formatting and loading.
 
 import ast
 import contextlib
-import requests
 import json
 import os
 import re
@@ -33,6 +32,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 import questionary
+import requests
 from rich import print as rprint
 
 # MARK: Utils Variables
@@ -54,6 +54,9 @@ DATA_TYPE_METADATA_FILE = (
 )
 LEXEME_FORM_METADATA_FILE = (
     Path(__file__).parent / "resources" / "lexeme_form_metadata.json"
+)
+WIKIDATA_QIDS_PIDS_FILE = (
+    Path(__file__).parent / "resources" / "wikidata_qids_pids.json"
 )
 DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
 
@@ -78,6 +81,13 @@ try:
 
 except (IOError, json.JSONDecodeError) as e:
     print(f"Error reading lexeme form metadata: {e}")
+
+try:
+    with WIKIDATA_QIDS_PIDS_FILE.open("r", encoding="utf-8") as file:
+        wikidata_qids_pids = json.load(file)
+
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading language metadata: {e}")
 
 
 language_map = {}
@@ -762,8 +772,10 @@ def check_qid_is_language(qid: str):
     request = requests.get(request_string, timeout=5)
     request_result = request.json()
 
-    if request_result["statements"]["P31"]:
-        instance_of_values = request_result["statements"]["P31"]
+    if request_result["statements"][wikidata_qids_pids["instance_of"]]:
+        instance_of_values = request_result["statements"][
+            wikidata_qids_pids["instance_of"]
+        ]
         for val in instance_of_values:
             if val["value"]["content"] == "Q34770":
                 print(f"{request_result['labels']['en']} ({qid}) is a language.\n")
@@ -796,9 +808,9 @@ def get_language_iso_code(qid: str):
     response = requests.get(api_endpoint)
     data = response.json()
     try:
-        return data["entities"][qid]["claims"]["P305"][0]["mainsnak"]["datavalue"][
-            "value"
-        ]
+        return data["entities"][qid]["claims"][wikidata_qids_pids["ietf_language_tag"]][
+            0
+        ]["mainsnak"]["datavalue"]["value"]
 
     except ValueError:
         raise ValueError("The passed Wikidata QID is not a language.")
