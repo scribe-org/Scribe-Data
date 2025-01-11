@@ -166,8 +166,9 @@ def main() -> None:
     get_parser.add_argument(
         "-wdp",
         "--wikidata-dump-path",
-        type=str,
-        help="Path to a local Wikidata lexemes dump for running with '--all'.",
+        nargs="?",
+        const="",
+        help="Path to a local Wikidata lexemes dump. Uses default directory if no path provided.",
     )
     get_parser.add_argument(
         "-t", "--translation", type=str, help="parse a single word using MediaWiki API"
@@ -364,8 +365,11 @@ def main() -> None:
             if args.interactive:
                 start_interactive_mode(operation="get")
             if args.translation:
-                parse_wiktionary_translations(args.translation)
+                parse_wiktionary_translations(args.translation, args.output_dir)
             else:
+                print(
+                    f"Parsing Wikidata lexeme dump for {args.language} and {args.data_type}"
+                )
                 get_data(
                     language=args.language.lower()
                     if args.language is not None

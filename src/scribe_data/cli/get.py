@@ -34,6 +34,7 @@ from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
+    DEFAULT_DUMP_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
@@ -189,7 +190,9 @@ def get_data(
 
     # MARK: Form Dump
 
-    elif wikidata_dump:
+    elif wikidata_dump is not None:
+        if not wikidata_dump:
+            wikidata_dump = DEFAULT_DUMP_EXPORT_DIR
         parse_wd_lexeme_dump(
             language=language,
             wikidata_dump_type=["form"],

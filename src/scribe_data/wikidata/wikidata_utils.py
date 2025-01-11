@@ -113,5 +113,3 @@ def parse_wd_lexeme_dump(
                 output_dir=type_output_dir,
             )
             return
-
-    rprint(f"[bold red]No valid dumps found in {file_path}.[/bold red]")

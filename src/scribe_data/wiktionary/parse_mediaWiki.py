@@ -22,8 +22,8 @@ Functions to parse the translations of a word from MediaWiki API.
 
 import json
 import re
-
-from scribe_data.utils import get_language_from_iso
+from pathlib import Path
+from scribe_data.utils import get_language_from_iso, DEFAULT_MEDIAWIKI_EXPORT_DIR
 from scribe_data.wikidata.wikidata_utils import mediaWiki_query
 
 
@@ -121,16 +121,53 @@ def build_json_format(word, translations_by_lang):
     return book_translations
 
 
-def parse_wiktionary_translations(word):
+def parse_wiktionary_translations(word, output_dir=DEFAULT_MEDIAWIKI_EXPORT_DIR):
     """
-    Parse the translations of a word from Wiktionary.
-    """
-    wikitext = fetch_translation_page(word)
-    translations_by_lang = parse_wikitext_for_translations(wikitext)
+    Parse translations from Wiktionary and save them to a JSON file.
 
+    Fetches the Wiktionary page for the given word, extracts translations
+    across different languages, and saves them in a structured JSON format.
+
+    Parameters
+    ----------
+    word : str
+        The word to fetch translations for.
+    output_dir : str or Path, optional
+        Directory to save JSON output (default is DEFAULT_MEDIAWIKI_EXPORT_DIR).
+        Will be created if it doesn't exist.
+
+    Notes
+    -----
+    The output JSON structure follows the format:
+    {
+        "word": {
+            "language": {
+                "part_of_speech": {
+                    "1": {
+                        "description": "context",
+                        "translations": "translated_text"
+                    }
+                }
+            }
+        }
+    }
+    """
+    output_dir = output_dir or DEFAULT_MEDIAWIKI_EXPORT_DIR
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    translations_by_lang = parse_wikitext_for_translations(fetch_translation_page(word))
     if not translations_by_lang:
         print("No translations found")
         return
 
-    final_json = build_json_format(word, translations_by_lang)
-    print(json.dumps(final_json, indent=4, ensure_ascii=False))
+    json_path = output_path / f"{word}.json"
+    with open(json_path, "w", encoding="utf-8") as file:
+        json.dump(
+            build_json_format(word, translations_by_lang),
+            file,
+            indent=4,
+            ensure_ascii=False,
+        )
+
+    print(f"JSON file saved to {json_path}")

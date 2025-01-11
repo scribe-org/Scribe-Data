@@ -27,7 +27,6 @@ from pathlib import Path
 from typing import List, Union
 
 import orjson
-import questionary
 from scribe_data.utils import (
     DEFAULT_DUMP_EXPORT_DIR,
     check_index_exists,
@@ -103,10 +102,7 @@ class LexemeProcessor:
                 iso_mapping[iso_code] = lang_name
 
         for language in self.target_iso:
-            if (
-                language.lower().startswith("q")
-                and language[1:].isdigit()
-            ):
+            if language.lower().startswith("q") and language[1:].isdigit():
                 qid_to_lang = check_qid_is_language(language)
                 if qid_to_lang:
                     iso_code = get_language_iso_code(language.upper())
@@ -415,20 +411,7 @@ def parse_dump(
     parse_type = parse_type or []
     data_types = data_types or []
 
-    print(f"Languages: {languages}")
-    print(f"parse_type: {parse_type}")
-    if data_types:
-        print(f"data_types for forms: {data_types}")
-
     if "total" not in parse_type:
-        choice = questionary.select(
-            "Choose an action:",
-            choices=["Overwrite existing data", "Skip process"],
-            default="Skip process",
-        ).ask()
-        if choice == "Overwrite existing data":
-            overwrite_all = True
-
         # For translations, we only need to check the translations index.
         if "translations" in parse_type:
             languages_to_process = []
@@ -500,8 +483,6 @@ def parse_dump(
         # For each data_type, we create a separate file, e.g. lexeme_nouns.json.
         for dt in data_types:
             index_path = Path(output_dir) / f"lexeme_{dt}.json"
-            print(f"Exporting forms for {dt} to {index_path}...")
-
             iso_codes = set()
             for word_data in processor.forms_index.values():
                 iso_codes.update(word_data.keys())
