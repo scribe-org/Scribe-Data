@@ -81,7 +81,7 @@ class TestGetData(unittest.TestCase):
         mock_parse.assert_called_once_with(
             language="English",
             wikidata_dump_type=["form"],
-            data_types=None,  # because data_types = [data_type] if provided else None
+            data_types="all",  # because if only language given, data_types is None
             type_output_dir="scribe_data_json_export",  # default for JSON
         )
         mock_query_data.assert_not_called()

@@ -120,7 +120,7 @@ def get_data(
                 parse_wd_lexeme_dump(
                     language=language,
                     wikidata_dump_type=["form"],
-                    data_types=data_types,
+                    data_types="all",
                     type_output_dir=output_dir,
                 )
             else:

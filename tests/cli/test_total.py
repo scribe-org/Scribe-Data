@@ -20,16 +20,24 @@ Tests for the CLI total functionality.
     -->
 """
 
+import json
 import unittest
 from unittest.mock import MagicMock, call, patch
 
 from scribe_data.cli.total import (
-    check_qid_is_language,
     get_datatype_list,
     get_qid_by_input,
     get_total_lexemes,
     total_wrapper,
 )
+from scribe_data.utils import WIKIDATA_QIDS_PIDS_FILE, check_qid_is_language
+
+try:
+    with WIKIDATA_QIDS_PIDS_FILE.open("r", encoding="utf-8") as file:
+        wikidata_qids_pids = json.load(file)
+
+except (IOError, json.JSONDecodeError) as e:
+    print(f"Error reading language metadata: {e}")
 
 
 class TestTotalLexemes(unittest.TestCase):
@@ -213,11 +221,13 @@ class TestGetDatatypeList(unittest.TestCase):
 
 
 class TestCheckQidIsLanguage(unittest.TestCase):
-    @patch("scribe_data.cli.total.requests.get")
+    @patch("scribe_data.utils.requests.get")
     def test_check_qid_is_language_valid(self, mock_get):
         mock_response = MagicMock()
         mock_response.json.return_value = {
-            "statements": {"P31": [{"value": {"content": "Q34770"}}]},
+            "statements": {
+                wikidata_qids_pids["instance_of"]: [{"value": {"content": "Q34770"}}]
+            },
             "labels": {"en": "English"},
         }
         mock_get.return_value = mock_response
@@ -228,11 +238,13 @@ class TestCheckQidIsLanguage(unittest.TestCase):
         self.assertEqual(result, "English")
         mock_print.assert_called_once_with("English (Q1860) is a language.\n")
 
-    @patch("scribe_data.cli.total.requests.get")
+    @patch("scribe_data.utils.requests.get")
     def test_check_qid_is_language_invalid(self, mock_get):
         mock_response = MagicMock()
         mock_response.json.return_value = {
-            "statements": {"P31": [{"value": {"content": "Q5"}}]},
+            "statements": {
+                wikidata_qids_pids["instance_of"]: [{"value": {"content": "Q5"}}]
+            },
             "labels": {"en": "Human"},
         }
         mock_get.return_value = mock_response

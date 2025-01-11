@@ -33,6 +33,8 @@ from scribe_data.utils import (
     check_index_exists,
     data_type_metadata,
     language_metadata,
+    get_language_iso_code,
+    check_qid_is_language,
 )
 from tqdm import tqdm
 
@@ -81,7 +83,6 @@ class LexemeProcessor:
 
         # Build map from ISO to full language name.
         self.iso_to_name = self._build_iso_mapping()
-
         # For "total" usage.
         self.lexical_category_counts = defaultdict(Counter)
         self.translation_counts = defaultdict(Counter)
@@ -101,120 +102,18 @@ class LexemeProcessor:
             if iso_code := data.get("iso"):
                 iso_mapping[iso_code] = lang_name
 
+        for language in self.target_iso:
+            if (
+                language.lower().startswith("q")
+                and language[1:].isdigit()
+            ):
+                qid_to_lang = check_qid_is_language(language)
+                if qid_to_lang:
+                    iso_code = get_language_iso_code(language.upper())
+                    iso_mapping[iso_code] = qid_to_lang
+                    print(f"ISO code for {language} is {iso_code}")
+
         return iso_mapping
-
-    # MARK: process total
-    def _process_lexeme_total(self, lexeme: dict) -> None:
-        """
-        Gather stats if 'total' is in parse_type: how many entries per language & category,
-        how many translations, etc.
-        """
-        lexicalCategory = lexeme.get("lexicalCategory")
-        if not lexicalCategory or lexicalCategory not in data_type_metadata.values():
-            return
-
-        category_name = self._category_lookup.get(lexicalCategory)
-        if not category_name:
-            return
-
-        # Update counters.
-        lemmas = lexeme.get("lemmas", {})
-        for lemma in lemmas.values():
-            lang = lemma.get("language")
-
-            if lang in self.iso_to_name:
-                self.lexical_category_counts[lang][category_name] += 1
-                translation_count = sum(
-                    len(sense.get("glosses", {})) for sense in lexeme.get("senses", [])
-                )
-                self.translation_counts[lang][category_name] += translation_count
-
-                break
-
-    # MARK: process translations
-    def _process_lexeme_translations(self, lexeme: dict) -> None:
-        """
-        Process gloss-based translations if 'translations' is in parse_type.
-        Store them in self.translations_index.
-        """
-        lemmas = lexeme.get("lemmas", {})
-        qid = lexeme.get("lexicalCategory")
-
-        if not (lemmas and qid):
-            return
-
-        category_name = self._category_lookup.get(qid)
-        if not category_name:
-            return
-
-        # Only store first valid lemma for translations.
-        for lang_code, lemma_data in lemmas.items():
-            if lang_code not in self.iso_to_name:
-                continue
-
-            word = lemma_data.get("value", "").lower()
-            if not word:
-                continue
-
-            # Build translations from sense glosses.
-            translations = {}
-            for sense in lexeme.get("senses", []):
-                for sense_lang_code, gloss in sense.get("glosses", {}).items():
-                    if sense_lang_code in self.iso_to_name:
-                        translations[sense_lang_code] = gloss["value"]
-
-            if translations:
-                self.translations_index[word][lang_code][category_name] = translations
-
-            break  # only handle the first lemma
-
-    # MARK: process forms
-    def _process_lexeme_forms(self, lexeme: dict) -> None:
-        """
-        Process forms for categories in self.data_types if 'form' is in parse_type.
-        Store them in self.forms_index.
-        """
-        lemmas = lexeme.get("lemmas", {})
-        lexical_category = lexeme.get("lexicalCategory")
-
-        # Skip if category missing or not recognized.
-        if not lexical_category or lexical_category not in data_type_metadata.values():
-            return
-
-        # Convert Q1084 -> "nouns", etc.
-        category_name = self._category_lookup.get(lexical_category)
-        if not category_name:
-            return
-
-        # If the category_name is NOT in our data_types list, skip
-        # e.g., category_name = "nouns", but user didn't request "nouns" in data_types.
-        if category_name not in self.data_types:
-            return
-
-        # Process forms.
-        for lang_code, lemma_data in lemmas.items():
-            if lang_code not in self.iso_to_name:
-                continue
-
-            word = lemma_data.get("value", "").lower()
-            if not word:
-                continue
-
-            forms_data = defaultdict(list)
-            for form in lexeme.get("forms", []):
-                representations = form.get("representations", {})
-                grammatical_features = form.get("grammaticalFeatures", [])
-
-                for rep_lang, rep_data in representations.items():
-                    if rep_lang == lang_code:
-                        if form_value := rep_data.get("value"):
-                            forms_data[form_value].extend(grammatical_features)
-
-            if forms_data:
-                self.forms_index[word][lang_code][category_name] = dict(forms_data)
-                self.forms_counts[lang_code][category_name] += len(forms_data)
-
-            break  # only first valid lemma
 
     # MARK: process lines
     def process_lines(self, line: str) -> None:
@@ -385,6 +284,12 @@ class LexemeProcessor:
                 for word, lang_data in self.translations_index.items()
                 if language_iso in lang_data
             }
+
+            # Check if filtered data is empty before saving.
+            if not filtered:
+                print(f"No translations found for {language_iso}, skipping export...")
+                return
+
             self._save_by_language(filtered, filepath, language_iso, "translations")
 
     # MARK: export forms
@@ -417,6 +322,11 @@ class LexemeProcessor:
 
                     else:
                         filtered[word] = {language_iso: lang_data[language_iso]}
+
+            # Check if filtered data is empty before saving.
+            if not filtered:
+                print(f"No forms found for {language_iso}, skipping export...")
+                return
 
             self._save_by_language(
                 filtered, filepath, language_iso, data_type or "forms"
