@@ -123,6 +123,7 @@ def get_data(
                     wikidata_dump_type=["form"],
                     data_types="all",
                     type_output_dir=output_dir,
+                    overwrite_all=overwrite,
                 )
             else:
                 language_or_sub_language = language.split(" ")[0]
@@ -144,6 +145,7 @@ def get_data(
                     wikidata_dump_type=["form"],
                     data_types=[data_type],
                     type_output_dir=output_dir,
+                    overwrite_all=overwrite,
                 )
             else:
                 print(f"Updating all languages for data type: {data_type.capitalize()}")
@@ -168,6 +170,7 @@ def get_data(
                 data_types="all",
                 type_output_dir=output_dir,
                 wikidata_dump_path=wikidata_dump,
+                overwrite_all=overwrite,
             )
 
     # MARK: Emojis
@@ -185,6 +188,7 @@ def get_data(
             wikidata_dump_type=["translations"],
             type_output_dir=output_dir,
             wikidata_dump_path=wikidata_dump,
+            overwrite_all=overwrite,
         )
         return
 
@@ -199,6 +203,7 @@ def get_data(
             data_types=data_types,
             type_output_dir=output_dir,
             wikidata_dump_path=wikidata_dump,
+            overwrite_all=overwrite,
         )
         return
 

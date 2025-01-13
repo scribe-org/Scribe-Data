@@ -83,6 +83,7 @@ class TestGetData(unittest.TestCase):
             wikidata_dump_type=["form"],
             data_types="all",  # because if only language given, data_types is None
             type_output_dir="scribe_data_json_export",  # default for JSON
+            overwrite_all=False,
         )
         mock_query_data.assert_not_called()
 
@@ -101,6 +102,7 @@ class TestGetData(unittest.TestCase):
             data_types="all",
             type_output_dir="scribe_data_json_export",
             wikidata_dump_path=None,
+            overwrite_all=False,
         )
 
     # MARK: Language and Data Type
@@ -281,8 +283,9 @@ class TestGetData(unittest.TestCase):
         mock_parse.assert_called_once_with(
             language="all",
             wikidata_dump_type=["translations"],
-            type_output_dir="scribe_data_json_export",  # default output dir for JSON
+            type_output_dir="scribe_data_json_export",
             wikidata_dump_path=None,
+            overwrite_all=False,
         )
 
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
@@ -299,6 +302,7 @@ class TestGetData(unittest.TestCase):
             wikidata_dump_type=["translations"],
             type_output_dir="./test_output",
             wikidata_dump_path=None,
+            overwrite_all=False,
         )
 
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
@@ -314,6 +318,7 @@ class TestGetData(unittest.TestCase):
         mock_parse.assert_called_once_with(
             language="German",
             wikidata_dump_type=["translations"],
-            type_output_dir="scribe_data_json_export",  # default for JSON
+            type_output_dir="scribe_data_json_export",
             wikidata_dump_path="./wikidump.json",
+            overwrite_all=False,
         )

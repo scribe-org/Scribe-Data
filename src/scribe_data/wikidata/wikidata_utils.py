@@ -64,6 +64,7 @@ def parse_wd_lexeme_dump(
     data_types: List[str] = None,
     type_output_dir: str = None,
     wikidata_dump_path: str = None,
+    overwrite_all: bool = False,
 ):
     """
     Checks for the existence of a Wikidata lexeme dump and parses it if possible.
@@ -84,6 +85,9 @@ def parse_wd_lexeme_dump(
 
     wikidata_dump_path : str, optional
         The local Wikidata lexeme dump directory that should be used to get data.
+
+    overwrite_all : bool, default=False
+        If True, automatically overwrite existing files without prompting
     """
     # Convert "all" to list of all languages
     if isinstance(language, str) and language.lower() == "all":
@@ -111,5 +115,6 @@ def parse_wd_lexeme_dump(
                 data_types=data_types,
                 file_path=file_path,
                 output_dir=type_output_dir,
+                overwrite_all=overwrite_all,
             )
             return
