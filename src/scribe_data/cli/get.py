@@ -123,6 +123,7 @@ def get_data(
                     wikidata_dump_type=["form"],
                     data_types="all",
                     type_output_dir=output_dir,
+                    wikidata_dump_path=wikidata_dump,
                     overwrite_all=overwrite,
                 )
             else:
@@ -145,6 +146,7 @@ def get_data(
                     wikidata_dump_type=["form"],
                     data_types=[data_type],
                     type_output_dir=output_dir,
+                    wikidata_dump_path=wikidata_dump,
                     overwrite_all=overwrite,
                 )
             else:
@@ -181,12 +183,12 @@ def get_data(
     # MARK: Translations
 
     elif data_type == "translations":
+        # If no language specified, use "all".
         if language is None:
             language = "all"
         parse_wd_lexeme_dump(
             language=language,
             wikidata_dump_type=["translations"],
-            data_types=data_types,
             type_output_dir=output_dir,
             wikidata_dump_path=wikidata_dump,
             overwrite_all=overwrite,

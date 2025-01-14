@@ -83,6 +83,7 @@ class TestGetData(unittest.TestCase):
             wikidata_dump_type=["form"],
             data_types="all",  # because if only language given, data_types is None
             type_output_dir="scribe_data_json_export",  # default for JSON
+            wikidata_dump_path=None,  # explicitly set to None
             overwrite_all=False,
         )
         mock_query_data.assert_not_called()
@@ -320,5 +321,59 @@ class TestGetData(unittest.TestCase):
             wikidata_dump_type=["translations"],
             type_output_dir="scribe_data_json_export",
             wikidata_dump_path="./wikidump.json",
+            overwrite_all=False,
+        )
+
+    # MARK: Use QID as language
+
+    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    @patch("scribe_data.cli.get.questionary.confirm")
+    def test_get_data_with_wikidata_identifier(
+        self, mock_questionary_confirm, mock_parse
+    ):
+        """
+        Test retrieving data with a Wikidata identifier as language.
+
+        Ensures that `parse_wd_lexeme_dump` is called with the correct parameters
+        when a Wikidata identifier is used.
+        """
+        # Mock the user confirmation to return True (query Wikidata directly).
+        mock_questionary_confirm.return_value.ask.return_value = True
+
+        get_data(
+            language="Q9217",
+            wikidata_dump="scribe",
+            output_dir="exported_json",
+            all_bool=True,
+        )
+        mock_parse.assert_called_once_with(
+            language="Q9217",
+            wikidata_dump_type=["form"],
+            data_types="all",
+            type_output_dir="exported_json",
+            wikidata_dump_path="scribe",
+            overwrite_all=False,
+        )
+
+    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    def test_get_data_with_wikidata_identifier_and_data_type(self, mock_parse):
+        """
+        Test retrieving a specific data type with a Wikidata identifier.
+
+        Ensures that `parse_wd_lexeme_dump` is called with the correct parameters
+        when a Wikidata identifier and specific data type are used.
+        """
+        get_data(
+            language="Q9217",
+            data_type="nouns",
+            wikidata_dump="scribe",
+            output_dir="exported_json",
+        )
+        mock_parse.assert_called_once_with(
+            language="Q9217",
+            wikidata_dump_type=["form"],
+            data_types=["nouns"],
+            type_output_dir="exported_json",
+            wikidata_dump_path="scribe",
             overwrite_all=False,
         )
