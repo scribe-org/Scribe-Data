@@ -72,7 +72,7 @@ class LexemeProcessor:
         self.translations_index = defaultdict(
             lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
         )
-        self.forms_index = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
+        self.forms_index = defaultdict(lambda: defaultdict(list))
 
         # Stats.
         self.stats = {"processed_entries": 0, "processing_time": 0}
@@ -81,6 +81,9 @@ class LexemeProcessor:
         self.lexical_category_counts = defaultdict(Counter)
         self.translation_counts = defaultdict(Counter)
         self.forms_counts = defaultdict(Counter)
+
+        # For "unique_forms" usage.
+        self.unique_forms = defaultdict(lambda: defaultdict(list))
 
         # Cache for feature labels.
         self._feature_label_cache = {}
@@ -185,18 +188,6 @@ class LexemeProcessor:
                 translations
             )
 
-            # Debug: Print translations_index for specific words
-            # if word.lower() in ["ändern", "cat", "dog"]:  # Add any words to debug
-            #     print("\nStored in translations_index:")
-            #     print(f"Word: {word}")
-            #     print(f"ID: {lexeme_id}")
-            #     print(f"Language: {lang_code}")
-            #     print(f"Category: {category_name}")
-            #     print("Translations:", orjson.dumps(
-            #         translations,
-            #         option=orjson.OPT_INDENT_2
-            #     ).decode('utf-8'))
-
     def _process_forms(self, lexeme, lang_code, category_name):
         """
         Optimized forms processing
@@ -215,6 +206,15 @@ class LexemeProcessor:
 
             for rep_data in representations.values():
                 if form_value := rep_data.get("value"):
+                    features = form.get("grammaticalFeatures", [])
+
+                    # If features are not empty and not already in the list
+                    if (
+                        features
+                        and features not in self.unique_forms[lang_code][category_name]
+                    ):
+                        self.unique_forms[lang_code][category_name].append(features)
+
                     if features := form.get("grammaticalFeatures"):
                         if form_name := self._get_form_name(features):
                             cat_dict[form_name] = form_value
@@ -594,3 +594,20 @@ def parse_dump(
                     processor.export_forms_json(
                         filepath=str(index_path), language_iso=iso_code, data_type=dt
                     )
+
+    # def print_unique_forms(unique_forms):
+    #     """
+    #     Pretty print unique grammatical feature sets
+    #     """
+    #     for lang, lang_data in unique_forms.items():
+    #         print(f"\nLanguage: {lang}")
+    #         for category, features_list in lang_data.items():
+    #             print(f"  Category: {category}")
+    #             print(f"  Total unique feature sets: {len(features_list)}")
+    #             print("  Feature Sets:")
+    #             for i, feature_set in enumerate(features_list, 1):
+    #                 # Convert QIDs to a more readable format
+    #                 readable_features = [f"Q{qid}" for qid in feature_set]
+    #                 print(f"    {i}. {readable_features}")
+
+    # print_unique_forms(processor.unique_forms)
