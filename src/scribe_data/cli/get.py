@@ -186,6 +186,7 @@ def get_data(
         parse_wd_lexeme_dump(
             language=language,
             wikidata_dump_type=["translations"],
+            data_types=data_types,
             type_output_dir=output_dir,
             wikidata_dump_path=wikidata_dump,
             overwrite_all=overwrite,

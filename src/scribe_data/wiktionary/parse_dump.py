@@ -70,7 +70,7 @@ class LexemeProcessor:
 
         # Separate data structures.
         self.translations_index = defaultdict(
-            lambda: defaultdict(lambda: defaultdict(dict))
+            lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
         )
         self.forms_index = defaultdict(lambda: defaultdict(lambda: defaultdict(dict)))
 
@@ -169,8 +169,9 @@ class LexemeProcessor:
         """
         translations = {}
         valid_iso_codes = self.valid_iso_codes
+        lexeme_id = lexeme["id"]
 
-        # Pre-fetch senses to avoid repeated lookups.
+        # Pre-fetch senses to avoid repeated lookups
         for sense in lexeme["senses"]:
             if glosses := sense.get("glosses"):
                 translations.update(
@@ -180,7 +181,21 @@ class LexemeProcessor:
                 )
 
         if translations:
-            self.translations_index[word][lang_code][category_name] = translations
+            self.translations_index[lang_code][category_name][lexeme_id][word] = (
+                translations
+            )
+
+            # Debug: Print translations_index for specific words
+            # if word.lower() in ["ändern", "cat", "dog"]:  # Add any words to debug
+            #     print("\nStored in translations_index:")
+            #     print(f"Word: {word}")
+            #     print(f"ID: {lexeme_id}")
+            #     print(f"Language: {lang_code}")
+            #     print(f"Category: {category_name}")
+            #     print("Translations:", orjson.dumps(
+            #         translations,
+            #         option=orjson.OPT_INDENT_2
+            #     ).decode('utf-8'))
 
     def _process_forms(self, lexeme, lang_code, category_name):
         """
@@ -321,13 +336,13 @@ class LexemeProcessor:
                 )
                 return
 
-            filtered = {
-                word: {language_iso: lang_data[language_iso]}
-                for word, lang_data in self.translations_index.items()
-                if language_iso in lang_data
-            }
+            # Flatten the category level
+            filtered = {}
+            for category_data in self.translations_index[language_iso].values():
+                for lexeme_id, word_data in category_data.items():
+                    filtered[lexeme_id] = word_data
 
-            # Check if filtered data is empty before saving.
+            # Check if filtered data is empty before saving
             if not filtered:
                 print(f"No translations found for {language_iso}, skipping export...")
                 return
@@ -424,7 +439,7 @@ class LexemeProcessor:
         lang_name = self.iso_to_name[language_iso]
 
         # Create language-specific directory
-        lang_filepath = base_path.parent / lang_name / base_path.name
+        lang_filepath = base_path.parent / base_path.name
         lang_filepath.parent.mkdir(parents=True, exist_ok=True)
 
         print(f"Saving {lang_name} {data_type} forms to {lang_filepath}...")
@@ -533,9 +548,9 @@ def parse_dump(
             languages = languages_to_process
             data_types = list(data_types_to_process)
 
-        print(f"Languages to process: {languages}")
-        if data_types:
-            print(f"Data types to process: {data_types}")
+        if not data_types or not languages:
+            print("No data types or languages provided. Nothing to process.")
+            return
 
         if not languages:
             print("All requested data already exists. Nothing to process.")
@@ -547,18 +562,23 @@ def parse_dump(
     processor.process_file(file_path)
 
     # MARK: Handle JSON exports
-
-    # (a) If "translations" in parse_type -> export them.
     if "translations" in parse_type:
-        index_path = Path(output_dir) / "lexeme_translations.json"
+        for language in languages:
+            # Get the ISO code for the language
+            iso_code = None
+            for iso, name in processor.iso_to_name.items():
+                if name.lower() == language.lower():
+                    iso_code = iso
+                    break
 
-        # Export translations for each ISO found.
-        iso_codes = set()
-        for word_data in processor.translations_index.values():
-            iso_codes.update(word_data.keys())
-        for iso_code in iso_codes:
-            if iso_code in processor.iso_to_name:
+            if iso_code:
+                index_path = Path(output_dir) / language / "lexeme_translations.json"
+                # Ensure parent directory exists
+                index_path.parent.mkdir(parents=True, exist_ok=True)
+                # print(f"Exporting translations for {language} to {index_path}")
                 processor.export_translations_json(str(index_path), iso_code)
+            else:
+                print(f"Warning: Could not find ISO code for {language}")
 
     # (b) If "form" in parse_type -> export forms for each data_type in data_types.
     if "form" in parse_type:
