@@ -93,9 +93,6 @@ def parse_wd_lexeme_dump(
     if isinstance(language, str) and language.lower() == "all":
         language = list(language_metadata.keys())
 
-    # For printing: include all data types including translations
-    display_data_types = list(data_type_metadata.keys())
-
     # For processing: exclude translations and emoji-keywords
     if isinstance(data_types, str) and data_types.lower() == "all":
         data_types = [
@@ -103,12 +100,9 @@ def parse_wd_lexeme_dump(
             for dt in data_type_metadata.keys()
             if dt != "translations" and dt != "emoji-keywords"
         ]
-        display_data_types += ["translations"]
-    else:
-        display_data_types = data_types
 
     print(f"Languages to process: {language}")
-    print(f"Data types to process: {display_data_types}")
+    print(f"Data types to process: {data_types}")
 
     file_path = wd_lexeme_dump_download_wrapper(None, wikidata_dump_path)
 

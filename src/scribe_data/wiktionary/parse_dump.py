@@ -249,6 +249,32 @@ class LexemeProcessor:
 
         return "".join(form_parts)
 
+    def _process_totals(self, lexeme, lang_code, category_name):
+        """
+        Process totals for statistical counting.
+        """
+        # Skip if we have specific data types and this category isn't in them
+        if self.data_types and category_name.lower() not in [
+            dt.lower() for dt in self.data_types
+        ]:
+            return
+
+        # Increment lexeme count for this language and category
+        self.lexical_category_counts[lang_code][category_name] += 1
+
+        # Count translations if they exist
+        if lexeme.get("senses"):
+            translation_count = sum(
+                1
+                for sense in lexeme["senses"]
+                if sense.get("glosses")
+                and any(
+                    lang in self.valid_iso_codes for lang in sense["glosses"].keys()
+                )
+            )
+            if translation_count > 0:
+                self.translation_counts[lang_code][category_name] += translation_count
+
     # MARK: process file
     def process_file(self, file_path: str, batch_size: int = 50000):
         """
@@ -611,3 +637,4 @@ def parse_dump(
     #                 print(f"    {i}. {readable_features}")
 
     # print_unique_forms(processor.unique_forms)
+    # print(processor.unique_forms)
