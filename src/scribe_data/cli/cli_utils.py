@@ -30,7 +30,7 @@ from scribe_data.utils import data_type_metadata, language_to_qid
 
 def correct_data_type(data_type: str) -> str:
     """
-    Corrects common versions of data type arguments so users can choose between them.
+    Correct common versions of data type arguments to their standardized form.
 
     Parameters
     ----------
@@ -39,7 +39,8 @@ def correct_data_type(data_type: str) -> str:
 
     Returns
     -------
-    The data_type value or a corrected version of it.
+    str
+        The data_type value or a corrected version of it.
     """
     all_data_types = data_type_metadata.keys()
 
@@ -56,7 +57,14 @@ def correct_data_type(data_type: str) -> str:
 
 def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
     """
-    Prints a formatted output from the Scribe-Data CLI.
+    Print formatted output from the Scribe-Data CLI.
+
+    Parameters
+    ----------
+    data : Union[dict, list]
+        The data to format and print.
+    data_type : str
+        The type of data being printed, used to determine formatting style.
     """
     if not data:
         print(f"No data available for data type '{data_type}'.")
@@ -118,7 +126,7 @@ def validate_language_and_data_type(
     data_type: Union[str, List[str], bool, None],
 ):
     """
-    Validates that the language and data type QIDs are not None.
+    Validate that the language and data type QIDs are not None.
 
     Parameters
     ----------
@@ -128,6 +136,11 @@ def validate_language_and_data_type(
     data_type : str or list
         The data type(s) to validate.
 
+    Returns
+    -------
+    bool
+        True if validation passes, otherwise raises ValueError.
+
     Raises
     ------
     ValueError
@@ -136,16 +149,14 @@ def validate_language_and_data_type(
 
     def validate_single_item(item, valid_options, item_type):
         """
-        Validates a single item against a list of valid options, providing error messages and suggestions.
+        Validate a single item against a list of valid options, providing error messages and suggestions.
 
         Parameters
         ----------
         item : str
             The item to validate.
-
         valid_options : list
             A list of valid options against which the item will be validated.
-
         item_type : str
             A description of the item type (e.g., "language", "data-type") used in error messages.
 

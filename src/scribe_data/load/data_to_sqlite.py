@@ -110,15 +110,15 @@ def data_to_sqlite(
 
     def create_table(data_type, cols):
         """
-        Creates a table in the language database given a data type for its title and column names.
+        Create a table in the language database.
 
         Parameters
         ----------
-            data_type : str
-                The name of the table to be created.
+        data_type : str
+            The name of the table to be created.
+        cols : list of str
+            The names of columns for the new table.
 
-            cols : list of strings
-                The names of columns for the new table.
         """
         # Convert column names to snake_case if requested.
         cols = [
@@ -131,15 +131,14 @@ def data_to_sqlite(
 
     def table_insert(data_type, keys):
         """
-        Inserts a row into a language database table.
+        Insert a row into a language database table.
 
         Parameters
         ----------
-            data_type : str
-                The name of the table to be inserted into
-
-            keys : list of strings
-                The values to be inserted into the table row
+        data_type : str
+            The name of the table to be inserted into.
+        keys : list of str
+            The values to be inserted into the table row.
         """
         insert_question_marks = ", ".join(["?"] * len(keys))
         cursor.execute(

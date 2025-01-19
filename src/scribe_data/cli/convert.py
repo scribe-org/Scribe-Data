@@ -53,28 +53,23 @@ def convert_to_json(
     ----------
     language : str
         The language of the file to convert.
-
     data_type : Union[str, List[str]]
         The data type of the file to convert.
-
     output_type : str
         The output format, should be "json".
-
     input_file : str
         The input CSV/TSV file path.
-
     output_dir : Path
         The output directory path for results.
-
     overwrite : bool
         Whether to overwrite existing files.
-
     identifier_case : str
         The case format for identifiers. Default is "camel".
 
     Returns
     -------
     None
+        A JSON file.
     """
     if not language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
@@ -207,13 +202,10 @@ def convert_to_csv_or_tsv(
     ----------
     language : str
         The language of the file to convert.
-
     data_type : Union[str, List[str]]
         The data type of the file to convert.
-
     output_type : str
         The output format, should be "csv" or "tsv".
-
     input_file : str
         The input JSON file path.
 
@@ -229,6 +221,7 @@ def convert_to_csv_or_tsv(
     Returns
     -------
     None
+        A CSV/TSV files.
     """
     if not language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
@@ -387,34 +380,29 @@ def convert_to_sqlite(
     identifier_case: str = "camel",
 ) -> None:
     """
-    Converts a Scribe-Data output file to an SQLite file.
+    Convert a Scribe-Data output file to SQLite format.
 
     Parameters
     ----------
     language : str
         The language of the file to convert.
-
     data_type : str
         The data type of the file to convert.
-
     output_type : str
         The output format, should be "sqlite".
-
-    input_file : Path
+    input_file : str, optional
         The input file path for the data to be converted.
-
-    output_dir : Path
+    output_dir : str, optional
         The output directory path for results.
-
-    overwrite : bool
+    overwrite : bool, optional
         Whether to overwrite existing files.
-
-    identifier_case : str
+    identifier_case : str, optional
         The case format for identifiers. Default is "camel".
 
     Returns
     -------
-    A SQLite file saved in the given location.
+    None
+        A SQLite file saved in the given location.
     """
     if input_file:
         input_file = Path(input_file)
@@ -461,33 +449,27 @@ def convert_wrapper(
 
     Parameters
     ----------
-    language : Union[str, List[str]]
+    languages : Union[str, List[str]]
         The language(s) of the data to convert.
-
-    data_type : Union[str, List[str]]
+    data_types : Union[str, List[str]]
         The data type(s) of the data to convert.
-
     output_type : str
-        The desired output format. It can be 'json', 'csv', 'tsv', or 'sqlite'.
-
-    input_file : Union[str, List[str]]
+        The desired output format. Can be 'json', 'csv', 'tsv', or 'sqlite'.
+    input_files : Union[str, List[str]]
         The path(s) to the input file(s).
-
-    output_dir : str, optional
-        The output directory where converted files will be stored. Defaults to None.
-
+    output_dir : str
+        The output directory where converted files will be stored.
     overwrite : bool, optional
-        Whether to overwrite existing output files. Defaults to False.
-
-    identifier_case : str
+        Whether to overwrite existing output files.
+    identifier_case : str, optional
         The case format for identifiers. Default is "camel".
-
-    all : bool
+    all : bool, optional
         Convert all languages and data types.
 
     Returns
     -------
     None
+        This function does not return any value; it performs a conversion operation.
     """
     output_type = output_type.lower()
 

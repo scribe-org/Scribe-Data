@@ -1,8 +1,9 @@
 """
-Updates Scribe apps with the SQLite language databases that are found in the SQLite data export directory.
+Update Scribe apps with SQLite language databases that are found in the SQLite data export directory.
+
 
 Example
--------
+--------
     python3 src/scribe_data/load/send_dbs_to_scribe.py
 
 .. raw:: html
