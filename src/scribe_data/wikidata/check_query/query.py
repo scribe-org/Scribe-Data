@@ -65,6 +65,7 @@ class QueryExecutionException(Exception):
         ----------
         message : str
             The error message.
+
         query : QueryFile
             The query that failed.
         """

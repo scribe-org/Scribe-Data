@@ -146,6 +146,7 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
         -------
         str
             The URL of the dump file if it exists.
+
         None
             If the dump file does not exist.
         """

@@ -53,16 +53,22 @@ def convert_to_json(
     ----------
     language : str
         The language of the file to convert.
+
     data_type : Union[str, List[str]]
         The data type of the file to convert.
+
     output_type : str
         The output format, should be "json".
+
     input_file : str
         The input CSV/TSV file path.
+
     output_dir : Path
         The output directory path for results.
+
     overwrite : bool
         Whether to overwrite existing files.
+
     identifier_case : str
         The case format for identifiers. Default is "camel".
 
@@ -202,10 +208,13 @@ def convert_to_csv_or_tsv(
     ----------
     language : str
         The language of the file to convert.
+
     data_type : Union[str, List[str]]
         The data type of the file to convert.
+
     output_type : str
         The output format, should be "csv" or "tsv".
+
     input_file : str
         The input JSON file path.
 
@@ -386,16 +395,22 @@ def convert_to_sqlite(
     ----------
     language : str
         The language of the file to convert.
+
     data_type : str
         The data type of the file to convert.
+
     output_type : str
         The output format, should be "sqlite".
+
     input_file : str, optional
         The input file path for the data to be converted.
+
     output_dir : str, optional
         The output directory path for results.
+
     overwrite : bool, optional
         Whether to overwrite existing files.
+
     identifier_case : str, optional
         The case format for identifiers. Default is "camel".
 
@@ -451,18 +466,25 @@ def convert_wrapper(
     ----------
     languages : Union[str, List[str]]
         The language(s) of the data to convert.
+
     data_types : Union[str, List[str]]
         The data type(s) of the data to convert.
+
     output_type : str
         The desired output format. Can be 'json', 'csv', 'tsv', or 'sqlite'.
+
     input_files : Union[str, List[str]]
         The path(s) to the input file(s).
+
     output_dir : str
         The output directory where converted files will be stored.
+
     overwrite : bool, optional
         Whether to overwrite existing output files.
+
     identifier_case : str, optional
         The case format for identifiers. Default is "camel".
+
     all : bool, optional
         Convert all languages and data types.
 

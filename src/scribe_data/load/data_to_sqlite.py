@@ -116,9 +116,9 @@ def data_to_sqlite(
         ----------
         data_type : str
             The name of the table to be created.
+
         cols : list of str
             The names of columns for the new table.
-
         """
         # Convert column names to snake_case if requested.
         cols = [
@@ -137,6 +137,7 @@ def data_to_sqlite(
         ----------
         data_type : str
             The name of the table to be inserted into.
+
         keys : list of str
             The values to be inserted into the table row.
         """

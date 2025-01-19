@@ -25,10 +25,12 @@ Module for a function to get emojis we want to filter from suggestions.
 # See: https://getemoji.com/
 def get_emojis_to_ignore():
     """
-     Returns a list of emojis based on relationships that we want to remove from autosuggestions.
+    Returns a list of emojis based on relationships that we want to remove from autosuggestions.
 
     Returns
     -------
+    str
+        All emojis that should not be included in emoji suggestions.
     """
     return """
     🤰 🫃 🤱 👩‍🍼 👨‍🍼 👭 👬 👫 👩‍❤️‍👩 💑 👨‍❤️‍👨 👩‍❤️‍👨 👩‍❤️‍💋‍👩 💏 👨‍❤️‍💋‍👨 👩‍❤️‍💋‍👨 👨‍👩‍👦 👨‍👩‍👧 👨‍👩‍👧‍👦 👨‍👩‍👦‍👦 👨‍👩‍👧‍👧 👨‍👨‍👦 👨‍👨‍👧 👨‍👨‍👧‍👦 👨‍👨‍👦‍👦 👨‍👨‍👧‍👧 👩‍👩‍👦 👩‍👩‍👧 👩‍👩‍👧‍👦 👩‍👩‍👦‍👦 👩‍👩‍👧‍👧 👨‍👦 👨‍👦‍👦 👨‍👧 👨‍👧‍👦 👨‍👧‍👧 👩‍👦 👩‍👦‍👦 👩‍👧 👩‍👧‍👦 👩‍👧‍👧

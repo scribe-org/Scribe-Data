@@ -63,6 +63,7 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
     ----------
     data : Union[dict, list]
         The data to format and print.
+
     data_type : str
         The type of data being printed, used to determine formatting style.
     """
