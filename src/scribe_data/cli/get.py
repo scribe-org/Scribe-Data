@@ -34,6 +34,7 @@ from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
+    DEFAULT_DUMP_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
@@ -122,6 +123,8 @@ def get_data(
                     wikidata_dump_type=["form"],
                     data_types="all",
                     type_output_dir=output_dir,
+                    wikidata_dump_path=wikidata_dump,
+                    overwrite_all=overwrite,
                 )
             else:
                 language_or_sub_language = language.split(" ")[0]
@@ -143,6 +146,8 @@ def get_data(
                     wikidata_dump_type=["form"],
                     data_types=[data_type],
                     type_output_dir=output_dir,
+                    wikidata_dump_path=wikidata_dump,
+                    overwrite_all=overwrite,
                 )
             else:
                 print(f"Updating all languages for data type: {data_type.capitalize()}")
@@ -167,6 +172,7 @@ def get_data(
                 data_types="all",
                 type_output_dir=output_dir,
                 wikidata_dump_path=wikidata_dump,
+                overwrite_all=overwrite,
             )
 
     # MARK: Emojis
@@ -177,6 +183,7 @@ def get_data(
     # MARK: Translations
 
     elif data_type == "translations":
+        # If no language specified, use "all".
         if language is None:
             language = "all"
         parse_wd_lexeme_dump(
@@ -184,18 +191,23 @@ def get_data(
             wikidata_dump_type=["translations"],
             type_output_dir=output_dir,
             wikidata_dump_path=wikidata_dump,
+            overwrite_all=overwrite,
         )
         return
 
     # MARK: Form Dump
 
-    elif wikidata_dump:
+    elif wikidata_dump is not None:
+        # If wikidata_dump is an empty string, use the default path
+        if wikidata_dump == "":
+            wikidata_dump = DEFAULT_DUMP_EXPORT_DIR
         parse_wd_lexeme_dump(
             language=language,
             wikidata_dump_type=["form"],
             data_types=data_types,
             type_output_dir=output_dir,
             wikidata_dump_path=wikidata_dump,
+            overwrite_all=overwrite,
         )
         return
 
