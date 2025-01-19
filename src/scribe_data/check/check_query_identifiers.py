@@ -37,7 +37,7 @@ from scribe_data.utils import (
 
 def is_valid_language(query_file: Path, lang_qid: str) -> bool:
     """
-    Validates the language QID against the expected QID for the directory.
+    Validate the language QID against the expected QID for the directory.
 
     Parameters
     ----------
@@ -75,7 +75,7 @@ def is_valid_language(query_file: Path, lang_qid: str) -> bool:
 
 def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
     """
-    Validates the data type QID against the expected QID for the directory.
+    Validate the data type QID against the expected QID for the directory.
 
     Parameters
     ----------
@@ -103,7 +103,7 @@ def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
 
 def extract_qid_from_sparql(file_path: Path, pattern: str) -> str:
     """
-    Extracts the QID from a SPARQL query file based on the provided pattern.
+    Extract the QID from a SPARQL query file based on the provided pattern.
 
     Parameters
     ----------
@@ -137,7 +137,7 @@ def extract_qid_from_sparql(file_path: Path, pattern: str) -> str:
 
 def check_query_identifiers() -> None:
     """
-    Validates SPARQL queries in the language data directory to check for correct language and data type QIDs.
+    Validate SPARQL queries in the language data directory to check for correct language and data type QIDs.
     """
     language_pattern = r"\?lexeme dct:language wd:Q\d+"
     data_type_pattern = r"wikibase:lexicalCategory\s+wd:Q\d+"

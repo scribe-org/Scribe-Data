@@ -121,13 +121,12 @@ for lang, lang_data in language_metadata.items():
 
 def _load_json(package_path: str, file_name: str) -> Any:
     """
-    Loads a JSON resource from a package into a python entity.
+    Load a JSON resource from a package into a python entity.
 
     Parameters
     ----------
     package_path : str
         The fully qualified package that contains the resource.
-
     file_name : str
         The name of the file (resource) that contains the JSON data.
 

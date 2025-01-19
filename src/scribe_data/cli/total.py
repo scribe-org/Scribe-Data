@@ -64,7 +64,7 @@ def get_qid_by_input(input_str):
 
 def get_datatype_list(language):
     """
-    Get the data types for a given language based on the project directory structure, including handling sub-languages.
+    Get the data types for a given language based on the project directory structure.
 
     Parameters
     ----------
@@ -73,7 +73,7 @@ def get_datatype_list(language):
 
     Returns
     -------
-    data_types : list[str] or None
+    list[str]
         A list of the corresponding data types.
     """
     language_key = language.strip().lower()  # normalize input
@@ -129,17 +129,16 @@ def get_datatype_list(language):
 
 def print_total_lexemes(language: str = None):
     """
-    Displays the total number of available entities for all data types for a given language or all the languages.
+    Print the total number of available entities for all data types.
 
     Parameters
     ----------
-    language : str (Default=None)
+    language : str, optional
         The language to display data type entity counts for.
 
     Outputs
     -------
-    str
-        A formatted string indicating the language, data type, and total number of lexemes for all the languages, if found.
+    A formatted string indicating the language, data type, and total number of lexemes for all the languages, if found.
     """
     if language is None:
         print("Returning total counts for all languages and data types...\n")
@@ -159,7 +158,7 @@ def print_total_lexemes(language: str = None):
 
     def print_total_header(language, dt, total_lexemes):
         """
-        Prints the header of the total command output.
+        Print the header of the total command output.
         """
         language_display = (
             "All Languages" if language is None else language.capitalize()
@@ -357,8 +356,7 @@ def total_wrapper(
 
     data_type : Union[str, List[str]]
         The data type(s) to check for.
-
-    all_bool : boolean
+    all_bool : bool
         Whether all languages and data types should be listed.
 
     wikidata_dump : Union[str, bool]

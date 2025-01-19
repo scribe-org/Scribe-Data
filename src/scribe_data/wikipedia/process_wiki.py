@@ -47,7 +47,7 @@ def clean(
     verbose=True,
 ):
     """
-    Cleans text body to prepare it for analysis.
+    Clean text body to prepare it for analysis.
 
     Parameters
     ----------
