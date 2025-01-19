@@ -46,3 +46,7 @@ scribe_data_wikidata_dumps_export/*
 # MARK: Wiki Dumps
 
 *.json.bz2
+
+# MARK: GitHub Actions
+
+missing_features.json

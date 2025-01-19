@@ -102,6 +102,17 @@ class LexemeProcessor:
         """
         iso_mapping = {}
         for lang_name, data in language_metadata.items():
+            # Handle sub-languages if they exist
+            if "sub_languages" in data:
+                for sub_lang, sub_data in data["sub_languages"].items():
+                    if self.target_iso and sub_lang not in self.target_iso:
+                        continue
+
+                    if iso_code := sub_data.get("iso"):
+                        iso_mapping[iso_code] = sub_lang
+                continue  # Skip main language if it only has sub-languages
+
+            # Handle main languages
             if self.target_iso and lang_name not in self.target_iso:
                 continue
 
@@ -425,7 +436,23 @@ class LexemeProcessor:
                 return
 
             # Create the output directory structure
-            output_path = Path(filepath).parent / lang_name
+            # Check if this is a sub-language and get its main language
+            main_lang = None
+            for lang, data in language_metadata.items():
+                if "sub_languages" in data:
+                    for sub_lang, sub_data in data["sub_languages"].items():
+                        if sub_lang == lang_name:
+                            main_lang = lang
+                            break
+                    if main_lang:
+                        break
+
+            # If it's a sub-language, create path like: parent/chinese/mandarin/
+            if main_lang:
+                output_path = Path(filepath).parent / main_lang / lang_name
+            else:
+                output_path = Path(filepath).parent / lang_name
+
             output_path.mkdir(parents=True, exist_ok=True)
 
             # Create the full output filepath
@@ -557,15 +584,42 @@ def parse_dump(
 
             for lang in languages:
                 needs_processing = False
+                # Check if this is a sub-language
+                main_lang = None
+                for lang_name, data in language_metadata.items():
+                    if "sub_languages" in data:
+                        for sub_lang in data["sub_languages"]:
+                            if sub_lang == lang:
+                                main_lang = lang_name
+                                break
+                    if main_lang:
+                        break
+
                 for data_type in data_types:
-                    index_path = Path(output_dir) / lang / f"lexeme_{data_type}.json"
+                    # Create appropriate path based on whether it's a sub-language
+                    if main_lang:
+                        index_path = (
+                            Path(output_dir)
+                            / main_lang
+                            / lang
+                            / f"lexeme_{data_type}.json"
+                        )
+                    else:
+                        index_path = (
+                            Path(output_dir) / lang / f"lexeme_{data_type}.json"
+                        )
 
                     if not check_index_exists(index_path, overwrite_all):
                         needs_processing = True
                         data_types_to_process.add(data_type)
-
                     else:
-                        print(f"Skipping {lang}/{data_type}.json - already exists")
+                        # Update path display in skip message
+                        skip_path = (
+                            f"{main_lang}/{lang}/{data_type}.json"
+                            if main_lang
+                            else f"{lang}/{data_type}.json"
+                        )
+                        print(f"Skipping {skip_path} - already exists")
 
                 if needs_processing:
                     languages_to_process.append(lang)

@@ -89,9 +89,17 @@ def parse_wd_lexeme_dump(
     overwrite_all : bool, default=False
         If True, automatically overwrite existing files without prompting
     """
-    # Convert "all" to list of all languages
+    # Convert "all" to list of all languages including sub-languages
     if isinstance(language, str) and language.lower() == "all":
-        language = list(language_metadata.keys())
+        languages = []
+        for main_lang, lang_data in language_metadata.items():
+            # Add sub-languages if they exist
+            if "sub_languages" in lang_data:
+                for sub_lang in lang_data["sub_languages"]:
+                    main_lang = sub_lang
+            languages.append(main_lang)
+
+        language = languages
 
     # For processing: exclude translations and emoji-keywords
     if isinstance(data_types, str) and data_types.lower() == "all":

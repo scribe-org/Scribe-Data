@@ -198,7 +198,8 @@ def get_data(
     # MARK: Form Dump
 
     elif wikidata_dump is not None:
-        if not wikidata_dump:
+        # If wikidata_dump is an empty string, use the default path
+        if wikidata_dump == "":
             wikidata_dump = DEFAULT_DUMP_EXPORT_DIR
         parse_wd_lexeme_dump(
             language=language,
