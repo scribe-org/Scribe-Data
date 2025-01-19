@@ -209,7 +209,11 @@ def configure_settings():
 
 def run_request():
     """
-    Runs the interactive mode request given the configuration.
+    Execute the interactive mode request based on current configuration.
+
+    Returns
+    -------
+    None
     """
     if not config.selected_languages or not config.selected_data_types:
         rprint("[bold red]Error: Please configure languages and data types.[/bold red]")

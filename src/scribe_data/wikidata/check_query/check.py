@@ -51,13 +51,13 @@ def ping(url: str, timeout: int) -> bool:
     ----------
     url : str
         The URL to test.
-
     timeout : int
         The maximum number of seconds to wait for a reply.
 
     Returns
     -------
-    bool : True if connectivity is established or False otherwise.
+    bool
+        True if connectivity is established, False otherwise.
     """
     try:
         with urllib.request.urlopen(url, timeout=timeout) as response:
@@ -74,7 +74,8 @@ def all_queries() -> list[QueryFile]:
 
     Returns
     -------
-        list[QueryFile] : the SPARQL query files.
+    list[QueryFile]
+        List of SPARQL query files.
     """
     parts = Path(__file__).resolve().parts
     prj_root_idx = parts.index(PROJECT_ROOT)
@@ -99,7 +100,8 @@ def changed_queries() -> Optional[list[QueryFile]]:
 
     Returns
     -------
-        Optional[list[QueryFile]] : list of changed/new SPARQL queries or None if there's an error.
+    Optional[list[QueryFile]]
+        List of changed/new SPARQL queries, or None if there's an error.
     """
     result = subprocess.run(
         (
@@ -137,7 +139,8 @@ def check_sparql_file(fpath: str) -> Path:
 
     Returns
     -------
-    Path : the validated file.
+    Path
+        The validated file path.
     """
     path = Path(fpath)
 
@@ -233,7 +236,7 @@ def main(argv=None) -> int:
         If set to None then argparse will use sys.argv as the arguments.
 
     Returns
-    --------
+    -------
     int
         The exit status - 0 - success; any other value - failure.
     """

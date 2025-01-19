@@ -36,7 +36,7 @@ EMOJI_KEYWORDS_DICT = 3
 
 def generate_emoji(language, output_dir: str = None):
     """
-    Generates emoji keywords for a specified language and exports the data to the given directory.
+    Generate emoji keywords for a specified language.
 
     This function first checks and installs the PyICU package, which is necessary for the script to run.
     If the installation is successful, it proceeds with generating emoji keywords based on the specified language.
@@ -46,7 +46,6 @@ def generate_emoji(language, output_dir: str = None):
     ----------
     language : str
         The ISO code of the language for which to generate emoji keywords.
-
     output_dir : str, optional
         The directory where the generated data will be saved.
         If not specified, the data will be saved in a default directory.

@@ -1,5 +1,6 @@
 """
-Updates Scribe apps with the SQLite language databases that are found in the SQLite data export directory.
+Update Scribe apps with SQLite language databases that are found in the SQLite data export directory.
+
 
 Example
 -------

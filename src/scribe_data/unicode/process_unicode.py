@@ -48,7 +48,7 @@ def gen_emoji_lexicon(
     emojis_per_keyword: int,
 ):
     """
-    Generates a dictionary of keywords (keys) and emoji unicode(s) associated with them (values).
+    Generate a dictionary of keywords (keys) and emoji unicode(s) associated with them (values).
 
     Parameters
     ----------

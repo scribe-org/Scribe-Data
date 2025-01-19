@@ -39,12 +39,13 @@ class QueryFile:
 
         Parameters
         ----------
-            limit : int
-                The maximum number of results a query should return.
+        limit : int
+            The maximum number of results a query should return.
 
         Returns
         -------
-            str : the SPARQL query.
+        str
+            the SPARQL query.
         """
         with open(self.path, encoding="utf-8") as in_stream:
             return f"{in_stream.read()}\nLIMIT {limit}\n"
@@ -62,11 +63,11 @@ class QueryExecutionException(Exception):
         """
         Parameters
         ----------
-            message : str
-                Why the query failed.
+        message : str
+            The error message.
 
-            query : QueryFile
-                The query that failed.
+        query : QueryFile
+            The query that failed.
         """
         self.message = message
         self.query = query

@@ -175,7 +175,7 @@ def extract_form_qids(form_text: str):
 
 def check_form_label(form_text: str):
     """
-    Checks that the label of the form matches the representation label.
+    Check that the label of the form matches the representation label.
 
     Parameters
     ----------
@@ -217,11 +217,11 @@ def check_form_label(form_text: str):
 
 def check_query_formatting(form_text: str):
     """
-    Checks the formatting of the given SPARQL query text for common formatting issues.
+    Check the formatting of the given SPARQL query text for common formatting issues.
 
     Parameters
     ----------
-    query_text : str
+    form_text : str
         The SPARQL query text to check.
 
     Returns
@@ -245,7 +245,7 @@ def check_query_formatting(form_text: str):
 
 def return_correct_form_label(qids: list):
     """
-    Returns the correct label for a lexeme form representation given the QIDs that compose it.
+    Return the correct label for a lexeme form representation given the QIDs that compose it.
 
     Parameters
     ----------
@@ -254,8 +254,8 @@ def return_correct_form_label(qids: list):
 
     Returns
     -------
-    correct_label : str
-        The label for the representation given the QIDs.
+    str
+        The label for the representation given the QIDs..
     """
     if not qids:
         return "Invalid query formatting found"
@@ -281,22 +281,17 @@ def return_correct_form_label(qids: list):
 
 def validate_forms(query_text: str) -> str:
     """
-    Validates the SPARQL query by checking:
-        1. Order of variables in SELECT and WHERE clauses
-        2. Presence and correct definition of forms
-        3. Form labels and representations
-        4. Query formatting
+    Validate SPARQL query by checking variable order in SELECT and WHERE clauses, Presence and correct definition of forms, Form labels and representations and Query formatting.
 
     Parameters
     ----------
-    query_file : str
+    query_text : str
         The SPARQL query text as a string.
 
     Returns
     -------
     str
-        Error message if there are any issues with the order of variables or forms,
-        otherwise an empty string.
+        Error message if there are any issues with the order of variables or forms, otherwise an empty string.
     """
     select_pattern = r"SELECT\s+(.*?)\s+WHERE"
 
@@ -377,7 +372,7 @@ def validate_forms(query_text: str) -> str:
 
 def check_docstring(query_text: str) -> bool:
     """
-    Checks the docstring of a SPARQL query text to ensure it follows the standard format.
+    Check the docstring of a SPARQL query text to ensure it follows the standard format.
 
     Parameters
     ----------
@@ -419,7 +414,7 @@ def check_docstring(query_text: str) -> bool:
 
 def check_forms_order(query_text):
     """
-    Parses and orders variable names from a SPARQL query text based on a lexeme_form_metadata.json.
+    Parse and order variable names from a SPARQL query text based on a lexeme_form_metadata.json.
 
     Parameters
     ----------
@@ -496,8 +491,7 @@ def check_forms_order(query_text):
 
 def check_optional_qid_order(query_file: str) -> str:
     """
-    Checks the order of QIDs in optional statements within a SPARQL query file to ensure they
-    align with the expected sequence based on label features.
+    Check the order of QIDs in optional statements within a SPARQL query file to ensure they align with the expected sequence based on label features.
 
     Parameters
     ----------
@@ -538,7 +532,7 @@ def check_optional_qid_order(query_file: str) -> str:
 
 def check_query_forms() -> None:
     """
-    Validates SPARQL queries in the language data directory to check for correct form QIDs and formatting.
+    Validate SPARQL queries in the language data directory to check for correct form QIDs and formatting.
     """
     error_output = ""
     index = 0
