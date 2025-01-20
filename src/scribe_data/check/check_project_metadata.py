@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """
 Check the Scribe-Data metadata files to make sure that all information is included.
 
@@ -8,9 +7,6 @@ Example
 
 # SPDX-License-Identifier: AGPL-3.0-or-later
 """
-=======
-# SPDX-License-Identifier: AGPL-3.0-or-later
->>>>>>> a6b21780eebbf9b8829bb7fd8ffe6c8ddeb7a6c2
 
 import difflib
 import sys
