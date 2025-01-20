@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """
 Check the queries within Scribe-Data to make sure the language and data type are correct.
 
@@ -7,6 +8,9 @@ Example
 
 # SPDX-License-Identifier: AGPL-3.0-or-later
 """
+=======
+# SPDX-License-Identifier: AGPL-3.0-or-later
+>>>>>>> a6b21780eebbf9b8829bb7fd8ffe6c8ddeb7a6c2
 
 import re
 import sys
