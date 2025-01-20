@@ -1,27 +1,10 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Check the Scribe-Data metadata files to make sure that all information is included.
 
 Example
 -------
     python3 src/scribe_data/check/check_project_metadata.py
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 import difflib
@@ -169,7 +152,6 @@ def validate_language_properties(languages_dict: dict) -> dict:
 def check_language_metadata():
     """
     Validates language metadata by performing the following checks:
-
     1. Ensures that all languages listed in `language_data_extraction` are present in `language_metadata.json`, and vice versa.
 
     2. Checks if each language in `language_metadata.json` has the required properties:
@@ -180,8 +162,8 @@ def check_language_metadata():
 
     Raises:
     -------
-        SystemExit:
-            If any missing languages or properties are found, the function exits the script with a status code of 1.
+    SystemExit:
+        If any missing languages or properties are found, the function exits the script with a status code of 1.
     """
     languages_in_metadata = {key: value for key, value in _languages.items()}
 
