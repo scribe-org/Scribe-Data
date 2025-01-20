@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Tests for the check_query process.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import argparse
@@ -11,7 +10,6 @@ from unittest.mock import MagicMock, mock_open, patch
 from urllib.error import HTTPError
 
 import pytest
-
 from scribe_data.wikidata.check_query.check import (
     all_queries,
     changed_queries,

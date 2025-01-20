@@ -1,14 +1,11 @@
-
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Check the queries within Scribe-Data to make sure the accessed forms are correct.
 
 Example
 -------
     python3 src/scribe_data/check/check_query_forms.py
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
-
 
 import re
 from pathlib import Path

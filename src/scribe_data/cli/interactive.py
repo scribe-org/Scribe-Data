@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Interactive mode functionality for the Scribe-Data CLI to allow users to select request arguments.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import logging

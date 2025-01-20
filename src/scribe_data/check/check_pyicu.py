@@ -1,8 +1,6 @@
-
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Check to see if the requirements of the emoji process are installed.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import os

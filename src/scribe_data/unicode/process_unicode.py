@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Module for processing Unicode based corpuses for autosuggestion and autocompletion generation.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import csv

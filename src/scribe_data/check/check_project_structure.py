@@ -1,12 +1,10 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Check the structure of Scribe-Data to make sure that all files are correctly named and included.
 
 Example
 -------
     python3 src/scribe_data/check/check_project_structure.py
-
-    
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import os

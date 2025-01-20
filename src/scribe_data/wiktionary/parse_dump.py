@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Functions for parsing Wikidata lexeme dumps.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import bz2
@@ -15,10 +14,10 @@ import questionary
 from scribe_data.utils import (
     DEFAULT_DUMP_EXPORT_DIR,
     check_index_exists,
-    data_type_metadata,
-    language_metadata,
-    get_language_iso_code,
     check_qid_is_language,
+    data_type_metadata,
+    get_language_iso_code,
+    language_metadata,
 )
 from tqdm import tqdm
 
@@ -87,10 +86,7 @@ class LexemeProcessor:
                 iso_mapping[iso_code] = lang_name
 
         for language in self.target_iso:
-            if (
-                language.lower().startswith("q")
-                and language[1:].isdigit()
-            ):
+            if language.lower().startswith("q") and language[1:].isdigit():
                 qid_to_lang = check_qid_is_language(language)
                 if qid_to_lang:
                     iso_code = get_language_iso_code(language.upper())

@@ -1,11 +1,10 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Script to update the Scribe-Data unicode data from CLDR.
 
 Example
 -------
     python3 src/scribe_data/unicode/update_unicode_data.py
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import os

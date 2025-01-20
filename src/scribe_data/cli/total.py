@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Functions to check the total language data available on Wikidata.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 from http.client import IncompleteRead
@@ -12,12 +11,12 @@ from SPARQLWrapper import JSON
 
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
+    check_qid_is_language,
     data_type_metadata,
     format_sublanguage_name,
     language_metadata,
     language_to_qid,
     list_all_languages,
-    check_qid_is_language,
 )
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump, sparql
 

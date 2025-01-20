@@ -1,13 +1,12 @@
-
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Check the queries within Scribe-Data to make sure the language and data type are correct.
 
 Example
 -------
     python3 src/scribe_data/check/check_query_identifiers.py
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
+
 import re
 import sys
 from pathlib import Path

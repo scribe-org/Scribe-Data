@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Functions for getting languages-data types packs for the Scribe-Data CLI.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import os  # for removing original JSON files

@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Classes and methods for querying a file in the query check process.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 from dataclasses import dataclass

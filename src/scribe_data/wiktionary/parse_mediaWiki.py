@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Functions to parse the translations of a word from MediaWiki API.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import json

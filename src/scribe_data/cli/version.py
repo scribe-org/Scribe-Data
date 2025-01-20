@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Functions for checking current version of the Scribe-Data CLI.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import pkg_resources

@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Module for downloading and creating workable files from Wikipedia dumps.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import gc

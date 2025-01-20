@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Module for cleaning Wikipedia based corpuses for autosuggestion generation.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import json

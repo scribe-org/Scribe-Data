@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Functions to convert data returned from the Scribe-Data CLI to other file types.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import csv

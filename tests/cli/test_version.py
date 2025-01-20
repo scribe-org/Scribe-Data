@@ -1,14 +1,12 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Tests for the CLI version functionality.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import unittest
 from unittest.mock import patch
 
 import pkg_resources
-
 from scribe_data.cli.version import (
     get_latest_version,
     get_local_version,

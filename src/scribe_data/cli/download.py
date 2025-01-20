@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Functions for downloading Wikidata lexeme dumps.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import contextlib

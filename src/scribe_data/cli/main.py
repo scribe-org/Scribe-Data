@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Setup and commands for the Scribe-Data command line interface.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 #!/usr/bin/env python3

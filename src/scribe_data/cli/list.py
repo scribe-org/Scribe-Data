@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Functions for listing languages and data types for the Scribe-Data CLI.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import os

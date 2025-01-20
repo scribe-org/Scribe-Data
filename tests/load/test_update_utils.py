@@ -1,7 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 Tests for the update_utils file functions.
-
-# SPDX-License-Identifier: AGPL-3.0-or-later
 """
 
 import sys
