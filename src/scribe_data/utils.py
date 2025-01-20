@@ -108,6 +108,7 @@ def _load_json(package_path: str, file_name: str) -> Any:
     ----------
     package_path : str
         The fully qualified package that contains the resource.
+
     file_name : str
         The name of the file (resource) that contains the JSON data.
 
@@ -781,6 +782,7 @@ def get_language_iso_code(qid: str):
     ------
     ValueError
         An invalid QID that's not a language has been passed.
+
     KeyError
         The ISO code for the language is not available.
     """

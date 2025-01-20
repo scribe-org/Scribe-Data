@@ -31,8 +31,10 @@ def format_data(
     ----------
     dir_path : str
         The output directory path for results.
+
     language : str
         The language for which the data is being loaded.
+
     data_type : str
         The type of data being loaded (e.g. 'nouns', 'verbs').
 

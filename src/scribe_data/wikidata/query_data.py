@@ -31,8 +31,10 @@ def execute_formatting_script(output_dir: str, language: str, data_type: str):
     ----------
     output_dir : str
         The output directory path for results.
+
     language : str
         The language for which the data is being loaded.
+
     data_type : str
         The type of data being loaded (e.g. 'nouns', 'verbs').
 

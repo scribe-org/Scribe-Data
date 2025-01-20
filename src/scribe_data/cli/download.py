@@ -58,8 +58,10 @@ def available_closest_lexeme_dumpfile(
     ----------
     target_entity : str
         The target date for which the dump is requested (format: YYYY/MM/DD or similar).
+
     other_old_dumps : list
         List of available dump folders as strings.
+
     check_wd_dump_exists : function
         A function to validate if the dump file exists.
 
