@@ -110,7 +110,9 @@ def parse_wd_lexeme_dump(
         ]
 
     print(f"Languages to process: {language}")
-    print(f"Data types to process: {data_types}")
+
+    if "translations" not in wikidata_dump_type:
+        print(f"Data types to process: {data_types}")
 
     file_path = wd_lexeme_dump_download_wrapper(None, wikidata_dump_path)
 

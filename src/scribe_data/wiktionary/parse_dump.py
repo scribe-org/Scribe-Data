@@ -42,7 +42,7 @@ from tqdm import tqdm
 class LexemeProcessor:
     def __init__(
         self,
-        target_iso: Union[str, List[str]] = None,
+        target_lang: Union[str, List[str]] = None,
         parse_type: List[str] = None,
         data_types: List[str] = None,
     ):
@@ -56,8 +56,8 @@ class LexemeProcessor:
         # Pre-compute sets for faster lookups.
         self.parse_type = set(parse_type or [])
         self.data_types = set(data_types or [])
-        self.target_iso = set(
-            [target_iso] if isinstance(target_iso, str) else target_iso or []
+        self.target_lang = set(
+            [target_lang] if isinstance(target_lang, str) else target_lang or []
         )
 
         # Pre-compute valid categories and languages.
@@ -98,14 +98,14 @@ class LexemeProcessor:
     def _build_iso_mapping(self) -> dict:
         """
         Build mapping of ISO codes to language names based on language_metadata.
-        If self.target_iso is non-null, only include those iso codes.
+        If self.target_lang is non-null, only include those iso codes.
         """
         iso_mapping = {}
         for lang_name, data in language_metadata.items():
             # Handle sub-languages if they exist
             if "sub_languages" in data:
                 for sub_lang, sub_data in data["sub_languages"].items():
-                    if self.target_iso and sub_lang not in self.target_iso:
+                    if self.target_lang and sub_lang not in self.target_lang:
                         continue
 
                     if iso_code := sub_data.get("iso"):
@@ -113,13 +113,13 @@ class LexemeProcessor:
                 continue  # Skip main language if it only has sub-languages
 
             # Handle main languages
-            if self.target_iso and lang_name not in self.target_iso:
+            if self.target_lang and lang_name not in self.target_lang:
                 continue
 
             if iso_code := data.get("iso"):
                 iso_mapping[iso_code] = lang_name
 
-        for language in self.target_iso:
+        for language in self.target_lang:
             if language.lower().startswith("q") and language[1:].isdigit():
                 qid_to_lang = check_qid_is_language(language)
                 if qid_to_lang:
@@ -628,16 +628,17 @@ def parse_dump(
             languages = languages_to_process
             data_types = list(data_types_to_process)
 
-        if not data_types or not languages:
-            print("No data types or languages provided. Nothing to process.")
-            return
+        if "translations" not in parse_type:
+            if not data_types or not languages:
+                print("No data types or languages provided. Nothing to process.")
+                return
 
         if not languages:
             print("All requested data already exists. Nothing to process.")
             return
 
     processor = LexemeProcessor(
-        target_iso=languages, parse_type=parse_type, data_types=data_types
+        target_lang=languages, parse_type=parse_type, data_types=data_types
     )
     processor.process_file(file_path)
 

@@ -373,7 +373,7 @@ def total_wrapper(
     if wikidata_dump is True:  # flag without a wikidata lexeme dump path
         parse_wd_lexeme_dump(
             language=language,
-            data_types=[data_type],
+            data_types=data_type,
             wikidata_dump_type=["total"],
             wikidata_dump_path=None,
         )
