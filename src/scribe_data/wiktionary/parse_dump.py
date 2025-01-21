@@ -102,7 +102,7 @@ class LexemeProcessor:
             if iso_code := data.get("iso"):
                 iso_mapping[iso_code] = lang_name
 
-        for language in self.target_iso:
+        for language in self.target_lang:
             if language.lower().startswith("q") and language[1:].isdigit():
                 qid_to_lang = check_qid_is_language(language)
                 if qid_to_lang:
