@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Update Scribe apps with SQLite language databases that are found in the SQLite data export directory.
 

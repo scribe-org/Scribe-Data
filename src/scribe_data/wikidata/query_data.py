@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Updates data for Scribe by running all or desired WDQS queries and formatting scripts.
 """
