@@ -1,23 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Centralized keyword-emoji generation file to generated emoji for a specified Language.
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 import os
@@ -46,6 +29,7 @@ def generate_emoji(language, output_dir: str = None):
     ----------
     language : str
         The ISO code of the language for which to generate emoji keywords.
+
     output_dir : str, optional
         The directory where the generated data will be saved.
         If not specified, the data will be saved in a default directory.
