@@ -265,7 +265,7 @@ class TestTotalWrapper(unittest.TestCase):
         total_wrapper(wikidata_dump=True)
         mock_parse_dump.assert_called_once_with(
             language=None,
-            data_types=[None],
+            data_types=None,
             wikidata_dump_type=["total"],
             wikidata_dump_path=None,
         )
@@ -288,7 +288,7 @@ class TestTotalWrapper(unittest.TestCase):
         total_wrapper(wikidata_dump=True, all_bool=True)
         mock_parse_dump.assert_called_once_with(
             language="all",
-            data_types=["all"],
+            data_types="all",
             wikidata_dump_type=["total"],
             wikidata_dump_path=None,
         )
@@ -335,7 +335,7 @@ class TestTotalWrapper(unittest.TestCase):
         total_wrapper(language="Q9217", wikidata_dump=True, all_bool=True)
         mock_parse_dump.assert_called_once_with(
             language="Q9217",
-            data_types=["all"],
+            data_types="all",
             wikidata_dump_type=["total"],
             wikidata_dump_path=None,
         )
