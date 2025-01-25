@@ -1,0 +1,34 @@
+# tool: scribe-data
+# All dagbani (Q32238) personal_pronouns (Q468801) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?personal_pronouns
+    ?nominative
+  ?oblique
+  ?genitive
+    WHERE {
+    ?lexeme dct:language wd:Q32238 ;
+        wikibase:lexicalCategory wd:Q468801 ;
+        wikibase:lemma ?personal_pronouns .
+        FILTER(lang(?personal_pronouns) = "dag")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?nominativeForm .
+            ?nominativeForm ontolex:representation ?nominative ;
+                wikibase:grammaticalFeature wd:Q131105 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?obliqueForm .
+            ?obliqueForm ontolex:representation ?oblique ;
+                wikibase:grammaticalFeature wd:Q1233197 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?genitiveForm .
+            ?genitiveForm ontolex:representation ?genitive ;
+                wikibase:grammaticalFeature wd:Q146233 .
+        }
+}

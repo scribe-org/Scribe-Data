@@ -1,0 +1,27 @@
+# tool: scribe-data
+# All greek (Q36510) proper_nouns (Q147276) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?proper_nouns
+    ?accusative
+  ?genitive
+    WHERE {
+    ?lexeme dct:language wd:Q36510 ;
+        wikibase:lexicalCategory wd:Q147276 ;
+        wikibase:lemma ?proper_nouns .
+        FILTER(lang(?proper_nouns) = "el")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?accusativeForm .
+            ?accusativeForm ontolex:representation ?accusative ;
+                wikibase:grammaticalFeature wd:Q146078 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?genitiveForm .
+            ?genitiveForm ontolex:representation ?genitive ;
+                wikibase:grammaticalFeature wd:Q146233 .
+        }
+}

@@ -1,0 +1,27 @@
+# tool: scribe-data
+# All esperanto (Q143) pronouns (Q36224) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?pronouns
+    ?nominative
+  ?accusative
+    WHERE {
+    ?lexeme dct:language wd:Q143 ;
+        wikibase:lexicalCategory wd:Q36224 ;
+        wikibase:lemma ?pronouns .
+        FILTER(lang(?pronouns) = "eo")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?nominativeForm .
+            ?nominativeForm ontolex:representation ?nominative ;
+                wikibase:grammaticalFeature wd:Q131105 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?accusativeForm .
+            ?accusativeForm ontolex:representation ?accusative ;
+                wikibase:grammaticalFeature wd:Q146078 .
+        }
+}

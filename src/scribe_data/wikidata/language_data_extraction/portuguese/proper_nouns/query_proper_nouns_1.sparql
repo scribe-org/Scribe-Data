@@ -1,0 +1,76 @@
+# tool: scribe-data
+# All portuguese (Q5146) proper_nouns (Q147276) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?proper_nouns
+    ?pluralFeminineMasculine
+  ?singular
+  ?singularFeminineMasculine
+  ?singularFeminine
+  ?pluralFeminine
+  ?singularMasculine
+  ?pluralMasculine
+  ?singularPositive
+  ?pluralPositive
+    WHERE {
+    ?lexeme dct:language wd:Q5146 ;
+        wikibase:lexicalCategory wd:Q147276 ;
+        wikibase:lemma ?proper_nouns .
+        FILTER(lang(?proper_nouns) = "pt")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralFeminineMasculineForm .
+            ?pluralFeminineMasculineForm ontolex:representation ?pluralFeminineMasculine ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q1775415, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularForm .
+            ?singularForm ontolex:representation ?singular ;
+                wikibase:grammaticalFeature wd:Q110786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularFeminineMasculineForm .
+            ?singularFeminineMasculineForm ontolex:representation ?singularFeminineMasculine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775415, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularFeminineForm .
+            ?singularFeminineForm ontolex:representation ?singularFeminine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775415 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralFeminineForm .
+            ?pluralFeminineForm ontolex:representation ?pluralFeminine ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q1775415 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularMasculineForm .
+            ?singularMasculineForm ontolex:representation ?singularMasculine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralMasculineForm .
+            ?pluralMasculineForm ontolex:representation ?pluralMasculine ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularPositiveForm .
+            ?singularPositiveForm ontolex:representation ?singularPositive ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q3482678 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralPositiveForm .
+            ?pluralPositiveForm ontolex:representation ?pluralPositive ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q3482678 .
+        }
+}

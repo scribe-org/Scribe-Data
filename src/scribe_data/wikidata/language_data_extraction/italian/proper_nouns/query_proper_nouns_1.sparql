@@ -1,0 +1,41 @@
+# tool: scribe-data
+# All italian (Q652) proper_nouns (Q147276) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?proper_nouns
+    ?singularNominative
+  ?singular
+  ?plural
+  ?feminine
+    WHERE {
+    ?lexeme dct:language wd:Q652 ;
+        wikibase:lexicalCategory wd:Q147276 ;
+        wikibase:lemma ?proper_nouns .
+        FILTER(lang(?proper_nouns) = "it")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularNominativeForm .
+            ?singularNominativeForm ontolex:representation ?singularNominative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q131105 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularForm .
+            ?singularForm ontolex:representation ?singular ;
+                wikibase:grammaticalFeature wd:Q110786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralForm .
+            ?pluralForm ontolex:representation ?plural ;
+                wikibase:grammaticalFeature wd:Q146786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?feminineForm .
+            ?feminineForm ontolex:representation ?feminine ;
+                wikibase:grammaticalFeature wd:Q1775415 .
+        }
+}

@@ -1,0 +1,27 @@
+# tool: scribe-data
+# All hausa (Q56475) prepositions (Q4833830) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?prepositions
+    ?singular
+  ?plural
+    WHERE {
+    ?lexeme dct:language wd:Q56475 ;
+        wikibase:lexicalCategory wd:Q4833830 ;
+        wikibase:lemma ?prepositions .
+        FILTER(lang(?prepositions) = "ha")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularForm .
+            ?singularForm ontolex:representation ?singular ;
+                wikibase:grammaticalFeature wd:Q110786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralForm .
+            ?pluralForm ontolex:representation ?plural ;
+                wikibase:grammaticalFeature wd:Q146786 .
+        }
+}

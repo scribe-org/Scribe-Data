@@ -1,0 +1,55 @@
+# tool: scribe-data
+# All russian (Q7737) pronouns (Q36224) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?pronouns
+    ?singularGenitive
+  ?singularInstrumental
+  ?singularNominative
+  ?singularAccusative
+  ?singularPrepositional
+  ?singularDative
+    WHERE {
+    ?lexeme dct:language wd:Q7737 ;
+        wikibase:lexicalCategory wd:Q36224 ;
+        wikibase:lemma ?pronouns .
+        FILTER(lang(?pronouns) = "ru")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularGenitiveForm .
+            ?singularGenitiveForm ontolex:representation ?singularGenitive ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q146233 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularInstrumentalForm .
+            ?singularInstrumentalForm ontolex:representation ?singularInstrumental ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q192997 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularNominativeForm .
+            ?singularNominativeForm ontolex:representation ?singularNominative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q131105 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularAccusativeForm .
+            ?singularAccusativeForm ontolex:representation ?singularAccusative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q146078 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularPrepositionalForm .
+            ?singularPrepositionalForm ontolex:representation ?singularPrepositional ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q2114906 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularDativeForm .
+            ?singularDativeForm ontolex:representation ?singularDative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q145599 .
+        }
+}

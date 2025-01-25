@@ -1,0 +1,20 @@
+# tool: scribe-data
+# All bengali (Q9610) adverbs (Q380057) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?adverbs
+    ?positive
+    WHERE {
+    ?lexeme dct:language wd:Q9610 ;
+        wikibase:lexicalCategory wd:Q380057 ;
+        wikibase:lemma ?adverbs .
+        FILTER(lang(?adverbs) = "bn")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?positiveForm .
+            ?positiveForm ontolex:representation ?positive ;
+                wikibase:grammaticalFeature wd:Q3482678 .
+        }
+}

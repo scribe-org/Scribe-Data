@@ -1,0 +1,69 @@
+# tool: scribe-data
+# All esperanto (Q143) personal_pronouns (Q468801) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?personal_pronouns
+    ?accusativePlural
+  ?nominativePlural
+  ?singularNominative
+  ?singularAccusative
+  ?nominative
+  ?accusative
+  ?accusativeNeuter
+  ?nominativeNeuter
+    WHERE {
+    ?lexeme dct:language wd:Q143 ;
+        wikibase:lexicalCategory wd:Q468801 ;
+        wikibase:lemma ?personal_pronouns .
+        FILTER(lang(?personal_pronouns) = "eo")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+            ?accusativePluralForm ontolex:representation ?accusativePlural ;
+                wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+            ?nominativePluralForm ontolex:representation ?nominativePlural ;
+                wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularNominativeForm .
+            ?singularNominativeForm ontolex:representation ?singularNominative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q131105 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularAccusativeForm .
+            ?singularAccusativeForm ontolex:representation ?singularAccusative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q146078 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?nominativeForm .
+            ?nominativeForm ontolex:representation ?nominative ;
+                wikibase:grammaticalFeature wd:Q131105 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?accusativeForm .
+            ?accusativeForm ontolex:representation ?accusative ;
+                wikibase:grammaticalFeature wd:Q146078 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?accusativeNeuterForm .
+            ?accusativeNeuterForm ontolex:representation ?accusativeNeuter ;
+                wikibase:grammaticalFeature wd:Q146078, wd:Q1775461 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?nominativeNeuterForm .
+            ?nominativeNeuterForm ontolex:representation ?nominativeNeuter ;
+                wikibase:grammaticalFeature wd:Q131105, wd:Q1775461 .
+        }
+}

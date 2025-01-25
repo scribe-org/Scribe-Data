@@ -1,0 +1,27 @@
+# tool: scribe-data
+# All japanese (Q5287) personal_pronouns (Q468801) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?personal_pronouns
+    ?feminine
+  ?masculine
+    WHERE {
+    ?lexeme dct:language wd:Q5287 ;
+        wikibase:lexicalCategory wd:Q468801 ;
+        wikibase:lemma ?personal_pronouns .
+        FILTER(lang(?personal_pronouns) = "ja")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?feminineForm .
+            ?feminineForm ontolex:representation ?feminine ;
+                wikibase:grammaticalFeature wd:Q1775415 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?masculineForm .
+            ?masculineForm ontolex:representation ?masculine ;
+                wikibase:grammaticalFeature wd:Q499327 .
+        }
+}

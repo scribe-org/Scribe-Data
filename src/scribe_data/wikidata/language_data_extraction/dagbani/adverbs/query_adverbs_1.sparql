@@ -1,0 +1,20 @@
+# tool: scribe-data
+# All dagbani (Q32238) adverbs (Q380057) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?adverbs
+    ?singularPlural
+    WHERE {
+    ?lexeme dct:language wd:Q32238 ;
+        wikibase:lexicalCategory wd:Q380057 ;
+        wikibase:lemma ?adverbs .
+        FILTER(lang(?adverbs) = "dag")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularPluralForm .
+            ?singularPluralForm ontolex:representation ?singularPlural ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q146786 .
+        }
+}

@@ -1,0 +1,69 @@
+# tool: scribe-data
+# All swahili (Q7838) verbs (Q24905) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?verbs
+    ?indicative
+  ?singularImperativeSecondPerson
+  ?presentIndicativeIndicative
+  ?pluralImperativeSecondPerson
+  ?subjunctive
+  ?infinitive
+  ?passive
+  ?singularFirstPersonImperative
+    WHERE {
+    ?lexeme dct:language wd:Q7838 ;
+        wikibase:lexicalCategory wd:Q24905 ;
+        wikibase:lemma ?verbs .
+        FILTER(lang(?verbs) = "sw")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?indicativeForm .
+            ?indicativeForm ontolex:representation ?indicative ;
+                wikibase:grammaticalFeature wd:Q682111 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularImperativeSecondPersonForm .
+            ?singularImperativeSecondPersonForm ontolex:representation ?singularImperativeSecondPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q22716, wd:Q51929049 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?presentIndicativeIndicativeForm .
+            ?presentIndicativeIndicativeForm ontolex:representation ?presentIndicativeIndicative ;
+                wikibase:grammaticalFeature wd:Q56682909, wd:Q682111 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralImperativeSecondPersonForm .
+            ?pluralImperativeSecondPersonForm ontolex:representation ?pluralImperativeSecondPerson ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q22716, wd:Q51929049 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?subjunctiveForm .
+            ?subjunctiveForm ontolex:representation ?subjunctive ;
+                wikibase:grammaticalFeature wd:Q473746 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?infinitiveForm .
+            ?infinitiveForm ontolex:representation ?infinitive ;
+                wikibase:grammaticalFeature wd:Q179230 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?passiveForm .
+            ?passiveForm ontolex:representation ?passive ;
+                wikibase:grammaticalFeature wd:Q1194697 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularFirstPersonImperativeForm .
+            ?singularFirstPersonImperativeForm ontolex:representation ?singularFirstPersonImperative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q21714344, wd:Q22716 .
+        }
+}

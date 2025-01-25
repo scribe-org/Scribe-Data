@@ -1,0 +1,111 @@
+# tool: scribe-data
+# All italian (Q652) adjectives (Q34698) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?adjectives
+    ?pluralSuperlativeMasculine
+  ?superlative
+  ?singular
+  ?pluralFeminine
+  ?singularFeminineSuperlative
+  ?pluralMasculine
+  ?plural
+  ?singularSuperlative
+  ?masculine
+  ?pluralFeminineSuperlative
+  ?singularFeminine
+  ?singularSuperlativeMasculine
+  ?singularMasculine
+  ?pluralSuperlative
+    WHERE {
+    ?lexeme dct:language wd:Q652 ;
+        wikibase:lexicalCategory wd:Q34698 ;
+        wikibase:lemma ?adjectives .
+        FILTER(lang(?adjectives) = "it")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralSuperlativeMasculineForm .
+            ?pluralSuperlativeMasculineForm ontolex:representation ?pluralSuperlativeMasculine ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q1817208, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?superlativeForm .
+            ?superlativeForm ontolex:representation ?superlative ;
+                wikibase:grammaticalFeature wd:Q1817208 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularForm .
+            ?singularForm ontolex:representation ?singular ;
+                wikibase:grammaticalFeature wd:Q110786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralFeminineForm .
+            ?pluralFeminineForm ontolex:representation ?pluralFeminine ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q1775415 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularFeminineSuperlativeForm .
+            ?singularFeminineSuperlativeForm ontolex:representation ?singularFeminineSuperlative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775415, wd:Q1817208 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralMasculineForm .
+            ?pluralMasculineForm ontolex:representation ?pluralMasculine ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralForm .
+            ?pluralForm ontolex:representation ?plural ;
+                wikibase:grammaticalFeature wd:Q146786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSuperlativeForm .
+            ?singularSuperlativeForm ontolex:representation ?singularSuperlative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1817208 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?masculineForm .
+            ?masculineForm ontolex:representation ?masculine ;
+                wikibase:grammaticalFeature wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralFeminineSuperlativeForm .
+            ?pluralFeminineSuperlativeForm ontolex:representation ?pluralFeminineSuperlative ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q1775415, wd:Q1817208 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularFeminineForm .
+            ?singularFeminineForm ontolex:representation ?singularFeminine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775415 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSuperlativeMasculineForm .
+            ?singularSuperlativeMasculineForm ontolex:representation ?singularSuperlativeMasculine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1817208, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularMasculineForm .
+            ?singularMasculineForm ontolex:representation ?singularMasculine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralSuperlativeForm .
+            ?pluralSuperlativeForm ontolex:representation ?pluralSuperlative ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q1817208 .
+        }
+}

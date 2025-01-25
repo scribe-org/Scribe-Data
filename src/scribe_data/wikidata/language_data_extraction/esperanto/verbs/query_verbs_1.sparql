@@ -1,0 +1,125 @@
+# tool: scribe-data
+# All esperanto (Q143) verbs (Q24905) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?verbs
+    ?preterite
+  ?presentParticipleFuture
+  ?futureIndicative
+  ?pastIndicative
+  ?present
+  ?imperative
+  ?past
+  ?infinitive
+  ?subjunctive
+  ?presentIndicative
+  ?presentPresentIndicativeIndicative
+  ?future
+  ?presentIndicative
+  ?indicativePresent
+  ?indicativePast
+  ?indicativeFuture
+    WHERE {
+    ?lexeme dct:language wd:Q143 ;
+        wikibase:lexicalCategory wd:Q24905 ;
+        wikibase:lemma ?verbs .
+        FILTER(lang(?verbs) = "eo")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?preteriteForm .
+            ?preteriteForm ontolex:representation ?preterite ;
+                wikibase:grammaticalFeature wd:Q442485 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?presentParticipleFutureForm .
+            ?presentParticipleFutureForm ontolex:representation ?presentParticipleFuture ;
+                wikibase:grammaticalFeature wd:Q10345583, wd:Q501405 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?futureIndicativeForm .
+            ?futureIndicativeForm ontolex:representation ?futureIndicative ;
+                wikibase:grammaticalFeature wd:Q501405, wd:Q682111 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pastIndicativeForm .
+            ?pastIndicativeForm ontolex:representation ?pastIndicative ;
+                wikibase:grammaticalFeature wd:Q1994301, wd:Q682111 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?presentForm .
+            ?presentForm ontolex:representation ?present ;
+                wikibase:grammaticalFeature wd:Q192613 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?imperativeForm .
+            ?imperativeForm ontolex:representation ?imperative ;
+                wikibase:grammaticalFeature wd:Q22716 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pastForm .
+            ?pastForm ontolex:representation ?past ;
+                wikibase:grammaticalFeature wd:Q1994301 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?infinitiveForm .
+            ?infinitiveForm ontolex:representation ?infinitive ;
+                wikibase:grammaticalFeature wd:Q179230 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?subjunctiveForm .
+            ?subjunctiveForm ontolex:representation ?subjunctive ;
+                wikibase:grammaticalFeature wd:Q473746 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?presentIndicativeForm .
+            ?presentIndicativeForm ontolex:representation ?presentIndicative ;
+                wikibase:grammaticalFeature wd:Q192613, wd:Q682111 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?presentPresentIndicativeIndicativeForm .
+            ?presentPresentIndicativeIndicativeForm ontolex:representation ?presentPresentIndicativeIndicative ;
+                wikibase:grammaticalFeature wd:Q192613, wd:Q56682909, wd:Q682111 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?futureForm .
+            ?futureForm ontolex:representation ?future ;
+                wikibase:grammaticalFeature wd:Q501405 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?presentIndicativeForm .
+            ?presentIndicativeForm ontolex:representation ?presentIndicative ;
+                wikibase:grammaticalFeature wd:Q56682909 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?indicativePresentForm .
+            ?indicativePresentForm ontolex:representation ?indicativePresent ;
+                wikibase:grammaticalFeature wd:Q682111, wd:Q192613 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?indicativePastForm .
+            ?indicativePastForm ontolex:representation ?indicativePast ;
+                wikibase:grammaticalFeature wd:Q682111, wd:Q1994301 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?indicativeFutureForm .
+            ?indicativeFutureForm ontolex:representation ?indicativeFuture ;
+                wikibase:grammaticalFeature wd:Q682111, wd:Q501405 .
+        }
+}

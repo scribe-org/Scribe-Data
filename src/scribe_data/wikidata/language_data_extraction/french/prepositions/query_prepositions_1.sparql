@@ -1,0 +1,34 @@
+# tool: scribe-data
+# All french (Q150) prepositions (Q4833830) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?prepositions
+    ?singularFeminine
+  ?plural
+  ?singularMasculine
+    WHERE {
+    ?lexeme dct:language wd:Q150 ;
+        wikibase:lexicalCategory wd:Q4833830 ;
+        wikibase:lemma ?prepositions .
+        FILTER(lang(?prepositions) = "fr")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularFeminineForm .
+            ?singularFeminineForm ontolex:representation ?singularFeminine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775415 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralForm .
+            ?pluralForm ontolex:representation ?plural ;
+                wikibase:grammaticalFeature wd:Q146786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularMasculineForm .
+            ?singularMasculineForm ontolex:representation ?singularMasculine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q499327 .
+        }
+}

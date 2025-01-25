@@ -1,0 +1,34 @@
+# tool: scribe-data
+# All igbo (Q33578) adverbs (Q380057) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?adverbs
+    ?adverbial
+  ?future
+  ?pastParticiple
+    WHERE {
+    ?lexeme dct:language wd:Q33578 ;
+        wikibase:lexicalCategory wd:Q380057 ;
+        wikibase:lemma ?adverbs .
+        FILTER(lang(?adverbs) = "ig")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?adverbialForm .
+            ?adverbialForm ontolex:representation ?adverbial ;
+                wikibase:grammaticalFeature wd:Q380012 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?futureForm .
+            ?futureForm ontolex:representation ?future ;
+                wikibase:grammaticalFeature wd:Q501405 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+            ?pastParticipleForm ontolex:representation ?pastParticiple ;
+                wikibase:grammaticalFeature wd:Q12717679 .
+        }
+}

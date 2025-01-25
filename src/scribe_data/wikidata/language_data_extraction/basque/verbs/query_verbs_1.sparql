@@ -1,0 +1,34 @@
+# tool: scribe-data
+# All basque (Q8752) verbs (Q24905) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?verbs
+    ?gerundImperfective
+  ?gerund
+  ?imperfective
+    WHERE {
+    ?lexeme dct:language wd:Q8752 ;
+        wikibase:lexicalCategory wd:Q24905 ;
+        wikibase:lemma ?verbs .
+        FILTER(lang(?verbs) = "eu")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?gerundImperfectiveForm .
+            ?gerundImperfectiveForm ontolex:representation ?gerundImperfective ;
+                wikibase:grammaticalFeature wd:Q1923028, wd:Q54556033 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?gerundForm .
+            ?gerundForm ontolex:representation ?gerund ;
+                wikibase:grammaticalFeature wd:Q1923028 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?imperfectiveForm .
+            ?imperfectiveForm ontolex:representation ?imperfective ;
+                wikibase:grammaticalFeature wd:Q54556033 .
+        }
+}

@@ -1,0 +1,69 @@
+# tool: scribe-data
+# All persian (Q9168) nouns (Q1084) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?nouns
+    ?accusativePlural
+  ?nominativePlural
+  ?dual
+  ?singularNominative
+  ?singularAccusative
+  ?singular
+  ?positive
+  ?pluralAnimate
+    WHERE {
+    ?lexeme dct:language wd:Q9168 ;
+        wikibase:lexicalCategory wd:Q1084 ;
+        wikibase:lemma ?nouns .
+        FILTER(lang(?nouns) = "fa")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+            ?accusativePluralForm ontolex:representation ?accusativePlural ;
+                wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+            ?nominativePluralForm ontolex:representation ?nominativePlural ;
+                wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?dualForm .
+            ?dualForm ontolex:representation ?dual ;
+                wikibase:grammaticalFeature wd:Q110022 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularNominativeForm .
+            ?singularNominativeForm ontolex:representation ?singularNominative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q131105 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularAccusativeForm .
+            ?singularAccusativeForm ontolex:representation ?singularAccusative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q146078 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularForm .
+            ?singularForm ontolex:representation ?singular ;
+                wikibase:grammaticalFeature wd:Q110786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?positiveForm .
+            ?positiveForm ontolex:representation ?positive ;
+                wikibase:grammaticalFeature wd:Q3482678 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralAnimateForm .
+            ?pluralAnimateForm ontolex:representation ?pluralAnimate ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q51927507 .
+        }
+}

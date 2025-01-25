@@ -1,0 +1,419 @@
+# tool: scribe-data
+# All tamil (Q5885) verbs (Q24905) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?verbs
+    ?simpleFutureFeminineThirdPerson
+  ?singularFeminineSimplePresentThirdPerson
+  ?feminineSimplePresent
+  ?singularSimpleFutureFeminineThirdPerson
+  ?singular
+  ?nominative
+  ?singularSimplePastFeminineThirdPerson
+  ?simplePastFeminine
+  ?singularSimplePresentThirdPerson
+  ?masculineFutureThirdPerson
+  ?singularNeuterSimplePresentThirdPerson
+  ?singularSimplePresentMasculine
+  ?past
+  ?singularSimpleFutureMasculineThirdPerson
+  ?neuterFuture
+  ?pluralFirstPersonSimplePresent
+  ?neuterSimplePresent
+  ?feminineSimplePresentThirdPerson
+  ?singularSimplePastMasculineThirdPerson
+  ?simplePastFeminineThirdPerson
+  ?presentContinuous
+  ?singularSimplePastSecondPerson
+  ?singularSimplePresentMasculineThirdPerson
+  ?singularSimplePastNeuterThirdPerson
+  ?pluralSimplePresentSecondPerson
+  ?singularSimplePastFirstPerson
+  ?simplePastMasculineThirdPerson
+  ?simplePastMasculine
+  ?singularMasculineFuture
+  ?imperative
+  ?singularPastMasculine
+  ?singularSimpleFutureSecondPerson
+  ?singularSimpleFutureFirstPerson
+  ?feminineFuture
+  ?singularNeuterThirdPerson
+  ?masculineFuture
+  ?pluralImperative
+  ?pluralNeuterSimplePresentThirdPerson
+  ?simpleFutureMasculineThirdPerson
+  ?feminineFutureThirdPerson
+  ?singularSimpleFutureNeuterThirdPerson
+  ?singularSimplePresentSecondPerson
+  ?singularFeminineSimplePresent
+  ?singularFirstPersonSimplePresent
+  ?singularPresentMasculine
+  ?gerund
+  ?singularPluralImperative
+  ?pluralImperativeSimplePresent
+  ?present
+  ?simplePresentMasculine
+  ?conditional
+  ?masculinePresentContinuous
+  ?infinitive
+  ?simplePastNeuter
+  ?masculineThirdPersonPresentContinuous
+  ?simplePresentMasculineThirdPerson
+  ?future
+  ?singularImperative
+    WHERE {
+    ?lexeme dct:language wd:Q5885 ;
+        wikibase:lexicalCategory wd:Q24905 ;
+        wikibase:lemma ?verbs .
+        FILTER(lang(?verbs) = "ta")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?simpleFutureFeminineThirdPersonForm .
+            ?simpleFutureFeminineThirdPersonForm ontolex:representation ?simpleFutureFeminineThirdPerson ;
+                wikibase:grammaticalFeature wd:Q1475560, wd:Q1775415, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularFeminineSimplePresentThirdPersonForm .
+            ?singularFeminineSimplePresentThirdPersonForm ontolex:representation ?singularFeminineSimplePresentThirdPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775415, wd:Q3910936, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?feminineSimplePresentForm .
+            ?feminineSimplePresentForm ontolex:representation ?feminineSimplePresent ;
+                wikibase:grammaticalFeature wd:Q1775415, wd:Q3910936 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimpleFutureFeminineThirdPersonForm .
+            ?singularSimpleFutureFeminineThirdPersonForm ontolex:representation ?singularSimpleFutureFeminineThirdPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1475560, wd:Q1775415, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularForm .
+            ?singularForm ontolex:representation ?singular ;
+                wikibase:grammaticalFeature wd:Q110786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?nominativeForm .
+            ?nominativeForm ontolex:representation ?nominative ;
+                wikibase:grammaticalFeature wd:Q131105 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimplePastFeminineThirdPersonForm .
+            ?singularSimplePastFeminineThirdPersonForm ontolex:representation ?singularSimplePastFeminineThirdPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1392475, wd:Q1775415, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?simplePastFeminineForm .
+            ?simplePastFeminineForm ontolex:representation ?simplePastFeminine ;
+                wikibase:grammaticalFeature wd:Q1392475, wd:Q1775415 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimplePresentThirdPersonForm .
+            ?singularSimplePresentThirdPersonForm ontolex:representation ?singularSimplePresentThirdPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q3910936, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?masculineFutureThirdPersonForm .
+            ?masculineFutureThirdPersonForm ontolex:representation ?masculineFutureThirdPerson ;
+                wikibase:grammaticalFeature wd:Q499327, wd:Q501405, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularNeuterSimplePresentThirdPersonForm .
+            ?singularNeuterSimplePresentThirdPersonForm ontolex:representation ?singularNeuterSimplePresentThirdPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775461, wd:Q3910936, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimplePresentMasculineForm .
+            ?singularSimplePresentMasculineForm ontolex:representation ?singularSimplePresentMasculine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q3910936, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pastForm .
+            ?pastForm ontolex:representation ?past ;
+                wikibase:grammaticalFeature wd:Q1994301 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimpleFutureMasculineThirdPersonForm .
+            ?singularSimpleFutureMasculineThirdPersonForm ontolex:representation ?singularSimpleFutureMasculineThirdPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1475560, wd:Q499327, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?neuterFutureForm .
+            ?neuterFutureForm ontolex:representation ?neuterFuture ;
+                wikibase:grammaticalFeature wd:Q1775461, wd:Q501405 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralFirstPersonSimplePresentForm .
+            ?pluralFirstPersonSimplePresentForm ontolex:representation ?pluralFirstPersonSimplePresent ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q21714344, wd:Q3910936 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?neuterSimplePresentForm .
+            ?neuterSimplePresentForm ontolex:representation ?neuterSimplePresent ;
+                wikibase:grammaticalFeature wd:Q1775461, wd:Q3910936 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?feminineSimplePresentThirdPersonForm .
+            ?feminineSimplePresentThirdPersonForm ontolex:representation ?feminineSimplePresentThirdPerson ;
+                wikibase:grammaticalFeature wd:Q1775415, wd:Q3910936, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimplePastMasculineThirdPersonForm .
+            ?singularSimplePastMasculineThirdPersonForm ontolex:representation ?singularSimplePastMasculineThirdPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1392475, wd:Q499327, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?simplePastFeminineThirdPersonForm .
+            ?simplePastFeminineThirdPersonForm ontolex:representation ?simplePastFeminineThirdPerson ;
+                wikibase:grammaticalFeature wd:Q1392475, wd:Q1775415, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?presentContinuousForm .
+            ?presentContinuousForm ontolex:representation ?presentContinuous ;
+                wikibase:grammaticalFeature wd:Q7240943 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimplePastSecondPersonForm .
+            ?singularSimplePastSecondPersonForm ontolex:representation ?singularSimplePastSecondPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1392475, wd:Q51929049 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimplePresentMasculineThirdPersonForm .
+            ?singularSimplePresentMasculineThirdPersonForm ontolex:representation ?singularSimplePresentMasculineThirdPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q3910936, wd:Q499327, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimplePastNeuterThirdPersonForm .
+            ?singularSimplePastNeuterThirdPersonForm ontolex:representation ?singularSimplePastNeuterThirdPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1392475, wd:Q1775461, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralSimplePresentSecondPersonForm .
+            ?pluralSimplePresentSecondPersonForm ontolex:representation ?pluralSimplePresentSecondPerson ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q3910936, wd:Q51929049 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimplePastFirstPersonForm .
+            ?singularSimplePastFirstPersonForm ontolex:representation ?singularSimplePastFirstPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1392475, wd:Q21714344 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?simplePastMasculineThirdPersonForm .
+            ?simplePastMasculineThirdPersonForm ontolex:representation ?simplePastMasculineThirdPerson ;
+                wikibase:grammaticalFeature wd:Q1392475, wd:Q499327, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?simplePastMasculineForm .
+            ?simplePastMasculineForm ontolex:representation ?simplePastMasculine ;
+                wikibase:grammaticalFeature wd:Q1392475, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularMasculineFutureForm .
+            ?singularMasculineFutureForm ontolex:representation ?singularMasculineFuture ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q499327, wd:Q501405 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?imperativeForm .
+            ?imperativeForm ontolex:representation ?imperative ;
+                wikibase:grammaticalFeature wd:Q22716 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularPastMasculineForm .
+            ?singularPastMasculineForm ontolex:representation ?singularPastMasculine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1994301, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimpleFutureSecondPersonForm .
+            ?singularSimpleFutureSecondPersonForm ontolex:representation ?singularSimpleFutureSecondPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1475560, wd:Q51929049 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimpleFutureFirstPersonForm .
+            ?singularSimpleFutureFirstPersonForm ontolex:representation ?singularSimpleFutureFirstPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1475560, wd:Q21714344 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?feminineFutureForm .
+            ?feminineFutureForm ontolex:representation ?feminineFuture ;
+                wikibase:grammaticalFeature wd:Q1775415, wd:Q501405 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularNeuterThirdPersonForm .
+            ?singularNeuterThirdPersonForm ontolex:representation ?singularNeuterThirdPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775461, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?masculineFutureForm .
+            ?masculineFutureForm ontolex:representation ?masculineFuture ;
+                wikibase:grammaticalFeature wd:Q499327, wd:Q501405 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralImperativeForm .
+            ?pluralImperativeForm ontolex:representation ?pluralImperative ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q22716 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralNeuterSimplePresentThirdPersonForm .
+            ?pluralNeuterSimplePresentThirdPersonForm ontolex:representation ?pluralNeuterSimplePresentThirdPerson ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q1775461, wd:Q3910936, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?simpleFutureMasculineThirdPersonForm .
+            ?simpleFutureMasculineThirdPersonForm ontolex:representation ?simpleFutureMasculineThirdPerson ;
+                wikibase:grammaticalFeature wd:Q1475560, wd:Q499327, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?feminineFutureThirdPersonForm .
+            ?feminineFutureThirdPersonForm ontolex:representation ?feminineFutureThirdPerson ;
+                wikibase:grammaticalFeature wd:Q1775415, wd:Q501405, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimpleFutureNeuterThirdPersonForm .
+            ?singularSimpleFutureNeuterThirdPersonForm ontolex:representation ?singularSimpleFutureNeuterThirdPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1475560, wd:Q1775461, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularSimplePresentSecondPersonForm .
+            ?singularSimplePresentSecondPersonForm ontolex:representation ?singularSimplePresentSecondPerson ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q3910936, wd:Q51929049 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularFeminineSimplePresentForm .
+            ?singularFeminineSimplePresentForm ontolex:representation ?singularFeminineSimplePresent ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775415, wd:Q3910936 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularFirstPersonSimplePresentForm .
+            ?singularFirstPersonSimplePresentForm ontolex:representation ?singularFirstPersonSimplePresent ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q21714344, wd:Q3910936 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularPresentMasculineForm .
+            ?singularPresentMasculineForm ontolex:representation ?singularPresentMasculine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q192613, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?gerundForm .
+            ?gerundForm ontolex:representation ?gerund ;
+                wikibase:grammaticalFeature wd:Q1923028 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularPluralImperativeForm .
+            ?singularPluralImperativeForm ontolex:representation ?singularPluralImperative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q146786, wd:Q22716 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralImperativeSimplePresentForm .
+            ?pluralImperativeSimplePresentForm ontolex:representation ?pluralImperativeSimplePresent ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q22716, wd:Q3910936 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?presentForm .
+            ?presentForm ontolex:representation ?present ;
+                wikibase:grammaticalFeature wd:Q192613 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?simplePresentMasculineForm .
+            ?simplePresentMasculineForm ontolex:representation ?simplePresentMasculine ;
+                wikibase:grammaticalFeature wd:Q3910936, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?conditionalForm .
+            ?conditionalForm ontolex:representation ?conditional ;
+                wikibase:grammaticalFeature wd:Q625581 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?masculinePresentContinuousForm .
+            ?masculinePresentContinuousForm ontolex:representation ?masculinePresentContinuous ;
+                wikibase:grammaticalFeature wd:Q499327, wd:Q7240943 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?infinitiveForm .
+            ?infinitiveForm ontolex:representation ?infinitive ;
+                wikibase:grammaticalFeature wd:Q179230 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?simplePastNeuterForm .
+            ?simplePastNeuterForm ontolex:representation ?simplePastNeuter ;
+                wikibase:grammaticalFeature wd:Q1392475, wd:Q1775461 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?masculineThirdPersonPresentContinuousForm .
+            ?masculineThirdPersonPresentContinuousForm ontolex:representation ?masculineThirdPersonPresentContinuous ;
+                wikibase:grammaticalFeature wd:Q499327, wd:Q51929074, wd:Q7240943 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?simplePresentMasculineThirdPersonForm .
+            ?simplePresentMasculineThirdPersonForm ontolex:representation ?simplePresentMasculineThirdPerson ;
+                wikibase:grammaticalFeature wd:Q3910936, wd:Q499327, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?futureForm .
+            ?futureForm ontolex:representation ?future ;
+                wikibase:grammaticalFeature wd:Q501405 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularImperativeForm .
+            ?singularImperativeForm ontolex:representation ?singularImperative ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q22716 .
+        }
+}

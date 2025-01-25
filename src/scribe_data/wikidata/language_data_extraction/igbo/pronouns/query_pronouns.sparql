@@ -1,0 +1,27 @@
+# tool: scribe-data
+# All igbo (Q33578) pronouns (Q36224) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?pronouns
+    ?oblique
+  ?obliquePluralThirdPerson
+    WHERE {
+    ?lexeme dct:language wd:Q33578 ;
+        wikibase:lexicalCategory wd:Q36224 ;
+        wikibase:lemma ?pronouns .
+        FILTER(lang(?pronouns) = "ig")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?obliqueForm .
+            ?obliqueForm ontolex:representation ?oblique ;
+                wikibase:grammaticalFeature wd:Q1233197 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?obliquePluralThirdPersonForm .
+            ?obliquePluralThirdPersonForm ontolex:representation ?obliquePluralThirdPerson ;
+                wikibase:grammaticalFeature wd:Q1233197, wd:Q146786, wd:Q51929074 .
+        }
+}

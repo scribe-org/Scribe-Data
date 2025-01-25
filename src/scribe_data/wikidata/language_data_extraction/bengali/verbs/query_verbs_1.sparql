@@ -1,0 +1,41 @@
+# tool: scribe-data
+# All bengali (Q9610) verbs (Q24905) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?verbs
+    ?firstPersonSimplePresent
+  ?simplePastThirdPerson
+  ?simplePastFirstPerson
+  ?simplePresentThirdPerson
+    WHERE {
+    ?lexeme dct:language wd:Q9610 ;
+        wikibase:lexicalCategory wd:Q24905 ;
+        wikibase:lemma ?verbs .
+        FILTER(lang(?verbs) = "bn")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?firstPersonSimplePresentForm .
+            ?firstPersonSimplePresentForm ontolex:representation ?firstPersonSimplePresent ;
+                wikibase:grammaticalFeature wd:Q21714344, wd:Q3910936 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?simplePastThirdPersonForm .
+            ?simplePastThirdPersonForm ontolex:representation ?simplePastThirdPerson ;
+                wikibase:grammaticalFeature wd:Q1392475, wd:Q51929074 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?simplePastFirstPersonForm .
+            ?simplePastFirstPersonForm ontolex:representation ?simplePastFirstPerson ;
+                wikibase:grammaticalFeature wd:Q1392475, wd:Q21714344 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?simplePresentThirdPersonForm .
+            ?simplePresentThirdPersonForm ontolex:representation ?simplePresentThirdPerson ;
+                wikibase:grammaticalFeature wd:Q3910936, wd:Q51929074 .
+        }
+}

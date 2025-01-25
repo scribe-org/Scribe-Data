@@ -1,0 +1,69 @@
+# tool: scribe-data
+# All danish (Q9035) personal_pronouns (Q468801) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?personal_pronouns
+    ?oblique
+  ?nominativeDativeAccusative
+  ?obliqueMasculine
+  ?nominativeMasculine
+  ?commonGenitivePluralNeuter
+  ?nominative
+  ?obliqueFeminine
+  ?nominativeFeminine
+    WHERE {
+    ?lexeme dct:language wd:Q9035 ;
+        wikibase:lexicalCategory wd:Q468801 ;
+        wikibase:lemma ?personal_pronouns .
+        FILTER(lang(?personal_pronouns) = "da")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?obliqueForm .
+            ?obliqueForm ontolex:representation ?oblique ;
+                wikibase:grammaticalFeature wd:Q1233197 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?nominativeDativeAccusativeForm .
+            ?nominativeDativeAccusativeForm ontolex:representation ?nominativeDativeAccusative ;
+                wikibase:grammaticalFeature wd:Q131105, wd:Q145599, wd:Q146078 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?obliqueMasculineForm .
+            ?obliqueMasculineForm ontolex:representation ?obliqueMasculine ;
+                wikibase:grammaticalFeature wd:Q1233197, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?nominativeMasculineForm .
+            ?nominativeMasculineForm ontolex:representation ?nominativeMasculine ;
+                wikibase:grammaticalFeature wd:Q131105, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?commonGenitivePluralNeuterForm .
+            ?commonGenitivePluralNeuterForm ontolex:representation ?commonGenitivePluralNeuter ;
+                wikibase:grammaticalFeature wd:Q1305037, wd:Q146233, wd:Q146786, wd:Q1775461 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?nominativeForm .
+            ?nominativeForm ontolex:representation ?nominative ;
+                wikibase:grammaticalFeature wd:Q131105 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?obliqueFeminineForm .
+            ?obliqueFeminineForm ontolex:representation ?obliqueFeminine ;
+                wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?nominativeFeminineForm .
+            ?nominativeFeminineForm ontolex:representation ?nominativeFeminine ;
+                wikibase:grammaticalFeature wd:Q131105, wd:Q1775415 .
+        }
+}

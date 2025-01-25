@@ -1,0 +1,20 @@
+# tool: scribe-data
+# All latin (Q397) prepositions (Q4833830) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?prepositions
+    ?genitive
+    WHERE {
+    ?lexeme dct:language wd:Q397 ;
+        wikibase:lexicalCategory wd:Q4833830 ;
+        wikibase:lemma ?prepositions .
+        FILTER(lang(?prepositions) = "la")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?genitiveForm .
+            ?genitiveForm ontolex:representation ?genitive ;
+                wikibase:grammaticalFeature wd:Q146233 .
+        }
+}

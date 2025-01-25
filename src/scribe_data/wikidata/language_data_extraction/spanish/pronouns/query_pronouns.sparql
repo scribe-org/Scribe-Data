@@ -1,0 +1,104 @@
+# tool: scribe-data
+# All spanish (Q1321) pronouns (Q36224) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    ?pronouns
+    ?singularNeuterMasculine
+  ?singularNeuter
+  ?pluralNeuter
+  ?pluralFeminineMasculine
+  ?singular
+  ?pluralNeuterMasculine
+  ?singularFeminine
+  ?pluralFeminine
+  ?singularFeminineMasculine
+  ?feminineNeuterMasculine
+  ?singularMasculine
+  ?pluralMasculine
+  ?plural
+    WHERE {
+    ?lexeme dct:language wd:Q1321 ;
+        wikibase:lexicalCategory wd:Q36224 ;
+        wikibase:lemma ?pronouns .
+        FILTER(lang(?pronouns) = "es")
+    
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularNeuterMasculineForm .
+            ?singularNeuterMasculineForm ontolex:representation ?singularNeuterMasculine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775461, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularNeuterForm .
+            ?singularNeuterForm ontolex:representation ?singularNeuter ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775461 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralNeuterForm .
+            ?pluralNeuterForm ontolex:representation ?pluralNeuter ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q1775461 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralFeminineMasculineForm .
+            ?pluralFeminineMasculineForm ontolex:representation ?pluralFeminineMasculine ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q1775415, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularForm .
+            ?singularForm ontolex:representation ?singular ;
+                wikibase:grammaticalFeature wd:Q110786 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralNeuterMasculineForm .
+            ?pluralNeuterMasculineForm ontolex:representation ?pluralNeuterMasculine ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q1775461, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularFeminineForm .
+            ?singularFeminineForm ontolex:representation ?singularFeminine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775415 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralFeminineForm .
+            ?pluralFeminineForm ontolex:representation ?pluralFeminine ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q1775415 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularFeminineMasculineForm .
+            ?singularFeminineMasculineForm ontolex:representation ?singularFeminineMasculine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q1775415, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?feminineNeuterMasculineForm .
+            ?feminineNeuterMasculineForm ontolex:representation ?feminineNeuterMasculine ;
+                wikibase:grammaticalFeature wd:Q1775415, wd:Q1775461, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?singularMasculineForm .
+            ?singularMasculineForm ontolex:representation ?singularMasculine ;
+                wikibase:grammaticalFeature wd:Q110786, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralMasculineForm .
+            ?pluralMasculineForm ontolex:representation ?pluralMasculine ;
+                wikibase:grammaticalFeature wd:Q146786, wd:Q499327 .
+        }
+
+        OPTIONAL {
+            ?lexeme ontolex:lexicalForm ?pluralForm .
+            ?pluralForm ontolex:representation ?plural ;
+                wikibase:grammaticalFeature wd:Q146786 .
+        }
+}
