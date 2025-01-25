@@ -1,0 +1,168 @@
+# tool: scribe-data
+# All latin (Q397) pronouns (Q36224) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?pronouns
+    ?pluralAblative
+  ?singularAccusativeNeuter
+  ?singularNominativeMasculine
+  ?singularAblativeMasculine
+  ?dativePlural
+  ?singularNominativeFeminine
+  ?accusativePluralMasculine
+  ?singularAblativeFeminine
+  ?accusativePluralFeminine
+  ?singularGenitive
+  ?genitivePluralNeuter
+  ?nominativePluralMasculine
+  ?nominativePluralFeminine
+  ?singularNominativeNeuter
+  ?singularAblativeNeuter
+  ?accusativePluralNeuter
+  ?singularAccusativeFeminine
+  ?nominativePluralNeuter
+  ?singularAccusativeMasculine
+  ?singularDative
+  ?genitivePluralMasculine
+  ?genitivePluralFeminine
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+  wikibase:lexicalCategory wd:Q36224 ;
+  wikibase:lemma ?pronouns .
+  FILTER(lang(?pronouns) = "la")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAblativeForm .
+    ?pluralAblativeForm ontolex:representation ?pluralAblative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q156986 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAccusativeNeuterForm .
+    ?singularAccusativeNeuterForm ontolex:representation ?singularAccusativeNeuter ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeMasculineForm .
+    ?singularNominativeMasculineForm ontolex:representation ?singularNominativeMasculine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAblativeMasculineForm .
+    ?singularAblativeMasculineForm ontolex:representation ?singularAblativeMasculine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q156986, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeFeminineForm .
+    ?singularNominativeFeminineForm ontolex:representation ?singularNominativeFeminine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativePluralMasculineForm .
+    ?accusativePluralMasculineForm ontolex:representation ?accusativePluralMasculine ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAblativeFeminineForm .
+    ?singularAblativeFeminineForm ontolex:representation ?singularAblativeFeminine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q156986, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativePluralFeminineForm .
+    ?accusativePluralFeminineForm ontolex:representation ?accusativePluralFeminine ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularGenitiveForm .
+    ?singularGenitiveForm ontolex:representation ?singularGenitive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralNeuterForm .
+    ?genitivePluralNeuterForm ontolex:representation ?genitivePluralNeuter ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralMasculineForm .
+    ?nominativePluralMasculineForm ontolex:representation ?nominativePluralMasculine ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralFeminineForm .
+    ?nominativePluralFeminineForm ontolex:representation ?nominativePluralFeminine ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeNeuterForm .
+    ?singularNominativeNeuterForm ontolex:representation ?singularNominativeNeuter ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAblativeNeuterForm .
+    ?singularAblativeNeuterForm ontolex:representation ?singularAblativeNeuter ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q156986, wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativePluralNeuterForm .
+    ?accusativePluralNeuterForm ontolex:representation ?accusativePluralNeuter ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786, wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAccusativeFeminineForm .
+    ?singularAccusativeFeminineForm ontolex:representation ?singularAccusativeFeminine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralNeuterForm .
+    ?nominativePluralNeuterForm ontolex:representation ?nominativePluralNeuter ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAccusativeMasculineForm .
+    ?singularAccusativeMasculineForm ontolex:representation ?singularAccusativeMasculine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularDativeForm .
+    ?singularDativeForm ontolex:representation ?singularDative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q145599 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralMasculineForm .
+    ?genitivePluralMasculineForm ontolex:representation ?genitivePluralMasculine ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralFeminineForm .
+    ?genitivePluralFeminineForm ontolex:representation ?genitivePluralFeminine ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q1775415 .
+  }
+}

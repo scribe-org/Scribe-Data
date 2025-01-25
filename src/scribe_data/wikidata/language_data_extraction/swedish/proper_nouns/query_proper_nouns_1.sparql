@@ -1,0 +1,56 @@
+# tool: scribe-data
+# All swedish (Q9027) proper_nouns (Q147276) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?proper_nouns
+    ?singularGenitiveIndefinite
+  ?singularGenitive
+  ?singularNominativeIndefinite
+  ?singularNominative
+  ?nominative
+  ?genitive
+
+WHERE {
+  ?lexeme dct:language wd:Q9027 ;
+  wikibase:lexicalCategory wd:Q147276 ;
+  wikibase:lemma ?proper_nouns .
+  FILTER(lang(?proper_nouns) = "sv")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularGenitiveIndefiniteForm .
+    ?singularGenitiveIndefiniteForm ontolex:representation ?singularGenitiveIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146233, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularGenitiveForm .
+    ?singularGenitiveForm ontolex:representation ?singularGenitive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeIndefiniteForm .
+    ?singularNominativeIndefiniteForm ontolex:representation ?singularNominativeIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeForm .
+    ?singularNominativeForm ontolex:representation ?singularNominative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
+}

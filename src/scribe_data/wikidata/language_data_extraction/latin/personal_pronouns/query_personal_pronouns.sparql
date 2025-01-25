@@ -1,0 +1,21 @@
+# tool: scribe-data
+# All latin (Q397) personal_pronouns (Q468801) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?personal_pronouns
+    ?nominative
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+  wikibase:lexicalCategory wd:Q468801 ;
+  wikibase:lemma ?personal_pronouns .
+  FILTER(lang(?personal_pronouns) = "la")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+}

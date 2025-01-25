@@ -1,0 +1,105 @@
+# tool: scribe-data
+# All finnish (Q1412) personal_pronouns (Q468801) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?personal_pronouns
+    ?inessive
+  ?accusative
+  ?ablative
+  ?illative
+  ?adessive
+  ?nominative
+  ?allative
+  ?elative
+  ?essive
+  ?translative
+  ?partitive
+  ?abessive
+  ?genitive
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+  wikibase:lexicalCategory wd:Q468801 ;
+  wikibase:lemma ?personal_pronouns .
+  FILTER(lang(?personal_pronouns) = "fi")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveForm .
+    ?inessiveForm ontolex:representation ?inessive ;
+      wikibase:grammaticalFeature wd:Q282031 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeForm .
+    ?ablativeForm ontolex:representation ?ablative ;
+      wikibase:grammaticalFeature wd:Q156986 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?illativeForm .
+    ?illativeForm ontolex:representation ?illative ;
+      wikibase:grammaticalFeature wd:Q474668 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessiveForm .
+    ?adessiveForm ontolex:representation ?adessive ;
+      wikibase:grammaticalFeature wd:Q281954 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativeForm .
+    ?allativeForm ontolex:representation ?allative ;
+      wikibase:grammaticalFeature wd:Q655020 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?elativeForm .
+    ?elativeForm ontolex:representation ?elative ;
+      wikibase:grammaticalFeature wd:Q394253 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?essiveForm .
+    ?essiveForm ontolex:representation ?essive ;
+      wikibase:grammaticalFeature wd:Q148465 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?translativeForm .
+    ?translativeForm ontolex:representation ?translative ;
+      wikibase:grammaticalFeature wd:Q950170 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partitiveForm .
+    ?partitiveForm ontolex:representation ?partitive ;
+      wikibase:grammaticalFeature wd:Q857325 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?abessiveForm .
+    ?abessiveForm ontolex:representation ?abessive ;
+      wikibase:grammaticalFeature wd:Q319822 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
+}

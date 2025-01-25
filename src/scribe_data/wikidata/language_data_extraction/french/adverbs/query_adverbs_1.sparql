@@ -1,0 +1,21 @@
+# tool: scribe-data
+# All french (Q150) adverbs (Q380057) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adverbs
+    ?singular
+
+WHERE {
+  ?lexeme dct:language wd:Q150 ;
+  wikibase:lexicalCategory wd:Q380057 ;
+  wikibase:lemma ?adverbs .
+  FILTER(lang(?adverbs) = "fr")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+}

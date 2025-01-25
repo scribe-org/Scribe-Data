@@ -1,0 +1,147 @@
+# tool: scribe-data
+# All igbo (Q33578) verbs (Q24905) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verbs
+    ?presentPerfect
+  ?presentParticiplePresent
+  ?phrase
+  ?gerund
+  ?wordStem
+  ?imperative
+  ?presentParticiple
+  ?participle
+  ?presentParticiplePresentContinuous
+  ?pastParticiple
+  ?nominalized
+  ?present
+  ?pastParticiplePast
+  ?infinitive
+  ?pastParticipleImperative
+  ?future
+  ?presentContinuous
+  ?plural
+  ?past
+
+WHERE {
+  ?lexeme dct:language wd:Q33578 ;
+  wikibase:lexicalCategory wd:Q24905 ;
+  wikibase:lemma ?verbs .
+  FILTER(lang(?verbs) = "ig")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPerfectForm .
+    ?presentPerfectForm ontolex:representation ?presentPerfect ;
+      wikibase:grammaticalFeature wd:Q1240211 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentParticiplePresentForm .
+    ?presentParticiplePresentForm ontolex:representation ?presentParticiplePresent ;
+      wikibase:grammaticalFeature wd:Q10345583, wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?phraseForm .
+    ?phraseForm ontolex:representation ?phrase ;
+      wikibase:grammaticalFeature wd:Q187931 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?wordStemForm .
+    ?wordStemForm ontolex:representation ?wordStem ;
+      wikibase:grammaticalFeature wd:Q210523 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
+    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participleForm .
+    ?participleForm ontolex:representation ?participle ;
+      wikibase:grammaticalFeature wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentParticiplePresentContinuousForm .
+    ?presentParticiplePresentContinuousForm ontolex:representation ?presentParticiplePresentContinuous ;
+      wikibase:grammaticalFeature wd:Q10345583, wd:Q7240943 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominalizedForm .
+    ?nominalizedForm ontolex:representation ?nominalized ;
+      wikibase:grammaticalFeature wd:Q74674960 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticiplePastForm .
+    ?pastParticiplePastForm ontolex:representation ?pastParticiplePast ;
+      wikibase:grammaticalFeature wd:Q12717679, wd:Q1994301 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleImperativeForm .
+    ?pastParticipleImperativeForm ontolex:representation ?pastParticipleImperative ;
+      wikibase:grammaticalFeature wd:Q12717679, wd:Q22716 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureForm .
+    ?futureForm ontolex:representation ?future ;
+      wikibase:grammaticalFeature wd:Q501405 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
+    ?presentContinuousForm ontolex:representation ?presentContinuous ;
+      wikibase:grammaticalFeature wd:Q7240943 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
+}

@@ -1,0 +1,35 @@
+# tool: scribe-data
+# All german (Q188) adverbs (Q380057) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adverbs
+    ?positive
+  ?comparative
+  ?superlative
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+  wikibase:lexicalCategory wd:Q380057 ;
+  wikibase:lemma ?adverbs .
+  FILTER(lang(?adverbs) = "de")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+}

@@ -1,0 +1,238 @@
+# tool: scribe-data
+# All swedish (Q9027) adjectives (Q34698) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjectives
+    ?singularDefinite
+  ?singularNeuterIndefinite
+  ?singularFeminine
+  ?pluralDefinite
+  ?singularNeuterPositiveIndefinite
+  ?superlative
+  ?commonPositive
+  ?superlativeMasculineDefinite
+  ?singularPositive
+  ?comparativePlural
+  ?singularCommonPositiveIndefinite
+  ?singularCommonNominativePositiveIndefinite
+  ?singularCommon
+  ?singularCommonIndefinite
+  ?singularPositiveDefinite
+  ?pluralPositive
+  ?positive
+  ?singularPositiveMasculineDefinite
+  ?plural
+  ?positiveDefinite
+  ?comparative
+  ?singularNeuter
+  ?singularPluralPositiveDefiniteIndefinite
+  ?singularMasculineDefinite
+  ?singularSuperlative
+  ?superlativeIndefinite
+  ?singularNominativeIndefinite
+  ?pluralPositiveIndefinite
+  ?singularSuperlativeMasculineDefinite
+  ?pluralSuperlative
+  ?superlativeDefinite
+  ?pluralPositiveDefinite
+
+WHERE {
+  ?lexeme dct:language wd:Q9027 ;
+  wikibase:lexicalCategory wd:Q34698 ;
+  wikibase:lemma ?adjectives .
+  FILTER(lang(?adjectives) = "sv")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularDefiniteForm .
+    ?singularDefiniteForm ontolex:representation ?singularDefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNeuterIndefiniteForm .
+    ?singularNeuterIndefiniteForm ontolex:representation ?singularNeuterIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1775461, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularFeminineForm .
+    ?singularFeminineForm ontolex:representation ?singularFeminine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralDefiniteForm .
+    ?pluralDefiniteForm ontolex:representation ?pluralDefinite ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNeuterPositiveIndefiniteForm .
+    ?singularNeuterPositiveIndefiniteForm ontolex:representation ?singularNeuterPositiveIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1775461, wd:Q3482678, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?commonPositiveForm .
+    ?commonPositiveForm ontolex:representation ?commonPositive ;
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeMasculineDefiniteForm .
+    ?superlativeMasculineDefiniteForm ontolex:representation ?superlativeMasculineDefinite ;
+      wikibase:grammaticalFeature wd:Q1817208, wd:Q499327, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPositiveForm .
+    ?singularPositiveForm ontolex:representation ?singularPositive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativePluralForm .
+    ?comparativePluralForm ontolex:representation ?comparativePlural ;
+      wikibase:grammaticalFeature wd:Q14169499, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularCommonPositiveIndefiniteForm .
+    ?singularCommonPositiveIndefiniteForm ontolex:representation ?singularCommonPositiveIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1305037, wd:Q3482678, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularCommonNominativePositiveIndefiniteForm .
+    ?singularCommonNominativePositiveIndefiniteForm ontolex:representation ?singularCommonNominativePositiveIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1305037, wd:Q131105, wd:Q3482678, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularCommonForm .
+    ?singularCommonForm ontolex:representation ?singularCommon ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1305037 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularCommonIndefiniteForm .
+    ?singularCommonIndefiniteForm ontolex:representation ?singularCommonIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1305037, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPositiveDefiniteForm .
+    ?singularPositiveDefiniteForm ontolex:representation ?singularPositiveDefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q3482678, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralPositiveForm .
+    ?pluralPositiveForm ontolex:representation ?pluralPositive ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPositiveMasculineDefiniteForm .
+    ?singularPositiveMasculineDefiniteForm ontolex:representation ?singularPositiveMasculineDefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q3482678, wd:Q499327, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?positiveDefiniteForm .
+    ?positiveDefiniteForm ontolex:representation ?positiveDefinite ;
+      wikibase:grammaticalFeature wd:Q3482678, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNeuterForm .
+    ?singularNeuterForm ontolex:representation ?singularNeuter ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPluralPositiveDefiniteIndefiniteForm .
+    ?singularPluralPositiveDefiniteIndefiniteForm ontolex:representation ?singularPluralPositiveDefiniteIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146786, wd:Q3482678, wd:Q53997851, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularMasculineDefiniteForm .
+    ?singularMasculineDefiniteForm ontolex:representation ?singularMasculineDefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q499327, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularSuperlativeForm .
+    ?singularSuperlativeForm ontolex:representation ?singularSuperlative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeIndefiniteForm .
+    ?superlativeIndefiniteForm ontolex:representation ?superlativeIndefinite ;
+      wikibase:grammaticalFeature wd:Q1817208, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeIndefiniteForm .
+    ?singularNominativeIndefiniteForm ontolex:representation ?singularNominativeIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralPositiveIndefiniteForm .
+    ?pluralPositiveIndefiniteForm ontolex:representation ?pluralPositiveIndefinite ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q3482678, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularSuperlativeMasculineDefiniteForm .
+    ?singularSuperlativeMasculineDefiniteForm ontolex:representation ?singularSuperlativeMasculineDefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1817208, wd:Q499327, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralSuperlativeForm .
+    ?pluralSuperlativeForm ontolex:representation ?pluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeDefiniteForm .
+    ?superlativeDefiniteForm ontolex:representation ?superlativeDefinite ;
+      wikibase:grammaticalFeature wd:Q1817208, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralPositiveDefiniteForm .
+    ?pluralPositiveDefiniteForm ontolex:representation ?pluralPositiveDefinite ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q3482678, wd:Q53997851 .
+  }
+}

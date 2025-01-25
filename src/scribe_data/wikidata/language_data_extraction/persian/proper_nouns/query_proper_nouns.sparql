@@ -1,0 +1,35 @@
+# tool: scribe-data
+# All persian (Q9168) proper_nouns (Q147276) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?proper_nouns
+    ?plural
+  ?pluralAnimate
+  ?singular
+
+WHERE {
+  ?lexeme dct:language wd:Q9168 ;
+  wikibase:lexicalCategory wd:Q147276 ;
+  wikibase:lemma ?proper_nouns .
+  FILTER(lang(?proper_nouns) = "fa")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAnimateForm .
+    ?pluralAnimateForm ontolex:representation ?pluralAnimate ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q51927507 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+}

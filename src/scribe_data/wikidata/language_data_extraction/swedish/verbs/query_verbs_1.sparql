@@ -1,0 +1,112 @@
+# tool: scribe-data
+# All swedish (Q9027) verbs (Q24905) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?verbs
+    ?present
+  ?activeSupinePluperfect
+  ?subjunctive
+  ?activeImperative
+  ?infinitive
+  ?passivePluralPreterite
+  ?subjunctiveFuture
+  ?supine
+  ?activePluralPresent
+  ?pastParticiple
+  ?past
+  ?activePastPreterite
+  ?activePluralPreterite
+  ?preterite
+
+WHERE {
+  ?lexeme dct:language wd:Q9027 ;
+  wikibase:lexicalCategory wd:Q24905 ;
+  wikibase:lemma ?verbs .
+  FILTER(lang(?verbs) = "sv")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeSupinePluperfectForm .
+    ?activeSupinePluperfectForm ontolex:representation ?activeSupinePluperfect ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q548470, wd:Q623742 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?subjunctiveForm .
+    ?subjunctiveForm ontolex:representation ?subjunctive ;
+      wikibase:grammaticalFeature wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeImperativeForm .
+    ?activeImperativeForm ontolex:representation ?activeImperative ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePluralPreteriteForm .
+    ?passivePluralPreteriteForm ontolex:representation ?passivePluralPreterite ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q146786, wd:Q442485 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?subjunctiveFutureForm .
+    ?subjunctiveFutureForm ontolex:representation ?subjunctiveFuture ;
+      wikibase:grammaticalFeature wd:Q473746, wd:Q501405 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?supineForm .
+    ?supineForm ontolex:representation ?supine ;
+      wikibase:grammaticalFeature wd:Q548470 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePluralPresentForm .
+    ?activePluralPresentForm ontolex:representation ?activePluralPresent ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q146786, wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePastPreteriteForm .
+    ?activePastPreteriteForm ontolex:representation ?activePastPreterite ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q1994301, wd:Q442485 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePluralPreteriteForm .
+    ?activePluralPreteriteForm ontolex:representation ?activePluralPreterite ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q146786, wd:Q442485 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteForm .
+    ?preteriteForm ontolex:representation ?preterite ;
+      wikibase:grammaticalFeature wd:Q442485 .
+  }
+}
