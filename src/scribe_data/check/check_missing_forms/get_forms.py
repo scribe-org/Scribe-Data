@@ -104,10 +104,6 @@ def parse_sparql_query(query_text):
     return result
 
 
-# Debug line to parsed file.
-parse_sparql_files()
-
-
 def extract_dump_forms(
     languages=None, data_types=None, file_path="latest-lexemes.json.bz2"
 ):

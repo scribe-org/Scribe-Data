@@ -114,13 +114,13 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: "Automated PR: Updated Language Data Files"
+          title: "Chore: Update missing Wikidata query forms"
           body: ${{ steps.pr-body.outputs.body }}
-          base: master
-          branch: automated-missing-forms-pr
+          base: main
+          branch: update-missing-query-forms
           delete-branch: true
           draft: false
-          commit-message: "[create-pull-request] automated change"
+          commit-message: "Chore: Update missing Wikidata query forms"
           committer: GitHub <noreply@github.com>
           author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
 

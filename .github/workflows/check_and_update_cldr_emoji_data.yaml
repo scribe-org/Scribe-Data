@@ -129,9 +129,9 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: "chore: Update emoji annotations data"
+          title: "Chore: Update CLDR emoji annotations data"
           body: |
-            This PR updates the emoji annotations data from CLDR.
+            This is an automated PR created by the [Check and Update CLDR Emoji Data](https://github.com/scribe-org/Scribe-Data/blob/main/.github/workflows/check_and_update_cldr_emoji_data.yaml) workflow.
 
             ### Legend:
             - Yes: File was updated
@@ -140,11 +140,9 @@ jobs:
 
             ## Changes Summary
             ${{ steps.check-updates.outputs.change_summary }}
-
-            This is an automated PR created by the [emoji data update workflow](https://github.com/scribe-org/Scribe-Data/blob/main/.github/workflows/update_emojis.yaml).
-          branch: update-emoji-data # branch name
+          branch: update-cldr-emoji-data # branch name
           delete-branch: true
-          commit-message: "chore: Update emoji annotations data"
+          commit-message: "Chore: Update CLDR emoji annotations data"
           labels: |
             automated pr
             emoji-data

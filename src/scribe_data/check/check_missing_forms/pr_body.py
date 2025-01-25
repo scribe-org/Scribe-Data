@@ -36,11 +36,11 @@ def pr_body(missing_features):
     - Features are grouped by language for better readability
     """
     pr_body_content = (
-        "## Automated PR: Missing Features\n\n"
-        + "This PR was automatically created by a GitHub Action.\n\n"
-        + "### Missing Features Summary\n"
-        + "| **Language** | **Feature Type** |\n"
-        + "|--------------|------------------|\n"
+        "## Automated PR: Missing Lexeme Forms\n\n"
+        + "This is an automated PR created by the [Check and Update Missing Query Forms](https://github.com/scribe-org/Scribe-Data/blob/main/.github/workflows/check_and_update_missing_query_forms.yaml) workflow.\n\n"
+        + "### Missing Forms Summary\n"
+        + "| **Language** | **Forms Type** |\n"
+        + "|:-------------|:---------------|\n"
     )
 
     # Create a dictionary to group features by language.
@@ -80,8 +80,8 @@ def pr_body(missing_features):
 
     # Add grouped features to the PR body.
     for language, features in sorted(grouped_features.items()):
-        feature_list = ", ".join(sorted(features))
-        pr_body_content += f"| **{language}** | {feature_list} |\n"
+        form_list = ", ".join(sorted(features))
+        pr_body_content += f"| **{language}** | {form_list} |\n"
 
     pr_body_content += "\nPlease review the changes and provide feedback.\n"
 
