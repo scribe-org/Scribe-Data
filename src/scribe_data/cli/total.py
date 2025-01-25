@@ -339,6 +339,7 @@ def total_wrapper(
 
     data_type : Union[str, List[str]]
         The data type(s) to check for.
+
     all_bool : bool
         Whether all languages and data types should be listed.
 
@@ -348,11 +349,15 @@ def total_wrapper(
     """
     # Handle --all flag
     if all_bool and wikidata_dump:
-        language = "all"
+        if data_type is None:
+            data_type = "all"
+        if language is None:
+            language = "all"
 
     if wikidata_dump is True:  # flag without a wikidata lexeme dump path
         parse_wd_lexeme_dump(
             language=language,
+            data_types=data_type,
             wikidata_dump_type=["total"],
             wikidata_dump_path=None,
         )
@@ -361,6 +366,7 @@ def total_wrapper(
     if isinstance(wikidata_dump, str):  # if user provided a wikidata lexeme dump path
         parse_wd_lexeme_dump(
             language=language,
+            data_types=[data_type],
             wikidata_dump_type=["total"],
             wikidata_dump_path=wikidata_dump,
         )

@@ -12,20 +12,20 @@ from SPARQLWrapper import JSON, POST, SPARQLWrapper
 
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.utils import data_type_metadata, language_metadata
-from scribe_data.wiktionary.parse_dump import parse_dump
+from scribe_data.wikidata.parse_dump import parse_dump
 
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 sparql.setReturnFormat(JSON)
 sparql.setMethod(POST)
 
 
-def mediaWiki_query(query: str) -> dict:
+def mediawiki_query(word: str) -> dict:
     """
     Query the Wikidata API using a MediaWiki query.
 
     Parameters
     ----------
-    query : str
+    word : str
         The MediaWiki query to execute.
 
     Returns
@@ -34,8 +34,8 @@ def mediaWiki_query(query: str) -> dict:
         The JSON response from the API.
     """
     url = (
-        f"https://en.wiktionary.org/w/api.php?"
-        f"action=query&format=json&titles={query}/translations&prop=revisions&rvprop=content"
+        f"https://wikidata.org/w/api.php?"
+        f"action=query&format=json&titles={word}/translations&prop=revisions&rvprop=content"
     )
     response = requests.get(url)
     return response.json()
@@ -47,6 +47,7 @@ def parse_wd_lexeme_dump(
     data_types: List[str] = None,
     type_output_dir: str = None,
     wikidata_dump_path: str = None,
+    overwrite_all: bool = False,
 ):
     """
     Checks for the existence of a Wikidata lexeme dump and parses it if possible.
@@ -67,17 +68,34 @@ def parse_wd_lexeme_dump(
 
     wikidata_dump_path : str, optional
         The local Wikidata lexeme dump directory that should be used to get data.
+
+    overwrite_all : bool, default=False
+        If True, automatically overwrite existing files without prompting
     """
-    # Convert "all" to list of all languages
+    # Convert "all" to list of all languages including sub-languages.
     if isinstance(language, str) and language.lower() == "all":
-        language = list(language_metadata.keys())
+        languages = []
+        for main_lang, lang_data in language_metadata.items():
+            # Add sub-languages if they exist.
+            if "sub_languages" in lang_data:
+                for sub_lang in lang_data["sub_languages"]:
+                    main_lang = sub_lang
+            languages.append(main_lang)
+
+        language = languages
+
+    # For processing: exclude translations and emoji-keywords.
     if isinstance(data_types, str) and data_types.lower() == "all":
-        # Exclude translations as it's a separate section
         data_types = [
             dt
             for dt in data_type_metadata.keys()
             if dt != "translations" and dt != "emoji-keywords"
         ]
+
+    print(f"Languages to process: {[lang.capitalize() for lang in language]}")
+
+    if "translations" not in wikidata_dump_type:
+        print(f"Data types to process: {data_types}")
 
     file_path = wd_lexeme_dump_download_wrapper(None, wikidata_dump_path)
 
@@ -94,7 +112,6 @@ def parse_wd_lexeme_dump(
                 data_types=data_types,
                 file_path=file_path,
                 output_dir=type_output_dir,
+                overwrite_all=overwrite_all,
             )
             return
-
-    rprint(f"[bold red]No valid dumps found in {file_path}.[/bold red]")

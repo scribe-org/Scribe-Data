@@ -1,0 +1,133 @@
+name: Create Automated PR
+on:
+  schedule:
+    # Runs at 00:00 UTC on the first day of every month.
+    - cron: "0 0 1 * *"
+  workflow_dispatch: # allow manual trigger
+
+jobs:
+  check-repository:
+    runs-on: ubuntu-latest
+    outputs:
+      is_correct_repo: ${{ steps.check.outputs.is_correct_repo }}
+    steps:
+      - name: Check repository
+        id: check
+        run: |
+          if [ "$GITHUB_REPOSITORY" = "scribe-org/Scribe-Data" ]; then
+            echo "is_correct_repo=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_correct_repo=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::This workflow should only run in scribe-org/Scribe-Data repository."
+          fi
+
+  create-pull-request:
+    needs: check-repository
+    if: needs.check-repository.outputs.is_correct_repo == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install rich requests tqdm
+          pip install -e .
+
+      - name: Generate Missing Features Data
+        run: |
+          # Set up paths
+          DUMP_PATH=$(PYTHONPATH=$PYTHONPATH:$(pwd)/src python src/scribe_data/check/check_missing_forms/download_wd.py | grep "DOWNLOAD_PATH=" | cut -d'=' -f2)
+          QUERY_DIR="$(pwd)/src/scribe_data/wikidata/language_data_extraction"
+
+          echo "Dump path: ${DUMP_PATH}"
+          echo "Query directory: ${QUERY_DIR}"
+
+          # Check if paths exist
+          if [ -n "${DUMP_PATH}" ] && [ -d "${QUERY_DIR}" ]; then
+            # Generate the missing features data with all keys processing.
+            PYTHONPATH=$PYTHONPATH:$(pwd)/src python src/scribe_data/check/check_missing_forms/check_missing_forms.py "${DUMP_PATH}" "${QUERY_DIR}" --process-all-keys
+          else
+            echo "Required paths not found:"
+            echo "Dump path exists: $([ -n "${DUMP_PATH}" ] && echo "Yes" || echo "No")"
+            echo "Query directory exists: $([ -d "${QUERY_DIR}" ] && echo "Yes" || echo "No")"
+            exit 1
+          fi
+
+      # Debug steps to understand the state.
+      - name: Debug Info
+        run: |
+          echo "Current branch: $(git branch --show-current)"
+          echo "List of changes:"
+          git status
+
+      - name: Make changes
+        run: |
+          git add src/scribe_data/wikidata/language_data_extraction/**/*.sparql
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Debug Missing Features Data
+        if: always()
+        run: |
+          # Print the contents of the missing features JSON file if it exists.
+          if [ -f missing_features.json ]; then
+            echo "Contents of missing_features.json:"
+            cat missing_features.json
+          else
+            echo "missing_features.json not found"
+          fi
+
+      - name: Generate PR Body
+        id: pr-body
+        run: |
+          # Run the pr_body.py script with the missing features data.
+          PR_BODY_CONTENT=$(python src/scribe_data/check/check_missing_forms/pr_body.py missing_features.json)
+
+          # Debug output.
+          echo "PR Body Content:"
+          echo "$PR_BODY_CONTENT"
+
+          # Initialize PR body with delimiter
+          {
+            echo "body<<EOF"
+            echo "$PR_BODY_CONTENT"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
+
+      - name: Debug PR Body Output
+        run: |
+          # Print the PR body content from the output.
+          echo "PR Body from GITHUB_OUTPUT:"
+          cat $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "Automated PR: Updated Language Data Files"
+          body: ${{ steps.pr-body.outputs.body }}
+          base: master
+          branch: automated-missing-forms-pr
+          delete-branch: true
+          draft: false
+          commit-message: "[create-pull-request] automated change"
+          committer: GitHub <noreply@github.com>
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+
+      # Debug step to verify PR creation attempt.
+      - name: Check PR Creation
+        run: |
+          echo "Checking if PR was created..."
+          gh pr list
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

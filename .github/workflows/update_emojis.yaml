@@ -1,0 +1,150 @@
+name: Check and Update Emoji Data
+on:
+  schedule:
+    # Runs at 00:00 UTC on the first day of every month.
+    - cron: "0 0 1 * *"
+  workflow_dispatch: # allow manual trigger
+
+jobs:
+  check-repository:
+    runs-on: ubuntu-latest
+    outputs:
+      is_correct_repo: ${{ steps.check.outputs.is_correct_repo }}
+    steps:
+      - name: Check repository
+        id: check
+        run: |
+          if [ "$GITHUB_REPOSITORY" = "scribe-org/Scribe-Data" ]; then
+            echo "is_correct_repo=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_correct_repo=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::This workflow should only run in scribe-org/Scribe-Data repository."
+          fi
+
+  check-and-update:
+    needs: check-repository
+    if: needs.check-repository.outputs.is_correct_repo == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+          sudo apt-get install jq
+
+      - name: Get language list
+        id: get-langs
+        run: |
+          # Fetch language list from GitHub API.
+          DERIVED_LANGS=$(curl -s https://api.github.com/repos/unicode-org/cldr-json/contents/cldr-json/cldr-annotations-derived-full/annotationsDerived | jq -r '.[].name')
+          FULL_LANGS=$(curl -s https://api.github.com/repos/unicode-org/cldr-json/contents/cldr-json/cldr-annotations-full/annotations | jq -r '.[].name')
+
+          # Combine and deduplicate language lists.
+          LANG_LIST=$(echo "$DERIVED_LANGS $FULL_LANGS" | tr ' ' '\n' | sort -u | tr '\n' ' ')
+          echo "lang_list=${LANG_LIST}" >> $GITHUB_OUTPUT
+          echo "Detected languages: ${LANG_LIST}"
+
+      - name: Download and check emoji data
+        id: check-updates
+        run: |
+          # Create directories if they don't exist.
+          mkdir -p src/scribe_data/unicode/cldr-annotations-derived-full
+          mkdir -p src/scribe_data/unicode/cldr-annotations-full
+
+          CHANGES_EXIST=false
+          CHANGE_SUMMARY="| Language | Derived Changes | Full Changes |\n|----------|-----------------|--------------|"
+
+          # Use dynamic language list from previous step.
+          for lang in ${{ steps.get-langs.outputs.lang_list }}; do
+            DERIVED_CHANGED="No"
+            FULL_CHANGED="No"
+
+            # Download latest data for each language.
+            mkdir -p "src/scribe_data/unicode/cldr-annotations-derived-full/annotationsDerived/$lang"
+            mkdir -p "src/scribe_data/unicode/cldr-annotations-full/annotations/$lang"
+
+            curl -L "https://raw.githubusercontent.com/unicode-org/cldr-json/main/cldr-json/cldr-annotations-derived-full/annotationsDerived/$lang/annotations.json" -o "new_derived_$lang.json"
+            curl -L "https://raw.githubusercontent.com/unicode-org/cldr-json/main/cldr-json/cldr-annotations-full/annotations/$lang/annotations.json" -o "new_full_$lang.json"
+
+            # Check derived annotations.
+            if [ -f "src/scribe_data/unicode/cldr-annotations-derived-full/annotationsDerived/$lang/annotations.json" ]; then
+              if ! cmp -s "new_derived_$lang.json" "src/scribe_data/unicode/cldr-annotations-derived-full/annotationsDerived/$lang/annotations.json"; then
+                CHANGES_EXIST=true
+                DERIVED_CHANGED="Yes"
+              fi
+            else
+              CHANGES_EXIST=true
+              DERIVED_CHANGED="New"
+            fi
+
+            # Check full annotations.
+            if [ -f "src/scribe_data/unicode/cldr-annotations-full/annotations/$lang/annotations.json" ]; then
+              if ! cmp -s "new_full_$lang.json" "src/scribe_data/unicode/cldr-annotations-full/annotations/$lang/annotations.json"; then
+                CHANGES_EXIST=true
+                FULL_CHANGED="Yes"
+              fi
+            else
+              CHANGES_EXIST=true
+              FULL_CHANGED="New"
+            fi
+
+            # Only add to summary if there are changes.
+            if [ "$DERIVED_CHANGED" != "No" ] || [ "$FULL_CHANGED" != "No" ]; then
+              CHANGE_SUMMARY="$CHANGE_SUMMARY\n| $lang | $DERIVED_CHANGED | $FULL_CHANGED |"
+            fi
+          done
+
+          echo "changes_exist=${CHANGES_EXIST}" >> $GITHUB_OUTPUT
+          echo "change_summary<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$CHANGE_SUMMARY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Update files if changed
+        if: steps.check-updates.outputs.changes_exist == 'true'
+        run: |
+          # Use dynamic language list.
+          for lang in ${{ steps.get-langs.outputs.lang_list }}; do
+            mkdir -p "src/scribe_data/unicode/cldr-annotations-derived-full/annotationsDerived/$lang"
+            mkdir -p "src/scribe_data/unicode/cldr-annotations-full/annotations/$lang"
+
+            mv "new_derived_$lang.json" "src/scribe_data/unicode/cldr-annotations-derived-full/annotationsDerived/$lang/annotations.json"
+            mv "new_full_$lang.json" "src/scribe_data/unicode/cldr-annotations-full/annotations/$lang/annotations.json"
+          done
+
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Create Pull Request
+        if: steps.check-updates.outputs.changes_exist == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "chore: Update emoji annotations data"
+          body: |
+            This PR updates the emoji annotations data from CLDR.
+
+            ## Changes Summary
+            ${{ steps.check-updates.outputs.change_summary }}
+
+            ### Legend:
+            - Yes: File was updated
+            - New: File was newly added
+            - No: No changes
+
+            This is an automated PR created by the emoji data update workflow.
+          branch: update-emoji-data # branch name
+          delete-branch: true
+          commit-message: "chore: Update emoji annotations data"
+          labels: |
+            automated pr
+            emoji-data

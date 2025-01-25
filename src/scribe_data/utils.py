@@ -25,6 +25,7 @@ DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
 DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
 DEFAULT_DUMP_EXPORT_DIR = "scribe_data_wikidata_dumps_export"
+DEFAULT_MEDIAWIKI_EXPORT_DIR = "scribe_data_mediawiki_export"
 
 LANGUAGE_DATA_EXTRACTION_DIR = (
     Path(__file__).parent / "wikidata" / "language_data_extraction"
@@ -694,6 +695,19 @@ def check_lexeme_dump_prompt_download(output_dir: str):
             else:
                 rprint("[bold red]No valid dumps found.[/bold red]")
                 return None
+
+        elif user_input == "Download new version":
+            # Rename existing latest dump if it exists.
+            latest_dump = Path(output_dir) / "latest-lexemes.json.bz2"
+            if latest_dump.exists():
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                backup_name = f"old_latest-lexemes_{timestamp}.json.bz2"
+                latest_dump.rename(Path(output_dir) / backup_name)
+                rprint(
+                    f"[bold green]Renamed existing dump to {backup_name}[/bold green]"
+                )
+
+            return False
 
         else:
             rprint("[bold blue]Skipping download.[/bold blue]")
