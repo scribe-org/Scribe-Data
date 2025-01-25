@@ -138,7 +138,7 @@ def extract_dump_forms(
     - Only includes languages and data types that have valid QID mappings
     """
     processor = LexemeProcessor(
-        target_iso=languages, parse_type=["form"], data_types=data_types
+        target_lang=languages, parse_type=["form"], data_types=data_types
     )
 
     processor.process_file(file_path)
