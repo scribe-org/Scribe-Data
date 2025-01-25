@@ -697,7 +697,7 @@ def check_lexeme_dump_prompt_download(output_dir: str):
                 return None
 
         elif user_input == "Download new version":
-            # Rename existing latest dump if it exists
+            # Rename existing latest dump if it exists.
             latest_dump = Path(output_dir) / "latest-lexemes.json.bz2"
             if latest_dump.exists():
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -706,6 +706,7 @@ def check_lexeme_dump_prompt_download(output_dir: str):
                 rprint(
                     f"[bold green]Renamed existing dump to {backup_name}[/bold green]"
                 )
+
             return False
 
         else:

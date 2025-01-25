@@ -1,32 +1,19 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Get forms from Wikidata.
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
-from scribe_data.wiktionary.parse_dump import LexemeProcessor
 import re
 from collections import defaultdict
+
 from scribe_data.utils import (
-    language_metadata,
-    data_type_metadata,
     LANGUAGE_DATA_EXTRACTION_DIR as language_data_extraction,
 )
+from scribe_data.utils import (
+    data_type_metadata,
+    language_metadata,
+)
+from scribe_data.wikidata.parse_dump import LexemeProcessor
 
 iso_to_qid = {
     lang_data["iso"]: lang_data["qid"]
@@ -111,9 +98,7 @@ def parse_sparql_query(query_text):
 
         # Extract grammatical features.
         features = re.finditer(r"wd:(Q\d+)", block_text)
-        feature_list = [f.group(1) for f in features]
-
-        if feature_list:
+        if feature_list := [f.group(1) for f in features]:
             result[language][lexical_category].append(feature_list)
 
     return result
@@ -132,8 +117,10 @@ def extract_dump_forms(
     ----------
     languages : list of str, optional
         List of language ISO codes (e.g., ['en', 'fr'])
+
     data_types : list of str, optional
         List of lexical categories (e.g., ['nouns', 'verbs'])
+
     file_path : str, optional
         Path to the lexeme dump file, by default "latest-lexemes.json.bz2"
 
@@ -166,8 +153,7 @@ def extract_dump_forms(
 
             for data_type, features in data_types_dict.items():
                 # Get QID from data_type_metadata.
-                data_type_qid = data_type_metadata.get(data_type)
-                if data_type_qid:
+                if data_type_qid := data_type_metadata.get(data_type):
                     converted_features[lang_qid][data_type_qid] = features
 
     return converted_features

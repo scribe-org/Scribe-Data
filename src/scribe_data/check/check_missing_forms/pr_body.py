@@ -1,30 +1,14 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Generate a formatted PR body describing missing features for each language.
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 import json
 import sys
+
 from scribe_data.utils import (
-    language_metadata,
     data_type_metadata,
+    language_metadata,
 )
 
 
@@ -51,12 +35,13 @@ def pr_body(missing_features):
     - A table showing languages and their missing feature types
     - Features are grouped by language for better readability
     """
-    # Initialize PR body with a header.
-    pr_body_content = "## Automated PR: Missing Features\n\n"
-    pr_body_content += "This PR was automatically created by a GitHub Action.\n\n"
-    pr_body_content += "### Missing Features Summary\n"
-    pr_body_content += "| **Language** | **Feature Type** |\n"
-    pr_body_content += "|--------------|------------------|\n"
+    pr_body_content = (
+        "## Automated PR: Missing Features\n\n"
+        + "This PR was automatically created by a GitHub Action.\n\n"
+        + "### Missing Features Summary\n"
+        + "| **Language** | **Feature Type** |\n"
+        + "|--------------|------------------|\n"
+    )
 
     # Create a dictionary to group features by language.
     grouped_features = {}
@@ -69,11 +54,13 @@ def pr_body(missing_features):
             if data.get("qid") == entity:
                 language_name = name
                 break
+
             if "sub_languages" in data:
                 for sub_name, sub_data in data["sub_languages"].items():
                     if sub_data.get("qid") == entity:
                         language_name = f"{name} ({sub_name})"
                         break
+
             if language_name:
                 break
 
@@ -99,6 +86,7 @@ def pr_body(missing_features):
     pr_body_content += "\nPlease review the changes and provide feedback.\n"
 
     print(pr_body_content)
+
     return pr_body_content
 
 

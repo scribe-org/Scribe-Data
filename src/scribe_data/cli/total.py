@@ -339,6 +339,7 @@ def total_wrapper(
 
     data_type : Union[str, List[str]]
         The data type(s) to check for.
+
     all_bool : bool
         Whether all languages and data types should be listed.
 

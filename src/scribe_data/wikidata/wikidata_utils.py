@@ -12,7 +12,7 @@ from SPARQLWrapper import JSON, POST, SPARQLWrapper
 
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.utils import data_type_metadata, language_metadata
-from scribe_data.wiktionary.parse_dump import parse_dump
+from scribe_data.wikidata.parse_dump import parse_dump
 
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 sparql.setReturnFormat(JSON)
@@ -72,11 +72,11 @@ def parse_wd_lexeme_dump(
     overwrite_all : bool, default=False
         If True, automatically overwrite existing files without prompting
     """
-    # Convert "all" to list of all languages including sub-languages
+    # Convert "all" to list of all languages including sub-languages.
     if isinstance(language, str) and language.lower() == "all":
         languages = []
         for main_lang, lang_data in language_metadata.items():
-            # Add sub-languages if they exist
+            # Add sub-languages if they exist.
             if "sub_languages" in lang_data:
                 for sub_lang in lang_data["sub_languages"]:
                     main_lang = sub_lang
@@ -84,7 +84,7 @@ def parse_wd_lexeme_dump(
 
         language = languages
 
-    # For processing: exclude translations and emoji-keywords
+    # For processing: exclude translations and emoji-keywords.
     if isinstance(data_types, str) and data_types.lower() == "all":
         data_types = [
             dt

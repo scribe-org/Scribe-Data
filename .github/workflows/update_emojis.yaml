@@ -1,9 +1,9 @@
 name: Check and Update Emoji Data
 on:
   schedule:
-    - cron: '0 0 1 * *'  # Runs at 00:00 UTC on the first day of every month
-  # Allow manual trigger
-  workflow_dispatch:
+    # Runs at 00:00 UTC on the first day of every month.
+    - cron: "0 0 1 * *"
+  workflow_dispatch: # allow manual trigger
 
 jobs:
   check-repository:
@@ -34,7 +34,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: "3.x"
 
       - name: Install dependencies
         run: |
@@ -45,11 +45,11 @@ jobs:
       - name: Get language list
         id: get-langs
         run: |
-          # Fetch language list from GitHub API
+          # Fetch language list from GitHub API.
           DERIVED_LANGS=$(curl -s https://api.github.com/repos/unicode-org/cldr-json/contents/cldr-json/cldr-annotations-derived-full/annotationsDerived | jq -r '.[].name')
           FULL_LANGS=$(curl -s https://api.github.com/repos/unicode-org/cldr-json/contents/cldr-json/cldr-annotations-full/annotations | jq -r '.[].name')
 
-          # Combine and deduplicate language lists
+          # Combine and deduplicate language lists.
           LANG_LIST=$(echo "$DERIVED_LANGS $FULL_LANGS" | tr ' ' '\n' | sort -u | tr '\n' ' ')
           echo "lang_list=${LANG_LIST}" >> $GITHUB_OUTPUT
           echo "Detected languages: ${LANG_LIST}"
@@ -57,26 +57,26 @@ jobs:
       - name: Download and check emoji data
         id: check-updates
         run: |
-          # Create directories if they don't exist
+          # Create directories if they don't exist.
           mkdir -p src/scribe_data/unicode/cldr-annotations-derived-full
           mkdir -p src/scribe_data/unicode/cldr-annotations-full
 
           CHANGES_EXIST=false
           CHANGE_SUMMARY="| Language | Derived Changes | Full Changes |\n|----------|-----------------|--------------|"
 
-          # Use dynamic language list from previous step
+          # Use dynamic language list from previous step.
           for lang in ${{ steps.get-langs.outputs.lang_list }}; do
             DERIVED_CHANGED="No"
             FULL_CHANGED="No"
 
-            # Download latest data for each language
+            # Download latest data for each language.
             mkdir -p "src/scribe_data/unicode/cldr-annotations-derived-full/annotationsDerived/$lang"
             mkdir -p "src/scribe_data/unicode/cldr-annotations-full/annotations/$lang"
 
             curl -L "https://raw.githubusercontent.com/unicode-org/cldr-json/main/cldr-json/cldr-annotations-derived-full/annotationsDerived/$lang/annotations.json" -o "new_derived_$lang.json"
             curl -L "https://raw.githubusercontent.com/unicode-org/cldr-json/main/cldr-json/cldr-annotations-full/annotations/$lang/annotations.json" -o "new_full_$lang.json"
 
-            # Check derived annotations
+            # Check derived annotations.
             if [ -f "src/scribe_data/unicode/cldr-annotations-derived-full/annotationsDerived/$lang/annotations.json" ]; then
               if ! cmp -s "new_derived_$lang.json" "src/scribe_data/unicode/cldr-annotations-derived-full/annotationsDerived/$lang/annotations.json"; then
                 CHANGES_EXIST=true
@@ -87,7 +87,7 @@ jobs:
               DERIVED_CHANGED="New"
             fi
 
-            # Check full annotations
+            # Check full annotations.
             if [ -f "src/scribe_data/unicode/cldr-annotations-full/annotations/$lang/annotations.json" ]; then
               if ! cmp -s "new_full_$lang.json" "src/scribe_data/unicode/cldr-annotations-full/annotations/$lang/annotations.json"; then
                 CHANGES_EXIST=true
@@ -98,7 +98,7 @@ jobs:
               FULL_CHANGED="New"
             fi
 
-            # Only add to summary if there are changes
+            # Only add to summary if there are changes.
             if [ "$DERIVED_CHANGED" != "No" ] || [ "$FULL_CHANGED" != "No" ]; then
               CHANGE_SUMMARY="$CHANGE_SUMMARY\n| $lang | $DERIVED_CHANGED | $FULL_CHANGED |"
             fi
@@ -112,7 +112,7 @@ jobs:
       - name: Update files if changed
         if: steps.check-updates.outputs.changes_exist == 'true'
         run: |
-          # Use dynamic language list
+          # Use dynamic language list.
           for lang in ${{ steps.get-langs.outputs.lang_list }}; do
             mkdir -p "src/scribe_data/unicode/cldr-annotations-derived-full/annotationsDerived/$lang"
             mkdir -p "src/scribe_data/unicode/cldr-annotations-full/annotations/$lang"
@@ -129,7 +129,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: 'chore: Update emoji annotations data'
+          title: "chore: Update emoji annotations data"
           body: |
             This PR updates the emoji annotations data from CLDR.
 
@@ -142,9 +142,9 @@ jobs:
             - No: No changes
 
             This is an automated PR created by the emoji data update workflow.
-          branch: update-emoji-data # Branch name
+          branch: update-emoji-data # branch name
           delete-branch: true
-          commit-message: 'chore: Update emoji annotations data'
+          commit-message: "chore: Update emoji annotations data"
           labels: |
             automated pr
             emoji-data

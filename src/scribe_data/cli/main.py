@@ -19,12 +19,12 @@ from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.total import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
-from scribe_data.wiktionary.parse_mediaWiki import parse_wiktionary_translations
 from scribe_data.utils import (
-    DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_CSV_EXPORT_DIR,
     DEFAULT_DUMP_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
 )
+from scribe_data.wiktionary.parse_mediaWiki import parse_wiktionary_translations
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
 GET_DESCRIPTION = (
@@ -355,11 +355,13 @@ def main() -> None:
         elif args.command in ["get", "g"]:
             if args.interactive:
                 start_interactive_mode(operation="get")
+
             if args.translation:
                 parse_wiktionary_translations(args.translation, args.output_dir)
+
             else:
                 print(
-                    f"Parsing Wikidata lexeme dump for {args.language} and {args.data_type}"
+                    f"Parsing Wikidata lexeme dump for {args.language} and {args.data_type}..."
                 )
                 get_data(
                     language=args.language.lower()

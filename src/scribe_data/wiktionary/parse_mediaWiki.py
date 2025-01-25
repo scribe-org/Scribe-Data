@@ -6,7 +6,8 @@ Functions to parse the translations of a word from MediaWiki API.
 import json
 import re
 from pathlib import Path
-from scribe_data.utils import get_language_from_iso, DEFAULT_MEDIAWIKI_EXPORT_DIR
+
+from scribe_data.utils import DEFAULT_MEDIAWIKI_EXPORT_DIR, get_language_from_iso
 from scribe_data.wikidata.wikidata_utils import mediaWiki_query
 
 
@@ -115,6 +116,7 @@ def parse_wiktionary_translations(word, output_dir=DEFAULT_MEDIAWIKI_EXPORT_DIR)
     ----------
     word : str
         The word to fetch translations for.
+
     output_dir : str or Path, optional
         Directory to save JSON output (default is DEFAULT_MEDIAWIKI_EXPORT_DIR).
         Will be created if it doesn't exist.

@@ -1,34 +1,19 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Generate SPARQL queries for missing lexeme forms.
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
-
-from scribe_data.utils import (
-    lexeme_form_metadata,
-    language_metadata,
-    data_type_metadata,
-    LANGUAGE_DATA_EXTRACTION_DIR as language_data_extraction,
-)
 
 import os
 from pathlib import Path
+
+from scribe_data.utils import (
+    LANGUAGE_DATA_EXTRACTION_DIR as language_data_extraction,
+)
+from scribe_data.utils import (
+    data_type_metadata,
+    language_metadata,
+    lexeme_form_metadata,
+)
 
 
 def generate_query(missing_features, query_dir=None):
@@ -40,6 +25,7 @@ def generate_query(missing_features, query_dir=None):
     missing_features : dict
         Dictionary containing missing features by language and data type.
         Format: {language_qid: {data_type_qid: [[form_qids]]}}
+
     query_dir : str or Path, optional
         Directory where query files should be saved.
         If None, uses default language_data_extraction directory.
@@ -51,10 +37,9 @@ def generate_query(missing_features, query_dir=None):
 
     Notes
     -----
-    - Generates a single query file combining all forms for a given
-      language and data type combination
-    - Query files are named incrementally if duplicates exist
-    - Creates necessary directories if they don't exist
+    - Generates a single query file combining all forms for a given language and data type combination.
+    - Query files are named incrementally if duplicates exist.
+    - Creates necessary directories if they don't exist.
     """
     language_qid = next(iter(missing_features.keys()))
     data_type_qid = next(iter(missing_features[language_qid].keys()))
@@ -65,7 +50,7 @@ def generate_query(missing_features, query_dir=None):
         for name, data in language_metadata.items()
         if data.get("qid") == language_qid
     )
-    language = language_entry[0]  # The language name.
+    language = language_entry[0]  # the language name
 
     data_type = next(
         name for name, qid in data_type_metadata.items() if qid == data_type_qid
@@ -79,14 +64,15 @@ def generate_query(missing_features, query_dir=None):
         for item in category.values():
             qid_to_label[item["qid"]] = item["label"]
 
-    # Process all forms at once
+    # Process all forms at once.
     forms_query = []
     all_form_combinations = missing_features[language_qid][data_type_qid]
     for form_qids in all_form_combinations:
         # Convert QIDs to labels and join them together.
         labels = [qid_to_label.get(qid, qid) for qid in form_qids]
         concatenated_label = "".join(labels)
-        # Make first letter lowercase
+
+        # Make first letter lowercase.
         concatenated_label = concatenated_label[0].lower() + concatenated_label[1:]
         forms_query.append({"label": concatenated_label, "qids": form_qids})
 
@@ -96,12 +82,12 @@ def generate_query(missing_features, query_dir=None):
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
-   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
     ?{data_type}
     """ + "\n  ".join(f'?{form["label"]}' for form in forms_query)
 
     where_clause = f"""
-  WHERE {{
+    WHERE {{
     ?lexeme dct:language wd:{language_qid} ;
         wikibase:lexicalCategory wd:{data_type_qid} ;
         wikibase:lemma ?{data_type} .
@@ -149,6 +135,7 @@ SELECT
         base_file_name = (
             Path(query_dir) / language / data_type / f"query_{data_type}.sparql"
         )
+
     else:
         base_file_name = f"{language_data_extraction}/{language}/{data_type}/query_{data_type}.sparql"
 
@@ -163,4 +150,5 @@ SELECT
         file.write(final_query)
 
     print(f"Query file created: {file_name}")
+
     return file_name

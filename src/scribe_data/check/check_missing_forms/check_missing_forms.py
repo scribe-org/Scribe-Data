@@ -1,52 +1,37 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Check for missing forms in Wikidata.
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
+import argparse
 import json
 import sys
-import argparse
-from pathlib import Path
-from get_forms import parse_sparql_files, extract_dump_forms
-from generate_query import generate_query
 from collections import defaultdict
+from pathlib import Path
+
+from generate_query import generate_query
+from get_forms import extract_dump_forms, parse_sparql_files
+
 from scribe_data.utils import (
-    lexeme_form_metadata,
-    language_metadata,
     data_type_metadata,
+    language_metadata,
+    lexeme_form_metadata,
 )
 
 
 def get_all_languages():
     """
-    Extract all languages and sublanguages from language metadata.
+    Extract all languages and sub languages from language metadata.
 
     Returns
     -------
     list of str
-        List of language codes for all languages and sublanguages that have
+        List of language codes for all languages and sub languages that have
         both ISO codes and QIDs defined.
 
     Notes
     -----
-    Only includes languages and sublanguages that have both 'iso' and 'qid'
+    Only includes languages and sub languages that have both 'iso' and 'qid'
     fields in their metadata.
     """
     languages = []
@@ -56,11 +41,13 @@ def get_all_languages():
         if "iso" in lang_data and "qid" in lang_data:
             languages.append(lang)
 
-        # Add sublanguages.
+        # Add sub languages.
         if "sub_languages" in lang_data:
-            for sublang, sublang_data in lang_data["sub_languages"].items():
-                if "iso" in sublang_data and "qid" in sublang_data:
-                    languages.append(sublang)
+            languages.extend(
+                sublang
+                for sublang, sublang_data in lang_data["sub_languages"].items()
+                if "iso" in sublang_data and "qid" in sublang_data
+            )
 
     return languages
 
@@ -74,6 +61,7 @@ def get_missing_features(result_sparql, result_dump):
     result_sparql : dict
         Features extracted from SPARQL queries.
         Format: {language: {data_type: [features]}}
+
     result_dump : dict
         Features extracted from Wikidata dump.
         Format: {language: {data_type: [features]}}
@@ -111,11 +99,11 @@ def get_missing_features(result_sparql, result_dump):
 
                 # Get values from SPARQL if available.
                 if dt in result_sparql[lang]:
-                    sparql_values = set(tuple(item) for item in result_sparql[lang][dt])
+                    sparql_values = {tuple(item) for item in result_sparql[lang][dt]}
 
                 # Get values from dump if available.
                 if dt in result_dump[lang]:
-                    dump_values = set(tuple(item) for item in result_dump[lang][dt])
+                    dump_values = {tuple(item) for item in result_dump[lang][dt]}
 
                 # Get unique values from both sources.
                 unique_dump_values = dump_values - sparql_values
@@ -131,7 +119,7 @@ def get_missing_features(result_sparql, result_dump):
                     if all(qid in all_qids for qid in item):
                         missing_by_lang_type[lang][dt].append(list(item))
 
-    return missing_by_lang_type if missing_by_lang_type else None
+    return missing_by_lang_type or None
 
 
 def process_missing_features(missing_features, query_dir):
@@ -143,6 +131,7 @@ def process_missing_features(missing_features, query_dir):
     missing_features : dict
         Dictionary of missing features by language and data type.
         Format: {language: {data_type: [features]}}
+
     query_dir : str or Path
         Directory where generated query files should be saved.
 
@@ -203,7 +192,7 @@ def main():
         print(f"Error: Query directory does not exist: {query_dir}")
         sys.exit(1)
 
-    # Get all languages including sublanguages.
+    # Get all languages including sub languages.
     languages = get_all_languages()
 
     print("Parsing SPARQL files...")

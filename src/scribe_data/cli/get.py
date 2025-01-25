@@ -14,10 +14,10 @@ from scribe_data.cli.convert import convert_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
+    DEFAULT_DUMP_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
-    DEFAULT_DUMP_EXPORT_DIR,
 )
 from scribe_data.wikidata.query_data import query_data
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
@@ -181,7 +181,7 @@ def get_data(
     # MARK: Form Dump
 
     elif wikidata_dump is not None:
-        # If wikidata_dump is an empty string, use the default path
+        # If wikidata_dump is an empty string, use the default path.
         if wikidata_dump == "":
             wikidata_dump = DEFAULT_DUMP_EXPORT_DIR
         parse_wd_lexeme_dump(

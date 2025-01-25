@@ -174,8 +174,10 @@ def list_wrapper(
     ----------
     language : str
         The language to potentially list data types for.
+
     data_type : str
         The data type to check for.
+
     all_bool : bool
         Whether all languages and data types should be listed.
 

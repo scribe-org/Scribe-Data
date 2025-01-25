@@ -258,7 +258,8 @@ class TestTotalWrapper(unittest.TestCase):
         with self.assertRaises(ValueError):
             total_wrapper()
 
-    # MARK: Using wikidata_dump
+    # MARK: Using Dump
+
     @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
     def test_total_wrapper_wikidata_dump_flag(self, mock_parse_dump):
         """Test when wikidata_dump is True (flag without path)"""
@@ -307,6 +308,7 @@ class TestTotalWrapper(unittest.TestCase):
         )
 
     # MARK: Using QID
+
     @patch("scribe_data.cli.total.check_qid_is_language")
     @patch("scribe_data.cli.total.print_total_lexemes")
     def test_total_wrapper_with_qid(self, mock_print_total, mock_check_qid):
