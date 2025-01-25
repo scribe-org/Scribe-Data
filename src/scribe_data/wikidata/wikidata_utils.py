@@ -19,13 +19,13 @@ sparql.setReturnFormat(JSON)
 sparql.setMethod(POST)
 
 
-def mediaWiki_query(query: str) -> dict:
+def mediawiki_query(word: str) -> dict:
     """
     Query the Wikidata API using a MediaWiki query.
 
     Parameters
     ----------
-    query : str
+    word : str
         The MediaWiki query to execute.
 
     Returns
@@ -34,8 +34,8 @@ def mediaWiki_query(query: str) -> dict:
         The JSON response from the API.
     """
     url = (
-        f"https://en.wiktionary.org/w/api.php?"
-        f"action=query&format=json&titles={query}/translations&prop=revisions&rvprop=content"
+        f"https://wikidata.org/w/api.php?"
+        f"action=query&format=json&titles={word}/translations&prop=revisions&rvprop=content"
     )
     response = requests.get(url)
     return response.json()

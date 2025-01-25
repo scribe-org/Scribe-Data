@@ -104,6 +104,7 @@ def parse_sparql_query(query_text):
     return result
 
 
+# Debug line to parsed file.
 parse_sparql_files()
 
 

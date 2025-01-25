@@ -8,11 +8,14 @@ import re
 from pathlib import Path
 
 from scribe_data.utils import DEFAULT_MEDIAWIKI_EXPORT_DIR, get_language_from_iso
-from scribe_data.wikidata.wikidata_utils import mediaWiki_query
+from scribe_data.wikidata.wikidata_utils import mediawiki_query
 
 
-def fetch_translation_page(word):
-    data = mediaWiki_query(word)
+def fetch_translation_page(word: str):
+    """
+    Fetches the translation for a given word via the Wiktionary MediaWiki API.
+    """
+    data = mediawiki_query(word=word)
 
     pages = data.get("query", {}).get("pages", {})
     # Extract page object from dictionary.
