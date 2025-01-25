@@ -82,16 +82,17 @@ def generate_query(missing_features, query_dir=None):
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
-    (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-    ?{data_type}
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?{data_type}
     """ + "\n  ".join(f'?{form["label"]}' for form in forms_query)
 
     where_clause = f"""
-    WHERE {{
-    ?lexeme dct:language wd:{language_qid} ;
-        wikibase:lexicalCategory wd:{data_type_qid} ;
-        wikibase:lemma ?{data_type} .
-        FILTER(lang(?{data_type}) = "{iso_code}")
+
+WHERE {{
+  ?lexeme dct:language wd:{language_qid} ;
+  wikibase:lexicalCategory wd:{data_type_qid} ;
+  wikibase:lemma ?{data_type} .
+  FILTER(lang(?{data_type}) = "{iso_code}")
     """
 
     # Generate OPTIONAL clauses for all forms in one query.
@@ -99,15 +100,15 @@ SELECT
     for form in forms_query:
         qids = ", ".join(f"wd:{qid}" for qid in form["qids"])
         optional_clauses += f"""
-        OPTIONAL {{
-            ?lexeme ontolex:lexicalForm ?{form['label']}Form .
-            ?{form['label']}Form ontolex:representation ?{form['label']} ;
-                wikibase:grammaticalFeature {qids} .
-        }}
+  OPTIONAL {{
+    ?lexeme ontolex:lexicalForm ?{form['label']}Form .
+    ?{form['label']}Form ontolex:representation ?{form['label']} ;
+      wikibase:grammaticalFeature {qids} .
+  }}
 """
 
     # Print the complete query.
-    final_query = main_body + where_clause + optional_clauses + "}"
+    final_query = main_body + where_clause + optional_clauses + "}\n"
 
     def get_available_filename(base_path):
         """Helper function to find the next available filename"""
