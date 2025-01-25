@@ -92,7 +92,7 @@ def parse_wd_lexeme_dump(
             if dt != "translations" and dt != "emoji-keywords"
         ]
 
-    print(f"Languages to process: {language}")
+    print(f"Languages to process: {[lang.capitalize() for lang in language]}")
 
     if "translations" not in wikidata_dump_type:
         print(f"Data types to process: {data_types}")

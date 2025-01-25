@@ -373,7 +373,8 @@ class LexemeProcessor:
 
             self._save_by_language(filtered, filepath, language_iso, "translations")
 
-    # MARK: export forms
+    # MARK: Export Forms
+
     def export_forms_json(
         self, filepath: str, language_iso: str = None, data_type: str = None
     ) -> None:
@@ -393,7 +394,7 @@ class LexemeProcessor:
 
         Notes
         -----
-        Creates a directory structure: <filepath>/<language_name>/lexeme_<data_type>.json
+        Creates a directory structure: <filepath>/<language_name>/<data_type>.json
         Skips export if no forms are found for the specified language and data type.
         """
         if language_iso:
@@ -421,7 +422,9 @@ class LexemeProcessor:
 
             # Check if filtered data is empty before saving.
             if not filtered:
-                print(f"No forms found for {lang_name} {data_type}, skipping export...")
+                print(
+                    f"No forms found for {lang_name.capitalize()} {data_type}, skipping export..."
+                )
                 return
 
             # Create the output directory structure.
@@ -445,17 +448,19 @@ class LexemeProcessor:
             output_path.mkdir(parents=True, exist_ok=True)
 
             # Create the full output filepath.
-            output_file = output_path / f"lexeme_{data_type}.json"
+            output_file = output_path / f"{data_type}.json"
 
             # Save the filtered data to JSON file.
             try:
                 with open(output_file, "wb") as f:
                     f.write(orjson.dumps(filtered, option=orjson.OPT_INDENT_2))
                 print(
-                    f"Successfully exported forms for {lang_name} {data_type} to {output_file}"
+                    f"Successfully exported forms for {lang_name.capitalize()} {data_type} to {output_file}"
                 )
             except Exception as e:
-                print(f"Error saving forms for {lang_name} {data_type}: {e}")
+                print(
+                    f"Error saving forms for {lang_name.capitalize()} {data_type}: {e}"
+                )
 
     def _save_by_language(self, filtered, filepath, language_iso, data_type):
         """
@@ -558,7 +563,7 @@ def parse_dump(
         if "translations" in parse_type:
             languages_to_process = []
             for lang in languages:
-                index_path = Path(output_dir) / lang / "lexeme_translations.json"
+                index_path = Path(output_dir) / lang / "translations.json"
 
                 if not check_index_exists(index_path, overwrite_all):
                     languages_to_process.append(lang)
@@ -591,19 +596,16 @@ def parse_dump(
                     # Create appropriate path based on whether it's a sub-language.
                     if main_lang:
                         index_path = (
-                            Path(output_dir)
-                            / main_lang
-                            / lang
-                            / f"lexeme_{data_type}.json"
+                            Path(output_dir) / main_lang / lang / f"{data_type}.json"
                         )
+
                     else:
-                        index_path = (
-                            Path(output_dir) / lang / f"lexeme_{data_type}.json"
-                        )
+                        index_path = Path(output_dir) / lang / f"{data_type}.json"
 
                     if not check_index_exists(index_path, overwrite_all):
                         needs_processing = True
                         data_types_to_process.add(data_type)
+
                     else:
                         # Update path display in skip message.
                         skip_path = (
@@ -644,7 +646,7 @@ def parse_dump(
                 ),
                 None,
             ):
-                index_path = Path(output_dir) / language / "lexeme_translations.json"
+                index_path = Path(output_dir) / language / "translations.json"
                 # Ensure parent directory exists.
                 index_path.parent.mkdir(parents=True, exist_ok=True)
                 # print(f"Exporting translations for {language} to {index_path}").
@@ -654,9 +656,9 @@ def parse_dump(
 
     # (b) If "form" in parse_type -> export forms for each data_type in data_types.
     if "form" in parse_type:
-        # For each data_type, we create a separate file, e.g. lexeme_nouns.json.
+        # For each data_type, we create a separate file, e.g. nouns.json.
         for dt in data_types:
-            index_path = Path(output_dir) / f"lexeme_{dt}.json"
+            index_path = Path(output_dir) / f"{dt}.json"
             iso_codes = set()
             for word_data in processor.forms_index.values():
                 iso_codes.update(word_data.keys())

@@ -48,16 +48,16 @@ class TestGetData(unittest.TestCase):
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
     @patch("scribe_data.cli.get.questionary.confirm")
-    def test_get_all_data_types_for_language_user_says_yes(
+    def test_get_all_data_types_for_language_user_says_no(
         self, mock_questionary_confirm, mock_parse, mock_query_data
     ):
         """
-        Test the behavior when the user agrees to query Wikidata directly.
+        Test the behavior when the user agrees to use Wikidata lexeme dumps.
 
         This test checks that `parse_wd_lexeme_dump` is called with the correct parameters
-        when the user confirms they want to query Wikidata.
+        when the user confirms they don't want to query Wikidata.
         """
-        mock_questionary_confirm.return_value.ask.return_value = True
+        mock_questionary_confirm.return_value.ask.return_value = False
 
         get_data(all_bool=True, language="English")
 
@@ -321,7 +321,7 @@ class TestGetData(unittest.TestCase):
         when a Wikidata identifier is used.
         """
         # Mock the user confirmation to return True (query Wikidata directly).
-        mock_questionary_confirm.return_value.ask.return_value = True
+        mock_questionary_confirm.return_value.ask.return_value = False
 
         get_data(
             language="Q9217",

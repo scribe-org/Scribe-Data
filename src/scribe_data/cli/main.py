@@ -360,9 +360,6 @@ def main() -> None:
                 parse_wiktionary_translations(args.translation, args.output_dir)
 
             else:
-                print(
-                    f"Parsing Wikidata lexeme dump for {args.language} and {args.data_type}..."
-                )
                 get_data(
                     language=args.language.lower()
                     if args.language is not None
