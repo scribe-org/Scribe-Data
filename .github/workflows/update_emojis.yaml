@@ -62,7 +62,7 @@ jobs:
           mkdir -p src/scribe_data/unicode/cldr-annotations-full
 
           CHANGES_EXIST=false
-          CHANGE_SUMMARY="| Language | Derived Changes | Full Changes |\n|----------|-----------------|--------------|"
+          CHANGE_SUMMARY="| Language ISO | Derived Full Changes | Full Changes |\n|:-------------|:---------------------|:-------------|"
 
           # Use dynamic language list from previous step.
           for lang in ${{ steps.get-langs.outputs.lang_list }}; do
@@ -133,15 +133,15 @@ jobs:
           body: |
             This PR updates the emoji annotations data from CLDR.
 
-            ## Changes Summary
-            ${{ steps.check-updates.outputs.change_summary }}
-
             ### Legend:
             - Yes: File was updated
             - New: File was newly added
-            - No: No changes
+            - No: No changes to the file
 
-            This is an automated PR created by the emoji data update workflow.
+            ## Changes Summary
+            ${{ steps.check-updates.outputs.change_summary }}
+
+            This is an automated PR created by the [emoji data update workflow](https://github.com/scribe-org/Scribe-Data/blob/main/.github/workflows/update_emojis.yaml).
           branch: update-emoji-data # branch name
           delete-branch: true
           commit-message: "chore: Update emoji annotations data"
