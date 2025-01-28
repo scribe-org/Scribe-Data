@@ -198,7 +198,9 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
 
 
 def wd_lexeme_dump_download_wrapper(
-    wikidata_dump: Optional[str] = None, output_dir: Optional[str] = None
+    wikidata_dump: Optional[str] = None,
+    output_dir: Optional[str] = None,
+    default: bool = False,
 ) -> None:
     """
     Download Wikidata lexeme dumps given user preferences.
@@ -211,6 +213,10 @@ def wd_lexeme_dump_download_wrapper(
     output_dir : str
         Optional directory path for the downloaded file.
         Defaults to 'scribe_data_wikidata_dumps_export' directory.
+
+    default : bool, optional
+        If True, skips the user confirmation prompt.
+        Defaults to False.
 
     Returns
     -------
@@ -238,10 +244,14 @@ def wd_lexeme_dump_download_wrapper(
         filename = dump_url.split("/")[-1]
         output_path = str(Path(output_dir) / filename)
 
-        user_response = questionary.confirm(
-            "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities. Do you want to proceed?",
-            default=True,
-        ).ask()
+        # Use default parameter to bypass user confirmation
+        user_response = (
+            default
+            or questionary.confirm(
+                "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities. Do you want to proceed?",
+                default=True,
+            ).ask()
+        )
 
         if user_response:
             rprint(f"[bold blue]Downloading dump to {output_path}...[/bold blue]")

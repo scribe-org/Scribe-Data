@@ -72,15 +72,17 @@ def parse_wd_lexeme_dump(
     overwrite_all : bool, default=False
         If True, automatically overwrite existing files without prompting
     """
+
     # Convert "all" to list of all languages including sub-languages.
     if isinstance(language, str) and language.lower() == "all":
         languages = []
         for main_lang, lang_data in language_metadata.items():
+            # Add main language
+            languages.append(main_lang)
             # Add sub-languages if they exist.
             if "sub_languages" in lang_data:
                 for sub_lang in lang_data["sub_languages"]:
-                    main_lang = sub_lang
-            languages.append(main_lang)
+                    languages.append(sub_lang)
 
         language = languages
 
@@ -92,7 +94,10 @@ def parse_wd_lexeme_dump(
             if dt != "translations" and dt != "emoji-keywords"
         ]
 
-    print(f"Languages to process: {[lang.capitalize() for lang in language]}")
+    if isinstance(language, list):
+        print(f"Languages to process: {[lang.capitalize() for lang in language]}")
+    else:
+        print(f"Languages to process: {language.capitalize()}")
 
     if "translations" not in wikidata_dump_type:
         print(f"Data types to process: {data_types}")

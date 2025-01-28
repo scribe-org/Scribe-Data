@@ -6,6 +6,9 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
 import os
 from pathlib import Path
 from typing import List, Union
+import json
+import urllib.error
+from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
 import questionary
 from rich import print as rprint
@@ -227,13 +230,32 @@ def get_data(
                 print(f"Skipping update for {language.title()} {data_type}.")
                 return {"success": False, "skipped": True}
 
-        query_data(
-            languages=[language_or_sub_language],
-            data_type=data_types,
-            output_dir=output_dir,
-            overwrite=overwrite,
-            interactive=interactive,
-        )
+        try:
+            query_data(
+                languages=[language_or_sub_language],
+                data_type=data_types,
+                output_dir=output_dir,
+                overwrite=overwrite,
+                interactive=interactive,
+            )
+        except json.decoder.JSONDecodeError:
+            rprint(
+                "[bold red]Error: The Wikidata query service returned an invalid response. This usually happens when the query is too large or the service is temporarily unavailable. Please try again later or consider using a Wikidata dump instead.[/bold red]"
+            )
+        except (urllib.error.HTTPError, EndPointInternalError):
+            rprint(
+                "[bold red]Error: The Wikidata query service is currently experiencing issues (HTTP 500). This could be due to:[/bold red]"
+            )
+            rprint("[red]1. The query is too complex or large[/red]")
+            rprint("[red]2. The Wikidata service is temporarily overloaded[/red]")
+            rprint("[red]3. Server-side issues at Wikidata[/red]")
+            rprint("\n[bold yellow]Suggestions:[/bold yellow]")
+            rprint("[yellow]1. Try again in a few minutes[/yellow]")
+            rprint(
+                "[yellow]2. Consider using a Wikidata dump instead with the --wikidata-dump-path (-wdp) option[/yellow]"
+            )
+            rprint("[yellow]3. Try querying a smaller subset of data[/yellow]")
+            return {"success": False, "error": "endpoint_error"}
 
         if not all_bool:
             print(f"Updated data was saved in: {Path(output_dir).resolve()}.")

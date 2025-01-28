@@ -13,10 +13,11 @@ from scribe_data.utils import (
     data_type_metadata,
     language_metadata,
     lexeme_form_metadata,
+    sub_languages,
 )
 
 
-def generate_query(missing_features, query_dir=None):
+def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
     """
     Generate SPARQL queries for missing lexeme forms.
 
@@ -45,18 +46,28 @@ def generate_query(missing_features, query_dir=None):
     data_type_qid = next(iter(missing_features[language_qid].keys()))
 
     # Find the language entry by QID.
-    language_entry = next(
-        (name, data)
-        for name, data in language_metadata.items()
-        if data.get("qid") == language_qid
-    )
+    language_entry = None
+    for name, data in language_metadata.items():
+        if data.get("qid") == language_qid:
+            language_entry = (name, data)
+            break
+        # Check sub-languages if main language not found
+        if "sub_languages" in data:
+            for sub_name, sub_data in data["sub_languages"].items():
+                if sub_data.get("qid") == language_qid:
+                    language_entry = (
+                        name,
+                        sub_data,
+                    )  # Use main language name instead of sub_name
+                    break
+    if language_entry is None:
+        raise ValueError(f"Language with QID {language_qid} not found in metadata")
+
     language = language_entry[0]  # the language name
 
     data_type = next(
         name for name, qid in data_type_metadata.items() if qid == data_type_qid
     )
-
-    iso_code = language_metadata[language]["iso"]
 
     # Create a QID to label mapping from the metadata.
     qid_to_label = {}
@@ -78,21 +89,36 @@ def generate_query(missing_features, query_dir=None):
 
     # Generate a single query for all forms.
     main_body = f"""# tool: scribe-data
-# All {language} ({language_qid}) {data_type} ({data_type_qid}) and their forms.
+# All {language.capitalize()} ({language_qid}) {data_type} ({data_type_qid}) and their forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?{data_type}
-    """ + "\n  ".join(f'?{form["label"]}' for form in forms_query)
+  """ + "\n  ".join(f'?{form["label"]}' for form in forms_query)
 
     where_clause = f"""
 
 WHERE {{
   ?lexeme dct:language wd:{language_qid} ;
-  wikibase:lexicalCategory wd:{data_type_qid} ;
-  wikibase:lemma ?{data_type} .
-  FILTER(lang(?{data_type}) = "{iso_code}")
+      wikibase:lexicalCategory wd:{data_type_qid} ;
+      wikibase:lemma ?{data_type} .
+    """
+    if sub_lang_iso_code:
+        try:
+            for data_type_qid in sub_languages[language]:
+                if data_type_qid == sub_lang_iso_code:
+                    sub_lang_name = sub_languages[language][sub_lang_iso_code]["name"]
+                    break
+        except (KeyError, TypeError):
+            print(
+                f"Warning: Could not find sub-language data for {language} - {sub_lang_iso_code}"
+            )
+            return None
+
+        where_clause += f"""
+  # Note: We need to filter for {sub_lang_iso_code} to remove {sub_lang_name} ({sub_lang_iso_code}) words.
+  FILTER(lang(?{data_type}) = "{sub_lang_iso_code}")
     """
 
     # Generate OPTIONAL clauses for all forms in one query.
@@ -131,8 +157,14 @@ WHERE {{
                 return new_path
             counter += 1
 
+    if sub_lang_iso_code:
+        base_file_name = (
+            f"{query_dir}/{language}/{sub_lang_name}/{data_type}/{data_type}.sparql"
+        )
+        print(base_file_name)
+
     # Create base filename using the provided query_dir or default.
-    if query_dir:
+    elif query_dir:
         base_file_name = (
             Path(query_dir) / language / data_type / f"query_{data_type}.sparql"
         )
