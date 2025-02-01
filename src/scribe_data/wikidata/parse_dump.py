@@ -289,7 +289,8 @@ class LexemeProcessor:
             if translation_count > 0:
                 self.translation_counts[lang_iso][dt_name] += translation_count
 
-    # MARK: process file
+    # MARK: Process File
+
     def process_file(self, file_path: str, batch_size: int = 50000):
         """
         Main loop: read lines from file (bz2) in batches, call process_lines on each.
@@ -336,7 +337,7 @@ class LexemeProcessor:
         for line in batch:
             self.process_lines(line)
 
-    # MARK: print total summary
+    # MARK: Print Totals
     def _print_total_summary(self):
         """
         Print stats if parse_type == total.
@@ -364,7 +365,8 @@ class LexemeProcessor:
             if lang != list(self.lexical_category_counts.keys())[-1]:
                 print("\n" + "=" * 90 + "\n")
 
-    # MARK: export translations
+    # MARK: Export Translations
+
     def export_translations_json(self, filepath: str, language_iso: str = None) -> None:
         """
         Save translations_index to file, optionally filtering by language_iso.
@@ -389,7 +391,7 @@ class LexemeProcessor:
 
             lang_name = self.iso_to_name[language_iso]
 
-            # Create the output directory structure
+            # Create the output directory structure.
             main_lang = None
             for lang, data in language_metadata.items():
                 if "sub_languages" in data:
@@ -409,7 +411,7 @@ class LexemeProcessor:
             output_path.mkdir(parents=True, exist_ok=True)
             output_file = output_path / "translations.json"
 
-            # Save the filtered data
+            # Save the filtered data.
             try:
                 with open(output_file, "wb") as f:
                     f.write(orjson.dumps(filtered, option=orjson.OPT_INDENT_2))
@@ -420,6 +422,7 @@ class LexemeProcessor:
                 print(f"Error saving translations for {lang_name.capitalize()}: {e}")
 
     # MARK: Export Forms
+
     def export_forms_json(
         self, filepath: str, language_iso: str = None, data_type: str = None
     ):
@@ -449,20 +452,20 @@ class LexemeProcessor:
 
             filtered = {}
 
-            # Process each lexeme in the forms_index
+            # Process each lexeme in the forms_index.
             for lexeme_id, lang_data in self.forms_index.items():
-                # Check if this lexeme has data for our target language
+                # Check if this lexeme has data for our target language.
                 if language_iso in lang_data:
-                    # Check if the language data contains our target data type
+                    # Check if the language data contains our target data type.
                     if data_type in lang_data[language_iso]:
-                        # Initialize dictionary for this lexeme if needed
+                        # Initialize dictionary for this lexeme if needed.
                         if lexeme_id not in filtered:
                             filtered[lexeme_id] = {}
 
-                        # Get the form data for this language and data type
+                        # Get the form data for this language and data type.
                         form_data = lang_data[language_iso][data_type]
 
-                        # Copy all form data for this lexeme
+                        # Copy all form data for this lexeme.
                         filtered[lexeme_id].update(form_data)
 
             lang_name = self.iso_to_name[language_iso]
@@ -473,7 +476,7 @@ class LexemeProcessor:
                 )
                 return
 
-            # Create the output directory structure
+            # Create the output directory structure.
             main_lang = None
             for lang, data in language_metadata.items():
                 if "sub_languages" in data:
@@ -493,7 +496,7 @@ class LexemeProcessor:
             output_path.mkdir(parents=True, exist_ok=True)
             output_file = output_path / f"{data_type}.json"
 
-            # Save the filtered data
+            # Save the filtered data.
             try:
                 with open(output_file, "wb") as f:
                     f.write(orjson.dumps(filtered, option=orjson.OPT_INDENT_2))
@@ -506,7 +509,9 @@ class LexemeProcessor:
                 )
 
 
-# MARK: parse dump
+# MARK: Parse Dump
+
+
 def parse_dump(
     language: Union[str, List[str]] = None,
     parse_type: List[str] = None,
@@ -637,7 +642,8 @@ def parse_dump(
     )
     processor.process_file(file_path)
 
-    # MARK: Handle JSON exports
+    # MARK: Handle JSON Exports
+
     if "translations" in parse_type:
         for language in languages:
             if iso_code := next(

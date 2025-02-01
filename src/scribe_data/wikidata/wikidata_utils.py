@@ -81,8 +81,7 @@ def parse_wd_lexeme_dump(
             languages.append(main_lang)
             # Add sub-languages if they exist.
             if "sub_languages" in lang_data:
-                for sub_lang in lang_data["sub_languages"]:
-                    languages.append(sub_lang)
+                languages.extend(iter(lang_data["sub_languages"]))
 
         language = languages
 
@@ -91,11 +90,12 @@ def parse_wd_lexeme_dump(
         data_types = [
             dt
             for dt in data_type_metadata.keys()
-            if dt != "translations" and dt != "emoji-keywords"
+            if dt not in ["translations", "emoji-keywords"]
         ]
 
     if isinstance(language, list):
         print(f"Languages to process: {[lang.capitalize() for lang in language]}")
+
     else:
         print(f"Languages to process: {language.capitalize()}")
 

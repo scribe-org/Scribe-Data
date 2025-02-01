@@ -14,6 +14,7 @@ from get_forms import extract_dump_forms, parse_sparql_files
 
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.utils import (
+    LANGUAGE_DATA_EXTRACTION_DIR,
     data_type_metadata,
     language_metadata,
     lexeme_form_metadata,
@@ -145,7 +146,7 @@ def process_missing_features(missing_features, query_dir):
         return
     sub_languages_iso_codes = {}
     for language, sub_langs in sub_languages.items():
-        # Get all unique QIDs and their ISO codes for this language
+        # Get all unique QIDs and their ISO codes for this language.
         qid_to_isos = {}
         for iso_code, sub_lang_data in sub_langs.items():
             qid = sub_lang_data["qid"]
@@ -153,8 +154,8 @@ def process_missing_features(missing_features, query_dir):
                 qid_to_isos[qid] = set()
             qid_to_isos[qid].add(iso_code)
 
-        # Add to main dictionary
-        sub_languages_iso_codes.update(qid_to_isos)
+        # Add to main dictionary.
+        sub_languages_iso_codes |= qid_to_isos
 
     for language_qid, data_types_qid in missing_features.items():
         print(f"Processing language: {language_qid}")
@@ -168,10 +169,13 @@ def process_missing_features(missing_features, query_dir):
                     print(
                         f"Generating query for {language_qid} - {data_type_qid} - {sub_lang_iso_code}"
                     )
-                    generate_query(language_entry, "mama", sub_lang_iso_code)
+                    generate_query(
+                        language_entry, LANGUAGE_DATA_EXTRACTION_DIR, sub_lang_iso_code
+                    )
+
             else:
                 print(f"Generating query for {language_qid} - {data_type_qid}")
-                generate_query(language_entry, "mama")
+                generate_query(language_entry, LANGUAGE_DATA_EXTRACTION_DIR)
 
 
 def main():
@@ -214,18 +218,21 @@ def main():
 
     args = parser.parse_args()
 
-    # If no dump path is provided and download flag is set, download the dump
+    # If no dump path is provided and download flag is set, download the dump.
     if not args.dump_path and args.download_dump:
-        # MARK: Download dump automatically.
+        # MARK: Download Dump
+
         dump_path = wd_lexeme_dump_download_wrapper(
             wikidata_dump=None, output_dir=None, default=True
         )
         if not dump_path:
             print("Failed to download Wikidata dump.")
             sys.exit(1)
+
     elif not args.dump_path:
         print("Error: Either provide a dump path or use --download-dump flag")
         sys.exit(1)
+
     else:
         dump_path = args.dump_path
 
@@ -243,11 +250,13 @@ def main():
     # Get all languages including sub languages.
     languages = get_all_languages()
 
-    # MARK: Parse SPARQL files.
+    # MARK: Parse SPARQL
+
     print("Parsing SPARQL files...")
     result_sparql = parse_sparql_files()
 
-    # MARK: Extract dump forms.
+    # MARK: Extract Forms
+
     print("Extracting Wiki lexeme dump...")
     result_dump = extract_dump_forms(
         languages=languages,
@@ -255,15 +264,18 @@ def main():
         file_path=dump_path,
     )
 
-    # MARK: Get missing features.
+    # MARK: Get Features
+
     missing_features = get_missing_features(result_sparql, result_dump)
 
     try:
-        # MARK: Save missing features to a JSON file.
+        # MARK: Save Features
+
         print("Generated missing features:", missing_features)
 
         with open("missing_features.json", "w") as f:
             json.dump(missing_features, f, indent=4)
+
         print("Missing features data has been saved to missing_features.json")
 
         if missing_features:

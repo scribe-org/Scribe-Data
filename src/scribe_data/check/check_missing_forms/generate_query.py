@@ -55,10 +55,11 @@ def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
         if "sub_languages" in data:
             for sub_name, sub_data in data["sub_languages"].items():
                 if sub_data.get("qid") == language_qid:
+                    # Use main language name instead of sub_name.
                     language_entry = (
                         name,
                         sub_data,
-                    )  # Use main language name instead of sub_name
+                    )
                     break
     if language_entry is None:
         raise ValueError(f"Language with QID {language_qid} not found in metadata")

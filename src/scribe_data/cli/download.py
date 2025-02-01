@@ -244,7 +244,7 @@ def wd_lexeme_dump_download_wrapper(
         filename = dump_url.split("/")[-1]
         output_path = str(Path(output_dir) / filename)
 
-        # Use default parameter to bypass user confirmation
+        # Use default parameter to bypass user confirmation.
         user_response = (
             default
             or questionary.confirm(
