@@ -1,0 +1,70 @@
+# tool: scribe-data
+# All german (Q188) adverbs (Q380057) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adverbs
+    ?singularNominativeMasculine
+  ?positive
+  ?comparative
+  ?superlative
+  ?nominativeAccusativePlural
+  ?singularNominativeAccusativeNeuter
+  ?singularDativeNeuterMasculine
+  ?singularNominativeAccusativeFeminine
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+  wikibase:lexicalCategory wd:Q380057 ;
+  wikibase:lemma ?adverbs .
+  FILTER(lang(?adverbs) = "de")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeMasculineForm .
+    ?singularNominativeMasculineForm ontolex:representation ?singularNominativeMasculine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeAccusativePluralForm .
+    ?nominativeAccusativePluralForm ontolex:representation ?nominativeAccusativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146078, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeAccusativeNeuterForm .
+    ?singularNominativeAccusativeNeuterForm ontolex:representation ?singularNominativeAccusativeNeuter ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q146078, wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularDativeNeuterMasculineForm .
+    ?singularDativeNeuterMasculineForm ontolex:representation ?singularDativeNeuterMasculine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q145599, wd:Q1775461, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeAccusativeFeminineForm .
+    ?singularNominativeAccusativeFeminineForm ontolex:representation ?singularNominativeAccusativeFeminine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q146078, wd:Q1775415 .
+  }
+}

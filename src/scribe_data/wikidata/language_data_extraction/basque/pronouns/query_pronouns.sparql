@@ -1,0 +1,168 @@
+# tool: scribe-data
+# All basque (Q8752) pronouns (Q36224) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?pronouns
+    ?singularInessiveInanimate
+  ?pluralAbsolutive
+  ?singularInanimateAllative
+  ?pluralInessiveInanimate
+  ?singularAblativeInanimate
+  ?singularLocativeInanimate
+  ?pluralInessiveAnimate
+  ?pluralInanimateAllative
+  ?dativePlural
+  ?singularAnimateAllative
+  ?singularInstrumental
+  ?pluralAblativeInanimate
+  ?pluralLocativeInanimate
+  ?singularInessiveAnimate
+  ?singularGenitive
+  ?pluralInstrumental
+  ?pluralAblativeAnimate
+  ?genitivePlural
+  ?pluralAnimateAllative
+  ?singularAbsolutive
+  ?singularAblativeAnimate
+  ?singularDative
+
+WHERE {
+  ?lexeme dct:language wd:Q8752 ;
+  wikibase:lexicalCategory wd:Q36224 ;
+  wikibase:lemma ?pronouns .
+  FILTER(lang(?pronouns) = "eu")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularInessiveInanimateForm .
+    ?singularInessiveInanimateForm ontolex:representation ?singularInessiveInanimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q282031, wd:Q51927539 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAbsolutiveForm .
+    ?pluralAbsolutiveForm ontolex:representation ?pluralAbsolutive ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q332734 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularInanimateAllativeForm .
+    ?singularInanimateAllativeForm ontolex:representation ?singularInanimateAllative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q51927539, wd:Q655020 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralInessiveInanimateForm .
+    ?pluralInessiveInanimateForm ontolex:representation ?pluralInessiveInanimate ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q282031, wd:Q51927539 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAblativeInanimateForm .
+    ?singularAblativeInanimateForm ontolex:representation ?singularAblativeInanimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q156986, wd:Q51927539 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularLocativeInanimateForm .
+    ?singularLocativeInanimateForm ontolex:representation ?singularLocativeInanimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q51927539 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralInessiveAnimateForm .
+    ?pluralInessiveAnimateForm ontolex:representation ?pluralInessiveAnimate ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q282031, wd:Q51927507 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralInanimateAllativeForm .
+    ?pluralInanimateAllativeForm ontolex:representation ?pluralInanimateAllative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q51927539, wd:Q655020 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAnimateAllativeForm .
+    ?singularAnimateAllativeForm ontolex:representation ?singularAnimateAllative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q51927507, wd:Q655020 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularInstrumentalForm .
+    ?singularInstrumentalForm ontolex:representation ?singularInstrumental ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q192997 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAblativeInanimateForm .
+    ?pluralAblativeInanimateForm ontolex:representation ?pluralAblativeInanimate ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q156986, wd:Q51927539 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralLocativeInanimateForm .
+    ?pluralLocativeInanimateForm ontolex:representation ?pluralLocativeInanimate ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q202142, wd:Q51927539 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularInessiveAnimateForm .
+    ?singularInessiveAnimateForm ontolex:representation ?singularInessiveAnimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q282031, wd:Q51927507 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularGenitiveForm .
+    ?singularGenitiveForm ontolex:representation ?singularGenitive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralInstrumentalForm .
+    ?pluralInstrumentalForm ontolex:representation ?pluralInstrumental ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q192997 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAblativeAnimateForm .
+    ?pluralAblativeAnimateForm ontolex:representation ?pluralAblativeAnimate ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q156986, wd:Q51927507 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAnimateAllativeForm .
+    ?pluralAnimateAllativeForm ontolex:representation ?pluralAnimateAllative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q51927507, wd:Q655020 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAbsolutiveForm .
+    ?singularAbsolutiveForm ontolex:representation ?singularAbsolutive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q332734 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAblativeAnimateForm .
+    ?singularAblativeAnimateForm ontolex:representation ?singularAblativeAnimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q156986, wd:Q51927507 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularDativeForm .
+    ?singularDativeForm ontolex:representation ?singularDative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q145599 .
+  }
+}

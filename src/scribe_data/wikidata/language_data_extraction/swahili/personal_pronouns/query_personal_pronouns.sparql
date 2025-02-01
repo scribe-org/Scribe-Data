@@ -1,0 +1,21 @@
+# tool: scribe-data
+# All swahili (Q7838) personal_pronouns (Q468801) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?personal_pronouns
+    ?pluralSecondPerson
+
+WHERE {
+  ?lexeme dct:language wd:Q7838 ;
+  wikibase:lexicalCategory wd:Q468801 ;
+  wikibase:lemma ?personal_pronouns .
+  FILTER(lang(?personal_pronouns) = "sw")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralSecondPersonForm .
+    ?pluralSecondPersonForm ontolex:representation ?pluralSecondPerson ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q51929049 .
+  }
+}

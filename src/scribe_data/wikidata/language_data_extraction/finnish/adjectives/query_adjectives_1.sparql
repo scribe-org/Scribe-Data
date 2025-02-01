@@ -1,0 +1,294 @@
+# tool: scribe-data
+# All finnish (Q1412) adjectives (Q34698) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?adjectives
+    ?pluralIllative
+  ?nominativePlural
+  ?singularComparativeGenitive
+  ?singularNominative
+  ?singularEssive
+  ?superlative
+  ?pluralInessive
+  ?singularGenitiveSuperlative
+  ?pluralAllative
+  ?singularAbessive
+  ?singularTranslative
+  ?positive
+  ?singularGenitivePositive
+  ?nominativeComparativePlural
+  ?comparative
+  ?pluralEssive
+  ?singularAdessive
+  ?pluralAblative
+  ?singularElative
+  ?singularPartitive
+  ?singularGenitive
+  ?comparativeGenitivePlural
+  ?pluralAbessive
+  ?pluralTranslative
+  ?genitivePluralSuperlative
+  ?genitivePlural
+  ?singularIllative
+  ?nominativePluralSuperlative
+  ?singularNominativeSuperlative
+  ?pluralAdessive
+  ?pluralComitative
+  ?pluralElative
+  ?singularInessive
+  ?singularAllative
+  ?pluralPartitive
+  ?genitivePluralPositive
+  ?singularNominativePositive
+  ?singularNominativeComparative
+  ?nominativePluralPositive
+  ?singularAblative
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+  wikibase:lexicalCategory wd:Q34698 ;
+  wikibase:lemma ?adjectives .
+  FILTER(lang(?adjectives) = "fi")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralIllativeForm .
+    ?pluralIllativeForm ontolex:representation ?pluralIllative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q474668 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularComparativeGenitiveForm .
+    ?singularComparativeGenitiveForm ontolex:representation ?singularComparativeGenitive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q14169499, wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeForm .
+    ?singularNominativeForm ontolex:representation ?singularNominative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularEssiveForm .
+    ?singularEssiveForm ontolex:representation ?singularEssive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q148465 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralInessiveForm .
+    ?pluralInessiveForm ontolex:representation ?pluralInessive ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q282031 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularGenitiveSuperlativeForm .
+    ?singularGenitiveSuperlativeForm ontolex:representation ?singularGenitiveSuperlative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146233, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAllativeForm .
+    ?pluralAllativeForm ontolex:representation ?pluralAllative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q655020 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAbessiveForm .
+    ?singularAbessiveForm ontolex:representation ?singularAbessive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q319822 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularTranslativeForm .
+    ?singularTranslativeForm ontolex:representation ?singularTranslative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q950170 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularGenitivePositiveForm .
+    ?singularGenitivePositiveForm ontolex:representation ?singularGenitivePositive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146233, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeComparativePluralForm .
+    ?nominativeComparativePluralForm ontolex:representation ?nominativeComparativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q14169499, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralEssiveForm .
+    ?pluralEssiveForm ontolex:representation ?pluralEssive ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q148465 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAdessiveForm .
+    ?singularAdessiveForm ontolex:representation ?singularAdessive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q281954 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAblativeForm .
+    ?pluralAblativeForm ontolex:representation ?pluralAblative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q156986 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularElativeForm .
+    ?singularElativeForm ontolex:representation ?singularElative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q394253 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPartitiveForm .
+    ?singularPartitiveForm ontolex:representation ?singularPartitive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q857325 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularGenitiveForm .
+    ?singularGenitiveForm ontolex:representation ?singularGenitive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeGenitivePluralForm .
+    ?comparativeGenitivePluralForm ontolex:representation ?comparativeGenitivePlural ;
+      wikibase:grammaticalFeature wd:Q14169499, wd:Q146233, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAbessiveForm .
+    ?pluralAbessiveForm ontolex:representation ?pluralAbessive ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q319822 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralTranslativeForm .
+    ?pluralTranslativeForm ontolex:representation ?pluralTranslative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q950170 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralSuperlativeForm .
+    ?genitivePluralSuperlativeForm ontolex:representation ?genitivePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularIllativeForm .
+    ?singularIllativeForm ontolex:representation ?singularIllative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q474668 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralSuperlativeForm .
+    ?nominativePluralSuperlativeForm ontolex:representation ?nominativePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeSuperlativeForm .
+    ?singularNominativeSuperlativeForm ontolex:representation ?singularNominativeSuperlative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAdessiveForm .
+    ?pluralAdessiveForm ontolex:representation ?pluralAdessive ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q281954 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralComitativeForm .
+    ?pluralComitativeForm ontolex:representation ?pluralComitative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q838581 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralElativeForm .
+    ?pluralElativeForm ontolex:representation ?pluralElative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q394253 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularInessiveForm .
+    ?singularInessiveForm ontolex:representation ?singularInessive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q282031 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAllativeForm .
+    ?singularAllativeForm ontolex:representation ?singularAllative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q655020 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralPartitiveForm .
+    ?pluralPartitiveForm ontolex:representation ?pluralPartitive ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q857325 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralPositiveForm .
+    ?genitivePluralPositiveForm ontolex:representation ?genitivePluralPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativePositiveForm .
+    ?singularNominativePositiveForm ontolex:representation ?singularNominativePositive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeComparativeForm .
+    ?singularNominativeComparativeForm ontolex:representation ?singularNominativeComparative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralPositiveForm .
+    ?nominativePluralPositiveForm ontolex:representation ?nominativePluralPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAblativeForm .
+    ?singularAblativeForm ontolex:representation ?singularAblative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q156986 .
+  }
+}

@@ -1,0 +1,91 @@
+# tool: scribe-data
+# All bengali (Q9610) pronouns (Q36224) and their forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?pronouns
+    ?genitive
+  ?genitivePluralFirstPerson
+  ?singularNominativeFirstPerson
+  ?nominativePluralFirstPerson
+  ?singularLocativeFirstPerson
+  ?dative
+  ?accusative
+  ?nominative
+  ?singularGenitiveFirstPerson
+  ?singularAccusativeFirstPerson
+  ?accusativePluralFirstPerson
+
+WHERE {
+  ?lexeme dct:language wd:Q9610 ;
+  wikibase:lexicalCategory wd:Q36224 ;
+  wikibase:lemma ?pronouns .
+  FILTER(lang(?pronouns) = "bn")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralFirstPersonForm .
+    ?genitivePluralFirstPersonForm ontolex:representation ?genitivePluralFirstPerson ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q21714344 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeFirstPersonForm .
+    ?singularNominativeFirstPersonForm ontolex:representation ?singularNominativeFirstPerson ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q21714344 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralFirstPersonForm .
+    ?nominativePluralFirstPersonForm ontolex:representation ?nominativePluralFirstPerson ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q21714344 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularLocativeFirstPersonForm .
+    ?singularLocativeFirstPersonForm ontolex:representation ?singularLocativeFirstPerson ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q21714344 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeForm .
+    ?dativeForm ontolex:representation ?dative ;
+      wikibase:grammaticalFeature wd:Q145599 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularGenitiveFirstPersonForm .
+    ?singularGenitiveFirstPersonForm ontolex:representation ?singularGenitiveFirstPerson ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146233, wd:Q21714344 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAccusativeFirstPersonForm .
+    ?singularAccusativeFirstPersonForm ontolex:representation ?singularAccusativeFirstPerson ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q21714344 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativePluralFirstPersonForm .
+    ?accusativePluralFirstPersonForm ontolex:representation ?accusativePluralFirstPerson ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786, wd:Q21714344 .
+  }
+}
