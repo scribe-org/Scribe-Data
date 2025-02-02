@@ -7,10 +7,12 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?verb
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
     FILTER(lang(?verb) = "pa")
 }

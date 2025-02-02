@@ -8,13 +8,15 @@ SELECT
   ?nominativePlural
   ?accusativeSingular
   ?accusativePlural
+  ?lastModified
 
 WHERE {
   # MARK: Nominative
 
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?nominativeSingular .
+    wikibase:lemma ?nominativeSingular ;
+    schema:dateModified ?lastModified .
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativePluralForm .

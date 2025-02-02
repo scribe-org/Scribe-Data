@@ -7,11 +7,13 @@ SELECT
   ?absIndefinite
   ?absolutiveSingular
   ?absolutivePlural
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q8752 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?absIndefinite .
+    wikibase:lemma ?absIndefinite ;
+    schema:dateModified ?lastModified .
 
   # MARK: Absolutive Singular
 

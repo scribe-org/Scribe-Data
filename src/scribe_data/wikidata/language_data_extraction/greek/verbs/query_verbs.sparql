@@ -11,11 +11,13 @@ SELECT
   ?presentSecondPersonPlural
   ?presentThirdPersonSingular
   ?presentThirdPersonPlural
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q36510 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive .
+    wikibase:lemma ?infinitive ;
+    schema:dateModified ?lastModified .
 
   # MARK: Present
 

@@ -11,11 +11,13 @@ SELECT
   ?masculineSingular
   ?masculinePlural
   ?gender
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?singular .
+    wikibase:lemma ?singular ;
+    schema:dateModified ?lastModified .
 
   # MARK: Plural
 

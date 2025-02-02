@@ -6,11 +6,13 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adverb
   ?vocative
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q5885 ;
     wikibase:lexicalCategory wd:Q380057 ;
-    wikibase:lemma ?adverb .
+    wikibase:lemma ?adverb ;
+    schema:dateModified ?lastModified .
 
   # MARK: Vocative
 
