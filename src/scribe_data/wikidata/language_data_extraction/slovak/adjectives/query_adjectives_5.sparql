@@ -9,11 +9,13 @@ SELECT
   ?locativeFeminineSingularPositive
   ?locativeMasculineSingularPositive
   ?locativeNeuterSingularPositive
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9058;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
 
   # MARK: Locative
 

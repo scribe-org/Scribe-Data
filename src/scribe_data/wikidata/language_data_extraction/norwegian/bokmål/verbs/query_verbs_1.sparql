@@ -11,10 +11,12 @@ SELECT
   ?passivePresent
   ?activeInfinitive
   ?activePresent
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q25167 ;
-    wikibase:lexicalCategory wd:Q24905 .
+    wikibase:lexicalCategory wd:Q24905 ;
+    schema:dateModified ?lastModified .
 
   # MARK: Imperative
 

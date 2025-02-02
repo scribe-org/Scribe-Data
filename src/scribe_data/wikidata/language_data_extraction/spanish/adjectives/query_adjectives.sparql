@@ -15,11 +15,13 @@ SELECT
   ?femininePluralSuperlative
   ?masculineSingularSuperlative
   ?masculinePluralSuperlative
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
 
   # MARK: Feminine
 

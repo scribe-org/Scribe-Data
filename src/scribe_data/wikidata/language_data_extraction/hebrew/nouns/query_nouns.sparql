@@ -7,11 +7,13 @@ SELECT
   ?noun
   ?plural
   ?gender
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9288 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?noun .
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
     FILTER(lang(?noun) = "he")
 
   # MARK: Plural

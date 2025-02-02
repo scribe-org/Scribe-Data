@@ -8,11 +8,13 @@ SELECT
   ?comparative
   ?pluralPositive
   ?definiteSingularPositive
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
 
   # MARK: Comparative
 
