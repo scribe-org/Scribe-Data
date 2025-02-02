@@ -240,22 +240,28 @@ def get_data(
             )
         except json.decoder.JSONDecodeError:
             rprint(
-                "[bold red]Error: The Wikidata query service returned an invalid response. This usually happens when the query is too large or the service is temporarily unavailable. Please try again later or consider using a Wikidata dump instead.[/bold red]"
+                "[bold red]Error: Invalid response from Wikidata query service. The query may be too large or the service is unavailable.[/bold red]"
             )
-        except (urllib.error.HTTPError, EndPointInternalError):
+        except urllib.error.HTTPError as e:
+            error_msg = (
+                "[bold red]Error: A client error occurred. Check your request.[/bold red]"
+                if 400 <= e.code < 500
+                else "[bold red]Error: A server error occurred. Please try again later.[/bold red]"
+            )
+            rprint(error_msg)
+        except EndPointInternalError:
             rprint(
-                "[bold red]Error: The Wikidata query service is currently experiencing issues (HTTP 500). This could be due to:[/bold red]"
+                "[bold red]Error: The Wikidata endpoint encountered an internal error.[/bold red]"
             )
-            rprint("[red]1. The query is too complex or large[/red]")
-            rprint("[red]2. The Wikidata service is temporarily overloaded[/red]")
-            rprint("[red]3. Server-side issues at Wikidata[/red]")
-            rprint("\n[bold yellow]Suggestions:[/bold yellow]")
-            rprint("[yellow]1. Try again in a few minutes[/yellow]")
-            rprint(
-                "[yellow]2. Consider using a Wikidata dump instead with the --wikidata-dump-path (-wdp) option[/yellow]"
-            )
-            rprint("[yellow]3. Try querying a smaller subset of data[/yellow]")
-            return {"success": False, "error": "endpoint_error"}
+
+        rprint("\n[bold yellow]Suggestions:[/bold yellow]")
+        rprint(
+            "[yellow]1. Try again in a few minutes\n"
+            "2. Consider using a Wikidata dump with --wikidata-dump-path (-wdp)\n"
+            "3. Try querying a smaller subset of data[/yellow]"
+        )
+
+        return {"success": False, "error": "endpoint_error"}
 
         if not all_bool:
             print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
