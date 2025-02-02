@@ -230,6 +230,18 @@ def get_data(
                 print(f"Skipping update for {language.title()} {data_type}.")
                 return {"success": False, "skipped": True}
 
+        def print_error_and_suggestions(error_message):
+            """
+            Prints an error message and suggestions for the user.
+            """
+            rprint(error_message)
+            rprint("\n[bold yellow]Suggestions:[/bold yellow]")
+            rprint(
+                "[yellow]1. Try again in a few minutes\n"
+                "2. Consider using a Wikidata dump with --wikidata-dump-path (-wdp)\n"
+                "3. Try querying a smaller subset of data[/yellow]"
+            )
+
         try:
             query_data(
                 languages=[language_or_sub_language],
@@ -239,7 +251,7 @@ def get_data(
                 interactive=interactive,
             )
         except json.decoder.JSONDecodeError:
-            rprint(
+            print_error_and_suggestions(
                 "[bold red]Error: Invalid response from Wikidata query service. The query may be too large or the service is unavailable.[/bold red]"
             )
         except urllib.error.HTTPError as e:
@@ -248,20 +260,11 @@ def get_data(
                 if 400 <= e.code < 500
                 else "[bold red]Error: A server error occurred. Please try again later.[/bold red]"
             )
-            rprint(error_msg)
+            print_error_and_suggestions(error_msg)
         except EndPointInternalError:
-            rprint(
+            print_error_and_suggestions(
                 "[bold red]Error: The Wikidata endpoint encountered an internal error.[/bold red]"
             )
-
-        rprint("\n[bold yellow]Suggestions:[/bold yellow]")
-        rprint(
-            "[yellow]1. Try again in a few minutes\n"
-            "2. Consider using a Wikidata dump with --wikidata-dump-path (-wdp)\n"
-            "3. Try querying a smaller subset of data[/yellow]"
-        )
-
-        return {"success": False, "error": "endpoint_error"}
 
         if not all_bool:
             print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
