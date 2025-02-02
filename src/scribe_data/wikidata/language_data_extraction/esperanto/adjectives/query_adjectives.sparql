@@ -5,10 +5,12 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adjective
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
     FILTER(LANG(?adjective) = "eo")
 }

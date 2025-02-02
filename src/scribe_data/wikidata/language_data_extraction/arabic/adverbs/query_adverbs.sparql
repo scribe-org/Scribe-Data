@@ -5,9 +5,11 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?adverb
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q380057 ;
-    wikibase:lemma ?adverb .
+    wikibase:lemma ?adverb ;
+    schema:dateModified ?lastModified .
 }

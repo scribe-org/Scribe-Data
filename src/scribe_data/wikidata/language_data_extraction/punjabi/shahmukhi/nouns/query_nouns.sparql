@@ -9,11 +9,13 @@ SELECT
   ?singular
   ?plural
   ?gender
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;   # Punjabi (Q58635)
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?singular .
+    wikibase:lemma ?singular ;
+    schema:dateModified ?lastModified .
     FILTER(lang(?singular) = "pnb")
 
   # MARK: Plural

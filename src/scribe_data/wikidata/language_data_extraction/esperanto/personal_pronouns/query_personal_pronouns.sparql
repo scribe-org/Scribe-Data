@@ -5,10 +5,12 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?personalPronouns
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory wd:Q468801 ;
-    wikibase:lemma ?personalPronouns .
+    wikibase:lemma ?personalPronouns ;
+    schema:dateModified ?lastModified .
     FILTER(LANG(?personalPronouns) = "eo")
 }

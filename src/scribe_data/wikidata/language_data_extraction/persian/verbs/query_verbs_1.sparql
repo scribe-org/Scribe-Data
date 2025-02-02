@@ -9,11 +9,13 @@ SELECT
   ?pastParticiple
   ?presentWordStem
   ?pastWordStem
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9168 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive .
+    wikibase:lemma ?infinitive ;
+    schema:dateModified ?lastModified .
 
   #MARK: Past Participle
 

@@ -9,11 +9,13 @@ SELECT
   ?femininePresentPlural
   ?masculinePresentSingular
   ?masculinePresentPlural
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9288 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive .
+    wikibase:lemma ?infinitive ;
+    schema:dateModified ?lastModified .
     FILTER(lang(?infinitive) = "he")
 
   # MARK: Present

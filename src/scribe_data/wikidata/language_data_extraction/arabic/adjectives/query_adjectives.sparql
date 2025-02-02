@@ -33,11 +33,13 @@ SELECT
   ?pausalMasculineIndefiniteSingular
   ?pausalMasculineIndefinitePlural
   ?pausalMasculineIndefiniteDual
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
 
   # MARK: Nominative
 

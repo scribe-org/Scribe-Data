@@ -18,11 +18,13 @@ SELECT
   ?activeInfinitive
   ?activePresent
   ?activePreterite
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
 
   # MARK: Imperative
 

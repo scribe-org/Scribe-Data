@@ -33,10 +33,12 @@ SELECT
   ?indicativePluperfectSecondPersonPlural
   ?indicativePluperfectThirdPersonSingular
   ?indicativePluperfectThirdPersonPlural
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q5146 ;
-    wikibase:lexicalCategory wd:Q24905 .
+    wikibase:lexicalCategory wd:Q24905 ;
+    schema:dateModified ?lastModified .
 
   # MARK: Infinitive
 

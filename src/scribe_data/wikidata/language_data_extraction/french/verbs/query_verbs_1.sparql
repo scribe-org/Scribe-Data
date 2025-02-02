@@ -19,11 +19,13 @@ SELECT
   ?indicativePreteriteSecondPersonPlural
   ?indicativePreteriteThirdPersonSingular
   ?indicativePreteriteThirdPersonPlural
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q150 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive .
+    wikibase:lemma ?infinitive ;
+    schema:dateModified ?lastModified .
 
   # MARK: Indicative Present
 

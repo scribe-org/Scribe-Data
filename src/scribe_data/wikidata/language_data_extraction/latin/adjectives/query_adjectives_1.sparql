@@ -7,11 +7,13 @@ SELECT
   ?adjective
   ?nominativeSingular
   ?nominativePlural
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
 
   # MARK: Nominative
 
