@@ -53,27 +53,28 @@ def format_data(
         lexeme_id = data_vals["lexemeID"]
 
         if lexeme_id not in data_formatted:
-            data_formatted[lexeme_id] = {}
+            data_formatted[lexeme_id] = {
+                k: v for k, v in data_vals.items() if k != "lastModified"
+            }
+        else:
+            for k, v in data_vals.items():
+                if k in ["lexemeID", "lastModified"] or not v:
+                    continue  # Skip these fields
 
-        # Reverse to make sure that we're getting the same order as the query.
-        query_identifiers = list(reversed(data_vals.keys()))
-        query_identifiers.remove("lexemeID")
+                if k in data_formatted[lexeme_id]:
+                    # Merge and deduplicate values
+                    existing_values = set(data_formatted[lexeme_id][k].split(", "))
+                    existing_values.add(v)
+                    data_formatted[lexeme_id][k] = ", ".join(sorted(existing_values))
+                else:
+                    data_formatted[lexeme_id][k] = v
 
-        for k in query_identifiers:
-            if k in data_formatted[lexeme_id]:
-                # Merge and sort alphabetically before storing
-                existing_values = data_formatted[lexeme_id][k].split(", ")
-                new_value = data_vals[k]
-                updated_values = sorted(set(existing_values + [new_value]))
-                data_formatted[lexeme_id][k] = ", ".join(updated_values)
-            else:
-                data_formatted[lexeme_id][k] = data_vals[k]
-
+    # Convert to ordered dictionary for consistent output
     data_formatted = collections.OrderedDict(sorted(data_formatted.items()))
 
     export_formatted_data(
         dir_path=dir_path,
-        formatted_data=data_formatted,
+        formatted_data=list(data_formatted.values()),
         language=language,
         data_type=data_type,
     )
