@@ -99,7 +99,7 @@ SELECT
   ?{data_type}
   """
         + "\n  ".join(f'?{form["label"]}' for form in forms_query)
-        + "\n  ?lastModified"
+        + "\n   ?lastModified"
     )
 
     where_clause = f"""
@@ -107,7 +107,7 @@ SELECT
 WHERE {{
   ?lexeme dct:language wd:{language_qid} ;
       wikibase:lexicalCategory wd:{data_type_qid} ;
-      wikibase:lemma ?{data_type} .
+      wikibase:lemma ?{data_type} ;
       schema:dateModified ?lastModified .
     """
     if sub_lang_iso_code:
