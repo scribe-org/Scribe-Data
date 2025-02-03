@@ -6,11 +6,13 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?singular
   ?gender
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?singular .
+    wikibase:lemma ?singular ;
+    schema:dateModified ?lastModified .
 
   # MARK: Gender(s)
 

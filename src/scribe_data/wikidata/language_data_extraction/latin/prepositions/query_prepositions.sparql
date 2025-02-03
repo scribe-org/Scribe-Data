@@ -7,11 +7,13 @@ SELECT
   ?preposition
   ?accusative
   ?ablative
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
     wikibase:lexicalCategory wd:Q4833830 ;
-    wikibase:lemma ?preposition .
+    wikibase:lemma ?preposition ;
+    schema:dateModified ?lastModified .
 
   # MARK: Accusative
 

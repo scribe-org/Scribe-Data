@@ -13,11 +13,13 @@ SELECT
   ?femininePluralConstruct
   ?masculineSingularConstruct
   ?masculinePluralConstruct
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9288 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
     FILTER(lang(?adjective) = "he")
 
   # MARK: Feminine

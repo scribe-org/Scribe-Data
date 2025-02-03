@@ -7,11 +7,13 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?preposition
   ?grammaticalCase
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9610 ;
     wikibase:lexicalCategory wd:Q161873 ;
-    wikibase:lemma ?preposition .
+    wikibase:lemma ?preposition ;
+    schema:dateModified ?lastModified .
 
   # MARK: Case
 

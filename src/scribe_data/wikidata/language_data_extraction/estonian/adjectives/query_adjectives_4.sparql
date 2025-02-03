@@ -11,11 +11,13 @@ SELECT
   ?abessivePlural
   ?comitativeSingular
   ?comitativePlural
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
 
   # MARK: Essive
 

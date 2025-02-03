@@ -7,11 +7,13 @@ SELECT
   ?adverb
   ?comparative
   ?superlative
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
     wikibase:lexicalCategory wd:Q380057 ;
-    wikibase:lemma ?adverb .
+    wikibase:lemma ?adverb ;
+    schema:dateModified ?lastModified .
 
   # MARK: Comparative
 
