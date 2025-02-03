@@ -2,16 +2,20 @@
 # All Spanish (Q1321) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
-SELECT DISTINCT
+SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?singular
-  (GROUP_CONCAT(DISTINCT ?plural; separator=", ") AS ?plurals)
+
+  ?plural
+
   ?feminineSingular
   ?femininePlural
 
   ?masculineSingular
   ?masculinePlural
-  (GROUP_CONCAT(DISTINCT ?gender; separator=", ") AS ?genders)
+
+  ?gender
+
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q1084 ;
@@ -64,4 +68,3 @@ WHERE {
     ?nounGender rdfs:label ?gender .
   }
 }
-GROUP BY ?lexeme ?singular ?feminineSingular ?femininePlural ?masculineSingular ?masculinePlural
