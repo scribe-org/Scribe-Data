@@ -308,6 +308,9 @@ def validate_forms(query_text: str) -> str:
 
     where_vars += re.findall(forms_pattern, query_text)
 
+    date_modified_pattern = r"schema:dateModified\s*\?(\w+)"
+    where_vars += re.findall(date_modified_pattern, query_text)
+
     # Handling labels provided by the labeling service  like 'case' and 'gender' in the same order as in select_vars.
     for var in ["case", "gender", "auxiliaryVerb"]:
         if var in select_vars:
@@ -463,7 +466,13 @@ def check_forms_order(query_text):
     sorted_lower = [i.lower() for i in sorted_columns]
     select_lower = [i.lower() for i in select_vars]
 
+    # Move lastmodified to the end if present
+    if "lastmodified" in sorted_lower:
+        sorted_lower.remove("lastmodified")
+        sorted_lower.append("lastmodified")
+
     if select_lower != sorted_lower:
+        # print(select_lower,"ager",sorted_lower)
         return ", ".join([i[0].lower() + i[1:] for i in sorted_columns])
 
     return sorted_lower == select_lower
