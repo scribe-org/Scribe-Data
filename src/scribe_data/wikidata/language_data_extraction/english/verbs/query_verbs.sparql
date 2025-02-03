@@ -10,13 +10,15 @@ SELECT
   ?presentParticiple
   ?pastParticiple
   ?simplePresentThirdPersonSingular
+  ?lastModified
 
 WHERE {
   # MARK: Infinitive
 
   ?lexeme dct:language wd:Q1860 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive .
+    wikibase:lemma ?infinitive ;
+    schema:dateModified ?lastModified .
 
   # MARK: Simple Present
 

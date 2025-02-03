@@ -7,11 +7,13 @@ SELECT
   ?adjective
   ?singular
   ?plural
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
 
   # MARK: Singular
 

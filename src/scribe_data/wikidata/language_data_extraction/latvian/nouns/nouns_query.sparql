@@ -19,10 +19,12 @@ SELECT DISTINCT
   ?vocativeSingular
   ?vocativePlural
   ?gender
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9078 ;
-    wikibase:lexicalCategory wd:Q1084 .
+    wikibase:lexicalCategory wd:Q1084 ;
+    schema:dateModified ?lastModified .
 
   # MARK: Nominative
 

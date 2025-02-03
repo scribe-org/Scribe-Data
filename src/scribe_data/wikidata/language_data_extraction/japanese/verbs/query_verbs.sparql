@@ -10,11 +10,13 @@ SELECT
   ?attributive
   ?hypothetical
   ?imperfective
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q5287 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
     FILTER(lang(?verb) = "ja-hira")
 
   # MARK: Negative

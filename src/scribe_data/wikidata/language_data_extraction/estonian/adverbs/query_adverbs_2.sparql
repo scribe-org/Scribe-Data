@@ -19,11 +19,13 @@ SELECT
   ?abessivePlural
   ?comitativeSingular
   ?comitativePlural
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
-      wikibase:lexicalCategory wd:Q380057 ;
-      wikibase:lemma ?adverb .
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?adverb ;
+    schema:dateModified ?lastModified .
 
   # MARK: Ablative
 

@@ -7,10 +7,12 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?postposition
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q11051 ;
     wikibase:lexicalCategory wd:Q161873 ;
-    wikibase:lemma ?postposition .
+    wikibase:lemma ?postposition ;
+    schema:dateModified ?lastModified .
     FILTER(lang(?postposition) = "ur")
 }

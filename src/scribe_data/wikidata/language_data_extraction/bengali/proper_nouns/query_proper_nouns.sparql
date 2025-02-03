@@ -8,10 +8,12 @@ SELECT
   ?genitive
   ?accusative
   ?locative
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9610 ;
     wikibase:lexicalCategory wd:Q147276 ;
+    schema:dateModified ?lastModified .
 
   # MARK: Nominative
 

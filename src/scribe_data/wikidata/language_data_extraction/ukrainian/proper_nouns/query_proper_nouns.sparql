@@ -12,11 +12,13 @@ SELECT
   ?locativeSingular
   ?vocativeSingular
   ?gender
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q8798 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?nominativeSingular .
+    wikibase:lemma ?nominativeSingular ;
+    schema:dateModified ?lastModified .
 
   # MARK: Genitive
 

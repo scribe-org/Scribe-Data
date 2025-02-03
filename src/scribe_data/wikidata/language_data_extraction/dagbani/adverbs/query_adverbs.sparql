@@ -14,11 +14,13 @@ SELECT
   ?adverbOfManner
   ?locativeAdverb
   ?phrase
+  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
     wikibase:lexicalCategory wd:Q380057 ;
-    wikibase:lemma ?adverb .
+    wikibase:lemma ?adverb ;
+    schema:dateModified ?lastModified .
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentForm .
