@@ -91,7 +91,7 @@ def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
     # Generate a single query for all forms.
     main_body = (
         f"""# tool: scribe-data
-# All {language.capitalize()} ({language_qid}) {data_type} ({data_type_qid}) and their forms.
+# All {language.capitalize()} ({language_qid}) {data_type} ({data_type_qid}) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
