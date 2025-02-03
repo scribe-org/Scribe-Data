@@ -60,7 +60,14 @@ def format_data(
         query_identifiers.remove("lexemeID")
 
         for k in query_identifiers:
-            data_formatted[lexeme_id][k] = data_vals[k]
+            if k in data_formatted[lexeme_id]:
+                # Merge and sort alphabetically before storing
+                existing_values = data_formatted[lexeme_id][k].split(", ")
+                new_value = data_vals[k]
+                updated_values = sorted(set(existing_values + [new_value]))
+                data_formatted[lexeme_id][k] = ", ".join(updated_values)
+            else:
+                data_formatted[lexeme_id][k] = data_vals[k]
 
     data_formatted = collections.OrderedDict(sorted(data_formatted.items()))
 
