@@ -11,7 +11,7 @@ from pathlib import Path
 
 from generate_query import generate_query
 from get_forms import extract_dump_forms, parse_sparql_files
-
+from scribe_data.check.check_missing_forms.normalize_forms import sort_qids_in_list
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
@@ -108,19 +108,16 @@ def get_missing_features(result_sparql, result_dump):
                 if dt in result_dump[lang]:
                     dump_values = {tuple(item) for item in result_dump[lang][dt]}
 
-                # Get unique values from both sources.
-                unique_dump_values = dump_values - sparql_values
-                unique_sparql_values = sparql_values - dump_values
+                # Find all unique forms (symmetric difference between sets)
+                unique_forms = sort_qids_in_list(dump_values ^ sparql_values)
+                unique_forms = [list(item) for item in unique_forms]
 
-                # Store valid missing features from dump.
-                for item in unique_dump_values:
+                # Store valid missing features
+                for item in unique_forms:
                     if all(qid in all_qids for qid in item):
-                        missing_by_lang_type[lang][dt].append(list(item))
-
-                # Store valid missing features from SPARQL.
-                for item in unique_sparql_values:
-                    if all(qid in all_qids for qid in item):
-                        missing_by_lang_type[lang][dt].append(list(item))
+                        item_list = list(item)
+                        if item_list not in missing_by_lang_type[lang][dt]:
+                            missing_by_lang_type[lang][dt].append(item_list)
 
     return missing_by_lang_type or None
 
