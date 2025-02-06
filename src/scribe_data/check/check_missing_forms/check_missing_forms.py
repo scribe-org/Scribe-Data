@@ -108,16 +108,15 @@ def get_missing_features(result_sparql, result_dump):
                 if dt in result_dump[lang]:
                     dump_values = {tuple(item) for item in result_dump[lang][dt]}
 
-                # Find all unique forms (symmetric difference between sets)
-                unique_forms = sort_qids_in_list(dump_values ^ sparql_values)
-                unique_forms = [list(item) for item in unique_forms]
+                # Get missing Forms from lexeme Dump.
+                unique_dump_values = (
+                    set(map(tuple, sort_qids_in_list(dump_values))) - sparql_values
+                )
 
-                # Store valid missing features
-                for item in unique_forms:
+                # Store valid missing features from dump.
+                for item in unique_dump_values:
                     if all(qid in all_qids for qid in item):
-                        item_list = list(item)
-                        if item_list not in missing_by_lang_type[lang][dt]:
-                            missing_by_lang_type[lang][dt].append(item_list)
+                        missing_by_lang_type[lang][dt].append(list(item))
 
     return missing_by_lang_type or None
 
