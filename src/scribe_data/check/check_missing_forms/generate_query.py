@@ -6,6 +6,7 @@ Generate SPARQL queries for missing lexeme forms.
 import os
 from pathlib import Path
 
+from scribe_data.check.check_missing_forms.normalize_forms import sort_qids_by_position
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR as language_data_extraction,
 )
@@ -15,7 +16,6 @@ from scribe_data.utils import (
     lexeme_form_metadata,
     sub_languages,
 )
-from scribe_data.check.check_missing_forms.normalize_forms import sort_qids_by_position
 
 
 def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
@@ -102,18 +102,15 @@ def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
     body_data_type = data_type.replace("_", "")[:-1]
 
     # Generate a single query for all forms.
-    main_body = (
-        f"""# tool: scribe-data
+    main_body = f"""# tool: scribe-data
 # All {language.capitalize()} ({language_qid}) {data_type} ({data_type_qid}) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?{body_data_type}
-  """
-        + "\n  ".join(f'?{form["label"]}' for form in forms_query)
-        + "\n   ?lastModified"
-    )
+  """ + "\n  ".join(f'?{form["label"]}' for form in forms_query)
 
     where_clause = f"""
 

@@ -4,11 +4,11 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?nominativeSingular
   ?nominativePlural
   ?accusativeSingular
   ?accusativePlural
-  ?lastModified
 
 WHERE {
   # MARK: Nominative

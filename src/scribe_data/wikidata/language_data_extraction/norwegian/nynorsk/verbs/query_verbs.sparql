@@ -6,6 +6,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?verb
   ?imperative
   ?preterite
@@ -20,7 +21,6 @@ SELECT
   ?definiteSingularPastParticiple
   ?neuterIndefiniteSingularPastParticiple
   ?feminineMasculineIndefiniteSingularPastParticiple
-  ?lastModified
 
 WHERE {
 

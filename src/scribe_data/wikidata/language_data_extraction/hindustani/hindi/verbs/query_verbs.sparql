@@ -6,6 +6,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?verb
   ?accusative
   ?direct
@@ -16,7 +17,6 @@ SELECT
   ?conjunctiveParticiple
   ?adverbial
   ?absoluteConstruction
-  ?lastModified
 
 WHERE {
   # MARK: Infinitive

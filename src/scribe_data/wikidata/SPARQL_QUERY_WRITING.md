@@ -102,6 +102,7 @@ The following is an example query for Spanish adjectives. The full query is a bi
 ```sparql
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?adjective
   ?femSingular
   ?femPlural
