@@ -6,6 +6,9 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
 import os
 from pathlib import Path
 from typing import List, Union
+import json
+import urllib.error
+from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
 import questionary
 from rich import print as rprint
@@ -227,13 +230,41 @@ def get_data(
                 print(f"Skipping update for {language.title()} {data_type}.")
                 return {"success": False, "skipped": True}
 
-        query_data(
-            languages=[language_or_sub_language],
-            data_type=data_types,
-            output_dir=output_dir,
-            overwrite=overwrite,
-            interactive=interactive,
-        )
+        def print_error_and_suggestions(error_message):
+            """
+            Prints an error message and suggestions for the user.
+            """
+            rprint(error_message)
+            rprint("\n[bold yellow]Suggestions:[/bold yellow]")
+            rprint(
+                "[yellow]1. Try again in a few minutes\n"
+                "2. Consider using a Wikidata dump with --wikidata-dump-path (-wdp)\n"
+                "3. Try querying a smaller subset of data[/yellow]"
+            )
+
+        try:
+            query_data(
+                languages=[language_or_sub_language],
+                data_type=data_types,
+                output_dir=output_dir,
+                overwrite=overwrite,
+                interactive=interactive,
+            )
+        except json.decoder.JSONDecodeError:
+            print_error_and_suggestions(
+                "[bold red]Error: Invalid response from Wikidata query service. The query may be too large or the service is unavailable.[/bold red]"
+            )
+        except urllib.error.HTTPError as e:
+            error_msg = (
+                "[bold red]Error: A client error occurred. Check your request.[/bold red]"
+                if 400 <= e.code < 500
+                else "[bold red]Error: A server error occurred. Please try again later.[/bold red]"
+            )
+            print_error_and_suggestions(error_msg)
+        except EndPointInternalError:
+            print_error_and_suggestions(
+                "[bold red]Error: The Wikidata endpoint encountered an internal error.[/bold red]"
+            )
 
         if not all_bool:
             print(f"Updated data was saved in: {Path(output_dir).resolve()}.")

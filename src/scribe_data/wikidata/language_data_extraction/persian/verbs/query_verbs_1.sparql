@@ -4,12 +4,12 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?infinitive
   ?presentParticiple
   ?pastParticiple
   ?presentWordStem
   ?pastWordStem
-  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9168 ;

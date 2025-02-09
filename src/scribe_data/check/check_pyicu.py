@@ -1,6 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
 Check to see if the requirements of the emoji process are installed.
+
+Example
+-------
+    python3 src/scribe_data/check/check_pyicu.py
 """
 
 import os

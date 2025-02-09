@@ -4,13 +4,13 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?verb
   ?volitive
   ?conditional
   ?indicativePresent
   ?indicativePast
   ?indicativeFuture
-  ?lastModified
 
 WHERE {
   # MARK: Infinitive

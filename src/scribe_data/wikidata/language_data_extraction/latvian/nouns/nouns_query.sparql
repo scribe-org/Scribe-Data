@@ -4,6 +4,7 @@
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?nominativeSingular
   ?nominativePlural
   ?genitiveSingular
@@ -19,7 +20,6 @@ SELECT DISTINCT
   ?vocativeSingular
   ?vocativePlural
   ?gender
-  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q9078 ;

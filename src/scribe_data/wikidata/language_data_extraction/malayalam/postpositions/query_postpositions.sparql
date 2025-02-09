@@ -4,8 +4,8 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?postposition
   ?lastModified
+  ?postposition
 
 WHERE {
   ?lexeme dct:language wd:Q36236 ;

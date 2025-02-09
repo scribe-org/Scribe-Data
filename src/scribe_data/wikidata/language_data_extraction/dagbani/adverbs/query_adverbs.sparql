@@ -4,6 +4,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?adverb
   ?present
   ?past
@@ -14,7 +15,6 @@ SELECT
   ?adverbOfManner
   ?locativeAdverb
   ?phrase
-  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;

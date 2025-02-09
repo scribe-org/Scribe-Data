@@ -4,6 +4,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?singular
 
   ?plural
@@ -15,7 +16,6 @@ SELECT
   ?masculinePlural
 
   ?gender
-  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;

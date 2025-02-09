@@ -4,10 +4,10 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?noun
   ?plural
   ?gender
-  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q33655 ; # Nigerian Pidgin

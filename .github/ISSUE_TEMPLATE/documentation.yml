@@ -1,5 +1,6 @@
 name: 📝 Documentation
 description: Suggest improvements or updates to the documentation of Scribe-Data.
+type: "task"
 labels: ["documentation"]
 projects: ["scribe-org/1"]
 body:
