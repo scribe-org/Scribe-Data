@@ -178,9 +178,16 @@ class LexemeProcessor:
                 )
 
         if translations:
-            self.translations_index[lang_iso][dt_name][lexeme_id][word][
-                modified_date
-            ] = translations
+            # Update to store lastModified at the lexeme level
+            if lexeme_id not in self.translations_index[lang_iso][dt_name]:
+                self.translations_index[lang_iso][dt_name][lexeme_id] = {
+                    "lastModified": modified_date,
+                    word: translations,
+                }
+            else:
+                self.translations_index[lang_iso][dt_name][lexeme_id][word] = (
+                    translations
+                )
 
     def _process_forms(self, lexeme, lang_iso, dt_name):
         """
@@ -189,7 +196,7 @@ class LexemeProcessor:
         lexeme_id = lexeme["id"]
         language_qid = lexeme["language"]
         lexicalCategory = lexeme["lexicalCategory"]
-        modified_date = lexeme["modified"]
+        lastModified = lexeme["modified"]
         forms_data = {}
 
         # Pre-compute form data structure
@@ -233,12 +240,11 @@ class LexemeProcessor:
                         self.forms_index[lexeme_id][lang] = {}
 
                     for cat, new_form_data in new_cat_data.items():
-                        if cat not in self.forms_index[lexeme_id][lang]:
-                            self.forms_index[lexeme_id][lang][cat] = {}
-
-                        self.forms_index[lexeme_id][lang][cat][modified_date] = (
-                            new_form_data
-                        )
+                        # Store forms and modified date at same level
+                        self.forms_index[lexeme_id][lang][cat] = {
+                            "lastModified": lastModified,
+                            **new_form_data,
+                        }
 
             self.forms_counts[lang_iso][dt_name] += len(forms_data)
 
@@ -384,22 +390,14 @@ class LexemeProcessor:
                 )
                 return
 
-            # Flatten the category level and preserve modified_date
+            # Flatten the category level while preserving lastModified
             filtered = {}
             for category_data in self.translations_index[language_iso].values():
-                for lexeme_id, word_data in category_data.items():
-                    for word, date_data in word_data.items():
-                        for modified_date, translations in date_data.items():
-                            if lexeme_id not in filtered:
-                                filtered[lexeme_id] = {}
-                            if modified_date not in filtered[lexeme_id]:
-                                filtered[lexeme_id][modified_date] = {}
-                            filtered[lexeme_id][modified_date][word] = translations
-
-            # Check if filtered data is empty before saving.
-            if not filtered:
-                print(f"No translations found for {language_iso}, skipping export...")
-                return
+                for lexeme_id, lexeme_data in category_data.items():
+                    filtered[lexeme_id] = {
+                        "lastModified": lexeme_data["lastModified"],
+                        **{k: v for k, v in lexeme_data.items() if k != "lastModified"},
+                    }
 
             lang_name = self.iso_to_name[language_iso]
 
@@ -414,7 +412,7 @@ class LexemeProcessor:
                     if main_lang:
                         break
 
-            # If it's a sub-language, create path like: montu/chinese/mandarin/.
+            # If it's a sub-language, create path like: demo/chinese/mandarin/.
             if main_lang:
                 output_path = Path(filepath).parent / main_lang / lang_name
             else:
@@ -470,20 +468,9 @@ class LexemeProcessor:
                 if language_iso in lang_data:
                     # Check if the language data contains our target data type.
                     if data_type in lang_data[language_iso]:
-                        # Initialize dictionary for this lexeme if needed.
-                        if lexeme_id not in filtered:
-                            filtered[lexeme_id] = {}
-
                         # Get the form data for this language and data type.
                         form_data = lang_data[language_iso][data_type]
-
-                        # Copy all form data for this lexeme, preserving the modified_date structure
-                        for date, forms in form_data.items():
-                            if lexeme_id not in filtered:
-                                filtered[lexeme_id] = {}
-                            if date not in filtered[lexeme_id]:
-                                filtered[lexeme_id][date] = {}
-                            filtered[lexeme_id][date].update(forms)
+                        filtered[lexeme_id] = form_data
 
             lang_name = self.iso_to_name[language_iso]
 
