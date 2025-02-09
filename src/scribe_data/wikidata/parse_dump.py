@@ -178,7 +178,7 @@ class LexemeProcessor:
                 )
 
         if translations:
-            # Update to store lastModified at the lexeme level
+            # Update to store lastModified at the lexeme level.
             if lexeme_id not in self.translations_index[lang_iso][dt_name]:
                 self.translations_index[lang_iso][dt_name][lexeme_id] = {
                     "lastModified": modified_date,
@@ -240,7 +240,7 @@ class LexemeProcessor:
                         self.forms_index[lexeme_id][lang] = {}
 
                     for cat, new_form_data in new_cat_data.items():
-                        # Store forms and modified date at same level
+                        # Store forms and modified date at same level.
                         self.forms_index[lexeme_id][lang][cat] = {
                             "lastModified": lastModified,
                             **new_form_data,
@@ -390,7 +390,7 @@ class LexemeProcessor:
                 )
                 return
 
-            # Flatten the category level while preserving lastModified
+            # Flatten the category level while preserving lastModified.
             filtered = {}
             for category_data in self.translations_index[language_iso].values():
                 for lexeme_id, lexeme_data in category_data.items():
@@ -412,7 +412,7 @@ class LexemeProcessor:
                     if main_lang:
                         break
 
-            # If it's a sub-language, create path like: demo/chinese/mandarin/.
+            # If it's a sub-language, then create a path like example/language/sublanguage/.
             if main_lang:
                 output_path = Path(filepath).parent / main_lang / lang_name
             else:
