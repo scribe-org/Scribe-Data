@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Verify this is the original repository to prevent accidental runs in forks
+  # Verify that this is the original repository to prevent accidental runs in forks.
   check-repository:
     runs-on: ubuntu-latest
     outputs:
