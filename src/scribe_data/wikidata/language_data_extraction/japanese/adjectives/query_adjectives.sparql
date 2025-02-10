@@ -4,11 +4,47 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?adjective
+  ?negative
+  ?conjunctive
+  ?attributive
+  ?hypothetical
+  ?imperfective
 
 WHERE {
   ?lexeme dct:language wd:Q5287 ;
-    wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
-    FILTER(lang(?adjective) = "ja-hira")
+      wikibase:lexicalCategory wd:Q34698 ;
+      wikibase:lemma ?adjective ;
+      schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?negativeForm .
+    ?negativeForm ontolex:representation ?negative ;
+      wikibase:grammaticalFeature wd:Q15737187 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conjunctiveForm .
+    ?conjunctiveForm ontolex:representation ?conjunctive ;
+      wikibase:grammaticalFeature wd:Q2888577 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?attributiveForm .
+    ?attributiveForm ontolex:representation ?attributive ;
+      wikibase:grammaticalFeature wd:Q53608953 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?hypotheticalForm .
+    ?hypotheticalForm ontolex:representation ?hypothetical ;
+      wikibase:grammaticalFeature wd:Q53609593 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectiveForm .
+    ?imperfectiveForm ontolex:representation ?imperfective ;
+      wikibase:grammaticalFeature wd:Q2898727 .
+  }
 }

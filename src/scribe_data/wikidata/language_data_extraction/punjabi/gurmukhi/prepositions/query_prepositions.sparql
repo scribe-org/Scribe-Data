@@ -4,11 +4,13 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?preposition
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
     wikibase:lexicalCategory wd:Q4833830 ;
-    wikibase:lemma ?preposition .
+    wikibase:lemma ?preposition ;
+    schema:dateModified ?lastModified .
     FILTER(lang(?preposition) = "pa")
 }

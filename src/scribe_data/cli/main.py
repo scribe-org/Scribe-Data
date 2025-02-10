@@ -1,23 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Setup and commands for the Scribe-Data command line interface.
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 #!/usr/bin/env python3
@@ -36,6 +19,11 @@ from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.total import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
+from scribe_data.utils import (
+    DEFAULT_CSV_EXPORT_DIR,
+    DEFAULT_DUMP_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
+)
 from scribe_data.wiktionary.parse_mediaWiki import parse_wiktionary_translations
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
@@ -132,7 +120,10 @@ def main() -> None:
         help="The output file type.",
     )
     get_parser.add_argument(
-        "-od", "--output-dir", type=str, help="The output directory path for results."
+        "-od",
+        "--output-dir",
+        type=str,
+        help=f"The output directory path for results (default: ./{DEFAULT_JSON_EXPORT_DIR} for JSON, ./{DEFAULT_CSV_EXPORT_DIR} for CSV, etc.).",
     )
     get_parser.add_argument(
         "-ope",
@@ -166,8 +157,9 @@ def main() -> None:
     get_parser.add_argument(
         "-wdp",
         "--wikidata-dump-path",
-        type=str,
-        help="Path to a local Wikidata lexemes dump for running with '--all'.",
+        nargs="?",
+        const="",
+        help=f"Path to a local Wikidata lexemes dump. Uses default directory (./{DEFAULT_DUMP_EXPORT_DIR}) if no path provided.",
     )
     get_parser.add_argument(
         "-t", "--translation", type=str, help="parse a single word using MediaWiki API"
@@ -207,7 +199,7 @@ def main() -> None:
         "--wikidata-dump-path",
         nargs="?",
         const=True,
-        help="Path to a local Wikidata lexemes dump for running with '--all'.",
+        help=f"Path to a local Wikidata lexemes dump for running with '--all' (default: ./{DEFAULT_DUMP_EXPORT_DIR}).",
     )
 
     # MARK: Convert
@@ -307,7 +299,7 @@ def main() -> None:
         "-wdp",
         "--wikidata-dump-path",
         type=str,
-        help="The output directory path for the downloaded dump.",
+        help=f"The output directory path for the downloaded dump (default: ./{DEFAULT_DUMP_EXPORT_DIR}).",
     )
 
     # MARK: Interactive
@@ -363,8 +355,10 @@ def main() -> None:
         elif args.command in ["get", "g"]:
             if args.interactive:
                 start_interactive_mode(operation="get")
+
             if args.translation:
-                parse_wiktionary_translations(args.translation)
+                parse_wiktionary_translations(args.translation, args.output_dir)
+
             else:
                 get_data(
                     language=args.language.lower()

@@ -6,6 +6,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?verb
   ?accusative
   ?direct
@@ -22,7 +23,8 @@ WHERE {
 
   ?lexeme dct:language wd:Q11051 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
     FILTER(lang(?infinitive) = "hi")
 
   # MARK: Accusative

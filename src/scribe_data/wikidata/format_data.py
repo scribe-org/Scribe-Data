@@ -1,23 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Formats the data queried from Wikidata using query_verbs.sparql.
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 import argparse
@@ -42,7 +25,7 @@ def format_data(
     data_type: str = args.data_type,
 ):
     """
-    Formats data that has been queried from the Wikidata Query Service.
+    Format data queried from the Wikidata Query Service.
 
     Parameters
     ----------
@@ -56,8 +39,9 @@ def format_data(
         The type of data being loaded (e.g. 'nouns', 'verbs').
 
     Returns
-    _______
-    A saved and formatted data file for the given language and data type.
+    -------
+    None
+        Saves and formatted data file for the given language and data type.
     """
     data_list, data_path = load_queried_data(
         dir_path=dir_path, language=language, data_type=data_type
@@ -67,6 +51,7 @@ def format_data(
 
     for data_vals in data_list:
         lexeme_id = data_vals["lexemeID"]
+        modified_date = data_vals["lastModified"]
 
         if lexeme_id not in data_formatted:
             data_formatted[lexeme_id] = {}
@@ -74,9 +59,11 @@ def format_data(
         # Reverse to make sure that we're getting the same order as the query.
         query_identifiers = list(reversed(data_vals.keys()))
         query_identifiers.remove("lexemeID")
+        query_identifiers.remove("lastModified")
 
         for k in query_identifiers:
             data_formatted[lexeme_id][k] = data_vals[k]
+        data_formatted[lexeme_id]["lastModified"] = modified_date
 
     data_formatted = collections.OrderedDict(sorted(data_formatted.items()))
 

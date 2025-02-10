@@ -6,6 +6,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?singular
   ?plural
   ?gender
@@ -13,7 +14,8 @@ SELECT
 WHERE {
   ?lexeme dct:language wd:Q58635 ;   # Punjabi (Q58635)
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?singular .
+    wikibase:lemma ?singular ;
+    schema:dateModified ?lastModified .
     FILTER(lang(?singular) = "pnb")
 
   # MARK: Plural

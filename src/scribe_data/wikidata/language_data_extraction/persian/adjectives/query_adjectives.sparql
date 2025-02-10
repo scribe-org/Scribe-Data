@@ -4,6 +4,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?adjective
   ?singular
   ?plural
@@ -11,7 +12,8 @@ SELECT
 WHERE {
   ?lexeme dct:language wd:Q9168 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
     FILTER(lang(?adjective) = "fa")
 
   # MARK: Singular

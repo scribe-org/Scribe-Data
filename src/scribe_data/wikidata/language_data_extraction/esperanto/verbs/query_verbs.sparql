@@ -4,6 +4,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?verb
   ?volitive
   ?conditional
@@ -16,7 +17,8 @@ WHERE {
 
   ?lexeme dct:language wd:Q143 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
 
   # MARK: Volitive
 

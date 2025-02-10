@@ -4,13 +4,15 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?properNoun
   ?nominativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q5885 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?properNoun .
+    wikibase:lemma ?properNoun ;
+    schema:dateModified ?lastModified .
 
   # MARK: Nominative Plural
 

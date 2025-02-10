@@ -4,13 +4,15 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?nominativeSingular
   ?nominativePlural
   ?gender
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
-    wikibase:lexicalCategory wd:Q147276 .
+    wikibase:lexicalCategory wd:Q147276 ;
+    schema:dateModified ?lastModified .
 
   # MARK: Nominative Singular
 

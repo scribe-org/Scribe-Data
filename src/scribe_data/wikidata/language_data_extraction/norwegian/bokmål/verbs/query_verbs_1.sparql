@@ -4,6 +4,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?imperative
   ?preterite
   ?presentPerfect
@@ -14,7 +15,8 @@ SELECT
 
 WHERE {
   ?lexeme dct:language wd:Q25167 ;
-    wikibase:lexicalCategory wd:Q24905 .
+    wikibase:lexicalCategory wd:Q24905 ;
+    schema:dateModified ?lastModified .
 
   # MARK: Imperative
 

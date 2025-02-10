@@ -104,7 +104,7 @@ The following arguments can be passed to the Scribe-Data commands whenever sensi
 2. Retrieve data for both language and data type (e.g. English nouns) in TSV format:
 
    ```bash
-   scribe-data get -lang english -t verbs -od ./output_data -ot tsv
+   scribe-data get -lang english -dt verbs -od ./output_data -ot tsv
    ```
 
 ### Interactive Get Mode

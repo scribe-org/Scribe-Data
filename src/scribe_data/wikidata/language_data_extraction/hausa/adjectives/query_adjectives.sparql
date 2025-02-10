@@ -4,6 +4,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?adjective
   ?plural
   ?feminineSingular
@@ -12,7 +13,8 @@ SELECT
 WHERE {
   ?lexeme dct:language wd:Q56475 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
     FILTER(lang(?adjective) = "ha")
 
   # MARK: Plural

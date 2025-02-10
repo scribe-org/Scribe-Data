@@ -6,6 +6,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?verb
   ?imperative
   ?preterite
@@ -27,7 +28,8 @@ WHERE {
 
   ?lexeme dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb .
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
     FILTER(LANG(?infinitive) = "nn")
 
   # MARK: Imperative

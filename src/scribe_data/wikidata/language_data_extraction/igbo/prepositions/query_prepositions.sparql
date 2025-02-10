@@ -4,13 +4,15 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?preposition
   ?contraction
 
 WHERE {
   ?lexeme dct:language wd:Q33578 ;
     wikibase:lexicalCategory wd:Q4833830 ;
-    wikibase:lemma ?preposition .
+    wikibase:lemma ?preposition ;
+    schema:dateModified ?lastModified .
 
   # MARK: Contraction
 

@@ -4,10 +4,12 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?noun
 
 WHERE {
   ?lexeme dct:language wd:Q33578 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?noun .
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
 }

@@ -6,6 +6,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?indefiniteSingular
   ?indefinitePlural
   ?definiteSingular
@@ -15,7 +16,8 @@ SELECT
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?indefiniteSingular .
+    wikibase:lemma ?indefiniteSingular ;
+    schema:dateModified ?lastModified .
 
   # MARK: Indefinite Plural
 

@@ -1,23 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Functions for downloading Wikidata lexeme dumps.
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 import contextlib
@@ -37,12 +20,7 @@ from scribe_data.utils import DEFAULT_DUMP_EXPORT_DIR, check_lexeme_dump_prompt_
 
 def parse_date(date_string):
     """
-    Parses a date string into a `datetime.date` object.
-
-    Supported formats:
-        - YYYYMMDD
-        - YYYY/MM/DD
-        - YYYY-MM-DD
+    Parse a date string into a datetime.date object (formats: YYYYMMDD, YYYY/MM/DD, YYYY-MM-DD).
 
     Parameters
     ----------
@@ -53,7 +31,6 @@ def parse_date(date_string):
     -------
     datetime.date
         Parsed date object if the format is valid.
-
     None
         If the date format is invalid.
     """
@@ -75,7 +52,7 @@ def available_closest_lexeme_dumpfile(
     target_entity: str, other_old_dumps: str, check_wd_dump_exists
 ):
     """
-    Finds the closest available dump file based on the target date.
+    Find the closest available dump file based on the target date.
 
     Parameters
     ----------
@@ -92,7 +69,6 @@ def available_closest_lexeme_dumpfile(
     -------
     str
         The closest available dump file date (as a string).
-
     None
         If no suitable dump is found.
     """
@@ -124,13 +100,12 @@ def available_closest_lexeme_dumpfile(
 
 def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
     """
-    Downloads a Wikimedia lexeme dump based on the specified target entity or date.
+    Download a Wikimedia lexeme dump based on the specified target entity or date.
 
     Parameters
     ----------
     target_entity : str, optional
         The target dump to download. Defaults to "latest-lexemes".
-
         - If "latest-lexemes", downloads the latest dump.
         - If a valid date (e.g., YYYYMMDD), attempts to download the dump for that date.
 
@@ -138,7 +113,6 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
     -------
     str
         The URL of the requested or closest available dump.
-
     None
         If no suitable dump is found or the request fails.
     """
@@ -146,17 +120,20 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
 
     def check_wd_dump_exists(target_entity):
         """
-        Checks if the specified dump file exists for a target entity.
+        Check if the specified dump file exists for a target entity.
 
         Parameters
         ----------
-            target_entity : str
-                The target entity or date folder to check.
+        target_entity : str
+            The target entity or date folder to check.
 
         Returns
         -------
-            str : The URL of the dump file if it exists.
-            None : If the dump file does not exist.
+        str
+            The URL of the dump file if it exists.
+
+        None
+            If the dump file does not exist.
         """
         entity_url = f"{base_url}/{target_entity}/"
         entity_response = requests.get(entity_url)
@@ -221,7 +198,9 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
 
 
 def wd_lexeme_dump_download_wrapper(
-    wikidata_dump: Optional[str] = None, output_dir: Optional[str] = None
+    wikidata_dump: Optional[str] = None,
+    output_dir: Optional[str] = None,
+    default: bool = False,
 ) -> None:
     """
     Download Wikidata lexeme dumps given user preferences.
@@ -234,6 +213,17 @@ def wd_lexeme_dump_download_wrapper(
     output_dir : str
         Optional directory path for the downloaded file.
         Defaults to 'scribe_data_wikidata_dumps_export' directory.
+
+    default : bool, optional
+        If True, skips the user confirmation prompt.
+        Defaults to False.
+
+    Returns
+    -------
+    str or None
+        - If successful and a dump is downloaded, returns the file path to the downloaded dump.
+        - If an existing usable dump is detected, returns the path to the existing dump.
+        - Returns None if the user chooses not to proceed with the download or no valid dump URL is found.
     """
     dump_url = download_wd_lexeme_dump(wikidata_dump or "latest-lexemes")
 
@@ -254,10 +244,14 @@ def wd_lexeme_dump_download_wrapper(
         filename = dump_url.split("/")[-1]
         output_path = str(Path(output_dir) / filename)
 
-        user_response = questionary.confirm(
-            "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities. Do you want to proceed?",
-            default=True,
-        ).ask()
+        # Use default parameter to bypass user confirmation.
+        user_response = (
+            default
+            or questionary.confirm(
+                "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities. Do you want to proceed?",
+                default=True,
+            ).ask()
+        )
 
         if user_response:
             rprint(f"[bold blue]Downloading dump to {output_path}...[/bold blue]")

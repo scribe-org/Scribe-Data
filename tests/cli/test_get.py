@@ -1,23 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Tests for the CLI get functionality.
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 import unittest
@@ -65,16 +48,16 @@ class TestGetData(unittest.TestCase):
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
     @patch("scribe_data.cli.get.questionary.confirm")
-    def test_get_all_data_types_for_language_user_says_yes(
+    def test_get_all_data_types_for_language_user_says_no(
         self, mock_questionary_confirm, mock_parse, mock_query_data
     ):
         """
-        Test the behavior when the user agrees to query Wikidata directly.
+        Test the behavior when the user agrees to use Wikidata lexeme dumps.
 
         This test checks that `parse_wd_lexeme_dump` is called with the correct parameters
-        when the user confirms they want to query Wikidata.
+        when the user confirms they don't want to query Wikidata.
         """
-        mock_questionary_confirm.return_value.ask.return_value = True
+        mock_questionary_confirm.return_value.ask.return_value = False
 
         get_data(all_bool=True, language="English")
 
@@ -83,6 +66,8 @@ class TestGetData(unittest.TestCase):
             wikidata_dump_type=["form"],
             data_types="all",  # because if only language given, data_types is None
             type_output_dir="scribe_data_json_export",  # default for JSON
+            wikidata_dump_path=None,  # explicitly set to None
+            overwrite_all=False,
         )
         mock_query_data.assert_not_called()
 
@@ -101,6 +86,7 @@ class TestGetData(unittest.TestCase):
             data_types="all",
             type_output_dir="scribe_data_json_export",
             wikidata_dump_path=None,
+            overwrite_all=False,
         )
 
     # MARK: Language and Data Type
@@ -281,8 +267,9 @@ class TestGetData(unittest.TestCase):
         mock_parse.assert_called_once_with(
             language="all",
             wikidata_dump_type=["translations"],
-            type_output_dir="scribe_data_json_export",  # default output dir for JSON
+            type_output_dir="scribe_data_json_export",
             wikidata_dump_path=None,
+            overwrite_all=False,
         )
 
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
@@ -299,6 +286,7 @@ class TestGetData(unittest.TestCase):
             wikidata_dump_type=["translations"],
             type_output_dir="./test_output",
             wikidata_dump_path=None,
+            overwrite_all=False,
         )
 
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
@@ -314,6 +302,61 @@ class TestGetData(unittest.TestCase):
         mock_parse.assert_called_once_with(
             language="German",
             wikidata_dump_type=["translations"],
-            type_output_dir="scribe_data_json_export",  # default for JSON
+            type_output_dir="scribe_data_json_export",
             wikidata_dump_path="./wikidump.json",
+            overwrite_all=False,
+        )
+
+    # MARK: Use QID as language
+
+    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    @patch("scribe_data.cli.get.questionary.confirm")
+    def test_get_data_with_wikidata_identifier(
+        self, mock_questionary_confirm, mock_parse
+    ):
+        """
+        Test retrieving data with a Wikidata identifier as language.
+
+        Ensures that `parse_wd_lexeme_dump` is called with the correct parameters
+        when a Wikidata identifier is used.
+        """
+        # Mock the user confirmation to return True (query Wikidata directly).
+        mock_questionary_confirm.return_value.ask.return_value = False
+
+        get_data(
+            language="Q9217",
+            wikidata_dump="scribe",
+            output_dir="exported_json",
+            all_bool=True,
+        )
+        mock_parse.assert_called_once_with(
+            language="Q9217",
+            wikidata_dump_type=["form"],
+            data_types="all",
+            type_output_dir="exported_json",
+            wikidata_dump_path="scribe",
+            overwrite_all=False,
+        )
+
+    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    def test_get_data_with_wikidata_identifier_and_data_type(self, mock_parse):
+        """
+        Test retrieving a specific data type with a Wikidata identifier.
+
+        Ensures that `parse_wd_lexeme_dump` is called with the correct parameters
+        when a Wikidata identifier and specific data type are used.
+        """
+        get_data(
+            language="Q9217",
+            data_type="nouns",
+            wikidata_dump="scribe",
+            output_dir="exported_json",
+        )
+        mock_parse.assert_called_once_with(
+            language="Q9217",
+            wikidata_dump_type=["form"],
+            data_types=["nouns"],
+            type_output_dir="exported_json",
+            wikidata_dump_path="scribe",
+            overwrite_all=False,
         )

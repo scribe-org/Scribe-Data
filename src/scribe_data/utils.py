@@ -1,24 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Utility functions for data extraction, formatting and loading.
-
-.. raw:: html
-
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 import ast
@@ -43,6 +25,7 @@ DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
 DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
 DEFAULT_DUMP_EXPORT_DIR = "scribe_data_wikidata_dumps_export"
+DEFAULT_MEDIAWIKI_EXPORT_DIR = "scribe_data_mediawiki_export"
 
 LANGUAGE_DATA_EXTRACTION_DIR = (
     Path(__file__).parent / "wikidata" / "language_data_extraction"
@@ -92,6 +75,7 @@ except (IOError, json.JSONDecodeError) as e:
 
 language_map = {}
 language_to_qid = {}
+sub_languages = {}
 
 # Process each language and its potential sub-languages in one pass.
 for lang, lang_data in language_metadata.items():
@@ -117,10 +101,20 @@ for lang, lang_data in language_metadata.items():
             language_map[lang] = lang_data
             language_to_qid[lang] = qid
 
+# Extracts all sub-languages from language metadata.
+for lang_name, lang_data in language_metadata.items():
+    if "sub_languages" in lang_data:
+        sub_languages[lang_name] = {}
+        for sub_lang_name, sub_lang_data in lang_data["sub_languages"].items():
+            sub_languages[lang_name][sub_lang_data["iso"]] = {
+                "name": sub_lang_name,
+                "qid": sub_lang_data["qid"],
+            }
+
 
 def _load_json(package_path: str, file_name: str) -> Any:
     """
-    Loads a JSON resource from a package into a python entity.
+    Load a JSON resource from a package into a python entity.
 
     Parameters
     ----------
@@ -713,6 +707,19 @@ def check_lexeme_dump_prompt_download(output_dir: str):
                 rprint("[bold red]No valid dumps found.[/bold red]")
                 return None
 
+        elif user_input == "Download new version":
+            # Rename existing latest dump if it exists.
+            latest_dump = Path(output_dir) / "latest-lexemes.json.bz2"
+            if latest_dump.exists():
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                backup_name = f"old_latest-lexemes_{timestamp}.json.bz2"
+                latest_dump.rename(Path(output_dir) / backup_name)
+                rprint(
+                    f"[bold green]Renamed existing dump to {backup_name}[/bold green]"
+                )
+
+            return False
+
         else:
             rprint("[bold blue]Skipping download.[/bold blue]")
             return True
@@ -800,6 +807,7 @@ def get_language_iso_code(qid: str):
     ------
     ValueError
         An invalid QID that's not a language has been passed.
+
     KeyError
         The ISO code for the language is not available.
     """

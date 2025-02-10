@@ -1,23 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Functions to check the total language data available on Wikidata.
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 from http.client import IncompleteRead
@@ -28,12 +11,12 @@ from SPARQLWrapper import JSON
 
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
+    check_qid_is_language,
     data_type_metadata,
     format_sublanguage_name,
     language_metadata,
     language_to_qid,
     list_all_languages,
-    check_qid_is_language,
 )
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump, sparql
 
@@ -64,7 +47,7 @@ def get_qid_by_input(input_str):
 
 def get_datatype_list(language):
     """
-    Get the data types for a given language based on the project directory structure, including handling sub-languages.
+    Get the data types for a given language based on the project directory structure.
 
     Parameters
     ----------
@@ -73,7 +56,7 @@ def get_datatype_list(language):
 
     Returns
     -------
-    data_types : list[str] or None
+    list[str]
         A list of the corresponding data types.
     """
     language_key = language.strip().lower()  # normalize input
@@ -129,17 +112,16 @@ def get_datatype_list(language):
 
 def print_total_lexemes(language: str = None):
     """
-    Displays the total number of available entities for all data types for a given language or all the languages.
+    Print the total number of available entities for all data types.
 
     Parameters
     ----------
-    language : str (Default=None)
+    language : str, optional
         The language to display data type entity counts for.
 
     Outputs
     -------
-    str
-        A formatted string indicating the language, data type, and total number of lexemes for all the languages, if found.
+    A formatted string indicating the language, data type, and total number of lexemes for all the languages, if found.
     """
     if language is None:
         print("Returning total counts for all languages and data types...\n")
@@ -159,7 +141,7 @@ def print_total_lexemes(language: str = None):
 
     def print_total_header(language, dt, total_lexemes):
         """
-        Prints the header of the total command output.
+        Print the header of the total command output.
         """
         language_display = (
             "All Languages" if language is None else language.capitalize()
@@ -358,7 +340,7 @@ def total_wrapper(
     data_type : Union[str, List[str]]
         The data type(s) to check for.
 
-    all_bool : boolean
+    all_bool : bool
         Whether all languages and data types should be listed.
 
     wikidata_dump : Union[str, bool]
@@ -367,11 +349,15 @@ def total_wrapper(
     """
     # Handle --all flag
     if all_bool and wikidata_dump:
-        language = "all"
+        if data_type is None:
+            data_type = "all"
+        if language is None:
+            language = "all"
 
     if wikidata_dump is True:  # flag without a wikidata lexeme dump path
         parse_wd_lexeme_dump(
             language=language,
+            data_types=data_type,
             wikidata_dump_type=["total"],
             wikidata_dump_path=None,
         )
@@ -380,6 +366,7 @@ def total_wrapper(
     if isinstance(wikidata_dump, str):  # if user provided a wikidata lexeme dump path
         parse_wd_lexeme_dump(
             language=language,
+            data_types=[data_type],
             wikidata_dump_type=["total"],
             wikidata_dump_path=wikidata_dump,
         )

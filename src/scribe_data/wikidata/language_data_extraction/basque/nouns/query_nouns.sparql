@@ -4,6 +4,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?absIndefinite
   ?absolutiveSingular
   ?absolutivePlural
@@ -11,7 +12,8 @@ SELECT
 WHERE {
   ?lexeme dct:language wd:Q8752 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?absIndefinite .
+    wikibase:lemma ?absIndefinite ;
+    schema:dateModified ?lastModified .
 
   # MARK: Absolutive Singular
 

@@ -12,5 +12,6 @@ wikidata/
 .. toctree::
     :maxdepth: 1
 
+    format_data
     query_profanity
     query_data

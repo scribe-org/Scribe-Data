@@ -1,27 +1,10 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Check the queries within Scribe-Data to make sure the accessed forms are correct.
 
 Example
 -------
     python3 src/scribe_data/check/check_query_forms.py
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 import re
@@ -175,7 +158,7 @@ def extract_form_qids(form_text: str):
 
 def check_form_label(form_text: str):
     """
-    Checks that the label of the form matches the representation label.
+    Check that the label of the form matches the representation label.
 
     Parameters
     ----------
@@ -217,11 +200,11 @@ def check_form_label(form_text: str):
 
 def check_query_formatting(form_text: str):
     """
-    Checks the formatting of the given SPARQL query text for common formatting issues.
+    Check the formatting of the given SPARQL query text for common formatting issues.
 
     Parameters
     ----------
-    query_text : str
+    form_text : str
         The SPARQL query text to check.
 
     Returns
@@ -245,7 +228,7 @@ def check_query_formatting(form_text: str):
 
 def return_correct_form_label(qids: list):
     """
-    Returns the correct label for a lexeme form representation given the QIDs that compose it.
+    Return the correct label for a lexeme form representation given the QIDs that compose it.
 
     Parameters
     ----------
@@ -254,8 +237,8 @@ def return_correct_form_label(qids: list):
 
     Returns
     -------
-    correct_label : str
-        The label for the representation given the QIDs.
+    str
+        The label for the representation given the QIDs..
     """
     if not qids:
         return "Invalid query formatting found"
@@ -281,22 +264,17 @@ def return_correct_form_label(qids: list):
 
 def validate_forms(query_text: str) -> str:
     """
-    Validates the SPARQL query by checking:
-        1. Order of variables in SELECT and WHERE clauses
-        2. Presence and correct definition of forms
-        3. Form labels and representations
-        4. Query formatting
+    Validate SPARQL query by checking variable order in SELECT and WHERE clauses, Presence and correct definition of forms, Form labels and representations and Query formatting.
 
     Parameters
     ----------
-    query_file : str
+    query_text : str
         The SPARQL query text as a string.
 
     Returns
     -------
     str
-        Error message if there are any issues with the order of variables or forms,
-        otherwise an empty string.
+        Error message if there are any issues with the order of variables or forms, otherwise an empty string.
     """
     select_pattern = r"SELECT\s+(.*?)\s+WHERE"
 
@@ -308,15 +286,21 @@ def validate_forms(query_text: str) -> str:
         return "Invalid query format: no SELECT match"
 
     error_messages = []
-    # Exclude the first two variables from select_vars.
+    # Exclude the first two variables - ?lexeme, ?lexemeID and ?lastModified - from select_vars.
     select_vars = select_vars[2:]
+
     # Regex pattern to capture the variables in the WHERE clause.
+    date_modified_pattern = r"schema:dateModified\s*\?(\w+)"
     dt_pattern = r"WHERE\s*\{[^}]*?wikibase:lemma\s*\?\s*(\w+)\s*[;.]\s*"
     potential_prep_case_pattern = r"caseForm rdfs:label.*[.]"
     forms_pattern = r"ontolex:representation \?([^ ;]+)"
     where_vars = []
 
     # Extracting variables from the WHERE clause.
+    date_modified_match = re.findall(date_modified_pattern, query_text)
+    if date_modified_match == ["lastModified"]:
+        where_vars.append("lastModified")
+
     dt_match = re.findall(dt_pattern, query_text)
     if dt_match == ["lemma"]:
         where_vars.append("preposition")
@@ -330,7 +314,7 @@ def validate_forms(query_text: str) -> str:
 
     where_vars += re.findall(forms_pattern, query_text)
 
-    # Handling labels provided by the labeling service  like 'case' and 'gender' in the same order as in select_vars.
+    # Handling labels provided by the labeling service like 'case' and 'gender' in the same order as in select_vars.
     for var in ["case", "gender", "auxiliaryVerb"]:
         if var in select_vars:
             # Insert in the corresponding index of where_vars.
@@ -340,8 +324,8 @@ def validate_forms(query_text: str) -> str:
     uniqueness_forms_check = len(select_vars) != len(set(select_vars))
     undefined_forms = set(select_vars) - set(where_vars)
     unreturned_forms = set(where_vars) - set(select_vars)
-    select_vars = [var for var in select_vars if var not in ["lexeme", "lexemeID"]]
-    where_vars = [var for var in where_vars if var not in ["lexeme", "lexemeID"]]
+    select_vars = [var for var in select_vars if var not in ["lexemeID"]]
+    where_vars = [var for var in where_vars if var not in ["lexemeID"]]
 
     # Check for uniqueness of forms in SELECT.
     if uniqueness_forms_check:
@@ -377,7 +361,7 @@ def validate_forms(query_text: str) -> str:
 
 def check_docstring(query_text: str) -> bool:
     """
-    Checks the docstring of a SPARQL query text to ensure it follows the standard format.
+    Check the docstring of a SPARQL query text to ensure it follows the standard format.
 
     Parameters
     ----------
@@ -419,7 +403,7 @@ def check_docstring(query_text: str) -> bool:
 
 def check_forms_order(query_text):
     """
-    Parses and orders variable names from a SPARQL query text based on a lexeme_form_metadata.json.
+    Parse and order variable names from a SPARQL query text based on a lexeme_form_metadata.json.
 
     Parameters
     ----------
@@ -440,7 +424,7 @@ def check_forms_order(query_text):
 
     # Hardcoded labels provided by the labeling service.
     labeling_service_cols = ["case", "gender", "auxiliaryVerb"]
-    select_vars = select_vars[2:]
+    select_vars = select_vars[3:]
 
     # Split each column label into components.
     split_vars = []
@@ -486,6 +470,7 @@ def check_forms_order(query_text):
     select_lower = [i.lower() for i in select_vars]
 
     if select_lower != sorted_lower:
+        print(f"Invalid sorting:\n{select_lower}\n{sorted_lower}")
         return ", ".join([i[0].lower() + i[1:] for i in sorted_columns])
 
     return sorted_lower == select_lower
@@ -496,8 +481,7 @@ def check_forms_order(query_text):
 
 def check_optional_qid_order(query_file: str) -> str:
     """
-    Checks the order of QIDs in optional statements within a SPARQL query file to ensure they
-    align with the expected sequence based on label features.
+    Check the order of QIDs in optional statements within a SPARQL query file to ensure they align with the expected sequence based on label features.
 
     Parameters
     ----------
@@ -538,7 +522,7 @@ def check_optional_qid_order(query_file: str) -> str:
 
 def check_query_forms() -> None:
     """
-    Validates SPARQL queries in the language data directory to check for correct form QIDs and formatting.
+    Validate SPARQL queries in the language data directory to check for correct form QIDs and formatting.
     """
     error_output = ""
     index = 0

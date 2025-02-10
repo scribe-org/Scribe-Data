@@ -1,24 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Command line tool for testing SPARQl queries against an endpoint.
-
-.. raw:: html
-
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 import argparse
@@ -51,13 +33,13 @@ def ping(url: str, timeout: int) -> bool:
     ----------
     url : str
         The URL to test.
-
     timeout : int
         The maximum number of seconds to wait for a reply.
 
     Returns
     -------
-    bool : True if connectivity is established or False otherwise.
+    bool
+        True if connectivity is established, False otherwise.
     """
     try:
         with urllib.request.urlopen(url, timeout=timeout) as response:
@@ -74,7 +56,8 @@ def all_queries() -> list[QueryFile]:
 
     Returns
     -------
-        list[QueryFile] : the SPARQL query files.
+    list[QueryFile]
+        List of SPARQL query files.
     """
     parts = Path(__file__).resolve().parts
     prj_root_idx = parts.index(PROJECT_ROOT)
@@ -99,7 +82,8 @@ def changed_queries() -> Optional[list[QueryFile]]:
 
     Returns
     -------
-        Optional[list[QueryFile]] : list of changed/new SPARQL queries or None if there's an error.
+    Optional[list[QueryFile]]
+        List of changed/new SPARQL queries, or None if there's an error.
     """
     result = subprocess.run(
         (
@@ -137,7 +121,8 @@ def check_sparql_file(fpath: str) -> Path:
 
     Returns
     -------
-    Path : the validated file.
+    Path
+        The validated file path.
     """
     path = Path(fpath)
 
@@ -233,7 +218,7 @@ def main(argv=None) -> int:
         If set to None then argparse will use sys.argv as the arguments.
 
     Returns
-    --------
+    -------
     int
         The exit status - 0 - success; any other value - failure.
     """

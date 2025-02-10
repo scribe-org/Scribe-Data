@@ -4,6 +4,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?noun
   ?ablativeSingular
   ?ablativePlural
@@ -11,7 +12,8 @@ SELECT
 WHERE {
   ?lexeme dct:language wd:Q397 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?noun .
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
 
   # MARK: Ablative
 

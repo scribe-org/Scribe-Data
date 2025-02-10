@@ -4,11 +4,12 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?infinitive
   ?simplePresent
   ?simplePast
   ?presentParticiple
-  ?pastParticiple
+  ?pastParticipleEnglish
   ?simplePresentThirdPersonSingular
 
 WHERE {
@@ -16,7 +17,8 @@ WHERE {
 
   ?lexeme dct:language wd:Q1860 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive .
+    wikibase:lemma ?infinitive ;
+    schema:dateModified ?lastModified .
 
   # MARK: Simple Present
 
@@ -52,15 +54,15 @@ WHERE {
       FILTER(LANG(?presentParticiple) = "en")
   }
 
-  # MARK: Past Participle
+  # MARK: Past Participle English
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
-    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+    ?lexeme ontolex:lexicalForm ?pastParticipleEnglishForm .
+    ?pastParticipleEnglishForm ontolex:representation ?pastParticipleEnglish ;
       wikibase:grammaticalFeature wd:Q1230649 .
-      FILTER NOT EXISTS { ?pastParticipleForm wdt:P6191 wd:Q181970 . }
-      FILTER NOT EXISTS { ?pastParticipleForm wikibase:grammaticalFeature wd:Q126473 . }
-      FILTER(LANG(?pastParticiple) = "en")
+      FILTER NOT EXISTS { ?pastParticipleEnglishForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?pastParticipleEnglishForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?pastParticipleEnglish) = "en")
   }
 
   # MARK: Third-person Singular

@@ -4,6 +4,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?infinitive
   ?feminineIndicativePast
   ?masculineIndicativePast
@@ -19,7 +20,8 @@ SELECT
 
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
-    wikibase:lexicalCategory wd:Q24905 .
+    wikibase:lexicalCategory wd:Q24905 ;
+    schema:dateModified ?lastModified .
 
   # MARK: Infinitive
 

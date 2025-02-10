@@ -4,6 +4,7 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?adjective
   ?nominativeFeminineSingularPositive
   ?nominativeMasculineSingularPositive
@@ -14,7 +15,8 @@ SELECT
 WHERE {
   ?lexeme dct:language wd:Q9058;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective .
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
 
   # MARK: Nominative
 

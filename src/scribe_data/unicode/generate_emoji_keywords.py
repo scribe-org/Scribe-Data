@@ -1,23 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Centralized keyword-emoji generation file to generated emoji for a specified Language.
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 import os
@@ -36,7 +19,7 @@ EMOJI_KEYWORDS_DICT = 3
 
 def generate_emoji(language, output_dir: str = None):
     """
-    Generates emoji keywords for a specified language and exports the data to the given directory.
+    Generate emoji keywords for a specified language.
 
     This function first checks and installs the PyICU package, which is necessary for the script to run.
     If the installation is successful, it proceeds with generating emoji keywords based on the specified language.

@@ -1,23 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Tests for the CLI total functionality.
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 import json
@@ -274,3 +257,95 @@ class TestTotalWrapper(unittest.TestCase):
     def test_total_wrapper_invalid_input(self):
         with self.assertRaises(ValueError):
             total_wrapper()
+
+    # MARK: Using Dump
+
+    @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
+    def test_total_wrapper_wikidata_dump_flag(self, mock_parse_dump):
+        """Test when wikidata_dump is True (flag without path)"""
+        total_wrapper(wikidata_dump=True)
+        mock_parse_dump.assert_called_once_with(
+            language=None,
+            data_types=None,
+            wikidata_dump_type=["total"],
+            wikidata_dump_path=None,
+        )
+
+    @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
+    def test_total_wrapper_wikidata_dump_path(self, mock_parse_dump):
+        """Test when wikidata_dump is a file path"""
+        dump_path = "/path/to/dump.json"
+        total_wrapper(wikidata_dump=dump_path)
+        mock_parse_dump.assert_called_once_with(
+            language=None,
+            data_types=[None],
+            wikidata_dump_type=["total"],
+            wikidata_dump_path=dump_path,
+        )
+
+    @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
+    def test_total_wrapper_wikidata_dump_with_all(self, mock_parse_dump):
+        """Test when both wikidata_dump and all_bool are True"""
+        total_wrapper(wikidata_dump=True, all_bool=True)
+        mock_parse_dump.assert_called_once_with(
+            language="all",
+            data_types="all",
+            wikidata_dump_type=["total"],
+            wikidata_dump_path=None,
+        )
+
+    @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
+    def test_total_wrapper_wikidata_dump_with_language_and_type(self, mock_parse_dump):
+        """Test wikidata_dump with specific language and data type"""
+        total_wrapper(
+            language="English", data_type="nouns", wikidata_dump="/path/to/dump.json"
+        )
+        mock_parse_dump.assert_called_once_with(
+            language="English",
+            data_types=["nouns"],
+            wikidata_dump_type=["total"],
+            wikidata_dump_path="/path/to/dump.json",
+        )
+
+    # MARK: Using QID
+
+    @patch("scribe_data.cli.total.check_qid_is_language")
+    @patch("scribe_data.cli.total.print_total_lexemes")
+    def test_total_wrapper_with_qid(self, mock_print_total, mock_check_qid):
+        """
+        Test when language is provided as a QID
+        """
+        mock_check_qid.return_value = "Thai"
+        total_wrapper(language="Q9217")
+        mock_print_total.assert_called_once_with(language="Q9217")
+
+    @patch("scribe_data.cli.total.check_qid_is_language")
+    @patch("scribe_data.cli.total.get_total_lexemes")
+    def test_total_wrapper_with_qid_and_datatype(self, mock_get_total, mock_check_qid):
+        """
+        Test when language QID and data type are provided
+        """
+        mock_check_qid.return_value = "Thai"
+        total_wrapper(language="Q9217", data_type="nouns")
+        mock_get_total.assert_called_once_with(language="Q9217", data_type="nouns")
+
+    @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
+    def test_total_wrapper_qid_with_wikidata_dump(self, mock_parse_dump):
+        """
+        Test QID with wikidata dump
+        """
+        total_wrapper(language="Q9217", wikidata_dump=True, all_bool=True)
+        mock_parse_dump.assert_called_once_with(
+            language="Q9217",
+            data_types="all",
+            wikidata_dump_type=["total"],
+            wikidata_dump_path=None,
+        )
+
+    @patch("scribe_data.cli.total.get_total_lexemes")
+    def test_get_total_lexemes_with_qid(self, mock_get_total):
+        """
+        Test get_total_lexemes with QID input
+        """
+        total_wrapper(language="Q9217", data_type="Q1084")  # Q1084 is noun QID
+        mock_get_total.assert_called_once_with(language="Q9217", data_type="Q1084")

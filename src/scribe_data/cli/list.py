@@ -1,23 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 Functions for listing languages and data types for the Scribe-Data CLI.
-
-.. raw:: html
-    <!--
-    * Copyright (C) 2024 Scribe
-    *
-    * This program is free software: you can redistribute it and/or modify
-    * it under the terms of the GNU General Public License as published by
-    * the Free Software Foundation, either version 3 of the License, or
-    * (at your option) any later version.
-    *
-    * This program is distributed in the hope that it will be useful,
-    * but WITHOUT ANY WARRANTY; without even the implied warranty of
-    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    * GNU General Public License for more details.
-    *
-    * You should have received a copy of the GNU General Public License
-    * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    -->
 """
 
 import os
@@ -38,7 +21,11 @@ from scribe_data.utils import (
 
 def list_languages() -> None:
     """
-    Generates a table of languages, their ISO-2 codes and their Wikidata QIDs.
+    Generate a table of languages with their ISO-2 codes and Wikidata QIDs.
+
+    Returns
+    -------
+    None
     """
     languages = list_all_languages(language_metadata)
 
@@ -64,7 +51,7 @@ def list_languages() -> None:
 
 def list_data_types(language: str = None) -> None:
     """
-    Lists all data types or those available for a given language.
+    List all data types or those available for a given language.
 
     Parameters
     ----------
@@ -128,7 +115,11 @@ def list_data_types(language: str = None) -> None:
 
 def list_all() -> None:
     """
-    Lists all available languages and data types.
+    List all available languages and data types.
+
+    Returns
+    -------
+    None
     """
     list_languages()
     list_data_types()
@@ -136,12 +127,16 @@ def list_all() -> None:
 
 def list_languages_for_data_type(data_type: str) -> None:
     """
-    Lists the available languages for a given data type.
+    List the available languages for a given data type.
 
     Parameters
     ----------
     data_type : str
         The data type to check for.
+
+    Returns
+    -------
+    None
     """
     data_type = correct_data_type(data_type=data_type)
     all_languages = list_languages_with_metadata_for_data_type(language_metadata)
@@ -183,8 +178,12 @@ def list_wrapper(
     data_type : str
         The data type to check for.
 
-    all_bool : boolean
+    all_bool : bool
         Whether all languages and data types should be listed.
+
+    Returns
+    -------
+    None
     """
     if (not language and not data_type) or all_bool:
         list_all()

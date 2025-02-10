@@ -5,6 +5,7 @@
 # Not SELECT as we want to get verbs with both sein and haben as auxiliaries
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?infinitive
   ?pastParticiple
   ?indicativePreteriteFirstPersonSingular
@@ -18,7 +19,8 @@ SELECT
 WHERE {
   ?lexeme dct:language wd:Q188 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive .
+    wikibase:lemma ?infinitive ;
+    schema:dateModified ?lastModified .
 
   # MARK: Past Participle
 
