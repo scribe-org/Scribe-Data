@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   release:
     types: [published]
-  workflow_dispatch:
+  workflow_dispatch: # manual triggering
 
 jobs:
   # Verify that this is the original repository to prevent accidental runs in forks.
@@ -15,8 +15,8 @@ jobs:
       - name: Repository validation
         id: check
         run: |
-          # This check prevents accidental runs in forked repositories
-          # To disable for forks, comment/remove this entire job
+          # This check prevents accidental runs in forked repositories.
+          # To disable for forks, comment/remove this entire job.
           if [ "$GITHUB_REPOSITORY" = "scribe-org/Scribe-Data" ]; then
             echo "is_correct_repo=true" >> "$GITHUB_OUTPUT"
           else
