@@ -292,8 +292,13 @@ def get_total_lexemes(language, data_type, do_print=True):
 
             else:
                 print("Query failed after retries.")
+                return None
 
     # Check if the query returned any results.
+    if results is None:
+        print("Total number of lexemes: Not found")
+        return None
+
     if (
         "results" in results
         and "bindings" in results["results"]

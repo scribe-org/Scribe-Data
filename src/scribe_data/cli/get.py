@@ -3,15 +3,15 @@
 Functions for getting languages-data types packs for the Scribe-Data CLI.
 """
 
+import json
 import os
+import urllib.error
 from pathlib import Path
 from typing import List, Union
-import json
-import urllib.error
-from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
 import questionary
 from rich import print as rprint
+from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
 from scribe_data.cli.convert import convert_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
@@ -203,7 +203,7 @@ def get_data(
 
     # MARK: Query Data
 
-    elif language or data_type:
+    elif language and data_type:
         language_or_sub_language = language.split(" ")[0]
         data_type = data_type[0] if isinstance(data_type, list) else data_type
         print(
@@ -271,7 +271,7 @@ def get_data(
 
     else:
         raise ValueError(
-            "You must provide at least one of the --language (-l) or --data-type (-dt) options, or use --all (-a)."
+            "You must provide at least one --language (-l) and one --data-type (-dt). You can also use --all (-a) for all combinations or all data types using --all (-a) in place of --data-type (-dt)."
         )
 
     # Output Conversion
