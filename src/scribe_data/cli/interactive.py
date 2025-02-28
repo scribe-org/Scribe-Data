@@ -171,12 +171,16 @@ def configure_settings():
 
     output_type_completer = create_word_completer(["json", "csv", "tsv"])
     config.output_type = prompt(
-        "Select output type (json/csv/tsv): ", completer=output_type_completer
+        "Select output type (json/csv/tsv): ",
+        default="json",
+        completer=output_type_completer,
     )
     while config.output_type not in ["json", "csv", "tsv"]:
         rprint("[yellow]Invalid output type selected. Please try again.[/yellow]")
         config.output_type = prompt(
-            "Select output type (json/csv/tsv): ", completer=output_type_completer
+            "Select output type (json/csv/tsv): ",
+            default="json",
+            completer=output_type_completer,
         )
 
     # MARK: Output Directory
@@ -221,21 +225,22 @@ def run_request():
             for data_type in config.selected_data_types:
                 pbar.set_description(f"Exporting {language} {data_type} data")
 
-                if get_data(
-                    language=language,
-                    data_type=data_type,
-                    output_type=config.output_type,
-                    output_dir=str(config.output_dir),
-                    overwrite=config.overwrite,
-                    interactive=True,
-                ):
-                    logger.info(
-                        f"[green]✔ Exported {language} {data_type} data.[/green]"
+                try:
+                    get_data(
+                        language=language,
+                        data_type=data_type,
+                        output_type=config.output_type,
+                        output_dir=str(config.output_dir),
+                        overwrite=config.overwrite,
+                        interactive=True,
                     )
-
-                else:
+                    # The data was successfully written to file, so we can log success
                     logger.info(
-                        f"[red]✘ Failed to export {language} {data_type} data.[/red]"
+                        f"[green]✔ Successfully exported {language} {data_type} data.[/green]"
+                    )
+                except Exception as e:
+                    logger.error(
+                        f"[red]✖ Failed to export {language} {data_type} data: {str(e)}[/red]"
                     )
 
                 pbar.update(1)
@@ -331,7 +336,16 @@ def start_interactive_mode(operation: str = None):
                 questionary.Choice("Exit", "exit"),
             ]
             if config.configured:
-                choices.insert(1, questionary.Choice("Request for get data", "run"))
+                choices.insert(
+                    1, questionary.Choice("Run get data request with WDQS", "run")
+                )
+                choices.insert(
+                    2,
+                    questionary.Choice(
+                        "Run get lexemes request with lexeme dumps", "run_all"
+                    ),
+                )
+
             elif config.selected_languages and config.selected_data_types:
                 choices.insert(
                     1, questionary.Choice("Request for convert JSON", "convert_json")
@@ -370,7 +384,23 @@ def start_interactive_mode(operation: str = None):
 
         if choice == "configure":
             configure_settings()
+        elif choice == "run_all":
+            if wikidata_dump_path := prompt(
+                f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
+            ):
+                wikidata_dump_path = Path(wikidata_dump_path)
+            else:
+                wikidata_dump_path = Path(DEFAULT_DUMP_EXPORT_DIR)
 
+            parse_wd_lexeme_dump(
+                language=config.selected_languages,
+                wikidata_dump_type=["get"],
+                data_types=config.selected_data_types,
+                type_output_dir=config.output_dir,
+                wikidata_dump_path=wikidata_dump_path,
+            )
+            rprint(THANK_YOU_MESSAGE)
+            break
         elif choice == "total":
             prompt_for_languages()
             prompt_for_data_types()
