@@ -3,14 +3,14 @@
 Tests for the CLI get functionality.
 """
 
+import json
 import unittest
+import urllib.error
 from pathlib import Path
 from unittest.mock import patch
-import json
-import urllib.error
-from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
 from scribe_data.cli.get import get_data
+from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
 
 class TestGetData(unittest.TestCase):
@@ -376,7 +376,7 @@ class TestGetData(unittest.TestCase):
         This tests the behavior when using --all (-a) with --data-type (-dt) and the user
         chooses not to query Wikidata directly.
         """
-        # Mock user choosing to use lexeme dump instead of querying Wikidata
+        # Mock user choosing to use lexeme dump instead of querying Wikidata.
         mock_questionary_confirm.return_value.ask.return_value = False
 
         get_data(all_bool=True, data_type="verbs", output_dir="test")
@@ -401,7 +401,7 @@ class TestGetData(unittest.TestCase):
         This tests the behavior when using --all (-a) with --data-type (-dt) and the user
         chooses to query Wikidata directly.
         """
-        # Mock user choosing to query Wikidata directly
+        # Mock user choosing to query Wikidata directly.
         mock_questionary_confirm.return_value.ask.return_value = True
 
         get_data(all_bool=True, data_type="verbs", output_dir="test")
@@ -423,7 +423,6 @@ class TestGetData(unittest.TestCase):
         mock_query_data.side_effect = json.decoder.JSONDecodeError("Msg", "Doc", 0)
 
         get_data(language="German", data_type="verbs")
-        # Test passes if no exception is raised and error is handled gracefully
 
     @patch("scribe_data.cli.get.query_data")
     def test_http_error_handling(self, mock_query_data):
@@ -435,7 +434,6 @@ class TestGetData(unittest.TestCase):
         )
 
         get_data(language="German", data_type="verbs")
-        # Test passes if no exception is raised and error is handled gracefully
 
     @patch("scribe_data.cli.get.query_data")
     def test_endpoint_error_handling(self, mock_query_data):
@@ -445,7 +443,6 @@ class TestGetData(unittest.TestCase):
         mock_query_data.side_effect = EndPointInternalError
 
         get_data(language="German", data_type="verbs")
-        # Test passes if no exception is raised and error is handled gracefully
 
     # MARK: Output Type Handling
 
@@ -469,7 +466,7 @@ class TestGetData(unittest.TestCase):
             identifier_case="snake",
         )
 
-        # Use Path to create platform-appropriate path
+        # Use Path to create platform-appropriate path.
         expected_input_file = str(Path("test_dir/German/verbs.json"))
 
         mock_convert.assert_called_once_with(

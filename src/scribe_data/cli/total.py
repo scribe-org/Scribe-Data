@@ -289,6 +289,7 @@ def get_total_lexemes(language, data_type, do_print=True):
         if results is None:
             if try_count <= max_retries:
                 print("The query will be retried...")
+
             else:
                 print("Query failed after retries.")
                 return None
