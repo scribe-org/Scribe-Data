@@ -203,7 +203,7 @@ def get_data(
 
     # MARK: Query Data
 
-    elif language or data_type:
+    elif language and data_type:
         language_or_sub_language = language.split(" ")[0]
         data_type = data_type[0] if isinstance(data_type, list) else data_type
         print(
