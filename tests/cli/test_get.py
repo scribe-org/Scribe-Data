@@ -6,6 +6,9 @@ Tests for the CLI get functionality.
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+import json
+import urllib.error
+from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
 from scribe_data.cli.get import get_data
 
@@ -360,3 +363,143 @@ class TestGetData(unittest.TestCase):
             wikidata_dump_path="scribe",
             overwrite_all=False,
         )
+
+    # MARK: All Languages for Data Type
+    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    @patch("scribe_data.cli.get.questionary.confirm")
+    def test_get_all_languages_for_data_type_user_says_no(
+        self, mock_questionary_confirm, mock_parse
+    ):
+        """
+        Test retrieving all languages for a specific data type when user chooses to use lexeme dump.
+
+        This tests the behavior when using --all (-a) with --data-type (-dt) and the user
+        chooses not to query Wikidata directly.
+        """
+        # Mock user choosing to use lexeme dump instead of querying Wikidata
+        mock_questionary_confirm.return_value.ask.return_value = False
+
+        get_data(all_bool=True, data_type="verbs", output_dir="test")
+
+        mock_parse.assert_called_once_with(
+            language="all",
+            wikidata_dump_type=["form"],
+            data_types=["verbs"],
+            type_output_dir="test",
+            wikidata_dump_path=None,
+            overwrite_all=False,
+        )
+
+    @patch("scribe_data.cli.get.query_data")
+    @patch("scribe_data.cli.get.questionary.confirm")
+    def test_get_all_languages_for_data_type_user_says_yes(
+        self, mock_questionary_confirm, mock_query_data
+    ):
+        """
+        Test retrieving all languages for a specific data type when user chooses to query Wikidata.
+
+        This tests the behavior when using --all (-a) with --data-type (-dt) and the user
+        chooses to query Wikidata directly.
+        """
+        # Mock user choosing to query Wikidata directly
+        mock_questionary_confirm.return_value.ask.return_value = True
+
+        get_data(all_bool=True, data_type="verbs", output_dir="test")
+
+        mock_query_data.assert_called_once_with(
+            languages=None,
+            data_type=["verbs"],
+            output_dir="test",
+            overwrite=False,
+        )
+
+    # MARK: Error Handling
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_json_decode_error_handling(self, mock_query_data):
+        """
+        Test handling of JSONDecodeError when querying data.
+        """
+        mock_query_data.side_effect = json.decoder.JSONDecodeError("Msg", "Doc", 0)
+
+        get_data(language="German", data_type="verbs")
+        # Test passes if no exception is raised and error is handled gracefully
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_http_error_handling(self, mock_query_data):
+        """
+        Test handling of HTTPError when querying data.
+        """
+        mock_query_data.side_effect = urllib.error.HTTPError(
+            url="test", code=500, msg="error", hdrs={}, fp=None
+        )
+
+        get_data(language="German", data_type="verbs")
+        # Test passes if no exception is raised and error is handled gracefully
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_endpoint_error_handling(self, mock_query_data):
+        """
+        Test handling of EndPointInternalError when querying data.
+        """
+        mock_query_data.side_effect = EndPointInternalError
+
+        get_data(language="German", data_type="verbs")
+        # Test passes if no exception is raised and error is handled gracefully
+
+    # MARK: Output Type Handling
+
+    @patch("scribe_data.cli.get.query_data")
+    @patch("scribe_data.cli.get.convert_wrapper")
+    @patch("scribe_data.cli.get.Path.exists")
+    @patch("scribe_data.cli.get.os.remove")
+    def test_output_type_conversion(
+        self, mock_remove, mock_exists, mock_convert, mock_query_data
+    ):
+        """
+        Test conversion of output to different file types.
+        """
+        mock_exists.return_value = True
+
+        get_data(
+            language="German",
+            data_type="verbs",
+            output_type="csv",
+            output_dir="test_dir",
+            identifier_case="snake",
+        )
+
+        mock_convert.assert_called_once_with(
+            language="German",
+            data_type="verbs",
+            output_type="csv",
+            input_file="test_dir/German/verbs.json",
+            output_dir="test_dir",
+            overwrite=False,
+            identifier_case="snake",
+        )
+        mock_remove.assert_called_once()
+
+    # MARK: Default Output Directory
+
+    def test_default_output_directory_selection(self):
+        """
+        Test that correct default output directory is selected based on output type.
+        """
+        test_cases = [
+            ("csv", "scribe_data_csv_export"),
+            ("json", "scribe_data_json_export"),
+            ("sqlite", "scribe_data_sqlite_export"),
+            ("tsv", "scribe_data_tsv_export"),
+        ]
+
+        for output_type, expected_dir in test_cases:
+            with patch("scribe_data.cli.get.query_data") as mock_query:
+                get_data(language="German", data_type="verbs", output_type=output_type)
+                mock_query.assert_called_with(
+                    languages=["German"],
+                    data_type=["verbs"],
+                    output_dir=expected_dir,
+                    overwrite=False,
+                    interactive=False,
+                )
