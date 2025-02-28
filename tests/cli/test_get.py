@@ -469,11 +469,14 @@ class TestGetData(unittest.TestCase):
             identifier_case="snake",
         )
 
+        # Use Path to create platform-appropriate path
+        expected_input_file = str(Path("test_dir/German/verbs.json"))
+
         mock_convert.assert_called_once_with(
             language="German",
             data_type="verbs",
             output_type="csv",
-            input_file="test_dir/German/verbs.json",
+            input_file=expected_input_file,
             output_dir="test_dir",
             overwrite=False,
             identifier_case="snake",
