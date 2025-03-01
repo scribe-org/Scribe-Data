@@ -1,0 +1,127 @@
+# tool: scribe-data
+# All Hebrew (Q9288) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?infinitive
+  ?present
+  ?commonSingular
+  ?presentSingular
+  ?presentPlural
+  ?presentConstruct
+  ?firstPersonSingular
+  ?firstPersonPlural
+  ?masculineImperativePlural
+  ?presentSingularConstruct
+  ?presentPluralConstruct
+  ?pastThirdPersonPlural
+  ?femininePresentSingularConstruct
+  ?femininePresentPluralConstruct
+  ?masculinePresentSingularConstruct
+  ?masculinePresentPluralConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q9288 ;
+      wikibase:lexicalCategory wd:Q24905 ;
+      wikibase:lemma ?verb ;
+      schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?commonSingularForm .
+    ?commonSingularForm ontolex:representation ?commonSingular ;
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentSingularForm .
+    ?presentSingularForm ontolex:representation ?presentSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPluralForm .
+    ?presentPluralForm ontolex:representation ?presentPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentConstructForm .
+    ?presentConstructForm ontolex:representation ?presentConstruct ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonSingularForm .
+    ?firstPersonSingularForm ontolex:representation ?firstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonPluralForm .
+    ?firstPersonPluralForm ontolex:representation ?firstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineImperativePluralForm .
+    ?masculineImperativePluralForm ontolex:representation ?masculineImperativePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q22716, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentSingularConstructForm .
+    ?presentSingularConstructForm ontolex:representation ?presentSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPluralConstructForm .
+    ?presentPluralConstructForm ontolex:representation ?presentPluralConstruct ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q146786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastThirdPersonPluralForm .
+    ?pastThirdPersonPluralForm ontolex:representation ?pastThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePresentSingularConstructForm .
+    ?femininePresentSingularConstructForm ontolex:representation ?femininePresentSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q192613, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePresentPluralConstructForm .
+    ?femininePresentPluralConstructForm ontolex:representation ?femininePresentPluralConstruct ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q192613, wd:Q146786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePresentSingularConstructForm .
+    ?masculinePresentSingularConstructForm ontolex:representation ?masculinePresentSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q192613, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePresentPluralConstructForm .
+    ?masculinePresentPluralConstructForm ontolex:representation ?masculinePresentPluralConstruct ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q192613, wd:Q146786, wd:Q1641446 .
+  }
+}

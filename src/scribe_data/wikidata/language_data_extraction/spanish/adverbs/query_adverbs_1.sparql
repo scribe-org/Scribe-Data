@@ -1,0 +1,22 @@
+# tool: scribe-data
+# All Spanish (Q1321) adverbs (Q380057) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adverb
+  ?superlative
+
+WHERE {
+  ?lexeme dct:language wd:Q1321 ;
+      wikibase:lexicalCategory wd:Q380057 ;
+      wikibase:lemma ?adverb ;
+      schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+}

@@ -1,0 +1,421 @@
+# tool: scribe-data
+# All Italian (Q652) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?infinitive
+  ?gerund
+  ?presentParticiple
+  ?pastParticiple
+  ?infinitivePresent
+  ?infinitivePresentInfinitive
+  ?presentGerund
+  ?firstPersonPlural
+  ?participlePresentParticiple
+  ?participlePastParticiple
+  ?participlePastParticipleEnglish
+  ?presentFirstPersonSingular
+  ?presentFirstPersonPlural
+  ?presentSecondPersonSingular
+  ?presentSecondPersonPlural
+  ?presentThirdPersonSingular
+  ?presentThirdPersonPlural
+  ?feminineSingularParticiplePastParticiple
+  ?femininePluralParticiplePastParticiple
+  ?masculineSingularParticiplePastParticiple
+  ?masculinePluralParticiplePastParticiple
+  ?indicativePresentFirstPersonSingular
+  ?indicativePresentFirstPersonPlural
+  ?indicativePresentSecondPersonSingular
+  ?indicativePresentSecondPersonPlural
+  ?indicativePresentThirdPersonSingular
+  ?indicativePresentThirdPersonPlural
+  ?indicativePreteriteFirstPersonSingular
+  ?indicativePreteriteFirstPersonPlural
+  ?indicativePreteriteSecondPersonSingular
+  ?indicativePreteriteSecondPersonPlural
+  ?indicativePreteriteThirdPersonSingular
+  ?indicativePreteriteThirdPersonPlural
+  ?indicativeSimpleFutureFirstPersonSingular
+  ?indicativeSimpleFutureFirstPersonPlural
+  ?indicativeSimpleFutureSecondPersonSingular
+  ?indicativeSimpleFutureSecondPersonPlural
+  ?indicativeSimpleFutureThirdPersonSingular
+  ?indicativeSimpleFutureThirdPersonPlural
+  ?indicativePresentIndicativeFirstPersonSingular
+  ?indicativePresentIndicativeFirstPersonPlural
+  ?indicativePresentIndicativeSecondPersonSingular
+  ?indicativePresentIndicativeSecondPersonPlural
+  ?indicativePresentIndicativeThirdPersonSingular
+  ?indicativePresentIndicativeThirdPersonPlural
+  ?indicativePastImperfectFirstPersonSingular
+  ?indicativePastImperfectFirstPersonPlural
+  ?indicativePastImperfectSecondPersonSingular
+  ?indicativePastImperfectSecondPersonPlural
+  ?indicativePastImperfectThirdPersonSingular
+  ?indicativePastImperfectThirdPersonPlural
+  ?thirdPersonSingularParticiplePastParticiple
+  ?indicativeActivePresentFirstPersonSingular
+  ?indicativeActivePresentFirstPersonPlural
+  ?indicativeActivePresentSecondPersonSingular
+  ?indicativeActivePresentSecondPersonPlural
+  ?indicativeActivePresentThirdPersonSingular
+  ?indicativeActivePresentThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q652 ;
+      wikibase:lexicalCategory wd:Q24905 ;
+      wikibase:lemma ?verb ;
+      schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
+    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitivePresentForm .
+    ?infinitivePresentForm ontolex:representation ?infinitivePresent ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitivePresentInfinitiveForm .
+    ?infinitivePresentInfinitiveForm ontolex:representation ?infinitivePresentInfinitive ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q52434245 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentGerundForm .
+    ?presentGerundForm ontolex:representation ?presentGerund ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonPluralForm .
+    ?firstPersonPluralForm ontolex:representation ?firstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participlePresentParticipleForm .
+    ?participlePresentParticipleForm ontolex:representation ?participlePresentParticiple ;
+      wikibase:grammaticalFeature wd:Q814722, wd:Q10345583 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participlePastParticipleForm .
+    ?participlePastParticipleForm ontolex:representation ?participlePastParticiple ;
+      wikibase:grammaticalFeature wd:Q814722, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participlePastParticipleEnglishForm .
+    ?participlePastParticipleEnglishForm ontolex:representation ?participlePastParticipleEnglish ;
+      wikibase:grammaticalFeature wd:Q814722, wd:Q1230649 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentFirstPersonSingularForm .
+    ?presentFirstPersonSingularForm ontolex:representation ?presentFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentFirstPersonPluralForm .
+    ?presentFirstPersonPluralForm ontolex:representation ?presentFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentSecondPersonSingularForm .
+    ?presentSecondPersonSingularForm ontolex:representation ?presentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentSecondPersonPluralForm .
+    ?presentSecondPersonPluralForm ontolex:representation ?presentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentThirdPersonSingularForm .
+    ?presentThirdPersonSingularForm ontolex:representation ?presentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentThirdPersonPluralForm .
+    ?presentThirdPersonPluralForm ontolex:representation ?presentThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSingularParticiplePastParticipleForm .
+    ?feminineSingularParticiplePastParticipleForm ontolex:representation ?feminineSingularParticiplePastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q814722, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePluralParticiplePastParticipleForm .
+    ?femininePluralParticiplePastParticipleForm ontolex:representation ?femininePluralParticiplePastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q814722, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularParticiplePastParticipleForm .
+    ?masculineSingularParticiplePastParticipleForm ontolex:representation ?masculineSingularParticiplePastParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q814722, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralParticiplePastParticipleForm .
+    ?masculinePluralParticiplePastParticipleForm ontolex:representation ?masculinePluralParticiplePastParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q814722, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentFirstPersonSingularForm .
+    ?indicativePresentFirstPersonSingularForm ontolex:representation ?indicativePresentFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q192613, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentFirstPersonPluralForm .
+    ?indicativePresentFirstPersonPluralForm ontolex:representation ?indicativePresentFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q192613, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentSecondPersonSingularForm .
+    ?indicativePresentSecondPersonSingularForm ontolex:representation ?indicativePresentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q192613, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentSecondPersonPluralForm .
+    ?indicativePresentSecondPersonPluralForm ontolex:representation ?indicativePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentThirdPersonSingularForm .
+    ?indicativePresentThirdPersonSingularForm ontolex:representation ?indicativePresentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q192613, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentThirdPersonPluralForm .
+    ?indicativePresentThirdPersonPluralForm ontolex:representation ?indicativePresentThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q192613, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonSingularForm .
+    ?indicativePreteriteFirstPersonSingularForm ontolex:representation ?indicativePreteriteFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonPluralForm .
+    ?indicativePreteriteFirstPersonPluralForm ontolex:representation ?indicativePreteriteFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonSingularForm .
+    ?indicativePreteriteSecondPersonSingularForm ontolex:representation ?indicativePreteriteSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonPluralForm .
+    ?indicativePreteriteSecondPersonPluralForm ontolex:representation ?indicativePreteriteSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonSingularForm .
+    ?indicativePreteriteThirdPersonSingularForm ontolex:representation ?indicativePreteriteThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonPluralForm .
+    ?indicativePreteriteThirdPersonPluralForm ontolex:representation ?indicativePreteriteThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureFirstPersonSingularForm .
+    ?indicativeSimpleFutureFirstPersonSingularForm ontolex:representation ?indicativeSimpleFutureFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureFirstPersonPluralForm .
+    ?indicativeSimpleFutureFirstPersonPluralForm ontolex:representation ?indicativeSimpleFutureFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureSecondPersonSingularForm .
+    ?indicativeSimpleFutureSecondPersonSingularForm ontolex:representation ?indicativeSimpleFutureSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureSecondPersonPluralForm .
+    ?indicativeSimpleFutureSecondPersonPluralForm ontolex:representation ?indicativeSimpleFutureSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureThirdPersonSingularForm .
+    ?indicativeSimpleFutureThirdPersonSingularForm ontolex:representation ?indicativeSimpleFutureThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureThirdPersonPluralForm .
+    ?indicativeSimpleFutureThirdPersonPluralForm ontolex:representation ?indicativeSimpleFutureThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeFirstPersonSingularForm .
+    ?indicativePresentIndicativeFirstPersonSingularForm ontolex:representation ?indicativePresentIndicativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeFirstPersonPluralForm .
+    ?indicativePresentIndicativeFirstPersonPluralForm ontolex:representation ?indicativePresentIndicativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeSecondPersonSingularForm .
+    ?indicativePresentIndicativeSecondPersonSingularForm ontolex:representation ?indicativePresentIndicativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeSecondPersonPluralForm .
+    ?indicativePresentIndicativeSecondPersonPluralForm ontolex:representation ?indicativePresentIndicativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeThirdPersonSingularForm .
+    ?indicativePresentIndicativeThirdPersonSingularForm ontolex:representation ?indicativePresentIndicativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeThirdPersonPluralForm .
+    ?indicativePresentIndicativeThirdPersonPluralForm ontolex:representation ?indicativePresentIndicativeThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastImperfectFirstPersonSingularForm .
+    ?indicativePastImperfectFirstPersonSingularForm ontolex:representation ?indicativePastImperfectFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q12547192, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastImperfectFirstPersonPluralForm .
+    ?indicativePastImperfectFirstPersonPluralForm ontolex:representation ?indicativePastImperfectFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q12547192, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastImperfectSecondPersonSingularForm .
+    ?indicativePastImperfectSecondPersonSingularForm ontolex:representation ?indicativePastImperfectSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q12547192, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastImperfectSecondPersonPluralForm .
+    ?indicativePastImperfectSecondPersonPluralForm ontolex:representation ?indicativePastImperfectSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q12547192, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastImperfectThirdPersonSingularForm .
+    ?indicativePastImperfectThirdPersonSingularForm ontolex:representation ?indicativePastImperfectThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q12547192, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastImperfectThirdPersonPluralForm .
+    ?indicativePastImperfectThirdPersonPluralForm ontolex:representation ?indicativePastImperfectThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q12547192, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonSingularParticiplePastParticipleForm .
+    ?thirdPersonSingularParticiplePastParticipleForm ontolex:representation ?thirdPersonSingularParticiplePastParticiple ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q814722, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeActivePresentFirstPersonSingularForm .
+    ?indicativeActivePresentFirstPersonSingularForm ontolex:representation ?indicativeActivePresentFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeActivePresentFirstPersonPluralForm .
+    ?indicativeActivePresentFirstPersonPluralForm ontolex:representation ?indicativeActivePresentFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeActivePresentSecondPersonSingularForm .
+    ?indicativeActivePresentSecondPersonSingularForm ontolex:representation ?indicativeActivePresentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeActivePresentSecondPersonPluralForm .
+    ?indicativeActivePresentSecondPersonPluralForm ontolex:representation ?indicativeActivePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeActivePresentThirdPersonSingularForm .
+    ?indicativeActivePresentThirdPersonSingularForm ontolex:representation ?indicativeActivePresentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeActivePresentThirdPersonPluralForm .
+    ?indicativeActivePresentThirdPersonPluralForm ontolex:representation ?indicativeActivePresentThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q51929074, wd:Q146786 .
+  }
+}

@@ -1,0 +1,99 @@
+# tool: scribe-data
+# All Bengali (Q9610) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?nominative
+  ?feminine
+  ?masculine
+  ?comparative
+  ?superlative
+  ?positive
+  ?feminineComparative
+  ?feminineSuperlative
+  ?femininePositive
+  ?masculineComparative
+  ?masculineSuperlative
+  ?masculinePositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9610 ;
+      wikibase:lexicalCategory wd:Q34698 ;
+      wikibase:lemma ?adjective ;
+      schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineForm .
+    ?feminineForm ontolex:representation ?feminine ;
+      wikibase:grammaticalFeature wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineForm .
+    ?masculineForm ontolex:representation ?masculine ;
+      wikibase:grammaticalFeature wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineComparativeForm .
+    ?feminineComparativeForm ontolex:representation ?feminineComparative ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSuperlativeForm .
+    ?feminineSuperlativeForm ontolex:representation ?feminineSuperlative ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePositiveForm .
+    ?femininePositiveForm ontolex:representation ?femininePositive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineComparativeForm .
+    ?masculineComparativeForm ontolex:representation ?masculineComparative ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSuperlativeForm .
+    ?masculineSuperlativeForm ontolex:representation ?masculineSuperlative ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePositiveForm .
+    ?masculinePositiveForm ontolex:representation ?masculinePositive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q3482678 .
+  }
+}
