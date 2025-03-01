@@ -240,7 +240,7 @@ def main() -> None:
         "--output-type",
         type=str,
         choices=["json", "csv", "tsv", "sqlite"],
-        required=True,
+        default="False",
         help="The output file type.",
     )
     convert_parser.add_argument(
@@ -275,6 +275,9 @@ def main() -> None:
         "--all",
         action=argparse.BooleanOptionalAction,
         help="Convert all languages and data types.",
+    )
+    convert_parser.add_argument(
+        "-i", "--interactive", action="store_true", help="Run in interactive mode"
     )
 
     # MARK: Download
@@ -355,6 +358,7 @@ def main() -> None:
         elif args.command in ["get", "g"]:
             if args.interactive:
                 start_interactive_mode(operation="get")
+                return
 
             if args.translation:
                 parse_wiktionary_translations(args.translation, args.output_dir)
@@ -393,6 +397,9 @@ def main() -> None:
                 )
 
         elif args.command in ["convert", "c"]:
+            if args.interactive:
+                start_interactive_mode(operation="convert")
+                return
             convert_wrapper(
                 languages=args.language.lower() if args.language is not None else None,
                 data_types=args.data_type.lower()
@@ -425,6 +432,7 @@ def main() -> None:
                     "Check for totals",
                     "Get data",
                     "Get translations",
+                    "Convert JSON",
                     "Exit",
                 ],
             ).ask()
@@ -440,6 +448,9 @@ def main() -> None:
 
             elif action == "Get translations":
                 start_interactive_mode(operation="translations")
+
+            elif action == "Convert JSON":
+                start_interactive_mode(operation="convert")
 
             else:
                 print("Skipping action")
