@@ -16,10 +16,10 @@ from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
     camel_to_snake,
-    get_language_iso,
-    list_all_languages,
-    language_metadata,
     data_type_metadata,
+    get_language_iso,
+    language_metadata,
+    list_all_languages,
 )
 
 

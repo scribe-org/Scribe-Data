@@ -16,6 +16,8 @@ from rich.logging import RichHandler
 from rich.table import Table
 from tqdm import tqdm
 
+from scribe_data.cli.convert import convert_wrapper
+
 # from scribe_data.cli.list import list_wrapper
 from scribe_data.cli.get import get_data
 from scribe_data.cli.total import total_wrapper
@@ -27,7 +29,6 @@ from scribe_data.utils import (
     language_metadata,
     list_all_languages,
 )
-from scribe_data.cli.convert import convert_wrapper
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 
 # MARK: Config Setup
@@ -436,10 +437,7 @@ def start_interactive_mode(operation: str = None):
                 "Overwrite existing files? (default: False): ",
                 default="False",
             )
-            if overwrite_str.strip().lower() in ("true", "y", "yes"):
-                overwrite_bool = True
-            else:
-                overwrite_bool = False
+            overwrite_bool = overwrite_str.strip().lower() in ("true", "y", "yes")
 
             convert_wrapper(
                 languages=config.selected_languages,
@@ -474,10 +472,6 @@ def start_interactive_mode(operation: str = None):
             )
 
             break
-
-        # elif choice == "languages":
-        #     see_list_languages()
-        #     break
 
         elif choice == "run":
             run_request()
