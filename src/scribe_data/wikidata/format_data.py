@@ -51,30 +51,42 @@ def format_data(
 
     for data_vals in data_list:
         lexeme_id = data_vals["lexemeID"]
+        modified_date = data_vals["lastModified"]
 
+        # Initialize a new entry if this lexeme hasn't been seen yet.
         if lexeme_id not in data_formatted:
-            data_formatted[lexeme_id] = {
-                k: v for k, v in data_vals.items() if k != "lastModified"
-            }
+            data_formatted[lexeme_id] = {}
+            for key, value in data_vals.items():
+                if key not in ["lexemeID", "lastModified"]:
+                    data_formatted[lexeme_id][key] = value
+            data_formatted[lexeme_id]["lastModified"] = modified_date
         else:
-            for k, v in data_vals.items():
-                if k in ["lexemeID", "lastModified"] or not v:
-                    continue  # Skip these fields
+            # Merge fields for an existing lexeme.
+            for field, value in data_vals.items():
+                if field in ["lexemeID", "lastModified"]:
+                    continue
+                if value:  # Only process non-empty values.
+                    if (
+                        field in data_formatted[lexeme_id]
+                        and data_formatted[lexeme_id][field]
+                    ):
+                        # Merge field values into a comma-separated string using a set for uniqueness.
+                        existing_values = set(
+                            data_formatted[lexeme_id][field].split(", ")
+                        )
+                        existing_values.add(value)
+                        data_formatted[lexeme_id][field] = ", ".join(
+                            sorted(existing_values)
+                        )
+                    else:
+                        data_formatted[lexeme_id][field] = value
 
-                if k in data_formatted[lexeme_id]:
-                    # Merge and deduplicate values
-                    existing_values = set(data_formatted[lexeme_id][k].split(", "))
-                    existing_values.add(v)
-                    data_formatted[lexeme_id][k] = ", ".join(sorted(existing_values))
-                else:
-                    data_formatted[lexeme_id][k] = v
-
-    # Convert to ordered dictionary for consistent output
+    # Convert the dictionary to an ordered dictionary for consistent output.
     data_formatted = collections.OrderedDict(sorted(data_formatted.items()))
 
     export_formatted_data(
         dir_path=dir_path,
-        formatted_data=list(data_formatted.values()),
+        formatted_data=data_formatted,
         language=language,
         data_type=data_type,
     )
