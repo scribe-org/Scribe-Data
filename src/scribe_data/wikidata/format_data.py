@@ -51,20 +51,41 @@ def format_data(
 
     for data_vals in data_list:
         lexeme_id = data_vals["lexemeID"]
-        modified_date = data_vals["lastModified"]
 
+        # Initialize a new entry if this lexeme hasn't been seen yet.
         if lexeme_id not in data_formatted:
-            data_formatted[lexeme_id] = {}
+            data_formatted[lexeme_id] = {
+                key: value
+                for key, value in data_vals.items()
+                if key not in ["lexemeID", "lastModified"]
+            }
 
-        # Reverse to make sure that we're getting the same order as the query.
-        query_identifiers = list(reversed(data_vals.keys()))
-        query_identifiers.remove("lexemeID")
-        query_identifiers.remove("lastModified")
+            data_formatted[lexeme_id]["lastModified"] = data_vals["lastModified"]
 
-        for k in query_identifiers:
-            data_formatted[lexeme_id][k] = data_vals[k]
-        data_formatted[lexeme_id]["lastModified"] = modified_date
+        else:
+            # Merge fields for an existing lexeme.
+            for field, value in data_vals.items():
+                if field in ["lexemeID", "lastModified"]:
+                    continue
 
+                if value:  # Only process non-empty values.
+                    if (
+                        field in data_formatted[lexeme_id]
+                        and data_formatted[lexeme_id][field]
+                    ):
+                        # Merge field values into a comma-separated string using a set for uniqueness.
+                        existing_values = set(
+                            data_formatted[lexeme_id][field].split(", ")
+                        )
+                        existing_values.add(value)
+                        data_formatted[lexeme_id][field] = ", ".join(
+                            sorted(existing_values)
+                        )
+
+                    else:
+                        data_formatted[lexeme_id][field] = value
+
+    # Convert the dictionary to an ordered dictionary for consistent output.
     data_formatted = collections.OrderedDict(sorted(data_formatted.items()))
 
     export_formatted_data(
