@@ -25,6 +25,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - The version command was fixed to account for cases where the version has a `v` before it ([#534](https://github.com/scribe-org/Scribe-Data/issues/534)).
 - The functionality to check for current data and prompt its deletion was centralized and messages to the user were made more clear ([#336](https://github.com/scribe-org/Scribe-Data/issues/336)).
+- If Wikidata queries can't be completed, Scribe-Data now includes dramatically better error messages and directs the user to leverage commands that use Wikidata dumps ([#549](https://github.com/scribe-org/Scribe-Data/issues/549)).
 
 ## Scribe-Data 4.1.0
 

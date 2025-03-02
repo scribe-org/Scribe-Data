@@ -1,0 +1,15 @@
+header:
+  license:
+    content: "SPDX-License-Identifier: GPL-3.0-or-later"
+  paths:
+    - '**/*.py'
+  paths-ignore:
+    - 'build'
+    - 'dist'
+    - 'venv'
+    - '**/*.md'
+    - '**/__pycache__/**'
+    - '**/.git/**'
+    - '**/*__init__.py'
+  comment: on-failure
+  license-location-threshold: 10

@@ -286,15 +286,21 @@ def validate_forms(query_text: str) -> str:
         return "Invalid query format: no SELECT match"
 
     error_messages = []
-    # Exclude the first two variables from select_vars.
+    # Exclude the first two variables - ?lexeme, ?lexemeID and ?lastModified - from select_vars.
     select_vars = select_vars[2:]
+
     # Regex pattern to capture the variables in the WHERE clause.
+    date_modified_pattern = r"schema:dateModified\s*\?(\w+)"
     dt_pattern = r"WHERE\s*\{[^}]*?wikibase:lemma\s*\?\s*(\w+)\s*[;.]\s*"
     potential_prep_case_pattern = r"caseForm rdfs:label.*[.]"
     forms_pattern = r"ontolex:representation \?([^ ;]+)"
     where_vars = []
 
     # Extracting variables from the WHERE clause.
+    date_modified_match = re.findall(date_modified_pattern, query_text)
+    if date_modified_match == ["lastModified"]:
+        where_vars.append("lastModified")
+
     dt_match = re.findall(dt_pattern, query_text)
     if dt_match == ["lemma"]:
         where_vars.append("preposition")
@@ -308,7 +314,7 @@ def validate_forms(query_text: str) -> str:
 
     where_vars += re.findall(forms_pattern, query_text)
 
-    # Handling labels provided by the labeling service  like 'case' and 'gender' in the same order as in select_vars.
+    # Handling labels provided by the labeling service like 'case' and 'gender' in the same order as in select_vars.
     for var in ["case", "gender", "auxiliaryVerb"]:
         if var in select_vars:
             # Insert in the corresponding index of where_vars.
@@ -318,8 +324,8 @@ def validate_forms(query_text: str) -> str:
     uniqueness_forms_check = len(select_vars) != len(set(select_vars))
     undefined_forms = set(select_vars) - set(where_vars)
     unreturned_forms = set(where_vars) - set(select_vars)
-    select_vars = [var for var in select_vars if var not in ["lexeme", "lexemeID"]]
-    where_vars = [var for var in where_vars if var not in ["lexeme", "lexemeID"]]
+    select_vars = [var for var in select_vars if var not in ["lexemeID"]]
+    where_vars = [var for var in where_vars if var not in ["lexemeID"]]
 
     # Check for uniqueness of forms in SELECT.
     if uniqueness_forms_check:
@@ -418,7 +424,7 @@ def check_forms_order(query_text):
 
     # Hardcoded labels provided by the labeling service.
     labeling_service_cols = ["case", "gender", "auxiliaryVerb"]
-    select_vars = select_vars[2:]
+    select_vars = select_vars[3:]
 
     # Split each column label into components.
     split_vars = []
@@ -464,6 +470,7 @@ def check_forms_order(query_text):
     select_lower = [i.lower() for i in select_vars]
 
     if select_lower != sorted_lower:
+        print(f"Invalid sorting:\n{select_lower}\n{sorted_lower}")
         return ", ".join([i[0].lower() + i[1:] for i in sorted_columns])
 
     return sorted_lower == select_lower

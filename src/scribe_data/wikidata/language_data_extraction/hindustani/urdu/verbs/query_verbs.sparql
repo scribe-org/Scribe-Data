@@ -6,12 +6,12 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?verb
   ?direct
   ?intransitivePhase
   ?basicPhase
   ?gerund
-  ?lastModified
 
 WHERE {
   # MARK: Infinitive

@@ -59,12 +59,15 @@ def format_data(
             for key, value in data_vals.items():
                 if key not in ["lexemeID", "lastModified"]:
                     data_formatted[lexeme_id][key] = value
+
             data_formatted[lexeme_id]["lastModified"] = modified_date
+
         else:
             # Merge fields for an existing lexeme.
             for field, value in data_vals.items():
                 if field in ["lexemeID", "lastModified"]:
                     continue
+
                 if value:  # Only process non-empty values.
                     if (
                         field in data_formatted[lexeme_id]
@@ -78,6 +81,7 @@ def format_data(
                         data_formatted[lexeme_id][field] = ", ".join(
                             sorted(existing_values)
                         )
+
                     else:
                         data_formatted[lexeme_id][field] = value
 

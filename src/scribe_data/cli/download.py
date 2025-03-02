@@ -136,7 +136,7 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
             If the dump file does not exist.
         """
         entity_url = f"{base_url}/{target_entity}/"
-        entity_response = requests.get(entity_url)
+        entity_response = requests.get(entity_url, timeout=30)
         entity_response.raise_for_status()
         dump_filenames = re.findall(r'href="([^"]+)"', entity_response.text)
 
@@ -157,36 +157,35 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
             )
             print("We could not find your requested Wikidata lexeme dump.")
 
-            response = requests.get(base_url)
+            response = requests.get(base_url, timeout=30)
             other_old_dumps = re.findall(r'href="([^"]+)/"', response.text)
 
-            user_input = input(
-                "Do you want to see the closest available older dumps? [Y/n]"
-            ).lower()
+            user_response = questionary.confirm(
+                "Do you want to see the closest available older dumps?", default=True
+            ).ask()
 
-            if user_input != "y":
+            if not user_response:
                 return
 
-            else:
-                if other_old_dumps:
-                    closest_date = available_closest_lexeme_dumpfile(
-                        target_entity, other_old_dumps, check_wd_dump_exists
-                    )
-                    print(
-                        f"\nClosest available older dumps(YYYYMMDD): {parse_date(closest_date)}"
-                    )
-                    fileurl = f"{closest_date}/wikidata-{closest_date}-lexemes.json.bz2"
+            if other_old_dumps:
+                closest_date = available_closest_lexeme_dumpfile(
+                    target_entity, other_old_dumps, check_wd_dump_exists
+                )
+                print(
+                    f"\nClosest available older dumps(YYYYMMDD): {parse_date(closest_date)}"
+                )
+                fileurl = f"{closest_date}/wikidata-{closest_date}-lexemes.json.bz2"
 
-                    if closest_date:
-                        return f"{base_url}/{fileurl}"
+                if closest_date:
+                    return f"{base_url}/{fileurl}"
 
-                    else:
-                        return
+                else:
+                    return
 
             return other_old_dumps
 
     try:
-        response = requests.get(base_url)
+        response = requests.get(base_url, timeout=30)
         response.raise_for_status()
         latest_dump = re.findall(r'href="([^"]+)"', response.text)
         if "latest-all.json.bz2" in latest_dump:
@@ -198,7 +197,9 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
 
 
 def wd_lexeme_dump_download_wrapper(
-    wikidata_dump: Optional[str] = None, output_dir: Optional[str] = None
+    wikidata_dump: Optional[str] = None,
+    output_dir: Optional[str] = None,
+    default: bool = False,
 ) -> None:
     """
     Download Wikidata lexeme dumps given user preferences.
@@ -212,6 +213,10 @@ def wd_lexeme_dump_download_wrapper(
         Optional directory path for the downloaded file.
         Defaults to 'scribe_data_wikidata_dumps_export' directory.
 
+    default : bool, optional
+        If True, skips the user confirmation prompt.
+        Defaults to False.
+
     Returns
     -------
     str or None
@@ -219,12 +224,6 @@ def wd_lexeme_dump_download_wrapper(
         - If an existing usable dump is detected, returns the path to the existing dump.
         - Returns None if the user chooses not to proceed with the download or no valid dump URL is found.
     """
-    dump_url = download_wd_lexeme_dump(wikidata_dump or "latest-lexemes")
-
-    if not dump_url:
-        rprint("[bold red]No dump URL found.[/bold red]")
-        return False
-
     try:
         output_dir = output_dir or DEFAULT_DUMP_EXPORT_DIR
 
@@ -235,18 +234,28 @@ def wd_lexeme_dump_download_wrapper(
             if useable_file_dir := check_lexeme_dump_prompt_download(output_dir):
                 return useable_file_dir
 
+        dump_url = download_wd_lexeme_dump(wikidata_dump or "latest-lexemes")
+
+        if not dump_url:
+            rprint("[bold red]No dump URL found.[/bold red]")
+            return False
+
         filename = dump_url.split("/")[-1]
         output_path = str(Path(output_dir) / filename)
 
-        user_response = questionary.confirm(
-            "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities. Do you want to proceed?",
-            default=True,
-        ).ask()
+        # Use default parameter to bypass user confirmation.
+        user_response = (
+            default
+            or questionary.confirm(
+                "We'll be using the Wikidata lexeme dump from dumps.wikimedia.org/wikidatawiki/entities. Do you want to proceed?",
+                default=True,
+            ).ask()
+        )
 
         if user_response:
             rprint(f"[bold blue]Downloading dump to {output_path}...[/bold blue]")
 
-            response = requests.get(dump_url, stream=True)
+            response = requests.get(dump_url, stream=True, timeout=30)
             total_size = int(response.headers.get("content-length", 0))
 
             with open(output_path, "wb") as f:

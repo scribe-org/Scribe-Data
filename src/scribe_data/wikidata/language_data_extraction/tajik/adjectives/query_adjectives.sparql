@@ -4,8 +4,8 @@
 
 SELECT DISTINCT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?adjective
   ?lastModified
+  ?adjective
 
 WHERE {
   ?lexeme dct:language wd:Q9260 ;

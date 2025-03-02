@@ -4,9 +4,9 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?preposition
   ?grammaticalCase
-  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q188 ;

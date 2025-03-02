@@ -5,7 +5,9 @@ Tests for the CLI total functionality.
 
 import json
 import unittest
+from http.client import IncompleteRead
 from unittest.mock import MagicMock, call, patch
+from urllib.error import HTTPError
 
 from scribe_data.cli.total import (
     get_datatype_list,
@@ -75,7 +77,7 @@ class TestTotalLexemes(unittest.TestCase):
         mock_get_qid.return_value = None
         mock_query.return_value = MagicMock()
 
-        # Call the function with empty and None inputs
+        # Call the function with empty and None inputs.
         with patch("builtins.print") as mock_print:
             get_total_lexemes(language="", data_type="nouns")
             get_total_lexemes(None, "verbs")
@@ -112,7 +114,7 @@ class TestTotalLexemes(unittest.TestCase):
 
         mock_query.return_value = mock_results
 
-        # Call the function with different data types
+        # Call the function with different data types.
         with patch("builtins.print") as mock_print:
             get_total_lexemes(language="English", data_type="verbs")
             get_total_lexemes(language="English", data_type="nouns")
@@ -349,3 +351,185 @@ class TestTotalWrapper(unittest.TestCase):
         """
         total_wrapper(language="Q9217", data_type="Q1084")  # Q1084 is noun QID
         mock_get_total.assert_called_once_with(language="Q9217", data_type="Q1084")
+
+    # MARK: Multiple Languages and Data Types
+
+    @patch("scribe_data.cli.total.get_total_lexemes")
+    def test_total_wrapper_multiple_languages(self, mock_get_total):
+        """
+        Test retrieving totals for multiple languages.
+        """
+        # Mock return value to avoid formatting error.
+        mock_get_total.return_value = 100
+
+        total_wrapper(language=["English", "German"], data_type="nouns")
+
+        expected_calls = [
+            call(language="English", data_type="nouns", do_print=False),
+            call(language="German", data_type="nouns", do_print=False),
+        ]
+        mock_get_total.assert_has_calls(expected_calls)
+
+    @patch("scribe_data.cli.total.get_total_lexemes")
+    def test_total_wrapper_multiple_data_types(self, mock_get_total):
+        """
+        Test retrieving totals for multiple data types.
+        """
+        # Mock return value to avoid formatting error.
+        mock_get_total.return_value = 100
+
+        total_wrapper(language="English", data_type=["nouns", "verbs"])
+
+        expected_calls = [
+            call(language="English", data_type="nouns", do_print=False),
+            call(language="English", data_type="verbs", do_print=False),
+        ]
+        mock_get_total.assert_has_calls(expected_calls)
+
+    @patch("scribe_data.cli.total.get_total_lexemes")
+    def test_total_wrapper_multiple_languages_and_types(self, mock_get_total):
+        """
+        Test retrieving totals for multiple languages and data types.
+        """
+        # Mock return value to avoid formatting error.
+        mock_get_total.return_value = 100
+
+        total_wrapper(language=["English", "German"], data_type=["nouns", "verbs"])
+
+        expected_calls = [
+            call(language="English", data_type="nouns", do_print=False),
+            call(language="English", data_type="verbs", do_print=False),
+            call(language="German", data_type="nouns", do_print=False),
+            call(language="German", data_type="verbs", do_print=False),
+        ]
+        mock_get_total.assert_has_calls(expected_calls)
+
+    # MARK: Error Handling
+
+    @patch("scribe_data.cli.total.sparql.query")
+    def test_get_total_lexemes_http_error(self, mock_query):
+        """
+        Test handling of HTTPError when querying totals.
+        """
+        # Set up mock to return None for results after max retries.
+        mock_query.side_effect = [
+            HTTPError(url="test", code=500, msg="error", hdrs={}, fp=None),
+            HTTPError(url="test", code=500, msg="error", hdrs={}, fp=None),
+            HTTPError(url="test", code=500, msg="error", hdrs={}, fp=None),
+        ]
+
+        with patch("builtins.print") as mock_print:
+            result = get_total_lexemes(language="English", data_type="nouns")
+
+        self.assertIsNone(result)
+        mock_print.assert_any_call("Query failed after retries.")
+
+    @patch("scribe_data.cli.total.sparql.query")
+    def test_get_total_lexemes_incomplete_read(self, mock_query):
+        """
+        Test handling of IncompleteRead error when querying totals.
+        """
+        # Set up mock to return None for results after max retries.
+        mock_query.side_effect = [
+            IncompleteRead(partial=b""),
+            IncompleteRead(partial=b""),
+            IncompleteRead(partial=b""),
+        ]
+
+        with patch("builtins.print") as mock_print:
+            result = get_total_lexemes(language="English", data_type="nouns")
+
+        self.assertIsNone(result)
+        mock_print.assert_any_call("Query failed after retries.")
+
+    # MARK: Sub-language Handling
+
+    @patch("scribe_data.cli.total.get_datatype_list")
+    @patch("scribe_data.cli.total.get_total_lexemes")
+    def test_print_total_lexemes_with_sublanguages(
+        self, mock_get_total, mock_get_datatypes
+    ):
+        """
+        Test printing totals for a language with sub-languages.
+        """
+        mock_get_datatypes.return_value = ["nouns", "verbs"]
+        mock_get_total.return_value = 100
+
+        with patch("builtins.print") as mock_print:
+            total_wrapper(language="Norwegian")
+
+        # Verify header was printed.
+        mock_print.assert_any_call(
+            f"{'Language':<20} {'Data Type':<25} {'Total Wikidata Lexemes':<25}"
+        )
+        mock_print.assert_any_call("=" * 70)
+
+        # Verify data was printed for each data type.
+        mock_get_total.assert_any_call(
+            language="Norwegian", data_type="nouns", do_print=False
+        )
+        mock_get_total.assert_any_call(
+            language="Norwegian", data_type="verbs", do_print=False
+        )
+
+    # MARK: Data Type List Handling
+
+    @patch("scribe_data.cli.total.language_metadata")
+    @patch("scribe_data.cli.total.list_all_languages")
+    @patch("scribe_data.cli.total.LANGUAGE_DATA_EXTRACTION_DIR")
+    def test_get_datatype_list_with_sublanguages(
+        self, mock_dir, mock_list_languages, mock_metadata
+    ):
+        """
+        Test getting data type list for a language with sub-languages.
+        """
+        # Mock language metadata and list_all_languages.
+        mock_metadata_dict = {
+            "norwegian": {
+                "sub_languages": {"bokmal": {"iso": "nb"}, "nynorsk": {"iso": "nn"}}
+            }
+        }
+
+        # Mock dictionary-like behavior for language_metadata.
+        mock_metadata.__iter__.return_value = mock_metadata_dict.items()
+        mock_metadata.items.return_value = mock_metadata_dict.items()
+        mock_metadata.get.return_value = mock_metadata_dict["norwegian"]
+        mock_metadata.__getitem__.return_value = mock_metadata_dict["norwegian"]
+
+        mock_list_languages.return_value = ["norwegian"]
+
+        # Create mock directory entries with proper string names.
+        mock_nouns = MagicMock()
+        mock_nouns.name = "nouns"
+        mock_nouns.is_dir.return_value = True
+
+        mock_verbs = MagicMock()
+        mock_verbs.name = "verbs"
+        mock_verbs.is_dir.return_value = True
+
+        # Mock directory structure for both sub-languages.
+        def mock_path_handler(path):
+            mock_path = MagicMock()
+            mock_path.exists.return_value = True
+            mock_path.iterdir.return_value = [mock_nouns, mock_verbs]
+            return mock_path
+
+        mock_dir.__truediv__.side_effect = mock_path_handler
+
+        result = get_datatype_list("norwegian")  # note: lowercase
+        self.assertEqual(sorted(result), ["nouns", "verbs"])
+
+    @patch("scribe_data.cli.total.language_metadata")
+    @patch("scribe_data.cli.total.LANGUAGE_DATA_EXTRACTION_DIR")
+    def test_get_datatype_list_empty_directory(self, mock_dir, mock_metadata):
+        """
+        Test getting data type list from an empty directory.
+        """
+        # Mock language metadata.
+        mock_metadata.get.return_value = {}
+
+        mock_dir.__truediv__.return_value.exists.return_value = True
+        mock_dir.__truediv__.return_value.iterdir.return_value = []
+
+        with self.assertRaises(ValueError):
+            get_datatype_list("English")

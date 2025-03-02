@@ -3,12 +3,15 @@
 Functions for getting languages-data types packs for the Scribe-Data CLI.
 """
 
+import json
 import os
+import urllib.error
 from pathlib import Path
 from typing import List, Union
 
 import questionary
 from rich import print as rprint
+from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
 from scribe_data.cli.convert import convert_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
@@ -200,7 +203,7 @@ def get_data(
 
     # MARK: Query Data
 
-    elif language or data_type:
+    elif language and data_type:
         language_or_sub_language = language.split(" ")[0]
         data_type = data_type[0] if isinstance(data_type, list) else data_type
         print(
@@ -227,20 +230,48 @@ def get_data(
                 print(f"Skipping update for {language.title()} {data_type}.")
                 return {"success": False, "skipped": True}
 
-        query_data(
-            languages=[language_or_sub_language],
-            data_type=data_types,
-            output_dir=output_dir,
-            overwrite=overwrite,
-            interactive=interactive,
-        )
+        def print_error_and_suggestions(error_message):
+            """
+            Prints an error message and suggestions for the user.
+            """
+            rprint(error_message)
+            rprint("\n[bold yellow]Suggestions:[/bold yellow]")
+            rprint(
+                "[yellow]1. Try again in a few minutes\n"
+                "2. Consider using a Wikidata dump with --wikidata-dump-path (-wdp)\n"
+                "3. Try querying a smaller subset of data[/yellow]"
+            )
+
+        try:
+            query_data(
+                languages=[language_or_sub_language],
+                data_type=data_types,
+                output_dir=output_dir,
+                overwrite=overwrite,
+                interactive=interactive,
+            )
+        except json.decoder.JSONDecodeError:
+            print_error_and_suggestions(
+                "[bold red]Error: Invalid response from Wikidata query service. The query may be too large or the service is unavailable.[/bold red]"
+            )
+        except urllib.error.HTTPError as e:
+            error_msg = (
+                "[bold red]Error: A client error occurred. Check your request.[/bold red]"
+                if 400 <= e.code < 500
+                else "[bold red]Error: A server error occurred. Please try again later.[/bold red]"
+            )
+            print_error_and_suggestions(error_msg)
+        except EndPointInternalError:
+            print_error_and_suggestions(
+                "[bold red]Error: The Wikidata endpoint encountered an internal error.[/bold red]"
+            )
 
         if not all_bool:
             print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
 
     else:
         raise ValueError(
-            "You must provide at least one of the --language (-l) or --data-type (-dt) options, or use --all (-a)."
+            "You must provide at least one --language (-l) and one --data-type (-dt). You can also use --all (-a) for all combinations or all data types using --all (-a) in place of --data-type (-dt)."
         )
 
     # Output Conversion

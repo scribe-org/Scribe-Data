@@ -6,12 +6,12 @@
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
   ?adjective
   ?plural
   ?definiteSingular
   ?neuterIndefiniteSingular
   ?feminineMasculineIndefiniteSingular
-  ?lastModified
 
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
