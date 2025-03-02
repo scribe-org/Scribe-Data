@@ -51,16 +51,16 @@ def format_data(
 
     for data_vals in data_list:
         lexeme_id = data_vals["lexemeID"]
-        modified_date = data_vals["lastModified"]
 
         # Initialize a new entry if this lexeme hasn't been seen yet.
         if lexeme_id not in data_formatted:
-            data_formatted[lexeme_id] = {}
-            for key, value in data_vals.items():
-                if key not in ["lexemeID", "lastModified"]:
-                    data_formatted[lexeme_id][key] = value
+            data_formatted[lexeme_id] = {
+                key: value
+                for key, value in data_vals.items()
+                if key not in ["lexemeID", "lastModified"]
+            }
 
-            data_formatted[lexeme_id]["lastModified"] = modified_date
+            data_formatted[lexeme_id]["lastModified"] = data_vals["lastModified"]
 
         else:
             # Merge fields for an existing lexeme.
