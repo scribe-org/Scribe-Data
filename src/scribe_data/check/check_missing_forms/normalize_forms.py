@@ -3,9 +3,10 @@
 Order QID from a missing_unique_forms on a lexeme_form_metadata.json..
 """
 
-from scribe_data.utils import lexeme_form_metadata
-from scribe_data.check.check_missing_forms.generate_query import generate_query
 from collections import defaultdict
+
+from scribe_data.check.check_missing_forms.generate_query import generate_query
+from scribe_data.utils import lexeme_form_metadata
 
 
 # Precompute QID positions mapping only once when the module is imported.
@@ -16,10 +17,13 @@ def sort_qids_in_list(qids_lists):
     This function sorts the QIDs in each sublist of `qids_lists` according to their position
     defined in `lexeme_form_metadata`. QIDs not found in the metadata are placed at the end.
 
-    Parameters:
-        qids_lists: A list of lists, where each sublist contains QIDs.
+    Parameters
+    ----------
+        qids_lists : list[list[str]]
+            A list of lists, where each sublist contains QIDs.
 
-    Returns:
+    Returns
+    -------
         A new list of lists, with QIDs in each sublist sorted by position.
     """
     qid_positions = {}
@@ -43,10 +47,13 @@ def sort_qids_by_position(nested_qids):
     1. The length of the sublist (shorter lists come first).
     2. The positions of the QIDs within each sublist, as defined in `lexeme_form_metadata`.
 
-    Parameters:
-        nested_qids: A list of lists, where each sublist contains QIDs.
+    Parameters
+    ----------
+        nested_qids : list[list[str]]
+            A list of lists, where each sublist contains QIDs.
 
-    Returns:
+    Returns
+    -------
         A new list of lists, sorted according to the defined criteria.
     """
     qid_positions = {}
@@ -85,8 +92,10 @@ def split_group_by_identifier(language_entry, output_dir, sub_lang_iso_code=None
     language_entry : dict
         Dictionary containing language data with missing features.
         Format: {language_qid: {data_type_qid: [features]}}
+
     output_dir : str or Path
         Directory where generated query files should be saved.
+
     sub_lang_iso_code : str, optional
         ISO code for sub-language if applicable.
 
