@@ -9,9 +9,12 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-from generate_query import generate_query
+
 from get_forms import extract_dump_forms, parse_sparql_files
-from scribe_data.check.check_missing_forms.normalize_forms import sort_qids_in_list
+from scribe_data.check.check_missing_forms.normalize_forms import (
+    sort_qids_in_list,
+    split_group_by_identifier,
+)
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
@@ -165,13 +168,13 @@ def process_missing_features(missing_features, query_dir):
                     print(
                         f"Generating query for {language_qid} - {data_type_qid} - {sub_lang_iso_code}"
                     )
-                    generate_query(
+                    split_group_by_identifier(
                         language_entry, LANGUAGE_DATA_EXTRACTION_DIR, sub_lang_iso_code
                     )
 
             else:
                 print(f"Generating query for {language_qid} - {data_type_qid}")
-                generate_query(language_entry, LANGUAGE_DATA_EXTRACTION_DIR)
+                split_group_by_identifier(language_entry, LANGUAGE_DATA_EXTRACTION_DIR)
 
 
 def main():
