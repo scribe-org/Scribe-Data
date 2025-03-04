@@ -192,6 +192,7 @@ class LexemeProcessor:
     def _process_forms(self, lexeme, lang_iso, dt_name):
         """
         Optimized forms processing with proper nested dictionary merging.
+        Uses comma-separated strings for form values to maintain uniqueness.
         """
         lexeme_id = lexeme["id"]
         language_qid = lexeme["language"]
@@ -228,7 +229,13 @@ class LexemeProcessor:
 
                     if features := form.get("grammaticalFeatures"):
                         if form_name := self._get_form_name(features):
-                            cat_dict[form_name] = form_value
+                            # If this form name already exists, merge values using comma separation.
+                            if form_name in cat_dict:
+                                existing_values = set(cat_dict[form_name].split(", "))
+                                existing_values.add(form_value)
+                                cat_dict[form_name] = ", ".join(sorted(existing_values))
+                            else:
+                                cat_dict[form_name] = form_value
 
         if forms_data:
             for lexeme_id, new_lang_data in forms_data.items():
@@ -240,11 +247,28 @@ class LexemeProcessor:
                         self.forms_index[lexeme_id][lang] = {}
 
                     for cat, new_form_data in new_cat_data.items():
-                        # Store forms and modified date at same level.
-                        self.forms_index[lexeme_id][lang][cat] = {
-                            "lastModified": lastModified,
-                            **new_form_data,
-                        }
+                        # If category already exists, merge the form data.
+                        if cat in self.forms_index[lexeme_id][lang]:
+                            existing_data = self.forms_index[lexeme_id][lang][cat]
+
+                            # Merge form values.
+                            for form_name, form_value in new_form_data.items():
+                                if form_name in existing_data:
+                                    existing_values = set(
+                                        existing_data[form_name].split(", ")
+                                    )
+                                    existing_values.add(form_value)
+                                    existing_data[form_name] = ", ".join(
+                                        sorted(existing_values)
+                                    )
+                                else:
+                                    existing_data[form_name] = form_value
+                        else:
+                            # Store new forms and modified date.
+                            self.forms_index[lexeme_id][lang][cat] = {
+                                "lastModified": lastModified,
+                                **new_form_data,
+                            }
 
             self.forms_counts[lang_iso][dt_name] += len(forms_data)
 
