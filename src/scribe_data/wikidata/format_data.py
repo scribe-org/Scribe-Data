@@ -48,6 +48,7 @@ def format_data(
     )
 
     data_formatted = {}
+    has_multiple_forms = False
 
     for data_vals in data_list:
         lexeme_id = data_vals["lexemeID"]
@@ -75,10 +76,10 @@ def format_data(
                     ):
                         # Merge field values into a comma-separated string using a set for uniqueness.
                         existing_values = set(
-                            data_formatted[lexeme_id][field].split(", ")
+                            data_formatted[lexeme_id][field].split("| ")
                         )
                         existing_values.add(value)
-                        data_formatted[lexeme_id][field] = ", ".join(
+                        data_formatted[lexeme_id][field] = "| ".join(
                             sorted(existing_values)
                         )
 
@@ -88,12 +89,26 @@ def format_data(
     # Convert the dictionary to an ordered dictionary for consistent output.
     data_formatted = collections.OrderedDict(sorted(data_formatted.items()))
 
+    # Check if any values contain pipe separator before exporting.
+    for lexeme_data in data_formatted.values():
+        for value in lexeme_data.values():
+            if isinstance(value, str) and "| " in value:
+                has_multiple_forms = True
+                break
+        if has_multiple_forms:
+            break
+
     export_formatted_data(
         dir_path=dir_path,
         formatted_data=data_formatted,
         language=language,
         data_type=data_type,
     )
+
+    if has_multiple_forms:
+        print(
+            "Note: Multiple versions of forms have been returned. These have been combined with '|' in the resulting data fields."
+        )
 
     remove_queried_data(dir_path=dir_path, language=language, data_type=data_type)
 

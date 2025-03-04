@@ -192,7 +192,7 @@ class LexemeProcessor:
     def _process_forms(self, lexeme, lang_iso, dt_name):
         """
         Optimized forms processing with proper nested dictionary merging.
-        Uses comma-separated strings for form values to maintain uniqueness.
+        Uses pipe-separated strings for form values to maintain uniqueness.
         """
         lexeme_id = lexeme["id"]
         language_qid = lexeme["language"]
@@ -231,9 +231,11 @@ class LexemeProcessor:
                         if form_name := self._get_form_name(features):
                             # If this form name already exists, merge values using comma separation.
                             if form_name in cat_dict:
-                                existing_values = set(cat_dict[form_name].split(", "))
+                                existing_values = set(cat_dict[form_name].split(" | "))
                                 existing_values.add(form_value)
-                                cat_dict[form_name] = ", ".join(sorted(existing_values))
+                                cat_dict[form_name] = " | ".join(
+                                    sorted(existing_values)
+                                )
                             else:
                                 cat_dict[form_name] = form_value
 
@@ -255,10 +257,10 @@ class LexemeProcessor:
                             for form_name, form_value in new_form_data.items():
                                 if form_name in existing_data:
                                     existing_values = set(
-                                        existing_data[form_name].split(", ")
+                                        existing_data[form_name].split("| ")
                                     )
                                     existing_values.add(form_value)
-                                    existing_data[form_name] = ", ".join(
+                                    existing_data[form_name] = "| ".join(
                                         sorted(existing_values)
                                     )
                                 else:
@@ -485,6 +487,7 @@ class LexemeProcessor:
                 return
 
             filtered = {}
+            has_multiple_forms = False
 
             # Process each lexeme in the forms_index.
             for lexeme_id, lang_data in self.forms_index.items():
@@ -495,6 +498,16 @@ class LexemeProcessor:
                         # Get the form data for this language and data type.
                         form_data = lang_data[language_iso][data_type]
                         filtered[lexeme_id] = form_data
+
+                        # Check if any values contain pipe separator
+                        if not has_multiple_forms:
+                            for form_values in form_data.values():
+                                if (
+                                    isinstance(form_values, str)
+                                    and " | " in form_values
+                                ):
+                                    has_multiple_forms = True
+                                    break
 
             lang_name = self.iso_to_name[language_iso]
 
@@ -531,6 +544,10 @@ class LexemeProcessor:
                 print(
                     f"Successfully exported forms for {lang_name.capitalize()} {data_type} to {output_file}"
                 )
+                if has_multiple_forms:
+                    print(
+                        "Note: Multiple versions of forms have been returned. These have been combined with '|' in the resulting data fields."
+                    )
             except Exception as e:
                 print(
                     f"Error saving forms for {lang_name.capitalize()} {data_type}: {e}"
