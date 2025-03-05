@@ -19,12 +19,12 @@ def sort_qids_in_list(qids_lists):
 
     Parameters
     ----------
-        qids_lists : list[list[str]]
-            A list of lists, where each sublist contains QIDs.
+    qids_lists : list[list[str]]
+        A list of lists, where each sublist contains QIDs.
 
     Returns
     -------
-        A new list of lists, with QIDs in each sublist sorted by position.
+    A new list of lists, with QIDs in each sublist sorted by position.
     """
     qid_positions = {}
     for category in lexeme_form_metadata.values():
@@ -49,12 +49,12 @@ def sort_qids_by_position(nested_qids):
 
     Parameters
     ----------
-        nested_qids : list[list[str]]
-            A list of lists, where each sublist contains QIDs.
+    nested_qids : list[list[str]]
+        A list of lists, where each sublist contains QIDs.
 
     Returns
     -------
-        A new list of lists, sorted according to the defined criteria.
+    A new list of lists, sorted according to the defined criteria.
     """
     qid_positions = {}
     for category_index, (category_name, category) in enumerate(
@@ -111,7 +111,7 @@ def split_group_by_identifier(language_entry, output_dir, sub_lang_iso_code=None
 
             # First try to group by the first identifier in each feature list.
             for feature_list in missing_features_list:
-                if feature_list:  # Skip empty lists
+                if feature_list:  # skip empty lists
                     # Use the first identifier as the grouping key.
                     key = feature_list[0]
                     identifier_groups[key].append(feature_list)
@@ -119,12 +119,13 @@ def split_group_by_identifier(language_entry, output_dir, sub_lang_iso_code=None
             # Now check if any groups have more than 6 features.
             final_groups = []
 
-            for identifier, features in identifier_groups.items():
+            for features in identifier_groups.values():
                 if len(features) <= 6:
-                    # This group is small enough, keep it as is.
+                    # This group is small enough so keep it as is.
                     final_groups.append(features)
+
                 else:
-                    # This group is too large, need to split further by second identifier.
+                    # This group is too large so it needs to split further by the second identifier.
                     second_level_groups = defaultdict(list)
 
                     for feature_list in features:
@@ -132,6 +133,7 @@ def split_group_by_identifier(language_entry, output_dir, sub_lang_iso_code=None
                             # Use the second identifier for further grouping.
                             second_key = feature_list[1]
                             second_level_groups[second_key].append(feature_list)
+
                         else:
                             # If there's only one identifier, make it its own group.
                             second_level_groups["single_identifier"].append(
@@ -139,11 +141,8 @@ def split_group_by_identifier(language_entry, output_dir, sub_lang_iso_code=None
                             )
 
                     # Further split if necessary and add to final groups.
-                    for (
-                        second_identifier,
-                        second_features,
-                    ) in second_level_groups.items():
-                        # Split into chunks of 6
+                    for second_features in second_level_groups.values():
+                        # Split into chunks of 6.
                         for i in range(0, len(second_features), 6):
                             chunk = second_features[i : i + 6]
                             final_groups.append(chunk)
@@ -159,8 +158,9 @@ def split_group_by_identifier(language_entry, output_dir, sub_lang_iso_code=None
                 if len(current_group) + len(group) <= 6:
                     # Can add this group to the current one.
                     current_group.extend(group)
+
                 else:
-                    # Current group is full, start a new one.
+                    # Current group is full, so start a new one.
                     if current_group:
                         optimized_groups.append(current_group)
                     current_group = group
