@@ -286,6 +286,7 @@ def request_total_lexeme_loop():
                 language=config.selected_languages,
                 wikidata_dump_type=["total"],
                 wikidata_dump_path=wikidata_dump_path,
+                interactive_mode=True,
             )
             break
         elif choice == "exit":
@@ -392,13 +393,14 @@ def start_interactive_mode(operation: str = None):
                 wikidata_dump_path = Path(wikidata_dump_path)
             else:
                 wikidata_dump_path = Path(DEFAULT_DUMP_EXPORT_DIR)
-
             parse_wd_lexeme_dump(
                 language=config.selected_languages,
-                wikidata_dump_type=["get"],
+                wikidata_dump_type=["form"],
                 data_types=config.selected_data_types,
                 type_output_dir=config.output_dir,
                 wikidata_dump_path=wikidata_dump_path,
+                overwrite_all=config.overwrite,
+                interactive_mode=True,
             )
             rprint(THANK_YOU_MESSAGE)
             break
@@ -469,6 +471,8 @@ def start_interactive_mode(operation: str = None):
                 data_types=None,
                 type_output_dir=config.output_dir,
                 wikidata_dump_path=wikidata_dump_path,
+                overwrite_all=config.overwrite,
+                interactive_mode=True,
             )
 
             break
