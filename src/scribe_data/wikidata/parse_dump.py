@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import List, Union
 
 import orjson
+from rich import print as rprint
 from tqdm import tqdm
 
 from scribe_data.utils import (
@@ -192,6 +193,7 @@ class LexemeProcessor:
     def _process_forms(self, lexeme, lang_iso, dt_name):
         """
         Optimized forms processing with proper nested dictionary merging.
+        Uses pipe-separated strings for form values to maintain uniqueness.
         """
         lexeme_id = lexeme["id"]
         language_qid = lexeme["language"]
@@ -228,7 +230,15 @@ class LexemeProcessor:
 
                     if features := form.get("grammaticalFeatures"):
                         if form_name := self._get_form_name(features):
-                            cat_dict[form_name] = form_value
+                            # If this form name already exists, merge values using comma separation.
+                            if form_name in cat_dict:
+                                existing_values = set(cat_dict[form_name].split(" | "))
+                                existing_values.add(form_value)
+                                cat_dict[form_name] = " | ".join(
+                                    sorted(existing_values)
+                                )
+                            else:
+                                cat_dict[form_name] = form_value
 
         if forms_data:
             for lexeme_id, new_lang_data in forms_data.items():
@@ -240,11 +250,28 @@ class LexemeProcessor:
                         self.forms_index[lexeme_id][lang] = {}
 
                     for cat, new_form_data in new_cat_data.items():
-                        # Store forms and modified date at same level.
-                        self.forms_index[lexeme_id][lang][cat] = {
-                            "lastModified": lastModified,
-                            **new_form_data,
-                        }
+                        # If category already exists, merge the form data.
+                        if cat in self.forms_index[lexeme_id][lang]:
+                            existing_data = self.forms_index[lexeme_id][lang][cat]
+
+                            # Merge form values.
+                            for form_name, form_value in new_form_data.items():
+                                if form_name in existing_data:
+                                    existing_values = set(
+                                        existing_data[form_name].split(" | ")
+                                    )
+                                    existing_values.add(form_value)
+                                    existing_data[form_name] = " | ".join(
+                                        sorted(existing_values)
+                                    )
+                                else:
+                                    existing_data[form_name] = form_value
+                        else:
+                            # Store new forms and modified date.
+                            self.forms_index[lexeme_id][lang][cat] = {
+                                "lastModified": lastModified,
+                                **new_form_data,
+                            }
 
             self.forms_counts[lang_iso][dt_name] += len(forms_data)
 
@@ -461,6 +488,7 @@ class LexemeProcessor:
                 return
 
             filtered = {}
+            has_multiple_forms = False
 
             # Process each lexeme in the forms_index.
             for lexeme_id, lang_data in self.forms_index.items():
@@ -471,6 +499,16 @@ class LexemeProcessor:
                         # Get the form data for this language and data type.
                         form_data = lang_data[language_iso][data_type]
                         filtered[lexeme_id] = form_data
+
+                        # Check if any values contain pipe separator
+                        if not has_multiple_forms:
+                            for form_values in form_data.values():
+                                if (
+                                    isinstance(form_values, str)
+                                    and " | " in form_values
+                                ):
+                                    has_multiple_forms = True
+                                    break
 
             lang_name = self.iso_to_name[language_iso]
 
@@ -504,9 +542,16 @@ class LexemeProcessor:
             try:
                 with open(output_file, "wb") as f:
                     f.write(orjson.dumps(filtered, option=orjson.OPT_INDENT_2))
+
                 print(
                     f"Successfully exported forms for {lang_name.capitalize()} {data_type} to {output_file}"
                 )
+
+                if has_multiple_forms:
+                    rprint(
+                        "[bold yellow]Note: Multiple versions of forms have been returned. These have been combined with '|' in the resulting data fields.[/bold yellow]"
+                    )
+
             except Exception as e:
                 print(
                     f"Error saving forms for {lang_name.capitalize()} {data_type}: {e}"
