@@ -28,6 +28,7 @@ pytest
 pytest-cov
 questionary
 regex
+requests
 rich
 ruff
 SPARQLWrapper

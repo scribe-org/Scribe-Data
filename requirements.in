@@ -15,6 +15,7 @@ packaging
 pandas
 questionary
 regex
+requests
 rich
 SPARQLWrapper
 tqdm

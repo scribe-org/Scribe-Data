@@ -28,7 +28,9 @@ certifi==2025.1.31
 cfgv==3.4.0
     # via pre-commit
 charset-normalizer==3.4.1
-    # via requests
+    # via
+    #   -r /Users/andrewtavis/coding/scribe-org/Scribe-Data/requirements.txt
+    #   requests
 chex==0.1.89
     # via
     #   -r /Users/andrewtavis/coding/scribe-org/Scribe-Data/requirements.txt
@@ -74,7 +76,9 @@ humanize==4.12.1
 identify==2.6.8
     # via pre-commit
 idna==3.10
-    # via requests
+    # via
+    #   -r /Users/andrewtavis/coding/scribe-org/Scribe-Data/requirements.txt
+    #   requests
 imagesize==1.4.1
     # via sphinx
 importlib-resources==6.5.2
@@ -246,7 +250,10 @@ regex==2024.11.6
     #   -r /Users/andrewtavis/coding/scribe-org/Scribe-Data/requirements.txt
     #   -r requirements-dev.in
 requests==2.32.3
-    # via sphinx
+    # via
+    #   -r /Users/andrewtavis/coding/scribe-org/Scribe-Data/requirements.txt
+    #   -r requirements-dev.in
+    #   sphinx
 rich==13.9.4
     # via
     #   -r /Users/andrewtavis/coding/scribe-org/Scribe-Data/requirements.txt
@@ -332,7 +339,9 @@ tzdata==2025.1
     #   -r /Users/andrewtavis/coding/scribe-org/Scribe-Data/requirements.txt
     #   pandas
 urllib3==2.3.0
-    # via requests
+    # via
+    #   -r /Users/andrewtavis/coding/scribe-org/Scribe-Data/requirements.txt
+    #   requests
 virtualenv==20.29.2
     # via pre-commit
 wcwidth==0.2.13

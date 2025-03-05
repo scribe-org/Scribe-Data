@@ -12,7 +12,11 @@ absl-py==2.1.0
 beautifulsoup4==4.9.3
     # via -r requirements.in
 certifi==2025.1.31
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   requests
+charset-normalizer==3.4.1
+    # via requests
 chex==0.1.89
     # via optax
 defusedxml==0.7.1
@@ -29,6 +33,8 @@ fsspec==2025.2.0
     # via etils
 humanize==4.12.1
     # via orbax-checkpoint
+idna==3.10
+    # via requests
 importlib-resources==6.5.2
     # via etils
 iso639-lang==2.6.0
@@ -108,6 +114,8 @@ rdflib==7.1.3
     # via sparqlwrapper
 regex==2024.11.6
     # via -r requirements.in
+requests==2.32.3
+    # via -r requirements.in
 rich==13.9.4
     # via
     #   -r requirements.in
@@ -142,6 +150,8 @@ typing-extensions==4.12.2
     #   orbax-checkpoint
 tzdata==2025.1
     # via pandas
+urllib3==2.3.0
+    # via requests
 wcwidth==0.2.13
     # via prompt-toolkit
 zipp==3.21.0
