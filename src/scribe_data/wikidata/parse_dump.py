@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import List, Union
 
 import orjson
+from rich import print as rprint
 from tqdm import tqdm
 
 from scribe_data.utils import (
@@ -257,10 +258,10 @@ class LexemeProcessor:
                             for form_name, form_value in new_form_data.items():
                                 if form_name in existing_data:
                                     existing_values = set(
-                                        existing_data[form_name].split("| ")
+                                        existing_data[form_name].split(" | ")
                                     )
                                     existing_values.add(form_value)
-                                    existing_data[form_name] = "| ".join(
+                                    existing_data[form_name] = " | ".join(
                                         sorted(existing_values)
                                     )
                                 else:
@@ -541,13 +542,16 @@ class LexemeProcessor:
             try:
                 with open(output_file, "wb") as f:
                     f.write(orjson.dumps(filtered, option=orjson.OPT_INDENT_2))
+
                 print(
                     f"Successfully exported forms for {lang_name.capitalize()} {data_type} to {output_file}"
                 )
+
                 if has_multiple_forms:
-                    print(
-                        "Note: Multiple versions of forms have been returned. These have been combined with '|' in the resulting data fields."
+                    rprint(
+                        "[bold yellow]Note: Multiple versions of forms have been returned. These have been combined with '|' in the resulting data fields.[/bold yellow]"
                     )
+
             except Exception as e:
                 print(
                     f"Error saving forms for {lang_name.capitalize()} {data_type}: {e}"

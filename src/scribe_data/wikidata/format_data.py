@@ -6,6 +6,8 @@ Formats the data queried from Wikidata using query_verbs.sparql.
 import argparse
 import collections
 
+from rich import print as rprint
+
 from scribe_data.utils import (
     export_formatted_data,
     load_queried_data,
@@ -77,10 +79,10 @@ def format_data(
                     ):
                         # Merge field values into a comma-separated string using a set for uniqueness.
                         existing_values = set(
-                            data_formatted[lexeme_id][field].split("| ")
+                            data_formatted[lexeme_id][field].split(" | ")
                         )
                         existing_values.add(value)
-                        data_formatted[lexeme_id][field] = "| ".join(
+                        data_formatted[lexeme_id][field] = " | ".join(
                             sorted(existing_values)
                         )
 
@@ -93,7 +95,7 @@ def format_data(
     # Check if any values contain pipe separator before exporting.
     for lexeme_data in data_formatted.values():
         for value in lexeme_data.values():
-            if isinstance(value, str) and "| " in value:
+            if isinstance(value, str) and " | " in value:
                 has_multiple_forms = True
                 break
         if has_multiple_forms:
@@ -107,8 +109,8 @@ def format_data(
     )
 
     if has_multiple_forms:
-        print(
-            "Note: Multiple versions of forms have been returned. These have been combined with '|' in the resulting data fields."
+        rprint(
+            "[bold yellow]Note: Multiple versions of forms have been returned. These have been combined with '|' in the resulting data fields.[/bold yellow]"
         )
 
     remove_queried_data(dir_path=dir_path, language=language, data_type=data_type)
