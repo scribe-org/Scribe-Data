@@ -223,7 +223,7 @@ After activating the virtual environment, install the required dependencies and 
 
 ```bash
 pip install --upgrade pip  # make sure that pip is at the latest version
-pip install -r requirements.txt  # install dependencies
+pip install -r requirements-dev.txt  # install development dependencies
 pip install -e .  # install the local version of Scribe-Data
 pre-commit install  # install pre-commit hooks
 # pre-commit run --all-files  # lint and fix common problems in the codebase

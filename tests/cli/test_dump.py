@@ -3,9 +3,10 @@
 Tests for the CLI dump functionality.
 """
 
-import pytest
-from unittest.mock import patch, mock_open
+from unittest.mock import mock_open, patch
+
 import orjson
+import pytest
 
 from scribe_data.wikidata.parse_dump import LexemeProcessor, parse_dump
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
@@ -260,7 +261,7 @@ def test_process_lines_missing_required_fields(lexeme_processor):
     """Test handling of lexeme data missing required fields"""
     incomplete_data = {
         "id": "L1",
-        # missing lemmas and lexicalCategory.
+        # Missing lemmas and lexicalCategory.
         "language": "Q1860",
     }
     lexeme_processor.process_lines(orjson.dumps(incomplete_data).decode())
@@ -282,13 +283,13 @@ def test_process_lines_invalid_category(lexeme_processor):
 @pytest.mark.parametrize(
     "features,expected",
     [
-        (["Q146786"], "plural"),  # Single feature
+        (["Q146786"], "plural"),  # single feature
         (
             ["Q146786", "Q146233"],
             "genitivePlural",
-        ),  # Using actual form name from output
-        ([], ""),  # Empty features
-        (["INVALID"], ""),  # Invalid feature
+        ),  # using actual form name from output
+        ([], ""),  # empty features
+        (["INVALID"], ""),  # invalid feature
     ],
 )
 def test_get_form_name_variations(lexeme_processor, features, expected):
@@ -321,7 +322,7 @@ def test_process_forms_multiple_representations(lexeme_processor, mock_lexeme_da
     # Verify both forms were processed.
     assert "L1" in lexeme_processor.forms_index
     forms = lexeme_processor.forms_index["L1"]["en"]["nouns"]
-    assert len(forms) > 1  # Should have more than one form
+    assert len(forms) > 1  # should have more than one form
 
 
 @pytest.mark.parametrize(

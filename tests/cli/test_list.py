@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-Tests for the list file functions.
+Tests for the CLI list functionality.
 """
 
 import unittest

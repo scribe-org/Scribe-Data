@@ -1,11 +1,12 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-Interactive for the list file functions.
+Tests for the CLI interactive mode functionality.
 """
 
 import unittest
 from pathlib import Path
-from unittest.mock import MagicMock, call, patch, ANY
+from unittest.mock import ANY, MagicMock, call, patch
+
 from prompt_toolkit.completion import WordCompleter
 
 from scribe_data.cli.interactive import (
@@ -183,7 +184,7 @@ class TestScribeDataInteractive(unittest.TestCase):
         """
         Test request_total_lexeme_loop functionality with both WDQS and lexeme dumps.
         """
-        from scribe_data.cli.interactive import request_total_lexeme_loop, config
+        from scribe_data.cli.interactive import config, request_total_lexeme_loop
 
         # Test running total lexemes request via WDQS.
         mock_select.return_value.ask.side_effect = ["run", "exit"]
@@ -202,7 +203,7 @@ class TestScribeDataInteractive(unittest.TestCase):
         mock_select.return_value.ask.side_effect = ["run_all", "exit"]
 
         # Important: Reset and set the config again for the second test.
-        config.selected_languages = ["english"]  # Ensure languages are set again.
+        config.selected_languages = ["english"]  # ensure languages are set again
         mock_prompt.return_value = "/custom/dump/path"
 
         request_total_lexeme_loop()
@@ -228,7 +229,7 @@ class TestScribeDataInteractive(unittest.TestCase):
         mock_select,
     ):
         """Test start_interactive_mode functionality."""
-        from scribe_data.cli.interactive import start_interactive_mode, config
+        from scribe_data.cli.interactive import config, start_interactive_mode
 
         # Test get data request flow.
         config.configured = True
@@ -274,7 +275,7 @@ class TestScribeDataInteractive(unittest.TestCase):
         mock_select,
     ):
         """Test start_interactive_mode with convert operation."""
-        from scribe_data.cli.interactive import start_interactive_mode, config
+        from scribe_data.cli.interactive import config, start_interactive_mode
 
         # Setup mock responses.
         mock_select.return_value.ask.return_value = "convert"
@@ -309,7 +310,7 @@ class TestScribeDataInteractive(unittest.TestCase):
         self, mock_prompt_languages, mock_prompt, mock_parse_dump, mock_select
     ):
         """Test start_interactive_mode with translations operation."""
-        from scribe_data.cli.interactive import start_interactive_mode, config
+        from scribe_data.cli.interactive import config, start_interactive_mode
 
         mock_select.return_value.ask.return_value = "translations"
         mock_prompt.side_effect = ["/dump/path", "/output/dir"]

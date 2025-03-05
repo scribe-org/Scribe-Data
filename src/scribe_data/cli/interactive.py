@@ -276,6 +276,7 @@ def request_total_lexeme_loop():
             config.selected_languages, config.selected_data_types = [], []
             rprint(THANK_YOU_MESSAGE)
             break
+
         elif choice == "run_all":
             if wikidata_dump_path := prompt(
                 f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
@@ -289,8 +290,10 @@ def request_total_lexeme_loop():
                 interactive_mode=True,
             )
             break
+
         elif choice == "exit":
             return
+
         else:
             prompt_for_languages()
             prompt_for_data_types()
@@ -314,8 +317,10 @@ def request_total_lexeme_loop():
 
 #     if choice == "all_languages":
 #         list_wrapper(all_bool=True)
+
 #     elif choice == "languages_for_data_type":
 #         list_wrapper(data_type=True)
+
 #     elif choice == "data_types_for_language":
 #         list_wrapper(language=True)
 
@@ -337,6 +342,7 @@ def start_interactive_mode(operation: str = None):
                 questionary.Choice("Configure get data request", "configure"),
                 questionary.Choice("Exit", "exit"),
             ]
+
             if config.configured:
                 choices.insert(
                     1, questionary.Choice("Run get data request with WDQS", "run")
@@ -352,6 +358,7 @@ def start_interactive_mode(operation: str = None):
                 choices.insert(
                     1, questionary.Choice("Request for convert JSON", "convert_json")
                 )
+
             else:
                 choices.insert(
                     1, questionary.Choice("Request for total lexeme", "total")
@@ -370,11 +377,13 @@ def start_interactive_mode(operation: str = None):
                 # Choice("See list of languages", "languages"),
                 questionary.Choice("Exit", "exit"),
             ]
+
         elif operation == "convert":
             choices = [
                 questionary.Choice("Configure convert request", "convert"),
                 questionary.Choice("Exit", "exit"),
             ]
+
         elif operation == "translations":
             choices = [
                 questionary.Choice("Configure translations request", "translations"),
@@ -386,11 +395,13 @@ def start_interactive_mode(operation: str = None):
 
         if choice == "configure":
             configure_settings()
+
         elif choice == "run_all":
             if wikidata_dump_path := prompt(
                 f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
             ):
                 wikidata_dump_path = Path(wikidata_dump_path)
+
             else:
                 wikidata_dump_path = Path(DEFAULT_DUMP_EXPORT_DIR)
             parse_wd_lexeme_dump(
@@ -404,6 +415,7 @@ def start_interactive_mode(operation: str = None):
             )
             rprint(THANK_YOU_MESSAGE)
             break
+
         elif choice == "total":
             prompt_for_languages()
             prompt_for_data_types()
