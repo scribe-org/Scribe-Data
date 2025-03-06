@@ -4,12 +4,12 @@ on:
   push:
     branches: [main]
     paths:
-      - 'src/scribe_data/wikidata/language_data_extraction/**/*.sparql'
+      - "src/scribe_data/wikidata/language_data_extraction/**/*.sparql"
   pull_request:
     branches: [main]
     types: [opened, reopened, synchronize]
     paths:
-      - 'src/scribe_data/wikidata/language_data_extraction/**/*.sparqll'
+      - "src/scribe_data/wikidata/language_data_extraction/**/*.sparqll"
 
 jobs:
   format_check:
@@ -19,7 +19,7 @@ jobs:
         os:
           - ubuntu-latest
         python-version:
-          - "3.9"
+          - "3.11"
 
     runs-on: ${{ matrix.os }}
 
@@ -40,7 +40,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
 
       - name: Run check_query_forms.py
         working-directory: ./src/scribe_data/check

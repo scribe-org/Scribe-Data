@@ -8,6 +8,8 @@ from collections import defaultdict
 
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR as language_data_extraction,
+)
+from scribe_data.utils import (
     language_metadata,
 )
 from scribe_data.wikidata.parse_dump import LexemeProcessor

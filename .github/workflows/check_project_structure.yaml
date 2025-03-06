@@ -14,7 +14,7 @@ jobs:
         os:
           - ubuntu-latest
         python-version:
-          - "3.9"
+          - "3.11"
 
     runs-on: ${{ matrix.os }}
 
@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
 
       - name: Run check_project_structure.py
         working-directory: ./src/scribe_data/check

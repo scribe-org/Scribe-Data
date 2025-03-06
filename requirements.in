@@ -1,0 +1,22 @@
+# In order to add, delete or modify a dependency, please update
+# the reference here and then run the following:
+#
+# - pip-compile --rebuild requirements.in
+# - pip-compile --rebuild requirements-dev.in
+
+beautifulsoup4
+certifi
+defusedxml
+emoji
+flax
+iso639-lang
+mwparserfromhell
+packaging
+pandas
+questionary
+regex
+requests
+rich
+SPARQLWrapper
+tqdm
+orjson

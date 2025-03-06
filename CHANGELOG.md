@@ -39,6 +39,11 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - If Wikidata queries can't be completed, Scribe-Data now includes dramatically better error messages and directs the user to leverage commands that use Wikidata dumps ([#549](https://github.com/scribe-org/Scribe-Data/issues/549)).
 - General bug fixes for a more fluid developer experience.
 
+### ✅ Tests
+
+- Tests have been written for all new functionalities ([#570](https://github.com/scribe-org/Scribe-Data/issues/570)).
+- CI testing now includes a coverage check that breaks if coverage falls below a given percentage.
+
 ### 📝 Documentation
 
 - Documentation has been expanded for all functionalities of the CLI.

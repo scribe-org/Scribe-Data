@@ -9,8 +9,8 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-
 from get_forms import extract_dump_forms, parse_sparql_files
+
 from scribe_data.check.check_missing_forms.normalize_forms import (
     sort_qids_in_list,
     split_group_by_identifier,

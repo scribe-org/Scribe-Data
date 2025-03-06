@@ -128,7 +128,7 @@ GitHub also has documentation on how to `Generate a new SSH key <https://docs.gi
 
     python3 -m venv venv  # make an environment venv
     pip install --upgrade pip  # make sure that pip is at the latest version
-    pip install -r requirements.txt  # install dependencies
+    pip install -r requirements-dev.txt  # install development dependencies
     pip install -e .  # install the local version of Scribe-Data
 
 ..

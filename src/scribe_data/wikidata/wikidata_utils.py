@@ -48,6 +48,7 @@ def parse_wd_lexeme_dump(
     type_output_dir: str = None,
     wikidata_dump_path: str = None,
     overwrite_all: bool = False,
+    interactive_mode=False,
 ):
     """
     Checks for the existence of a Wikidata lexeme dump and parses it if possible.
@@ -92,15 +93,15 @@ def parse_wd_lexeme_dump(
             for dt in data_type_metadata.keys()
             if dt not in ["translations", "emoji-keywords"]
         ]
+    if not interactive_mode:
+        if isinstance(language, list):
+            print(f"Languages to process: {[lang.capitalize() for lang in language]}")
 
-    if isinstance(language, list):
-        print(f"Languages to process: {[lang.capitalize() for lang in language]}")
+        else:
+            print(f"Languages to process: {language.capitalize()}")
 
-    else:
-        print(f"Languages to process: {language.capitalize()}")
-
-    if "translations" not in wikidata_dump_type:
-        print(f"Data types to process: {data_types}")
+        if "translations" not in wikidata_dump_type:
+            print(f"Data types to process: {data_types}")
 
     file_path = wd_lexeme_dump_download_wrapper(None, wikidata_dump_path)
 
