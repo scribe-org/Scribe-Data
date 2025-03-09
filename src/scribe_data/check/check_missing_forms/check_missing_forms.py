@@ -329,10 +329,10 @@ if __name__ == "__main__":
 
 # missing_features = get_missing_features(result_sparql, result_dump)
 
-# MARK: Part 3 (Process missing features.)
-
 # with open("missing_features.json", "w") as f:
 #     json.dump(missing_features, f, indent=4)
+
+# MARK: Part 3 (Process missing features.)
 
 # with open("missing_features.json", "r") as f:
 #     missing_features = json.load(f)
