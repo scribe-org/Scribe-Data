@@ -351,15 +351,15 @@
       "qid": "Q814722"
     },
     "10": {
-      "label": "PresentAndParticiple",
+      "label": "CombinedPresentParticiple",
       "qid": "Q10345583"
     },
     "11": {
-      "label": "PastAndParticiple",
+      "label": "CombinedPastParticiple",
       "qid": "Q12717679"
     },
     "12": {
-      "label": "PastParticipleEnglish",
+      "label": "EnglishPastParticiple",
       "qid": "Q1230649"
     },
     "13": {

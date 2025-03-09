@@ -7,8 +7,8 @@ SELECT
   ?lastModified
   ?infinitive
   ?presentParticiple
-  ?pastParticiple
   ?presentWordStem
+  ?pastParticiple
   ?pastWordStem
 
 WHERE {
@@ -17,7 +17,7 @@ WHERE {
     wikibase:lemma ?infinitive ;
     schema:dateModified ?lastModified .
 
-  #MARK: Past Participle
+  # MARK: Present
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentParticipleForm .
@@ -27,19 +27,19 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
-    ?pastParticipleForm ontolex:representation ?pastParticiple ;
-      wikibase:grammaticalFeature wd:Q1994301, wd:Q814722 .
-    FILTER(lang(?pastParticiple) = "fa") .
-  }
-
-  #MARK: Word Stem
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentWordStemForm .
     ?presentWordStemForm ontolex:representation ?presentWordStem ;
       wikibase:grammaticalFeature wd:Q192613, wd:Q210523 .
     FILTER(lang(?presentWordStem) = "fa") .
+  }
+
+  # MARK: Past
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q814722 .
+    FILTER(lang(?pastParticiple) = "fa") .
   }
 
   OPTIONAL {

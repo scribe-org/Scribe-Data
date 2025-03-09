@@ -19,7 +19,7 @@ WHERE {
     wikibase:lemma ?infinitive ;
     schema:dateModified ?lastModified .
 
-  #MARK: Indicative Aorist
+  # MARK: Indicative Aorist
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeFirstPersonAoristSingularForm .
