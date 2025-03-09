@@ -10,11 +10,9 @@ from collections import defaultdict
 from pathlib import Path
 
 from get_forms import extract_dump_forms, parse_sparql_files
+from normalize_forms import sort_qids_in_list
+from split_query import split_group_by_identifier
 
-from scribe_data.check.check_missing_forms.normalize_forms import (
-    sort_qids_in_list,
-    split_group_by_identifier,
-)
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
@@ -174,7 +172,10 @@ def process_missing_features(missing_features, query_dir):
 
             else:
                 print(f"Generating query for {language_qid} - {data_type_qid}")
-                split_group_by_identifier(language_entry, LANGUAGE_DATA_EXTRACTION_DIR)
+                # generate_query(language_entry, LANGUAGE_DATA_EXTRACTION_DIR)
+                split_group_by_identifier(
+                    language_entry, LANGUAGE_DATA_EXTRACTION_DIR, sub_lang_iso_code=None
+                )
 
 
 def main():
@@ -288,3 +289,56 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+#  MARK: Testing
+
+# def main():
+
+# MARK: Part 1 (Get forms from all languages including sub languages.)
+
+# Get all languages including sub languages.
+# languages = get_all_languages()
+
+# # MARK: Parse SPARQL
+
+# # print("Parsing SPARQL files...")
+# result_sparql = parse_sparql_files()
+
+# # MARK: Extract Forms
+
+# print("Extracting Wiki lexeme dump...")
+# result_dump = extract_dump_forms(
+#     languages=languages,
+#     data_types=list(data_type_metadata.keys()),
+#     file_path="{dump_path}", ##need to give the path of the dump file.
+# )
+# with open("result_dump.json", "w") as f:
+#     json.dump(result_dump, f, indent=4)
+
+# with open("result_sparql.json", "w") as f:
+#     json.dump(result_sparql, f, indent=4)
+
+# MARK: Part 2 (Get missing features from SPARQL and dump.)
+
+# with open("result_sparql.json", "r") as f:
+#     result_sparql = json.load(f)
+
+# with open("result_dump.json", "r") as f:
+#     result_dump = json.load(f)
+
+# missing_features = get_missing_features(result_sparql, result_dump)
+
+# MARK: Part 3 (Process missing features.)
+
+# with open("missing_features.json", "w") as f:
+#     json.dump(missing_features, f, indent=4)
+
+# with open("missing_features.json", "r") as f:
+#     missing_features = json.load(f)
+
+# process_missing_features(missing_features, query_dir=None)
+
+
+# if __name__ == "__main__":
+#     main()
