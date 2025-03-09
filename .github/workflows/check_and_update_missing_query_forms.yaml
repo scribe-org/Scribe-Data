@@ -50,7 +50,8 @@ jobs:
           echo "Query directory: ${QUERY_DIR}"
 
           # Generate the missing features data with all keys processing and automatic dump download.
-          PYTHONPATH=$PYTHONPATH:$(pwd)/src python src/scribe_data/check/check_missing_forms/check_missing_forms.py "${QUERY_DIR}" --download-dump --process-all-keys
+          PYTHONPATH=$PYTHONPATH:$(pwd)/src
+          python src/scribe_data/check/check_missing_forms/check_missing_forms.py "${QUERY_DIR}" --download-dump --process-all-keys
 
       # Debug steps to understand the state.
       - name: Debug Info
