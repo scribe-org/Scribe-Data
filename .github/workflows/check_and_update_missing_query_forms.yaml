@@ -70,18 +70,18 @@ jobs:
         if: always()
         run: |
           # Print the contents of the missing features JSON file if it exists.
-          if [ -f missing_features.json ]; then
-            echo "Contents of missing_features.json:"
-            cat missing_features.json
+          if [ -f query_check_missing_features.json ]; then
+            echo "Contents of query_check_missing_features.json:"
+            cat query_check_missing_features.json
           else
-            echo "missing_features.json not found"
+            echo "query_check_missing_features.json not found"
           fi
 
       - name: Generate PR Body
         id: pr-body
         run: |
           # Run the pr_body.py script with the missing features data.
-          PR_BODY_CONTENT=$(python src/scribe_data/check/check_missing_forms/pr_body.py missing_features.json)
+          PR_BODY_CONTENT=$(python src/scribe_data/check/check_missing_forms/pr_body.py query_check_missing_features.json)
 
           # Debug output.
           echo "PR Body Content:"

@@ -49,4 +49,6 @@ scribe_data_wikidata_dumps_export/*
 
 # MARK: GitHub Actions
 
-missing_features.json
+query_check_missing_features.json
+query_check_result_dump.json
+query_check_result_sparql.json

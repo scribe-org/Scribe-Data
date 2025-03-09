@@ -267,7 +267,9 @@ def wd_lexeme_dump_download_wrapper(
                             f.write(chunk)
                             pbar.update(len(chunk))
 
-            rprint("[bold green]Download completed successfully![/bold green]")
+            rprint(
+                "[bold green]Wikidata lexeme dump download completed successfully![/bold green]"
+            )
 
             return output_path
 
