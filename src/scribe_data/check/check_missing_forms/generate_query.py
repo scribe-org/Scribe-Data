@@ -80,7 +80,7 @@ def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
     # Process all forms at once.
     forms_query = []
     all_form_combinations = sort_qids_by_position(
-        missing_features[language_qid][data_type_qid]
+        nested_qids=missing_features[language_qid][data_type_qid]
     )
 
     # Keep track of used labels to avoid duplicates
