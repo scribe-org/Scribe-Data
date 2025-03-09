@@ -9,8 +9,8 @@ SELECT
 
   ?imperative
 
-  ?presentParticiple
-  ?pastParticiple
+  ?presentAndParticiple
+  ?pastAndParticiple
 
   ?passiveInfinitive
   ?passivePresent
@@ -37,14 +37,14 @@ WHERE {
   # MARK: Participles
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
-    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+    ?lexeme ontolex:lexicalForm ?presentAndParticipleForm .
+    ?presentAndParticipleForm ontolex:representation ?presentAndParticiple ;
       wikibase:grammaticalFeature wd:Q10345583 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
-    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+    ?lexeme ontolex:lexicalForm ?pastAndParticipleForm .
+    ?pastAndParticipleForm ontolex:representation ?pastAndParticiple ;
       wikibase:grammaticalFeature wd:Q12717679 .
   }
 

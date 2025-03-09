@@ -7,7 +7,7 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?infinitive
-  ?pastParticiple
+  ?pastAndParticiple
   ?indicativePreteriteFirstPersonSingular
   ?indicativePreteriteFirstPersonPlural
   ?indicativePreteriteSecondPersonSingular
@@ -25,8 +25,8 @@ WHERE {
   # MARK: Past Participle
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
-    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+    ?lexeme ontolex:lexicalForm ?pastAndParticipleForm .
+    ?pastAndParticipleForm ontolex:representation ?pastAndParticiple ;
       wikibase:grammaticalFeature wd:Q12717679 .
   }
 

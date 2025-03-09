@@ -8,7 +8,7 @@ SELECT
   ?infinitive
   ?simplePresent
   ?simplePast
-  ?presentParticiple
+  ?presentAndParticiple
   ?pastParticipleEnglish
   ?simplePresentThirdPersonSingular
 
@@ -46,12 +46,12 @@ WHERE {
   # MARK: Present Participle
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
-    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+    ?lexeme ontolex:lexicalForm ?presentAndParticipleForm .
+    ?presentAndParticipleForm ontolex:representation ?presentAndParticiple ;
       wikibase:grammaticalFeature wd:Q10345583 .
-      FILTER NOT EXISTS { ?presentParticipleForm wdt:P6191 wd:Q181970 . }
-      FILTER NOT EXISTS { ?presentParticipleForm wikibase:grammaticalFeature wd:Q126473 . }
-      FILTER(LANG(?presentParticiple) = "en")
+      FILTER NOT EXISTS { ?presentAndParticipleForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?presentAndParticipleForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?presentAndParticiple) = "en")
   }
 
   # MARK: Past Participle English

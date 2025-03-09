@@ -504,7 +504,7 @@ def check_optional_qid_order(query_file: str) -> str:
             label_components = decompose_label_features(form_label)
             expected_qids = [qid_label_dict[key] for key in label_components]
 
-            # Keep PastParticiple and imperfective QIDs as is in the query since we have duplicate qids for it.
+            # Keep PastAndParticiple and imperfective QIDs as is in the query since we have duplicate qids for it.
             for i in ["Q12717679", "Q1230649", "Q2898727", "Q54556033"]:
                 if i in actual_qids and i not in expected_qids:
                     expected_qids[actual_qids.index(i)] = i
