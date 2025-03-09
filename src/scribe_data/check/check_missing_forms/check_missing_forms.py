@@ -1,6 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
 Check for missing forms in Wikidata and download Wikidata lexeme dump.
+
+Example
+-------
+    python3 src/scribe_data/check/check_missing_forms/check_missing_forms.py
 """
 
 import argparse
@@ -10,11 +14,9 @@ from collections import defaultdict
 from pathlib import Path
 
 from get_forms import extract_dump_forms, parse_sparql_files
+from normalize_forms import sort_qids_in_list
+from split_query import split_group_by_identifier
 
-from scribe_data.check.check_missing_forms.normalize_forms import (
-    sort_qids_in_list,
-    split_group_by_identifier,
-)
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
@@ -174,7 +176,9 @@ def process_missing_features(missing_features, query_dir):
 
             else:
                 print(f"Generating query for {language_qid} - {data_type_qid}")
-                split_group_by_identifier(language_entry, LANGUAGE_DATA_EXTRACTION_DIR)
+                split_group_by_identifier(
+                    language_entry, LANGUAGE_DATA_EXTRACTION_DIR, sub_lang_iso_code=None
+                )
 
 
 def main():
@@ -272,10 +276,12 @@ def main():
 
         print("Generated missing features:", missing_features)
 
-        with open("missing_features.json", "w") as f:
+        with open("query_check_missing_features.json", "w") as f:
             json.dump(missing_features, f, indent=4)
 
-        print("Missing features data has been saved to missing_features.json")
+        print(
+            "Missing features data has been saved to query_check_missing_features.json"
+        )
 
         if missing_features:
             # Process all data types for each language.
@@ -286,5 +292,65 @@ def main():
         sys.exit(1)
 
 
+# Note: Comment out this condition for testing.
 if __name__ == "__main__":
     main()
+
+
+# MARK: Testing
+
+# Note: Please uncomment all lines except MARKs and Notes below for testing.
+
+# MARK: Part 1
+
+# Note: Get forms from all languages including sub languages.
+
+# from scribe_data.utils import DEFAULT_DUMP_EXPORT_DIR
+
+# DUMP_PATH = f"{DEFAULT_DUMP_EXPORT_DIR}/latest-lexemes.json.bz2"
+
+# # Get all languages including sub languages.
+# languages = get_all_languages()
+
+# # Parse SPARQL
+
+# print("Parsing SPARQL files...")
+# result_sparql = parse_sparql_files()
+
+# # Extract Forms
+
+# print("Extracting Wiki lexeme dump...")
+# result_dump = extract_dump_forms(
+#     languages=languages,
+#     data_types=list(data_type_metadata.keys()),
+#     file_path=f"{DUMP_PATH}",  # need to give the path of the dump file.
+# )
+# with open("query_check_result_dump.json", "w") as f:
+#     json.dump(result_dump, f, indent=4)
+
+# with open("query_check_result_sparql.json", "w") as f:
+#     json.dump(result_sparql, f, indent=4)
+
+# MARK: Part 2
+
+# Note: Get missing features from SPARQL and dump.
+
+# with open("query_check_result_sparql.json", "r") as f:
+#     result_sparql = json.load(f)
+
+# with open("query_check_result_dump.json", "r") as f:
+#     result_dump = json.load(f)
+
+# missing_features = get_missing_features(result_sparql, result_dump)
+
+# with open("query_check_missing_features.json", "w") as f:
+#     json.dump(missing_features, f, indent=4)
+
+# MARK: Part 3
+
+# Note: Process missing features.
+
+# with open("query_check_missing_features.json", "r") as f:
+#     missing_features = json.load(f)
+
+# process_missing_features(missing_features, query_dir=None)
