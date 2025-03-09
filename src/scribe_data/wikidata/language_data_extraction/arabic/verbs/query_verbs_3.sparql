@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?performativeFirstPersonSingular
+  ?firstPersonSingularFiilMudari
+  ?activeImperativeSecondPersonDual
+  ?activePerfectFirstPersonSingular
+  ?femininePassivePerformativeSecondPersonSingular
+  ?commonActivePastSecondPersonDual
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+      wikibase:lexicalCategory wd:Q24905 ;
+      wikibase:lemma ?verb ;
+      schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?performativeFirstPersonSingularForm .
+    ?performativeFirstPersonSingularForm ontolex:representation ?performativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q124351233, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonSingularFiilMudariForm .
+    ?firstPersonSingularFiilMudariForm ontolex:representation ?firstPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeImperativeSecondPersonDualForm .
+    ?activeImperativeSecondPersonDualForm ontolex:representation ?activeImperativeSecondPersonDual ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716, wd:Q51929049, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePerfectFirstPersonSingularForm .
+    ?activePerfectFirstPersonSingularForm ontolex:representation ?activePerfectFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q625420, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePassivePerformativeSecondPersonSingularForm .
+    ?femininePassivePerformativeSecondPersonSingularForm ontolex:representation ?femininePassivePerformativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1194697, wd:Q124351233, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?commonActivePastSecondPersonDualForm .
+    ?commonActivePastSecondPersonDualForm ontolex:representation ?commonActivePastSecondPersonDual ;
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q1317831, wd:Q1994301, wd:Q51929049, wd:Q110022 .
+  }
+}
