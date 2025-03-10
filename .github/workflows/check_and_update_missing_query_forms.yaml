@@ -81,7 +81,7 @@ jobs:
         id: pr-body
         run: |
           # Run the pr_body.py script with the missing features data.
-          PR_BODY_CONTENT=$(python src/scribe_data/check/check_missing_forms/pr_body.py query_check_missing_features.json)
+          PR_BODY_CONTENT=$(python src/scribe_data/check/check_missing_forms/pr_body.py query_check_missing_features.json) || echo "No missing features/forms found."
 
           # Debug output.
           # echo "PR Body Content:"
@@ -101,6 +101,7 @@ jobs:
       #     cat $GITHUB_OUTPUT
 
       - name: Create Pull Request
+        if: steps.pr-body.outputs.body != 'No missing features/forms found.'
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
