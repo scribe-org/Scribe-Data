@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Danish (Q9035) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?plural
+  ?superlative
+  ?positive
+  ?genitiveIndefiniteSingularPositive
+  ?nonGenitiveIndefiniteSingularPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+      wikibase:lexicalCategory wd:Q34698 ;
+      wikibase:lemma ?adjective ;
+      schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveIndefiniteSingularPositiveForm .
+    ?genitiveIndefiniteSingularPositiveForm ontolex:representation ?genitiveIndefiniteSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997857, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveIndefiniteSingularPositiveForm .
+    ?nonGenitiveIndefiniteSingularPositiveForm ontolex:representation ?nonGenitiveIndefiniteSingularPositive ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997857, wd:Q110786, wd:Q3482678 .
+  }
+}
