@@ -4,6 +4,7 @@ Generate SPARQL queries for missing lexeme forms.
 """
 
 import os
+import re
 from pathlib import Path
 
 from scribe_data.check.check_missing_forms.normalize_forms import sort_qids_by_position
@@ -16,6 +17,68 @@ from scribe_data.utils import (
     lexeme_form_metadata,
     sub_languages,
 )
+
+
+def get_available_filename(base_path):
+    """
+    Find the next available filename by incrementing counter if file exists.
+
+    Parameters
+    ----------
+    base_path : str
+        Base path for the query file.
+
+    Returns
+    -------
+    str
+        Available filename that doesn't conflict with existing files.
+
+    Examples
+    --------
+    If no files exist:
+        - Returns query_{data_type}.sparql
+    If query_{data_type}.sparql exists:
+        - Renames existing query_{data_type}.sparql to query_{data_type}_1.sparql
+        - Returns query_{data_type}_2.sparql
+    If last file is query_{data_type}_N.sparql:
+        - Returns query_{data_type}_(N+1).sparql
+    """
+    base_dir = os.path.dirname(base_path)
+    base_name = os.path.basename(base_path)
+    name, ext = os.path.splitext(base_name)  # ext : ".sparql"
+
+    # If directory doesn't exist, return base name.
+    if not os.path.exists(base_dir):
+        return base_path
+
+    # Check for existing files.
+    existing_files = [
+        f for f in os.listdir(base_dir) if f.startswith(name) and f.endswith(ext)
+    ]
+
+    # If no files exist, use base name.
+    if not existing_files:
+        return base_path
+
+    # Check if base file exists (query_{data_type}.sparql).
+    if base_name in existing_files:
+        # Rename base file to query_{data_type}_1.sparql.
+        old_path = os.path.join(base_dir, base_name)
+        new_path = os.path.join(base_dir, f"{name}_1{ext}")
+        os.rename(old_path, new_path)
+
+        # Return query_{data_type}_2.sparql for new file.
+        return os.path.join(base_dir, f"{name}_2{ext}")
+
+    # Find highest number in existing files.
+    max_num = 0
+    for f in existing_files:
+        if match := re.search(rf"{name}_(\d+){ext}$", f):
+            num = int(match[1])
+            max_num = max(max_num, num)
+
+    # Return next number in sequence.
+    return os.path.join(base_dir, f"{name}_{max_num + 1}{ext}")
 
 
 def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
@@ -152,39 +215,13 @@ WHERE {{
     # Print the complete query.
     final_query = main_body + where_clause + optional_clauses + "}\n"
 
-    def get_available_filename(base_path):
-        """Helper function to find the next available filename"""
-        if not os.path.exists(base_path):
-            return base_path
-
-        base, ext = os.path.splitext(base_path)
-        counter = 1
-
-        # If the base already ends with _N, start from that number.
-        import re
-
-        if match := re.search(r"_(\d+)$", base):
-            counter = int(match.group(1)) + 1
-            base = base[: match.start()]
-
-        while True:
-            new_path = f"{base}_{counter}{ext}"
-            if not os.path.exists(new_path):
-                return new_path
-            counter += 1
-
+    # Create base filename.
     if sub_lang_iso_code:
-        base_file_name = (
-            f"{query_dir}/{language}/{sub_lang_name}/{data_type}/{data_type}.sparql"
-        )
-        print(base_file_name)
-
-    # Create base filename using the provided query_dir or default.
+        base_file_name = f"{query_dir}/{language}/{sub_lang_name}/{data_type}/query_{data_type}.sparql"
     elif query_dir:
         base_file_name = (
             Path(query_dir) / language / data_type / f"query_{data_type}.sparql"
         )
-
     else:
         base_file_name = f"{language_data_extraction}/{language}/{data_type}/query_{data_type}.sparql"
 
@@ -194,7 +231,7 @@ WHERE {{
     # Create directory if it doesn't exist.
     os.makedirs(os.path.dirname(file_name), exist_ok=True)
 
-    # Write the file.
+    # Write query to file.
     with open(file_name, "w") as file:
         file.write(final_query)
 
