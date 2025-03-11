@@ -13,9 +13,9 @@ SELECT
 
 WHERE {
   ?lexeme dct:language wd:Q143 ;
-      wikibase:lexicalCategory wd:Q468801 ;
-      wikibase:lemma ?personalpronoun ;
-      schema:dateModified ?lastModified .
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeForm .

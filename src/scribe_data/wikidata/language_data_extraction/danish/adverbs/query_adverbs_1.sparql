@@ -15,9 +15,9 @@ SELECT
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
-      wikibase:lexicalCategory wd:Q380057 ;
-      wikibase:lemma ?adverb ;
-      schema:dateModified ?lastModified .
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?adverb ;
+    schema:dateModified ?lastModified .
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?comparativeForm .

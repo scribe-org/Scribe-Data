@@ -11,9 +11,9 @@ SELECT
 
 WHERE {
   ?lexeme dct:language wd:Q143 ;
-      wikibase:lexicalCategory wd:Q36224 ;
-      wikibase:lemma ?pronoun ;
-      schema:dateModified ?lastModified .
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeForm .

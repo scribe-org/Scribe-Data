@@ -15,9 +15,9 @@ SELECT
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
-      wikibase:lexicalCategory wd:Q161873 ;
-      wikibase:lemma ?postposition ;
-      schema:dateModified ?lastModified .
+    wikibase:lexicalCategory wd:Q161873 ;
+    wikibase:lemma ?postposition ;
+    schema:dateModified ?lastModified .
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?ablativeSingularForm .

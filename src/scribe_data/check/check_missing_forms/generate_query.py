@@ -116,9 +116,9 @@ SELECT
 
 WHERE {{
   ?lexeme dct:language wd:{language_qid} ;
-      wikibase:lexicalCategory wd:{data_type_qid} ;
-      wikibase:lemma ?{body_data_type} ;
-      schema:dateModified ?lastModified .
+    wikibase:lexicalCategory wd:{data_type_qid} ;
+    wikibase:lemma ?{body_data_type} ;
+    schema:dateModified ?lastModified .
     """
     if sub_lang_iso_code:
         try:

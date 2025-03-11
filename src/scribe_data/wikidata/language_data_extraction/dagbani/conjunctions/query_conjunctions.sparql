@@ -10,9 +10,9 @@ SELECT
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
-      wikibase:lexicalCategory wd:Q36484 ;
-      wikibase:lemma ?conjunction ;
-      schema:dateModified ?lastModified .
+    wikibase:lexicalCategory wd:Q36484 ;
+    wikibase:lemma ?conjunction ;
+    schema:dateModified ?lastModified .
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularForm .

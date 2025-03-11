@@ -15,9 +15,9 @@ SELECT
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
-      wikibase:lexicalCategory wd:Q1084 ;
-      wikibase:lemma ?noun ;
-      schema:dateModified ?lastModified .
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?illativeSingularForm .
