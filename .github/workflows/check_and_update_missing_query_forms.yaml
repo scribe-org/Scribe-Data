@@ -26,7 +26,7 @@ jobs:
     if: needs.check-repository.outputs.is_correct_repo == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -36,7 +36,7 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
@@ -60,7 +60,7 @@ jobs:
       #     echo "List of changes:"
       #     git status
 
-      - name: Make changes
+      - name: Make Changes
         run: |
           git add src/scribe_data/wikidata/language_data_extraction/**/*.sparql
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -77,17 +77,27 @@ jobs:
       #       echo "query_check_missing_features.json not found"
       #     fi
 
+      - name: Check Generated Query Forms
+        working-directory: ./src/scribe_data/check
+        run: |
+          python check_query_identifiers.py
+          python check_query_forms.py
+
+      - name: Post-run Status
+        if: failure()
+        run: echo "Generated SPARQL query forms or identifiers check failed. Please fix the reported errors."
+
       - name: Generate PR Body
         id: pr-body
         run: |
           # Run the pr_body.py script with the missing features data.
-          PR_BODY_CONTENT=$(python src/scribe_data/check/check_missing_forms/pr_body.py query_check_missing_features.json)
+          PR_BODY_CONTENT=$(python src/scribe_data/check/check_missing_forms/pr_body.py query_check_missing_features.json) || echo "No missing query forms found."
 
           # Debug output.
           # echo "PR Body Content:"
           # echo "$PR_BODY_CONTENT"
 
-          # Initialize PR body with delimiter
+          # Initialize PR body with delimiter.
           {
             echo "body<<EOF"
             echo "$PR_BODY_CONTENT"
@@ -100,7 +110,9 @@ jobs:
       #     echo "PR Body from GITHUB_OUTPUT:"
       #     cat $GITHUB_OUTPUT
 
+      # Create a PR only when we're missing forms.
       - name: Create Pull Request
+        if: steps.pr-body.outputs.body != 'No missing query forms found.'
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
