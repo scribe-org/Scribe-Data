@@ -36,12 +36,12 @@ def get_available_filename(base_path):
     Examples
     --------
     If no files exist:
-        Returns query_nouns.sparql.
-    If query_nouns.sparql exists:
-        Renames existing query_nouns.sparql to query_nouns_1.sparql.
-        Returns query_nouns_2.sparql
-    If last file is query_nouns_N.sparql:
-        Returns query_nouns_(N+1).sparql.
+        - Returns query_{data_type}.sparql
+    If query_{data_type}.sparql exists:
+        - Renames existing query_{data_type}.sparql to query_{data_type}_1.sparql
+        - Returns query_{data_type}_2.sparql
+    If last file is query_{data_type}_N.sparql:
+        - Returns query_{data_type}_(N+1).sparql
     """
     base_dir = os.path.dirname(base_path)
     base_name = os.path.basename(base_path)
@@ -60,21 +60,21 @@ def get_available_filename(base_path):
     if not existing_files:
         return base_path
 
-    # Check if base file exists (query_nouns.sparql).
+    # Check if base file exists (query_{data_type}.sparql).
     if base_name in existing_files:
-        # Rename base file to _1
+        # Rename base file to query_{data_type}_1.sparql.
         old_path = os.path.join(base_dir, base_name)
         new_path = os.path.join(base_dir, f"{name}_1{ext}")
         os.rename(old_path, new_path)
-        # Return _2 for new file
+
+        # Return query_{data_type}_2.sparql for new file.
         return os.path.join(base_dir, f"{name}_2{ext}")
 
     # Find highest number in existing files.
     max_num = 0
     for f in existing_files:
-        match = re.search(rf"{name}_(\d+){ext}$", f)
-        if match:
-            num = int(match.group(1))
+        if match := re.search(rf"{name}_(\d+){ext}$", f):
+            num = int(match[1])
             max_num = max(max_num, num)
 
     # Return next number in sequence.
