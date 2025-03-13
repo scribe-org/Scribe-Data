@@ -45,6 +45,8 @@ def main() -> None:
     )
     subparsers = parser.add_subparsers(dest="command")
 
+    parser._actions[0].help = "Show this help message and exit."
+
     parser.add_argument(
         "-v",
         "--version",
