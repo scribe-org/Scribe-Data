@@ -162,7 +162,7 @@ def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
             forms_query.append({"label": concatenated_label, "qids": form_qids})
             used_labels.add(concatenated_label)
 
-    body_data_type = data_type.replace("_", "")[:-1]
+    body_data_type = data_type.replace("_", "")[:-1]  # nouns: noun, s
 
     # Generate a single query for all forms.
     main_body = f"""# tool: scribe-data
@@ -179,9 +179,9 @@ SELECT
 
 WHERE {{
   ?lexeme dct:language wd:{language_qid} ;
-      wikibase:lexicalCategory wd:{data_type_qid} ;
-      wikibase:lemma ?{body_data_type} ;
-      schema:dateModified ?lastModified .
+    wikibase:lexicalCategory wd:{data_type_qid} ;
+    wikibase:lemma ?{body_data_type} ;
+    schema:dateModified ?lastModified .
     """
     if sub_lang_iso_code:
         try:
@@ -197,7 +197,7 @@ WHERE {{
 
         where_clause += f"""
   # Note: We need to filter for {sub_lang_iso_code} to remove {sub_lang_name} ({sub_lang_iso_code}) words.
-  FILTER(lang(?{data_type}) = "{sub_lang_iso_code}")
+  FILTER(lang(?{body_data_type}) = "{sub_lang_iso_code}")
     """
 
     # Generate OPTIONAL clauses for all forms in one query.
