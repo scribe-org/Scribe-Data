@@ -1,0 +1,46 @@
+# tool: scribe-data
+# All Punjabi (Q58635) postpositions (Q161873) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?postposition
+  ?locative
+  ?ablative
+  ?ablativeFeminineSingular
+  ?ablativeMasculineSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q161873 ;
+    wikibase:lemma ?postposition ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pnb to remove shahmukhi (pnb) words.
+  FILTER(lang(?postposition) = "pnb")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeForm .
+    ?locativeForm ontolex:representation ?locative ;
+      wikibase:grammaticalFeature wd:Q202142 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeForm .
+    ?ablativeForm ontolex:representation ?ablative ;
+      wikibase:grammaticalFeature wd:Q156986 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeFeminineSingularForm .
+    ?ablativeFeminineSingularForm ontolex:representation ?ablativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularForm .
+    ?ablativeMasculineSingularForm ontolex:representation ?ablativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786 .
+  }
+}

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Slovak (Q9058) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?genitiveSingular
+  ?genitivePlural
+  ?genitiveFeminineSingular
+  ?genitiveFemininePlural
+  ?genitiveMasculineSingular
+  ?genitiveMasculinePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularForm .
+    ?genitiveFeminineSingularForm ontolex:representation ?genitiveFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFemininePluralForm .
+    ?genitiveFemininePluralForm ontolex:representation ?genitiveFemininePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularForm .
+    ?genitiveMasculineSingularForm ontolex:representation ?genitiveMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePluralForm .
+    ?genitiveMasculinePluralForm ontolex:representation ?genitiveMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q146786 .
+  }
+}

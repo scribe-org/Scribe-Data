@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Russian (Q7737) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?prepositional
+  ?prepositionalSingular
+  ?prepositionalFirstPersonSingular
+  ?prepositionalFirstPersonPlural
+  ?prepositionalSecondPersonSingular
+  ?prepositionalSecondPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q7737 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?prepositionalForm .
+    ?prepositionalForm ontolex:representation ?prepositional ;
+      wikibase:grammaticalFeature wd:Q2114906 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?prepositionalSingularForm .
+    ?prepositionalSingularForm ontolex:representation ?prepositionalSingular ;
+      wikibase:grammaticalFeature wd:Q2114906, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?prepositionalFirstPersonSingularForm .
+    ?prepositionalFirstPersonSingularForm ontolex:representation ?prepositionalFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q2114906, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?prepositionalFirstPersonPluralForm .
+    ?prepositionalFirstPersonPluralForm ontolex:representation ?prepositionalFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q2114906, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?prepositionalSecondPersonSingularForm .
+    ?prepositionalSecondPersonSingularForm ontolex:representation ?prepositionalSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q2114906, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?prepositionalSecondPersonPluralForm .
+    ?prepositionalSecondPersonPluralForm ontolex:representation ?prepositionalSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q2114906, wd:Q51929049, wd:Q146786 .
+  }
+}

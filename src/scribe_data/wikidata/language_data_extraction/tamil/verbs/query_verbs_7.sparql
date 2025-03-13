@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Tamil (Q5885) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?feminineSimplePast
+  ?masculineSimplePast
+  ?feminineSimplePastThirdPerson
+  ?masculineSimplePastThirdPerson
+  ?feminineSimplePastThirdPersonSingular
+  ?masculineSimplePastThirdPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q5885 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSimplePastForm .
+    ?feminineSimplePastForm ontolex:representation ?feminineSimplePast ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1392475 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSimplePastForm .
+    ?masculineSimplePastForm ontolex:representation ?masculineSimplePast ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1392475 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSimplePastThirdPersonForm .
+    ?feminineSimplePastThirdPersonForm ontolex:representation ?feminineSimplePastThirdPerson ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1392475, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSimplePastThirdPersonForm .
+    ?masculineSimplePastThirdPersonForm ontolex:representation ?masculineSimplePastThirdPerson ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1392475, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSimplePastThirdPersonSingularForm .
+    ?feminineSimplePastThirdPersonSingularForm ontolex:representation ?feminineSimplePastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1392475, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSimplePastThirdPersonSingularForm .
+    ?masculineSimplePastThirdPersonSingularForm ontolex:representation ?masculineSimplePastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1392475, wd:Q51929074, wd:Q110786 .
+  }
+}

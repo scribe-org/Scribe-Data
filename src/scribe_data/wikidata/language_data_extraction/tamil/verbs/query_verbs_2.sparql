@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Tamil (Q5885) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?infinitive
+  ?past
+  ?future
+  ?singular
+  ?masculinePresentSingular
+  ?masculinePastSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q5885 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureForm .
+    ?futureForm ontolex:representation ?future ;
+      wikibase:grammaticalFeature wd:Q501405 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePresentSingularForm .
+    ?masculinePresentSingularForm ontolex:representation ?masculinePresentSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q192613, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePastSingularForm .
+    ?masculinePastSingularForm ontolex:representation ?masculinePastSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q110786 .
+  }
+}

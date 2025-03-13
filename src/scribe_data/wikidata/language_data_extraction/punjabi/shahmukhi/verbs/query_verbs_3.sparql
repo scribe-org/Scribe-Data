@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Punjabi (Q58635) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?conjunctiveParticiple
+  ?masculinePlural
+  ?masculineThirdPersonSingular
+  ?locativeIntransitivePhaseBasicPhaseGerund
+  ?ablativeIntransitivePhaseBasicPhaseGerund
+  ?masculineFutureIntransitivePhaseBasicPhaseFirstPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pnb to remove shahmukhi (pnb) words.
+  FILTER(lang(?verb) = "pnb")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conjunctiveParticipleForm .
+    ?conjunctiveParticipleForm ontolex:representation ?conjunctiveParticiple ;
+      wikibase:grammaticalFeature wd:Q113133303 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
+    ?masculinePluralForm ontolex:representation ?masculinePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineThirdPersonSingularForm .
+    ?masculineThirdPersonSingularForm ontolex:representation ?masculineThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeIntransitivePhaseBasicPhaseGerundForm .
+    ?locativeIntransitivePhaseBasicPhaseGerundForm ontolex:representation ?locativeIntransitivePhaseBasicPhaseGerund ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q113330736, wd:Q113330960, wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeIntransitivePhaseBasicPhaseGerundForm .
+    ?ablativeIntransitivePhaseBasicPhaseGerundForm ontolex:representation ?ablativeIntransitivePhaseBasicPhaseGerund ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q113330736, wd:Q113330960, wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineFutureIntransitivePhaseBasicPhaseFirstPersonSingularForm .
+    ?masculineFutureIntransitivePhaseBasicPhaseFirstPersonSingularForm ontolex:representation ?masculineFutureIntransitivePhaseBasicPhaseFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q501405, wd:Q113330736, wd:Q113330960, wd:Q21714344, wd:Q110786 .
+  }
+}

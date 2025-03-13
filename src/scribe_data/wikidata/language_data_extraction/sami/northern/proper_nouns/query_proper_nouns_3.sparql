@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Sami (Q33947) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?locative
+  ?comitative
+  ?locativeSingular
+  ?locativePlural
+  ?comitativeSingular
+  ?comitativePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q33947 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for se to remove northern (se) words.
+  FILTER(lang(?propernoun) = "se")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeForm .
+    ?locativeForm ontolex:representation ?locative ;
+      wikibase:grammaticalFeature wd:Q202142 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comitativeForm .
+    ?comitativeForm ontolex:representation ?comitative ;
+      wikibase:grammaticalFeature wd:Q838581 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
+    ?locativeSingularForm ontolex:representation ?locativeSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativePluralForm .
+    ?locativePluralForm ontolex:representation ?locativePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comitativeSingularForm .
+    ?comitativeSingularForm ontolex:representation ?comitativeSingular ;
+      wikibase:grammaticalFeature wd:Q838581, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comitativePluralForm .
+    ?comitativePluralForm ontolex:representation ?comitativePlural ;
+      wikibase:grammaticalFeature wd:Q838581, wd:Q146786 .
+  }
+}

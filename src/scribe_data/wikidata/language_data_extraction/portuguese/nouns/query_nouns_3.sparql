@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Portuguese (Q5146) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?masculineSingular
+  ?masculinePlural
+  ?masculineSingularPositive
+  ?masculinePluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q5146 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
+    ?masculineSingularForm ontolex:representation ?masculineSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
+    ?masculinePluralForm ontolex:representation ?masculinePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularPositiveForm .
+    ?masculineSingularPositiveForm ontolex:representation ?masculineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralPositiveForm .
+    ?masculinePluralPositiveForm ontolex:representation ?masculinePluralPositive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q3482678 .
+  }
+}

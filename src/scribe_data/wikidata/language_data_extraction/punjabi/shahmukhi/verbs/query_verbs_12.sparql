@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Punjabi (Q58635) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?passiveFutureFirstPersonSingular
+  ?passiveFutureIntransitivePhaseBasicPhaseFirstPersonSingular
+  ?passiveFutureIntransitivePhaseBasicPhaseFirstPersonPlural
+  ?passiveFutureIntransitivePhaseBasicPhaseSecondPersonSingular
+  ?passiveFutureIntransitivePhaseBasicPhaseSecondPersonPlural
+  ?passiveFutureIntransitivePhaseBasicPhaseThirdPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pnb to remove shahmukhi (pnb) words.
+  FILTER(lang(?verb) = "pnb")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveFutureFirstPersonSingularForm .
+    ?passiveFutureFirstPersonSingularForm ontolex:representation ?passiveFutureFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q501405, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveFutureIntransitivePhaseBasicPhaseFirstPersonSingularForm .
+    ?passiveFutureIntransitivePhaseBasicPhaseFirstPersonSingularForm ontolex:representation ?passiveFutureIntransitivePhaseBasicPhaseFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q501405, wd:Q113330736, wd:Q113330960, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveFutureIntransitivePhaseBasicPhaseFirstPersonPluralForm .
+    ?passiveFutureIntransitivePhaseBasicPhaseFirstPersonPluralForm ontolex:representation ?passiveFutureIntransitivePhaseBasicPhaseFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q501405, wd:Q113330736, wd:Q113330960, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveFutureIntransitivePhaseBasicPhaseSecondPersonSingularForm .
+    ?passiveFutureIntransitivePhaseBasicPhaseSecondPersonSingularForm ontolex:representation ?passiveFutureIntransitivePhaseBasicPhaseSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q501405, wd:Q113330736, wd:Q113330960, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveFutureIntransitivePhaseBasicPhaseSecondPersonPluralForm .
+    ?passiveFutureIntransitivePhaseBasicPhaseSecondPersonPluralForm ontolex:representation ?passiveFutureIntransitivePhaseBasicPhaseSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q501405, wd:Q113330736, wd:Q113330960, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveFutureIntransitivePhaseBasicPhaseThirdPersonSingularForm .
+    ?passiveFutureIntransitivePhaseBasicPhaseThirdPersonSingularForm ontolex:representation ?passiveFutureIntransitivePhaseBasicPhaseThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q501405, wd:Q113330736, wd:Q113330960, wd:Q51929074, wd:Q110786 .
+  }
+}

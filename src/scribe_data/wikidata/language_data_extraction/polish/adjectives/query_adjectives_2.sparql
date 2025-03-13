@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Polish (Q809) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?locative
+  ?vocativePluralPositive
+  ?locativeMasculineInanimateSingularPositive
+  ?locativeMasculineAnimateSingularPositive
+  ?locativeNotMasculinePersonalPluralPositive
+  ?vocativeMasculineAnimateSingularPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q809 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeForm .
+    ?locativeForm ontolex:representation ?locative ;
+      wikibase:grammaticalFeature wd:Q202142 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativePluralPositiveForm .
+    ?vocativePluralPositiveForm ontolex:representation ?vocativePluralPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q146786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimateSingularPositiveForm .
+    ?locativeMasculineInanimateSingularPositiveForm ontolex:representation ?locativeMasculineInanimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeMasculineAnimateSingularPositiveForm .
+    ?locativeMasculineAnimateSingularPositiveForm ontolex:representation ?locativeMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeNotMasculinePersonalPluralPositiveForm .
+    ?locativeNotMasculinePersonalPluralPositiveForm ontolex:representation ?locativeNotMasculinePersonalPluralPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q54152717, wd:Q146786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineAnimateSingularPositiveForm .
+    ?vocativeMasculineAnimateSingularPositiveForm ontolex:representation ?vocativeMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+  }
+}

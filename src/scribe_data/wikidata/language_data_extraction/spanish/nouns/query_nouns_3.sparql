@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Spanish (Q1321) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?singular
+  ?singularPlural
+  ?singularPositive
+  ?imperativeFirstPersonPlural
+  ?imperativeSecondPersonSingular
+  ?imperativeSecondPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1321 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPluralForm .
+    ?singularPluralForm ontolex:representation ?singularPlural ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPositiveForm .
+    ?singularPositiveForm ontolex:representation ?singularPositive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeFirstPersonPluralForm .
+    ?imperativeFirstPersonPluralForm ontolex:representation ?imperativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeSecondPersonSingularForm .
+    ?imperativeSecondPersonSingularForm ontolex:representation ?imperativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeSecondPersonPluralForm .
+    ?imperativeSecondPersonPluralForm ontolex:representation ?imperativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q51929049, wd:Q146786 .
+  }
+}

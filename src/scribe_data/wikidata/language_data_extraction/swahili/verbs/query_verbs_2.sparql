@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Swahili (Q7838) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?indicative
+  ?passive
+  ?infinitive
+  ?subjunctive
+  ?indicativePresentIndicative
+
+WHERE {
+  ?lexeme dct:language wd:Q7838 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeForm .
+    ?indicativeForm ontolex:representation ?indicative ;
+      wikibase:grammaticalFeature wd:Q682111 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveForm .
+    ?passiveForm ontolex:representation ?passive ;
+      wikibase:grammaticalFeature wd:Q1194697 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?subjunctiveForm .
+    ?subjunctiveForm ontolex:representation ?subjunctive ;
+      wikibase:grammaticalFeature wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeForm .
+    ?indicativePresentIndicativeForm ontolex:representation ?indicativePresentIndicative ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909 .
+  }
+}

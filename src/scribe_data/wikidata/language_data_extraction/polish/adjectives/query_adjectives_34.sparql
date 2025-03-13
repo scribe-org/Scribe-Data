@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Polish (Q809) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?instrumentalMasculineSingular
+  ?instrumentalMasculineSingularPositive
+  ?instrumentalMasculineNeuterSingularComparative
+  ?instrumentalMasculineNeuterSingularSuperlative
+  ?instrumentalMasculineNeuterSingularPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q809 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineSingularForm .
+    ?instrumentalMasculineSingularForm ontolex:representation ?instrumentalMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineSingularPositiveForm .
+    ?instrumentalMasculineSingularPositiveForm ontolex:representation ?instrumentalMasculineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineNeuterSingularComparativeForm .
+    ?instrumentalMasculineNeuterSingularComparativeForm ontolex:representation ?instrumentalMasculineNeuterSingularComparative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q1775461, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineNeuterSingularSuperlativeForm .
+    ?instrumentalMasculineNeuterSingularSuperlativeForm ontolex:representation ?instrumentalMasculineNeuterSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q1775461, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineNeuterSingularPositiveForm .
+    ?instrumentalMasculineNeuterSingularPositiveForm ontolex:representation ?instrumentalMasculineNeuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q1775461, wd:Q110786, wd:Q3482678 .
+  }
+}

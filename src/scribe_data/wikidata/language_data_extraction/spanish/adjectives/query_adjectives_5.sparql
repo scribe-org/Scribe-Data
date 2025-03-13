@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Spanish (Q1321) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?neuterSingular
+  ?neuterPlural
+  ?feminineFirstPersonSingular
+  ?feminineFirstPersonPlural
+  ?feminineFirstPersonSingularPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1321 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterSingularForm .
+    ?neuterSingularForm ontolex:representation ?neuterSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterPluralForm .
+    ?neuterPluralForm ontolex:representation ?neuterPlural ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineFirstPersonSingularForm .
+    ?feminineFirstPersonSingularForm ontolex:representation ?feminineFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineFirstPersonPluralForm .
+    ?feminineFirstPersonPluralForm ontolex:representation ?feminineFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineFirstPersonSingularPluralForm .
+    ?feminineFirstPersonSingularPluralForm ontolex:representation ?feminineFirstPersonSingularPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q21714344, wd:Q110786, wd:Q146786 .
+  }
+}

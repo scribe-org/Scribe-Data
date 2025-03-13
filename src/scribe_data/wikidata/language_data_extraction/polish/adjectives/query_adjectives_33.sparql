@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Polish (Q809) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?dativeMasculinePersonalNotMasculinePersonalPlural
+  ?dativeMasculinePersonalPluralPositive
+  ?dativeMasculinePersonalNotMasculinePersonalPluralComparative
+  ?dativeMasculinePersonalNotMasculinePersonalPluralSuperlative
+  ?dativeMasculinePersonalNotMasculinePersonalPluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q809 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePersonalNotMasculinePersonalPluralForm .
+    ?dativeMasculinePersonalNotMasculinePersonalPluralForm ontolex:representation ?dativeMasculinePersonalNotMasculinePersonalPlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q27918551, wd:Q54152717, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePersonalPluralPositiveForm .
+    ?dativeMasculinePersonalPluralPositiveForm ontolex:representation ?dativeMasculinePersonalPluralPositive ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q27918551, wd:Q146786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePersonalNotMasculinePersonalPluralComparativeForm .
+    ?dativeMasculinePersonalNotMasculinePersonalPluralComparativeForm ontolex:representation ?dativeMasculinePersonalNotMasculinePersonalPluralComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q27918551, wd:Q54152717, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePersonalNotMasculinePersonalPluralSuperlativeForm .
+    ?dativeMasculinePersonalNotMasculinePersonalPluralSuperlativeForm ontolex:representation ?dativeMasculinePersonalNotMasculinePersonalPluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q27918551, wd:Q54152717, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePersonalNotMasculinePersonalPluralPositiveForm .
+    ?dativeMasculinePersonalNotMasculinePersonalPluralPositiveForm ontolex:representation ?dativeMasculinePersonalNotMasculinePersonalPluralPositive ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q27918551, wd:Q54152717, wd:Q146786, wd:Q3482678 .
+  }
+}

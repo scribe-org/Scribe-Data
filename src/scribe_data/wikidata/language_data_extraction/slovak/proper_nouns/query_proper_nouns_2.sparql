@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Slovak (Q9058) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?neuter
+  ?locativeSingular
+  ?locativePlural
+  ?locativeMasculineInanimateSingular
+  ?locativeMasculineInanimatePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterForm .
+    ?neuterForm ontolex:representation ?neuter ;
+      wikibase:grammaticalFeature wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
+    ?locativeSingularForm ontolex:representation ?locativeSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativePluralForm .
+    ?locativePluralForm ontolex:representation ?locativePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimateSingularForm .
+    ?locativeMasculineInanimateSingularForm ontolex:representation ?locativeMasculineInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimatePluralForm .
+    ?locativeMasculineInanimatePluralForm ontolex:representation ?locativeMasculineInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q146786 .
+  }
+}
