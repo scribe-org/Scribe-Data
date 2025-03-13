@@ -6,8 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?active
-  ?activeCombinedPastParticiple
+  ?infinitive
+  ?present
+  ?preterite
+  ?englishPastParticiple
+  ?passiveActive
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
@@ -16,14 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeForm .
-    ?activeForm ontolex:representation ?active ;
-      wikibase:grammaticalFeature wd:Q1317831 .
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeCombinedPastParticipleForm .
-    ?activeCombinedPastParticipleForm ontolex:representation ?activeCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteForm .
+    ?preteriteForm ontolex:representation ?preterite ;
+      wikibase:grammaticalFeature wd:Q442485 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?englishPastParticipleForm .
+    ?englishPastParticipleForm ontolex:representation ?englishPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1230649 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveActiveForm .
+    ?passiveActiveForm ontolex:representation ?passiveActive ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q1317831 .
   }
 }

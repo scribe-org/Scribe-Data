@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?feminine
-  ?feminineSingular
-  ?femininePlural
-  ?feminineIndefiniteSingular
-  ?feminineDefiniteSingular
-  ?feminineSingularConstruct
+  ?accusativeFeminine
+  ?accusativeFeminineDefiniteSingular
+  ?accusativeFeminineDefinitePlural
+  ?accusativeFeminineDefiniteDual
+  ?accusativeFeminineSingularConstruct
+  ?accusativeFemininePluralConstruct
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineForm .
-    ?feminineForm ontolex:representation ?feminine ;
-      wikibase:grammaticalFeature wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineForm .
+    ?accusativeFeminineForm ontolex:representation ?accusativeFeminine ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
-    ?feminineSingularForm ontolex:representation ?feminineSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineDefiniteSingularForm .
+    ?accusativeFeminineDefiniteSingularForm ontolex:representation ?accusativeFeminineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q53997851, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePluralForm .
-    ?femininePluralForm ontolex:representation ?femininePlural ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineDefinitePluralForm .
+    ?accusativeFeminineDefinitePluralForm ontolex:representation ?accusativeFeminineDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q53997851, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineIndefiniteSingularForm .
-    ?feminineIndefiniteSingularForm ontolex:representation ?feminineIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q53997857, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineDefiniteDualForm .
+    ?accusativeFeminineDefiniteDualForm ontolex:representation ?accusativeFeminineDefiniteDual ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q53997851, wd:Q110022 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineDefiniteSingularForm .
-    ?feminineDefiniteSingularForm ontolex:representation ?feminineDefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q53997851, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularConstructForm .
+    ?accusativeFeminineSingularConstructForm ontolex:representation ?accusativeFeminineSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786, wd:Q1641446 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSingularConstructForm .
-    ?feminineSingularConstructForm ontolex:representation ?feminineSingularConstruct ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q1641446 .
+    ?lexeme ontolex:lexicalForm ?accusativeFemininePluralConstructForm .
+    ?accusativeFemininePluralConstructForm ontolex:representation ?accusativeFemininePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q146786, wd:Q1641446 .
   }
 }

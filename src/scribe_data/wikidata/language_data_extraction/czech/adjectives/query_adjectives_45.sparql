@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?dativeMasculineAnimatePlural
-  ?dativeMasculineAnimateSingularSuperlative
-  ?dativeMasculineAnimateSingularPositive
-  ?dativeMasculineAnimatePluralComparative
-  ?dativeMasculineAnimatePluralSuperlative
-  ?dativeMasculineAnimatePluralPositive
+  ?dativeMasculineInanimateSingular
+  ?dativeMasculineInanimatePlural
+  ?dativeMasculineInanimateSingularComparative
+  ?dativeMasculineInanimateSingularPositive
+  ?dativeMasculineInanimatePluralComparative
+  ?dativeMasculineInanimatePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimatePluralForm .
-    ?dativeMasculineAnimatePluralForm ontolex:representation ?dativeMasculineAnimatePlural ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimateSingularForm .
+    ?dativeMasculineInanimateSingularForm ontolex:representation ?dativeMasculineInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimateSingularSuperlativeForm .
-    ?dativeMasculineAnimateSingularSuperlativeForm ontolex:representation ?dativeMasculineAnimateSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimatePluralForm .
+    ?dativeMasculineInanimatePluralForm ontolex:representation ?dativeMasculineInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimateSingularPositiveForm .
-    ?dativeMasculineAnimateSingularPositiveForm ontolex:representation ?dativeMasculineAnimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimateSingularComparativeForm .
+    ?dativeMasculineInanimateSingularComparativeForm ontolex:representation ?dativeMasculineInanimateSingularComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimatePluralComparativeForm .
-    ?dativeMasculineAnimatePluralComparativeForm ontolex:representation ?dativeMasculineAnimatePluralComparative ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimateSingularPositiveForm .
+    ?dativeMasculineInanimateSingularPositiveForm ontolex:representation ?dativeMasculineInanimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimatePluralSuperlativeForm .
-    ?dativeMasculineAnimatePluralSuperlativeForm ontolex:representation ?dativeMasculineAnimatePluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q146786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimatePluralComparativeForm .
+    ?dativeMasculineInanimatePluralComparativeForm ontolex:representation ?dativeMasculineInanimatePluralComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimatePluralPositiveForm .
-    ?dativeMasculineAnimatePluralPositiveForm ontolex:representation ?dativeMasculineAnimatePluralPositive ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimatePluralPositiveForm .
+    ?dativeMasculineInanimatePluralPositiveForm ontolex:representation ?dativeMasculineInanimatePluralPositive ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q146786, wd:Q3482678 .
   }
 }

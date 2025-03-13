@@ -6,11 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?neuter
-  ?present
-  ?neuterSingular
-  ?neuterPlural
-  ?presentPast
+  ?feminine
+  ?common
+  ?future
+  ?combinedPresentParticiple
+  ?combinedPastParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
@@ -19,32 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterForm .
-    ?neuterForm ontolex:representation ?neuter ;
-      wikibase:grammaticalFeature wd:Q1775461 .
+    ?lexeme ontolex:lexicalForm ?feminineForm .
+    ?feminineForm ontolex:representation ?feminine ;
+      wikibase:grammaticalFeature wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613 .
+    ?lexeme ontolex:lexicalForm ?commonForm .
+    ?commonForm ontolex:representation ?common ;
+      wikibase:grammaticalFeature wd:Q1305037 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterSingularForm .
-    ?neuterSingularForm ontolex:representation ?neuterSingular ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?futureForm .
+    ?futureForm ontolex:representation ?future ;
+      wikibase:grammaticalFeature wd:Q501405 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterPluralForm .
-    ?neuterPluralForm ontolex:representation ?neuterPlural ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
+    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentPastForm .
-    ?presentPastForm ontolex:representation ?presentPast ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1994301 .
+    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
+    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
   }
 }

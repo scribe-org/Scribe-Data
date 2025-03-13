@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?accusativeFemininePlural
-  ?accusativeFeminineSingularComparative
-  ?accusativeFeminineSingularSuperlative
-  ?accusativeFeminineSingularPositive
-  ?accusativeFemininePluralSuperlative
-  ?accusativeFemininePluralPositive
+  ?accusativeMasculineInanimatePlural
+  ?accusativeMasculineInanimateSingularComparative
+  ?accusativeMasculineInanimateSingularSuperlative
+  ?accusativeMasculineInanimateSingularPositive
+  ?accusativeMasculineInanimatePluralComparative
+  ?accusativeMasculineInanimatePluralSuperlative
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFemininePluralForm .
-    ?accusativeFemininePluralForm ontolex:representation ?accusativeFemininePlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimatePluralForm .
+    ?accusativeMasculineInanimatePluralForm ontolex:representation ?accusativeMasculineInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularComparativeForm .
-    ?accusativeFeminineSingularComparativeForm ontolex:representation ?accusativeFeminineSingularComparative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimateSingularComparativeForm .
+    ?accusativeMasculineInanimateSingularComparativeForm ontolex:representation ?accusativeMasculineInanimateSingularComparative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularSuperlativeForm .
-    ?accusativeFeminineSingularSuperlativeForm ontolex:representation ?accusativeFeminineSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimateSingularSuperlativeForm .
+    ?accusativeMasculineInanimateSingularSuperlativeForm ontolex:representation ?accusativeMasculineInanimateSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularPositiveForm .
-    ?accusativeFeminineSingularPositiveForm ontolex:representation ?accusativeFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimateSingularPositiveForm .
+    ?accusativeMasculineInanimateSingularPositiveForm ontolex:representation ?accusativeMasculineInanimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFemininePluralSuperlativeForm .
-    ?accusativeFemininePluralSuperlativeForm ontolex:representation ?accusativeFemininePluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q146786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimatePluralComparativeForm .
+    ?accusativeMasculineInanimatePluralComparativeForm ontolex:representation ?accusativeMasculineInanimatePluralComparative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFemininePluralPositiveForm .
-    ?accusativeFemininePluralPositiveForm ontolex:representation ?accusativeFemininePluralPositive ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimatePluralSuperlativeForm .
+    ?accusativeMasculineInanimatePluralSuperlativeForm ontolex:representation ?accusativeMasculineInanimatePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q146786, wd:Q1817208 .
   }
 }

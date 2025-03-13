@@ -6,12 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?nominative
-  ?accusative
-  ?nominativeFirstPersonSingular
-  ?nominativeFirstPersonPlural
-  ?accusativeFirstPersonSingular
-  ?accusativeFirstPersonPlural
+  ?genitive
+  ?dative
+  ?genitiveFirstPersonSingular
+  ?genitiveFirstPersonPlural
+  ?locativeFirstPersonSingular
 
 WHERE {
   ?lexeme dct:language wd:Q9610 ;
@@ -20,38 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeForm .
-    ?nominativeForm ontolex:representation ?nominative ;
-      wikibase:grammaticalFeature wd:Q131105 .
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeForm .
-    ?accusativeForm ontolex:representation ?accusative ;
-      wikibase:grammaticalFeature wd:Q146078 .
+    ?lexeme ontolex:lexicalForm ?dativeForm .
+    ?dativeForm ontolex:representation ?dative ;
+      wikibase:grammaticalFeature wd:Q145599 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFirstPersonSingularForm .
-    ?nominativeFirstPersonSingularForm ontolex:representation ?nominativeFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveFirstPersonSingularForm .
+    ?genitiveFirstPersonSingularForm ontolex:representation ?genitiveFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFirstPersonPluralForm .
-    ?nominativeFirstPersonPluralForm ontolex:representation ?nominativeFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitiveFirstPersonPluralForm .
+    ?genitiveFirstPersonPluralForm ontolex:representation ?genitiveFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFirstPersonSingularForm .
-    ?accusativeFirstPersonSingularForm ontolex:representation ?accusativeFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q21714344, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFirstPersonPluralForm .
-    ?accusativeFirstPersonPluralForm ontolex:representation ?accusativeFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?locativeFirstPersonSingularForm .
+    ?locativeFirstPersonSingularForm ontolex:representation ?locativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q21714344, wd:Q110786 .
   }
 }

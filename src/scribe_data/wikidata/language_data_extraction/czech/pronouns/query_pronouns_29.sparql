@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?accusativeMasculineAnimateSingular
-  ?accusativeMasculineAnimatePlural
-  ?accusativeMasculineAnimateSingularPositive
-  ?accusativeMasculineAnimatePluralPositive
+  ?accusativeFeminineSingular
+  ?accusativeFemininePlural
+  ?accusativeFeminineSingularPositive
+  ?accusativeFemininePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -18,26 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineAnimateSingularForm .
-    ?accusativeMasculineAnimateSingularForm ontolex:representation ?accusativeMasculineAnimateSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q54020116, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularForm .
+    ?accusativeFeminineSingularForm ontolex:representation ?accusativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineAnimatePluralForm .
-    ?accusativeMasculineAnimatePluralForm ontolex:representation ?accusativeMasculineAnimatePlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q54020116, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?accusativeFemininePluralForm .
+    ?accusativeFemininePluralForm ontolex:representation ?accusativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineAnimateSingularPositiveForm .
-    ?accusativeMasculineAnimateSingularPositiveForm ontolex:representation ?accusativeMasculineAnimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularPositiveForm .
+    ?accusativeFeminineSingularPositiveForm ontolex:representation ?accusativeFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineAnimatePluralPositiveForm .
-    ?accusativeMasculineAnimatePluralPositiveForm ontolex:representation ?accusativeMasculineAnimatePluralPositive ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q54020116, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?accusativeFemininePluralPositiveForm .
+    ?accusativeFemininePluralPositiveForm ontolex:representation ?accusativeFemininePluralPositive ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q146786, wd:Q3482678 .
   }
 }

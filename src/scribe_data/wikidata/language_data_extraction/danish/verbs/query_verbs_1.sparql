@@ -6,11 +6,19 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitive
-  ?present
-  ?preterite
-  ?englishPastParticiple
-  ?passiveActive
+
+  ?imperative
+
+  ?combinedPresentParticiple
+  ?combinedPastParticiple
+
+  ?passiveInfinitive
+  ?passivePresent
+  ?passivePreterite
+
+  ?activeInfinitive
+  ?activePresent
+  ?activePreterite
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
@@ -18,33 +26,65 @@ WHERE {
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
 
+  # MARK: Imperative
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
+  }
+
+  # MARK: Participles
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
+    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613 .
+    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
+    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
+  }
+
+  # MARK: Passive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
+    ?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q179230 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteForm .
-    ?preteriteForm ontolex:representation ?preterite ;
-      wikibase:grammaticalFeature wd:Q442485 .
+    ?lexeme ontolex:lexicalForm ?passivePresentForm .
+    ?passivePresentForm ontolex:representation ?passivePresent ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?englishPastParticipleForm .
-    ?englishPastParticipleForm ontolex:representation ?englishPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1230649 .
+    ?lexeme ontolex:lexicalForm ?passivePreteriteForm .
+    ?passivePreteriteForm ontolex:representation ?passivePreterite ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q442485 .
+  }
+
+  # MARK: Active
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
+    ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveActiveForm .
-    ?passiveActiveForm ontolex:representation ?passiveActive ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q1317831 .
+    ?lexeme ontolex:lexicalForm ?activePresentForm .
+    ?activePresentForm ontolex:representation ?activePresent ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePreteriteForm .
+    ?activePreteriteForm ontolex:representation ?activePreterite ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q442485 .
   }
 }

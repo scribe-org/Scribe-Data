@@ -6,10 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?masculineInanimateSingularCombinedPastParticiple
-  ?masculineInanimatePluralCombinedPastParticiple
-  ?masculineAnimateSingularCombinedPastParticiple
-  ?masculineAnimatePluralCombinedPastParticiple
+  ?masculineSingularPassiveParticiple
+  ?masculineSingularActiveParticiple
+  ?masculineInanimatePluralPassiveParticiple
+  ?masculineInanimatePluralActiveParticiple
+  ?masculineAnimatePluralPassiveParticiple
+  ?masculineAnimatePluralActiveParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -18,26 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineInanimateSingularCombinedPastParticipleForm .
-    ?masculineInanimateSingularCombinedPastParticipleForm ontolex:representation ?masculineInanimateSingularCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q52943434, wd:Q110786, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?masculineSingularPassiveParticipleForm .
+    ?masculineSingularPassiveParticipleForm ontolex:representation ?masculineSingularPassiveParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q72249544 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineInanimatePluralCombinedPastParticipleForm .
-    ?masculineInanimatePluralCombinedPastParticipleForm ontolex:representation ?masculineInanimatePluralCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q52943434, wd:Q146786, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?masculineSingularActiveParticipleForm .
+    ?masculineSingularActiveParticipleForm ontolex:representation ?masculineSingularActiveParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q72249355 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineAnimateSingularCombinedPastParticipleForm .
-    ?masculineAnimateSingularCombinedPastParticipleForm ontolex:representation ?masculineAnimateSingularCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q54020116, wd:Q110786, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?masculineInanimatePluralPassiveParticipleForm .
+    ?masculineInanimatePluralPassiveParticipleForm ontolex:representation ?masculineInanimatePluralPassiveParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51927539, wd:Q146786, wd:Q72249544 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineAnimatePluralCombinedPastParticipleForm .
-    ?masculineAnimatePluralCombinedPastParticipleForm ontolex:representation ?masculineAnimatePluralCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q54020116, wd:Q146786, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?masculineInanimatePluralActiveParticipleForm .
+    ?masculineInanimatePluralActiveParticipleForm ontolex:representation ?masculineInanimatePluralActiveParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51927539, wd:Q146786, wd:Q72249355 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineAnimatePluralPassiveParticipleForm .
+    ?masculineAnimatePluralPassiveParticipleForm ontolex:representation ?masculineAnimatePluralPassiveParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51927507, wd:Q146786, wd:Q72249544 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineAnimatePluralActiveParticipleForm .
+    ?masculineAnimatePluralActiveParticipleForm ontolex:representation ?masculineAnimatePluralActiveParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51927507, wd:Q146786, wd:Q72249355 .
   }
 }

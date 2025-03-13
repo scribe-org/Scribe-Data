@@ -6,10 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?present
-  ?future
-  ?presentIndicative
-  ?futureCombinedPresentParticiple
+  ?imperative
+  ?infinitive
+  ?past
+  ?preterite
+  ?subjunctive
+  ?indicativePresentPresentIndicative
 
 WHERE {
   ?lexeme dct:language wd:Q143 ;
@@ -18,26 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613 .
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futureForm .
-    ?futureForm ontolex:representation ?future ;
-      wikibase:grammaticalFeature wd:Q501405 .
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentIndicativeForm .
-    ?presentIndicativeForm ontolex:representation ?presentIndicative ;
-      wikibase:grammaticalFeature wd:Q56682909 .
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futureCombinedPresentParticipleForm .
-    ?futureCombinedPresentParticipleForm ontolex:representation ?futureCombinedPresentParticiple ;
-      wikibase:grammaticalFeature wd:Q501405, wd:Q10345583 .
+    ?lexeme ontolex:lexicalForm ?preteriteForm .
+    ?preteriteForm ontolex:representation ?preterite ;
+      wikibase:grammaticalFeature wd:Q442485 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?subjunctiveForm .
+    ?subjunctiveForm ontolex:representation ?subjunctive ;
+      wikibase:grammaticalFeature wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentPresentIndicativeForm .
+    ?indicativePresentPresentIndicativeForm ontolex:representation ?indicativePresentPresentIndicative ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q192613, wd:Q56682909 .
   }
 }

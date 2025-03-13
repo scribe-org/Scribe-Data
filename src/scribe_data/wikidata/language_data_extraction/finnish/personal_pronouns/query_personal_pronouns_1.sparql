@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?personalpronoun
-  ?nominative
-  ?partitive
-  ?illative
-  ?elative
-  ?adessive
-  ?translative
+  ?genitive
+  ?accusative
+  ?inessive
+  ?allative
+  ?essive
+  ?abessive
 
 WHERE {
   ?lexeme dct:language wd:Q1412 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeForm .
-    ?nominativeForm ontolex:representation ?nominative ;
-      wikibase:grammaticalFeature wd:Q131105 .
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?partitiveForm .
-    ?partitiveForm ontolex:representation ?partitive ;
-      wikibase:grammaticalFeature wd:Q857325 .
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?illativeForm .
-    ?illativeForm ontolex:representation ?illative ;
-      wikibase:grammaticalFeature wd:Q474668 .
+    ?lexeme ontolex:lexicalForm ?inessiveForm .
+    ?inessiveForm ontolex:representation ?inessive ;
+      wikibase:grammaticalFeature wd:Q282031 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?elativeForm .
-    ?elativeForm ontolex:representation ?elative ;
-      wikibase:grammaticalFeature wd:Q394253 .
+    ?lexeme ontolex:lexicalForm ?allativeForm .
+    ?allativeForm ontolex:representation ?allative ;
+      wikibase:grammaticalFeature wd:Q655020 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?adessiveForm .
-    ?adessiveForm ontolex:representation ?adessive ;
-      wikibase:grammaticalFeature wd:Q281954 .
+    ?lexeme ontolex:lexicalForm ?essiveForm .
+    ?essiveForm ontolex:representation ?essive ;
+      wikibase:grammaticalFeature wd:Q148465 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?translativeForm .
-    ?translativeForm ontolex:representation ?translative ;
-      wikibase:grammaticalFeature wd:Q950170 .
+    ?lexeme ontolex:lexicalForm ?abessiveForm .
+    ?abessiveForm ontolex:representation ?abessive ;
+      wikibase:grammaticalFeature wd:Q319822 .
   }
 }

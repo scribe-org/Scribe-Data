@@ -6,14 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?ablativeSingular
-  ?ablativePlural
-  ?adessiveSingular
-  ?adessivePlural
-  ?translativeSingular
-  ?translativePlural
-  ?terminativeSingular
-  ?terminativePlural
+  ?illativeSingular
+  ?illativePlural
+  ?inessiveSingular
+  ?inessivePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
@@ -21,59 +17,32 @@ WHERE {
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
 
-  # MARK: Ablative
+  # MARK: Illative
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeSingularForm .
-    ?ablativeSingularForm ontolex:representation ?ablativeSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?illativeSingularForm .
+    ?illativeSingularForm ontolex:representation ?illativeSingular ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativePluralForm .
-    ?ablativePluralForm ontolex:representation ?ablativePlural ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?illativePluralForm .
+    ?illativePluralForm ontolex:representation ?illativePlural ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q146786 .
   }
 
-  # MARK: Adessive
+  # MARK: Inessive
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?adessiveSingularForm .
-    ?adessiveSingularForm ontolex:representation ?adessiveSingular ;
-      wikibase:grammaticalFeature wd:Q281954, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?adessivePluralForm .
-    ?adessivePluralForm ontolex:representation ?adessivePlural ;
-      wikibase:grammaticalFeature wd:Q281954, wd:Q146786 .
-  }
-
-  # MARK: Translative
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?translativeSingularForm .
-    ?translativeSingularForm ontolex:representation ?translativeSingular ;
-      wikibase:grammaticalFeature wd:Q950170, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?inessiveSingularForm .
+    ?inessiveSingularForm ontolex:representation ?inessiveSingular ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?translativePluralForm .
-    ?translativePluralForm ontolex:representation ?translativePlural ;
-      wikibase:grammaticalFeature wd:Q950170, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?inessivePluralForm .
+    ?inessivePluralForm ontolex:representation ?inessivePlural ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q146786 .
   }
 
-  # MARK: Terminative
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?terminativeSingularForm .
-    ?terminativeSingularForm ontolex:representation ?terminativeSingular ;
-      wikibase:grammaticalFeature wd:Q747019, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?terminativePluralForm .
-    ?terminativePluralForm ontolex:representation ?terminativePlural ;
-      wikibase:grammaticalFeature wd:Q747019, wd:Q146786 .
-  }
 }

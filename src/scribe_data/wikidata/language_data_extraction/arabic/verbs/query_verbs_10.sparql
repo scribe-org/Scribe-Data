@@ -6,12 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?feminineActivePastSecondPersonPlural
-  ?feminineActivePastThirdPersonPlural
-  ?feminineActivePastThirdPersonDual
-  ?feminineActiveSecondPersonPluralFiilMudariSubjunctive
-  ?feminineActiveThirdPersonSingularFiilMudariSubjunctive
-  ?feminineActiveThirdPersonPluralFiilMudariSubjunctive
+  ?masculineIndicativePerformativeThirdPersonSingular
+  ?masculineIndicativeActiveSecondPersonSingularFiilMudari
+  ?masculineIndicativeActiveSecondPersonPluralFiilMudari
+  ?masculineIndicativeActiveThirdPersonSingularFiilMudari
+  ?masculineIndicativeActiveThirdPersonDualFiilMudari
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
@@ -20,38 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineActivePastSecondPersonPluralForm .
-    ?feminineActivePastSecondPersonPluralForm ontolex:representation ?feminineActivePastSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q1994301, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?masculineIndicativePerformativeThirdPersonSingularForm .
+    ?masculineIndicativePerformativeThirdPersonSingularForm ontolex:representation ?masculineIndicativePerformativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q124351233, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineActivePastThirdPersonPluralForm .
-    ?feminineActivePastThirdPersonPluralForm ontolex:representation ?feminineActivePastThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q1994301, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeActiveSecondPersonSingularFiilMudariForm .
+    ?masculineIndicativeActiveSecondPersonSingularFiilMudariForm ontolex:representation ?masculineIndicativeActiveSecondPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q1317831, wd:Q51929049, wd:Q110786, wd:Q12230930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineActivePastThirdPersonDualForm .
-    ?feminineActivePastThirdPersonDualForm ontolex:representation ?feminineActivePastThirdPersonDual ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q1994301, wd:Q51929074, wd:Q110022 .
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeActiveSecondPersonPluralFiilMudariForm .
+    ?masculineIndicativeActiveSecondPersonPluralFiilMudariForm ontolex:representation ?masculineIndicativeActiveSecondPersonPluralFiilMudari ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q1317831, wd:Q51929049, wd:Q146786, wd:Q12230930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineActiveSecondPersonPluralFiilMudariSubjunctiveForm .
-    ?feminineActiveSecondPersonPluralFiilMudariSubjunctiveForm ontolex:representation ?feminineActiveSecondPersonPluralFiilMudariSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q51929049, wd:Q146786, wd:Q12230930, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeActiveThirdPersonSingularFiilMudariForm .
+    ?masculineIndicativeActiveThirdPersonSingularFiilMudariForm ontolex:representation ?masculineIndicativeActiveThirdPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q1317831, wd:Q51929074, wd:Q110786, wd:Q12230930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineActiveThirdPersonSingularFiilMudariSubjunctiveForm .
-    ?feminineActiveThirdPersonSingularFiilMudariSubjunctiveForm ontolex:representation ?feminineActiveThirdPersonSingularFiilMudariSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q51929074, wd:Q110786, wd:Q12230930, wd:Q473746 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineActiveThirdPersonPluralFiilMudariSubjunctiveForm .
-    ?feminineActiveThirdPersonPluralFiilMudariSubjunctiveForm ontolex:representation ?feminineActiveThirdPersonPluralFiilMudariSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q51929074, wd:Q146786, wd:Q12230930, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeActiveThirdPersonDualFiilMudariForm .
+    ?masculineIndicativeActiveThirdPersonDualFiilMudariForm ontolex:representation ?masculineIndicativeActiveThirdPersonDualFiilMudari ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q1317831, wd:Q51929074, wd:Q110022, wd:Q12230930 .
   }
 }

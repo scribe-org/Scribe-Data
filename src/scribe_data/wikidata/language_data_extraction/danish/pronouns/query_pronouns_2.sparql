@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?genitive
-  ?genitiveFeminine
-  ?genitiveMasculine
-  ?genitivePlural
-  ?genitiveCommonSingular
-  ?genitiveNeuterSingular
+  ?nonGenitive
+  ?neuter
+  ?nonGenitivePlural
+  ?neuterSingular
+  ?nonGenitiveCommonSingular
+  ?nonGenitiveNeuterSingular
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveForm .
-    ?genitiveForm ontolex:representation ?genitive ;
-      wikibase:grammaticalFeature wd:Q146233 .
+    ?lexeme ontolex:lexicalForm ?nonGenitiveForm .
+    ?nonGenitiveForm ontolex:representation ?nonGenitive ;
+      wikibase:grammaticalFeature wd:Q98946930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveFeminineForm .
-    ?genitiveFeminineForm ontolex:representation ?genitiveFeminine ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?neuterForm .
+    ?neuterForm ontolex:representation ?neuter ;
+      wikibase:grammaticalFeature wd:Q1775461 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineForm .
-    ?genitiveMasculineForm ontolex:representation ?genitiveMasculine ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q499327 .
+    ?lexeme ontolex:lexicalForm ?nonGenitivePluralForm .
+    ?nonGenitivePluralForm ontolex:representation ?nonGenitivePlural ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
-    ?genitivePluralForm ontolex:representation ?genitivePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?neuterSingularForm .
+    ?neuterSingularForm ontolex:representation ?neuterSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveCommonSingularForm .
-    ?genitiveCommonSingularForm ontolex:representation ?genitiveCommonSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1305037, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nonGenitiveCommonSingularForm .
+    ?nonGenitiveCommonSingularForm ontolex:representation ?nonGenitiveCommonSingular ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q1305037, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveNeuterSingularForm .
-    ?genitiveNeuterSingularForm ontolex:representation ?genitiveNeuterSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1775461, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nonGenitiveNeuterSingularForm .
+    ?nonGenitiveNeuterSingularForm ontolex:representation ?nonGenitiveNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q1775461, wd:Q110786 .
   }
 }

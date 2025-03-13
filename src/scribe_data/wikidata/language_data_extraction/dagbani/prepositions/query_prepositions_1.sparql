@@ -6,17 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?preposition
-  ?present
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?preposition ;
     schema:dateModified ?lastModified .
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613 .
-  }
 }

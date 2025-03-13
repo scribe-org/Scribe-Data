@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?genitivePlural
-  ?genitivePluralComparative
-  ?genitivePluralSuperlative
-  ?genitivePluralPositive
+  ?genitiveSingular
+  ?genitiveSingularComparative
+  ?genitiveSingularSuperlative
+  ?genitiveSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q1412 ;
@@ -18,26 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
-    ?genitivePluralForm ontolex:representation ?genitivePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralComparativeForm .
-    ?genitivePluralComparativeForm ontolex:representation ?genitivePluralComparative ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularComparativeForm .
+    ?genitiveSingularComparativeForm ontolex:representation ?genitiveSingularComparative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralSuperlativeForm .
-    ?genitivePluralSuperlativeForm ontolex:representation ?genitivePluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularSuperlativeForm .
+    ?genitiveSingularSuperlativeForm ontolex:representation ?genitiveSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralPositiveForm .
-    ?genitivePluralPositiveForm ontolex:representation ?genitivePluralPositive ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularPositiveForm .
+    ?genitiveSingularPositiveForm ontolex:representation ?genitiveSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786, wd:Q3482678 .
   }
 }

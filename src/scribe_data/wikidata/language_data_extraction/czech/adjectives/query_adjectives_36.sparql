@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?instrumentalFeminineSingular
-  ?instrumentalFemininePlural
-  ?instrumentalFeminineSingularComparative
-  ?instrumentalFeminineSingularSuperlative
-  ?instrumentalFemininePluralComparative
-  ?instrumentalFemininePluralSuperlative
+  ?instrumentalNeuterSingular
+  ?instrumentalNeuterPlural
+  ?instrumentalNeuterSingularComparative
+  ?instrumentalNeuterSingularSuperlative
+  ?instrumentalNeuterPluralSuperlative
+  ?instrumentalNeuterPluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularForm .
-    ?instrumentalFeminineSingularForm ontolex:representation ?instrumentalFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterSingularForm .
+    ?instrumentalNeuterSingularForm ontolex:representation ?instrumentalNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFemininePluralForm .
-    ?instrumentalFemininePluralForm ontolex:representation ?instrumentalFemininePlural ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterPluralForm .
+    ?instrumentalNeuterPluralForm ontolex:representation ?instrumentalNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularComparativeForm .
-    ?instrumentalFeminineSingularComparativeForm ontolex:representation ?instrumentalFeminineSingularComparative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterSingularComparativeForm .
+    ?instrumentalNeuterSingularComparativeForm ontolex:representation ?instrumentalNeuterSingularComparative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularSuperlativeForm .
-    ?instrumentalFeminineSingularSuperlativeForm ontolex:representation ?instrumentalFeminineSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterSingularSuperlativeForm .
+    ?instrumentalNeuterSingularSuperlativeForm ontolex:representation ?instrumentalNeuterSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFemininePluralComparativeForm .
-    ?instrumentalFemininePluralComparativeForm ontolex:representation ?instrumentalFemininePluralComparative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterPluralSuperlativeForm .
+    ?instrumentalNeuterPluralSuperlativeForm ontolex:representation ?instrumentalNeuterPluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q146786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFemininePluralSuperlativeForm .
-    ?instrumentalFemininePluralSuperlativeForm ontolex:representation ?instrumentalFemininePluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q146786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterPluralPositiveForm .
+    ?instrumentalNeuterPluralPositiveForm ontolex:representation ?instrumentalNeuterPluralPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q146786, wd:Q3482678 .
   }
 }

@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?personalpronoun
-  ?nominative
-  ?nominativeFeminine
-  ?nominativeMasculine
-  ?nominativeDativeAccusative
+  ?oblique
+  ?obliqueFeminine
+  ?obliqueMasculine
+  ?genitiveCommonNeuterPlural
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
@@ -18,26 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeForm .
-    ?nominativeForm ontolex:representation ?nominative ;
-      wikibase:grammaticalFeature wd:Q131105 .
+    ?lexeme ontolex:lexicalForm ?obliqueForm .
+    ?obliqueForm ontolex:representation ?oblique ;
+      wikibase:grammaticalFeature wd:Q1233197 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineForm .
-    ?nominativeFeminineForm ontolex:representation ?nominativeFeminine ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?obliqueFeminineForm .
+    ?obliqueFeminineForm ontolex:representation ?obliqueFeminine ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineForm .
-    ?nominativeMasculineForm ontolex:representation ?nominativeMasculine ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q499327 .
+    ?lexeme ontolex:lexicalForm ?obliqueMasculineForm .
+    ?obliqueMasculineForm ontolex:representation ?obliqueMasculine ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeDativeAccusativeForm .
-    ?nominativeDativeAccusativeForm ontolex:representation ?nominativeDativeAccusative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q145599, wd:Q146078 .
+    ?lexeme ontolex:lexicalForm ?genitiveCommonNeuterPluralForm .
+    ?genitiveCommonNeuterPluralForm ontolex:representation ?genitiveCommonNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1305037, wd:Q1775461, wd:Q146786 .
   }
 }

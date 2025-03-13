@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?pastFuture
-  ?pastSingular
-  ?firstPersonSingular
-  ?firstPersonPlural
-  ?imperativeSecondPersonSingular
-  ?imperativeSecondPersonPlural
+  ?simplePresent
+  ?singular
+  ?adverbial
+  ?presentContinuousPlural
+  ?thirdPersonPlural
+  ?singularPhrase
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastFutureForm .
-    ?pastFutureForm ontolex:representation ?pastFuture ;
-      wikibase:grammaticalFeature wd:Q1994301, wd:Q501405 .
+    ?lexeme ontolex:lexicalForm ?simplePresentForm .
+    ?simplePresentForm ontolex:representation ?simplePresent ;
+      wikibase:grammaticalFeature wd:Q3910936 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastSingularForm .
-    ?pastSingularForm ontolex:representation ?pastSingular ;
-      wikibase:grammaticalFeature wd:Q1994301, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonSingularForm .
-    ?firstPersonSingularForm ontolex:representation ?firstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?adverbialForm .
+    ?adverbialForm ontolex:representation ?adverbial ;
+      wikibase:grammaticalFeature wd:Q380012 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonPluralForm .
-    ?firstPersonPluralForm ontolex:representation ?firstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?presentContinuousPluralForm .
+    ?presentContinuousPluralForm ontolex:representation ?presentContinuousPlural ;
+      wikibase:grammaticalFeature wd:Q7240943, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeSecondPersonSingularForm .
-    ?imperativeSecondPersonSingularForm ontolex:representation ?imperativeSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?thirdPersonPluralForm .
+    ?thirdPersonPluralForm ontolex:representation ?thirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeSecondPersonPluralForm .
-    ?imperativeSecondPersonPluralForm ontolex:representation ?imperativeSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularPhraseForm .
+    ?singularPhraseForm ontolex:representation ?singularPhrase ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q187931 .
   }
 }

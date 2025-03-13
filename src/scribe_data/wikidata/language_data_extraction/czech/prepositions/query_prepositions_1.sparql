@@ -6,7 +6,7 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?preposition
-  ?positive
+  ?grammaticalCase
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -14,9 +14,15 @@ WHERE {
     wikibase:lemma ?preposition ;
     schema:dateModified ?lastModified .
 
+  # MARK: Cases
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?positiveForm .
-    ?positiveForm ontolex:representation ?positive ;
-      wikibase:grammaticalFeature wd:Q3482678 .
+    ?lexeme wdt:P5713 ?caseForm .
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?lemma rdfs:label ?preposition .
+    ?caseForm rdfs:label ?grammaticalCase .
   }
 }

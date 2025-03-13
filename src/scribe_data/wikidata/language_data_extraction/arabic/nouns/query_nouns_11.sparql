@@ -6,11 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?pausalFeminine
-  ?pausalFeminineSingular
-  ?pausalFemininePlural
-  ?pausalFeminineDefiniteSingular
-  ?pausalFeminineDefinitePlural
+  ?definite
+  ?masculineDefinite
+  ?definiteSingular
+  ?definitePlural
+  ?masculineDefiniteSingular
+  ?masculineDefinitePlural
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
@@ -19,32 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pausalFeminineForm .
-    ?pausalFeminineForm ontolex:representation ?pausalFeminine ;
-      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?definiteForm .
+    ?definiteForm ontolex:representation ?definite ;
+      wikibase:grammaticalFeature wd:Q53997851 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pausalFeminineSingularForm .
-    ?pausalFeminineSingularForm ontolex:representation ?pausalFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?masculineDefiniteForm .
+    ?masculineDefiniteForm ontolex:representation ?masculineDefinite ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997851 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pausalFemininePluralForm .
-    ?pausalFemininePluralForm ontolex:representation ?pausalFemininePlural ;
-      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?definiteSingularForm .
+    ?definiteSingularForm ontolex:representation ?definiteSingular ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pausalFeminineDefiniteSingularForm .
-    ?pausalFeminineDefiniteSingularForm ontolex:representation ?pausalFeminineDefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415, wd:Q53997851, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?definitePluralForm .
+    ?definitePluralForm ontolex:representation ?definitePlural ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pausalFeminineDefinitePluralForm .
-    ?pausalFeminineDefinitePluralForm ontolex:representation ?pausalFeminineDefinitePlural ;
-      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415, wd:Q53997851, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?masculineDefiniteSingularForm .
+    ?masculineDefiniteSingularForm ontolex:representation ?masculineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineDefinitePluralForm .
+    ?masculineDefinitePluralForm ontolex:representation ?masculineDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997851, wd:Q146786 .
   }
 }

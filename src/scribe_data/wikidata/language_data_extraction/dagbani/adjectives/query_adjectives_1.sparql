@@ -6,12 +6,8 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?neuter
-  ?present
-  ?presentContinuous
-  ?past
-  ?simplePast
-  ?comparative
+  ?singular
+  ?plural
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
@@ -19,39 +15,19 @@ WHERE {
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterForm .
-    ?neuterForm ontolex:representation ?neuter ;
-      wikibase:grammaticalFeature wd:Q1775461 .
-  }
+  # MARK: Singular
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613 .
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
-    ?presentContinuousForm ontolex:representation ?presentContinuous ;
-      wikibase:grammaticalFeature wd:Q7240943 .
-  }
+  # MARK: Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastForm .
-    ?pastForm ontolex:representation ?past ;
-      wikibase:grammaticalFeature wd:Q1994301 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePastForm .
-    ?simplePastForm ontolex:representation ?simplePast ;
-      wikibase:grammaticalFeature wd:Q1392475 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comparativeForm .
-    ?comparativeForm ontolex:representation ?comparative ;
-      wikibase:grammaticalFeature wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 }

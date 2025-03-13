@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?nominativeMasculineInanimateSingular
-  ?nominativeFeminineSingularComparative
-  ?nominativeFemininePluralPositive
-  ?nominativeMasculineInanimateSingularComparative
-  ?nominativeMasculineAnimateSingularComparative
-  ?nominativeMasculineAnimatePluralSuperlative
+  ?instrumentalMasculineSingular
+  ?instrumentalMasculinePlural
+  ?instrumentalFeminineSingularPositive
+  ?instrumentalFemininePluralPositive
+  ?instrumentalMasculineAnimateSingularComparative
+  ?instrumentalMasculineAnimatePluralComparative
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineInanimateSingularForm .
-    ?nominativeMasculineInanimateSingularForm ontolex:representation ?nominativeMasculineInanimateSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q52943434, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineSingularForm .
+    ?instrumentalMasculineSingularForm ontolex:representation ?instrumentalMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularComparativeForm .
-    ?nominativeFeminineSingularComparativeForm ontolex:representation ?nominativeFeminineSingularComparative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculinePluralForm .
+    ?instrumentalMasculinePluralForm ontolex:representation ?instrumentalMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFemininePluralPositiveForm .
-    ?nominativeFemininePluralPositiveForm ontolex:representation ?nominativeFemininePluralPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularPositiveForm .
+    ?instrumentalFeminineSingularPositiveForm ontolex:representation ?instrumentalFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineInanimateSingularComparativeForm .
-    ?nominativeMasculineInanimateSingularComparativeForm ontolex:representation ?nominativeMasculineInanimateSingularComparative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q52943434, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?instrumentalFemininePluralPositiveForm .
+    ?instrumentalFemininePluralPositiveForm ontolex:representation ?instrumentalFemininePluralPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimateSingularComparativeForm .
-    ?nominativeMasculineAnimateSingularComparativeForm ontolex:representation ?nominativeMasculineAnimateSingularComparative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimateSingularComparativeForm .
+    ?instrumentalMasculineAnimateSingularComparativeForm ontolex:representation ?instrumentalMasculineAnimateSingularComparative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimatePluralSuperlativeForm .
-    ?nominativeMasculineAnimatePluralSuperlativeForm ontolex:representation ?nominativeMasculineAnimatePluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q146786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimatePluralComparativeForm .
+    ?instrumentalMasculineAnimatePluralComparativeForm ontolex:representation ?instrumentalMasculineAnimatePluralComparative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q146786, wd:Q14169499 .
   }
 }

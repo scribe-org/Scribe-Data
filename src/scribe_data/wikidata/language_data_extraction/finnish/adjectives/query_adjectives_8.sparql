@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?nominativeSingular
-  ?nominativeSingularComparative
-  ?nominativeSingularSuperlative
-  ?nominativeSingularPositive
+  ?nominativePlural
+  ?nominativePluralComparative
+  ?nominativePluralSuperlative
+  ?nominativePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q1412 ;
@@ -18,26 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
-    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularComparativeForm .
-    ?nominativeSingularComparativeForm ontolex:representation ?nominativeSingularComparative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralComparativeForm .
+    ?nominativePluralComparativeForm ontolex:representation ?nominativePluralComparative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularSuperlativeForm .
-    ?nominativeSingularSuperlativeForm ontolex:representation ?nominativeSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralSuperlativeForm .
+    ?nominativePluralSuperlativeForm ontolex:representation ?nominativePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularPositiveForm .
-    ?nominativeSingularPositiveForm ontolex:representation ?nominativeSingularPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralPositiveForm .
+    ?nominativePluralPositiveForm ontolex:representation ?nominativePluralPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q3482678 .
   }
 }

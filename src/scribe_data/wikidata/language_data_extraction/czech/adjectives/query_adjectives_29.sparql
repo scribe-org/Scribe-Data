@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?genitiveMasculineInanimatePlural
-  ?genitiveMasculineInanimateSingularSuperlative
-  ?genitiveMasculineInanimateSingularPositive
-  ?genitiveMasculineInanimatePluralComparative
-  ?genitiveMasculineInanimatePluralSuperlative
-  ?genitiveMasculineInanimatePluralPositive
+  ?genitiveMasculineAnimatePlural
+  ?genitiveMasculineAnimateSingularSuperlative
+  ?genitiveMasculineAnimateSingularPositive
+  ?genitiveMasculineAnimatePluralComparative
+  ?genitiveMasculineAnimatePluralSuperlative
+  ?genitiveMasculineAnimatePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineInanimatePluralForm .
-    ?genitiveMasculineInanimatePluralForm ontolex:representation ?genitiveMasculineInanimatePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q52943434, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimatePluralForm .
+    ?genitiveMasculineAnimatePluralForm ontolex:representation ?genitiveMasculineAnimatePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineInanimateSingularSuperlativeForm .
-    ?genitiveMasculineInanimateSingularSuperlativeForm ontolex:representation ?genitiveMasculineInanimateSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q52943434, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimateSingularSuperlativeForm .
+    ?genitiveMasculineAnimateSingularSuperlativeForm ontolex:representation ?genitiveMasculineAnimateSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineInanimateSingularPositiveForm .
-    ?genitiveMasculineInanimateSingularPositiveForm ontolex:representation ?genitiveMasculineInanimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q52943434, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimateSingularPositiveForm .
+    ?genitiveMasculineAnimateSingularPositiveForm ontolex:representation ?genitiveMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineInanimatePluralComparativeForm .
-    ?genitiveMasculineInanimatePluralComparativeForm ontolex:representation ?genitiveMasculineInanimatePluralComparative ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q52943434, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimatePluralComparativeForm .
+    ?genitiveMasculineAnimatePluralComparativeForm ontolex:representation ?genitiveMasculineAnimatePluralComparative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineInanimatePluralSuperlativeForm .
-    ?genitiveMasculineInanimatePluralSuperlativeForm ontolex:representation ?genitiveMasculineInanimatePluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q52943434, wd:Q146786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimatePluralSuperlativeForm .
+    ?genitiveMasculineAnimatePluralSuperlativeForm ontolex:representation ?genitiveMasculineAnimatePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q146786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineInanimatePluralPositiveForm .
-    ?genitiveMasculineInanimatePluralPositiveForm ontolex:representation ?genitiveMasculineInanimatePluralPositive ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q52943434, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimatePluralPositiveForm .
+    ?genitiveMasculineAnimatePluralPositiveForm ontolex:representation ?genitiveMasculineAnimatePluralPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q146786, wd:Q3482678 .
   }
 }

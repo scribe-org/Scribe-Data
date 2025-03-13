@@ -6,9 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?imperativePresentFirstPersonPlural
-  ?imperativePresentSecondPersonSingular
-  ?imperativePresentSecondPersonPlural
+  ?infinitive
+  ?supine
+  ?inessiveSupine
+  ?elativeSupine
+  ?translativeSupine
+  ?abessiveSupine
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
@@ -17,20 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativePresentFirstPersonPluralForm .
-    ?imperativePresentFirstPersonPluralForm ontolex:representation ?imperativePresentFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q192613, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativePresentSecondPersonSingularForm .
-    ?imperativePresentSecondPersonSingularForm ontolex:representation ?imperativePresentSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q192613, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?supineForm .
+    ?supineForm ontolex:representation ?supine ;
+      wikibase:grammaticalFeature wd:Q548470 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativePresentSecondPersonPluralForm .
-    ?imperativePresentSecondPersonPluralForm ontolex:representation ?imperativePresentSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q192613, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?inessiveSupineForm .
+    ?inessiveSupineForm ontolex:representation ?inessiveSupine ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q548470 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?elativeSupineForm .
+    ?elativeSupineForm ontolex:representation ?elativeSupine ;
+      wikibase:grammaticalFeature wd:Q394253, wd:Q548470 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?translativeSupineForm .
+    ?translativeSupineForm ontolex:representation ?translativeSupine ;
+      wikibase:grammaticalFeature wd:Q950170, wd:Q548470 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?abessiveSupineForm .
+    ?abessiveSupineForm ontolex:representation ?abessiveSupine ;
+      wikibase:grammaticalFeature wd:Q319822, wd:Q548470 .
   }
 }

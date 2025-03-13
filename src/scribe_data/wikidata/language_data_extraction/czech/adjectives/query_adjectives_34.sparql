@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?instrumentalMasculineInanimateSingular
-  ?instrumentalMasculineInanimatePlural
-  ?instrumentalMasculineInanimateSingularComparative
-  ?instrumentalMasculineInanimateSingularSuperlative
-  ?instrumentalMasculineInanimatePluralComparative
-  ?instrumentalMasculineInanimatePluralPositive
+  ?vocativeFeminineSingular
+  ?vocativeFeminineSingularComparative
+  ?vocativeFeminineSingularSuperlative
+  ?vocativeFeminineSingularPositive
+  ?vocativeFemininePluralComparative
+  ?vocativeFemininePluralSuperlative
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimateSingularForm .
-    ?instrumentalMasculineInanimateSingularForm ontolex:representation ?instrumentalMasculineInanimateSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
+    ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimatePluralForm .
-    ?instrumentalMasculineInanimatePluralForm ontolex:representation ?instrumentalMasculineInanimatePlural ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularComparativeForm .
+    ?vocativeFeminineSingularComparativeForm ontolex:representation ?vocativeFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimateSingularComparativeForm .
-    ?instrumentalMasculineInanimateSingularComparativeForm ontolex:representation ?instrumentalMasculineInanimateSingularComparative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularSuperlativeForm .
+    ?vocativeFeminineSingularSuperlativeForm ontolex:representation ?vocativeFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimateSingularSuperlativeForm .
-    ?instrumentalMasculineInanimateSingularSuperlativeForm ontolex:representation ?instrumentalMasculineInanimateSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularPositiveForm .
+    ?vocativeFeminineSingularPositiveForm ontolex:representation ?vocativeFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimatePluralComparativeForm .
-    ?instrumentalMasculineInanimatePluralComparativeForm ontolex:representation ?instrumentalMasculineInanimatePluralComparative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralComparativeForm .
+    ?vocativeFemininePluralComparativeForm ontolex:representation ?vocativeFemininePluralComparative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimatePluralPositiveForm .
-    ?instrumentalMasculineInanimatePluralPositiveForm ontolex:representation ?instrumentalMasculineInanimatePluralPositive ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralSuperlativeForm .
+    ?vocativeFemininePluralSuperlativeForm ontolex:representation ?vocativeFemininePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786, wd:Q1817208 .
   }
 }

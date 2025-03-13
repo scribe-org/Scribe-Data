@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?dativeMasculineInanimateSingular
-  ?dativeMasculineInanimatePlural
-  ?dativeMasculineInanimateSingularPositive
-  ?dativeMasculineInanimatePluralPositive
+  ?dativeMasculineAnimateSingular
+  ?dativeMasculineAnimatePlural
+  ?dativeMasculineAnimateSingularPositive
+  ?dativeMasculineAnimatePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -18,26 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimateSingularForm .
-    ?dativeMasculineInanimateSingularForm ontolex:representation ?dativeMasculineInanimateSingular ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimateSingularForm .
+    ?dativeMasculineAnimateSingularForm ontolex:representation ?dativeMasculineAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimatePluralForm .
-    ?dativeMasculineInanimatePluralForm ontolex:representation ?dativeMasculineInanimatePlural ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimatePluralForm .
+    ?dativeMasculineAnimatePluralForm ontolex:representation ?dativeMasculineAnimatePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimateSingularPositiveForm .
-    ?dativeMasculineInanimateSingularPositiveForm ontolex:representation ?dativeMasculineInanimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimateSingularPositiveForm .
+    ?dativeMasculineAnimateSingularPositiveForm ontolex:representation ?dativeMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimatePluralPositiveForm .
-    ?dativeMasculineInanimatePluralPositiveForm ontolex:representation ?dativeMasculineInanimatePluralPositive ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimatePluralPositiveForm .
+    ?dativeMasculineAnimatePluralPositiveForm ontolex:representation ?dativeMasculineAnimatePluralPositive ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q146786, wd:Q3482678 .
   }
 }

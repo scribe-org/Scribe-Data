@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?locativeMasculineInanimateSingular
-  ?locativeMasculineInanimateSingularComparative
-  ?locativeMasculineInanimateSingularSuperlative
-  ?locativeMasculineInanimateSingularPositive
-  ?locativeMasculineInanimatePluralSuperlative
-  ?locativeMasculineInanimatePluralPositive
+  ?accusativeNeuterSingular
+  ?accusativeNeuterSingularComparative
+  ?accusativeNeuterSingularSuperlative
+  ?accusativeNeuterSingularPositive
+  ?accusativeNeuterPluralSuperlative
+  ?accusativeNeuterPluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimateSingularForm .
-    ?locativeMasculineInanimateSingularForm ontolex:representation ?locativeMasculineInanimateSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularForm .
+    ?accusativeNeuterSingularForm ontolex:representation ?accusativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimateSingularComparativeForm .
-    ?locativeMasculineInanimateSingularComparativeForm ontolex:representation ?locativeMasculineInanimateSingularComparative ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularComparativeForm .
+    ?accusativeNeuterSingularComparativeForm ontolex:representation ?accusativeNeuterSingularComparative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimateSingularSuperlativeForm .
-    ?locativeMasculineInanimateSingularSuperlativeForm ontolex:representation ?locativeMasculineInanimateSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularSuperlativeForm .
+    ?accusativeNeuterSingularSuperlativeForm ontolex:representation ?accusativeNeuterSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimateSingularPositiveForm .
-    ?locativeMasculineInanimateSingularPositiveForm ontolex:representation ?locativeMasculineInanimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularPositiveForm .
+    ?accusativeNeuterSingularPositiveForm ontolex:representation ?accusativeNeuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimatePluralSuperlativeForm .
-    ?locativeMasculineInanimatePluralSuperlativeForm ontolex:representation ?locativeMasculineInanimatePluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q146786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterPluralSuperlativeForm .
+    ?accusativeNeuterPluralSuperlativeForm ontolex:representation ?accusativeNeuterPluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q146786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimatePluralPositiveForm .
-    ?locativeMasculineInanimatePluralPositiveForm ontolex:representation ?locativeMasculineInanimatePluralPositive ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterPluralPositiveForm .
+    ?accusativeNeuterPluralPositiveForm ontolex:representation ?accusativeNeuterPluralPositive ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q146786, wd:Q3482678 .
   }
 }

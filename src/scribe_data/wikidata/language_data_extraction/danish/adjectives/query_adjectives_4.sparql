@@ -6,10 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?indefinitePlural
-  ?indefiniteSuperlative
-  ?indefinitePositive
-  ?indefiniteSingularPositive
+  ?pluralSuperlative
+  ?indefiniteSingularSuperlative
+  ?definiteSingularSuperlative
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
@@ -17,27 +16,23 @@ WHERE {
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
 
+  # MARK: Superlative
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indefinitePluralForm .
-    ?indefinitePluralForm ontolex:representation ?indefinitePlural ;
-      wikibase:grammaticalFeature wd:Q53997857, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pluralSuperlativeForm .
+    ?pluralSuperlativeForm ontolex:representation ?pluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indefiniteSuperlativeForm .
-    ?indefiniteSuperlativeForm ontolex:representation ?indefiniteSuperlative ;
-      wikibase:grammaticalFeature wd:Q53997857, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?indefiniteSingularSuperlativeForm .
+    ?indefiniteSingularSuperlativeForm ontolex:representation ?indefiniteSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q53997857, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indefinitePositiveForm .
-    ?indefinitePositiveForm ontolex:representation ?indefinitePositive ;
-      wikibase:grammaticalFeature wd:Q53997857, wd:Q3482678 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indefiniteSingularPositiveForm .
-    ?indefiniteSingularPositiveForm ontolex:representation ?indefiniteSingularPositive ;
-      wikibase:grammaticalFeature wd:Q53997857, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?definiteSingularSuperlativeForm .
+    ?definiteSingularSuperlativeForm ontolex:representation ?definiteSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786, wd:Q1817208 .
   }
 }

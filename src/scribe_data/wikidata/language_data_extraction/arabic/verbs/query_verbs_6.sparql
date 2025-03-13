@@ -6,11 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?activeFirstPersonSingularFiilMudari
-  ?activeFirstPersonSingularFiilMudariSubjunctive
-  ?activeFirstPersonPluralFiilMudariSubjunctive
-  ?activeSecondPersonPluralFiilMudariSubjunctive
-  ?activeSecondPersonDualFiilMudariSubjunctive
+  ?masculinePastThirdPersonSingular
+  ?activePastFirstPersonSingular
+  ?activePastFirstPersonPlural
+  ?masculineActiveImperativeSecondPersonPlural
+  ?masculineActivePerfectSecondPersonSingular
+  ?masculinePastThirdPersonIndefiniteSingular
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
@@ -19,32 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeFirstPersonSingularFiilMudariForm .
-    ?activeFirstPersonSingularFiilMudariForm ontolex:representation ?activeFirstPersonSingularFiilMudari ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q21714344, wd:Q110786, wd:Q12230930 .
+    ?lexeme ontolex:lexicalForm ?masculinePastThirdPersonSingularForm .
+    ?masculinePastThirdPersonSingularForm ontolex:representation ?masculinePastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeFirstPersonSingularFiilMudariSubjunctiveForm .
-    ?activeFirstPersonSingularFiilMudariSubjunctiveForm ontolex:representation ?activeFirstPersonSingularFiilMudariSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q21714344, wd:Q110786, wd:Q12230930, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?activePastFirstPersonSingularForm .
+    ?activePastFirstPersonSingularForm ontolex:representation ?activePastFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q1994301, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeFirstPersonPluralFiilMudariSubjunctiveForm .
-    ?activeFirstPersonPluralFiilMudariSubjunctiveForm ontolex:representation ?activeFirstPersonPluralFiilMudariSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q21714344, wd:Q146786, wd:Q12230930, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?activePastFirstPersonPluralForm .
+    ?activePastFirstPersonPluralForm ontolex:representation ?activePastFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q1994301, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeSecondPersonPluralFiilMudariSubjunctiveForm .
-    ?activeSecondPersonPluralFiilMudariSubjunctiveForm ontolex:representation ?activeSecondPersonPluralFiilMudariSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q51929049, wd:Q146786, wd:Q12230930, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?masculineActiveImperativeSecondPersonPluralForm .
+    ?masculineActiveImperativeSecondPersonPluralForm ontolex:representation ?masculineActiveImperativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q22716, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeSecondPersonDualFiilMudariSubjunctiveForm .
-    ?activeSecondPersonDualFiilMudariSubjunctiveForm ontolex:representation ?activeSecondPersonDualFiilMudariSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q51929049, wd:Q110022, wd:Q12230930, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?masculineActivePerfectSecondPersonSingularForm .
+    ?masculineActivePerfectSecondPersonSingularForm ontolex:representation ?masculineActivePerfectSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q625420, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePastThirdPersonIndefiniteSingularForm .
+    ?masculinePastThirdPersonIndefiniteSingularForm ontolex:representation ?masculinePastThirdPersonIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929074, wd:Q53997857, wd:Q110786 .
   }
 }

@@ -6,10 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?indicativePreteriteSecondPerson
-  ?indicativePreteritePlural
-  ?indicativePreteriteFirstPersonSingular
-  ?indicativePreteriteThirdPersonSingular
+  ?singular
+  ?singularCombinedPresentParticiple
+  ?singularEnglishPastParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q1860 ;
@@ -18,26 +17,20 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonForm .
-    ?indicativePreteriteSecondPersonForm ontolex:representation ?indicativePreteriteSecondPerson ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049 .
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePreteritePluralForm .
-    ?indicativePreteritePluralForm ontolex:representation ?indicativePreteritePlural ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularCombinedPresentParticipleForm .
+    ?singularCombinedPresentParticipleForm ontolex:representation ?singularCombinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q10345583 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonSingularForm .
-    ?indicativePreteriteFirstPersonSingularForm ontolex:representation ?indicativePreteriteFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonSingularForm .
-    ?indicativePreteriteThirdPersonSingularForm ontolex:representation ?indicativePreteriteThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularEnglishPastParticipleForm .
+    ?singularEnglishPastParticipleForm ontolex:representation ?singularEnglishPastParticiple ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1230649 .
   }
 }

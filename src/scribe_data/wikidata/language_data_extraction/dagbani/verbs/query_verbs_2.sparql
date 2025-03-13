@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?neuter
-  ?infinitive
-  ?pastImperfect
-  ?definite
-  ?plural
-  ?combinedPresentParticiple
+  ?simplePast
+  ?simpleFuture
+  ?combinedPastParticiple
+  ?adverbOfManner
+  ?phrase
+  ?comparative
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterForm .
-    ?neuterForm ontolex:representation ?neuter ;
-      wikibase:grammaticalFeature wd:Q1775461 .
+    ?lexeme ontolex:lexicalForm ?simplePastForm .
+    ?simplePastForm ontolex:representation ?simplePast ;
+      wikibase:grammaticalFeature wd:Q1392475 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?simpleFutureForm .
+    ?simpleFutureForm ontolex:representation ?simpleFuture ;
+      wikibase:grammaticalFeature wd:Q1475560 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastImperfectForm .
-    ?pastImperfectForm ontolex:representation ?pastImperfect ;
-      wikibase:grammaticalFeature wd:Q12547192 .
+    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
+    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?definiteForm .
-    ?definiteForm ontolex:representation ?definite ;
-      wikibase:grammaticalFeature wd:Q53997851 .
+    ?lexeme ontolex:lexicalForm ?adverbOfMannerForm .
+    ?adverbOfMannerForm ontolex:representation ?adverbOfManner ;
+      wikibase:grammaticalFeature wd:Q113320444 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?phraseForm .
+    ?phraseForm ontolex:representation ?phrase ;
+      wikibase:grammaticalFeature wd:Q187931 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
-    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
-      wikibase:grammaticalFeature wd:Q10345583 .
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
   }
 }

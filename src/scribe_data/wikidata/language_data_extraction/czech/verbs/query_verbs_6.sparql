@@ -6,12 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?indicativeFirstPersonSingular
-  ?indicativeFirstPersonPlural
-  ?indicativeSecondPersonSingular
-  ?indicativeSecondPersonPlural
-  ?indicativeThirdPersonSingular
-  ?indicativeThirdPersonPlural
+  ?feminineSingularCombinedPastParticiple
+  ?femininePluralCombinedPastParticiple
+  ?feminineNeuterPastTransgressiveSingular
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -20,38 +17,20 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeFirstPersonSingularForm .
-    ?indicativeFirstPersonSingularForm ontolex:representation ?indicativeFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?feminineSingularCombinedPastParticipleForm .
+    ?feminineSingularCombinedPastParticipleForm ontolex:representation ?feminineSingularCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q12717679 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeFirstPersonPluralForm .
-    ?indicativeFirstPersonPluralForm ontolex:representation ?indicativeFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?femininePluralCombinedPastParticipleForm .
+    ?femininePluralCombinedPastParticipleForm ontolex:representation ?femininePluralCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q12717679 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeSecondPersonSingularForm .
-    ?indicativeSecondPersonSingularForm ontolex:representation ?indicativeSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q51929049, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeSecondPersonPluralForm .
-    ?indicativeSecondPersonPluralForm ontolex:representation ?indicativeSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q51929049, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeThirdPersonSingularForm .
-    ?indicativeThirdPersonSingularForm ontolex:representation ?indicativeThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q51929074, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeThirdPersonPluralForm .
-    ?indicativeThirdPersonPluralForm ontolex:representation ?indicativeThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?feminineNeuterPastTransgressiveSingularForm .
+    ?feminineNeuterPastTransgressiveSingularForm ontolex:representation ?feminineNeuterPastTransgressiveSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1775461, wd:Q12750232, wd:Q110786 .
   }
 }

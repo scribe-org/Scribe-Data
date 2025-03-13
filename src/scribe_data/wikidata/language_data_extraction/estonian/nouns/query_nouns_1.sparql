@@ -5,46 +5,20 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?noun
-  ?nominativeSingular
-  ?ablativeSingular
-  ?ablativePlural
-  ?abessiveSingular
-  ?abessivePlural
+  ?singular
+  ?nominativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?noun ;
+    wikibase:lemma ?singular ;
     schema:dateModified ?lastModified .
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
-    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
-  }
+  # MARK: Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeSingularForm .
-    ?ablativeSingularForm ontolex:representation ?ablativeSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativePluralForm .
-    ?ablativePluralForm ontolex:representation ?ablativePlural ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?abessiveSingularForm .
-    ?abessiveSingularForm ontolex:representation ?abessiveSingular ;
-      wikibase:grammaticalFeature wd:Q319822, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?abessivePluralForm .
-    ?abessivePluralForm ontolex:representation ?abessivePlural ;
-      wikibase:grammaticalFeature wd:Q319822, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 }

@@ -1,50 +1,43 @@
 # tool: scribe-data
-# All Czech (Q9056) nouns (Q1084) and the given forms.
+# All Czeck (Q9056) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?noun
-  ?nominative
-  ?genitive
-  ?genitiveSingular
-  ?genitivePlural
-  ?nominativeNeuterPlural
+  ?nominativeSingular
+  ?nominativePlural
+  ?gender
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeForm .
-    ?nominativeForm ontolex:representation ?nominative ;
-      wikibase:grammaticalFeature wd:Q131105 .
-  }
+  # MARK: Nominative Singular
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveForm .
-    ?genitiveForm ontolex:representation ?genitive ;
-      wikibase:grammaticalFeature wd:Q146233 .
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
-    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
-  }
+  # MARK: Nominative Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
-    ?genitivePluralForm ontolex:representation ?genitivePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
+  # MARK: Gender(s)
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNeuterPluralForm .
-    ?nominativeNeuterPluralForm ontolex:representation ?nominativeNeuterPlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q146786 .
+    ?lexeme wdt:P5185 ?nounGender .
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?nounGender rdfs:label ?gender .
   }
 }

@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?nominativeMasculineAnimateSingular
-  ?nominativeMasculineAnimatePlural
-  ?nominativeMasculineAnimateSingularSuperlative
-  ?nominativeMasculineAnimateSingularPositive
-  ?nominativeMasculineAnimatePluralComparative
-  ?nominativeMasculineAnimatePluralPositive
+  ?instrumentalMasculineAnimateSingular
+  ?instrumentalMasculineAnimatePlural
+  ?instrumentalMasculineAnimateSingularSuperlative
+  ?instrumentalMasculineAnimateSingularPositive
+  ?instrumentalMasculineAnimatePluralSuperlative
+  ?instrumentalMasculineAnimatePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimateSingularForm .
-    ?nominativeMasculineAnimateSingularForm ontolex:representation ?nominativeMasculineAnimateSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimateSingularForm .
+    ?instrumentalMasculineAnimateSingularForm ontolex:representation ?instrumentalMasculineAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimatePluralForm .
-    ?nominativeMasculineAnimatePluralForm ontolex:representation ?nominativeMasculineAnimatePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimatePluralForm .
+    ?instrumentalMasculineAnimatePluralForm ontolex:representation ?instrumentalMasculineAnimatePlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimateSingularSuperlativeForm .
-    ?nominativeMasculineAnimateSingularSuperlativeForm ontolex:representation ?nominativeMasculineAnimateSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimateSingularSuperlativeForm .
+    ?instrumentalMasculineAnimateSingularSuperlativeForm ontolex:representation ?instrumentalMasculineAnimateSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimateSingularPositiveForm .
-    ?nominativeMasculineAnimateSingularPositiveForm ontolex:representation ?nominativeMasculineAnimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimateSingularPositiveForm .
+    ?instrumentalMasculineAnimateSingularPositiveForm ontolex:representation ?instrumentalMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimatePluralComparativeForm .
-    ?nominativeMasculineAnimatePluralComparativeForm ontolex:representation ?nominativeMasculineAnimatePluralComparative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimatePluralSuperlativeForm .
+    ?instrumentalMasculineAnimatePluralSuperlativeForm ontolex:representation ?instrumentalMasculineAnimatePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q146786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimatePluralPositiveForm .
-    ?nominativeMasculineAnimatePluralPositiveForm ontolex:representation ?nominativeMasculineAnimatePluralPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimatePluralPositiveForm .
+    ?instrumentalMasculineAnimatePluralPositiveForm ontolex:representation ?instrumentalMasculineAnimatePluralPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q146786, wd:Q3482678 .
   }
 }

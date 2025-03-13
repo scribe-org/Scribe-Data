@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?accusativeMasculineInanimatePlural
-  ?accusativeMasculineInanimateSingularComparative
-  ?accusativeMasculineInanimateSingularSuperlative
-  ?accusativeMasculineInanimateSingularPositive
-  ?accusativeMasculineInanimatePluralComparative
-  ?accusativeMasculineInanimatePluralSuperlative
+  ?feminineSingularPositive
+  ?femininePluralPositive
+  ?neuterSingularPositive
+  ?neuterPluralPositive
+  ?masculineInanimateMasculineAnimateSingularPositive
+  ?masculineInanimateMasculineAnimatePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimatePluralForm .
-    ?accusativeMasculineInanimatePluralForm ontolex:representation ?accusativeMasculineInanimatePlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?feminineSingularPositiveForm .
+    ?feminineSingularPositiveForm ontolex:representation ?feminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimateSingularComparativeForm .
-    ?accusativeMasculineInanimateSingularComparativeForm ontolex:representation ?accusativeMasculineInanimateSingularComparative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?femininePluralPositiveForm .
+    ?femininePluralPositiveForm ontolex:representation ?femininePluralPositive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimateSingularSuperlativeForm .
-    ?accusativeMasculineInanimateSingularSuperlativeForm ontolex:representation ?accusativeMasculineInanimateSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?neuterSingularPositiveForm .
+    ?neuterSingularPositiveForm ontolex:representation ?neuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimateSingularPositiveForm .
-    ?accusativeMasculineInanimateSingularPositiveForm ontolex:representation ?accusativeMasculineInanimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?neuterPluralPositiveForm .
+    ?neuterPluralPositiveForm ontolex:representation ?neuterPluralPositive ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimatePluralComparativeForm .
-    ?accusativeMasculineInanimatePluralComparativeForm ontolex:representation ?accusativeMasculineInanimatePluralComparative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?masculineInanimateMasculineAnimateSingularPositiveForm .
+    ?masculineInanimateMasculineAnimateSingularPositiveForm ontolex:representation ?masculineInanimateMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q54020116, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimatePluralSuperlativeForm .
-    ?accusativeMasculineInanimatePluralSuperlativeForm ontolex:representation ?accusativeMasculineInanimatePluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q146786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?masculineInanimateMasculineAnimatePluralPositiveForm .
+    ?masculineInanimateMasculineAnimatePluralPositiveForm ontolex:representation ?masculineInanimateMasculineAnimatePluralPositive ;
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q54020116, wd:Q146786, wd:Q3482678 .
   }
 }

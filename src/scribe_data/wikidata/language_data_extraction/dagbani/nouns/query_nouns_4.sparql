@@ -6,10 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?singular
-  ?singularPlural
-  ?singularPhrase
-  ?singularPluralPhrase
+  ?neuter
+  ?present
+  ?neuterSingular
+  ?neuterPlural
+  ?presentPast
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
@@ -18,26 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?neuterForm .
+    ?neuterForm ontolex:representation ?neuter ;
+      wikibase:grammaticalFeature wd:Q1775461 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularPluralForm .
-    ?singularPluralForm ontolex:representation ?singularPlural ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularPhraseForm .
-    ?singularPhraseForm ontolex:representation ?singularPhrase ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q187931 .
+    ?lexeme ontolex:lexicalForm ?neuterSingularForm .
+    ?neuterSingularForm ontolex:representation ?neuterSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularPluralPhraseForm .
-    ?singularPluralPhraseForm ontolex:representation ?singularPluralPhrase ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146786, wd:Q187931 .
+    ?lexeme ontolex:lexicalForm ?neuterPluralForm .
+    ?neuterPluralForm ontolex:representation ?neuterPlural ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPastForm .
+    ?presentPastForm ontolex:representation ?presentPast ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1994301 .
   }
 }

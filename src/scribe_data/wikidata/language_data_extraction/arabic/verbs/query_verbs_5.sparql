@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?masculinePastThirdPersonSingular
-  ?activePastFirstPersonSingular
-  ?activePastFirstPersonPlural
-  ?masculineActiveImperativeSecondPersonPlural
-  ?masculineActivePerfectSecondPersonSingular
-  ?masculinePastThirdPersonIndefiniteSingular
+  ?singular
+  ?passiveParticiple
+  ?firstPersonSingularFiilMudari
+  ?feminineActiveImperativeSecondPersonPlural
+  ?feminineActivePerformativeThirdPersonPlural
+  ?commonActivePastSecondPersonDual
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePastThirdPersonSingularForm .
-    ?masculinePastThirdPersonSingularForm ontolex:representation ?masculinePastThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePastFirstPersonSingularForm .
-    ?activePastFirstPersonSingularForm ontolex:representation ?activePastFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q1994301, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?passiveParticipleForm .
+    ?passiveParticipleForm ontolex:representation ?passiveParticiple ;
+      wikibase:grammaticalFeature wd:Q72249544 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePastFirstPersonPluralForm .
-    ?activePastFirstPersonPluralForm ontolex:representation ?activePastFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q1994301, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?firstPersonSingularFiilMudariForm .
+    ?firstPersonSingularFiilMudariForm ontolex:representation ?firstPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q12230930 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineActiveImperativeSecondPersonPluralForm .
-    ?masculineActiveImperativeSecondPersonPluralForm ontolex:representation ?masculineActiveImperativeSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q22716, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?feminineActiveImperativeSecondPersonPluralForm .
+    ?feminineActiveImperativeSecondPersonPluralForm ontolex:representation ?feminineActiveImperativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q22716, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineActivePerfectSecondPersonSingularForm .
-    ?masculineActivePerfectSecondPersonSingularForm ontolex:representation ?masculineActivePerfectSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q625420, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?feminineActivePerformativeThirdPersonPluralForm .
+    ?feminineActivePerformativeThirdPersonPluralForm ontolex:representation ?feminineActivePerformativeThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q124351233, wd:Q51929074, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePastThirdPersonIndefiniteSingularForm .
-    ?masculinePastThirdPersonIndefiniteSingularForm ontolex:representation ?masculinePastThirdPersonIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929074, wd:Q53997857, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?commonActivePastSecondPersonDualForm .
+    ?commonActivePastSecondPersonDualForm ontolex:representation ?commonActivePastSecondPersonDual ;
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q1317831, wd:Q1994301, wd:Q51929049, wd:Q110022 .
   }
 }

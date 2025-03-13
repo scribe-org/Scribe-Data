@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?imperative
-  ?past
-  ?simplePresentPlural
-  ?simplePastPlural
-  ?thirdPersonSingular
-  ?simplePastFirstPersonSingular
+  ?simplePast
+  ?simplePastSingular
+  ?simplePastCombinedPastParticiple
+  ?simplePastEnglishPastParticiple
+  ?simplePastSecondPersonSingular
+  ?simplePastThirdPersonSingular
 
 WHERE {
   ?lexeme dct:language wd:Q1860 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeForm .
-    ?imperativeForm ontolex:representation ?imperative ;
-      wikibase:grammaticalFeature wd:Q22716 .
+    ?lexeme ontolex:lexicalForm ?simplePastForm .
+    ?simplePastForm ontolex:representation ?simplePast ;
+      wikibase:grammaticalFeature wd:Q1392475 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastForm .
-    ?pastForm ontolex:representation ?past ;
-      wikibase:grammaticalFeature wd:Q1994301 .
+    ?lexeme ontolex:lexicalForm ?simplePastSingularForm .
+    ?simplePastSingularForm ontolex:representation ?simplePastSingular ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePresentPluralForm .
-    ?simplePresentPluralForm ontolex:representation ?simplePresentPlural ;
-      wikibase:grammaticalFeature wd:Q3910936, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?simplePastCombinedPastParticipleForm .
+    ?simplePastCombinedPastParticipleForm ontolex:representation ?simplePastCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q12717679 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePastPluralForm .
-    ?simplePastPluralForm ontolex:representation ?simplePastPlural ;
-      wikibase:grammaticalFeature wd:Q1392475, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?simplePastEnglishPastParticipleForm .
+    ?simplePastEnglishPastParticipleForm ontolex:representation ?simplePastEnglishPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q1230649 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonSingularForm .
-    ?thirdPersonSingularForm ontolex:representation ?thirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?simplePastSecondPersonSingularForm .
+    ?simplePastSecondPersonSingularForm ontolex:representation ?simplePastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePastFirstPersonSingularForm .
-    ?simplePastFirstPersonSingularForm ontolex:representation ?simplePastFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1392475, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?simplePastThirdPersonSingularForm .
+    ?simplePastThirdPersonSingularForm ontolex:representation ?simplePastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q51929074, wd:Q110786 .
   }
 }

@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?instrumentalFeminineSingular
-  ?instrumentalFemininePlural
-  ?instrumentalFeminineSingularPositive
-  ?instrumentalFemininePluralPositive
+  ?instrumentalNeuterSingular
+  ?instrumentalNeuterPlural
+  ?instrumentalNeuterSingularPositive
+  ?instrumentalNeuterPluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -18,26 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularForm .
-    ?instrumentalFeminineSingularForm ontolex:representation ?instrumentalFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterSingularForm .
+    ?instrumentalNeuterSingularForm ontolex:representation ?instrumentalNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFemininePluralForm .
-    ?instrumentalFemininePluralForm ontolex:representation ?instrumentalFemininePlural ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterPluralForm .
+    ?instrumentalNeuterPluralForm ontolex:representation ?instrumentalNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularPositiveForm .
-    ?instrumentalFeminineSingularPositiveForm ontolex:representation ?instrumentalFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterSingularPositiveForm .
+    ?instrumentalNeuterSingularPositiveForm ontolex:representation ?instrumentalNeuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFemininePluralPositiveForm .
-    ?instrumentalFemininePluralPositiveForm ontolex:representation ?instrumentalFemininePluralPositive ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterPluralPositiveForm .
+    ?instrumentalNeuterPluralPositiveForm ontolex:representation ?instrumentalNeuterPluralPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q146786, wd:Q3482678 .
   }
 }
