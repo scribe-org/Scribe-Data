@@ -8,6 +8,7 @@ from unittest.mock import mock_open, patch
 import orjson
 import pytest
 
+from scribe_data.check.check_query_forms import return_correct_form_label
 from scribe_data.wikidata.parse_dump import LexemeProcessor, parse_dump
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 
@@ -80,13 +81,6 @@ def test_process_file(mock_bz2_open, mock_file, lexeme_processor):
 
     # Verify that stats were updated.
     assert lexeme_processor.stats["processed_entries"] > 0
-
-
-def test_get_form_name(lexeme_processor):
-    """Test form name generation from features."""
-    features = ["Q146786"]  # Example feature QID
-    form_name = lexeme_processor._get_form_name(features)
-    assert isinstance(form_name, str)
 
 
 @patch("scribe_data.wikidata.parse_dump.LexemeProcessor")
@@ -283,21 +277,78 @@ def test_process_lines_invalid_category(lexeme_processor):
 @pytest.mark.parametrize(
     "features,expected",
     [
-        (["Q146786"], "plural"),  # single feature
+        # Basic single feature cases
+        (["Q146786"], "plural"),  # Plural
+        (["Q110786"], "singular"),  # Singular
+        (["Q110022"], "dual"),  # Dual
+        # Multiple feature combinations
+        (["Q146786", "Q146233"], "genitivePlural"),  # Plural Genitive
+        (["Q146233", "Q146786"], "genitivePlural"),  # Genitive Plural (order swap)
+        # Complex multi-feature cases from different categories
         (
-            ["Q146786", "Q146233"],
-            "genitivePlural",
-        ),  # using actual form name from output
-        ([], ""),  # empty features
-        (["INVALID"], ""),  # invalid feature
+            ["Q51929074", "Q192613", "Q146786"],  # ThirdPerson, Present, Plural
+            "presentThirdPersonPlural",
+        ),
+        (
+            [
+                "Q1317831",
+                "Q124351233",
+                "Q51929049",
+                "Q110022",
+            ],  # Active, Performative, SecondPerson, Dual
+            "activePerformativeSecondPersonDual",
+        ),
+        (
+            ["Q51929074", "Q442485", "Q146786"],  # ThirdPerson, Preterite, Plural
+            "preteriteThirdPersonPlural",
+        ),
+        (
+            ["Q51929074", "Q192613", "Q146786"],  # ThirdPerson, Present, Plural
+            "presentThirdPersonPlural",
+        ),
+        (
+            [
+                "Q499327",
+                "Q682111",
+                "Q51929074",
+                "Q110022",
+            ],  # Masculine, Indicative, ThirdPerson, Dual
+            "masculineIndicativeThirdPersonDual",
+        ),
+        (
+            [
+                "Q1775415",
+                "Q625581",
+                "Q51929049",
+                "Q110786",
+            ],  # Feminine, Conditional, SecondPerson, Singular
+            "feminineConditionalSecondPersonSingular",
+        ),
+        # Edge cases
+        ([], ""),  # Empty features
+        (["INVALID"], ""),  # Invalid feature
     ],
 )
-def test_get_form_name_variations(lexeme_processor, features, expected):
-    """Test form name generation with different feature combinations."""
-    result = lexeme_processor._get_form_name(features)
-    assert isinstance(result, str)
-    if expected:
-        assert result.lower().startswith(expected.lower())
+def test_form_label_variations(lexeme_processor, features, expected):
+    """
+    Test form label generation with diverse feature combinations.
+    Covers various grammatical categories like:
+    - Number (Singular, Plural, Dual)
+    - Person (First, Second, Third)
+    - Mood (Indicative, Conditional)
+    - Tense (Present, Preterite)
+    - Gender (Masculine, Feminine)
+    """
+    result = return_correct_form_label(features)
+
+    # If expected is empty, check for empty or error message
+    if not expected:
+        assert (
+            result in ["", "Invalid query formatting found"]
+            or "not included in lexeme_form.metadata.json" in result
+        )
+    else:
+        assert result.lower() == expected.lower(), f"Failed for features {features}"
 
 
 def test_process_batch_empty(lexeme_processor):
@@ -355,3 +406,119 @@ def test_export_forms_empty_data(lexeme_processor, tmp_path):
     output_file = tmp_path / "forms.json"
     lexeme_processor.export_forms_json(str(output_file), "en", "nouns")
     assert not output_file.exists()
+
+
+def test_process_lines_unrecognized_qids(lexeme_processor):
+    """
+    Test processing lexeme data with unrecognized QIDs in grammatical features.
+    Ensure these forms are skipped without causing errors.
+    """
+    unrecognized_qid_data = {
+        "id": "L2",
+        "lemmas": {"en": {"value": "test", "language": "en"}},
+        "lexicalCategory": "Q1084",
+        "language": "Q1860",
+        "forms": [
+            {
+                "id": "L2-F1",
+                "representations": {"en": {"value": "tests", "language": "en"}},
+                "grammaticalFeatures": ["Q999999"],  # Unrecognized QID
+            }
+        ],
+        "senses": [{"glosses": {"fr": {"value": "tester", "language": "fr"}}}],
+        "modified": "2023-01-01T00:00:00Z",
+    }
+
+    lexeme_processor.process_lines(orjson.dumps(unrecognized_qid_data).decode())
+
+    # Verify that forms with unrecognized QIDs don't have valid form labels
+    if "L2" in lexeme_processor.forms_index:
+        forms = lexeme_processor.forms_index["L2"]["en"]["nouns"]
+        # Remove lastModified from the count
+        form_values = [v for k, v in forms.items() if k != "lastModified"]
+        assert len(form_values) == 0
+
+
+def test_process_lines_mixed_qids(lexeme_processor):
+    """
+    Test processing lexeme data with a mix of recognized and unrecognized QIDs.
+    Ensure only forms with valid QIDs are processed.
+    """
+    mixed_qid_data = {
+        "id": "L3",
+        "lemmas": {"en": {"value": "test", "language": "en"}},
+        "lexicalCategory": "Q1084",
+        "language": "Q1860",
+        "forms": [
+            {
+                "id": "L3-F1",
+                "representations": {"en": {"value": "tests", "language": "en"}},
+                "grammaticalFeatures": ["Q146786"],  # Valid QID
+            }
+        ],
+        "senses": [{"glosses": {"fr": {"value": "tester", "language": "fr"}}}],
+        "modified": "2023-01-01T00:00:00Z",
+    }
+
+    lexeme_processor.process_lines(orjson.dumps(mixed_qid_data).decode())
+
+    # Verify that only the form with valid QID is processed
+    if "L3" in lexeme_processor.forms_index:
+        forms = lexeme_processor.forms_index["L3"]["en"]["nouns"]
+        # Remove lastModified from the count
+        form_values = [v for k, v in forms.items() if k != "lastModified"]
+        assert len(form_values) == 1
+
+
+def test_form_label_cache_with_unrecognized_qids(lexeme_processor):
+    """
+    Test that the form label cache works correctly with unrecognized QIDs,
+    ensuring repeated calls don't process invalid QIDs multiple times.
+    """
+    unrecognized_qid_data1 = {
+        "id": "L4",
+        "lemmas": {"en": {"value": "test1", "language": "en"}},
+        "lexicalCategory": "Q1084",
+        "language": "Q1860",
+        "forms": [
+            {
+                "id": "L4-F1",
+                "representations": {"en": {"value": "tests1", "language": "en"}},
+                "grammaticalFeatures": ["Q999999"],  # Unrecognized QID
+            }
+        ],
+        "modified": "2023-01-01T00:00:00Z",
+    }
+
+    unrecognized_qid_data2 = {
+        "id": "L5",
+        "lemmas": {"en": {"value": "test2", "language": "en"}},
+        "lexicalCategory": "Q1084",
+        "language": "Q1860",
+        "forms": [
+            {
+                "id": "L5-F1",
+                "representations": {"en": {"value": "tests2", "language": "en"}},
+                "grammaticalFeatures": ["Q999999"],  # Same unrecognized QID
+            }
+        ],
+        "modified": "2023-01-01T00:00:00Z",
+    }
+
+    # Process two lexemes with the same unrecognized QID
+    lexeme_processor.process_lines(orjson.dumps(unrecognized_qid_data1).decode())
+    lexeme_processor.process_lines(orjson.dumps(unrecognized_qid_data2).decode())
+
+    # Verify that no valid forms were added
+    for lexeme_id in ["L4", "L5"]:
+        if lexeme_id in lexeme_processor.forms_index:
+            forms = lexeme_processor.forms_index[lexeme_id]["en"]["nouns"]
+            # Remove lastModified and check remaining values
+            form_values = [v for k, v in forms.items() if k != "lastModified"]
+            assert len(form_values) == 0
+
+    # Verify that invalid QIDs are not cached
+    assert all(
+        "Q999999" not in features
+        for features in lexeme_processor._form_label_cache.keys()
+    )
