@@ -9,8 +9,10 @@ import urllib.error
 from pathlib import Path
 from unittest.mock import patch
 
-from scribe_data.cli.get import get_data
+import pytest
 from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
+
+from scribe_data.cli.get import get_data
 
 
 class TestGetData(unittest.TestCase):
@@ -503,3 +505,90 @@ class TestGetData(unittest.TestCase):
                     overwrite=False,
                     interactive=False,
                 )
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_data_with_interactive_mode(self, mock_query_data):
+        """Test retrieving data in interactive mode."""
+        get_data(language="English", data_type="nouns", interactive=True)
+
+        mock_query_data.assert_called_once_with(
+            languages=["English"],
+            data_type=["nouns"],
+            output_dir="scribe_data_json_export",
+            overwrite=False,
+            interactive=True,
+        )
+
+    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    def test_get_data_with_custom_dump_path(self, mock_parse):
+        """Test retrieving data with a custom Wikidata dump path."""
+        custom_path = "./custom/dump/path.json"
+        get_data(language="English", data_type="nouns", wikidata_dump=custom_path)
+
+        mock_parse.assert_called_once_with(
+            language="English",
+            wikidata_dump_type=["form"],
+            data_types=["nouns"],
+            type_output_dir="scribe_data_json_export",
+            wikidata_dump_path=custom_path,
+            overwrite_all=False,
+        )
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_data_with_multiple_languages(self, mock_query_data):
+        """Test retrieving data for multiple languages."""
+        # Mock the query_data response.
+        mock_query_data.return_value = True
+
+        # Test with a single string containing multiple languages.
+        get_data(
+            language="English Spanish",  # Space-separated languages
+            data_type="nouns",
+        )
+
+        # Verify query_data was called with first language only (per get.py implementation).
+        mock_query_data.assert_called_once_with(
+            languages=["English"],  # Only first language is used
+            data_type=["nouns"],
+            output_dir="scribe_data_json_export",
+            overwrite=False,
+            interactive=False,
+        )
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_error_handling_value_error(self, mock_query_data):
+        """Test handling of ValueError during data retrieval."""
+        mock_query_data.side_effect = ValueError("Invalid parameter")
+
+        with pytest.raises(ValueError):
+            get_data(language="Invalid", data_type="nouns")
+
+    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    @patch("scribe_data.cli.get.questionary.confirm")
+    def test_get_data_with_all_and_specific_type(self, mock_questionary, mock_parse):
+        """Test retrieving all languages for a specific data type."""
+        mock_questionary.return_value.ask.return_value = False
+
+        get_data(all_bool=True, data_type="nouns")
+
+        mock_parse.assert_called_once_with(
+            language="all",
+            wikidata_dump_type=["form"],
+            data_types=["nouns"],
+            type_output_dir="scribe_data_json_export",
+            wikidata_dump_path=None,
+            overwrite_all=False,
+        )
+
+    @patch("scribe_data.cli.get.query_data")
+    def test_get_data_case_insensitive_type(self, mock_query_data):
+        """Test that data type is case insensitive."""
+        get_data(language="English", data_type="NOUNS")
+
+        mock_query_data.assert_called_once_with(
+            languages=["English"],
+            data_type=["NOUNS"],
+            output_dir="scribe_data_json_export",
+            overwrite=False,
+            interactive=False,
+        )

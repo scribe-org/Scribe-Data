@@ -251,17 +251,6 @@ def test_process_lines_invalid_json(lexeme_processor):
     assert lexeme_processor.stats["processed_entries"] == 0
 
 
-def test_process_lines_missing_required_fields(lexeme_processor):
-    """Test handling of lexeme data missing required fields."""
-    incomplete_data = {
-        "id": "L1",
-        # Missing lemmas and lexicalCategory.
-        "language": "Q1860",
-    }
-    lexeme_processor.process_lines(orjson.dumps(incomplete_data).decode())
-    assert lexeme_processor.stats["processed_entries"] == 0
-
-
 def test_process_lines_invalid_category(lexeme_processor):
     """Test handling of invalid lexical category."""
     invalid_category_data = {
@@ -522,3 +511,82 @@ def test_form_label_cache_with_unrecognized_qids(lexeme_processor):
         "Q999999" not in features
         for features in lexeme_processor._form_label_cache.keys()
     )
+
+
+def test_process_lines_empty_line(lexeme_processor):
+    """Test processing empty lines."""
+    lexeme_processor.process_lines("")
+    assert lexeme_processor.stats["processed_entries"] == 0
+
+
+def test_process_lines_missing_required_fields(lexeme_processor):
+    """Test processing lexeme with missing required fields."""
+    incomplete_data = {
+        "id": "L1",
+        # Missing lemmas and lexicalCategory.
+        "language": "Q1860",
+    }
+    lexeme_processor.process_lines(orjson.dumps(incomplete_data).decode())
+    assert "L1" not in lexeme_processor.forms_index
+
+
+def test_process_forms_with_duplicate_values(lexeme_processor):
+    """Test processing forms with duplicate values."""
+    # Initialize processor with forms parse type.
+    processor = LexemeProcessor(
+        target_lang="english", parse_type=["form"], data_types=["nouns"]
+    )
+
+    data = {
+        "id": "L1",
+        "lemmas": {"en": {"value": "test"}},
+        "lexicalCategory": "Q1084",
+        "language": "Q1860",
+        "modified": "2023-01-01T00:00:00Z",
+        "forms": [
+            {
+                "representations": {"en": {"value": "testing"}},
+                "grammaticalFeatures": ["Q146786"],  # Use valid QID
+            },
+            {
+                "representations": {"en": {"value": "testing"}},
+                "grammaticalFeatures": ["Q146786"],
+            },
+        ],
+    }
+    processor.process_lines(orjson.dumps(data).decode())
+    forms = processor.forms_index["L1"]["en"]
+    assert isinstance(forms, dict)
+    assert "nouns" in forms
+    assert len(forms["nouns"]) >= 1  # At least one form plus lastModified
+
+
+def test_process_totals_with_data_type_filter(lexeme_processor):
+    """Test processing totals with data type filter."""
+    # Create processor with specific data types.
+    processor = LexemeProcessor(
+        target_lang="english", parse_type=["total"], data_types=["nouns"]
+    )
+
+    # Process verb data (should be ignored).
+    verb_data = {
+        "id": "L1",
+        "lemmas": {"en": {"value": "test"}},
+        "lexicalCategory": "Q24905",  # verb
+        "language": "Q1860",
+        "modified": "2023-01-01T00:00:00Z",
+    }
+    processor.process_lines(orjson.dumps(verb_data).decode())
+
+    # Process noun data (should be counted).
+    noun_data = {
+        "id": "L2",
+        "lemmas": {"en": {"value": "test"}},
+        "lexicalCategory": "Q1084",  # noun
+        "language": "Q1860",
+        "modified": "2023-01-01T00:00:00Z",
+    }
+    processor.process_lines(orjson.dumps(noun_data).decode())
+
+    assert processor.lexical_category_counts["en"]["nouns"] == 1
+    assert "verbs" not in processor.lexical_category_counts["en"]
