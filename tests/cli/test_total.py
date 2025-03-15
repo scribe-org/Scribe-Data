@@ -533,3 +533,23 @@ class TestTotalWrapper(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             get_datatype_list("English")
+
+    @patch("scribe_data.cli.total.get_total_lexemes")
+    def test_total_wrapper_with_invalid_language(self, mock_get_total):
+        """Test total wrapper with invalid language."""
+        mock_get_total.side_effect = ValueError("Invalid language")
+
+        with self.assertRaises(ValueError):
+            total_wrapper(language="invalid_lang", data_type="nouns")
+
+        mock_get_total.assert_called_once()
+
+    @patch("scribe_data.cli.total.get_total_lexemes")
+    def test_total_wrapper_with_invalid_data_type(self, mock_get_total):
+        """Test total wrapper with invalid data type."""
+        mock_get_total.side_effect = ValueError("Invalid data type")
+
+        with self.assertRaises(ValueError):
+            total_wrapper(language="english", data_type="invalid_type")
+
+        mock_get_total.assert_called_once()

@@ -8,6 +8,8 @@ from datetime import date
 from pathlib import Path
 from unittest.mock import MagicMock, mock_open, patch
 
+import requests
+
 from scribe_data.cli.download import (
     available_closest_lexeme_dumpfile,
     download_wd_lexeme_dump,
@@ -158,3 +160,116 @@ class TestDownloadCLI(unittest.TestCase):
             )
             self.assertTrue(mock_unlink.called)
             self.assertTrue(result)
+
+    @patch("scribe_data.cli.download.requests.get")
+    @patch("scribe_data.cli.download.questionary.confirm")
+    def test_download_wd_lexeme_dump_http_error(self, mock_confirm, mock_get):
+        """
+        Test handling of HTTP errors when downloading Wikidata lexeme dump.
+        """
+        # Create a proper mock response object.
+        mock_response = MagicMock()
+        mock_response.status_code = 404
+        mock_response.text = ""  # Add empty text attribute
+        http_error = requests.exceptions.HTTPError("404 Client Error")
+        http_error.response = mock_response
+        mock_response.raise_for_status.side_effect = http_error
+        mock_get.return_value = mock_response
+
+        # Mock the questionary confirm to return False.
+        mock_confirm.return_value.ask.return_value = False
+
+        with patch("builtins.print") as mock_print:
+            result = download_wd_lexeme_dump("2024-01-01")
+            self.assertIsNone(result)
+            mock_print.assert_any_call(
+                "We could not find your requested Wikidata lexeme dump."
+            )
+
+    @patch("scribe_data.cli.download.requests.get")
+    def test_download_wd_lexeme_dump_request_exception(self, mock_get):
+        """
+        Test handling of general request exceptions when downloading latest dump.
+        """
+        mock_get.side_effect = requests.exceptions.RequestException("Connection error")
+
+        with patch("builtins.print") as mock_print:
+            result = download_wd_lexeme_dump()
+            self.assertIsNone(result)
+            mock_print.assert_called_with("An error occurred: Connection error")
+
+    @patch("scribe_data.cli.download.requests.get")
+    @patch("scribe_data.cli.download.questionary.confirm")
+    def test_download_wd_lexeme_dump_find_closest(self, mock_confirm, mock_get):
+        """
+        Test finding closest available dump when requested date is not available.
+        """
+        # Mock responses for each request.
+        error_response = MagicMock()
+        error_response.status_code = 404
+        error_response.text = ""  # Add empty text attribute
+        http_error = requests.exceptions.HTTPError("404 Client Error")
+        http_error.response = error_response
+        error_response.raise_for_status.side_effect = http_error
+
+        list_response = MagicMock()
+        list_response.text = 'href="20240101/"'
+        list_response.raise_for_status.return_value = None
+
+        dump_response = MagicMock()
+        dump_response.text = 'href="wikidata-20240101-lexemes.json.bz2"'
+        dump_response.raise_for_status.return_value = None
+
+        mock_get.side_effect = [error_response, list_response, dump_response]
+        mock_confirm.return_value.ask.return_value = True
+
+        result = download_wd_lexeme_dump("2024-01-02")
+        self.assertIsNotNone(result)
+        self.assertIn("20240101", result)
+
+    @patch("scribe_data.cli.download.requests.get")
+    @patch("scribe_data.cli.download.questionary.confirm")
+    def test_download_wd_lexeme_dump_user_declines_closest(
+        self, mock_confirm, mock_get
+    ):
+        """
+        Test user declining to see closest available dumps.
+        """
+        # Create proper mock response for HTTP error.
+        mock_response = MagicMock()
+        mock_response.status_code = 404
+        mock_response.text = ""  # Add empty text attribute
+        http_error = requests.exceptions.HTTPError("404 Client Error")
+        http_error.response = mock_response
+        mock_response.raise_for_status.side_effect = http_error
+        mock_get.return_value = mock_response
+        mock_confirm.return_value.ask.return_value = False
+
+        result = download_wd_lexeme_dump("2024-01-01")
+        self.assertIsNone(result)
+
+    def test_wd_lexeme_dump_download_wrapper_default_flag(self):
+        """
+        Test wrapper function with default flag set to True.
+        """
+        with patch("scribe_data.cli.download.download_wd_lexeme_dump") as mock_download:
+            mock_download.return_value = None
+
+            result = wd_lexeme_dump_download_wrapper(default=True)
+            self.assertFalse(result)
+
+    @patch("scribe_data.cli.download.requests.get")
+    def test_download_wd_lexeme_dump_invalid_date(self, mock_get):
+        """
+        Test downloading with invalid date format.
+        """
+        mock_get.return_value = MagicMock(
+            text=""
+        )  # Add mock response with text attribute
+
+        with patch("builtins.print") as mock_print:
+            result = download_wd_lexeme_dump("invalid-date")
+            self.assertIsNone(result)
+            expected_msg = "Invalid date format: invalid-date. Expected formats: YYYYMMDD, YYYY/MM/DD, or YYYY-MM-DD."
+            calls = [call[0][0] for call in mock_print.call_args_list]
+            self.assertIn(expected_msg, calls)
