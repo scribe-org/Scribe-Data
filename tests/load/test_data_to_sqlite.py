@@ -1,7 +1,9 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+"""
+Test the data_to_sqlite function.
+"""
 import json
-import os
 import sqlite3
-from pathlib import Path
 
 import pytest
 
@@ -126,7 +128,7 @@ def test_create_table_duplicate_columns(temp_db):
     
     # Test handling of duplicate column names.
     create_table(cursor, "snake", "test_table", ["Test", "test", "TEST"])
-        
+
     cursor.execute("PRAGMA table_info(test_table)")
     columns = [info[1] for info in cursor.fetchall()]
     
