@@ -10,7 +10,7 @@ jobs:
   check-repository:
     runs-on: ubuntu-latest
     outputs:
-      is_correct_repo: ${{ steps.check.outputs.is_correct_repo }}
+      is_remote_main: ${{ steps.check.outputs.is_remote_main }}
     steps:
       - name: Repository validation
         id: check
@@ -18,15 +18,15 @@ jobs:
           # This check prevents accidental runs in forked repositories.
           # To disable for forks, comment/remove this entire job.
           if [ "$GITHUB_REPOSITORY" = "scribe-org/Scribe-Data" ]; then
-            echo "is_correct_repo=true" >> "$GITHUB_OUTPUT"
+            echo "is_remote_main=true" >> "$GITHUB_OUTPUT"
           else
-            echo "is_correct_repo=false" >> "$GITHUB_OUTPUT"
+            echo "is_remote_main=false" >> "$GITHUB_OUTPUT"
             echo "::warning::This workflow is restricted to scribe-org/Scribe-Data"
           fi
 
   docker:
     needs: check-repository
-    if: needs.check-repository.outputs.is_correct_repo == 'true'
+    if: needs.check-repository.outputs.is_remote_main == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
