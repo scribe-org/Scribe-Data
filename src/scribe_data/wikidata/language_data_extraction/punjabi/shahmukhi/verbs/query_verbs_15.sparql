@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Punjabi (Q58635) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?futureIntransitivePhaseBasicPhaseSingular
+  ?futureIntransitivePhaseBasicPhasePlural
+  ?futureIntransitivePhaseBasicPhaseFirstPersonSingular
+  ?futureIntransitivePhaseBasicPhaseFirstPersonPlural
+  ?futureIntransitivePhaseBasicPhaseSecondPersonSingular
+  ?futureIntransitivePhaseBasicPhaseThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pnb to remove shahmukhi (pnb) words.
+  FILTER(lang(?verb) = "pnb")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureIntransitivePhaseBasicPhaseSingularForm .
+    ?futureIntransitivePhaseBasicPhaseSingularForm ontolex:representation ?futureIntransitivePhaseBasicPhaseSingular ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q113330736, wd:Q113330960, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureIntransitivePhaseBasicPhasePluralForm .
+    ?futureIntransitivePhaseBasicPhasePluralForm ontolex:representation ?futureIntransitivePhaseBasicPhasePlural ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q113330736, wd:Q113330960, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureIntransitivePhaseBasicPhaseFirstPersonSingularForm .
+    ?futureIntransitivePhaseBasicPhaseFirstPersonSingularForm ontolex:representation ?futureIntransitivePhaseBasicPhaseFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q113330736, wd:Q113330960, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureIntransitivePhaseBasicPhaseFirstPersonPluralForm .
+    ?futureIntransitivePhaseBasicPhaseFirstPersonPluralForm ontolex:representation ?futureIntransitivePhaseBasicPhaseFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q113330736, wd:Q113330960, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureIntransitivePhaseBasicPhaseSecondPersonSingularForm .
+    ?futureIntransitivePhaseBasicPhaseSecondPersonSingularForm ontolex:representation ?futureIntransitivePhaseBasicPhaseSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q113330736, wd:Q113330960, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureIntransitivePhaseBasicPhaseThirdPersonPluralForm .
+    ?futureIntransitivePhaseBasicPhaseThirdPersonPluralForm ontolex:representation ?futureIntransitivePhaseBasicPhaseThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q113330736, wd:Q113330960, wd:Q51929074, wd:Q146786 .
+  }
+}

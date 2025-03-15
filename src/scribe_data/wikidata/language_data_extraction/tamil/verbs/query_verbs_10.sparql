@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Tamil (Q5885) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?masculineSimplePresent
+  ?masculineSimplePresentThirdPerson
+  ?masculineSimplePresentSingular
+  ?masculineSimplePresentThirdPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q5885 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSimplePresentForm .
+    ?masculineSimplePresentForm ontolex:representation ?masculineSimplePresent ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q3910936 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSimplePresentThirdPersonForm .
+    ?masculineSimplePresentThirdPersonForm ontolex:representation ?masculineSimplePresentThirdPerson ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q3910936, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSimplePresentSingularForm .
+    ?masculineSimplePresentSingularForm ontolex:representation ?masculineSimplePresentSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q3910936, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSimplePresentThirdPersonSingularForm .
+    ?masculineSimplePresentThirdPersonSingularForm ontolex:representation ?masculineSimplePresentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q3910936, wd:Q51929074, wd:Q110786 .
+  }
+}

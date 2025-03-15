@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Punjabi (Q58635) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?obliqueMasculineSingular
+  ?obliqueMasculinePlural
+  ?obliqueMasculineSingularComparative
+  ?obliqueMasculineSingularPositive
+  ?obliqueMasculinePluralComparative
+  ?obliqueMasculinePluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pa to remove gurmukhi (pa) words.
+  FILTER(lang(?adjective) = "pa")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueMasculineSingularForm .
+    ?obliqueMasculineSingularForm ontolex:representation ?obliqueMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueMasculinePluralForm .
+    ?obliqueMasculinePluralForm ontolex:representation ?obliqueMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueMasculineSingularComparativeForm .
+    ?obliqueMasculineSingularComparativeForm ontolex:representation ?obliqueMasculineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueMasculineSingularPositiveForm .
+    ?obliqueMasculineSingularPositiveForm ontolex:representation ?obliqueMasculineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueMasculinePluralComparativeForm .
+    ?obliqueMasculinePluralComparativeForm ontolex:representation ?obliqueMasculinePluralComparative ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueMasculinePluralPositiveForm .
+    ?obliqueMasculinePluralPositiveForm ontolex:representation ?obliqueMasculinePluralPositive ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q146786, wd:Q3482678 .
+  }
+}

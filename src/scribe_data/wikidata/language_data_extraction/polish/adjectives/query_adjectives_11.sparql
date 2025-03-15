@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Polish (Q809) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?genitiveMasculineSingularPositive
+  ?genitiveMasculineNeuterSingularComparative
+  ?genitiveMasculineNeuterSingularSuperlative
+  ?genitiveMasculineNeuterSingularPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q809 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularPositiveForm .
+    ?genitiveMasculineSingularPositiveForm ontolex:representation ?genitiveMasculineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineNeuterSingularComparativeForm .
+    ?genitiveMasculineNeuterSingularComparativeForm ontolex:representation ?genitiveMasculineNeuterSingularComparative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q1775461, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineNeuterSingularSuperlativeForm .
+    ?genitiveMasculineNeuterSingularSuperlativeForm ontolex:representation ?genitiveMasculineNeuterSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q1775461, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineNeuterSingularPositiveForm .
+    ?genitiveMasculineNeuterSingularPositiveForm ontolex:representation ?genitiveMasculineNeuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q1775461, wd:Q110786, wd:Q3482678 .
+  }
+}

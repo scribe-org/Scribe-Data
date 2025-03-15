@@ -1,0 +1,39 @@
+# tool: scribe-data
+# All Punjabi (Q58635) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?obliqueGerund
+  ?thirdPersonSingular
+  ?thirdPersonSingularSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pa to remove gurmukhi (pa) words.
+  FILTER(lang(?verb) = "pa")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueGerundForm .
+    ?obliqueGerundForm ontolex:representation ?obliqueGerund ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonSingularForm .
+    ?thirdPersonSingularForm ontolex:representation ?thirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonSingularSubjunctiveForm .
+    ?thirdPersonSingularSubjunctiveForm ontolex:representation ?thirdPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q473746 .
+  }
+}

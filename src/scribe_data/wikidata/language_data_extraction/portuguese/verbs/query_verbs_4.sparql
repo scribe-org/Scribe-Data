@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Portuguese (Q5146) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?pastImperfectFirstPersonSingularSubjunctive
+  ?pastImperfectFirstPersonPluralSubjunctive
+  ?pastImperfectSecondPersonSingularSubjunctive
+  ?pastImperfectSecondPersonPluralSubjunctive
+  ?pastImperfectThirdPersonSingularSubjunctive
+  ?pastImperfectThirdPersonPluralSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q5146 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonSingularSubjunctiveForm .
+    ?pastImperfectFirstPersonSingularSubjunctiveForm ontolex:representation ?pastImperfectFirstPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonPluralSubjunctiveForm .
+    ?pastImperfectFirstPersonPluralSubjunctiveForm ontolex:representation ?pastImperfectFirstPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonSingularSubjunctiveForm .
+    ?pastImperfectSecondPersonSingularSubjunctiveForm ontolex:representation ?pastImperfectSecondPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonPluralSubjunctiveForm .
+    ?pastImperfectSecondPersonPluralSubjunctiveForm ontolex:representation ?pastImperfectSecondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastImperfectThirdPersonSingularSubjunctiveForm .
+    ?pastImperfectThirdPersonSingularSubjunctiveForm ontolex:representation ?pastImperfectThirdPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929074, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastImperfectThirdPersonPluralSubjunctiveForm .
+    ?pastImperfectThirdPersonPluralSubjunctiveForm ontolex:representation ?pastImperfectThirdPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929074, wd:Q146786, wd:Q473746 .
+  }
+}

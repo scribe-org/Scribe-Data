@@ -1,0 +1,53 @@
+# tool: scribe-data
+# All Punjabi (Q58635) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?directGerund
+  ?directPassiveGerund
+  ?directIntransitivePhaseBasicPhaseGerund
+  ?directObliqueIntransitivePhaseBasicPhaseGerund
+  ?directPassiveIntransitivePhaseBasicPhaseGerund
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pa to remove gurmukhi (pa) words.
+  FILTER(lang(?verb) = "pa")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directGerundForm .
+    ?directGerundForm ontolex:representation ?directGerund ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directPassiveGerundForm .
+    ?directPassiveGerundForm ontolex:representation ?directPassiveGerund ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1194697, wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directIntransitivePhaseBasicPhaseGerundForm .
+    ?directIntransitivePhaseBasicPhaseGerundForm ontolex:representation ?directIntransitivePhaseBasicPhaseGerund ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q113330736, wd:Q113330960, wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directObliqueIntransitivePhaseBasicPhaseGerundForm .
+    ?directObliqueIntransitivePhaseBasicPhaseGerundForm ontolex:representation ?directObliqueIntransitivePhaseBasicPhaseGerund ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1233197, wd:Q113330736, wd:Q113330960, wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directPassiveIntransitivePhaseBasicPhaseGerundForm .
+    ?directPassiveIntransitivePhaseBasicPhaseGerundForm ontolex:representation ?directPassiveIntransitivePhaseBasicPhaseGerund ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1194697, wd:Q113330736, wd:Q113330960, wd:Q1923028 .
+  }
+}
