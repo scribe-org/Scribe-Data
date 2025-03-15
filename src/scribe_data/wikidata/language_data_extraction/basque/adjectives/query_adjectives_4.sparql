@@ -1,0 +1,36 @@
+# tool: scribe-data
+# All Basque (Q8752) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?absolutiveIndefinite
+  ?absolutiveSingular
+  ?absolutivePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q8752 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?absolutiveIndefiniteForm .
+    ?absolutiveIndefiniteForm ontolex:representation ?absolutiveIndefinite ;
+      wikibase:grammaticalFeature wd:Q332734, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?absolutiveSingularForm .
+    ?absolutiveSingularForm ontolex:representation ?absolutiveSingular ;
+      wikibase:grammaticalFeature wd:Q332734, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?absolutivePluralForm .
+    ?absolutivePluralForm ontolex:representation ?absolutivePlural ;
+      wikibase:grammaticalFeature wd:Q332734, wd:Q146786 .
+  }
+}

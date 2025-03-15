@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Estonian (Q9072) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?activeImperativePresent
+  ?activeConditionalPresent
+  ?activeConditionalPast
+  ?activePresentCombinedPresentParticiple
+  ?activePastCombinedPresentParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeImperativePresentForm .
+    ?activeImperativePresentForm ontolex:representation ?activeImperativePresent ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716, wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeConditionalPresentForm .
+    ?activeConditionalPresentForm ontolex:representation ?activeConditionalPresent ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q625581, wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeConditionalPastForm .
+    ?activeConditionalPastForm ontolex:representation ?activeConditionalPast ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q625581, wd:Q1994301 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresentCombinedPresentParticipleForm .
+    ?activePresentCombinedPresentParticipleForm ontolex:representation ?activePresentCombinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613, wd:Q10345583 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePastCombinedPresentParticipleForm .
+    ?activePastCombinedPresentParticipleForm ontolex:representation ?activePastCombinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q1994301, wd:Q10345583 .
+  }
+}

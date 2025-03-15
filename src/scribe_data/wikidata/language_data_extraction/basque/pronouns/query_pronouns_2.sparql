@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Basque (Q8752) pronouns (Q36224) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?pronoun
+  ?genitiveSingular
+  ?genitivePlural
+  ?absolutiveSingular
+  ?absolutivePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q8752 ;
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?absolutiveSingularForm .
+    ?absolutiveSingularForm ontolex:representation ?absolutiveSingular ;
+      wikibase:grammaticalFeature wd:Q332734, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?absolutivePluralForm .
+    ?absolutivePluralForm ontolex:representation ?absolutivePlural ;
+      wikibase:grammaticalFeature wd:Q332734, wd:Q146786 .
+  }
+}

@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Czech (Q9056) pronouns (Q36224) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?pronoun
+  ?nominativeMasculineAnimateSingular
+  ?nominativeMasculineAnimatePlural
+  ?nominativeMasculineAnimateSingularPositive
+  ?nominativeMasculineAnimatePluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimateSingularForm .
+    ?nominativeMasculineAnimateSingularForm ontolex:representation ?nominativeMasculineAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimatePluralForm .
+    ?nominativeMasculineAnimatePluralForm ontolex:representation ?nominativeMasculineAnimatePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimateSingularPositiveForm .
+    ?nominativeMasculineAnimateSingularPositiveForm ontolex:representation ?nominativeMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimatePluralPositiveForm .
+    ?nominativeMasculineAnimatePluralPositiveForm ontolex:representation ?nominativeMasculineAnimatePluralPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q146786, wd:Q3482678 .
+  }
+}

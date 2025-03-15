@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Danish (Q9035) pronouns (Q36224) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?pronoun
+  ?nonGenitive
+  ?neuter
+  ?nonGenitivePlural
+  ?neuterSingular
+  ?nonGenitiveCommonSingular
+  ?nonGenitiveNeuterSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveForm .
+    ?nonGenitiveForm ontolex:representation ?nonGenitive ;
+      wikibase:grammaticalFeature wd:Q98946930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterForm .
+    ?neuterForm ontolex:representation ?neuter ;
+      wikibase:grammaticalFeature wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitivePluralForm .
+    ?nonGenitivePluralForm ontolex:representation ?nonGenitivePlural ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterSingularForm .
+    ?neuterSingularForm ontolex:representation ?neuterSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveCommonSingularForm .
+    ?nonGenitiveCommonSingularForm ontolex:representation ?nonGenitiveCommonSingular ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q1305037, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveNeuterSingularForm .
+    ?nonGenitiveNeuterSingularForm ontolex:representation ?nonGenitiveNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q1775461, wd:Q110786 .
+  }
+}

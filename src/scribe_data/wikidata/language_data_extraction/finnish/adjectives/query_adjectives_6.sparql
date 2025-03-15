@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Finnish (Q1412) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?genitiveSingular
+  ?genitiveSingularComparative
+  ?genitiveSingularSuperlative
+  ?genitiveSingularPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularComparativeForm .
+    ?genitiveSingularComparativeForm ontolex:representation ?genitiveSingularComparative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularSuperlativeForm .
+    ?genitiveSingularSuperlativeForm ontolex:representation ?genitiveSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularPositiveForm .
+    ?genitiveSingularPositiveForm ontolex:representation ?genitiveSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786, wd:Q3482678 .
+  }
+}

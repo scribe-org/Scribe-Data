@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?feminineActivePastSecondPersonPlural
+  ?feminineActivePastThirdPersonPlural
+  ?feminineActivePastThirdPersonDual
+  ?feminineActiveSecondPersonPluralFiilMudariSubjunctive
+  ?feminineActiveThirdPersonSingularFiilMudariSubjunctive
+  ?feminineActiveThirdPersonPluralFiilMudariSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActivePastSecondPersonPluralForm .
+    ?feminineActivePastSecondPersonPluralForm ontolex:representation ?feminineActivePastSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q1994301, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActivePastThirdPersonPluralForm .
+    ?feminineActivePastThirdPersonPluralForm ontolex:representation ?feminineActivePastThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q1994301, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActivePastThirdPersonDualForm .
+    ?feminineActivePastThirdPersonDualForm ontolex:representation ?feminineActivePastThirdPersonDual ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q1994301, wd:Q51929074, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActiveSecondPersonPluralFiilMudariSubjunctiveForm .
+    ?feminineActiveSecondPersonPluralFiilMudariSubjunctiveForm ontolex:representation ?feminineActiveSecondPersonPluralFiilMudariSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q51929049, wd:Q146786, wd:Q12230930, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActiveThirdPersonSingularFiilMudariSubjunctiveForm .
+    ?feminineActiveThirdPersonSingularFiilMudariSubjunctiveForm ontolex:representation ?feminineActiveThirdPersonSingularFiilMudariSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q51929074, wd:Q110786, wd:Q12230930, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActiveThirdPersonPluralFiilMudariSubjunctiveForm .
+    ?feminineActiveThirdPersonPluralFiilMudariSubjunctiveForm ontolex:representation ?feminineActiveThirdPersonPluralFiilMudariSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q51929074, wd:Q146786, wd:Q12230930, wd:Q473746 .
+  }
+}

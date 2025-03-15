@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?past
+  ?gerund
+  ?fiilMudari
+  ?pausalSingular
+  ?pausalSingularConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?fiilMudariForm .
+    ?fiilMudariForm ontolex:representation ?fiilMudari ;
+      wikibase:grammaticalFeature wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalSingularForm .
+    ?pausalSingularForm ontolex:representation ?pausalSingular ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalSingularConstructForm .
+    ?pausalSingularConstructForm ontolex:representation ?pausalSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q110786, wd:Q1641446 .
+  }
+}

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Czech (Q9056) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?accusativeNeuterPlural
+  ?locativeMasculineInanimatePlural
+  ?accusativeMasculineAnimateSingularPositive
+  ?accusativeMasculineAnimatePluralPositive
+  ?accusativeNeuterPluralComparative
+  ?locativeMasculineInanimatePluralComparative
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterPluralForm .
+    ?accusativeNeuterPluralForm ontolex:representation ?accusativeNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimatePluralForm .
+    ?locativeMasculineInanimatePluralForm ontolex:representation ?locativeMasculineInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineAnimateSingularPositiveForm .
+    ?accusativeMasculineAnimateSingularPositiveForm ontolex:representation ?accusativeMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineAnimatePluralPositiveForm .
+    ?accusativeMasculineAnimatePluralPositiveForm ontolex:representation ?accusativeMasculineAnimatePluralPositive ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q54020116, wd:Q146786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterPluralComparativeForm .
+    ?accusativeNeuterPluralComparativeForm ontolex:representation ?accusativeNeuterPluralComparative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimatePluralComparativeForm .
+    ?locativeMasculineInanimatePluralComparativeForm ontolex:representation ?locativeMasculineInanimatePluralComparative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q146786, wd:Q14169499 .
+  }
+}

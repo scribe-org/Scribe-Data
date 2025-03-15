@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?dual
+  ?nominativeFeminine
+  ?nominativeDual
+  ?pausalPlural
+  ?nominativeGenitiveSingular
+  ?nominativeMasculineIndefinite
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dualForm .
+    ?dualForm ontolex:representation ?dual ;
+      wikibase:grammaticalFeature wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineForm .
+    ?nominativeFeminineForm ontolex:representation ?nominativeFeminine ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeDualForm .
+    ?nominativeDualForm ontolex:representation ?nominativeDual ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalPluralForm .
+    ?pausalPluralForm ontolex:representation ?pausalPlural ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeGenitiveSingularForm .
+    ?nominativeGenitiveSingularForm ontolex:representation ?nominativeGenitiveSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineIndefiniteForm .
+    ?nominativeMasculineIndefiniteForm ontolex:representation ?nominativeMasculineIndefinite ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q53997857 .
+  }
+}

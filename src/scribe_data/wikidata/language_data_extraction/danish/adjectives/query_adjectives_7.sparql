@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Danish (Q9035) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?commonSingular
+  ?commonPositive
+  ?commonIndefiniteSingular
+  ?commonIndefinitePositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?commonSingularForm .
+    ?commonSingularForm ontolex:representation ?commonSingular ;
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?commonPositiveForm .
+    ?commonPositiveForm ontolex:representation ?commonPositive ;
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?commonIndefiniteSingularForm .
+    ?commonIndefiniteSingularForm ontolex:representation ?commonIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?commonIndefinitePositiveForm .
+    ?commonIndefinitePositiveForm ontolex:representation ?commonIndefinitePositive ;
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q53997857, wd:Q3482678 .
+  }
+}

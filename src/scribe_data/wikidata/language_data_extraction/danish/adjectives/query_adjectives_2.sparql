@@ -6,9 +6,8 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?comparative
-  ?pluralPositive
-  ?definiteSingularPositive
+  ?commonIndefiniteSingularPositive
+  ?neuterIndefiniteSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
@@ -16,25 +15,17 @@ WHERE {
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
 
-  # MARK: Comparative
+  # MARK: Indefinite
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comparativeForm .
-    ?comparativeForm ontolex:representation ?comparative ;
-      wikibase:grammaticalFeature wd:Q14169499 .
-  }
-
-  # MARK: Positive
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralPositiveForm .
-    ?pluralPositiveForm ontolex:representation ?pluralPositive ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?commonIndefiniteSingularPositiveForm .
+    ?commonIndefiniteSingularPositiveForm ontolex:representation ?commonIndefiniteSingularPositive ;
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q53997857, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?definiteSingularPositiveForm .
-    ?definiteSingularPositiveForm ontolex:representation ?definiteSingularPositive ;
-      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularPositiveForm .
+    ?neuterIndefiniteSingularPositiveForm ontolex:representation ?neuterIndefiniteSingularPositive ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786, wd:Q3482678 .
   }
 }

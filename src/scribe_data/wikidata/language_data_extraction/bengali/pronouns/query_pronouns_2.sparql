@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Bengali (Q9610) pronouns (Q36224) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?pronoun
+  ?nominative
+  ?accusative
+  ?nominativeFirstPersonSingular
+  ?nominativeFirstPersonPlural
+  ?accusativeFirstPersonSingular
+  ?accusativeFirstPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9610 ;
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFirstPersonSingularForm .
+    ?nominativeFirstPersonSingularForm ontolex:representation ?nominativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFirstPersonPluralForm .
+    ?nominativeFirstPersonPluralForm ontolex:representation ?nominativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFirstPersonSingularForm .
+    ?accusativeFirstPersonSingularForm ontolex:representation ?accusativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFirstPersonPluralForm .
+    ?accusativeFirstPersonPluralForm ontolex:representation ?accusativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q21714344, wd:Q146786 .
+  }
+}
