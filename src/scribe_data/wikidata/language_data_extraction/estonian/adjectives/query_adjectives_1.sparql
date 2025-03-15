@@ -6,12 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?nominativeSingular
-  ?nominativePlural
-  ?genitiveSingular
-  ?genitivePlural
-  ?partitiveSingular
-  ?partitivePlural
+  ?elativeSingular
+  ?elativePlural
+  ?allativeSingular
+  ?allativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
@@ -19,45 +17,31 @@ WHERE {
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
 
-  # MARK: Nominative
+  # MARK: Elative
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
-    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?elativeSingularForm .
+    ?elativeSingularForm ontolex:representation ?elativeSingular ;
+      wikibase:grammaticalFeature wd:Q394253, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
-    ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?elativePluralForm .
+    ?elativePluralForm ontolex:representation ?elativePlural ;
+      wikibase:grammaticalFeature wd:Q394253, wd:Q146786 .
   }
 
-  # MARK: Genitive
+  # MARK: Allative
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
-    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
-    ?genitivePluralForm ontolex:representation ?genitivePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
-  }
-
-  # MARK: Partitive
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?partitiveSingularForm .
-    ?partitiveSingularForm ontolex:representation ?partitiveSingular ;
-      wikibase:grammaticalFeature wd:Q857325, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?allativeSingularForm .
+    ?allativeSingularForm ontolex:representation ?allativeSingular ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?partitivePluralForm .
-    ?partitivePluralForm ontolex:representation ?partitivePlural ;
-      wikibase:grammaticalFeature wd:Q857325, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?allativePluralForm .
+    ?allativePluralForm ontolex:representation ?allativePlural ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q146786 .
   }
 }

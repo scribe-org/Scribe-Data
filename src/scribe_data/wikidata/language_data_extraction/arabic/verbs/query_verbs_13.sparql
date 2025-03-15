@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?masculineActiveImperativeSecondPersonSingular
+  ?masculineActivePastSecondPersonSingular
+  ?masculineActivePastThirdPersonDual
+  ?masculineActiveSecondPersonPluralFiilMudariSubjunctive
+  ?masculineActiveThirdPersonSingularFiilMudariSubjunctive
+  ?masculineActiveThirdPersonPluralFiilMudariSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActiveImperativeSecondPersonSingularForm .
+    ?masculineActiveImperativeSecondPersonSingularForm ontolex:representation ?masculineActiveImperativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q22716, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActivePastSecondPersonSingularForm .
+    ?masculineActivePastSecondPersonSingularForm ontolex:representation ?masculineActivePastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q1994301, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActivePastThirdPersonDualForm .
+    ?masculineActivePastThirdPersonDualForm ontolex:representation ?masculineActivePastThirdPersonDual ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q1994301, wd:Q51929074, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActiveSecondPersonPluralFiilMudariSubjunctiveForm .
+    ?masculineActiveSecondPersonPluralFiilMudariSubjunctiveForm ontolex:representation ?masculineActiveSecondPersonPluralFiilMudariSubjunctive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q51929049, wd:Q146786, wd:Q12230930, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActiveThirdPersonSingularFiilMudariSubjunctiveForm .
+    ?masculineActiveThirdPersonSingularFiilMudariSubjunctiveForm ontolex:representation ?masculineActiveThirdPersonSingularFiilMudariSubjunctive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q51929074, wd:Q110786, wd:Q12230930, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActiveThirdPersonPluralFiilMudariSubjunctiveForm .
+    ?masculineActiveThirdPersonPluralFiilMudariSubjunctiveForm ontolex:representation ?masculineActiveThirdPersonPluralFiilMudariSubjunctive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q51929074, wd:Q146786, wd:Q12230930, wd:Q473746 .
+  }
+}

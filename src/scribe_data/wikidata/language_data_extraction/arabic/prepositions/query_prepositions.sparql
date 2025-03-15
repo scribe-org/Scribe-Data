@@ -1,0 +1,36 @@
+# tool: scribe-data
+# All Arabic (Q13955) prepositions (Q4833830) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?preposition
+  ?nominative
+  ?genitive
+  ?accusative
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q4833830 ;
+    wikibase:lemma ?preposition ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
+  }
+}

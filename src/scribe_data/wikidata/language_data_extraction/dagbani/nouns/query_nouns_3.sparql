@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Dagbani (Q32238) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?feminine
+  ?common
+  ?future
+  ?combinedPresentParticiple
+  ?combinedPastParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q32238 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineForm .
+    ?feminineForm ontolex:representation ?feminine ;
+      wikibase:grammaticalFeature wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?commonForm .
+    ?commonForm ontolex:representation ?common ;
+      wikibase:grammaticalFeature wd:Q1305037 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureForm .
+    ?futureForm ontolex:representation ?future ;
+      wikibase:grammaticalFeature wd:Q501405 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
+    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
+    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
+  }
+}

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Czech (Q9056) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?dativeFeminineSingular
+  ?dativeFeminineSingularComparative
+  ?dativeFeminineSingularSuperlative
+  ?dativeFeminineSingularPositive
+  ?dativeFemininePluralSuperlative
+  ?dativeFemininePluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFeminineSingularForm .
+    ?dativeFeminineSingularForm ontolex:representation ?dativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFeminineSingularComparativeForm .
+    ?dativeFeminineSingularComparativeForm ontolex:representation ?dativeFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFeminineSingularSuperlativeForm .
+    ?dativeFeminineSingularSuperlativeForm ontolex:representation ?dativeFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFeminineSingularPositiveForm .
+    ?dativeFeminineSingularPositiveForm ontolex:representation ?dativeFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFemininePluralSuperlativeForm .
+    ?dativeFemininePluralSuperlativeForm ontolex:representation ?dativeFemininePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFemininePluralPositiveForm .
+    ?dativeFemininePluralPositiveForm ontolex:representation ?dativeFemininePluralPositive ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q146786, wd:Q3482678 .
+  }
+}

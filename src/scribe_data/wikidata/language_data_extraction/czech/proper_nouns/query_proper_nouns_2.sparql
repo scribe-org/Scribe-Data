@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Czech (Q9056) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?nominativeSingular
+  ?accusativeSingular
+  ?accusativePlural
+  ?locativeSingular
+  ?locativePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
+    ?locativeSingularForm ontolex:representation ?locativeSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativePluralForm .
+    ?locativePluralForm ontolex:representation ?locativePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
+  }
+}

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Czech (Q9056) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?genitiveMasculineSingular
+  ?genitiveMasculinePlural
+  ?genitiveMasculineInanimateSingular
+  ?genitiveMasculineAnimateSingular
+  ?genitiveMasculineInanimateSingularComparative
+  ?genitiveMasculineAnimateSingularComparative
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularForm .
+    ?genitiveMasculineSingularForm ontolex:representation ?genitiveMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePluralForm .
+    ?genitiveMasculinePluralForm ontolex:representation ?genitiveMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineInanimateSingularForm .
+    ?genitiveMasculineInanimateSingularForm ontolex:representation ?genitiveMasculineInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q52943434, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimateSingularForm .
+    ?genitiveMasculineAnimateSingularForm ontolex:representation ?genitiveMasculineAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineInanimateSingularComparativeForm .
+    ?genitiveMasculineInanimateSingularComparativeForm ontolex:representation ?genitiveMasculineInanimateSingularComparative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q52943434, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimateSingularComparativeForm .
+    ?genitiveMasculineAnimateSingularComparativeForm ontolex:representation ?genitiveMasculineAnimateSingularComparative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q110786, wd:Q14169499 .
+  }
+}

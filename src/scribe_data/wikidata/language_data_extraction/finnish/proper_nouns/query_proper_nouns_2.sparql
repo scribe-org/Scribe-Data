@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Finnish (Q1412) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?locative
+  ?nominativeSingular
+  ?allativeSingular
+  ?allativePlural
+  ?adessiveSingular
+  ?adessivePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeForm .
+    ?locativeForm ontolex:representation ?locative ;
+      wikibase:grammaticalFeature wd:Q202142 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativeSingularForm .
+    ?allativeSingularForm ontolex:representation ?allativeSingular ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativePluralForm .
+    ?allativePluralForm ontolex:representation ?allativePlural ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessiveSingularForm .
+    ?adessiveSingularForm ontolex:representation ?adessiveSingular ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessivePluralForm .
+    ?adessivePluralForm ontolex:representation ?adessivePlural ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q146786 .
+  }
+}

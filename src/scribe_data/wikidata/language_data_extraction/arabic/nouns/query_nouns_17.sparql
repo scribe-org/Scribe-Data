@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?nominativeFeminineDefiniteSingular
+  ?nominativeFeminineDefinitePlural
+  ?nominativeFeminineDefiniteDual
+  ?nominativeFeminineSingularConstruct
+  ?nominativeFemininePluralConstruct
+  ?nominativeFeminineDualConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineDefiniteSingularForm .
+    ?nominativeFeminineDefiniteSingularForm ontolex:representation ?nominativeFeminineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineDefinitePluralForm .
+    ?nominativeFeminineDefinitePluralForm ontolex:representation ?nominativeFeminineDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q53997851, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineDefiniteDualForm .
+    ?nominativeFeminineDefiniteDualForm ontolex:representation ?nominativeFeminineDefiniteDual ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q53997851, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularConstructForm .
+    ?nominativeFeminineSingularConstructForm ontolex:representation ?nominativeFeminineSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFemininePluralConstructForm .
+    ?nominativeFemininePluralConstructForm ontolex:representation ?nominativeFemininePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q146786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineDualConstructForm .
+    ?nominativeFeminineDualConstructForm ontolex:representation ?nominativeFeminineDualConstruct ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110022, wd:Q1641446 .
+  }
+}

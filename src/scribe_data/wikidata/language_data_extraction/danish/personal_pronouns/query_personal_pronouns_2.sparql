@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Danish (Q9035) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?nominative
+  ?nominativeFeminine
+  ?nominativeMasculine
+  ?nominativeDativeAccusative
+
+WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineForm .
+    ?nominativeFeminineForm ontolex:representation ?nominativeFeminine ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineForm .
+    ?nominativeMasculineForm ontolex:representation ?nominativeMasculine ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeDativeAccusativeForm .
+    ?nominativeDativeAccusativeForm ontolex:representation ?nominativeDativeAccusative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q145599, wd:Q146078 .
+  }
+}

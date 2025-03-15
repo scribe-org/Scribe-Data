@@ -1,0 +1,29 @@
+# tool: scribe-data
+# All Basque (Q8752) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?partitive
+  ?plural
+
+WHERE {
+  ?lexeme dct:language wd:Q8752 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partitiveForm .
+    ?partitiveForm ontolex:representation ?partitive ;
+      wikibase:grammaticalFeature wd:Q857325 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+}

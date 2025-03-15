@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Basque (Q8752) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?comparative
+  ?superlative
+  ?instrumentalSingular
+  ?instrumentalPlural
+  ?locativeInanimateSingular
+  ?locativeInanimatePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q8752 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalSingularForm .
+    ?instrumentalSingularForm ontolex:representation ?instrumentalSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalPluralForm .
+    ?instrumentalPluralForm ontolex:representation ?instrumentalPlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeInanimateSingularForm .
+    ?locativeInanimateSingularForm ontolex:representation ?locativeInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q51927539, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeInanimatePluralForm .
+    ?locativeInanimatePluralForm ontolex:representation ?locativeInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q51927539, wd:Q146786 .
+  }
+}

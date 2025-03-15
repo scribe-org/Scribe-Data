@@ -1,0 +1,29 @@
+# tool: scribe-data
+# All Esperanto (Q143) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?plural
+  ?nominativeSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q143 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+  }
+}

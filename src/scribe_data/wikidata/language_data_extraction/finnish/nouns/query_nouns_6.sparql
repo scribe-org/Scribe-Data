@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Finnish (Q1412) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?partitive
+  ?partitiveSingular
+  ?partitivePlural
+  ?allativeSingular
+  ?allativePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partitiveForm .
+    ?partitiveForm ontolex:representation ?partitive ;
+      wikibase:grammaticalFeature wd:Q857325 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partitiveSingularForm .
+    ?partitiveSingularForm ontolex:representation ?partitiveSingular ;
+      wikibase:grammaticalFeature wd:Q857325, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partitivePluralForm .
+    ?partitivePluralForm ontolex:representation ?partitivePlural ;
+      wikibase:grammaticalFeature wd:Q857325, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativeSingularForm .
+    ?allativeSingularForm ontolex:representation ?allativeSingular ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativePluralForm .
+    ?allativePluralForm ontolex:representation ?allativePlural ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q146786 .
+  }
+}

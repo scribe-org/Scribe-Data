@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Czech (Q9056) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?masculineSingularPassiveParticiple
+  ?masculineSingularActiveParticiple
+  ?masculineInanimatePluralPassiveParticiple
+  ?masculineInanimatePluralActiveParticiple
+  ?masculineAnimatePluralPassiveParticiple
+  ?masculineAnimatePluralActiveParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularPassiveParticipleForm .
+    ?masculineSingularPassiveParticipleForm ontolex:representation ?masculineSingularPassiveParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q72249544 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularActiveParticipleForm .
+    ?masculineSingularActiveParticipleForm ontolex:representation ?masculineSingularActiveParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q72249355 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineInanimatePluralPassiveParticipleForm .
+    ?masculineInanimatePluralPassiveParticipleForm ontolex:representation ?masculineInanimatePluralPassiveParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51927539, wd:Q146786, wd:Q72249544 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineInanimatePluralActiveParticipleForm .
+    ?masculineInanimatePluralActiveParticipleForm ontolex:representation ?masculineInanimatePluralActiveParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51927539, wd:Q146786, wd:Q72249355 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineAnimatePluralPassiveParticipleForm .
+    ?masculineAnimatePluralPassiveParticipleForm ontolex:representation ?masculineAnimatePluralPassiveParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51927507, wd:Q146786, wd:Q72249544 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineAnimatePluralActiveParticipleForm .
+    ?masculineAnimatePluralActiveParticipleForm ontolex:representation ?masculineAnimatePluralActiveParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51927507, wd:Q146786, wd:Q72249355 .
+  }
+}

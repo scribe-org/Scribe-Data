@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Estonian (Q9072) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?conditionalPresentFirstPersonSingular
+  ?conditionalPresentFirstPersonPlural
+  ?conditionalPresentSecondPersonSingular
+  ?conditionalPresentSecondPersonPlural
+  ?conditionalPresentThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalPresentFirstPersonSingularForm .
+    ?conditionalPresentFirstPersonSingularForm ontolex:representation ?conditionalPresentFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q625581, wd:Q192613, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalPresentFirstPersonPluralForm .
+    ?conditionalPresentFirstPersonPluralForm ontolex:representation ?conditionalPresentFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625581, wd:Q192613, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalPresentSecondPersonSingularForm .
+    ?conditionalPresentSecondPersonSingularForm ontolex:representation ?conditionalPresentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q625581, wd:Q192613, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalPresentSecondPersonPluralForm .
+    ?conditionalPresentSecondPersonPluralForm ontolex:representation ?conditionalPresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625581, wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalPresentThirdPersonPluralForm .
+    ?conditionalPresentThirdPersonPluralForm ontolex:representation ?conditionalPresentThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625581, wd:Q192613, wd:Q51929074, wd:Q146786 .
+  }
+}

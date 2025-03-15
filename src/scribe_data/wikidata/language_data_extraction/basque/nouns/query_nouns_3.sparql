@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Basque (Q8752) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?genitiveSingular
+  ?genitivePlural
+  ?locativeSingular
+  ?locativePlural
+  ?locativeInanimateSingular
+  ?locativeInanimatePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q8752 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
+    ?locativeSingularForm ontolex:representation ?locativeSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativePluralForm .
+    ?locativePluralForm ontolex:representation ?locativePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeInanimateSingularForm .
+    ?locativeInanimateSingularForm ontolex:representation ?locativeInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q51927539, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeInanimatePluralForm .
+    ?locativeInanimatePluralForm ontolex:representation ?locativeInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q51927539, wd:Q146786 .
+  }
+}

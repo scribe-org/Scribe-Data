@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Finnish (Q1412) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?nominative
+  ?partitive
+  ?illative
+  ?elative
+  ?adessive
+  ?translative
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partitiveForm .
+    ?partitiveForm ontolex:representation ?partitive ;
+      wikibase:grammaticalFeature wd:Q857325 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?illativeForm .
+    ?illativeForm ontolex:representation ?illative ;
+      wikibase:grammaticalFeature wd:Q474668 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?elativeForm .
+    ?elativeForm ontolex:representation ?elative ;
+      wikibase:grammaticalFeature wd:Q394253 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessiveForm .
+    ?adessiveForm ontolex:representation ?adessive ;
+      wikibase:grammaticalFeature wd:Q281954 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?translativeForm .
+    ?translativeForm ontolex:representation ?translative ;
+      wikibase:grammaticalFeature wd:Q950170 .
+  }
+}

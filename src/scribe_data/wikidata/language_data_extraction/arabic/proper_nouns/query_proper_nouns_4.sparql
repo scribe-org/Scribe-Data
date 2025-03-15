@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Arabic (Q13955) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?genitive
+  ?genitiveFeminineSingular
+  ?genitiveMasculineSingular
+  ?genitiveFeminineDefiniteSingular
+  ?genitiveMasculineDefiniteSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularForm .
+    ?genitiveFeminineSingularForm ontolex:representation ?genitiveFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularForm .
+    ?genitiveMasculineSingularForm ontolex:representation ?genitiveMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineDefiniteSingularForm .
+    ?genitiveFeminineDefiniteSingularForm ontolex:representation ?genitiveFeminineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineDefiniteSingularForm .
+    ?genitiveMasculineDefiniteSingularForm ontolex:representation ?genitiveMasculineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q53997851, wd:Q110786 .
+  }
+}

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?pausalMasculine
+  ?pausalMasculineDefinite
+  ?pausalMasculineSingular
+  ?pausalMasculineDual
+  ?pausalMasculineDefiniteSingular
+  ?pausalMasculineDefiniteDual
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalMasculineForm .
+    ?pausalMasculineForm ontolex:representation ?pausalMasculine ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalMasculineDefiniteForm .
+    ?pausalMasculineDefiniteForm ontolex:representation ?pausalMasculineDefinite ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q499327, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalMasculineSingularForm .
+    ?pausalMasculineSingularForm ontolex:representation ?pausalMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalMasculineDualForm .
+    ?pausalMasculineDualForm ontolex:representation ?pausalMasculineDual ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q499327, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalMasculineDefiniteSingularForm .
+    ?pausalMasculineDefiniteSingularForm ontolex:representation ?pausalMasculineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q499327, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalMasculineDefiniteDualForm .
+    ?pausalMasculineDefiniteDualForm ontolex:representation ?pausalMasculineDefiniteDual ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q499327, wd:Q53997851, wd:Q110022 .
+  }
+}

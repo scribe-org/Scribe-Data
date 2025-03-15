@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Estonian (Q9072) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?allativeSingular
+  ?allativePlural
+  ?adessiveSingular
+  ?adessivePlural
+  ?terminativeSingular
+  ?terminativePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativeSingularForm .
+    ?allativeSingularForm ontolex:representation ?allativeSingular ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativePluralForm .
+    ?allativePluralForm ontolex:representation ?allativePlural ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessiveSingularForm .
+    ?adessiveSingularForm ontolex:representation ?adessiveSingular ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessivePluralForm .
+    ?adessivePluralForm ontolex:representation ?adessivePlural ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?terminativeSingularForm .
+    ?terminativeSingularForm ontolex:representation ?terminativeSingular ;
+      wikibase:grammaticalFeature wd:Q747019, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?terminativePluralForm .
+    ?terminativePluralForm ontolex:representation ?terminativePlural ;
+      wikibase:grammaticalFeature wd:Q747019, wd:Q146786 .
+  }
+}

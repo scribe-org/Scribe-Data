@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Arabic (Q13955) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?accusativeFeminineSingular
+  ?accusativeFemininePlural
+  ?accusativeFeminineDefiniteSingular
+  ?accusativeFeminineDefinitePlural
+  ?accusativeFeminineDefiniteDual
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularForm .
+    ?accusativeFeminineSingularForm ontolex:representation ?accusativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFemininePluralForm .
+    ?accusativeFemininePluralForm ontolex:representation ?accusativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineDefiniteSingularForm .
+    ?accusativeFeminineDefiniteSingularForm ontolex:representation ?accusativeFeminineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineDefinitePluralForm .
+    ?accusativeFeminineDefinitePluralForm ontolex:representation ?accusativeFeminineDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q53997851, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineDefiniteDualForm .
+    ?accusativeFeminineDefiniteDualForm ontolex:representation ?accusativeFeminineDefiniteDual ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q53997851, wd:Q110022 .
+  }
+}

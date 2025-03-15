@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Czech (Q9056) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?masculineInanimateSingularCombinedPastParticiple
+  ?masculineInanimatePluralCombinedPastParticiple
+  ?masculineAnimateSingularCombinedPastParticiple
+  ?masculineAnimatePluralCombinedPastParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineInanimateSingularCombinedPastParticipleForm .
+    ?masculineInanimateSingularCombinedPastParticipleForm ontolex:representation ?masculineInanimateSingularCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q110786, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineInanimatePluralCombinedPastParticipleForm .
+    ?masculineInanimatePluralCombinedPastParticipleForm ontolex:representation ?masculineInanimatePluralCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q146786, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineAnimateSingularCombinedPastParticipleForm .
+    ?masculineAnimateSingularCombinedPastParticipleForm ontolex:representation ?masculineAnimateSingularCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q54020116, wd:Q110786, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineAnimatePluralCombinedPastParticipleForm .
+    ?masculineAnimatePluralCombinedPastParticipleForm ontolex:representation ?masculineAnimatePluralCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q54020116, wd:Q146786, wd:Q12717679 .
+  }
+}

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?singular
+  ?plural
+  ?masculineSingular
+  ?masculinePlural
+  ?masculineDual
+  ?masculineIndefiniteSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
+    ?masculineSingularForm ontolex:representation ?masculineSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
+    ?masculinePluralForm ontolex:representation ?masculinePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineDualForm .
+    ?masculineDualForm ontolex:representation ?masculineDual ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndefiniteSingularForm .
+    ?masculineIndefiniteSingularForm ontolex:representation ?masculineIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997857, wd:Q110786 .
+  }
+}

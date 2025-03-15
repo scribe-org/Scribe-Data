@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Finnish (Q1412) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?nominativePlural
+  ?nominativePluralComparative
+  ?nominativePluralSuperlative
+  ?nominativePluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralComparativeForm .
+    ?nominativePluralComparativeForm ontolex:representation ?nominativePluralComparative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralSuperlativeForm .
+    ?nominativePluralSuperlativeForm ontolex:representation ?nominativePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralPositiveForm .
+    ?nominativePluralPositiveForm ontolex:representation ?nominativePluralPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q3482678 .
+  }
+}
