@@ -25,15 +25,15 @@ def temp_db(tmp_path):
 @pytest.fixture
 def temp_json_dir(tmp_path):
     """Create a temporary directory with test JSON files."""
-    # Create test data structure
+    # Create test data structure.
     json_dir = tmp_path / "json_data"
     json_dir.mkdir()
     
-    # Create English directory
+    # Create English directory.
     eng_dir = json_dir / "english"
     eng_dir.mkdir()
     
-    # Create test nouns.json
+    # Create test nouns.json.
     nouns_data = {
         "L1": {"noun": "test", "gender": "m"},
         "L2": {"noun": "example", "gender": "f"}
@@ -57,7 +57,7 @@ def test_create_table(temp_db):
     """Test creating a table with both snake and camel case identifiers."""
     cursor, conn = temp_db
     
-    # Test snake case
+    # Test snake case.
     create_table(cursor, "snake", "test_table", ["TestCol", "AnotherCol"])
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='test_table'")
     assert cursor.fetchone() is not None
@@ -72,13 +72,13 @@ def test_table_insert(temp_db):
     """Test inserting data into a table."""
     cursor, conn = temp_db
     
-    # Create test table
+    # Create test table.
     create_table(cursor, "snake", "test_table", ["id", "name"])
     
     # Test insertion
     table_insert(cursor, "test_table", ["1", "test_name"])
     
-    # Verify insertion
+    # Verify insertion.
     cursor.execute("SELECT * FROM test_table")
     result = cursor.fetchone()
     assert result == ("1", "test_name")
@@ -92,7 +92,7 @@ def test_translations_to_sqlite(temp_json_dir, tmp_path):
     lang_data_type_dict = {"english": ["translations"]}
     current_languages = ["english", "german", "french"]
     
-    # Run translations_to_sqlite
+    # Run translations_to_sqlite.
     translations_to_sqlite(
         lang_data_type_dict,
         current_languages,
@@ -101,7 +101,7 @@ def test_translations_to_sqlite(temp_json_dir, tmp_path):
         overwrite=True
     )
     
-    # Verify database creation
+    # Verify database creation.
     db_path = output_dir / "TranslationData.sqlite"
     assert db_path.exists()
     
@@ -109,10 +109,10 @@ def test_translations_to_sqlite(temp_json_dir, tmp_path):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
-    # Verify english table exists and has correct data
+    # Verify english table exists and has correct data.
     cursor.execute("SELECT * FROM english")
     rows = cursor.fetchall()
-    assert len(rows) == 1  # Should have 1 entry from our test data
+    assert len(rows) == 1  # Should have 1 entry from our test data.
     conn.close()
 
 def test_data_to_sqlite_invalid_language():
@@ -124,12 +124,12 @@ def test_create_table_duplicate_columns(temp_db):
     """Test creating a table with duplicate column names."""
     cursor, conn = temp_db
     
-    # Test handling of duplicate column names
+    # Test handling of duplicate column names.
     create_table(cursor, "snake", "test_table", ["Test", "test", "TEST"])
-    
+        
     cursor.execute("PRAGMA table_info(test_table)")
     columns = [info[1] for info in cursor.fetchall()]
     
-    # Verify unique column names were created
+    # Verify unique column names were created.
     assert len(columns) == 3
-    assert len(set(columns)) == 3  # All columns should be unique 
+    assert len(set(columns)) == 3  # All columns should be unique.
