@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Bengali (Q9610) pronouns (Q36224) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?pronoun
+  ?genitive
+  ?dative
+  ?genitiveFirstPersonSingular
+  ?genitiveFirstPersonPlural
+  ?locativeFirstPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q9610 ;
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeForm .
+    ?dativeForm ontolex:representation ?dative ;
+      wikibase:grammaticalFeature wd:Q145599 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFirstPersonSingularForm .
+    ?genitiveFirstPersonSingularForm ontolex:representation ?genitiveFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFirstPersonPluralForm .
+    ?genitiveFirstPersonPluralForm ontolex:representation ?genitiveFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeFirstPersonSingularForm .
+    ?locativeFirstPersonSingularForm ontolex:representation ?locativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q21714344, wd:Q110786 .
+  }
+}

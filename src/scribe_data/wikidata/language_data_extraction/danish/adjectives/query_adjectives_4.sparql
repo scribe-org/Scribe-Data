@@ -1,0 +1,38 @@
+# tool: scribe-data
+# All Danish (Q9035) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?pluralSuperlative
+  ?indefiniteSingularSuperlative
+  ?definiteSingularSuperlative
+
+WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Superlative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralSuperlativeForm .
+    ?pluralSuperlativeForm ontolex:representation ?pluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indefiniteSingularSuperlativeForm .
+    ?indefiniteSingularSuperlativeForm ontolex:representation ?indefiniteSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q53997857, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?definiteSingularSuperlativeForm .
+    ?definiteSingularSuperlativeForm ontolex:representation ?definiteSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786, wd:Q1817208 .
+  }
+}

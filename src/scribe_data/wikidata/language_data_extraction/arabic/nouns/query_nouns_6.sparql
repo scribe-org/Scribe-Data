@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?nominativeSingular
+  ?nominativeDefiniteSingular
+  ?nominativeDefinitePlural
+  ?nominativeSingularConstruct
+  ?pausalDefiniteSingular
+  ?pausalDefinitePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeDefiniteSingularForm .
+    ?nominativeDefiniteSingularForm ontolex:representation ?nominativeDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeDefinitePluralForm .
+    ?nominativeDefinitePluralForm ontolex:representation ?nominativeDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q53997851, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSingularConstructForm .
+    ?nominativeSingularConstructForm ontolex:representation ?nominativeSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalDefiniteSingularForm .
+    ?pausalDefiniteSingularForm ontolex:representation ?pausalDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalDefinitePluralForm .
+    ?pausalDefinitePluralForm ontolex:representation ?pausalDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q53997851, wd:Q146786 .
+  }
+}

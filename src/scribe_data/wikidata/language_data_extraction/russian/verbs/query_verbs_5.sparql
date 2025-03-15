@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Russian (Q7737) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?passivePresentParticiple
+  ?passivePastParticiple
+  ?activePresentParticiple
+  ?activePastParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q7737 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePresentParticipleForm .
+    ?passivePresentParticipleForm ontolex:representation ?passivePresentParticiple ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePastParticipleForm .
+    ?passivePastParticipleForm ontolex:representation ?passivePastParticiple ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q1994301, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresentParticipleForm .
+    ?activePresentParticipleForm ontolex:representation ?activePresentParticiple ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePastParticipleForm .
+    ?activePastParticipleForm ontolex:representation ?activePastParticiple ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q1994301, wd:Q814722 .
+  }
+}

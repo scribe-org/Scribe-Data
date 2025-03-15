@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Arabic (Q13955) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?pausalFeminine
+  ?pausalFeminineSingular
+  ?pausalFemininePlural
+  ?pausalFeminineDefiniteSingular
+  ?pausalFeminineDefinitePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalFeminineForm .
+    ?pausalFeminineForm ontolex:representation ?pausalFeminine ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalFeminineSingularForm .
+    ?pausalFeminineSingularForm ontolex:representation ?pausalFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalFemininePluralForm .
+    ?pausalFemininePluralForm ontolex:representation ?pausalFemininePlural ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalFeminineDefiniteSingularForm .
+    ?pausalFeminineDefiniteSingularForm ontolex:representation ?pausalFeminineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalFeminineDefinitePluralForm .
+    ?pausalFeminineDefinitePluralForm ontolex:representation ?pausalFeminineDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415, wd:Q53997851, wd:Q146786 .
+  }
+}

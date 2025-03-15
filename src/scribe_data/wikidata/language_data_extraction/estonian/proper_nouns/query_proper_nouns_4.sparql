@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Estonian (Q9072) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?illativeSingular
+  ?illativePlural
+  ?translativeSingular
+  ?translativePlural
+  ?essiveSingular
+  ?essivePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?illativeSingularForm .
+    ?illativeSingularForm ontolex:representation ?illativeSingular ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?illativePluralForm .
+    ?illativePluralForm ontolex:representation ?illativePlural ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?translativeSingularForm .
+    ?translativeSingularForm ontolex:representation ?translativeSingular ;
+      wikibase:grammaticalFeature wd:Q950170, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?translativePluralForm .
+    ?translativePluralForm ontolex:representation ?translativePlural ;
+      wikibase:grammaticalFeature wd:Q950170, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?essiveSingularForm .
+    ?essiveSingularForm ontolex:representation ?essiveSingular ;
+      wikibase:grammaticalFeature wd:Q148465, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?essivePluralForm .
+    ?essivePluralForm ontolex:representation ?essivePlural ;
+      wikibase:grammaticalFeature wd:Q148465, wd:Q146786 .
+  }
+}

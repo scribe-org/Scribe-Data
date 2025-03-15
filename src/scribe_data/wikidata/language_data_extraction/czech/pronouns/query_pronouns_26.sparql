@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Czech (Q9056) pronouns (Q36224) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?pronoun
+  ?instrumentalNeuterSingular
+  ?instrumentalNeuterPlural
+  ?instrumentalNeuterSingularPositive
+  ?instrumentalNeuterPluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterSingularForm .
+    ?instrumentalNeuterSingularForm ontolex:representation ?instrumentalNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterPluralForm .
+    ?instrumentalNeuterPluralForm ontolex:representation ?instrumentalNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterSingularPositiveForm .
+    ?instrumentalNeuterSingularPositiveForm ontolex:representation ?instrumentalNeuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterPluralPositiveForm .
+    ?instrumentalNeuterPluralPositiveForm ontolex:representation ?instrumentalNeuterPluralPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q146786, wd:Q3482678 .
+  }
+}

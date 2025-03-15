@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Estonian (Q9072) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?infinitive
+  ?supine
+  ?inessiveSupine
+  ?elativeSupine
+  ?translativeSupine
+  ?abessiveSupine
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?supineForm .
+    ?supineForm ontolex:representation ?supine ;
+      wikibase:grammaticalFeature wd:Q548470 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveSupineForm .
+    ?inessiveSupineForm ontolex:representation ?inessiveSupine ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q548470 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?elativeSupineForm .
+    ?elativeSupineForm ontolex:representation ?elativeSupine ;
+      wikibase:grammaticalFeature wd:Q394253, wd:Q548470 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?translativeSupineForm .
+    ?translativeSupineForm ontolex:representation ?translativeSupine ;
+      wikibase:grammaticalFeature wd:Q950170, wd:Q548470 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?abessiveSupineForm .
+    ?abessiveSupineForm ontolex:representation ?abessiveSupine ;
+      wikibase:grammaticalFeature wd:Q319822, wd:Q548470 .
+  }
+}

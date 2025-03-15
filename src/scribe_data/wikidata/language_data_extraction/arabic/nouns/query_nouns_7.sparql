@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?nominativePlural
+  ?accusativeSingular
+  ?nominativePluralConstruct
+  ?accusativeIndefiniteSingular
+  ?accusativeIndefinitePlural
+  ?accusativeSingularConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralConstructForm .
+    ?nominativePluralConstructForm ontolex:representation ?nominativePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeIndefiniteSingularForm .
+    ?accusativeIndefiniteSingularForm ontolex:representation ?accusativeIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeIndefinitePluralForm .
+    ?accusativeIndefinitePluralForm ontolex:representation ?accusativeIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSingularConstructForm .
+    ?accusativeSingularConstructForm ontolex:representation ?accusativeSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786, wd:Q1641446 .
+  }
+}

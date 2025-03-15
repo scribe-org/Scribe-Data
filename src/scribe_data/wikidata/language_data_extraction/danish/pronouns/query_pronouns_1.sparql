@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Danish (Q9035) pronouns (Q36224) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?pronoun
+  ?nominative
+  ?oblique
+  ?common
+  ?plural
+  ?commonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueForm .
+    ?obliqueForm ontolex:representation ?oblique ;
+      wikibase:grammaticalFeature wd:Q1233197 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?commonForm .
+    ?commonForm ontolex:representation ?common ;
+      wikibase:grammaticalFeature wd:Q1305037 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?commonSingularForm .
+    ?commonSingularForm ontolex:representation ?commonSingular ;
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q110786 .
+  }
+}

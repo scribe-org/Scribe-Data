@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Tamil (Q5885) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?nominative
+  ?adessive
+  ?terminative
+  ?abessive
+  ?singular
+  ?feminineSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q5885 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessiveForm .
+    ?adessiveForm ontolex:representation ?adessive ;
+      wikibase:grammaticalFeature wd:Q281954 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?terminativeForm .
+    ?terminativeForm ontolex:representation ?terminative ;
+      wikibase:grammaticalFeature wd:Q747019 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?abessiveForm .
+    ?abessiveForm ontolex:representation ?abessive ;
+      wikibase:grammaticalFeature wd:Q319822 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
+    ?feminineSingularForm ontolex:representation ?feminineSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+  }
+}

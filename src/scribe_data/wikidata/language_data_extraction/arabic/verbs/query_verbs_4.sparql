@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?past
+  ?masculinePlural
+  ?performativeFirstPersonSingular
+  ?passivePerformativeFirstPersonSingular
+  ?activeImperativeSecondPersonDual
+  ?activePerfectFirstPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
+    ?masculinePluralForm ontolex:representation ?masculinePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?performativeFirstPersonSingularForm .
+    ?performativeFirstPersonSingularForm ontolex:representation ?performativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q124351233, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePerformativeFirstPersonSingularForm .
+    ?passivePerformativeFirstPersonSingularForm ontolex:representation ?passivePerformativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q124351233, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeImperativeSecondPersonDualForm .
+    ?activeImperativeSecondPersonDualForm ontolex:representation ?activeImperativeSecondPersonDual ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716, wd:Q51929049, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePerfectFirstPersonSingularForm .
+    ?activePerfectFirstPersonSingularForm ontolex:representation ?activePerfectFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q625420, wd:Q21714344, wd:Q110786 .
+  }
+}

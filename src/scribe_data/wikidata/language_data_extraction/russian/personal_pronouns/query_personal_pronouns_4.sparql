@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Russian (Q7737) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?accusative
+  ?accusativeSingular
+  ?accusativeFirstPersonSingular
+  ?accusativeFirstPersonPlural
+  ?accusativeSecondPersonSingular
+  ?accusativeSecondPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q7737 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFirstPersonSingularForm .
+    ?accusativeFirstPersonSingularForm ontolex:representation ?accusativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFirstPersonPluralForm .
+    ?accusativeFirstPersonPluralForm ontolex:representation ?accusativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSecondPersonSingularForm .
+    ?accusativeSecondPersonSingularForm ontolex:representation ?accusativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSecondPersonPluralForm .
+    ?accusativeSecondPersonPluralForm ontolex:representation ?accusativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q51929049, wd:Q146786 .
+  }
+}

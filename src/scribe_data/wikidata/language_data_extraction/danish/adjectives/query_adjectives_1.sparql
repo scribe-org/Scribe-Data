@@ -6,8 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?commonIndefiniteSingularPositive
-  ?neuterIndefiniteSingularPositive
+  ?plural
+  ?superlative
+  ?positive
+  ?genitiveIndefiniteSingularPositive
+  ?nonGenitiveIndefiniteSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
@@ -15,17 +18,33 @@ WHERE {
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
 
-  # MARK: Indefinite
-
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?commonIndefiniteSingularPositiveForm .
-    ?commonIndefiniteSingularPositiveForm ontolex:representation ?commonIndefiniteSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1305037, wd:Q53997857, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularPositiveForm .
-    ?neuterIndefiniteSingularPositiveForm ontolex:representation ?neuterIndefiniteSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveIndefiniteSingularPositiveForm .
+    ?genitiveIndefiniteSingularPositiveForm ontolex:representation ?genitiveIndefiniteSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997857, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveIndefiniteSingularPositiveForm .
+    ?nonGenitiveIndefiniteSingularPositiveForm ontolex:representation ?nonGenitiveIndefiniteSingularPositive ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997857, wd:Q110786, wd:Q3482678 .
   }
 }

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Dagbani (Q32238) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?neuter
+  ?infinitive
+  ?pastImperfect
+  ?definite
+  ?plural
+  ?combinedPresentParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q32238 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterForm .
+    ?neuterForm ontolex:representation ?neuter ;
+      wikibase:grammaticalFeature wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastImperfectForm .
+    ?pastImperfectForm ontolex:representation ?pastImperfect ;
+      wikibase:grammaticalFeature wd:Q12547192 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?definiteForm .
+    ?definiteForm ontolex:representation ?definite ;
+      wikibase:grammaticalFeature wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
+    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
+}

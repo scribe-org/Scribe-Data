@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Spanish (Q1321) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?feminine
+  ?infinitive
+  ?gerund
+  ?participle
+  ?pluralPositive
+  ?masculineSingularPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1321 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineForm .
+    ?feminineForm ontolex:representation ?feminine ;
+      wikibase:grammaticalFeature wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participleForm .
+    ?participleForm ontolex:representation ?participle ;
+      wikibase:grammaticalFeature wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralPositiveForm .
+    ?pluralPositiveForm ontolex:representation ?pluralPositive ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularPluralForm .
+    ?masculineSingularPluralForm ontolex:representation ?masculineSingularPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q146786 .
+  }
+}

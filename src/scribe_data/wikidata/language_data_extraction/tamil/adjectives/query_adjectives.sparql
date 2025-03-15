@@ -6,6 +6,7 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
+  ?nominative
 
 WHERE {
   ?lexeme dct:language wd:Q5885 ;
@@ -13,4 +14,11 @@ WHERE {
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
     FILTER(lang(?adjective) = "ta")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
 }

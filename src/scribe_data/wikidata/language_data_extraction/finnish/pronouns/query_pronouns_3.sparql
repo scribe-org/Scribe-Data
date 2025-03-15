@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Finnish (Q1412) pronouns (Q36224) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?pronoun
+  ?allative
+  ?adessive
+  ?allativeSingular
+  ?allativePlural
+  ?adessiveSingular
+  ?adessivePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativeForm .
+    ?allativeForm ontolex:representation ?allative ;
+      wikibase:grammaticalFeature wd:Q655020 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessiveForm .
+    ?adessiveForm ontolex:representation ?adessive ;
+      wikibase:grammaticalFeature wd:Q281954 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativeSingularForm .
+    ?allativeSingularForm ontolex:representation ?allativeSingular ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativePluralForm .
+    ?allativePluralForm ontolex:representation ?allativePlural ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessiveSingularForm .
+    ?adessiveSingularForm ontolex:representation ?adessiveSingular ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessivePluralForm .
+    ?adessivePluralForm ontolex:representation ?adessivePlural ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q146786 .
+  }
+}

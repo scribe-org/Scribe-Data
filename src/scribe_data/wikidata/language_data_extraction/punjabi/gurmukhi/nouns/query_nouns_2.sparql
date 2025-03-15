@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Punjabi (Q58635) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?directSingular
+  ?directPlural
+  ?feminineSingular
+  ?nominativeMasculineSingular
+  ?directObliqueSingular
+  ?directAblativeMasculine
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pa to remove gurmukhi (pa) words.
+  FILTER(lang(?noun) = "pa")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directSingularForm .
+    ?directSingularForm ontolex:representation ?directSingular ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directPluralForm .
+    ?directPluralForm ontolex:representation ?directPlural ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
+    ?feminineSingularForm ontolex:representation ?feminineSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularForm .
+    ?nominativeMasculineSingularForm ontolex:representation ?nominativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directObliqueSingularForm .
+    ?directObliqueSingularForm ontolex:representation ?directObliqueSingular ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1233197, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directAblativeMasculineForm .
+    ?directAblativeMasculineForm ontolex:representation ?directAblativeMasculine ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q156986, wd:Q499327 .
+  }
+}

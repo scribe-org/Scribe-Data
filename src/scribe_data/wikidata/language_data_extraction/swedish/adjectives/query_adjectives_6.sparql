@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Swedish (Q9027) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?plural
+  ?pluralComparative
+  ?pluralSuperlative
+  ?pluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9027 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralComparativeForm .
+    ?pluralComparativeForm ontolex:representation ?pluralComparative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralSuperlativeForm .
+    ?pluralSuperlativeForm ontolex:representation ?pluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralPositiveForm .
+    ?pluralPositiveForm ontolex:representation ?pluralPositive ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q3482678 .
+  }
+}

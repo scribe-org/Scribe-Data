@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Slovak (Q9058) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?genitivePluralComparative
+  ?genitivePluralSuperlative
+  ?genitiveFeminineSingularComparative
+  ?genitiveFeminineSingularSuperlative
+  ?genitiveMasculineSingularComparative
+  ?genitiveMasculineSingularSuperlative
+
+WHERE {
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralComparativeForm .
+    ?genitivePluralComparativeForm ontolex:representation ?genitivePluralComparative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralSuperlativeForm .
+    ?genitivePluralSuperlativeForm ontolex:representation ?genitivePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularComparativeForm .
+    ?genitiveFeminineSingularComparativeForm ontolex:representation ?genitiveFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularSuperlativeForm .
+    ?genitiveFeminineSingularSuperlativeForm ontolex:representation ?genitiveFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularComparativeForm .
+    ?genitiveMasculineSingularComparativeForm ontolex:representation ?genitiveMasculineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularSuperlativeForm .
+    ?genitiveMasculineSingularSuperlativeForm ontolex:representation ?genitiveMasculineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786, wd:Q1817208 .
+  }
+}

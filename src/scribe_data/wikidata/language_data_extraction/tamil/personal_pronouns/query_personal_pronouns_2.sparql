@@ -1,0 +1,29 @@
+# tool: scribe-data
+# All Tamil (Q5885) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?genitive
+  ?locative
+
+WHERE {
+  ?lexeme dct:language wd:Q5885 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeForm .
+    ?locativeForm ontolex:representation ?locative ;
+      wikibase:grammaticalFeature wd:Q202142 .
+  }
+}

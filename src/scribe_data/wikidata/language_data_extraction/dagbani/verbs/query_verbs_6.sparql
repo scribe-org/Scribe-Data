@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Dagbani (Q32238) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?present
+  ?presentPresentContinuous
+  ?presentPast
+  ?presentSingular
+  ?presentPlural
+  ?presentPastFuture
+
+WHERE {
+  ?lexeme dct:language wd:Q32238 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPresentContinuousForm .
+    ?presentPresentContinuousForm ontolex:representation ?presentPresentContinuous ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q7240943 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPastForm .
+    ?presentPastForm ontolex:representation ?presentPast ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1994301 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentSingularForm .
+    ?presentSingularForm ontolex:representation ?presentSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPluralForm .
+    ?presentPluralForm ontolex:representation ?presentPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPastFutureForm .
+    ?presentPastFutureForm ontolex:representation ?presentPastFuture ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1994301, wd:Q501405 .
+  }
+}

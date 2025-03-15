@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Slovak (Q9058) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?dativeMasculineSingularComparative
+  ?dativeMasculineSingularSuperlative
+  ?dativeNeuterSingularComparative
+  ?dativeNeuterSingularSuperlative
+  ?instrumentalMasculineSingularComparative
+  ?instrumentalMasculineSingularSuperlative
+
+WHERE {
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculineSingularComparativeForm .
+    ?dativeMasculineSingularComparativeForm ontolex:representation ?dativeMasculineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculineSingularSuperlativeForm .
+    ?dativeMasculineSingularSuperlativeForm ontolex:representation ?dativeMasculineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeNeuterSingularComparativeForm .
+    ?dativeNeuterSingularComparativeForm ontolex:representation ?dativeNeuterSingularComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeNeuterSingularSuperlativeForm .
+    ?dativeNeuterSingularSuperlativeForm ontolex:representation ?dativeNeuterSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineSingularComparativeForm .
+    ?instrumentalMasculineSingularComparativeForm ontolex:representation ?instrumentalMasculineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineSingularSuperlativeForm .
+    ?instrumentalMasculineSingularSuperlativeForm ontolex:representation ?instrumentalMasculineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q110786, wd:Q1817208 .
+  }
+}

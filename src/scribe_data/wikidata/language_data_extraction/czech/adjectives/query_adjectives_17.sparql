@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Czech (Q9056) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?dativeMasculineSingular
+  ?dativeMasculinePlural
+  ?dativeMasculineAnimateSingular
+  ?dativeMasculineInanimateSingularSuperlative
+  ?dativeMasculineInanimatePluralSuperlative
+  ?dativeMasculineAnimateSingularComparative
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculineSingularForm .
+    ?dativeMasculineSingularForm ontolex:representation ?dativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePluralForm .
+    ?dativeMasculinePluralForm ontolex:representation ?dativeMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimateSingularForm .
+    ?dativeMasculineAnimateSingularForm ontolex:representation ?dativeMasculineAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimateSingularSuperlativeForm .
+    ?dativeMasculineInanimateSingularSuperlativeForm ontolex:representation ?dativeMasculineInanimateSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimatePluralSuperlativeForm .
+    ?dativeMasculineInanimatePluralSuperlativeForm ontolex:representation ?dativeMasculineInanimatePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimateSingularComparativeForm .
+    ?dativeMasculineAnimateSingularComparativeForm ontolex:representation ?dativeMasculineAnimateSingularComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q110786, wd:Q14169499 .
+  }
+}

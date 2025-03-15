@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Spanish (Q1321) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?singular
+  ?plural
+  ?accusativeFeminine
+  ?accusativeMasculine
+  ?nominativeVocativeFeminineMasculineSingularPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1321 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineForm .
+    ?accusativeFeminineForm ontolex:representation ?accusativeFeminine ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineForm .
+    ?accusativeMasculineForm ontolex:representation ?accusativeMasculine ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeVocativeFeminineMasculineSingularPluralForm .
+    ?nominativeVocativeFeminineMasculineSingularPluralForm ontolex:representation ?nominativeVocativeFeminineMasculineSingularPlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q185077, wd:Q1775415, wd:Q499327, wd:Q110786, wd:Q146786 .
+  }
+}

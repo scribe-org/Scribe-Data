@@ -1,0 +1,36 @@
+# tool: scribe-data
+# All Spanish (Q1321) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?masculineFirstPersonSingular
+  ?masculineFirstPersonPlural
+  ?masculineFirstPersonSingularPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1321 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineFirstPersonSingularForm .
+    ?masculineFirstPersonSingularForm ontolex:representation ?masculineFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineFirstPersonPluralForm .
+    ?masculineFirstPersonPluralForm ontolex:representation ?masculineFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineFirstPersonSingularPluralForm .
+    ?masculineFirstPersonSingularPluralForm ontolex:representation ?masculineFirstPersonSingularPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q21714344, wd:Q110786, wd:Q146786 .
+  }
+}

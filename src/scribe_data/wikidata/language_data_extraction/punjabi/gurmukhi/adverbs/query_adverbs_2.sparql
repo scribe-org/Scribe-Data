@@ -1,0 +1,53 @@
+# tool: scribe-data
+# All Punjabi (Q58635) adverbs (Q380057) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adverb
+  ?direct
+  ?comparative
+  ?directPlural
+  ?directComparative
+  ?directPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?adverb ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pa to remove gurmukhi (pa) words.
+  FILTER(lang(?adverb) = "pa")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directForm .
+    ?directForm ontolex:representation ?direct ;
+      wikibase:grammaticalFeature wd:Q1751855 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directPluralForm .
+    ?directPluralForm ontolex:representation ?directPlural ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directComparativeForm .
+    ?directComparativeForm ontolex:representation ?directComparative ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directPositiveForm .
+    ?directPositiveForm ontolex:representation ?directPositive ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q3482678 .
+  }
+}

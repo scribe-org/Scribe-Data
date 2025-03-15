@@ -1,0 +1,86 @@
+# tool: scribe-data
+# All Swedish (Q9027) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?imperative
+
+  ?passiveInfinitive
+  ?passivePresent
+  ?passivePreterite
+  ?passiveSupine
+
+  ?activeInfinitive
+  ?activePresent
+  ?activePreterite
+  ?activeSupine
+
+WHERE {
+  ?lexeme dct:language wd:Q9027 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+	wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+	# MARK: Imperative
+
+	OPTIONAL {
+		?lexeme ontolex:lexicalForm ?imperativeForm .
+		?imperativeForm ontolex:representation ?imperative ;
+			wikibase:grammaticalFeature wd:Q22716 .
+	}
+
+	# MARK: Passive
+
+	OPTIONAL {
+		?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
+		?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
+			wikibase:grammaticalFeature wd:Q1194697, wd:Q179230 .
+	}
+
+	OPTIONAL {
+		?lexeme ontolex:lexicalForm ?passivePresentForm .
+		?passivePresentForm ontolex:representation ?passivePresent ;
+			wikibase:grammaticalFeature wd:Q1194697, wd:Q192613 .
+	}
+
+	OPTIONAL {
+		?lexeme ontolex:lexicalForm ?passivePreteriteForm .
+		?passivePreteriteForm ontolex:representation ?passivePreterite ;
+			wikibase:grammaticalFeature wd:Q1194697, wd:Q442485 .
+	}
+
+	OPTIONAL {
+		?lexeme ontolex:lexicalForm ?passiveSupineForm .
+		?passiveSupineForm ontolex:representation ?passiveSupine ;
+			wikibase:grammaticalFeature wd:Q1194697, wd:Q548470 .
+	}
+
+	# MARK: Active
+
+	OPTIONAL {
+		?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
+		?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
+			wikibase:grammaticalFeature wd:Q1317831, wd:Q179230 .
+	}
+
+	OPTIONAL {
+		?lexeme ontolex:lexicalForm ?activePresentForm .
+		?activePresentForm ontolex:representation ?activePresent ;
+			wikibase:grammaticalFeature wd:Q1317831, wd:Q192613 .
+	}
+
+	OPTIONAL {
+		?lexeme ontolex:lexicalForm ?activePreteriteForm .
+		?activePreteriteForm ontolex:representation ?activePreterite ;
+			wikibase:grammaticalFeature wd:Q1317831, wd:Q442485 .
+	}
+
+	OPTIONAL {
+		?lexeme ontolex:lexicalForm ?activeSupineForm .
+		?activeSupineForm ontolex:representation ?activeSupine ;
+			wikibase:grammaticalFeature wd:Q1317831, wd:Q548470 .
+	}
+}

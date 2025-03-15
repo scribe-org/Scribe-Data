@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Estonian (Q9072) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?conditionalPastFirstPersonSingular
+  ?conditionalPastFirstPersonPlural
+  ?conditionalPastSecondPersonSingular
+  ?conditionalPastSecondPersonPlural
+  ?conditionalPastThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalPastFirstPersonSingularForm .
+    ?conditionalPastFirstPersonSingularForm ontolex:representation ?conditionalPastFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q625581, wd:Q1994301, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalPastFirstPersonPluralForm .
+    ?conditionalPastFirstPersonPluralForm ontolex:representation ?conditionalPastFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625581, wd:Q1994301, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalPastSecondPersonSingularForm .
+    ?conditionalPastSecondPersonSingularForm ontolex:representation ?conditionalPastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q625581, wd:Q1994301, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalPastSecondPersonPluralForm .
+    ?conditionalPastSecondPersonPluralForm ontolex:representation ?conditionalPastSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625581, wd:Q1994301, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalPastThirdPersonPluralForm .
+    ?conditionalPastThirdPersonPluralForm ontolex:representation ?conditionalPastThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625581, wd:Q1994301, wd:Q51929074, wd:Q146786 .
+  }
+}

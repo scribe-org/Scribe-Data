@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All English (Q1860) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?simplePast
+  ?simplePastSingular
+  ?simplePastCombinedPastParticiple
+  ?simplePastEnglishPastParticiple
+  ?simplePastSecondPersonSingular
+  ?simplePastThirdPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q1860 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastForm .
+    ?simplePastForm ontolex:representation ?simplePast ;
+      wikibase:grammaticalFeature wd:Q1392475 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastSingularForm .
+    ?simplePastSingularForm ontolex:representation ?simplePastSingular ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastCombinedPastParticipleForm .
+    ?simplePastCombinedPastParticipleForm ontolex:representation ?simplePastCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastEnglishPastParticipleForm .
+    ?simplePastEnglishPastParticipleForm ontolex:representation ?simplePastEnglishPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q1230649 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastSecondPersonSingularForm .
+    ?simplePastSecondPersonSingularForm ontolex:representation ?simplePastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastThirdPersonSingularForm .
+    ?simplePastThirdPersonSingularForm ontolex:representation ?simplePastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q51929074, wd:Q110786 .
+  }
+}

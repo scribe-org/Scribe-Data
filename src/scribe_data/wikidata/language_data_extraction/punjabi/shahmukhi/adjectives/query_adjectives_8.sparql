@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Punjabi (Q58635) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?locativePlural
+  ?locativeFeminineSingular
+  ?locativeFemininePlural
+  ?locativeMasculineSingular
+  ?locativeFemininePluralPositive
+  ?locativeMasculinePluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pnb to remove shahmukhi (pnb) words.
+  FILTER(lang(?adjective) = "pnb")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativePluralForm .
+    ?locativePluralForm ontolex:representation ?locativePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularForm .
+    ?locativeFeminineSingularForm ontolex:representation ?locativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeFemininePluralForm .
+    ?locativeFemininePluralForm ontolex:representation ?locativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeMasculineSingularForm .
+    ?locativeMasculineSingularForm ontolex:representation ?locativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeFemininePluralPositiveForm .
+    ?locativeFemininePluralPositiveForm ontolex:representation ?locativeFemininePluralPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q146786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeMasculinePluralPositiveForm .
+    ?locativeMasculinePluralPositiveForm ontolex:representation ?locativeMasculinePluralPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q499327, wd:Q146786, wd:Q3482678 .
+  }
+}

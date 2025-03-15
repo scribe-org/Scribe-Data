@@ -6,7 +6,7 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?locative
+  ?genitive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -14,11 +14,11 @@ WHERE {
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
 
-  # MARK: Locative
+  # MARK: Genitive
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeForm .
-    ?locativeForm ontolex:representation ?locative ;
-      wikibase:grammaticalFeature wd:Q202142 .
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
   }
 }

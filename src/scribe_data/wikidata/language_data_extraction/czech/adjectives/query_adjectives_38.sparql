@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Czech (Q9056) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?instrumentalMasculineAnimateSingular
+  ?instrumentalMasculineAnimatePlural
+  ?instrumentalMasculineAnimateSingularSuperlative
+  ?instrumentalMasculineAnimateSingularPositive
+  ?instrumentalMasculineAnimatePluralSuperlative
+  ?instrumentalMasculineAnimatePluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimateSingularForm .
+    ?instrumentalMasculineAnimateSingularForm ontolex:representation ?instrumentalMasculineAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimatePluralForm .
+    ?instrumentalMasculineAnimatePluralForm ontolex:representation ?instrumentalMasculineAnimatePlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimateSingularSuperlativeForm .
+    ?instrumentalMasculineAnimateSingularSuperlativeForm ontolex:representation ?instrumentalMasculineAnimateSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimateSingularPositiveForm .
+    ?instrumentalMasculineAnimateSingularPositiveForm ontolex:representation ?instrumentalMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimatePluralSuperlativeForm .
+    ?instrumentalMasculineAnimatePluralSuperlativeForm ontolex:representation ?instrumentalMasculineAnimatePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimatePluralPositiveForm .
+    ?instrumentalMasculineAnimatePluralPositiveForm ontolex:representation ?instrumentalMasculineAnimatePluralPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q146786, wd:Q3482678 .
+  }
+}

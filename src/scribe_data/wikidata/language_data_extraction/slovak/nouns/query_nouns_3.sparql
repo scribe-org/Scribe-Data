@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Slovak (Q9058) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?neuter
+  ?dativePlural
+  ?accusativePlural
+  ?dativeInanimateSingular
+  ?dativeAnimateSingular
+  ?accusativeAnimateSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterForm .
+    ?neuterForm ontolex:representation ?neuter ;
+      wikibase:grammaticalFeature wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeInanimateSingularForm .
+    ?dativeInanimateSingularForm ontolex:representation ?dativeInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q51927539, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeAnimateSingularForm .
+    ?dativeAnimateSingularForm ontolex:representation ?dativeAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q51927507, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeAnimateSingularForm .
+    ?accusativeAnimateSingularForm ontolex:representation ?accusativeAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q51927507, wd:Q110786 .
+  }
+}

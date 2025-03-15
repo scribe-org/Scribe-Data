@@ -6,10 +6,17 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adverb
+  ?superlative
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb ;
     schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
 }

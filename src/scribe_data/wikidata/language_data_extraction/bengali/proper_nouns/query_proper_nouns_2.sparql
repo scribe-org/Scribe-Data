@@ -1,0 +1,22 @@
+# tool: scribe-data
+# All Bengali (Q9610) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?dative
+
+WHERE {
+  ?lexeme dct:language wd:Q9610 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeForm .
+    ?dativeForm ontolex:representation ?dative ;
+      wikibase:grammaticalFeature wd:Q145599 .
+  }
+}

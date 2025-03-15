@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Estonian (Q9072) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?ablative
+  ?partitive
+  ?ablativeSingular
+  ?partitiveSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeForm .
+    ?ablativeForm ontolex:representation ?ablative ;
+      wikibase:grammaticalFeature wd:Q156986 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partitiveForm .
+    ?partitiveForm ontolex:representation ?partitive ;
+      wikibase:grammaticalFeature wd:Q857325 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeSingularForm .
+    ?ablativeSingularForm ontolex:representation ?ablativeSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partitiveSingularForm .
+    ?partitiveSingularForm ontolex:representation ?partitiveSingular ;
+      wikibase:grammaticalFeature wd:Q857325, wd:Q110786 .
+  }
+}

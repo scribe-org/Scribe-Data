@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All English (Q1860) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?simplePast
+  ?singular
+  ?combinedPresentParticiple
+  ?englishPastParticiple
+  ?superlative
+  ?positive
+
+WHERE {
+  ?lexeme dct:language wd:Q1860 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastForm .
+    ?simplePastForm ontolex:representation ?simplePast ;
+      wikibase:grammaticalFeature wd:Q1392475 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
+    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?englishPastParticipleForm .
+    ?englishPastParticipleForm ontolex:representation ?englishPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1230649 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
+  }
+}

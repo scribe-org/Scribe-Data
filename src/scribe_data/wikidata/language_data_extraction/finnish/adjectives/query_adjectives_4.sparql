@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Finnish (Q1412) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?ablativeSingular
+  ?ablativePlural
+  ?illativeSingular
+  ?illativePlural
+  ?inessiveSingular
+  ?inessivePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeSingularForm .
+    ?ablativeSingularForm ontolex:representation ?ablativeSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePluralForm .
+    ?ablativePluralForm ontolex:representation ?ablativePlural ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?illativeSingularForm .
+    ?illativeSingularForm ontolex:representation ?illativeSingular ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?illativePluralForm .
+    ?illativePluralForm ontolex:representation ?illativePlural ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveSingularForm .
+    ?inessiveSingularForm ontolex:representation ?inessiveSingular ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessivePluralForm .
+    ?inessivePluralForm ontolex:representation ?inessivePlural ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q146786 .
+  }
+}
