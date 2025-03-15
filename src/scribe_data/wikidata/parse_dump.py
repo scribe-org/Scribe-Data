@@ -621,7 +621,7 @@ def parse_dump(
             for lang in languages:
                 index_path = Path(output_dir) / lang / "translations.json"
 
-                if not check_index_exists(index_path, overwrite_all):
+                if not check_index_exists(index_path, overwrite_all, data_types):
                     languages_to_process.append(lang)
 
                 else:

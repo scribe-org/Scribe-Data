@@ -89,16 +89,25 @@ def test_get_form_name(lexeme_processor):
     assert isinstance(form_name, str)
 
 
+@patch("scribe_data.wikidata.parse_dump.check_index_exists")
 @patch("scribe_data.wikidata.parse_dump.LexemeProcessor")
-def test_parse_dump(mock_processor):
+def test_parse_dump(mock_processor, mock_check_exists):
     """Test the parse_dump function."""
+    # Configure mock to indicate file doesn't exist and needs processing
+    mock_check_exists.return_value = False
+
     parse_dump(
         language="english",
         parse_type=["translations"],
         data_types=["nouns"],
         file_path="test.json.bz2",
     )
-    mock_processor.assert_called_once()
+
+    # Verify LexemeProcessor was instantiated and check_index_exists was called
+    mock_processor.assert_called_once_with(
+        target_lang=["english"], parse_type=["translations"], data_types=["nouns"]
+    )
+    mock_check_exists.assert_called()
 
 
 @patch("scribe_data.wikidata.wikidata_utils.Path")

@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch
 
 import pkg_resources
+
 from scribe_data.cli.version import (
     get_latest_version,
     get_local_version,
