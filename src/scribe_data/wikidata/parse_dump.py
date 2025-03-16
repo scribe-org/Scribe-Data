@@ -13,6 +13,7 @@ import orjson
 from rich import print as rprint
 from tqdm import tqdm
 
+from scribe_data.check.check_query_forms import return_correct_form_label
 from scribe_data.utils import (
     DEFAULT_DUMP_EXPORT_DIR,
     check_index_exists,
@@ -79,6 +80,9 @@ class LexemeProcessor:
                     item_data["label"],
                 )
 
+        # Add a cache for form labels to reduce repeated function calls.
+        self._form_label_cache = {}
+
     # MARK: Build ISO Mapping
 
     def _build_iso_mapping(self) -> dict:
@@ -136,6 +140,14 @@ class LexemeProcessor:
 
             dt_name = self._category_lookup.get(lexical_category)
             if not dt_name:
+                return
+
+            # Skip if no forms when processing forms.
+            if "form" in self.parse_type and not lexeme.get("forms"):
+                return
+
+            # Skip if no senses when processing translations.
+            if "translations" in self.parse_type and not lexeme.get("senses"):
                 return
 
             # Process valid lemma only.
@@ -229,7 +241,24 @@ class LexemeProcessor:
                         )
 
                     if features := form.get("grammaticalFeatures"):
-                        if form_name := self._get_form_name(features):
+                        # Use cached form label to reduce function calls.
+                        features_tuple = tuple(sorted(features))
+                        if features_tuple not in self._form_label_cache:
+                            # Capture the result and check for unwanted messages.
+                            form_label_result = return_correct_form_label(features)
+
+                            # Skip if the result contains "QID" and "not included" or is empty.
+                            if (
+                                "QID" in form_label_result
+                                and "not included" in form_label_result
+                            ) or form_label_result == "":
+                                continue
+
+                            self._form_label_cache[features_tuple] = form_label_result
+
+                        form_name = self._form_label_cache[features_tuple]
+
+                        if form_name:
                             # If this form name already exists, merge values using comma separation.
                             if form_name in cat_dict:
                                 existing_values = set(cat_dict[form_name].split(" | "))
@@ -274,32 +303,6 @@ class LexemeProcessor:
                             }
 
             self.forms_counts[lang_iso][dt_name] += len(forms_data)
-
-    def _get_form_name(self, features):
-        """
-        Optimized form name generation.
-        """
-        if not features:
-            return ""
-
-        categorized_features = defaultdict(list)
-        for feature in features:
-            if feature_info := self._feature_label_cache.get(feature):
-                category, label = feature_info
-                categorized_features[category].append((label, feature))
-
-        form_parts = []
-        is_first = True
-        for category in sorted(categorized_features.keys()):
-            for label, _ in sorted(categorized_features[category]):
-                if is_first:
-                    form_parts.append(label.lower())
-                    is_first = False
-
-                else:
-                    form_parts.append(label)
-
-        return "".join(form_parts)
 
     def _process_totals(self, lexeme, lang_iso, dt_name):
         """

@@ -7,21 +7,25 @@ Example
     python3 src/scribe_data/check/check_pyicu.py
 """
 
+import importlib.metadata
 import os
-import platform  # added to check the OS
+import platform
 import subprocess
 import sys
 from pathlib import Path
 
-import pkg_resources
 import questionary
 import requests
 
 
 def check_if_pyicu_installed():
-    installed_packages = {pkg.key for pkg in pkg_resources.working_set}
+    try:
+        # Check if PyICU is installed using importlib.metadata.
+        importlib.metadata.version("PyICU")
+        return True
 
-    return "pyicu" in installed_packages
+    except importlib.metadata.PackageNotFoundError:
+        return False
 
 
 def get_python_version_and_architecture():
@@ -130,17 +134,19 @@ def find_matching_wheel(wheels, python_version, architecture):
 
 def check_and_install_pyicu():
     package_name = "PyICU"
-    installed_packages = {pkg.key for pkg in pkg_resources.working_set}
-    if package_name.lower() not in installed_packages:
+    try:
+        version = importlib.metadata.version(package_name)
+        print(f"PyICU version: {version}")
+        return True
+
+    except importlib.metadata.PackageNotFoundError:
         # Fetch available wheels from GitHub to estimate download size.
         wheels, total_size_mb = fetch_wheel_releases()
 
-        user_wants_to_proceed = questionary.confirm(
+        if questionary.confirm(
             f"{package_name} is not installed.\nScribe-Data can install the package and the needed dependencies."
             f"\nApproximately {total_size_mb:.2f} MB will be downloaded.\nDo you want to proceed?"
-        ).ask()
-
-        if user_wants_to_proceed:
+        ).ask():
             print("Proceeding with installation...")
 
         else:
@@ -194,3 +200,7 @@ def check_and_install_pyicu():
                 return False
 
     return True
+
+
+if __name__ == "__main__":
+    check_and_install_pyicu()

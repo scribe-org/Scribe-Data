@@ -3,10 +3,10 @@
 Tests for the CLI version functionality.
 """
 
+import importlib.metadata
 import unittest
 from unittest.mock import patch
 
-import pkg_resources
 from scribe_data.cli.version import (
     get_latest_version,
     get_local_version,
@@ -15,15 +15,16 @@ from scribe_data.cli.version import (
 
 
 class TestVersionFunctions(unittest.TestCase):
-    @patch("pkg_resources.get_distribution")
-    def test_get_local_version_installed(self, mock_get_distribution):
-        mock_get_distribution.return_value.version = "1.0.0"
+    @patch("scribe_data.cli.version.importlib.metadata.version")
+    def test_get_local_version_installed(self, mock_version):
+        mock_version.return_value = "1.0.0"
         self.assertEqual(get_local_version(), "1.0.0")
 
     @patch(
-        "pkg_resources.get_distribution", side_effect=pkg_resources.DistributionNotFound
+        "scribe_data.cli.version.importlib.metadata.version",
+        side_effect=importlib.metadata.PackageNotFoundError
     )
-    def test_get_local_version_not_installed(self, mock_get_distribution):
+    def test_get_local_version_not_installed(self, mock_version):
         self.assertEqual(get_local_version(), "Unknown (Not installed via pip)")
 
     @patch("requests.get")
