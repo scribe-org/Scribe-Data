@@ -3,16 +3,16 @@
 Functions for checking current version of the Scribe-Data CLI.
 """
 
-import importlib.metadata
+from importlib import metadata
 
 import requests
 
 
 def get_local_version():
     try:
-        return importlib.metadata.version("scribe-data")
+        return metadata.version("scribe-data")
 
-    except importlib.metadata.PackageNotFoundError:
+    except metadata.PackageNotFoundError:
         return "Unknown (Not installed via pip)"
 
 

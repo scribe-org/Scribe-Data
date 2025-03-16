@@ -170,7 +170,7 @@ class TestDownloadCLI(unittest.TestCase):
         # Create a proper mock response object.
         mock_response = MagicMock()
         mock_response.status_code = 404
-        mock_response.text = ""  # Add empty text attribute
+        mock_response.text = ""  # add empty text attribute
         http_error = requests.exceptions.HTTPError("404 Client Error")
         http_error.response = mock_response
         mock_response.raise_for_status.side_effect = http_error
@@ -207,7 +207,7 @@ class TestDownloadCLI(unittest.TestCase):
         # Mock responses for each request.
         error_response = MagicMock()
         error_response.status_code = 404
-        error_response.text = ""  # Add empty text attribute
+        error_response.text = ""  # add empty text attribute
         http_error = requests.exceptions.HTTPError("404 Client Error")
         http_error.response = error_response
         error_response.raise_for_status.side_effect = http_error
@@ -238,7 +238,7 @@ class TestDownloadCLI(unittest.TestCase):
         # Create proper mock response for HTTP error.
         mock_response = MagicMock()
         mock_response.status_code = 404
-        mock_response.text = ""  # Add empty text attribute
+        mock_response.text = ""  # add empty text attribute
         http_error = requests.exceptions.HTTPError("404 Client Error")
         http_error.response = mock_response
         mock_response.raise_for_status.side_effect = http_error
@@ -263,9 +263,8 @@ class TestDownloadCLI(unittest.TestCase):
         """
         Test downloading with invalid date format.
         """
-        mock_get.return_value = MagicMock(
-            text=""
-        )  # Add mock response with text attribute
+        # Add mock response with text attribute.
+        mock_get.return_value = MagicMock(text="")
 
         with patch("builtins.print") as mock_print:
             result = download_wd_lexeme_dump("invalid-date")

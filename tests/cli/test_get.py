@@ -548,7 +548,7 @@ class TestGetData(unittest.TestCase):
 
         # Verify query_data was called with first language only (per get.py implementation).
         mock_query_data.assert_called_once_with(
-            languages=["English"],  # Only first language is used
+            languages=["English"],  # only first language is used
             data_type=["nouns"],
             output_dir="scribe_data_json_export",
             overwrite=False,
