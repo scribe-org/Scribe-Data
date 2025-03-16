@@ -21,6 +21,7 @@ from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
+    check_index_exists,
 )
 from scribe_data.wikidata.query_data import query_data
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
@@ -209,26 +210,11 @@ def get_data(
         print(
             f"Updating data for language(s): {language.title()}; data type(s): {data_type.capitalize()}"
         )
-        existing_files = list(Path(output_dir).glob(f"{language}/{data_type}.json"))
-        if existing_files and not overwrite:
-            print(
-                f"Existing file(s) found for {language.title()} and {data_type.capitalize()} in the {output_dir} directory."
-            )
-            for idx, file in enumerate(existing_files, start=1):
-                print(f"{idx}. {file.name}")
-
-            user_choice = questionary.confirm(
-                "Overwrite existing data?", default=False
-            ).ask()
-
-            if user_choice:
-                print("Overwrite chosen. Removing existing files...")
-                for file in existing_files:
-                    if file.exists():  # check if the file exists before unlinking
-                        file.unlink()
-            else:
-                print(f"Skipping update for {language.title()} {data_type}.")
-                return {"success": False, "skipped": True}
+        
+        json_path = Path(output_dir) / language / f"{data_type}.json"
+        if not overwrite and check_index_exists(json_path):
+             print(f"Skipping update for {language.title()} {data_type}.")
+             return {"success": False, "skipped": True}
 
         def print_error_and_suggestions(error_message):
             """

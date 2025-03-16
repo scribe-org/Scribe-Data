@@ -10,12 +10,14 @@ import subprocess
 import sys
 from http.client import IncompleteRead
 from pathlib import Path
+from typing import List
 from urllib.error import HTTPError
 
 from tqdm.auto import tqdm
 
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
+    check_index_exists,
     format_sublanguage_name,
     language_metadata,
     list_all_languages,
@@ -79,12 +81,12 @@ def execute_formatting_script(output_dir: str, language: str, data_type: str):
 
 
 def query_data(
-    languages: str = None,
-    data_type: str = None,
+    languages: List[str] = None,
+    data_type: List[str] = None,
     output_dir: str = None,
-    overwrite: bool = None,
+    overwrite: bool = False,
     interactive: bool = False,
-):
+) -> None:
     """
     Queries language data from the Wikidata lexicographical data.
 
@@ -163,40 +165,6 @@ def query_data(
 
         file_name = f"{target_type}.json"
         file_path = export_dir / file_name
-
-        if existing_files := list(export_dir.glob(f"{target_type}*.json")):
-            if overwrite:
-                print("Overwrite is enabled. Removing existing files...")
-                for file in existing_files:
-                    file.unlink()
-
-            else:
-                if not interactive:
-                    print(
-                        f"\nExisting file(s) found for {lang.title()} {target_type} in the {output_dir} directory:\n"
-                    )
-                    for i, file in enumerate(existing_files, 1):
-                        print(f"{i}. {file.name}")
-
-                    # choice = input(
-                    #     "\nChoose an option:\n1. Overwrite existing (press 'o')\n2. Keep all (press 'k')\n3. Skip process (press anything else)\nEnter your choice: "
-                    # )
-
-                    choice = input(
-                        "\nChoose an option:\n1. Overwrite existing data (press 'o')\n2. Skip process (press anything else)\nEnter your choice: "
-                    )
-
-                    if choice.lower() == "o":
-                        print("Removing existing files...")
-                        for file in existing_files:
-                            file.unlink()
-
-                    # elif choice in ["k", "K"]:
-                    #     timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-                    #     file_name = f"{target_type}_{timestamp}.json"
-
-                    else:
-                        print(f"Skipping update for {lang.title()} {target_type}.")
 
         print(f"Querying and formatting {lang.title()} {target_type}")
 

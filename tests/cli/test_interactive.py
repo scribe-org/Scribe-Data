@@ -313,7 +313,7 @@ class TestScribeDataInteractive(unittest.TestCase):
         from scribe_data.cli.interactive import config, start_interactive_mode
 
         mock_select.return_value.ask.return_value = "translations"
-        mock_prompt.side_effect = ["/dump/path", "/output/dir"]
+        mock_prompt.side_effect = ["/dump/path", "/output/dir", "false"]
 
         config.selected_languages = ["english"]
 

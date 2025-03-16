@@ -211,13 +211,11 @@ class TestGetData(unittest.TestCase):
     # MARK: User Chooses Skip
 
     @patch("scribe_data.cli.get.query_data")
-    @patch(
-        "scribe_data.cli.get.Path.glob",
-        return_value=[Path("./test_output/English/nouns.json")],
-    )
+    @patch("scribe_data.cli.get.Path.glob", return_value=[Path("./test_output/English/nouns.json")])
     @patch("scribe_data.cli.get.questionary.confirm")
+    @patch("scribe_data.cli.get.check_index_exists")
     def test_user_skips_existing_file(
-        self, mock_questionary_confirm, mock_glob, mock_query_data
+        self, mock_check_index, mock_questionary_confirm, mock_glob, mock_query_data
     ):
         """
         Test the behavior when the user chooses to skip an existing file.
@@ -225,6 +223,8 @@ class TestGetData(unittest.TestCase):
         Ensures that the file is not overwritten and the function returns the correct result.
         """
         mock_questionary_confirm.return_value.ask.return_value = False
+        mock_check_index.return_value = True
+
         result = get_data(
             language="English", data_type="nouns", output_dir="./test_output"
         )
@@ -452,13 +452,15 @@ class TestGetData(unittest.TestCase):
     @patch("scribe_data.cli.get.convert_wrapper")
     @patch("scribe_data.cli.get.Path.exists")
     @patch("scribe_data.cli.get.os.remove")
+    @patch("scribe_data.cli.get.check_index_exists")
     def test_output_type_conversion(
-        self, mock_remove, mock_exists, mock_convert, mock_query_data
+        self, mock_check_index, mock_remove, mock_exists, mock_convert, mock_query_data
     ):
         """
         Test conversion of output to different file types.
         """
         mock_exists.return_value = True
+        mock_check_index.return_value = False
 
         get_data(
             language="German",

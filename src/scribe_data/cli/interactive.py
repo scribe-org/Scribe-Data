@@ -477,13 +477,19 @@ def start_interactive_mode(operation: str = None):
             ):
                 config.output_dir = Path(output_dir)
 
+            overwrite_str = prompt(
+                "Overwrite existing files? (default: False): ",
+                default="False",
+            )
+            overwrite_bool = overwrite_str.strip().lower() in ("true", "y", "yes")
+            
             parse_wd_lexeme_dump(
                 language=config.selected_languages,
                 wikidata_dump_type=["translations"],
                 data_types=None,
                 type_output_dir=config.output_dir,
                 wikidata_dump_path=wikidata_dump_path,
-                overwrite_all=config.overwrite,
+                overwrite_all=overwrite_bool,
                 interactive_mode=True,
             )
 
