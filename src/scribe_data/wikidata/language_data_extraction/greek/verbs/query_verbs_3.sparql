@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Greek (Q36510) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?pastFirstPersonSingular
+  ?pastFirstPersonPlural
+  ?pastSecondPersonSingular
+  ?pastSecondPersonPlural
+  ?pastThirdPersonSingular
+  ?pastThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q36510 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastFirstPersonSingularForm .
+    ?pastFirstPersonSingularForm ontolex:representation ?pastFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastFirstPersonPluralForm .
+    ?pastFirstPersonPluralForm ontolex:representation ?pastFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastSecondPersonSingularForm .
+    ?pastSecondPersonSingularForm ontolex:representation ?pastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastSecondPersonPluralForm .
+    ?pastSecondPersonPluralForm ontolex:representation ?pastSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastThirdPersonSingularForm .
+    ?pastThirdPersonSingularForm ontolex:representation ?pastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastThirdPersonPluralForm .
+    ?pastThirdPersonPluralForm ontolex:representation ?pastThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q51929074, wd:Q146786 .
+  }
+}

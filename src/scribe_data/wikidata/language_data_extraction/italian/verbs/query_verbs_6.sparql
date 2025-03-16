@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Italian (Q652) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?presentFirstPersonSingular
+  ?presentFirstPersonPlural
+  ?presentThirdPersonSingular
+  ?presentThirdPersonPlural
+  ?masculineSingularParticipleCombinedPastParticiple
+  ?masculinePluralParticipleCombinedPastParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q652 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentFirstPersonSingularForm .
+    ?presentFirstPersonSingularForm ontolex:representation ?presentFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentFirstPersonPluralForm .
+    ?presentFirstPersonPluralForm ontolex:representation ?presentFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentThirdPersonSingularForm .
+    ?presentThirdPersonSingularForm ontolex:representation ?presentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentThirdPersonPluralForm .
+    ?presentThirdPersonPluralForm ontolex:representation ?presentThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularParticipleCombinedPastParticipleForm .
+    ?masculineSingularParticipleCombinedPastParticipleForm ontolex:representation ?masculineSingularParticipleCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q814722, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralParticipleCombinedPastParticipleForm .
+    ?masculinePluralParticipleCombinedPastParticipleForm ontolex:representation ?masculinePluralParticipleCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q814722, wd:Q12717679 .
+  }
+}

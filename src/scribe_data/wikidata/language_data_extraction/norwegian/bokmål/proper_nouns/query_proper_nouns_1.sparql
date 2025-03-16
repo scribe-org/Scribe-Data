@@ -1,0 +1,32 @@
+# tool: scribe-data
+# All Norwegian (Q25167) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?definiteSingular
+  ?definitePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q25167 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for nb to remove bokmål (nb) words.
+  FILTER(lang(?propernoun) = "nb")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?definiteSingularForm .
+    ?definiteSingularForm ontolex:representation ?definiteSingular ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?definitePluralForm .
+    ?definitePluralForm ontolex:representation ?definitePlural ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q146786 .
+  }
+}

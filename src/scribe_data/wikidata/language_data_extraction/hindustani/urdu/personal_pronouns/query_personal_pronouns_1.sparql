@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Hindustani (Q11051) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?dative
+  ?oblique
+  ?nominativeFirstPersonSingular
+  ?dativeFirstPersonSingular
+  ?instrumentalFirstPersonSingular
+  ?obliqueFirstPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for ur to remove urdu (ur) words.
+  FILTER(lang(?personalpronoun) = "ur")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeForm .
+    ?dativeForm ontolex:representation ?dative ;
+      wikibase:grammaticalFeature wd:Q145599 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueForm .
+    ?obliqueForm ontolex:representation ?oblique ;
+      wikibase:grammaticalFeature wd:Q1233197 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFirstPersonSingularForm .
+    ?nominativeFirstPersonSingularForm ontolex:representation ?nominativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFirstPersonSingularForm .
+    ?dativeFirstPersonSingularForm ontolex:representation ?dativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFirstPersonSingularForm .
+    ?instrumentalFirstPersonSingularForm ontolex:representation ?instrumentalFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueFirstPersonSingularForm .
+    ?obliqueFirstPersonSingularForm ontolex:representation ?obliqueFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q21714344, wd:Q110786 .
+  }
+}

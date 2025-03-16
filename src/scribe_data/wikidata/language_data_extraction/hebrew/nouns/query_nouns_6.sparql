@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Hebrew (Q9288) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?feminineMasculine
+  ?feminineMasculineSingular
+  ?feminineMasculinePlural
+  ?feminineMasculineSingularConstruct
+  ?feminineMasculinePluralConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q9288 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineMasculineForm .
+    ?feminineMasculineForm ontolex:representation ?feminineMasculine ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineMasculineSingularForm .
+    ?feminineMasculineSingularForm ontolex:representation ?feminineMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineMasculinePluralForm .
+    ?feminineMasculinePluralForm ontolex:representation ?feminineMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineMasculineSingularConstructForm .
+    ?feminineMasculineSingularConstructForm ontolex:representation ?feminineMasculineSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineMasculinePluralConstructForm .
+    ?feminineMasculinePluralConstructForm ontolex:representation ?feminineMasculinePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q146786, wd:Q1641446 .
+  }
+}

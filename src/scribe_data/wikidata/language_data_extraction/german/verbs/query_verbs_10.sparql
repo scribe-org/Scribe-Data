@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All German (Q188) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?preteriteThirdPerson
+  ?pluperfectThirdPerson
+  ?preteriteThirdPersonSingular
+  ?preteriteThirdPersonPlural
+  ?pluperfectThirdPersonSingular
+  ?pluperfectThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonForm .
+    ?preteriteThirdPersonForm ontolex:representation ?preteriteThirdPerson ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectThirdPersonForm .
+    ?pluperfectThirdPersonForm ontolex:representation ?pluperfectThirdPerson ;
+      wikibase:grammaticalFeature wd:Q623742, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonSingularForm .
+    ?preteriteThirdPersonSingularForm ontolex:representation ?preteriteThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonPluralForm .
+    ?preteriteThirdPersonPluralForm ontolex:representation ?preteriteThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectThirdPersonSingularForm .
+    ?pluperfectThirdPersonSingularForm ontolex:representation ?pluperfectThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q623742, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectThirdPersonPluralForm .
+    ?pluperfectThirdPersonPluralForm ontolex:representation ?pluperfectThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q623742, wd:Q51929074, wd:Q146786 .
+  }
+}

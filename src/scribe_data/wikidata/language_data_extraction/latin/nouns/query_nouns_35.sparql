@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?ablativeNeuterSingular
+  ?ablativeNeuterPlural
+  ?ablativeNeuterSingularSupine
+  ?ablativeNeuterPassiveFutureSingularParticiple
+  ?ablativeNeuterPassivePerfectSingularParticiple
+  ?ablativeNeuterActiveFutureSingularParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeNeuterSingularForm .
+    ?ablativeNeuterSingularForm ontolex:representation ?ablativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeNeuterPluralForm .
+    ?ablativeNeuterPluralForm ontolex:representation ?ablativeNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeNeuterSingularSupineForm .
+    ?ablativeNeuterSingularSupineForm ontolex:representation ?ablativeNeuterSingularSupine ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q110786, wd:Q548470 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeNeuterPassiveFutureSingularParticipleForm .
+    ?ablativeNeuterPassiveFutureSingularParticipleForm ontolex:representation ?ablativeNeuterPassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeNeuterPassivePerfectSingularParticipleForm .
+    ?ablativeNeuterPassivePerfectSingularParticipleForm ontolex:representation ?ablativeNeuterPassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeNeuterActiveFutureSingularParticipleForm .
+    ?ablativeNeuterActiveFutureSingularParticipleForm ontolex:representation ?ablativeNeuterActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+}

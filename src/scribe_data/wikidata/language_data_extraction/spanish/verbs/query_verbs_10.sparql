@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Spanish (Q1321) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?femininePastSingularParticiple
+  ?femininePastPluralParticiple
+  ?masculinePastSingularParticiple
+  ?masculinePastPluralParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q1321 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePastSingularParticipleForm .
+    ?femininePastSingularParticipleForm ontolex:representation ?femininePastSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1994301, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePastPluralParticipleForm .
+    ?femininePastPluralParticipleForm ontolex:representation ?femininePastPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1994301, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePastSingularParticipleForm .
+    ?masculinePastSingularParticipleForm ontolex:representation ?masculinePastSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePastPluralParticipleForm .
+    ?masculinePastPluralParticipleForm ontolex:representation ?masculinePastPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q146786, wd:Q814722 .
+  }
+}

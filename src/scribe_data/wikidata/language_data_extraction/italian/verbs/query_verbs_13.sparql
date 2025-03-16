@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Italian (Q652) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?indicativeSimpleFutureFirstPersonSingular
+  ?indicativeSimpleFutureFirstPersonPlural
+  ?indicativeSimpleFutureSecondPersonSingular
+  ?indicativeSimpleFutureSecondPersonPlural
+  ?indicativeSimpleFutureThirdPersonSingular
+  ?indicativeSimpleFutureThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q652 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureFirstPersonSingularForm .
+    ?indicativeSimpleFutureFirstPersonSingularForm ontolex:representation ?indicativeSimpleFutureFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureFirstPersonPluralForm .
+    ?indicativeSimpleFutureFirstPersonPluralForm ontolex:representation ?indicativeSimpleFutureFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureSecondPersonSingularForm .
+    ?indicativeSimpleFutureSecondPersonSingularForm ontolex:representation ?indicativeSimpleFutureSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureSecondPersonPluralForm .
+    ?indicativeSimpleFutureSecondPersonPluralForm ontolex:representation ?indicativeSimpleFutureSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureThirdPersonSingularForm .
+    ?indicativeSimpleFutureThirdPersonSingularForm ontolex:representation ?indicativeSimpleFutureThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureThirdPersonPluralForm .
+    ?indicativeSimpleFutureThirdPersonPluralForm ontolex:representation ?indicativeSimpleFutureThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q51929074, wd:Q146786 .
+  }
+}

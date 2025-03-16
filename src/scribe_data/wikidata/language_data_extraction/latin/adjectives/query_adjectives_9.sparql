@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?ablativeSingular
+  ?ablativeFeminineSingular
+  ?ablativeSingularComparative
+  ?ablativeSingularPositive
+  ?ablativeFeminineSingularSuperlative
+  ?ablativeFeminineSingularPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeSingularForm .
+    ?ablativeSingularForm ontolex:representation ?ablativeSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeFeminineSingularForm .
+    ?ablativeFeminineSingularForm ontolex:representation ?ablativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeSingularComparativeForm .
+    ?ablativeSingularComparativeForm ontolex:representation ?ablativeSingularComparative ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeSingularPositiveForm .
+    ?ablativeSingularPositiveForm ontolex:representation ?ablativeSingularPositive ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeFeminineSingularSuperlativeForm .
+    ?ablativeFeminineSingularSuperlativeForm ontolex:representation ?ablativeFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeFeminineSingularPositiveForm .
+    ?ablativeFeminineSingularPositiveForm ontolex:representation ?ablativeFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+  }
+}

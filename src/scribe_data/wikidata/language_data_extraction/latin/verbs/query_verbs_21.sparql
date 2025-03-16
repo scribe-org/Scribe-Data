@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Latin (Q397) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?dativeMasculineFutureSingularParticiple
+  ?dativeMasculinePerfectSingularParticiple
+  ?dativeMasculinePassiveFutureSingularParticiple
+  ?dativeMasculinePassivePerfectSingularParticiple
+  ?dativeMasculineActiveFutureSingularParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculineFutureSingularParticipleForm .
+    ?dativeMasculineFutureSingularParticipleForm ontolex:representation ?dativeMasculineFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePerfectSingularParticipleForm .
+    ?dativeMasculinePerfectSingularParticipleForm ontolex:representation ?dativeMasculinePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q625420, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePassiveFutureSingularParticipleForm .
+    ?dativeMasculinePassiveFutureSingularParticipleForm ontolex:representation ?dativeMasculinePassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePassivePerfectSingularParticipleForm .
+    ?dativeMasculinePassivePerfectSingularParticipleForm ontolex:representation ?dativeMasculinePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculineActiveFutureSingularParticipleForm .
+    ?dativeMasculineActiveFutureSingularParticipleForm ontolex:representation ?dativeMasculineActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+}

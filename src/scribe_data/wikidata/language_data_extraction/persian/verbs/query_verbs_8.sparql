@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Persian (Q9168) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?presentPerfectFirstPersonSingular
+  ?presentPerfectFirstPersonPlural
+  ?presentPerfectSecondPersonSingular
+  ?presentPerfectSecondPersonPlural
+  ?presentPerfectThirdPersonSingular
+  ?presentPerfectThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9168 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPerfectFirstPersonSingularForm .
+    ?presentPerfectFirstPersonSingularForm ontolex:representation ?presentPerfectFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q625420, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPerfectFirstPersonPluralForm .
+    ?presentPerfectFirstPersonPluralForm ontolex:representation ?presentPerfectFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q625420, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPerfectSecondPersonSingularForm .
+    ?presentPerfectSecondPersonSingularForm ontolex:representation ?presentPerfectSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q625420, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPerfectSecondPersonPluralForm .
+    ?presentPerfectSecondPersonPluralForm ontolex:representation ?presentPerfectSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q625420, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPerfectThirdPersonSingularForm .
+    ?presentPerfectThirdPersonSingularForm ontolex:representation ?presentPerfectThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q625420, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPerfectThirdPersonPluralForm .
+    ?presentPerfectThirdPersonPluralForm ontolex:representation ?presentPerfectThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q625420, wd:Q51929074, wd:Q146786 .
+  }
+}

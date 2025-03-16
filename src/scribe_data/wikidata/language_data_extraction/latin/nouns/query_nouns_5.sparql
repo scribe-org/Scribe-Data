@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?nominative
+  ?accusative
+  ?accusativePlural
+  ?vocativePlural
+  ?nominativeActivePresentSingularParticiple
+  ?vocativeActivePresentSingularParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativePluralForm .
+    ?vocativePluralForm ontolex:representation ?vocativePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeActivePresentSingularParticipleForm .
+    ?nominativeActivePresentSingularParticipleForm ontolex:representation ?nominativeActivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeActivePresentSingularParticipleForm .
+    ?vocativeActivePresentSingularParticipleForm ontolex:representation ?vocativeActivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
+  }
+}

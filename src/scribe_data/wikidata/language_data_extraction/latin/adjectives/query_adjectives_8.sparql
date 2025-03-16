@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?dativeSingular
+  ?dativeSingularComparative
+  ?dativeSingularPositive
+  ?ablativeMasculineSingular
+  ?ablativeMasculineSingularSuperlative
+  ?ablativeMasculineSingularPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
+    ?dativeSingularForm ontolex:representation ?dativeSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeSingularComparativeForm .
+    ?dativeSingularComparativeForm ontolex:representation ?dativeSingularComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeSingularPositiveForm .
+    ?dativeSingularPositiveForm ontolex:representation ?dativeSingularPositive ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularForm .
+    ?ablativeMasculineSingularForm ontolex:representation ?ablativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularSuperlativeForm .
+    ?ablativeMasculineSingularSuperlativeForm ontolex:representation ?ablativeMasculineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularPositiveForm .
+    ?ablativeMasculineSingularPositiveForm ontolex:representation ?ablativeMasculineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786, wd:Q3482678 .
+  }
+}

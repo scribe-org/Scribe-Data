@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All French (Q150) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?indicativeFutureSimpleFutureFirstPersonSingular
+  ?indicativeFutureSimpleFutureSecondPersonPlural
+  ?indicativeFutureSimpleFutureThirdPersonSingular
+  ?indicativeFutureSimpleFutureThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q150 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeFutureSimpleFutureFirstPersonSingularForm .
+    ?indicativeFutureSimpleFutureFirstPersonSingularForm ontolex:representation ?indicativeFutureSimpleFutureFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q1475560, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeFutureSimpleFutureSecondPersonPluralForm .
+    ?indicativeFutureSimpleFutureSecondPersonPluralForm ontolex:representation ?indicativeFutureSimpleFutureSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q1475560, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeFutureSimpleFutureThirdPersonSingularForm .
+    ?indicativeFutureSimpleFutureThirdPersonSingularForm ontolex:representation ?indicativeFutureSimpleFutureThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q1475560, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeFutureSimpleFutureThirdPersonPluralForm .
+    ?indicativeFutureSimpleFutureThirdPersonPluralForm ontolex:representation ?indicativeFutureSimpleFutureThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q1475560, wd:Q51929074, wd:Q146786 .
+  }
+}

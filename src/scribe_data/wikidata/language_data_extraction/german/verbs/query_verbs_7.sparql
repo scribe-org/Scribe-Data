@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All German (Q188) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?perfectFirstPersonSingular
+  ?perfectFirstPersonPlural
+  ?perfectSecondPersonSingular
+  ?perfectSecondPersonPlural
+  ?pluperfectSecondPersonSingular
+  ?pluperfectSecondPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectFirstPersonSingularForm .
+    ?perfectFirstPersonSingularForm ontolex:representation ?perfectFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectFirstPersonPluralForm .
+    ?perfectFirstPersonPluralForm ontolex:representation ?perfectFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectSecondPersonSingularForm .
+    ?perfectSecondPersonSingularForm ontolex:representation ?perfectSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectSecondPersonPluralForm .
+    ?perfectSecondPersonPluralForm ontolex:representation ?perfectSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectSecondPersonSingularForm .
+    ?pluperfectSecondPersonSingularForm ontolex:representation ?pluperfectSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q623742, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectSecondPersonPluralForm .
+    ?pluperfectSecondPersonPluralForm ontolex:representation ?pluperfectSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q623742, wd:Q51929049, wd:Q146786 .
+  }
+}

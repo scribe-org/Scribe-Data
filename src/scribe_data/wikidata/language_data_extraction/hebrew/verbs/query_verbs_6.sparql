@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Hebrew (Q9288) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?firstPersonSingular
+  ?firstPersonPlural
+  ?masculineImperativePlural
+  ?masculinePresentSingularConstruct
+  ?masculinePresentPluralConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q9288 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonSingularForm .
+    ?firstPersonSingularForm ontolex:representation ?firstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonPluralForm .
+    ?firstPersonPluralForm ontolex:representation ?firstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineImperativePluralForm .
+    ?masculineImperativePluralForm ontolex:representation ?masculineImperativePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q22716, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePresentSingularConstructForm .
+    ?masculinePresentSingularConstructForm ontolex:representation ?masculinePresentSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q192613, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePresentPluralConstructForm .
+    ?masculinePresentPluralConstructForm ontolex:representation ?masculinePresentPluralConstruct ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q192613, wd:Q146786, wd:Q1641446 .
+  }
+}

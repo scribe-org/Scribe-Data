@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?nominativeMasculineFutureSingularParticiple
+  ?nominativeMasculinePerfectPluralParticiple
+  ?nominativeMasculinePassiveFutureSingularParticiple
+  ?nominativeMasculinePassivePerfectSingularParticiple
+  ?nominativeMasculinePassivePerfectPluralParticiple
+  ?nominativeMasculineActiveFutureSingularParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineFutureSingularParticipleForm .
+    ?nominativeMasculineFutureSingularParticipleForm ontolex:representation ?nominativeMasculineFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculinePerfectPluralParticipleForm .
+    ?nominativeMasculinePerfectPluralParticipleForm ontolex:representation ?nominativeMasculinePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q625420, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculinePassiveFutureSingularParticipleForm .
+    ?nominativeMasculinePassiveFutureSingularParticipleForm ontolex:representation ?nominativeMasculinePassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculinePassivePerfectSingularParticipleForm .
+    ?nominativeMasculinePassivePerfectSingularParticipleForm ontolex:representation ?nominativeMasculinePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculinePassivePerfectPluralParticipleForm .
+    ?nominativeMasculinePassivePerfectPluralParticipleForm ontolex:representation ?nominativeMasculinePassivePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineActiveFutureSingularParticipleForm .
+    ?nominativeMasculineActiveFutureSingularParticipleForm ontolex:representation ?nominativeMasculineActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+}

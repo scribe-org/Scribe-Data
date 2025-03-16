@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Italian (Q652) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?participleCombinedPresentParticiple
+  ?participleCombinedPastParticiple
+  ?participleEnglishPastParticiple
+  ?participleCombinedPastParticipleEnglishPastParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q652 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participleCombinedPresentParticipleForm .
+    ?participleCombinedPresentParticipleForm ontolex:representation ?participleCombinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q814722, wd:Q10345583 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participleCombinedPastParticipleForm .
+    ?participleCombinedPastParticipleForm ontolex:representation ?participleCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q814722, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participleEnglishPastParticipleForm .
+    ?participleEnglishPastParticipleForm ontolex:representation ?participleEnglishPastParticiple ;
+      wikibase:grammaticalFeature wd:Q814722, wd:Q1230649 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participleCombinedPastParticipleEnglishPastParticipleForm .
+    ?participleCombinedPastParticipleEnglishPastParticipleForm ontolex:representation ?participleCombinedPastParticipleEnglishPastParticiple ;
+      wikibase:grammaticalFeature wd:Q814722, wd:Q12717679, wd:Q1230649 .
+  }
+}

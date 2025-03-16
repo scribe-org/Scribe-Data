@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All German (Q188) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?preteriteFirstPersonSingular
+  ?preteriteFirstPersonPlural
+  ?preteriteSecondPersonSingular
+  ?preteriteSecondPersonPlural
+  ?pluperfectFirstPersonSingular
+  ?pluperfectFirstPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteFirstPersonSingularForm .
+    ?preteriteFirstPersonSingularForm ontolex:representation ?preteriteFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteFirstPersonPluralForm .
+    ?preteriteFirstPersonPluralForm ontolex:representation ?preteriteFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteSecondPersonSingularForm .
+    ?preteriteSecondPersonSingularForm ontolex:representation ?preteriteSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteSecondPersonPluralForm .
+    ?preteriteSecondPersonPluralForm ontolex:representation ?preteriteSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectFirstPersonSingularForm .
+    ?pluperfectFirstPersonSingularForm ontolex:representation ?pluperfectFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q623742, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluperfectFirstPersonPluralForm .
+    ?pluperfectFirstPersonPluralForm ontolex:representation ?pluperfectFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q623742, wd:Q21714344, wd:Q146786 .
+  }
+}

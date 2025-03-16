@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Norwegian (Q25167) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?masculineIndefiniteSingular
+  ?masculineIndefinitePlural
+  ?masculineDefiniteSingular
+  ?masculineDefinitePlural
+  ?masculineNeuterIndefinitePlural
+  ?masculineNeuterDefinitePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q25167 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for nb to remove bokmål (nb) words.
+  FILTER(lang(?noun) = "nb")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndefiniteSingularForm .
+    ?masculineIndefiniteSingularForm ontolex:representation ?masculineIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndefinitePluralForm .
+    ?masculineIndefinitePluralForm ontolex:representation ?masculineIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineDefiniteSingularForm .
+    ?masculineDefiniteSingularForm ontolex:representation ?masculineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineDefinitePluralForm .
+    ?masculineDefinitePluralForm ontolex:representation ?masculineDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997851, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineNeuterIndefinitePluralForm .
+    ?masculineNeuterIndefinitePluralForm ontolex:representation ?masculineNeuterIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1775461, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineNeuterDefinitePluralForm .
+    ?masculineNeuterDefinitePluralForm ontolex:representation ?masculineNeuterDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1775461, wd:Q53997851, wd:Q146786 .
+  }
+}

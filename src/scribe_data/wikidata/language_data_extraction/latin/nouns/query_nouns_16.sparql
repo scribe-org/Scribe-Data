@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?vocativeCommonSingular
+  ?vocativeCommonPlural
+  ?nominativeNeuterPassivePerfectSingularParticiple
+  ?nominativeNeuterPassivePerfectPluralParticiple
+  ?nominativeNeuterActiveFuturePluralParticiple
+  ?vocativeCommonActivePresentPluralParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeCommonSingularForm .
+    ?vocativeCommonSingularForm ontolex:representation ?vocativeCommonSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeCommonPluralForm .
+    ?vocativeCommonPluralForm ontolex:representation ?vocativeCommonPlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterPassivePerfectSingularParticipleForm .
+    ?nominativeNeuterPassivePerfectSingularParticipleForm ontolex:representation ?nominativeNeuterPassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterPassivePerfectPluralParticipleForm .
+    ?nominativeNeuterPassivePerfectPluralParticipleForm ontolex:representation ?nominativeNeuterPassivePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterActiveFuturePluralParticipleForm .
+    ?nominativeNeuterActiveFuturePluralParticipleForm ontolex:representation ?nominativeNeuterActiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeCommonActivePresentPluralParticipleForm .
+    ?vocativeCommonActivePresentPluralParticipleForm ontolex:representation ?vocativeCommonActivePresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
+  }
+}

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Igbo (Q33578) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?future
+  ?presentPerfect
+  ?nominalized
+  ?participle
+  ?combinedPresentParticiple
+  ?phrase
+
+WHERE {
+  ?lexeme dct:language wd:Q33578 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureForm .
+    ?futureForm ontolex:representation ?future ;
+      wikibase:grammaticalFeature wd:Q501405 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPerfectForm .
+    ?presentPerfectForm ontolex:representation ?presentPerfect ;
+      wikibase:grammaticalFeature wd:Q1240211 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominalizedForm .
+    ?nominalizedForm ontolex:representation ?nominalized ;
+      wikibase:grammaticalFeature wd:Q74674960 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participleForm .
+    ?participleForm ontolex:representation ?participle ;
+      wikibase:grammaticalFeature wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
+    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?phraseForm .
+    ?phraseForm ontolex:representation ?phrase ;
+      wikibase:grammaticalFeature wd:Q187931 .
+  }
+}

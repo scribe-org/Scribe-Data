@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All German (Q188) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?dativeSingular
+  ?dativePlural
+  ?nominativeAccusativeFeminine
+  ?nominativeAccusativePlural
+  ?nominativeAccusativeNeuterSingular
+  ?dativeMasculineNeuterSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
+    ?dativeSingularForm ontolex:representation ?dativeSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeAccusativeFeminineForm .
+    ?nominativeAccusativeFeminineForm ontolex:representation ?nominativeAccusativeFeminine ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146078, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeAccusativePluralForm .
+    ?nominativeAccusativePluralForm ontolex:representation ?nominativeAccusativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146078, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeAccusativeNeuterSingularForm .
+    ?nominativeAccusativeNeuterSingularForm ontolex:representation ?nominativeAccusativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146078, wd:Q1775461, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculineNeuterSingularForm .
+    ?dativeMasculineNeuterSingularForm ontolex:representation ?dativeMasculineNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q1775461, wd:Q110786 .
+  }
+}

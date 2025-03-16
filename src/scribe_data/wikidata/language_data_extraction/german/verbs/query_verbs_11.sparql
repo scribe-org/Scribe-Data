@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All German (Q188) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?infinitive
+  ?infinitivePresent
+  ?infinitivePerfect
+  ?perfectThirdPerson
+  ?perfectThirdPersonSingular
+  ?perfectThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitivePresentForm .
+    ?infinitivePresentForm ontolex:representation ?infinitivePresent ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitivePerfectForm .
+    ?infinitivePerfectForm ontolex:representation ?infinitivePerfect ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q625420 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectThirdPersonForm .
+    ?perfectThirdPersonForm ontolex:representation ?perfectThirdPerson ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectThirdPersonSingularForm .
+    ?perfectThirdPersonSingularForm ontolex:representation ?perfectThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?perfectThirdPersonPluralForm .
+    ?perfectThirdPersonPluralForm ontolex:representation ?perfectThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074, wd:Q146786 .
+  }
+}

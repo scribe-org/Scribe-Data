@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Italian (Q652) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?gerund
+  ?pastParticiple
+  ?presentSecondPersonSingular
+  ?presentSecondPersonPlural
+  ?feminineSingularParticipleCombinedPastParticiple
+  ?femininePluralParticipleCombinedPastParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q652 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentSecondPersonSingularForm .
+    ?presentSecondPersonSingularForm ontolex:representation ?presentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentSecondPersonPluralForm .
+    ?presentSecondPersonPluralForm ontolex:representation ?presentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSingularParticipleCombinedPastParticipleForm .
+    ?feminineSingularParticipleCombinedPastParticipleForm ontolex:representation ?feminineSingularParticipleCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q814722, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePluralParticipleCombinedPastParticipleForm .
+    ?femininePluralParticipleCombinedPastParticipleForm ontolex:representation ?femininePluralParticipleCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q814722, wd:Q12717679 .
+  }
+}

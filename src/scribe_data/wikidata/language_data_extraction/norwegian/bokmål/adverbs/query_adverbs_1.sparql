@@ -1,0 +1,25 @@
+# tool: scribe-data
+# All Norwegian (Q25167) adverbs (Q380057) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adverb
+  ?superlative
+
+WHERE {
+  ?lexeme dct:language wd:Q25167 ;
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?adverb ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for nb to remove bokmål (nb) words.
+  FILTER(lang(?adverb) = "nb")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
+}

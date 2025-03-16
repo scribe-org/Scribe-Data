@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Latin (Q397) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?genitivePresentSingularParticiple
+  ?genitivePresentPluralParticiple
+  ?genitiveActivePresentSingularParticiple
+  ?genitiveActivePresentPluralParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePresentSingularParticipleForm .
+    ?genitivePresentSingularParticipleForm ontolex:representation ?genitivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q192613, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePresentPluralParticipleForm .
+    ?genitivePresentPluralParticipleForm ontolex:representation ?genitivePresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q192613, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveActivePresentSingularParticipleForm .
+    ?genitiveActivePresentSingularParticipleForm ontolex:representation ?genitiveActivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveActivePresentPluralParticipleForm .
+    ?genitiveActivePresentPluralParticipleForm ontolex:representation ?genitiveActivePresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
+  }
+}

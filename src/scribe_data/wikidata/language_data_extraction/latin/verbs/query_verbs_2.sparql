@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?nominativePresentSingularParticiple
+  ?dativeFuturePluralParticiple
+  ?dativePerfectPluralParticiple
+  ?vocativePresentSingularParticiple
+  ?nominativeActivePresentSingularParticiple
+  ?vocativeActivePresentSingularParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePresentSingularParticipleForm .
+    ?nominativePresentSingularParticipleForm ontolex:representation ?nominativePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q192613, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFuturePluralParticipleForm .
+    ?dativeFuturePluralParticipleForm ontolex:representation ?dativeFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativePerfectPluralParticipleForm .
+    ?dativePerfectPluralParticipleForm ontolex:representation ?dativePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q625420, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativePresentSingularParticipleForm .
+    ?vocativePresentSingularParticipleForm ontolex:representation ?vocativePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q192613, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeActivePresentSingularParticipleForm .
+    ?nominativeActivePresentSingularParticipleForm ontolex:representation ?nominativeActivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeActivePresentSingularParticipleForm .
+    ?vocativeActivePresentSingularParticipleForm ontolex:representation ?vocativeActivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
+  }
+}

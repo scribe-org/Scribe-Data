@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Latin (Q397) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?supine
+  ?infinitivePresent
+  ?passivePerfectParticiple
+  ?masculineActiveFutureParticiple
+  ?passivePresentIndicativeFirstPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?supineForm .
+    ?supineForm ontolex:representation ?supine ;
+      wikibase:grammaticalFeature wd:Q548470 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitivePresentForm .
+    ?infinitivePresentForm ontolex:representation ?infinitivePresent ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePerfectParticipleForm .
+    ?passivePerfectParticipleForm ontolex:representation ?passivePerfectParticiple ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q625420, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActiveFutureParticipleForm .
+    ?masculineActiveFutureParticipleForm ontolex:representation ?masculineActiveFutureParticiple ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q501405, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePresentIndicativeFirstPersonPluralForm .
+    ?passivePresentIndicativeFirstPersonPluralForm ontolex:representation ?passivePresentIndicativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q56682909, wd:Q21714344, wd:Q146786 .
+  }
+}

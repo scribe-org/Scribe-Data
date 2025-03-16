@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All German (Q188) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?genitive
+  ?dative
+  ?genitiveFeminine
+  ?dativeFeminine
+  ?dativeNeuter
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeForm .
+    ?dativeForm ontolex:representation ?dative ;
+      wikibase:grammaticalFeature wd:Q145599 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineForm .
+    ?genitiveFeminineForm ontolex:representation ?genitiveFeminine ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFeminineForm .
+    ?dativeFeminineForm ontolex:representation ?dativeFeminine ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeNeuterForm .
+    ?dativeNeuterForm ontolex:representation ?dativeNeuter ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461 .
+  }
+}

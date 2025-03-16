@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Italian (Q652) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?indicativePresentIndicativeFirstPersonSingular
+  ?indicativePresentIndicativeFirstPersonPlural
+  ?indicativePresentIndicativeSecondPersonSingular
+  ?indicativePresentIndicativeSecondPersonPlural
+  ?indicativePresentIndicativeThirdPersonSingular
+  ?indicativePresentIndicativeThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q652 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeFirstPersonSingularForm .
+    ?indicativePresentIndicativeFirstPersonSingularForm ontolex:representation ?indicativePresentIndicativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeFirstPersonPluralForm .
+    ?indicativePresentIndicativeFirstPersonPluralForm ontolex:representation ?indicativePresentIndicativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeSecondPersonSingularForm .
+    ?indicativePresentIndicativeSecondPersonSingularForm ontolex:representation ?indicativePresentIndicativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeSecondPersonPluralForm .
+    ?indicativePresentIndicativeSecondPersonPluralForm ontolex:representation ?indicativePresentIndicativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeThirdPersonSingularForm .
+    ?indicativePresentIndicativeThirdPersonSingularForm ontolex:representation ?indicativePresentIndicativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentIndicativeThirdPersonPluralForm .
+    ?indicativePresentIndicativeThirdPersonPluralForm ontolex:representation ?indicativePresentIndicativeThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q56682909, wd:Q51929074, wd:Q146786 .
+  }
+}

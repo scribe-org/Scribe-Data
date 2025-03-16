@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Latin (Q397) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?vocativeCommonSingularComparative
+  ?vocativeCommonSingularPositive
+  ?vocativeCommonPluralComparative
+  ?vocativeCommonPluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeCommonSingularComparativeForm .
+    ?vocativeCommonSingularComparativeForm ontolex:representation ?vocativeCommonSingularComparative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeCommonSingularPositiveForm .
+    ?vocativeCommonSingularPositiveForm ontolex:representation ?vocativeCommonSingularPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeCommonPluralComparativeForm .
+    ?vocativeCommonPluralComparativeForm ontolex:representation ?vocativeCommonPluralComparative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeCommonPluralPositiveForm .
+    ?vocativeCommonPluralPositiveForm ontolex:representation ?vocativeCommonPluralPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q146786, wd:Q3482678 .
+  }
+}

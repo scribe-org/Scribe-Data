@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All German (Q188) adverbs (Q380057) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adverb
+  ?nominativeAccusativePlural
+  ?nominativeMasculineSingular
+  ?nominativeAccusativeFeminineSingular
+  ?nominativeAccusativeNeuterSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q380057 ;
+    wikibase:lemma ?adverb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeAccusativePluralForm .
+    ?nominativeAccusativePluralForm ontolex:representation ?nominativeAccusativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146078, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularForm .
+    ?nominativeMasculineSingularForm ontolex:representation ?nominativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeAccusativeFeminineSingularForm .
+    ?nominativeAccusativeFeminineSingularForm ontolex:representation ?nominativeAccusativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146078, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeAccusativeNeuterSingularForm .
+    ?nominativeAccusativeNeuterSingularForm ontolex:representation ?nominativeAccusativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146078, wd:Q1775461, wd:Q110786 .
+  }
+}

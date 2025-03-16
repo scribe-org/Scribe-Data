@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Hindustani (Q11051) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?infinitive
+  ?presentInfinitive
+  ?masculineInfinitiveSingular
+  ?feminineFirstPersonDefiniteSingularSubjunctive
+  ?masculineSecondPersonDefinitePluralSubjunctive
+  ?masculineThirdPersonDefinitePluralSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for ur to remove urdu (ur) words.
+  FILTER(lang(?verb) = "ur")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentInfinitiveForm .
+    ?presentInfinitiveForm ontolex:representation ?presentInfinitive ;
+      wikibase:grammaticalFeature wd:Q52434245 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineInfinitiveSingularForm .
+    ?masculineInfinitiveSingularForm ontolex:representation ?masculineInfinitiveSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q179230, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineFirstPersonDefiniteSingularSubjunctiveForm .
+    ?feminineFirstPersonDefiniteSingularSubjunctiveForm ontolex:representation ?feminineFirstPersonDefiniteSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q21714344, wd:Q53997851, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSecondPersonDefinitePluralSubjunctiveForm .
+    ?masculineSecondPersonDefinitePluralSubjunctiveForm ontolex:representation ?masculineSecondPersonDefinitePluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51929049, wd:Q53997851, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineThirdPersonDefinitePluralSubjunctiveForm .
+    ?masculineThirdPersonDefinitePluralSubjunctiveForm ontolex:representation ?masculineThirdPersonDefinitePluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51929074, wd:Q53997851, wd:Q146786, wd:Q473746 .
+  }
+}

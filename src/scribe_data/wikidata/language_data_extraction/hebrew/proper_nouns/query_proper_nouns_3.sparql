@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Hebrew (Q9288) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?masculineSingular
+  ?masculinePlural
+  ?masculineSingularConstruct
+  ?masculinePluralConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q9288 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
+    ?masculineSingularForm ontolex:representation ?masculineSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
+    ?masculinePluralForm ontolex:representation ?masculinePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularConstructForm .
+    ?masculineSingularConstructForm ontolex:representation ?masculineSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralConstructForm .
+    ?masculinePluralConstructForm ontolex:representation ?masculinePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q1641446 .
+  }
+}
