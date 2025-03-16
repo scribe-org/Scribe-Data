@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Latin (Q397) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?accusativeNeuterSingular
+  ?accusativeNeuterPlural
+  ?accusativeNeuterPassiveFuturePluralParticiple
+  ?accusativeNeuterActivePresentPluralParticiple
+  ?accusativeNeuterActiveFutureSingularParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularForm .
+    ?accusativeNeuterSingularForm ontolex:representation ?accusativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterPluralForm .
+    ?accusativeNeuterPluralForm ontolex:representation ?accusativeNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterPassiveFuturePluralParticipleForm .
+    ?accusativeNeuterPassiveFuturePluralParticipleForm ontolex:representation ?accusativeNeuterPassiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterActivePresentPluralParticipleForm .
+    ?accusativeNeuterActivePresentPluralParticipleForm ontolex:representation ?accusativeNeuterActivePresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterActiveFutureSingularParticipleForm .
+    ?accusativeNeuterActiveFutureSingularParticipleForm ontolex:representation ?accusativeNeuterActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+}

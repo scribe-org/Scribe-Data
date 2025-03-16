@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?genitiveFeminineFutureSingularParticiple
+  ?genitiveFeminineFuturePluralParticiple
+  ?genitiveFemininePerfectSingularParticiple
+  ?genitiveFemininePerfectPluralParticiple
+  ?genitiveFemininePassivePerfectSingularParticiple
+  ?genitiveFeminineActiveFutureSingularParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineFutureSingularParticipleForm .
+    ?genitiveFeminineFutureSingularParticipleForm ontolex:representation ?genitiveFeminineFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineFuturePluralParticipleForm .
+    ?genitiveFeminineFuturePluralParticipleForm ontolex:representation ?genitiveFeminineFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFemininePerfectSingularParticipleForm .
+    ?genitiveFemininePerfectSingularParticipleForm ontolex:representation ?genitiveFemininePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q625420, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFemininePerfectPluralParticipleForm .
+    ?genitiveFemininePerfectPluralParticipleForm ontolex:representation ?genitiveFemininePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q625420, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFemininePassivePerfectSingularParticipleForm .
+    ?genitiveFemininePassivePerfectSingularParticipleForm ontolex:representation ?genitiveFemininePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineActiveFutureSingularParticipleForm .
+    ?genitiveFeminineActiveFutureSingularParticipleForm ontolex:representation ?genitiveFeminineActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+}

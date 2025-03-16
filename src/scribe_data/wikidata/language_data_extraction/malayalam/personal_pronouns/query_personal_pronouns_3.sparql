@@ -1,0 +1,29 @@
+# tool: scribe-data
+# All Malayalam (Q36236) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?nominative
+  ?nominativeThirdPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q36236 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeThirdPersonSingularForm .
+    ?nominativeThirdPersonSingularForm ontolex:representation ?nominativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q51929074, wd:Q110786 .
+  }
+}

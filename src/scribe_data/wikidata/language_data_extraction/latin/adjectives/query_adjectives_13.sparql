@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Latin (Q397) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?ablativePlural
+  ?ablativePluralComparative
+  ?ablativePluralSuperlative
+  ?ablativePluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePluralForm .
+    ?ablativePluralForm ontolex:representation ?ablativePlural ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePluralComparativeForm .
+    ?ablativePluralComparativeForm ontolex:representation ?ablativePluralComparative ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePluralSuperlativeForm .
+    ?ablativePluralSuperlativeForm ontolex:representation ?ablativePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePluralPositiveForm .
+    ?ablativePluralPositiveForm ontolex:representation ?ablativePluralPositive ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q146786, wd:Q3482678 .
+  }
+}

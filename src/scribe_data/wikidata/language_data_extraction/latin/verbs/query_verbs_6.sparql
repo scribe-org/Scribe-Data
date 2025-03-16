@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?ablativePresentSingularParticiple
+  ?ablativePresentPluralParticiple
+  ?nominativeCommonPresentPluralParticiple
+  ?ablativePassiveFuturePluralParticiple
+  ?ablativePassivePerfectPluralParticiple
+  ?nominativeCommonActivePresentPluralParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePresentSingularParticipleForm .
+    ?ablativePresentSingularParticipleForm ontolex:representation ?ablativePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q192613, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePresentPluralParticipleForm .
+    ?ablativePresentPluralParticipleForm ontolex:representation ?ablativePresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q192613, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeCommonPresentPluralParticipleForm .
+    ?nominativeCommonPresentPluralParticipleForm ontolex:representation ?nominativeCommonPresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1305037, wd:Q192613, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePassiveFuturePluralParticipleForm .
+    ?ablativePassiveFuturePluralParticipleForm ontolex:representation ?ablativePassiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePassivePerfectPluralParticipleForm .
+    ?ablativePassivePerfectPluralParticipleForm ontolex:representation ?ablativePassivePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeCommonActivePresentPluralParticipleForm .
+    ?nominativeCommonActivePresentPluralParticipleForm ontolex:representation ?nominativeCommonActivePresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1305037, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
+  }
+}

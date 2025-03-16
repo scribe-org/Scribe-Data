@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?activePastImperfectFirstPersonSingularSubjunctive
+  ?activePastImperfectFirstPersonPluralSubjunctive
+  ?activePastImperfectSecondPersonSingularSubjunctive
+  ?activePastImperfectSecondPersonPluralSubjunctive
+  ?activePastImperfectThirdPersonSingularSubjunctive
+  ?activePastImperfectThirdPersonPluralSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePastImperfectFirstPersonSingularSubjunctiveForm .
+    ?activePastImperfectFirstPersonSingularSubjunctiveForm ontolex:representation ?activePastImperfectFirstPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q12547192, wd:Q21714344, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePastImperfectFirstPersonPluralSubjunctiveForm .
+    ?activePastImperfectFirstPersonPluralSubjunctiveForm ontolex:representation ?activePastImperfectFirstPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q12547192, wd:Q21714344, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePastImperfectSecondPersonSingularSubjunctiveForm .
+    ?activePastImperfectSecondPersonSingularSubjunctiveForm ontolex:representation ?activePastImperfectSecondPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q12547192, wd:Q51929049, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePastImperfectSecondPersonPluralSubjunctiveForm .
+    ?activePastImperfectSecondPersonPluralSubjunctiveForm ontolex:representation ?activePastImperfectSecondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q12547192, wd:Q51929049, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePastImperfectThirdPersonSingularSubjunctiveForm .
+    ?activePastImperfectThirdPersonSingularSubjunctiveForm ontolex:representation ?activePastImperfectThirdPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q12547192, wd:Q51929074, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePastImperfectThirdPersonPluralSubjunctiveForm .
+    ?activePastImperfectThirdPersonPluralSubjunctiveForm ontolex:representation ?activePastImperfectThirdPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q12547192, wd:Q51929074, wd:Q146786, wd:Q473746 .
+  }
+}

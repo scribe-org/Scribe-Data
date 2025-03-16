@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?locativeFeminineSingular
+  ?locativeFemininePlural
+  ?ablativeCommonSingular
+  ?ablativeCommonPlural
+  ?ablativePassiveFuturePluralParticiple
+  ?ablativePassivePerfectPluralParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularForm .
+    ?locativeFeminineSingularForm ontolex:representation ?locativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeFemininePluralForm .
+    ?locativeFemininePluralForm ontolex:representation ?locativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeCommonSingularForm .
+    ?ablativeCommonSingularForm ontolex:representation ?ablativeCommonSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1305037, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeCommonPluralForm .
+    ?ablativeCommonPluralForm ontolex:representation ?ablativeCommonPlural ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1305037, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePassiveFuturePluralParticipleForm .
+    ?ablativePassiveFuturePluralParticipleForm ontolex:representation ?ablativePassiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePassivePerfectPluralParticipleForm .
+    ?ablativePassivePerfectPluralParticipleForm ontolex:representation ?ablativePassivePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
+  }
+}

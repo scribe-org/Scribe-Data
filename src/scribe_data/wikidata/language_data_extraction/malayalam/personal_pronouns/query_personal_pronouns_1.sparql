@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Malayalam (Q36236) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?genitive
+  ?accusative
+  ?instrumental
+  ?genitiveThirdPersonSingular
+  ?accusativeThirdPersonSingular
+  ?instrumentalThirdPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q36236 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalForm .
+    ?instrumentalForm ontolex:representation ?instrumental ;
+      wikibase:grammaticalFeature wd:Q192997 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveThirdPersonSingularForm .
+    ?genitiveThirdPersonSingularForm ontolex:representation ?genitiveThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeThirdPersonSingularForm .
+    ?accusativeThirdPersonSingularForm ontolex:representation ?accusativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalThirdPersonSingularForm .
+    ?instrumentalThirdPersonSingularForm ontolex:representation ?instrumentalThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q51929074, wd:Q110786 .
+  }
+}

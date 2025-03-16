@@ -1,0 +1,25 @@
+# tool: scribe-data
+# All Norwegian (Q25167) pronouns (Q36224) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?pronoun
+  ?feminineMasculine
+
+WHERE {
+  ?lexeme dct:language wd:Q25167 ;
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for nb to remove bokmål (nb) words.
+  FILTER(lang(?pronoun) = "nb")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineMasculineForm .
+    ?feminineMasculineForm ontolex:representation ?feminineMasculine ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327 .
+  }
+}

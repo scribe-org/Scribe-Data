@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All German (Q188) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?presentThirdPerson
+  ?futureThirdPerson
+  ?presentThirdPersonSingular
+  ?presentThirdPersonPlural
+  ?futureThirdPersonSingular
+  ?futureThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentThirdPersonForm .
+    ?presentThirdPersonForm ontolex:representation ?presentThirdPerson ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureThirdPersonForm .
+    ?futureThirdPersonForm ontolex:representation ?futureThirdPerson ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentThirdPersonSingularForm .
+    ?presentThirdPersonSingularForm ontolex:representation ?presentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentThirdPersonPluralForm .
+    ?presentThirdPersonPluralForm ontolex:representation ?presentThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureThirdPersonSingularForm .
+    ?futureThirdPersonSingularForm ontolex:representation ?futureThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureThirdPersonPluralForm .
+    ?futureThirdPersonPluralForm ontolex:representation ?futureThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q51929074, wd:Q146786 .
+  }
+}

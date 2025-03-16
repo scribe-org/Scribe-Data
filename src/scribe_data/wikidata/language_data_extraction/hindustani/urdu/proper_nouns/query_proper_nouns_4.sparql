@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Hindustani (Q11051) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?obliqueSingular
+  ?obliquePlural
+  ?obliqueFeminineSingular
+  ?obliqueFemininePlural
+  ?obliqueMasculineSingular
+  ?obliqueMasculinePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for ur to remove urdu (ur) words.
+  FILTER(lang(?propernoun) = "ur")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueSingularForm .
+    ?obliqueSingularForm ontolex:representation ?obliqueSingular ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliquePluralForm .
+    ?obliquePluralForm ontolex:representation ?obliquePlural ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueFeminineSingularForm .
+    ?obliqueFeminineSingularForm ontolex:representation ?obliqueFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueFemininePluralForm .
+    ?obliqueFemininePluralForm ontolex:representation ?obliqueFemininePlural ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueMasculineSingularForm .
+    ?obliqueMasculineSingularForm ontolex:representation ?obliqueMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueMasculinePluralForm .
+    ?obliqueMasculinePluralForm ontolex:representation ?obliqueMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q146786 .
+  }
+}

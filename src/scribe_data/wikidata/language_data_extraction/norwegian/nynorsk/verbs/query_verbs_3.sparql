@@ -1,0 +1,39 @@
+# tool: scribe-data
+# All Norwegian (Q25164) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?activeInfinitive
+  ?activeInfinitiveAInfinitive
+  ?activeInfinitiveEInfinitive
+
+WHERE {
+  ?lexeme dct:language wd:Q25164 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for nn to remove nynorsk (nn) words.
+  FILTER(lang(?verb) = "nn")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
+    ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeInfinitiveAInfinitiveForm .
+    ?activeInfinitiveAInfinitiveForm ontolex:representation ?activeInfinitiveAInfinitive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230, wd:Q115223950 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeInfinitiveEInfinitiveForm .
+    ?activeInfinitiveEInfinitiveForm ontolex:representation ?activeInfinitiveEInfinitive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230, wd:Q115223951 .
+  }
+}

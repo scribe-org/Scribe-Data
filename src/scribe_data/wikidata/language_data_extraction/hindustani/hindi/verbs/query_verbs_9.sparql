@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Hindustani (Q11051) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?feminineIntransitivePhaseBasicPhaseFirstPersonDefiniteSingularSubjunctive
+  ?feminineIntransitivePhaseBasicPhaseFirstPersonDefinitePluralSubjunctive
+  ?feminineIntransitivePhaseBasicPhaseSecondPersonDefiniteSingularSubjunctive
+  ?feminineIntransitivePhaseBasicPhaseSecondPersonDefinitePluralSubjunctive
+  ?feminineIntransitivePhaseBasicPhaseThirdPersonDefiniteSingularSubjunctive
+  ?feminineIntransitivePhaseBasicPhaseThirdPersonDefinitePluralSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for hi to remove hindi (hi) words.
+  FILTER(lang(?verb) = "hi")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIntransitivePhaseBasicPhaseFirstPersonDefiniteSingularSubjunctiveForm .
+    ?feminineIntransitivePhaseBasicPhaseFirstPersonDefiniteSingularSubjunctiveForm ontolex:representation ?feminineIntransitivePhaseBasicPhaseFirstPersonDefiniteSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q113330736, wd:Q113330960, wd:Q21714344, wd:Q53997851, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIntransitivePhaseBasicPhaseFirstPersonDefinitePluralSubjunctiveForm .
+    ?feminineIntransitivePhaseBasicPhaseFirstPersonDefinitePluralSubjunctiveForm ontolex:representation ?feminineIntransitivePhaseBasicPhaseFirstPersonDefinitePluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q113330736, wd:Q113330960, wd:Q21714344, wd:Q53997851, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIntransitivePhaseBasicPhaseSecondPersonDefiniteSingularSubjunctiveForm .
+    ?feminineIntransitivePhaseBasicPhaseSecondPersonDefiniteSingularSubjunctiveForm ontolex:representation ?feminineIntransitivePhaseBasicPhaseSecondPersonDefiniteSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q113330736, wd:Q113330960, wd:Q51929049, wd:Q53997851, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIntransitivePhaseBasicPhaseSecondPersonDefinitePluralSubjunctiveForm .
+    ?feminineIntransitivePhaseBasicPhaseSecondPersonDefinitePluralSubjunctiveForm ontolex:representation ?feminineIntransitivePhaseBasicPhaseSecondPersonDefinitePluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q113330736, wd:Q113330960, wd:Q51929049, wd:Q53997851, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIntransitivePhaseBasicPhaseThirdPersonDefiniteSingularSubjunctiveForm .
+    ?feminineIntransitivePhaseBasicPhaseThirdPersonDefiniteSingularSubjunctiveForm ontolex:representation ?feminineIntransitivePhaseBasicPhaseThirdPersonDefiniteSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q113330736, wd:Q113330960, wd:Q51929074, wd:Q53997851, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIntransitivePhaseBasicPhaseThirdPersonDefinitePluralSubjunctiveForm .
+    ?feminineIntransitivePhaseBasicPhaseThirdPersonDefinitePluralSubjunctiveForm ontolex:representation ?feminineIntransitivePhaseBasicPhaseThirdPersonDefinitePluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q113330736, wd:Q113330960, wd:Q51929074, wd:Q53997851, wd:Q146786, wd:Q473746 .
+  }
+}

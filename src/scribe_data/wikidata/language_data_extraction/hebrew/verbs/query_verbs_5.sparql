@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Hebrew (Q9288) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?infinitive
+  ?commonSingular
+  ?pastThirdPersonPlural
+  ?femininePresentSingularConstruct
+  ?femininePresentPluralConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q9288 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?commonSingularForm .
+    ?commonSingularForm ontolex:representation ?commonSingular ;
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastThirdPersonPluralForm .
+    ?pastThirdPersonPluralForm ontolex:representation ?pastThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePresentSingularConstructForm .
+    ?femininePresentSingularConstructForm ontolex:representation ?femininePresentSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q192613, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePresentPluralConstructForm .
+    ?femininePresentPluralConstructForm ontolex:representation ?femininePresentPluralConstruct ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q192613, wd:Q146786, wd:Q1641446 .
+  }
+}

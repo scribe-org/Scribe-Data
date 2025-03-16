@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Italian (Q652) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?feminineSingular
+  ?femininePlural
+  ?feminineSingularSuperlative
+  ?femininePluralSuperlative
+
+WHERE {
+  ?lexeme dct:language wd:Q652 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
+    ?feminineSingularForm ontolex:representation ?feminineSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePluralForm .
+    ?femininePluralForm ontolex:representation ?femininePlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSingularSuperlativeForm .
+    ?feminineSingularSuperlativeForm ontolex:representation ?feminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePluralSuperlativeForm .
+    ?femininePluralSuperlativeForm ontolex:representation ?femininePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q1817208 .
+  }
+}

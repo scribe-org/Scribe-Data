@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?accusativeNeuterFutureSingularParticiple
+  ?accusativeNeuterPerfectSingularParticiple
+  ?accusativeNeuterPassiveFuturePluralParticiple
+  ?accusativeNeuterActivePresentSingularParticiple
+  ?accusativeNeuterActivePresentPluralParticiple
+  ?accusativeNeuterActiveFuturePluralParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterFutureSingularParticipleForm .
+    ?accusativeNeuterFutureSingularParticipleForm ontolex:representation ?accusativeNeuterFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterPerfectSingularParticipleForm .
+    ?accusativeNeuterPerfectSingularParticipleForm ontolex:representation ?accusativeNeuterPerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q625420, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterPassiveFuturePluralParticipleForm .
+    ?accusativeNeuterPassiveFuturePluralParticipleForm ontolex:representation ?accusativeNeuterPassiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterActivePresentSingularParticipleForm .
+    ?accusativeNeuterActivePresentSingularParticipleForm ontolex:representation ?accusativeNeuterActivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterActivePresentPluralParticipleForm .
+    ?accusativeNeuterActivePresentPluralParticipleForm ontolex:representation ?accusativeNeuterActivePresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterActiveFuturePluralParticipleForm .
+    ?accusativeNeuterActiveFuturePluralParticipleForm ontolex:representation ?accusativeNeuterActiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+}

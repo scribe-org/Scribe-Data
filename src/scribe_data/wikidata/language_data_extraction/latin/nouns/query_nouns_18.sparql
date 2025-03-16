@@ -1,0 +1,36 @@
+# tool: scribe-data
+# All Latin (Q397) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?activePresentInfinitive
+  ?activePresentIndicativeFirstPersonSingular
+  ?activePresentIndicativeThirdPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresentInfinitiveForm .
+    ?activePresentInfinitiveForm ontolex:representation ?activePresentInfinitive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q52434245 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresentIndicativeFirstPersonSingularForm .
+    ?activePresentIndicativeFirstPersonSingularForm ontolex:representation ?activePresentIndicativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q56682909, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresentIndicativeThirdPersonSingularForm .
+    ?activePresentIndicativeThirdPersonSingularForm ontolex:representation ?activePresentIndicativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q56682909, wd:Q51929074, wd:Q110786 .
+  }
+}

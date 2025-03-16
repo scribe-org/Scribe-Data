@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Hindustani (Q11051) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?wordStem
+  ?firstPersonSingularSubjunctive
+  ?thirdPersonSingularSubjunctive
+  ?obliqueIntransitivePhaseBasicPhaseGerund
+  ?masculineFirstPersonDefiniteSingularSubjunctive
+  ?masculineFirstPersonDefinitePluralSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for hi to remove hindi (hi) words.
+  FILTER(lang(?verb) = "hi")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?wordStemForm .
+    ?wordStemForm ontolex:representation ?wordStem ;
+      wikibase:grammaticalFeature wd:Q210523 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonSingularSubjunctiveForm .
+    ?firstPersonSingularSubjunctiveForm ontolex:representation ?firstPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonSingularSubjunctiveForm .
+    ?thirdPersonSingularSubjunctiveForm ontolex:representation ?thirdPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueIntransitivePhaseBasicPhaseGerundForm .
+    ?obliqueIntransitivePhaseBasicPhaseGerundForm ontolex:representation ?obliqueIntransitivePhaseBasicPhaseGerund ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q113330736, wd:Q113330960, wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineFirstPersonDefiniteSingularSubjunctiveForm .
+    ?masculineFirstPersonDefiniteSingularSubjunctiveForm ontolex:representation ?masculineFirstPersonDefiniteSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q21714344, wd:Q53997851, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineFirstPersonDefinitePluralSubjunctiveForm .
+    ?masculineFirstPersonDefinitePluralSubjunctiveForm ontolex:representation ?masculineFirstPersonDefinitePluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q21714344, wd:Q53997851, wd:Q146786, wd:Q473746 .
+  }
+}

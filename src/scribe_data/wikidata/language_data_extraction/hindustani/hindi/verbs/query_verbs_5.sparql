@@ -1,0 +1,46 @@
+# tool: scribe-data
+# All Hindustani (Q11051) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?intransitivePhaseBasicPhaseSecondPersonSingularSubjunctive
+  ?intransitivePhaseBasicPhaseThirdPersonSingularSubjunctive
+  ?intransitivePhaseBasicPhaseThirdPersonPluralSubjunctive
+  ?intransitivePhaseBasicPhaseConjunctiveParticipleAdverbialAbsoluteConstruction
+
+WHERE {
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for hi to remove hindi (hi) words.
+  FILTER(lang(?verb) = "hi")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?intransitivePhaseBasicPhaseSecondPersonSingularSubjunctiveForm .
+    ?intransitivePhaseBasicPhaseSecondPersonSingularSubjunctiveForm ontolex:representation ?intransitivePhaseBasicPhaseSecondPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q113330736, wd:Q113330960, wd:Q51929049, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?intransitivePhaseBasicPhaseThirdPersonSingularSubjunctiveForm .
+    ?intransitivePhaseBasicPhaseThirdPersonSingularSubjunctiveForm ontolex:representation ?intransitivePhaseBasicPhaseThirdPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q113330736, wd:Q113330960, wd:Q51929074, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?intransitivePhaseBasicPhaseThirdPersonPluralSubjunctiveForm .
+    ?intransitivePhaseBasicPhaseThirdPersonPluralSubjunctiveForm ontolex:representation ?intransitivePhaseBasicPhaseThirdPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q113330736, wd:Q113330960, wd:Q51929074, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?intransitivePhaseBasicPhaseConjunctiveParticipleAdverbialAbsoluteConstructionForm .
+    ?intransitivePhaseBasicPhaseConjunctiveParticipleAdverbialAbsoluteConstructionForm ontolex:representation ?intransitivePhaseBasicPhaseConjunctiveParticipleAdverbialAbsoluteConstruction ;
+      wikibase:grammaticalFeature wd:Q113330736, wd:Q113330960, wd:Q113133303, wd:Q380012, wd:Q4669807 .
+  }
+}

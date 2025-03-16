@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?vocativeNeuterSingular
+  ?vocativeNeuterPlural
+  ?dativeActivePresentSingularParticiple
+  ?dativeActivePresentPluralParticiple
+  ?dativeActiveFuturePluralParticiple
+  ?vocativeNeuterPassiveFuturePluralParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterSingularForm .
+    ?vocativeNeuterSingularForm ontolex:representation ?vocativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterPluralForm .
+    ?vocativeNeuterPluralForm ontolex:representation ?vocativeNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeActivePresentSingularParticipleForm .
+    ?dativeActivePresentSingularParticipleForm ontolex:representation ?dativeActivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeActivePresentPluralParticipleForm .
+    ?dativeActivePresentPluralParticipleForm ontolex:representation ?dativeActivePresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeActiveFuturePluralParticipleForm .
+    ?dativeActiveFuturePluralParticipleForm ontolex:representation ?dativeActiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterPassiveFuturePluralParticipleForm .
+    ?vocativeNeuterPassiveFuturePluralParticipleForm ontolex:representation ?vocativeNeuterPassiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+}

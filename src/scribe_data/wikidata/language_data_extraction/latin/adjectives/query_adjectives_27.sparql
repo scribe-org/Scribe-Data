@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?accusativeMasculineSingular
+  ?accusativeMasculinePlural
+  ?accusativeMasculineSingularSuperlative
+  ?accusativeMasculineSingularPositive
+  ?accusativeMasculinePluralSuperlative
+  ?accusativeMasculinePluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineSingularForm .
+    ?accusativeMasculineSingularForm ontolex:representation ?accusativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePluralForm .
+    ?accusativeMasculinePluralForm ontolex:representation ?accusativeMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineSingularSuperlativeForm .
+    ?accusativeMasculineSingularSuperlativeForm ontolex:representation ?accusativeMasculineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineSingularPositiveForm .
+    ?accusativeMasculineSingularPositiveForm ontolex:representation ?accusativeMasculineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePluralSuperlativeForm .
+    ?accusativeMasculinePluralSuperlativeForm ontolex:representation ?accusativeMasculinePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePluralPositiveForm .
+    ?accusativeMasculinePluralPositiveForm ontolex:representation ?accusativeMasculinePluralPositive ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q146786, wd:Q3482678 .
+  }
+}

@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Malayalam (Q36236) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?vocativeSingular
+  ?vocativePlural
+  ?vocativeCommonSingular
+  ?vocativeCommonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q36236 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeSingularForm .
+    ?vocativeSingularForm ontolex:representation ?vocativeSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativePluralForm .
+    ?vocativePluralForm ontolex:representation ?vocativePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeCommonSingularForm .
+    ?vocativeCommonSingularForm ontolex:representation ?vocativeCommonSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeCommonPluralForm .
+    ?vocativeCommonPluralForm ontolex:representation ?vocativeCommonPlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q146786 .
+  }
+}

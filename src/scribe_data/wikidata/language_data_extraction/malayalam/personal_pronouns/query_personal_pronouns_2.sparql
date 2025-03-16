@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Malayalam (Q36236) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?dative
+  ?locative
+  ?vocative
+  ?dativeThirdPersonSingular
+  ?locativeThirdPersonSingular
+  ?vocativeThirdPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q36236 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeForm .
+    ?dativeForm ontolex:representation ?dative ;
+      wikibase:grammaticalFeature wd:Q145599 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeForm .
+    ?locativeForm ontolex:representation ?locative ;
+      wikibase:grammaticalFeature wd:Q202142 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeForm .
+    ?vocativeForm ontolex:representation ?vocative ;
+      wikibase:grammaticalFeature wd:Q185077 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeThirdPersonSingularForm .
+    ?dativeThirdPersonSingularForm ontolex:representation ?dativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeThirdPersonSingularForm .
+    ?locativeThirdPersonSingularForm ontolex:representation ?locativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeThirdPersonSingularForm .
+    ?vocativeThirdPersonSingularForm ontolex:representation ?vocativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q51929074, wd:Q110786 .
+  }
+}

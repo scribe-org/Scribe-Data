@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Norwegian (Q25167) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?singular
+  ?plural
+  ?indefiniteSingular
+  ?feminineIndefinitePlural
+  ?feminineDefiniteSingular
+  ?feminineDefinitePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q25167 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for nb to remove bokmål (nb) words.
+  FILTER(lang(?noun) = "nb")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indefiniteSingularForm .
+    ?indefiniteSingularForm ontolex:representation ?indefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndefinitePluralForm .
+    ?feminineIndefinitePluralForm ontolex:representation ?feminineIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineDefiniteSingularForm .
+    ?feminineDefiniteSingularForm ontolex:representation ?feminineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineDefinitePluralForm .
+    ?feminineDefinitePluralForm ontolex:representation ?feminineDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q53997851, wd:Q146786 .
+  }
+}

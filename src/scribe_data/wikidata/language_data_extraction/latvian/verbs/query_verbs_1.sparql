@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latvian (Q9078) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?indicativeSimplePresentFirstPersonSingular
+  ?indicativeSimplePresentFirstPersonPlural
+  ?indicativeSimplePresentSecondPersonSingular
+  ?indicativeSimplePresentSecondPersonPlural
+  ?indicativeSimplePresentThirdPersonSingular
+  ?indicativeSimplePresentThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9078 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimplePresentFirstPersonSingularForm .
+    ?indicativeSimplePresentFirstPersonSingularForm ontolex:representation ?indicativeSimplePresentFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q3910936, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimplePresentFirstPersonPluralForm .
+    ?indicativeSimplePresentFirstPersonPluralForm ontolex:representation ?indicativeSimplePresentFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q3910936, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimplePresentSecondPersonSingularForm .
+    ?indicativeSimplePresentSecondPersonSingularForm ontolex:representation ?indicativeSimplePresentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q3910936, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimplePresentSecondPersonPluralForm .
+    ?indicativeSimplePresentSecondPersonPluralForm ontolex:representation ?indicativeSimplePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q3910936, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimplePresentThirdPersonSingularForm .
+    ?indicativeSimplePresentThirdPersonSingularForm ontolex:representation ?indicativeSimplePresentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q3910936, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSimplePresentThirdPersonPluralForm .
+    ?indicativeSimplePresentThirdPersonPluralForm ontolex:representation ?indicativeSimplePresentThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q3910936, wd:Q51929074, wd:Q146786 .
+  }
+}

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?indicativeActivePresentFirstPersonPlural
+  ?indicativeActivePresentSecondPersonPlural
+  ?indicativeActiveFutureThirdPersonSingular
+  ?indicativeActivePresentPerfectFirstPersonSingular
+  ?indicativeActivePluperfectFirstPersonSingular
+  ?indicativeActivePluperfectSecondPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeActivePresentFirstPersonPluralForm .
+    ?indicativeActivePresentFirstPersonPluralForm ontolex:representation ?indicativeActivePresentFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeActivePresentSecondPersonPluralForm .
+    ?indicativeActivePresentSecondPersonPluralForm ontolex:representation ?indicativeActivePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeActiveFutureThirdPersonSingularForm .
+    ?indicativeActiveFutureThirdPersonSingularForm ontolex:representation ?indicativeActiveFutureThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q501405, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeActivePresentPerfectFirstPersonSingularForm .
+    ?indicativeActivePresentPerfectFirstPersonSingularForm ontolex:representation ?indicativeActivePresentPerfectFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q1240211, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeActivePluperfectFirstPersonSingularForm .
+    ?indicativeActivePluperfectFirstPersonSingularForm ontolex:representation ?indicativeActivePluperfectFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q623742, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeActivePluperfectSecondPersonPluralForm .
+    ?indicativeActivePluperfectSecondPersonPluralForm ontolex:representation ?indicativeActivePluperfectSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q623742, wd:Q51929049, wd:Q146786 .
+  }
+}

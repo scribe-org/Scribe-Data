@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?indicativePassivePresentSecondPersonPlural
+  ?indicativePassivePresentThirdPersonPlural
+  ?indicativePassiveFutureFirstPersonSingular
+  ?indicativePassiveFutureFirstPersonPlural
+  ?indicativePassivePastImperfectFirstPersonSingular
+  ?indicativePassivePastImperfectSecondPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePassivePresentSecondPersonPluralForm .
+    ?indicativePassivePresentSecondPersonPluralForm ontolex:representation ?indicativePassivePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1194697, wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePassivePresentThirdPersonPluralForm .
+    ?indicativePassivePresentThirdPersonPluralForm ontolex:representation ?indicativePassivePresentThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1194697, wd:Q192613, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePassiveFutureFirstPersonSingularForm .
+    ?indicativePassiveFutureFirstPersonSingularForm ontolex:representation ?indicativePassiveFutureFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1194697, wd:Q501405, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePassiveFutureFirstPersonPluralForm .
+    ?indicativePassiveFutureFirstPersonPluralForm ontolex:representation ?indicativePassiveFutureFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1194697, wd:Q501405, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePassivePastImperfectFirstPersonSingularForm .
+    ?indicativePassivePastImperfectFirstPersonSingularForm ontolex:representation ?indicativePassivePastImperfectFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1194697, wd:Q12547192, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePassivePastImperfectSecondPersonSingularForm .
+    ?indicativePassivePastImperfectSecondPersonSingularForm ontolex:representation ?indicativePassivePastImperfectSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1194697, wd:Q12547192, wd:Q51929049, wd:Q110786 .
+  }
+}

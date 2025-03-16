@@ -1,0 +1,53 @@
+# tool: scribe-data
+# All Norwegian (Q25167) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?feminineMasculineIndefinitePlural
+  ?feminineNeuterIndefinitePlural
+  ?feminineNeuterDefinitePlural
+  ?feminineMasculineNeuterIndefinitePlural
+  ?feminineMasculineNeuterDefinitePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q25167 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for nb to remove bokmål (nb) words.
+  FILTER(lang(?noun) = "nb")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineMasculineIndefinitePluralForm .
+    ?feminineMasculineIndefinitePluralForm ontolex:representation ?feminineMasculineIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineNeuterIndefinitePluralForm .
+    ?feminineNeuterIndefinitePluralForm ontolex:representation ?feminineNeuterIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1775461, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineNeuterDefinitePluralForm .
+    ?feminineNeuterDefinitePluralForm ontolex:representation ?feminineNeuterDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1775461, wd:Q53997851, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineMasculineNeuterIndefinitePluralForm .
+    ?feminineMasculineNeuterIndefinitePluralForm ontolex:representation ?feminineMasculineNeuterIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q1775461, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineMasculineNeuterDefinitePluralForm .
+    ?feminineMasculineNeuterDefinitePluralForm ontolex:representation ?feminineMasculineNeuterDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q1775461, wd:Q53997851, wd:Q146786 .
+  }
+}

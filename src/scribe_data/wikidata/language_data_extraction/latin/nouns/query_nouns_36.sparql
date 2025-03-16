@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?genitiveMasculineSingular
+  ?genitiveMasculinePassiveFutureSingularParticiple
+  ?genitiveMasculinePassiveFuturePluralParticiple
+  ?genitiveMasculinePassivePerfectSingularParticiple
+  ?genitiveMasculineActiveFutureSingularParticiple
+  ?genitiveMasculineActiveFuturePluralParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularForm .
+    ?genitiveMasculineSingularForm ontolex:representation ?genitiveMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePassiveFutureSingularParticipleForm .
+    ?genitiveMasculinePassiveFutureSingularParticipleForm ontolex:representation ?genitiveMasculinePassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePassiveFuturePluralParticipleForm .
+    ?genitiveMasculinePassiveFuturePluralParticipleForm ontolex:representation ?genitiveMasculinePassiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePassivePerfectSingularParticipleForm .
+    ?genitiveMasculinePassivePerfectSingularParticipleForm ontolex:representation ?genitiveMasculinePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineActiveFutureSingularParticipleForm .
+    ?genitiveMasculineActiveFutureSingularParticipleForm ontolex:representation ?genitiveMasculineActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineActiveFuturePluralParticipleForm .
+    ?genitiveMasculineActiveFuturePluralParticipleForm ontolex:representation ?genitiveMasculineActiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+}

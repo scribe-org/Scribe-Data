@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Latin (Q397) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?activePerfect
+  ?activePerfectFirstPersonSingularSubjunctive
+  ?activePerfectFirstPersonPluralSubjunctive
+  ?activePerfectSecondPersonSingularSubjunctive
+  ?activePerfectSecondPersonPluralSubjunctive
+  ?activePerfectThirdPersonPluralSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q397 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePerfectForm .
+    ?activePerfectForm ontolex:representation ?activePerfect ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q625420 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePerfectFirstPersonSingularSubjunctiveForm .
+    ?activePerfectFirstPersonSingularSubjunctiveForm ontolex:representation ?activePerfectFirstPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q625420, wd:Q21714344, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePerfectFirstPersonPluralSubjunctiveForm .
+    ?activePerfectFirstPersonPluralSubjunctiveForm ontolex:representation ?activePerfectFirstPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q625420, wd:Q21714344, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePerfectSecondPersonSingularSubjunctiveForm .
+    ?activePerfectSecondPersonSingularSubjunctiveForm ontolex:representation ?activePerfectSecondPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q625420, wd:Q51929049, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePerfectSecondPersonPluralSubjunctiveForm .
+    ?activePerfectSecondPersonPluralSubjunctiveForm ontolex:representation ?activePerfectSecondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q625420, wd:Q51929049, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePerfectThirdPersonPluralSubjunctiveForm .
+    ?activePerfectThirdPersonPluralSubjunctiveForm ontolex:representation ?activePerfectThirdPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q625420, wd:Q51929074, wd:Q146786, wd:Q473746 .
+  }
+}

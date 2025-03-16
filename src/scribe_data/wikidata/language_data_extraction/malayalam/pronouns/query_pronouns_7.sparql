@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Malayalam (Q36236) pronouns (Q36224) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?pronoun
+  ?vocative
+  ?vocativeSingular
+  ?vocativePlural
+  ?vocativeThirdPersonSingular
+  ?vocativeThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q36236 ;
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeForm .
+    ?vocativeForm ontolex:representation ?vocative ;
+      wikibase:grammaticalFeature wd:Q185077 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeSingularForm .
+    ?vocativeSingularForm ontolex:representation ?vocativeSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativePluralForm .
+    ?vocativePluralForm ontolex:representation ?vocativePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeThirdPersonSingularForm .
+    ?vocativeThirdPersonSingularForm ontolex:representation ?vocativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeThirdPersonPluralForm .
+    ?vocativeThirdPersonPluralForm ontolex:representation ?vocativeThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q51929074, wd:Q146786 .
+  }
+}

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Portuguese (Q5146) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?indicativeConditionalFirstPersonSingular
+  ?indicativeConditionalFirstPersonPlural
+  ?indicativeConditionalSecondPersonSingular
+  ?indicativeConditionalSecondPersonPlural
+  ?indicativeConditionalThirdPersonSingular
+  ?indicativeConditionalThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q5146 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeConditionalFirstPersonSingularForm .
+    ?indicativeConditionalFirstPersonSingularForm ontolex:representation ?indicativeConditionalFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q625581, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeConditionalFirstPersonPluralForm .
+    ?indicativeConditionalFirstPersonPluralForm ontolex:representation ?indicativeConditionalFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q625581, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeConditionalSecondPersonSingularForm .
+    ?indicativeConditionalSecondPersonSingularForm ontolex:representation ?indicativeConditionalSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q625581, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeConditionalSecondPersonPluralForm .
+    ?indicativeConditionalSecondPersonPluralForm ontolex:representation ?indicativeConditionalSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q625581, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeConditionalThirdPersonSingularForm .
+    ?indicativeConditionalThirdPersonSingularForm ontolex:representation ?indicativeConditionalThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q625581, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeConditionalThirdPersonPluralForm .
+    ?indicativeConditionalThirdPersonPluralForm ontolex:representation ?indicativeConditionalThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q625581, wd:Q51929074, wd:Q146786 .
+  }
+}

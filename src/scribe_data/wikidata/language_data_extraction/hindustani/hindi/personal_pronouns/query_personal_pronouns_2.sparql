@@ -1,0 +1,32 @@
+# tool: scribe-data
+# All Hindustani (Q11051) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?direct
+  ?directFirstPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for hi to remove hindi (hi) words.
+  FILTER(lang(?personalpronoun) = "hi")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directForm .
+    ?directForm ontolex:representation ?direct ;
+      wikibase:grammaticalFeature wd:Q1751855 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directFirstPersonSingularForm .
+    ?directFirstPersonSingularForm ontolex:representation ?directFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q21714344, wd:Q110786 .
+  }
+}
