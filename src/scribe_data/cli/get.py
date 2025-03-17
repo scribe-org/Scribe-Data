@@ -210,11 +210,11 @@ def get_data(
         print(
             f"Updating data for language(s): {language.title()}; data type(s): {data_type.capitalize()}"
         )
-        
+
         json_path = Path(output_dir) / language / f"{data_type}.json"
         if not overwrite and check_index_exists(json_path):
-             print(f"Skipping update for {language.title()} {data_type}.")
-             return {"success": False, "skipped": True}
+            print(f"Skipping update for {language.title()} {data_type}.")
+            return {"success": False, "skipped": True}
 
         def print_error_and_suggestions(error_message):
             """

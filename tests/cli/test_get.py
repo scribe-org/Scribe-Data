@@ -211,7 +211,10 @@ class TestGetData(unittest.TestCase):
     # MARK: User Chooses Skip
 
     @patch("scribe_data.cli.get.query_data")
-    @patch("scribe_data.cli.get.Path.glob", return_value=[Path("./test_output/English/nouns.json")])
+    @patch(
+        "scribe_data.cli.get.Path.glob",
+        return_value=[Path("./test_output/English/nouns.json")],
+    )
     @patch("scribe_data.cli.get.questionary.confirm")
     @patch("scribe_data.cli.get.check_index_exists")
     def test_user_skips_existing_file(

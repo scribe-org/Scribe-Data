@@ -482,7 +482,7 @@ def start_interactive_mode(operation: str = None):
                 default="False",
             )
             overwrite_bool = overwrite_str.strip().lower() in ("true", "y", "yes")
-            
+
             parse_wd_lexeme_dump(
                 language=config.selected_languages,
                 wikidata_dump_type=["translations"],
