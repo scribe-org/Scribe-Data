@@ -74,7 +74,8 @@ def convert_to_json(
         input_file_path = Path(input_file)
 
         if not input_file_path.exists():
-            raise FileNotFoundError(f"Input file '{input_file_path}' does not exist.")
+            print(f"No data found for {dtype} conversion at '{input_file_path}'.")
+            continue
 
         delimiter = {".csv": ",", ".tsv": "\t"}.get(input_file_path.suffix.lower())
 
@@ -405,6 +406,21 @@ def convert_wrapper(
     None
         This function does not return any value; it performs a conversion operation.
     """
+
+    # Set default input file source
+    if input_files is None:
+        csv_file = f"{DEFAULT_CSV_EXPORT_DIR}/{languages}/{data_types}.csv"
+        tsv_file = f"{DEFAULT_TSV_EXPORT_DIR}/{languages}/{data_types}.tsv"
+
+        csv_exists = Path(csv_file).exists()
+        json_source = csv_file if csv_exists else tsv_file
+
+        input_files = {
+            "csv": f"{DEFAULT_JSON_EXPORT_DIR}/{languages}/{data_types}.json",
+            "json": f"{json_source}",
+            "sqlite": f"{DEFAULT_JSON_EXPORT_DIR}/{languages}/{data_types}.json",
+            "tsv": f"{DEFAULT_JSON_EXPORT_DIR}/{languages}/{data_types}.json",
+        }.get(output_type, f"{DEFAULT_JSON_EXPORT_DIR}/{languages}/{data_types}.json")
 
     # Route the function call to the correct conversion function.
     if output_type == "json":
