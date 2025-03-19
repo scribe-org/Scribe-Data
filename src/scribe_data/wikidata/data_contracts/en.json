@@ -28,12 +28,12 @@
     },
     "3": {
       "title": "Perfect",
-      "1": { "I": "presentParticiple simplePast" },
-      "2": { "you": "presentParticiple simplePast" },
-      "3": { "he/she/it": "presentParticiple simplePast" },
-      "4": { "we": "presentParticiple simplePast" },
-      "5": { "you all": "presentParticiple simplePast" },
-      "6": { "they": "presentParticiple simplePast" }
+      "1": { "I": "CombinedPresentParticiple simplePast" },
+      "2": { "you": "CombinedPresentParticiple simplePast" },
+      "3": { "he/she/it": "CombinedPresentParticiple simplePast" },
+      "4": { "we": "CombinedPresentParticiple simplePast" },
+      "5": { "you all": "CombinedPresentParticiple simplePast" },
+      "6": { "they": "CombinedPresentParticiple simplePast" }
     },
     "4": {
       "title": "Past Perfect",
