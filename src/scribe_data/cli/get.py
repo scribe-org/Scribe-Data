@@ -6,8 +6,10 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
 import json
 import os
 import urllib.error
+from http.client import IncompleteRead
 from pathlib import Path
 from typing import List, Union
+from urllib.error import URLError
 
 import questionary
 from rich import print as rprint
@@ -225,7 +227,8 @@ def get_data(
             rprint(
                 "[yellow]1. Try again in a few minutes\n"
                 "2. Consider using a Wikidata dump with --wikidata-dump-path (-wdp)\n"
-                "3. Try querying a smaller subset of data[/yellow]"
+                "3. Try querying a smaller subset of data\n"
+                "4. Check your network connection[/yellow]"
             )
 
         try:
@@ -236,6 +239,11 @@ def get_data(
                 overwrite=overwrite,
                 interactive=interactive,
             )
+
+            # Only print this line if no exception was raised
+            if not all_bool:
+                print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
+
         except json.decoder.JSONDecodeError:
             print_error_and_suggestions(
                 "[bold red]Error: Invalid response from Wikidata query service. The query may be too large or the service is unavailable.[/bold red]"
@@ -251,9 +259,10 @@ def get_data(
             print_error_and_suggestions(
                 "[bold red]Error: The Wikidata endpoint encountered an internal error.[/bold red]"
             )
-
-        if not all_bool:
-            print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
+        except (IncompleteRead, URLError) as e:
+            print_error_and_suggestions(
+                f"[bold red]Error: Network or data transfer issue occurred: {str(e)}[/bold red]"
+            )
 
     else:
         raise ValueError(
