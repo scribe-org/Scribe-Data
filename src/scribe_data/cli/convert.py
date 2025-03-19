@@ -14,6 +14,7 @@ from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
     camel_to_snake,
+    check_index_exists,
 )
 
 # MARK: JSON
@@ -153,13 +154,11 @@ def convert_to_json(
         # Define output file path
         output_file = json_output_dir / f"{dtype}.{output_type}"
 
-        if output_file.exists() and not overwrite:
-            user_input = input(
-                f"File '{output_file}' already exists. Overwrite? (y/n): "
-            )
-            if user_input.lower() != "y":
-                print(f"Skipping {language['language']} - {dtype}")
-                continue
+        file_exist = check_index_exists(output_file, overwrite)
+
+        if file_exist:
+            print(f"Skipping {dtype}")
+            continue
 
         try:
             with output_file.open("w", encoding="utf-8") as file:
@@ -224,18 +223,21 @@ def convert_to_csv_or_tsv(
     else:
         data_types = [dtype.strip() for dtype in data_type]
 
+    input_file_path = (
+        Path(DEFAULT_JSON_EXPORT_DIR) / language.lower() / f"{data_types[0]}.json"
+    )
+
     for dtype in data_types:
-        input_file = Path(input_file)
-        if not input_file.exists():
-            print(f"No data found for {dtype} conversion at '{input_file}'.")
+        if not input_file_path.exists():
+            print(f"No data found for {dtype} conversion at '{input_file_path}'.")
             continue
 
         try:
-            with input_file.open("r", encoding="utf-8") as f:
+            with input_file_path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
 
         except (IOError, json.JSONDecodeError) as e:
-            print(f"Error reading '{input_file}': {e}")
+            print(f"Error reading '{input_file_path}': {e}")
             continue
 
         # Determine the delimiter based on output type.
@@ -252,13 +254,12 @@ def convert_to_csv_or_tsv(
         final_output_dir.mkdir(parents=True, exist_ok=True)
 
         output_file = final_output_dir / f"{dtype}.{output_type}"
-        if output_file.exists() and not overwrite:
-            user_input = input(
-                f"File '{output_file}' already exists. Overwrite? (y/n): "
-            )
-            if user_input.lower() != "y":
-                print(f"Skipping {dtype}")
-                continue
+
+        file_exist = check_index_exists(output_file, overwrite)
+
+        if file_exist:
+            print(f"Skipping {dtype}")
+            continue
 
         try:
             with output_file.open("w", newline="", encoding="utf-8") as file:
@@ -406,21 +407,6 @@ def convert_wrapper(
     None
         This function does not return any value; it performs a conversion operation.
     """
-
-    # Set default input file source
-    if input_files is None:
-        csv_file = f"{DEFAULT_CSV_EXPORT_DIR}/{languages}/{data_types}.csv"
-        tsv_file = f"{DEFAULT_TSV_EXPORT_DIR}/{languages}/{data_types}.tsv"
-
-        csv_exists = Path(csv_file).exists()
-        json_source = csv_file if csv_exists else tsv_file
-
-        input_files = {
-            "csv": f"{DEFAULT_JSON_EXPORT_DIR}/{languages}/{data_types}.json",
-            "json": f"{json_source}",
-            "sqlite": f"{DEFAULT_JSON_EXPORT_DIR}/{languages}/{data_types}.json",
-            "tsv": f"{DEFAULT_JSON_EXPORT_DIR}/{languages}/{data_types}.json",
-        }.get(output_type, f"{DEFAULT_JSON_EXPORT_DIR}/{languages}/{data_types}.json")
 
     # Route the function call to the correct conversion function.
     if output_type == "json":
