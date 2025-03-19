@@ -8,7 +8,6 @@ import os
 import re
 import subprocess
 import sys
-from http.client import IncompleteRead
 from pathlib import Path
 from typing import List
 from urllib.error import HTTPError
@@ -177,17 +176,7 @@ def query_data(
 
         sparql.setQuery("".join(query_lines))
 
-        results = None
-
-        try:
-            results = sparql.query().convert()
-
-        except HTTPError as http_err:
-            print(f"HTTPError with {q}: {http_err}")
-            return {"success": False, "skipped": False}
-        except IncompleteRead as read_err:
-            print(f"Incomplete read error with {q}: {read_err}")
-            return {"success": False, "skipped": False}
+        results = sparql.query().convert()
 
         if results is None:
             print(f"Nothing returned by the WDQS server for {q}")

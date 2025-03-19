@@ -11,6 +11,8 @@ from questionary import select
 from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
+from scribe_data.cli.contracts.check import check_contracts
+from scribe_data.cli.contracts.export import export_contracts
 from scribe_data.cli.convert import convert_wrapper
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.cli.get import get_data
@@ -317,6 +319,51 @@ def main() -> None:
     )
     interactive_parser._actions[0].help = "Show this help message and exit."
 
+    # MARK: Check Contracts
+
+    data_contracts_check = subparsers.add_parser(
+        "check_contracts",
+        aliases=["cc"],
+        help="Check the data in the following directory to see that all needed language data is included",
+        description="Check if data exports match their corresponding data contracts",
+        epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
+    )
+    data_contracts_check._actions[0].help = "Show this help message and exit."
+    data_contracts_check.add_argument(
+        "-od",
+        "--output-dir",
+        type=str,
+        required=False,
+        help="The directory where contracts should be checked",
+    )
+
+    # MARK: Export Contracts
+
+    export_contracts_parser = subparsers.add_parser(
+        "export_contracts",
+        aliases=["ec"],
+        help="Export the current data contracts to an output directory",
+        description="Export data contracts so they can be used outside of Scribe-Data",
+        epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
+    )
+    export_contracts_parser._actions[0].help = "Show this help message and exit."
+    export_contracts_parser.add_argument(
+        "-id",
+        "--input-dir",
+        type=str,
+        required=False,
+        help="The directory containing the data exports to check against contracts",
+    )
+    export_contracts_parser.add_argument(
+        "-od",
+        "--output-dir",
+        type=str,
+        required=False,
+        help="The directory where contracts should be checked",
+    )
+
     # MARK: Setup CLI
 
     args = parser.parse_args()
@@ -456,6 +503,12 @@ def main() -> None:
 
             else:
                 print("Skipping action")
+
+        elif args.command in ["check_contracts", "cc"]:
+            check_contracts(output_dir=args.output_dir)
+
+        elif args.command in ["export_contracts", "ec"]:
+            export_contracts(input_dir=args.input_dir, output_dir=args.output_dir)
 
         else:
             parser.print_help()
