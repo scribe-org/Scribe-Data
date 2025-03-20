@@ -135,7 +135,10 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.Path.glob", return_value=[])
-    def test_get_data_with_lowercase_language(self, mock_glob, mock_query_data):
+    @patch("scribe_data.cli.get.check_index_exists", return_value=False)
+    def test_get_data_with_lowercase_language(
+        self, mock_check_index, mock_glob, mock_query_data
+    ):
         """
         Test retrieving data with a lowercase language.
 
