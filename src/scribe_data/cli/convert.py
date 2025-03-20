@@ -223,8 +223,11 @@ def convert_to_csv_or_tsv(
     else:
         data_types = [dtype.strip() for dtype in data_type]
 
+    # Modify input file path to use the provided input_file or default JSON export path.
     input_file_path = (
-        Path(DEFAULT_JSON_EXPORT_DIR) / language.lower() / f"{data_types[0]}.json"
+        Path(input_file)
+        if input_file
+        else Path(DEFAULT_JSON_EXPORT_DIR) / language.lower() / f"{data_types[0]}.json"
     )
 
     for dtype in data_types:
@@ -255,6 +258,7 @@ def convert_to_csv_or_tsv(
 
         output_file = final_output_dir / f"{dtype}.{output_type}"
 
+        # Use check_index_exists to determine if file should be processed.
         file_exist = check_index_exists(output_file, overwrite)
 
         if file_exist:
