@@ -14,6 +14,7 @@ from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
     camel_to_snake,
+    check_index_exists,
 )
 
 # MARK: JSON
@@ -74,7 +75,8 @@ def convert_to_json(
         input_file_path = Path(input_file)
 
         if not input_file_path.exists():
-            raise FileNotFoundError(f"Input file '{input_file_path}' does not exist.")
+            print(f"No data found for {dtype} conversion at '{input_file_path}'.")
+            continue
 
         delimiter = {".csv": ",", ".tsv": "\t"}.get(input_file_path.suffix.lower())
 
@@ -118,8 +120,10 @@ def convert_to_json(
                         for row in rows:
                             if identifier_case == "snake":
                                 key = camel_to_snake(row.get(reader.fieldnames[0]))
+
                             else:
                                 key = row.get(reader.fieldnames[0])
+
                             emoji = row.get("emoji", "").strip()
                             is_base = (
                                 row.get("is_base", "false").strip().lower() == "true"
@@ -131,6 +135,7 @@ def convert_to_json(
 
                             if key not in data:
                                 data[key] = []
+
                             data[key].append(entry)
 
                     else:
@@ -152,13 +157,9 @@ def convert_to_json(
         # Define output file path
         output_file = json_output_dir / f"{dtype}.{output_type}"
 
-        if output_file.exists() and not overwrite:
-            user_input = input(
-                f"File '{output_file}' already exists. Overwrite? (y/n): "
-            )
-            if user_input.lower() != "y":
-                print(f"Skipping {language['language']} - {dtype}")
-                continue
+        if check_index_exists(output_file, overwrite):
+            print(f"Skipping {dtype}")
+            continue
 
         try:
             with output_file.open("w", encoding="utf-8") as file:
@@ -223,18 +224,24 @@ def convert_to_csv_or_tsv(
     else:
         data_types = [dtype.strip() for dtype in data_type]
 
+    # Modify input file path to use the provided input_file or default JSON export path.
+    input_file_path = (
+        Path(input_file)
+        if input_file
+        else Path(DEFAULT_JSON_EXPORT_DIR) / language.lower() / f"{data_types[0]}.json"
+    )
+
     for dtype in data_types:
-        input_file = Path(input_file)
-        if not input_file.exists():
-            print(f"No data found for {dtype} conversion at '{input_file}'.")
+        if not input_file_path.exists():
+            print(f"No data found for {dtype} conversion at '{input_file_path}'.")
             continue
 
         try:
-            with input_file.open("r", encoding="utf-8") as f:
+            with input_file_path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
 
         except (IOError, json.JSONDecodeError) as e:
-            print(f"Error reading '{input_file}': {e}")
+            print(f"Error reading '{input_file_path}': {e}")
             continue
 
         # Determine the delimiter based on output type.
@@ -251,13 +258,10 @@ def convert_to_csv_or_tsv(
         final_output_dir.mkdir(parents=True, exist_ok=True)
 
         output_file = final_output_dir / f"{dtype}.{output_type}"
-        if output_file.exists() and not overwrite:
-            user_input = input(
-                f"File '{output_file}' already exists. Overwrite? (y/n): "
-            )
-            if user_input.lower() != "y":
-                print(f"Skipping {dtype}")
-                continue
+
+        if check_index_exists(output_file, overwrite):
+            print(f"Skipping {dtype}")
+            continue
 
         try:
             with output_file.open("w", newline="", encoding="utf-8") as file:
@@ -305,12 +309,14 @@ def convert_to_csv_or_tsv(
                                             item.get("rank", ""),
                                         ]
                                         writer.writerow(row)
+
                             else:
                                 if identifier_case == "snake":
                                     columns = [camel_to_snake(dtype[:-1])] + [
                                         camel_to_snake(col)
                                         for col in data[first_key][0].keys()
                                     ]
+
                                 else:
                                     writer.writerow(columns)
                                 writer.writerow(columns)
@@ -348,6 +354,7 @@ def convert_to_csv_or_tsv(
                                 "value",
                             ]
                         )
+
                         for key, value in data.items():
                             writer.writerow([key, value])
 
