@@ -120,8 +120,10 @@ def convert_to_json(
                         for row in rows:
                             if identifier_case == "snake":
                                 key = camel_to_snake(row.get(reader.fieldnames[0]))
+
                             else:
                                 key = row.get(reader.fieldnames[0])
+
                             emoji = row.get("emoji", "").strip()
                             is_base = (
                                 row.get("is_base", "false").strip().lower() == "true"
@@ -133,6 +135,7 @@ def convert_to_json(
 
                             if key not in data:
                                 data[key] = []
+
                             data[key].append(entry)
 
                     else:
@@ -154,9 +157,7 @@ def convert_to_json(
         # Define output file path
         output_file = json_output_dir / f"{dtype}.{output_type}"
 
-        file_exist = check_index_exists(output_file, overwrite)
-
-        if file_exist:
+        if check_index_exists(output_file, overwrite):
             print(f"Skipping {dtype}")
             continue
 
@@ -258,10 +259,7 @@ def convert_to_csv_or_tsv(
 
         output_file = final_output_dir / f"{dtype}.{output_type}"
 
-        # Use check_index_exists to determine if file should be processed.
-        file_exist = check_index_exists(output_file, overwrite)
-
-        if file_exist:
+        if check_index_exists(output_file, overwrite):
             print(f"Skipping {dtype}")
             continue
 
@@ -311,12 +309,14 @@ def convert_to_csv_or_tsv(
                                             item.get("rank", ""),
                                         ]
                                         writer.writerow(row)
+
                             else:
                                 if identifier_case == "snake":
                                     columns = [camel_to_snake(dtype[:-1])] + [
                                         camel_to_snake(col)
                                         for col in data[first_key][0].keys()
                                     ]
+
                                 else:
                                     writer.writerow(columns)
                                 writer.writerow(columns)
@@ -354,6 +354,7 @@ def convert_to_csv_or_tsv(
                                 "value",
                             ]
                         )
+
                         for key, value in data.items():
                             writer.writerow([key, value])
 
