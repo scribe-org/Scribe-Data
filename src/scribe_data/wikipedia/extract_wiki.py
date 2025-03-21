@@ -55,6 +55,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
     else:
         file_limit = -1
 
+    target_dir = Path(target_dir)
     if not target_dir.exists():
         print(f"Making {target_dir} directory")
         os.makedirs(target_dir)
@@ -304,6 +305,7 @@ def parse_to_ndjson(
     Wikipedia dump files parsed and converted to json files.
     """
     output_dir = "/".join(list(output_path.split("/")[:-1]))
+    output_dir = Path(output_dir)
     if not output_dir.exists():
         print(f"Making {output_dir} directory for the output")
         os.makedirs(output_dir)
@@ -326,6 +328,8 @@ def parse_to_ndjson(
         else:
             output_file_name = output_path
 
+    output_file_name = Path(output_file_name)
+    partitions_dir = Path(partitions_dir)
     if not output_file_name.exists():
         if not partitions_dir.exists():
             print(f"Making {partitions_dir} directory for the partitions")

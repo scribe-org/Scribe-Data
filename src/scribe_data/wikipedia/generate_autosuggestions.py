@@ -1,0 +1,58 @@
+import json
+
+from tqdm.auto import tqdm
+
+from scribe_data.utils import get_language_iso
+from scribe_data.wikipedia.extract_wiki import download_wiki, parse_to_ndjson
+from scribe_data.wikipedia.process_wiki import clean, gen_autosuggestions
+
+
+def generate_autosuggestions(language):
+    language_abbr = get_language_iso(language)
+    files = download_wiki(
+        language=language,
+        target_dir=f"./{language_abbr}wiki_dump",
+        file_limit=1,  # Limiting for development purpose
+        dump_id="20220920",
+    )
+
+    print(f"Number of files: {len(files)}")
+
+    parse_to_ndjson(
+        output_path=f"./{language_abbr}wiki.ndjson",
+        input_dir=f"./{language_abbr}wiki_dump",
+        partitions_dir=f"./{language_abbr}wiki_partitions",
+        article_limit=None,
+        delete_parsed_files=True,
+        multicore=True,
+        verbose=True,
+    )
+
+    with open(f"./{language_abbr}wiki.ndjson", "r") as fin:
+        article_texts = [
+            json.loads(lang)[1]
+            for lang in tqdm(fin, desc="Articles added", unit="articles")
+        ]
+
+    print(f"Number of articles: {len(article_texts)}")
+
+    # Define sample size for up to 1 million articles.
+    sample_size = 1000000 / len(article_texts)
+    sample_size = min(sample_size, 1)
+
+    text_corpus = clean(
+        texts=article_texts,
+        language=language,
+        remove_words=None,
+        sample_size=sample_size,
+        verbose=True,
+    )
+
+    gen_autosuggestions(
+        text_corpus,
+        language=language,
+        num_words=100,  # Limiting for development purpose
+        ignore_words=None,
+        update_local_data=True,
+        verbose=True,
+    )
