@@ -8,15 +8,38 @@ from scribe_data.wikipedia.process_wiki import clean, gen_autosuggestions
 
 
 def generate_autosuggestions(language):
+    """
+    Generates autosuggestions from Wikipedia articles for a given language.
+
+    This function downloads a Wikipedia dump, extracts and cleans article texts,
+    and generates autosuggestions based on the processed text. If no matching dump is found, the function exits early.
+
+    Parameters
+    ----------
+    language : str
+        The language for which autosuggestions should be generated.
+
+    Returns
+    -------
+    None
+        The function does not return anything but generates autosuggestions
+        and updates local data.
+    """
+
     language_abbr = get_language_iso(language)
     files = download_wiki(
         language=language,
         target_dir=f"./{language_abbr}wiki_dump",
         file_limit=1,  # Limiting for development purpose
-        dump_id="20220920",
+        dump_id=None,
     )
 
     print(f"Number of files: {len(files)}")
+    if not files:
+        print(
+            f"Can not generate autosuggestions for {language}. No dump matches the condition."
+        )
+        return
 
     parse_to_ndjson(
         output_path=f"./{language_abbr}wiki.ndjson",

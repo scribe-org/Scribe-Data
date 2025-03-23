@@ -87,6 +87,9 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
 
     # Don't select the combined dump so we can check the progress.
     files_to_download = [file[0] for file in files if ".xml-p" in file[0]][:file_limit]
+    if not files_to_download:
+        print(f"WARNING: No matching files found for {language}.")
+        return []
 
     file_info = []
 
@@ -185,7 +188,7 @@ def iterate_and_parse_file(args):
     parser = defusedxml.sax.make_parser()
     parser.setContentHandler(handler)
 
-    file_name = input_path.split("/")[-1].split("-")[-1].split(".")[-2]
+    file_name = str(input_path).split("/")[-1].split("-")[-1].split(".")[-2]
     file_name = f"{file_name}.ndjson"
     output_path = Path(partitions_dir) / file_name
 
