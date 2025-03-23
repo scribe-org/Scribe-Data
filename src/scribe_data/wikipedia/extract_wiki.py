@@ -55,6 +55,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
     else:
         file_limit = -1
 
+    target_dir = Path(target_dir)
     if not target_dir.exists():
         print(f"Making {target_dir} directory")
         os.makedirs(target_dir)
@@ -86,6 +87,9 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
 
     # Don't select the combined dump so we can check the progress.
     files_to_download = [file[0] for file in files if ".xml-p" in file[0]][:file_limit]
+    if not files_to_download:
+        print(f"WARNING: No matching files found for {language}.")
+        return []
 
     file_info = []
 
@@ -184,7 +188,7 @@ def iterate_and_parse_file(args):
     parser = defusedxml.sax.make_parser()
     parser.setContentHandler(handler)
 
-    file_name = input_path.split("/")[-1].split("-")[-1].split(".")[-2]
+    file_name = str(input_path).split("/")[-1].split("-")[-1].split(".")[-2]
     file_name = f"{file_name}.ndjson"
     output_path = Path(partitions_dir) / file_name
 
@@ -304,6 +308,7 @@ def parse_to_ndjson(
     Wikipedia dump files parsed and converted to json files.
     """
     output_dir = "/".join(list(output_path.split("/")[:-1]))
+    output_dir = Path(output_dir)
     if not output_dir.exists():
         print(f"Making {output_dir} directory for the output")
         os.makedirs(output_dir)
@@ -326,6 +331,8 @@ def parse_to_ndjson(
         else:
             output_file_name = output_path
 
+    output_file_name = Path(output_file_name)
+    partitions_dir = Path(partitions_dir)
     if not output_file_name.exists():
         if not partitions_dir.exists():
             print(f"Making {partitions_dir} directory for the partitions")

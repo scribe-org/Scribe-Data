@@ -25,6 +25,7 @@ from scribe_data.utils import (
 )
 from scribe_data.wikidata.query_data import query_data
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
+from scribe_data.wikipedia.generate_autosuggestions import generate_autosuggestions
 
 
 def get_data(
@@ -183,6 +184,12 @@ def get_data(
             wikidata_dump_path=wikidata_dump,
             overwrite_all=overwrite,
         )
+        return
+
+    # MARK: Autosugestions
+
+    elif data_type == "autosuggestions":
+        generate_autosuggestions(language=language)
         return
 
     # MARK: Form Dump
