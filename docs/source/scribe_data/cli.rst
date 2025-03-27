@@ -19,7 +19,7 @@ Global Options
 
 - ``-h, --help``: Show this help message and exit.
 - ``-v, --version``: Show the version of Scribe-Data.
-- ``-u, --upgrade``: Upgrade the Scribe-Data CLI.
+- ``-u, --upgrade``: Upgrade the Scribe-Data CLI. 
 
 Commands
 --------
@@ -30,6 +30,7 @@ The Scribe-Data CLI supports the following commands:
 2. ``get`` (alias: ``g``)
 3. ``total`` (alias: ``t``)
 4. ``convert`` (alias: ``c``)
+5. ``download`` (alias: ``d``)
 
 Note: For all language arguments, if the language is more than one word then the argument value needs to be passed with double quotes around it.
 
@@ -159,6 +160,22 @@ Examples:
     Getting and formatting English verbs
     Data updated: 100%|████████████████████████| 1/1 [00:XY<00:00, XY.Zs/process]
 
+.. code-block:: bash
+
+    $ scribe-data get -lang german -dt nouns -wdp
+    Languages to process: German
+    Data types to process: ['nouns']
+    Existing dump files found:
+      - scribe_data_wikidata_dumps_export/latest-lexemes.json.bz2
+    ? Do you want to: (Use arrow keys)
+     » Delete existing dumps
+       Skip download
+       Use existing latest dump
+       Download new version
+
+**Note:** Users should use the arrow keys to navigate through the options and make their selection.
+
+
 Behavior and Output:
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -283,6 +300,7 @@ Get Command Interactive Example:
     Data request completed successfully!
     Thank you for using Scribe-Data!
 
+   
 Total Command Interactive Example:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -310,6 +328,31 @@ If user selects ``Configure total lexemes request``:
     basque               nouns                     14,498
                          adjectives                278
 
+The command ``scribe-data total -lang english -wdp`` retrieves lexeme and translation counts for English, checks dumps, and provides detailed statistics.
+
+.. code-block::
+
+    $ scribe-data total -lang english -wdp
+    Languages to process: English
+    Data types to process: None
+    Existing dump files found:
+      - scribe_data_wikidata_dumps_export/latest-lexemes.json.bz2
+    ? Do you want to: Use existing latest dump
+    We'll use the following lexeme dump scribe_data_wikidata_dumps_export/latest-lexemes.json.bz2
+    Processing entries:  100%|████████████████████████████████████████████████████| 1406276/1406276 [15:25<00:14, 1495.97it/s]
+    Language             Data Type                 Total Lexemes             Total Translations
+    ==========================================================================================
+    english              nouns                     31,618                    26,055
+                         adjectives                12,950                    3,315
+                         adverbs                   10,973                    728
+                         verbs                     8,145                     4,121
+                         proper_nouns              2,759                     3,896
+                         prepositions              151                       99
+                         conjunctions              74                        36
+                         pronouns                  47                        30
+                         personal_pronouns         33                        44
+                         postpositions             1   
+
 Features:
 ^^^^^^^^^
 
@@ -326,6 +369,21 @@ The interactive mode is particularly useful for:
 - First-time users learning the CLI options.
 - Complex queries with multiple parameters.
 - Viewing available options without memorizing commands.
+
+Root Interactive Command
+~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: bash
+
+    $ scribe-data interactive
+    Welcome to Scribe-Data v4.1.0 interactive mode!
+    ? What would you like to do? (Use arrow keys)
+     » Download a Wikidata lexemes dump
+       Check for totals
+       Get data
+       Get translations
+       Convert JSON
+       Exit
+The command ``scribe-data interactive`` initiates the interactive mode, allowing users to easily select and execute various Scribe-Data operations.
 
 Total Command
 ~~~~~~~~~~~~~
@@ -426,3 +484,42 @@ Options:
 - ``-f, --file FILE``: The file to convert to a new type.
 - ``-ko, --keep-original``: Whether to keep the file to be converted (default: True).
 - ``-ot, --output-type {json,csv,tsv,sqlite}``: The output file type.
+
+Download Command
+~~~~~~~~~~~~~~~~
+Usage:
+
+.. code-block:: bash
+
+    scribe-data download
+
+Behavior and Output:
+^^^^^^^^^^^^^^^^^^^^
+
+- **If Existing Dump Files Are Found:**
+
+1. If existing dump files are found, the command will display the following message:
+
+    .. code-block:: text
+
+        Existing dump files found:
+          - scribe_data_wikidata_dumps_export/latest-lexemes.json.bz2
+
+2. The command will prompt the user with options to choose from:
+
+    .. code-block:: text
+
+        ? Do you want to: (Use arrow keys)
+         » Delete existing dumps
+           Skip download
+           Use existing latest dump
+           Download new version
+- **If Downloading New Version:**
+
+1. If the user chooses to proceed with the download, the dump will be downloaded to the specified directory:
+
+    .. code-block:: text
+
+        Downloading dump to scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2...
+        scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2: 100%|███████████████████| 370M/370M [04:20<00:00, 1.42MiB/s]
+        Wikidata lexeme dump download completed successfully!
