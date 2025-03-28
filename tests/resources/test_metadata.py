@@ -17,12 +17,16 @@ DATA_TYPE_METADATA_PATH = (
 
 class TestFileAccessibility(TestCase):
     def check_file_exists(self, file_path):
-        """Helper method to check if a file exists."""
+        """
+        Helper method to check if a file exists.
+        """
         if not file_path.is_file():
             self.fail(f"Error: {file_path} is missing. Check the file location.")
 
     def check_file_readable(self, file_path):
-        """Helper method to check if a file is readable."""
+        """
+        Helper method to check if a file is readable.
+        """
         if not file_path.is_file():
             self.fail(f"Error: {file_path} is missing.")
 
@@ -36,17 +40,25 @@ class TestFileAccessibility(TestCase):
             self.fail(f"Failed to read {file_path}: {str(e)}")
 
     def test_language_metadata_file_exists(self):
-        """Check if the language_metadata.json file exists."""
+        """
+        Check if the language_metadata.json file exists.
+        """
         self.check_file_exists(LANGUAGE_METADATA_PATH)
 
     def test_language_metadata_file_readable(self):
-        """Check if the language_metadata.json file is readable."""
+        """
+        Check if the language_metadata.json file is readable.
+        """
         self.check_file_readable(LANGUAGE_METADATA_PATH)
 
     def test_data_type_metadata_file_exists(self):
-        """Check if the data_type_metadata.json file exists."""
+        """
+        Check if the data_type_metadata.json file exists.
+        """
         self.check_file_exists(DATA_TYPE_METADATA_PATH)
 
     def test_data_type_metadata_file_readable(self):
-        """Check if the data_type_metadata.json file is readable."""
+        """
+        Check if the data_type_metadata.json file is readable.
+        """
         self.check_file_readable(DATA_TYPE_METADATA_PATH)

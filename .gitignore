@@ -42,6 +42,7 @@ scribe_data_sqlite_export/*
 scribe_data_tsv_export/*
 scribe_data_mediawiki_export/*
 scribe_data_wikidata_dumps_export/*
+DATA_CONTRACTS_EXPORT_DIR/*
 
 # MARK: Wiki Dumps
 
