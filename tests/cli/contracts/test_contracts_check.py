@@ -17,7 +17,9 @@ from scribe_data.cli.contracts.check import (
 
 @pytest.fixture
 def mock_export_dir(tmp_path):
-    """Create a mock export directory structure for testing."""
+    """
+    Create a mock export directory structure for testing.
+    """
     # Create language directories.
     en_dir = tmp_path / "english"
     es_dir = tmp_path / "spanish"
@@ -59,7 +61,9 @@ def mock_export_dir(tmp_path):
 
 @pytest.fixture
 def mock_contract_metadata():
-    """Mock contract metadata with proper structure."""
+    """
+    Mock contract metadata with proper structure.
+    """
     return {
         "nouns": {"numbers": ["singular", "plural"], "genders": []},
         "verbs": {"conjugations": ["infinitive", "present", "past", "future"]},
@@ -69,8 +73,9 @@ def mock_contract_metadata():
 @patch("scribe_data.cli.contracts.check.check_contract_data_completeness")
 @patch("scribe_data.cli.contracts.check.print_missing_forms")
 def test_check_contracts_with_dir(mock_print, mock_check, mock_export_dir):
-    """Test check_contracts with a specified directory."""
-
+    """
+    Test check_contracts with a specified directory.
+    """
     mock_check.return_value = {"English": {"verbs": ["future"]}}
 
     check_contracts(output_dir=str(mock_export_dir))
@@ -82,8 +87,9 @@ def test_check_contracts_with_dir(mock_print, mock_check, mock_export_dir):
 @patch("scribe_data.cli.contracts.check.check_contract_data_completeness")
 @patch("scribe_data.cli.contracts.check.print_missing_forms")
 def test_check_contracts_default_dir(mock_print, mock_check):
-    """Test check_contracts with default directory."""
-
+    """
+    Test check_contracts with default directory.
+    """
     mock_check.return_value = {}
 
     with patch("scribe_data.cli.contracts.check.Path") as mock_path:
@@ -97,8 +103,9 @@ def test_check_contracts_default_dir(mock_print, mock_check):
 
 @patch("scribe_data.cli.contracts.check.Path")
 def test_check_contracts_nonexistent_dir(mock_path):
-    """Test check_contracts with a nonexistent directory."""
-
+    """
+    Test check_contracts with a nonexistent directory.
+    """
     mock_path.return_value.exists.return_value = False
 
     with patch("builtins.print") as mock_print:
@@ -114,8 +121,9 @@ def test_check_contracts_nonexistent_dir(mock_path):
 def test_check_contract_data_completeness_json_error(
     mock_filter_metadata, mock_get_iso, mock_export_dir, mock_contract_metadata
 ):
-    """Test handling of JSON errors in data files."""
-
+    """
+    Test handling of JSON errors in data files.
+    """
     mock_get_iso.return_value = "en"
     mock_filter_metadata.return_value = mock_contract_metadata
 
@@ -131,7 +139,9 @@ def test_check_contract_data_completeness_json_error(
 
 
 def test_print_missing_forms_none():
-    """Test print_missing_forms with no missing forms."""
+    """
+    Test print_missing_forms with no missing forms.
+    """
     # Execute with mock print to capture output.
     with patch("builtins.print") as mock_print:
         print_missing_forms({})
@@ -142,8 +152,9 @@ def test_print_missing_forms_none():
 
 
 def test_print_missing_forms_with_missing():
-    """Test print_missing_forms with missing forms."""
-
+    """
+    Test print_missing_forms with missing forms.
+    """
     missing_forms = {
         "English": {
             "nouns": ["genitive", "dative"],

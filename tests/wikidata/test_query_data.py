@@ -13,7 +13,9 @@ class TestQueryData(unittest.TestCase):
     @patch("subprocess.run")
     @patch("sys.executable", return_value="python")
     def test_execute_formatting_script(self, mock_executable, mock_run):
-        """Test the execute_formatting_script function."""
+        """
+        Test the execute_formatting_script function.
+        """
         # Import function locally to avoid import issues during patching.
         from scribe_data.wikidata.query_data import execute_formatting_script
 
@@ -72,7 +74,9 @@ class TestQueryData(unittest.TestCase):
         mock_path,
         mock_list_langs,
     ):
-        """Test query_data with multiple query intervals."""
+        """
+        Test query_data with multiple query intervals.
+        """
         # Import function locally.
         from scribe_data.wikidata.query_data import query_data
 

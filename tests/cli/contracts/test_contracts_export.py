@@ -15,7 +15,9 @@ from scribe_data.cli.contracts.export import (
 
 class TestFilterContractMetadata:
     def test_filter_contract_metadata_empty_file(self):
-        """Test filtering with an empty contract file."""
+        """
+        Test filtering with an empty contract file.
+        """
         mock_contract = "{}"
         with patch("builtins.open", mock_open(read_data=mock_contract)):
             result = filter_contract_metadata(Path("fake_path.json"))
@@ -25,7 +27,9 @@ class TestFilterContractMetadata:
             }
 
     def test_filter_contract_metadata_numbers_dict(self):
-        """Test filtering numbers as a dictionary."""
+        """
+        Test filtering numbers as a dictionary.
+        """
         mock_contract = """
         {
             "numbers": {"singular": "plural", "dual": "", "": "collective"}
@@ -40,7 +44,9 @@ class TestFilterContractMetadata:
             assert "collective" in result["nouns"]["numbers"]
 
     def test_filter_contract_metadata_numbers_list(self):
-        """Test filtering numbers as a list."""
+        """
+        Test filtering numbers as a list.
+        """
         mock_contract = """
         {
             "numbers": ["singular", "plural", "", "dual"]
@@ -51,7 +57,9 @@ class TestFilterContractMetadata:
             assert set(result["nouns"]["numbers"]) == {"singular", "plural", "dual"}
 
     def test_filter_contract_metadata_numbers_string(self):
-        """Test filtering numbers as a string."""
+        """
+        Test filtering numbers as a string.
+        """
         mock_contract = """
         {
             "numbers": "singular plural  dual "
@@ -62,7 +70,9 @@ class TestFilterContractMetadata:
             assert set(result["nouns"]["numbers"]) == {"singular", "plural", "dual"}
 
     def test_filter_contract_metadata_genders(self):
-        """Test filtering genders."""
+        """
+        Test filtering genders.
+        """
         mock_contract = """
         {
             "genders": {
@@ -79,7 +89,9 @@ class TestFilterContractMetadata:
             assert "" not in result["nouns"]["genders"]
 
     def test_filter_contract_metadata_conjugations_list(self):
-        """Test filtering conjugations as a list."""
+        """
+        Test filtering conjugations as a list.
+        """
         mock_contract = """
         {
             "conjugations": ["run", "runs", "[running]", "ran"]
@@ -91,7 +103,9 @@ class TestFilterContractMetadata:
             assert "[running]" not in result["verbs"]["conjugations"]
 
     def test_filter_contract_metadata_error_handling(self):
-        """Test error handling for invalid JSON."""
+        """
+        Test error handling for invalid JSON.
+        """
         with patch("builtins.open", mock_open(read_data="invalid json")):
             with patch("builtins.print") as mock_print:
                 result = filter_contract_metadata(Path("fake_path.json"))
@@ -101,7 +115,9 @@ class TestFilterContractMetadata:
 
 class TestFilterExportedData:
     def test_filter_exported_data_nouns(self):
-        """Test filtering exported noun data."""
+        """
+        Test filtering exported noun data.
+        """
         contract_metadata = {
             "nouns": {
                 "numbers": ["singular", "plural"],
@@ -149,7 +165,9 @@ class TestFilterExportedData:
             assert "irrelevant" not in result["L2"]
 
     def test_filter_exported_data_verbs(self):
-        """Test filtering exported verb data."""
+        """
+        Test filtering exported verb data.
+        """
         contract_metadata = {
             "nouns": {"numbers": [], "genders": []},
             "verbs": {"conjugations": ["infinitive", "present", "past"]},
@@ -189,7 +207,9 @@ class TestFilterExportedData:
             assert "L4" not in result
 
     def test_filter_exported_data_unsupported_type(self):
-        """Test filtering with unsupported data type."""
+        """
+        Test filtering with unsupported data type.
+        """
         contract_metadata = {
             "nouns": {"numbers": [], "genders": []},
             "verbs": {"conjugations": []},
@@ -202,7 +222,9 @@ class TestFilterExportedData:
             assert result == {}
 
     def test_filter_exported_data_error_handling(self):
-        """Test error handling for invalid JSON."""
+        """
+        Test error handling for invalid JSON.
+        """
         contract_metadata = {
             "nouns": {"numbers": [], "genders": []},
             "verbs": {"conjugations": []},
@@ -237,8 +259,9 @@ class TestExportContracts:
         mock_filter_data,
         mock_filter_metadata,
     ):
-        """Test the export_contracts function full workflow."""
-
+        """
+        Test the export_contracts function full workflow.
+        """
         mock_listdir.return_value = [
             "english.json",
             "spanish.json",
@@ -306,8 +329,9 @@ class TestExportContracts:
     def test_export_contracts_no_language_match(
         self, mock_mkdir, mock_listdir, mock_get_language, mock_filter_metadata
     ):
-        """Test handling of contracts with no language match."""
-
+        """
+        Test handling of contracts with no language match.
+        """
         mock_listdir.return_value = ["unknown.json"]
         mock_get_language.return_value = None
 
@@ -335,8 +359,9 @@ class TestExportContracts:
         mock_get_language,
         mock_filter_metadata,
     ):
-        """Test handling when input files don't exist."""
-
+        """
+        Test handling when input files don't exist.
+        """
         mock_listdir.return_value = ["english.json"]
         mock_get_language.return_value = "English"
         mock_exists.return_value = False
@@ -360,8 +385,9 @@ class TestExportContracts:
     def test_export_contracts_empty_metadata(
         self, mock_mkdir, mock_listdir, mock_get_language, mock_filter_metadata
     ):
-        """Test handling when contract metadata is empty."""
-
+        """
+        Test handling when contract metadata is empty.
+        """
         mock_listdir.return_value = ["english.json"]
         mock_get_language.return_value = "English"
         mock_filter_metadata.return_value = {}
