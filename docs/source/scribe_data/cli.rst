@@ -159,6 +159,7 @@ Examples:
     $ scribe-data get -l English --data-type verbs -od ~/path/for/output
     Getting and formatting English verbs
     Data updated: 100%|████████████████████████| 1/1 [00:XY<00:00, XY.Zs/process]
+
 If we want to retrieve data using lexeme dumps, we can use the following command:
 
 .. code-block:: bash
@@ -200,12 +201,14 @@ If we want to retrieve data using lexeme dumps, we can use the following command
     .. code-block:: text
 
         No existing dump files found. Downloading new version...
+
 2. The command will then proceed to download the latest dump file:
     .. code-block:: text
 
         Downloading dump to scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2...
         scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2: 100%|███████████████████| 370M/370M [04:20<00:00, 1.42MiB/s]
         Wikidata lexeme dump download completed successfully!
+
 Behavior and Output:
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -330,7 +333,6 @@ Get Command Interactive Example:
     Data request completed successfully!
     Thank you for using Scribe-Data!
 
-
 Total Command Interactive Example:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -352,11 +354,11 @@ If user selects ``Configure total lexemes request``:
 
     Language             Data Type                 Total Lexemes
     ======================================================================
-    english              nouns                     30,841
-                         adjectives                12,840
+    english              nouns                     123,456
+                         adjectives                234,567
 
-    basque               nouns                     14,498
-                         adjectives                278
+    basque               nouns                     34,567
+                         adjectives                250
 
 The command ``scribe-data total -lang english -wdp`` retrieves total lexeme and translation counts for English, checks dumps, and provides detailed statistics.
 
@@ -372,15 +374,15 @@ The command ``scribe-data total -lang english -wdp`` retrieves total lexeme and 
     Processing entries:  100%|████████████████████████████████████████████████████| 1406276/1406276 [15:25<00:14, 1495.97it/s]
     Language             Data Type                 Total Lexemes             Total Translations
     ==========================================================================================
-    english              nouns                     31,618                    26,055
-                         adjectives                12,950                    3,315
-                         adverbs                   10,973                    728
-                         verbs                     8,145                     4,121
-                         proper_nouns              2,759                     3,896
-                         prepositions              151                       99
-                         conjunctions              74                        36
-                         pronouns                  47                        30
-                         personal_pronouns         33                        44
+    english              nouns                     123,456                   12,345
+                         adjectives                345,678                   2,345
+                         adverbs                   45,678                    345
+                         verbs                     5,678                     4,567
+                         proper_nouns              6,789                     5,678
+                         prepositions              789                       100
+                         conjunctions              75                        25
+                         pronouns                  50                        25
+                         personal_pronouns         25                        50
                          postpositions             1
 
 Features:
@@ -413,6 +415,7 @@ Root Interactive Command
        Get translations
        Convert JSON
        Exit
+
 The command ``scribe-data interactive`` initiates the interactive mode, allowing users to easily select and execute various Scribe-Data operations.
 
 Total Command
