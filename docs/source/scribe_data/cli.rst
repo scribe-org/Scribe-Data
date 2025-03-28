@@ -19,7 +19,7 @@ Global Options
 
 - ``-h, --help``: Show this help message and exit.
 - ``-v, --version``: Show the version of Scribe-Data.
-- ``-u, --upgrade``: Upgrade the Scribe-Data CLI. 
+- ``-u, --upgrade``: Upgrade the Scribe-Data CLI.
 
 Commands
 --------
@@ -159,10 +159,16 @@ Examples:
     $ scribe-data get -l English --data-type verbs -od ~/path/for/output
     Getting and formatting English verbs
     Data updated: 100%|████████████████████████| 1/1 [00:XY<00:00, XY.Zs/process]
+If we want to retrieve data using lexeme dumps, we can use the following command:
 
 .. code-block:: bash
 
     $ scribe-data get -lang german -dt nouns -wdp
+
+**Example Output:**
+
+.. code-block:: text
+
     Languages to process: German
     Data types to process: ['nouns']
     Existing dump files found:
@@ -173,9 +179,33 @@ Examples:
        Use existing latest dump
        Download new version
 
-**Note:** Users should use the arrow keys to navigate through the options and make their selection.
+**Instructions:**
 
+1. Use the arrow keys to navigate through the options.
+2. Press **Enter** to confirm your selection.
 
+**Options Explained:**
+
+- **Delete existing dumps**: Removes the existing dump files before downloading new ones.
+- **Skip download**: Skips the download process.
+- **Use existing latest dump**: Processes the existing dump file without downloading a new version.
+- **Download new version**: Downloads the latest version of the lexeme dump.
+
+**Note:** Ensure you have sufficient disk space and a stable internet connection if downloading a new version.
+
+**If No Existing Dump Files Are Found:**
+
+1. If no existing dump files are found, the command will display the following message:
+
+    .. code-block:: text
+
+        No existing dump files found. Downloading new version...
+2. The command will then proceed to download the latest dump file:
+    .. code-block:: text
+
+        Downloading dump to scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2...
+        scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2: 100%|███████████████████| 370M/370M [04:20<00:00, 1.42MiB/s]
+        Wikidata lexeme dump download completed successfully!
 Behavior and Output:
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -300,7 +330,7 @@ Get Command Interactive Example:
     Data request completed successfully!
     Thank you for using Scribe-Data!
 
-   
+
 Total Command Interactive Example:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -328,7 +358,7 @@ If user selects ``Configure total lexemes request``:
     basque               nouns                     14,498
                          adjectives                278
 
-The command ``scribe-data total -lang english -wdp`` retrieves lexeme and translation counts for English, checks dumps, and provides detailed statistics.
+The command ``scribe-data total -lang english -wdp`` retrieves total lexeme and translation counts for English, checks dumps, and provides detailed statistics.
 
 .. code-block::
 
@@ -351,7 +381,7 @@ The command ``scribe-data total -lang english -wdp`` retrieves lexeme and transl
                          conjunctions              74                        36
                          pronouns                  47                        30
                          personal_pronouns         33                        44
-                         postpositions             1   
+                         postpositions             1
 
 Features:
 ^^^^^^^^^
