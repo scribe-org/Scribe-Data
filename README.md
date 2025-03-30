@@ -31,6 +31,7 @@ Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organiz
 - [Process](#process)
 - [Installation](#installation)
 - [CLI Usage](#cli-usage)
+- [Data Contracts](#data-contracts)
 - [Contributing](#contributing)
 - [Environment Setup](#environment-setup)
 - [Featured By](#featured-by)
@@ -103,6 +104,12 @@ scribe-data total --language English
 scribe-data get -i
 scribe-data total -i
 ```
+
+<a id="data-contracts"></a>
+
+# Data Contracts [`⇧`](#contents)
+
+- WIP
 
 <a id="contributing"></a>
 

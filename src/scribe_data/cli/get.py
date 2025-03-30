@@ -240,7 +240,7 @@ def get_data(
                 interactive=interactive,
             )
 
-            # Only print this line if no exception was raised
+            # Only print this line if no exception was raised.
             if not all_bool:
                 print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
 

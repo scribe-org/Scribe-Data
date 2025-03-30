@@ -170,8 +170,10 @@ def filter_exported_data(
     ----------
     input_file : Path
         Path to the input JSON file with exported language data.
+
     contract_metadata : Dict[str, Any]
         Metadata from the language's contract file.
+
     data_type : str
         Type of data to filter ('nouns' or 'verbs').
 
@@ -233,6 +235,7 @@ def export_contracts(input_dir: str = None, output_dir: str = None):
     input_dir : str, optional
         Directory containing original JSON export data.
         Defaults to DEFAULT_JSON_EXPORT_DIR.
+
     output_dir : str, optional
         Directory to export filtered contract data.
         Defaults to DATA_CONTRACTS_EXPORT_DIR.

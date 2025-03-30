@@ -50,6 +50,7 @@ def check_contract_data_completeness(
     ----------
     export_dir : Path
         Directory containing exported contract data.
+
     language : Optional[str], optional
         Specific language to check. If None, checks all languages in the directory.
 
