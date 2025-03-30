@@ -8,11 +8,16 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from scribe_data.cli.contracts.export import (
-    DATA_CONTRACTS_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
     data_contracts,
     filter_contract_metadata,
 )
-from scribe_data.utils import get_language_iso
+from scribe_data.utils import get_language_from_iso, get_language_iso
+
+data_contracts_lang = [f.stem for f in Path(data_contracts).iterdir() if f.is_file()]
+
+for i in range(len(data_contracts_lang)):
+    data_contracts_lang[i] = get_language_from_iso(data_contracts_lang[i])
 
 
 def check_contracts(output_dir: Optional[str] = None) -> None:
@@ -23,13 +28,13 @@ def check_contracts(output_dir: Optional[str] = None) -> None:
     ----------
     output_dir : Optional[str], optional
         Directory containing exported contract data.
-        If None, uses the default DATA_CONTRACTS_EXPORT_DIR.
+        If None, uses the default DEFAULT_JSON_EXPORT_DIR.
     """
-    export_dir = Path(output_dir or DATA_CONTRACTS_EXPORT_DIR)
+    export_dir = Path(output_dir or DEFAULT_JSON_EXPORT_DIR)
 
     if not export_dir.exists():
         print(
-            f"Error: Directory {export_dir} does not exist.\nPlease use data-contracts export first."
+            f"Error: Directory {export_dir} does not exist.\nPlease use export JSON first."
         )
         return
 
@@ -76,7 +81,11 @@ def check_contract_data_completeness(
         languages_to_check = [
             Path(f).stem.lower() for f in data_contracts.glob("*.json")
         ]
-
+    languages_to_check = [
+        lang
+        for lang in languages_to_check
+        if lang.lower() in [lang_item.lower() for lang_item in data_contracts_lang]
+    ]
     missing_forms = {}
     for lang_dir_name in languages_to_check:
         lang = " ".join(word.capitalize() for word in lang_dir_name.split("_"))

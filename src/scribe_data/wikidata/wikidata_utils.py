@@ -91,7 +91,8 @@ def parse_wd_lexeme_dump(
         data_types = [
             dt
             for dt in data_type_metadata.keys()
-            if dt not in ["translations", "emoji-keywords"]
+            if dt
+            not in ["translations", "emoji_keywords", "articles", "autosuggestions"]
         ]
     if not interactive_mode:
         if isinstance(language, list):
