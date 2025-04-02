@@ -142,7 +142,9 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
         }
 
     def mock_get_qid(self, input_value):
-        """Returns QID based on the input language or data type."""
+        """
+        Returns QID based on the input language or data type.
+        """
         return self.qid_mapping.get(input_value.lower())
 
     @patch("scribe_data.cli.total.get_qid_by_input")
@@ -204,7 +206,9 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
         )
 
     def test_validate_language_and_data_type_with_list(self):
-        """Test validation with lists of languages and data types."""
+        """
+        Test validation with lists of languages and data types.
+        """
         languages = ["English", "Spanish"]
         data_types = ["nouns", "verbs"]
         try:
@@ -215,7 +219,9 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
             )
 
     def test_validate_language_and_data_type_with_qids(self):
-        """Test validation directly with QIDs."""
+        """
+        Test validation directly with QIDs.
+        """
         language_qid = "Q1860"  # QID for English
         data_type_qid = "Q1084"  # QID for nouns
         try:
@@ -226,7 +232,9 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
             )
 
     def test_validate_language_and_data_type_mixed_validity_in_lists(self):
-        """Test validation with mixed valid and invalid entries in lists."""
+        """
+        Test validation with mixed valid and invalid entries in lists.
+        """
         languages = ["English", "InvalidLanguage"]
         data_types = ["nouns", "InvalidDataType"]
         with self.assertRaises(ValueError) as context:

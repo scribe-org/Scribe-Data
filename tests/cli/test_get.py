@@ -135,7 +135,10 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.Path.glob", return_value=[])
-    def test_get_data_with_lowercase_language(self, mock_glob, mock_query_data):
+    @patch("scribe_data.cli.get.check_index_exists", return_value=False)
+    def test_get_data_with_lowercase_language(
+        self, mock_check_index, mock_glob, mock_query_data
+    ):
         """
         Test retrieving data with a lowercase language.
 
@@ -513,7 +516,9 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.query_data")
     def test_get_data_with_interactive_mode(self, mock_query_data):
-        """Test retrieving data in interactive mode."""
+        """
+        Test retrieving data in interactive mode.
+        """
         get_data(language="English", data_type="nouns", interactive=True)
 
         mock_query_data.assert_called_once_with(
@@ -526,7 +531,9 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
     def test_get_data_with_custom_dump_path(self, mock_parse):
-        """Test retrieving data with a custom Wikidata dump path."""
+        """
+        Test retrieving data with a custom Wikidata dump path.
+        """
         custom_path = "./custom/dump/path.json"
         get_data(language="English", data_type="nouns", wikidata_dump=custom_path)
 
@@ -541,7 +548,9 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.query_data")
     def test_get_data_with_multiple_languages(self, mock_query_data):
-        """Test retrieving data for multiple languages."""
+        """
+        Test retrieving data for multiple languages.
+        """
         # Mock the query_data response.
         mock_query_data.return_value = True
 
@@ -562,7 +571,9 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.query_data")
     def test_error_handling_value_error(self, mock_query_data):
-        """Test handling of ValueError during data retrieval."""
+        """
+        Test handling of ValueError during data retrieval.
+        """
         mock_query_data.side_effect = ValueError("Invalid parameter")
 
         with pytest.raises(ValueError):
@@ -571,7 +582,9 @@ class TestGetData(unittest.TestCase):
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
     @patch("scribe_data.cli.get.questionary.confirm")
     def test_get_data_with_all_and_specific_type(self, mock_questionary, mock_parse):
-        """Test retrieving all languages for a specific data type."""
+        """
+        Test retrieving all languages for a specific data type.
+        """
         mock_questionary.return_value.ask.return_value = False
 
         get_data(all_bool=True, data_type="nouns")
@@ -587,7 +600,9 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.query_data")
     def test_get_data_case_insensitive_type(self, mock_query_data):
-        """Test that data type is case insensitive."""
+        """
+        Test that data type is case insensitive.
+        """
         get_data(language="English", data_type="NOUNS")
 
         mock_query_data.assert_called_once_with(
