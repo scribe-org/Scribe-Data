@@ -285,7 +285,7 @@ class LexemeProcessor:
                             values.append(gender_label)
 
                 if values:
-                    cat_dict["gender"] = " | ".join(values)
+                    cat_dict["gender"] = " | ".join(sorted(values))
 
         if forms_data:
             for lexeme_id, new_lang_data in forms_data.items():
