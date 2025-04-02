@@ -22,6 +22,7 @@ from scribe_data.utils import (
     get_language_iso_code,
     language_metadata,
     lexeme_form_metadata,
+    wikidata_qids_pids,
 )
 
 
@@ -211,6 +212,8 @@ class LexemeProcessor:
         language_qid = lexeme["language"]
         lexicalCategory = lexeme["lexicalCategory"]
         lastModified = lexeme["modified"]
+        gender_pid = wikidata_qids_pids.get("gender")
+
         forms_data = {}
 
         # Pre-compute form data structure
@@ -268,6 +271,21 @@ class LexemeProcessor:
                                 )
                             else:
                                 cat_dict[form_name] = form_value
+
+        # Add gender feature if gender property exists in claims.
+        if gender_pid and "claims" in lexeme and gender_pid in lexeme.get("claims", {}):
+            claims = lexeme["claims"][gender_pid]
+            values = []
+            if claims:
+                for gender in claims:
+                    if gender.get("mainsnak", {}).get("snaktype") == "value":
+                        gender_id = gender["mainsnak"]["datavalue"]["value"]["id"]
+                        if gender_id in self._feature_label_cache:
+                            _, gender_label = self._feature_label_cache[gender_id]
+                            values.append(gender_label)
+
+                if values:
+                    cat_dict["gender"] = " | ".join(values)
 
         if forms_data:
             for lexeme_id, new_lang_data in forms_data.items():
