@@ -7,7 +7,7 @@ from scribe_data.wikipedia.extract_wiki import download_wiki, parse_to_ndjson
 from scribe_data.wikipedia.process_wiki import clean, gen_autosuggestions
 
 
-def generate_autosuggestions(language):
+def generate_autosuggestions(language, dump_id, force_download):
     """
     Generates autosuggestions from Wikipedia articles for a given language.
 
@@ -19,6 +19,14 @@ def generate_autosuggestions(language):
     language : str
         The language for which autosuggestions should be generated.
 
+    dump_id : str (default=None)
+        The id of an explicit Wikipedia dump that the user wants to download.
+
+        Note: a value of None will select the third from the last (latest stable dump).
+
+    force_download : bool (default=False)
+                This argument forces re-download already existing dump_id if True.
+
     Returns
     -------
     None
@@ -27,11 +35,15 @@ def generate_autosuggestions(language):
     """
 
     language_abbr = get_language_iso(language)
+    target_dir = f"./{language_abbr}wiki_dump"
+    if dump_id:
+        target_dir = f"./{language_abbr}wiki_dump/{dump_id[:8]}"
     files = download_wiki(
         language=language,
-        target_dir=f"./{language_abbr}wiki_dump",
+        target_dir=target_dir,
         file_limit=1,  # Limiting for development purpose
-        dump_id=None,
+        dump_id=dump_id,
+        force_download=force_download,
     )
 
     print(f"Number of files: {len(files)}")
@@ -41,12 +53,16 @@ def generate_autosuggestions(language):
         )
         return
 
+    output_path = f"./{language_abbr}wiki.ndjson"
+    if dump_id:
+        output_path = f"./{language_abbr}wiki-{dump_id}.ndjson"
     parse_to_ndjson(
-        output_path=f"./{language_abbr}wiki.ndjson",
-        input_dir=f"./{language_abbr}wiki_dump",
+        output_path=output_path,
+        input_dir=target_dir,
         partitions_dir=f"./{language_abbr}wiki_partitions",
         article_limit=None,
         delete_parsed_files=True,
+        force_download=force_download,
         multicore=True,
         verbose=True,
     )

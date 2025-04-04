@@ -30,6 +30,8 @@ from scribe_data.utils import (
     list_all_languages,
 )
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
+from scribe_data.wikipedia.extract_wiki import get_available_dumps
+from scribe_data.wikipedia.generate_autosuggestions import generate_autosuggestions
 
 # MARK: Config Setup
 
@@ -149,6 +151,25 @@ def prompt_for_data_types():
                 break  # exit loop if valid data types are selected
 
         rprint("[yellow]No data type selected. Please try again.[/yellow]")
+
+
+def prompt_for_dump_id(language):
+    dump_ids = get_available_dumps(language)
+    dump_id_completer = create_word_completer(dump_ids, include_all=True)
+    selected_dump_id = prompt(
+        "Select dump_id for autosuggestions : ",
+        default="latest stable",
+        completer=dump_id_completer,
+    )
+
+    if selected_dump_id == "latest stable":
+        selected_dump_id = dump_ids[-3]
+
+    if not selected_dump_id or selected_dump_id not in dump_ids:
+        rprint("[yellow]No dump id selected. Please try again.[/yellow]")
+        return prompt_for_dump_id(language)
+
+    return selected_dump_id
 
 
 def configure_settings():
@@ -391,6 +412,15 @@ def start_interactive_mode(operation: str = None):
                 questionary.Choice("Exit", "exit"),
             ]
 
+        elif operation == "autosuggestions":
+            choices = [
+                questionary.Choice(
+                    "Configure autosuggestions request", "autosuggestions"
+                ),
+                # Choice("See list of languages", "languages"),
+                questionary.Choice("Exit", "exit"),
+            ]
+
         choice = questionary.select("What would you like to do?", choices=choices).ask()
 
         if choice == "configure":
@@ -492,6 +522,32 @@ def start_interactive_mode(operation: str = None):
                 overwrite_all=overwrite_bool,
                 interactive_mode=True,
             )
+
+            break
+
+        elif choice == "autosuggestions":
+            while True:
+                prompt_for_languages()
+
+                if len(config.selected_languages) > 1:
+                    rprint("[yellow]Please select only one language.[/yellow]")
+                else:
+                    break
+
+            language = config.selected_languages[0]
+            dump_id = prompt_for_dump_id(language)
+
+            user_input = questionary.select(
+                "Do you want to:",
+                choices=[
+                    "Use existing dump if exist",
+                    "Redownload dump",
+                ],
+            ).ask()
+
+            force_download = user_input == "Redownload dump"
+
+            generate_autosuggestions(language, dump_id, force_download)
 
             break
 

@@ -23,7 +23,27 @@ from tqdm.auto import tqdm
 from scribe_data.utils import get_language_iso
 
 
-def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_id=None):
+def get_base_url(language):
+    """Returns the correct base URL dynamically."""
+    return f"https://dumps.wikimedia.org/{get_language_iso(language)}wiki/"
+
+
+def get_available_dumps(language):
+    base_url = get_base_url(language)
+    index = requests.get(base_url, timeout=5).text
+    soup_index = BeautifulSoup(index, "html.parser")
+    all_dumps = [a["href"] for a in soup_index.find_all("a") if a.has_attr("href")]
+
+    return all_dumps
+
+
+def download_wiki(
+    language="en",
+    target_dir="wiki_dump",
+    file_limit=None,
+    dump_id=None,
+    force_download=False,
+):
     """
     Downloads the most recent stable dump of a language's Wikipedia if it is not already present.
 
@@ -43,6 +63,9 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
 
         Note: a value of None will select the third from the last (latest stable dump).
 
+    force_download : bool (default=False)
+                This argument forces re-download already existing dump_id if True.
+
     Returns
     -------
     file_info : list of lists
@@ -60,11 +83,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
         print(f"Making {target_dir} directory")
         os.makedirs(target_dir)
 
-    base_url = f"https://dumps.wikimedia.org/{get_language_iso(language)}wiki/"
-    index = requests.get(base_url, timeout=5).text
-    soup_index = BeautifulSoup(index, "html.parser")
-
-    all_dumps = [a["href"] for a in soup_index.find_all("a") if a.has_attr("href")]
+    all_dumps = get_available_dumps(language)
     target_dump = all_dumps[-3]
     if dump_id is not None:
         if dump_id[-1] != "/":
@@ -73,6 +92,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
         if dump_id in all_dumps:
             target_dump = dump_id
 
+    base_url = get_base_url(language)
     dump_url = base_url + target_dump
     dump_html = requests.get(dump_url, timeout=5).text
     soup_dump = BeautifulSoup(dump_html, "html.parser")
@@ -99,10 +119,10 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
         or file_present_bools[0] is not True
     )
 
-    if dl_files:
+    if dl_files or force_download:
         for f in files_to_download:
             file_path = target_dir / f
-            if not file_path.exists():
+            if not file_path.exists() or force_download:
                 print(f"DL file to {file_path}")
                 subprocess.run(["curl", "-o", file_path, dump_url + f], check=False)
 
@@ -274,6 +294,7 @@ def parse_to_ndjson(
     partitions_dir="partitions",
     article_limit=None,
     delete_parsed_files=False,
+    force_download=False,
     multicore=True,
     verbose=True,
 ):
@@ -296,6 +317,9 @@ def parse_to_ndjson(
 
     delete_parsed_files : bool (default=False)
         Whether to delete the separate parsed files after combining them.
+
+    force_download : bool (default=False)
+                This argument forces the partition process using newest download dump.
 
     multicore : bool (default=True)
         Whether to use multicore processing.
@@ -333,7 +357,7 @@ def parse_to_ndjson(
 
     output_file_name = Path(output_file_name)
     partitions_dir = Path(partitions_dir)
-    if not output_file_name.exists():
+    if not output_file_name.exists() or force_download:
         if not partitions_dir.exists():
             print(f"Making {partitions_dir} directory for the partitions")
             os.makedirs(partitions_dir)

@@ -166,6 +166,18 @@ def main() -> None:
     get_parser.add_argument(
         "-t", "--translation", type=str, help="parse a single word using MediaWiki API"
     )
+    get_parser.add_argument(
+        "-di",
+        "--dump-id",
+        type=str,
+        help="The id of an explicit Wikipedia dump that the user wants to download.",
+    )
+    get_parser.add_argument(
+        "-fd",
+        "--force-download",
+        action="store_true",
+        help="Force download wikipedia dump",
+    )
 
     # MARK: Total
 
@@ -380,6 +392,8 @@ def main() -> None:
                     all_bool=args.all,
                     identifier_case=args.identifier_case,
                     wikidata_dump=args.wikidata_dump_path,
+                    dump_id=args.dump_id,
+                    force_download=args.force_download,
                 )
 
         elif args.command in ["total", "t"]:
@@ -434,6 +448,7 @@ def main() -> None:
                     "Check for totals",
                     "Get data",
                     "Get translations",
+                    "Get autosuggestions",
                     "Convert JSON",
                     "Exit",
                 ],
@@ -450,6 +465,9 @@ def main() -> None:
 
             elif action == "Get translations":
                 start_interactive_mode(operation="translations")
+
+            elif action == "Get autosuggestions":
+                start_interactive_mode(operation="autosuggestions")
 
             elif action == "Convert JSON":
                 start_interactive_mode(operation="convert")

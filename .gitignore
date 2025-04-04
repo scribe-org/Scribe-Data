@@ -7,6 +7,7 @@
 *wiki_dump
 *wiki_partitions
 *wiki.ndjson
+*wiki*.ndjson
 
 # MARK: Python Files
 
