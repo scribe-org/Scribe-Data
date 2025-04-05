@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+"""
+Functions for generating autosuggestions from wikipedia dump.
+"""
+
 import json
 
 from tqdm.auto import tqdm
