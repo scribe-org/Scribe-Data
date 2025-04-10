@@ -16,10 +16,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for nb to remove bokmål (nb) words.
   FILTER(lang(?noun) = "nb")
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterForm .
     ?neuterForm ontolex:representation ?neuter ;

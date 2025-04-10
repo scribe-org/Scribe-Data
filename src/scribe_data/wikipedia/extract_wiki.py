@@ -25,28 +25,23 @@ from scribe_data.utils import get_language_iso
 
 def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_id=None):
     """
-    Downloads the most recent stable dump of a language's Wikipedia if it is not already present.
+    Download the most recent stable dump of a language's Wikipedia if it is not already present.
 
     Parameters
     ----------
-    language : str (default=en)
-        The language of Wikipedia to download.
-
-    target_dir : pathlib.Path (default=wiki_dump)
-        The directory in the pwd into which files should be downloaded.
-
-    file_limit : int (default=None, all files)
-        The limit for the number of files to download.
-
-    dump_id : str (default=None)
-        The id of an explicit Wikipedia dump that the user wants to download.
-
-        Note: a value of None will select the third from the last (latest stable dump).
+    language : str, optional
+        The language of Wikipedia to download. Default is "en".
+    target_dir : str or pathlib.Path, optional
+        The directory in the current working directory where files should be downloaded. Default is "wiki_dump".
+    file_limit : int, optional
+        The maximum number of files to download. Default is None (all files).
+    dump_id : str, optional
+        The ID of a specific Wikipedia dump to download. Default is None (latest stable dump).
 
     Returns
     -------
-    file_info : list of lists
-        Information on the downloaded Wikipedia dump files.
+    list
+        A list of lists containing information on the downloaded Wikipedia dump files (filename, size, article count).
     """
     if file_limit is not None:
         assert isinstance(
@@ -55,6 +50,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
     else:
         file_limit = -1
 
+    target_dir = Path(target_dir)  # Ensure Path object
     if not target_dir.exists():
         print(f"Making {target_dir} directory")
         os.makedirs(target_dir)
@@ -126,20 +122,19 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
 
 def _process_article(title, text):
     """
-    Process a wikipedia article to extract the title and text.
+    Extract title and text from a Wikipedia article.
 
     Parameters
     ----------
     title : str
         The title of the article.
-
     text : str
         The text to be processed.
 
     Returns
     -------
-    title, text:  string, string
-        The data from the article.
+    tuple
+        A tuple of (title, text) extracted from the article.
     """
     wikicode = mwparserfromhell.parse(text)
 
@@ -151,31 +146,21 @@ def _process_article(title, text):
 
 def iterate_and_parse_file(args):
     """
-    Creates partitions of desired articles.
+    Iterate over a Wikipedia dump file and parse it into partitions.
 
     Parameters
     ----------
     args : tuple
-        The below arguments as a tuple for pool.imap_unordered rather than pool.starmap.
-
-    input_path : pathlib.Path
-        The path to the data file.
-
-    partitions_dir : pathlib.Path
-        The path to where output file should be stored.
-
-    article_limit : int (default=None)
-        An optional article_limit of the number of articles to find.
-
-    verbose : bool (default=True)
-        Whether to show a tqdm progress bar for the processes.
+        A tuple of (input_path, partitions_dir, article_limit, verbose) for multiprocessing.
 
     Returns
     -------
-    A parsed file Wikipedia dump file with articles.
+    None
+        Indicates successful completion of parsing.
     """
     input_path, partitions_dir, article_limit, verbose = args
 
+    partitions_dir = Path(partitions_dir)  # Ensure Path object
     if not partitions_dir.exists():
         print(f"Making {partitions_dir} directory for the partitions")
         os.makedirs(partitions_dir)
@@ -186,7 +171,7 @@ def iterate_and_parse_file(args):
 
     file_name = input_path.split("/")[-1].split("-")[-1].split(".")[-2]
     file_name = f"{file_name}.ndjson"
-    output_path = Path(partitions_dir) / file_name
+    output_path = partitions_dir / file_name
 
     if not output_path.exists():
         if article_limit is None:
@@ -264,6 +249,30 @@ def iterate_and_parse_file(args):
     return None
 
 
+def _process_article(title, text):
+    """
+    Extract title and text from a Wikipedia article.
+
+    Parameters
+    ----------
+    title : str
+        The title of the article.
+    text : str
+        The text to be processed.
+
+    Returns
+    -------
+    tuple
+        A tuple of (title, text) extracted from the article.
+    """
+    wikicode = mwparserfromhell.parse(text)
+
+    title = title.strip()
+    text = wikicode.strip_code().strip()
+
+    return title, text
+
+
 def parse_to_ndjson(
     output_path="articles",
     input_dir="wikipedia_dump",
@@ -274,43 +283,38 @@ def parse_to_ndjson(
     verbose=True,
 ):
     """
-    Finds all Wikipedia entries and converts them to json files.
+    Find all Wikipedia entries and convert them to JSON files.
 
     Parameters
     ----------
-    output_path : str (default=articles)
-        The name of the final output ndjson file.
-
-    input_dir : str (default=wikipedia_dump)
-        The path to the directory where the data is stored.
-
-    partitions_dir : str (default=partitions)
-        The path to the directory where the output should be stored.
-
-    article_limit : int (default=None)
-        An optional limit of the number of articles per dump file to find.
-
-    delete_parsed_files : bool (default=False)
-        Whether to delete the separate parsed files after combining them.
-
-    multicore : bool (default=True)
-        Whether to use multicore processing.
-
-    verbose : bool (default=True)
-        Whether to show a tqdm progress bar for the processes.
+    output_path : str or pathlib.Path, optional
+        The name of the final output NDJSON file. Default is "articles".
+    input_dir : str or pathlib.Path, optional
+        The path to the directory where the data is stored. Default is "wikipedia_dump".
+    partitions_dir : str or pathlib.Path, optional
+        The path to the directory where the output should be stored. Default is "partitions".
+    article_limit : int, optional
+        An optional limit of the number of articles per dump file to find. Default is None.
+    delete_parsed_files : bool, optional
+        Whether to delete the separate parsed files after combining them. Default is False.
+    multicore : bool or int, optional
+        Whether to use multicore processing (True), single-core (False), or specify cores (int). Default is True.
+    verbose : bool, optional
+        Whether to show a tqdm progress bar for the processes. Default is True.
 
     Returns
     -------
-    Wikipedia dump files parsed and converted to json files.
+    None
+        Indicates successful conversion of Wikipedia dump files to NDJSON format.
     """
-    output_dir = "/".join(list(output_path.split("/")[:-1]))
+    output_dir = Path("/".join(str(output_path).split("/")[:-1]))
     if not output_dir.exists():
         print(f"Making {output_dir} directory for the output")
         os.makedirs(output_dir)
 
-    if multicore:
+    if multicore is True:
         num_cores = os.cpu_count()
-    elif not multicore:
+    elif multicore is False:
         num_cores = 1
     elif isinstance(multicore, int):
         num_cores = multicore
@@ -319,14 +323,15 @@ def parse_to_ndjson(
         timestr = time.strftime("%Y%m%d-%H%M%S")
         output_path = f"parsed_data{timestr}"
         output_file_name = f"{output_path}.ndjson"
-
     else:
-        if output_path[-len(".ndjson") :] != ".ndjson":
+        output_path = Path(output_path)
+        if output_path.suffix != ".ndjson":
             output_file_name = f"{output_path}.ndjson"
         else:
             output_file_name = output_path
 
     if not output_file_name.exists():
+        partitions_dir = Path(partitions_dir)
         if not partitions_dir.exists():
             print(f"Making {partitions_dir} directory for the partitions")
             os.makedirs(partitions_dir)
@@ -339,7 +344,7 @@ def parse_to_ndjson(
             target_files,
             [partitions_dir] * len(target_files),
             [article_limit] * len(target_files),
-            [False] * len(target_files),
+            [verbose] * len(target_files),  # Fixed: was [False], now respects verbose
         )
 
         if __name__ == "scribe_data.wikipedia.extract_wiki":
@@ -369,7 +374,7 @@ def parse_to_ndjson(
         partition_files = [
             Path(partitions_dir) / f
             for f in os.listdir(partitions_dir)
-            if f[-len(".ndjson") :] == ".ndjson"
+            if f.endswith(".ndjson")
         ]
 
         if __name__ == "scribe_data.wikipedia.extract_wiki":
@@ -394,10 +399,24 @@ def parse_to_ndjson(
 
 class WikiXmlHandler(xml.sax.handler.ContentHandler):
     """
-    Parse through XML data using SAX.
+    Parse XML data using SAX for Wikipedia articles.
+
+    Attributes
+    ----------
+    _buffer : list
+        Temporary storage for tag content.
+    _values : dict
+        Collected tag values (title, text).
+    _current_tag : str
+        The current XML tag being processed.
+    target_articles : list
+        List of parsed (title, text) tuples.
     """
 
     def __init__(self):
+        """
+        Initialize the WikiXmlHandler with empty buffers and storage.
+        """
         xml.sax.handler.ContentHandler.__init__(self)
         self._buffer = None
         self._values = {}
@@ -406,7 +425,12 @@ class WikiXmlHandler(xml.sax.handler.ContentHandler):
 
     def characters(self, content):
         """
-        Characters between opening and closing tags.
+        Collect characters between opening and closing tags.
+
+        Parameters
+        ----------
+        content : str
+            The content between XML tags.
         """
         if self._current_tag:
             self._buffer.append(content)
@@ -414,6 +438,13 @@ class WikiXmlHandler(xml.sax.handler.ContentHandler):
     def startElement(self, name, attrs):
         """
         Opening tag of element.
+
+        Parameters
+        ----------
+        name : str
+            The name of the XML tag.
+        attrs : dict
+            Attributes of the XML tag.
         """
         if name in ("title", "text"):
             self._current_tag = name
@@ -422,6 +453,11 @@ class WikiXmlHandler(xml.sax.handler.ContentHandler):
     def endElement(self, name):
         """
         Closing tag of element.
+
+        Parameters
+        ----------
+        name : str
+            The name of the XML tag.
         """
         if name == self._current_tag:
             self._values[name] = " ".join(self._buffer)

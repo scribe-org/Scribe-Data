@@ -15,7 +15,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?preposition ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;

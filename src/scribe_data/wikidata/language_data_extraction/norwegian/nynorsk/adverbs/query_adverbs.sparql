@@ -15,10 +15,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for nn to remove nynorsk (nn) words.
   FILTER(lang(?adverb) = "nn")
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?comparativeForm .
     ?comparativeForm ontolex:representation ?comparative ;

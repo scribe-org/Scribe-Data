@@ -11,9 +11,19 @@ from scribe_data.utils import DEFAULT_MEDIAWIKI_EXPORT_DIR, get_language_from_is
 from scribe_data.wikidata.wikidata_utils import mediawiki_query
 
 
-def fetch_translation_page(word: str):
+def fetch_translation_page(word):
     """
-    Fetches the translation for a given word via the Wiktionary MediaWiki API.
+    Fetch the translation page for a given word.
+
+    Parameters
+    ----------
+    word : str
+        The word to fetch translations for.
+
+    Returns
+    -------
+    str
+        The content of the fetched translation page.
     """
     data = mediawiki_query(word=word)
 
@@ -27,8 +37,17 @@ def fetch_translation_page(word: str):
 
 def parse_wikitext_for_translations(wikitext):
     """
-    Parse the wikitext line by line to extract translations,
-    language codes, part of speech, and context.
+    Parse wikitext to extract translations by language.
+
+    Parameters
+    ----------
+    wikitext : str
+        The wikitext content to parse for translations.
+
+    Returns
+    -------
+    dict
+        A dictionary mapping language codes to translation entries.
     """
     translations_by_lang = {}
     current_part_of_speech = None  # track whether we are in Noun or Verb
@@ -70,7 +89,19 @@ def parse_wikitext_for_translations(wikitext):
 
 def build_json_format(word, translations_by_lang):
     """
-    Build the final JSON format for the translations of a word.
+    Build JSON format for word translations.
+
+    Parameters
+    ----------
+    word : str
+        The word being translated.
+    translations_by_lang : dict
+        A dictionary of translations by language code.
+
+    Returns
+    -------
+    dict
+        A structured dictionary of translations by language and part of speech.
     """
     book_translations = {word: {}}
     # Keep counters to number the translations for each (lang, part_of_speech).
@@ -112,17 +143,12 @@ def parse_wiktionary_translations(word, output_dir=DEFAULT_MEDIAWIKI_EXPORT_DIR)
     """
     Parse translations from Wiktionary and save them to a JSON file.
 
-    Fetches the Wiktionary page for the given word, extracts translations
-    across different languages, and saves them in a structured JSON format.
-
     Parameters
     ----------
     word : str
         The word to fetch translations for.
-
     output_dir : str or Path, optional
-        Directory to save JSON output (default is DEFAULT_MEDIAWIKI_EXPORT_DIR).
-        Will be created if it doesn't exist.
+        Directory to save JSON output. Default is DEFAULT_MEDIAWIKI_EXPORT_DIR.
 
     Notes
     -----
@@ -140,8 +166,8 @@ def parse_wiktionary_translations(word, output_dir=DEFAULT_MEDIAWIKI_EXPORT_DIR)
         }
     }
     """
-    output_dir = output_dir or DEFAULT_MEDIAWIKI_EXPORT_DIR
-    output_path = Path(output_dir)
+    output_dir = Path(output_dir or DEFAULT_MEDIAWIKI_EXPORT_DIR)
+    output_path = output_dir
     output_path.mkdir(parents=True, exist_ok=True)
 
     translations_by_lang = parse_wikitext_for_translations(fetch_translation_page(word))

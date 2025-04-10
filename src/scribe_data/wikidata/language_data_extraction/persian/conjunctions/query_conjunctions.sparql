@@ -13,7 +13,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q36484 ;
     wikibase:lemma ?conjunction ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularForm .
     ?singularForm ontolex:representation ?singular ;
