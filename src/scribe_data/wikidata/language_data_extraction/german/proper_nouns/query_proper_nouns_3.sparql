@@ -17,7 +17,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?propernoun ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveForm .
     ?genitiveForm ontolex:representation ?genitive ;

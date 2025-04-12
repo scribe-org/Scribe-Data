@@ -16,10 +16,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q161873 ;
     wikibase:lemma ?postposition ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for ur to remove urdu (ur) words.
   FILTER(lang(?postposition) = "ur")
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?directFeminineSingularForm .
     ?directFeminineSingularForm ontolex:representation ?directFeminineSingular ;

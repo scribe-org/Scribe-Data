@@ -16,10 +16,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for ur to remove urdu (ur) words.
   FILTER(lang(?adverb) = "ur")
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
     ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;

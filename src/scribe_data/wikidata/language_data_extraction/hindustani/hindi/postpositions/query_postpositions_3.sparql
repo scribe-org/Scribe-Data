@@ -16,10 +16,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q161873 ;
     wikibase:lemma ?postposition ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for hi to remove hindi (hi) words.
   FILTER(lang(?postposition) = "hi")
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?directFeminineSingularForm .
     ?directFeminineSingularForm ontolex:representation ?directFeminineSingular ;

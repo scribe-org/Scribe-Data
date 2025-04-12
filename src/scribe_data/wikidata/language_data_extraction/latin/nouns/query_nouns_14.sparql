@@ -16,7 +16,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveNeuterPluralForm .
     ?genitiveNeuterPluralForm ontolex:representation ?genitiveNeuterPlural ;
