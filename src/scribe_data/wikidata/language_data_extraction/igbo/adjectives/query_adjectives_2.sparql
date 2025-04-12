@@ -1,57 +1,49 @@
 # tool: scribe-data
-# All Igbo (Q33578) adjectives (Q34698) and the given forms.
+# All French (Q150) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?presentContinuous
-  ?combinedPresentParticiple
-  ?combinedPastParticiple
+  ?singular
+  ?plural
   ?comparative
-  ?superlative
-  ?singularPlural
-
+  ?feminineSingular
+  ?femininePlural
 WHERE {
-  ?lexeme dct:language wd:Q33578 ;
-    wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?adjective ;
-    schema:dateModified ?lastModified .
-    
+  ?lexeme dct:language wd:Q150 ;
+          wikibase:lexicalCategory wd:Q34698 ;
+          wikibase:lemma ?adjective ;
+          schema:dateModified ?lastModified .
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
-    ?presentContinuousForm ontolex:representation ?presentContinuous ;
-      wikibase:grammaticalFeature wd:Q7240943 .
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+                  wikibase:grammaticalFeature wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
-    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
-      wikibase:grammaticalFeature wd:Q10345583 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
-    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+                wikibase:grammaticalFeature wd:Q146786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?comparativeForm .
     ?comparativeForm ontolex:representation ?comparative ;
-      wikibase:grammaticalFeature wd:Q14169499 .
+                     wikibase:grammaticalFeature wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?superlativeForm .
-    ?superlativeForm ontolex:representation ?superlative ;
-      wikibase:grammaticalFeature wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
+    ?feminineSingularForm ontolex:representation ?feminineSingular ;
+                          wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularPluralForm .
-    ?singularPluralForm ontolex:representation ?singularPlural ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?femininePluralForm .
+    ?femininePluralForm ontolex:representation ?femininePlural ;
+                        wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 .
   }
 }
