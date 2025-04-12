@@ -23,12 +23,11 @@ repos:
     hooks:
       - id: ruff
         args: [--fix]
-
       - id: ruff-format
 
-  # - repo: https://github.com/numpy/numpydoc
-  #   rev: v1.8.0
-  #   hooks:
-  #     - id: numpydoc-validation
-  #       files: ^src/
-  #       exclude: ^tests/
+  - repo: https://github.com/numpy/numpydoc
+    rev: v1.8.0
+    hooks:
+      - id: numpydoc-validation
+        files: ^src/
+        exclude: ^tests/|src/scribe_data/check/check_query_forms.py|src/scribe_data/cli/interactive.py|src/scribe_data/load/data_to_sqlite.py|src/scribe_data/wikidata/parse_dump.py|src/scribe_data/utils.py|src/scribe_data/cli/cli_utils.py|src/scribe_data/cli/download.py|src/scribe_data/cli/get.py|src/scribe_data/cli/list.py|src/scribe_data/cli/version.py|src/scribe_data/check/.*|src/scribe_data/check/check_missing_forms/.*|src/scribe_data/cli/.*|src/scribe_data/load/.*|src/scribe_data/wikidata/.*|src/scribe_data/wikidata/check_query/.*|src/scribe_data/unicode/.*|src/.*__init__.py$

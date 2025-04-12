@@ -8,23 +8,18 @@ SELECT
   ?adjective
   ?singular
   ?plural
-
 WHERE {
   ?lexeme dct:language wd:Q33578;
     wikibase:lexicalCategory wd:Q34698;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
   # MARK: Singular
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularForm .
     ?singularForm ontolex:representation ?singular ;
       wikibase:grammaticalFeature wd:Q110786 .
   }
-
   # MARK: Plural
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
