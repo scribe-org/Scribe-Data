@@ -117,7 +117,7 @@ def test_check_contracts_nonexistent_dir(mock_path):
 
 
 @patch("scribe_data.utils.get_language_iso")
-@patch("scribe_data.cli.contracts.export.filter_contract_metadata")
+@patch("scribe_data.cli.contracts.filter.filter_contract_metadata")
 def test_check_contract_data_completeness_json_error(
     mock_filter_metadata, mock_get_iso, mock_export_dir, mock_contract_metadata
 ):

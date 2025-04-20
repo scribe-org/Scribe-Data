@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from scribe_data.cli.contracts.export import (
+from scribe_data.cli.contracts.filter import (
     DEFAULT_JSON_EXPORT_DIR,
     data_contracts,
     filter_contract_metadata,

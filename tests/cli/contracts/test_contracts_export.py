@@ -1,13 +1,13 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-Tests for the contract export functionality in the CLI.
+Tests for the contract filter functionality in the CLI.
 """
 
 from pathlib import Path
 from unittest.mock import call, mock_open, patch
 
-from scribe_data.cli.contracts.export import (
-    export_contracts,
+from scribe_data.cli.contracts.filter import (
+    export_data_filtered_by_contracts,
     filter_contract_metadata,
     filter_exported_data,
 )
@@ -240,15 +240,15 @@ class TestFilterExportedData:
 
 
 class TestExportContracts:
-    @patch("scribe_data.cli.contracts.export.filter_contract_metadata")
-    @patch("scribe_data.cli.contracts.export.filter_exported_data")
-    @patch("scribe_data.cli.contracts.export.get_language_from_iso")
+    @patch("scribe_data.cli.contracts.filter.filter_contract_metadata")
+    @patch("scribe_data.cli.contracts.filter.filter_exported_data")
+    @patch("scribe_data.cli.contracts.filter.get_language_from_iso")
     @patch("os.listdir")
     @patch("pathlib.Path.mkdir")
     @patch("pathlib.Path.exists")
     @patch("builtins.open", new_callable=mock_open)
     @patch("json.dump")
-    def test_export_contracts(
+    def test_export_data_filtered_by_contracts(
         self,
         mock_json_dump,
         mock_file_open,
@@ -260,7 +260,7 @@ class TestExportContracts:
         mock_filter_metadata,
     ):
         """
-        Test the export_contracts function full workflow.
+        Test the export_data_filtered_by_contracts function full workflow.
         """
         mock_listdir.return_value = [
             "english.json",
@@ -296,7 +296,9 @@ class TestExportContracts:
         ] * 2  # for both languages
 
         # Call the function.
-        export_contracts(input_dir="test_input", output_dir="test_output")
+        export_data_filtered_by_contracts(
+            input_dir="test_input", output_dir="test_output"
+        )
 
         assert mock_mkdir.call_count >= 3  # main dir + 2 language dirs
         assert mock_filter_metadata.call_count == 2  # one for each language
@@ -322,11 +324,11 @@ class TestExportContracts:
         ]
         mock_filter_data.assert_has_calls(expected_calls, any_order=True)
 
-    @patch("scribe_data.cli.contracts.export.filter_contract_metadata")
-    @patch("scribe_data.cli.contracts.export.get_language_from_iso")
+    @patch("scribe_data.cli.contracts.filter.filter_contract_metadata")
+    @patch("scribe_data.cli.contracts.filter.get_language_from_iso")
     @patch("os.listdir")
     @patch("pathlib.Path.mkdir")
-    def test_export_contracts_no_language_match(
+    def test_export_data_filtered_by_contracts_no_language_match(
         self, mock_mkdir, mock_listdir, mock_get_language, mock_filter_metadata
     ):
         """
@@ -336,7 +338,7 @@ class TestExportContracts:
         mock_get_language.return_value = None
 
         with patch("builtins.print") as mock_print:
-            export_contracts()
+            export_data_filtered_by_contracts()
 
             # Verify warning was printed.
             mock_print.assert_called_with(
@@ -346,12 +348,12 @@ class TestExportContracts:
         # No metadata should be filtered.
         mock_filter_metadata.assert_not_called()
 
-    @patch("scribe_data.cli.contracts.export.filter_contract_metadata")
-    @patch("scribe_data.cli.contracts.export.get_language_from_iso")
+    @patch("scribe_data.cli.contracts.filter.filter_contract_metadata")
+    @patch("scribe_data.cli.contracts.filter.get_language_from_iso")
     @patch("os.listdir")
     @patch("pathlib.Path.mkdir")
     @patch("pathlib.Path.exists")
-    def test_export_contracts_no_input_file(
+    def test_export_data_filtered_by_contracts_no_input_file(
         self,
         mock_exists,
         mock_mkdir,
@@ -371,18 +373,18 @@ class TestExportContracts:
         }
 
         with patch("builtins.print") as mock_print:
-            export_contracts()
+            export_data_filtered_by_contracts()
 
             # Verify warning was printed for both noun and verb data.
             assert mock_print.call_count >= 2
             mock_print.assert_any_call("No nouns data found for English")
             mock_print.assert_any_call("No verbs data found for English")
 
-    @patch("scribe_data.cli.contracts.export.filter_contract_metadata")
-    @patch("scribe_data.cli.contracts.export.get_language_from_iso")
+    @patch("scribe_data.cli.contracts.filter.filter_contract_metadata")
+    @patch("scribe_data.cli.contracts.filter.get_language_from_iso")
     @patch("os.listdir")
     @patch("pathlib.Path.mkdir")
-    def test_export_contracts_empty_metadata(
+    def test_export_data_filtered_by_contracts_empty_metadata(
         self, mock_mkdir, mock_listdir, mock_get_language, mock_filter_metadata
     ):
         """
@@ -392,7 +394,7 @@ class TestExportContracts:
         mock_get_language.return_value = "English"
         mock_filter_metadata.return_value = {}
 
-        export_contracts()
+        export_data_filtered_by_contracts()
 
         # Verify no further processing happens when metadata is empty.
         mock_filter_metadata.assert_called_once()
