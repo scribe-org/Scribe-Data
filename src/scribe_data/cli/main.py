@@ -12,7 +12,7 @@ from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
 from scribe_data.cli.contracts.check import check_contracts
-from scribe_data.cli.contracts.export import export_contracts
+from scribe_data.cli.contracts.filter import export_data_filtered_by_contracts
 from scribe_data.cli.convert import convert_wrapper
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.cli.get import get_data
@@ -321,47 +321,61 @@ def main() -> None:
 
     # MARK: Check Contracts
 
-    data_contracts_check = subparsers.add_parser(
+    check_contracts_parser = subparsers.add_parser(
         "check_contracts",
         aliases=["cc"],
-        help="Check the data in the following directory to see that all needed language data is included",
-        description="Check if data exports match their corresponding data contracts",
+        help="Check the data in the following directory to see that all needed language data is included.",
+        description="Check if data exports match their corresponding data contracts.",
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
-    data_contracts_check._actions[0].help = "Show this help message and exit."
-    data_contracts_check.add_argument(
+    check_contracts_parser._actions[0].help = "Show this help message and exit."
+    check_contracts_parser.add_argument(
+        "-cd",
+        "--contracts-dir",
+        type=str,
+        required=False,
+        help="The directory where the contracts are saved.",
+    )
+    check_contracts_parser.add_argument(
         "-od",
         "--output-dir",
         type=str,
         required=False,
-        help="The directory where contracts should be checked",
+        help="The directory with the data that the contracts should be checked against.",
     )
 
-    # MARK: Export Contracts
+    # MARK: Filter by Contracts
 
-    export_contracts_parser = subparsers.add_parser(
-        "export_contracts",
-        aliases=["ec"],
-        help="Export the current data contracts to an output directory",
-        description="Export data contracts so they can be used outside of Scribe-Data",
+    filter_data_parser = subparsers.add_parser(
+        "filter_data",
+        aliases=["fd"],
+        help="Filter data based on provided data contract values.",
+        description="Convert exported data into a dataset that only includes data within contract values.",
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
-    export_contracts_parser._actions[0].help = "Show this help message and exit."
-    export_contracts_parser.add_argument(
+    filter_data_parser._actions[0].help = "Show this help message and exit."
+    filter_data_parser.add_argument(
+        "-cd",
+        "--contracts-dir",
+        type=str,
+        required=False,
+        help="The directory where the data contracts are saved.",
+    )
+    filter_data_parser.add_argument(
         "-id",
         "--input-dir",
         type=str,
         required=False,
-        help="The directory containing the data exports to check against contracts",
+        help="The directory with the data that should be filtered.",
     )
-    export_contracts_parser.add_argument(
+    filter_data_parser.add_argument(
         "-od",
         "--output-dir",
         type=str,
         required=False,
-        help="The directory where contracts should be checked",
+        help="The directory to export data filtered by contracts to.",
     )
 
     # MARK: Setup CLI
@@ -507,8 +521,10 @@ def main() -> None:
         elif args.command in ["check_contracts", "cc"]:
             check_contracts(output_dir=args.output_dir)
 
-        elif args.command in ["export_contracts", "ec"]:
-            export_contracts(input_dir=args.input_dir, output_dir=args.output_dir)
+        elif args.command in ["filter_data", "fd"]:
+            export_data_filtered_by_contracts(
+                input_dir=args.input_dir, output_dir=args.output_dir
+            )
 
         else:
             parser.print_help()

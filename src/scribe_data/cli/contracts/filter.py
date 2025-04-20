@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-Functions for exporting data contracts.
+Functions for filtering data by data contracts.
 """
 
 import json
@@ -10,9 +10,10 @@ from typing import Any, Dict
 
 from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR, get_language_from_iso
 
-data_contracts = Path(__file__).parent.parent.parent / "wikidata" / "data_contracts"
+data_contracts = Path(__file__).parent.parent.parent.parent.parent / "data_contracts"
 DATA_CONTRACTS_EXPORT_DIR = (
-    Path(__file__).parent.parent.parent.parent.parent / "DATA_CONTRACTS_EXPORT_DIR"
+    Path(__file__).parent.parent.parent.parent.parent
+    / "scribe_data_filtered_json_export"
 )
 
 
@@ -195,8 +196,10 @@ def filter_exported_data(
                 contract_metadata["nouns"]["numbers"]
                 + contract_metadata["nouns"]["genders"]
             )
+
         elif data_type == "verbs":
             columns_to_keep = contract_metadata["verbs"]["conjugations"]
+
         else:
             return {}
 
@@ -223,7 +226,7 @@ def filter_exported_data(
         return {}
 
 
-def export_contracts(input_dir: str = None, output_dir: str = None):
+def export_data_filtered_by_contracts(input_dir: str = None, output_dir: str = None):
     """
     Export contract-filtered data to a new directory with a standardized structure.
 
@@ -238,21 +241,18 @@ def export_contracts(input_dir: str = None, output_dir: str = None):
 
     output_dir : str, optional
         Directory to export filtered contract data.
-        Defaults to DATA_CONTRACTS_EXPORT_DIR.
+        Defaults to scribe_data_filtered_* based on the data type.
 
     Returns
     -------
-    Dict[str, Any]
-        Metadata from all processed contract files.
+    None
+        Prints information on the data that has been filtered.
     """
     # Use provided output dir or default.
     export_dir = Path(output_dir) if output_dir else DATA_CONTRACTS_EXPORT_DIR
     export_dir.mkdir(parents=True, exist_ok=True)
 
     input_dir = input_dir or DEFAULT_JSON_EXPORT_DIR
-
-    # Collect metadata from all contract files.
-    all_contract_metadata = {}
 
     for contract_filename in os.listdir(data_contracts):
         if not contract_filename.endswith(".json"):
@@ -293,13 +293,10 @@ def export_contracts(input_dir: str = None, output_dir: str = None):
                 print(f"No {data_type} data found for {matched_language}")
                 continue
 
-            # Filter the data
-            filtered_data = filter_exported_data(
+            # Export filtered data.
+            if filtered_data := filter_exported_data(
                 input_file, contract_metadata, data_type
-            )
-
-            # Export filtered data
-            if filtered_data:
+            ):
                 output_file = lang_export_dir / f"{data_type}.json"
                 with open(output_file, "w", encoding="utf-8") as f:
                     json.dump(filtered_data, f, ensure_ascii=False, indent=2)
@@ -307,5 +304,3 @@ def export_contracts(input_dir: str = None, output_dir: str = None):
                 print(
                     f"Exported {matched_language} {data_type} with {len(filtered_data)} entries"
                 )
-
-    return all_contract_metadata

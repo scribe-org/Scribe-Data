@@ -185,10 +185,12 @@ def configure_settings():
         )
 
     # MARK: Output Directory
+
     if output_dir := prompt(f"Enter output directory (default: {config.output_dir}): "):
         config.output_dir = Path(output_dir)
 
     # MARK: Overwrite Confirmation
+
     overwrite_completer = create_word_completer(["Y", "n"])
     overwrite = (
         prompt("Overwrite existing files? (Y/n): ", completer=overwrite_completer)
@@ -326,6 +328,8 @@ def request_total_lexeme_loop():
 
 
 # MARK: Start
+
+
 def start_interactive_mode(operation: str = None):
     """
     Entry point for interactive mode.

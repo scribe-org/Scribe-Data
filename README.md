@@ -123,11 +123,16 @@ Efficient client application data updates using Scribe-Data follow as such:
 - This is done via the following command:
 
 ```bash
-scribe-data --check-contracts DATA_CONTRACTS_DIRECTORY  # default data path is used
+scribe-data cc -cd DATA_CONTRACTS_DIRECTORY  # default data path is used
 ```
 
 - If the check above passes, then new data can be added to the client applications
 - If the check fails, then the contract values should be updated given the directions from the CLI and then new data can be loaded
+- Getting just the data that's in the client application is done via the following command:
+
+```bash
+scribe-data fd -cd DATA_CONTRACTS_DIRECTORY  # default data paths are used
+```
 
 Updating contracts shouldn't be something that Scribe-Data users should have to do often if they're using stable data from [Wikidata](https://www.wikidata.org/). We provide this functionality given the wiki nature of the underlying data so that the Scribe community and others can easily react to potential changes in the lexeme data.
 

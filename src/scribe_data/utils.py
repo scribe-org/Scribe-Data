@@ -26,6 +26,7 @@ DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
 DEFAULT_DUMP_EXPORT_DIR = "scribe_data_wikidata_dumps_export"
 DEFAULT_MEDIAWIKI_EXPORT_DIR = "scribe_data_mediawiki_export"
+DEFAULT_DATA_CONTRACTS_DIR = "scribe_data_contracts"
 
 LANGUAGE_DATA_EXTRACTION_DIR = (
     Path(__file__).parent / "wikidata" / "language_data_extraction"
