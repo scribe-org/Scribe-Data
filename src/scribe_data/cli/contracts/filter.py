@@ -10,7 +10,9 @@ from typing import Any, Dict
 
 from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR, get_language_from_iso
 
-data_contracts = Path(__file__).parent.parent.parent.parent.parent / "data_contracts"
+data_contracts = (
+    Path(__file__).parent.parent.parent.parent.parent / "scribe_data_contracts"
+)
 DATA_CONTRACTS_EXPORT_DIR = (
     Path(__file__).parent.parent.parent.parent.parent
     / "scribe_data_filtered_json_export"
