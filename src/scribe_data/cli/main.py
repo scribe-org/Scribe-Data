@@ -523,7 +523,9 @@ def main() -> None:
 
         elif args.command in ["filter_data", "fd"]:
             export_data_filtered_by_contracts(
-                input_dir=args.input_dir, output_dir=args.output_dir
+                contracts_dir=args.contracts_dir,
+                input_dir=args.input_dir,
+                output_dir=args.output_dir,
             )
 
         else:

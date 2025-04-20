@@ -10,7 +10,7 @@ from typing import Any, Dict
 
 from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR, get_language_from_iso
 
-data_contracts = (
+scribe_data_contracts = (
     Path(__file__).parent.parent.parent.parent.parent / "scribe_data_contracts"
 )
 DATA_CONTRACTS_EXPORT_DIR = (
@@ -228,7 +228,9 @@ def filter_exported_data(
         return {}
 
 
-def export_data_filtered_by_contracts(input_dir: str = None, output_dir: str = None):
+def export_data_filtered_by_contracts(
+    contracts_dir: str = None, input_dir: str = None, output_dir: str = None
+):
     """
     Export contract-filtered data to a new directory with a standardized structure.
 
@@ -237,6 +239,10 @@ def export_data_filtered_by_contracts(input_dir: str = None, output_dir: str = N
 
     Parameters
     ----------
+    contracts_dir : str, optional
+        Directory containing the contracts to filter with.
+        Defaults to scribe_data_contracts.
+
     input_dir : str, optional
         Directory containing original JSON export data.
         Defaults to DEFAULT_JSON_EXPORT_DIR.
@@ -256,12 +262,15 @@ def export_data_filtered_by_contracts(input_dir: str = None, output_dir: str = N
 
     input_dir = input_dir or DEFAULT_JSON_EXPORT_DIR
 
-    for contract_filename in os.listdir(data_contracts):
+    if not contracts_dir:
+        contracts_dir = scribe_data_contracts
+
+    for contract_filename in os.listdir(contracts_dir):
         if not contract_filename.endswith(".json"):
             continue
 
         language_name = os.path.splitext(contract_filename)[0].lower()
-        contract_file = data_contracts / contract_filename
+        contract_file = contracts_dir / contract_filename
 
         matched_language = get_language_from_iso(language_name)
 
@@ -279,11 +288,11 @@ def export_data_filtered_by_contracts(input_dir: str = None, output_dir: str = N
         lang_export_dir = export_dir / matched_language.lower().replace(" ", "_")
         lang_export_dir.mkdir(parents=True, exist_ok=True)
 
-        # Data types to process
+        # Data types to process.
         data_types = ["nouns", "verbs"]
 
         for data_type in data_types:
-            # Input file path
+            # Input file path.
             input_file = (
                 Path(input_dir)
                 / matched_language.lower().replace(" ", "_")

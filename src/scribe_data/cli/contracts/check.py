@@ -9,12 +9,14 @@ from typing import Dict, List, Optional
 
 from scribe_data.cli.contracts.filter import (
     DEFAULT_JSON_EXPORT_DIR,
-    data_contracts,
     filter_contract_metadata,
+    scribe_data_contracts,
 )
 from scribe_data.utils import get_language_from_iso, get_language_iso
 
-data_contracts_lang = [f.stem for f in Path(data_contracts).iterdir() if f.is_file()]
+data_contracts_lang = [
+    f.stem for f in Path(scribe_data_contracts).iterdir() if f.is_file()
+]
 
 for i in range(len(data_contracts_lang)):
     data_contracts_lang[i] = get_language_from_iso(data_contracts_lang[i])
@@ -73,19 +75,23 @@ def check_contract_data_completeness(
     # Determine languages to check.
     if language:
         languages_to_check = [language]
+
     elif export_dir.exists():
         languages_to_check = [
             item.name for item in export_dir.iterdir() if item.is_dir()
         ]
+
     else:
         languages_to_check = [
-            Path(f).stem.lower() for f in data_contracts.glob("*.json")
+            Path(f).stem.lower() for f in scribe_data_contracts.glob("*.json")
         ]
+
     languages_to_check = [
         lang
         for lang in languages_to_check
         if lang.lower() in [lang_item.lower() for lang_item in data_contracts_lang]
     ]
+
     missing_forms = {}
     for lang_dir_name in languages_to_check:
         lang = " ".join(word.capitalize() for word in lang_dir_name.split("_"))
@@ -93,7 +99,7 @@ def check_contract_data_completeness(
         # Get ISO code and contract file.
         try:
             iso_code = get_language_iso(lang.lower())
-            contract_file = data_contracts / f"{iso_code.lower()}.json"
+            contract_file = scribe_data_contracts / f"{iso_code.lower()}.json"
 
             if not contract_file.exists():
                 print(f"Warning: No contract file found for {lang}")
@@ -119,6 +125,7 @@ def check_contract_data_completeness(
             try:
                 with open(exported_data_file, "r", encoding="utf-8") as f:
                     exported_data = json.load(f)
+
             except (json.JSONDecodeError, IOError) as e:
                 print(f"Error reading {exported_data_file}: {e}")
                 continue
