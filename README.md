@@ -109,7 +109,30 @@ scribe-data total -i
 
 # Data Contracts [`⇧`](#contents)
 
-- WIP
+[Wikidata](https://www.wikidata.org/) has lots of [language data](https://www.wikidata.org/wiki/Wikidata:Lexicographical_data) available, but not all of it is useful for all applications. In order to make the functionality of the Scribe-Data `get` requests as simple as possible, we made the decision to always return all data for the given languages and data types. Adding the ability to pass desired forms to the commands seemed cumbersome, and larger Scribe-Data requests should be parsing [Wikidata lexeme dumps](https://dumps.wikimedia.org/wikidatawiki/entities/) as the data source.
+
+Scribe's solution to the get all functionality while preserving the ability to get specific forms is to allow users to filter the resulting data by contracts. The data contracts for Scribe's client applications can be found in the [data_contracts](./data_contracts/) directory. Data contracts are JSON objects where the values that are used in end applications are the keys and the resulting data identifiers based on Wikidata lexeme forms are the values. If the forms for a lexeme change, then the values would also change, but all that's needed is to update the contract for the application to function again.
+
+Efficient client application data updates using Scribe-Data follow as such:
+
+- New data is derived via the Scribe-Data CLI
+- Contracts are written to map the data values to keys that are used in the application
+- Scribe-Data is ran again to get new data in the future
+- The contracts are checked to make sure that all contract values still exist within the resulting data
+- The question is whether a form was added or removed from a data point such that its identifier has changed
+- This is done via the following command:
+
+```bash
+scribe-data --check-contracts DATA_CONTRACTS_DIRECTORY  # default data path is used
+```
+
+- If the check above passes, then new data can be added to the client applications
+- If the check fails, then the contract values should be updated given the directions from the CLI and then new data can be loaded
+
+Updating contracts shouldn't be something that Scribe-Data users should have to do often if they're using stable data from [Wikidata](https://www.wikidata.org/). We provide this functionality given the wiki nature of the underlying data so that the Scribe community and others can easily react to potential changes in the lexeme data.
+
+> [!NOTE]
+> You can learn more about contracts and the process around them in [DATA_CONTRACTS.md](https://github.com/scribe-org/Organization/blob/main/DATA_CONTRACTS.md).
 
 <a id="contributing"></a>
 
