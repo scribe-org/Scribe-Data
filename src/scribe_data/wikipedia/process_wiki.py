@@ -415,7 +415,7 @@ def gen_autosuggestions(
             Path(DEFAULT_JSON_EXPORT_DIR) / language / "autosuggestions.json"
         )
 
-        # Create directory if it does not exist before attempting to write the file
+        # Create directory if it does not exist before attempting to write the file.
         path_to_formatted_data.parent.mkdir(parents=True, exist_ok=True)
 
         with open(

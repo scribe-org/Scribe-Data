@@ -24,7 +24,9 @@ from scribe_data.utils import get_language_iso
 
 
 def get_base_url(language):
-    """Returns the correct base URL dynamically."""
+    """
+    Returns the correct base URL dynamically.
+    """
     return f"https://dumps.wikimedia.org/{get_language_iso(language)}wiki/"
 
 
@@ -32,9 +34,8 @@ def get_available_dumps(language):
     base_url = get_base_url(language)
     index = requests.get(base_url, timeout=5).text
     soup_index = BeautifulSoup(index, "html.parser")
-    all_dumps = [a["href"] for a in soup_index.find_all("a") if a.has_attr("href")]
 
-    return all_dumps
+    return [a["href"] for a in soup_index.find_all("a") if a.has_attr("href")]
 
 
 def download_wiki(

@@ -133,6 +133,7 @@ def prompt_for_data_types():
     config.data_types = [dt for dt in config.data_types if dt != "autosuggestions"]
     data_type_completer = create_word_completer(config.data_types, include_all=True)
     initial_data_type_selection = ", ".join(config.selected_data_types)
+
     while True:
         selected_data_types = prompt(
             "Select data types (comma-separated or 'All'): ",
@@ -142,6 +143,7 @@ def prompt_for_data_types():
         if "All" in selected_data_types.capitalize():
             config.selected_data_types = config.data_types
             break
+
         elif selected_data_types.strip():  # check if input is not just whitespace
             config.selected_data_types = [
                 dt.strip()
@@ -190,7 +192,7 @@ def configure_settings():
     prompt_for_languages()
     prompt_for_data_types()
 
-    # MARK: Output Type
+    # MARK: Outputs
 
     output_type_completer = create_word_completer(["json", "csv", "tsv"])
     config.output_type = prompt(
@@ -206,11 +208,11 @@ def configure_settings():
             completer=output_type_completer,
         )
 
-    # MARK: Output Directory
     if output_dir := prompt(f"Enter output directory (default: {config.output_dir}): "):
         config.output_dir = Path(output_dir)
 
     # MARK: Overwrite Confirmation
+
     overwrite_completer = create_word_completer(["Y", "n"])
     overwrite = (
         prompt("Overwrite existing files? (Y/n): ", completer=overwrite_completer)
@@ -435,6 +437,7 @@ def start_interactive_mode(operation: str = None):
 
             else:
                 wikidata_dump_path = Path(DEFAULT_DUMP_EXPORT_DIR)
+
             parse_wd_lexeme_dump(
                 language=config.selected_languages,
                 wikidata_dump_type=["form"],
@@ -532,6 +535,7 @@ def start_interactive_mode(operation: str = None):
 
                 if len(config.selected_languages) > 1:
                     rprint("[yellow]Please select only one language.[/yellow]")
+
                 else:
                     break
 
