@@ -27,10 +27,10 @@ def generate_autosuggestions(language, dump_id, force_download):
     dump_id : str (default=None)
         The id of an explicit Wikipedia dump that the user wants to download.
 
-        Note: a value of None will select the third from the last (latest stable dump).
+        Note: A value of None will select the third from the last (latest stable dump).
 
     force_download : bool (default=False)
-                This argument forces re-download already existing dump_id if True.
+        This argument forces re-download already existing dump_id if True.
 
     Returns
     -------
@@ -46,7 +46,7 @@ def generate_autosuggestions(language, dump_id, force_download):
     files = download_wiki(
         language=language,
         target_dir=target_dir,
-        file_limit=1,  # Limiting for development purpose
+        file_limit=None,  # Note: Limit for development.
         dump_id=dump_id,
         force_download=force_download,
     )
@@ -95,7 +95,7 @@ def generate_autosuggestions(language, dump_id, force_download):
     gen_autosuggestions(
         text_corpus,
         language=language,
-        num_words=100,  # Limiting for development purpose
+        num_words=500,  # Note: Limit for development.
         ignore_words=None,
         update_local_data=True,
         verbose=True,

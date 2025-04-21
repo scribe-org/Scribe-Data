@@ -67,7 +67,7 @@ class TestGenerate(unittest.TestCase):
         mock_gen_autosuggestions.assert_called_once_with(
             text_corpus,
             language=language,
-            num_words=100,  # Limiting for development purpose
+            num_words=500,  # Note: Limit for development.
             ignore_words=None,
             update_local_data=True,
             verbose=True,
@@ -126,7 +126,7 @@ class TestGenerate(unittest.TestCase):
         mock_gen_autosuggestions.assert_called_once_with(
             text_corpus,
             language=language,
-            num_words=100,  # Limiting for development purpose
+            num_words=500,  # Note: Limit for development.
             ignore_words=None,
             update_local_data=True,
             verbose=True,

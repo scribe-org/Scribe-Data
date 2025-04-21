@@ -358,6 +358,7 @@ def gen_autosuggestions(
     results = None
     try:
         results = sparql.query().convert()
+
     except HTTPError as err:
         print(f"HTTPError with query_profanity.sparql: {err}")
 
@@ -365,6 +366,7 @@ def gen_autosuggestions(
 
     if results is None:
         print("Nothing returned by the WDQS server for query_profanity.sparql")
+
     else:
         # Subset the returned JSON and the individual results before saving.
         query_results = results["results"]["bindings"]  # pylint: disable=unsubscriptable-object

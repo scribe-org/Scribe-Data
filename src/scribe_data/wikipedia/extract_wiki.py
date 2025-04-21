@@ -62,10 +62,10 @@ def download_wiki(
     dump_id : str (default=None)
         The id of an explicit Wikipedia dump that the user wants to download.
 
-        Note: a value of None will select the third from the last (latest stable dump).
+        Note: A value of None will select the third from the last (latest stable dump).
 
     force_download : bool (default=False)
-                This argument forces re-download already existing dump_id if True.
+        This argument forces re-download already existing dump_id if True.
 
     Returns
     -------
@@ -124,7 +124,7 @@ def download_wiki(
         for f in files_to_download:
             file_path = target_dir / f
             if not file_path.exists() or force_download:
-                print(f"DL file to {file_path}")
+                print(f"Download file to {file_path}")
                 subprocess.run(["curl", "-o", file_path, dump_url + f], check=False)
 
                 file_size = os.stat(file_path).st_size / 1e6
@@ -320,7 +320,7 @@ def parse_to_ndjson(
         Whether to delete the separate parsed files after combining them.
 
     force_download : bool (default=False)
-                This argument forces the partition process using newest download dump.
+        This argument forces the partition process using newest download dump.
 
     multicore : bool (default=True)
         Whether to use multicore processing.
