@@ -27,6 +27,7 @@ from scribe_data.utils import (
 )
 from scribe_data.wikidata.query_data import query_data
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
+from scribe_data.wikipedia.generate_autosuggestions import generate_autosuggestions
 
 
 def get_data(
@@ -40,6 +41,8 @@ def get_data(
     interactive: bool = False,
     identifier_case: str = "camel",
     wikidata_dump: str = None,
+    dump_id: str = None,
+    force_download: bool = False,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
@@ -75,6 +78,11 @@ def get_data(
 
     wikidata_dump : str
         The local Wikidata lexeme dump that can be used to process data.
+
+    dump_id : str (default=None)
+        The id of an explicit Wikipedia dump that the user wants to download.
+
+        Note: a value of None will select the third from the last (latest stable dump).
 
     Returns
     -------
@@ -184,6 +192,14 @@ def get_data(
             type_output_dir=output_dir,
             wikidata_dump_path=wikidata_dump,
             overwrite_all=overwrite,
+        )
+        return
+
+    # MARK: Autosugestions
+
+    elif data_type == "autosuggestions":
+        generate_autosuggestions(
+            language=language, dump_id=dump_id, force_download=force_download
         )
         return
 
