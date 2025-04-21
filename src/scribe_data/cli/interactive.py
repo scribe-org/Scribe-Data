@@ -208,6 +208,8 @@ def configure_settings():
             completer=output_type_completer,
         )
 
+    # MARK: Output Directory
+  
     if output_dir := prompt(f"Enter output directory (default: {config.output_dir}): "):
         config.output_dir = Path(output_dir)
 
@@ -350,6 +352,8 @@ def request_total_lexeme_loop():
 
 
 # MARK: Start
+
+
 def start_interactive_mode(operation: str = None):
     """
     Entry point for interactive mode.

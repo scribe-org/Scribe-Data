@@ -31,6 +31,7 @@ Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organiz
 - [Process](#process)
 - [Installation](#installation)
 - [CLI Usage](#cli-usage)
+- [Data Contracts](#data-contracts)
 - [Contributing](#contributing)
 - [Environment Setup](#environment-setup)
 - [Featured By](#featured-by)
@@ -104,6 +105,40 @@ scribe-data get -i
 scribe-data total -i
 ```
 
+<a id="data-contracts"></a>
+
+# Data Contracts [`⇧`](#contents)
+
+[Wikidata](https://www.wikidata.org/) has lots of [language data](https://www.wikidata.org/wiki/Wikidata:Lexicographical_data) available, but not all of it is useful for all applications. In order to make the functionality of the Scribe-Data `get` requests as simple as possible, we made the decision to always return all data for the given languages and data types. Adding the ability to pass desired forms to the commands seemed cumbersome, and larger Scribe-Data requests should be parsing [Wikidata lexeme dumps](https://dumps.wikimedia.org/wikidatawiki/entities/) as the data source.
+
+Scribe's solution to the get all functionality while preserving the ability to get specific forms is to allow users to filter the resulting data by contracts. The data contracts for Scribe's client applications can be found in the [data_contracts](./data_contracts/) directory. Data contracts are JSON objects where the values that are used in end applications are the keys and the resulting data identifiers based on Wikidata lexeme forms are the values. If the forms for a lexeme change, then the values would also change, but all that's needed is to update the contract for the application to function again.
+
+Efficient client application data updates using Scribe-Data follow as such:
+
+- New data is derived via the Scribe-Data CLI
+- Contracts are written to map the data values to keys that are used in the application
+- Scribe-Data is ran again to get new data in the future
+- The contracts are checked to make sure that all contract values still exist within the resulting data
+- The question is whether a form was added or removed from a data point such that its identifier has changed
+- This is done via the following command:
+
+```bash
+scribe-data cc -cd DATA_CONTRACTS_DIRECTORY  # default data path is used
+```
+
+- If the check above passes, then new data can be added to the client applications
+- If the check fails, then the contract values should be updated given the directions from the CLI and then new data can be loaded
+- Getting just the data that's in the client application is done via the following command:
+
+```bash
+scribe-data fd -cd DATA_CONTRACTS_DIRECTORY  # default data paths are used
+```
+
+Updating contracts shouldn't be something that Scribe-Data users should have to do often if they're using stable data from [Wikidata](https://www.wikidata.org/). We provide this functionality given the wiki nature of the underlying data so that the Scribe community and others can easily react to potential changes in the lexeme data.
+
+> [!NOTE]
+> You can learn more about contracts and the process around them in [DATA_CONTRACTS.md](https://github.com/scribe-org/Organization/blob/main/DATA_CONTRACTS.md).
+
 <a id="contributing"></a>
 
 # Contributing [`⇧`](#contents)
@@ -115,9 +150,9 @@ Scribe uses [Matrix](https://matrix.org/) for communications. You're more than w
 Please see the [contribution guidelines](https://github.com/scribe-org/Scribe-Data/blob/main/CONTRIBUTING.md) and [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) if you are interested in contributing to Scribe-Data. Work that is in progress or could be implemented is tracked in the [issues](https://github.com/scribe-org/Scribe-Data/issues) and [projects](https://github.com/scribe-org/Scribe-Data/projects).
 
 > [!NOTE]\
-> Just because an issue is assigned on GitHub doesn't mean that the team isn't interested in your contribution! Feel free to write [in the issues](https://github.com/scribe-org/Scribe-Data/issues) and we can potentially reassign it to you.
+> Just because an issue is assigned on GitHub doesn't mean the team isn't open to your contribution! Feel free to write [in the issues](https://github.com/scribe-org/Scribe-Data/issues) and we can potentially reassign it to you.
 
-Those interested can further check the [`-next release-`](https://github.com/scribe-org/Scribe-Data/labels/-next%20release-) and [`-priority-`](https://github.com/scribe-org/Scribe-Data/labels/-priority-) labels in the [issues](https://github.com/scribe-org/Scribe-Data/issues) for those that are most important, as well as those marked [`good first issue`](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) that are tailored for first time contributors.
+Those interested can further check the [`-next release-`](https://github.com/scribe-org/Scribe-Data/labels/-next%20release-) and [`-priority-`](https://github.com/scribe-org/Scribe-Data/labels/-priority-) labels in the [issues](https://github.com/scribe-org/Scribe-Data/issues) for those that are most important, as well as those marked [`good first issue`](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) that are tailored for first-time contributors.
 
 After your first few pull requests organization members would be happy to discuss granting you further rights as a contributor, with a maintainer role then being possible after continued interest in the project. Scribe seeks to be an inclusive and supportive organization. We'd love to have you on the team!
 
