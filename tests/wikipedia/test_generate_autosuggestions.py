@@ -46,7 +46,7 @@ class TestGenerate(unittest.TestCase):
         mock_download_wiki.assert_called_once_with(
             language=language,
             target_dir=target_dir,
-            file_limit=1,
+            file_limit=None,  # Note: Limit for development.
             dump_id=dump_id,
             force_download=False,
         )
@@ -104,7 +104,7 @@ class TestGenerate(unittest.TestCase):
         mock_download_wiki.assert_called_once_with(
             language=language,
             target_dir=target_dir,
-            file_limit=1,
+            file_limit=None,  # Note: Limit for development.
             dump_id=dump_id,
             force_download=True,
         )
