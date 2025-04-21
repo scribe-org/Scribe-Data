@@ -27,6 +27,8 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - The is now a top level interactive mode command for accessing all Scribe-Data functionality ([#523](https://github.com/scribe-org/Scribe-Data/issues/523)).
 - Repeat forms are combined with vertical bars (`"|"`) as a separator ([#544](https://github.com/scribe-org/Scribe-Data/issues/544), [#573](https://github.com/scribe-org/Scribe-Data/issues/573)).
 - A workflow has been created to update the emoji data on a regular basis ([#542](https://github.com/scribe-org/Scribe-Data/issues/542)).
+- Resulting data can be filtered based on data contracts ([#581](https://github.com/scribe-org/Scribe-Data/issues/581)).
+  - Contracts can be checked against data to assure that they're valid given the data's field names ([#561](https://github.com/scribe-org/Scribe-Data/issues/561)).
 
 ### ⚖️ Legal
 
