@@ -283,7 +283,7 @@ def clean(
         [
             w
             for w in text.split()
-            if (len(w) != 1 or w in single_letter_words_dict[language])
+            if (len(w) != 1 or w in single_letter_words_dict.get(language, []))
             and w not in words_to_remove
             and "nbsp" not in w
             and "-" not in w
@@ -336,6 +336,7 @@ def gen_autosuggestions(
 
     top_words = [item[0] for item in counter_obj.most_common()][:num_words]
 
+    words_to_ignore = []
     if isinstance(ignore_words, str):
         words_to_ignore = [ignore_words]
     elif ignore_words is None:
@@ -344,7 +345,8 @@ def gen_autosuggestions(
     print("Querying profanities to remove from suggestions.")
     # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
     with open(
-        Path(__file__).parent / "query_profanity.sparql", encoding="utf-8"
+        Path(__file__).parent.resolve() / ".." / "wikidata" / "query_profanity.sparql",
+        encoding="utf-8",
     ) as file:
         query_lines = file.readlines()
 
@@ -356,6 +358,7 @@ def gen_autosuggestions(
     results = None
     try:
         results = sparql.query().convert()
+
     except HTTPError as err:
         print(f"HTTPError with query_profanity.sparql: {err}")
 
@@ -363,6 +366,7 @@ def gen_autosuggestions(
 
     if results is None:
         print("Nothing returned by the WDQS server for query_profanity.sparql")
+
     else:
         # Subset the returned JSON and the individual results before saving.
         query_results = results["results"]["bindings"]  # pylint: disable=unsubscriptable-object
@@ -412,6 +416,9 @@ def gen_autosuggestions(
         path_to_formatted_data = (
             Path(DEFAULT_JSON_EXPORT_DIR) / language / "autosuggestions.json"
         )
+
+        # Create directory if it does not exist before attempting to write the file.
+        path_to_formatted_data.parent.mkdir(parents=True, exist_ok=True)
 
         with open(
             path_to_formatted_data,
