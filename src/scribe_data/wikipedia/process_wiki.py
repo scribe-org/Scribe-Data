@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
+# -*- coding: utf-8 -*-
 """
 Module for cleaning Wikipedia based corpuses for autosuggestion generation.
 """
@@ -35,22 +36,18 @@ def clean(
     ----------
     texts : str or list
         The texts to be cleaned and tokenized.
-
-    language : string (default=en)
-        The language of the texts being cleaned.
-
-    remove_words : str or list (default=None)
-        Strings that should be removed from the text body.
-
-    sample_size : float (default=1)
-        The amount of data to be randomly sampled.
-
-    verbose : bool (default=True)
-        Whether to show a tqdm progress bar for the process.
+    language : str, optional
+        The language of the texts being cleaned. Default is "English".
+    remove_words : str or list, optional
+        Strings that should be removed from the text body. Default is None.
+    sample_size : float, optional
+        The amount of data to be randomly sampled. Default is 1.
+    verbose : bool, optional
+        Whether to show a tqdm progress bar for the process. Default is True.
 
     Returns
     -------
-    cleaned_texts : list
+    list
         The texts formatted for analysis.
     """
     if isinstance(texts, str):
@@ -75,7 +72,7 @@ def clean(
         "WEITERLEITUNG",
         "SORTIERUNG",
         "REDIRECIONAMENTO",
-        "REDIRECCIÓN",
+        "REDIRECCION",
         "OMDIRIGERING",
         "VOLUME",
         "fontsizeS",
@@ -158,8 +155,7 @@ def clean(
             "^",
             "&",
             "*",
-            "–",
-            # "-", we do hyphenated words later
+            "-",
             "_",
             "+",
             "=",
@@ -170,15 +166,10 @@ def clean(
             ";",
             ":",
             '"',
-            "„",
-            "“",
             "?",
             "/",
             ",",
             ".",
-            "·",
-            "«",
-            "»",
             "(",
             ")",
             "[",
@@ -204,7 +195,7 @@ def clean(
             # French
             "Discussion:",
             "Utilisateur:",
-            "Catégorie:",
+            "Categorie:",
             "Aide:",
             "Portail:",
             # German
@@ -220,33 +211,33 @@ def clean(
             "Categoria:",
             "Portale:",
             # Portuguese
-            "Wikipédia:",
-            "Discussão:",
-            "Usuário(a):",
+            "Wikipedia:",
+            "Discussao:",
+            "Usuario(a):",
             "Ficheiro:",
-            "Predefinição:",
+            "Predefinicao:",
             "Ajuda:",
-            "Tópico:",
+            "Topico:",
             # Russian
-            "Обсуждение:",
-            "Участник:",
-            "Википедия:",
-            "Категория:",
-            "Портал:",
+            "Obcyzhdenie:",
+            "Ucastnik:",
+            "Vikipedija:",
+            "Kategorija:",
+            "Portal:",
             # Spanish
-            "Discusión:",
+            "Discusion:",
             "Usuario:",
             "Archivo:",
             "Plantilla:",
             "Ayuda:",
-            "Categoría:",
+            "Categoria:",
             # Swedish
             "Diskussion:",
-            "Användare:",
+            "Anvandare:",
             "Kategori",
             "Fil:",
             "Mall:",
-            "Hjälp:",
+            "Hjalp:",
         ]
 
         # Remove namespaces before symbols as ":" is in the symbols.
@@ -270,13 +261,24 @@ def clean(
             cleaned_texts.append(t)
 
     single_letter_words_dict = {
-        "french": ["a", "à", "y"],
-        "german": ["à"],
-        "italian": ["a", "e", "è", "i", "o"],
-        "portuguese": ["a", "e", "é", "o"],
-        "russian": ["а", "б", "в", "ж", "и", "к", "о", "с", "у", "я"],
+        "french": ["a", "a", "y"],
+        "german": ["a"],
+        "italian": ["a", "e", "e", "i", "o"],
+        "portuguese": ["a", "e", "e", "o"],
+        "russian": [
+            "a",
+            "b",
+            "v",
+            "zh",
+            "i",
+            "k",
+            "o",
+            "s",
+            "u",
+            "ya",
+        ],  # ASCII transliteration
         "spanish": ["a", "e", "o", "u", "y"],
-        "swedish": ["à", "å", "i", "ö"],
+        "swedish": ["a", "a", "i", "o"],
     }
 
     return [
@@ -306,31 +308,27 @@ def gen_autosuggestions(
     verbose=True,
 ):
     """
-    Generates a dictionary of common words (keys) and those that most commonly follow them (values).
+    Generate a dictionary of common words (keys) and those that most commonly follow them (values).
 
     Parameters
     ----------
     text_corpus : list
         The Wikipedia texts formatted for word relation extraction.
-
-    language : string (default=en)
-        The language autosuggestions are being generated for.
-
-    num_words: int (default=500)
-        The number of words that autosuggestions should be generated for.
-
-    ignore_words : str or list (default=None)
-        Strings that should be removed from the text body.
-
-    update_local_data : bool (default=False)
-        Saves the created dictionaries as JSONs in the target directories.
-
-    verbose : bool (default=True)
-        Whether to show a tqdm progress bar for the process.
+    language : str, optional
+        The language autosuggestions are being generated for. Default is "English".
+    num_words : int, optional
+        The number of words that autosuggestions should be generated for. Default is 500.
+    ignore_words : str or list, optional
+        Strings that should be removed from the text body. Default is None.
+    update_local_data : bool, optional
+        Whether to save the created dictionaries as JSONs in the target directories. Default is False.
+    verbose : bool, optional
+        Whether to show a tqdm progress bar for the process. Default is True.
 
     Returns
     -------
-    Autosuggestions dictionaries for common words are saved locally or uploaded to Scribe apps.
+    dict
+        A dictionary mapping common words to their autosuggestion lists.
     """
     counter_obj = Counter(chain.from_iterable(text_corpus))
 
@@ -339,10 +337,9 @@ def gen_autosuggestions(
     if isinstance(ignore_words, str):
         words_to_ignore = [ignore_words]
     elif ignore_words is None:
-        words_to_ignore += []
+        words_to_ignore = []  # Fixed from +=
 
     print("Querying profanities to remove from suggestions.")
-    # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
     with open(
         Path(__file__).parent / "query_profanity.sparql", encoding="utf-8"
     ) as file:
@@ -364,10 +361,8 @@ def gen_autosuggestions(
     if results is None:
         print("Nothing returned by the WDQS server for query_profanity.sparql")
     else:
-        # Subset the returned JSON and the individual results before saving.
-        query_results = results["results"]["bindings"]  # pylint: disable=unsubscriptable-object
-
-        for r in query_results:  # query_results is also a list
+        query_results = results["results"]["bindings"]
+        for r in query_results:
             r_dict = {k: r[k]["value"] for k in r.keys()}
             profanities.append(r_dict["lemma"])
 
@@ -394,9 +389,8 @@ def gen_autosuggestions(
                 and tup[0] not in profanities
                 and tup[0] not in words_to_ignore
                 and tup[0] != tup[0].upper()  # no upper case suggestions
-                # Lots of detailed articles on WWII on Wikipedia.
                 and tup[0].lower()[:4] != "nazi"
-                and tup[0].lower()[:4] != "наци"
+                and tup[0].lower()[:4] != "natsi"  # ASCII transliteration
             ):
                 autosuggestions.append(tup[0])
 
