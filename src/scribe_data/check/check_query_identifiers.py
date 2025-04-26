@@ -2,9 +2,9 @@
 """
 Check the queries within Scribe-Data to make sure the language and data type are correct.
 
-Example
--------
-    python3 src/scribe_data/check/check_query_identifiers.py
+Examples
+--------
+>>> python3 src/scribe_data/check/check_query_identifiers.py
 """
 
 import re

@@ -51,6 +51,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - Documentation has been expanded for all functionalities of the CLI.
 
+### ♻️ Code Refactoring
+
+- All numpydoc docstrings have been fixed and unneeded code has been removed ([#547](https://github.com/scribe-org/Scribe-Data/issues/547)).
+
 ## Scribe-Data 4.1.0
 
 ### ✨ Features
@@ -220,6 +224,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - Emojis of singular nouns are now also linked to their plural counterparts if the plural isn't present in the emoji keyword outputs.
 - The emoji process also now updates a column to the `data_table.txt` file for sharing on readmes with `update_data.py` maintaining it in the data update process.
 
+### 🐞 Bug Fixes
+
+- The statements in translation files have been fixed as they were improperly defined after a file was moved.
+
 ### ♻️ Code Refactoring
 
 - The Jupyter notebooks for autosuggestions and emojis as well as `update_data.py` were moved to the `extract_transform` directory given that they're not used to load data anymore.
@@ -233,10 +241,6 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
   - regex was added as a dependency.
   - pylint comments were removed.
 - Verb SPARQL query scripts for Spanish and Italian were simplified to remove unneeded repeat conditions ([#7](https://github.com/scribe-org/Scribe-Data/issues/7)).
-
-### 🐞 Bug Fixes
-
-- The statements in translation files have been fixed as they were improperly defined after a file was moved.
 
 ## Scribe-Data 2.2.2
 

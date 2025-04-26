@@ -31,4 +31,4 @@ repos:
     hooks:
       - id: numpydoc-validation
         files: ^src/
-        exclude: ^tests/
+        exclude: ^(tests/|.*__init__\.py$)

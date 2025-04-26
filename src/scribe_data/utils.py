@@ -127,7 +127,8 @@ def _load_json(package_path: str, file_name: str) -> Any:
 
     Returns
     -------
-    A python entity representing the JSON content.
+    Any
+        A python entity representing the JSON content.
     """
     json_file = resources.files(package_path).joinpath(file_name)
     with json_file.open(encoding="utf-8") as in_stream:
@@ -141,17 +142,17 @@ _languages = _load_json(
 
 def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -> Any:
     """
-    Finds a target value based on a source key/value pair from the language metadata.
+    Find a target value based on a source key/value pair from the language metadata.
 
     This version handles both regular languages and those with sub-languages (e.g., Norwegian).
 
     Parameters
     ----------
-    source_value : str
-        The source value to find equivalents for (e.g., 'english', 'nynorsk').
-
     source_key : str
         The source key to reference (e.g., 'language').
+
+    source_value : str
+        The source value to find equivalents for (e.g., 'english', 'nynorsk').
 
     target_key : str
         The key to target (e.g., 'qid').
@@ -161,7 +162,8 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
 
     Returns
     -------
-    The 'target' value given the passed arguments.
+    str
+        The 'target' value given the passed arguments.
 
     Raises
     ------
@@ -196,7 +198,7 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
 
 def get_language_qid(language: str) -> str:
     """
-    Returns the QID of the given language.
+    Return the QID of the given language.
 
     Parameters
     ----------
@@ -218,7 +220,7 @@ def get_language_qid(language: str) -> str:
 
 def get_language_iso(language: str) -> str:
     """
-    Returns the ISO code of the given language.
+    Return the ISO code of the given language.
 
     Parameters
     ----------
@@ -241,7 +243,7 @@ def get_language_iso(language: str) -> str:
 
 def get_language_from_iso(iso: str) -> str:
     """
-    Returns the language name for the given ISO.
+    Return the language name for the given ISO.
 
     Parameters
     ----------
@@ -273,7 +275,7 @@ def load_queried_data(
     dir_path: str, language: str, data_type: str
 ) -> tuple[Any, bool, str]:
     """
-    Loads queried data from a JSON file for a specific language and data type.
+    Load queried data from a JSON file for a specific language and data type.
 
     Parameters
     ----------
@@ -301,7 +303,7 @@ def load_queried_data(
 
 def remove_queried_data(dir_path: str, language: str, data_type: str) -> None:
     """
-    Removes queried data for a specific language and data type as a new formatted file has been generated.
+    Remove queried data for a specific language and data type as a new formatted file has been generated.
 
     Parameters
     ----------
@@ -316,7 +318,8 @@ def remove_queried_data(dir_path: str, language: str, data_type: str) -> None:
 
     Returns
     -------
-    None : The file is deleted.
+    None
+        The file is deleted.
     """
     data_path = (
         Path(dir_path)
@@ -336,7 +339,7 @@ def export_formatted_data(
     query_data_in_use: bool = False,
 ) -> None:
     """
-    Exports formatted data to a JSON file for a specific language and data type.
+    Export formatted data to a JSON file for a specific language and data type.
 
     Parameters
     ----------
@@ -352,9 +355,13 @@ def export_formatted_data(
     data_type : str
         The type of data being exported (e.g. 'nouns', 'verbs').
 
+    query_data_in_use : bool
+        Whether the query_data function is in use.
+
     Returns
     -------
     None
+        The formatted data exported.
     """
     export_path = (
         Path(dir_path)
@@ -373,7 +380,7 @@ def export_formatted_data(
 
 def get_ios_data_path(language: str) -> str:
     """
-    Returns the path to the data json of the iOS app given a language.
+    Return the path to the data json of the iOS app given a language.
 
     Parameters
     ----------
@@ -390,12 +397,7 @@ def get_ios_data_path(language: str) -> str:
 
 def get_android_data_path() -> str:
     """
-    Returns the path to the data json of the Android app given a language.
-
-    Parameters
-    ----------
-    language : str
-        The language the path should be returned for.
+    Return the path to the data json of the Android app given a language.
 
     Returns
     -------
@@ -409,7 +411,7 @@ def check_command_line_args(
     file_name: str, passed_values: Any, values_to_check: list[str]
 ) -> list[str]:
     """
-    Checks command line arguments passed to Scribe-Data files.
+    Check command line arguments passed to Scribe-Data files.
 
     Parameters
     ----------
@@ -464,7 +466,7 @@ def check_and_return_command_line_args(
     second_args_check: list[str] = None,
 ) -> tuple[Optional[list[str]], Optional[list[str]]]:
     """
-    Checks command line arguments passed to Scribe-Data files and returns them if correct.
+    Check command line arguments passed to Scribe-Data files and returns them if correct.
 
     Parameters
     ----------
@@ -519,9 +521,7 @@ def check_and_return_command_line_args(
 
 def format_sublanguage_name(lang, language_metadata=_languages):
     """
-    Formats the name of a sub-language by appending its main language
-    in the format 'SUB_LANG MAIN_LANG'. If the language is not a sub-language,
-    the original language name is returned as-is.
+    Format the name of a sub-language by appending its main language in the format 'SUB_LANG MAIN_LANG'.
 
     Parameters
     ----------
@@ -541,6 +541,10 @@ def format_sublanguage_name(lang, language_metadata=_languages):
     ------
     ValueError
         If the provided language or sub-language is not found.
+
+    Notes
+    -----
+    If the language is not a sub-language, the original language name is returned as-is.
 
     Examples
     --------
@@ -573,7 +577,17 @@ def format_sublanguage_name(lang, language_metadata=_languages):
 
 def list_all_languages(language_metadata=_languages):
     """
-    Returns a sorted list of all languages from the provided metadata dictionary, including sub-languages.
+    Return a sorted list of all languages and sub-languages from the provided metadata dictionary.
+
+    Parameters
+    ----------
+    language_metadata : dict
+        The metadata that Scribe-Data uses to provide information on languages.
+
+    Returns
+    -------
+    list
+        A list of all available languages within the Scribe-Data metadata.
     """
     current_languages = []
 
@@ -594,7 +608,20 @@ def list_all_languages(language_metadata=_languages):
 
 def list_languages_with_metadata_for_data_type(language_metadata=_languages):
     """
-    Returns a sorted list of languages and their metadata (name, iso, qid) for a specific data type.
+    Return a sorted list of languages and their metadata (name, iso, qid) for a specific data type.
+
+    Parameters
+    ----------
+    language_metadata : dict
+        The metadata that Scribe-Data uses to provide information on languages.
+
+    Returns
+    -------
+    list
+        A list of languages and their metadata as dictionary objects.
+
+    Notes
+    -----
     The list includes sub-languages where applicable.
     """
     current_languages = []
@@ -632,6 +659,16 @@ def list_languages_with_metadata_for_data_type(language_metadata=_languages):
 def camel_to_snake(name: str) -> str:
     """
     Convert camelCase to snake_case.
+
+    Parameters
+    ----------
+    name : str
+        An identifier name that needs to be converted to snake case.
+
+    Returns
+    -------
+    str
+        The given string in snake_case.
     """
     return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
 
@@ -641,7 +678,7 @@ def camel_to_snake(name: str) -> str:
 
 def check_lexeme_dump_prompt_download(output_dir: str):
     """
-    Checks to see if a Wikidata lexeme dump exists and prompts the user to download one if not.
+    Check to see if a Wikidata lexeme dump exists and prompts the user to download one if not.
 
     Parameters
     ----------
@@ -650,7 +687,8 @@ def check_lexeme_dump_prompt_download(output_dir: str):
 
     Returns
     -------
-    None : The user is prompted to download a new Wikidata lexeme dump after the existence of one is checked.
+    None
+        The user is prompted to download a new Wikidata lexeme dump after the existence of one is checked.
     """
     existing_dumps = list(Path(output_dir).glob("*.json.bz2"))
     if existing_dumps:
@@ -728,9 +766,7 @@ def check_lexeme_dump_prompt_download(output_dir: str):
 
 def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
     """
-    Check if JSON wiktionary dump file exists and prompt user for action if it does.
-    Returns True if user chooses to skip (i.e., we do NOT proceed).
-    Returns False if the file doesn't exist or user chooses to overwrite (i.e., we DO proceed).
+    Check if JSON Wiktionary dump file exists and prompt user for action if it does.
 
     Parameters
     ----------
@@ -739,6 +775,16 @@ def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
 
     overwrite_all : cool (default=False)
         If True, automatically overwrite without prompting.
+
+    Returns
+    -------
+    bool
+        Whether the JSON Wiktionary dump file exists or not.
+
+    Notes
+    -----
+    Returns True if user chooses to skip (i.e., we do NOT proceed).
+    Returns False if the file doesn't exist or user chooses to overwrite (i.e., we DO proceed).
     """
     if index_path.exists():
         if overwrite_all:
@@ -759,12 +805,14 @@ def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
 
 def check_qid_is_language(qid: str):
     """
+    Check to see if a Wikidata QID is a language or not.
+
     Parameters
     ----------
     qid : str
         The QID to check Wikidata to see if it's a language and return its English label.
 
-    Outputs
+    Returns
     -------
     str
         The English label of the Wikidata language entity.
@@ -794,12 +842,14 @@ def check_qid_is_language(qid: str):
 
 def get_language_iso_code(qid: str):
     """
+    Get the language ISO code from a Wikidata QID identifying a language.
+
     Parameters
     ----------
     qid : str
         Get the ISO code of a language given its Wikidata QID.
 
-    Outputs
+    Returns
     -------
     str
         The ISO code of the language.

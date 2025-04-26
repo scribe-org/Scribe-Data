@@ -65,12 +65,15 @@ def check_contract_data_completeness(
     -------
     Dict[str, Dict[str, List[str]]]
         A nested dictionary containing missing forms by language and data type.
-        Structure: {
+
+        {
             'Language Name': {
                 'nouns': ['missing_noun_form1', 'missing_noun_form2'],
                 'verbs': ['missing_verb_form1']
             }
         }
+
+        The above is the expected structure.
     """
     # Determine languages to check.
     if language:

@@ -119,9 +119,10 @@ def print_total_lexemes(language: str = None):
     language : str, optional
         The language to display data type entity counts for.
 
-    Outputs
+    Returns
     -------
-    A formatted string indicating the language, data type, and total number of lexemes for all the languages, if found.
+    str
+        A formatted string indicating the language, data type, and total number of lexemes for all the languages, if found.
     """
     if language is None:
         print("Returning total counts for all languages and data types...\n")
@@ -139,9 +140,25 @@ def print_total_lexemes(language: str = None):
     else:
         print(f"Returning total counts for {language.capitalize()} data types...\n")
 
-    def print_total_header(language, dt, total_lexemes):
+    def print_total_header(language: str, dt: str, total_lexemes: int) -> None:
         """
         Print the header of the total command output.
+
+        Parameters
+        ----------
+        language : str
+            The language for which to count lexemes.
+
+        dt : str
+            The data type (e.g., "nouns", "verbs") for which to count lexemes.
+
+        total_lexemes : int
+            The total number of lexemes derived.
+
+        Returns
+        -------
+        None
+            A message is printed to the terminal about the total number of lexemes.
         """
         language_display = (
             "All Languages" if language is None else language.capitalize()
@@ -212,7 +229,10 @@ def get_total_lexemes(language, data_type, do_print=True):
     data_type : str
         The data type (e.g., "nouns", "verbs") for which to count lexemes.
 
-    Outputs
+    do_print : bool
+        Print the total lexemes for the given language and data type.
+
+    Returns
     -------
     str
         A formatted string indicating the language, data type and total number of lexemes, if found.
@@ -335,7 +355,6 @@ def total_wrapper(
 ) -> None:
     """
     Conditionally provides the full functionality of the total command.
-    Now accepts lists for language and data type to output a table of total lexemes.
 
     Parameters
     ----------
@@ -351,6 +370,10 @@ def total_wrapper(
     wikidata_dump : Union[str, bool]
         The local Wikidata lexeme dump path that can be used to process data.
         If True, indicates the flag was used without a path.
+
+    Notes
+    -----
+    Now accepts lists for language and data type to output a table of total lexemes.
     """
     # Handle --all flag
     if all_bool and wikidata_dump:

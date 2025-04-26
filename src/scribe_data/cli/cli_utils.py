@@ -147,7 +147,7 @@ def validate_language_and_data_type(
         Returns
         -------
         str or None
-            Returns an error message if the item is invalid, or None if the item is valid.
+            An error message if the item is invalid, or None if the item is valid.
         """
         if (
             isinstance(item, str)

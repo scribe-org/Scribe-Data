@@ -25,7 +25,7 @@ from scribe_data.wikidata.wikidata_utils import sparql
 
 def execute_formatting_script(output_dir: str, language: str, data_type: str):
     """
-    Executes a formatting script given a filepath and output directory for the process.
+    Execute a formatting script given a filepath and output directory for the process.
 
     Parameters
     ----------
@@ -40,7 +40,8 @@ def execute_formatting_script(output_dir: str, language: str, data_type: str):
 
     Returns
     -------
-    The results of the formatting script are saved in the given output directory.
+    None
+        The results of the formatting script are saved in the given output directory.
     """
     formatting_file_path = Path(__file__).parent / "format_data.py"
 
@@ -86,11 +87,11 @@ def query_data(
     interactive: bool = False,
 ) -> None:
     """
-    Queries language data from the Wikidata lexicographical data.
+    Query language data from the Wikidata lexicographical data.
 
     Parameters
     ----------
-    language : str
+    languages : list[str]
         The language(s) to get.
 
     data_type : str
@@ -102,9 +103,13 @@ def query_data(
     overwrite : bool (default: False)
         Whether to overwrite existing files.
 
+    interactive : bool, default=False
+        Whether the function is being ran via interactive mode.
+
     Returns
     -------
-    Formatted data from Wikidata saved in the output directory.
+    None
+        Formatted data from Wikidata saved in the output directory.
     """
     current_languages = list_all_languages(language_metadata)
     current_data_type = ["nouns", "verbs", "prepositions"]

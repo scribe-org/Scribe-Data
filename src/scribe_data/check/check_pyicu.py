@@ -2,9 +2,9 @@
 """
 Check to see if the requirements of the emoji process are installed.
 
-Example
--------
-    python3 src/scribe_data/check/check_pyicu.py
+Examples
+--------
+>>> python3 src/scribe_data/check/check_pyicu.py
 """
 
 import importlib.metadata
@@ -19,6 +19,14 @@ import requests
 
 
 def check_if_pyicu_installed():
+    """
+    Check to see if PyICU is installed or not.
+
+    Returns
+    -------
+    bool
+        Whether PyICU is installed.
+    """
     try:
         # Check if PyICU is installed using importlib.metadata.
         importlib.metadata.version("PyICU")
@@ -89,7 +97,8 @@ def download_wheel_file(wheel_url, output_dir):
 
     Returns
     -------
-    str : path to the downloaded wheel file.
+    str
+        Path to the downloaded wheel file.
     """
     response = requests.get(wheel_url)
     response.raise_for_status()  # raise an error for bad responses
@@ -120,7 +129,8 @@ def find_matching_wheel(wheels, python_version, architecture):
 
     Returns
     -------
-    str : The download URL of the matching wheel or None if not found.
+    str
+        The download URL of the matching wheel or None if not found.
     """
     return next(
         (
@@ -133,6 +143,14 @@ def find_matching_wheel(wheels, python_version, architecture):
 
 
 def check_and_install_pyicu():
+    """
+    Check whether PyICU is installed and install it if it's not already.
+
+    Returns
+    -------
+    bool
+        Whether PyICU is installed.
+    """
     package_name = "PyICU"
     try:
         version = importlib.metadata.version(package_name)

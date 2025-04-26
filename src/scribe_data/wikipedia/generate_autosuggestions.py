@@ -14,7 +14,7 @@ from scribe_data.wikipedia.process_wiki import clean, gen_autosuggestions
 
 def generate_autosuggestions(language, dump_id, force_download):
     """
-    Generates autosuggestions from Wikipedia articles for a given language.
+    Generate autosuggestions from Wikipedia articles for a given language.
 
     This function downloads a Wikipedia dump, extracts and cleans article texts,
     and generates autosuggestions based on the processed text. If no matching dump is found, the function exits early.

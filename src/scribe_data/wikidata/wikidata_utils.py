@@ -51,7 +51,7 @@ def parse_wd_lexeme_dump(
     interactive_mode=False,
 ):
     """
-    Checks for the existence of a Wikidata lexeme dump and parses it if possible.
+    Check for the existence of a Wikidata lexeme dump and parses it if possible.
 
     Parameters
     ----------
@@ -71,9 +71,16 @@ def parse_wd_lexeme_dump(
         The local Wikidata lexeme dump directory that should be used to get data.
 
     overwrite_all : bool, default=False
-        If True, automatically overwrite existing files without prompting
-    """
+        If True, automatically overwrite existing files without prompting.
 
+    interactive_mode : bool, default=False
+        Whether the function is being ran via interactive mode.
+
+    Returns
+    -------
+    None
+        A parsed Wikidata lexeme dump.
+    """
     # Convert "all" to list of all languages including sub-languages.
     if isinstance(language, str) and language.lower() == "all":
         languages = []

@@ -47,7 +47,14 @@ THANK_YOU_MESSAGE = "[bold cyan]Thank you for using Scribe-Data![/bold cyan]"
 
 
 class ScribeDataConfig:
+    """
+    Class for the configuration of the interactive mode.
+    """
+
     def __init__(self):
+        """
+        Configure the interactive mode.
+        """
         self.languages = list_all_languages(language_metadata)
         self.data_types = list(data_type_metadata.keys())
         self.selected_languages: List[str] = []
@@ -69,7 +76,7 @@ config = ScribeDataConfig()
 
 def display_summary():
     """
-    Displays a summary of the interactive mode request to run.
+    Display a summary of the interactive mode request to run.
     """
     table = Table(
         title="Scribe-Data Request Configuration Summary", style="bright_white"
@@ -93,8 +100,25 @@ def display_summary():
 def create_word_completer(
     options: List[str], include_all: bool = False
 ) -> WordCompleter:
+    """
+    Return a word completer object of the given options.
+
+    Parameters
+    ----------
+    options : list[str]
+        The options that could complete the current input.
+
+    include_all : bool
+        Whether 'All' should be an option.
+
+    Returns
+    -------
+    WordCompleter
+        The word completer object from which completions can be shown to the user.
+    """
     if include_all:
         options = ["All"] + options
+
     return WordCompleter(options, ignore_case=True)
 
 
@@ -103,7 +127,12 @@ def create_word_completer(
 
 def prompt_for_languages():
     """
-    Requests language and data type for lexeme totals.
+    Request language and data type for lexeme totals.
+
+    Returns
+    -------
+    None
+        Languages are added to the configuration or are asked for.
     """
     language_completer = create_word_completer(config.languages, include_all=True)
     initial_language_selection = ", ".join(config.selected_languages)
@@ -114,6 +143,7 @@ def prompt_for_languages():
     )
     if "All" in selected_languages:
         config.selected_languages = config.languages
+
     elif selected_languages.strip():  # check if input is not just whitespace
         config.selected_languages = [
             lang.strip()
@@ -130,6 +160,14 @@ def prompt_for_languages():
 
 
 def prompt_for_data_types():
+    """
+    Prompt the user to select data types.
+
+    Returns
+    -------
+    None
+        Data types are added to the configuration or are asked for.
+    """
     config.data_types = [dt for dt in config.data_types if dt != "autosuggestions"]
     data_type_completer = create_word_completer(config.data_types, include_all=True)
     initial_data_type_selection = ", ".join(config.selected_data_types)
@@ -156,7 +194,20 @@ def prompt_for_data_types():
         rprint("[yellow]No data type selected. Please try again.[/yellow]")
 
 
-def prompt_for_dump_id(language):
+def prompt_for_dump_id(language) -> str:
+    """
+    Ask the user which dump ID should be used for operations.
+
+    Parameters
+    ----------
+    language : str
+        The language associated withe the dump.
+
+    Returns
+    -------
+    str
+        The dump to use in operations.
+    """
     dump_ids = get_available_dumps(language)
     dump_id_completer = create_word_completer(dump_ids, include_all=True)
     selected_dump_id = prompt(
@@ -177,7 +228,7 @@ def prompt_for_dump_id(language):
 
 def configure_settings():
     """
-    Configures the settings of the interactive mode request.
+    Configure the settings of the interactive mode request.
 
     Asks for:
         - Languages
@@ -209,7 +260,7 @@ def configure_settings():
         )
 
     # MARK: Output Directory
-  
+
     if output_dir := prompt(f"Enter output directory (default: {config.output_dir}): "):
         config.output_dir = Path(output_dir)
 
@@ -233,6 +284,7 @@ def run_request():
     Returns
     -------
     None
+        An interactive mode request is ran.
     """
     if not config.selected_languages or not config.selected_data_types:
         rprint("[bold red]Error: Please configure languages and data types.[/bold red]")

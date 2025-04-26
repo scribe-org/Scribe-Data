@@ -88,6 +88,7 @@ def format_data(dir_path: str, language: str, data_type: str):
             if isinstance(value, str) and " | " in value:
                 has_multiple_forms = True
                 break
+
         if has_multiple_forms:
             break
 

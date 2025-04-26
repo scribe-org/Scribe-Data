@@ -61,11 +61,11 @@ def get_data(
     output_dir : str
         The output directory path for results.
 
-    outputs_per_entry : str
-        How many outputs should be generated per data entry.
-
     overwrite : bool (default: False)
         Whether to overwrite existing files.
+
+    outputs_per_entry : str
+        How many outputs should be generated per data entry.
 
     all_bool : bool
         Get all languages and data types.
@@ -82,11 +82,17 @@ def get_data(
     dump_id : str (default=None)
         The id of an explicit Wikipedia dump that the user wants to download.
 
-        Note: a value of None will select the third from the last (latest stable dump).
+    force_download : bool
+        Whether a download of a Wikipedia dump should be forced.
 
     Returns
     -------
-    The requested data saved locally given file type and location arguments.
+    None
+        The requested data saved locally given file type and location arguments.
+
+    Notes
+    -----
+    A value of None for dump_id will select the third from the last (latest stable dump).
     """
     # MARK: Defaults
 
@@ -105,7 +111,12 @@ def get_data(
 
     def prompt_user_download_all():
         """
-        Checks with the user if they'd rather use Wikidata lexeme dumps before a download all call.
+        Check with the user if they'd rather use Wikidata lexeme dumps before a download all call.
+
+        Returns
+        -------
+        bool
+            A boolean response from the user on whether they'd like to download all data.
         """
         return questionary.confirm(
             "Do you want to query Wikidata directly? (selecting 'no' will use a Wikidata lexemes dump locally to avoid large Query Service calls)",

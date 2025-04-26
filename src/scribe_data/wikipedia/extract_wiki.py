@@ -25,12 +25,35 @@ from scribe_data.utils import get_language_iso
 
 def get_base_url(language):
     """
-    Returns the correct base URL dynamically.
+    Return the correct base URL dynamically.
+
+    Parameters
+    ----------
+    language : str
+        The language for which the dump URL should be derived for.
+
+    Returns
+    -------
+    str
+        The URL for the Wikipedia dumps for a given language.
     """
     return f"https://dumps.wikimedia.org/{get_language_iso(language)}wiki/"
 
 
 def get_available_dumps(language):
+    """
+    Find all available Wikipedia dumps for a given language.
+
+    Parameters
+    ----------
+    language : str
+        The language of Wikipedia that dumps should be found for.
+
+    Returns
+    -------
+    list
+        All available dumps that can be downloaded.
+    """
     base_url = get_base_url(language)
     index = requests.get(base_url, timeout=5).text
     soup_index = BeautifulSoup(index, "html.parser")
@@ -46,7 +69,7 @@ def download_wiki(
     force_download=False,
 ):
     """
-    Downloads the most recent stable dump of a language's Wikipedia if it is not already present.
+    Download the most recent stable dump of a language's Wikipedia if it is not already present.
 
     Parameters
     ----------
@@ -69,7 +92,7 @@ def download_wiki(
 
     Returns
     -------
-    file_info : list of lists
+    list[list]
         Information on the downloaded Wikipedia dump files.
     """
     if file_limit is not None:
@@ -151,7 +174,7 @@ def download_wiki(
 
 def _process_article(title, text):
     """
-    Process a wikipedia article to extract the title and text.
+    Extract the title and text from a Wikipedia article.
 
     Parameters
     ----------
@@ -174,30 +197,31 @@ def _process_article(title, text):
     return title, text
 
 
-def iterate_and_parse_file(args):
+def iterate_and_parse_file(args) -> None:
     """
-    Creates partitions of desired articles.
+    Create partitions of desired articles.
 
     Parameters
     ----------
     args : tuple
         The below arguments as a tuple for pool.imap_unordered rather than pool.starmap.
 
-    input_path : pathlib.Path
-        The path to the data file.
+        input_path : pathlib.Path
+            The path to the data file.
 
-    partitions_dir : pathlib.Path
-        The path to where output file should be stored.
+        partitions_dir : pathlib.Path
+            The path to where output file should be stored.
 
-    article_limit : int (default=None)
-        An optional article_limit of the number of articles to find.
+        article_limit : int (default=None)
+            An optional article_limit of the number of articles to find.
 
-    verbose : bool (default=True)
-        Whether to show a tqdm progress bar for the processes.
+        verbose : bool (default=True)
+            Whether to show a tqdm progress bar for the processes.
 
     Returns
     -------
-    A parsed file Wikipedia dump file with articles.
+    None
+        A parsed file Wikipedia dump file with articles.
     """
     input_path, partitions_dir, article_limit, verbose = args
 
@@ -298,9 +322,9 @@ def parse_to_ndjson(
     force_download=False,
     multicore=True,
     verbose=True,
-):
+) -> None:
     """
-    Finds all Wikipedia entries and converts them to json files.
+    Find all Wikipedia entries and converts them to json files.
 
     Parameters
     ----------
@@ -330,7 +354,8 @@ def parse_to_ndjson(
 
     Returns
     -------
-    Wikipedia dump files parsed and converted to json files.
+    None
+        Wikipedia dump files parsed and converted to json files.
     """
     output_dir = "/".join(list(output_path.split("/")[:-1]))
     output_dir = Path(output_dir)
@@ -430,38 +455,11 @@ class WikiXmlHandler(xml.sax.handler.ContentHandler):
     """
 
     def __init__(self):
+        """
+        Constructor method.
+        """
         xml.sax.handler.ContentHandler.__init__(self)
         self._buffer = None
         self._values = {}
         self._current_tag = None
         self.target_articles = []
-
-    def characters(self, content):
-        """
-        Characters between opening and closing tags.
-        """
-        if self._current_tag:
-            self._buffer.append(content)
-
-    def startElement(self, name, attrs):
-        """
-        Opening tag of element.
-        """
-        if name in ("title", "text"):
-            self._current_tag = name
-            self._buffer = []
-
-    def endElement(self, name):
-        """
-        Closing tag of element.
-        """
-        if name == self._current_tag:
-            self._values[name] = " ".join(self._buffer)
-
-        if name == "page":
-            target_article = _process_article(**self._values)
-            if target_article and (
-                "Wikipedia:" not in target_article[0]
-                and "Draft:" not in target_article[0]
-            ):  # no archive files or drafts
-                self.target_articles.append(target_article)

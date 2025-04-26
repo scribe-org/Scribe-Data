@@ -2,9 +2,9 @@
 """
 Script to update the Scribe-Data unicode data from CLDR.
 
-Example
--------
-    python3 src/scribe_data/unicode/update_unicode_data.py
+Examples
+--------
+>>> python3 src/scribe_data/unicode/update_unicode_data.py
 """
 
 import os
@@ -13,7 +13,7 @@ from pathlib import Path
 
 def check_install_node_modules():
     """
-    Checks to see if node modules have been installed in Scribe-Data, and if not installs them.
+    Check to see if node modules have been installed in Scribe-Data, and if not installs them.
     """
     if not (Path.cwd() / "node_modules").exists():
         print(

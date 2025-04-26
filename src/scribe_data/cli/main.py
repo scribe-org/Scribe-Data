@@ -38,6 +38,14 @@ CLI_EPILOG = "Visit the codebase at https://github.com/scribe-org/Scribe-Data an
 
 
 def main() -> None:
+    """
+    The function that controls the Scribe-Data CLI.
+
+    Returns
+    -------
+    None
+        A command is ran via inputs from the user.
+    """
     # MARK: CLI Base
 
     parser = argparse.ArgumentParser(
