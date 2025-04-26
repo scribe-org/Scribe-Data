@@ -8,4 +8,4 @@ wikipedia/
 
     extract_wiki
     process_wiki
-    gen_autosuggestions
+    generate_autosuggestions
