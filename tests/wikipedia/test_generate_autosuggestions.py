@@ -46,7 +46,7 @@ class TestGenerate(unittest.TestCase):
         mock_download_wiki.assert_called_once_with(
             language=language,
             target_dir=target_dir,
-            file_limit=None,  # Note: Limit for development.
+            file_limit=None,
             dump_id=dump_id,
             force_download=False,
         )
@@ -67,7 +67,7 @@ class TestGenerate(unittest.TestCase):
         mock_gen_autosuggestions.assert_called_once_with(
             text_corpus,
             language=language,
-            num_words=500,  # Note: Limit for development.
+            num_words=500,
             ignore_words=None,
             update_local_data=True,
             verbose=True,
@@ -104,7 +104,7 @@ class TestGenerate(unittest.TestCase):
         mock_download_wiki.assert_called_once_with(
             language=language,
             target_dir=target_dir,
-            file_limit=None,  # Note: Limit for development.
+            file_limit=None,
             dump_id=dump_id,
             force_download=True,
         )
@@ -126,7 +126,7 @@ class TestGenerate(unittest.TestCase):
         mock_gen_autosuggestions.assert_called_once_with(
             text_corpus,
             language=language,
-            num_words=500,  # Note: Limit for development.
+            num_words=500,
             ignore_words=None,
             update_local_data=True,
             verbose=True,

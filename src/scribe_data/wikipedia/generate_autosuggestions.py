@@ -46,7 +46,7 @@ def generate_autosuggestions(language, dump_id, force_download):
     files = download_wiki(
         language=language,
         target_dir=target_dir,
-        file_limit=None,  # Note: Limit for development.
+        file_limit=None,  # Note: Limit for autosuggestion development.
         dump_id=dump_id,
         force_download=force_download,
     )
@@ -95,7 +95,7 @@ def generate_autosuggestions(language, dump_id, force_download):
     gen_autosuggestions(
         text_corpus,
         language=language,
-        num_words=500,  # Note: Limit for development.
+        num_words=500,  # Note: Limit for autosuggestion development.
         ignore_words=None,
         update_local_data=True,
         verbose=True,
