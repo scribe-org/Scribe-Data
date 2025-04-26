@@ -10,6 +10,7 @@ Please see the `installation guide for PyICU <https://gitlab.pyicu.org/main/pyic
 .. toctree::
     :maxdepth: 1
 
-    unicode_utils
-    update_unicode_data
+    generate_emoji_keywords
     process_unicode
+    update_unicode_data
+    unicode_utils
