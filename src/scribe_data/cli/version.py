@@ -9,6 +9,14 @@ import requests
 
 
 def get_local_version():
+    """
+    Get the version of Scribe-Data that is currently running.
+
+    Returns
+    -------
+    str
+        The version of the package that is installed.
+    """
     try:
         return importlib.metadata.version("scribe-data")
 
@@ -17,6 +25,14 @@ def get_local_version():
 
 
 def get_latest_version():
+    """
+    Get the latest version of Scribe-Data from the GitHub repository.
+
+    Returns
+    -------
+    str
+        The latest version of the package.
+    """
     try:
         response = requests.get(
             "https://api.github.com/repos/scribe-org/Scribe-Data/releases/latest"
@@ -28,11 +44,20 @@ def get_latest_version():
 
 
 def get_version_message():
+    """
+    Return a message about the current and up to date versions of Scribe-Data.
+
+    Returns
+    -------
+    str
+        A message about the current version of Scribe-Data and whether it can be updated.
+    """
     local_version = get_local_version()
     latest_version = get_latest_version()
 
     if local_version == "Unknown (Not installed via pip)":
         return f"Scribe-Data {local_version}"
+
     elif latest_version == "Unknown (Unable to fetch version)":
         return f"Scribe-Data {latest_version}"
 

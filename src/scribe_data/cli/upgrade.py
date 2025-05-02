@@ -16,6 +16,14 @@ from scribe_data.cli.version import get_latest_version, get_local_version
 
 
 def upgrade_cli():
+    """
+    Upgrade the Scribe-Data CLI to the latest version.
+
+    Returns
+    -------
+    None
+        The package is updated if possible.
+    """
     local_version = get_local_version()
     latest_version = get_latest_version()
     latest_version = latest_version.split("v")[-1]

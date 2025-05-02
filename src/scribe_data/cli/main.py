@@ -11,6 +11,8 @@ from questionary import select
 from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
+from scribe_data.cli.contracts.check import check_contracts
+from scribe_data.cli.contracts.filter import export_data_filtered_by_contracts
 from scribe_data.cli.convert import convert_wrapper
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 from scribe_data.cli.get import get_data
@@ -36,6 +38,14 @@ CLI_EPILOG = "Visit the codebase at https://github.com/scribe-org/Scribe-Data an
 
 
 def main() -> None:
+    """
+    The function that controls the Scribe-Data CLI.
+
+    Returns
+    -------
+    None
+        A command is ran via inputs from the user.
+    """
     # MARK: CLI Base
 
     parser = argparse.ArgumentParser(
@@ -165,6 +175,18 @@ def main() -> None:
     )
     get_parser.add_argument(
         "-t", "--translation", type=str, help="parse a single word using MediaWiki API"
+    )
+    get_parser.add_argument(
+        "-di",
+        "--dump-id",
+        type=str,
+        help="The id of an explicit Wikipedia dump that the user wants to download.",
+    )
+    get_parser.add_argument(
+        "-fd",
+        "--force-download",
+        action="store_true",
+        help="Force download wikipedia dump",
     )
 
     # MARK: Total
@@ -317,6 +339,65 @@ def main() -> None:
     )
     interactive_parser._actions[0].help = "Show this help message and exit."
 
+    # MARK: Check Contracts
+
+    check_contracts_parser = subparsers.add_parser(
+        "check_contracts",
+        aliases=["cc"],
+        help="Check the data in the following directory to see that all needed language data is included.",
+        description="Check if data exports match their corresponding data contracts.",
+        epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
+    )
+    check_contracts_parser._actions[0].help = "Show this help message and exit."
+    check_contracts_parser.add_argument(
+        "-cd",
+        "--contracts-dir",
+        type=str,
+        required=False,
+        help="The directory where the contracts are saved.",
+    )
+    check_contracts_parser.add_argument(
+        "-od",
+        "--output-dir",
+        type=str,
+        required=False,
+        help="The directory with the data that the contracts should be checked against.",
+    )
+
+    # MARK: Filter by Contracts
+
+    filter_data_parser = subparsers.add_parser(
+        "filter_data",
+        aliases=["fd"],
+        help="Filter data based on provided data contract values.",
+        description="Convert exported data into a dataset that only includes data within contract values.",
+        epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
+    )
+    filter_data_parser._actions[0].help = "Show this help message and exit."
+    filter_data_parser.add_argument(
+        "-cd",
+        "--contracts-dir",
+        type=str,
+        required=False,
+        help="The directory where the data contracts are saved.",
+    )
+    filter_data_parser.add_argument(
+        "-id",
+        "--input-dir",
+        type=str,
+        required=False,
+        help="The directory with the data that should be filtered.",
+    )
+    filter_data_parser.add_argument(
+        "-od",
+        "--output-dir",
+        type=str,
+        required=False,
+        help="The directory to export data filtered by contracts to.",
+    )
+
     # MARK: Setup CLI
 
     args = parser.parse_args()
@@ -380,6 +461,8 @@ def main() -> None:
                     all_bool=args.all,
                     identifier_case=args.identifier_case,
                     wikidata_dump=args.wikidata_dump_path,
+                    dump_id=args.dump_id,
+                    force_download=args.force_download,
                 )
 
         elif args.command in ["total", "t"]:
@@ -434,6 +517,7 @@ def main() -> None:
                     "Check for totals",
                     "Get data",
                     "Get translations",
+                    "Get autosuggestions",
                     "Convert JSON",
                     "Exit",
                 ],
@@ -451,11 +535,24 @@ def main() -> None:
             elif action == "Get translations":
                 start_interactive_mode(operation="translations")
 
+            elif action == "Get autosuggestions":
+                start_interactive_mode(operation="autosuggestions")
+
             elif action == "Convert JSON":
                 start_interactive_mode(operation="convert")
 
             else:
                 print("Skipping action")
+
+        elif args.command in ["check_contracts", "cc"]:
+            check_contracts(output_dir=args.output_dir)
+
+        elif args.command in ["filter_data", "fd"]:
+            export_data_filtered_by_contracts(
+                contracts_dir=args.contracts_dir,
+                input_dir=args.input_dir,
+                output_dir=args.output_dir,
+            )
 
         else:
             parser.print_help()

@@ -26,6 +26,7 @@ def list_languages() -> None:
     Returns
     -------
     None
+        A table of all languages with their ISO-2 codes and Wikidata QIDs is printed.
     """
     languages = list_all_languages(language_metadata)
 
@@ -120,6 +121,7 @@ def list_all() -> None:
     Returns
     -------
     None
+        All available languages and data types are listed.
     """
     list_languages()
     list_data_types()
@@ -137,6 +139,7 @@ def list_languages_for_data_type(data_type: str) -> None:
     Returns
     -------
     None
+        A list of languages for data types is printed to the terminal.
     """
     data_type = correct_data_type(data_type=data_type)
     all_languages = list_languages_with_metadata_for_data_type(language_metadata)
@@ -184,6 +187,7 @@ def list_wrapper(
     Returns
     -------
     None
+        The call to list functions based on the provided arguments.
     """
     if (not language and not data_type) or all_bool:
         list_all()

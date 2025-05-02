@@ -87,7 +87,7 @@ def translations_to_sqlite(
     overwrite: bool = False,
 ):
     """
-    Process translations to create a TranslationData.sqlite file that contains a table for each language.
+    Derive translations to create a TranslationData.sqlite file that contains a table for each language.
 
     Parameters
     ----------

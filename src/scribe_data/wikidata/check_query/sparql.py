@@ -65,6 +65,11 @@ def execute(
     def delay_in_seconds() -> int:
         """
         How long to wait, in seconds, between executing repeat queries.
+
+        Returns
+        -------
+        int
+            The interval to wait based on query failures.
         """
         return int(math.ceil(10.0 / math.sqrt(tries)))
 

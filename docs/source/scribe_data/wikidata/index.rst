@@ -13,5 +13,6 @@ wikidata/
     :maxdepth: 1
 
     format_data
-    query_profanity
+    parse_dump
     query_data
+    query_profanity

@@ -8,7 +8,6 @@ import os
 import re
 import subprocess
 import sys
-from http.client import IncompleteRead
 from pathlib import Path
 from typing import List
 from urllib.error import HTTPError
@@ -26,7 +25,7 @@ from scribe_data.wikidata.wikidata_utils import sparql
 
 def execute_formatting_script(output_dir: str, language: str, data_type: str):
     """
-    Executes a formatting script given a filepath and output directory for the process.
+    Execute a formatting script given a filepath and output directory for the process.
 
     Parameters
     ----------
@@ -41,7 +40,8 @@ def execute_formatting_script(output_dir: str, language: str, data_type: str):
 
     Returns
     -------
-    The results of the formatting script are saved in the given output directory.
+    None
+        The results of the formatting script are saved in the given output directory.
     """
     formatting_file_path = Path(__file__).parent / "format_data.py"
 
@@ -87,11 +87,11 @@ def query_data(
     interactive: bool = False,
 ) -> None:
     """
-    Queries language data from the Wikidata lexicographical data.
+    Query language data from the Wikidata lexicographical data.
 
     Parameters
     ----------
-    language : str
+    languages : list[str]
         The language(s) to get.
 
     data_type : str
@@ -103,16 +103,20 @@ def query_data(
     overwrite : bool (default: False)
         Whether to overwrite existing files.
 
+    interactive : bool, default=False
+        Whether the function is being ran via interactive mode.
+
     Returns
     -------
-    Formatted data from Wikidata saved in the output directory.
+    None
+        Formatted data from Wikidata saved in the output directory.
     """
     current_languages = list_all_languages(language_metadata)
     current_data_type = ["nouns", "verbs", "prepositions"]
 
     # Assign current_languages and current_data_type if no arguments have been passed.
     languages_update = current_languages if languages is None else languages
-    languages_update = [lang for lang in languages_update]
+    languages_update = list(languages_update)
     data_type_update = current_data_type if data_type is None else data_type
 
     all_language_data_extraction_files = [
@@ -129,16 +133,14 @@ def query_data(
 
     # Derive the maximum query interval for use in looping through all queries.
     query_intervals = []
-    for f in language_data_extraction_files_in_use:
-        if f.name[-len(".sparql") :] == ".sparql":
-            if re.findall(r".+_\d+.sparql", str(f.name)):
-                query_intervals.append(int(re.search(r"_(\d+)\.", f.name).group(1)))
+    query_intervals.extend(
+        int(re.search(r"_(\d+)\.", f.name)[1])
+        for f in language_data_extraction_files_in_use
+        if f.name[-len(".sparql") :] == ".sparql"
+        and re.findall(r".+_\d+.sparql", str(f.name))
+    )
 
-    if query_intervals:
-        max_query_interval = max(query_intervals)
-
-    else:
-        max_query_interval = None
+    max_query_interval = max(query_intervals, default=None)
 
     queries_to_run = {
         Path(re.sub(r"_\d+.sparql", ".sparql", str(f)))
@@ -177,17 +179,7 @@ def query_data(
 
         sparql.setQuery("".join(query_lines))
 
-        results = None
-
-        try:
-            results = sparql.query().convert()
-
-        except HTTPError as http_err:
-            print(f"HTTPError with {q}: {http_err}")
-            return {"success": False, "skipped": False}
-        except IncompleteRead as read_err:
-            print(f"Incomplete read error with {q}: {read_err}")
-            return {"success": False, "skipped": False}
+        results = sparql.query().convert()
 
         if results is None:
             print(f"Nothing returned by the WDQS server for {q}")

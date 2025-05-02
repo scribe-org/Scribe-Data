@@ -2,9 +2,9 @@
 """
 Check for missing forms in Wikidata and download Wikidata lexeme dump.
 
-Example
--------
-    python3 src/scribe_data/check/check_missing_forms/check_missing_forms.py
+Examples
+--------
+>>> python3 src/scribe_data/check/check_missing_forms/check_missing_forms.py
 """
 
 import argparse
@@ -68,18 +68,18 @@ def get_missing_features(result_sparql, result_dump):
     ----------
     result_sparql : dict
         Features extracted from SPARQL queries.
-        Format: {language: {data_type: [features]}}
+        Format: {language: {data_type: [features]}}.
 
     result_dump : dict
         Features extracted from Wikidata dump.
-        Format: {language: {data_type: [features]}}
+        Format: {language: {data_type: [features]}}.
 
     Returns
     -------
     dict or None
         Dictionary of missing features by language and data type if any found,
         otherwise None.
-        Format: {language: {data_type: [missing_features]}}
+        Format: {language: {data_type: [missing_features]}}.
 
     Notes
     -----
@@ -134,7 +134,7 @@ def process_missing_features(missing_features, query_dir):
     ----------
     missing_features : dict
         Dictionary of missing features by language and data type.
-        Format: {language: {data_type: [features]}}
+        Format: {language: {data_type: [features]}}.
 
     query_dir : str or Path
         Directory where generated query files should be saved.

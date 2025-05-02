@@ -6,8 +6,10 @@ Functions for getting languages-data types packs for the Scribe-Data CLI.
 import json
 import os
 import urllib.error
+from http.client import IncompleteRead
 from pathlib import Path
 from typing import List, Union
+from urllib.error import URLError
 
 import questionary
 from rich import print as rprint
@@ -25,6 +27,7 @@ from scribe_data.utils import (
 )
 from scribe_data.wikidata.query_data import query_data
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
+from scribe_data.wikipedia.generate_autosuggestions import generate_autosuggestions
 
 
 def get_data(
@@ -38,6 +41,8 @@ def get_data(
     interactive: bool = False,
     identifier_case: str = "camel",
     wikidata_dump: str = None,
+    dump_id: str = None,
+    force_download: bool = False,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
@@ -56,11 +61,11 @@ def get_data(
     output_dir : str
         The output directory path for results.
 
-    outputs_per_entry : str
-        How many outputs should be generated per data entry.
-
     overwrite : bool (default: False)
         Whether to overwrite existing files.
+
+    outputs_per_entry : str
+        How many outputs should be generated per data entry.
 
     all_bool : bool
         Get all languages and data types.
@@ -74,9 +79,20 @@ def get_data(
     wikidata_dump : str
         The local Wikidata lexeme dump that can be used to process data.
 
+    dump_id : str (default=None)
+        The id of an explicit Wikipedia dump that the user wants to download.
+
+    force_download : bool
+        Whether a download of a Wikipedia dump should be forced.
+
     Returns
     -------
-    The requested data saved locally given file type and location arguments.
+    None
+        The requested data saved locally given file type and location arguments.
+
+    Notes
+    -----
+    A value of None for dump_id will select the third from the last (latest stable dump).
     """
     # MARK: Defaults
 
@@ -95,7 +111,12 @@ def get_data(
 
     def prompt_user_download_all():
         """
-        Checks with the user if they'd rather use Wikidata lexeme dumps before a download all call.
+        Check with the user if they'd rather use Wikidata lexeme dumps before a download all call.
+
+        Returns
+        -------
+        bool
+            A boolean response from the user on whether they'd like to download all data.
         """
         return questionary.confirm(
             "Do you want to query Wikidata directly? (selecting 'no' will use a Wikidata lexemes dump locally to avoid large Query Service calls)",
@@ -185,6 +206,14 @@ def get_data(
         )
         return
 
+    # MARK: Autosugestions
+
+    elif data_type == "autosuggestions":
+        generate_autosuggestions(
+            language=language, dump_id=dump_id, force_download=force_download
+        )
+        return
+
     # MARK: Form Dump
 
     elif wikidata_dump is not None:
@@ -225,7 +254,8 @@ def get_data(
             rprint(
                 "[yellow]1. Try again in a few minutes\n"
                 "2. Consider using a Wikidata dump with --wikidata-dump-path (-wdp)\n"
-                "3. Try querying a smaller subset of data[/yellow]"
+                "3. Try querying a smaller subset of data\n"
+                "4. Check your network connection[/yellow]"
             )
 
         try:
@@ -236,6 +266,11 @@ def get_data(
                 overwrite=overwrite,
                 interactive=interactive,
             )
+
+            # Only print this line if no exception was raised.
+            if not all_bool:
+                print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
+
         except json.decoder.JSONDecodeError:
             print_error_and_suggestions(
                 "[bold red]Error: Invalid response from Wikidata query service. The query may be too large or the service is unavailable.[/bold red]"
@@ -251,9 +286,10 @@ def get_data(
             print_error_and_suggestions(
                 "[bold red]Error: The Wikidata endpoint encountered an internal error.[/bold red]"
             )
-
-        if not all_bool:
-            print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
+        except (IncompleteRead, URLError) as e:
+            print_error_and_suggestions(
+                f"[bold red]Error: Network or data transfer issue occurred: {str(e)}[/bold red]"
+            )
 
     else:
         raise ValueError(

@@ -264,7 +264,9 @@ class TestTotalWrapper(unittest.TestCase):
 
     @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
     def test_total_wrapper_wikidata_dump_flag(self, mock_parse_dump):
-        """Test when wikidata_dump is True (flag without path)"""
+        """
+        Test when wikidata_dump is True (flag without path).
+        """
         total_wrapper(wikidata_dump=True)
         mock_parse_dump.assert_called_once_with(
             language=None,
@@ -275,7 +277,9 @@ class TestTotalWrapper(unittest.TestCase):
 
     @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
     def test_total_wrapper_wikidata_dump_path(self, mock_parse_dump):
-        """Test when wikidata_dump is a file path"""
+        """
+        Test when wikidata_dump is a file path.
+        """
         dump_path = "/path/to/dump.json"
         total_wrapper(wikidata_dump=dump_path)
         mock_parse_dump.assert_called_once_with(
@@ -287,7 +291,9 @@ class TestTotalWrapper(unittest.TestCase):
 
     @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
     def test_total_wrapper_wikidata_dump_with_all(self, mock_parse_dump):
-        """Test when both wikidata_dump and all_bool are True"""
+        """
+        Test when both wikidata_dump and all_bool are True.
+        """
         total_wrapper(wikidata_dump=True, all_bool=True)
         mock_parse_dump.assert_called_once_with(
             language="all",
@@ -298,7 +304,9 @@ class TestTotalWrapper(unittest.TestCase):
 
     @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
     def test_total_wrapper_wikidata_dump_with_language_and_type(self, mock_parse_dump):
-        """Test wikidata_dump with specific language and data type"""
+        """
+        Test wikidata_dump with specific language and data type.
+        """
         total_wrapper(
             language="English", data_type="nouns", wikidata_dump="/path/to/dump.json"
         )
@@ -315,7 +323,7 @@ class TestTotalWrapper(unittest.TestCase):
     @patch("scribe_data.cli.total.print_total_lexemes")
     def test_total_wrapper_with_qid(self, mock_print_total, mock_check_qid):
         """
-        Test when language is provided as a QID
+        Test when language is provided as a QID.
         """
         mock_check_qid.return_value = "Thai"
         total_wrapper(language="Q9217")
@@ -325,7 +333,7 @@ class TestTotalWrapper(unittest.TestCase):
     @patch("scribe_data.cli.total.get_total_lexemes")
     def test_total_wrapper_with_qid_and_datatype(self, mock_get_total, mock_check_qid):
         """
-        Test when language QID and data type are provided
+        Test when language QID and data type are provided.
         """
         mock_check_qid.return_value = "Thai"
         total_wrapper(language="Q9217", data_type="nouns")
@@ -334,7 +342,7 @@ class TestTotalWrapper(unittest.TestCase):
     @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
     def test_total_wrapper_qid_with_wikidata_dump(self, mock_parse_dump):
         """
-        Test QID with wikidata dump
+        Test QID with wikidata dump.
         """
         total_wrapper(language="Q9217", wikidata_dump=True, all_bool=True)
         mock_parse_dump.assert_called_once_with(
@@ -347,7 +355,7 @@ class TestTotalWrapper(unittest.TestCase):
     @patch("scribe_data.cli.total.get_total_lexemes")
     def test_get_total_lexemes_with_qid(self, mock_get_total):
         """
-        Test get_total_lexemes with QID input
+        Test get_total_lexemes with QID input.
         """
         total_wrapper(language="Q9217", data_type="Q1084")  # Q1084 is noun QID
         mock_get_total.assert_called_once_with(language="Q9217", data_type="Q1084")
@@ -536,7 +544,9 @@ class TestTotalWrapper(unittest.TestCase):
 
     @patch("scribe_data.cli.total.get_total_lexemes")
     def test_total_wrapper_with_invalid_language(self, mock_get_total):
-        """Test total wrapper with invalid language."""
+        """
+        Test total wrapper with invalid language.
+        """
         mock_get_total.side_effect = ValueError("Invalid language")
 
         with self.assertRaises(ValueError):
@@ -546,7 +556,9 @@ class TestTotalWrapper(unittest.TestCase):
 
     @patch("scribe_data.cli.total.get_total_lexemes")
     def test_total_wrapper_with_invalid_data_type(self, mock_get_total):
-        """Test total wrapper with invalid data type."""
+        """
+        Test total wrapper with invalid data type.
+        """
         mock_get_total.side_effect = ValueError("Invalid data type")
 
         with self.assertRaises(ValueError):

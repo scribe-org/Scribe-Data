@@ -31,7 +31,7 @@ def parse_sparql_files():
     -------
     dict
         Accumulated forms for each language and lexical category.
-        Format: {language: {lexical_category: [forms]}}
+        Format: {language: {lexical_category: [forms]}}.
 
     Notes
     -----
@@ -64,7 +64,7 @@ def parse_sparql_query(query_text):
     -------
     dict
         Dictionary containing parsed information.
-        Format: {language: {lexical_category: [forms]}}
+        Format: {language: {lexical_category: [forms]}}.
 
     Notes
     -----
@@ -112,19 +112,19 @@ def extract_dump_forms(
     Parameters
     ----------
     languages : list of str, optional
-        List of language ISO codes (e.g., ['en', 'fr'])
+        List of language ISO codes (e.g., ['en', 'fr']).
 
     data_types : list of str, optional
-        List of lexical categories (e.g., ['nouns', 'verbs'])
+        List of lexical categories (e.g., ['nouns', 'verbs']).
 
     file_path : str, optional
-        Path to the lexeme dump file, by default "latest-lexemes.json.bz2"
+        Path to the lexeme dump file, by default "latest-lexemes.json.bz2".
 
     Returns
     -------
     dict
         Dictionary of unique grammatical features per language and lexical category.
-        Format: {language_qid: {data_type_qid: features}}
+        Format: {language_qid: {data_type_qid: features}}.
     """
     processor = LexemeProcessor(
         target_lang=languages, parse_type=["form"], data_types=data_types

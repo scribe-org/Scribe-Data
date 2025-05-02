@@ -214,7 +214,7 @@ def main(argv=None) -> int:
 
     Parameters
     ----------
-    argv (default=None)
+    argv : None (default=None)
         If set to None then argparse will use sys.argv as the arguments.
 
     Returns

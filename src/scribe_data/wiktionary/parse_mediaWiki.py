@@ -13,7 +13,17 @@ from scribe_data.wikidata.wikidata_utils import mediawiki_query
 
 def fetch_translation_page(word: str):
     """
-    Fetches the translation for a given word via the Wiktionary MediaWiki API.
+    Fetch the translation for a given word via the Wiktionary MediaWiki API.
+
+    Parameters
+    ----------
+    word : str
+        The word that a translation page should be retrieved for.
+
+    Returns
+    -------
+    str
+        The wikitext with the translations of the given word.
     """
     data = mediawiki_query(word=word)
 
@@ -25,10 +35,19 @@ def fetch_translation_page(word: str):
     return page.get("revisions", [{}])[0].get("*", "")
 
 
-def parse_wikitext_for_translations(wikitext):
+def parse_wikitext_for_translations(wikitext: str):
     """
-    Parse the wikitext line by line to extract translations,
-    language codes, part of speech, and context.
+    Parse the wikitext line by line to extract translations, language codes, part of speech and context.
+
+    Parameters
+    ----------
+    wikitext : str
+        A string that contains translations.
+
+    Returns
+    -------
+    dict
+        A dictionary of translations from the wikitext page assigned as values to language keys.
     """
     translations_by_lang = {}
     current_part_of_speech = None  # track whether we are in Noun or Verb
@@ -68,9 +87,22 @@ def parse_wikitext_for_translations(wikitext):
     return translations_by_lang
 
 
-def build_json_format(word, translations_by_lang):
+def build_json_format(word: str, translations_by_lang: dict):
     """
     Build the final JSON format for the translations of a word.
+
+    Parameters
+    ----------
+    word : str
+        The word to translate.
+
+    translations_by_lang : dict
+        Translations with languages as their keys.
+
+    Returns
+    -------
+    dict
+        Formatted translations.
     """
     book_translations = {word: {}}
     # Keep counters to number the translations for each (lang, part_of_speech).
@@ -79,6 +111,7 @@ def build_json_format(word, translations_by_lang):
     for lang_code, entries in translations_by_lang.items():
         try:
             lang_name = get_language_from_iso(lang_code)
+
         except ValueError:
             # Skip this language if it's not supported.
             continue
