@@ -23,9 +23,53 @@ from tqdm.auto import tqdm
 from scribe_data.utils import get_language_iso
 
 
-def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_id=None):
+def get_base_url(language):
     """
-    Downloads the most recent stable dump of a language's Wikipedia if it is not already present.
+    Return the correct base URL dynamically.
+
+    Parameters
+    ----------
+    language : str
+        The language for which the dump URL should be derived for.
+
+    Returns
+    -------
+    str
+        The URL for the Wikipedia dumps for a given language.
+    """
+    return f"https://dumps.wikimedia.org/{get_language_iso(language)}wiki/"
+
+
+def get_available_dumps(language):
+    """
+    Find all available Wikipedia dumps for a given language.
+
+    Parameters
+    ----------
+    language : str
+        The language of Wikipedia that dumps should be found for.
+
+    Returns
+    -------
+    list
+        All available dumps that can be downloaded.
+    """
+    base_url = get_base_url(language)
+    index = requests.get(base_url, timeout=5).text
+    soup_index = BeautifulSoup(index, "html.parser")
+
+    return [a["href"] for a in soup_index.find_all("a") if a.has_attr("href")]
+
+
+def download_wiki(
+    language="en",
+    target_dir="wiki_dump",
+    file_limit=None,
+    dump_id=None,
+    force_download=False,
+):
+    """
+    Download the most recent stable dump of a language's Wikipedia if it is not already present.
 
     Parameters
     ----------
@@ -41,11 +85,14 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
     dump_id : str (default=None)
         The id of an explicit Wikipedia dump that the user wants to download.
 
-        Note: a value of None will select the third from the last (latest stable dump).
+        Note: A value of None will select the third from the last (latest stable dump).
+
+    force_download : bool (default=False)
+        This argument forces re-download already existing dump_id if True.
 
     Returns
     -------
-    file_info : list of lists
+    list[list]
         Information on the downloaded Wikipedia dump files.
     """
     if file_limit is not None:
@@ -55,15 +102,12 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
     else:
         file_limit = -1
 
+    target_dir = Path(target_dir)
     if not target_dir.exists():
         print(f"Making {target_dir} directory")
         os.makedirs(target_dir)
 
-    base_url = f"https://dumps.wikimedia.org/{get_language_iso(language)}wiki/"
-    index = requests.get(base_url, timeout=5).text
-    soup_index = BeautifulSoup(index, "html.parser")
-
-    all_dumps = [a["href"] for a in soup_index.find_all("a") if a.has_attr("href")]
+    all_dumps = get_available_dumps(language)
     target_dump = all_dumps[-3]
     if dump_id is not None:
         if dump_id[-1] != "/":
@@ -72,6 +116,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
         if dump_id in all_dumps:
             target_dump = dump_id
 
+    base_url = get_base_url(language)
     dump_url = base_url + target_dump
     dump_html = requests.get(dump_url, timeout=5).text
     soup_dump = BeautifulSoup(dump_html, "html.parser")
@@ -86,6 +131,9 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
 
     # Don't select the combined dump so we can check the progress.
     files_to_download = [file[0] for file in files if ".xml-p" in file[0]][:file_limit]
+    if not files_to_download:
+        print(f"WARNING: No matching files found for {language}.")
+        return []
 
     file_info = []
 
@@ -95,11 +143,11 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
         or file_present_bools[0] is not True
     )
 
-    if dl_files:
+    if dl_files or force_download:
         for f in files_to_download:
             file_path = target_dir / f
-            if not file_path.exists():
-                print(f"DL file to {file_path}")
+            if not file_path.exists() or force_download:
+                print(f"Download file to {file_path}")
                 subprocess.run(["curl", "-o", file_path, dump_url + f], check=False)
 
                 file_size = os.stat(file_path).st_size / 1e6
@@ -126,7 +174,7 @@ def download_wiki(language="en", target_dir="wiki_dump", file_limit=None, dump_i
 
 def _process_article(title, text):
     """
-    Process a wikipedia article to extract the title and text.
+    Extract the title and text from a Wikipedia article.
 
     Parameters
     ----------
@@ -149,30 +197,31 @@ def _process_article(title, text):
     return title, text
 
 
-def iterate_and_parse_file(args):
+def iterate_and_parse_file(args) -> None:
     """
-    Creates partitions of desired articles.
+    Create partitions of desired articles.
 
     Parameters
     ----------
     args : tuple
         The below arguments as a tuple for pool.imap_unordered rather than pool.starmap.
 
-    input_path : pathlib.Path
-        The path to the data file.
+        input_path : pathlib.Path
+            The path to the data file.
 
-    partitions_dir : pathlib.Path
-        The path to where output file should be stored.
+        partitions_dir : pathlib.Path
+            The path to where output file should be stored.
 
-    article_limit : int (default=None)
-        An optional article_limit of the number of articles to find.
+        article_limit : int (default=None)
+            An optional article_limit of the number of articles to find.
 
-    verbose : bool (default=True)
-        Whether to show a tqdm progress bar for the processes.
+        verbose : bool (default=True)
+            Whether to show a tqdm progress bar for the processes.
 
     Returns
     -------
-    A parsed file Wikipedia dump file with articles.
+    None
+        A parsed file Wikipedia dump file with articles.
     """
     input_path, partitions_dir, article_limit, verbose = args
 
@@ -184,7 +233,7 @@ def iterate_and_parse_file(args):
     parser = defusedxml.sax.make_parser()
     parser.setContentHandler(handler)
 
-    file_name = input_path.split("/")[-1].split("-")[-1].split(".")[-2]
+    file_name = str(input_path).split("/")[-1].split("-")[-1].split(".")[-2]
     file_name = f"{file_name}.ndjson"
     output_path = Path(partitions_dir) / file_name
 
@@ -270,11 +319,12 @@ def parse_to_ndjson(
     partitions_dir="partitions",
     article_limit=None,
     delete_parsed_files=False,
+    force_download=False,
     multicore=True,
     verbose=True,
-):
+) -> None:
     """
-    Finds all Wikipedia entries and converts them to json files.
+    Find all Wikipedia entries and converts them to json files.
 
     Parameters
     ----------
@@ -293,6 +343,9 @@ def parse_to_ndjson(
     delete_parsed_files : bool (default=False)
         Whether to delete the separate parsed files after combining them.
 
+    force_download : bool (default=False)
+        This argument forces the partition process using newest download dump.
+
     multicore : bool (default=True)
         Whether to use multicore processing.
 
@@ -301,9 +354,11 @@ def parse_to_ndjson(
 
     Returns
     -------
-    Wikipedia dump files parsed and converted to json files.
+    None
+        Wikipedia dump files parsed and converted to json files.
     """
     output_dir = "/".join(list(output_path.split("/")[:-1]))
+    output_dir = Path(output_dir)
     if not output_dir.exists():
         print(f"Making {output_dir} directory for the output")
         os.makedirs(output_dir)
@@ -326,7 +381,9 @@ def parse_to_ndjson(
         else:
             output_file_name = output_path
 
-    if not output_file_name.exists():
+    output_file_name = Path(output_file_name)
+    partitions_dir = Path(partitions_dir)
+    if not output_file_name.exists() or force_download:
         if not partitions_dir.exists():
             print(f"Making {partitions_dir} directory for the partitions")
             os.makedirs(partitions_dir)
@@ -398,38 +455,11 @@ class WikiXmlHandler(xml.sax.handler.ContentHandler):
     """
 
     def __init__(self):
+        """
+        Constructor method.
+        """
         xml.sax.handler.ContentHandler.__init__(self)
         self._buffer = None
         self._values = {}
         self._current_tag = None
         self.target_articles = []
-
-    def characters(self, content):
-        """
-        Characters between opening and closing tags.
-        """
-        if self._current_tag:
-            self._buffer.append(content)
-
-    def startElement(self, name, attrs):
-        """
-        Opening tag of element.
-        """
-        if name in ("title", "text"):
-            self._current_tag = name
-            self._buffer = []
-
-    def endElement(self, name):
-        """
-        Closing tag of element.
-        """
-        if name == self._current_tag:
-            self._values[name] = " ".join(self._buffer)
-
-        if name == "page":
-            target_article = _process_article(**self._values)
-            if target_article and (
-                "Wikipedia:" not in target_article[0]
-                and "Draft:" not in target_article[0]
-            ):  # no archive files or drafts
-                self.target_articles.append(target_article)

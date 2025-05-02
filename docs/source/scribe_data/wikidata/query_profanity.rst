@@ -8,6 +8,9 @@ Queries all profane words from a given language to be removed from autosuggest o
 .. code:: sparql
 
     # tool: scribe-data
+    # Queries all profane words from a given language to be removed from autosuggest options.
+    # Enter this query at https://query.wikidata.org/.
+
     SELECT DISTINCT
         ?lemma
 

@@ -14,18 +14,8 @@ from scribe_data.utils import (
     remove_queried_data,
 )
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--dir-path")
-parser.add_argument("--language")
-parser.add_argument("--data_type")
-args = parser.parse_args()
 
-
-def format_data(
-    dir_path: str = args.dir_path,
-    language: str = args.language,
-    data_type: str = args.data_type,
-):
+def format_data(dir_path: str, language: str, data_type: str):
     """
     Format data queried from the Wikidata Query Service.
 
@@ -98,6 +88,7 @@ def format_data(
             if isinstance(value, str) and " | " in value:
                 has_multiple_forms = True
                 break
+
         if has_multiple_forms:
             break
 
@@ -117,4 +108,14 @@ def format_data(
 
 
 if __name__ == "__main__":
-    format_data()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--dir-path")
+    parser.add_argument("--language")
+    parser.add_argument("--data_type")
+    args = parser.parse_args()
+
+    format_data(
+        dir_path=args.dir_path,
+        language=args.language,
+        data_type=args.data_type,
+    )

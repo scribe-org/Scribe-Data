@@ -30,6 +30,8 @@ from scribe_data.utils import (
     list_all_languages,
 )
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
+from scribe_data.wikipedia.extract_wiki import get_available_dumps
+from scribe_data.wikipedia.generate_autosuggestions import generate_autosuggestions
 
 # MARK: Config Setup
 
@@ -45,7 +47,14 @@ THANK_YOU_MESSAGE = "[bold cyan]Thank you for using Scribe-Data![/bold cyan]"
 
 
 class ScribeDataConfig:
+    """
+    Class for the configuration of the interactive mode.
+    """
+
     def __init__(self):
+        """
+        Configure the interactive mode.
+        """
         self.languages = list_all_languages(language_metadata)
         self.data_types = list(data_type_metadata.keys())
         self.selected_languages: List[str] = []
@@ -67,7 +76,7 @@ config = ScribeDataConfig()
 
 def display_summary():
     """
-    Displays a summary of the interactive mode request to run.
+    Display a summary of the interactive mode request to run.
     """
     table = Table(
         title="Scribe-Data Request Configuration Summary", style="bright_white"
@@ -91,8 +100,25 @@ def display_summary():
 def create_word_completer(
     options: List[str], include_all: bool = False
 ) -> WordCompleter:
+    """
+    Return a word completer object of the given options.
+
+    Parameters
+    ----------
+    options : list[str]
+        The options that could complete the current input.
+
+    include_all : bool
+        Whether 'All' should be an option.
+
+    Returns
+    -------
+    WordCompleter
+        The word completer object from which completions can be shown to the user.
+    """
     if include_all:
         options = ["All"] + options
+
     return WordCompleter(options, ignore_case=True)
 
 
@@ -101,7 +127,12 @@ def create_word_completer(
 
 def prompt_for_languages():
     """
-    Requests language and data type for lexeme totals.
+    Request language and data type for lexeme totals.
+
+    Returns
+    -------
+    None
+        Languages are added to the configuration or are asked for.
     """
     language_completer = create_word_completer(config.languages, include_all=True)
     initial_language_selection = ", ".join(config.selected_languages)
@@ -112,6 +143,7 @@ def prompt_for_languages():
     )
     if "All" in selected_languages:
         config.selected_languages = config.languages
+
     elif selected_languages.strip():  # check if input is not just whitespace
         config.selected_languages = [
             lang.strip()
@@ -128,8 +160,18 @@ def prompt_for_languages():
 
 
 def prompt_for_data_types():
+    """
+    Prompt the user to select data types.
+
+    Returns
+    -------
+    None
+        Data types are added to the configuration or are asked for.
+    """
+    config.data_types = [dt for dt in config.data_types if dt != "autosuggestions"]
     data_type_completer = create_word_completer(config.data_types, include_all=True)
     initial_data_type_selection = ", ".join(config.selected_data_types)
+
     while True:
         selected_data_types = prompt(
             "Select data types (comma-separated or 'All'): ",
@@ -139,6 +181,7 @@ def prompt_for_data_types():
         if "All" in selected_data_types.capitalize():
             config.selected_data_types = config.data_types
             break
+
         elif selected_data_types.strip():  # check if input is not just whitespace
             config.selected_data_types = [
                 dt.strip()
@@ -151,9 +194,41 @@ def prompt_for_data_types():
         rprint("[yellow]No data type selected. Please try again.[/yellow]")
 
 
+def prompt_for_dump_id(language) -> str:
+    """
+    Ask the user which dump ID should be used for operations.
+
+    Parameters
+    ----------
+    language : str
+        The language associated withe the dump.
+
+    Returns
+    -------
+    str
+        The dump to use in operations.
+    """
+    dump_ids = get_available_dumps(language)
+    dump_id_completer = create_word_completer(dump_ids, include_all=True)
+    selected_dump_id = prompt(
+        "Select dump_id for autosuggestions : ",
+        default="latest stable",
+        completer=dump_id_completer,
+    )
+
+    if selected_dump_id == "latest stable":
+        selected_dump_id = dump_ids[-3]
+
+    if not selected_dump_id or selected_dump_id not in dump_ids:
+        rprint("[yellow]No dump id selected. Please try again.[/yellow]")
+        return prompt_for_dump_id(language)
+
+    return selected_dump_id
+
+
 def configure_settings():
     """
-    Configures the settings of the interactive mode request.
+    Configure the settings of the interactive mode request.
 
     Asks for:
         - Languages
@@ -168,7 +243,7 @@ def configure_settings():
     prompt_for_languages()
     prompt_for_data_types()
 
-    # MARK: Output Type
+    # MARK: Outputs
 
     output_type_completer = create_word_completer(["json", "csv", "tsv"])
     config.output_type = prompt(
@@ -185,10 +260,12 @@ def configure_settings():
         )
 
     # MARK: Output Directory
+
     if output_dir := prompt(f"Enter output directory (default: {config.output_dir}): "):
         config.output_dir = Path(output_dir)
 
     # MARK: Overwrite Confirmation
+
     overwrite_completer = create_word_completer(["Y", "n"])
     overwrite = (
         prompt("Overwrite existing files? (Y/n): ", completer=overwrite_completer)
@@ -207,6 +284,7 @@ def run_request():
     Returns
     -------
     None
+        An interactive mode request is ran.
     """
     if not config.selected_languages or not config.selected_data_types:
         rprint("[bold red]Error: Please configure languages and data types.[/bold red]")
@@ -326,6 +404,8 @@ def request_total_lexeme_loop():
 
 
 # MARK: Start
+
+
 def start_interactive_mode(operation: str = None):
     """
     Entry point for interactive mode.
@@ -391,6 +471,15 @@ def start_interactive_mode(operation: str = None):
                 questionary.Choice("Exit", "exit"),
             ]
 
+        elif operation == "autosuggestions":
+            choices = [
+                questionary.Choice(
+                    "Configure autosuggestions request", "autosuggestions"
+                ),
+                # Choice("See list of languages", "languages"),
+                questionary.Choice("Exit", "exit"),
+            ]
+
         choice = questionary.select("What would you like to do?", choices=choices).ask()
 
         if choice == "configure":
@@ -404,6 +493,7 @@ def start_interactive_mode(operation: str = None):
 
             else:
                 wikidata_dump_path = Path(DEFAULT_DUMP_EXPORT_DIR)
+
             parse_wd_lexeme_dump(
                 language=config.selected_languages,
                 wikidata_dump_type=["form"],
@@ -492,6 +582,33 @@ def start_interactive_mode(operation: str = None):
                 overwrite_all=overwrite_bool,
                 interactive_mode=True,
             )
+
+            break
+
+        elif choice == "autosuggestions":
+            while True:
+                prompt_for_languages()
+
+                if len(config.selected_languages) > 1:
+                    rprint("[yellow]Please select only one language.[/yellow]")
+
+                else:
+                    break
+
+            language = config.selected_languages[0]
+            dump_id = prompt_for_dump_id(language)
+
+            user_input = questionary.select(
+                "Do you want to:",
+                choices=[
+                    "Use existing dump if exist",
+                    "Redownload dump",
+                ],
+            ).ask()
+
+            force_download = user_input == "Redownload dump"
+
+            generate_autosuggestions(language, dump_id, force_download)
 
             break
 

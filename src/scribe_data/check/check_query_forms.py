@@ -2,9 +2,9 @@
 """
 Check the queries within Scribe-Data to make sure the accessed forms are correct.
 
-Example
--------
-    python3 src/scribe_data/check/check_query_forms.py
+Examples
+--------
+>>> python3 src/scribe_data/check/check_query_forms.py
 """
 
 import re
@@ -36,7 +36,7 @@ qid_label_dict = dict(zip(lexeme_form_labels_order, lexeme_form_qid_order))
 
 def extract_forms_from_sparql(file_path: Path) -> str:
     """
-    Extracts the QID from a SPARQL query file based on the provided pattern.
+    Extract the QID from a SPARQL query file based on the provided pattern.
 
     Parameters
     ----------
@@ -45,7 +45,7 @@ def extract_forms_from_sparql(file_path: Path) -> str:
 
     Returns
     -------
-    query_form_dict : dict
+    dict
         The file path with form labels of the query and their respective QIDs.
 
     Raises
@@ -74,7 +74,7 @@ def extract_forms_from_sparql(file_path: Path) -> str:
 
 def extract_form_rep_label(form_text: str):
     """
-    Extracts the representation label from an optional query form.
+    Extract the representation label from an optional query form.
 
     Parameters
     ----------
@@ -98,7 +98,7 @@ def extract_form_rep_label(form_text: str):
 
 def decompose_label_features(label):
     """
-    Decomposes a concatenated grammatical label into a list of individual features.
+    Decompose a concatenated grammatical label into a list of individual features.
 
     Parameters
     ----------
@@ -136,7 +136,7 @@ def decompose_label_features(label):
 
 def extract_form_qids(form_text: str):
     """
-    Extracts all QIDs from an optional query form.
+    Extract all QIDs from an optional query form.
 
     Parameters
     ----------
@@ -442,6 +442,19 @@ def check_forms_order(query_text):
 
     # Sorting function for multi-level component-based sorting.
     def compare_key(components):
+        """
+        Get a key to compare via its component parts to see if it's included.
+
+        Parameters
+        ----------
+        components : list[str]
+            The components that can make up the form identifier.
+
+        Returns
+        -------
+        list[str]
+            The list of component parts to compare against.
+        """
         return [order_map.get(comp, float("inf")) for comp in components]
 
     # Sort and reassemble columns.

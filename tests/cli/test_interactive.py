@@ -21,14 +21,18 @@ from scribe_data.cli.interactive import (
 
 class TestScribeDataInteractive(unittest.TestCase):
     def setUp(self):
-        """Set up test fixtures before each test method."""
+        """
+        Set up test fixtures before each test method.
+        """
         self.config = ScribeDataConfig()
         # Mock the language_metadata and data_type_metadata.
         self.config.languages = ["english", "spanish", "french"]
         self.config.data_types = ["nouns", "verbs"]
 
     def test_scribe_data_config_initialization(self):
-        """Test ScribeDataConfig initialization."""
+        """
+        Test ScribeDataConfig initialization.
+        """
         self.assertEqual(self.config.selected_languages, [])
         self.assertEqual(self.config.selected_data_types, [])
         self.assertEqual(self.config.output_type, "json")
@@ -39,7 +43,9 @@ class TestScribeDataInteractive(unittest.TestCase):
     @patch("scribe_data.cli.interactive.prompt")
     @patch("scribe_data.cli.interactive.rprint")
     def test_configure_settings_all_languages(self, mock_rprint, mock_prompt):
-        """Test configure_settings with 'All' languages selection."""
+        """
+        Test configure_settings with 'All' languages selection.
+        """
         # Set up mock responses.
         responses = iter(
             [
@@ -64,7 +70,9 @@ class TestScribeDataInteractive(unittest.TestCase):
     @patch("scribe_data.cli.interactive.prompt")
     @patch("scribe_data.cli.interactive.rprint")
     def test_configure_settings_specific_languages(self, mock_rprint, mock_prompt):
-        """Test configure_settings with specific language selection."""
+        """
+        Test configure_settings with specific language selection.
+        """
         # Set up mock responses.
         responses = iter(
             [
@@ -91,7 +99,9 @@ class TestScribeDataInteractive(unittest.TestCase):
     @patch("scribe_data.cli.interactive.tqdm")
     @patch("scribe_data.cli.interactive.logger")
     def test_run_request(self, mock_logger, mock_tqdm, mock_get_data):
-        """Test run_request functionality."""
+        """
+        Test run_request functionality.
+        """
         self.config.selected_languages = ["english"]
         self.config.selected_data_types = ["nouns"]
         self.config.configured = True
@@ -115,7 +125,9 @@ class TestScribeDataInteractive(unittest.TestCase):
     @patch("scribe_data.cli.interactive.prompt")
     @patch("scribe_data.cli.interactive.rprint")
     def test_request_total_lexeme(self, mock_rprint, mock_prompt):
-        """Test request_total_lexeme functionality."""
+        """
+        Test request_total_lexeme functionality.
+        """
         # Set up mock responses.
         mock_prompt.side_effect = [
             "english, french",  # first call for languages
@@ -151,7 +163,9 @@ class TestScribeDataInteractive(unittest.TestCase):
 
     @patch("rich.console.Console.print")
     def test_display_summary(self, mock_print):
-        """Test display_summary functionality."""
+        """
+        Test display_summary functionality.
+        """
         self.config.selected_languages = ["english"]
         self.config.selected_data_types = ["nouns"]
         self.config.output_type = "json"
@@ -161,7 +175,9 @@ class TestScribeDataInteractive(unittest.TestCase):
             mock_print.assert_called()
 
     def test_create_word_completer(self):
-        """Test create_word_completer functionality."""
+        """
+        Test create_word_completer functionality.
+        """
         from scribe_data.cli.interactive import create_word_completer
 
         # Test without 'All' option.
@@ -228,7 +244,9 @@ class TestScribeDataInteractive(unittest.TestCase):
         mock_configure,
         mock_select,
     ):
-        """Test start_interactive_mode functionality."""
+        """
+        Test start_interactive_mode functionality.
+        """
         from scribe_data.cli.interactive import config, start_interactive_mode
 
         # Test get data request flow.
@@ -274,7 +292,9 @@ class TestScribeDataInteractive(unittest.TestCase):
         mock_convert,
         mock_select,
     ):
-        """Test start_interactive_mode with convert operation."""
+        """
+        Test start_interactive_mode with convert operation.
+        """
         from scribe_data.cli.interactive import config, start_interactive_mode
 
         # Setup mock responses.
@@ -309,7 +329,9 @@ class TestScribeDataInteractive(unittest.TestCase):
     def test_start_interactive_mode_translations(
         self, mock_prompt_languages, mock_prompt, mock_parse_dump, mock_select
     ):
-        """Test start_interactive_mode with translations operation."""
+        """
+        Test start_interactive_mode with translations operation.
+        """
         from scribe_data.cli.interactive import config, start_interactive_mode
 
         mock_select.return_value.ask.return_value = "translations"

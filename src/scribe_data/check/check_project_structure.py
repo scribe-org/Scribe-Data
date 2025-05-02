@@ -2,9 +2,9 @@
 """
 Check the structure of Scribe-Data to make sure that all files are correctly named and included.
 
-Example
--------
-    python3 src/scribe_data/check/check_project_structure.py
+Examples
+--------
+>>> python3 src/scribe_data/check/check_project_structure.py
 """
 
 import os
@@ -48,7 +48,8 @@ def check_for_sparql_files(folder_path, data_type, language, subdir, missing_que
 
     Returns
     -------
-    bool: True if at least one .sparql file is found, False otherwise.
+    bool
+        True if at least one .sparql file is found, False otherwise.
     """
     sparql_files = [f for f in os.listdir(folder_path) if f.endswith(".sparql")]
 
@@ -68,10 +69,6 @@ def check_data_type_folders(
     """
     Validate the contents of data type folders within a language directory.
 
-    This function checks each data type folder for the presence of expected files
-    and reports any unexpected files. It allows for multiple SPARQL query files,
-    a format Python file, and a queried JSON file for each data type.
-
     Parameters
     ----------
     path : str
@@ -85,6 +82,19 @@ def check_data_type_folders(
 
     errors : list
         A list to which error messages will be appended.
+
+    missing_folders : list
+        A list to which missing folders will be appended.
+
+    missing_queries : list
+        A list to which missing SPARQL query files will be appended.
+
+    Notes
+    -----
+
+    This function checks each data type folder for the presence of expected files
+    and reports any unexpected files. It allows for multiple SPARQL query files,
+    a format Python file, and a queried JSON file for each data type.
 
     The function checks for the following valid files in each data type folder:
         - Files starting with 'query_' and ending with '.sparql'
@@ -132,6 +142,9 @@ def check_data_type_folders(
 def check_project_structure():
     """
     Validate that all directories follow the expected project structure and check for unexpected files and directories.
+
+    Notes
+    -----
     Also validate SPARQL query file names in data_type folders and SUBDIRECTORIES.
     """
     errors = []

@@ -21,7 +21,8 @@ def sort_qids_in_list(qids_lists):
 
     Returns
     -------
-    A new list of lists, with QIDs in each sublist sorted by position.
+    list
+        A new list of lists, with QIDs in each sublist sorted by position.
     """
     qid_positions = {}
     for category in lexeme_form_metadata.values():
@@ -51,7 +52,8 @@ def sort_qids_by_position(nested_qids):
 
     Returns
     -------
-    A new list of lists, sorted according to the defined criteria.
+    list
+        A new list of lists, sorted according to the defined criteria.
     """
     qid_positions = {}
     for category_index, (category_name, category) in enumerate(
@@ -63,6 +65,19 @@ def sort_qids_by_position(nested_qids):
                 qid_positions[item["qid"]] = category_index * 1000 + len(qid_positions)
 
     def get_sort_key(sublist):
+        """
+        Get a key to sort the forms list.
+
+        Parameters
+        ----------
+        sublist : list
+            A sublist of keys.
+
+        Returns
+        -------
+        list
+            A list of keys by which sorting will occur.
+        """
         # First priority: length of sublist.
         length_priority = len(sublist) * 1000000
 

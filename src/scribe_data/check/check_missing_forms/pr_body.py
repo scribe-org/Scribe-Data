@@ -20,7 +20,7 @@ def pr_body(missing_features):
     ----------
     missing_features : dict
         Dictionary mapping language QIDs to their missing features.
-        Format: {language_qid: {feature_type: [features]}}
+        Format: {language_qid: {feature_type: [features]}}.
 
     Returns
     -------

@@ -34,7 +34,7 @@ def gen_emoji_lexicon(
 
     Parameters
     ----------
-    language : string (default=None)
+    language : str (default=None)
         The language keywords are being generated for.
 
     emojis_per_keyword : int (default=None)
@@ -42,7 +42,8 @@ def gen_emoji_lexicon(
 
     Returns
     -------
-    Keywords dictionary for emoji keywords-to-unicode are saved locally or uploaded to Scribe apps.
+    dict
+        Keywords dictionary for emoji keywords-to-unicode are saved locally or uploaded to Scribe apps.
     """
     if not icu_installed:
         raise ImportError("Could not import required PyICU functionality.")
