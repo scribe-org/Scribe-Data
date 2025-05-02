@@ -337,30 +337,71 @@ class LexemeProcessor:
         """
         Main loop: read lines from file (bz2) in batches, call process_lines on each.
         """
-        # Use context manager for better resource handling.
-        with bz2.open(file_path, "rt", encoding="utf-8") as bzfile:
-            # Skip header if present.
-            first_line = bzfile.readline()
-            if not first_line.strip().startswith("["):
-                bzfile.seek(0)
+        try:
+            # Use context manager for better resource handling.
+            with bz2.open(file_path, "rt", encoding="utf-8") as bzfile:
+                # Skip header if present.
+                first_line = bzfile.readline()
+                if not first_line.strip().startswith("["):
+                    bzfile.seek(0)
 
-            # Process in larger batches for better performance.
-            batch = []
-            start_time = time.time()
-            total_entries = int(Path(file_path).stat().st_size / 263)
+                # Process in larger batches for better performance.
+                batch = []
+                start_time = time.time()
+                total_entries = int(Path(file_path).stat().st_size / 263)
 
-            for line in tqdm(bzfile, total=total_entries, desc="Processing entries"):
-                if line.strip() not in ["[", "]", ",", ""]:
-                    batch.append(line)
+                for line in tqdm(
+                    bzfile, total=total_entries, desc="Processing entries"
+                ):
+                    if line.strip() not in ["[", "]", ",", ""]:
+                        batch.append(line)
 
-                    if len(batch) >= batch_size:
-                        self._process_batch(batch)
-                        batch.clear()  # more efficient than creating new list
-                    self.stats["processed_entries"] += 1
+                        if len(batch) >= batch_size:
+                            self._process_batch(batch)
+                            batch.clear()  # more efficient than creating new list
+                        self.stats["processed_entries"] += 1
 
-            # Process remaining items.
-            if batch:
-                self._process_batch(batch)
+                # Process remaining items.
+                if batch:
+                    self._process_batch(batch)
+
+        except EOFError:
+            rprint(
+                "[bold red]Error: The dump file appears to be incomplete.[/bold red]"
+            )
+            rprint(
+                "[bold yellow]Please re-download the dump file before proceeding.[/bold yellow]"
+            )
+
+            # Ask user if they want to redownload
+            try:
+                import questionary
+
+                redownload = questionary.confirm(
+                    "Would you like to automatically re-download the dump file?",
+                    default=True,
+                ).ask()
+
+                if redownload:
+                    from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
+
+                    new_file_path = wd_lexeme_dump_download_wrapper(
+                        wikidata_dump="latest-lexemes",
+                        output_dir=str(Path(file_path).parent),
+                        default=True,
+                    )
+                    if new_file_path:
+                        rprint(
+                            "[bold green]Successfully redownloaded the dump file.[/bold green]"
+                        )
+                        rprint("[bold blue]Retrying with the new file...[/bold blue]")
+                        return self.process_file(new_file_path, batch_size)
+            except Exception as e:
+                rprint(f"[bold red]Error during redownload: {e}[/bold red]")
+            return
+        except Exception as e:
+            rprint(f"[bold red]Error processing dump file: {e}[/bold red]")
+            return
 
         # Update stats.
         self.stats["processing_time"] = time.time() - start_time
