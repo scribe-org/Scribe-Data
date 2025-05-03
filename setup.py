@@ -26,7 +26,7 @@ setup_args = dict(
     name="scribe-data",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    version="4.1.0",
+    version="5.0.0",
     author="Andrew Tavis McAllister",
     author_email="team@scri.be",
     classifiers=[
