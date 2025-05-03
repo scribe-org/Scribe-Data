@@ -1,5 +1,5 @@
-# Copyright (c) 2025 Scribe-Data Contributors
 # SPDX-License-Identifier: GPL-3.0-or-later
+
 import pytest
 import os
 from pathlib import Path
