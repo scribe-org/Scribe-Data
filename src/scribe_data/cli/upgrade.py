@@ -4,12 +4,12 @@ Functions to update the Scribe-Data CLI based on install method.
 """
 
 import os
+import re
 import shutil
 import subprocess
 import sys
 import tarfile
 from pathlib import Path
-import re
 
 import requests
 
