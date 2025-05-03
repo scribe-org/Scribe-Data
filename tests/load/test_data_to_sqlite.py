@@ -18,7 +18,9 @@ from scribe_data.load.data_to_sqlite import (
 
 @pytest.fixture
 def temp_db(tmp_path):
-    """Create a temporary SQLite database for testing."""
+    """
+    Create a temporary SQLite database for testing.
+    """
     db_path = tmp_path / "test.sqlite"
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -28,7 +30,9 @@ def temp_db(tmp_path):
 
 @pytest.fixture
 def temp_json_dir(tmp_path):
-    """Create a temporary directory with test JSON files."""
+    """
+    Create a temporary directory with test JSON files.
+    """
     # Create test data structure.
     json_dir = tmp_path / "json_data"
     json_dir.mkdir()
@@ -56,7 +60,9 @@ def temp_json_dir(tmp_path):
 
 
 def test_create_table(temp_db):
-    """Test creating a table with both snake and camel case identifiers."""
+    """
+    Test creating a table with both snake and camel case identifiers.
+    """
     cursor, conn = temp_db
 
     # Test snake case.
@@ -74,7 +80,9 @@ def test_create_table(temp_db):
 
 
 def test_table_insert(temp_db):
-    """Test inserting data into a table."""
+    """
+    Test inserting data into a table.
+    """
     cursor, conn = temp_db
 
     # Create test table.
@@ -90,7 +98,9 @@ def test_table_insert(temp_db):
 
 
 def test_translations_to_sqlite(temp_json_dir, tmp_path):
-    """Test translations_to_sqlite functionality."""
+    """
+    Test translations_to_sqlite functionality.
+    """
     output_dir = tmp_path / "sqlite_output"
     output_dir.mkdir()
 
@@ -123,13 +133,17 @@ def test_translations_to_sqlite(temp_json_dir, tmp_path):
 
 
 def test_data_to_sqlite_invalid_language():
-    """Test data_to_sqlite with invalid language."""
+    """
+    Test data_to_sqlite with invalid language.
+    """
     with pytest.raises(ValueError):
         data_to_sqlite(languages=["invalid_language"])
 
 
 def test_create_table_duplicate_columns(temp_db):
-    """Test creating a table with duplicate column names."""
+    """
+    Test creating a table with duplicate column names.
+    """
     cursor, conn = temp_db
 
     # Test handling of duplicate column names.

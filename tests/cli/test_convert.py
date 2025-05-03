@@ -26,13 +26,13 @@ class TestConvert(unittest.TestCase):
 
         Parameters
         ----------
-            data: str
-                The input string whose line endings are to be normalized.
+        data: str
+            The input string whose line endings are to be normalized.
 
         Returns
         ---------
-            data: str
-                The input string with normalized line endings.
+        data: str
+            The input string with normalized line endings.
         """
         return data.replace("\r\n", "\n").replace("\r", "\n")
 

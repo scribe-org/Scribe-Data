@@ -22,10 +22,29 @@ from scribe_data.utils import (
     get_language_iso_code,
     language_metadata,
     lexeme_form_metadata,
+    wikidata_qids_pids,
 )
 
 
 class LexemeProcessor:
+    """
+    Class to process lexeme entries in Wikidata lexeme dumps.
+
+        Parameters
+        ----------
+        target_lang : str, list[str]
+            The language or languages to process lexemes for.
+
+        parse_type : list[str]
+            Can be any combination of:
+                - 'translations'
+                - 'form'
+                - 'total'
+
+        data_types : list[str]
+            A list of categories (e.g., ["nouns", "adverbs"]) for forms.
+    """
+
     def __init__(
         self,
         target_lang: Union[str, List[str]] = None,
@@ -33,11 +52,21 @@ class LexemeProcessor:
         data_types: List[str] = None,
     ):
         """
-        parse_type can be any combination of:
-            - 'translations'
-            - 'form'
-            - 'total'
-        data_types is a list of categories (e.g., ["nouns", "adverbs"]) for forms.
+        Use to derive information on lexeme dump entries.
+
+        Parameters
+        ----------
+        target_lang : str, list[str]
+            The language or languages to process lexemes for.
+
+        parse_type : list[str]
+            Can be any combination of:
+                - 'translations'
+                - 'form'
+                - 'total'
+
+        data_types : list[str]
+            A list of categories (e.g., ["nouns", "adverbs"]) for forms.
         """
         # Pre-compute sets for faster lookups.
         self.parse_type = set(parse_type or [])
@@ -88,6 +117,14 @@ class LexemeProcessor:
     def _build_iso_mapping(self) -> dict:
         """
         Build mapping of ISO codes to language names based on language_metadata.
+
+        Returns
+        -------
+        dict
+            A mapping of ISO codes to their full names.
+
+        Notes
+        -----
         If self.target_lang is non-null, only include those iso codes.
         """
         iso_mapping = {}
@@ -119,9 +156,20 @@ class LexemeProcessor:
         return iso_mapping
 
     # MARK: Process Lines
+
     def process_lines(self, line: str) -> None:
         """
-        Process one line of data with optimized parsing.
+        Run through one line of data with optimized parsing.
+
+        Parameters
+        ----------
+        line : str
+            The line to process.
+
+        Returns
+        -------
+        None
+            The line of the lexeme dump is conditionally processed as needed.
         """
         try:
             # Use faster exception handling.
@@ -175,6 +223,25 @@ class LexemeProcessor:
     def _process_translations(self, lexeme, word, lang_iso, dt_name):
         """
         Optimized translations processing.
+
+        Parameters
+        ----------
+        lexeme : dict
+            The object representing the lexeme and all its data.
+
+        word : str
+            The word tha translations are being derived for.
+
+        lang_iso : str
+            The ISO code for the language that totals are being processed for.
+
+        dt_name : str
+            The data type for which totals are being processed for.
+
+        Returns
+        -------
+        None
+            Translations processed for the given lexeme, word and data type.
         """
         translations = {}
         valid_iso_codes = self.valid_iso_codes
@@ -202,15 +269,36 @@ class LexemeProcessor:
                     translations
                 )
 
-    def _process_forms(self, lexeme, lang_iso, dt_name):
+    def _process_forms(self, lexeme: dict, lang_iso: str, dt_name: str):
         """
         Optimized forms processing with proper nested dictionary merging.
+
+        Parameters
+        ----------
+        lexeme : dict
+            The object representing the lexeme and all its data.
+
+        lang_iso : str
+            The ISO code for the language that totals are being processed for.
+
+        dt_name : str
+            The data type for which totals are being processed for.
+
+        Returns
+        -------
+        None
+            The forms are processed and a count is iterated.
+
+        Notes
+        -----
         Uses pipe-separated strings for form values to maintain uniqueness.
         """
         lexeme_id = lexeme["id"]
         language_qid = lexeme["language"]
         lexicalCategory = lexeme["lexicalCategory"]
         lastModified = lexeme["modified"]
+        gender_pid = wikidata_qids_pids.get("gender")
+
         forms_data = {}
 
         # Pre-compute form data structure
@@ -269,6 +357,21 @@ class LexemeProcessor:
                             else:
                                 cat_dict[form_name] = form_value
 
+        # Add gender feature if gender property exists in claims.
+        if gender_pid and "claims" in lexeme and gender_pid in lexeme.get("claims", {}):
+            claims = lexeme["claims"][gender_pid]
+            values = []
+            if claims:
+                for gender in claims:
+                    if gender.get("mainsnak", {}).get("snaktype") == "value":
+                        gender_id = gender["mainsnak"]["datavalue"]["value"]["id"]
+                        if gender_id in self._feature_label_cache:
+                            _, gender_label = self._feature_label_cache[gender_id]
+                            values.append(gender_label)
+
+                if values:
+                    cat_dict["gender"] = " | ".join(sorted(values))
+
         if forms_data:
             for lexeme_id, new_lang_data in forms_data.items():
                 if lexeme_id not in self.forms_index:
@@ -304,9 +407,25 @@ class LexemeProcessor:
 
             self.forms_counts[lang_iso][dt_name] += len(forms_data)
 
-    def _process_totals(self, lexeme, lang_iso, dt_name):
+    def _process_totals(self, lexeme: dict, lang_iso: str, dt_name: str):
         """
-        Process totals for statistical counting.
+        Derive the totals for statistical counting.
+
+        Parameters
+        ----------
+        lexeme : dict
+            The object representing the lexeme and all its data.
+
+        lang_iso : str
+            The ISO code for the language that totals are being processed for.
+
+        dt_name : str
+            The data type for which totals are being processed for.
+
+        Returns
+        -------
+        None
+            Lexeme counts are incremented if there the language and data type match.
         """
         # Skip if we have specific data types and this category isn't in them.
         if self.data_types and dt_name.lower() not in [
@@ -336,6 +455,19 @@ class LexemeProcessor:
     def process_file(self, file_path: str, batch_size: int = 50000):
         """
         Main loop: read lines from file (bz2) in batches, call process_lines on each.
+
+        Parameters
+        ----------
+        file_path : str
+            The path to the file to be processed.
+
+        batch_size : int
+            How many entries should be processed at once.
+
+        Returns
+        -------
+        None
+            The file is processed and a summary is printed.
         """
         # Use context manager for better resource handling.
         with bz2.open(file_path, "rt", encoding="utf-8") as bzfile:
@@ -374,7 +506,12 @@ class LexemeProcessor:
 
     def _process_batch(self, batch: list) -> None:
         """
-        Process a batch of lines.
+        Run process over a batch of lines.
+
+        Parameters
+        ----------
+        batch : list
+            The list of lines that should be processed.
         """
         for line in batch:
             self.process_lines(line)
@@ -412,6 +549,19 @@ class LexemeProcessor:
     def export_translations_json(self, filepath: str, language_iso: str = None) -> None:
         """
         Save translations_index to file, optionally filtering by language_iso.
+
+        Parameters
+        ----------
+        filepath : str
+            The path to export translations to.
+
+        language_iso : str
+            The ISO of the language that translations are being exported for.
+
+        Returns
+        -------
+        None
+            The translations for the given language saved in to the given file path.
         """
         if language_iso:
             if language_iso not in self.iso_to_name:
@@ -458,6 +608,7 @@ class LexemeProcessor:
                 print(
                     f"Successfully exported translations for {lang_name.capitalize()} to {output_file}"
                 )
+
             except Exception as e:
                 print(f"Error saving translations for {lang_name.capitalize()}: {e}")
 
@@ -591,13 +742,13 @@ def parse_dump(
         Only used if 'form' is in parse_type.
 
     file_path : str, default="latest-lexemes.json.bz2"
-        Path to the lexeme dump file
+        Path to the lexeme dump file.
 
     output_dir : str, optional
         Directory to save output files. If None, uses DEFAULT_DUMP_EXPORT_DIR.
 
     overwrite_all : bool, default=False
-        If True, automatically overwrite existing files without prompting
+        If True, automatically overwrite existing files without prompting.
 
     Notes
     -----

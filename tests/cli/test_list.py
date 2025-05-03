@@ -184,6 +184,7 @@ class TestListFunctions(unittest.TestCase):
         test_args = ["main.py", "list", "--language"]
         with patch("sys.argv", test_args):
             main()
+
         mock_list_languages.assert_called_once()
 
     @patch("scribe_data.cli.list.list_data_types")
@@ -191,6 +192,7 @@ class TestListFunctions(unittest.TestCase):
         test_args = ["main.py", "list", "--data-type"]
         with patch("sys.argv", test_args):
             main()
+
         mock_list_data_types.assert_called_once()
 
     @patch("scribe_data.cli.list.list_all")
@@ -198,4 +200,5 @@ class TestListFunctions(unittest.TestCase):
         test_args = ["main.py", "list", "--all"]
         with patch("sys.argv", test_args):
             main()
+
         mock_list_all.assert_called_once()

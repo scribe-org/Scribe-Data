@@ -2,9 +2,9 @@
 """
 Check the Scribe-Data metadata files to make sure that all information is included.
 
-Example
--------
-    python3 src/scribe_data/check/check_project_metadata.py
+Examples
+--------
+>>> python3 src/scribe_data/check/check_project_metadata.py
 """
 
 import difflib
@@ -25,7 +25,8 @@ def get_available_languages() -> dict[str, list[str]]:
 
     Returns
     -------
-        dict[str, list[str]]: A dictionary with the language name as the key and a list of its sub-languages (if available) as the value.
+    dict[str, list[str]]
+        A dictionary with the language name as the key and a list of its sub-languages (if available).
     """
     extraction_dir = LANGUAGE_DATA_EXTRACTION_DIR
     available_languages = {}
@@ -66,8 +67,7 @@ def get_missing_languages(
     reference_languages: dict, target_languages: dict
 ) -> list[str]:
     """
-    Compare two language dictionaries and return a list of languages and sub-languages
-    that exist in target_languages but not in reference_languages.
+    Compare two language dictionaries and return a list of languages and sub-languages that exist.
 
     Parameters
     ----------
@@ -109,7 +109,7 @@ def get_missing_languages(
 
 def validate_language_properties(languages_dict: dict) -> dict:
     """
-    Validates the presence of 'qid' and 'iso' properties for each language and its sub-languages.
+    Validate the presence of 'qid' and 'iso' properties for each language and its sub-languages.
 
     Parameters
     ----------
@@ -151,7 +151,17 @@ def validate_language_properties(languages_dict: dict) -> dict:
 
 def check_language_metadata():
     """
-    Validates language metadata by performing the following checks:
+    Validate language metadata by performing various checks.
+
+    Raises
+    ------
+    SystemExit:
+        If any missing languages or properties are found, the function exits the script with a status code of 1.
+
+    Notes
+    -----
+    Checks include:
+
     1. Ensures that all languages listed in `language_data_extraction` are present in `language_metadata.json`, and vice versa.
 
     2. Checks if each language in `language_metadata.json` has the required properties:
@@ -159,11 +169,6 @@ def check_language_metadata():
         - 'iso' (ISO language code)
 
     This function helps identify missing languages or missing properties, ensuring data consistency across both sources.
-
-    Raises:
-    -------
-    SystemExit:
-        If any missing languages or properties are found, the function exits the script with a status code of 1.
     """
     languages_in_metadata = {key: value for key, value in _languages.items()}
 

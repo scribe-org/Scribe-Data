@@ -89,11 +89,14 @@ def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
     ----------
     missing_features : dict
         Dictionary containing missing features by language and data type.
-        Format: {language_qid: {data_type_qid: [[form_qids]]}}
+        Format: {language_qid: {data_type_qid: [[form_qids]]}}.
 
     query_dir : str or Path, optional
         Directory where query files should be saved.
         If None, uses default language_data_extraction directory.
+
+    sub_lang_iso_code : str
+        The ISO-2 code of a sub-language if there is one being provided.
 
     Returns
     -------
