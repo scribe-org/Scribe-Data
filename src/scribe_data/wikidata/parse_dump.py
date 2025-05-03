@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import List, Union
 
 import orjson
+import questionary
 from rich import print as rprint
 from tqdm import tqdm
 
@@ -505,16 +506,12 @@ class LexemeProcessor:
                 "[bold yellow]Please re-download the dump file before proceeding.[/bold yellow]"
             )
 
-            # Ask user if they want to redownload
+            # Ask user if they want to redownload.
             try:
-                import questionary
-
-                redownload = questionary.confirm(
+                if questionary.confirm(
                     "Would you like to automatically re-download the dump file?",
                     default=True,
-                ).ask()
-
-                if redownload:
+                ).ask():
                     from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
 
                     new_file_path = wd_lexeme_dump_download_wrapper(
@@ -522,15 +519,18 @@ class LexemeProcessor:
                         output_dir=str(Path(file_path).parent),
                         default=True,
                     )
+
                     if new_file_path:
                         rprint(
                             "[bold green]Successfully redownloaded the dump file.[/bold green]"
                         )
                         rprint("[bold blue]Retrying with the new file...[/bold blue]")
                         return self.process_file(new_file_path, batch_size)
+
             except Exception as e:
                 rprint(f"[bold red]Error during redownload: {e}[/bold red]")
             return
+
         except Exception as e:
             rprint(f"[bold red]Error processing dump file: {e}[/bold red]")
             return
