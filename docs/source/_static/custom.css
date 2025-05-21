@@ -27,7 +27,7 @@
 /* Sidebar item background color on hover. */
 .wy-nav-side .wy-menu-vertical li.toctree-l1.current > a:hover,
 .wy-nav-side .wy-menu-vertical li.toctree-l1 > a:hover {
-  background-color: #5495c9 !important; /* ligher Python blue background */
+  background-color: #5495c9 !important; /* lighter Python blue background */
 }
 /* Logo styling. */
 .wy-side-nav-search .wy-nav-top img {
@@ -38,7 +38,7 @@
   margin: 0 auto;
 }
 
-/* Hide HTML comments in the generated documentation */
+/* Hide HTML comments in the generated documentation. */
 html > body > div.document > div.section > pre > code {
   display: none;
 }
