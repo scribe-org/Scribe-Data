@@ -249,7 +249,7 @@ regex==2024.11.6
     # via
     #   -r requirements-dev.in
     #   -r requirements.txt
-requests==2.32.3
+requests==2.32.4
     # via
     #   -r requirements-dev.in
     #   -r requirements.txt
