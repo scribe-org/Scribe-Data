@@ -94,7 +94,7 @@ pandas==2.2.3
     # via -r requirements.in
 prompt-toolkit==3.0.50
     # via questionary
-protobuf==6.30.0
+protobuf==6.31.1
     # via orbax-checkpoint
 pygments==2.19.1
     # via rich
