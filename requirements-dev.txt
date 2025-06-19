@@ -338,7 +338,7 @@ tzdata==2025.1
     # via
     #   -r requirements.txt
     #   pandas
-urllib3==2.3.0
+urllib3==2.5.0
     # via
     #   -r requirements.txt
     #   requests
