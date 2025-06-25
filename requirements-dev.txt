@@ -4,7 +4,7 @@
 #
 #    pip-compile requirements-dev.in
 #
-absl-py==2.1.0
+absl-py==2.3.0
     # via
     #   chex
     #   optax
@@ -13,23 +13,23 @@ alabaster==1.0.0
     # via sphinx
 babel==2.17.0
     # via sphinx
-beautifulsoup4==4.9.3
+beautifulsoup4==4.13.4
     # via -r requirements-dev.in
 build==1.2.2.post1
     # via pip-tools
-certifi==2025.1.31
+certifi==2025.6.15
     # via
     #   -r requirements-dev.in
     #   requests
 cfgv==3.4.0
     # via pre-commit
-charset-normalizer==3.4.1
+charset-normalizer==3.4.2
     # via requests
 chex==0.1.89
     # via optax
-click==8.1.8
+click==8.2.1
     # via pip-tools
-coverage[toml]==7.6.12
+coverage[toml]==7.9.1
     # via pytest-cov
 defusedxml==0.7.1
     # via -r requirements-dev.in
@@ -42,19 +42,17 @@ docutils==0.21.2
     #   sphinx-rtd-theme
 emoji==2.14.1
     # via -r requirements-dev.in
-etils[epath,epy]==1.12.0
-    # via
-    #   optax
-    #   orbax-checkpoint
-filelock==3.17.0
+etils[epath,epy]==1.12.2
+    # via orbax-checkpoint
+filelock==3.18.0
     # via virtualenv
 flax==0.10.4
     # via -r requirements-dev.in
-fsspec==2025.2.0
+fsspec==2025.5.1
     # via etils
-humanize==4.12.1
+humanize==4.12.3
     # via orbax-checkpoint
-identify==2.6.8
+identify==2.6.12
     # via pre-commit
 idna==3.10
     # via requests
@@ -62,24 +60,24 @@ imagesize==1.4.1
     # via sphinx
 importlib-resources==6.5.2
     # via etils
-iniconfig==2.0.0
+iniconfig==2.1.0
     # via pytest
-iso639-lang==2.6.0
+iso639-lang==2.6.1
     # via -r requirements-dev.in
-jax==0.5.2
+jax==0.4.38
     # via
     #   chex
     #   flax
     #   optax
     #   orbax-checkpoint
-jaxlib==0.5.1
+jaxlib==0.4.38
     # via
     #   chex
     #   jax
     #   optax
 jinja2==3.1.6
     # via sphinx
-m2r2==0.3.3.post2
+m2r2==0.3.4
     # via -r requirements-dev.in
 markdown-it-py==3.0.0
     # via rich
@@ -94,21 +92,21 @@ ml-dtypes==0.5.1
     #   jax
     #   jaxlib
     #   tensorstore
-msgpack==1.1.0
+msgpack==1.1.1
     # via
     #   flax
     #   orbax-checkpoint
 mwparserfromhell==0.6.6
     # via -r requirements-dev.in
-mypy==1.15.0
+mypy==1.16.1
     # via -r requirements-dev.in
-mypy-extensions==1.0.0
+mypy-extensions==1.1.0
     # via mypy
 nest-asyncio==1.6.0
     # via orbax-checkpoint
 nodeenv==1.9.1
     # via pre-commit
-numpy==2.2.3
+numpy==2.3.1
     # via
     #   chex
     #   flax
@@ -121,55 +119,60 @@ numpy==2.2.3
     #   scipy
     #   tensorstore
     #   treescope
-numpydoc==1.8.0
+numpydoc==1.9.0
     # via -r requirements-dev.in
 opt-einsum==3.4.0
     # via jax
-optax==0.2.4
+optax==0.2.5
     # via flax
-orbax-checkpoint==0.11.6
+orbax-checkpoint==0.11.5
     # via flax
-orjson==3.10.15
+orjson==3.10.18
     # via -r requirements-dev.in
-packaging==24.2
+packaging==25.0
     # via
     #   -r requirements-dev.in
     #   build
     #   pytest
     #   sphinx
-pandas==2.2.3
+pandas==2.3.0
     # via -r requirements-dev.in
+pathspec==0.12.1
+    # via mypy
 pip-tools==7.4.1
     # via -r requirements-dev.in
-platformdirs==4.3.6
+platformdirs==4.3.8
     # via virtualenv
-pluggy==1.5.0
-    # via pytest
-pre-commit==4.1.0
+pluggy==1.6.0
+    # via
+    #   pytest
+    #   pytest-cov
+pre-commit==4.2.0
     # via -r requirements-dev.in
-prompt-toolkit==3.0.50
+prompt-toolkit==3.0.51
     # via questionary
 protobuf==6.31.1
     # via orbax-checkpoint
-pygments==2.19.1
+pygments==2.19.2
     # via
+    #   pytest
     #   rich
     #   sphinx
-pyparsing==3.2.1
+pyparsing==3.2.3
     # via rdflib
 pyproject-hooks==1.2.0
     # via
     #   build
     #   pip-tools
-pytest==8.3.5
+pytest==8.4.1
     # via
     #   -r requirements-dev.in
     #   pytest-cov
-pytest-cov==6.0.0
+pytest-cov==6.2.1
     # via -r requirements-dev.in
 python-dateutil==2.9.0.post0
     # via pandas
-pytz==2025.1
+pytz==2025.2
     # via pandas
 pyyaml==6.0.2
     # via
@@ -178,7 +181,7 @@ pyyaml==6.0.2
     #   pre-commit
 questionary==2.1.0
     # via -r requirements-dev.in
-rdflib==7.1.3
+rdflib==7.1.4
     # via sparqlwrapper
 regex==2024.11.6
     # via -r requirements-dev.in
@@ -186,15 +189,15 @@ requests==2.32.4
     # via
     #   -r requirements-dev.in
     #   sphinx
-rich==13.9.4
+rich==14.0.0
     # via
     #   -r requirements-dev.in
     #   flax
 roman-numerals-py==3.1.0
     # via sphinx
-ruff==0.9.9
+ruff==0.12.0
     # via -r requirements-dev.in
-scipy==1.15.2
+scipy==1.16.0
     # via
     #   jax
     #   jaxlib
@@ -202,9 +205,9 @@ simplejson==3.20.1
     # via orbax-checkpoint
 six==1.17.0
     # via python-dateutil
-snowballstemmer==2.2.0
+snowballstemmer==3.0.1
     # via sphinx
-soupsieve==2.6
+soupsieve==2.7
     # via beautifulsoup4
 sparqlwrapper==2.0.0
     # via -r requirements-dev.in
@@ -229,36 +232,35 @@ sphinxcontrib-qthelp==2.0.0
     # via sphinx
 sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
-tabulate==0.9.0
-    # via numpydoc
-tensorstore==0.1.72
+tensorstore==0.1.75
     # via
     #   flax
     #   orbax-checkpoint
 toolz==1.0.0
     # via chex
-tqdm==4.66.4
+tqdm==4.67.1
     # via -r requirements-dev.in
 treescope==0.1.9
     # via flax
-typing-extensions==4.12.2
+typing-extensions==4.14.0
     # via
+    #   beautifulsoup4
     #   chex
     #   etils
     #   flax
     #   mypy
     #   orbax-checkpoint
-tzdata==2025.1
+tzdata==2025.2
     # via pandas
 urllib3==2.5.0
     # via requests
-virtualenv==20.29.2
+virtualenv==20.31.2
     # via pre-commit
 wcwidth==0.2.13
     # via prompt-toolkit
 wheel==0.45.1
     # via pip-tools
-zipp==3.21.0
+zipp==3.23.0
     # via etils
 
 # The following packages are considered to be unsafe in a requirements file:
