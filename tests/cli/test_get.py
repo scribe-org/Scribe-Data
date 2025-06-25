@@ -515,10 +515,13 @@ class TestGetData(unittest.TestCase):
                 )
 
     @patch("scribe_data.cli.get.query_data")
-    def test_get_data_with_interactive_mode(self, mock_query_data):
+    @patch("scribe_data.cli.get.check_index_exists")
+    def test_get_data_with_interactive_mode(self, mock_check_exists, mock_query_data):
         """
         Test retrieving data in interactive mode.
         """
+        mock_check_exists.return_value = False
+
         get_data(language="English", data_type="nouns", interactive=True)
 
         mock_query_data.assert_called_once_with(
@@ -599,10 +602,13 @@ class TestGetData(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.get.query_data")
-    def test_get_data_case_insensitive_type(self, mock_query_data):
+    @patch("scribe_data.cli.get.check_index_exists")
+    def test_get_data_case_insensitive_type(self, mock_check_exists, mock_query_data):
         """
         Test that data type is case insensitive.
         """
+        mock_check_exists.return_value = False
+
         get_data(language="English", data_type="NOUNS")
 
         mock_query_data.assert_called_once_with(
