@@ -12,6 +12,12 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 5.x
 
+## Scribe-Data 5.1.0
+
+### ✨ Features
+
+- The upgrade command now upgrades the package via pip rather than bringing down GitHub files and installing them directly.
+
 ## Scribe-Data 5.0.1
 
 ### ♻️ Code Refactoring
