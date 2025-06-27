@@ -3,83 +3,60 @@
 Functions to update the Scribe-Data CLI based on install method.
 """
 
-import os
-import shutil
 import subprocess
 import sys
-import tarfile
-from pathlib import Path
 
-import requests
+from scribe_data.cli.version import (
+    UNKNOWN_VERSION_NOT_FETCHED,
+    get_latest_version,
+    get_local_version,
+)
 
-from scribe_data.cli.version import get_latest_version, get_local_version
 
-
-def upgrade_cli():
+def upgrade_cli() -> None:
     """
-    Upgrade the Scribe-Data CLI to the latest version.
+    Upgrade the CLI tool to the latest available version on PyPI.
 
-    Returns
-    -------
-    None
-        The package is updated if possible.
+    Raises
+    ------
+    subprocess.CalledProcessError
+        If the installation of the latest version fails.
     """
     local_version = get_local_version()
-    latest_version = get_latest_version()
-    latest_version = latest_version.split("v")[-1]
+    latest_version_message = get_latest_version()
 
-    if local_version == latest_version:
+    if latest_version_message == UNKNOWN_VERSION_NOT_FETCHED:
+        print(
+            "Unable to fetch the latest version from GitHub. Please check the GitHub repository or your internet connection."
+        )
+        return
+
+    latest_version = latest_version_message.split("v")[-1]
+    local_version_clean = local_version.strip()
+    latest_version_clean = latest_version.replace("Scribe-Data", "").strip()
+
+    if local_version_clean == latest_version_clean:
         print("You already have the latest version of Scribe-Data.")
 
-    if local_version < latest_version:
+    elif local_version_clean > latest_version_clean:
+        print(
+            f"Scribe-Data v{local_version_clean} is higher than the currently released version Scribe-Data v{latest_version_clean}. Hopefully this is a development build, and if so, thanks for your work on Scribe-Data! If not, please report this to the team at https://github.com/scribe-org/Scribe-Data/issues."
+        )
+
+    else:
         print(f"Current version: {local_version}")
         print(f"Latest version: {latest_version}")
-
-    print("Updating Scribe-Data...")
-
-    url = f"https://github.com/scribe-org/Scribe-Data/archive/refs/tags/{latest_version}.tar.gz"
-    print(f"Downloading Scribe-Data v{latest_version}...")
-    response = requests.get(url)
-
-    if response.status_code == 200:
-        with open(f"Scribe-Data-{latest_version}.tar.gz", "wb") as f:
-            f.write(response.content)
-        print(f"Download complete: Scribe-Data-{latest_version}.tar.gz")
-
-        print("Extracting files...")
-        temp_dir = Path(f"temp_Scribe-Data-{latest_version}")
-        with tarfile.open(f"Scribe-Data-{latest_version}.tar.gz", "r:gz") as tar:
-            tar.extractall(path=temp_dir)
-
-        print("Extraction complete.")
-
-        print("Updating local files...")
-        extracted_dir = temp_dir / f"Scribe-Data-{latest_version}"
-        for item in extracted_dir.iterdir():
-            if item.is_dir():
-                if (Path.cwd() / item.name).exists():
-                    shutil.rmtree(Path.cwd() / item.name)
-
-                shutil.copytree(item, Path.cwd() / item.name)
-
-            else:
-                shutil.copy2(item, Path.cwd())
-
-        print("Local files updated successfully.")
-
-        print("Cleaning up temporary files...")
-        shutil.rmtree(temp_dir)
-        os.remove(f"Scribe-Data-{latest_version}.tar.gz")
-        print("Cleanup complete.")
-
-        print("Installing the updated version of Scribe-Data locally...")
+        print("Updating Scribe-Data with pip...")
         try:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "-e", "."])
+            subprocess.check_call(
+                [sys.executable, "-m", "pip", "install", "--upgrade", "scribe-data"]
+            )
 
         except subprocess.CalledProcessError as e:
             print(
-                f"Failed to install the local version of Scribe-Data with error {e}. Please try manually running 'pip install -e .'"
+                f"Failed to install the latest version of Scribe-Data with error {e}. Please check the error message and report any issues to the team at https://github.com/scribe-org/Scribe-Data/issues."
             )
 
-    else:
-        print(f"Failed to download the update. Status code: {response.status_code}")
+
+if __name__ == "__main__":
+    upgrade_cli()

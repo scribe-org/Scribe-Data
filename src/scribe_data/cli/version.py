@@ -7,6 +7,10 @@ import importlib.metadata
 
 import requests
 
+UNKNOWN_VERSION = "Unknown Scribe-Data version"
+UNKNOWN_VERSION_NOT_PIP = f"{UNKNOWN_VERSION} (Not installed via pip)"
+UNKNOWN_VERSION_NOT_FETCHED = f"{UNKNOWN_VERSION} (Unable to fetch version)"
+
 
 def get_local_version():
     """
@@ -21,7 +25,7 @@ def get_local_version():
         return importlib.metadata.version("scribe-data")
 
     except importlib.metadata.PackageNotFoundError:
-        return "Unknown (Not installed via pip)"
+        return UNKNOWN_VERSION_NOT_PIP
 
 
 def get_latest_version():
@@ -40,7 +44,7 @@ def get_latest_version():
         return response.json()["name"]
 
     except Exception:
-        return "Unknown (Unable to fetch version)"
+        return UNKNOWN_VERSION_NOT_FETCHED
 
 
 def get_version_message():
@@ -55,11 +59,11 @@ def get_version_message():
     local_version = get_local_version()
     latest_version = get_latest_version()
 
-    if local_version == "Unknown (Not installed via pip)":
-        return f"Scribe-Data {local_version}"
+    if local_version == UNKNOWN_VERSION_NOT_PIP:
+        return UNKNOWN_VERSION_NOT_PIP
 
-    elif latest_version == "Unknown (Unable to fetch version)":
-        return f"Scribe-Data {latest_version}"
+    elif latest_version == UNKNOWN_VERSION_NOT_FETCHED:
+        return UNKNOWN_VERSION_NOT_FETCHED
 
     local_version_clean = local_version.strip()
     latest_version_clean = latest_version.replace("Scribe-Data", "").strip()
@@ -67,4 +71,8 @@ def get_version_message():
     if local_version_clean == latest_version_clean:
         return f"Scribe-Data v{local_version_clean}"
 
-    return f"Scribe-Data v{local_version_clean} (Upgrade available: Scribe-Data v{latest_version_clean})\nTo update: pip install --upgrade scribe-data"
+    elif local_version_clean > latest_version_clean:
+        return f"Scribe-Data v{local_version_clean} is higher than the currently released version Scribe-Data v{latest_version_clean}. Hopefully this is a development build, and if so, thanks for your work on Scribe-Data! If not, please report this to the team at https://github.com/scribe-org/Scribe-Data/issues."
+
+    else:
+        return f"Scribe-Data v{local_version_clean} (Upgrade available: Scribe-Data v{latest_version_clean}). To update: pip install --upgrade scribe-data"
