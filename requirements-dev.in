@@ -8,8 +8,6 @@
 # is important as otherwise we could be running tests with different versions
 # than production.
 
--r requirements.txt
-
 beautifulsoup4
 certifi
 defusedxml
