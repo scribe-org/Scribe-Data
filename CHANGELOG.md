@@ -24,6 +24,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - The requirement files have been updated to fix package install errors ([#621](https://github.com/scribe-org/Scribe-Data/issues/621)).
 
+### ⬆️ Dependencies
+
+- Update minimum Python version to 3.11.
+
 ## Scribe-Data 5.0.0
 
 ### ✨ Features
