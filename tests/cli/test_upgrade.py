@@ -12,7 +12,9 @@ from scribe_data.cli.version import UNKNOWN_VERSION_NOT_FETCHED
 
 
 class TestUpgradeCLI:
-    """Test cases for the upgrade_cli function."""
+    """
+    Test cases for the upgrade_cli function.
+    """
 
     @patch("scribe_data.cli.upgrade.get_local_version")
     @patch("scribe_data.cli.upgrade.get_latest_version")
@@ -20,7 +22,9 @@ class TestUpgradeCLI:
     def test_upgrade_cli_unable_to_fetch_latest_version(
         self, mock_print, mock_get_latest, mock_get_local
     ):
-        """Test upgrade_cli when unable to fetch latest version from GitHub."""
+        """
+        Test upgrade_cli when unable to fetch latest version from GitHub.
+        """
         mock_get_latest.return_value = UNKNOWN_VERSION_NOT_FETCHED
         mock_get_local.return_value = "5.0.0"
 
@@ -36,7 +40,9 @@ class TestUpgradeCLI:
     def test_upgrade_cli_already_latest_version(
         self, mock_print, mock_get_latest, mock_get_local
     ):
-        """Test upgrade_cli when already on latest version."""
+        """
+        Test upgrade_cli when already on latest version.
+        """
         mock_get_local.return_value = "5.1.0"
         mock_get_latest.return_value = "Scribe-Data v5.1.0"
 
@@ -52,7 +58,9 @@ class TestUpgradeCLI:
     def test_upgrade_cli_local_version_higher(
         self, mock_print, mock_get_latest, mock_get_local
     ):
-        """Test upgrade_cli when local version is higher than released version."""
+        """
+        Test upgrade_cli when local version is higher than released version.
+        """
         mock_get_local.return_value = "5.2.0"
         mock_get_latest.return_value = "Scribe-Data v5.1.0"
 
@@ -72,7 +80,9 @@ class TestUpgradeCLI:
     def test_upgrade_cli_successful_upgrade(
         self, mock_print, mock_get_latest, mock_get_local, mock_check_call
     ):
-        """Test upgrade_cli when upgrade is needed and successful."""
+        """
+        Test upgrade_cli when upgrade is needed and successful.
+        """
         mock_get_local.return_value = "5.0.0"
         mock_get_latest.return_value = "Scribe-Data v5.1.0"
         mock_check_call.return_value = None
@@ -97,7 +107,9 @@ class TestUpgradeCLI:
     def test_upgrade_cli_subprocess_error(
         self, mock_print, mock_get_latest, mock_get_local, mock_check_call
     ):
-        """Test upgrade_cli when subprocess.check_call fails."""
+        """
+        Test upgrade_cli when subprocess.check_call fails.
+        """
         mock_get_local.return_value = "5.0.0"
         mock_get_latest.return_value = "Scribe-Data v5.1.0"
 
@@ -106,7 +118,7 @@ class TestUpgradeCLI:
 
         upgrade_cli()
 
-        # Verify error message is printed
+        # Verify error message is printed.
         error_calls = [
             call
             for call in mock_print.call_args_list
@@ -123,7 +135,9 @@ class TestUpgradeCLI:
     def test_upgrade_cli_version_parsing_edge_cases(
         self, mock_print, mock_get_latest, mock_get_local
     ):
-        """Test upgrade_cli with version strings containing whitespace."""
+        """
+        Test upgrade_cli with version strings containing whitespace.
+        """
         mock_get_local.return_value = "  5.1.0  "
         mock_get_latest.return_value = "v5.1.0"
 
@@ -139,15 +153,17 @@ class TestUpgradeCLI:
     def test_upgrade_cli_string_comparison_edge_case(
         self, mock_print, mock_get_latest, mock_get_local
     ):
-        """Test version comparison edge case where semantic versioning works correctly."""
-        # This tests proper semantic version comparison
-        # Semantically: 5.10.0 > 5.2.0 (5.10.0 is the 10th minor version)
+        """
+        Test version comparison edge case where semantic versioning works correctly.
+        """
+        # This tests proper semantic version comparison.abs.
+        # Semantically: 5.10.0 > 5.2.0 (5.10.0 is the 10th minor version).
         mock_get_local.return_value = "5.10.0"
         mock_get_latest.return_value = "Scribe-Data v5.2.0"
 
         upgrade_cli()
 
-        # With proper semantic versioning, 5.10.0 > 5.2.0 so it shows higher version message
+        # With proper semantic versioning, 5.10.0 > 5.2.0 so it shows higher version message.
         expected_message = (
             "Scribe-Data v5.10.0 is higher than the currently released version Scribe-Data v5.2.0. "
             "Hopefully this is a development build, and if so, thanks for your work on Scribe-Data! "
@@ -161,8 +177,10 @@ class TestUpgradeCLI:
     def test_upgrade_cli_proper_higher_version_scenario(
         self, mock_print, mock_get_latest, mock_get_local
     ):
-        """Test upgrade_cli when local version is legitimately higher than released version."""
-        # Test with a version that's clearly higher to trigger the "higher version" message
+        """
+        Test upgrade_cli when local version is legitimately higher than released version.
+        """
+        # Test with a version that's clearly higher to trigger the "higher version" message.
         mock_get_local.return_value = "6.0.0"
         mock_get_latest.return_value = "Scribe-Data v5.1.0"
 
@@ -181,7 +199,9 @@ class TestUpgradeCLI:
     def test_upgrade_cli_different_version_formats(
         self, mock_print, mock_get_latest, mock_get_local
     ):
-        """Test upgrade_cli with different version string formats."""
+        """
+        Test upgrade_cli with different version string formats.
+        """
         mock_get_local.return_value = "5.1.0"
         mock_get_latest.return_value = "Scribe-Data v5.1.0"
 
@@ -197,7 +217,9 @@ class TestUpgradeCLI:
     def test_upgrade_cli_semantic_version_upgrade_needed(
         self, mock_print, mock_get_latest, mock_get_local
     ):
-        """Test upgrade_cli when semantic version upgrade is needed."""
+        """
+        Test upgrade_cli when semantic version upgrade is needed.
+        """
         mock_get_local.return_value = "5.0.9"
         mock_get_latest.return_value = "Scribe-Data v5.1.0"
 
@@ -219,7 +241,9 @@ class TestUpgradeCLI:
     def test_upgrade_cli_with_empty_version_strings(
         self, mock_print, mock_get_latest, mock_get_local
     ):
-        """Test upgrade_cli with edge case of empty version strings."""
+        """
+        Test upgrade_cli with edge case of empty version strings.
+        """
         mock_get_local.return_value = ""
         mock_get_latest.return_value = "Scribe-Data v5.1.0"
 
@@ -227,7 +251,7 @@ class TestUpgradeCLI:
             mock_check_call.return_value = None
             upgrade_cli()
 
-            # Should attempt upgrade with empty local version
+            # Should attempt upgrade with empty local version.
             expected_calls = [
                 call("Current version: "),
                 call("Latest version: 5.1.0"),
@@ -235,7 +259,7 @@ class TestUpgradeCLI:
             ]
             mock_print.assert_has_calls(expected_calls)
 
-            # Verify subprocess was called
+            # Verify subprocess was called.
             mock_check_call.assert_called_once_with(
                 [sys.executable, "-m", "pip", "install", "--upgrade", "scribe-data"]
             )

@@ -38,19 +38,21 @@ def upgrade_cli() -> None:
     local_version_clean = local_version.strip()
     latest_version_clean = latest_version.replace("Scribe-Data", "").strip()
 
-    # Handle empty or invalid version strings
+    # Handle empty or invalid version strings.
     try:
         local_ver = (
             version.parse(local_version_clean)
             if local_version_clean
             else version.parse("0.0.0")
         )
+
     except InvalidVersion:
-        # If local version is invalid, treat it as 0.0.0 to force upgrade
+        # If local version is invalid, treat it as 0.0.0 to force upgrade.
         local_ver = version.parse("0.0.0")
 
     try:
         latest_ver = version.parse(latest_version_clean)
+
     except InvalidVersion:
         print("Unable to parse the latest version. Please check the GitHub repository.")
         return
