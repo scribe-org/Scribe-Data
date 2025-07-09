@@ -12,6 +12,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 5.x
 
+### ✅ Tests
+
+- The upgrade functionality of the CLI is now comprehensively tested ([#624](https://github.com/scribe-org/Scribe-Data/issues/624)).
+
 ## Scribe-Data 5.1.0
 
 ### ✨ Features
