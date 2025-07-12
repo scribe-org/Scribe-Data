@@ -60,7 +60,7 @@ class TestVersionFunctions(unittest.TestCase):
         """
         Test case where a newer version is available.
         """
-        expected_message = "Scribe-Data vX.Y.Y (Upgrade available: Scribe-Data vX.Y.Z). To update: pip install --upgrade scribe-data"
+        expected_message = "Scribe-Data vX.Y.Y (Upgrade available: Scribe-Data vX.Y.Z). To upgrade: scribe-data -u"
         self.assertEqual(get_version_message(), expected_message)
 
     @patch(

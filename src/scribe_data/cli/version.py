@@ -75,4 +75,4 @@ def get_version_message():
         return f"Scribe-Data v{local_version_clean} is higher than the currently released version Scribe-Data v{latest_version_clean}. Hopefully this is a development build, and if so, thanks for your work on Scribe-Data! If not, please report this to the team at https://github.com/scribe-org/Scribe-Data/issues."
 
     else:
-        return f"Scribe-Data v{local_version_clean} (Upgrade available: Scribe-Data v{latest_version_clean}). To update: pip install --upgrade scribe-data"
+        return f"Scribe-Data v{local_version_clean} (Upgrade available: Scribe-Data v{latest_version_clean}). To upgrade: scribe-data -u"

@@ -16,6 +16,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - The upgrade functionality of the CLI is now comprehensively tested ([#624](https://github.com/scribe-org/Scribe-Data/issues/624)).
 
+### ♻️ Code Refactoring
+
+- The upgrade message instructs the user to use the built in upgrade functionality.
+
 ## Scribe-Data 5.1.0
 
 ### ✨ Features
