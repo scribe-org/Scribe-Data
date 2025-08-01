@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?genitiveDefiniteDual
+  ?genitiveDualConstruct
+  ?pausalIndefiniteDual
+  ?pausalDefiniteDual
+  ?pausalPluralConstruct
+  ?pausalDualConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveDefiniteDualForm .
+    ?genitiveDefiniteDualForm ontolex:representation ?genitiveDefiniteDual ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997851, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveDualConstructForm .
+    ?genitiveDualConstructForm ontolex:representation ?genitiveDualConstruct ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110022, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalIndefiniteDualForm .
+    ?pausalIndefiniteDualForm ontolex:representation ?pausalIndefiniteDual ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q53997857, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalDefiniteDualForm .
+    ?pausalDefiniteDualForm ontolex:representation ?pausalDefiniteDual ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q53997851, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalPluralConstructForm .
+    ?pausalPluralConstructForm ontolex:representation ?pausalPluralConstruct ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q146786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalDualConstructForm .
+    ?pausalDualConstructForm ontolex:representation ?pausalDualConstruct ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q110022, wd:Q1641446 .
+  }
+}

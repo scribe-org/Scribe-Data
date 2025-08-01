@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?nominativeSingularConstruct
+  ?nominativePluralConstruct
+  ?genitiveSingularConstruct
+  ?genitivePluralConstruct
+  ?pausalSingularConstruct
+  ?pausalPluralConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSingularConstructForm .
+    ?nominativeSingularConstructForm ontolex:representation ?nominativeSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralConstructForm .
+    ?nominativePluralConstructForm ontolex:representation ?nominativePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularConstructForm .
+    ?genitiveSingularConstructForm ontolex:representation ?genitiveSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralConstructForm .
+    ?genitivePluralConstructForm ontolex:representation ?genitivePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalSingularConstructForm .
+    ?pausalSingularConstructForm ontolex:representation ?pausalSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalPluralConstructForm .
+    ?pausalPluralConstructForm ontolex:representation ?pausalPluralConstruct ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q146786, wd:Q1641446 .
+  }
+}
