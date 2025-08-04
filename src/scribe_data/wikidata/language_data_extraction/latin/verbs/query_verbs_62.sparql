@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?presentIndicativeFirstPersonSingular
-  ?presentIndicativeFirstPersonPlural
-  ?presentIndicativeSecondPersonSingular
-  ?presentIndicativeSecondPersonPlural
-  ?presentIndicativeThirdPersonSingular
-  ?presentIndicativeThirdPersonPlural
+  ?passivePastImperfectFirstPersonSingularSubjunctive
+  ?passivePastImperfectFirstPersonPluralSubjunctive
+  ?passivePastImperfectSecondPersonSingularSubjunctive
+  ?passivePastImperfectSecondPersonPluralSubjunctive
+  ?passivePastImperfectThirdPersonSingularSubjunctive
+  ?passivePastImperfectThirdPersonPluralSubjunctive
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentIndicativeFirstPersonSingularForm .
-    ?presentIndicativeFirstPersonSingularForm ontolex:representation ?presentIndicativeFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q56682909, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?passivePastImperfectFirstPersonSingularSubjunctiveForm .
+    ?passivePastImperfectFirstPersonSingularSubjunctiveForm ontolex:representation ?passivePastImperfectFirstPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q12547192, wd:Q21714344, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentIndicativeFirstPersonPluralForm .
-    ?presentIndicativeFirstPersonPluralForm ontolex:representation ?presentIndicativeFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q56682909, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?passivePastImperfectFirstPersonPluralSubjunctiveForm .
+    ?passivePastImperfectFirstPersonPluralSubjunctiveForm ontolex:representation ?passivePastImperfectFirstPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q12547192, wd:Q21714344, wd:Q146786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentIndicativeSecondPersonSingularForm .
-    ?presentIndicativeSecondPersonSingularForm ontolex:representation ?presentIndicativeSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?passivePastImperfectSecondPersonSingularSubjunctiveForm .
+    ?passivePastImperfectSecondPersonSingularSubjunctiveForm ontolex:representation ?passivePastImperfectSecondPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q12547192, wd:Q51929049, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentIndicativeSecondPersonPluralForm .
-    ?presentIndicativeSecondPersonPluralForm ontolex:representation ?presentIndicativeSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?passivePastImperfectSecondPersonPluralSubjunctiveForm .
+    ?passivePastImperfectSecondPersonPluralSubjunctiveForm ontolex:representation ?passivePastImperfectSecondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q12547192, wd:Q51929049, wd:Q146786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentIndicativeThirdPersonSingularForm .
-    ?presentIndicativeThirdPersonSingularForm ontolex:representation ?presentIndicativeThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?passivePastImperfectThirdPersonSingularSubjunctiveForm .
+    ?passivePastImperfectThirdPersonSingularSubjunctiveForm ontolex:representation ?passivePastImperfectThirdPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q12547192, wd:Q51929074, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentIndicativeThirdPersonPluralForm .
-    ?presentIndicativeThirdPersonPluralForm ontolex:representation ?presentIndicativeThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?passivePastImperfectThirdPersonPluralSubjunctiveForm .
+    ?passivePastImperfectThirdPersonPluralSubjunctiveForm ontolex:representation ?passivePastImperfectThirdPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q12547192, wd:Q51929074, wd:Q146786, wd:Q473746 .
   }
 }

@@ -6,18 +6,24 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
+  ?nominative
   ?infinitive
-  ?past
+  ?presentContinuous
   ?future
   ?singular
-  ?masculinePresentSingular
-  ?masculinePastSingular
+  ?gerund
 
 WHERE {
   ?lexeme dct:language wd:Q5885 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?infinitiveForm .
@@ -26,9 +32,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastForm .
-    ?pastForm ontolex:representation ?past ;
-      wikibase:grammaticalFeature wd:Q1994301 .
+    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
+    ?presentContinuousForm ontolex:representation ?presentContinuous ;
+      wikibase:grammaticalFeature wd:Q7240943 .
   }
 
   OPTIONAL {
@@ -44,14 +50,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePresentSingularForm .
-    ?masculinePresentSingularForm ontolex:representation ?masculinePresentSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q192613, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePastSingularForm .
-    ?masculinePastSingularForm ontolex:representation ?masculinePastSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
   }
 }

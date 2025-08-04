@@ -6,38 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?nominativeFeminineSingular
-  ?nominativeFemininePlural
-  ?nominativeFeminineSingularPositive
-  ?nominativeFemininePluralPositive
+  ?genitiveMasculineAnimateSingular
+  ?genitiveMasculineAnimatePlural
+  ?genitiveMasculineAnimateSingularPositive
+  ?genitiveMasculineAnimatePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q36224 ;
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularForm .
-    ?nominativeFeminineSingularForm ontolex:representation ?nominativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimateSingularForm .
+    ?genitiveMasculineAnimateSingularForm ontolex:representation ?genitiveMasculineAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFemininePluralForm .
-    ?nominativeFemininePluralForm ontolex:representation ?nominativeFemininePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimatePluralForm .
+    ?genitiveMasculineAnimatePluralForm ontolex:representation ?genitiveMasculineAnimatePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularPositiveForm .
-    ?nominativeFeminineSingularPositiveForm ontolex:representation ?nominativeFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimateSingularPositiveForm .
+    ?genitiveMasculineAnimateSingularPositiveForm ontolex:representation ?genitiveMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFemininePluralPositiveForm .
-    ?nominativeFemininePluralPositiveForm ontolex:representation ?nominativeFemininePluralPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimatePluralPositiveForm .
+    ?genitiveMasculineAnimatePluralPositiveForm ontolex:representation ?genitiveMasculineAnimatePluralPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q146786, wd:Q3482678 .
   }
 }

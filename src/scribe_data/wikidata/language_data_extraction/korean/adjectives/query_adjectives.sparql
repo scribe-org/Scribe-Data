@@ -6,10 +6,17 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
+  ?wordStem
 
 WHERE {
   ?lexeme dct:language wd:Q9176 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?wordStemForm .
+    ?wordStemForm ontolex:representation ?wordStem ;
+      wikibase:grammaticalFeature wd:Q210523 .
+  }
 }

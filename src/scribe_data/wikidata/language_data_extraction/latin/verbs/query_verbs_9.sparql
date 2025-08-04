@@ -6,9 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?ablativeActivePresentSingularParticiple
-  ?ablativeActivePresentPluralParticiple
-  ?ablativeActiveFuturePluralParticiple
+  ?vocativeFeminineFutureSingularParticiple
+  ?vocativeFemininePassivePerfectSingularParticiple
+  ?vocativeFeminineActiveFutureSingularParticiple
+  ?vocativeFeminineActiveFuturePluralParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -17,20 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeActivePresentSingularParticipleForm .
-    ?ablativeActivePresentSingularParticipleForm ontolex:representation ?ablativeActivePresentSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineFutureSingularParticipleForm .
+    ?vocativeFeminineFutureSingularParticipleForm ontolex:representation ?vocativeFeminineFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeActivePresentPluralParticipleForm .
-    ?ablativeActivePresentPluralParticipleForm ontolex:representation ?ablativeActivePresentPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePassivePerfectSingularParticipleForm .
+    ?vocativeFemininePassivePerfectSingularParticipleForm ontolex:representation ?vocativeFemininePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeActiveFuturePluralParticipleForm .
-    ?ablativeActiveFuturePluralParticipleForm ontolex:representation ?ablativeActiveFuturePluralParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineActiveFutureSingularParticipleForm .
+    ?vocativeFeminineActiveFutureSingularParticipleForm ontolex:representation ?vocativeFeminineActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineActiveFuturePluralParticipleForm .
+    ?vocativeFeminineActiveFuturePluralParticipleForm ontolex:representation ?vocativeFeminineActiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 }

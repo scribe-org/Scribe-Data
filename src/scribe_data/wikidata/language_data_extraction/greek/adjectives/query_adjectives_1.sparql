@@ -8,6 +8,9 @@ SELECT
   ?adjective
   ?nominativeMasculineSingular
   ?nominativeMasculinePlural
+  ?genitiveMasculineSingular
+  ?vocativeMasculineSingular
+  ?vocativeMasculinePlural
 
 WHERE {
   ?lexeme dct:language wd:Q36510 ;
@@ -25,5 +28,23 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?nominativeMasculinePluralForm .
     ?nominativeMasculinePluralForm ontolex:representation ?nominativeMasculinePlural ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularForm .
+    ?genitiveMasculineSingularForm ontolex:representation ?genitiveMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineSingularForm .
+    ?vocativeMasculineSingularForm ontolex:representation ?vocativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeMasculinePluralForm .
+    ?vocativeMasculinePluralForm ontolex:representation ?vocativeMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q146786 .
   }
 }

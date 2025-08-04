@@ -8,17 +8,17 @@ SELECT
   ?adjective
   ?neuter
   ?present
-  ?presentContinuous
-  ?past
-  ?simplePast
-  ?comparative
+  ?singular
+  ?phrase
+  ?singularPhrase
+  ?singularPluralPhrase
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterForm .
     ?neuterForm ontolex:representation ?neuter ;
@@ -32,26 +32,26 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
-    ?presentContinuousForm ontolex:representation ?presentContinuous ;
-      wikibase:grammaticalFeature wd:Q7240943 .
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastForm .
-    ?pastForm ontolex:representation ?past ;
-      wikibase:grammaticalFeature wd:Q1994301 .
+    ?lexeme ontolex:lexicalForm ?phraseForm .
+    ?phraseForm ontolex:representation ?phrase ;
+      wikibase:grammaticalFeature wd:Q187931 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePastForm .
-    ?simplePastForm ontolex:representation ?simplePast ;
-      wikibase:grammaticalFeature wd:Q1392475 .
+    ?lexeme ontolex:lexicalForm ?singularPhraseForm .
+    ?singularPhraseForm ontolex:representation ?singularPhrase ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q187931 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comparativeForm .
-    ?comparativeForm ontolex:representation ?comparative ;
-      wikibase:grammaticalFeature wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?singularPluralPhraseForm .
+    ?singularPluralPhraseForm ontolex:representation ?singularPluralPhrase ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146786, wd:Q187931 .
   }
 }

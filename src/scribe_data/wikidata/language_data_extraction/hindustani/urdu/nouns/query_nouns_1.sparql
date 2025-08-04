@@ -1,40 +1,53 @@
 # tool: scribe-data
-# All Urdu Hindustani (Q11051) nouns (Q1084) and the given forms.
+# All Hindustani (Q11051) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
-
-# Note: We need to filter for "ur" to remove Hindi (hi) words.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
+  ?noun
+  ?feminine
+  ?masculine
   ?singular
-  ?plural
-  ?gender
+  ?accusativeFeminineSingular
+  ?ablativeFeminineSingular
 
 WHERE {
   ?lexeme dct:language wd:Q11051 ;
-    wikibase:lexicalCategory wd:Q1084;
-    wikibase:lemma ?singular ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-    FILTER(lang(?singular) = "ur")
-
-  # MARK: Plural
-
+    
+  # Note: We need to filter for ur to remove urdu (ur) words.
+  FILTER(lang(?noun) = "ur")
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(lang(?plural) = "ur")
+    ?lexeme ontolex:lexicalForm ?feminineForm .
+    ?feminineForm ontolex:representation ?feminine ;
+      wikibase:grammaticalFeature wd:Q1775415 .
   }
 
-  # MARK: Gender(s)
-
   OPTIONAL {
-    ?lexeme wdt:P5185 ?nounGender .
+    ?lexeme ontolex:lexicalForm ?masculineForm .
+    ?masculineForm ontolex:representation ?masculine ;
+      wikibase:grammaticalFeature wd:Q499327 .
   }
 
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en" .
-    ?nounGender rdfs:label ?gender .
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularForm .
+    ?accusativeFeminineSingularForm ontolex:representation ?accusativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeFeminineSingularForm .
+    ?ablativeFeminineSingularForm ontolex:representation ?ablativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q110786 .
   }
 }

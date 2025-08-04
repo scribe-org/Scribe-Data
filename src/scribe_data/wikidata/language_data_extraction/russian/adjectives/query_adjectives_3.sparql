@@ -7,16 +7,18 @@ SELECT
   ?lastModified
   ?adjective
   ?plural
-  ?feminineSingular
-  ?accusativeFeminineSingular
-  ?accusativeFeminineInanimateSingular
+  ?masculineSingular
+  ?neuterSingular
+  ?pluralShort
+  ?masculineSingularShort
+  ?neuterSingularShort
 
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
@@ -24,20 +26,32 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
-    ?feminineSingularForm ontolex:representation ?feminineSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
+    ?masculineSingularForm ontolex:representation ?masculineSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularForm .
-    ?accusativeFeminineSingularForm ontolex:representation ?accusativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?neuterSingularForm .
+    ?neuterSingularForm ontolex:representation ?neuterSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFeminineInanimateSingularForm .
-    ?accusativeFeminineInanimateSingularForm ontolex:representation ?accusativeFeminineInanimateSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q51927539, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pluralShortForm .
+    ?pluralShortForm ontolex:representation ?pluralShort ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q4239848 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularShortForm .
+    ?masculineSingularShortForm ontolex:representation ?masculineSingularShort ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q4239848 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterSingularShortForm .
+    ?neuterSingularShortForm ontolex:representation ?neuterSingularShort ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q4239848 .
   }
 }

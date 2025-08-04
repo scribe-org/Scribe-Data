@@ -1,155 +1,60 @@
 # tool: scribe-data
-# All Norwegian Nynorsk (Q25164) verbs (Q24905) and the given forms.
+# All Norwegian (Q25164) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
-
-# Note: This query is for Nynorsk (Q25164) rather than Bokmål (Q25167).
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
   ?imperative
+  ?infinitive
   ?preterite
   ?combinedPresentParticiple
-  ?passiveInfinitive
-  ?passivePresent
-  ?activeAInfinitive
-  ?activeEInfinitive
-  ?activePresent
-  ?pluralCombinedPastParticiple
-  ?presentPreteritePerfect
   ?definiteSingularCombinedPastParticiple
   ?neuterIndefiniteSingularCombinedPastParticiple
-  ?feminineMasculineIndefiniteSingularCombinedPastParticiple
 
 WHERE {
-
-  # MARK: Infinitive
-
   ?lexeme dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-    FILTER(LANG(?infinitive) = "nn")
-
-  # MARK: Imperative
-
+    
+  # Note: We need to filter for nn to remove nynorsk (nn) words.
+  FILTER(lang(?verb) = "nn")
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperativeForm .
     ?imperativeForm ontolex:representation ?imperative ;
       wikibase:grammaticalFeature wd:Q22716 .
-      FILTER(LANG(?imperative) = "nn")
   }
 
-  # MARK: Preterite
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?preteriteForm .
     ?preteriteForm ontolex:representation ?preterite ;
       wikibase:grammaticalFeature wd:Q442485 .
-      FILTER(LANG(?preterite) = "nn")
-
-    FILTER NOT EXISTS {
-      ?preteriteForm wikibase:grammaticalFeature wd:Q192613 .  # Present tense
-      ?preteriteForm wikibase:grammaticalFeature wd:Q625420 .  # Perfect tense
-    }
   }
-
-  # MARK: Present Participle
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
     ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
       wikibase:grammaticalFeature wd:Q10345583 .
-      FILTER(LANG(?combinedPresentParticiple) = "nn")
   }
-
-  # MARK: Infinitive Passive
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
-    ?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q179230 .
-      FILTER(LANG(?passiveInfinitive) = "nn")
-  }
-
-  # MARK: Present Passive
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePresentForm .
-    ?passivePresentForm ontolex:representation ?passivePresent ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613 .
-      FILTER(LANG(?passivePresent) = "nn")
-  }
-
-  # MARK: Active A Infinitive
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeAInfinitiveForm .
-    ?activeAInfinitiveForm ontolex:representation ?activeAInfinitive ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q115223950 .
-      FILTER(LANG(?activeAInfinitive) = "nn")
-  }
-
-  # MARK: Active E Infinitive
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeEInfinitiveForm .
-    ?activeEInfinitiveForm ontolex:representation ?activeEInfinitive ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q115223951 .
-      FILTER(LANG(?activeEInfinitive) = "nn")
-  }
-  # MARK: Present Tense Active
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePresentForm .
-    ?activePresentForm ontolex:representation ?activePresent ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613 .
-      FILTER(LANG(?activePresent) = "nn")
-  }
-
-  # MARK: Plural Past Participle
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralCombinedPastParticipleForm .
-    ?pluralCombinedPastParticipleForm ontolex:representation ?pluralCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q12717679 .
-      FILTER(LANG(?pluralCombinedPastParticiple) = "nn")
-  }
-
-  # MARK: Present Tense, Preterite, Perfect Tense
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentPreteritePerfectForm .
-    ?presentPreteritePerfectForm ontolex:representation ?presentPreteritePerfect ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q442485, wd:Q625420 .
-      FILTER(LANG(?presentPreteritePerfect) = "nn")
-  }
-
-  # MARK: Singular Definitive Past Participle
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?definiteSingularCombinedPastParticipleForm .
     ?definiteSingularCombinedPastParticipleForm ontolex:representation ?definiteSingularCombinedPastParticiple ;
       wikibase:grammaticalFeature wd:Q53997851, wd:Q110786, wd:Q12717679 .
-      FILTER(LANG(?definiteSingularCombinedPastParticiple) = "nn")
   }
-
-  # MARK: Neuter Singular Indefinite Past Participle
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularCombinedPastParticipleForm .
     ?neuterIndefiniteSingularCombinedPastParticipleForm ontolex:representation ?neuterIndefiniteSingularCombinedPastParticiple ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786, wd:Q12717679 .
-      FILTER(LANG(?neuterIndefiniteSingularCombinedPastParticiple) = "nn")
-  }
-
-  # MARK: Masculine/Feminine Singular Indefinite Past Participle
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularCombinedPastParticipleForm .
-    ?feminineMasculineIndefiniteSingularCombinedPastParticipleForm ontolex:representation ?feminineMasculineIndefiniteSingularCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q53997857, wd:Q110786, wd:Q12717679 .
-      FILTER(LANG(?feminineMasculineIndefiniteSingularCombinedPastParticiple) = "nn")
   }
 }

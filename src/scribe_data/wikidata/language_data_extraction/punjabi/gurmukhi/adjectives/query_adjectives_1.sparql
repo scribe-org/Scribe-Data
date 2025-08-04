@@ -7,8 +7,8 @@ SELECT
   ?lastModified
   ?adjective
   ?comparative
+  ?vocativeSingular
   ?vocativePlural
-  ?directSingular
   ?directPlural
   ?obliqueSingular
   ?obliquePlural
@@ -18,10 +18,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   # Note: We need to filter for pa to remove gurmukhi (pa) words.
   FILTER(lang(?adjective) = "pa")
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?comparativeForm .
     ?comparativeForm ontolex:representation ?comparative ;
@@ -29,15 +29,15 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativePluralForm .
-    ?vocativePluralForm ontolex:representation ?vocativePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?vocativeSingularForm .
+    ?vocativeSingularForm ontolex:representation ?vocativeSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directSingularForm .
-    ?directSingularForm ontolex:representation ?directSingular ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativePluralForm .
+    ?vocativePluralForm ontolex:representation ?vocativePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q146786 .
   }
 
   OPTIONAL {

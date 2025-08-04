@@ -6,10 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?accusativeCommonSingular
-  ?accusativeCommonPlural
-  ?accusativeCommonActivePresentSingularParticiple
-  ?accusativeCommonActivePresentPluralParticiple
+  ?ablativeFeminineSingular
+  ?ablativeFemininePlural
+  ?ablativeFemininePassiveFutureSingularParticiple
+  ?ablativeFemininePassivePerfectSingularParticiple
+  ?ablativeFeminineActiveFutureSingularParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -18,26 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeCommonSingularForm .
-    ?accusativeCommonSingularForm ontolex:representation ?accusativeCommonSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1305037, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?ablativeFeminineSingularForm .
+    ?ablativeFeminineSingularForm ontolex:representation ?ablativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeCommonPluralForm .
-    ?accusativeCommonPluralForm ontolex:representation ?accusativeCommonPlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1305037, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?ablativeFemininePluralForm .
+    ?ablativeFemininePluralForm ontolex:representation ?ablativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeCommonActivePresentSingularParticipleForm .
-    ?accusativeCommonActivePresentSingularParticipleForm ontolex:representation ?accusativeCommonActivePresentSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1305037, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?ablativeFemininePassiveFutureSingularParticipleForm .
+    ?ablativeFemininePassiveFutureSingularParticipleForm ontolex:representation ?ablativeFemininePassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeCommonActivePresentPluralParticipleForm .
-    ?accusativeCommonActivePresentPluralParticipleForm ontolex:representation ?accusativeCommonActivePresentPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1305037, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?ablativeFemininePassivePerfectSingularParticipleForm .
+    ?ablativeFemininePassivePerfectSingularParticipleForm ontolex:representation ?ablativeFemininePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeFeminineActiveFutureSingularParticipleForm .
+    ?ablativeFeminineActiveFutureSingularParticipleForm ontolex:representation ?ablativeFeminineActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 }

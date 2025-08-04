@@ -6,11 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitive
-  ?plural
-  ?gerund
-  ?combinedPastParticiple
-  ?wordStem
+  ?imperative
+  ?present
+  ?presentContinuous
+  ?imperativeCombinedPastParticiple
+  ?presentCombinedPresentParticiple
+  ?presentContinuousCombinedPresentParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q33578 ;
@@ -19,32 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?gerundForm .
-    ?gerundForm ontolex:representation ?gerund ;
-      wikibase:grammaticalFeature wd:Q1923028 .
+    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
+    ?presentContinuousForm ontolex:representation ?presentContinuous ;
+      wikibase:grammaticalFeature wd:Q7240943 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
-    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?imperativeCombinedPastParticipleForm .
+    ?imperativeCombinedPastParticipleForm ontolex:representation ?imperativeCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q12717679 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?wordStemForm .
-    ?wordStemForm ontolex:representation ?wordStem ;
-      wikibase:grammaticalFeature wd:Q210523 .
+    ?lexeme ontolex:lexicalForm ?presentCombinedPresentParticipleForm .
+    ?presentCombinedPresentParticipleForm ontolex:representation ?presentCombinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q10345583 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentContinuousCombinedPresentParticipleForm .
+    ?presentContinuousCombinedPresentParticipleForm ontolex:representation ?presentContinuousCombinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q7240943, wd:Q10345583 .
   }
 }

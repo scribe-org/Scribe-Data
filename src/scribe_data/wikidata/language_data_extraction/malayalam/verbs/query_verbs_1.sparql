@@ -6,9 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?simplePresent
+  ?imperative
   ?presentInfinitive
+  ?presentContinuous
   ?simplePast
+  ?future
   ?simpleFuture
 
 WHERE {
@@ -16,40 +18,40 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
-  # MARK: Simple Present
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePresentForm .
-    ?simplePresentForm ontolex:representation ?simplePresent ;
-      wikibase:grammaticalFeature wd:Q3910936 .
-      FILTER(LANG(?simplePresent) = "ml")
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
   }
-
-  # MARK: Present Infinitive
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentInfinitiveForm .
     ?presentInfinitiveForm ontolex:representation ?presentInfinitive ;
       wikibase:grammaticalFeature wd:Q52434245 .
-      FILTER(LANG(?presentInfinitive) = "ml")
   }
 
-  # MARK: Simple Past
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
+    ?presentContinuousForm ontolex:representation ?presentContinuous ;
+      wikibase:grammaticalFeature wd:Q7240943 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?simplePastForm .
     ?simplePastForm ontolex:representation ?simplePast ;
       wikibase:grammaticalFeature wd:Q1392475 .
-      FILTER(LANG(?simplePast) = "ml")
   }
 
-  # MARK: Simple Future
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureForm .
+    ?futureForm ontolex:representation ?future ;
+      wikibase:grammaticalFeature wd:Q501405 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?simpleFutureForm .
     ?simpleFutureForm ontolex:representation ?simpleFuture ;
       wikibase:grammaticalFeature wd:Q1475560 .
-      FILTER(LANG(?simpleFuture) = "ml")
   }
 }

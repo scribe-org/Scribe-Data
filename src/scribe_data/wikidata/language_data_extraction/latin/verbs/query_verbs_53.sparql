@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?accusativeMasculineFuturePluralParticiple
-  ?accusativeMasculinePerfectSingularParticiple
-  ?accusativeMasculinePerfectPluralParticiple
-  ?accusativeMasculinePassiveFutureSingularParticiple
-  ?accusativeMasculinePassiveFuturePluralParticiple
-  ?accusativeMasculinePassivePerfectPluralParticiple
+  ?accusativeFeminineFutureSingularParticiple
+  ?accusativeFemininePassiveFutureSingularParticiple
+  ?accusativeFemininePassiveFuturePluralParticiple
+  ?accusativeFemininePassivePerfectSingularParticiple
+  ?accusativeFemininePassivePerfectPluralParticiple
+  ?accusativeFeminineActiveFuturePluralParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineFuturePluralParticipleForm .
-    ?accusativeMasculineFuturePluralParticipleForm ontolex:representation ?accusativeMasculineFuturePluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q501405, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineFutureSingularParticipleForm .
+    ?accusativeFeminineFutureSingularParticipleForm ontolex:representation ?accusativeFeminineFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculinePerfectSingularParticipleForm .
-    ?accusativeMasculinePerfectSingularParticipleForm ontolex:representation ?accusativeMasculinePerfectSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q625420, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeFemininePassiveFutureSingularParticipleForm .
+    ?accusativeFemininePassiveFutureSingularParticipleForm ontolex:representation ?accusativeFemininePassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculinePerfectPluralParticipleForm .
-    ?accusativeMasculinePerfectPluralParticipleForm ontolex:representation ?accusativeMasculinePerfectPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q625420, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeFemininePassiveFuturePluralParticipleForm .
+    ?accusativeFemininePassiveFuturePluralParticipleForm ontolex:representation ?accusativeFemininePassiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculinePassiveFutureSingularParticipleForm .
-    ?accusativeMasculinePassiveFutureSingularParticipleForm ontolex:representation ?accusativeMasculinePassiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeFemininePassivePerfectSingularParticipleForm .
+    ?accusativeFemininePassivePerfectSingularParticipleForm ontolex:representation ?accusativeFemininePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculinePassiveFuturePluralParticipleForm .
-    ?accusativeMasculinePassiveFuturePluralParticipleForm ontolex:representation ?accusativeMasculinePassiveFuturePluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeFemininePassivePerfectPluralParticipleForm .
+    ?accusativeFemininePassivePerfectPluralParticipleForm ontolex:representation ?accusativeFemininePassivePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculinePassivePerfectPluralParticipleForm .
-    ?accusativeMasculinePassivePerfectPluralParticipleForm ontolex:representation ?accusativeMasculinePassivePerfectPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineActiveFuturePluralParticipleForm .
+    ?accusativeFeminineActiveFuturePluralParticipleForm ontolex:representation ?accusativeFeminineActiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 }

@@ -6,45 +6,31 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?indicativePassivePresent
-  ?indicativePassivePast
-  ?indicativePassivePastImperfect
-  ?activePastParticiple
-  ?activeConditionalPresentThirdPersonSingular
+  ?indicativeActivePresentFirstPersonSingular
+  ?indicativeActivePresentThirdPersonSingular
+  ?indicativeActivePastThirdPersonSingular
 
 WHERE {
   ?lexeme dct:language wd:Q1412 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePassivePresentForm .
-    ?indicativePassivePresentForm ontolex:representation ?indicativePassivePresent ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q1194697, wd:Q192613 .
+    ?lexeme ontolex:lexicalForm ?indicativeActivePresentFirstPersonSingularForm .
+    ?indicativeActivePresentFirstPersonSingularForm ontolex:representation ?indicativeActivePresentFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePassivePastForm .
-    ?indicativePassivePastForm ontolex:representation ?indicativePassivePast ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q1194697, wd:Q1994301 .
+    ?lexeme ontolex:lexicalForm ?indicativeActivePresentThirdPersonSingularForm .
+    ?indicativeActivePresentThirdPersonSingularForm ontolex:representation ?indicativeActivePresentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePassivePastImperfectForm .
-    ?indicativePassivePastImperfectForm ontolex:representation ?indicativePassivePastImperfect ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q1194697, wd:Q12547192 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePastParticipleForm .
-    ?activePastParticipleForm ontolex:representation ?activePastParticiple ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q1994301, wd:Q814722 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeConditionalPresentThirdPersonSingularForm .
-    ?activeConditionalPresentThirdPersonSingularForm ontolex:representation ?activeConditionalPresentThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q625581, wd:Q192613, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?indicativeActivePastThirdPersonSingularForm .
+    ?indicativeActivePastThirdPersonSingularForm ontolex:representation ?indicativeActivePastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q1994301, wd:Q51929074, wd:Q110786 .
   }
 }

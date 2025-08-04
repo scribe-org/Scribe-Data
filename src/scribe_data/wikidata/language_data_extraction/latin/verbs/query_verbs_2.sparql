@@ -9,9 +9,9 @@ SELECT
   ?nominativePresentSingularParticiple
   ?dativeFuturePluralParticiple
   ?dativePerfectPluralParticiple
-  ?vocativePresentSingularParticiple
+  ?ablativeFuturePluralParticiple
+  ?ablativePerfectPluralParticiple
   ?nominativeActivePresentSingularParticiple
-  ?vocativeActivePresentSingularParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -38,20 +38,20 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativePresentSingularParticipleForm .
-    ?vocativePresentSingularParticipleForm ontolex:representation ?vocativePresentSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q192613, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?ablativeFuturePluralParticipleForm .
+    ?ablativeFuturePluralParticipleForm ontolex:representation ?ablativeFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePerfectPluralParticipleForm .
+    ?ablativePerfectPluralParticipleForm ontolex:representation ?ablativePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q625420, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeActivePresentSingularParticipleForm .
     ?nominativeActivePresentSingularParticipleForm ontolex:representation ?nominativeActivePresentSingularParticiple ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeActivePresentSingularParticipleForm .
-    ?vocativeActivePresentSingularParticipleForm ontolex:representation ?vocativeActivePresentSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
   }
 }

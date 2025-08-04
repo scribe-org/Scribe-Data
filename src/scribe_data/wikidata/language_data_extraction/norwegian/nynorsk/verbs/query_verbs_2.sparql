@@ -6,11 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitive
   ?present
-  ?preterite
-  ?passivePreterite
-  ?passivePresentPerfect
+  ?pluralCombinedPastParticiple
+  ?presentPreteritePerfect
+  ?feminineMasculineIndefiniteSingularCombinedPastParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
@@ -22,32 +21,26 @@ WHERE {
   FILTER(lang(?verb) = "nn")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentForm .
     ?presentForm ontolex:representation ?present ;
       wikibase:grammaticalFeature wd:Q192613 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteForm .
-    ?preteriteForm ontolex:representation ?preterite ;
-      wikibase:grammaticalFeature wd:Q442485 .
+    ?lexeme ontolex:lexicalForm ?pluralCombinedPastParticipleForm .
+    ?pluralCombinedPastParticipleForm ontolex:representation ?pluralCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q12717679 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePreteriteForm .
-    ?passivePreteriteForm ontolex:representation ?passivePreterite ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q442485 .
+    ?lexeme ontolex:lexicalForm ?presentPreteritePerfectForm .
+    ?presentPreteritePerfectForm ontolex:representation ?presentPreteritePerfect ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q442485, wd:Q625420 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePresentPerfectForm .
-    ?passivePresentPerfectForm ontolex:representation ?passivePresentPerfect ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q1240211 .
+    ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularCombinedPastParticipleForm .
+    ?feminineMasculineIndefiniteSingularCombinedPastParticipleForm ontolex:representation ?feminineMasculineIndefiniteSingularCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q53997857, wd:Q110786, wd:Q12717679 .
   }
 }

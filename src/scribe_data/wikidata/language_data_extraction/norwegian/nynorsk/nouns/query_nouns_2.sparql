@@ -6,7 +6,6 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?indefiniteSingular
   ?feminineIndefinitePlural
   ?feminineDefiniteSingular
   ?feminineDefinitePlural
@@ -20,12 +19,6 @@ WHERE {
   # Note: We need to filter for nn to remove nynorsk (nn) words.
   FILTER(lang(?noun) = "nn")
     
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indefiniteSingularForm .
-    ?indefiniteSingularForm ontolex:representation ?indefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q53997857, wd:Q110786 .
-  }
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineIndefinitePluralForm .
     ?feminineIndefinitePluralForm ontolex:representation ?feminineIndefinitePlural ;

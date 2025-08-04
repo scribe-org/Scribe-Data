@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?feminineSingular
-  ?femininePlural
-  ?feminineDual
-  ?feminineSingularConstruct
-  ?femininePluralConstruct
-  ?feminineDualConstruct
+  ?masculineSingular
+  ?masculinePlural
+  ?masculineDual
+  ?masculineSingularConstruct
+  ?masculinePluralConstruct
+  ?masculineDualConstruct
 
 WHERE {
   ?lexeme dct:language wd:Q9288 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
-    ?feminineSingularForm ontolex:representation ?feminineSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
+    ?masculineSingularForm ontolex:representation ?masculineSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePluralForm .
-    ?femininePluralForm ontolex:representation ?femininePlural ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
+    ?masculinePluralForm ontolex:representation ?masculinePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineDualForm .
-    ?feminineDualForm ontolex:representation ?feminineDual ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110022 .
+    ?lexeme ontolex:lexicalForm ?masculineDualForm .
+    ?masculineDualForm ontolex:representation ?masculineDual ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110022 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSingularConstructForm .
-    ?feminineSingularConstructForm ontolex:representation ?feminineSingularConstruct ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q1641446 .
+    ?lexeme ontolex:lexicalForm ?masculineSingularConstructForm .
+    ?masculineSingularConstructForm ontolex:representation ?masculineSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q1641446 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePluralConstructForm .
-    ?femininePluralConstructForm ontolex:representation ?femininePluralConstruct ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q1641446 .
+    ?lexeme ontolex:lexicalForm ?masculinePluralConstructForm .
+    ?masculinePluralConstructForm ontolex:representation ?masculinePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q1641446 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineDualConstructForm .
-    ?feminineDualConstructForm ontolex:representation ?feminineDualConstruct ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110022, wd:Q1641446 .
+    ?lexeme ontolex:lexicalForm ?masculineDualConstructForm .
+    ?masculineDualConstructForm ontolex:representation ?masculineDualConstruct ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110022, wd:Q1641446 .
   }
 }

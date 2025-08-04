@@ -7,9 +7,9 @@ SELECT
   ?lastModified
   ?verb
   ?accusativeFeminineFuturePluralParticiple
-  ?accusativeFemininePassivePerfectPluralParticiple
+  ?accusativeFemininePerfectSingularParticiple
+  ?accusativeFemininePerfectPluralParticiple
   ?accusativeFeminineActiveFutureSingularParticiple
-  ?accusativeFeminineActiveFuturePluralParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -24,20 +24,20 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFemininePassivePerfectPluralParticipleForm .
-    ?accusativeFemininePassivePerfectPluralParticipleForm ontolex:representation ?accusativeFemininePassivePerfectPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeFemininePerfectSingularParticipleForm .
+    ?accusativeFemininePerfectSingularParticipleForm ontolex:representation ?accusativeFemininePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q625420, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFemininePerfectPluralParticipleForm .
+    ?accusativeFemininePerfectPluralParticipleForm ontolex:representation ?accusativeFemininePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q625420, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeFeminineActiveFutureSingularParticipleForm .
     ?accusativeFeminineActiveFutureSingularParticipleForm ontolex:representation ?accusativeFeminineActiveFutureSingularParticiple ;
       wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFeminineActiveFuturePluralParticipleForm .
-    ?accusativeFeminineActiveFuturePluralParticipleForm ontolex:representation ?accusativeFeminineActiveFuturePluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 }

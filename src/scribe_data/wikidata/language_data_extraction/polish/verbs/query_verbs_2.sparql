@@ -7,34 +7,22 @@ SELECT
   ?lastModified
   ?verb
   ?infinitive
-  ?imperativePresent
-  ?presentSingular
   ?firstPersonSingular
-  ?presentFirstPersonSingular
-  ?presentFirstPersonPlural
+  ?imperativeSecondPersonSingular
+  ?imperativeSecondPersonPlural
+  ?imperativeThirdPersonSingular
+  ?imperativeThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?infinitiveForm .
     ?infinitiveForm ontolex:representation ?infinitive ;
       wikibase:grammaticalFeature wd:Q179230 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativePresentForm .
-    ?imperativePresentForm ontolex:representation ?imperativePresent ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q192613 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentSingularForm .
-    ?presentSingularForm ontolex:representation ?presentSingular ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q110786 .
   }
 
   OPTIONAL {
@@ -44,14 +32,26 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentFirstPersonSingularForm .
-    ?presentFirstPersonSingularForm ontolex:representation ?presentFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?imperativeSecondPersonSingularForm .
+    ?imperativeSecondPersonSingularForm ontolex:representation ?imperativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentFirstPersonPluralForm .
-    ?presentFirstPersonPluralForm ontolex:representation ?presentFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?imperativeSecondPersonPluralForm .
+    ?imperativeSecondPersonPluralForm ontolex:representation ?imperativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeThirdPersonSingularForm .
+    ?imperativeThirdPersonSingularForm ontolex:representation ?imperativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeThirdPersonPluralForm .
+    ?imperativeThirdPersonPluralForm ontolex:representation ?imperativeThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q51929074, wd:Q146786 .
   }
 }

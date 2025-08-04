@@ -6,8 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?illativeSingular
-  ?illativePlural
+  ?nominativeSingular
+  ?nominativePlural
+  ?partitiveSingular
+  ?partitivePlural
   ?inessiveSingular
   ?inessivePlural
 
@@ -16,22 +18,30 @@ WHERE {
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
-  # MARK: Illative
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?illativeSingularForm .
-    ?illativeSingularForm ontolex:representation ?illativeSingular ;
-      wikibase:grammaticalFeature wd:Q474668, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?illativePluralForm .
-    ?illativePluralForm ontolex:representation ?illativePlural ;
-      wikibase:grammaticalFeature wd:Q474668, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
-  # MARK: Inessive
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partitiveSingularForm .
+    ?partitiveSingularForm ontolex:representation ?partitiveSingular ;
+      wikibase:grammaticalFeature wd:Q857325, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?partitivePluralForm .
+    ?partitivePluralForm ontolex:representation ?partitivePlural ;
+      wikibase:grammaticalFeature wd:Q857325, wd:Q146786 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?inessiveSingularForm .
@@ -44,5 +54,4 @@ WHERE {
     ?inessivePluralForm ontolex:representation ?inessivePlural ;
       wikibase:grammaticalFeature wd:Q282031, wd:Q146786 .
   }
-
 }

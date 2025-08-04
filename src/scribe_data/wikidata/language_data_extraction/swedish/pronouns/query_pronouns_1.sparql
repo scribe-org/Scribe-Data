@@ -6,10 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?vocative
+  ?nominative
   ?plural
   ?masculineSingular
   ?commonSingular
+  ?nominativeMasculineSingular
   ?feminineMasculineCommonSingular
 
 WHERE {
@@ -17,11 +18,11 @@ WHERE {
     wikibase:lexicalCategory wd:Q36224 ;
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeForm .
-    ?vocativeForm ontolex:representation ?vocative ;
-      wikibase:grammaticalFeature wd:Q185077 .
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
   }
 
   OPTIONAL {
@@ -40,6 +41,12 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?commonSingularForm .
     ?commonSingularForm ontolex:representation ?commonSingular ;
       wikibase:grammaticalFeature wd:Q1305037, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularForm .
+    ?nominativeMasculineSingularForm ontolex:representation ?nominativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q110786 .
   }
 
   OPTIONAL {

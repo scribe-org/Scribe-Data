@@ -6,31 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?singular
-  ?singularPositive
-  ?pluralPositive
+  ?masculineSingular
+  ?masculinePlural
+  ?masculineSingularPositive
+  ?masculinePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q5146 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
+    ?masculineSingularForm ontolex:representation ?masculineSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularPositiveForm .
-    ?singularPositiveForm ontolex:representation ?singularPositive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
+    ?masculinePluralForm ontolex:representation ?masculinePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralPositiveForm .
-    ?pluralPositiveForm ontolex:representation ?pluralPositive ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?masculineSingularPositiveForm .
+    ?masculineSingularPositiveForm ontolex:representation ?masculineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralPositiveForm .
+    ?masculinePluralPositiveForm ontolex:representation ?masculinePluralPositive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q3482678 .
   }
 }

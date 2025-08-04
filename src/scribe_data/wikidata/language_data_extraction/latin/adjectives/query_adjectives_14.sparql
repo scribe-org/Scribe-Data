@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?ablativeNeuterSingular
-  ?ablativeNeuterSingularSuperlative
-  ?ablativeNeuterSingularPositive
-  ?ablativeNeuterPluralPositive
+  ?dativePlural
+  ?dativePluralComparative
+  ?dativePluralSuperlative
+  ?dativePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -18,26 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeNeuterSingularForm .
-    ?ablativeNeuterSingularForm ontolex:representation ?ablativeNeuterSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeNeuterSingularSuperlativeForm .
-    ?ablativeNeuterSingularSuperlativeForm ontolex:representation ?ablativeNeuterSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?dativePluralComparativeForm .
+    ?dativePluralComparativeForm ontolex:representation ?dativePluralComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeNeuterSingularPositiveForm .
-    ?ablativeNeuterSingularPositiveForm ontolex:representation ?ablativeNeuterSingularPositive ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?dativePluralSuperlativeForm .
+    ?dativePluralSuperlativeForm ontolex:representation ?dativePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeNeuterPluralPositiveForm .
-    ?ablativeNeuterPluralPositiveForm ontolex:representation ?ablativeNeuterPluralPositive ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?dativePluralPositiveForm .
+    ?dativePluralPositiveForm ontolex:representation ?dativePluralPositive ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786, wd:Q3482678 .
   }
 }

@@ -6,10 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?participleCombinedPresentParticiple
-  ?participleCombinedPastParticiple
-  ?participleEnglishPastParticiple
-  ?participleCombinedPastParticipleEnglishPastParticiple
+  ?preteriteFirstPersonSingular
+  ?preteriteFirstPersonPlural
+  ?preteriteSecondPersonSingular
+  ?preteriteSecondPersonPlural
+  ?preteriteThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q652 ;
@@ -18,26 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?participleCombinedPresentParticipleForm .
-    ?participleCombinedPresentParticipleForm ontolex:representation ?participleCombinedPresentParticiple ;
-      wikibase:grammaticalFeature wd:Q814722, wd:Q10345583 .
+    ?lexeme ontolex:lexicalForm ?preteriteFirstPersonSingularForm .
+    ?preteriteFirstPersonSingularForm ontolex:representation ?preteriteFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?participleCombinedPastParticipleForm .
-    ?participleCombinedPastParticipleForm ontolex:representation ?participleCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q814722, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?preteriteFirstPersonPluralForm .
+    ?preteriteFirstPersonPluralForm ontolex:representation ?preteriteFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?participleEnglishPastParticipleForm .
-    ?participleEnglishPastParticipleForm ontolex:representation ?participleEnglishPastParticiple ;
-      wikibase:grammaticalFeature wd:Q814722, wd:Q1230649 .
+    ?lexeme ontolex:lexicalForm ?preteriteSecondPersonSingularForm .
+    ?preteriteSecondPersonSingularForm ontolex:representation ?preteriteSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?participleCombinedPastParticipleEnglishPastParticipleForm .
-    ?participleCombinedPastParticipleEnglishPastParticipleForm ontolex:representation ?participleCombinedPastParticipleEnglishPastParticiple ;
-      wikibase:grammaticalFeature wd:Q814722, wd:Q12717679, wd:Q1230649 .
+    ?lexeme ontolex:lexicalForm ?preteriteSecondPersonPluralForm .
+    ?preteriteSecondPersonPluralForm ontolex:representation ?preteriteSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonPluralForm .
+    ?preteriteThirdPersonPluralForm ontolex:representation ?preteriteThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q51929074, wd:Q146786 .
   }
 }
