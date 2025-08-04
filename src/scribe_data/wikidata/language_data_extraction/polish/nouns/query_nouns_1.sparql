@@ -5,39 +5,39 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?nominativeSingular
-  ?nominativePlural
-  ?gender
+  ?noun
+  ?vocative
+  ?plural
+  ?vocativeSingular
+  ?vocativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
-  # MARK: Nominative Singular
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
-    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeForm .
+    ?vocativeForm ontolex:representation ?vocative ;
+      wikibase:grammaticalFeature wd:Q185077 .
   }
 
-  # MARK: Nominative Plural
-
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
-    ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 
-  # MARK: Gender(s)
-
   OPTIONAL {
-    ?lexeme wdt:P5185 ?nounGender .
+    ?lexeme ontolex:lexicalForm ?vocativeSingularForm .
+    ?vocativeSingularForm ontolex:representation ?vocativeSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q110786 .
   }
 
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en" .
-    ?nounGender rdfs:label ?gender .
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativePluralForm .
+    ?vocativePluralForm ontolex:representation ?vocativePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q146786 .
   }
 }

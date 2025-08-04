@@ -6,12 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?comparative
-  ?superlative
   ?neuterSingular
-  ?definiteSuperlative
   ?feminineIndefiniteSingular
-  ?masculineIndefiniteSingular
+  ?neuterIndefiniteSingular
+  ?feminineMasculineIndefiniteSingular
 
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
@@ -23,27 +21,9 @@ WHERE {
   FILTER(lang(?adjective) = "nn")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comparativeForm .
-    ?comparativeForm ontolex:representation ?comparative ;
-      wikibase:grammaticalFeature wd:Q14169499 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?superlativeForm .
-    ?superlativeForm ontolex:representation ?superlative ;
-      wikibase:grammaticalFeature wd:Q1817208 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?neuterSingularForm .
     ?neuterSingularForm ontolex:representation ?neuterSingular ;
       wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?definiteSuperlativeForm .
-    ?definiteSuperlativeForm ontolex:representation ?definiteSuperlative ;
-      wikibase:grammaticalFeature wd:Q53997851, wd:Q1817208 .
   }
 
   OPTIONAL {
@@ -53,8 +33,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineIndefiniteSingularForm .
-    ?masculineIndefiniteSingularForm ontolex:representation ?masculineIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q53997857, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularForm .
+    ?neuterIndefiniteSingularForm ontolex:representation ?neuterIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularForm .
+    ?feminineMasculineIndefiniteSingularForm ontolex:representation ?feminineMasculineIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q53997857, wd:Q110786 .
   }
 }

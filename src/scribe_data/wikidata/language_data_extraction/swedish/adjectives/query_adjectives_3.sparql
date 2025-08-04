@@ -7,8 +7,6 @@ SELECT
   ?lastModified
   ?adjective
   ?indefiniteSuperlative
-  ?singularSuperlative
-  ?singularPositive
   ?indefinitePluralPositive
   ?indefiniteDefiniteSingularPluralPositive
 
@@ -17,23 +15,11 @@ WHERE {
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indefiniteSuperlativeForm .
     ?indefiniteSuperlativeForm ontolex:representation ?indefiniteSuperlative ;
       wikibase:grammaticalFeature wd:Q53997857, wd:Q1817208 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularSuperlativeForm .
-    ?singularSuperlativeForm ontolex:representation ?singularSuperlative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q1817208 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularPositiveForm .
-    ?singularPositiveForm ontolex:representation ?singularPositive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {

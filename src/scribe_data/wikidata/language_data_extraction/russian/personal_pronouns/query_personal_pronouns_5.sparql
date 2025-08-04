@@ -6,52 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?personalpronoun
-  ?instrumental
-  ?instrumentalSingular
-  ?instrumentalFirstPersonSingular
-  ?instrumentalFirstPersonPlural
-  ?instrumentalSecondPersonSingular
-  ?instrumentalSecondPersonPlural
+  ?dative
+  ?dativeSingular
+  ?dativeFirstPersonSingular
+  ?dativeFirstPersonPlural
+  ?dativeSecondPersonSingular
+  ?dativeSecondPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q468801 ;
     wikibase:lemma ?personalpronoun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalForm .
-    ?instrumentalForm ontolex:representation ?instrumental ;
-      wikibase:grammaticalFeature wd:Q192997 .
+    ?lexeme ontolex:lexicalForm ?dativeForm .
+    ?dativeForm ontolex:representation ?dative ;
+      wikibase:grammaticalFeature wd:Q145599 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalSingularForm .
-    ?instrumentalSingularForm ontolex:representation ?instrumentalSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
+    ?dativeSingularForm ontolex:representation ?dativeSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFirstPersonSingularForm .
-    ?instrumentalFirstPersonSingularForm ontolex:representation ?instrumentalFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?dativeFirstPersonSingularForm .
+    ?dativeFirstPersonSingularForm ontolex:representation ?dativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFirstPersonPluralForm .
-    ?instrumentalFirstPersonPluralForm ontolex:representation ?instrumentalFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?dativeFirstPersonPluralForm .
+    ?dativeFirstPersonPluralForm ontolex:representation ?dativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalSecondPersonSingularForm .
-    ?instrumentalSecondPersonSingularForm ontolex:representation ?instrumentalSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?dativeSecondPersonSingularForm .
+    ?dativeSecondPersonSingularForm ontolex:representation ?dativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalSecondPersonPluralForm .
-    ?instrumentalSecondPersonPluralForm ontolex:representation ?instrumentalSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?dativeSecondPersonPluralForm .
+    ?dativeSecondPersonPluralForm ontolex:representation ?dativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q51929049, wd:Q146786 .
   }
 }

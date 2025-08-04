@@ -6,8 +6,8 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?accusativeMasculineFutureSingularParticiple
-  ?accusativeMasculinePassivePerfectSingularParticiple
+  ?accusativeMasculinePerfectSingularParticiple
+  ?accusativeMasculinePassiveFuturePluralParticiple
   ?accusativeMasculineActiveFutureSingularParticiple
   ?accusativeMasculineActiveFuturePluralParticiple
 
@@ -18,15 +18,15 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineFutureSingularParticipleForm .
-    ?accusativeMasculineFutureSingularParticipleForm ontolex:representation ?accusativeMasculineFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePerfectSingularParticipleForm .
+    ?accusativeMasculinePerfectSingularParticipleForm ontolex:representation ?accusativeMasculinePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculinePassivePerfectSingularParticipleForm .
-    ?accusativeMasculinePassivePerfectSingularParticipleForm ontolex:representation ?accusativeMasculinePassivePerfectSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePassiveFuturePluralParticipleForm .
+    ?accusativeMasculinePassiveFuturePluralParticipleForm ontolex:representation ?accusativeMasculinePassiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {

@@ -6,48 +6,55 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?instrumentalFeminineSingular
-  ?instrumentalFeminineDual
-  ?instrumentalMasculineSingular
-  ?instrumentalMasculinePlural
-  ?instrumentalMasculineDual
+  ?dativeSecondPersonSingular
+  ?dativeFeminineFirstPersonSingular
+  ?dativeFeminineFirstPersonPlural
+  ?dativeFeminineSecondPersonPlural
+  ?dativeFeminineThirdPersonSingular
+  ?dativeFeminineThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
+    
   # Note: We need to filter for pa to remove gurmukhi (pa) words.
   FILTER(lang(?noun) = "pa")
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularForm .
-    ?instrumentalFeminineSingularForm ontolex:representation ?instrumentalFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?dativeSecondPersonSingularForm .
+    ?dativeSecondPersonSingularForm ontolex:representation ?dativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFeminineDualForm .
-    ?instrumentalFeminineDualForm ontolex:representation ?instrumentalFeminineDual ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110022 .
+    ?lexeme ontolex:lexicalForm ?dativeFeminineFirstPersonSingularForm .
+    ?dativeFeminineFirstPersonSingularForm ontolex:representation ?dativeFeminineFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineSingularForm .
-    ?instrumentalMasculineSingularForm ontolex:representation ?instrumentalMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?dativeFeminineFirstPersonPluralForm .
+    ?dativeFeminineFirstPersonPluralForm ontolex:representation ?dativeFeminineFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculinePluralForm .
-    ?instrumentalMasculinePluralForm ontolex:representation ?instrumentalMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?dativeFeminineSecondPersonPluralForm .
+    ?dativeFeminineSecondPersonPluralForm ontolex:representation ?dativeFeminineSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineDualForm .
-    ?instrumentalMasculineDualForm ontolex:representation ?instrumentalMasculineDual ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q110022 .
+    ?lexeme ontolex:lexicalForm ?dativeFeminineThirdPersonSingularForm .
+    ?dativeFeminineThirdPersonSingularForm ontolex:representation ?dativeFeminineThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFeminineThirdPersonPluralForm .
+    ?dativeFeminineThirdPersonPluralForm ontolex:representation ?dativeFeminineThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q51929074, wd:Q146786 .
   }
 }

@@ -6,38 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?commonSingular
-  ?commonPositive
-  ?commonIndefiniteSingular
-  ?commonIndefiniteSingularPositive
+  ?definiteSingular
+  ?definitePlural
+  ?definiteSuperlative
+  ?definitePositive
+  ?definiteSingularPositive
+  ?definitePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9027 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?commonSingularForm .
-    ?commonSingularForm ontolex:representation ?commonSingular ;
-      wikibase:grammaticalFeature wd:Q1305037, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?definiteSingularForm .
+    ?definiteSingularForm ontolex:representation ?definiteSingular ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?commonPositiveForm .
-    ?commonPositiveForm ontolex:representation ?commonPositive ;
-      wikibase:grammaticalFeature wd:Q1305037, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?definitePluralForm .
+    ?definitePluralForm ontolex:representation ?definitePlural ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?commonIndefiniteSingularForm .
-    ?commonIndefiniteSingularForm ontolex:representation ?commonIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q1305037, wd:Q53997857, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?definiteSuperlativeForm .
+    ?definiteSuperlativeForm ontolex:representation ?definiteSuperlative ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?commonIndefiniteSingularPositiveForm .
-    ?commonIndefiniteSingularPositiveForm ontolex:representation ?commonIndefiniteSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1305037, wd:Q53997857, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?definitePositiveForm .
+    ?definitePositiveForm ontolex:representation ?definitePositive ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?definiteSingularPositiveForm .
+    ?definiteSingularPositiveForm ontolex:representation ?definiteSingularPositive ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?definitePluralPositiveForm .
+    ?definitePluralPositiveForm ontolex:representation ?definitePluralPositive ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q146786, wd:Q3482678 .
   }
 }

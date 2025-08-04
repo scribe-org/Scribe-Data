@@ -7,7 +7,7 @@ SELECT
   ?lastModified
   ?personalpronoun
   ?nominative
-  ?dative
+  ?genitive
   ?accusative
   ?instrumental
   ?vocative
@@ -18,7 +18,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q468801 ;
     wikibase:lemma ?personalpronoun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeForm .
     ?nominativeForm ontolex:representation ?nominative ;
@@ -26,9 +26,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeForm .
-    ?dativeForm ontolex:representation ?dative ;
-      wikibase:grammaticalFeature wd:Q145599 .
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
   }
 
   OPTIONAL {

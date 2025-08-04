@@ -6,45 +6,24 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?activeImperative
-  ?activePresentPlural
-  ?activePastPreterite
-  ?activePreteritePlural
-  ?activePluperfectSupine
+  ?past
+  ?pastSubjunctive
 
 WHERE {
   ?lexeme dct:language wd:Q9027 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeImperativeForm .
-    ?activeImperativeForm ontolex:representation ?activeImperative ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716 .
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePresentPluralForm .
-    ?activePresentPluralForm ontolex:representation ?activePresentPlural ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePastPreteriteForm .
-    ?activePastPreteriteForm ontolex:representation ?activePastPreterite ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q1994301, wd:Q442485 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePreteritePluralForm .
-    ?activePreteritePluralForm ontolex:representation ?activePreteritePlural ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q442485, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePluperfectSupineForm .
-    ?activePluperfectSupineForm ontolex:representation ?activePluperfectSupine ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q623742, wd:Q548470 .
+    ?lexeme ontolex:lexicalForm ?pastSubjunctiveForm .
+    ?pastSubjunctiveForm ontolex:representation ?pastSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q473746 .
   }
 }

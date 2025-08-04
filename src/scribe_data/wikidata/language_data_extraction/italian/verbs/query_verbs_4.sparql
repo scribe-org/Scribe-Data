@@ -6,12 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?combinedPresentParticiple
-  ?combinedPastParticiple
-  ?presentGerund
-  ?presentParticiple
-  ?firstPersonPlural
-  ?thirdPersonSingularParticipleCombinedPastParticiple
+  ?infinitive
+  ?infinitivePresent
+  ?infinitivePresentInfinitive
 
 WHERE {
   ?lexeme dct:language wd:Q652 ;
@@ -20,38 +17,20 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
-    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
-      wikibase:grammaticalFeature wd:Q10345583 .
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
-    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?infinitivePresentForm .
+    ?infinitivePresentForm ontolex:representation ?infinitivePresent ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q192613 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentGerundForm .
-    ?presentGerundForm ontolex:representation ?presentGerund ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1923028 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
-    ?presentParticipleForm ontolex:representation ?presentParticiple ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q814722 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonPluralForm .
-    ?firstPersonPluralForm ontolex:representation ?firstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonSingularParticipleCombinedPastParticipleForm .
-    ?thirdPersonSingularParticipleCombinedPastParticipleForm ontolex:representation ?thirdPersonSingularParticipleCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q814722, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?infinitivePresentInfinitiveForm .
+    ?infinitivePresentInfinitiveForm ontolex:representation ?infinitivePresentInfinitive ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q52434245 .
   }
 }

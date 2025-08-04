@@ -6,12 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?wordStem
-  ?firstPersonSingularSubjunctive
-  ?thirdPersonSingularSubjunctive
-  ?obliqueIntransitivePhaseBasicPhaseGerund
-  ?masculineFirstPersonDefiniteSingularSubjunctive
-  ?masculineFirstPersonDefinitePluralSubjunctive
+  ?directGerund
+  ?secondPersonSingularSubjunctive
+  ?secondPersonPluralSubjunctive
+  ?directIntransitivePhaseBasicPhaseGerund
 
 WHERE {
   ?lexeme dct:language wd:Q11051 ;
@@ -23,38 +21,26 @@ WHERE {
   FILTER(lang(?verb) = "hi")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?wordStemForm .
-    ?wordStemForm ontolex:representation ?wordStem ;
-      wikibase:grammaticalFeature wd:Q210523 .
+    ?lexeme ontolex:lexicalForm ?directGerundForm .
+    ?directGerundForm ontolex:representation ?directGerund ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1923028 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonSingularSubjunctiveForm .
-    ?firstPersonSingularSubjunctiveForm ontolex:representation ?firstPersonSingularSubjunctive ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?secondPersonSingularSubjunctiveForm .
+    ?secondPersonSingularSubjunctiveForm ontolex:representation ?secondPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonSingularSubjunctiveForm .
-    ?thirdPersonSingularSubjunctiveForm ontolex:representation ?thirdPersonSingularSubjunctive ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?secondPersonPluralSubjunctiveForm .
+    ?secondPersonPluralSubjunctiveForm ontolex:representation ?secondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueIntransitivePhaseBasicPhaseGerundForm .
-    ?obliqueIntransitivePhaseBasicPhaseGerundForm ontolex:representation ?obliqueIntransitivePhaseBasicPhaseGerund ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q113330736, wd:Q113330960, wd:Q1923028 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineFirstPersonDefiniteSingularSubjunctiveForm .
-    ?masculineFirstPersonDefiniteSingularSubjunctiveForm ontolex:representation ?masculineFirstPersonDefiniteSingularSubjunctive ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q21714344, wd:Q53997851, wd:Q110786, wd:Q473746 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineFirstPersonDefinitePluralSubjunctiveForm .
-    ?masculineFirstPersonDefinitePluralSubjunctiveForm ontolex:representation ?masculineFirstPersonDefinitePluralSubjunctive ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q21714344, wd:Q53997851, wd:Q146786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?directIntransitivePhaseBasicPhaseGerundForm .
+    ?directIntransitivePhaseBasicPhaseGerundForm ontolex:representation ?directIntransitivePhaseBasicPhaseGerund ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q113330736, wd:Q113330960, wd:Q1923028 .
   }
 }

@@ -6,23 +6,23 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?personalpronoun
-  ?genitive
+  ?ablative
   ?inessive
-  ?abessive
-  ?genitiveSingular
+  ?terminative
+  ?ablativeSingular
   ?inessiveSingular
-  ?abessiveSingular
+  ?terminativeSingular
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory wd:Q468801 ;
     wikibase:lemma ?personalpronoun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveForm .
-    ?genitiveForm ontolex:representation ?genitive ;
-      wikibase:grammaticalFeature wd:Q146233 .
+    ?lexeme ontolex:lexicalForm ?ablativeForm .
+    ?ablativeForm ontolex:representation ?ablative ;
+      wikibase:grammaticalFeature wd:Q156986 .
   }
 
   OPTIONAL {
@@ -32,15 +32,15 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?abessiveForm .
-    ?abessiveForm ontolex:representation ?abessive ;
-      wikibase:grammaticalFeature wd:Q319822 .
+    ?lexeme ontolex:lexicalForm ?terminativeForm .
+    ?terminativeForm ontolex:representation ?terminative ;
+      wikibase:grammaticalFeature wd:Q747019 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
-    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?ablativeSingularForm .
+    ?ablativeSingularForm ontolex:representation ?ablativeSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q110786 .
   }
 
   OPTIONAL {
@@ -50,8 +50,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?abessiveSingularForm .
-    ?abessiveSingularForm ontolex:representation ?abessiveSingular ;
-      wikibase:grammaticalFeature wd:Q319822, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?terminativeSingularForm .
+    ?terminativeSingularForm ontolex:representation ?terminativeSingular ;
+      wikibase:grammaticalFeature wd:Q747019, wd:Q110786 .
   }
 }

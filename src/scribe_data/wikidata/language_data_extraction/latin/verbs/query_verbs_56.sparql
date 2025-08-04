@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?accusativeFeminineFutureSingularParticiple
-  ?accusativeFemininePerfectSingularParticiple
-  ?accusativeFemininePerfectPluralParticiple
-  ?accusativeFemininePassiveFutureSingularParticiple
-  ?accusativeFemininePassiveFuturePluralParticiple
-  ?accusativeFemininePassivePerfectSingularParticiple
+  ?presentIndicativeFirstPersonSingular
+  ?presentIndicativeFirstPersonPlural
+  ?presentIndicativeSecondPersonSingular
+  ?presentIndicativeSecondPersonPlural
+  ?presentIndicativeThirdPersonSingular
+  ?presentIndicativeThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFeminineFutureSingularParticipleForm .
-    ?accusativeFeminineFutureSingularParticipleForm ontolex:representation ?accusativeFeminineFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?presentIndicativeFirstPersonSingularForm .
+    ?presentIndicativeFirstPersonSingularForm ontolex:representation ?presentIndicativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q56682909, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFemininePerfectSingularParticipleForm .
-    ?accusativeFemininePerfectSingularParticipleForm ontolex:representation ?accusativeFemininePerfectSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q625420, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?presentIndicativeFirstPersonPluralForm .
+    ?presentIndicativeFirstPersonPluralForm ontolex:representation ?presentIndicativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q56682909, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFemininePerfectPluralParticipleForm .
-    ?accusativeFemininePerfectPluralParticipleForm ontolex:representation ?accusativeFemininePerfectPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q625420, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?presentIndicativeSecondPersonSingularForm .
+    ?presentIndicativeSecondPersonSingularForm ontolex:representation ?presentIndicativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFemininePassiveFutureSingularParticipleForm .
-    ?accusativeFemininePassiveFutureSingularParticipleForm ontolex:representation ?accusativeFemininePassiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?presentIndicativeSecondPersonPluralForm .
+    ?presentIndicativeSecondPersonPluralForm ontolex:representation ?presentIndicativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFemininePassiveFuturePluralParticipleForm .
-    ?accusativeFemininePassiveFuturePluralParticipleForm ontolex:representation ?accusativeFemininePassiveFuturePluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?presentIndicativeThirdPersonSingularForm .
+    ?presentIndicativeThirdPersonSingularForm ontolex:representation ?presentIndicativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFemininePassivePerfectSingularParticipleForm .
-    ?accusativeFemininePassivePerfectSingularParticipleForm ontolex:representation ?accusativeFemininePassivePerfectSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?presentIndicativeThirdPersonPluralForm .
+    ?presentIndicativeThirdPersonPluralForm ontolex:representation ?presentIndicativeThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q56682909, wd:Q51929074, wd:Q146786 .
   }
 }

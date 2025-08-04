@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?personalpronoun
+  ?dativeSingular
+  ?dativePlural
   ?accusativeSingular
   ?accusativePlural
-  ?locativeSingular
-  ?locativePlural
   ?vocativeSingular
   ?vocativePlural
 
@@ -18,6 +18,18 @@ WHERE {
     wikibase:lexicalCategory wd:Q468801 ;
     wikibase:lemma ?personalpronoun ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
+    ?dativeSingularForm ontolex:representation ?dativeSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
@@ -29,18 +41,6 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?accusativePluralForm .
     ?accusativePluralForm ontolex:representation ?accusativePlural ;
       wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
-    ?locativeSingularForm ontolex:representation ?locativeSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativePluralForm .
-    ?locativePluralForm ontolex:representation ?locativePlural ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
   }
 
   OPTIONAL {

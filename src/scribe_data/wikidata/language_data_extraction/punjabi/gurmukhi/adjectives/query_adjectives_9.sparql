@@ -6,55 +6,55 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?vocativeFeminineSingular
-  ?vocativeFemininePlural
-  ?vocativeFeminineSingularComparative
-  ?vocativeFeminineSingularPositive
-  ?vocativeFemininePluralComparative
-  ?vocativeFemininePluralPositive
+  ?directFeminineSingular
+  ?directFemininePlural
+  ?directFeminineSingularComparative
+  ?directFeminineSingularPositive
+  ?directFemininePluralComparative
+  ?directFemininePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   # Note: We need to filter for pa to remove gurmukhi (pa) words.
   FILTER(lang(?adjective) = "pa")
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
-    ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?directFeminineSingularForm .
+    ?directFeminineSingularForm ontolex:representation ?directFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralForm .
-    ?vocativeFemininePluralForm ontolex:representation ?vocativeFemininePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?directFemininePluralForm .
+    ?directFemininePluralForm ontolex:representation ?directFemininePlural ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1775415, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularComparativeForm .
-    ?vocativeFeminineSingularComparativeForm ontolex:representation ?vocativeFeminineSingularComparative ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?directFeminineSingularComparativeForm .
+    ?directFeminineSingularComparativeForm ontolex:representation ?directFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1775415, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularPositiveForm .
-    ?vocativeFeminineSingularPositiveForm ontolex:representation ?vocativeFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?directFeminineSingularPositiveForm .
+    ?directFeminineSingularPositiveForm ontolex:representation ?directFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralComparativeForm .
-    ?vocativeFemininePluralComparativeForm ontolex:representation ?vocativeFemininePluralComparative ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?directFemininePluralComparativeForm .
+    ?directFemininePluralComparativeForm ontolex:representation ?directFemininePluralComparative ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1775415, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralPositiveForm .
-    ?vocativeFemininePluralPositiveForm ontolex:representation ?vocativeFemininePluralPositive ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?directFemininePluralPositiveForm .
+    ?directFemininePluralPositiveForm ontolex:representation ?directFemininePluralPositive ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1775415, wd:Q146786, wd:Q3482678 .
   }
 }

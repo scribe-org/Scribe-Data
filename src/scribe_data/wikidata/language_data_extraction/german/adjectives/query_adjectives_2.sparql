@@ -6,10 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?positive
-  ?nominativeNeuter
-  ?nominativeSingular
-  ?nominativePlural
+  ?nominativeAccusative
+  ?nominativeAccusativeNeuterSingular
+  ?nominativeGenitiveDativeAccusativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q188 ;
@@ -18,26 +17,20 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?positiveForm .
-    ?positiveForm ontolex:representation ?positive ;
-      wikibase:grammaticalFeature wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?nominativeAccusativeForm .
+    ?nominativeAccusativeForm ontolex:representation ?nominativeAccusative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146078 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNeuterForm .
-    ?nominativeNeuterForm ontolex:representation ?nominativeNeuter ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461 .
+    ?lexeme ontolex:lexicalForm ?nominativeAccusativeNeuterSingularForm .
+    ?nominativeAccusativeNeuterSingularForm ontolex:representation ?nominativeAccusativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146078, wd:Q1775461, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
-    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
-    ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?nominativeGenitiveDativeAccusativePluralForm .
+    ?nominativeGenitiveDativeAccusativePluralForm ontolex:representation ?nominativeGenitiveDativeAccusativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146233, wd:Q145599, wd:Q146078, wd:Q146786 .
   }
 }

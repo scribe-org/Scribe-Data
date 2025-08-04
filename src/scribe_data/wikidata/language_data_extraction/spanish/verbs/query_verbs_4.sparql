@@ -6,45 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitive
-  ?gerund
-  ?participle
-  ?masculineSingularParticiple
-  ?masculinePluralParticiple
+  ?futureFirstPersonSingularSubjunctive
+  ?futureFirstPersonPluralSubjunctive
+  ?futureSecondPersonSingularSubjunctive
+  ?futureSecondPersonPluralSubjunctive
+  ?futureThirdPersonSingularSubjunctive
+  ?futureThirdPersonPluralSubjunctive
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?futureFirstPersonSingularSubjunctiveForm .
+    ?futureFirstPersonSingularSubjunctiveForm ontolex:representation ?futureFirstPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q21714344, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?gerundForm .
-    ?gerundForm ontolex:representation ?gerund ;
-      wikibase:grammaticalFeature wd:Q1923028 .
+    ?lexeme ontolex:lexicalForm ?futureFirstPersonPluralSubjunctiveForm .
+    ?futureFirstPersonPluralSubjunctiveForm ontolex:representation ?futureFirstPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q21714344, wd:Q146786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?participleForm .
-    ?participleForm ontolex:representation ?participle ;
-      wikibase:grammaticalFeature wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?futureSecondPersonSingularSubjunctiveForm .
+    ?futureSecondPersonSingularSubjunctiveForm ontolex:representation ?futureSecondPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q51929049, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSingularParticipleForm .
-    ?masculineSingularParticipleForm ontolex:representation ?masculineSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?futureSecondPersonPluralSubjunctiveForm .
+    ?futureSecondPersonPluralSubjunctiveForm ontolex:representation ?futureSecondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q51929049, wd:Q146786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePluralParticipleForm .
-    ?masculinePluralParticipleForm ontolex:representation ?masculinePluralParticiple ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?futureThirdPersonSingularSubjunctiveForm .
+    ?futureThirdPersonSingularSubjunctiveForm ontolex:representation ?futureThirdPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q51929074, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureThirdPersonPluralSubjunctiveForm .
+    ?futureThirdPersonPluralSubjunctiveForm ontolex:representation ?futureThirdPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q51929074, wd:Q146786, wd:Q473746 .
   }
 }

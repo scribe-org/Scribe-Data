@@ -6,18 +6,24 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
+  ?feminineSingular
   ?feminineMasculineSingular
   ?feminineMasculinePlural
   ?feminineSecondPersonSingular
   ?feminineSecondPersonPlural
-  ?feminineThirdPersonSingular
-  ?feminineThirdPersonPlural
+  ?feminineSingularSuperlative
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
+    ?feminineSingularForm ontolex:representation ?feminineSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineMasculineSingularForm .
@@ -44,14 +50,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineThirdPersonSingularForm .
-    ?feminineThirdPersonSingularForm ontolex:representation ?feminineThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q51929074, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineThirdPersonPluralForm .
-    ?feminineThirdPersonPluralForm ontolex:representation ?feminineThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?feminineSingularSuperlativeForm .
+    ?feminineSingularSuperlativeForm ontolex:representation ?feminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q1817208 .
   }
 }

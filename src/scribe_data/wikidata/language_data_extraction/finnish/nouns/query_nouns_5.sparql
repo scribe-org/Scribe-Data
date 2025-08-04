@@ -6,52 +6,45 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?ablativeSingular
-  ?ablativePlural
-  ?inessiveSingular
-  ?inessivePlural
-  ?elativeSingular
-  ?elativePlural
+  ?partitive
+  ?comitative
+  ?partitiveSingular
+  ?partitivePlural
+  ?comitativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q1412 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeSingularForm .
-    ?ablativeSingularForm ontolex:representation ?ablativeSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?partitiveForm .
+    ?partitiveForm ontolex:representation ?partitive ;
+      wikibase:grammaticalFeature wd:Q857325 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativePluralForm .
-    ?ablativePluralForm ontolex:representation ?ablativePlural ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?comitativeForm .
+    ?comitativeForm ontolex:representation ?comitative ;
+      wikibase:grammaticalFeature wd:Q838581 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?inessiveSingularForm .
-    ?inessiveSingularForm ontolex:representation ?inessiveSingular ;
-      wikibase:grammaticalFeature wd:Q282031, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?partitiveSingularForm .
+    ?partitiveSingularForm ontolex:representation ?partitiveSingular ;
+      wikibase:grammaticalFeature wd:Q857325, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?inessivePluralForm .
-    ?inessivePluralForm ontolex:representation ?inessivePlural ;
-      wikibase:grammaticalFeature wd:Q282031, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?partitivePluralForm .
+    ?partitivePluralForm ontolex:representation ?partitivePlural ;
+      wikibase:grammaticalFeature wd:Q857325, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?elativeSingularForm .
-    ?elativeSingularForm ontolex:representation ?elativeSingular ;
-      wikibase:grammaticalFeature wd:Q394253, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?elativePluralForm .
-    ?elativePluralForm ontolex:representation ?elativePlural ;
-      wikibase:grammaticalFeature wd:Q394253, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?comitativePluralForm .
+    ?comitativePluralForm ontolex:representation ?comitativePlural ;
+      wikibase:grammaticalFeature wd:Q838581, wd:Q146786 .
   }
 }

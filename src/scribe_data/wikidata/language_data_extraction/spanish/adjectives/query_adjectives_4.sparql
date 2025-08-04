@@ -6,18 +6,30 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
+  ?neuterSingular
+  ?neuterPlural
   ?secondPersonSingular
   ?secondPersonPlural
-  ?masculineSecondPersonSingular
-  ?masculineSecondPersonPlural
-  ?masculineThirdPersonSingular
-  ?masculineThirdPersonPlural
+  ?feminineThirdPersonSingular
+  ?feminineThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterSingularForm .
+    ?neuterSingularForm ontolex:representation ?neuterSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterPluralForm .
+    ?neuterPluralForm ontolex:representation ?neuterPlural ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?secondPersonSingularForm .
@@ -32,26 +44,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSecondPersonSingularForm .
-    ?masculineSecondPersonSingularForm ontolex:representation ?masculineSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?feminineThirdPersonSingularForm .
+    ?feminineThirdPersonSingularForm ontolex:representation ?feminineThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSecondPersonPluralForm .
-    ?masculineSecondPersonPluralForm ontolex:representation ?masculineSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q51929049, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineThirdPersonSingularForm .
-    ?masculineThirdPersonSingularForm ontolex:representation ?masculineThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q51929074, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineThirdPersonPluralForm .
-    ?masculineThirdPersonPluralForm ontolex:representation ?masculineThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?feminineThirdPersonPluralForm .
+    ?feminineThirdPersonPluralForm ontolex:representation ?feminineThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q51929074, wd:Q146786 .
   }
 }

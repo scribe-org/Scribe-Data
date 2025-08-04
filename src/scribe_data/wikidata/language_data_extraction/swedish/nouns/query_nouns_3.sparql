@@ -6,23 +6,19 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?nominative
   ?nominativeIndefinite
-  ?nominativeDefinite
-  ?nominativeSingular
+  ?genitiveDefinite
+  ?nominativeIndefiniteSingular
+  ?nominativeIndefinitePlural
+  ?genitiveDefiniteSingular
+  ?genitiveDefinitePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9027 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeForm .
-    ?nominativeForm ontolex:representation ?nominative ;
-      wikibase:grammaticalFeature wd:Q131105 .
-  }
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeIndefiniteForm .
     ?nominativeIndefiniteForm ontolex:representation ?nominativeIndefinite ;
@@ -30,14 +26,32 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeDefiniteForm .
-    ?nominativeDefiniteForm ontolex:representation ?nominativeDefinite ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q53997851 .
+    ?lexeme ontolex:lexicalForm ?genitiveDefiniteForm .
+    ?genitiveDefiniteForm ontolex:representation ?genitiveDefinite ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997851 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
-    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nominativeIndefiniteSingularForm .
+    ?nominativeIndefiniteSingularForm ontolex:representation ?nominativeIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeIndefinitePluralForm .
+    ?nominativeIndefinitePluralForm ontolex:representation ?nominativeIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveDefiniteSingularForm .
+    ?genitiveDefiniteSingularForm ontolex:representation ?genitiveDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveDefinitePluralForm .
+    ?genitiveDefinitePluralForm ontolex:representation ?genitiveDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997851, wd:Q146786 .
   }
 }

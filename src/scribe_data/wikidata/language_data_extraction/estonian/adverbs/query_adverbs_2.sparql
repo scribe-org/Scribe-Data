@@ -1,47 +1,35 @@
 # tool: scribe-data
-# All Estonian (Q380057) adverbs (Q380057) and the given forms.
+# All Estonian (Q9072) adverbs (Q380057) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adverb
-  ?ablativeSingular
-  ?ablativePlural
+  ?illativeSingular
+  ?illativePlural
   ?adessiveSingular
   ?adessivePlural
   ?translativeSingular
   ?translativePlural
-  ?terminativeSingular
-  ?terminativePlural
-  ?essiveSingular
-  ?essivePlural
-  ?abessiveSingular
-  ?abessivePlural
-  ?comitativeSingular
-  ?comitativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb ;
     schema:dateModified ?lastModified .
-
-  # MARK: Ablative
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeSingularForm .
-    ?ablativeSingularForm ontolex:representation ?ablativeSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?illativeSingularForm .
+    ?illativeSingularForm ontolex:representation ?illativeSingular ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativePluralForm .
-    ?ablativePluralForm ontolex:representation ?ablativePlural ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?illativePluralForm .
+    ?illativePluralForm ontolex:representation ?illativePlural ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q146786 .
   }
-
-  # MARK: Adessive
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?adessiveSingularForm .
@@ -55,8 +43,6 @@ WHERE {
       wikibase:grammaticalFeature wd:Q281954, wd:Q146786 .
   }
 
-  # MARK: Translative
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?translativeSingularForm .
     ?translativeSingularForm ontolex:representation ?translativeSingular ;
@@ -67,61 +53,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?translativePluralForm .
     ?translativePluralForm ontolex:representation ?translativePlural ;
       wikibase:grammaticalFeature wd:Q950170, wd:Q146786 .
-  }
-
-  # MARK: Terminative
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?terminativeSingularForm .
-    ?terminativeSingularForm ontolex:representation ?terminativeSingular ;
-      wikibase:grammaticalFeature wd:Q747019, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?terminativePluralForm .
-    ?terminativePluralForm ontolex:representation ?terminativePlural ;
-      wikibase:grammaticalFeature wd:Q747019, wd:Q146786 .
-  }
-
-  # MARK: Essive
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?essiveSingularForm .
-    ?essiveSingularForm ontolex:representation ?essiveSingular ;
-      wikibase:grammaticalFeature wd:Q148465, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?essivePluralForm .
-    ?essivePluralForm ontolex:representation ?essivePlural ;
-      wikibase:grammaticalFeature wd:Q148465, wd:Q146786 .
-  }
-
-  # MARK: Abessive
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?abessiveSingularForm .
-    ?abessiveSingularForm ontolex:representation ?abessiveSingular ;
-      wikibase:grammaticalFeature wd:Q319822, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?abessivePluralForm .
-    ?abessivePluralForm ontolex:representation ?abessivePlural ;
-      wikibase:grammaticalFeature wd:Q319822, wd:Q146786 .
-  }
-
-  # MARK: Comitative
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comitativeSingularForm .
-    ?comitativeSingularForm ontolex:representation ?comitativeSingular ;
-      wikibase:grammaticalFeature wd:Q838581, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comitativePluralForm .
-    ?comitativePluralForm ontolex:representation ?comitativePlural ;
-      wikibase:grammaticalFeature wd:Q838581, wd:Q146786 .
   }
 }

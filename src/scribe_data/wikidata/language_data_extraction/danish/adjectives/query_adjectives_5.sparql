@@ -9,6 +9,7 @@ SELECT
   ?indefinitePlural
   ?indefiniteSuperlative
   ?indefinitePositive
+  ?indefiniteSingularSuperlative
   ?indefiniteSingularPositive
 
 WHERE {
@@ -16,7 +17,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indefinitePluralForm .
     ?indefinitePluralForm ontolex:representation ?indefinitePlural ;
@@ -33,6 +34,12 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?indefinitePositiveForm .
     ?indefinitePositiveForm ontolex:representation ?indefinitePositive ;
       wikibase:grammaticalFeature wd:Q53997857, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indefiniteSingularSuperlativeForm .
+    ?indefiniteSingularSuperlativeForm ontolex:representation ?indefiniteSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q53997857, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {

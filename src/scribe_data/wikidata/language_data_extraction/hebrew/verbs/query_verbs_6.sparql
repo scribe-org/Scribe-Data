@@ -6,9 +6,8 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?firstPersonSingular
-  ?firstPersonPlural
-  ?masculineImperativePlural
+  ?masculinePresentSingular
+  ?masculinePresentPlural
   ?masculinePresentSingularConstruct
   ?masculinePresentPluralConstruct
 
@@ -19,21 +18,15 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonSingularForm .
-    ?firstPersonSingularForm ontolex:representation ?firstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?masculinePresentSingularForm .
+    ?masculinePresentSingularForm ontolex:representation ?masculinePresentSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q192613, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonPluralForm .
-    ?firstPersonPluralForm ontolex:representation ?firstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineImperativePluralForm .
-    ?masculineImperativePluralForm ontolex:representation ?masculineImperativePlural ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q22716, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?masculinePresentPluralForm .
+    ?masculinePresentPluralForm ontolex:representation ?masculinePresentPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q192613, wd:Q146786 .
   }
 
   OPTIONAL {

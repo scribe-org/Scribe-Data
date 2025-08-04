@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?nominativeFeminineSingular
-  ?nominativeFemininePassiveFutureSingularParticiple
-  ?nominativeFemininePassivePerfectSingularParticiple
-  ?nominativeFemininePassivePerfectPluralParticiple
-  ?nominativeFeminineActiveFutureSingularParticiple
-  ?nominativeFeminineActiveFuturePluralParticiple
+  ?accusativeMasculineSingular
+  ?accusativeMasculinePlural
+  ?accusativeMasculinePassiveFutureSingularParticiple
+  ?accusativeMasculinePassivePerfectSingularParticiple
+  ?accusativeMasculinePassivePerfectPluralParticiple
+  ?accusativeMasculineActiveFutureSingularParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularForm .
-    ?nominativeFeminineSingularForm ontolex:representation ?nominativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineSingularForm .
+    ?accusativeMasculineSingularForm ontolex:representation ?accusativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFemininePassiveFutureSingularParticipleForm .
-    ?nominativeFemininePassiveFutureSingularParticipleForm ontolex:representation ?nominativeFemininePassiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePluralForm .
+    ?accusativeMasculinePluralForm ontolex:representation ?accusativeMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFemininePassivePerfectSingularParticipleForm .
-    ?nominativeFemininePassivePerfectSingularParticipleForm ontolex:representation ?nominativeFemininePassivePerfectSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePassiveFutureSingularParticipleForm .
+    ?accusativeMasculinePassiveFutureSingularParticipleForm ontolex:representation ?accusativeMasculinePassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFemininePassivePerfectPluralParticipleForm .
-    ?nominativeFemininePassivePerfectPluralParticipleForm ontolex:representation ?nominativeFemininePassivePerfectPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePassivePerfectSingularParticipleForm .
+    ?accusativeMasculinePassivePerfectSingularParticipleForm ontolex:representation ?accusativeMasculinePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineActiveFutureSingularParticipleForm .
-    ?nominativeFeminineActiveFutureSingularParticipleForm ontolex:representation ?nominativeFeminineActiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePassivePerfectPluralParticipleForm .
+    ?accusativeMasculinePassivePerfectPluralParticipleForm ontolex:representation ?accusativeMasculinePassivePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineActiveFuturePluralParticipleForm .
-    ?nominativeFeminineActiveFuturePluralParticipleForm ontolex:representation ?nominativeFeminineActiveFuturePluralParticiple ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineActiveFutureSingularParticipleForm .
+    ?accusativeMasculineActiveFutureSingularParticipleForm ontolex:representation ?accusativeMasculineActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 }

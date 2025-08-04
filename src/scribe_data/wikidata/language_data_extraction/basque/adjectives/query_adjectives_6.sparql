@@ -6,38 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?ablativeInanimateSingular
-  ?ablativeInanimatePlural
-  ?ablativeAnimateSingular
-  ?ablativeAnimatePlural
+  ?allativeInanimateSingular
+  ?allativeInanimatePlural
+  ?allativeAnimateSingular
+  ?allativeAnimatePlural
 
 WHERE {
   ?lexeme dct:language wd:Q8752 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeInanimateSingularForm .
-    ?ablativeInanimateSingularForm ontolex:representation ?ablativeInanimateSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q51927539, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?allativeInanimateSingularForm .
+    ?allativeInanimateSingularForm ontolex:representation ?allativeInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q51927539, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeInanimatePluralForm .
-    ?ablativeInanimatePluralForm ontolex:representation ?ablativeInanimatePlural ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q51927539, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?allativeInanimatePluralForm .
+    ?allativeInanimatePluralForm ontolex:representation ?allativeInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q51927539, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeAnimateSingularForm .
-    ?ablativeAnimateSingularForm ontolex:representation ?ablativeAnimateSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q51927507, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?allativeAnimateSingularForm .
+    ?allativeAnimateSingularForm ontolex:representation ?allativeAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q51927507, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeAnimatePluralForm .
-    ?ablativeAnimatePluralForm ontolex:representation ?ablativeAnimatePlural ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q51927507, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?allativeAnimatePluralForm .
+    ?allativeAnimatePluralForm ontolex:representation ?allativeAnimatePlural ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q51927507, wd:Q146786 .
   }
 }

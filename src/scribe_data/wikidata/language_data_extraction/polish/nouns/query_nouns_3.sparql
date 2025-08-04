@@ -6,52 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?locative
-  ?vocative
-  ?locativeSingular
-  ?locativePlural
-  ?vocativeSingular
-  ?vocativePlural
+  ?dative
+  ?dativeSingular
+  ?dativePlural
+  ?dativeLocativeSingular
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeForm .
-    ?locativeForm ontolex:representation ?locative ;
-      wikibase:grammaticalFeature wd:Q202142 .
+    ?lexeme ontolex:lexicalForm ?dativeForm .
+    ?dativeForm ontolex:representation ?dative ;
+      wikibase:grammaticalFeature wd:Q145599 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeForm .
-    ?vocativeForm ontolex:representation ?vocative ;
-      wikibase:grammaticalFeature wd:Q185077 .
+    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
+    ?dativeSingularForm ontolex:representation ?dativeSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
-    ?locativeSingularForm ontolex:representation ?locativeSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativePluralForm .
-    ?locativePluralForm ontolex:representation ?locativePlural ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeSingularForm .
-    ?vocativeSingularForm ontolex:representation ?vocativeSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativePluralForm .
-    ?vocativePluralForm ontolex:representation ?vocativePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?dativeLocativeSingularForm .
+    ?dativeLocativeSingularForm ontolex:representation ?dativeLocativeSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q202142, wd:Q110786 .
   }
 }

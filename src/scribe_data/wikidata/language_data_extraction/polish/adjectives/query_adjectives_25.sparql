@@ -6,38 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?accusativeFeminineSingular
-  ?accusativeFeminineSingularComparative
-  ?accusativeFeminineSingularSuperlative
-  ?accusativeFeminineSingularPositive
+  ?genitiveFeminineSingular
+  ?genitiveFeminineSingularComparative
+  ?genitiveFeminineSingularSuperlative
+  ?genitiveFeminineSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularForm .
-    ?accusativeFeminineSingularForm ontolex:representation ?accusativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularForm .
+    ?genitiveFeminineSingularForm ontolex:representation ?genitiveFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularComparativeForm .
-    ?accusativeFeminineSingularComparativeForm ontolex:representation ?accusativeFeminineSingularComparative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularComparativeForm .
+    ?genitiveFeminineSingularComparativeForm ontolex:representation ?genitiveFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularSuperlativeForm .
-    ?accusativeFeminineSingularSuperlativeForm ontolex:representation ?accusativeFeminineSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularSuperlativeForm .
+    ?genitiveFeminineSingularSuperlativeForm ontolex:representation ?genitiveFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularPositiveForm .
-    ?accusativeFeminineSingularPositiveForm ontolex:representation ?accusativeFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularPositiveForm .
+    ?genitiveFeminineSingularPositiveForm ontolex:representation ?genitiveFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 }

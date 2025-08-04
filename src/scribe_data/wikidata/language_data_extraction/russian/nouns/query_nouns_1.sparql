@@ -5,39 +5,46 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?nominativeSingular
-  ?nominativePlural
-  ?gender
+  ?noun
+  ?dativeSingular
+  ?dativePlural
+  ?prepositionalSingular
+  ?prepositionalPlural
+  ?vocativeSingular
 
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
-  # MARK: Nominative Singular
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
-    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
+    ?dativeSingularForm ontolex:representation ?dativeSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
   }
 
-  # MARK: Nominative Plural
-
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
-    ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
   }
 
-  # MARK: Gender(s)
-
   OPTIONAL {
-    ?lexeme wdt:P5185 ?nounGender .
+    ?lexeme ontolex:lexicalForm ?prepositionalSingularForm .
+    ?prepositionalSingularForm ontolex:representation ?prepositionalSingular ;
+      wikibase:grammaticalFeature wd:Q2114906, wd:Q110786 .
   }
 
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en" .
-    ?nounGender rdfs:label ?gender .
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?prepositionalPluralForm .
+    ?prepositionalPluralForm ontolex:representation ?prepositionalPlural ;
+      wikibase:grammaticalFeature wd:Q2114906, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeSingularForm .
+    ?vocativeSingularForm ontolex:representation ?vocativeSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q110786 .
   }
 }

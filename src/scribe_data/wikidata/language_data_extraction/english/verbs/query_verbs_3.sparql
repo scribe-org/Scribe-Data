@@ -8,17 +8,17 @@ SELECT
   ?verb
   ?imperative
   ?past
-  ?simplePresentPlural
-  ?simplePastPlural
-  ?thirdPersonSingular
-  ?simplePastFirstPersonSingular
+  ?plural
+  ?combinedPastParticiple
+  ?englishPastParticiple
+  ?preteriteSubjunctive
 
 WHERE {
   ?lexeme dct:language wd:Q1860 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperativeForm .
     ?imperativeForm ontolex:representation ?imperative ;
@@ -32,26 +32,26 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePresentPluralForm .
-    ?simplePresentPluralForm ontolex:representation ?simplePresentPlural ;
-      wikibase:grammaticalFeature wd:Q3910936, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePastPluralForm .
-    ?simplePastPluralForm ontolex:representation ?simplePastPlural ;
-      wikibase:grammaticalFeature wd:Q1392475, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
+    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonSingularForm .
-    ?thirdPersonSingularForm ontolex:representation ?thirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?englishPastParticipleForm .
+    ?englishPastParticipleForm ontolex:representation ?englishPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1230649 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePastFirstPersonSingularForm .
-    ?simplePastFirstPersonSingularForm ontolex:representation ?simplePastFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1392475, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?preteriteSubjunctiveForm .
+    ?preteriteSubjunctiveForm ontolex:representation ?preteriteSubjunctive ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q473746 .
   }
 }

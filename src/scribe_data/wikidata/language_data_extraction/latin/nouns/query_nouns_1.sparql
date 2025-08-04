@@ -6,26 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?nominativeSingular
-  ?nominativePlural
+  ?vocative
+  ?ablative
+  ?vocativePlural
+  ?ablativeSingular
+  ?ablativePlural
+  ?vocativeActivePresentSingularParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
-  # MARK: Nominative
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
-    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeForm .
+    ?vocativeForm ontolex:representation ?vocative ;
+      wikibase:grammaticalFeature wd:Q185077 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
-    ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?ablativeForm .
+    ?ablativeForm ontolex:representation ?ablative ;
+      wikibase:grammaticalFeature wd:Q156986 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativePluralForm .
+    ?vocativePluralForm ontolex:representation ?vocativePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeSingularForm .
+    ?ablativeSingularForm ontolex:representation ?ablativeSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePluralForm .
+    ?ablativePluralForm ontolex:representation ?ablativePlural ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeActivePresentSingularParticipleForm .
+    ?vocativeActivePresentSingularParticipleForm ontolex:representation ?vocativeActivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
   }
 }

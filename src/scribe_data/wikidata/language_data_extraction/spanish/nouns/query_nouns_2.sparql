@@ -6,11 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?feminine
-  ?infinitive
-  ?gerund
-  ?participle
-  ?pluralPositive
+  ?singular
+  ?masculineSingular
+  ?masculinePlural
+  ?singularPlural
+  ?singularPositive
   ?masculineSingularPlural
 
 WHERE {
@@ -18,35 +18,35 @@ WHERE {
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineForm .
-    ?feminineForm ontolex:representation ?feminine ;
-      wikibase:grammaticalFeature wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
+    ?masculineSingularForm ontolex:representation ?masculineSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?gerundForm .
-    ?gerundForm ontolex:representation ?gerund ;
-      wikibase:grammaticalFeature wd:Q1923028 .
+    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
+    ?masculinePluralForm ontolex:representation ?masculinePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?participleForm .
-    ?participleForm ontolex:representation ?participle ;
-      wikibase:grammaticalFeature wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?singularPluralForm .
+    ?singularPluralForm ontolex:representation ?singularPlural ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralPositiveForm .
-    ?pluralPositiveForm ontolex:representation ?pluralPositive ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?singularPositiveForm .
+    ?singularPositiveForm ontolex:representation ?singularPositive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
