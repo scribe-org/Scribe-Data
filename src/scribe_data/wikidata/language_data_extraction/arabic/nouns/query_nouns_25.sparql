@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?accusativeMasculine
+  ?accusativeMasculineIndefinite
+  ?accusativeMasculineDefinite
+  ?accusativeMasculineIndefinitePlural
+  ?accusativeMasculineDefinitePlural
+  ?accusativeMasculinePluralConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineForm .
+    ?accusativeMasculineForm ontolex:representation ?accusativeMasculine ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineIndefiniteForm .
+    ?accusativeMasculineIndefiniteForm ontolex:representation ?accusativeMasculineIndefinite ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineDefiniteForm .
+    ?accusativeMasculineDefiniteForm ontolex:representation ?accusativeMasculineDefinite ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineIndefinitePluralForm .
+    ?accusativeMasculineIndefinitePluralForm ontolex:representation ?accusativeMasculineIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineDefinitePluralForm .
+    ?accusativeMasculineDefinitePluralForm ontolex:representation ?accusativeMasculineDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q53997851, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePluralConstructForm .
+    ?accusativeMasculinePluralConstructForm ontolex:representation ?accusativeMasculinePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q146786, wd:Q1641446 .
+  }
+}

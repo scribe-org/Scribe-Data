@@ -16,10 +16,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q161873 ;
     wikibase:lemma ?postposition ;
     schema:dateModified ?lastModified .
-
+    
   # Note: We need to filter for pa to remove gurmukhi (pa) words.
   FILTER(lang(?postposition) = "pa")
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
     ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;

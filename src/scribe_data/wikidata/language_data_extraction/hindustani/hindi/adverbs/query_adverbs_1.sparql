@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adverb
-  ?obliqueFeminineSingular
-  ?obliqueFemininePlural
-  ?obliqueMasculineSingular
-  ?obliqueMasculinePlural
+  ?vocativeFeminineSingular
+  ?vocativeFemininePlural
+  ?vocativeMasculineSingular
+  ?vocativeMasculinePlural
 
 WHERE {
   ?lexeme dct:language wd:Q11051 ;
@@ -21,26 +21,26 @@ WHERE {
   FILTER(lang(?adverb) = "hi")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueFeminineSingularForm .
-    ?obliqueFeminineSingularForm ontolex:representation ?obliqueFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
+    ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueFemininePluralForm .
-    ?obliqueFemininePluralForm ontolex:representation ?obliqueFemininePlural ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralForm .
+    ?vocativeFemininePluralForm ontolex:representation ?vocativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueMasculineSingularForm .
-    ?obliqueMasculineSingularForm ontolex:representation ?obliqueMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineSingularForm .
+    ?vocativeMasculineSingularForm ontolex:representation ?vocativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueMasculinePluralForm .
-    ?obliqueMasculinePluralForm ontolex:representation ?obliqueMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculinePluralForm .
+    ?vocativeMasculinePluralForm ontolex:representation ?vocativeMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q146786 .
   }
 }

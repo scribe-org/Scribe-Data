@@ -8,10 +8,6 @@ SELECT
   ?noun
   ?nominativeSingular
   ?nominativePlural
-  ?masculineSingular
-  ?masculineDual
-  ?masculineSingularConstruct
-  ?masculineDualConstruct
 
 WHERE {
   ?lexeme dct:language wd:Q9288 ;
@@ -29,29 +25,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?nominativePluralForm .
     ?nominativePluralForm ontolex:representation ?nominativePlural ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
-    ?masculineSingularForm ontolex:representation ?masculineSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineDualForm .
-    ?masculineDualForm ontolex:representation ?masculineDual ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110022 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSingularConstructForm .
-    ?masculineSingularConstructForm ontolex:representation ?masculineSingularConstruct ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q1641446 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineDualConstructForm .
-    ?masculineDualConstructForm ontolex:representation ?masculineDualConstruct ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110022, wd:Q1641446 .
   }
 }

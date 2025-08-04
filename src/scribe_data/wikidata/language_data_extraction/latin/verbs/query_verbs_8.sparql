@@ -9,9 +9,6 @@ SELECT
   ?dativeActivePresentSingularParticiple
   ?dativeActivePresentPluralParticiple
   ?dativeActiveFuturePluralParticiple
-  ?accusativeNeuterFuturePluralParticiple
-  ?accusativeNeuterPerfectPluralParticiple
-  ?accusativeNeuterActiveFutureSingularParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -35,23 +32,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?dativeActiveFuturePluralParticipleForm .
     ?dativeActiveFuturePluralParticipleForm ontolex:representation ?dativeActiveFuturePluralParticiple ;
       wikibase:grammaticalFeature wd:Q145599, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeNeuterFuturePluralParticipleForm .
-    ?accusativeNeuterFuturePluralParticipleForm ontolex:representation ?accusativeNeuterFuturePluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q501405, wd:Q146786, wd:Q814722 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeNeuterPerfectPluralParticipleForm .
-    ?accusativeNeuterPerfectPluralParticipleForm ontolex:representation ?accusativeNeuterPerfectPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q625420, wd:Q146786, wd:Q814722 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeNeuterActiveFutureSingularParticipleForm .
-    ?accusativeNeuterActiveFutureSingularParticipleForm ontolex:representation ?accusativeNeuterActiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 }

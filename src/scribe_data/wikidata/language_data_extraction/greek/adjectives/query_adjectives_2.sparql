@@ -6,11 +6,8 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?genitiveMasculineSingular
   ?accusativeMasculineSingular
   ?accusativeMasculinePlural
-  ?vocativeMasculineSingular
-  ?vocativeMasculinePlural
 
 WHERE {
   ?lexeme dct:language wd:Q36510 ;
@@ -18,12 +15,6 @@ WHERE {
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
     
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularForm .
-    ?genitiveMasculineSingularForm ontolex:representation ?genitiveMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786 .
-  }
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeMasculineSingularForm .
     ?accusativeMasculineSingularForm ontolex:representation ?accusativeMasculineSingular ;
@@ -34,17 +25,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?accusativeMasculinePluralForm .
     ?accusativeMasculinePluralForm ontolex:representation ?accusativeMasculinePlural ;
       wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeMasculineSingularForm .
-    ?vocativeMasculineSingularForm ontolex:representation ?vocativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeMasculinePluralForm .
-    ?vocativeMasculinePluralForm ontolex:representation ?vocativeMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q146786 .
   }
 }

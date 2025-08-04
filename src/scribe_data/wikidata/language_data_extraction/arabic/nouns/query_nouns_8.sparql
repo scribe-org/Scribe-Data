@@ -6,25 +6,19 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?genitiveSingular
   ?genitiveDefiniteSingular
   ?genitiveDefinitePlural
-  ?genitiveSingularConstruct
-  ?accusativeDefiniteSingular
-  ?accusativeDefinitePlural
+  ?genitiveDefiniteDual
+  ?nominativePausalIndefiniteSingular
+  ?nominativePausalDefiniteSingular
+  ?nominativePausalSingularConstruct
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
-    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
-  }
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveDefiniteSingularForm .
     ?genitiveDefiniteSingularForm ontolex:representation ?genitiveDefiniteSingular ;
@@ -38,20 +32,26 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveSingularConstructForm .
-    ?genitiveSingularConstructForm ontolex:representation ?genitiveSingularConstruct ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q110786, wd:Q1641446 .
+    ?lexeme ontolex:lexicalForm ?genitiveDefiniteDualForm .
+    ?genitiveDefiniteDualForm ontolex:representation ?genitiveDefiniteDual ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997851, wd:Q110022 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeDefiniteSingularForm .
-    ?accusativeDefiniteSingularForm ontolex:representation ?accusativeDefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q53997851, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nominativePausalIndefiniteSingularForm .
+    ?nominativePausalIndefiniteSingularForm ontolex:representation ?nominativePausalIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q117262361, wd:Q53997857, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeDefinitePluralForm .
-    ?accusativeDefinitePluralForm ontolex:representation ?accusativeDefinitePlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q53997851, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?nominativePausalDefiniteSingularForm .
+    ?nominativePausalDefiniteSingularForm ontolex:representation ?nominativePausalDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q117262361, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePausalSingularConstructForm .
+    ?nominativePausalSingularConstructForm ontolex:representation ?nominativePausalSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q117262361, wd:Q110786, wd:Q1641446 .
   }
 }

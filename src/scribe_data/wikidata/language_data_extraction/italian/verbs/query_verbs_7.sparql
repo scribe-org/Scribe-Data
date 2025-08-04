@@ -6,9 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitive
-  ?infinitivePresent
-  ?infinitivePresentInfinitive
+  ?feminineSingularCombinedPastParticiple
+  ?femininePluralCombinedPastParticiple
+  ?feminineSingularParticipleCombinedPastParticiple
+  ?femininePluralParticipleCombinedPastParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q652 ;
@@ -17,20 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?feminineSingularCombinedPastParticipleForm .
+    ?feminineSingularCombinedPastParticipleForm ontolex:representation ?feminineSingularCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q12717679 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitivePresentForm .
-    ?infinitivePresentForm ontolex:representation ?infinitivePresent ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q192613 .
+    ?lexeme ontolex:lexicalForm ?femininePluralCombinedPastParticipleForm .
+    ?femininePluralCombinedPastParticipleForm ontolex:representation ?femininePluralCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q12717679 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitivePresentInfinitiveForm .
-    ?infinitivePresentInfinitiveForm ontolex:representation ?infinitivePresentInfinitive ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q52434245 .
+    ?lexeme ontolex:lexicalForm ?feminineSingularParticipleCombinedPastParticipleForm .
+    ?feminineSingularParticipleCombinedPastParticipleForm ontolex:representation ?feminineSingularParticipleCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q814722, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePluralParticipleCombinedPastParticipleForm .
+    ?femininePluralParticipleCombinedPastParticipleForm ontolex:representation ?femininePluralParticipleCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q814722, wd:Q12717679 .
   }
 }

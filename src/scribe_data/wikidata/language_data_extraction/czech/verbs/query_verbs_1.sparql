@@ -9,15 +9,16 @@ SELECT
   ?infinitive
   ?pastTransgressivePlural
   ?masculinePastTransgressiveSingular
-  ?neuterSingularCombinedPastParticiple
-  ?neuterPluralCombinedPastParticiple
+  ?indicativeFirstPersonSingular
+  ?indicativeFirstPersonPlural
+  ?feminineNeuterPastTransgressiveSingular
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?infinitiveForm .
     ?infinitiveForm ontolex:representation ?infinitive ;
@@ -37,14 +38,20 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterSingularCombinedPastParticipleForm .
-    ?neuterSingularCombinedPastParticipleForm ontolex:representation ?neuterSingularCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?indicativeFirstPersonSingularForm .
+    ?indicativeFirstPersonSingularForm ontolex:representation ?indicativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterPluralCombinedPastParticipleForm .
-    ?neuterPluralCombinedPastParticipleForm ontolex:representation ?neuterPluralCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?indicativeFirstPersonPluralForm .
+    ?indicativeFirstPersonPluralForm ontolex:representation ?indicativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineNeuterPastTransgressiveSingularForm .
+    ?feminineNeuterPastTransgressiveSingularForm ontolex:representation ?feminineNeuterPastTransgressiveSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1775461, wd:Q12750232, wd:Q110786 .
   }
 }

@@ -7,10 +7,8 @@ SELECT
   ?lastModified
   ?noun
   ?masculine
-  ?singular
   ?masculineSingular
   ?masculinePlural
-  ?singularPlural
   ?masculineSingularPlural
 
 WHERE {
@@ -26,12 +24,6 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineSingularForm .
     ?masculineSingularForm ontolex:representation ?masculineSingular ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
@@ -41,12 +33,6 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?masculinePluralForm .
     ?masculinePluralForm ontolex:representation ?masculinePlural ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularPluralForm .
-    ?singularPluralForm ontolex:representation ?singularPlural ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146786 .
   }
 
   OPTIONAL {

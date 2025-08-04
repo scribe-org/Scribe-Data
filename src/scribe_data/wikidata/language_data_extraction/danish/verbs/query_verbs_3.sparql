@@ -7,6 +7,9 @@ SELECT
   ?lastModified
   ?verb
   ?active
+  ?activeInfinitive
+  ?activePresent
+  ?activePreterite
   ?activeCombinedPastParticiple
 
 WHERE {
@@ -14,11 +17,29 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?activeForm .
     ?activeForm ontolex:representation ?active ;
       wikibase:grammaticalFeature wd:Q1317831 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
+    ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresentForm .
+    ?activePresentForm ontolex:representation ?activePresent ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePreteriteForm .
+    ?activePreteriteForm ontolex:representation ?activePreterite ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q442485 .
   }
 
   OPTIONAL {

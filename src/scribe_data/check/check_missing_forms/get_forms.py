@@ -20,8 +20,7 @@ iso_to_qid = {
     if "iso" in lang_data and "qid" in lang_data
 }
 
-all_forms = defaultdict(lambda: defaultdict(list))
-
+#all_forms = defaultdict(lambda: defaultdict(list))
 
 def parse_sparql_files():
     """
@@ -38,6 +37,7 @@ def parse_sparql_files():
     Recursively searches through language_data_extraction directory
     for .sparql files and accumulates all form information.
     """
+    all_forms = defaultdict(lambda: defaultdict(list))
     for sub_sub_file in language_data_extraction.rglob("*.sparql"):
         with open(sub_sub_file, "r", encoding="utf-8") as query_text:
             result = parse_sparql_query(query_text.read())

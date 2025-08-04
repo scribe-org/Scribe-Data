@@ -8,17 +8,17 @@ SELECT
   ?personalpronoun
   ?nominativeSingular
   ?nominativePlural
-  ?dativeSingular
-  ?dativePlural
   ?instrumentalSingular
   ?instrumentalPlural
+  ?locativeSingular
+  ?locativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q468801 ;
     wikibase:lemma ?personalpronoun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
     ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
@@ -32,18 +32,6 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
-    ?dativeSingularForm ontolex:representation ?dativeSingular ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativePluralForm .
-    ?dativePluralForm ontolex:representation ?dativePlural ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?instrumentalSingularForm .
     ?instrumentalSingularForm ontolex:representation ?instrumentalSingular ;
       wikibase:grammaticalFeature wd:Q192997, wd:Q110786 .
@@ -53,5 +41,17 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?instrumentalPluralForm .
     ?instrumentalPluralForm ontolex:representation ?instrumentalPlural ;
       wikibase:grammaticalFeature wd:Q192997, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
+    ?locativeSingularForm ontolex:representation ?locativeSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativePluralForm .
+    ?locativePluralForm ontolex:representation ?locativePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
   }
 }

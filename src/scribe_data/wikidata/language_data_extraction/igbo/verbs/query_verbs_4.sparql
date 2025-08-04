@@ -6,11 +6,7 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?imperative
-  ?presentContinuous
   ?past
-  ?imperativeCombinedPastParticiple
-  ?presentContinuousCombinedPresentParticiple
   ?pastCombinedPastParticiple
 
 WHERE {
@@ -20,33 +16,9 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeForm .
-    ?imperativeForm ontolex:representation ?imperative ;
-      wikibase:grammaticalFeature wd:Q22716 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
-    ?presentContinuousForm ontolex:representation ?presentContinuous ;
-      wikibase:grammaticalFeature wd:Q7240943 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastForm .
     ?pastForm ontolex:representation ?past ;
       wikibase:grammaticalFeature wd:Q1994301 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeCombinedPastParticipleForm .
-    ?imperativeCombinedPastParticipleForm ontolex:representation ?imperativeCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q12717679 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentContinuousCombinedPresentParticipleForm .
-    ?presentContinuousCombinedPresentParticipleForm ontolex:representation ?presentContinuousCombinedPresentParticiple ;
-      wikibase:grammaticalFeature wd:Q7240943, wd:Q10345583 .
   }
 
   OPTIONAL {

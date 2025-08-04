@@ -8,10 +8,10 @@ SELECT
   ?adjective
   ?dativeSingular
   ?dativePlural
+  ?accusativeSingular
+  ?accusativePlural
   ?instrumentalSingular
   ?instrumentalPlural
-  ?locativeSingular
-  ?locativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q36236 ;
@@ -32,6 +32,18 @@ WHERE {
   }
 
   OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+  }
+
+  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?instrumentalSingularForm .
     ?instrumentalSingularForm ontolex:representation ?instrumentalSingular ;
       wikibase:grammaticalFeature wd:Q192997, wd:Q110786 .
@@ -41,17 +53,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?instrumentalPluralForm .
     ?instrumentalPluralForm ontolex:representation ?instrumentalPlural ;
       wikibase:grammaticalFeature wd:Q192997, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
-    ?locativeSingularForm ontolex:representation ?locativeSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativePluralForm .
-    ?locativePluralForm ontolex:representation ?locativePlural ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
   }
 }

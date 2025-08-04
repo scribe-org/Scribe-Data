@@ -6,10 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?genitivePresentSingularParticiple
-  ?genitivePresentPluralParticiple
-  ?genitiveActivePresentSingularParticiple
-  ?genitiveActivePresentPluralParticiple
+  ?accusativeNeuterFutureSingularParticiple
+  ?accusativeNeuterFuturePluralParticiple
+  ?ablativeActivePresentSingularParticiple
+  ?ablativeActivePresentPluralParticiple
+  ?ablativeActiveFuturePluralParticiple
+  ?accusativeNeuterActiveFutureSingularParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -18,26 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePresentSingularParticipleForm .
-    ?genitivePresentSingularParticipleForm ontolex:representation ?genitivePresentSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q192613, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterFutureSingularParticipleForm .
+    ?accusativeNeuterFutureSingularParticipleForm ontolex:representation ?accusativeNeuterFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePresentPluralParticipleForm .
-    ?genitivePresentPluralParticipleForm ontolex:representation ?genitivePresentPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q192613, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterFuturePluralParticipleForm .
+    ?accusativeNeuterFuturePluralParticipleForm ontolex:representation ?accusativeNeuterFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveActivePresentSingularParticipleForm .
-    ?genitiveActivePresentSingularParticipleForm ontolex:representation ?genitiveActivePresentSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?ablativeActivePresentSingularParticipleForm .
+    ?ablativeActivePresentSingularParticipleForm ontolex:representation ?ablativeActivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveActivePresentPluralParticipleForm .
-    ?genitiveActivePresentPluralParticipleForm ontolex:representation ?genitiveActivePresentPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?ablativeActivePresentPluralParticipleForm .
+    ?ablativeActivePresentPluralParticipleForm ontolex:representation ?ablativeActivePresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeActiveFuturePluralParticipleForm .
+    ?ablativeActiveFuturePluralParticipleForm ontolex:representation ?ablativeActiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterActiveFutureSingularParticipleForm .
+    ?accusativeNeuterActiveFutureSingularParticipleForm ontolex:representation ?accusativeNeuterActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 }

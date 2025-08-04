@@ -5,33 +5,30 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?singular
-
+  ?noun
+  ?feminine
   ?plural
-
   ?feminineSingular
   ?femininePlural
-
-  ?masculineSingular
-  ?masculinePlural
-
-  ?gender
+  ?pluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?singular ;
+    wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
-  # MARK: Plural
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineForm .
+    ?feminineForm ontolex:representation ?feminine ;
+      wikibase:grammaticalFeature wd:Q1775415 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
   }
-
-  # MARK: Feminine
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineSingularForm .
@@ -45,28 +42,9 @@ WHERE {
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 .
   }
 
-  # MARK: Masculine
-
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
-    ?masculineSingularForm ontolex:representation ?masculineSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
-    ?masculinePluralForm ontolex:representation ?masculinePlural ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
-  }
-
-  # MARK: Gender(s)
-
-  OPTIONAL {
-    ?lexeme wdt:P5185 ?nounGender .
-  }
-
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en" .
-    ?nounGender rdfs:label ?gender .
+    ?lexeme ontolex:lexicalForm ?pluralPositiveForm .
+    ?pluralPositiveForm ontolex:representation ?pluralPositive ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q3482678 .
   }
 }

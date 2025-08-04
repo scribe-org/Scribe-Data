@@ -6,37 +6,19 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?singular
-  ?plural
-  ?feminineSingular
   ?femininePlural
-  ?masculineSingular
   ?masculinePlural
+  ?femininePluralSuperlative
+  ?masculineSecondPersonSingular
+  ?masculineSecondPersonPlural
+  ?masculinePluralSuperlative
 
 WHERE {
   ?lexeme dct:language wd:Q1321 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
-    ?feminineSingularForm ontolex:representation ?feminineSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
-  }
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePluralForm .
     ?femininePluralForm ontolex:representation ?femininePlural ;
@@ -44,14 +26,32 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
-    ?masculineSingularForm ontolex:representation ?masculineSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculinePluralForm .
     ?masculinePluralForm ontolex:representation ?masculinePlural ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePluralSuperlativeForm .
+    ?femininePluralSuperlativeForm ontolex:representation ?femininePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSecondPersonSingularForm .
+    ?masculineSecondPersonSingularForm ontolex:representation ?masculineSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSecondPersonPluralForm .
+    ?masculineSecondPersonPluralForm ontolex:representation ?masculineSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralSuperlativeForm .
+    ?masculinePluralSuperlativeForm ontolex:representation ?masculinePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q1817208 .
   }
 }

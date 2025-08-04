@@ -6,31 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?neuterSingular
-  ?neuterIndefiniteSingular
-  ?neuterIndefiniteSingularPositive
+  ?masculineDefiniteSingular
+  ?masculineDefiniteSuperlative
+  ?masculineDefiniteSingularSuperlative
+  ?masculineDefiniteSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9027 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterSingularForm .
-    ?neuterSingularForm ontolex:representation ?neuterSingular ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?masculineDefiniteSingularForm .
+    ?masculineDefiniteSingularForm ontolex:representation ?masculineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997851, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularForm .
-    ?neuterIndefiniteSingularForm ontolex:representation ?neuterIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?masculineDefiniteSuperlativeForm .
+    ?masculineDefiniteSuperlativeForm ontolex:representation ?masculineDefiniteSuperlative ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997851, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularPositiveForm .
-    ?neuterIndefiniteSingularPositiveForm ontolex:representation ?neuterIndefiniteSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?masculineDefiniteSingularSuperlativeForm .
+    ?masculineDefiniteSingularSuperlativeForm ontolex:representation ?masculineDefiniteSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997851, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineDefiniteSingularPositiveForm .
+    ?masculineDefiniteSingularPositiveForm ontolex:representation ?masculineDefiniteSingularPositive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997851, wd:Q110786, wd:Q3482678 .
   }
 }

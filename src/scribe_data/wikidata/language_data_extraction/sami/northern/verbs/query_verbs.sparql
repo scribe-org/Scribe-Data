@@ -13,10 +13,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   # Note: We need to filter for se to remove northern (se) words.
   FILTER(lang(?verb) = "se")
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?infinitiveForm .
     ?infinitiveForm ontolex:representation ?infinitive ;

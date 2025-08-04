@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?nominativeNeuterPresentPluralParticiple
-  ?nominativeNeuterFutureSingularParticiple
-  ?nominativeNeuterPerfectPluralParticiple
-  ?nominativeNeuterPassiveFutureSingularParticiple
-  ?nominativeNeuterPassiveFuturePluralParticiple
-  ?nominativeNeuterActiveFutureSingularParticiple
+  ?activePluperfectFirstPersonSingularSubjunctive
+  ?activePluperfectFirstPersonPluralSubjunctive
+  ?activePluperfectSecondPersonSingularSubjunctive
+  ?activePluperfectSecondPersonPluralSubjunctive
+  ?activePluperfectThirdPersonSingularSubjunctive
+  ?activePluperfectThirdPersonPluralSubjunctive
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNeuterPresentPluralParticipleForm .
-    ?nominativeNeuterPresentPluralParticipleForm ontolex:representation ?nominativeNeuterPresentPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q192613, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?activePluperfectFirstPersonSingularSubjunctiveForm .
+    ?activePluperfectFirstPersonSingularSubjunctiveForm ontolex:representation ?activePluperfectFirstPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q623742, wd:Q21714344, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNeuterFutureSingularParticipleForm .
-    ?nominativeNeuterFutureSingularParticipleForm ontolex:representation ?nominativeNeuterFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?activePluperfectFirstPersonPluralSubjunctiveForm .
+    ?activePluperfectFirstPersonPluralSubjunctiveForm ontolex:representation ?activePluperfectFirstPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q623742, wd:Q21714344, wd:Q146786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNeuterPerfectPluralParticipleForm .
-    ?nominativeNeuterPerfectPluralParticipleForm ontolex:representation ?nominativeNeuterPerfectPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q625420, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?activePluperfectSecondPersonSingularSubjunctiveForm .
+    ?activePluperfectSecondPersonSingularSubjunctiveForm ontolex:representation ?activePluperfectSecondPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q623742, wd:Q51929049, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNeuterPassiveFutureSingularParticipleForm .
-    ?nominativeNeuterPassiveFutureSingularParticipleForm ontolex:representation ?nominativeNeuterPassiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?activePluperfectSecondPersonPluralSubjunctiveForm .
+    ?activePluperfectSecondPersonPluralSubjunctiveForm ontolex:representation ?activePluperfectSecondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q623742, wd:Q51929049, wd:Q146786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNeuterPassiveFuturePluralParticipleForm .
-    ?nominativeNeuterPassiveFuturePluralParticipleForm ontolex:representation ?nominativeNeuterPassiveFuturePluralParticiple ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?activePluperfectThirdPersonSingularSubjunctiveForm .
+    ?activePluperfectThirdPersonSingularSubjunctiveForm ontolex:representation ?activePluperfectThirdPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q623742, wd:Q51929074, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNeuterActiveFutureSingularParticipleForm .
-    ?nominativeNeuterActiveFutureSingularParticipleForm ontolex:representation ?nominativeNeuterActiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?activePluperfectThirdPersonPluralSubjunctiveForm .
+    ?activePluperfectThirdPersonPluralSubjunctiveForm ontolex:representation ?activePluperfectThirdPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q623742, wd:Q51929074, wd:Q146786, wd:Q473746 .
   }
 }

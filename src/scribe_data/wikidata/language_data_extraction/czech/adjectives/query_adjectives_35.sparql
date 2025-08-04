@@ -6,52 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?instrumentalMasculineInanimateSingular
-  ?instrumentalMasculineInanimatePlural
-  ?instrumentalMasculineInanimateSingularComparative
-  ?instrumentalMasculineInanimateSingularSuperlative
-  ?instrumentalMasculineInanimatePluralComparative
-  ?instrumentalMasculineInanimatePluralPositive
+  ?vocativeMasculineInanimateSingular
+  ?vocativeMasculineInanimatePlural
+  ?vocativeMasculineInanimateSingularComparative
+  ?vocativeMasculineInanimateSingularSuperlative
+  ?vocativeMasculineInanimatePluralComparative
+  ?vocativeMasculineInanimatePluralSuperlative
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimateSingularForm .
-    ?instrumentalMasculineInanimateSingularForm ontolex:representation ?instrumentalMasculineInanimateSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineInanimateSingularForm .
+    ?vocativeMasculineInanimateSingularForm ontolex:representation ?vocativeMasculineInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q52943434, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimatePluralForm .
-    ?instrumentalMasculineInanimatePluralForm ontolex:representation ?instrumentalMasculineInanimatePlural ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineInanimatePluralForm .
+    ?vocativeMasculineInanimatePluralForm ontolex:representation ?vocativeMasculineInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q52943434, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimateSingularComparativeForm .
-    ?instrumentalMasculineInanimateSingularComparativeForm ontolex:representation ?instrumentalMasculineInanimateSingularComparative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineInanimateSingularComparativeForm .
+    ?vocativeMasculineInanimateSingularComparativeForm ontolex:representation ?vocativeMasculineInanimateSingularComparative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q52943434, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimateSingularSuperlativeForm .
-    ?instrumentalMasculineInanimateSingularSuperlativeForm ontolex:representation ?instrumentalMasculineInanimateSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineInanimateSingularSuperlativeForm .
+    ?vocativeMasculineInanimateSingularSuperlativeForm ontolex:representation ?vocativeMasculineInanimateSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q52943434, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimatePluralComparativeForm .
-    ?instrumentalMasculineInanimatePluralComparativeForm ontolex:representation ?instrumentalMasculineInanimatePluralComparative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineInanimatePluralComparativeForm .
+    ?vocativeMasculineInanimatePluralComparativeForm ontolex:representation ?vocativeMasculineInanimatePluralComparative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q52943434, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimatePluralPositiveForm .
-    ?instrumentalMasculineInanimatePluralPositiveForm ontolex:representation ?instrumentalMasculineInanimatePluralPositive ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineInanimatePluralSuperlativeForm .
+    ?vocativeMasculineInanimatePluralSuperlativeForm ontolex:representation ?vocativeMasculineInanimatePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q52943434, wd:Q146786, wd:Q1817208 .
   }
 }

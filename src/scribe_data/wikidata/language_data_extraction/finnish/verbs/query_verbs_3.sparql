@@ -6,24 +6,19 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?illativeInfinitive
   ?indicativeFirstPersonSingular
   ?indicativeFirstPersonPlural
-  ?indicativeThirdPersonSingular
-  ?indicativeThirdPersonPlural
+  ?indicativeSecondPersonSingular
+  ?indicativeSecondPersonPlural
+  ?imperativeThirdPersonSingular
+  ?imperativeThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q1412 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?illativeInfinitiveForm .
-    ?illativeInfinitiveForm ontolex:representation ?illativeInfinitive ;
-      wikibase:grammaticalFeature wd:Q474668, wd:Q179230 .
-  }
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeFirstPersonSingularForm .
     ?indicativeFirstPersonSingularForm ontolex:representation ?indicativeFirstPersonSingular ;
@@ -37,14 +32,26 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeThirdPersonSingularForm .
-    ?indicativeThirdPersonSingularForm ontolex:representation ?indicativeThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?indicativeSecondPersonSingularForm .
+    ?indicativeSecondPersonSingularForm ontolex:representation ?indicativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeThirdPersonPluralForm .
-    ?indicativeThirdPersonPluralForm ontolex:representation ?indicativeThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?indicativeSecondPersonPluralForm .
+    ?indicativeSecondPersonPluralForm ontolex:representation ?indicativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeThirdPersonSingularForm .
+    ?imperativeThirdPersonSingularForm ontolex:representation ?imperativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeThirdPersonPluralForm .
+    ?imperativeThirdPersonPluralForm ontolex:representation ?imperativeThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q51929074, wd:Q146786 .
   }
 }

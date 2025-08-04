@@ -6,52 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitiveFirstPersonSingular
-  ?infinitiveFirstPersonPlural
-  ?infinitiveSecondPersonSingular
-  ?infinitiveSecondPersonPlural
-  ?infinitiveThirdPersonSingular
-  ?infinitiveThirdPersonPlural
+  ?pastImperfectFirstPersonSingularSubjunctive
+  ?pastImperfectFirstPersonPluralSubjunctive
+  ?pastImperfectSecondPersonSingularSubjunctive
+  ?pastImperfectSecondPersonPluralSubjunctive
+  ?pastImperfectThirdPersonSingularSubjunctive
+  ?pastImperfectThirdPersonPluralSubjunctive
 
 WHERE {
   ?lexeme dct:language wd:Q5146 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveFirstPersonSingularForm .
-    ?infinitiveFirstPersonSingularForm ontolex:representation ?infinitiveFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonSingularSubjunctiveForm .
+    ?pastImperfectFirstPersonSingularSubjunctiveForm ontolex:representation ?pastImperfectFirstPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveFirstPersonPluralForm .
-    ?infinitiveFirstPersonPluralForm ontolex:representation ?infinitiveFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonPluralSubjunctiveForm .
+    ?pastImperfectFirstPersonPluralSubjunctiveForm ontolex:representation ?pastImperfectFirstPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q146786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveSecondPersonSingularForm .
-    ?infinitiveSecondPersonSingularForm ontolex:representation ?infinitiveSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonSingularSubjunctiveForm .
+    ?pastImperfectSecondPersonSingularSubjunctiveForm ontolex:representation ?pastImperfectSecondPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveSecondPersonPluralForm .
-    ?infinitiveSecondPersonPluralForm ontolex:representation ?infinitiveSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonPluralSubjunctiveForm .
+    ?pastImperfectSecondPersonPluralSubjunctiveForm ontolex:representation ?pastImperfectSecondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q146786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveThirdPersonSingularForm .
-    ?infinitiveThirdPersonSingularForm ontolex:representation ?infinitiveThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pastImperfectThirdPersonSingularSubjunctiveForm .
+    ?pastImperfectThirdPersonSingularSubjunctiveForm ontolex:representation ?pastImperfectThirdPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929074, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveThirdPersonPluralForm .
-    ?infinitiveThirdPersonPluralForm ontolex:representation ?infinitiveThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pastImperfectThirdPersonPluralSubjunctiveForm .
+    ?pastImperfectThirdPersonPluralSubjunctiveForm ontolex:representation ?pastImperfectThirdPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929074, wd:Q146786, wd:Q473746 .
   }
 }

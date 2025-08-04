@@ -6,11 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitive
-  ?commonSingular
-  ?pastThirdPersonPlural
-  ?femininePresentSingularConstruct
-  ?femininePresentPluralConstruct
+  ?masculinePastSecondPersonSingular
+  ?masculinePastSecondPersonPlural
+  ?masculinePastThirdPersonSingular
+  ?masculinePastThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q9288 ;
@@ -19,32 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?masculinePastSecondPersonSingularForm .
+    ?masculinePastSecondPersonSingularForm ontolex:representation ?masculinePastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?commonSingularForm .
-    ?commonSingularForm ontolex:representation ?commonSingular ;
-      wikibase:grammaticalFeature wd:Q1305037, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?masculinePastSecondPersonPluralForm .
+    ?masculinePastSecondPersonPluralForm ontolex:representation ?masculinePastSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastThirdPersonPluralForm .
-    ?pastThirdPersonPluralForm ontolex:representation ?pastThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q1994301, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?masculinePastThirdPersonSingularForm .
+    ?masculinePastThirdPersonSingularForm ontolex:representation ?masculinePastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePresentSingularConstructForm .
-    ?femininePresentSingularConstructForm ontolex:representation ?femininePresentSingularConstruct ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q192613, wd:Q110786, wd:Q1641446 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePresentPluralConstructForm .
-    ?femininePresentPluralConstructForm ontolex:representation ?femininePresentPluralConstruct ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q192613, wd:Q146786, wd:Q1641446 .
+    ?lexeme ontolex:lexicalForm ?masculinePastThirdPersonPluralForm .
+    ?masculinePastThirdPersonPluralForm ontolex:representation ?masculinePastThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929074, wd:Q146786 .
   }
 }

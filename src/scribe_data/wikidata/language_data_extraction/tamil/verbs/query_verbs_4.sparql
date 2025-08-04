@@ -6,41 +6,23 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?present
-  ?presentContinuous
-  ?feminineFuture
-  ?feminineFutureThirdPerson
+  ?masculinePresentContinuous
   ?feminineSimpleFutureThirdPerson
+  ?masculinePresentContinuousThirdPerson
+  ?masculineSimpleFutureThirdPerson
   ?feminineSimpleFutureThirdPersonSingular
+  ?masculineSimpleFutureThirdPersonSingular
 
 WHERE {
   ?lexeme dct:language wd:Q5885 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
-    ?presentContinuousForm ontolex:representation ?presentContinuous ;
-      wikibase:grammaticalFeature wd:Q7240943 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineFutureForm .
-    ?feminineFutureForm ontolex:representation ?feminineFuture ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q501405 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineFutureThirdPersonForm .
-    ?feminineFutureThirdPersonForm ontolex:representation ?feminineFutureThirdPerson ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q501405, wd:Q51929074 .
+    ?lexeme ontolex:lexicalForm ?masculinePresentContinuousForm .
+    ?masculinePresentContinuousForm ontolex:representation ?masculinePresentContinuous ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q7240943 .
   }
 
   OPTIONAL {
@@ -50,8 +32,26 @@ WHERE {
   }
 
   OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePresentContinuousThirdPersonForm .
+    ?masculinePresentContinuousThirdPersonForm ontolex:representation ?masculinePresentContinuousThirdPerson ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q7240943, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSimpleFutureThirdPersonForm .
+    ?masculineSimpleFutureThirdPersonForm ontolex:representation ?masculineSimpleFutureThirdPerson ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1475560, wd:Q51929074 .
+  }
+
+  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineSimpleFutureThirdPersonSingularForm .
     ?feminineSimpleFutureThirdPersonSingularForm ontolex:representation ?feminineSimpleFutureThirdPersonSingular ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q1475560, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSimpleFutureThirdPersonSingularForm .
+    ?masculineSimpleFutureThirdPersonSingularForm ontolex:representation ?masculineSimpleFutureThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1475560, wd:Q51929074, wd:Q110786 .
   }
 }

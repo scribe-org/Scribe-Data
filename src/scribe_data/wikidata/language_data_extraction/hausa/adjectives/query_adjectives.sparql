@@ -15,32 +15,22 @@ WHERE {
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    FILTER(lang(?adjective) = "ha")
-
-  # MARK: Plural
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(lang(?plural) = "ha")
   }
-
-  # MARK: Feminine
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineSingularForm .
     ?feminineSingularForm ontolex:representation ?feminineSingular ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
-      FILTER(lang(?feminineSingular) = "ha")
   }
-
-  # MARK: Masculine
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineSingularForm .
     ?masculineSingularForm ontolex:representation ?masculineSingular ;
       wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
-      FILTER(lang(?masculineSingular) = "ha")
   }
 }
