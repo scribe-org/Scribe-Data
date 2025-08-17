@@ -14,7 +14,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ### 🐞 Bug Fixes
 
-- The path to the contracts was fixed in data filtration to assure that it's a `pathlib.Path` value ([#624](https://github.com/scribe-org/Scribe-Data/issues/624)).
+- The path to the contracts was fixed in data filtration to assure that it's a `pathlib.Path` value ([#627](https://github.com/scribe-org/Scribe-Data/issues/627)).
 
 ### ✅ Tests
 
