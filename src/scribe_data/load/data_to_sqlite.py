@@ -212,7 +212,7 @@ def data_to_sqlite(
     if not languages:
         languages = current_languages
     elif isinstance(languages, str):
-        languages = languages.lower()
+        languages = [languages.lower()]
     elif isinstance(languages, list):
         languages = [lang.lower() for lang in languages]
 
