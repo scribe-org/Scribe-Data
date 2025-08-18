@@ -241,7 +241,7 @@ def main() -> None:
     convert_parser.add_argument(
         "-lang",
         "--language",
-        nargs='+',
+        nargs="+",
         type=str,
         required=False,
         help="The language of the file to convert.",
@@ -486,15 +486,16 @@ def main() -> None:
             if args.interactive:
                 start_interactive_mode(operation="convert")
                 return
-            
-            # Handle language(s) - could be string or list
+
+            # Handle language(s) - could be string or list.
             languages = None
             if args.language is not None:
                 if isinstance(args.language, list):
                     languages = [lang.lower() for lang in args.language]
+
                 else:
                     languages = args.language.lower()
-                
+
             convert_wrapper(
                 languages=languages,
                 data_types=args.data_type.lower()
