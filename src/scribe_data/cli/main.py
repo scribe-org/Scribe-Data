@@ -116,11 +116,16 @@ def main() -> None:
     )
     get_parser._actions[0].help = "Show this help message and exit."
     get_parser.add_argument(
-        "-lang", "--language", type=str, help="The language(s) to get data for."
+        "-lang",
+        "--language",
+        nargs="+",
+        type=str,
+        help="The language(s) to get data for."
     )
     get_parser.add_argument(
         "-dt",
         "--data-type",
+        nargs="+",
         type=str,
         help="The data type(s) to get data for (e.g., nouns, verbs).",
     )
@@ -448,24 +453,54 @@ def main() -> None:
                 parse_wiktionary_translations(args.translation, args.output_dir)
 
             else:
-                get_data(
-                    language=args.language.lower()
-                    if args.language is not None
-                    else None,
-                    data_type=args.data_type.lower()
-                    if args.data_type is not None
-                    else None,
-                    output_type=args.output_type,
-                    output_dir=args.output_dir,
-                    outputs_per_entry=args.outputs_per_entry,
-                    overwrite=args.overwrite,
-                    all_bool=args.all,
-                    identifier_case=args.identifier_case,
-                    wikidata_dump=args.wikidata_dump_path,
-                    dump_id=args.dump_id,
-                    force_download=args.force_download,
-                )
-
+                # Handle multiple languages and data types
+                languages = None
+                if args.language is not None:
+                    if isinstance(args.language, list):
+                        languages = [lang.lower() for lang in args.language]
+                    else:
+                        languages = [args.language.lower()]
+                
+                data_types = None
+                if args.data_type is not None:
+                    if isinstance(args.data_type, list):
+                        data_types = [dt.lower() for dt in args.data_type]
+                    else:
+                        data_types = [args.data_type.lower()]
+                
+                # Process each language-datatype combination
+                if languages and data_types:
+                    for language in languages:
+                        for data_type in data_types:
+                            get_data(
+                                language=language,
+                                data_type=data_type,
+                                output_type=args.output_type,
+                                output_dir=args.output_dir,
+                                outputs_per_entry=args.outputs_per_entry,
+                                overwrite=args.overwrite,
+                                all_bool=args.all,
+                                identifier_case=args.identifier_case,
+                                wikidata_dump=args.wikidata_dump_path,
+                                dump_id=args.dump_id,
+                                force_download=args.force_download,
+                            )
+                else:
+                    # Handle case where only language or data_type is provided
+                    get_data(
+                        language=languages[0] if languages else None,
+                        data_type=data_types[0] if data_types else None,
+                        output_type=args.output_type,
+                        output_dir=args.output_dir,
+                        outputs_per_entry=args.outputs_per_entry,
+                        overwrite=args.overwrite,
+                        all_bool=args.all,
+                        identifier_case=args.identifier_case,
+                        wikidata_dump=args.wikidata_dump_path,
+                        dump_id=args.dump_id,
+                        force_download=args.force_download,
+                    )
+            
         elif args.command in ["total", "t"]:
             if args.interactive:
                 start_interactive_mode(operation="total")
