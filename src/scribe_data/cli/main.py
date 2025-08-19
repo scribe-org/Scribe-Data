@@ -118,16 +118,16 @@ def main() -> None:
     get_parser.add_argument(
         "-lang",
         "--language",
-        nargs="+",
         type=str,
-        help="The language(s) to get data for."
+        help="The language(s) to get data for.",
+        nargs="+",
     )
     get_parser.add_argument(
         "-dt",
         "--data-type",
-        nargs="+",
         type=str,
         help="The data type(s) to get data for (e.g., nouns, verbs).",
+        nargs="+",
     )
     get_parser.add_argument(
         "-ot",
@@ -246,10 +246,10 @@ def main() -> None:
     convert_parser.add_argument(
         "-lang",
         "--language",
-        nargs="+",
         type=str,
         required=False,
         help="The language of the file to convert.",
+        nargs="+",
     )
     convert_parser.add_argument(
         "-dt",
@@ -453,22 +453,24 @@ def main() -> None:
                 parse_wiktionary_translations(args.translation, args.output_dir)
 
             else:
-                # Handle multiple languages and data types
+                # Handle multiple languages and data types.
                 languages = None
                 if args.language is not None:
-                    if isinstance(args.language, list):
-                        languages = [lang.lower() for lang in args.language]
-                    else:
-                        languages = [args.language.lower()]
-                
+                    languages = (
+                        [lang.lower() for lang in args.language]
+                        if isinstance(args.language, list)
+                        else [args.language.lower()]
+                    )
+
                 data_types = None
                 if args.data_type is not None:
-                    if isinstance(args.data_type, list):
-                        data_types = [dt.lower() for dt in args.data_type]
-                    else:
-                        data_types = [args.data_type.lower()]
-                
-                # Process each language-datatype combination
+                    data_types = (
+                        [dt.lower() for dt in args.data_type]
+                        if isinstance(args.data_type, list)
+                        else [args.data_type.lower()]
+                    )
+
+                # Process each language-datatype combination.
                 if languages and data_types:
                     for language in languages:
                         for data_type in data_types:
@@ -485,8 +487,9 @@ def main() -> None:
                                 dump_id=args.dump_id,
                                 force_download=args.force_download,
                             )
+
                 else:
-                    # Handle case where only language or data_type is provided
+                    # Handle case where only language or data_type is provided.
                     get_data(
                         language=languages[0] if languages else None,
                         data_type=data_types[0] if data_types else None,
@@ -500,7 +503,7 @@ def main() -> None:
                         dump_id=args.dump_id,
                         force_download=args.force_download,
                     )
-            
+
         elif args.command in ["total", "t"]:
             if args.interactive:
                 start_interactive_mode(operation="total")
