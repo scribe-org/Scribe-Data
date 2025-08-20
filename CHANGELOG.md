@@ -12,6 +12,12 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 5.x
 
+## Scribe-Data 5.1.4
+
+### 🐞 Bug Fixes
+
+- Allow the convert parser to accept multiple data types ([#634](https://github.com/scribe-org/Scribe-Data/issues/634)).
+
 ## Scribe-Data 5.1.3
 
 ### 🐞 Bug Fixes
