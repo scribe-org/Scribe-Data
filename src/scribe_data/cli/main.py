@@ -247,14 +247,15 @@ def main() -> None:
         "-lang",
         "--language",
         type=str,
+        nargs="+",
         required=False,
         help="The language of the file to convert.",
-        nargs="+",
     )
     convert_parser.add_argument(
         "-dt",
         "--data-type",
         type=str,
+        nargs="+",
         required=False,
         help="The data type(s) of the file to convert (e.g., nouns, verbs).",
     )
@@ -534,11 +535,16 @@ def main() -> None:
                 else:
                     languages = args.language.lower()
 
+            data_types = None
+            if args.data_type is not None:
+                if isinstance(args.data_type, list):
+                    data_types = [dt.lower() for dt in args.data_type]
+                else:
+                    data_types = args.data_type.lower()
+                    
             convert_wrapper(
                 languages=languages,
-                data_types=args.data_type.lower()
-                if args.data_type is not None
-                else None,
+                data_types=data_types,
                 output_type=args.output_type,
                 input_files=args.input_file,
                 output_dir=args.output_dir,
