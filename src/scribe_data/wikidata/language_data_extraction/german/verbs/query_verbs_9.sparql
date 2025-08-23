@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?presentThirdPerson
-  ?futureThirdPerson
-  ?presentThirdPersonSingular
-  ?presentThirdPersonPlural
-  ?futureThirdPersonSingular
-  ?futureThirdPersonPlural
+  ?preteriteThirdPerson
+  ?perfectThirdPerson
+  ?preteriteThirdPersonSingular
+  ?preteriteThirdPersonPlural
+  ?perfectThirdPersonSingular
+  ?perfectThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q188 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentThirdPersonForm .
-    ?presentThirdPersonForm ontolex:representation ?presentThirdPerson ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074 .
+    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonForm .
+    ?preteriteThirdPersonForm ontolex:representation ?preteriteThirdPerson ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q51929074 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futureThirdPersonForm .
-    ?futureThirdPersonForm ontolex:representation ?futureThirdPerson ;
-      wikibase:grammaticalFeature wd:Q501405, wd:Q51929074 .
+    ?lexeme ontolex:lexicalForm ?perfectThirdPersonForm .
+    ?perfectThirdPersonForm ontolex:representation ?perfectThirdPerson ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentThirdPersonSingularForm .
-    ?presentThirdPersonSingularForm ontolex:representation ?presentThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonSingularForm .
+    ?preteriteThirdPersonSingularForm ontolex:representation ?preteriteThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentThirdPersonPluralForm .
-    ?presentThirdPersonPluralForm ontolex:representation ?presentThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonPluralForm .
+    ?preteriteThirdPersonPluralForm ontolex:representation ?preteriteThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q51929074, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futureThirdPersonSingularForm .
-    ?futureThirdPersonSingularForm ontolex:representation ?futureThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q501405, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?perfectThirdPersonSingularForm .
+    ?perfectThirdPersonSingularForm ontolex:representation ?perfectThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futureThirdPersonPluralForm .
-    ?futureThirdPersonPluralForm ontolex:representation ?futureThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q501405, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?perfectThirdPersonPluralForm .
+    ?perfectThirdPersonPluralForm ontolex:representation ?perfectThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074, wd:Q146786 .
   }
 }

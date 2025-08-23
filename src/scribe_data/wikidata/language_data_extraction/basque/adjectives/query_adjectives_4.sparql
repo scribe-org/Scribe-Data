@@ -6,31 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?absolutiveIndefinite
-  ?absolutiveSingular
-  ?absolutivePlural
+  ?inessiveInanimateSingular
+  ?inessiveInanimatePlural
+  ?inessiveAnimateSingular
+  ?inessiveAnimatePlural
 
 WHERE {
   ?lexeme dct:language wd:Q8752 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?absolutiveIndefiniteForm .
-    ?absolutiveIndefiniteForm ontolex:representation ?absolutiveIndefinite ;
-      wikibase:grammaticalFeature wd:Q332734, wd:Q53997857 .
+    ?lexeme ontolex:lexicalForm ?inessiveInanimateSingularForm .
+    ?inessiveInanimateSingularForm ontolex:representation ?inessiveInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q51927539, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?absolutiveSingularForm .
-    ?absolutiveSingularForm ontolex:representation ?absolutiveSingular ;
-      wikibase:grammaticalFeature wd:Q332734, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?inessiveInanimatePluralForm .
+    ?inessiveInanimatePluralForm ontolex:representation ?inessiveInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q51927539, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?absolutivePluralForm .
-    ?absolutivePluralForm ontolex:representation ?absolutivePlural ;
-      wikibase:grammaticalFeature wd:Q332734, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?inessiveAnimateSingularForm .
+    ?inessiveAnimateSingularForm ontolex:representation ?inessiveAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q51927507, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveAnimatePluralForm .
+    ?inessiveAnimatePluralForm ontolex:representation ?inessiveAnimatePlural ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q51927507, wd:Q146786 .
   }
 }

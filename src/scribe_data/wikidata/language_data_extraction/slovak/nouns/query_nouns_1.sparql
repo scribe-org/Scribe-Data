@@ -5,32 +5,53 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?nominativeSingular
-  ?nominativePlural
-  ?gender
+  ?noun
+  ?dativePlural
+  ?locativeSingular
+  ?locativePlural
+  ?vocativeSingular
+  ?locativeInanimateSingular
+  ?locativeAnimateSingular
 
 WHERE {
   ?lexeme dct:language wd:Q9058 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?nominativeSingular ;
+    wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
-  # MARK: Nominative Plural
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
-    ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
   }
 
-  # MARK: Gender(s)
-
   OPTIONAL {
-    ?lexeme wdt:P5185 ?nounGender .
+    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
+    ?locativeSingularForm ontolex:representation ?locativeSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
   }
 
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en" .
-    ?nounGender rdfs:label ?gender .
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativePluralForm .
+    ?locativePluralForm ontolex:representation ?locativePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeSingularForm .
+    ?vocativeSingularForm ontolex:representation ?vocativeSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeInanimateSingularForm .
+    ?locativeInanimateSingularForm ontolex:representation ?locativeInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q51927539, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeAnimateSingularForm .
+    ?locativeAnimateSingularForm ontolex:representation ?locativeAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q51927507, wd:Q110786 .
   }
 }

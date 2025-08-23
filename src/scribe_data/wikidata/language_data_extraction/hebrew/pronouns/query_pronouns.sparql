@@ -6,6 +6,8 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
+  ?nominativeFeminine
+  ?nominativeMasculine
   ?feminineSingular
   ?femininePlural
   ?masculineSingular
@@ -17,6 +19,18 @@ WHERE {
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
     
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineForm .
+    ?nominativeFeminineForm ontolex:representation ?nominativeFeminine ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineForm .
+    ?nominativeMasculineForm ontolex:representation ?nominativeMasculine ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327 .
+  }
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineSingularForm .
     ?feminineSingularForm ontolex:representation ?feminineSingular ;

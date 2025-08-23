@@ -6,46 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?imperative
-  ?presentContinuous
-  ?past
+  ?infinitive
+  ?simplePresent
+  ?simplePast
   ?future
+  ?nominalized
+  ?comparative
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
-  # MARK: Imperative
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeForm .
-    ?imperativeForm ontolex:representation ?imperative ;
-      wikibase:grammaticalFeature wd:Q22716 .
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
   }
 
-  # MARK: Present Continuous
-
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
-    ?presentContinuousForm ontolex:representation ?presentContinuous ;
-      wikibase:grammaticalFeature wd:Q7240943 .
+    ?lexeme ontolex:lexicalForm ?simplePresentForm .
+    ?simplePresentForm ontolex:representation ?simplePresent ;
+      wikibase:grammaticalFeature wd:Q3910936 .
   }
 
-  # MARK: Past
-
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastForm .
-    ?pastForm ontolex:representation ?past ;
-      wikibase:grammaticalFeature wd:Q1994301 .
+    ?lexeme ontolex:lexicalForm ?simplePastForm .
+    ?simplePastForm ontolex:representation ?simplePast ;
+      wikibase:grammaticalFeature wd:Q1392475 .
   }
-
-  # MARK: Future
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futureForm .
     ?futureForm ontolex:representation ?future ;
       wikibase:grammaticalFeature wd:Q501405 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominalizedForm .
+    ?nominalizedForm ontolex:representation ?nominalized ;
+      wikibase:grammaticalFeature wd:Q74674960 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
   }
 }

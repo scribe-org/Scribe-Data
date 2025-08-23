@@ -6,18 +6,36 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
+  ?masculinePersonalPastFirstPersonPlural
+  ?masculinePersonalPastSecondPersonPlural
+  ?masculinePersonalPastThirdPersonPlural
   ?notMasculinePersonalPastFirstPersonPlural
   ?notMasculinePersonalPastSecondPersonPlural
   ?notMasculinePersonalPastThirdPersonPlural
-  ?neuterPastFirstPersonSingular
-  ?neuterPastSecondPersonSingular
-  ?neuterPastThirdPersonSingular
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePersonalPastFirstPersonPluralForm .
+    ?masculinePersonalPastFirstPersonPluralForm ontolex:representation ?masculinePersonalPastFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q27918551, wd:Q1994301, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePersonalPastSecondPersonPluralForm .
+    ?masculinePersonalPastSecondPersonPluralForm ontolex:representation ?masculinePersonalPastSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q27918551, wd:Q1994301, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePersonalPastThirdPersonPluralForm .
+    ?masculinePersonalPastThirdPersonPluralForm ontolex:representation ?masculinePersonalPastThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q27918551, wd:Q1994301, wd:Q51929074, wd:Q146786 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?notMasculinePersonalPastFirstPersonPluralForm .
@@ -35,23 +53,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?notMasculinePersonalPastThirdPersonPluralForm .
     ?notMasculinePersonalPastThirdPersonPluralForm ontolex:representation ?notMasculinePersonalPastThirdPersonPlural ;
       wikibase:grammaticalFeature wd:Q54152717, wd:Q1994301, wd:Q51929074, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterPastFirstPersonSingularForm .
-    ?neuterPastFirstPersonSingularForm ontolex:representation ?neuterPastFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q1994301, wd:Q21714344, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterPastSecondPersonSingularForm .
-    ?neuterPastSecondPersonSingularForm ontolex:representation ?neuterPastSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q1994301, wd:Q51929049, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterPastThirdPersonSingularForm .
-    ?neuterPastThirdPersonSingularForm ontolex:representation ?neuterPastThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q1994301, wd:Q51929074, wd:Q110786 .
   }
 }

@@ -6,11 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?feminineSimplePast
   ?masculineSimplePast
-  ?feminineSimplePastThirdPerson
+  ?masculineFuture
   ?masculineSimplePastThirdPerson
-  ?feminineSimplePastThirdPersonSingular
+  ?masculineFutureThirdPerson
+  ?masculineFutureSingular
   ?masculineSimplePastThirdPersonSingular
 
 WHERE {
@@ -18,13 +18,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSimplePastForm .
-    ?feminineSimplePastForm ontolex:representation ?feminineSimplePast ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1392475 .
-  }
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?masculineSimplePastForm .
     ?masculineSimplePastForm ontolex:representation ?masculineSimplePast ;
@@ -32,9 +26,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSimplePastThirdPersonForm .
-    ?feminineSimplePastThirdPersonForm ontolex:representation ?feminineSimplePastThirdPerson ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1392475, wd:Q51929074 .
+    ?lexeme ontolex:lexicalForm ?masculineFutureForm .
+    ?masculineFutureForm ontolex:representation ?masculineFuture ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q501405 .
   }
 
   OPTIONAL {
@@ -44,9 +38,15 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSimplePastThirdPersonSingularForm .
-    ?feminineSimplePastThirdPersonSingularForm ontolex:representation ?feminineSimplePastThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1392475, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?masculineFutureThirdPersonForm .
+    ?masculineFutureThirdPersonForm ontolex:representation ?masculineFutureThirdPerson ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q501405, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineFutureSingularForm .
+    ?masculineFutureSingularForm ontolex:representation ?masculineFutureSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q501405, wd:Q110786 .
   }
 
   OPTIONAL {

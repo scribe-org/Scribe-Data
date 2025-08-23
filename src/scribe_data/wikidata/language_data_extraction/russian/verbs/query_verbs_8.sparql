@@ -6,45 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?femininePastSingular
-  ?femininePastSecondPersonSingular
-  ?feminineIndicativePastFirstPersonSingular
-  ?feminineIndicativePastSecondPersonSingular
-  ?feminineIndicativePastThirdPersonSingular
+  ?neuterPastSingular
+  ?neuterIndicativePastSingular
+  ?neuterPastSecondPersonSingular
+  ?neuterIndicativePastThirdPersonSingular
 
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePastSingularForm .
-    ?femininePastSingularForm ontolex:representation ?femininePastSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1994301, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?neuterPastSingularForm .
+    ?neuterPastSingularForm ontolex:representation ?neuterPastSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q1994301, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePastSecondPersonSingularForm .
-    ?femininePastSecondPersonSingularForm ontolex:representation ?femininePastSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1994301, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?neuterIndicativePastSingularForm .
+    ?neuterIndicativePastSingularForm ontolex:representation ?neuterIndicativePastSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q682111, wd:Q1994301, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineIndicativePastFirstPersonSingularForm .
-    ?feminineIndicativePastFirstPersonSingularForm ontolex:representation ?feminineIndicativePastFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q1994301, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?neuterPastSecondPersonSingularForm .
+    ?neuterPastSecondPersonSingularForm ontolex:representation ?neuterPastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q1994301, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineIndicativePastSecondPersonSingularForm .
-    ?feminineIndicativePastSecondPersonSingularForm ontolex:representation ?feminineIndicativePastSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q1994301, wd:Q51929049, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineIndicativePastThirdPersonSingularForm .
-    ?feminineIndicativePastThirdPersonSingularForm ontolex:representation ?feminineIndicativePastThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q1994301, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?neuterIndicativePastThirdPersonSingularForm .
+    ?neuterIndicativePastThirdPersonSingularForm ontolex:representation ?neuterIndicativePastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q682111, wd:Q1994301, wd:Q51929074, wd:Q110786 .
   }
 }

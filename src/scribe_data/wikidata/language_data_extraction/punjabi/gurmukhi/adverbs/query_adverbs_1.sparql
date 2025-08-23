@@ -18,10 +18,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb ;
     schema:dateModified ?lastModified .
-
+    
   # Note: We need to filter for pa to remove gurmukhi (pa) words.
   FILTER(lang(?adverb) = "pa")
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?obliqueForm .
     ?obliqueForm ontolex:representation ?oblique ;

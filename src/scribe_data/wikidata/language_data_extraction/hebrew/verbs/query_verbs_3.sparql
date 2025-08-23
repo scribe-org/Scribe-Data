@@ -5,97 +5,32 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
+  ?verb
   ?pastFirstPersonSingular
   ?pastFirstPersonPlural
-
-  ?femininePastSecondPersonSingular
-  ?femininePastSecondPersonPlural
-  ?femininePastThirdPersonSingular
-  ?femininePastThirdPersonPlural
-
-  ?masculinePastSecondPersonSingular
-  ?masculinePastSecondPersonPlural
-  ?masculinePastThirdPersonSingular
-  ?masculinePastThirdPersonPlural
+  ?pastThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q9288 ;
     wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
-  # MARK: Past
-
- OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastFirstPersonSingular .
-    ?pastFirstPersonSingular ontolex:representation ?pastFirstPersonSingular ;
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastFirstPersonSingularForm .
+    ?pastFirstPersonSingularForm ontolex:representation ?pastFirstPersonSingular ;
       wikibase:grammaticalFeature wd:Q1994301, wd:Q21714344, wd:Q110786 .
-      FILTER(lang(?pastTPP) = "he")
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastFirstPersonPluralForm .
     ?pastFirstPersonPluralForm ontolex:representation ?pastFirstPersonPlural ;
       wikibase:grammaticalFeature wd:Q1994301, wd:Q21714344, wd:Q146786 .
-      FILTER(lang(?pastFirstPersonPlural) = "he")
-  }
-
-  # Feminine
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePastSecondPersonSingularForm .
-    ?femininePastSecondPersonSingularForm ontolex:representation ?femininePastSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1994301, wd:Q51929049, wd:Q110786 .
-      FILTER(lang(?femininePastSecondPersonSingular) = "he")
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePastSecondPersonPluralForm .
-    ?femininePastSecondPersonPluralForm ontolex:representation ?femininePastSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1994301, wd:Q51929049, wd:Q146786 .
-      FILTER(lang(?femininePastSecondPersonPlural) = "he")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePastThirdPersonSingularForm .
-    ?femininePastThirdPersonSingularForm ontolex:representation ?femininePastThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1994301, wd:Q51929074, wd:Q110786 .
-      FILTER(lang(?femininePastThirdPersonSingular) = "he")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePastThirdPersonPluralForm .
-    ?femininePastThirdPersonPluralForm ontolex:representation ?femininePastThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1994301, wd:Q51929074, wd:Q146786 .
-      FILTER(lang(?femininePastThirdPersonPlural) = "he")
-  }
-
-  # Masculine
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePastSecondPersonSingularForm .
-    ?masculinePastSecondPersonSingularForm ontolex:representation ?masculinePastSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929049, wd:Q110786 .
-      FILTER(lang(?masculinePastSecondPersonSingular) = "he")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePastSecondPersonPluralForm .
-    ?masculinePastSecondPersonPluralForm ontolex:representation ?masculinePastSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929049, wd:Q146786 .
-      FILTER(lang(?masculinePastSecondPersonPlural) = "he")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePastThirdPersonSingularForm .
-    ?masculinePastThirdPersonSingularForm ontolex:representation ?masculinePastThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929074, wd:Q110786 .
-      FILTER(lang(?masculinePastThirdPersonSingular) = "he")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePastThirdPersonPluralForm .
-    ?masculinePastThirdPersonPluralForm ontolex:representation ?masculinePastThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929074, wd:Q146786 .
-      FILTER(lang(?masculinePastThirdPersonPlural) = "he")
+    ?lexeme ontolex:lexicalForm ?pastThirdPersonPluralForm .
+    ?pastThirdPersonPluralForm ontolex:representation ?pastThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q51929074, wd:Q146786 .
   }
 }

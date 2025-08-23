@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?presentFirstPersonSingularSubjunctive
-  ?presentFirstPersonPluralSubjunctive
-  ?presentSecondPersonSingularSubjunctive
-  ?presentSecondPersonPluralSubjunctive
-  ?presentThirdPersonSingularSubjunctive
-  ?presentThirdPersonPluralSubjunctive
+  ?activePresentInfinitive
+  ?vocativePresentSingularParticiple
+  ?vocativeActivePresentSingularParticiple
+  ?indicativeActivePluperfectSecondPersonSingular
+  ?activeImperativeFutureSecondPersonSingular
+  ?activePerfectSecondPersonPluralSubjunctive
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentFirstPersonSingularSubjunctiveForm .
-    ?presentFirstPersonSingularSubjunctiveForm ontolex:representation ?presentFirstPersonSingularSubjunctive ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q21714344, wd:Q110786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?activePresentInfinitiveForm .
+    ?activePresentInfinitiveForm ontolex:representation ?activePresentInfinitive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q52434245 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentFirstPersonPluralSubjunctiveForm .
-    ?presentFirstPersonPluralSubjunctiveForm ontolex:representation ?presentFirstPersonPluralSubjunctive ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q21714344, wd:Q146786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?vocativePresentSingularParticipleForm .
+    ?vocativePresentSingularParticipleForm ontolex:representation ?vocativePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q192613, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentSecondPersonSingularSubjunctiveForm .
-    ?presentSecondPersonSingularSubjunctiveForm ontolex:representation ?presentSecondPersonSingularSubjunctive ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q51929049, wd:Q110786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?vocativeActivePresentSingularParticipleForm .
+    ?vocativeActivePresentSingularParticipleForm ontolex:representation ?vocativeActivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentSecondPersonPluralSubjunctiveForm .
-    ?presentSecondPersonPluralSubjunctiveForm ontolex:representation ?presentSecondPersonPluralSubjunctive ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q51929049, wd:Q146786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?indicativeActivePluperfectSecondPersonSingularForm .
+    ?indicativeActivePluperfectSecondPersonSingularForm ontolex:representation ?indicativeActivePluperfectSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1317831, wd:Q623742, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentThirdPersonSingularSubjunctiveForm .
-    ?presentThirdPersonSingularSubjunctiveForm ontolex:representation ?presentThirdPersonSingularSubjunctive ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q110786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?activeImperativeFutureSecondPersonSingularForm .
+    ?activeImperativeFutureSecondPersonSingularForm ontolex:representation ?activeImperativeFutureSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716, wd:Q501405, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentThirdPersonPluralSubjunctiveForm .
-    ?presentThirdPersonPluralSubjunctiveForm ontolex:representation ?presentThirdPersonPluralSubjunctive ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q146786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?activePerfectSecondPersonPluralSubjunctiveForm .
+    ?activePerfectSecondPersonPluralSubjunctiveForm ontolex:representation ?activePerfectSecondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q625420, wd:Q51929049, wd:Q146786, wd:Q473746 .
   }
 }

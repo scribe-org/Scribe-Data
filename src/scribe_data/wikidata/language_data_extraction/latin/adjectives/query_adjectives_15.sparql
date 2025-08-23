@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?vocativeCommonSingularComparative
-  ?vocativeCommonSingularPositive
-  ?vocativeCommonPluralComparative
-  ?vocativeCommonPluralPositive
+  ?nominativeCommonSingularComparative
+  ?nominativeCommonSingularPositive
+  ?nominativeCommonPluralComparative
+  ?nominativeCommonPluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -18,26 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeCommonSingularComparativeForm .
-    ?vocativeCommonSingularComparativeForm ontolex:representation ?vocativeCommonSingularComparative ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?nominativeCommonSingularComparativeForm .
+    ?nominativeCommonSingularComparativeForm ontolex:representation ?nominativeCommonSingularComparative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1305037, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeCommonSingularPositiveForm .
-    ?vocativeCommonSingularPositiveForm ontolex:representation ?vocativeCommonSingularPositive ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?nominativeCommonSingularPositiveForm .
+    ?nominativeCommonSingularPositiveForm ontolex:representation ?nominativeCommonSingularPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1305037, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeCommonPluralComparativeForm .
-    ?vocativeCommonPluralComparativeForm ontolex:representation ?vocativeCommonPluralComparative ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?nominativeCommonPluralComparativeForm .
+    ?nominativeCommonPluralComparativeForm ontolex:representation ?nominativeCommonPluralComparative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1305037, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeCommonPluralPositiveForm .
-    ?vocativeCommonPluralPositiveForm ontolex:representation ?vocativeCommonPluralPositive ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?nominativeCommonPluralPositiveForm .
+    ?nominativeCommonPluralPositiveForm ontolex:representation ?nominativeCommonPluralPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1305037, wd:Q146786, wd:Q3482678 .
   }
 }

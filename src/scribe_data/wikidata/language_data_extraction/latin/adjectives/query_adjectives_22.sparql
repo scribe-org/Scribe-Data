@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?vocativeNeuterSingular
-  ?vocativeNeuterSingularComparative
-  ?vocativeNeuterSingularSuperlative
-  ?vocativeNeuterSingularPositive
-  ?vocativeNeuterPluralComparative
-  ?vocativeNeuterPluralSuperlative
+  ?vocativeFeminineSingular
+  ?vocativeFemininePlural
+  ?vocativeFeminineSingularSuperlative
+  ?vocativeFeminineSingularPositive
+  ?vocativeFemininePluralSuperlative
+  ?vocativeFemininePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeNeuterSingularForm .
-    ?vocativeNeuterSingularForm ontolex:representation ?vocativeNeuterSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
+    ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeNeuterSingularComparativeForm .
-    ?vocativeNeuterSingularComparativeForm ontolex:representation ?vocativeNeuterSingularComparative ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralForm .
+    ?vocativeFemininePluralForm ontolex:representation ?vocativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeNeuterSingularSuperlativeForm .
-    ?vocativeNeuterSingularSuperlativeForm ontolex:representation ?vocativeNeuterSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularSuperlativeForm .
+    ?vocativeFeminineSingularSuperlativeForm ontolex:representation ?vocativeFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeNeuterSingularPositiveForm .
-    ?vocativeNeuterSingularPositiveForm ontolex:representation ?vocativeNeuterSingularPositive ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularPositiveForm .
+    ?vocativeFeminineSingularPositiveForm ontolex:representation ?vocativeFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeNeuterPluralComparativeForm .
-    ?vocativeNeuterPluralComparativeForm ontolex:representation ?vocativeNeuterPluralComparative ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralSuperlativeForm .
+    ?vocativeFemininePluralSuperlativeForm ontolex:representation ?vocativeFemininePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeNeuterPluralSuperlativeForm .
-    ?vocativeNeuterPluralSuperlativeForm ontolex:representation ?vocativeNeuterPluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q146786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralPositiveForm .
+    ?vocativeFemininePluralPositiveForm ontolex:representation ?vocativeFemininePluralPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786, wd:Q3482678 .
   }
 }

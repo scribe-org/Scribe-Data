@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All French (Q150) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?imperfectFirstPersonSingularSubjunctive
+  ?imperfectFirstPersonPluralSubjunctive
+  ?imperfectSecondPersonSingularSubjunctive
+  ?imperfectSecondPersonPluralSubjunctive
+  ?imperfectThirdPersonSingularSubjunctive
+  ?imperfectThirdPersonPluralSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q150 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectFirstPersonSingularSubjunctiveForm .
+    ?imperfectFirstPersonSingularSubjunctiveForm ontolex:representation ?imperfectFirstPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q108524486, wd:Q21714344, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectFirstPersonPluralSubjunctiveForm .
+    ?imperfectFirstPersonPluralSubjunctiveForm ontolex:representation ?imperfectFirstPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q108524486, wd:Q21714344, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectSecondPersonSingularSubjunctiveForm .
+    ?imperfectSecondPersonSingularSubjunctiveForm ontolex:representation ?imperfectSecondPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q108524486, wd:Q51929049, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectSecondPersonPluralSubjunctiveForm .
+    ?imperfectSecondPersonPluralSubjunctiveForm ontolex:representation ?imperfectSecondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q108524486, wd:Q51929049, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectThirdPersonSingularSubjunctiveForm .
+    ?imperfectThirdPersonSingularSubjunctiveForm ontolex:representation ?imperfectThirdPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q108524486, wd:Q51929074, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectThirdPersonPluralSubjunctiveForm .
+    ?imperfectThirdPersonPluralSubjunctiveForm ontolex:representation ?imperfectThirdPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q108524486, wd:Q51929074, wd:Q146786, wd:Q473746 .
+  }
+}

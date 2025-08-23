@@ -6,10 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?imperativePresentSingular
-  ?imperativePresentPlural
-  ?imperativePerfectSingular
-  ?imperativePerfectPlural
+  ?infinitive
+  ?infinitivePresent
+  ?infinitivePerfect
+  ?futureThirdPerson
+  ?futureThirdPersonSingular
+  ?futureThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q188 ;
@@ -18,26 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativePresentSingularForm .
-    ?imperativePresentSingularForm ontolex:representation ?imperativePresentSingular ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q192613, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativePresentPluralForm .
-    ?imperativePresentPluralForm ontolex:representation ?imperativePresentPlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q192613, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?infinitivePresentForm .
+    ?infinitivePresentForm ontolex:representation ?infinitivePresent ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q192613 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativePerfectSingularForm .
-    ?imperativePerfectSingularForm ontolex:representation ?imperativePerfectSingular ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q625420, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?infinitivePerfectForm .
+    ?infinitivePerfectForm ontolex:representation ?infinitivePerfect ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q625420 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativePerfectPluralForm .
-    ?imperativePerfectPluralForm ontolex:representation ?imperativePerfectPlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q625420, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?futureThirdPersonForm .
+    ?futureThirdPersonForm ontolex:representation ?futureThirdPerson ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureThirdPersonSingularForm .
+    ?futureThirdPersonSingularForm ontolex:representation ?futureThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureThirdPersonPluralForm .
+    ?futureThirdPersonPluralForm ontolex:representation ?futureThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q51929074, wd:Q146786 .
   }
 }

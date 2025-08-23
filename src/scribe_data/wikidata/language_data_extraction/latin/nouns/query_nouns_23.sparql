@@ -8,7 +8,7 @@ SELECT
   ?noun
   ?accusativeNeuterSingular
   ?accusativeNeuterPlural
-  ?accusativeNeuterPassiveFuturePluralParticiple
+  ?accusativeNeuterSingularSupine
   ?accusativeNeuterActivePresentPluralParticiple
   ?accusativeNeuterActiveFutureSingularParticiple
 
@@ -31,9 +31,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeNeuterPassiveFuturePluralParticipleForm .
-    ?accusativeNeuterPassiveFuturePluralParticipleForm ontolex:representation ?accusativeNeuterPassiveFuturePluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularSupineForm .
+    ?accusativeNeuterSingularSupineForm ontolex:representation ?accusativeNeuterSingularSupine ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786, wd:Q548470 .
   }
 
   OPTIONAL {

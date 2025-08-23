@@ -6,52 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?vocativeFemininePlural
-  ?instrumentalMasculineInanimateSingularPositive
-  ?instrumentalMasculineInanimatePluralSuperlative
-  ?instrumentalNeuterSingularPositive
-  ?instrumentalNeuterPluralComparative
-  ?vocativeFemininePluralPositive
+  ?locativeMasculineAnimateSingular
+  ?nominativeMasculineAnimateSingularSuperlative
+  ?nominativeMasculineAnimatePluralPositive
+  ?locativeFeminineSingularPositive
+  ?locativeFemininePluralPositive
+  ?locativeMasculineAnimateSingularSuperlative
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralForm .
-    ?vocativeFemininePluralForm ontolex:representation ?vocativeFemininePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?locativeMasculineAnimateSingularForm .
+    ?locativeMasculineAnimateSingularForm ontolex:representation ?locativeMasculineAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q54020116, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimateSingularPositiveForm .
-    ?instrumentalMasculineInanimateSingularPositiveForm ontolex:representation ?instrumentalMasculineInanimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimateSingularSuperlativeForm .
+    ?nominativeMasculineAnimateSingularSuperlativeForm ontolex:representation ?nominativeMasculineAnimateSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimatePluralSuperlativeForm .
-    ?instrumentalMasculineInanimatePluralSuperlativeForm ontolex:representation ?instrumentalMasculineInanimatePluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q146786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimatePluralPositiveForm .
+    ?nominativeMasculineAnimatePluralPositiveForm ontolex:representation ?nominativeMasculineAnimatePluralPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalNeuterSingularPositiveForm .
-    ?instrumentalNeuterSingularPositiveForm ontolex:representation ?instrumentalNeuterSingularPositive ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularPositiveForm .
+    ?locativeFeminineSingularPositiveForm ontolex:representation ?locativeFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalNeuterPluralComparativeForm .
-    ?instrumentalNeuterPluralComparativeForm ontolex:representation ?instrumentalNeuterPluralComparative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?locativeFemininePluralPositiveForm .
+    ?locativeFemininePluralPositiveForm ontolex:representation ?locativeFemininePluralPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralPositiveForm .
-    ?vocativeFemininePluralPositiveForm ontolex:representation ?vocativeFemininePluralPositive ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?locativeMasculineAnimateSingularSuperlativeForm .
+    ?locativeMasculineAnimateSingularSuperlativeForm ontolex:representation ?locativeMasculineAnimateSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q54020116, wd:Q110786, wd:Q1817208 .
   }
 }

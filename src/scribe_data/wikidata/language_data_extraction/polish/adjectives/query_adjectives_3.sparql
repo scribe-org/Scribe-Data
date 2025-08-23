@@ -6,52 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?comparative
-  ?nominativeSingular
-  ?nominativePluralPositive
-  ?locativePluralPositive
-  ?nominativeMasculineInanimateSingularPositive
-  ?nominativeMasculineAnimateSingularPositive
+  ?vocativePluralPositive
+  ?instrumentalMasculineInanimateSingularPositive
+  ?instrumentalNotMasculinePersonalPluralPositive
+  ?locativeMasculineInanimateSingularPositive
+  ?vocativeMasculineInanimateSingularPositive
+  ?vocativeMasculineAnimateSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comparativeForm .
-    ?comparativeForm ontolex:representation ?comparative ;
-      wikibase:grammaticalFeature wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?vocativePluralPositiveForm .
+    ?vocativePluralPositiveForm ontolex:representation ?vocativePluralPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
-    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimateSingularPositiveForm .
+    ?instrumentalMasculineInanimateSingularPositiveForm ontolex:representation ?instrumentalMasculineInanimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralPositiveForm .
-    ?nominativePluralPositiveForm ontolex:representation ?nominativePluralPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?instrumentalNotMasculinePersonalPluralPositiveForm .
+    ?instrumentalNotMasculinePersonalPluralPositiveForm ontolex:representation ?instrumentalNotMasculinePersonalPluralPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q54152717, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativePluralPositiveForm .
-    ?locativePluralPositiveForm ontolex:representation ?locativePluralPositive ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimateSingularPositiveForm .
+    ?locativeMasculineInanimateSingularPositiveForm ontolex:representation ?locativeMasculineInanimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineInanimateSingularPositiveForm .
-    ?nominativeMasculineInanimateSingularPositiveForm ontolex:representation ?nominativeMasculineInanimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q52943434, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineInanimateSingularPositiveForm .
+    ?vocativeMasculineInanimateSingularPositiveForm ontolex:representation ?vocativeMasculineInanimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q52943434, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimateSingularPositiveForm .
-    ?nominativeMasculineAnimateSingularPositiveForm ontolex:representation ?nominativeMasculineAnimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineAnimateSingularPositiveForm .
+    ?vocativeMasculineAnimateSingularPositiveForm ontolex:representation ?vocativeMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q54020116, wd:Q110786, wd:Q3482678 .
   }
 }

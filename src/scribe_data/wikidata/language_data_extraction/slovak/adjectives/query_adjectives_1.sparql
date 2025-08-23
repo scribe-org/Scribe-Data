@@ -6,47 +6,45 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?nominativeFeminineSingularPositive
-  ?nominativeMasculineSingularPositive
-  ?nominativeMasculinePersonalPluralPositive
-  ?nominativeNotMasculinePersonalPluralPositive
-  ?nominativeNeuterSingularPositive
+  ?superlative
+  ?positive
+  ?dativeFeminineSingularComparative
+  ?dativeFeminineSingularSuperlative
+  ?dativeFeminineSingularPositive
 
 WHERE {
-  ?lexeme dct:language wd:Q9058;
+  ?lexeme dct:language wd:Q9058 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
-  # MARK: Nominative
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularPositiveForm .
-    ?nominativeFeminineSingularPositiveForm ontolex:representation ?nominativeFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularPositiveForm .
-    ?nominativeMasculineSingularPositiveForm ontolex:representation ?nominativeMasculineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculinePersonalPluralPositiveForm .
-    ?nominativeMasculinePersonalPluralPositiveForm ontolex:representation ?nominativeMasculinePersonalPluralPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q27918551, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?dativeFeminineSingularComparativeForm .
+    ?dativeFeminineSingularComparativeForm ontolex:representation ?dativeFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNotMasculinePersonalPluralPositiveForm .
-    ?nominativeNotMasculinePersonalPluralPositiveForm ontolex:representation ?nominativeNotMasculinePersonalPluralPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54152717, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?dativeFeminineSingularSuperlativeForm .
+    ?dativeFeminineSingularSuperlativeForm ontolex:representation ?dativeFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNeuterSingularPositiveForm .
-    ?nominativeNeuterSingularPositiveForm ontolex:representation ?nominativeNeuterSingularPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?dativeFeminineSingularPositiveForm .
+    ?dativeFeminineSingularPositiveForm ontolex:representation ?dativeFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 }

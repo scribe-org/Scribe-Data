@@ -6,45 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?past
-  ?gerund
-  ?fiilMudari
-  ?pausalSingular
-  ?pausalSingularConstruct
+  ?accusativeSingular
+  ?accusativePlural
+  ?accusativeDual
+  ?accusativeSingularConstruct
+  ?accusativePluralConstruct
+  ?accusativeDualConstruct
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastForm .
-    ?pastForm ontolex:representation ?past ;
-      wikibase:grammaticalFeature wd:Q1994301 .
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?gerundForm .
-    ?gerundForm ontolex:representation ?gerund ;
-      wikibase:grammaticalFeature wd:Q1923028 .
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?fiilMudariForm .
-    ?fiilMudariForm ontolex:representation ?fiilMudari ;
-      wikibase:grammaticalFeature wd:Q12230930 .
+    ?lexeme ontolex:lexicalForm ?accusativeDualForm .
+    ?accusativeDualForm ontolex:representation ?accusativeDual ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110022 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pausalSingularForm .
-    ?pausalSingularForm ontolex:representation ?pausalSingular ;
-      wikibase:grammaticalFeature wd:Q117262361, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?accusativeSingularConstructForm .
+    ?accusativeSingularConstructForm ontolex:representation ?accusativeSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786, wd:Q1641446 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pausalSingularConstructForm .
-    ?pausalSingularConstructForm ontolex:representation ?pausalSingularConstruct ;
-      wikibase:grammaticalFeature wd:Q117262361, wd:Q110786, wd:Q1641446 .
+    ?lexeme ontolex:lexicalForm ?accusativePluralConstructForm .
+    ?accusativePluralConstructForm ontolex:representation ?accusativePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeDualConstructForm .
+    ?accusativeDualConstructForm ontolex:representation ?accusativeDualConstruct ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110022, wd:Q1641446 .
   }
 }

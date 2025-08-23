@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Malay (Q9237) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?passive
+  ?singular
+  ?phrase
+  ?firstPersonSingular
+  ?singularPhrase
+  ?firstPersonSingularPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9237 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveForm .
+    ?passiveForm ontolex:representation ?passive ;
+      wikibase:grammaticalFeature wd:Q1194697 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?phraseForm .
+    ?phraseForm ontolex:representation ?phrase ;
+      wikibase:grammaticalFeature wd:Q187931 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonSingularForm .
+    ?firstPersonSingularForm ontolex:representation ?firstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPhraseForm .
+    ?singularPhraseForm ontolex:representation ?singularPhrase ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q187931 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonSingularPluralForm .
+    ?firstPersonSingularPluralForm ontolex:representation ?firstPersonSingularPlural ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786, wd:Q146786 .
+  }
+}

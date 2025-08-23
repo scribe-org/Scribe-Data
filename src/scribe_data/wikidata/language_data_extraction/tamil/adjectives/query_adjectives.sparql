@@ -13,12 +13,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    FILTER(lang(?adjective) = "ta")
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeForm .
     ?nominativeForm ontolex:representation ?nominative ;
       wikibase:grammaticalFeature wd:Q131105 .
   }
-
 }

@@ -6,8 +6,8 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?indicativeSecondPersonSingular
-  ?indicativeSecondPersonPlural
+  ?indicativeThirdPersonSingular
+  ?indicativeThirdPersonPlural
   ?presentFirstPersonSingular
   ?presentSecondPersonSingular
   ?pastImperfectFirstPersonSingular
@@ -18,17 +18,17 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeSecondPersonSingularForm .
-    ?indicativeSecondPersonSingularForm ontolex:representation ?indicativeSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?indicativeThirdPersonSingularForm .
+    ?indicativeThirdPersonSingularForm ontolex:representation ?indicativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeSecondPersonPluralForm .
-    ?indicativeSecondPersonPluralForm ontolex:representation ?indicativeSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?indicativeThirdPersonPluralForm .
+    ?indicativeThirdPersonPluralForm ontolex:representation ?indicativeThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q51929074, wd:Q146786 .
   }
 
   OPTIONAL {

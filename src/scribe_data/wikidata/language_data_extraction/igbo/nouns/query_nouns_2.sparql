@@ -7,11 +7,10 @@ SELECT
   ?lastModified
   ?noun
   ?nominative
-  ?masculine
-  ?imperative
+  ?genitive
+  ?present
   ?past
   ?combinedPresentParticiple
-  ?englishPastParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q33578 ;
@@ -26,15 +25,15 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineForm .
-    ?masculineForm ontolex:representation ?masculine ;
-      wikibase:grammaticalFeature wd:Q499327 .
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeForm .
-    ?imperativeForm ontolex:representation ?imperative ;
-      wikibase:grammaticalFeature wd:Q22716 .
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
   }
 
   OPTIONAL {
@@ -47,11 +46,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
     ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
       wikibase:grammaticalFeature wd:Q10345583 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?englishPastParticipleForm .
-    ?englishPastParticipleForm ontolex:representation ?englishPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1230649 .
   }
 }

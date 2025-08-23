@@ -6,52 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?nominativeMasculineAnimateSingular
-  ?nominativeMasculineAnimatePlural
-  ?nominativeMasculineAnimateSingularSuperlative
-  ?nominativeMasculineAnimateSingularPositive
-  ?nominativeMasculineAnimatePluralComparative
-  ?nominativeMasculineAnimatePluralPositive
+  ?locativeFeminineSingular
+  ?locativeFemininePlural
+  ?locativeFeminineSingularComparative
+  ?locativeFeminineSingularSuperlative
+  ?locativeFemininePluralComparative
+  ?locativeFemininePluralSuperlative
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimateSingularForm .
-    ?nominativeMasculineAnimateSingularForm ontolex:representation ?nominativeMasculineAnimateSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularForm .
+    ?locativeFeminineSingularForm ontolex:representation ?locativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimatePluralForm .
-    ?nominativeMasculineAnimatePluralForm ontolex:representation ?nominativeMasculineAnimatePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?locativeFemininePluralForm .
+    ?locativeFemininePluralForm ontolex:representation ?locativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimateSingularSuperlativeForm .
-    ?nominativeMasculineAnimateSingularSuperlativeForm ontolex:representation ?nominativeMasculineAnimateSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularComparativeForm .
+    ?locativeFeminineSingularComparativeForm ontolex:representation ?locativeFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimateSingularPositiveForm .
-    ?nominativeMasculineAnimateSingularPositiveForm ontolex:representation ?nominativeMasculineAnimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularSuperlativeForm .
+    ?locativeFeminineSingularSuperlativeForm ontolex:representation ?locativeFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimatePluralComparativeForm .
-    ?nominativeMasculineAnimatePluralComparativeForm ontolex:representation ?nominativeMasculineAnimatePluralComparative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?locativeFemininePluralComparativeForm .
+    ?locativeFemininePluralComparativeForm ontolex:representation ?locativeFemininePluralComparative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineAnimatePluralPositiveForm .
-    ?nominativeMasculineAnimatePluralPositiveForm ontolex:representation ?nominativeMasculineAnimatePluralPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54020116, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?locativeFemininePluralSuperlativeForm .
+    ?locativeFemininePluralSuperlativeForm ontolex:representation ?locativeFemininePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q146786, wd:Q1817208 .
   }
 }

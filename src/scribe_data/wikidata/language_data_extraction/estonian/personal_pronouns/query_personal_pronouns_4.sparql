@@ -7,18 +7,18 @@ SELECT
   ?lastModified
   ?personalpronoun
   ?nominative
-  ?translative
-  ?essive
+  ?genitive
+  ?adessive
   ?nominativeSingular
-  ?translativeSingular
-  ?essiveSingular
+  ?genitiveSingular
+  ?adessiveSingular
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory wd:Q468801 ;
     wikibase:lemma ?personalpronoun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeForm .
     ?nominativeForm ontolex:representation ?nominative ;
@@ -26,15 +26,15 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?translativeForm .
-    ?translativeForm ontolex:representation ?translative ;
-      wikibase:grammaticalFeature wd:Q950170 .
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?essiveForm .
-    ?essiveForm ontolex:representation ?essive ;
-      wikibase:grammaticalFeature wd:Q148465 .
+    ?lexeme ontolex:lexicalForm ?adessiveForm .
+    ?adessiveForm ontolex:representation ?adessive ;
+      wikibase:grammaticalFeature wd:Q281954 .
   }
 
   OPTIONAL {
@@ -44,14 +44,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?translativeSingularForm .
-    ?translativeSingularForm ontolex:representation ?translativeSingular ;
-      wikibase:grammaticalFeature wd:Q950170, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?essiveSingularForm .
-    ?essiveSingularForm ontolex:representation ?essiveSingular ;
-      wikibase:grammaticalFeature wd:Q148465, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?adessiveSingularForm .
+    ?adessiveSingularForm ontolex:representation ?adessiveSingular ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q110786 .
   }
 }

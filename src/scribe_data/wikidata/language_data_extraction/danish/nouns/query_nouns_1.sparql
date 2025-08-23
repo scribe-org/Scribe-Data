@@ -7,14 +7,18 @@ SELECT
   ?lastModified
   ?noun
   ?genitive
-  ?genitiveIndefinite
+  ?nonGenitive
+  ?plural
+  ?genitiveSingular
+  ?nonGenitiveSingular
+  ?commonDefiniteSingular
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveForm .
     ?genitiveForm ontolex:representation ?genitive ;
@@ -22,8 +26,32 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveIndefiniteForm .
-    ?genitiveIndefiniteForm ontolex:representation ?genitiveIndefinite ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q53997857 .
+    ?lexeme ontolex:lexicalForm ?nonGenitiveForm .
+    ?nonGenitiveForm ontolex:representation ?nonGenitive ;
+      wikibase:grammaticalFeature wd:Q98946930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveSingularForm .
+    ?nonGenitiveSingularForm ontolex:representation ?nonGenitiveSingular ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?commonDefiniteSingularForm .
+    ?commonDefiniteSingularForm ontolex:representation ?commonDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q1305037, wd:Q53997851, wd:Q110786 .
   }
 }

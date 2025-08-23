@@ -6,38 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?nominativeNotMasculinePersonalPlural
-  ?nominativeNotMasculinePersonalPluralComparative
-  ?nominativeNotMasculinePersonalPluralSuperlative
-  ?nominativeNotMasculinePersonalPluralPositive
+  ?vocativeNotMasculinePersonalPlural
+  ?vocativeNotMasculinePersonalPluralComparative
+  ?vocativeNotMasculinePersonalPluralSuperlative
+  ?vocativeNotMasculinePersonalPluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNotMasculinePersonalPluralForm .
-    ?nominativeNotMasculinePersonalPluralForm ontolex:representation ?nominativeNotMasculinePersonalPlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54152717, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?vocativeNotMasculinePersonalPluralForm .
+    ?vocativeNotMasculinePersonalPluralForm ontolex:representation ?vocativeNotMasculinePersonalPlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q54152717, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNotMasculinePersonalPluralComparativeForm .
-    ?nominativeNotMasculinePersonalPluralComparativeForm ontolex:representation ?nominativeNotMasculinePersonalPluralComparative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54152717, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?vocativeNotMasculinePersonalPluralComparativeForm .
+    ?vocativeNotMasculinePersonalPluralComparativeForm ontolex:representation ?vocativeNotMasculinePersonalPluralComparative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q54152717, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNotMasculinePersonalPluralSuperlativeForm .
-    ?nominativeNotMasculinePersonalPluralSuperlativeForm ontolex:representation ?nominativeNotMasculinePersonalPluralSuperlative ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54152717, wd:Q146786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?vocativeNotMasculinePersonalPluralSuperlativeForm .
+    ?vocativeNotMasculinePersonalPluralSuperlativeForm ontolex:representation ?vocativeNotMasculinePersonalPluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q54152717, wd:Q146786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeNotMasculinePersonalPluralPositiveForm .
-    ?nominativeNotMasculinePersonalPluralPositiveForm ontolex:representation ?nominativeNotMasculinePersonalPluralPositive ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q54152717, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?vocativeNotMasculinePersonalPluralPositiveForm .
+    ?vocativeNotMasculinePersonalPluralPositiveForm ontolex:representation ?vocativeNotMasculinePersonalPluralPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q54152717, wd:Q146786, wd:Q3482678 .
   }
 }

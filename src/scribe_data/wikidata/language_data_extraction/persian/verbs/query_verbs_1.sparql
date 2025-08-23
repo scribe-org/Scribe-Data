@@ -5,47 +5,53 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
+  ?verb
   ?infinitive
+  ?combinedPresentParticiple
   ?presentParticiple
   ?presentWordStem
-  ?pastParticiple
-  ?pastWordStem
+  ?indicativeFirstPersonAoristSingular
+  ?indicativeFirstPersonAoristPlural
 
 WHERE {
   ?lexeme dct:language wd:Q9168 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive ;
+    wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
 
-  # MARK: Present
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
+    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentParticipleForm .
     ?presentParticipleForm ontolex:representation ?presentParticiple ;
       wikibase:grammaticalFeature wd:Q192613, wd:Q814722 .
-    FILTER(lang(?presentParticiple) = "fa") .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentWordStemForm .
     ?presentWordStemForm ontolex:representation ?presentWordStem ;
       wikibase:grammaticalFeature wd:Q192613, wd:Q210523 .
-    FILTER(lang(?presentWordStem) = "fa") .
-  }
-
-  # MARK: Past
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
-    ?pastParticipleForm ontolex:representation ?pastParticiple ;
-      wikibase:grammaticalFeature wd:Q1994301, wd:Q814722 .
-    FILTER(lang(?pastParticiple) = "fa") .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastWordStemForm .
-    ?pastWordStemForm ontolex:representation ?pastWordStem ;
-      wikibase:grammaticalFeature wd:Q1994301, wd:Q210523 .
-    FILTER(lang(?pastWordStem) = "fa") .
+    ?lexeme ontolex:lexicalForm ?indicativeFirstPersonAoristSingularForm .
+    ?indicativeFirstPersonAoristSingularForm ontolex:representation ?indicativeFirstPersonAoristSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q21714344, wd:Q216497, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeFirstPersonAoristPluralForm .
+    ?indicativeFirstPersonAoristPluralForm ontolex:representation ?indicativeFirstPersonAoristPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q21714344, wd:Q216497, wd:Q146786 .
   }
 }

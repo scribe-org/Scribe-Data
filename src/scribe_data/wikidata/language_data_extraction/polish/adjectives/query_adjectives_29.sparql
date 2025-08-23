@@ -6,38 +6,45 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?instrumentalFeminineSingular
-  ?instrumentalFeminineSingularComparative
-  ?instrumentalFeminineSingularSuperlative
-  ?instrumentalFeminineSingularPositive
+  ?locativeMasculinePersonalNotMasculinePersonalPlural
+  ?locativeMasculinePersonalPluralPositive
+  ?locativeMasculinePersonalNotMasculinePersonalPluralComparative
+  ?locativeMasculinePersonalNotMasculinePersonalPluralSuperlative
+  ?locativeMasculinePersonalNotMasculinePersonalPluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularForm .
-    ?instrumentalFeminineSingularForm ontolex:representation ?instrumentalFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?locativeMasculinePersonalNotMasculinePersonalPluralForm .
+    ?locativeMasculinePersonalNotMasculinePersonalPluralForm ontolex:representation ?locativeMasculinePersonalNotMasculinePersonalPlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q27918551, wd:Q54152717, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularComparativeForm .
-    ?instrumentalFeminineSingularComparativeForm ontolex:representation ?instrumentalFeminineSingularComparative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?locativeMasculinePersonalPluralPositiveForm .
+    ?locativeMasculinePersonalPluralPositiveForm ontolex:representation ?locativeMasculinePersonalPluralPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q27918551, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularSuperlativeForm .
-    ?instrumentalFeminineSingularSuperlativeForm ontolex:representation ?instrumentalFeminineSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?locativeMasculinePersonalNotMasculinePersonalPluralComparativeForm .
+    ?locativeMasculinePersonalNotMasculinePersonalPluralComparativeForm ontolex:representation ?locativeMasculinePersonalNotMasculinePersonalPluralComparative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q27918551, wd:Q54152717, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularPositiveForm .
-    ?instrumentalFeminineSingularPositiveForm ontolex:representation ?instrumentalFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?locativeMasculinePersonalNotMasculinePersonalPluralSuperlativeForm .
+    ?locativeMasculinePersonalNotMasculinePersonalPluralSuperlativeForm ontolex:representation ?locativeMasculinePersonalNotMasculinePersonalPluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q27918551, wd:Q54152717, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeMasculinePersonalNotMasculinePersonalPluralPositiveForm .
+    ?locativeMasculinePersonalNotMasculinePersonalPluralPositiveForm ontolex:representation ?locativeMasculinePersonalNotMasculinePersonalPluralPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q27918551, wd:Q54152717, wd:Q146786, wd:Q3482678 .
   }
 }

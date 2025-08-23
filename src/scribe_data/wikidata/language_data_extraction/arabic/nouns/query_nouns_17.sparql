@@ -6,52 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?nominativeFeminineDefiniteSingular
-  ?nominativeFeminineDefinitePlural
-  ?nominativeFeminineDefiniteDual
-  ?nominativeFeminineSingularConstruct
-  ?nominativeFemininePluralConstruct
-  ?nominativeFeminineDualConstruct
+  ?pausalIndefinite
+  ?pausalIndefiniteSingular
+  ?pausalIndefinitePlural
+  ?pausalIndefiniteDual
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineDefiniteSingularForm .
-    ?nominativeFeminineDefiniteSingularForm ontolex:representation ?nominativeFeminineDefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q53997851, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pausalIndefiniteForm .
+    ?pausalIndefiniteForm ontolex:representation ?pausalIndefinite ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q53997857 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineDefinitePluralForm .
-    ?nominativeFeminineDefinitePluralForm ontolex:representation ?nominativeFeminineDefinitePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q53997851, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pausalIndefiniteSingularForm .
+    ?pausalIndefiniteSingularForm ontolex:representation ?pausalIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q53997857, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineDefiniteDualForm .
-    ?nominativeFeminineDefiniteDualForm ontolex:representation ?nominativeFeminineDefiniteDual ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q53997851, wd:Q110022 .
+    ?lexeme ontolex:lexicalForm ?pausalIndefinitePluralForm .
+    ?pausalIndefinitePluralForm ontolex:representation ?pausalIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q53997857, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularConstructForm .
-    ?nominativeFeminineSingularConstructForm ontolex:representation ?nominativeFeminineSingularConstruct ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786, wd:Q1641446 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFemininePluralConstructForm .
-    ?nominativeFemininePluralConstructForm ontolex:representation ?nominativeFemininePluralConstruct ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q146786, wd:Q1641446 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeFeminineDualConstructForm .
-    ?nominativeFeminineDualConstructForm ontolex:representation ?nominativeFeminineDualConstruct ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110022, wd:Q1641446 .
+    ?lexeme ontolex:lexicalForm ?pausalIndefiniteDualForm .
+    ?pausalIndefiniteDualForm ontolex:representation ?pausalIndefiniteDual ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q53997857, wd:Q110022 .
   }
 }

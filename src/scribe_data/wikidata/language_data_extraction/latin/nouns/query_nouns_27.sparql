@@ -9,9 +9,9 @@ SELECT
   ?vocativeMasculineSingular
   ?vocativeMasculinePlural
   ?vocativeMasculinePassiveFutureSingularParticiple
-  ?vocativeMasculinePassivePerfectSingularParticiple
-  ?vocativeMasculinePassivePerfectPluralParticiple
+  ?vocativeMasculinePassiveFuturePluralParticiple
   ?vocativeMasculineActiveFutureSingularParticiple
+  ?vocativeMasculineActiveFuturePluralParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -38,20 +38,20 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeMasculinePassivePerfectSingularParticipleForm .
-    ?vocativeMasculinePassivePerfectSingularParticipleForm ontolex:representation ?vocativeMasculinePassivePerfectSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeMasculinePassivePerfectPluralParticipleForm .
-    ?vocativeMasculinePassivePerfectPluralParticipleForm ontolex:representation ?vocativeMasculinePassivePerfectPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculinePassiveFuturePluralParticipleForm .
+    ?vocativeMasculinePassiveFuturePluralParticipleForm ontolex:representation ?vocativeMasculinePassiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?vocativeMasculineActiveFutureSingularParticipleForm .
     ?vocativeMasculineActiveFutureSingularParticipleForm ontolex:representation ?vocativeMasculineActiveFutureSingularParticiple ;
       wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineActiveFuturePluralParticipleForm .
+    ?vocativeMasculineActiveFuturePluralParticipleForm ontolex:representation ?vocativeMasculineActiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 }

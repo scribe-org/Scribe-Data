@@ -15,7 +15,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?vocativeMasculineSingularComparativeForm .
     ?vocativeMasculineSingularComparativeForm ontolex:representation ?vocativeMasculineSingularComparative ;

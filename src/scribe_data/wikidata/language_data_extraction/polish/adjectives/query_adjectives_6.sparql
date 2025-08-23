@@ -6,18 +6,24 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
+  ?genitive
   ?singular
-  ?superlative
+  ?comparative
   ?masculinePersonalPlural
-  ?genitiveMasculineAnimateSingular
-  ?instrumentalPluralPositive
-  ?genitiveMasculineAnimateSingularPositive
+  ?dativeNeuterSingular
+  ?dativeNeuterSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularForm .
@@ -26,9 +32,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?superlativeForm .
-    ?superlativeForm ontolex:representation ?superlative ;
-      wikibase:grammaticalFeature wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
   }
 
   OPTIONAL {
@@ -38,20 +44,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimateSingularForm .
-    ?genitiveMasculineAnimateSingularForm ontolex:representation ?genitiveMasculineAnimateSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?dativeNeuterSingularForm .
+    ?dativeNeuterSingularForm ontolex:representation ?dativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalPluralPositiveForm .
-    ?instrumentalPluralPositiveForm ontolex:representation ?instrumentalPluralPositive ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q146786, wd:Q3482678 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimateSingularPositiveForm .
-    ?genitiveMasculineAnimateSingularPositiveForm ontolex:representation ?genitiveMasculineAnimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?dativeNeuterSingularPositiveForm .
+    ?dativeNeuterSingularPositiveForm ontolex:representation ?dativeNeuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461, wd:Q110786, wd:Q3482678 .
   }
 }

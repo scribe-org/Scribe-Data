@@ -1,140 +1,53 @@
 # tool: scribe-data
-# All Urdu Hindustani (Q11051) adjectives (Q34698) and the given forms.
+# All Hindustani (Q11051) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
-
-# Note: We need to filter for "ur" to remove Hindi (hi) words.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?singular
-  ?plural
-  ?vocativeFeminineSingular
-  ?vocativeFemininePlural
-  ?vocativeMasculineSingular
-  ?vocativeMasculinePlural
-  ?directFeminineSingular
-  ?directFemininePlural
-  ?directMasculineSingular
-  ?directMasculinePlural
-  ?obliqueFeminineSingular
-  ?obliqueFemininePlural
-  ?obliqueMasculineSingular
-  ?obliqueMasculinePlural
+  ?feminine
+  ?masculine
+  ?comparative
+  ?superlative
+  ?positive
 
 WHERE {
   ?lexeme dct:language wd:Q11051 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    FILTER(lang(?adjective) = "ur")
-
-  # MARK: Singular
-
+    
+  # Note: We need to filter for ur to remove urdu (ur) words.
+  FILTER(lang(?adjective) = "ur")
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 .
-      FILTER(LANG(?singular) = "ur")
-  }
-
-  # MARK: Plural
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(LANG(?plural) = "ur")
-  }
-
-  # MARK: Vocative
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
-    ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786 .
-      FILTER(LANG(?vocativeFeminineSingular) = "ur")
+    ?lexeme ontolex:lexicalForm ?feminineForm .
+    ?feminineForm ontolex:representation ?feminine ;
+      wikibase:grammaticalFeature wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralForm .
-    ?vocativeFemininePluralForm ontolex:representation ?vocativeFemininePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786 .
-      FILTER(LANG(?vocativeFemininePlural) = "ur")
+    ?lexeme ontolex:lexicalForm ?masculineForm .
+    ?masculineForm ontolex:representation ?masculine ;
+      wikibase:grammaticalFeature wd:Q499327 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeMasculineSingularForm .
-    ?vocativeMasculineSingularForm ontolex:representation ?vocativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q110786 .
-      FILTER(LANG(?vocativeMasculineSingular) = "ur")
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeMasculinePluralForm .
-    ?vocativeMasculinePluralForm ontolex:representation ?vocativeMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q146786 .
-      FILTER(LANG(?vocativeMasculinePlural) = "ur")
-  }
-
-  # MARK: Direct
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directFeminineSingularForm .
-    ?directFeminineSingularForm ontolex:representation ?directFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q1775415, wd:Q110786 .
-      FILTER(LANG(?directFeminineSingular) = "ur")
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directFemininePluralForm .
-    ?directFemininePluralForm ontolex:representation ?directFemininePlural ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q1775415, wd:Q146786 .
-      FILTER(LANG(?directFemininePlural) = "ur")
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
   }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directMasculineSingularForm .
-    ?directMasculineSingularForm ontolex:representation ?directMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q499327, wd:Q110786 .
-      FILTER(LANG(?directMasculineSingular) = "ur")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directMasculinePluralForm .
-    ?directMasculinePluralForm ontolex:representation ?directMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q499327, wd:Q146786 .
-      FILTER(LANG(?directMasculinePlural) = "ur")
-  }
-
-  # MARK: Oblique
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueFeminineSingularForm .
-    ?obliqueFeminineSingularForm ontolex:representation ?obliqueFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415, wd:Q110786 .
-      FILTER(LANG(?obliqueFeminineSingular) = "ur")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueFemininePluralForm .
-    ?obliqueFemininePluralForm ontolex:representation ?obliqueFemininePlural ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415, wd:Q146786 .
-      FILTER(LANG(?obliqueFemininePlural) = "ur")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueMasculineSingularForm .
-    ?obliqueMasculineSingularForm ontolex:representation ?obliqueMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q110786 .
-      FILTER(LANG(?obliqueMasculineSingular) = "ur")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueMasculinePluralForm .
-    ?obliqueMasculinePluralForm ontolex:representation ?obliqueMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q146786 .
-      FILTER(LANG(?obliqueMasculinePlural) = "ur")
-  }
-  }
+}

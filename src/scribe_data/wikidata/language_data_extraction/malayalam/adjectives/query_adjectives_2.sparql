@@ -10,8 +10,8 @@ SELECT
   ?nominativePlural
   ?genitiveSingular
   ?genitivePlural
-  ?accusativeSingular
-  ?accusativePlural
+  ?locativeSingular
+  ?locativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q36236 ;
@@ -44,14 +44,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
-    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
+    ?locativeSingularForm ontolex:representation ?locativeSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
-    ?accusativePluralForm ontolex:representation ?accusativePlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?locativePluralForm .
+    ?locativePluralForm ontolex:representation ?locativePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
   }
 }

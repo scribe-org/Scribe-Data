@@ -7,11 +7,11 @@ SELECT
   ?lastModified
   ?personalpronoun
   ?dative
-  ?oblique
+  ?direct
   ?nominativeFirstPersonSingular
   ?dativeFirstPersonSingular
   ?instrumentalFirstPersonSingular
-  ?obliqueFirstPersonSingular
+  ?directFirstPersonSingular
 
 WHERE {
   ?lexeme dct:language wd:Q11051 ;
@@ -29,9 +29,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueForm .
-    ?obliqueForm ontolex:representation ?oblique ;
-      wikibase:grammaticalFeature wd:Q1233197 .
+    ?lexeme ontolex:lexicalForm ?directForm .
+    ?directForm ontolex:representation ?direct ;
+      wikibase:grammaticalFeature wd:Q1751855 .
   }
 
   OPTIONAL {
@@ -53,8 +53,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueFirstPersonSingularForm .
-    ?obliqueFirstPersonSingularForm ontolex:representation ?obliqueFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?directFirstPersonSingularForm .
+    ?directFirstPersonSingularForm ontolex:representation ?directFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q21714344, wd:Q110786 .
   }
 }

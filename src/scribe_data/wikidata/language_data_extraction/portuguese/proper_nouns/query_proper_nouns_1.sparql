@@ -1,21 +1,29 @@
 # tool: scribe-data
-# All Portuguese (Q5146) proper nouns (Q147276) and the given forms.
+# All Portuguese (Q5146) proper_nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
+  ?propernoun
   ?singular
   ?plural
-  ?gender
+  ?masculineSingular
+  ?masculinePlural
+  ?singularPositive
+  ?pluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q5146 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?singular ;
+    wikibase:lemma ?propernoun ;
     schema:dateModified ?lastModified .
-
-  # MARK: Plural
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
@@ -23,14 +31,27 @@ WHERE {
       wikibase:grammaticalFeature wd:Q146786 .
   }
 
-  # MARK: Gender(s)
-
   OPTIONAL {
-    ?lexeme wdt:P5185 ?nounGender .
+    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
+    ?masculineSingularForm ontolex:representation ?masculineSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
   }
 
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en" .
-    ?nounGender rdfs:label ?gender .
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
+    ?masculinePluralForm ontolex:representation ?masculinePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPositiveForm .
+    ?singularPositiveForm ontolex:representation ?singularPositive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralPositiveForm .
+    ?pluralPositiveForm ontolex:representation ?pluralPositive ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q3482678 .
   }
 }

@@ -7,8 +7,9 @@ SELECT
   ?lastModified
   ?propernoun
   ?nominativeSingular
-  ?accusativeSingular
-  ?accusativePlural
+  ?nominativePlural
+  ?genitiveSingular
+  ?genitivePlural
   ?locativeSingular
   ?locativePlural
 
@@ -17,7 +18,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?propernoun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
     ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
@@ -25,15 +26,21 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
-    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
-    ?accusativePluralForm ontolex:representation ?accusativePlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
   OPTIONAL {

@@ -14,7 +14,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q36224 ;
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?thirdPersonSingularForm .
     ?thirdPersonSingularForm ontolex:representation ?thirdPersonSingular ;

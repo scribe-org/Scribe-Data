@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?dativeCommonSingular
-  ?dativeCommonPlural
-  ?vocativeFeminineSingular
-  ?dativePassiveFuturePluralParticiple
-  ?dativePassivePerfectPluralParticiple
-  ?vocativeFemininePassivePerfectPluralParticiple
+  ?genitiveMasculinePlural
+  ?genitiveNeuterSingular
+  ?genitiveFemininePassivePerfectSingularParticiple
+  ?genitiveFemininePassivePerfectPluralParticiple
+  ?genitiveMasculinePassiveFuturePluralParticiple
+  ?genitiveNeuterActiveFutureSingularParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeCommonSingularForm .
-    ?dativeCommonSingularForm ontolex:representation ?dativeCommonSingular ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q1305037, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePluralForm .
+    ?genitiveMasculinePluralForm ontolex:representation ?genitiveMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeCommonPluralForm .
-    ?dativeCommonPluralForm ontolex:representation ?dativeCommonPlural ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q1305037, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitiveNeuterSingularForm .
+    ?genitiveNeuterSingularForm ontolex:representation ?genitiveNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775461, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
-    ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveFemininePassivePerfectSingularParticipleForm .
+    ?genitiveFemininePassivePerfectSingularParticipleForm ontolex:representation ?genitiveFemininePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativePassiveFuturePluralParticipleForm .
-    ?dativePassiveFuturePluralParticipleForm ontolex:representation ?dativePassiveFuturePluralParticiple ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?genitiveFemininePassivePerfectPluralParticipleForm .
+    ?genitiveFemininePassivePerfectPluralParticipleForm ontolex:representation ?genitiveFemininePassivePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativePassivePerfectPluralParticipleForm .
-    ?dativePassivePerfectPluralParticipleForm ontolex:representation ?dativePassivePerfectPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePassiveFuturePluralParticipleForm .
+    ?genitiveMasculinePassiveFuturePluralParticipleForm ontolex:representation ?genitiveMasculinePassiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFemininePassivePerfectPluralParticipleForm .
-    ?vocativeFemininePassivePerfectPluralParticipleForm ontolex:representation ?vocativeFemininePassivePerfectPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?genitiveNeuterActiveFutureSingularParticipleForm .
+    ?genitiveNeuterActiveFutureSingularParticipleForm ontolex:representation ?genitiveNeuterActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 }

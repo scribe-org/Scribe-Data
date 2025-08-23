@@ -6,7 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?femininePresentPlural
+  ?masculineInanimateSingularPassiveParticiple
+  ?masculineInanimateSingularActiveParticiple
+  ?masculineInanimatePluralPassiveParticiple
   ?femininePastFirstPersonSingular
   ?femininePastSecondPersonSingular
   ?femininePastThirdPersonSingular
@@ -16,11 +18,23 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineInanimateSingularPassiveParticipleForm .
+    ?masculineInanimateSingularPassiveParticipleForm ontolex:representation ?masculineInanimateSingularPassiveParticiple ;
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q110786, wd:Q72249544 .
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePresentPluralForm .
-    ?femininePresentPluralForm ontolex:representation ?femininePresentPlural ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q192613, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?masculineInanimateSingularActiveParticipleForm .
+    ?masculineInanimateSingularActiveParticipleForm ontolex:representation ?masculineInanimateSingularActiveParticiple ;
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q110786, wd:Q72249355 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineInanimatePluralPassiveParticipleForm .
+    ?masculineInanimatePluralPassiveParticipleForm ontolex:representation ?masculineInanimatePluralPassiveParticiple ;
+      wikibase:grammaticalFeature wd:Q52943434, wd:Q146786, wd:Q72249544 .
   }
 
   OPTIONAL {

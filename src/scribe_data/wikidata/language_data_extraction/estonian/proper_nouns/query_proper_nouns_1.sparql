@@ -1,24 +1,57 @@
 # tool: scribe-data
-# All Estonian (Q9072) proper nouns (Q147276) and the given forms.
+# All Estonian (Q9072) proper_nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?singular
-  ?nominativePlural
+  ?propernoun
+  ?ablativeSingular
+  ?ablativePlural
+  ?terminativeSingular
+  ?terminativePlural
+  ?comitativeSingular
+  ?comitativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?singular ;
+    wikibase:lemma ?propernoun ;
     schema:dateModified ?lastModified .
-
-  # MARK: Plural
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeSingularForm .
+    ?ablativeSingularForm ontolex:representation ?ablativeSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q110786 .
+  }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
-    ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?ablativePluralForm .
+    ?ablativePluralForm ontolex:representation ?ablativePlural ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?terminativeSingularForm .
+    ?terminativeSingularForm ontolex:representation ?terminativeSingular ;
+      wikibase:grammaticalFeature wd:Q747019, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?terminativePluralForm .
+    ?terminativePluralForm ontolex:representation ?terminativePlural ;
+      wikibase:grammaticalFeature wd:Q747019, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comitativeSingularForm .
+    ?comitativeSingularForm ontolex:representation ?comitativeSingular ;
+      wikibase:grammaticalFeature wd:Q838581, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comitativePluralForm .
+    ?comitativePluralForm ontolex:representation ?comitativePlural ;
+      wikibase:grammaticalFeature wd:Q838581, wd:Q146786 .
   }
 }

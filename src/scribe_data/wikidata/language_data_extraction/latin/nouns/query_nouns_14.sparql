@@ -6,10 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?genitiveNeuterPlural
-  ?genitiveActivePresentSingularParticiple
-  ?genitiveActivePresentPluralParticiple
-  ?genitiveNeuterPassiveFutureSingularParticiple
+  ?vocativeCommonSingular
+  ?vocativeCommonPlural
+  ?dativeActivePresentSingularParticiple
+  ?dativeActivePresentPluralParticiple
+  ?dativeActiveFuturePluralParticiple
+  ?vocativeCommonActivePresentPluralParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -18,26 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveNeuterPluralForm .
-    ?genitiveNeuterPluralForm ontolex:representation ?genitiveNeuterPlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1775461, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?vocativeCommonSingularForm .
+    ?vocativeCommonSingularForm ontolex:representation ?vocativeCommonSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveActivePresentSingularParticipleForm .
-    ?genitiveActivePresentSingularParticipleForm ontolex:representation ?genitiveActivePresentSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?vocativeCommonPluralForm .
+    ?vocativeCommonPluralForm ontolex:representation ?vocativeCommonPlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveActivePresentPluralParticipleForm .
-    ?genitiveActivePresentPluralParticipleForm ontolex:representation ?genitiveActivePresentPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?dativeActivePresentSingularParticipleForm .
+    ?dativeActivePresentSingularParticipleForm ontolex:representation ?dativeActivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveNeuterPassiveFutureSingularParticipleForm .
-    ?genitiveNeuterPassiveFutureSingularParticipleForm ontolex:representation ?genitiveNeuterPassiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?dativeActivePresentPluralParticipleForm .
+    ?dativeActivePresentPluralParticipleForm ontolex:representation ?dativeActivePresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeActiveFuturePluralParticipleForm .
+    ?dativeActiveFuturePluralParticipleForm ontolex:representation ?dativeActiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeCommonActivePresentPluralParticipleForm .
+    ?vocativeCommonActivePresentPluralParticipleForm ontolex:representation ?vocativeCommonActivePresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1305037, wd:Q1317831, wd:Q192613, wd:Q146786, wd:Q814722 .
   }
 }

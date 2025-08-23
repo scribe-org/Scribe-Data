@@ -8,17 +8,17 @@ SELECT
   ?verb
   ?conditionalPresent
   ?conditionalFuture
-  ?imperativeFirstPersonSingular
-  ?imperativeFirstPersonPlural
-  ?imperativeThirdPersonSingular
-  ?imperativeThirdPersonPlural
+  ?femininePluralPassiveParticiple
+  ?femininePluralActiveParticiple
+  ?presentThirdPersonSingular
+  ?presentThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?conditionalPresentForm .
     ?conditionalPresentForm ontolex:representation ?conditionalPresent ;
@@ -32,26 +32,26 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeFirstPersonSingularForm .
-    ?imperativeFirstPersonSingularForm ontolex:representation ?imperativeFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?femininePluralPassiveParticipleForm .
+    ?femininePluralPassiveParticipleForm ontolex:representation ?femininePluralPassiveParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q72249544 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeFirstPersonPluralForm .
-    ?imperativeFirstPersonPluralForm ontolex:representation ?imperativeFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?femininePluralActiveParticipleForm .
+    ?femininePluralActiveParticipleForm ontolex:representation ?femininePluralActiveParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q72249355 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeThirdPersonSingularForm .
-    ?imperativeThirdPersonSingularForm ontolex:representation ?imperativeThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?presentThirdPersonSingularForm .
+    ?presentThirdPersonSingularForm ontolex:representation ?presentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeThirdPersonPluralForm .
-    ?imperativeThirdPersonPluralForm ontolex:representation ?imperativeThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?presentThirdPersonPluralForm .
+    ?presentThirdPersonPluralForm ontolex:representation ?presentThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929074, wd:Q146786 .
   }
 }

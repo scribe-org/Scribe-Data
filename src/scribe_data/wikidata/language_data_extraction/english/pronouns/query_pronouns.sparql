@@ -6,8 +6,6 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?nominative
-  ?oblique
   ?singular
   ?plural
 
@@ -16,19 +14,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q36224 ;
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeForm .
-    ?nominativeForm ontolex:representation ?nominative ;
-      wikibase:grammaticalFeature wd:Q131105 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueForm .
-    ?obliqueForm ontolex:representation ?oblique ;
-      wikibase:grammaticalFeature wd:Q1233197 .
-  }
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularForm .
     ?singularForm ontolex:representation ?singular ;

@@ -6,22 +6,23 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?personalpronoun
-  ?oblique
+  ?genitive
   ?firstPerson
   ?secondPerson
   ?thirdPerson
-  ?obliqueSingular
+  ?singular
+  ?plural
 
 WHERE {
   ?lexeme dct:language wd:Q1860 ;
     wikibase:lexicalCategory wd:Q468801 ;
     wikibase:lemma ?personalpronoun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueForm .
-    ?obliqueForm ontolex:representation ?oblique ;
-      wikibase:grammaticalFeature wd:Q1233197 .
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
   }
 
   OPTIONAL {
@@ -43,8 +44,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueSingularForm .
-    ?obliqueSingularForm ontolex:representation ?obliqueSingular ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 }

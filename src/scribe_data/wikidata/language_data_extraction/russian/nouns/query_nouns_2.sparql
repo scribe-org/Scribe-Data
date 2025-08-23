@@ -6,10 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
+  ?locative
   ?partitive
   ?instrumentalSingular
   ?instrumentalPlural
-  ?vocativeSingular
+  ?locativeSingular
   ?partitiveSingular
 
 WHERE {
@@ -17,6 +18,12 @@ WHERE {
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeForm .
+    ?locativeForm ontolex:representation ?locative ;
+      wikibase:grammaticalFeature wd:Q202142 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?partitiveForm .
@@ -37,9 +44,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeSingularForm .
-    ?vocativeSingularForm ontolex:representation ?vocativeSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
+    ?locativeSingularForm ontolex:representation ?locativeSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
   }
 
   OPTIONAL {

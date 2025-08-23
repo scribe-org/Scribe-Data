@@ -6,11 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?locative
-  ?locativeSingular
-  ?locativePlural
-  ?locativeThirdPersonSingular
-  ?locativeThirdPersonPlural
+  ?genitive
+  ?genitiveSingular
+  ?genitivePlural
+  ?genitiveThirdPersonSingular
+  ?genitiveThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q36236 ;
@@ -19,32 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeForm .
-    ?locativeForm ontolex:representation ?locative ;
-      wikibase:grammaticalFeature wd:Q202142 .
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
-    ?locativeSingularForm ontolex:representation ?locativeSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativePluralForm .
-    ?locativePluralForm ontolex:representation ?locativePlural ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeThirdPersonSingularForm .
-    ?locativeThirdPersonSingularForm ontolex:representation ?locativeThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveThirdPersonSingularForm .
+    ?genitiveThirdPersonSingularForm ontolex:representation ?genitiveThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeThirdPersonPluralForm .
-    ?locativeThirdPersonPluralForm ontolex:representation ?locativeThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitiveThirdPersonPluralForm .
+    ?genitiveThirdPersonPluralForm ontolex:representation ?genitiveThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q51929074, wd:Q146786 .
   }
 }

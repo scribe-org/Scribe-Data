@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?ablativeNeuterSingular
-  ?ablativeNeuterPlural
-  ?ablativeNeuterSingularSupine
-  ?ablativeNeuterPassiveFutureSingularParticiple
-  ?ablativeNeuterPassivePerfectSingularParticiple
-  ?ablativeNeuterActiveFutureSingularParticiple
+  ?nominativeNeuterSingular
+  ?nominativeNeuterPlural
+  ?nominativeNeuterPassiveFutureSingularParticiple
+  ?nominativeNeuterPassivePerfectSingularParticiple
+  ?nominativeNeuterActiveFutureSingularParticiple
+  ?nominativeNeuterActiveFuturePluralParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeNeuterSingularForm .
-    ?ablativeNeuterSingularForm ontolex:representation ?ablativeNeuterSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterSingularForm .
+    ?nominativeNeuterSingularForm ontolex:representation ?nominativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeNeuterPluralForm .
-    ?ablativeNeuterPluralForm ontolex:representation ?ablativeNeuterPlural ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterPluralForm .
+    ?nominativeNeuterPluralForm ontolex:representation ?nominativeNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeNeuterSingularSupineForm .
-    ?ablativeNeuterSingularSupineForm ontolex:representation ?ablativeNeuterSingularSupine ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q110786, wd:Q548470 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterPassiveFutureSingularParticipleForm .
+    ?nominativeNeuterPassiveFutureSingularParticipleForm ontolex:representation ?nominativeNeuterPassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeNeuterPassiveFutureSingularParticipleForm .
-    ?ablativeNeuterPassiveFutureSingularParticipleForm ontolex:representation ?ablativeNeuterPassiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterPassivePerfectSingularParticipleForm .
+    ?nominativeNeuterPassivePerfectSingularParticipleForm ontolex:representation ?nominativeNeuterPassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeNeuterPassivePerfectSingularParticipleForm .
-    ?ablativeNeuterPassivePerfectSingularParticipleForm ontolex:representation ?ablativeNeuterPassivePerfectSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterActiveFutureSingularParticipleForm .
+    ?nominativeNeuterActiveFutureSingularParticipleForm ontolex:representation ?nominativeNeuterActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeNeuterActiveFutureSingularParticipleForm .
-    ?ablativeNeuterActiveFutureSingularParticipleForm ontolex:representation ?ablativeNeuterActiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterActiveFuturePluralParticipleForm .
+    ?nominativeNeuterActiveFuturePluralParticipleForm ontolex:representation ?nominativeNeuterActiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 }

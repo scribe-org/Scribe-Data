@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?accusativeNeuterSingularSupine
-  ?accusativeNeuterPresentSingularParticiple
   ?accusativeNeuterPresentPluralParticiple
   ?accusativeNeuterPassiveFutureSingularParticiple
+  ?accusativeNeuterPassiveFuturePluralParticiple
   ?accusativeNeuterPassivePerfectSingularParticiple
-  ?accusativeNeuterPassivePerfectPluralParticiple
+  ?accusativeNeuterActivePresentSingularParticiple
+  ?accusativeNeuterActiveFuturePluralParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -19,18 +19,6 @@ WHERE {
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
     
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularSupineForm .
-    ?accusativeNeuterSingularSupineForm ontolex:representation ?accusativeNeuterSingularSupine ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786, wd:Q548470 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeNeuterPresentSingularParticipleForm .
-    ?accusativeNeuterPresentSingularParticipleForm ontolex:representation ?accusativeNeuterPresentSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q192613, wd:Q110786, wd:Q814722 .
-  }
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeNeuterPresentPluralParticipleForm .
     ?accusativeNeuterPresentPluralParticipleForm ontolex:representation ?accusativeNeuterPresentPluralParticiple ;
@@ -44,14 +32,26 @@ WHERE {
   }
 
   OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterPassiveFuturePluralParticipleForm .
+    ?accusativeNeuterPassiveFuturePluralParticipleForm ontolex:representation ?accusativeNeuterPassiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeNeuterPassivePerfectSingularParticipleForm .
     ?accusativeNeuterPassivePerfectSingularParticipleForm ontolex:representation ?accusativeNeuterPassivePerfectSingularParticiple ;
       wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeNeuterPassivePerfectPluralParticipleForm .
-    ?accusativeNeuterPassivePerfectPluralParticipleForm ontolex:representation ?accusativeNeuterPassivePerfectPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterActivePresentSingularParticipleForm .
+    ?accusativeNeuterActivePresentSingularParticipleForm ontolex:representation ?accusativeNeuterActivePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1317831, wd:Q192613, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterActiveFuturePluralParticipleForm .
+    ?accusativeNeuterActiveFuturePluralParticipleForm ontolex:representation ?accusativeNeuterActiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 }

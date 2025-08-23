@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?feminine
-  ?common
-  ?singular
-  ?allativeSingular
   ?dativeAblativeSingular
   ?dativeAblativePlural
+  ?dativeCommonSingular
+  ?dativeCommonPlural
+  ?dativePassiveFuturePluralParticiple
+  ?dativePassivePerfectPluralParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -19,30 +19,6 @@ WHERE {
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
     
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineForm .
-    ?feminineForm ontolex:representation ?feminine ;
-      wikibase:grammaticalFeature wd:Q1775415 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?commonForm .
-    ?commonForm ontolex:representation ?common ;
-      wikibase:grammaticalFeature wd:Q1305037 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?allativeSingularForm .
-    ?allativeSingularForm ontolex:representation ?allativeSingular ;
-      wikibase:grammaticalFeature wd:Q655020, wd:Q110786 .
-  }
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?dativeAblativeSingularForm .
     ?dativeAblativeSingularForm ontolex:representation ?dativeAblativeSingular ;
@@ -53,5 +29,29 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?dativeAblativePluralForm .
     ?dativeAblativePluralForm ontolex:representation ?dativeAblativePlural ;
       wikibase:grammaticalFeature wd:Q145599, wd:Q156986, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeCommonSingularForm .
+    ?dativeCommonSingularForm ontolex:representation ?dativeCommonSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1305037, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeCommonPluralForm .
+    ?dativeCommonPluralForm ontolex:representation ?dativeCommonPlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1305037, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativePassiveFuturePluralParticipleForm .
+    ?dativePassiveFuturePluralParticipleForm ontolex:representation ?dativePassiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativePassivePerfectPluralParticipleForm .
+    ?dativePassivePerfectPluralParticipleForm ontolex:representation ?dativePassivePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
   }
 }

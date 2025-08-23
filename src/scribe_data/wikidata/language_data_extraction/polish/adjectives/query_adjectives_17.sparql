@@ -6,38 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?locativeFeminineSingular
-  ?locativeFeminineSingularComparative
-  ?locativeFeminineSingularSuperlative
-  ?locativeFeminineSingularPositive
+  ?vocativeFeminineSingular
+  ?vocativeFeminineSingularComparative
+  ?vocativeFeminineSingularSuperlative
+  ?vocativeFeminineSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularForm .
-    ?locativeFeminineSingularForm ontolex:representation ?locativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
+    ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularComparativeForm .
-    ?locativeFeminineSingularComparativeForm ontolex:representation ?locativeFeminineSingularComparative ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularComparativeForm .
+    ?vocativeFeminineSingularComparativeForm ontolex:representation ?vocativeFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularSuperlativeForm .
-    ?locativeFeminineSingularSuperlativeForm ontolex:representation ?locativeFeminineSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularSuperlativeForm .
+    ?vocativeFeminineSingularSuperlativeForm ontolex:representation ?vocativeFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularPositiveForm .
-    ?locativeFeminineSingularPositiveForm ontolex:representation ?locativeFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularPositiveForm .
+    ?vocativeFeminineSingularPositiveForm ontolex:representation ?vocativeFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 }

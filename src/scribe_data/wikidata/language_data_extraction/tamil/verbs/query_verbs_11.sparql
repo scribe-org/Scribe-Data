@@ -6,45 +6,45 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?imperative
-  ?imperativeSingular
-  ?imperativePlural
-  ?imperativeSimplePresentPlural
-  ?imperativeSingularPlural
+  ?simplePresentFirstPersonSingular
+  ?simplePresentFirstPersonPlural
+  ?simplePresentSecondPersonSingular
+  ?simplePresentSecondPersonPlural
+  ?simplePresentThirdPersonSingular
 
 WHERE {
   ?lexeme dct:language wd:Q5885 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeForm .
-    ?imperativeForm ontolex:representation ?imperative ;
-      wikibase:grammaticalFeature wd:Q22716 .
+    ?lexeme ontolex:lexicalForm ?simplePresentFirstPersonSingularForm .
+    ?simplePresentFirstPersonSingularForm ontolex:representation ?simplePresentFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q3910936, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeSingularForm .
-    ?imperativeSingularForm ontolex:representation ?imperativeSingular ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?simplePresentFirstPersonPluralForm .
+    ?simplePresentFirstPersonPluralForm ontolex:representation ?simplePresentFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q3910936, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativePluralForm .
-    ?imperativePluralForm ontolex:representation ?imperativePlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?simplePresentSecondPersonSingularForm .
+    ?simplePresentSecondPersonSingularForm ontolex:representation ?simplePresentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q3910936, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeSimplePresentPluralForm .
-    ?imperativeSimplePresentPluralForm ontolex:representation ?imperativeSimplePresentPlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q3910936, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?simplePresentSecondPersonPluralForm .
+    ?simplePresentSecondPersonPluralForm ontolex:representation ?simplePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q3910936, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeSingularPluralForm .
-    ?imperativeSingularPluralForm ontolex:representation ?imperativeSingularPlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q110786, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?simplePresentThirdPersonSingularForm .
+    ?simplePresentThirdPersonSingularForm ontolex:representation ?simplePresentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q3910936, wd:Q51929074, wd:Q110786 .
   }
 }

@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?passivePastImperfectFirstPersonSingularSubjunctive
-  ?passivePastImperfectFirstPersonPluralSubjunctive
-  ?passivePastImperfectSecondPersonSingularSubjunctive
-  ?passivePastImperfectSecondPersonPluralSubjunctive
-  ?passivePastImperfectThirdPersonSingularSubjunctive
-  ?passivePastImperfectThirdPersonPluralSubjunctive
+  ?imperativePresentSecondPersonSingular
+  ?imperativePresentSecondPersonPlural
+  ?imperativeFutureSecondPersonSingular
+  ?imperativeFutureSecondPersonPlural
+  ?imperativeFutureThirdPersonSingular
+  ?imperativeFutureThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePastImperfectFirstPersonSingularSubjunctiveForm .
-    ?passivePastImperfectFirstPersonSingularSubjunctiveForm ontolex:representation ?passivePastImperfectFirstPersonSingularSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q12547192, wd:Q21714344, wd:Q110786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?imperativePresentSecondPersonSingularForm .
+    ?imperativePresentSecondPersonSingularForm ontolex:representation ?imperativePresentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q192613, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePastImperfectFirstPersonPluralSubjunctiveForm .
-    ?passivePastImperfectFirstPersonPluralSubjunctiveForm ontolex:representation ?passivePastImperfectFirstPersonPluralSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q12547192, wd:Q21714344, wd:Q146786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?imperativePresentSecondPersonPluralForm .
+    ?imperativePresentSecondPersonPluralForm ontolex:representation ?imperativePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q192613, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePastImperfectSecondPersonSingularSubjunctiveForm .
-    ?passivePastImperfectSecondPersonSingularSubjunctiveForm ontolex:representation ?passivePastImperfectSecondPersonSingularSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q12547192, wd:Q51929049, wd:Q110786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?imperativeFutureSecondPersonSingularForm .
+    ?imperativeFutureSecondPersonSingularForm ontolex:representation ?imperativeFutureSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q501405, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePastImperfectSecondPersonPluralSubjunctiveForm .
-    ?passivePastImperfectSecondPersonPluralSubjunctiveForm ontolex:representation ?passivePastImperfectSecondPersonPluralSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q12547192, wd:Q51929049, wd:Q146786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?imperativeFutureSecondPersonPluralForm .
+    ?imperativeFutureSecondPersonPluralForm ontolex:representation ?imperativeFutureSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q501405, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePastImperfectThirdPersonSingularSubjunctiveForm .
-    ?passivePastImperfectThirdPersonSingularSubjunctiveForm ontolex:representation ?passivePastImperfectThirdPersonSingularSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q12547192, wd:Q51929074, wd:Q110786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?imperativeFutureThirdPersonSingularForm .
+    ?imperativeFutureThirdPersonSingularForm ontolex:representation ?imperativeFutureThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q501405, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePastImperfectThirdPersonPluralSubjunctiveForm .
-    ?passivePastImperfectThirdPersonPluralSubjunctiveForm ontolex:representation ?passivePastImperfectThirdPersonPluralSubjunctive ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q12547192, wd:Q51929074, wd:Q146786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?imperativeFutureThirdPersonPluralForm .
+    ?imperativeFutureThirdPersonPluralForm ontolex:representation ?imperativeFutureThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q501405, wd:Q51929074, wd:Q146786 .
   }
 }
