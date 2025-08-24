@@ -12,6 +12,30 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 5.x
 
+## Scribe-Data 5.1.4
+
+### 🐞 Bug Fixes
+
+- Allow the convert parser to accept multiple data types ([#634](https://github.com/scribe-org/Scribe-Data/issues/634)).
+
+## Scribe-Data 5.1.3
+
+### 🐞 Bug Fixes
+
+- Fixed data conversion not handling multiple explicitly passed languages and data types ([#632](https://github.com/scribe-org/Scribe-Data/issues/632)).
+
+## Scribe-Data 5.1.2
+
+### 🐞 Bug Fixes
+
+- Fixed data conversion not handling multiple explicitly passed languages ([#630](https://github.com/scribe-org/Scribe-Data/issues/630)).
+
+## Scribe-Data 5.1.1
+
+### 🐞 Bug Fixes
+
+- The path to the contracts was fixed in data filtration to assure that it's a `pathlib.Path` value ([#627](https://github.com/scribe-org/Scribe-Data/issues/627)).
+
 ### ✅ Tests
 
 - The upgrade functionality of the CLI is now comprehensively tested ([#624](https://github.com/scribe-org/Scribe-Data/issues/624)).

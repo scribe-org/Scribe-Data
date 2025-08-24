@@ -262,8 +262,7 @@ def export_data_filtered_by_contracts(
 
     input_dir = input_dir or DEFAULT_JSON_EXPORT_DIR
 
-    if not contracts_dir:
-        contracts_dir = scribe_data_contracts
+    contracts_dir = Path(contracts_dir) if contracts_dir else scribe_data_contracts
 
     for contract_filename in os.listdir(contracts_dir):
         if not contract_filename.endswith(".json"):
