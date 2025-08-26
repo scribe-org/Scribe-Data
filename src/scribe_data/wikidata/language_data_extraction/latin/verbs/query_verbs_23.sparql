@@ -6,11 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?ablativeFeminineFutureSingularParticiple
-  ?ablativeFemininePerfectSingularParticiple
-  ?ablativeFemininePassiveFutureSingularParticiple
-  ?ablativeFemininePassivePerfectSingularParticiple
-  ?ablativeFeminineActiveFutureSingularParticiple
+  ?dativeMasculineFutureSingularParticiple
+  ?dativeMasculinePerfectSingularParticiple
+  ?dativeMasculinePassiveFutureSingularParticiple
+  ?dativeMasculinePassivePerfectSingularParticiple
+  ?dativeMasculineActiveFutureSingularParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -19,32 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeFeminineFutureSingularParticipleForm .
-    ?ablativeFeminineFutureSingularParticipleForm ontolex:representation ?ablativeFeminineFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineFutureSingularParticipleForm .
+    ?dativeMasculineFutureSingularParticipleForm ontolex:representation ?dativeMasculineFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeFemininePerfectSingularParticipleForm .
-    ?ablativeFemininePerfectSingularParticipleForm ontolex:representation ?ablativeFemininePerfectSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q625420, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePerfectSingularParticipleForm .
+    ?dativeMasculinePerfectSingularParticipleForm ontolex:representation ?dativeMasculinePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeFemininePassiveFutureSingularParticipleForm .
-    ?ablativeFemininePassiveFutureSingularParticipleForm ontolex:representation ?ablativeFemininePassiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePassiveFutureSingularParticipleForm .
+    ?dativeMasculinePassiveFutureSingularParticipleForm ontolex:representation ?dativeMasculinePassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeFemininePassivePerfectSingularParticipleForm .
-    ?ablativeFemininePassivePerfectSingularParticipleForm ontolex:representation ?ablativeFemininePassivePerfectSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePassivePerfectSingularParticipleForm .
+    ?dativeMasculinePassivePerfectSingularParticipleForm ontolex:representation ?dativeMasculinePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeFeminineActiveFutureSingularParticipleForm .
-    ?ablativeFeminineActiveFutureSingularParticipleForm ontolex:representation ?ablativeFeminineActiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineActiveFutureSingularParticipleForm .
+    ?dativeMasculineActiveFutureSingularParticipleForm ontolex:representation ?dativeMasculineActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 }

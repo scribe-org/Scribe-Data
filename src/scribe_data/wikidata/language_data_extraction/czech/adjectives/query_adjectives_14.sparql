@@ -6,52 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?instrumentalMasculineSingular
-  ?instrumentalMasculinePlural
-  ?instrumentalFeminineSingularPositive
-  ?instrumentalFemininePluralPositive
-  ?instrumentalMasculineAnimateSingularComparative
-  ?instrumentalMasculineAnimatePluralComparative
+  ?nominativeFeminineSingularSuperlative
+  ?nominativeFemininePluralComparative
+  ?nominativeMasculineInanimateSingularComparative
+  ?nominativeMasculineInanimatePluralComparative
+  ?nominativeNeuterSingularPositive
+  ?nominativeNeuterPluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineSingularForm .
-    ?instrumentalMasculineSingularForm ontolex:representation ?instrumentalMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularSuperlativeForm .
+    ?nominativeFeminineSingularSuperlativeForm ontolex:representation ?nominativeFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculinePluralForm .
-    ?instrumentalMasculinePluralForm ontolex:representation ?instrumentalMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?nominativeFemininePluralComparativeForm .
+    ?nominativeFemininePluralComparativeForm ontolex:representation ?nominativeFemininePluralComparative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularPositiveForm .
-    ?instrumentalFeminineSingularPositiveForm ontolex:representation ?instrumentalFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineInanimateSingularComparativeForm .
+    ?nominativeMasculineInanimateSingularComparativeForm ontolex:representation ?nominativeMasculineInanimateSingularComparative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q52943434, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalFemininePluralPositiveForm .
-    ?instrumentalFemininePluralPositiveForm ontolex:representation ?instrumentalFemininePluralPositive ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineInanimatePluralComparativeForm .
+    ?nominativeMasculineInanimatePluralComparativeForm ontolex:representation ?nominativeMasculineInanimatePluralComparative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q52943434, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimateSingularComparativeForm .
-    ?instrumentalMasculineAnimateSingularComparativeForm ontolex:representation ?instrumentalMasculineAnimateSingularComparative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterSingularPositiveForm .
+    ?nominativeNeuterSingularPositiveForm ontolex:representation ?nominativeNeuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalMasculineAnimatePluralComparativeForm .
-    ?instrumentalMasculineAnimatePluralComparativeForm ontolex:representation ?instrumentalMasculineAnimatePluralComparative ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q54020116, wd:Q146786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterPluralPositiveForm .
+    ?nominativeNeuterPluralPositiveForm ontolex:representation ?nominativeNeuterPluralPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q146786, wd:Q3482678 .
   }
 }

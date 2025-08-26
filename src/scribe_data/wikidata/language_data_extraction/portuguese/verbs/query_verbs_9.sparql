@@ -6,10 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?femininePastSingularParticiple
-  ?femininePastPluralParticiple
-  ?masculinePastSingularParticiple
-  ?masculinePastPluralParticiple
+  ?indicativePluperfectFirstPersonSingular
+  ?indicativePluperfectFirstPersonPlural
+  ?indicativePluperfectSecondPersonSingular
+  ?indicativePluperfectSecondPersonPlural
+  ?indicativePluperfectThirdPersonSingular
+  ?indicativePluperfectThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q5146 ;
@@ -18,26 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePastSingularParticipleForm .
-    ?femininePastSingularParticipleForm ontolex:representation ?femininePastSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1994301, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?indicativePluperfectFirstPersonSingularForm .
+    ?indicativePluperfectFirstPersonSingularForm ontolex:representation ?indicativePluperfectFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePastPluralParticipleForm .
-    ?femininePastPluralParticipleForm ontolex:representation ?femininePastPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1994301, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?indicativePluperfectFirstPersonPluralForm .
+    ?indicativePluperfectFirstPersonPluralForm ontolex:representation ?indicativePluperfectFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePastSingularParticipleForm .
-    ?masculinePastSingularParticipleForm ontolex:representation ?masculinePastSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?indicativePluperfectSecondPersonSingularForm .
+    ?indicativePluperfectSecondPersonSingularForm ontolex:representation ?indicativePluperfectSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePastPluralParticipleForm .
-    ?masculinePastPluralParticipleForm ontolex:representation ?masculinePastPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?indicativePluperfectSecondPersonPluralForm .
+    ?indicativePluperfectSecondPersonPluralForm ontolex:representation ?indicativePluperfectSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePluperfectThirdPersonSingularForm .
+    ?indicativePluperfectThirdPersonSingularForm ontolex:representation ?indicativePluperfectThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePluperfectThirdPersonPluralForm .
+    ?indicativePluperfectThirdPersonPluralForm ontolex:representation ?indicativePluperfectThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q51929074, wd:Q146786 .
   }
 }

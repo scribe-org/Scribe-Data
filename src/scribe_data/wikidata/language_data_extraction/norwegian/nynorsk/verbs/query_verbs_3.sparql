@@ -7,6 +7,7 @@ SELECT
   ?lastModified
   ?verb
   ?activeInfinitive
+  ?activePresent
   ?activeInfinitiveAInfinitive
   ?activeInfinitiveEInfinitive
 
@@ -23,6 +24,12 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
     ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
       wikibase:grammaticalFeature wd:Q1317831, wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresentForm .
+    ?activePresentForm ontolex:representation ?activePresent ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613 .
   }
 
   OPTIONAL {

@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
+  ?imperative
+  ?past
   ?pastFuture
   ?pastSingular
-  ?firstPersonSingular
-  ?firstPersonPlural
   ?imperativeSecondPersonSingular
   ?imperativeSecondPersonPlural
 
@@ -18,6 +18,18 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pastFutureForm .
@@ -29,18 +41,6 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pastSingularForm .
     ?pastSingularForm ontolex:representation ?pastSingular ;
       wikibase:grammaticalFeature wd:Q1994301, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonSingularForm .
-    ?firstPersonSingularForm ontolex:representation ?firstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?firstPersonPluralForm .
-    ?firstPersonPluralForm ontolex:representation ?firstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {

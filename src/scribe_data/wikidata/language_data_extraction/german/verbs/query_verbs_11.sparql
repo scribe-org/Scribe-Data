@@ -6,12 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitive
-  ?infinitivePresent
-  ?infinitivePerfect
-  ?perfectThirdPerson
-  ?perfectThirdPersonSingular
-  ?perfectThirdPersonPlural
+  ?activeImperativeSingular
+  ?activeImperativePlural
+  ?activeImperativePresentSecondPersonSingular
+  ?activeImperativePresentSecondPersonPlural
+  ?activeImperativePresentSecondPersonSingularPlural
 
 WHERE {
   ?lexeme dct:language wd:Q188 ;
@@ -20,38 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?activeImperativeSingularForm .
+    ?activeImperativeSingularForm ontolex:representation ?activeImperativeSingular ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitivePresentForm .
-    ?infinitivePresentForm ontolex:representation ?infinitivePresent ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q192613 .
+    ?lexeme ontolex:lexicalForm ?activeImperativePluralForm .
+    ?activeImperativePluralForm ontolex:representation ?activeImperativePlural ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitivePerfectForm .
-    ?infinitivePerfectForm ontolex:representation ?infinitivePerfect ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q625420 .
+    ?lexeme ontolex:lexicalForm ?activeImperativePresentSecondPersonSingularForm .
+    ?activeImperativePresentSecondPersonSingularForm ontolex:representation ?activeImperativePresentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716, wd:Q192613, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?perfectThirdPersonForm .
-    ?perfectThirdPersonForm ontolex:representation ?perfectThirdPerson ;
-      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074 .
+    ?lexeme ontolex:lexicalForm ?activeImperativePresentSecondPersonPluralForm .
+    ?activeImperativePresentSecondPersonPluralForm ontolex:representation ?activeImperativePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716, wd:Q192613, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?perfectThirdPersonSingularForm .
-    ?perfectThirdPersonSingularForm ontolex:representation ?perfectThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?perfectThirdPersonPluralForm .
-    ?perfectThirdPersonPluralForm ontolex:representation ?perfectThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q625420, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?activeImperativePresentSecondPersonSingularPluralForm .
+    ?activeImperativePresentSecondPersonSingularPluralForm ontolex:representation ?activeImperativePresentSecondPersonSingularPlural ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716, wd:Q192613, wd:Q51929049, wd:Q110786, wd:Q146786 .
   }
 }

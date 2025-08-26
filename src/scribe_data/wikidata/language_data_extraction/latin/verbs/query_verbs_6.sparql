@@ -6,11 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?ablativePresentSingularParticiple
-  ?ablativePresentPluralParticiple
+  ?dativePresentSingularParticiple
+  ?dativePresentPluralParticiple
   ?nominativeCommonPresentPluralParticiple
-  ?ablativePassiveFuturePluralParticiple
-  ?ablativePassivePerfectPluralParticiple
   ?nominativeCommonActivePresentPluralParticiple
 
 WHERE {
@@ -20,33 +18,21 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativePresentSingularParticipleForm .
-    ?ablativePresentSingularParticipleForm ontolex:representation ?ablativePresentSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q192613, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?dativePresentSingularParticipleForm .
+    ?dativePresentSingularParticipleForm ontolex:representation ?dativePresentSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q192613, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativePresentPluralParticipleForm .
-    ?ablativePresentPluralParticipleForm ontolex:representation ?ablativePresentPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q192613, wd:Q146786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?dativePresentPluralParticipleForm .
+    ?dativePresentPluralParticipleForm ontolex:representation ?dativePresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q192613, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeCommonPresentPluralParticipleForm .
     ?nominativeCommonPresentPluralParticipleForm ontolex:representation ?nominativeCommonPresentPluralParticiple ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q1305037, wd:Q192613, wd:Q146786, wd:Q814722 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativePassiveFuturePluralParticipleForm .
-    ?ablativePassiveFuturePluralParticipleForm ontolex:representation ?ablativePassiveFuturePluralParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1194697, wd:Q501405, wd:Q146786, wd:Q814722 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativePassivePerfectPluralParticipleForm .
-    ?ablativePassivePerfectPluralParticipleForm ontolex:representation ?ablativePassivePerfectPluralParticiple ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {

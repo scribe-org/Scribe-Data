@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Malay (Q9237) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?plural
+  ?secondPersonSingular
+  ?secondPersonPlural
+  ?pluralPhrase
+  ?secondPersonSingularPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9237 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?secondPersonSingularForm .
+    ?secondPersonSingularForm ontolex:representation ?secondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?secondPersonPluralForm .
+    ?secondPersonPluralForm ontolex:representation ?secondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralPhraseForm .
+    ?pluralPhraseForm ontolex:representation ?pluralPhrase ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q187931 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?secondPersonSingularPluralForm .
+    ?secondPersonSingularPluralForm ontolex:representation ?secondPersonSingularPlural ;
+      wikibase:grammaticalFeature wd:Q51929049, wd:Q110786, wd:Q146786 .
+  }
+}

@@ -6,52 +6,31 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?locative
-  ?dativeSingular
-  ?dativePlural
-  ?prepositionalSingular
-  ?prepositionalPlural
-  ?locativeSingular
+  ?genitiveSingular
+  ?genitivePlural
+  ?genitiveAccusativeSingular
 
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeForm .
-    ?locativeForm ontolex:representation ?locative ;
-      wikibase:grammaticalFeature wd:Q202142 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
-    ?dativeSingularForm ontolex:representation ?dativeSingular ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativePluralForm .
-    ?dativePluralForm ontolex:representation ?dativePlural ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?prepositionalSingularForm .
-    ?prepositionalSingularForm ontolex:representation ?prepositionalSingular ;
-      wikibase:grammaticalFeature wd:Q2114906, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?prepositionalPluralForm .
-    ?prepositionalPluralForm ontolex:representation ?prepositionalPlural ;
-      wikibase:grammaticalFeature wd:Q2114906, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
-    ?locativeSingularForm ontolex:representation ?locativeSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveAccusativeSingularForm .
+    ?genitiveAccusativeSingularForm ontolex:representation ?genitiveAccusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146078, wd:Q110786 .
   }
 }

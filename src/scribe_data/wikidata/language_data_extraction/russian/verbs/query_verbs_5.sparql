@@ -6,38 +6,31 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?passivePresentParticiple
-  ?passivePastParticiple
-  ?activePresentParticiple
-  ?activePastParticiple
+  ?masculinePastSingular
+  ?masculinePastFirstPersonSingular
+  ?masculinePastSecondPersonSingular
 
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePresentParticipleForm .
-    ?passivePresentParticipleForm ontolex:representation ?passivePresentParticiple ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?masculinePastSingularForm .
+    ?masculinePastSingularForm ontolex:representation ?masculinePastSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePastParticipleForm .
-    ?passivePastParticipleForm ontolex:representation ?passivePastParticiple ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q1994301, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?masculinePastFirstPersonSingularForm .
+    ?masculinePastFirstPersonSingularForm ontolex:representation ?masculinePastFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePresentParticipleForm .
-    ?activePresentParticipleForm ontolex:representation ?activePresentParticiple ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613, wd:Q814722 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePastParticipleForm .
-    ?activePastParticipleForm ontolex:representation ?activePastParticiple ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q1994301, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?masculinePastSecondPersonSingularForm .
+    ?masculinePastSecondPersonSingularForm ontolex:representation ?masculinePastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929049, wd:Q110786 .
   }
 }

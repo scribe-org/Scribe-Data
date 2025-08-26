@@ -7,14 +7,16 @@ SELECT
   ?lastModified
   ?personalpronoun
   ?nominative
+  ?oblique
   ?nominativeSingular
+  ?obliqueSingular
 
 WHERE {
   ?lexeme dct:language wd:Q1860 ;
     wikibase:lexicalCategory wd:Q468801 ;
     wikibase:lemma ?personalpronoun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeForm .
     ?nominativeForm ontolex:representation ?nominative ;
@@ -22,8 +24,20 @@ WHERE {
   }
 
   OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueForm .
+    ?obliqueForm ontolex:representation ?oblique ;
+      wikibase:grammaticalFeature wd:Q1233197 .
+  }
+
+  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
     ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueSingularForm .
+    ?obliqueSingularForm ontolex:representation ?obliqueSingular ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q110786 .
   }
 }

@@ -6,18 +6,24 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
+  ?indefinite
   ?definite
-  ?masculineDefinite
+  ?indefiniteSingular
+  ?indefinitePlural
   ?definiteSingular
   ?definitePlural
-  ?masculineDefiniteSingular
-  ?masculineDefinitePlural
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indefiniteForm .
+    ?indefiniteForm ontolex:representation ?indefinite ;
+      wikibase:grammaticalFeature wd:Q53997857 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?definiteForm .
@@ -26,9 +32,15 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineDefiniteForm .
-    ?masculineDefiniteForm ontolex:representation ?masculineDefinite ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q53997851 .
+    ?lexeme ontolex:lexicalForm ?indefiniteSingularForm .
+    ?indefiniteSingularForm ontolex:representation ?indefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indefinitePluralForm .
+    ?indefinitePluralForm ontolex:representation ?indefinitePlural ;
+      wikibase:grammaticalFeature wd:Q53997857, wd:Q146786 .
   }
 
   OPTIONAL {
@@ -41,17 +53,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?definitePluralForm .
     ?definitePluralForm ontolex:representation ?definitePlural ;
       wikibase:grammaticalFeature wd:Q53997851, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineDefiniteSingularForm .
-    ?masculineDefiniteSingularForm ontolex:representation ?masculineDefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q53997851, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineDefinitePluralForm .
-    ?masculineDefinitePluralForm ontolex:representation ?masculineDefinitePlural ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q53997851, wd:Q146786 .
   }
 }

@@ -6,52 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?superlative
-  ?positive
-  ?accusativeMasculineInanimateSingularComparative
-  ?accusativeMasculineInanimateSingularSuperlative
-  ?accusativeMasculineAnimateSingularComparative
-  ?accusativeMasculineAnimateSingularSuperlative
+  ?nominativeNotMasculinePersonalPluralComparative
+  ?nominativeNotMasculinePersonalPluralSuperlative
+  ?nominativeNotMasculinePersonalPluralPositive
+  ?locativeFeminineSingularComparative
+  ?locativeFeminineSingularSuperlative
+  ?locativeFeminineSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9058 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?superlativeForm .
-    ?superlativeForm ontolex:representation ?superlative ;
-      wikibase:grammaticalFeature wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?nominativeNotMasculinePersonalPluralComparativeForm .
+    ?nominativeNotMasculinePersonalPluralComparativeForm ontolex:representation ?nominativeNotMasculinePersonalPluralComparative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q54152717, wd:Q146786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?positiveForm .
-    ?positiveForm ontolex:representation ?positive ;
-      wikibase:grammaticalFeature wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?nominativeNotMasculinePersonalPluralSuperlativeForm .
+    ?nominativeNotMasculinePersonalPluralSuperlativeForm ontolex:representation ?nominativeNotMasculinePersonalPluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q54152717, wd:Q146786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimateSingularComparativeForm .
-    ?accusativeMasculineInanimateSingularComparativeForm ontolex:representation ?accusativeMasculineInanimateSingularComparative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?nominativeNotMasculinePersonalPluralPositiveForm .
+    ?nominativeNotMasculinePersonalPluralPositiveForm ontolex:representation ?nominativeNotMasculinePersonalPluralPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q54152717, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimateSingularSuperlativeForm .
-    ?accusativeMasculineInanimateSingularSuperlativeForm ontolex:representation ?accusativeMasculineInanimateSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q52943434, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularComparativeForm .
+    ?locativeFeminineSingularComparativeForm ontolex:representation ?locativeFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786, wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineAnimateSingularComparativeForm .
-    ?accusativeMasculineAnimateSingularComparativeForm ontolex:representation ?accusativeMasculineAnimateSingularComparative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q54020116, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularSuperlativeForm .
+    ?locativeFeminineSingularSuperlativeForm ontolex:representation ?locativeFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineAnimateSingularSuperlativeForm .
-    ?accusativeMasculineAnimateSingularSuperlativeForm ontolex:representation ?accusativeMasculineAnimateSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q54020116, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularPositiveForm .
+    ?locativeFeminineSingularPositiveForm ontolex:representation ?locativeFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 }

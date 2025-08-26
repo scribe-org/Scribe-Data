@@ -17,10 +17,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q468801 ;
     wikibase:lemma ?personalpronoun ;
     schema:dateModified ?lastModified .
-
+    
   # Note: We need to filter for pa to remove gurmukhi (pa) words.
   FILTER(lang(?personalpronoun) = "pa")
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?dativeForm .
     ?dativeForm ontolex:representation ?dative ;

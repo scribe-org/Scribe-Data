@@ -6,34 +6,28 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?essiveSingular
-  ?essivePlural
+  ?genitiveSingular
+  ?genitivePlural
   ?abessiveSingular
   ?abessivePlural
-  ?comitativeSingular
-  ?comitativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
-  # MARK: Essive
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?essiveSingularForm .
-    ?essiveSingularForm ontolex:representation ?essiveSingular ;
-      wikibase:grammaticalFeature wd:Q148465, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?essivePluralForm .
-    ?essivePluralForm ontolex:representation ?essivePlural ;
-      wikibase:grammaticalFeature wd:Q148465, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
-
-  # MARK: Abessive
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?abessiveSingularForm .
@@ -45,19 +39,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?abessivePluralForm .
     ?abessivePluralForm ontolex:representation ?abessivePlural ;
       wikibase:grammaticalFeature wd:Q319822, wd:Q146786 .
-  }
-
-  # MARK: Comitative
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comitativeSingularForm .
-    ?comitativeSingularForm ontolex:representation ?comitativeSingular ;
-      wikibase:grammaticalFeature wd:Q838581, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comitativePluralForm .
-    ?comitativePluralForm ontolex:representation ?comitativePlural ;
-      wikibase:grammaticalFeature wd:Q838581, wd:Q146786 .
   }
 }

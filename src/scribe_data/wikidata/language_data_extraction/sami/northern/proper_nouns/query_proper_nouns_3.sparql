@@ -7,21 +7,21 @@ SELECT
   ?lastModified
   ?propernoun
   ?locative
-  ?comitative
+  ?illative
   ?locativeSingular
   ?locativePlural
-  ?comitativeSingular
-  ?comitativePlural
+  ?illativeSingular
+  ?illativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q33947 ;
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?propernoun ;
     schema:dateModified ?lastModified .
-
+    
   # Note: We need to filter for se to remove northern (se) words.
   FILTER(lang(?propernoun) = "se")
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?locativeForm .
     ?locativeForm ontolex:representation ?locative ;
@@ -29,9 +29,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comitativeForm .
-    ?comitativeForm ontolex:representation ?comitative ;
-      wikibase:grammaticalFeature wd:Q838581 .
+    ?lexeme ontolex:lexicalForm ?illativeForm .
+    ?illativeForm ontolex:representation ?illative ;
+      wikibase:grammaticalFeature wd:Q474668 .
   }
 
   OPTIONAL {
@@ -47,14 +47,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comitativeSingularForm .
-    ?comitativeSingularForm ontolex:representation ?comitativeSingular ;
-      wikibase:grammaticalFeature wd:Q838581, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?illativeSingularForm .
+    ?illativeSingularForm ontolex:representation ?illativeSingular ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comitativePluralForm .
-    ?comitativePluralForm ontolex:representation ?comitativePlural ;
-      wikibase:grammaticalFeature wd:Q838581, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?illativePluralForm .
+    ?illativePluralForm ontolex:representation ?illativePlural ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q146786 .
   }
 }

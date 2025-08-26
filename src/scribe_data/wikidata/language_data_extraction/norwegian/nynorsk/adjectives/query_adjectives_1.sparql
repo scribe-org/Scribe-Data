@@ -1,33 +1,44 @@
 # tool: scribe-data
-# All Nynorsk Norwegian (Q25164) adjectives (Q34698) and the given forms.
+# All Norwegian (Q25164) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
-
-# Note: This query is for Nynorsk (Q25164) rather than Bokmål (Q25167).
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
   ?plural
+  ?comparative
+  ?superlative
   ?definiteSingular
-  ?neuterIndefiniteSingular
-  ?feminineMasculineIndefiniteSingular
+  ?definiteSuperlative
+  ?masculineIndefiniteSingular
 
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
-  # MARK: Plural
-
+    
+  # Note: We need to filter for nn to remove nynorsk (nn) words.
+  FILTER(lang(?adjective) = "nn")
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
   }
 
-  # MARK: Definite
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?definiteSingularForm .
@@ -35,19 +46,15 @@ WHERE {
       wikibase:grammaticalFeature wd:Q53997851, wd:Q110786 .
   }
 
-  # MARK: Neuter Indefinite
-
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularForm .
-    ?neuterIndefiniteSingularForm ontolex:representation ?neuterIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?definiteSuperlativeForm .
+    ?definiteSuperlativeForm ontolex:representation ?definiteSuperlative ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q1817208 .
   }
 
-  # MARK: Common Indefinite
-
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularForm .
-    ?feminineMasculineIndefiniteSingularForm ontolex:representation ?feminineMasculineIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q53997857, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?masculineIndefiniteSingularForm .
+    ?masculineIndefiniteSingularForm ontolex:representation ?masculineIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997857, wd:Q110786 .
   }
 }

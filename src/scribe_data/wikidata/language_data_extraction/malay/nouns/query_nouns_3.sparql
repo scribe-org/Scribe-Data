@@ -1,0 +1,36 @@
+# tool: scribe-data
+# All Malay (Q9237) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?thirdPerson
+  ?thirdPersonSingular
+  ?thirdPersonSingularPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9237 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonForm .
+    ?thirdPersonForm ontolex:representation ?thirdPerson ;
+      wikibase:grammaticalFeature wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonSingularForm .
+    ?thirdPersonSingularForm ontolex:representation ?thirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonSingularPluralForm .
+    ?thirdPersonSingularPluralForm ontolex:representation ?thirdPersonSingularPlural ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q110786, wd:Q146786 .
+  }
+}

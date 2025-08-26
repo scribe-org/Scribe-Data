@@ -7,10 +7,10 @@ SELECT
   ?lastModified
   ?personalpronoun
   ?genitive
-  ?dative
+  ?accusative
   ?genitiveFeminine
-  ?dativeFeminine
-  ?dativeNeuter
+  ?accusativeFeminine
+  ?accusativeNeuter
 
 WHERE {
   ?lexeme dct:language wd:Q188 ;
@@ -25,9 +25,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeForm .
-    ?dativeForm ontolex:representation ?dative ;
-      wikibase:grammaticalFeature wd:Q145599 .
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
   }
 
   OPTIONAL {
@@ -37,14 +37,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeFeminineForm .
-    ?dativeFeminineForm ontolex:representation ?dativeFeminine ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineForm .
+    ?accusativeFeminineForm ontolex:representation ?accusativeFeminine ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeNeuterForm .
-    ?dativeNeuterForm ontolex:representation ?dativeNeuter ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461 .
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterForm .
+    ?accusativeNeuterForm ontolex:representation ?accusativeNeuter ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461 .
   }
 }

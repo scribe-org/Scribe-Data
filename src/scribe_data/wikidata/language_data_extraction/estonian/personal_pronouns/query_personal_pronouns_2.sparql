@@ -6,18 +6,24 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?personalpronoun
+  ?illative
   ?allative
-  ?adessive
-  ?terminative
+  ?comitative
+  ?illativeSingular
   ?allativeSingular
-  ?adessiveSingular
-  ?terminativeSingular
+  ?comitativeSingular
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory wd:Q468801 ;
     wikibase:lemma ?personalpronoun ;
     schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?illativeForm .
+    ?illativeForm ontolex:representation ?illative ;
+      wikibase:grammaticalFeature wd:Q474668 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?allativeForm .
@@ -26,15 +32,15 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?adessiveForm .
-    ?adessiveForm ontolex:representation ?adessive ;
-      wikibase:grammaticalFeature wd:Q281954 .
+    ?lexeme ontolex:lexicalForm ?comitativeForm .
+    ?comitativeForm ontolex:representation ?comitative ;
+      wikibase:grammaticalFeature wd:Q838581 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?terminativeForm .
-    ?terminativeForm ontolex:representation ?terminative ;
-      wikibase:grammaticalFeature wd:Q747019 .
+    ?lexeme ontolex:lexicalForm ?illativeSingularForm .
+    ?illativeSingularForm ontolex:representation ?illativeSingular ;
+      wikibase:grammaticalFeature wd:Q474668, wd:Q110786 .
   }
 
   OPTIONAL {
@@ -44,14 +50,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?adessiveSingularForm .
-    ?adessiveSingularForm ontolex:representation ?adessiveSingular ;
-      wikibase:grammaticalFeature wd:Q281954, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?terminativeSingularForm .
-    ?terminativeSingularForm ontolex:representation ?terminativeSingular ;
-      wikibase:grammaticalFeature wd:Q747019, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?comitativeSingularForm .
+    ?comitativeSingularForm ontolex:representation ?comitativeSingular ;
+      wikibase:grammaticalFeature wd:Q838581, wd:Q110786 .
   }
 }

@@ -6,38 +6,31 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?masculinePastFirstPersonSingular
-  ?masculinePastSecondPersonSingular
-  ?masculinePastThirdPersonSingular
-  ?masculineIndicativePastThirdPersonSingular
+  ?neuterPastFirstPersonSingular
+  ?neuterPastSecondPersonSingular
+  ?neuterPastThirdPersonSingular
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePastFirstPersonSingularForm .
-    ?masculinePastFirstPersonSingularForm ontolex:representation ?masculinePastFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?neuterPastFirstPersonSingularForm .
+    ?neuterPastFirstPersonSingularForm ontolex:representation ?neuterPastFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q1994301, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePastSecondPersonSingularForm .
-    ?masculinePastSecondPersonSingularForm ontolex:representation ?masculinePastSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?neuterPastSecondPersonSingularForm .
+    ?neuterPastSecondPersonSingularForm ontolex:representation ?neuterPastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q1994301, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePastThirdPersonSingularForm .
-    ?masculinePastThirdPersonSingularForm ontolex:representation ?masculinePastThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1994301, wd:Q51929074, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineIndicativePastThirdPersonSingularForm .
-    ?masculineIndicativePastThirdPersonSingularForm ontolex:representation ?masculineIndicativePastThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q1994301, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?neuterPastThirdPersonSingularForm .
+    ?neuterPastThirdPersonSingularForm ontolex:representation ?neuterPastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q1994301, wd:Q51929074, wd:Q110786 .
   }
 }

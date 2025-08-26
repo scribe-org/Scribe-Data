@@ -6,29 +6,21 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?simplePast
-  ?singular
+  ?simplePresent
   ?combinedPresentParticiple
   ?englishPastParticiple
-  ?superlative
-  ?positive
+  ?simplePresentThirdPersonSingular
 
 WHERE {
   ?lexeme dct:language wd:Q1860 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePastForm .
-    ?simplePastForm ontolex:representation ?simplePast ;
-      wikibase:grammaticalFeature wd:Q1392475 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?simplePresentForm .
+    ?simplePresentForm ontolex:representation ?simplePresent ;
+      wikibase:grammaticalFeature wd:Q3910936 .
   }
 
   OPTIONAL {
@@ -44,14 +36,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?superlativeForm .
-    ?superlativeForm ontolex:representation ?superlative ;
-      wikibase:grammaticalFeature wd:Q1817208 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?positiveForm .
-    ?positiveForm ontolex:representation ?positive ;
-      wikibase:grammaticalFeature wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?simplePresentThirdPersonSingularForm .
+    ?simplePresentThirdPersonSingularForm ontolex:representation ?simplePresentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q3910936, wd:Q51929074, wd:Q110786 .
   }
 }

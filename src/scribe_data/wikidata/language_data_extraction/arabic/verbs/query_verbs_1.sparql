@@ -7,22 +7,34 @@ SELECT
   ?lastModified
   ?verb
   ?femininePlural
+  ?masculinePlural
+  ?feminineThirdPersonSingular
   ?masculineThirdPersonSingular
   ?femininePastThirdPersonSingular
-  ?masculinePerformativeThirdPersonSingular
-  ?femininePassivePerformativeSecondPersonSingular
-  ?masculinePassivePerformativeSecondPersonSingular
+  ?feminineActiveThirdPersonDualSubjunctive
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?femininePluralForm .
     ?femininePluralForm ontolex:representation ?femininePlural ;
       wikibase:grammaticalFeature wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralForm .
+    ?masculinePluralForm ontolex:representation ?masculinePlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineThirdPersonSingularForm .
+    ?feminineThirdPersonSingularForm ontolex:representation ?feminineThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
@@ -38,20 +50,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePerformativeThirdPersonSingularForm .
-    ?masculinePerformativeThirdPersonSingularForm ontolex:representation ?masculinePerformativeThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q124351233, wd:Q51929074, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?femininePassivePerformativeSecondPersonSingularForm .
-    ?femininePassivePerformativeSecondPersonSingularForm ontolex:representation ?femininePassivePerformativeSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q1194697, wd:Q124351233, wd:Q51929049, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculinePassivePerformativeSecondPersonSingularForm .
-    ?masculinePassivePerformativeSecondPersonSingularForm ontolex:representation ?masculinePassivePerformativeSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q1194697, wd:Q124351233, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?feminineActiveThirdPersonDualSubjunctiveForm .
+    ?feminineActiveThirdPersonDualSubjunctiveForm ontolex:representation ?feminineActiveThirdPersonDualSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q51929074, wd:Q110022, wd:Q473746 .
   }
 }

@@ -6,11 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?dativeNeuterSingular
-  ?dativeNeuterPlural
-  ?dativeNeuterPassiveFutureSingularParticiple
-  ?dativeNeuterPassivePerfectSingularParticiple
-  ?dativeNeuterActiveFutureSingularParticiple
+  ?dativeMasculineSingular
+  ?dativeMasculinePlural
+  ?dativeMasculinePassiveFutureSingularParticiple
+  ?dativeMasculinePassivePerfectSingularParticiple
+  ?dativeMasculineActiveFutureSingularParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -19,32 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeNeuterSingularForm .
-    ?dativeNeuterSingularForm ontolex:representation ?dativeNeuterSingular ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineSingularForm .
+    ?dativeMasculineSingularForm ontolex:representation ?dativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeNeuterPluralForm .
-    ?dativeNeuterPluralForm ontolex:representation ?dativeNeuterPlural ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePluralForm .
+    ?dativeMasculinePluralForm ontolex:representation ?dativeMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeNeuterPassiveFutureSingularParticipleForm .
-    ?dativeNeuterPassiveFutureSingularParticipleForm ontolex:representation ?dativeNeuterPassiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePassiveFutureSingularParticipleForm .
+    ?dativeMasculinePassiveFutureSingularParticipleForm ontolex:representation ?dativeMasculinePassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeNeuterPassivePerfectSingularParticipleForm .
-    ?dativeNeuterPassivePerfectSingularParticipleForm ontolex:representation ?dativeNeuterPassivePerfectSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculinePassivePerfectSingularParticipleForm .
+    ?dativeMasculinePassivePerfectSingularParticipleForm ontolex:representation ?dativeMasculinePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeNeuterActiveFutureSingularParticipleForm .
-    ?dativeNeuterActiveFutureSingularParticipleForm ontolex:representation ?dativeNeuterActiveFutureSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?dativeMasculineActiveFutureSingularParticipleForm .
+    ?dativeMasculineActiveFutureSingularParticipleForm ontolex:representation ?dativeMasculineActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 }

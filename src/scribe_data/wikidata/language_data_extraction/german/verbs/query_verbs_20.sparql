@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?indicativePerfectFirstPersonSingular
-  ?indicativePerfectFirstPersonPlural
-  ?indicativePerfectSecondPersonSingular
-  ?indicativePerfectSecondPersonPlural
-  ?indicativePerfectThirdPersonSingular
-  ?indicativePerfectThirdPersonPlural
+  ?indicativePreteriteFirstPersonSingular
+  ?indicativePreteriteFirstPersonPlural
+  ?indicativePreteriteSecondPersonSingular
+  ?indicativePreteriteSecondPersonPlural
+  ?indicativePreteriteThirdPersonSingular
+  ?indicativePreteriteThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q188 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePerfectFirstPersonSingularForm .
-    ?indicativePerfectFirstPersonSingularForm ontolex:representation ?indicativePerfectFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q625420, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonSingularForm .
+    ?indicativePreteriteFirstPersonSingularForm ontolex:representation ?indicativePreteriteFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePerfectFirstPersonPluralForm .
-    ?indicativePerfectFirstPersonPluralForm ontolex:representation ?indicativePerfectFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q625420, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonPluralForm .
+    ?indicativePreteriteFirstPersonPluralForm ontolex:representation ?indicativePreteriteFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePerfectSecondPersonSingularForm .
-    ?indicativePerfectSecondPersonSingularForm ontolex:representation ?indicativePerfectSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q625420, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonSingularForm .
+    ?indicativePreteriteSecondPersonSingularForm ontolex:representation ?indicativePreteriteSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePerfectSecondPersonPluralForm .
-    ?indicativePerfectSecondPersonPluralForm ontolex:representation ?indicativePerfectSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q625420, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonPluralForm .
+    ?indicativePreteriteSecondPersonPluralForm ontolex:representation ?indicativePreteriteSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePerfectThirdPersonSingularForm .
-    ?indicativePerfectThirdPersonSingularForm ontolex:representation ?indicativePerfectThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q625420, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonSingularForm .
+    ?indicativePreteriteThirdPersonSingularForm ontolex:representation ?indicativePreteriteThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePerfectThirdPersonPluralForm .
-    ?indicativePerfectThirdPersonPluralForm ontolex:representation ?indicativePerfectThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q625420, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonPluralForm .
+    ?indicativePreteriteThirdPersonPluralForm ontolex:representation ?indicativePreteriteThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q146786 .
   }
 }

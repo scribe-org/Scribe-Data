@@ -7,11 +7,11 @@ SELECT
   ?lastModified
   ?noun
   ?genitive
-  ?instrumental
+  ?locative
   ?genitiveSingular
   ?genitivePlural
-  ?instrumentalSingular
-  ?instrumentalPlural
+  ?locativeSingular
+  ?locativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q36236 ;
@@ -26,9 +26,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalForm .
-    ?instrumentalForm ontolex:representation ?instrumental ;
-      wikibase:grammaticalFeature wd:Q192997 .
+    ?lexeme ontolex:lexicalForm ?locativeForm .
+    ?locativeForm ontolex:representation ?locative ;
+      wikibase:grammaticalFeature wd:Q202142 .
   }
 
   OPTIONAL {
@@ -44,14 +44,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalSingularForm .
-    ?instrumentalSingularForm ontolex:representation ?instrumentalSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
+    ?locativeSingularForm ontolex:representation ?locativeSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalPluralForm .
-    ?instrumentalPluralForm ontolex:representation ?instrumentalPlural ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?locativePluralForm .
+    ?locativePluralForm ontolex:representation ?locativePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
   }
 }

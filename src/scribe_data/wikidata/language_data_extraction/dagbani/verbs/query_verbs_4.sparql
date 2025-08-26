@@ -6,11 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?simplePresent
+  ?presentContinuous
   ?singular
-  ?adverbial
   ?presentContinuousPlural
-  ?thirdPersonPlural
+  ?firstPersonSingular
+  ?firstPersonPlural
   ?singularPhrase
 
 WHERE {
@@ -18,11 +18,11 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?simplePresentForm .
-    ?simplePresentForm ontolex:representation ?simplePresent ;
-      wikibase:grammaticalFeature wd:Q3910936 .
+    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
+    ?presentContinuousForm ontolex:representation ?presentContinuous ;
+      wikibase:grammaticalFeature wd:Q7240943 .
   }
 
   OPTIONAL {
@@ -32,21 +32,21 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?adverbialForm .
-    ?adverbialForm ontolex:representation ?adverbial ;
-      wikibase:grammaticalFeature wd:Q380012 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentContinuousPluralForm .
     ?presentContinuousPluralForm ontolex:representation ?presentContinuousPlural ;
       wikibase:grammaticalFeature wd:Q7240943, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?thirdPersonPluralForm .
-    ?thirdPersonPluralForm ontolex:representation ?thirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?firstPersonSingularForm .
+    ?firstPersonSingularForm ontolex:representation ?firstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonPluralForm .
+    ?firstPersonPluralForm ontolex:representation ?firstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {

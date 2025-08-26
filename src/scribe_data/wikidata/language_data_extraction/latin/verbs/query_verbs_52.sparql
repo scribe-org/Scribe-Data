@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?pastImperfectFirstPersonSingularSubjunctive
-  ?pastImperfectFirstPersonPluralSubjunctive
-  ?pastImperfectSecondPersonSingularSubjunctive
-  ?pastImperfectSecondPersonPluralSubjunctive
-  ?pastImperfectThirdPersonSingularSubjunctive
-  ?pastImperfectThirdPersonPluralSubjunctive
+  ?accusativeMasculineFutureSingularParticiple
+  ?accusativeMasculineFuturePluralParticiple
+  ?accusativeMasculinePerfectPluralParticiple
+  ?accusativeMasculinePassiveFutureSingularParticiple
+  ?accusativeMasculinePassivePerfectSingularParticiple
+  ?accusativeMasculinePassivePerfectPluralParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonSingularSubjunctiveForm .
-    ?pastImperfectFirstPersonSingularSubjunctiveForm ontolex:representation ?pastImperfectFirstPersonSingularSubjunctive ;
-      wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q110786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineFutureSingularParticipleForm .
+    ?accusativeMasculineFutureSingularParticipleForm ontolex:representation ?accusativeMasculineFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonPluralSubjunctiveForm .
-    ?pastImperfectFirstPersonPluralSubjunctiveForm ontolex:representation ?pastImperfectFirstPersonPluralSubjunctive ;
-      wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q146786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineFuturePluralParticipleForm .
+    ?accusativeMasculineFuturePluralParticipleForm ontolex:representation ?accusativeMasculineFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonSingularSubjunctiveForm .
-    ?pastImperfectSecondPersonSingularSubjunctiveForm ontolex:representation ?pastImperfectSecondPersonSingularSubjunctive ;
-      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q110786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePerfectPluralParticipleForm .
+    ?accusativeMasculinePerfectPluralParticipleForm ontolex:representation ?accusativeMasculinePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q625420, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonPluralSubjunctiveForm .
-    ?pastImperfectSecondPersonPluralSubjunctiveForm ontolex:representation ?pastImperfectSecondPersonPluralSubjunctive ;
-      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q146786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePassiveFutureSingularParticipleForm .
+    ?accusativeMasculinePassiveFutureSingularParticipleForm ontolex:representation ?accusativeMasculinePassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastImperfectThirdPersonSingularSubjunctiveForm .
-    ?pastImperfectThirdPersonSingularSubjunctiveForm ontolex:representation ?pastImperfectThirdPersonSingularSubjunctive ;
-      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929074, wd:Q110786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePassivePerfectSingularParticipleForm .
+    ?accusativeMasculinePassivePerfectSingularParticipleForm ontolex:representation ?accusativeMasculinePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastImperfectThirdPersonPluralSubjunctiveForm .
-    ?pastImperfectThirdPersonPluralSubjunctiveForm ontolex:representation ?pastImperfectThirdPersonPluralSubjunctive ;
-      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929074, wd:Q146786, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePassivePerfectPluralParticipleForm .
+    ?accusativeMasculinePassivePerfectPluralParticipleForm ontolex:representation ?accusativeMasculinePassivePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
   }
 }

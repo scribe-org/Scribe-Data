@@ -6,11 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitive
-  ?gerund
-  ?combinedPresentParticiple
-  ?combinedPastParticiple
-  ?pastParticipleCombinedPastParticiple
+  ?imperativePresentFirstPersonPlural
+  ?imperativePresentSecondPersonSingular
+  ?imperativePresentSecondPersonPlural
+  ?presentSecondPersonSingularSubjunctive
+  ?presentSecondPersonPluralSubjunctive
 
 WHERE {
   ?lexeme dct:language wd:Q150 ;
@@ -19,32 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?imperativePresentFirstPersonPluralForm .
+    ?imperativePresentFirstPersonPluralForm ontolex:representation ?imperativePresentFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q192613, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?gerundForm .
-    ?gerundForm ontolex:representation ?gerund ;
-      wikibase:grammaticalFeature wd:Q1923028 .
+    ?lexeme ontolex:lexicalForm ?imperativePresentSecondPersonSingularForm .
+    ?imperativePresentSecondPersonSingularForm ontolex:representation ?imperativePresentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q192613, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
-    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
-      wikibase:grammaticalFeature wd:Q10345583 .
+    ?lexeme ontolex:lexicalForm ?imperativePresentSecondPersonPluralForm .
+    ?imperativePresentSecondPersonPluralForm ontolex:representation ?imperativePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q192613, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
-    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?presentSecondPersonSingularSubjunctiveForm .
+    ?presentSecondPersonSingularSubjunctiveForm ontolex:representation ?presentSecondPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929049, wd:Q110786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastParticipleCombinedPastParticipleForm .
-    ?pastParticipleCombinedPastParticipleForm ontolex:representation ?pastParticipleCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1994301, wd:Q814722, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?presentSecondPersonPluralSubjunctiveForm .
+    ?presentSecondPersonPluralSubjunctiveForm ontolex:representation ?presentSecondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929049, wd:Q146786, wd:Q473746 .
   }
 }

@@ -94,34 +94,30 @@ def get_missing_features(result_sparql, result_dump):
             all_qids.add(value["qid"])
 
     # Compare features for each language and data type.
-    for lang in result_sparql:
-        if lang in result_dump:
-            # Get all unique data types from both sources.
-            all_data_types = set(result_sparql[lang].keys()) | set(
-                result_dump[lang].keys()
+    all_languages = set(result_sparql.keys()) | set(result_dump.keys())
+    for lang in all_languages:
+        # Get data for the current language, with empty dict as default.
+        sparql_data = result_sparql.get(lang, {})
+        dump_data = result_dump.get(lang, {})
+
+        all_data_types = set(sparql_data.keys()) | set(dump_data.keys())
+
+        for dt in all_data_types:
+            # Get values from SPARQL if available.
+            sparql_values = {tuple(item) for item in sparql_data.get(dt, [])}
+
+            # Get values from dump if available.
+            dump_values = {tuple(item) for item in dump_data.get(dt, [])}
+
+            # Get missing Forms from lexeme Dump.
+            unique_dump_values = (
+                set(map(tuple, sort_qids_in_list(dump_values))) - sparql_values
             )
 
-            for dt in all_data_types:
-                sparql_values = set()
-                dump_values = set()
-
-                # Get values from SPARQL if available.
-                if dt in result_sparql[lang]:
-                    sparql_values = {tuple(item) for item in result_sparql[lang][dt]}
-
-                # Get values from dump if available.
-                if dt in result_dump[lang]:
-                    dump_values = {tuple(item) for item in result_dump[lang][dt]}
-
-                # Get missing Forms from lexeme Dump.
-                unique_dump_values = (
-                    set(map(tuple, sort_qids_in_list(dump_values))) - sparql_values
-                )
-
-                # Store valid missing features from dump.
-                for item in unique_dump_values:
-                    if all(qid in all_qids for qid in item):
-                        missing_by_lang_type[lang][dt].append(list(item))
+            # Store valid missing features from dump.
+            for item in unique_dump_values:
+                if all(qid in all_qids for qid in item):
+                    missing_by_lang_type[lang][dt].append(list(item))
 
     return missing_by_lang_type or None
 
@@ -159,26 +155,36 @@ def process_missing_features(missing_features, query_dir):
         sub_languages_iso_codes |= qid_to_isos
 
     for language_qid, data_types_qid in missing_features.items():
-        print(f"Processing language: {language_qid}")
-        print(f"Data types: {list(data_types_qid.keys())}")
+        try:
+            print(f"Processing language: {language_qid}")
+            print(f"Data types: {list(data_types_qid.keys())}")
 
-        # Create a separate entry for each data type.
-        for data_type_qid, features in data_types_qid.items():
-            language_entry = {language_qid: {data_type_qid: features}}
-            if language_qid in sub_languages_iso_codes:
-                for sub_lang_iso_code in sub_languages_iso_codes[language_qid]:
-                    print(
-                        f"Generating query for {language_qid} - {data_type_qid} - {sub_lang_iso_code}"
-                    )
+            # Create a separate entry for each data type.
+            for data_type_qid, features in data_types_qid.items():
+                language_entry = {language_qid: {data_type_qid: features}}
+                if language_qid in sub_languages_iso_codes:
+                    # For macro-languages, generate a separate set of files
+                    # for each sub-language, each with a specific filter.
+                    for sub_lang_iso_code in sub_languages_iso_codes[language_qid]:
+                        print(
+                            f"Generating query for {language_qid} - {data_type_qid} - {sub_lang_iso_code}"
+                        )
+                        split_group_by_identifier(
+                            language_entry,
+                            LANGUAGE_DATA_EXTRACTION_DIR,
+                            sub_lang_iso_code,
+                        )
+                else:
+                    print(f"Generating query for {language_qid} - {data_type_qid}")
                     split_group_by_identifier(
-                        language_entry, LANGUAGE_DATA_EXTRACTION_DIR, sub_lang_iso_code
+                        language_entry,
+                        LANGUAGE_DATA_EXTRACTION_DIR,
+                        sub_lang_iso_code=None,
                     )
 
-            else:
-                print(f"Generating query for {language_qid} - {data_type_qid}")
-                split_group_by_identifier(
-                    language_entry, LANGUAGE_DATA_EXTRACTION_DIR, sub_lang_iso_code=None
-                )
+        except (ValueError, KeyError) as e:
+            print(f"Skipping language {language_qid} due to error: {e}")
+            continue
 
 
 def main():
@@ -192,18 +198,17 @@ def main():
     Notes
     -----
     Required command line arguments:
-    - dump_path: Path to the Wikidata dump file or None to download
     - query_dir: Directory for storing generated queries
 
     Optional arguments:
+    - --dump-path: Path to the Wikidata dump file or None to download
     - --process-all-keys: Flag to process all nested keys in missing features
     - --download-dump: Flag to download the dump if dump_path is not provided
     """
     parser = argparse.ArgumentParser(description="Check missing forms in Wikidata")
     parser.add_argument(
-        "dump_path",
+        "--dump-path",
         type=str,
-        nargs="?",
         default=None,
         help="Path to the dump file (optional if --download-dump is used)",
     )

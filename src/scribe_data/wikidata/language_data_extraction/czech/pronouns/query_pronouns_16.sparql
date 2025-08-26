@@ -6,38 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?locativeMasculineInanimateSingular
-  ?locativeMasculineInanimatePlural
-  ?locativeMasculineInanimateSingularPositive
-  ?locativeMasculineInanimatePluralPositive
+  ?vocativeFeminineSingular
+  ?vocativeFemininePlural
+  ?vocativeFeminineSingularPositive
+  ?vocativeFemininePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q36224 ;
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimateSingularForm .
-    ?locativeMasculineInanimateSingularForm ontolex:representation ?locativeMasculineInanimateSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
+    ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimatePluralForm .
-    ?locativeMasculineInanimatePluralForm ontolex:representation ?locativeMasculineInanimatePlural ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralForm .
+    ?vocativeFemininePluralForm ontolex:representation ?vocativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimateSingularPositiveForm .
-    ?locativeMasculineInanimateSingularPositiveForm ontolex:representation ?locativeMasculineInanimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularPositiveForm .
+    ?vocativeFeminineSingularPositiveForm ontolex:representation ?vocativeFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimatePluralPositiveForm .
-    ?locativeMasculineInanimatePluralPositiveForm ontolex:representation ?locativeMasculineInanimatePluralPositive ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralPositiveForm .
+    ?vocativeFemininePluralPositiveForm ontolex:representation ?vocativeFemininePluralPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786, wd:Q3482678 .
   }
 }

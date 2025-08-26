@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?indicativeFutureFirstPersonSingular
-  ?indicativeFutureFirstPersonPlural
-  ?indicativeFutureSecondPersonSingular
-  ?indicativeFutureSecondPersonPlural
-  ?indicativeFutureThirdPersonSingular
-  ?indicativeFutureThirdPersonPlural
+  ?genitiveMasculineFutureSingularParticiple
+  ?genitiveMasculineFuturePluralParticiple
+  ?genitiveMasculinePerfectPluralParticiple
+  ?genitiveMasculinePassiveFutureSingularParticiple
+  ?genitiveMasculinePassivePerfectSingularParticiple
+  ?genitiveMasculineActiveFutureSingularParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeFutureFirstPersonSingularForm .
-    ?indicativeFutureFirstPersonSingularForm ontolex:representation ?indicativeFutureFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q21714344, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineFutureSingularParticipleForm .
+    ?genitiveMasculineFutureSingularParticipleForm ontolex:representation ?genitiveMasculineFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeFutureFirstPersonPluralForm .
-    ?indicativeFutureFirstPersonPluralForm ontolex:representation ?indicativeFutureFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineFuturePluralParticipleForm .
+    ?genitiveMasculineFuturePluralParticipleForm ontolex:representation ?genitiveMasculineFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeFutureSecondPersonSingularForm .
-    ?indicativeFutureSecondPersonSingularForm ontolex:representation ?indicativeFutureSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePerfectPluralParticipleForm .
+    ?genitiveMasculinePerfectPluralParticipleForm ontolex:representation ?genitiveMasculinePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q625420, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeFutureSecondPersonPluralForm .
-    ?indicativeFutureSecondPersonPluralForm ontolex:representation ?indicativeFutureSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePassiveFutureSingularParticipleForm .
+    ?genitiveMasculinePassiveFutureSingularParticipleForm ontolex:representation ?genitiveMasculinePassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeFutureThirdPersonSingularForm .
-    ?indicativeFutureThirdPersonSingularForm ontolex:representation ?indicativeFutureThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePassivePerfectSingularParticipleForm .
+    ?genitiveMasculinePassivePerfectSingularParticipleForm ontolex:representation ?genitiveMasculinePassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativeFutureThirdPersonPluralForm .
-    ?indicativeFutureThirdPersonPluralForm ontolex:representation ?indicativeFutureThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineActiveFutureSingularParticipleForm .
+    ?genitiveMasculineActiveFutureSingularParticipleForm ontolex:representation ?genitiveMasculineActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 }

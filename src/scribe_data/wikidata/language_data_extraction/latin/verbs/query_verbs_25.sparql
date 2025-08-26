@@ -6,11 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?passiveImperativePresentSecondPersonSingular
-  ?passiveImperativePresentSecondPersonPlural
-  ?passiveImperativeFutureSecondPersonSingular
-  ?passiveImperativeFutureThirdPersonSingular
-  ?passiveImperativeFutureThirdPersonPlural
+  ?vocativeNeuterPresentPluralParticiple
+  ?vocativeNeuterFuturePluralParticiple
+  ?vocativeNeuterPassiveFutureSingularParticiple
+  ?vocativeNeuterPassivePerfectSingularParticiple
+  ?vocativeNeuterActiveFutureSingularParticiple
+  ?vocativeNeuterActiveFuturePluralParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -19,32 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveImperativePresentSecondPersonSingularForm .
-    ?passiveImperativePresentSecondPersonSingularForm ontolex:representation ?passiveImperativePresentSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q22716, wd:Q192613, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterPresentPluralParticipleForm .
+    ?vocativeNeuterPresentPluralParticipleForm ontolex:representation ?vocativeNeuterPresentPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q192613, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveImperativePresentSecondPersonPluralForm .
-    ?passiveImperativePresentSecondPersonPluralForm ontolex:representation ?passiveImperativePresentSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q22716, wd:Q192613, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterFuturePluralParticipleForm .
+    ?vocativeNeuterFuturePluralParticipleForm ontolex:representation ?vocativeNeuterFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveImperativeFutureSecondPersonSingularForm .
-    ?passiveImperativeFutureSecondPersonSingularForm ontolex:representation ?passiveImperativeFutureSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q22716, wd:Q501405, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterPassiveFutureSingularParticipleForm .
+    ?vocativeNeuterPassiveFutureSingularParticipleForm ontolex:representation ?vocativeNeuterPassiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q1194697, wd:Q501405, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveImperativeFutureThirdPersonSingularForm .
-    ?passiveImperativeFutureThirdPersonSingularForm ontolex:representation ?passiveImperativeFutureThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q22716, wd:Q501405, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterPassivePerfectSingularParticipleForm .
+    ?vocativeNeuterPassivePerfectSingularParticipleForm ontolex:representation ?vocativeNeuterPassivePerfectSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveImperativeFutureThirdPersonPluralForm .
-    ?passiveImperativeFutureThirdPersonPluralForm ontolex:representation ?passiveImperativeFutureThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q22716, wd:Q501405, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterActiveFutureSingularParticipleForm .
+    ?vocativeNeuterActiveFutureSingularParticipleForm ontolex:representation ?vocativeNeuterActiveFutureSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q110786, wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterActiveFuturePluralParticipleForm .
+    ?vocativeNeuterActiveFuturePluralParticipleForm ontolex:representation ?vocativeNeuterActiveFuturePluralParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q1317831, wd:Q501405, wd:Q146786, wd:Q814722 .
   }
 }

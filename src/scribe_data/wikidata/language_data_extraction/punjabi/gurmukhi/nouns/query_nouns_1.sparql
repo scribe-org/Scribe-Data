@@ -1,40 +1,60 @@
 # tool: scribe-data
-# All Punjabi Gurmukhi (Q58635) nouns (Q1084) and the given forms.
+# All Punjabi (Q58635) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
-
-# Note: We need to filter for "pa" to select Gurmukhi words.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?singular
-  ?plural
-  ?gender
+  ?noun
+  ?directSingular
+  ?directPlural
+  ?nominativeMasculineSingular
+  ?directObliqueSingular
+  ?directAblativeMasculine
+  ?elativeMasculinePlural
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?singular ;
+    wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-    FILTER(lang(?singular) = "pa")
-
-  # MARK: Plural
-
+    
+  # Note: We need to filter for pa to remove gurmukhi (pa) words.
+  FILTER(lang(?noun) = "pa")
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(lang(?plural) = "pa")
+    ?lexeme ontolex:lexicalForm ?directSingularForm .
+    ?directSingularForm ontolex:representation ?directSingular ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q110786 .
   }
 
-  # MARK: Gender(s)
-
   OPTIONAL {
-    ?lexeme wdt:P5185 ?nounGender .
+    ?lexeme ontolex:lexicalForm ?directPluralForm .
+    ?directPluralForm ontolex:representation ?directPlural ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q146786 .
   }
 
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en" .
-    ?nounGender rdfs:label ?gender .
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularForm .
+    ?nominativeMasculineSingularForm ontolex:representation ?nominativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directObliqueSingularForm .
+    ?directObliqueSingularForm ontolex:representation ?directObliqueSingular ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q1233197, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directAblativeMasculineForm .
+    ?directAblativeMasculineForm ontolex:representation ?directAblativeMasculine ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q156986, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?elativeMasculinePluralForm .
+    ?elativeMasculinePluralForm ontolex:representation ?elativeMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q394253, wd:Q499327, wd:Q146786 .
   }
 }

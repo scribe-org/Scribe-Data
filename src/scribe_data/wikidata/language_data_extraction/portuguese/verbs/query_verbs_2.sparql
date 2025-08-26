@@ -6,45 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitive
-  ?pastImperfect
-  ?gerund
-  ?participle
-  ?combinedPastParticiple
+  ?infinitiveFirstPersonSingular
+  ?infinitiveFirstPersonPlural
+  ?infinitiveSecondPersonSingular
+  ?infinitiveSecondPersonPlural
+  ?infinitiveThirdPersonSingular
+  ?infinitiveThirdPersonPlural
 
 WHERE {
   ?lexeme dct:language wd:Q5146 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?infinitiveFirstPersonSingularForm .
+    ?infinitiveFirstPersonSingularForm ontolex:representation ?infinitiveFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q21714344, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastImperfectForm .
-    ?pastImperfectForm ontolex:representation ?pastImperfect ;
-      wikibase:grammaticalFeature wd:Q12547192 .
+    ?lexeme ontolex:lexicalForm ?infinitiveFirstPersonPluralForm .
+    ?infinitiveFirstPersonPluralForm ontolex:representation ?infinitiveFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q21714344, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?gerundForm .
-    ?gerundForm ontolex:representation ?gerund ;
-      wikibase:grammaticalFeature wd:Q1923028 .
+    ?lexeme ontolex:lexicalForm ?infinitiveSecondPersonSingularForm .
+    ?infinitiveSecondPersonSingularForm ontolex:representation ?infinitiveSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q51929049, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?participleForm .
-    ?participleForm ontolex:representation ?participle ;
-      wikibase:grammaticalFeature wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?infinitiveSecondPersonPluralForm .
+    ?infinitiveSecondPersonPluralForm ontolex:representation ?infinitiveSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q51929049, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
-    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?infinitiveThirdPersonSingularForm .
+    ?infinitiveThirdPersonSingularForm ontolex:representation ?infinitiveThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveThirdPersonPluralForm .
+    ?infinitiveThirdPersonPluralForm ontolex:representation ?infinitiveThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q51929074, wd:Q146786 .
   }
 }

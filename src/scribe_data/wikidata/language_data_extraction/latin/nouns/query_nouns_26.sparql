@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?vocativeFemininePlural
+  ?vocativeFeminineSingular
   ?vocativeFemininePassiveFutureSingularParticiple
   ?vocativeFemininePassiveFuturePluralParticiple
-  ?vocativeFemininePassivePerfectSingularParticiple
+  ?vocativeFemininePassivePerfectPluralParticiple
   ?vocativeFeminineActiveFutureSingularParticiple
   ?vocativeFeminineActiveFuturePluralParticiple
 
@@ -20,9 +20,9 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralForm .
-    ?vocativeFemininePluralForm ontolex:representation ?vocativeFemininePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
+    ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
@@ -38,9 +38,9 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFemininePassivePerfectSingularParticipleForm .
-    ?vocativeFemininePassivePerfectSingularParticipleForm ontolex:representation ?vocativeFemininePassivePerfectSingularParticiple ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q110786, wd:Q814722 .
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePassivePerfectPluralParticipleForm .
+    ?vocativeFemininePassivePerfectPluralParticipleForm ontolex:representation ?vocativeFemininePassivePerfectPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q1194697, wd:Q625420, wd:Q146786, wd:Q814722 .
   }
 
   OPTIONAL {

@@ -6,6 +6,7 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?preposition
+  ?past
   ?contraction
 
 WHERE {
@@ -13,8 +14,12 @@ WHERE {
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?preposition ;
     schema:dateModified ?lastModified .
-
-  # MARK: Contraction
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?contractionForm .

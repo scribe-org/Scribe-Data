@@ -6,48 +6,48 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?directGerund
-  ?directPassiveGerund
-  ?directIntransitivePhaseBasicPhaseGerund
-  ?directObliqueIntransitivePhaseBasicPhaseGerund
-  ?directPassiveIntransitivePhaseBasicPhaseGerund
+  ?intransitivePhaseBasicPhase
+  ?intransitivePhaseBasicPhaseConjunctiveParticiple
+  ?intransitivePhaseBasicPhaseConjunctiveParticipleAdverbial
+  ?intransitivePhaseBasicPhaseFirstPersonPluralSubjunctive
+  ?intransitivePhaseBasicPhaseThirdPersonPluralSubjunctive
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   # Note: We need to filter for pa to remove gurmukhi (pa) words.
   FILTER(lang(?verb) = "pa")
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directGerundForm .
-    ?directGerundForm ontolex:representation ?directGerund ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q1923028 .
+    ?lexeme ontolex:lexicalForm ?intransitivePhaseBasicPhaseForm .
+    ?intransitivePhaseBasicPhaseForm ontolex:representation ?intransitivePhaseBasicPhase ;
+      wikibase:grammaticalFeature wd:Q113330736, wd:Q113330960 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directPassiveGerundForm .
-    ?directPassiveGerundForm ontolex:representation ?directPassiveGerund ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q1194697, wd:Q1923028 .
+    ?lexeme ontolex:lexicalForm ?intransitivePhaseBasicPhaseConjunctiveParticipleForm .
+    ?intransitivePhaseBasicPhaseConjunctiveParticipleForm ontolex:representation ?intransitivePhaseBasicPhaseConjunctiveParticiple ;
+      wikibase:grammaticalFeature wd:Q113330736, wd:Q113330960, wd:Q113133303 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directIntransitivePhaseBasicPhaseGerundForm .
-    ?directIntransitivePhaseBasicPhaseGerundForm ontolex:representation ?directIntransitivePhaseBasicPhaseGerund ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q113330736, wd:Q113330960, wd:Q1923028 .
+    ?lexeme ontolex:lexicalForm ?intransitivePhaseBasicPhaseConjunctiveParticipleAdverbialForm .
+    ?intransitivePhaseBasicPhaseConjunctiveParticipleAdverbialForm ontolex:representation ?intransitivePhaseBasicPhaseConjunctiveParticipleAdverbial ;
+      wikibase:grammaticalFeature wd:Q113330736, wd:Q113330960, wd:Q113133303, wd:Q380012 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directObliqueIntransitivePhaseBasicPhaseGerundForm .
-    ?directObliqueIntransitivePhaseBasicPhaseGerundForm ontolex:representation ?directObliqueIntransitivePhaseBasicPhaseGerund ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q1233197, wd:Q113330736, wd:Q113330960, wd:Q1923028 .
+    ?lexeme ontolex:lexicalForm ?intransitivePhaseBasicPhaseFirstPersonPluralSubjunctiveForm .
+    ?intransitivePhaseBasicPhaseFirstPersonPluralSubjunctiveForm ontolex:representation ?intransitivePhaseBasicPhaseFirstPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q113330736, wd:Q113330960, wd:Q21714344, wd:Q146786, wd:Q473746 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directPassiveIntransitivePhaseBasicPhaseGerundForm .
-    ?directPassiveIntransitivePhaseBasicPhaseGerundForm ontolex:representation ?directPassiveIntransitivePhaseBasicPhaseGerund ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q1194697, wd:Q113330736, wd:Q113330960, wd:Q1923028 .
+    ?lexeme ontolex:lexicalForm ?intransitivePhaseBasicPhaseThirdPersonPluralSubjunctiveForm .
+    ?intransitivePhaseBasicPhaseThirdPersonPluralSubjunctiveForm ontolex:representation ?intransitivePhaseBasicPhaseThirdPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q113330736, wd:Q113330960, wd:Q51929074, wd:Q146786, wd:Q473746 .
   }
 }

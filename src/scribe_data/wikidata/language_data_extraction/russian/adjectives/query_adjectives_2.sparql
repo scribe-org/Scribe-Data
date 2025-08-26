@@ -6,25 +6,18 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?comparative
   ?superlative
-  ?masculineSingular
-  ?neuterSingular
-  ?accusativeNeuterSingular
-  ?accusativeInanimateNeuterSingular
+  ?feminineSingular
+  ?accusativeAnimatePlural
+  ?feminineSingularShort
+  ?accusativeAnimateNeuterSingular
 
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comparativeForm .
-    ?comparativeForm ontolex:representation ?comparative ;
-      wikibase:grammaticalFeature wd:Q14169499 .
-  }
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?superlativeForm .
     ?superlativeForm ontolex:representation ?superlative ;
@@ -32,26 +25,26 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
-    ?masculineSingularForm ontolex:representation ?masculineSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
+    ?feminineSingularForm ontolex:representation ?feminineSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterSingularForm .
-    ?neuterSingularForm ontolex:representation ?neuterSingular ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?accusativeAnimatePluralForm .
+    ?accusativeAnimatePluralForm ontolex:representation ?accusativeAnimatePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q51927507, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularForm .
-    ?accusativeNeuterSingularForm ontolex:representation ?accusativeNeuterSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?feminineSingularShortForm .
+    ?feminineSingularShortForm ontolex:representation ?feminineSingularShort ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q4239848 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeInanimateNeuterSingularForm .
-    ?accusativeInanimateNeuterSingularForm ontolex:representation ?accusativeInanimateNeuterSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q51927539, wd:Q1775461, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?accusativeAnimateNeuterSingularForm .
+    ?accusativeAnimateNeuterSingularForm ontolex:representation ?accusativeAnimateNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q51927507, wd:Q1775461, wd:Q110786 .
   }
 }

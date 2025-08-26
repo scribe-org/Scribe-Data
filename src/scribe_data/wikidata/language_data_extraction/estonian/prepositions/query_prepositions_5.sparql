@@ -8,17 +8,15 @@ SELECT
   ?preposition
   ?genitiveSingular
   ?genitivePlural
-  ?partitiveSingular
-  ?partitivePlural
-  ?elativeSingular
-  ?elativePlural
+  ?abessiveSingular
+  ?abessivePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?preposition ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
     ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
@@ -32,26 +30,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?partitiveSingularForm .
-    ?partitiveSingularForm ontolex:representation ?partitiveSingular ;
-      wikibase:grammaticalFeature wd:Q857325, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?abessiveSingularForm .
+    ?abessiveSingularForm ontolex:representation ?abessiveSingular ;
+      wikibase:grammaticalFeature wd:Q319822, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?partitivePluralForm .
-    ?partitivePluralForm ontolex:representation ?partitivePlural ;
-      wikibase:grammaticalFeature wd:Q857325, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?elativeSingularForm .
-    ?elativeSingularForm ontolex:representation ?elativeSingular ;
-      wikibase:grammaticalFeature wd:Q394253, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?elativePluralForm .
-    ?elativePluralForm ontolex:representation ?elativePlural ;
-      wikibase:grammaticalFeature wd:Q394253, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?abessivePluralForm .
+    ?abessivePluralForm ontolex:representation ?abessivePlural ;
+      wikibase:grammaticalFeature wd:Q319822, wd:Q146786 .
   }
 }

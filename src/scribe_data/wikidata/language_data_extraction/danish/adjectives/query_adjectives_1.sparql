@@ -6,22 +6,22 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?plural
+  ?comparative
   ?superlative
   ?positive
-  ?genitiveIndefiniteSingularPositive
-  ?nonGenitiveIndefiniteSingularPositive
+  ?definiteSuperlative
+  ?definitePositive
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
   }
 
   OPTIONAL {
@@ -37,14 +37,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveIndefiniteSingularPositiveForm .
-    ?genitiveIndefiniteSingularPositiveForm ontolex:representation ?genitiveIndefiniteSingularPositive ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q53997857, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?definiteSuperlativeForm .
+    ?definiteSuperlativeForm ontolex:representation ?definiteSuperlative ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nonGenitiveIndefiniteSingularPositiveForm .
-    ?nonGenitiveIndefiniteSingularPositiveForm ontolex:representation ?nonGenitiveIndefiniteSingularPositive ;
-      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997857, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?definitePositiveForm .
+    ?definitePositiveForm ontolex:representation ?definitePositive ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q3482678 .
   }
 }

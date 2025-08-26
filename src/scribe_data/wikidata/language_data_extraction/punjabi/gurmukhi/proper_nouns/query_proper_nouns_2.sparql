@@ -6,48 +6,41 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?propernoun
-  ?masculineSingular
-  ?locativeFeminineSingular
-  ?locativeMasculineSingular
-  ?ablativeFeminineSingular
-  ?ablativeMasculineSingular
+  ?vocativeFeminineSingular
+  ?vocativeFemininePlural
+  ?vocativeMasculineSingular
+  ?vocativeMasculinePlural
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?propernoun ;
     schema:dateModified ?lastModified .
-
+    
   # Note: We need to filter for pa to remove gurmukhi (pa) words.
   FILTER(lang(?propernoun) = "pa")
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
-    ?masculineSingularForm ontolex:representation ?masculineSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
+    ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularForm .
-    ?locativeFeminineSingularForm ontolex:representation ?locativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralForm .
+    ?vocativeFemininePluralForm ontolex:representation ?vocativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeMasculineSingularForm .
-    ?locativeMasculineSingularForm ontolex:representation ?locativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineSingularForm .
+    ?vocativeMasculineSingularForm ontolex:representation ?vocativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeFeminineSingularForm .
-    ?ablativeFeminineSingularForm ontolex:representation ?ablativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularForm .
-    ?ablativeMasculineSingularForm ontolex:representation ?ablativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculinePluralForm .
+    ?vocativeMasculinePluralForm ontolex:representation ?vocativeMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q146786 .
   }
 }

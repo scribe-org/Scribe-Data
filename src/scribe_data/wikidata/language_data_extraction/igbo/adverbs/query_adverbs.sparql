@@ -6,9 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adverb
+  ?past
   ?future
   ?combinedPastParticiple
   ?adverbial
+  ?adverbOfManner
 
 WHERE {
   ?lexeme dct:language wd:Q33578 ;
@@ -16,6 +18,12 @@ WHERE {
     wikibase:lemma ?adverb ;
     schema:dateModified ?lastModified .
     
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?futureForm .
     ?futureForm ontolex:representation ?future ;
@@ -32,5 +40,11 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?adverbialForm .
     ?adverbialForm ontolex:representation ?adverbial ;
       wikibase:grammaticalFeature wd:Q380012 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adverbOfMannerForm .
+    ?adverbOfMannerForm ontolex:representation ?adverbOfManner ;
+      wikibase:grammaticalFeature wd:Q113320444 .
   }
 }

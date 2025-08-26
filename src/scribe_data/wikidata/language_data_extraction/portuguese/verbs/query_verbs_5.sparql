@@ -6,45 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?imperativeFirstPersonPlural
-  ?imperativeSecondPersonSingular
-  ?imperativeSecondPersonPlural
-  ?imperativeThirdPersonSingular
-  ?imperativeThirdPersonPlural
+  ?feminineSingularCombinedPastParticiple
+  ?femininePluralCombinedPastParticiple
+  ?femininePastSingularParticiple
+  ?femininePastPluralParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q5146 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeFirstPersonPluralForm .
-    ?imperativeFirstPersonPluralForm ontolex:representation ?imperativeFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?feminineSingularCombinedPastParticipleForm .
+    ?feminineSingularCombinedPastParticipleForm ontolex:representation ?feminineSingularCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q12717679 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeSecondPersonSingularForm .
-    ?imperativeSecondPersonSingularForm ontolex:representation ?imperativeSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?femininePluralCombinedPastParticipleForm .
+    ?femininePluralCombinedPastParticipleForm ontolex:representation ?femininePluralCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q12717679 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeSecondPersonPluralForm .
-    ?imperativeSecondPersonPluralForm ontolex:representation ?imperativeSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?femininePastSingularParticipleForm .
+    ?femininePastSingularParticipleForm ontolex:representation ?femininePastSingularParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1994301, wd:Q110786, wd:Q814722 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeThirdPersonSingularForm .
-    ?imperativeThirdPersonSingularForm ontolex:representation ?imperativeThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q51929074, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeThirdPersonPluralForm .
-    ?imperativeThirdPersonPluralForm ontolex:representation ?imperativeThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q22716, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?femininePastPluralParticipleForm .
+    ?femininePastPluralParticipleForm ontolex:representation ?femininePastPluralParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1994301, wd:Q146786, wd:Q814722 .
   }
 }

@@ -1,143 +1,53 @@
 # tool: scribe-data
-# All Hindi Hindustani (Q11051) adjectives (Q34698) and the given forms.
+# All Hindustani (Q11051) adjectives (Q34698) and the given forms.
 # Enter this query at https://query.wikidata.org/.
-
-# Note: We need to filter for "hi" to remove Urdu (ur) words.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?singular
-  ?plural
-
-  ?vocativeFeminineSingular
-  ?vocativeFemininePlural
-  ?vocativeMasculineSingular
-  ?vocativeMasculinePlural
-
-  ?directFeminineSingular
-  ?directFemininePlural
-  ?directMasculineSingular
-  ?directMasculinePlural
-
-  ?obliqueFeminineSingular
-  ?obliqueFemininePlural
-  ?obliqueMasculineSingular
-  ?obliqueMasculinePlural
+  ?feminine
+  ?masculine
+  ?comparative
+  ?superlative
+  ?positive
 
 WHERE {
   ?lexeme dct:language wd:Q11051 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    FILTER(lang(?adjective) = "hi")
-
-  # MARK: Singular
-
+    
+  # Note: We need to filter for hi to remove hindi (hi) words.
+  FILTER(lang(?adjective) = "hi")
+    
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 .
-      FILTER(LANG(?singular) = "hi")
-  }
-
-  # MARK: Plural
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
-      FILTER(LANG(?plural) = "hi")
-  }
-
-  # Vocative
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFeminineSingularForm .
-    ?vocativeFeminineSingularForm ontolex:representation ?vocativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q110786 .
-      FILTER(LANG(?vocativeFeminineSingular) = "hi")
+    ?lexeme ontolex:lexicalForm ?feminineForm .
+    ?feminineForm ontolex:representation ?feminine ;
+      wikibase:grammaticalFeature wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralForm .
-    ?vocativeFemininePluralForm ontolex:representation ?vocativeFemininePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786 .
-      FILTER(LANG(?vocativeFemininePlural) = "hi")
+    ?lexeme ontolex:lexicalForm ?masculineForm .
+    ?masculineForm ontolex:representation ?masculine ;
+      wikibase:grammaticalFeature wd:Q499327 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeMasculineSingularForm .
-    ?vocativeMasculineSingularForm ontolex:representation ?vocativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q110786 .
-      FILTER(LANG(?vocativeMasculineSingular) = "hi")
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeMasculinePluralForm .
-    ?vocativeMasculinePluralForm ontolex:representation ?vocativeMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q499327, wd:Q146786 .
-      FILTER(LANG(?vocativeMasculinePlural) = "hi")
-  }
-
-  # Direct
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directFeminineSingularForm .
-    ?directFeminineSingularForm ontolex:representation ?directFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q1775415, wd:Q110786 .
-      FILTER(LANG(?directFeminineSingular) = "hi")
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directFemininePluralForm .
-    ?directFemininePluralForm ontolex:representation ?directFemininePlural ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q1775415, wd:Q146786 .
-      FILTER(LANG(?directFemininePlural) = "hi")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directMasculineSingularForm .
-    ?directMasculineSingularForm ontolex:representation ?directMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q499327, wd:Q110786 .
-      FILTER(LANG(?directMasculineSingular) = "hi")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directMasculinePluralForm .
-    ?directMasculinePluralForm ontolex:representation ?directMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q499327, wd:Q146786 .
-      FILTER(LANG(?directMasculinePlural) = "hi")
-  }
-
-  # Oblique
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueFeminineSingularForm .
-    ?obliqueFeminineSingularForm ontolex:representation ?obliqueFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415, wd:Q110786 .
-      FILTER(LANG(?obliqueFeminineSingular) = "hi")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueFemininePluralForm .
-    ?obliqueFemininePluralForm ontolex:representation ?obliqueFemininePlural ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415, wd:Q146786 .
-      FILTER(LANG(?obliqueFemininePlural) = "hi")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueMasculineSingularForm .
-    ?obliqueMasculineSingularForm ontolex:representation ?obliqueMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q110786 .
-      FILTER(LANG(?obliqueMasculineSingular) = "hi")
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueMasculinePluralForm .
-    ?obliqueMasculinePluralForm ontolex:representation ?obliqueMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q146786 .
-      FILTER(LANG(?obliqueMasculinePlural) = "hi")
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
   }
 }
