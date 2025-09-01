@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?nominativeIndefiniteSingular
+  ?nominativeDefiniteSingular
+  ?nominativeSingularConstruct
+  ?pausalIndefiniteSingular
+  ?pausalDefiniteSingular
+  ?pausalSingularConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeIndefiniteSingularForm .
+    ?nominativeIndefiniteSingularForm ontolex:representation ?nominativeIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeDefiniteSingularForm .
+    ?nominativeDefiniteSingularForm ontolex:representation ?nominativeDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSingularConstructForm .
+    ?nominativeSingularConstructForm ontolex:representation ?nominativeSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalIndefiniteSingularForm .
+    ?pausalIndefiniteSingularForm ontolex:representation ?pausalIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalDefiniteSingularForm .
+    ?pausalDefiniteSingularForm ontolex:representation ?pausalDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalSingularConstructForm .
+    ?pausalSingularConstructForm ontolex:representation ?pausalSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q110786, wd:Q1641446 .
+  }
+}
