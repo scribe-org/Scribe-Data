@@ -165,7 +165,7 @@ class TestPathLogic:
     def test_filename_extraction(self):
         """Test filename extraction from paths."""
         path = Path("/some/path/de_verbs.sqlite")
-        filename = str(path).split("/")[-1]
+        filename = path.name
         assert filename == "de_verbs.sqlite"
 
     def test_path_construction(self):
