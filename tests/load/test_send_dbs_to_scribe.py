@@ -13,7 +13,9 @@ import pytest
 
 
 class TestDatabaseDeployment:
-    """Test the database deployment script."""
+    """
+    Test the database deployment script.
+    """
 
     @patch("scribe_data.load.send_dbs_to_scribe.os.system")
     @patch("scribe_data.load.send_dbs_to_scribe.get_android_data_path")
@@ -30,7 +32,9 @@ class TestDatabaseDeployment:
         mock_android_path,
         mock_system,
     ):
-        """Test complete deployment workflow."""
+        """
+        Test complete deployment workflow.
+        """
         mock_root.__truediv__ = Mock(return_value=Path("/root/exports"))
         mock_root.parent = Path("/root")
         mock_glob.return_value = [
@@ -52,7 +56,9 @@ class TestDatabaseDeployment:
     @patch("scribe_data.load.send_dbs_to_scribe.os.system")
     @patch("builtins.print")
     def test_copy_operations(self, mock_print, mock_system):
-        """Test copy commands are executed."""
+        """
+        Test copy commands are executed.
+        """
         config = {
             "German": {
                 "db_location": Path("/source/de_verbs.sqlite"),
@@ -63,8 +69,7 @@ class TestDatabaseDeployment:
             }
         }
 
-        for language in config:
-            c = config[language]
+        for language, c in config.items():
             mock_system(f'cp {c["db_location"]} {c["full_path_to_scribe_ios_db"]}')
             mock_print(
                 f"Moved {language} database to Scribe-iOS at {c['scribe_ios_db_path']}."
@@ -79,10 +84,14 @@ class TestDatabaseDeployment:
 
 
 class TestDatabaseDiscovery:
-    """Test database file discovery logic."""
+    """
+    Test database file discovery logic.
+    """
 
     def test_db_name_extraction(self):
-        """Test database name extraction from paths."""
+        """
+        Test database name extraction from paths.
+        """
         dbs = [Path("de_verbs.sqlite"), Path("fr_nouns.sqlite")]
         db_names = [Path(db).stem for db in dbs]
         db_names = sorted(db_names)
@@ -91,7 +100,9 @@ class TestDatabaseDiscovery:
 
     @patch("scribe_data.load.send_dbs_to_scribe.get_language_from_iso")
     def test_language_mapping(self, mock_get_lang):
-        """Test language dictionary creation."""
+        """
+        Test language dictionary creation.
+        """
         mock_get_lang.side_effect = lambda x: {"de": "German", "fr": "French"}[x]
         db_names = ["de_verbs", "fr_nouns"]
         root = Path("/root")
@@ -113,15 +124,15 @@ class TestDatabaseDiscovery:
         )
 
     def test_translation_data_handling(self):
-        """Test TranslationData special case."""
+        """
+        Test TranslationData special case.
+        """
         root = Path("/root")
         export_dir = "exports"
 
-        language_db_dict = {}
-        language_db_dict["translation"] = {
-            "db_location": root / export_dir / "TranslationData.sqlite"
+        language_db_dict = {
+            "translation": {"db_location": root / export_dir / "TranslationData.sqlite"}
         }
-
         assert "translation" in language_db_dict
         assert "TranslationData.sqlite" in str(
             language_db_dict["translation"]["db_location"]
@@ -129,11 +140,15 @@ class TestDatabaseDiscovery:
 
 
 class TestFileOperations:
-    """Test file system operations."""
+    """
+    Test file system operations.
+    """
 
     @pytest.fixture
     def temp_setup(self):
-        """Create temporary test files."""
+        """
+        Create temporary test files.
+        """
         temp_dir = tempfile.mkdtemp()
         exports_dir = Path(temp_dir) / "exports"
         exports_dir.mkdir()
@@ -146,7 +161,9 @@ class TestFileOperations:
         shutil.rmtree(temp_dir)
 
     def test_file_discovery(self, temp_setup):
-        """Test file discovery with real files."""
+        """
+        Test file discovery with real files.
+        """
         temp_dir, exports_dir = temp_setup
 
         dbs_to_send = list(exports_dir.glob("*.sqlite"))
@@ -160,16 +177,22 @@ class TestFileOperations:
 
 
 class TestPathLogic:
-    """Test path construction logic."""
+    """
+    Test path construction logic.
+    """
 
     def test_filename_extraction(self):
-        """Test filename extraction from paths."""
+        """
+        Test filename extraction from paths.
+        """
         path = Path("/some/path/de_verbs.sqlite")
         filename = path.name
         assert filename == "de_verbs.sqlite"
 
     def test_path_construction(self):
-        """Test destination path building."""
+        """
+        Test destination path building.
+        """
         db_config = {"db_location": Path("/source/de_verbs.sqlite")}
         root = Path("/project")
         ios_path = Path("ios/data")

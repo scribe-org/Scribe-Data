@@ -122,7 +122,6 @@ def test_translations_to_sqlite(temp_json_dir, translations_setup):
     """
     Test translations_to_sqlite functionality.
     """
-
     # Run translations_to_sqlite.
     translations_to_sqlite(
         translations_setup["lang_data_type_dict"],
@@ -148,7 +147,9 @@ def test_translations_to_sqlite(temp_json_dir, translations_setup):
 
 
 def test_overwrite_existing_file_user_confirms(temp_json_dir, translations_setup):
-    """Test when file exists, overwrite=False, and user confirms."""
+    """
+    Test when file exists, overwrite=False, and user confirms.
+    """
     with (
         mock.patch("pathlib.Path.exists", return_value=True),
         mock.patch("questionary.confirm") as mock_confirm,
@@ -170,7 +171,9 @@ def test_overwrite_existing_file_user_confirms(temp_json_dir, translations_setup
 
 
 def test_overwrite_existing_file_user_declines(temp_json_dir, translations_setup):
-    """Test when file exists, overwrite=False, and user declines."""
+    """
+    Test when file exists, overwrite=False, and user declines.
+    """
     with (
         mock.patch("pathlib.Path.exists", return_value=True),
         mock.patch("questionary.confirm") as mock_confirm,
@@ -196,7 +199,6 @@ def test_translations_to_sqlite_missing_json(temp_json_dir, translations_setup, 
     """
     Test translations_to_sqlite skips language table creation if JSON file is missing.
     """
-
     lang_data_type_dict = {"nonexistent_lang": ["translations"]}
     current_languages = translations_setup["current_languages"]
 
@@ -210,10 +212,7 @@ def test_translations_to_sqlite_missing_json(temp_json_dir, translations_setup, 
         overwrite=True,
     )
 
-    # Capture printed output
     captured = capsys.readouterr()
-
-    # Assert skip message is printed
     assert (
         "Skipping nonexistent_lang translations table creation as JSON file not found."
         in captured.out
@@ -228,7 +227,7 @@ class MockConnection:
         raise sqlite3.Error("mock commit error")
 
     def __getattr__(self, name):
-        # Delegate attribute access to the real connection
+        # Delegate attribute access to the real connection.
         return getattr(self._conn, name)
 
 
@@ -288,11 +287,11 @@ def test_data_to_sqlite_translations_and_nouns(tmp_path):
     input_dir.mkdir()
     output_dir.mkdir()
 
-    # Create language folder
+    # Create language folder.
     english_dir = input_dir / "english"
     english_dir.mkdir()
 
-    # Create translations.json
+    # Create translations.json.
     translations_data = {
         "L1": {
             "lastModified": "2023-01-01",
@@ -301,7 +300,7 @@ def test_data_to_sqlite_translations_and_nouns(tmp_path):
     }
     (english_dir / "translations.json").write_text(json.dumps(translations_data))
 
-    # Create nouns.json
+    # Create nouns.json.
     nouns_data = {
         "L1": {"wdLexemeId": "id1", "noun": "cat"},
         "L2": {"wdLexemeId": "id2", "noun": "dog"},
@@ -316,15 +315,15 @@ def test_data_to_sqlite_translations_and_nouns(tmp_path):
         overwrite=True,
     )
 
-    # Assert TranslationData.sqlite exists
+    # Assert TranslationData.sqlite exists.
     translation_db = output_dir / "TranslationData.sqlite"
     assert translation_db.exists()
 
-    # Assert ENLanguageData.sqlite (for other tables) exists
+    # Assert ENLanguageData.sqlite (for other tables) exists.
     noun_db = output_dir / "ENLanguageData.sqlite"
     assert noun_db.exists()
 
-    # Check nouns table created and has data
+    # Check nouns table created and has data.
     conn = sqlite3.connect(noun_db)
     cursor = conn.cursor()
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
@@ -335,7 +334,7 @@ def test_data_to_sqlite_translations_and_nouns(tmp_path):
     rows = cursor.fetchall()
     assert len(rows) == 3  # 2 real rows + 1 default "Scribe" row
 
-    # Optionally check the default row
+    # Optionally check the default row.
     scribe_row = [row for row in rows if row[0] == "L0"]
     assert len(scribe_row) == 1
 
@@ -346,9 +345,8 @@ def test_data_to_sqlite_skips_missing_json(tmp_path):
     lang_dir = input_dir / "english"
     lang_dir.mkdir()
 
-    # No JSON files created here - simulate missing data files
-
-    # Patch metadata, helpers, and ensure we only ask for 'nouns'
+    # Note: No JSON files created here - simulate missing data files.
+    # Patch metadata, helpers, and ensure we only ask for 'nouns'.
     with (
         mock.patch("scribe_data.utils.data_type_metadata", {"nouns": None}),
         mock.patch("scribe_data.utils.language_metadata", {"english": {}}),
@@ -360,7 +358,7 @@ def test_data_to_sqlite_skips_missing_json(tmp_path):
             side_effect=lambda lang: lang[:2].upper(),
         ),
     ):
-        # Run data_to_sqlite for 'nouns' only, but JSON file missing
+        # Run data_to_sqlite for 'nouns' only, but JSON file missing.
         data_to_sqlite(
             languages=["english"],
             specific_tables=["nouns"],
@@ -369,6 +367,6 @@ def test_data_to_sqlite_skips_missing_json(tmp_path):
             overwrite=True,
         )
 
-    # Confirm that create_table and table_insert were NOT called since file missing
+    # Confirm that create_table and table_insert were NOT called since file missing.
     assert not mock_create_table.called
     assert not mock_table_insert.called
