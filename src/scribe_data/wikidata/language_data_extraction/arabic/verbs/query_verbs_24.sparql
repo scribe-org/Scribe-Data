@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?feminineActivePresentSecondPersonSingular
+  ?feminineActiveSecondPersonSingularSubjunctive
+  ?feminineActiveSecondPersonPluralSubjunctive
+  ?feminineActiveThirdPersonSingularSubjunctive
+  ?feminineActiveThirdPersonDualSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActivePresentSecondPersonSingularForm .
+    ?feminineActivePresentSecondPersonSingularForm ontolex:representation ?feminineActivePresentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q192613, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActiveSecondPersonSingularSubjunctiveForm .
+    ?feminineActiveSecondPersonSingularSubjunctiveForm ontolex:representation ?feminineActiveSecondPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q51929049, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActiveSecondPersonPluralSubjunctiveForm .
+    ?feminineActiveSecondPersonPluralSubjunctiveForm ontolex:representation ?feminineActiveSecondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q51929049, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActiveThirdPersonSingularSubjunctiveForm .
+    ?feminineActiveThirdPersonSingularSubjunctiveForm ontolex:representation ?feminineActiveThirdPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q51929074, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActiveThirdPersonDualSubjunctiveForm .
+    ?feminineActiveThirdPersonDualSubjunctiveForm ontolex:representation ?feminineActiveThirdPersonDualSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q51929074, wd:Q110022, wd:Q473746 .
+  }
+}

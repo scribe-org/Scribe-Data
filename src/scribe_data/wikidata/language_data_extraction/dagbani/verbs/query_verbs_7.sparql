@@ -1,0 +1,22 @@
+# tool: scribe-data
+# All Dagbani (Q32238) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?nominalized
+
+WHERE {
+  ?lexeme dct:language wd:Q32238 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominalizedForm .
+    ?nominalizedForm ontolex:representation ?nominalized ;
+      wikibase:grammaticalFeature wd:Q74674960 .
+  }
+}
