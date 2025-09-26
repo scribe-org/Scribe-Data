@@ -234,13 +234,17 @@ def data_to_sqlite(
                 if f.split(".json")[0] in (specific_tables or data_types)
             ]
         else:
-            print(f"Warning: Directory '{lang_dir}' does not exist. Skipping language '{lang}'.")
+            print(
+                f"Warning: Directory '{lang_dir}' does not exist. Skipping language '{lang}'."
+            )
             language_data_type_dict[lang] = []
 
     # Check if there's any data to process.
     has_data = any(data_types for data_types in language_data_type_dict.values())
     if not has_data:
-        print("No data found for any of the specified languages. No SQLite databases will be created.")
+        print(
+            "No data found for any of the specified languages. No SQLite databases will be created."
+        )
         return
 
     # Process translations if no specific_tables argument was provided
