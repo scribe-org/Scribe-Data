@@ -12,6 +12,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 5.x
 
+### 🐞 Bug Fixes
+
+- The handling of missing language directories in the SQLite conversion process has been dramatically improved to communicate to the user which languages are missing and also alert them that no SQLite databases will be created if no data is available for any of the desired languages.
+
 ### ✅ Tests
 
 - Testing for various parts of the CLI was expanded ([#623](https://github.com/scribe-org/Scribe-Data/issues/623)).
