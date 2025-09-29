@@ -1,0 +1,28 @@
+# tool: scribe-data
+# Universal query to find all grammatical feature combinations for a given language and data type.
+# This query identifies form combinations that exist in Wikidata for the specified language/data type.
+# Placeholders: {LANGUAGE_QID} and {DATA_TYPE_QID} should be replaced with actual QIDs.
+
+SELECT ?features (COUNT(*) AS ?frequency) WHERE {{
+  ?lexeme dct:language wd:{LANGUAGE_QID} ;
+    wikibase:lexicalCategory wd:{DATA_TYPE_QID} .
+  
+  ?lexeme ontolex:lexicalForm ?form .
+  
+  # Collect all grammatical features for this form
+  ?form wikibase:grammaticalFeature ?feature .
+  
+  # Group features by lexical form to get combinations
+  {{
+    SELECT ?form (GROUP_CONCAT(DISTINCT ?feature; separator="|") AS ?features) WHERE {{
+      ?lexeme dct:language wd:{LANGUAGE_QID} ;
+        wikibase:lexicalCategory wd:{DATA_TYPE_QID} .
+      
+      ?lexeme ontolex:lexicalForm ?form .
+      ?form wikibase:grammaticalFeature ?feature .
+    }}
+    GROUP BY ?form
+  }}
+}}
+GROUP BY ?features
+ORDER BY DESC(?frequency)
