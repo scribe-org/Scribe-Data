@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?feminineSecondPersonPlural
+  ?feminineThirdPersonPlural
+  ?genitiveFeminineDefiniteDual
+  ?genitiveFeminineDualConstruct
+  ?genitiveMasculineDefinitePlural
+  ?genitiveMasculinePluralConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSecondPersonPluralForm .
+    ?feminineSecondPersonPluralForm ontolex:representation ?feminineSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineThirdPersonPluralForm .
+    ?feminineThirdPersonPluralForm ontolex:representation ?feminineThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineDefiniteDualForm .
+    ?genitiveFeminineDefiniteDualForm ontolex:representation ?genitiveFeminineDefiniteDual ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q53997851, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineDualConstructForm .
+    ?genitiveFeminineDualConstructForm ontolex:representation ?genitiveFeminineDualConstruct ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110022, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineDefinitePluralForm .
+    ?genitiveMasculineDefinitePluralForm ontolex:representation ?genitiveMasculineDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q53997851, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePluralConstructForm .
+    ?genitiveMasculinePluralConstructForm ontolex:representation ?genitiveMasculinePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q146786, wd:Q1641446 .
+  }
+}

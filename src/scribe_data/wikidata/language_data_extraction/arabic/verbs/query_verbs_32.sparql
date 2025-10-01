@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?masculineIndicativePassivePresentSecondPersonPlural
+  ?masculineIndicativePassivePresentThirdPersonSingular
+  ?masculineIndicativePassivePresentThirdPersonDual
+  ?masculineIndicativeActivePresentSecondPersonSingular
+  ?masculineIndicativeActivePresentSecondPersonPlural
+  ?masculineIndicativeActivePresentThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndicativePassivePresentSecondPersonPluralForm .
+    ?masculineIndicativePassivePresentSecondPersonPluralForm ontolex:representation ?masculineIndicativePassivePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q1194697, wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndicativePassivePresentThirdPersonSingularForm .
+    ?masculineIndicativePassivePresentThirdPersonSingularForm ontolex:representation ?masculineIndicativePassivePresentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q1194697, wd:Q192613, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndicativePassivePresentThirdPersonDualForm .
+    ?masculineIndicativePassivePresentThirdPersonDualForm ontolex:representation ?masculineIndicativePassivePresentThirdPersonDual ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q1194697, wd:Q192613, wd:Q51929074, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeActivePresentSecondPersonSingularForm .
+    ?masculineIndicativeActivePresentSecondPersonSingularForm ontolex:representation ?masculineIndicativeActivePresentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeActivePresentSecondPersonPluralForm .
+    ?masculineIndicativeActivePresentSecondPersonPluralForm ontolex:representation ?masculineIndicativeActivePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeActivePresentThirdPersonPluralForm .
+    ?masculineIndicativeActivePresentThirdPersonPluralForm ontolex:representation ?masculineIndicativeActivePresentThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q51929074, wd:Q146786 .
+  }
+}
