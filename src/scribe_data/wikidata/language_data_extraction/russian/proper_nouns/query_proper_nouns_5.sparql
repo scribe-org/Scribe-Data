@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Russian (Q7737) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?nominativeFeminineSingular
+  ?nominativeMasculineSingular
+  ?accusativeFeminineSingular
+  ?accusativeMasculineSingular
+  ?instrumentalFeminineSingular
+  ?instrumentalMasculineSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q7737 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularForm .
+    ?nominativeFeminineSingularForm ontolex:representation ?nominativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularForm .
+    ?nominativeMasculineSingularForm ontolex:representation ?nominativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularForm .
+    ?accusativeFeminineSingularForm ontolex:representation ?accusativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineSingularForm .
+    ?accusativeMasculineSingularForm ontolex:representation ?accusativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularForm .
+    ?instrumentalFeminineSingularForm ontolex:representation ?instrumentalFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineSingularForm .
+    ?instrumentalMasculineSingularForm ontolex:representation ?instrumentalMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q110786 .
+  }
+}

@@ -1,0 +1,22 @@
+# tool: scribe-data
+# All Igbo (Q33578) prepositions (Q4833830) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?preposition
+  ?past
+
+WHERE {
+  ?lexeme dct:language wd:Q33578 ;
+    wikibase:lexicalCategory wd:Q4833830 ;
+    wikibase:lemma ?preposition ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
+}

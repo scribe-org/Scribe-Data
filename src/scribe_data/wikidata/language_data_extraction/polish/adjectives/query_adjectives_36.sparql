@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Polish (Q809) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?nominativeMasculinePersonal
+  ?nominativeNotMasculinePersonal
+  ?accusativeMasculinePersonal
+  ?accusativeNotMasculinePersonal
+
+WHERE {
+  ?lexeme dct:language wd:Q809 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculinePersonalForm .
+    ?nominativeMasculinePersonalForm ontolex:representation ?nominativeMasculinePersonal ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q27918551 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeNotMasculinePersonalForm .
+    ?nominativeNotMasculinePersonalForm ontolex:representation ?nominativeNotMasculinePersonal ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q54152717 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePersonalForm .
+    ?accusativeMasculinePersonalForm ontolex:representation ?accusativeMasculinePersonal ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q27918551 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNotMasculinePersonalForm .
+    ?accusativeNotMasculinePersonalForm ontolex:representation ?accusativeNotMasculinePersonal ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q54152717 .
+  }
+}

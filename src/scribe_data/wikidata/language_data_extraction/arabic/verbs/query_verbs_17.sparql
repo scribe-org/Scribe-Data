@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?activeFirstPersonSingularSubjunctive
+  ?activeFirstPersonPluralSubjunctive
+  ?femininePassivePresentSecondPersonPlural
+  ?femininePassivePresentThirdPersonPlural
+  ?femininePassivePastThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeFirstPersonSingularSubjunctiveForm .
+    ?activeFirstPersonSingularSubjunctiveForm ontolex:representation ?activeFirstPersonSingularSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q21714344, wd:Q110786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeFirstPersonPluralSubjunctiveForm .
+    ?activeFirstPersonPluralSubjunctiveForm ontolex:representation ?activeFirstPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q21714344, wd:Q146786, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePassivePresentSecondPersonPluralForm .
+    ?femininePassivePresentSecondPersonPluralForm ontolex:representation ?femininePassivePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1194697, wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePassivePresentThirdPersonPluralForm .
+    ?femininePassivePresentThirdPersonPluralForm ontolex:representation ?femininePassivePresentThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1194697, wd:Q192613, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePassivePastThirdPersonPluralForm .
+    ?femininePassivePastThirdPersonPluralForm ontolex:representation ?femininePassivePastThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1194697, wd:Q1994301, wd:Q51929074, wd:Q146786 .
+  }
+}

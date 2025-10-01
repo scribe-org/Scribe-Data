@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All German (Q188) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?activeInfinitive
+  ?activeCombinedPastParticiple
+  ?activeImperativeSingular
+  ?activeImperativePlural
+  ?activePresentCombinedPresentParticiple
+  ?activeImperativePresentSecondPerson
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
+    ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeCombinedPastParticipleForm .
+    ?activeCombinedPastParticipleForm ontolex:representation ?activeCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeImperativeSingularForm .
+    ?activeImperativeSingularForm ontolex:representation ?activeImperativeSingular ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeImperativePluralForm .
+    ?activeImperativePluralForm ontolex:representation ?activeImperativePlural ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresentCombinedPresentParticipleForm .
+    ?activePresentCombinedPresentParticipleForm ontolex:representation ?activePresentCombinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613, wd:Q10345583 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activeImperativePresentSecondPersonForm .
+    ?activeImperativePresentSecondPersonForm ontolex:representation ?activeImperativePresentSecondPerson ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716, wd:Q192613, wd:Q51929049 .
+  }
+}

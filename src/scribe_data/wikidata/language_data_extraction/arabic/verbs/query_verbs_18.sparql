@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?passivePresentFirstPersonSingular
+  ?passivePresentFirstPersonPlural
+  ?passivePresentSecondPersonDual
+  ?passivePastFirstPersonSingular
+  ?passivePastFirstPersonPlural
+  ?passivePastSecondPersonDual
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePresentFirstPersonSingularForm .
+    ?passivePresentFirstPersonSingularForm ontolex:representation ?passivePresentFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePresentFirstPersonPluralForm .
+    ?passivePresentFirstPersonPluralForm ontolex:representation ?passivePresentFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePresentSecondPersonDualForm .
+    ?passivePresentSecondPersonDualForm ontolex:representation ?passivePresentSecondPersonDual ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613, wd:Q51929049, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePastFirstPersonSingularForm .
+    ?passivePastFirstPersonSingularForm ontolex:representation ?passivePastFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q1994301, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePastFirstPersonPluralForm .
+    ?passivePastFirstPersonPluralForm ontolex:representation ?passivePastFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q1994301, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePastSecondPersonDualForm .
+    ?passivePastSecondPersonDualForm ontolex:representation ?passivePastSecondPersonDual ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q1994301, wd:Q51929049, wd:Q110022 .
+  }
+}

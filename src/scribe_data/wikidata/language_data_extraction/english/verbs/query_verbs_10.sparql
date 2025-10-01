@@ -1,0 +1,29 @@
+# tool: scribe-data
+# All English (Q1860) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?presentIndicative
+  ?plural
+
+WHERE {
+  ?lexeme dct:language wd:Q1860 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentIndicativeForm .
+    ?presentIndicativeForm ontolex:representation ?presentIndicative ;
+      wikibase:grammaticalFeature wd:Q56682909 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+}

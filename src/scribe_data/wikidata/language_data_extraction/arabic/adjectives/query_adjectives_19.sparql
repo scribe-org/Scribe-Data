@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Arabic (Q13955) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?pausalMasculineDefiniteDual
+  ?pausalMasculineSingularConstruct
+  ?pausalMasculinePluralConstruct
+  ?pausalMasculineDualConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalMasculineDefiniteDualForm .
+    ?pausalMasculineDefiniteDualForm ontolex:representation ?pausalMasculineDefiniteDual ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q499327, wd:Q53997851, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalMasculineSingularConstructForm .
+    ?pausalMasculineSingularConstructForm ontolex:representation ?pausalMasculineSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q499327, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalMasculinePluralConstructForm .
+    ?pausalMasculinePluralConstructForm ontolex:representation ?pausalMasculinePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q499327, wd:Q146786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalMasculineDualConstructForm .
+    ?pausalMasculineDualConstructForm ontolex:representation ?pausalMasculineDualConstruct ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q499327, wd:Q110022, wd:Q1641446 .
+  }
+}

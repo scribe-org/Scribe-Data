@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?nominativeIndefiniteSingular
+  ?nominativeIndefinitePlural
+  ?nominativeIndefiniteDual
+  ?accusativeIndefiniteSingular
+  ?accusativeIndefinitePlural
+  ?accusativeIndefiniteDual
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeIndefiniteSingularForm .
+    ?nominativeIndefiniteSingularForm ontolex:representation ?nominativeIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeIndefinitePluralForm .
+    ?nominativeIndefinitePluralForm ontolex:representation ?nominativeIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeIndefiniteDualForm .
+    ?nominativeIndefiniteDualForm ontolex:representation ?nominativeIndefiniteDual ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q53997857, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeIndefiniteSingularForm .
+    ?accusativeIndefiniteSingularForm ontolex:representation ?accusativeIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeIndefinitePluralForm .
+    ?accusativeIndefinitePluralForm ontolex:representation ?accusativeIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeIndefiniteDualForm .
+    ?accusativeIndefiniteDualForm ontolex:representation ?accusativeIndefiniteDual ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q53997857, wd:Q110022 .
+  }
+}

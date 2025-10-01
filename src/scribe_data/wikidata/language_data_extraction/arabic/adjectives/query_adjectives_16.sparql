@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?genitiveDefiniteSingular
+  ?genitiveDefinitePlural
+  ?genitiveDefiniteDual
+  ?accusativeDefiniteSingular
+  ?accusativeDefinitePlural
+  ?accusativeDefiniteDual
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveDefiniteSingularForm .
+    ?genitiveDefiniteSingularForm ontolex:representation ?genitiveDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveDefinitePluralForm .
+    ?genitiveDefinitePluralForm ontolex:representation ?genitiveDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997851, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveDefiniteDualForm .
+    ?genitiveDefiniteDualForm ontolex:representation ?genitiveDefiniteDual ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997851, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeDefiniteSingularForm .
+    ?accusativeDefiniteSingularForm ontolex:representation ?accusativeDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeDefinitePluralForm .
+    ?accusativeDefinitePluralForm ontolex:representation ?accusativeDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q53997851, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeDefiniteDualForm .
+    ?accusativeDefiniteDualForm ontolex:representation ?accusativeDefiniteDual ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q53997851, wd:Q110022 .
+  }
+}

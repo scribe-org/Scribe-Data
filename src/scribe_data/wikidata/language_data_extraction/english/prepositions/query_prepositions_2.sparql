@@ -1,0 +1,22 @@
+# tool: scribe-data
+# All English (Q1860) prepositions (Q4833830) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?preposition
+  ?contraction
+
+WHERE {
+  ?lexeme dct:language wd:Q1860 ;
+    wikibase:lexicalCategory wd:Q4833830 ;
+    wikibase:lemma ?preposition ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?contractionForm .
+    ?contractionForm ontolex:representation ?contraction ;
+      wikibase:grammaticalFeature wd:Q126473 .
+  }
+}

@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?feminineIndicativePassivePresentSecondPersonPlural
+  ?feminineIndicativePassivePresentThirdPersonPlural
+  ?feminineIndicativeActivePresentSecondPersonPlural
+  ?feminineIndicativeActivePresentThirdPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndicativePassivePresentSecondPersonPluralForm .
+    ?feminineIndicativePassivePresentSecondPersonPluralForm ontolex:representation ?feminineIndicativePassivePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q1194697, wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndicativePassivePresentThirdPersonPluralForm .
+    ?feminineIndicativePassivePresentThirdPersonPluralForm ontolex:representation ?feminineIndicativePassivePresentThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q1194697, wd:Q192613, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeActivePresentSecondPersonPluralForm .
+    ?feminineIndicativeActivePresentSecondPersonPluralForm ontolex:representation ?feminineIndicativeActivePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeActivePresentThirdPersonSingularForm .
+    ?feminineIndicativeActivePresentThirdPersonSingularForm ontolex:representation ?feminineIndicativeActivePresentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q1317831, wd:Q192613, wd:Q51929074, wd:Q110786 .
+  }
+}
