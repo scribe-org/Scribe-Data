@@ -261,6 +261,224 @@ Troubleshooting:
 - If you're having issues with file paths, remember to use quotes around paths with spaces.
 - If the command seems to hang at 0% or 100%, be patient as the process can take several minutes depending on the dataset size and your internet connection.
 
+Total Command
+~~~~~~~~~~~~~
+
+Description: Check Wikidata for the total available data for the given languages and data types.
+
+Usage:
+
+.. code-block:: bash
+
+    scribe-data total [arguments]
+
+Options:
+^^^^^^^^
+
+- ``-lang, --language LANGUAGE``: The language(s) to check totals for. Can be a language name or QID.
+- ``-dt, --data-type DATA_TYPE``: The data type(s) to check totals for.
+- ``-a, --all``: Get totals for all languages and data types.
+
+Examples:
+
+1. Get totals for all languages and data types:
+
+.. code-block:: text
+
+    $ scribe-data total --all
+    Total lexemes for all languages and data types:
+    ==============================================
+    Language     Data Type     Total Lexemes
+    ==============================================
+    English      nouns         123,456
+                 verbs         234,567
+    ...
+
+2. Get totals for all data types in English:
+
+.. code-block:: text
+
+    $ scribe-data total --language English
+    Returning total counts for English data types...
+
+    Language        Data Type                 Total Wikidata Lexemes
+    ================================================================
+    English         adjectives                12,345
+                    adverbs                   23,456
+                    nouns                     34,567
+    ...
+
+3. Get totals using a Wikidata QID:
+
+.. code-block:: text
+
+    $ scribe-data total --language Q1860
+    Wikidata QID Q1860 passed. Checking all data types.
+
+    Language        Data Type                 Total Wikidata Lexemes
+    ================================================================
+    Q1860           adjectives                12,345
+                    adverbs                   23,456
+                    articles                  30
+                    conjunctions              40
+                    nouns                     56,789
+                    personal pronouns         60
+    ...
+
+4. Get totals for a specific language and data type combination:
+
+.. code-block:: text
+
+    $ scribe-data total --language English -dt nouns
+    Language: English
+    Data type: nouns
+    Total number of lexemes: 12,345
+
+5. Get totals for a specific QID and data type combination:
+
+.. code-block:: text
+
+    $ scribe-data total --language Q1860 -dt verbs
+    Language: Q1860
+    Data type: verbs
+    Total number of lexemes: 23,456
+
+
+Download Command
+~~~~~~~~~~~~~~~~
+Usage:
+
+.. code-block:: bash
+
+    scribe-data download
+
+Behavior and Output:
+^^^^^^^^^^^^^^^^^^^^
+
+- **If Existing Dump Files Are Found:**
+
+1. If existing dump files are found, the command will display the following message:
+
+    .. code-block:: text
+
+        Existing dump files found:
+          - scribe_data_wikidata_dumps_export/latest-lexemes.json.bz2
+
+2. The command will prompt the user with options to choose from:
+
+    .. code-block:: text
+
+        ? Do you want to: (Use arrow keys)
+         » Delete existing dumps
+           Skip download
+           Use existing latest dump
+           Download new version
+
+- **If Downloading New Version:**
+
+  1. If the user chooses to proceed with the download, the dump will be downloaded to the specified directory:
+
+    .. code-block:: text
+
+        Downloading dump to scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2...
+        scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2: 100%|███████████████████| 370M/370M [04:20<00:00, 1.42MiB/s]
+        Wikidata lexeme dump download completed successfully!
+
+
+Convert Command
+~~~~~~~~~~~~~~~
+
+Description: Convert data returned by Scribe-Data to different file types, including SQLite databases for multiple languages and data types.
+
+Usage:
+
+.. code-block:: bash
+
+    scribe-data convert [arguments]
+
+Options:
+^^^^^^^^
+
+- ``-f, --file FILE``: The file to convert to a new type.
+- ``-lang, --language LANGUAGE``: The language(s) to convert (for SQLite conversion).
+- ``-dt, --data-type DATA_TYPE``: The data type(s) to convert (for SQLite conversion).
+- ``-ko, --keep-original``: Whether to keep the file to be converted (default: True).
+- ``-ot, --output-type {json,csv,tsv,sqlite}``: The output file type.
+
+Examples:
+^^^^^^^^^
+
+1. **Convert multiple languages and data types to SQLite:**
+
+.. code-block:: bash
+
+    $ scribe-data convert -lang english french -dt nouns verbs -ot sqlite
+    Creating/Updating SQLite databases for the following languages: English, French
+    Updating only the following tables: nouns, verbs
+    Databases created:   0%|                                                    | 0/2 [00:00<?, ?dbs/s]
+    ? SQLite file scribe_data_sqlite_export/ENLanguageData.sqlite already exists.
+    Do you want to overwrite it? Yes
+    Database for english overwritten and connection made.
+    Creating/Updating english nouns table...
+    Creating/Updating english verbs table...
+    English database processing completed.
+    Databases created:  50%|████████████████████████████████████████            | 1/2 [00:05<00:05,  5.14s/dbs]
+    ? SQLite file scribe_data_sqlite_export/FRLanguageData.sqlite already exists.
+    Do you want to overwrite it? Yes
+    Database for french overwritten and connection made.
+    Creating/Updating french nouns table...
+    Creating/Updating french verbs table...
+    French database processing completed.
+    Databases created: 100%|████████████████████████████████████████████████████| 2/2 [00:07<00:00,  3.61s/dbs]
+    Database creation/update process completed.
+
+2. **Convert a single file to CSV:**
+
+.. code-block:: bash
+
+    $ scribe-data convert -f path/to/data.json -ot csv
+
+Behavior and Output:
+^^^^^^^^^^^^^^^^^^^^
+
+**SQLite Conversion:**
+
+1. **Database Creation:** When converting to SQLite format, the command creates separate database files for each language in the `scribe_data_sqlite_export/` directory with the naming pattern `{LANGUAGE_CODE}LanguageData.sqlite`.
+
+2. **Interactive Overwrite Prompts:** If existing SQLite files are found, you'll be prompted to choose whether to overwrite them:
+
+    .. code-block:: text
+
+        ? SQLite file scribe_data_sqlite_export/ENLanguageData.sqlite already exists.
+        Do you want to overwrite it? Yes
+
+3. **Progress Tracking:** The command displays real-time progress for database creation:
+
+    .. code-block:: text
+
+        Databases created:  50%|████████████████████████████████████████            | 1/2 [00:05<00:05,  5.14s/dbs]
+
+4. **Table Creation:** For each language, the command creates/updates tables for the specified data types:
+
+    .. code-block:: text
+
+        Creating/Updating english nouns table...
+        Creating/Updating english verbs table...
+
+**File Conversion:**
+
+- When using the `-f` option, the command converts individual files to the specified output type.
+- The original file is kept by default unless `--keep-original` is set to False.
+
+Notes:
+^^^^^^
+
+1. **SQLite Output:** SQLite databases are created in the `scribe_data_sqlite_export/` directory.
+2. **Multiple Languages:** You can specify multiple languages separated by spaces.
+3. **Multiple Data Types:** You can specify multiple data types separated by spaces.
+4. **Database Naming:** SQLite files follow the pattern `{LANGUAGE_CODE}LanguageData.sqlite` (e.g., `ENLanguageData.sqlite`, `FRLanguageData.sqlite`).
+5. **Table Structure:** Each data type becomes a separate table within the language database.
+
 Interactive Mode
 ----------------
 
@@ -417,142 +635,3 @@ Root Interactive Command
        Exit
 
 The command ``scribe-data interactive`` initiates the interactive mode, allowing users to easily select and execute various Scribe-Data operations.
-
-Total Command
-~~~~~~~~~~~~~
-
-Description: Check Wikidata for the total available data for the given languages and data types.
-
-Usage:
-
-.. code-block:: bash
-
-    scribe-data total [arguments]
-
-Options:
-^^^^^^^^
-
-- ``-lang, --language LANGUAGE``: The language(s) to check totals for. Can be a language name or QID.
-- ``-dt, --data-type DATA_TYPE``: The data type(s) to check totals for.
-- ``-a, --all``: Get totals for all languages and data types.
-
-Examples:
-
-1. Get totals for all languages and data types:
-
-.. code-block:: text
-
-    $ scribe-data total --all
-    Total lexemes for all languages and data types:
-    ==============================================
-    Language     Data Type     Total Lexemes
-    ==============================================
-    English      nouns         123,456
-                 verbs         234,567
-    ...
-
-2. Get totals for all data types in English:
-
-.. code-block:: text
-
-    $ scribe-data total --language English
-    Returning total counts for English data types...
-
-    Language        Data Type                 Total Wikidata Lexemes
-    ================================================================
-    English         adjectives                12,345
-                    adverbs                   23,456
-                    nouns                     34,567
-    ...
-
-3. Get totals using a Wikidata QID:
-
-.. code-block:: text
-
-    $ scribe-data total --language Q1860
-    Wikidata QID Q1860 passed. Checking all data types.
-
-    Language        Data Type                 Total Wikidata Lexemes
-    ================================================================
-    Q1860           adjectives                12,345
-                    adverbs                   23,456
-                    articles                  30
-                    conjunctions              40
-                    nouns                     56,789
-                    personal pronouns         60
-    ...
-
-4. Get totals for a specific language and data type combination:
-
-.. code-block:: text
-
-    $ scribe-data total --language English -dt nouns
-    Language: English
-    Data type: nouns
-    Total number of lexemes: 12,345
-
-5. Get totals for a specific QID and data type combination:
-
-.. code-block:: text
-
-    $ scribe-data total --language Q1860 -dt verbs
-    Language: Q1860
-    Data type: verbs
-    Total number of lexemes: 23,456
-
-Convert Command
-~~~~~~~~~~~~~~~
-
-Description: Convert data returned by Scribe-Data to different file types.
-
-Usage:
-
-.. code-block:: bash
-
-    scribe-data convert [arguments]
-
-Options:
-^^^^^^^^
-
-- ``-f, --file FILE``: The file to convert to a new type.
-- ``-ko, --keep-original``: Whether to keep the file to be converted (default: True).
-- ``-ot, --output-type {json,csv,tsv,sqlite}``: The output file type.
-
-Download Command
-~~~~~~~~~~~~~~~~
-Usage:
-
-.. code-block:: bash
-
-    scribe-data download
-
-Behavior and Output:
-^^^^^^^^^^^^^^^^^^^^
-
-- **If Existing Dump Files Are Found:**
-
-1. If existing dump files are found, the command will display the following message:
-
-    .. code-block:: text
-
-        Existing dump files found:
-          - scribe_data_wikidata_dumps_export/latest-lexemes.json.bz2
-
-2. The command will prompt the user with options to choose from:
-
-    .. code-block:: text
-
-        ? Do you want to: (Use arrow keys)
-         » Delete existing dumps
-           Skip download
-           Use existing latest dump
-           Download new version
-- **If Downloading New Version:**
-
-1. If the user chooses to proceed with the download, the dump will be downloaded to the specified directory:
-
-    .. code-block:: text
-
-        Downloading dump to scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2...
-        scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2: 100%|███████████████████| 370M/370M [04:20<00:00, 1.42MiB/s]
-        Wikidata lexeme dump download completed successfully!
