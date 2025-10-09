@@ -62,15 +62,10 @@ def generate_autosuggestions(language, dump_id, force_download):
     if dump_id:
         output_path = f"./{language_abbr}wiki-{dump_id}.ndjson"
 
-    # Added for consistency , make dir name similar name as output_path
-    partitions_dir = f"./{language_abbr}wiki_partitions"
-    if dump_id:
-        partitions_dir = f"./{language_abbr}wiki-{dump_id}_partitions"
-
     parse_to_ndjson(
         output_path=output_path,
         input_dir=target_dir,
-        partitions_dir=partitions_dir,
+        partitions_dir=f"./{language_abbr}wiki_partitions",
         article_limit=None,
         delete_parsed_files=True,
         force_download=force_download,
