@@ -61,10 +61,16 @@ def generate_autosuggestions(language, dump_id, force_download):
     output_path = f"./{language_abbr}wiki.ndjson"
     if dump_id:
         output_path = f"./{language_abbr}wiki-{dump_id}.ndjson"
+
+    # Added for consistency , make dir name similar name as output_path
+    partitions_dir = f"./{language_abbr}wiki_partitions"
+    if dump_id:
+        partitions_dir = f"./{language_abbr}wiki-{dump_id}_partitions"
+
     parse_to_ndjson(
         output_path=output_path,
         input_dir=target_dir,
-        partitions_dir=f"./{language_abbr}wiki_partitions",
+        partitions_dir=partitions_dir,
         article_limit=None,
         delete_parsed_files=True,
         force_download=force_download,
@@ -72,7 +78,8 @@ def generate_autosuggestions(language, dump_id, force_download):
         verbose=True,
     )
 
-    with open(f"./{language_abbr}wiki.ndjson", "r") as fin:
+    # This should be "output_path" because when dump_id is given as arg , it looks for right path to make partitions_dir
+    with open(output_path, "r") as fin:
         article_texts = [
             json.loads(lang)[1]
             for lang in tqdm(fin, desc="Articles added", unit="articles")
