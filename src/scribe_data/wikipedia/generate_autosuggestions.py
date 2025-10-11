@@ -61,6 +61,7 @@ def generate_autosuggestions(language, dump_id, force_download):
     output_path = f"./{language_abbr}wiki.ndjson"
     if dump_id:
         output_path = f"./{language_abbr}wiki-{dump_id}.ndjson"
+
     parse_to_ndjson(
         output_path=output_path,
         input_dir=target_dir,
@@ -72,7 +73,7 @@ def generate_autosuggestions(language, dump_id, force_download):
         verbose=True,
     )
 
-    with open(f"./{language_abbr}wiki.ndjson", "r") as fin:
+    with open(output_path, "r") as fin:
         article_texts = [
             json.loads(lang)[1]
             for lang in tqdm(fin, desc="Articles added", unit="articles")
