@@ -463,3 +463,68 @@ class WikiXmlHandler(xml.sax.handler.ContentHandler):
         self._values = {}
         self._current_tag = None
         self.target_articles = []
+
+    # Added the missing logic here ...
+    # Need startelement, endelement and characters to extract the text inside
+    # Sax must go through lines and trigger the callbacks so define them with start, end and characters
+
+    def startElement(self, name, attrs):
+        """
+        Handle the start of an XML element.
+
+        Parameters
+        ----------
+        name : str
+            The name of the XML element being opened.
+        attrs : xml.sax.xmlreader.AttributesImpl
+            The attributes associated with the element.
+        """
+        if name in ("title", "text", "timestamp"):
+            self._current_tag = name
+            self._buffer = []
+
+    def endElement(self, name):
+        """
+        Handle the end of an XML element.
+
+        Parameters
+        ----------
+        name : str
+            The name of the XML element being closed.
+        """
+        if name == self._current_tag:
+            self._values[name] = "".join(self._buffer)
+
+        if name == "page":
+            # Process the complete page
+            title = self._values.get("title", "")
+            text = self._values.get("text", "")
+
+        # Filter out redirect pages and special pages
+        if (
+            text
+            and not text.strip().startswith("#REDIRECT")
+            and not text.strip().startswith("#redirect")
+            and ":" not in title
+        ):  # Skip namespace pages
+            processed_title, processed_text = _process_article(title, text)
+
+            if processed_text and len(processed_text) > 100:  # Minimum text length
+                self.target_articles.append([processed_title, processed_text])
+
+        # Reset values for next page, clear up for next page
+        self._values = {}
+        self._buffer = None
+        self._current_tag = None
+
+    def characters(self, content):
+        """
+        Handle character data within an XML element.
+
+        Parameters
+        ----------
+        content : str
+            The character data content from the XML element.
+        """
+        if self._current_tag:
+            self._buffer.append(content)
