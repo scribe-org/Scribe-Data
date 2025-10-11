@@ -73,7 +73,6 @@ def generate_autosuggestions(language, dump_id, force_download):
         verbose=True,
     )
 
-    # This should be "output_path" because when dump_id is given as arg , it looks for right path to make partitions_dir
     with open(output_path, "r") as fin:
         article_texts = [
             json.loads(lang)[1]
