@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?masculinePassivePresentSecondPersonPlural
+  ?masculinePassivePastSecondPersonSingular
+  ?masculinePassivePastThirdPersonSingular
+  ?masculinePassivePastThirdPersonPlural
+  ?masculinePassivePastThirdPersonDual
+  ?masculinePassiveSecondPersonPluralSubjunctive
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePassivePresentSecondPersonPluralForm .
+    ?masculinePassivePresentSecondPersonPluralForm ontolex:representation ?masculinePassivePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1194697, wd:Q192613, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePassivePastSecondPersonSingularForm .
+    ?masculinePassivePastSecondPersonSingularForm ontolex:representation ?masculinePassivePastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1194697, wd:Q1994301, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePassivePastThirdPersonSingularForm .
+    ?masculinePassivePastThirdPersonSingularForm ontolex:representation ?masculinePassivePastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1194697, wd:Q1994301, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePassivePastThirdPersonPluralForm .
+    ?masculinePassivePastThirdPersonPluralForm ontolex:representation ?masculinePassivePastThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1194697, wd:Q1994301, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePassivePastThirdPersonDualForm .
+    ?masculinePassivePastThirdPersonDualForm ontolex:representation ?masculinePassivePastThirdPersonDual ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1194697, wd:Q1994301, wd:Q51929074, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePassiveSecondPersonPluralSubjunctiveForm .
+    ?masculinePassiveSecondPersonPluralSubjunctiveForm ontolex:representation ?masculinePassiveSecondPersonPluralSubjunctive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1194697, wd:Q51929049, wd:Q146786, wd:Q473746 .
+  }
+}
