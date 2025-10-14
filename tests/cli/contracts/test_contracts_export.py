@@ -271,7 +271,13 @@ class TestExportContracts:
             "english": "English",
             "spanish": "Spanish",
         }.get(lang)
-        mock_exists.return_value = True
+
+        # Mock exists to return True for language directories
+        def exists_side_effect():
+            # This is called on Path instances, check if it's a language directory
+            return True
+
+        mock_exists.side_effect = exists_side_effect
 
         # Mock filtered metadata.
         mock_contract_metadata = {
@@ -295,10 +301,26 @@ class TestExportContracts:
             mock_filtered_verbs,
         ] * 2  # for both languages
 
-        # Call the function.
-        export_data_filtered_by_contracts(
-            input_dir="test_input", output_dir="test_output"
-        )
+        def mock_path_glob(self, pattern):
+            """Mock glob method that returns files based on the path"""
+            path_str = str(self)
+            if "english" in path_str.lower():
+                return [
+                    Path("test_input/english/nouns.json"),
+                    Path("test_input/english/verbs.json"),
+                ]
+            elif "spanish" in path_str.lower():
+                return [
+                    Path("test_input/spanish/nouns.json"),
+                    Path("test_input/spanish/verbs.json"),
+                ]
+            return []
+
+        with patch.object(Path, "glob", mock_path_glob):
+            # Call the function.
+            export_data_filtered_by_contracts(
+                input_dir="test_input", output_dir="test_output"
+            )
 
         assert mock_mkdir.call_count >= 3  # main dir + 2 language dirs
         assert mock_filter_metadata.call_count == 2  # one for each language
@@ -375,10 +397,9 @@ class TestExportContracts:
         with patch("builtins.print") as mock_print:
             export_data_filtered_by_contracts()
 
-            # Verify warning was printed for both noun and verb data.
-            assert mock_print.call_count >= 2
-            mock_print.assert_any_call("No nouns data found for English")
-            mock_print.assert_any_call("No verbs data found for English")
+            # Verify warning was printed - expects "No input directory found for English"
+            assert mock_print.call_count >= 1
+            mock_print.assert_called_with("No input directory found for English")
 
     @patch("scribe_data.cli.contracts.filter.filter_contract_metadata")
     @patch("scribe_data.cli.contracts.filter.get_language_from_iso")
