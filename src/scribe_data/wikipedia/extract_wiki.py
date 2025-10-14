@@ -464,10 +464,6 @@ class WikiXmlHandler(xml.sax.handler.ContentHandler):
         self._current_tag = None
         self.target_articles = []
 
-    # Added the missing logic here ...
-    # Need startelement, endelement and characters to extract the text inside
-    # Sax must go through lines and trigger the callbacks so define them with start, end and characters
-
     def startElement(self, name, attrs):
         """
         Handle the start of an XML element.
@@ -500,22 +496,22 @@ class WikiXmlHandler(xml.sax.handler.ContentHandler):
             title = self._values.get("title", "")
             text = self._values.get("text", "")
 
-        # Filter out redirect pages and special pages
-        if (
-            text
-            and not text.strip().startswith("#REDIRECT")
-            and not text.strip().startswith("#redirect")
-            and ":" not in title
-        ):  # Skip namespace pages
-            processed_title, processed_text = _process_article(title, text)
+            # Filter out redirect pages and special pages
+            if (
+                text
+                and not text.strip().startswith("#REDIRECT")
+                and not text.strip().startswith("#redirect")
+                and ":" not in title
+            ):  # Skip namespace pages
+                processed_title, processed_text = _process_article(title, text)
 
-            if processed_text and len(processed_text) > 100:  # Minimum text length
-                self.target_articles.append([processed_title, processed_text])
+                if processed_text and len(processed_text) > 100:  # Minimum text length
+                    self.target_articles.append([processed_title, processed_text])
 
-        # Reset values for next page, clear up for next page
-        self._values = {}
-        self._buffer = None
-        self._current_tag = None
+            # Reset values for next page, clear up for next page
+            self._values = {}
+            self._buffer = None
+            self._current_tag = None
 
     def characters(self, content):
         """

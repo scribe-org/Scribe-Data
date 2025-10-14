@@ -73,7 +73,7 @@ def generate_autosuggestions(language, dump_id, force_download):
         verbose=True,
     )
 
-    with open(output_path, "r") as fin:
+    with open(output_path, "r", encoding="utf-8") as fin:
         article_texts = [
             json.loads(lang)[1]
             for lang in tqdm(fin, desc="Articles added", unit="articles")
@@ -101,3 +101,13 @@ def generate_autosuggestions(language, dump_id, force_download):
         update_local_data=True,
         verbose=True,
     )
+
+
+# Uncomment to test
+"""if __name__ == "__main__":
+    generate_autosuggestions(
+        language="english",
+        dump_id="20250520",
+        force_download=False,
+        file_limit=1  # limiting test with just 1 file
+    )"""
