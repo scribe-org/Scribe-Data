@@ -6,7 +6,7 @@ Module for cleaning Wikipedia based corpuses for autosuggestion generation.
 import json
 import re
 import warnings
-from collections import defaultdict, Counter
+from collections import Counter, defaultdict
 from itertools import chain
 from pathlib import Path
 from urllib.error import HTTPError
@@ -344,7 +344,9 @@ def gen_autosuggestions(
         words_to_ignore = []
 
     print("Querying profanities to remove from suggestions.")
-    query_path = Path(__file__).parent.resolve() / ".." / "wikidata" / "query_profanity.sparql"
+    query_path = (
+        Path(__file__).parent.resolve() / ".." / "wikidata" / "query_profanity.sparql"
+    )
     # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
     with open(query_path, encoding="utf-8") as file:
         query_lines = file.readlines()
@@ -381,13 +383,17 @@ def gen_autosuggestions(
     # Precompute bigram frequencies
     print("Precomputing word relationships (bigrams)...")
     bigram_counter = defaultdict(Counter)
-    for text in tqdm(text_corpus, desc="Building bigrams", unit="article", disable=not verbose):
+    for text in tqdm(
+        text_corpus, desc="Building bigrams", unit="article", disable=not verbose
+    ):
         for w1, w2 in zip(text, text[1:]):
             bigram_counter[w1][w2] += 1
 
     # Build autosuggestions
     autosuggest_dict = {}
-    for w in tqdm(top_words, desc="Autosuggestions generated", unit="word", disable=not verbose):
+    for w in tqdm(
+        top_words, desc="Autosuggestions generated", unit="word", disable=not verbose
+    ):
         candidates = bigram_counter[w].most_common()
         autosuggestions = []
 
@@ -398,7 +404,9 @@ def gen_autosuggestions(
                 and next_word not in profanities
                 and next_word not in words_to_ignore
                 and next_word != next_word.upper()  # no upper case suggestions
-                and not next_word.lower().startswith(("nazi", "наци")) # Lots of detailed articles on WWII on wikipedia
+                and not next_word.lower().startswith(
+                    ("nazi", "наци")
+                )  # Lots of detailed articles on WWII on wikipedia
             ):
                 autosuggestions.append(next_word)
 
