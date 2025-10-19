@@ -287,30 +287,45 @@ def export_data_filtered_by_contracts(
         lang_export_dir = export_dir / matched_language.lower().replace(" ", "_")
         lang_export_dir.mkdir(parents=True, exist_ok=True)
 
-        # Data types to process.
-        data_types = ["nouns", "verbs"]
+        lang_input_dir = Path(input_dir) / matched_language.lower().replace(" ", "_")
+        if not lang_input_dir.exists():
+            print(f"No input directory found for {matched_language}")
+            continue
 
-        for data_type in data_types:
-            # Input file path.
-            input_file = (
-                Path(input_dir)
-                / matched_language.lower().replace(" ", "_")
-                / f"{data_type}.json"
-            )
+        data_files = list(lang_input_dir.glob("*.json"))
+        for input_file in data_files:
+            data_type = (
+                input_file.stem
+            )  # e.g., nouns, verbs, prepositions, translations
 
-            # Skip if input file doesn't exist.
-            if not input_file.exists():
-                print(f"No {data_type} data found for {matched_language}")
+            # Skip unsupported types if needed.
+            if data_type not in contract_metadata:
+                output_file = (
+                    export_dir
+                    / matched_language.lower().replace(" ", "_")
+                    / f"{data_type}.json"
+                )
+                output_file.parent.mkdir(parents=True, exist_ok=True)
+
+                with (
+                    open(input_file, "r", encoding="utf-8") as src,
+                    open(output_file, "w", encoding="utf-8") as dst,
+                ):
+                    dst.write(src.read())
+                print(f"Copied unfiltered {data_type} for {matched_language}")
                 continue
 
-            # Export filtered data.
+            # Filter if contract metadata exists.
             if filtered_data := filter_exported_data(
                 input_file, contract_metadata, data_type
             ):
-                output_file = lang_export_dir / f"{data_type}.json"
+                output_file = (
+                    export_dir
+                    / matched_language.lower().replace(" ", "_")
+                    / f"{data_type}.json"
+                )
                 with open(output_file, "w", encoding="utf-8") as f:
                     json.dump(filtered_data, f, ensure_ascii=False, indent=2)
-
                 print(
                     f"Exported {matched_language} {data_type} with {len(filtered_data)} entries"
                 )
