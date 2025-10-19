@@ -292,13 +292,13 @@ def export_data_filtered_by_contracts(
             print(f"No input directory found for {matched_language}")
             continue
 
-        data_files = [f for f in lang_input_dir.glob("*.json")]
+        data_files = list(lang_input_dir.glob("*.json"))
         for input_file in data_files:
             data_type = (
                 input_file.stem
             )  # e.g., nouns, verbs, prepositions, translations
 
-            # Skip unsupported types if needed
+            # Skip unsupported types if needed.
             if data_type not in contract_metadata:
                 output_file = (
                     export_dir
@@ -306,6 +306,7 @@ def export_data_filtered_by_contracts(
                     / f"{data_type}.json"
                 )
                 output_file.parent.mkdir(parents=True, exist_ok=True)
+
                 with (
                     open(input_file, "r", encoding="utf-8") as src,
                     open(output_file, "w", encoding="utf-8") as dst,
@@ -314,7 +315,7 @@ def export_data_filtered_by_contracts(
                 print(f"Copied unfiltered {data_type} for {matched_language}")
                 continue
 
-            # Filter if contract metadata exists
+            # Filter if contract metadata exists.
             if filtered_data := filter_exported_data(
                 input_file, contract_metadata, data_type
             ):
