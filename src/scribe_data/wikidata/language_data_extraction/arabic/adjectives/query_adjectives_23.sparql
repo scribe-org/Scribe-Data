@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Arabic (Q13955) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?genitiveMasculineDual
+  ?genitiveMasculineSingularConstruct
+  ?genitiveMasculinePluralConstruct
+  ?genitiveMasculineDualConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineDualForm .
+    ?genitiveMasculineDualForm ontolex:representation ?genitiveMasculineDual ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularConstructForm .
+    ?genitiveMasculineSingularConstructForm ontolex:representation ?genitiveMasculineSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePluralConstructForm .
+    ?genitiveMasculinePluralConstructForm ontolex:representation ?genitiveMasculinePluralConstruct ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q146786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineDualConstructForm .
+    ?genitiveMasculineDualConstructForm ontolex:representation ?genitiveMasculineDualConstruct ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110022, wd:Q1641446 .
+  }
+}

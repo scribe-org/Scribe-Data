@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?genitiveIndefiniteSingular
+  ?genitiveDefiniteSingular
+  ?genitiveSingularConstruct
+  ?accusativeIndefiniteSingular
+  ?accusativeDefiniteSingular
+  ?accusativeSingularConstruct
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveIndefiniteSingularForm .
+    ?genitiveIndefiniteSingularForm ontolex:representation ?genitiveIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveDefiniteSingularForm .
+    ?genitiveDefiniteSingularForm ontolex:representation ?genitiveDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularConstructForm .
+    ?genitiveSingularConstructForm ontolex:representation ?genitiveSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeIndefiniteSingularForm .
+    ?accusativeIndefiniteSingularForm ontolex:representation ?accusativeIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeDefiniteSingularForm .
+    ?accusativeDefiniteSingularForm ontolex:representation ?accusativeDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSingularConstructForm .
+    ?accusativeSingularConstructForm ontolex:representation ?accusativeSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786, wd:Q1641446 .
+  }
+}
