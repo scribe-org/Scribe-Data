@@ -6,12 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?genitive
-  ?dative
-  ?genitiveSingular
-  ?dativeSingular
-  ?genitiveMasculineSingular
-  ?dativeMasculineSingular
+  ?instrumental
+  ?locative
+  ?singularVocativeFeminine
+  ?singularVocativeNeuter
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -20,38 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveForm .
-    ?genitiveForm ontolex:representation ?genitive ;
-      wikibase:grammaticalFeature wd:Q146233 .
+    ?lexeme ontolex:lexicalForm ?instrumentalForm .
+    ?instrumentalForm ontolex:representation ?instrumental ;
+      wikibase:grammaticalFeature wd:Q192997 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeForm .
-    ?dativeForm ontolex:representation ?dative ;
-      wikibase:grammaticalFeature wd:Q145599 .
+    ?lexeme ontolex:lexicalForm ?locativeForm .
+    ?locativeForm ontolex:representation ?locative ;
+      wikibase:grammaticalFeature wd:Q202142 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
-    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularVocativeFeminineForm .
+    ?singularVocativeFeminineForm ontolex:representation ?singularVocativeFeminine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q185077, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
-    ?dativeSingularForm ontolex:representation ?dativeSingular ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularForm .
-    ?genitiveMasculineSingularForm ontolex:representation ?genitiveMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineSingularForm .
-    ?dativeMasculineSingularForm ontolex:representation ?dativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularVocativeNeuterForm .
+    ?singularVocativeNeuterForm ontolex:representation ?singularVocativeNeuter ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q185077, wd:Q1775461 .
   }
 }

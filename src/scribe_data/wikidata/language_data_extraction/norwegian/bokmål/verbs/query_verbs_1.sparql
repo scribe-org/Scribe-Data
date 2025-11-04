@@ -6,11 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?passiveImperative
-  ?passiveInfinitive
-  ?passivePresent
-  ?passivePreterite
-  ?passivePresentPerfect
+  ?imperative
+  ?preterite
+  ?presentPerfect
+  ?combinedPresentParticiple
   ?pluralCombinedPastParticiple
 
 WHERE {
@@ -23,33 +22,27 @@ WHERE {
   FILTER(lang(?verb) = "nb")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveImperativeForm .
-    ?passiveImperativeForm ontolex:representation ?passiveImperative ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q22716 .
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
-    ?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?preteriteForm .
+    ?preteriteForm ontolex:representation ?preterite ;
+      wikibase:grammaticalFeature wd:Q442485 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePresentForm .
-    ?passivePresentForm ontolex:representation ?passivePresent ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613 .
+    ?lexeme ontolex:lexicalForm ?presentPerfectForm .
+    ?presentPerfectForm ontolex:representation ?presentPerfect ;
+      wikibase:grammaticalFeature wd:Q1240211 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePreteriteForm .
-    ?passivePreteriteForm ontolex:representation ?passivePreterite ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q442485 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePresentPerfectForm .
-    ?passivePresentPerfectForm ontolex:representation ?passivePresentPerfect ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q1240211 .
+    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
+    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
   }
 
   OPTIONAL {

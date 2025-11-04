@@ -6,10 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?dativeMasculineAnimateSingular
-  ?dativeMasculineAnimatePlural
-  ?dativeMasculineAnimateSingularPositive
-  ?dativeMasculineAnimatePluralPositive
+  ?singularInstrumental
+  ?singularInstrumentalFeminine
+  ?singularInstrumentalMasculineInanimate
+  ?singularInstrumentalMasculineAnimate
+  ?singularInstrumentalNeuter
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -18,26 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimateSingularForm .
-    ?dativeMasculineAnimateSingularForm ontolex:representation ?dativeMasculineAnimateSingular ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularInstrumentalForm .
+    ?singularInstrumentalForm ontolex:representation ?singularInstrumental ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q192997 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimatePluralForm .
-    ?dativeMasculineAnimatePluralForm ontolex:representation ?dativeMasculineAnimatePlural ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularInstrumentalFeminineForm .
+    ?singularInstrumentalFeminineForm ontolex:representation ?singularInstrumentalFeminine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q192997, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimateSingularPositiveForm .
-    ?dativeMasculineAnimateSingularPositiveForm ontolex:representation ?dativeMasculineAnimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?singularInstrumentalMasculineInanimateForm .
+    ?singularInstrumentalMasculineInanimateForm ontolex:representation ?singularInstrumentalMasculineInanimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q192997, wd:Q52943434 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimatePluralPositiveForm .
-    ?dativeMasculineAnimatePluralPositiveForm ontolex:representation ?dativeMasculineAnimatePluralPositive ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?singularInstrumentalMasculineAnimateForm .
+    ?singularInstrumentalMasculineAnimateForm ontolex:representation ?singularInstrumentalMasculineAnimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q192997, wd:Q54020116 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularInstrumentalNeuterForm .
+    ?singularInstrumentalNeuterForm ontolex:representation ?singularInstrumentalNeuter ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q192997, wd:Q1775461 .
   }
 }

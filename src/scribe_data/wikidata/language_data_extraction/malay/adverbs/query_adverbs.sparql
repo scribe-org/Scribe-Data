@@ -6,7 +6,6 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adverb
-  ?plural
   ?superlative
   ?positive
 
@@ -16,12 +15,6 @@ WHERE {
     wikibase:lemma ?adverb ;
     schema:dateModified ?lastModified .
     
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  }
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?superlativeForm .
     ?superlativeForm ontolex:representation ?superlative ;

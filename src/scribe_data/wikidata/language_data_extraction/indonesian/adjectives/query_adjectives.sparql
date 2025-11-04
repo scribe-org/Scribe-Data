@@ -6,11 +6,6 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?passive
-  ?active
-  ?wordStem
-  ?comparative
-  ?superlative
   ?positive
 
 WHERE {
@@ -19,36 +14,6 @@ WHERE {
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
     
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveForm .
-    ?passiveForm ontolex:representation ?passive ;
-      wikibase:grammaticalFeature wd:Q1194697 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeForm .
-    ?activeForm ontolex:representation ?active ;
-      wikibase:grammaticalFeature wd:Q1317831 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?wordStemForm .
-    ?wordStemForm ontolex:representation ?wordStem ;
-      wikibase:grammaticalFeature wd:Q210523 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comparativeForm .
-    ?comparativeForm ontolex:representation ?comparative ;
-      wikibase:grammaticalFeature wd:Q14169499 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?superlativeForm .
-    ?superlativeForm ontolex:representation ?superlative ;
-      wikibase:grammaticalFeature wd:Q1817208 .
-  }
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?positiveForm .
     ?positiveForm ontolex:representation ?positive ;

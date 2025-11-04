@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?plural
-  ?accusativeSingularConstruct
-  ?pausalSingularConstruct
-  ?pausalPluralConstruct
+  ?dualNominativeFeminineIndefinite
+  ?dualNominativeFeminineDefinite
+  ?dualNominativeMasculineIndefinite
+  ?dualNominativeMasculineDefinite
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
@@ -18,26 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?dualNominativeFeminineIndefiniteForm .
+    ?dualNominativeFeminineIndefiniteForm ontolex:representation ?dualNominativeFeminineIndefinite ;
+      wikibase:grammaticalFeature wd:Q110022, wd:Q131105, wd:Q1775415, wd:Q53997857 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeSingularConstructForm .
-    ?accusativeSingularConstructForm ontolex:representation ?accusativeSingularConstruct ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q110786, wd:Q1641446 .
+    ?lexeme ontolex:lexicalForm ?dualNominativeFeminineDefiniteForm .
+    ?dualNominativeFeminineDefiniteForm ontolex:representation ?dualNominativeFeminineDefinite ;
+      wikibase:grammaticalFeature wd:Q110022, wd:Q131105, wd:Q1775415, wd:Q53997851 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pausalSingularConstructForm .
-    ?pausalSingularConstructForm ontolex:representation ?pausalSingularConstruct ;
-      wikibase:grammaticalFeature wd:Q117262361, wd:Q110786, wd:Q1641446 .
+    ?lexeme ontolex:lexicalForm ?dualNominativeMasculineIndefiniteForm .
+    ?dualNominativeMasculineIndefiniteForm ontolex:representation ?dualNominativeMasculineIndefinite ;
+      wikibase:grammaticalFeature wd:Q110022, wd:Q131105, wd:Q499327, wd:Q53997857 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pausalPluralConstructForm .
-    ?pausalPluralConstructForm ontolex:representation ?pausalPluralConstruct ;
-      wikibase:grammaticalFeature wd:Q117262361, wd:Q146786, wd:Q1641446 .
+    ?lexeme ontolex:lexicalForm ?dualNominativeMasculineDefiniteForm .
+    ?dualNominativeMasculineDefiniteForm ontolex:representation ?dualNominativeMasculineDefinite ;
+      wikibase:grammaticalFeature wd:Q110022, wd:Q131105, wd:Q499327, wd:Q53997851 .
   }
 }

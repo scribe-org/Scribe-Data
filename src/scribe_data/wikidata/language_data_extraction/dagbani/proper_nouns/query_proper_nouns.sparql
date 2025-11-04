@@ -7,7 +7,6 @@ SELECT
   ?lastModified
   ?propernoun
   ?singular
-  ?plural
 
 WHERE {
   ?lexeme dct:language wd:Q32238 ;
@@ -19,11 +18,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?singularForm .
     ?singularForm ontolex:representation ?singular ;
       wikibase:grammaticalFeature wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
   }
 }

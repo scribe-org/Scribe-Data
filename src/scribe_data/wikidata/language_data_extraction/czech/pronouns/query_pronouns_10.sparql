@@ -6,10 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?genitiveMasculineAnimateSingular
-  ?genitiveMasculineAnimatePlural
-  ?genitiveMasculineAnimateSingularPositive
-  ?genitiveMasculineAnimatePluralPositive
+  ?singularLocative
+  ?singularLocativeFeminine
+  ?singularLocativeMasculineInanimate
+  ?singularLocativeMasculineAnimate
+  ?singularLocativeNeuter
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -18,26 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimateSingularForm .
-    ?genitiveMasculineAnimateSingularForm ontolex:representation ?genitiveMasculineAnimateSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularLocativeForm .
+    ?singularLocativeForm ontolex:representation ?singularLocative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q202142 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimatePluralForm .
-    ?genitiveMasculineAnimatePluralForm ontolex:representation ?genitiveMasculineAnimatePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularLocativeFeminineForm .
+    ?singularLocativeFeminineForm ontolex:representation ?singularLocativeFeminine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimateSingularPositiveForm .
-    ?genitiveMasculineAnimateSingularPositiveForm ontolex:representation ?genitiveMasculineAnimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?singularLocativeMasculineInanimateForm .
+    ?singularLocativeMasculineInanimateForm ontolex:representation ?singularLocativeMasculineInanimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q52943434 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveMasculineAnimatePluralPositiveForm .
-    ?genitiveMasculineAnimatePluralPositiveForm ontolex:representation ?genitiveMasculineAnimatePluralPositive ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q54020116, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?singularLocativeMasculineAnimateForm .
+    ?singularLocativeMasculineAnimateForm ontolex:representation ?singularLocativeMasculineAnimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q54020116 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularLocativeNeuterForm .
+    ?singularLocativeNeuterForm ontolex:representation ?singularLocativeNeuter ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q1775461 .
   }
 }

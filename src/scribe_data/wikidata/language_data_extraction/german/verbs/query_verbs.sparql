@@ -1,0 +1,22 @@
+# tool: scribe-data
+# All German (Q188) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?imperativeSingularPresentActiveSecondPerson
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperativeSingularPresentActiveSecondPersonForm .
+    ?imperativeSingularPresentActiveSecondPersonForm ontolex:representation ?imperativeSingularPresentActiveSecondPerson ;
+      wikibase:grammaticalFeature wd:Q22716, wd:Q110786, wd:Q192613, wd:Q1317831, wd:Q51929049 .
+  }
+}

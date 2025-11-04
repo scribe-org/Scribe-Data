@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?ablativeSingular
-  ?ablativeMasculineSingular
-  ?ablativeSingularComparative
-  ?ablativeSingularPositive
-  ?ablativeMasculineSingularSuperlative
-  ?ablativeMasculineSingularPositive
+  ?nominativePluralFemininePositive
+  ?nominativePluralMasculinePositive
+  ?nominativePluralNeuterPositive
+  ?genitivePluralFemininePositive
+  ?genitivePluralMasculinePositive
+  ?genitivePluralNeuterPositive
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeSingularForm .
-    ?ablativeSingularForm ontolex:representation ?ablativeSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralFemininePositiveForm .
+    ?nominativePluralFemininePositiveForm ontolex:representation ?nominativePluralFemininePositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q1775415, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularForm .
-    ?ablativeMasculineSingularForm ontolex:representation ?ablativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralMasculinePositiveForm .
+    ?nominativePluralMasculinePositiveForm ontolex:representation ?nominativePluralMasculinePositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q499327, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeSingularComparativeForm .
-    ?ablativeSingularComparativeForm ontolex:representation ?ablativeSingularComparative ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q110786, wd:Q14169499 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralNeuterPositiveForm .
+    ?nominativePluralNeuterPositiveForm ontolex:representation ?nominativePluralNeuterPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q1775461, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeSingularPositiveForm .
-    ?ablativeSingularPositiveForm ontolex:representation ?ablativeSingularPositive ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralFemininePositiveForm .
+    ?genitivePluralFemininePositiveForm ontolex:representation ?genitivePluralFemininePositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q1775415, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularSuperlativeForm .
-    ?ablativeMasculineSingularSuperlativeForm ontolex:representation ?ablativeMasculineSingularSuperlative ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralMasculinePositiveForm .
+    ?genitivePluralMasculinePositiveForm ontolex:representation ?genitivePluralMasculinePositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q499327, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularPositiveForm .
-    ?ablativeMasculineSingularPositiveForm ontolex:representation ?ablativeMasculineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralNeuterPositiveForm .
+    ?genitivePluralNeuterPositiveForm ontolex:representation ?genitivePluralNeuterPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q1775461, wd:Q3482678 .
   }
 }

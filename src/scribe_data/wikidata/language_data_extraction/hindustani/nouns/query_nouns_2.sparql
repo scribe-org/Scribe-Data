@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Hindustani (Q11051) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?pluralDirectFeminine
+  ?pluralMasculineDirect
+  ?pluralObliqueFeminine
+  ?pluralMasculineOblique
+
+WHERE {
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralDirectFeminineForm .
+    ?pluralDirectFeminineForm ontolex:representation ?pluralDirectFeminine ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1751855, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralMasculineDirectForm .
+    ?pluralMasculineDirectForm ontolex:representation ?pluralMasculineDirect ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q499327, wd:Q1751855 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralObliqueFeminineForm .
+    ?pluralObliqueFeminineForm ontolex:representation ?pluralObliqueFeminine ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1233197, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralMasculineObliqueForm .
+    ?pluralMasculineObliqueForm ontolex:representation ?pluralMasculineOblique ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q499327, wd:Q1233197 .
+  }
+}

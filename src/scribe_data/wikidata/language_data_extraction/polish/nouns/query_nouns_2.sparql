@@ -6,12 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?instrumental
-  ?locative
-  ?instrumentalSingular
-  ?instrumentalPlural
-  ?locativeSingular
-  ?locativePlural
+  ?nominativePlural
+  ?genitivePlural
+  ?dativePlural
+  ?accusativePlural
+  ?singularLocative
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
@@ -20,38 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalForm .
-    ?instrumentalForm ontolex:representation ?instrumental ;
-      wikibase:grammaticalFeature wd:Q192997 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeForm .
-    ?locativeForm ontolex:representation ?locative ;
-      wikibase:grammaticalFeature wd:Q202142 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalSingularForm .
-    ?instrumentalSingularForm ontolex:representation ?instrumentalSingular ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalPluralForm .
-    ?instrumentalPluralForm ontolex:representation ?instrumentalPlural ;
-      wikibase:grammaticalFeature wd:Q192997, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
-    ?locativeSingularForm ontolex:representation ?locativeSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativePluralForm .
-    ?locativePluralForm ontolex:representation ?locativePlural ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularLocativeForm .
+    ?singularLocativeForm ontolex:representation ?singularLocative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q202142 .
   }
 }

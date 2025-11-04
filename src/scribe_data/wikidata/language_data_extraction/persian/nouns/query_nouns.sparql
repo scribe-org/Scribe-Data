@@ -8,9 +8,6 @@ SELECT
   ?noun
   ?singular
   ?plural
-  ?dual
-  ?positive
-  ?animatePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9168 ;
@@ -28,23 +25,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dualForm .
-    ?dualForm ontolex:representation ?dual ;
-      wikibase:grammaticalFeature wd:Q110022 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?positiveForm .
-    ?positiveForm ontolex:representation ?positive ;
-      wikibase:grammaticalFeature wd:Q3482678 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?animatePluralForm .
-    ?animatePluralForm ontolex:representation ?animatePlural ;
-      wikibase:grammaticalFeature wd:Q51927507, wd:Q146786 .
   }
 }

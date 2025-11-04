@@ -6,11 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?feminineSingular
-  ?directFeminineSingular
-  ?directFemininePlural
-  ?directMasculineSingular
-  ?directMasculinePlural
+  ?pluralDirectFeminine
+  ?pluralMasculineDirect
+  ?pluralObliqueFeminine
+  ?pluralMasculineOblique
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
@@ -22,32 +21,26 @@ WHERE {
   FILTER(lang(?noun) = "pnb")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
-    ?feminineSingularForm ontolex:representation ?feminineSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pluralDirectFeminineForm .
+    ?pluralDirectFeminineForm ontolex:representation ?pluralDirectFeminine ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1751855, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directFeminineSingularForm .
-    ?directFeminineSingularForm ontolex:representation ?directFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pluralMasculineDirectForm .
+    ?pluralMasculineDirectForm ontolex:representation ?pluralMasculineDirect ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q499327, wd:Q1751855 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directFemininePluralForm .
-    ?directFemininePluralForm ontolex:representation ?directFemininePlural ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pluralObliqueFeminineForm .
+    ?pluralObliqueFeminineForm ontolex:representation ?pluralObliqueFeminine ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1233197, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directMasculineSingularForm .
-    ?directMasculineSingularForm ontolex:representation ?directMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q499327, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?directMasculinePluralForm .
-    ?directMasculinePluralForm ontolex:representation ?directMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q1751855, wd:Q499327, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pluralMasculineObliqueForm .
+    ?pluralMasculineObliqueForm ontolex:representation ?pluralMasculineOblique ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q499327, wd:Q1233197 .
   }
 }

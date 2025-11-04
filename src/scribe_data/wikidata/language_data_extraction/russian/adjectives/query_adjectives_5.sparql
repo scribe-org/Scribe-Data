@@ -6,12 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?nominativeMasculine
-  ?nominativeMasculineSingular
-  ?nominativeMasculinePlural
-  ?accusativeMasculineSingular
-  ?accusativeMasculineInanimateSingular
-  ?accusativeMasculineAnimateSingular
+  ?singularAccusativeFeminineAnimate
+  ?singularAccusativeMasculineInanimate
+  ?singularAccusativeMasculineAnimate
+  ?singularAccusativeNeuterAnimate
 
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
@@ -20,38 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineForm .
-    ?nominativeMasculineForm ontolex:representation ?nominativeMasculine ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q499327 .
+    ?lexeme ontolex:lexicalForm ?singularAccusativeFeminineAnimateForm .
+    ?singularAccusativeFeminineAnimateForm ontolex:representation ?singularAccusativeFeminineAnimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q1775415, wd:Q51927507 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularForm .
-    ?nominativeMasculineSingularForm ontolex:representation ?nominativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularAccusativeMasculineInanimateForm .
+    ?singularAccusativeMasculineInanimateForm ontolex:representation ?singularAccusativeMasculineInanimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q499327, wd:Q51927539 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeMasculinePluralForm .
-    ?nominativeMasculinePluralForm ontolex:representation ?nominativeMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularAccusativeMasculineAnimateForm .
+    ?singularAccusativeMasculineAnimateForm ontolex:representation ?singularAccusativeMasculineAnimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q499327, wd:Q51927507 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineSingularForm .
-    ?accusativeMasculineSingularForm ontolex:representation ?accusativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineInanimateSingularForm .
-    ?accusativeMasculineInanimateSingularForm ontolex:representation ?accusativeMasculineInanimateSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q51927539, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineAnimateSingularForm .
-    ?accusativeMasculineAnimateSingularForm ontolex:representation ?accusativeMasculineAnimateSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q51927507, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularAccusativeNeuterAnimateForm .
+    ?singularAccusativeNeuterAnimateForm ontolex:representation ?singularAccusativeNeuterAnimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q1775461, wd:Q51927507 .
   }
 }

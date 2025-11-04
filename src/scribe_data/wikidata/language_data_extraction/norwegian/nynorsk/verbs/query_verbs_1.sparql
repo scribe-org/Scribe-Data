@@ -7,11 +7,9 @@ SELECT
   ?lastModified
   ?verb
   ?imperative
-  ?infinitive
   ?preterite
   ?combinedPresentParticiple
-  ?definiteSingularCombinedPastParticiple
-  ?neuterIndefiniteSingularCombinedPastParticiple
+  ?pluralCombinedPastParticiple
 
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
@@ -29,12 +27,6 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?preteriteForm .
     ?preteriteForm ontolex:representation ?preterite ;
       wikibase:grammaticalFeature wd:Q442485 .
@@ -47,14 +39,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?definiteSingularCombinedPastParticipleForm .
-    ?definiteSingularCombinedPastParticipleForm ontolex:representation ?definiteSingularCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786, wd:Q12717679 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularCombinedPastParticipleForm .
-    ?neuterIndefiniteSingularCombinedPastParticipleForm ontolex:representation ?neuterIndefiniteSingularCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?pluralCombinedPastParticipleForm .
+    ?pluralCombinedPastParticipleForm ontolex:representation ?pluralCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q12717679 .
   }
 }

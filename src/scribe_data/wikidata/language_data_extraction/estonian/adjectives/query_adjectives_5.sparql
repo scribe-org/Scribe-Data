@@ -6,10 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?genitiveSingular
-  ?genitivePlural
-  ?abessiveSingular
-  ?abessivePlural
+  ?singularPartitive
+  ?singularInessive
+  ?singularElative
+  ?singularAllative
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
@@ -18,26 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
-    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularPartitiveForm .
+    ?singularPartitiveForm ontolex:representation ?singularPartitive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q857325 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
-    ?genitivePluralForm ontolex:representation ?genitivePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularInessiveForm .
+    ?singularInessiveForm ontolex:representation ?singularInessive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q282031 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?abessiveSingularForm .
-    ?abessiveSingularForm ontolex:representation ?abessiveSingular ;
-      wikibase:grammaticalFeature wd:Q319822, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularElativeForm .
+    ?singularElativeForm ontolex:representation ?singularElative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q394253 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?abessivePluralForm .
-    ?abessivePluralForm ontolex:representation ?abessivePlural ;
-      wikibase:grammaticalFeature wd:Q319822, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularAllativeForm .
+    ?singularAllativeForm ontolex:representation ?singularAllative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q655020 .
   }
 }

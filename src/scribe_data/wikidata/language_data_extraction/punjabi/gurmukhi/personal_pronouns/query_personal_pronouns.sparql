@@ -1,0 +1,39 @@
+# tool: scribe-data
+# All Punjabi (Q58635) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?oblique
+  ?singularDirectFirstPerson
+  ?singularAblativeFirstPerson
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+    
+  # Note: We need to filter for pa to remove gurmukhi (pa) words.
+  FILTER(lang(?personalpronoun) = "pa")
+    
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueForm .
+    ?obliqueForm ontolex:representation ?oblique ;
+      wikibase:grammaticalFeature wd:Q1233197 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularDirectFirstPersonForm .
+    ?singularDirectFirstPersonForm ontolex:representation ?singularDirectFirstPerson ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1751855, wd:Q21714344 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularAblativeFirstPersonForm .
+    ?singularAblativeFirstPersonForm ontolex:representation ?singularAblativeFirstPerson ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q156986, wd:Q21714344 .
+  }
+}

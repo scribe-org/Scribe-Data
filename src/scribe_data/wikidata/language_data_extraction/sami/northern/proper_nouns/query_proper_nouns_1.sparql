@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?propernoun
-  ?nominative
   ?essive
-  ?plural
-  ?nominativeSingular
-  ?accusativeSingular
+  ?genitivePlural
   ?accusativePlural
+  ?pluralLocative
+  ?pluralIllative
+  ?pluralComitative
 
 WHERE {
   ?lexeme dct:language wd:Q33947 ;
@@ -23,38 +23,38 @@ WHERE {
   FILTER(lang(?propernoun) = "se")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeForm .
-    ?nominativeForm ontolex:representation ?nominative ;
-      wikibase:grammaticalFeature wd:Q131105 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?essiveForm .
     ?essiveForm ontolex:representation ?essive ;
       wikibase:grammaticalFeature wd:Q148465 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
-    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
-    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativePluralForm .
     ?accusativePluralForm ontolex:representation ?accusativePlural ;
       wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralLocativeForm .
+    ?pluralLocativeForm ontolex:representation ?pluralLocative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q202142 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralIllativeForm .
+    ?pluralIllativeForm ontolex:representation ?pluralIllative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q474668 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralComitativeForm .
+    ?pluralComitativeForm ontolex:representation ?pluralComitative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q838581 .
   }
 }
