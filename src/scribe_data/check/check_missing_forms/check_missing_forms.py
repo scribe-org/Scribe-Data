@@ -390,18 +390,15 @@ def process_missing_features(missing_features, query_dir):
     """
     if not missing_features:
         return
-    sub_languages_iso_codes = {}
-    for language, sub_langs in sub_languages.items():
-        # Get all unique QIDs and their ISO codes for this language.
-        qid_to_isos = {}
-        for iso_code, sub_lang_data in sub_langs.items():
-            qid = sub_lang_data["qid"]
-            if qid not in qid_to_isos:
-                qid_to_isos[qid] = set()
-            qid_to_isos[qid].add(iso_code)
-
-        # Add to main dictionary.
-        sub_languages_iso_codes |= qid_to_isos
+    
+    # Map parent language QID to list of sub-language ISO codes
+    # For example: Q11051 (Hindustani) -> ["hi", "ur"]
+    parent_qid_to_iso_codes = {}
+    for parent_lang_name, sub_langs in sub_languages.items():
+        # Get the parent language's QID from metadata
+        parent_qid = language_metadata.get(parent_lang_name, {}).get("qid")
+        if parent_qid:
+            parent_qid_to_iso_codes[parent_qid] = list(sub_langs.keys())
 
     for language_qid, data_types_qid in missing_features.items():
         try:
@@ -421,10 +418,10 @@ def process_missing_features(missing_features, query_dir):
                     continue
                 
                 language_entry = {language_qid: {data_type_qid: features}}
-                if language_qid in sub_languages_iso_codes:
+                if language_qid in parent_qid_to_iso_codes:
                     # For macro-languages, generate a separate set of files
                     # for each sub-language, each with a specific filter.
-                    for sub_lang_iso_code in sub_languages_iso_codes[language_qid]:
+                    for sub_lang_iso_code in parent_qid_to_iso_codes[language_qid]:
                         print(
                             f"Generating query for {language_qid} - {data_type_qid} - {sub_lang_iso_code}"
                         )
