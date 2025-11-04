@@ -176,9 +176,19 @@ def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
 
     body_data_type = data_type.replace("_", "")[:-1]  # nouns: noun, s
 
+    # Determine which language name and QID to use in comments
+    if sub_lang_iso_code and parent_language and sub_language_name:
+        # For sub-languages, use the sub-language name and look up its QID
+        comment_language_name = sub_language_name
+        # Get the sub-language QID from metadata
+        comment_language_qid = language_metadata[parent_language]["sub_languages"][sub_language_name]["qid"]
+    else:
+        comment_language_name = language
+        comment_language_qid = language_qid
+
     # Generate a single query for all forms.
     main_body = f"""# tool: scribe-data
-# All {language.capitalize()} ({language_qid}) {data_type} ({data_type_qid}) and the given forms.
+# All {comment_language_name.capitalize()} ({comment_language_qid}) {data_type} ({data_type_qid}) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT

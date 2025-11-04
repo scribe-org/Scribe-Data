@@ -1,0 +1,14 @@
+# tool: scribe-data
+# All Nigerian Pidgin (Q33655) nouns (Q1084).
+# Enter this query at https://query.wikidata.org/.
+# This is a fallback query for manual exploration - no form combinations met quality thresholds.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?noun
+WHERE {
+  ?lexeme dct:language wd:Q33655 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun .
+}
+LIMIT 100
