@@ -6,11 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?nominative
-  ?oblique
-  ?common
+  ?genitive
+  ?nonGenitive
   ?plural
-  ?commonSingular
+  ?genitivePlural
+  ?pluralNonGenitive
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
@@ -19,21 +19,15 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeForm .
-    ?nominativeForm ontolex:representation ?nominative ;
-      wikibase:grammaticalFeature wd:Q131105 .
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueForm .
-    ?obliqueForm ontolex:representation ?oblique ;
-      wikibase:grammaticalFeature wd:Q1233197 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?commonForm .
-    ?commonForm ontolex:representation ?common ;
-      wikibase:grammaticalFeature wd:Q1305037 .
+    ?lexeme ontolex:lexicalForm ?nonGenitiveForm .
+    ?nonGenitiveForm ontolex:representation ?nonGenitive ;
+      wikibase:grammaticalFeature wd:Q98946930 .
   }
 
   OPTIONAL {
@@ -43,8 +37,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?commonSingularForm .
-    ?commonSingularForm ontolex:representation ?commonSingular ;
-      wikibase:grammaticalFeature wd:Q1305037, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralNonGenitiveForm .
+    ?pluralNonGenitiveForm ontolex:representation ?pluralNonGenitive ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q98946930 .
   }
 }

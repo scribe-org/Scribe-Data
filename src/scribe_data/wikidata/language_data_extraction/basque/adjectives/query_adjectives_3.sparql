@@ -6,9 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?absolutiveIndefinite
-  ?absolutiveSingular
-  ?absolutivePlural
+  ?singularGenitive
+  ?genitivePlural
+  ?pluralAblativeInanimate
+  ?pluralAblativeAnimate
+  ?pluralAllativeInanimate
+  ?pluralAllativeAnimate
 
 WHERE {
   ?lexeme dct:language wd:Q8752 ;
@@ -17,20 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?absolutiveIndefiniteForm .
-    ?absolutiveIndefiniteForm ontolex:representation ?absolutiveIndefinite ;
-      wikibase:grammaticalFeature wd:Q332734, wd:Q53997857 .
+    ?lexeme ontolex:lexicalForm ?singularGenitiveForm .
+    ?singularGenitiveForm ontolex:representation ?singularGenitive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146233 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?absolutiveSingularForm .
-    ?absolutiveSingularForm ontolex:representation ?absolutiveSingular ;
-      wikibase:grammaticalFeature wd:Q332734, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?absolutivePluralForm .
-    ?absolutivePluralForm ontolex:representation ?absolutivePlural ;
-      wikibase:grammaticalFeature wd:Q332734, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pluralAblativeInanimateForm .
+    ?pluralAblativeInanimateForm ontolex:representation ?pluralAblativeInanimate ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q156986, wd:Q51927539 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAblativeAnimateForm .
+    ?pluralAblativeAnimateForm ontolex:representation ?pluralAblativeAnimate ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q156986, wd:Q51927507 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAllativeInanimateForm .
+    ?pluralAllativeInanimateForm ontolex:representation ?pluralAllativeInanimate ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q655020, wd:Q51927539 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralAllativeAnimateForm .
+    ?pluralAllativeAnimateForm ontolex:representation ?pluralAllativeAnimate ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q655020, wd:Q51927507 .
   }
 }

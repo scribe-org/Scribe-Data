@@ -1,36 +1,14 @@
 # tool: scribe-data
-# All French (Q150) prepositions (Q4833830) and the given forms.
-# Enter this query at https://query.wikidata.org/.
+# Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
+# Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lastModified
-  ?preposition
-  ?plural
-  ?feminineSingular
-  ?masculineSingular
+  ?lemma
 
-WHERE {
+WHERE {{
+  ?lexeme a ontolex:LexicalEntry .
   ?lexeme dct:language wd:Q150 ;
     wikibase:lexicalCategory wd:Q4833830 ;
-    wikibase:lemma ?preposition ;
-    schema:dateModified ?lastModified .
-    
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
-    ?feminineSingularForm ontolex:representation ?feminineSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
-    ?masculineSingularForm ontolex:representation ?masculineSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
-  }
-}
+    wikibase:lemma ?lemma .
+}}

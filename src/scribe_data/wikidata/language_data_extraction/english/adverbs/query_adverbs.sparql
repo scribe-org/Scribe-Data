@@ -6,7 +6,6 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adverb
-  ?contraction
   ?comparative
   ?superlative
   ?positive
@@ -17,12 +16,6 @@ WHERE {
     wikibase:lemma ?adverb ;
     schema:dateModified ?lastModified .
     
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?contractionForm .
-    ?contractionForm ontolex:representation ?contraction ;
-      wikibase:grammaticalFeature wd:Q126473 .
-  }
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?comparativeForm .
     ?comparativeForm ontolex:representation ?comparative ;

@@ -6,10 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?locativeNeuterSingular
-  ?locativeNeuterPlural
-  ?locativeNeuterSingularPositive
-  ?locativeNeuterPluralPositive
+  ?nominative
+  ?nominativePluralFeminine
+  ?nominativePluralMasculineInanimate
+  ?nominativePluralMasculineAnimate
+  ?nominativePluralNeuter
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -18,26 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeNeuterSingularForm .
-    ?locativeNeuterSingularForm ontolex:representation ?locativeNeuterSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q1775461, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeNeuterPluralForm .
-    ?locativeNeuterPluralForm ontolex:representation ?locativeNeuterPlural ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q1775461, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralFeminineForm .
+    ?nominativePluralFeminineForm ontolex:representation ?nominativePluralFeminine ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeNeuterSingularPositiveForm .
-    ?locativeNeuterSingularPositiveForm ontolex:representation ?locativeNeuterSingularPositive ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q1775461, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralMasculineInanimateForm .
+    ?nominativePluralMasculineInanimateForm ontolex:representation ?nominativePluralMasculineInanimate ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q52943434 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeNeuterPluralPositiveForm .
-    ?locativeNeuterPluralPositiveForm ontolex:representation ?locativeNeuterPluralPositive ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q1775461, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralMasculineAnimateForm .
+    ?nominativePluralMasculineAnimateForm ontolex:representation ?nominativePluralMasculineAnimate ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q54020116 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralNeuterForm .
+    ?nominativePluralNeuterForm ontolex:representation ?nominativePluralNeuter ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q1775461 .
   }
 }

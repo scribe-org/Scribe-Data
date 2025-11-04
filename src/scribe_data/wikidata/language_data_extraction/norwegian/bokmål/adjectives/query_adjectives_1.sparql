@@ -9,8 +9,7 @@ SELECT
   ?plural
   ?comparative
   ?superlative
-  ?masculineIndefiniteSingular
-  ?neuterIndefiniteSingular
+  ?superlativeDefinite
 
 WHERE {
   ?lexeme dct:language wd:Q25167 ;
@@ -40,14 +39,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineIndefiniteSingularForm .
-    ?masculineIndefiniteSingularForm ontolex:representation ?masculineIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q53997857, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularForm .
-    ?neuterIndefiniteSingularForm ontolex:representation ?neuterIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?superlativeDefiniteForm .
+    ?superlativeDefiniteForm ontolex:representation ?superlativeDefinite ;
+      wikibase:grammaticalFeature wd:Q1817208, wd:Q53997851 .
   }
 }

@@ -7,8 +7,8 @@ SELECT
   ?lastModified
   ?adjective
   ?plural
-  ?feminineSingular
-  ?masculineSingular
+  ?singularFeminine
+  ?singularMasculine
 
 WHERE {
   ?lexeme dct:language wd:Q56475 ;
@@ -23,14 +23,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
-    ?feminineSingularForm ontolex:representation ?feminineSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularFeminineForm .
+    ?singularFeminineForm ontolex:representation ?singularFeminine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
-    ?masculineSingularForm ontolex:representation ?masculineSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularMasculineForm .
+    ?singularMasculineForm ontolex:representation ?singularMasculine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q499327 .
   }
 }

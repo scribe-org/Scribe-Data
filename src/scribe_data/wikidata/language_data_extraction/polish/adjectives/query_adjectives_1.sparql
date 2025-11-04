@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?accusative
-  ?accusativePluralPositive
-  ?dativeMasculineInanimateSingularPositive
-  ?dativeMasculineAnimateSingularPositive
-  ?dativeNotMasculinePersonalPluralPositive
-  ?accusativeMasculineAnimateSingularPositive
+  ?singularDativeFemininePositive
+  ?singularLocativeFemininePositive
+  ?genitivePluralPositiveMasculinePersonalNotMasculinePersonal
+  ?singularDativeMasculineNeuterPositive
+  ?dativePluralPositiveMasculinePersonalNotMasculinePersonal
+  ?singularLocativeMasculineNeuterPositive
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeForm .
-    ?accusativeForm ontolex:representation ?accusative ;
-      wikibase:grammaticalFeature wd:Q146078 .
+    ?lexeme ontolex:lexicalForm ?singularDativeFemininePositiveForm .
+    ?singularDativeFemininePositiveForm ontolex:representation ?singularDativeFemininePositive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q145599, wd:Q1775415, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativePluralPositiveForm .
-    ?accusativePluralPositiveForm ontolex:representation ?accusativePluralPositive ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?singularLocativeFemininePositiveForm .
+    ?singularLocativeFemininePositiveForm ontolex:representation ?singularLocativeFemininePositive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q1775415, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineInanimateSingularPositiveForm .
-    ?dativeMasculineInanimateSingularPositiveForm ontolex:representation ?dativeMasculineInanimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q52943434, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralPositiveMasculinePersonalNotMasculinePersonalForm .
+    ?genitivePluralPositiveMasculinePersonalNotMasculinePersonalForm ontolex:representation ?genitivePluralPositiveMasculinePersonalNotMasculinePersonal ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q3482678, wd:Q27918551, wd:Q54152717 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeMasculineAnimateSingularPositiveForm .
-    ?dativeMasculineAnimateSingularPositiveForm ontolex:representation ?dativeMasculineAnimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?singularDativeMasculineNeuterPositiveForm .
+    ?singularDativeMasculineNeuterPositiveForm ontolex:representation ?singularDativeMasculineNeuterPositive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q145599, wd:Q499327, wd:Q1775461, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeNotMasculinePersonalPluralPositiveForm .
-    ?dativeNotMasculinePersonalPluralPositiveForm ontolex:representation ?dativeNotMasculinePersonalPluralPositive ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q54152717, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?dativePluralPositiveMasculinePersonalNotMasculinePersonalForm .
+    ?dativePluralPositiveMasculinePersonalNotMasculinePersonalForm ontolex:representation ?dativePluralPositiveMasculinePersonalNotMasculinePersonal ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786, wd:Q3482678, wd:Q27918551, wd:Q54152717 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineAnimateSingularPositiveForm .
-    ?accusativeMasculineAnimateSingularPositiveForm ontolex:representation ?accusativeMasculineAnimateSingularPositive ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q54020116, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?singularLocativeMasculineNeuterPositiveForm .
+    ?singularLocativeMasculineNeuterPositiveForm ontolex:representation ?singularLocativeMasculineNeuterPositive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q499327, wd:Q1775461, wd:Q3482678 .
   }
 }

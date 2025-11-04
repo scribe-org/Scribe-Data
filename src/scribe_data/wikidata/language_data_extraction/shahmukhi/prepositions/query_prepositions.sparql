@@ -1,0 +1,14 @@
+# tool: scribe-data
+# Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
+# Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lemma
+
+WHERE {{
+  ?lexeme a ontolex:LexicalEntry .
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q4833830 ;
+    wikibase:lemma ?lemma .
+}}

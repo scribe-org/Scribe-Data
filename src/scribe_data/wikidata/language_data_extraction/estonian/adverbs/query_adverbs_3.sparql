@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adverb
-  ?nominativeSingular
-  ?nominativePlural
-  ?partitiveSingular
-  ?partitivePlural
-  ?inessiveSingular
-  ?inessivePlural
+  ?singularAblative
+  ?singularIllative
+  ?singularInessive
+  ?singularElative
+  ?singularAllative
+  ?singularAdessive
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
@@ -20,38 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
-    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularAblativeForm .
+    ?singularAblativeForm ontolex:representation ?singularAblative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q156986 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
-    ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularIllativeForm .
+    ?singularIllativeForm ontolex:representation ?singularIllative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q474668 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?partitiveSingularForm .
-    ?partitiveSingularForm ontolex:representation ?partitiveSingular ;
-      wikibase:grammaticalFeature wd:Q857325, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularInessiveForm .
+    ?singularInessiveForm ontolex:representation ?singularInessive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q282031 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?partitivePluralForm .
-    ?partitivePluralForm ontolex:representation ?partitivePlural ;
-      wikibase:grammaticalFeature wd:Q857325, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularElativeForm .
+    ?singularElativeForm ontolex:representation ?singularElative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q394253 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?inessiveSingularForm .
-    ?inessiveSingularForm ontolex:representation ?inessiveSingular ;
-      wikibase:grammaticalFeature wd:Q282031, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularAllativeForm .
+    ?singularAllativeForm ontolex:representation ?singularAllative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q655020 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?inessivePluralForm .
-    ?inessivePluralForm ontolex:representation ?inessivePlural ;
-      wikibase:grammaticalFeature wd:Q282031, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularAdessiveForm .
+    ?singularAdessiveForm ontolex:representation ?singularAdessive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q281954 .
   }
 }

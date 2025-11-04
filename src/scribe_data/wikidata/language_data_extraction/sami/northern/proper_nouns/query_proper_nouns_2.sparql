@@ -6,12 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?propernoun
-  ?comitative
-  ?genitiveAccusative
-  ?genitiveSingular
-  ?genitivePlural
-  ?comitativeSingular
-  ?comitativePlural
+  ?singularNominative
+  ?singularGenitive
+  ?singularAccusative
+  ?singularLocative
+  ?singularIllative
+  ?singularComitative
 
 WHERE {
   ?lexeme dct:language wd:Q33947 ;
@@ -23,38 +23,38 @@ WHERE {
   FILTER(lang(?propernoun) = "se")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comitativeForm .
-    ?comitativeForm ontolex:representation ?comitative ;
-      wikibase:grammaticalFeature wd:Q838581 .
+    ?lexeme ontolex:lexicalForm ?singularNominativeForm .
+    ?singularNominativeForm ontolex:representation ?singularNominative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveAccusativeForm .
-    ?genitiveAccusativeForm ontolex:representation ?genitiveAccusative ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146078 .
+    ?lexeme ontolex:lexicalForm ?singularGenitiveForm .
+    ?singularGenitiveForm ontolex:representation ?singularGenitive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146233 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
-    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularAccusativeForm .
+    ?singularAccusativeForm ontolex:representation ?singularAccusative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146078 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
-    ?genitivePluralForm ontolex:representation ?genitivePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularLocativeForm .
+    ?singularLocativeForm ontolex:representation ?singularLocative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q202142 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comitativeSingularForm .
-    ?comitativeSingularForm ontolex:representation ?comitativeSingular ;
-      wikibase:grammaticalFeature wd:Q838581, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularIllativeForm .
+    ?singularIllativeForm ontolex:representation ?singularIllative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q474668 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comitativePluralForm .
-    ?comitativePluralForm ontolex:representation ?comitativePlural ;
-      wikibase:grammaticalFeature wd:Q838581, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularComitativeForm .
+    ?singularComitativeForm ontolex:representation ?singularComitative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q838581 .
   }
 }

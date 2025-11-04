@@ -6,11 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?dativeSingular
+  ?nominativePlural
+  ?genitivePlural
   ?dativePlural
-  ?prepositionalSingular
-  ?prepositionalPlural
-  ?vocativeSingular
+  ?accusativePlural
+  ?pluralInstrumental
+  ?pluralPrepositional
 
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
@@ -19,9 +20,15 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
-    ?dativeSingularForm ontolex:representation ?dativeSingular ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
   OPTIONAL {
@@ -31,20 +38,20 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?prepositionalSingularForm .
-    ?prepositionalSingularForm ontolex:representation ?prepositionalSingular ;
-      wikibase:grammaticalFeature wd:Q2114906, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?prepositionalPluralForm .
-    ?prepositionalPluralForm ontolex:representation ?prepositionalPlural ;
-      wikibase:grammaticalFeature wd:Q2114906, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pluralInstrumentalForm .
+    ?pluralInstrumentalForm ontolex:representation ?pluralInstrumental ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q192997 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeSingularForm .
-    ?vocativeSingularForm ontolex:representation ?vocativeSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pluralPrepositionalForm .
+    ?pluralPrepositionalForm ontolex:representation ?pluralPrepositional ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q2114906 .
   }
 }

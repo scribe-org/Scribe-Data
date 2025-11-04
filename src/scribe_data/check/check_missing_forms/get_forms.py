@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-Get forms from Wikidata.
+Get forms from Wikidata SPARQL query files.
 """
 
 import re
@@ -12,7 +12,6 @@ from scribe_data.utils import (
 from scribe_data.utils import (
     language_metadata,
 )
-from scribe_data.wikidata.parse_dump import LexemeProcessor
 
 iso_to_qid = {
     lang_data["iso"]: lang_data["qid"]
@@ -103,33 +102,4 @@ def parse_sparql_query(query_text):
     return result
 
 
-def extract_dump_forms(
-    languages=None, data_types=None, file_path="latest-lexemes.json.bz2"
-):
-    """
-    Extract unique grammatical features from Wikidata lexeme dump.
-
-    Parameters
-    ----------
-    languages : list of str, optional
-        List of language ISO codes (e.g., ['en', 'fr']).
-
-    data_types : list of str, optional
-        List of lexical categories (e.g., ['nouns', 'verbs']).
-
-    file_path : str, optional
-        Path to the lexeme dump file, by default "latest-lexemes.json.bz2".
-
-    Returns
-    -------
-    dict
-        Dictionary of unique grammatical features per language and lexical category.
-        Format: {language_qid: {data_type_qid: features}}.
-    """
-    processor = LexemeProcessor(
-        target_lang=languages, parse_type=["form"], data_types=data_types
-    )
-
-    processor.process_file(file_path)
-
-    return dict(processor.unique_forms)
+# NOTE: extract_dump_forms() removed as we're no longer using dump based approach

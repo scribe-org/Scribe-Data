@@ -1,22 +1,14 @@
 # tool: scribe-data
-# All Swahili (Q7838) personal_pronouns (Q468801) and the given forms.
-# Enter this query at https://query.wikidata.org/.
+# Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
+# Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lastModified
-  ?personalpronoun
-  ?secondPersonPlural
+  ?lemma
 
-WHERE {
+WHERE {{
+  ?lexeme a ontolex:LexicalEntry .
   ?lexeme dct:language wd:Q7838 ;
     wikibase:lexicalCategory wd:Q468801 ;
-    wikibase:lemma ?personalpronoun ;
-    schema:dateModified ?lastModified .
-    
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?secondPersonPluralForm .
-    ?secondPersonPluralForm ontolex:representation ?secondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q51929049, wd:Q146786 .
-  }
-}
+    wikibase:lemma ?lemma .
+}}

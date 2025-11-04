@@ -6,11 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?singular
-  ?accusativeSingular
+  ?nominativePlural
+  ?genitivePlural
   ?accusativePlural
-  ?vocativeSingular
-  ?vocativePlural
+  ?pluralVocative
 
 WHERE {
   ?lexeme dct:language wd:Q36510 ;
@@ -19,15 +18,15 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
-    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
   OPTIONAL {
@@ -37,14 +36,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeSingularForm .
-    ?vocativeSingularForm ontolex:representation ?vocativeSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativePluralForm .
-    ?vocativePluralForm ontolex:representation ?vocativePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pluralVocativeForm .
+    ?pluralVocativeForm ontolex:representation ?pluralVocative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q185077 .
   }
 }

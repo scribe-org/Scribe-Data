@@ -6,10 +6,8 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?ablativeInanimateSingular
-  ?ablativeInanimatePlural
-  ?ablativeAnimateSingular
-  ?ablativeAnimatePlural
+  ?singularInessiveInanimate
+  ?singularInessiveAnimate
 
 WHERE {
   ?lexeme dct:language wd:Q8752 ;
@@ -18,26 +16,14 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeInanimateSingularForm .
-    ?ablativeInanimateSingularForm ontolex:representation ?ablativeInanimateSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q51927539, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularInessiveInanimateForm .
+    ?singularInessiveInanimateForm ontolex:representation ?singularInessiveInanimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q282031, wd:Q51927539 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeInanimatePluralForm .
-    ?ablativeInanimatePluralForm ontolex:representation ?ablativeInanimatePlural ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q51927539, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeAnimateSingularForm .
-    ?ablativeAnimateSingularForm ontolex:representation ?ablativeAnimateSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q51927507, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeAnimatePluralForm .
-    ?ablativeAnimatePluralForm ontolex:representation ?ablativeAnimatePlural ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q51927507, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularInessiveAnimateForm .
+    ?singularInessiveAnimateForm ontolex:representation ?singularInessiveAnimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q282031, wd:Q51927507 .
   }
 }

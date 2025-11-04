@@ -6,10 +6,8 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?propernoun
-  ?genitive
   ?singular
   ?plural
-  ?nominativeSingular
 
 WHERE {
   ?lexeme dct:language wd:Q1860 ;
@@ -17,12 +15,6 @@ WHERE {
     wikibase:lemma ?propernoun ;
     schema:dateModified ?lastModified .
     
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveForm .
-    ?genitiveForm ontolex:representation ?genitive ;
-      wikibase:grammaticalFeature wd:Q146233 .
-  }
-
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?singularForm .
     ?singularForm ontolex:representation ?singular ;
@@ -33,11 +25,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
       wikibase:grammaticalFeature wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
-    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
   }
 }

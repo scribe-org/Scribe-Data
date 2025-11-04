@@ -6,11 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?imperative
-  ?combinedPresentParticiple
-  ?passiveActiveInfinitive
-  ?passiveActivePresent
-  ?feminineMasculineIndefiniteSingularCombinedPastParticiple
+  ?singularCombinedPastParticipleDefinite
+  ?singularNeuterCombinedPastParticipleIndefinite
+  ?singularMasculineFeminineCombinedPastParticipleIndefinite
 
 WHERE {
   ?lexeme dct:language wd:Q25167 ;
@@ -22,32 +20,20 @@ WHERE {
   FILTER(lang(?verb) = "nb")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperativeForm .
-    ?imperativeForm ontolex:representation ?imperative ;
-      wikibase:grammaticalFeature wd:Q22716 .
+    ?lexeme ontolex:lexicalForm ?singularCombinedPastParticipleDefiniteForm .
+    ?singularCombinedPastParticipleDefiniteForm ontolex:representation ?singularCombinedPastParticipleDefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q12717679, wd:Q53997851 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
-    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
-      wikibase:grammaticalFeature wd:Q10345583 .
+    ?lexeme ontolex:lexicalForm ?singularNeuterCombinedPastParticipleIndefiniteForm .
+    ?singularNeuterCombinedPastParticipleIndefiniteForm ontolex:representation ?singularNeuterCombinedPastParticipleIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1775461, wd:Q12717679, wd:Q53997857 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveActiveInfinitiveForm .
-    ?passiveActiveInfinitiveForm ontolex:representation ?passiveActiveInfinitive ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q1317831, wd:Q179230 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveActivePresentForm .
-    ?passiveActivePresentForm ontolex:representation ?passiveActivePresent ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q1317831, wd:Q192613 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularCombinedPastParticipleForm .
-    ?feminineMasculineIndefiniteSingularCombinedPastParticipleForm ontolex:representation ?feminineMasculineIndefiniteSingularCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q53997857, wd:Q110786, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?singularMasculineFeminineCombinedPastParticipleIndefiniteForm .
+    ?singularMasculineFeminineCombinedPastParticipleIndefiniteForm ontolex:representation ?singularMasculineFeminineCombinedPastParticipleIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q499327, wd:Q1775415, wd:Q12717679, wd:Q53997857 .
   }
 }

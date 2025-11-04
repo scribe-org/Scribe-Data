@@ -6,11 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?propernoun
-  ?masculineSingular
-  ?locativeFeminineSingular
-  ?locativeMasculineSingular
-  ?ablativeFeminineSingular
-  ?ablativeMasculineSingular
+  ?singularLocativeMasculine
+  ?singularVocativeMasculine
+  ?singularDirectFeminine
+  ?singularObliqueFeminine
+  ?singularAblativeMasculine
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
@@ -22,32 +22,32 @@ WHERE {
   FILTER(lang(?propernoun) = "pnb")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
-    ?masculineSingularForm ontolex:representation ?masculineSingular ;
-      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularLocativeMasculineForm .
+    ?singularLocativeMasculineForm ontolex:representation ?singularLocativeMasculine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q499327 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularForm .
-    ?locativeFeminineSingularForm ontolex:representation ?locativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularVocativeMasculineForm .
+    ?singularVocativeMasculineForm ontolex:representation ?singularVocativeMasculine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q185077, wd:Q499327 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeMasculineSingularForm .
-    ?locativeMasculineSingularForm ontolex:representation ?locativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q202142, wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularDirectFeminineForm .
+    ?singularDirectFeminineForm ontolex:representation ?singularDirectFeminine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1751855, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeFeminineSingularForm .
-    ?ablativeFeminineSingularForm ontolex:representation ?ablativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularObliqueFeminineForm .
+    ?singularObliqueFeminineForm ontolex:representation ?singularObliqueFeminine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1233197, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularForm .
-    ?ablativeMasculineSingularForm ontolex:representation ?ablativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularAblativeMasculineForm .
+    ?singularAblativeMasculineForm ontolex:representation ?singularAblativeMasculine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q156986, wd:Q499327 .
   }
 }

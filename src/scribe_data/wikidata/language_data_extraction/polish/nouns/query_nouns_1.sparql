@@ -6,10 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?vocative
-  ?plural
-  ?vocativeSingular
-  ?vocativePlural
+  ?singularNominative
+  ?singularGenitive
+  ?singularDative
+  ?singularAccusative
+  ?singularInstrumental
+  ?singularVocative
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
@@ -18,26 +20,38 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeForm .
-    ?vocativeForm ontolex:representation ?vocative ;
-      wikibase:grammaticalFeature wd:Q185077 .
+    ?lexeme ontolex:lexicalForm ?singularNominativeForm .
+    ?singularNominativeForm ontolex:representation ?singularNominative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm .
-    ?pluralForm ontolex:representation ?plural ;
-      wikibase:grammaticalFeature wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularGenitiveForm .
+    ?singularGenitiveForm ontolex:representation ?singularGenitive ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146233 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeSingularForm .
-    ?vocativeSingularForm ontolex:representation ?vocativeSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularDativeForm .
+    ?singularDativeForm ontolex:representation ?singularDative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q145599 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativePluralForm .
-    ?vocativePluralForm ontolex:representation ?vocativePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularAccusativeForm .
+    ?singularAccusativeForm ontolex:representation ?singularAccusative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146078 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularInstrumentalForm .
+    ?singularInstrumentalForm ontolex:representation ?singularInstrumental ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q192997 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularVocativeForm .
+    ?singularVocativeForm ontolex:representation ?singularVocative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q185077 .
   }
 }

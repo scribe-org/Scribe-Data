@@ -6,12 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?vocativeSecondPersonSingular
-  ?vocativeSecondPersonPlural
-  ?obliqueFeminineSingular
-  ?obliqueFemininePlural
-  ?obliqueDefiniteSingular
-  ?obliqueDefinitePlural
+  ?pluralVocative
+  ?pluralDirectIndefinite
+  ?pluralDirectDefinite
+  ?pluralObliqueIndefinite
+  ?pluralObliqueDefinite
 
 WHERE {
   ?lexeme dct:language wd:Q36163 ;
@@ -20,38 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeSecondPersonSingularForm .
-    ?vocativeSecondPersonSingularForm ontolex:representation ?vocativeSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pluralVocativeForm .
+    ?pluralVocativeForm ontolex:representation ?pluralVocative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q185077 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeSecondPersonPluralForm .
-    ?vocativeSecondPersonPluralForm ontolex:representation ?vocativeSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pluralDirectIndefiniteForm .
+    ?pluralDirectIndefiniteForm ontolex:representation ?pluralDirectIndefinite ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1751855, wd:Q53997857 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueFeminineSingularForm .
-    ?obliqueFeminineSingularForm ontolex:representation ?obliqueFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pluralDirectDefiniteForm .
+    ?pluralDirectDefiniteForm ontolex:representation ?pluralDirectDefinite ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1751855, wd:Q53997851 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueFemininePluralForm .
-    ?obliqueFemininePluralForm ontolex:representation ?obliqueFemininePlural ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pluralObliqueIndefiniteForm .
+    ?pluralObliqueIndefiniteForm ontolex:representation ?pluralObliqueIndefinite ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1233197, wd:Q53997857 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueDefiniteSingularForm .
-    ?obliqueDefiniteSingularForm ontolex:representation ?obliqueDefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q53997851, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueDefinitePluralForm .
-    ?obliqueDefinitePluralForm ontolex:representation ?obliqueDefinitePlural ;
-      wikibase:grammaticalFeature wd:Q1233197, wd:Q53997851, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pluralObliqueDefiniteForm .
+    ?pluralObliqueDefiniteForm ontolex:representation ?pluralObliqueDefinite ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1233197, wd:Q53997851 .
   }
 }

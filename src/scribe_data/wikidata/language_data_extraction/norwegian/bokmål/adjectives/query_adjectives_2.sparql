@@ -6,10 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?indefiniteSingular
-  ?indefinitePlural
-  ?feminineIndefiniteSingular
-  ?feminineMasculineIndefiniteSingular
+  ?singularDefinite
+  ?singularNeuterIndefinite
+  ?singularMasculineFeminineIndefinite
 
 WHERE {
   ?lexeme dct:language wd:Q25167 ;
@@ -21,26 +20,20 @@ WHERE {
   FILTER(lang(?adjective) = "nb")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indefiniteSingularForm .
-    ?indefiniteSingularForm ontolex:representation ?indefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q53997857, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularDefiniteForm .
+    ?singularDefiniteForm ontolex:representation ?singularDefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q53997851 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indefinitePluralForm .
-    ?indefinitePluralForm ontolex:representation ?indefinitePlural ;
-      wikibase:grammaticalFeature wd:Q53997857, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularNeuterIndefiniteForm .
+    ?singularNeuterIndefiniteForm ontolex:representation ?singularNeuterIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1775461, wd:Q53997857 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineIndefiniteSingularForm .
-    ?feminineIndefiniteSingularForm ontolex:representation ?feminineIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q53997857, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularForm .
-    ?feminineMasculineIndefiniteSingularForm ontolex:representation ?feminineMasculineIndefiniteSingular ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q53997857, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularMasculineFeminineIndefiniteForm .
+    ?singularMasculineFeminineIndefiniteForm ontolex:representation ?singularMasculineFeminineIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q499327, wd:Q1775415, wd:Q53997857 .
   }
 }

@@ -1,36 +1,14 @@
 # tool: scribe-data
-# All Russian (Q7737) adverbs (Q380057) and the given forms.
-# Enter this query at https://query.wikidata.org/.
+# Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
+# Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lastModified
-  ?adverb
-  ?comparative
-  ?superlative
-  ?positive
+  ?lemma
 
-WHERE {
+WHERE {{
+  ?lexeme a ontolex:LexicalEntry .
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q380057 ;
-    wikibase:lemma ?adverb ;
-    schema:dateModified ?lastModified .
-    
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?comparativeForm .
-    ?comparativeForm ontolex:representation ?comparative ;
-      wikibase:grammaticalFeature wd:Q14169499 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?superlativeForm .
-    ?superlativeForm ontolex:representation ?superlative ;
-      wikibase:grammaticalFeature wd:Q1817208 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?positiveForm .
-    ?positiveForm ontolex:representation ?positive ;
-      wikibase:grammaticalFeature wd:Q3482678 .
-  }
-}
+    wikibase:lemma ?lemma .
+}}

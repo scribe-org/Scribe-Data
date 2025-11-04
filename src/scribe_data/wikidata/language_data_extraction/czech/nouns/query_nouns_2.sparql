@@ -6,10 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?vocative
-  ?vocativeSingular
-  ?vocativePlural
-  ?vocativeNeuterSingular
+  ?nominativePlural
+  ?genitivePlural
+  ?dativePlural
+  ?accusativePlural
+  ?singularInstrumental
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -18,26 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeForm .
-    ?vocativeForm ontolex:representation ?vocative ;
-      wikibase:grammaticalFeature wd:Q185077 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeSingularForm .
-    ?vocativeSingularForm ontolex:representation ?vocativeSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativePluralForm .
-    ?vocativePluralForm ontolex:representation ?vocativePlural ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeNeuterSingularForm .
-    ?vocativeNeuterSingularForm ontolex:representation ?vocativeNeuterSingular ;
-      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularInstrumentalForm .
+    ?singularInstrumentalForm ontolex:representation ?singularInstrumental ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q192997 .
   }
 }

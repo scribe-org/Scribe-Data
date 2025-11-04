@@ -6,12 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?accusativeFeminineSingular
-  ?accusativeFemininePlural
-  ?accusativeMasculineSingular
-  ?accusativeMasculinePlural
-  ?accusativeNeuterSingular
-  ?accusativeNeuterPlural
+  ?genitivePluralFeminine
+  ?genitivePluralMasculine
+  ?genitivePluralNeuter
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
@@ -20,38 +17,20 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularForm .
-    ?accusativeFeminineSingularForm ontolex:representation ?accusativeFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralFeminineForm .
+    ?genitivePluralFeminineForm ontolex:representation ?genitivePluralFeminine ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeFemininePluralForm .
-    ?accusativeFemininePluralForm ontolex:representation ?accusativeFemininePlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralMasculineForm .
+    ?genitivePluralMasculineForm ontolex:representation ?genitivePluralMasculine ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q499327 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculineSingularForm .
-    ?accusativeMasculineSingularForm ontolex:representation ?accusativeMasculineSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeMasculinePluralForm .
-    ?accusativeMasculinePluralForm ontolex:representation ?accusativeMasculinePlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularForm .
-    ?accusativeNeuterSingularForm ontolex:representation ?accusativeNeuterSingular ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeNeuterPluralForm .
-    ?accusativeNeuterPluralForm ontolex:representation ?accusativeNeuterPlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralNeuterForm .
+    ?genitivePluralNeuterForm ontolex:representation ?genitivePluralNeuter ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q1775461 .
   }
 }

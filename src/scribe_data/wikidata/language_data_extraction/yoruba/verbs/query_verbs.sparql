@@ -1,36 +1,14 @@
 # tool: scribe-data
-# All Yoruba (Q34311) verbs (Q24905) and the given forms.
-# Enter this query at https://query.wikidata.org/.
+# Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
+# Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lastModified
-  ?verb
-  ?present
-  ?future
-  ?pastEnglishPastParticiple
+  ?lemma
 
-WHERE {
+WHERE {{
+  ?lexeme a ontolex:LexicalEntry .
   ?lexeme dct:language wd:Q34311 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb ;
-    schema:dateModified ?lastModified .
-    
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futureForm .
-    ?futureForm ontolex:representation ?future ;
-      wikibase:grammaticalFeature wd:Q501405 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pastEnglishPastParticipleForm .
-    ?pastEnglishPastParticipleForm ontolex:representation ?pastEnglishPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1994301, wd:Q1230649 .
-  }
-}
+    wikibase:lemma ?lemma .
+}}

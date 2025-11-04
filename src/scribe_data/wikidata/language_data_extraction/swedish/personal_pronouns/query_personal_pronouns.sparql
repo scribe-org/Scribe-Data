@@ -1,43 +1,14 @@
 # tool: scribe-data
-# All Swedish (Q9027) personal_pronouns (Q468801) and the given forms.
-# Enter this query at https://query.wikidata.org/.
+# Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
+# Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lastModified
-  ?personalpronoun
-  ?nominative
-  ?genitive
-  ?vocative
-  ?oblique
+  ?lemma
 
-WHERE {
+WHERE {{
+  ?lexeme a ontolex:LexicalEntry .
   ?lexeme dct:language wd:Q9027 ;
     wikibase:lexicalCategory wd:Q468801 ;
-    wikibase:lemma ?personalpronoun ;
-    schema:dateModified ?lastModified .
-    
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeForm .
-    ?nominativeForm ontolex:representation ?nominative ;
-      wikibase:grammaticalFeature wd:Q131105 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveForm .
-    ?genitiveForm ontolex:representation ?genitive ;
-      wikibase:grammaticalFeature wd:Q146233 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?vocativeForm .
-    ?vocativeForm ontolex:representation ?vocative ;
-      wikibase:grammaticalFeature wd:Q185077 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?obliqueForm .
-    ?obliqueForm ontolex:representation ?oblique ;
-      wikibase:grammaticalFeature wd:Q1233197 .
-  }
-}
+    wikibase:lemma ?lemma .
+}}

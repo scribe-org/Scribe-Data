@@ -6,10 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?genitiveFeminineSingular
-  ?genitiveFemininePlural
-  ?genitiveFeminineSingularPositive
-  ?genitiveFemininePluralPositive
+  ?singularNominative
+  ?singularNominativeFeminine
+  ?singularNominativeMasculineInanimate
+  ?singularNominativeMasculineAnimate
+  ?singularNominativeNeuter
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
@@ -18,26 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularForm .
-    ?genitiveFeminineSingularForm ontolex:representation ?genitiveFeminineSingular ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?singularNominativeForm .
+    ?singularNominativeForm ontolex:representation ?singularNominative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveFemininePluralForm .
-    ?genitiveFemininePluralForm ontolex:representation ?genitiveFemininePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?singularNominativeFeminineForm .
+    ?singularNominativeFeminineForm ontolex:representation ?singularNominativeFeminine ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q1775415 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularPositiveForm .
-    ?genitiveFeminineSingularPositiveForm ontolex:representation ?genitiveFeminineSingularPositive ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?singularNominativeMasculineInanimateForm .
+    ?singularNominativeMasculineInanimateForm ontolex:representation ?singularNominativeMasculineInanimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q52943434 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveFemininePluralPositiveForm .
-    ?genitiveFemininePluralPositiveForm ontolex:representation ?genitiveFemininePluralPositive ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?singularNominativeMasculineAnimateForm .
+    ?singularNominativeMasculineAnimateForm ontolex:representation ?singularNominativeMasculineAnimate ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q54020116 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNominativeNeuterForm .
+    ?singularNominativeNeuterForm ontolex:representation ?singularNominativeNeuter ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q131105, wd:Q1775461 .
   }
 }

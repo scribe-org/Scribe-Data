@@ -6,9 +6,8 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?preposition
-  ?nominative
-  ?genitive
-  ?accusative
+  ?pluralFeminineSecondPerson
+  ?pluralFeminineThirdPerson
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
@@ -17,20 +16,14 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativeForm .
-    ?nominativeForm ontolex:representation ?nominative ;
-      wikibase:grammaticalFeature wd:Q131105 .
+    ?lexeme ontolex:lexicalForm ?pluralFeminineSecondPersonForm .
+    ?pluralFeminineSecondPersonForm ontolex:representation ?pluralFeminineSecondPerson ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1775415, wd:Q51929049 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitiveForm .
-    ?genitiveForm ontolex:representation ?genitive ;
-      wikibase:grammaticalFeature wd:Q146233 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeForm .
-    ?accusativeForm ontolex:representation ?accusative ;
-      wikibase:grammaticalFeature wd:Q146078 .
+    ?lexeme ontolex:lexicalForm ?pluralFeminineThirdPersonForm .
+    ?pluralFeminineThirdPersonForm ontolex:representation ?pluralFeminineThirdPerson ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1775415, wd:Q51929074 .
   }
 }

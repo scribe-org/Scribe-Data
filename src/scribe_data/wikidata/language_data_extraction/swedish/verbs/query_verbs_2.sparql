@@ -6,12 +6,10 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitive
-  ?present
-  ?preterite
-  ?supine
-  ?subjunctive
-  ?commonActiveInfinitiveIndefiniteSingularPositive
+  ?preteritePassive
+  ?supinePassive
+  ?preteriteActive
+  ?supineActive
 
 WHERE {
   ?lexeme dct:language wd:Q9027 ;
@@ -20,38 +18,26 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?preteritePassiveForm .
+    ?preteritePassiveForm ontolex:representation ?preteritePassive ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q1194697 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613 .
+    ?lexeme ontolex:lexicalForm ?supinePassiveForm .
+    ?supinePassiveForm ontolex:representation ?supinePassive ;
+      wikibase:grammaticalFeature wd:Q548470, wd:Q1194697 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteForm .
-    ?preteriteForm ontolex:representation ?preterite ;
-      wikibase:grammaticalFeature wd:Q442485 .
+    ?lexeme ontolex:lexicalForm ?preteriteActiveForm .
+    ?preteriteActiveForm ontolex:representation ?preteriteActive ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q1317831 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?supineForm .
-    ?supineForm ontolex:representation ?supine ;
-      wikibase:grammaticalFeature wd:Q548470 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?subjunctiveForm .
-    ?subjunctiveForm ontolex:representation ?subjunctive ;
-      wikibase:grammaticalFeature wd:Q473746 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?commonActiveInfinitiveIndefiniteSingularPositiveForm .
-    ?commonActiveInfinitiveIndefiniteSingularPositiveForm ontolex:representation ?commonActiveInfinitiveIndefiniteSingularPositive ;
-      wikibase:grammaticalFeature wd:Q1305037, wd:Q1317831, wd:Q179230, wd:Q53997857, wd:Q110786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?supineActiveForm .
+    ?supineActiveForm ontolex:representation ?supineActive ;
+      wikibase:grammaticalFeature wd:Q548470, wd:Q1317831 .
   }
 }

@@ -8,7 +8,6 @@ SELECT
   ?noun
   ?nominative
   ?genitive
-  ?dative
   ?accusative
   ?locative
 
@@ -28,12 +27,6 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?genitiveForm .
     ?genitiveForm ontolex:representation ?genitive ;
       wikibase:grammaticalFeature wd:Q146233 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeForm .
-    ?dativeForm ontolex:representation ?dative ;
-      wikibase:grammaticalFeature wd:Q145599 .
   }
 
   OPTIONAL {

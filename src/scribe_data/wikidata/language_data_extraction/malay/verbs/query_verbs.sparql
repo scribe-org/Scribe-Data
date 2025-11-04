@@ -7,9 +7,6 @@ SELECT
   ?lastModified
   ?verb
   ?passive
-  ?active
-  ?phrase
-  ?passivePhrase
 
 WHERE {
   ?lexeme dct:language wd:Q9237 ;
@@ -21,23 +18,5 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?passiveForm .
     ?passiveForm ontolex:representation ?passive ;
       wikibase:grammaticalFeature wd:Q1194697 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeForm .
-    ?activeForm ontolex:representation ?active ;
-      wikibase:grammaticalFeature wd:Q1317831 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?phraseForm .
-    ?phraseForm ontolex:representation ?phrase ;
-      wikibase:grammaticalFeature wd:Q187931 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passivePhraseForm .
-    ?passivePhraseForm ontolex:representation ?passivePhrase ;
-      wikibase:grammaticalFeature wd:Q1194697, wd:Q187931 .
   }
 }

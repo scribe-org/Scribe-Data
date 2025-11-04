@@ -6,10 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?activeInfinitive
-  ?activePresent
-  ?activeInfinitiveAInfinitive
-  ?activeInfinitiveEInfinitive
+  ?infinitivePassive
+  ?infinitiveActiveAInfinitive
+  ?infinitiveActiveEInfinitive
 
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
@@ -21,26 +20,20 @@ WHERE {
   FILTER(lang(?verb) = "nn")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
-    ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?infinitivePassiveForm .
+    ?infinitivePassiveForm ontolex:representation ?infinitivePassive ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1194697 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePresentForm .
-    ?activePresentForm ontolex:representation ?activePresent ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613 .
+    ?lexeme ontolex:lexicalForm ?infinitiveActiveAInfinitiveForm .
+    ?infinitiveActiveAInfinitiveForm ontolex:representation ?infinitiveActiveAInfinitive ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831, wd:Q115223950 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeInfinitiveAInfinitiveForm .
-    ?activeInfinitiveAInfinitiveForm ontolex:representation ?activeInfinitiveAInfinitive ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230, wd:Q115223950 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeInfinitiveEInfinitiveForm .
-    ?activeInfinitiveEInfinitiveForm ontolex:representation ?activeInfinitiveEInfinitive ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230, wd:Q115223951 .
+    ?lexeme ontolex:lexicalForm ?infinitiveActiveEInfinitiveForm .
+    ?infinitiveActiveEInfinitiveForm ontolex:representation ?infinitiveActiveEInfinitive ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831, wd:Q115223951 .
   }
 }

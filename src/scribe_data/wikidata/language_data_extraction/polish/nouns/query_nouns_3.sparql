@@ -6,10 +6,9 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?dative
-  ?dativeSingular
-  ?dativePlural
-  ?dativeLocativeSingular
+  ?pluralInstrumental
+  ?pluralLocative
+  ?pluralVocative
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
@@ -18,26 +17,20 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeForm .
-    ?dativeForm ontolex:representation ?dative ;
-      wikibase:grammaticalFeature wd:Q145599 .
+    ?lexeme ontolex:lexicalForm ?pluralInstrumentalForm .
+    ?pluralInstrumentalForm ontolex:representation ?pluralInstrumental ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q192997 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
-    ?dativeSingularForm ontolex:representation ?dativeSingular ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pluralLocativeForm .
+    ?pluralLocativeForm ontolex:representation ?pluralLocative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q202142 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativePluralForm .
-    ?dativePluralForm ontolex:representation ?dativePlural ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativeLocativeSingularForm .
-    ?dativeLocativeSingularForm ontolex:representation ?dativeLocativeSingular ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q202142, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pluralVocativeForm .
+    ?pluralVocativeForm ontolex:representation ?pluralVocative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q185077 .
   }
 }

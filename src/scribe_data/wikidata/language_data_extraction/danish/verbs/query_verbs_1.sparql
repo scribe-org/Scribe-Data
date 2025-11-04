@@ -7,11 +7,10 @@ SELECT
   ?lastModified
   ?verb
   ?imperative
-  ?infinitive
-  ?present
-  ?preterite
   ?combinedPresentParticiple
   ?combinedPastParticiple
+  ?presentPassive
+  ?presentActive
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
@@ -26,24 +25,6 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveForm .
-    ?infinitiveForm ontolex:representation ?infinitive ;
-      wikibase:grammaticalFeature wd:Q179230 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteForm .
-    ?preteriteForm ontolex:representation ?preterite ;
-      wikibase:grammaticalFeature wd:Q442485 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
     ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
       wikibase:grammaticalFeature wd:Q10345583 .
@@ -53,5 +34,17 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
     ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
       wikibase:grammaticalFeature wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentPassiveForm .
+    ?presentPassiveForm ontolex:representation ?presentPassive ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1194697 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentActiveForm .
+    ?presentActiveForm ontolex:representation ?presentActive ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
   }
 }

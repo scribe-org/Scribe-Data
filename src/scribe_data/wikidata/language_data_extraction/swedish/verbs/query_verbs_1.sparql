@@ -6,12 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?activeImperative
-  ?activeInfinitive
-  ?activeSupine
-  ?futureSubjunctive
-  ?activePastPreterite
-  ?activePluperfectSupine
+  ?imperative
+  ?infinitivePassive
+  ?presentPassive
+  ?infinitiveActive
+  ?presentActive
 
 WHERE {
   ?lexeme dct:language wd:Q9027 ;
@@ -20,38 +19,32 @@ WHERE {
     schema:dateModified ?lastModified .
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeImperativeForm .
-    ?activeImperativeForm ontolex:representation ?activeImperative ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q22716 .
+    ?lexeme ontolex:lexicalForm ?imperativeForm .
+    ?imperativeForm ontolex:representation ?imperative ;
+      wikibase:grammaticalFeature wd:Q22716 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
-    ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230 .
+    ?lexeme ontolex:lexicalForm ?infinitivePassiveForm .
+    ?infinitivePassiveForm ontolex:representation ?infinitivePassive ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1194697 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeSupineForm .
-    ?activeSupineForm ontolex:representation ?activeSupine ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q548470 .
+    ?lexeme ontolex:lexicalForm ?presentPassiveForm .
+    ?presentPassiveForm ontolex:representation ?presentPassive ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1194697 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?futureSubjunctiveForm .
-    ?futureSubjunctiveForm ontolex:representation ?futureSubjunctive ;
-      wikibase:grammaticalFeature wd:Q501405, wd:Q473746 .
+    ?lexeme ontolex:lexicalForm ?infinitiveActiveForm .
+    ?infinitiveActiveForm ontolex:representation ?infinitiveActive ;
+      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePastPreteriteForm .
-    ?activePastPreteriteForm ontolex:representation ?activePastPreterite ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q1994301, wd:Q442485 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePluperfectSupineForm .
-    ?activePluperfectSupineForm ontolex:representation ?activePluperfectSupine ;
-      wikibase:grammaticalFeature wd:Q1317831, wd:Q623742, wd:Q548470 .
+    ?lexeme ontolex:lexicalForm ?presentActiveForm .
+    ?presentActiveForm ontolex:representation ?presentActive ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
   }
 }

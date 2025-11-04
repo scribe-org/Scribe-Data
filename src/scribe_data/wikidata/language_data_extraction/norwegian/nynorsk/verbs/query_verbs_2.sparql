@@ -6,10 +6,12 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?present
-  ?pluralCombinedPastParticiple
+  ?presentPassive
+  ?presentActive
   ?presentPreteritePerfect
-  ?feminineMasculineIndefiniteSingularCombinedPastParticiple
+  ?singularCombinedPastParticipleDefinite
+  ?singularNeuterCombinedPastParticipleIndefinite
+  ?singularMasculineFeminineCombinedPastParticipleIndefinite
 
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
@@ -21,15 +23,15 @@ WHERE {
   FILTER(lang(?verb) = "nn")
     
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentForm .
-    ?presentForm ontolex:representation ?present ;
-      wikibase:grammaticalFeature wd:Q192613 .
+    ?lexeme ontolex:lexicalForm ?presentPassiveForm .
+    ?presentPassiveForm ontolex:representation ?presentPassive ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1194697 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralCombinedPastParticipleForm .
-    ?pluralCombinedPastParticipleForm ontolex:representation ?pluralCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?presentActiveForm .
+    ?presentActiveForm ontolex:representation ?presentActive ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
   }
 
   OPTIONAL {
@@ -39,8 +41,20 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineMasculineIndefiniteSingularCombinedPastParticipleForm .
-    ?feminineMasculineIndefiniteSingularCombinedPastParticipleForm ontolex:representation ?feminineMasculineIndefiniteSingularCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q1775415, wd:Q499327, wd:Q53997857, wd:Q110786, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?singularCombinedPastParticipleDefiniteForm .
+    ?singularCombinedPastParticipleDefiniteForm ontolex:representation ?singularCombinedPastParticipleDefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q12717679, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularNeuterCombinedPastParticipleIndefiniteForm .
+    ?singularNeuterCombinedPastParticipleIndefiniteForm ontolex:representation ?singularNeuterCombinedPastParticipleIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1775461, wd:Q12717679, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularMasculineFeminineCombinedPastParticipleIndefiniteForm .
+    ?singularMasculineFeminineCombinedPastParticipleIndefiniteForm ontolex:representation ?singularMasculineFeminineCombinedPastParticipleIndefinite ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q499327, wd:Q1775415, wd:Q12717679, wd:Q53997857 .
   }
 }
