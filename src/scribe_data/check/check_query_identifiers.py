@@ -42,6 +42,7 @@ def is_valid_language(query_file: Path, lang_qid: str) -> bool:
     """
     lang_directory_name = query_file.parent.parent.name.lower()
     language_entry = language_metadata.get(lang_directory_name)
+    parent_qid = None
 
     if not language_entry:
         # Look for sub-languages.
@@ -51,9 +52,19 @@ def is_valid_language(query_file: Path, lang_qid: str) -> bool:
                     lang_directory_name
                 ):
                     language_entry = sub_language_entry
+                    # Store parent QID if it exists
+                    parent_qid = details.get("qid")
                     break
 
-    return lang_qid == language_entry["qid"] if language_entry else False
+    if not language_entry:
+        return False
+    
+    # For sub-languages, accept either the sub-language QID or the parent QID
+    # (Wikidata lexemes may be tagged with parent QID even for sub-languages)
+    if parent_qid:
+        return lang_qid == language_entry["qid"] or lang_qid == parent_qid
+    else:
+        return lang_qid == language_entry["qid"]
 
 
 def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:

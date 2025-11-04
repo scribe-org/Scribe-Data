@@ -11,7 +11,6 @@ from collections import defaultdict
 from pathlib import Path
 
 from scribe_data.check.check_missing_forms.split_query import split_group_by_identifier
-
 from scribe_data.utils import (
     LANGUAGE_DATA_EXTRACTION_DIR,
     data_type_metadata,
@@ -196,7 +195,7 @@ def get_forms_from_sparql_service(language_qid, data_type_qid, frequency_thresho
     
     if results is None:
         print(f"Feature combination query failed for {language_name or language_qid} - {data_type_name or data_type_qid}")
-        print(f"This indicates data quality issues - generating fallback lexeme listing query instead")
+        print("This indicates data quality issues - generating fallback lexeme listing query instead")
         
         if language_name and data_type_name:
             fallback_path = generate_fallback_lexeme_query(
@@ -204,14 +203,14 @@ def get_forms_from_sparql_service(language_qid, data_type_qid, frequency_thresho
             )
             print(f"Generated fallback query: {fallback_path}")
         else:
-            print(f"Cannot generate fallback query - missing language/data type names")
+            print("Cannot generate fallback query - missing language/data type names")
         
         return "FALLBACK_GENERATED"
     
     # Query succeeded but returned no results - no combinations meet threshold
     if not results:
         print(f"Data quality insufficient - no combinations meet threshold {min_frequency}")
-        print(f"Generating fallback lexeme listing query for manual exploration")
+        print("Generating fallback lexeme listing query for manual exploration")
         
         if language_name and data_type_name:
             fallback_path = generate_fallback_lexeme_query(
@@ -219,7 +218,7 @@ def get_forms_from_sparql_service(language_qid, data_type_qid, frequency_thresho
             )
             print(f"Generated fallback query: {fallback_path}")
         else:
-            print(f"Cannot generate fallback query - missing language/data type names")
+            print("Cannot generate fallback query - missing language/data type names")
         
         return "FALLBACK_GENERATED"
 
