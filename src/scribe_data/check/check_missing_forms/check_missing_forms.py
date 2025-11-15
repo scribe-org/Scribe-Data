@@ -327,12 +327,9 @@ def get_forms_from_sparql_service_all_languages(
         f"Processing {len(language_qids)} languages * {len(data_type_qids)} data types = {total_combinations} combinations"
     )
 
-    for lang_qid in language_qids:
-        for dt_qid in data_type_qids:
+    for lang_qid, lang_name in language_qids.items():
+        for dt_qid, dt_name in data_type_qids.items():
             current += 1
-            lang_name = language_qids[lang_qid]
-            dt_name = data_type_qids[dt_qid]
-
             print(
                 f"Processing {current}/{total_combinations}: {lang_name} - {dt_name} ({lang_qid}, {dt_qid})"
             )
