@@ -67,7 +67,6 @@ class TestListFunctions(unittest.TestCase):
             call("prepositions"),
             call("pronouns"),
             call("proper-nouns"),
-            call("translations"),
             call("verbs"),
             call(),
         ]
@@ -92,7 +91,6 @@ class TestListFunctions(unittest.TestCase):
             call("prepositions"),
             call("pronouns"),
             call("proper-nouns"),
-            call("translations"),
             call("verbs"),
             call(),
         ]
