@@ -19,7 +19,6 @@ iso_to_qid = {
     if "iso" in lang_data and "qid" in lang_data
 }
 
-#all_forms = defaultdict(lambda: defaultdict(list))
 
 def parse_sparql_files():
     """
@@ -100,6 +99,3 @@ def parse_sparql_query(query_text):
             result[language][lexical_category].append(feature_list)
 
     return result
-
-
-# NOTE: extract_dump_forms() removed as we're no longer using dump based approach

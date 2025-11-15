@@ -1,6 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
 Check for missing forms in Wikidata using live SPARQL service.
+
+Examples
+--------
+>>> python3 src/scribe_data/check/check_missing_forms/check_missing_forms.py
 """
 
 import argparse
@@ -19,6 +23,10 @@ from scribe_data.utils import (
     sub_languages,
 )
 from scribe_data.wikidata.wikidata_utils import sparql
+
+DEFAULT_COMPLEX_DATA_TYPE_FREQUENCY = 50
+DEFAULT_MODERATE_DATA_TYPE_FREQUENCY = 15
+DEFAULT_SIMPLE_DATA_TYPE_FREQUENCY = 5
 
 
 def load_sparql_template():
@@ -43,6 +51,7 @@ def execute_sparql_query(query, max_retries=3):
     ----------
     query : str
         The SPARQL query to execute.
+
     max_retries : int, optional
         Maximum number of retry attempts (default: 3).
 
@@ -51,13 +60,15 @@ def execute_sparql_query(query, max_retries=3):
     list or None
         List of query results on success, None if query fails after all retries.
     """
-    RETRY_DELAY = 2  # Fixed delay in seconds between retry attempts
-    
+    RETRY_DELAY = 2
+
     for attempt in range(max_retries + 1):
         try:
-            # Add delay to avoid overwhelming the service
+            # Add delay to avoid overwhelming the service.
             if attempt > 0:
-                print(f"Retry attempt {attempt}/{max_retries} after {RETRY_DELAY}s delay...")
+                print(
+                    f"Retry attempt {attempt}/{max_retries} after {RETRY_DELAY}s delay..."
+                )
                 time.sleep(RETRY_DELAY * attempt)
 
             sparql.setQuery(query)
@@ -71,13 +82,15 @@ def execute_sparql_query(query, max_retries=3):
                 if attempt < max_retries:
                     time.sleep(
                         RETRY_DELAY * (attempt + 1) * 2
-                    )  # Longer delay for rate limits
+                    )  # longer delay for rate limits
                     continue
+
             elif "504" in error_msg or "Gateway Timeout" in error_msg:
                 print(f"Query timeout (attempt {attempt + 1}/{max_retries + 1})")
                 if attempt < max_retries:
                     time.sleep(RETRY_DELAY)
                     continue
+
             else:
                 print(f"SPARQL query failed: {e}")
                 if attempt < max_retries:
@@ -88,34 +101,36 @@ def execute_sparql_query(query, max_retries=3):
     return None
 
 
-def generate_fallback_lexeme_query(language_qid, data_type_qid, language_name, data_type_name):
+def generate_fallback_lexeme_query(
+    language_qid, data_type_qid, language_name, data_type_name
+):
     """
-    Generate a simple lexeme listing query when feature combination query fails.
-    
-    This generates a basic query that returns all lexeme IDs and lemmas for 
-    the given language and data type, for manual exploration when the data 
+    Generate a simple lexeme exploration query when the feature combination query fails.
+
+    This generates a basic query that returns all lexeme IDs and lemmas for
+    the given language and data type, for manual exploration when the data
     quality is too poor to generate feature combination queries.
-    
+
     Parameters
     ----------
     language_qid : str
         The Wikidata QID for the language (e.g., "Q13955" for Arabic).
-    
+
     data_type_qid : str
         The Wikidata QID for the data type (e.g., "Q24905" for verbs).
-    
+
     language_name : str
         Human-readable language name (e.g., "arabic").
-    
+
     data_type_name : str
         Human-readable data type name (e.g., "verbs").
-    
+
     Returns
     -------
     Path
         Path to the generated fallback query file.
     """
-    fallback_query = f'''# tool: scribe-data
+    fallback_query = f"""# tool: scribe-data
 # Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
 # Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
 
@@ -129,17 +144,30 @@ WHERE {{{{
     wikibase:lexicalCategory wd:{data_type_qid} ;
     wikibase:lemma ?lemma .
 }}}}
-'''
-    # Save to language_data_extraction directory
-    output_path = LANGUAGE_DATA_EXTRACTION_DIR / language_name / data_type_name / f"query_{data_type_name}.sparql"
+"""
+    # Save to language_data_extraction directory.
+    output_path = (
+        LANGUAGE_DATA_EXTRACTION_DIR
+        / language_name
+        / data_type_name
+        / f"query_{data_type_name}.sparql"
+    )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(fallback_query)
-    
+
     return output_path
 
-def get_forms_from_sparql_service(language_qid, data_type_qid, frequency_threshold=0, max_results=1000, language_name=None, data_type_name=None):
+
+def get_forms_from_sparql_service(
+    language_qid,
+    data_type_qid,
+    frequency_threshold=0,
+    max_results=1000,
+    language_name=None,
+    data_type_name=None,
+):
     """
-    Get form combinations for a language/data type pair from live SPARQL service.
+    Get form combinations for a language/data type pair from the Wikidata Query SPARQL service.
 
     Parameters
     ----------
@@ -156,10 +184,10 @@ def get_forms_from_sparql_service(language_qid, data_type_qid, frequency_thresho
     max_results : int, optional
         Maximum number of results to return (default: 1000).
         Helps prevent timeout for very large datasets.
-    
+
     language_name : str, optional
         Human-readable language name for fallback query generation.
-    
+
     data_type_name : str, optional
         Human-readable data type name for fallback query generation.
 
@@ -176,11 +204,14 @@ def get_forms_from_sparql_service(language_qid, data_type_qid, frequency_thresho
         adjective_types = ["Q34698"]  # adjectives
 
         if data_type_qid in complex_types:
-            min_frequency = 50
+            min_frequency = DEFAULT_COMPLEX_DATA_TYPE_FREQUENCY
+
         elif data_type_qid in adjective_types:
-            min_frequency = 15
+            min_frequency = DEFAULT_MODERATE_DATA_TYPE_FREQUENCY
+
         else:
-            min_frequency = 5
+            min_frequency = DEFAULT_SIMPLE_DATA_TYPE_FREQUENCY
+
     else:
         min_frequency = frequency_threshold
 
@@ -192,42 +223,49 @@ def get_forms_from_sparql_service(language_qid, data_type_qid, frequency_thresho
     )
 
     results = execute_sparql_query(query)
-    
+
     if results is None:
-        print(f"Feature combination query failed for {language_name or language_qid} - {data_type_name or data_type_qid}")
-        print("This indicates data quality issues - generating fallback lexeme listing query instead")
-        
+        print(
+            f"Feature combination query failed for {language_name or language_qid} - {data_type_name or data_type_qid}"
+        )
+        print(
+            "This indicates data quality issues - generating fallback lexeme listing query instead"
+        )
+
         if language_name and data_type_name:
             fallback_path = generate_fallback_lexeme_query(
                 language_qid, data_type_qid, language_name, data_type_name
             )
             print(f"Generated fallback query: {fallback_path}")
+
         else:
             print("Cannot generate fallback query - missing language/data type names")
-        
+
         return "FALLBACK_GENERATED"
-    
-    # Query succeeded but returned no results - no combinations meet threshold
+
+    # Query succeeded but returned no results - no combinations meet threshold.
     if not results:
-        print(f"Data quality insufficient - no combinations meet threshold {min_frequency}")
+        print(
+            f"Data quality insufficient - no combinations meet threshold {min_frequency}"
+        )
         print("Generating fallback lexeme listing query for manual exploration")
-        
+
         if language_name and data_type_name:
             fallback_path = generate_fallback_lexeme_query(
                 language_qid, data_type_qid, language_name, data_type_name
             )
             print(f"Generated fallback query: {fallback_path}")
+
         else:
             print("Cannot generate fallback query - missing language/data type names")
-        
+
         return "FALLBACK_GENERATED"
 
     form_combinations = []
     for result in results:
         frequency = int(result.get("formsWithThisCombo", {}).get("value", 0))
 
-        combo_qids_str = result.get("comboQIDs", {}).get("value", "")
-        if combo_qids_str:
+        if combo_qids_str := result.get("comboQIDs", {}).get("value", ""):
             qids = [qid.strip() for qid in combo_qids_str.split() if qid.strip()]
 
             if qids and frequency >= min_frequency:
@@ -258,58 +296,77 @@ def get_forms_from_sparql_service_all_languages(
     """
     result_sparql_service = defaultdict(lambda: defaultdict(list))
 
-    # Get all language QIDs and track parent QIDs for sub-languages
+    # Get all language QIDs and track parent QIDs for sub-languages.
     language_qids = {}
-    parent_qids = {}  # Maps sub-language QID to parent QID for fallback
-    
+    # Maps sub-language QID to parent QID for fallback.
+    parent_qids = {}
+
     for lang, lang_data in language_metadata.items():
         if "qid" in lang_data:
             language_qids[lang_data["qid"]] = lang
         if "sub_languages" in lang_data:
-            parent_qid = lang_data.get("qid")  # Get parent QID if exists
+            parent_qid = lang_data.get("qid")  # get parent QID if exists
             for sub_lang, sub_data in lang_data["sub_languages"].items():
                 if "qid" in sub_data:
                     sub_lang_qid = sub_data["qid"]
                     language_qids[sub_lang_qid] = sub_lang
-                    # Store parent QID for fallback (only if parent exists and differs from sub-language)
+                    # Store parent QID for fallback (only if parent exists and differs from sub-language).
                     if parent_qid and parent_qid != sub_lang_qid:
                         parent_qids[sub_lang_qid] = parent_qid
 
-    data_type_qids = {}
-    for data_type, qid in data_type_metadata.items():
-        if qid and qid.startswith("Q"):  # Skip empty values and ensure it's a QID
-            data_type_qids[qid] = data_type
-
-    # Query each language/data type combination
+    data_type_qids = {
+        qid: data_type
+        for data_type, qid in data_type_metadata.items()
+        if qid and qid.startswith("Q")
+    }
+    # Query each language/data type combination.
     total_combinations = len(language_qids) * len(data_type_qids)
     current = 0
 
-    print(f"Processing {len(language_qids)} languages * {len(data_type_qids)} data types = {total_combinations} combinations")
+    print(
+        f"Processing {len(language_qids)} languages * {len(data_type_qids)} data types = {total_combinations} combinations"
+    )
 
     for lang_qid in language_qids:
         for dt_qid in data_type_qids:
             current += 1
             lang_name = language_qids[lang_qid]
             dt_name = data_type_qids[dt_qid]
-            
-            print(f"Processing {current}/{total_combinations}: {lang_name} - {dt_name} ({lang_qid}, {dt_qid})")
 
-            forms = get_forms_from_sparql_service(lang_qid, dt_qid, frequency_threshold, max_results, lang_name, dt_name)
-            
+            print(
+                f"Processing {current}/{total_combinations}: {lang_name} - {dt_name} ({lang_qid}, {dt_qid})"
+            )
+
+            forms = get_forms_from_sparql_service(
+                lang_qid, dt_qid, frequency_threshold, max_results, lang_name, dt_name
+            )
+
             if not forms and lang_qid in parent_qids:
                 parent_qid = parent_qids[lang_qid]
-                print(f"No data for sub-language, trying parent QID {parent_qid} with threshold=10...")
-                forms = get_forms_from_sparql_service(parent_qid, dt_qid, frequency_threshold=10, max_results=max_results, language_name=lang_name, data_type_name=dt_name)
+                print(
+                    f"No data for sub-language, trying parent QID {parent_qid} with threshold=10..."
+                )
+                forms = get_forms_from_sparql_service(
+                    parent_qid,
+                    dt_qid,
+                    frequency_threshold=10,
+                    max_results=max_results,
+                    language_name=lang_name,
+                    data_type_name=dt_name,
+                )
                 if forms and forms != "FALLBACK_GENERATED":
                     print(f"Found {len(forms)} form combinations from parent language")
-            
+
             if forms == "FALLBACK_GENERATED":
                 result_sparql_service[lang_qid][dt_qid] = "FALLBACK_GENERATED"
+
             elif forms:
                 result_sparql_service[lang_qid][dt_qid] = forms
                 print(f"Found {len(forms)} form combinations")
+
             else:
                 print("No combinations found")
+
             if current < total_combinations:
                 time.sleep(1)
 
@@ -344,21 +401,23 @@ def get_features_from_sparql_service(frequency_threshold=0, max_results=1000):
     """
     print("Using SPARQL service approach to get form combinations...")
 
-    # Get all form combinations from SPARQL service
-    all_features = get_forms_from_sparql_service_all_languages(frequency_threshold, max_results)
+    # Get all form combinations from the Wikidata SPARQL service.
+    all_features = get_forms_from_sparql_service_all_languages(
+        frequency_threshold, max_results
+    )
 
     if not all_features:
         print("No form combinations found from SPARQL service.")
         return None
 
-    # Apply additional filtering based on valid QIDs from metadata
+    # Apply additional filtering based on valid QIDs from metadata.
     all_qids = set()
     for category, items in lexeme_form_metadata.items():
         for key, value in items.items():
             if "qid" in value:
                 all_qids.add(value["qid"])
 
-    # Filter to only include combinations with valid QIDs
+    # Filter to only include combinations with valid QIDs.
     filtered_features = defaultdict(lambda: defaultdict(list))
     for lang_qid, data_types in all_features.items():
         for dt_qid, combinations in data_types.items():
@@ -389,14 +448,12 @@ def process_missing_features(missing_features, query_dir):
     """
     if not missing_features:
         return
-    
-    # Map parent language QID to list of sub-language ISO codes
-    # For example: Q11051 (Hindustani) -> ["hi", "ur"]
+
+    # Map parent language QID to list of sub-language ISO codes.
+    # For example: Q11051 (Hindustani) -> ["hi", "ur"].
     parent_qid_to_iso_codes = {}
     for parent_lang_name, sub_langs in sub_languages.items():
-        # Get the parent language's QID from metadata
-        parent_qid = language_metadata.get(parent_lang_name, {}).get("qid")
-        if parent_qid:
+        if parent_qid := language_metadata.get(parent_lang_name, {}).get("qid"):
             parent_qid_to_iso_codes[parent_qid] = list(sub_langs.keys())
 
     for language_qid, data_types_qid in missing_features.items():
@@ -406,16 +463,20 @@ def process_missing_features(missing_features, query_dir):
 
             # Create a separate entry for each data type.
             for data_type_qid, features in data_types_qid.items():
-                # Skip if fallback was generated (data quality issue)
+                # Skip if fallback was generated (data quality issue).
                 if features == "FALLBACK_GENERATED":
-                    print(f"Skipping {language_qid} - {data_type_qid} (fallback query already generated due to data quality)")
+                    print(
+                        f"Skipping {language_qid} - {data_type_qid} (fallback query already generated due to data quality)"
+                    )
                     continue
-                
-                # Skip if no features found
+
+                # Skip if no features found.
                 if not features:
-                    print(f"Skipping {language_qid} - {data_type_qid} (no features found)")
+                    print(
+                        f"Skipping {language_qid} - {data_type_qid} (no features found)"
+                    )
                     continue
-                
+
                 language_entry = {language_qid: {data_type_qid: features}}
                 if language_qid in parent_qid_to_iso_codes:
                     # For macro-languages, generate a separate set of files
@@ -446,7 +507,7 @@ def main():
     """
     Main function to check for missing forms in Wikidata using SPARQL service.
 
-    Processes command line arguments and uses the SPARQL service approach to 
+    Processes command line arguments and uses the SPARQL service approach to
     identify form combinations and generate appropriate SPARQL queries.
 
     Notes
@@ -458,7 +519,9 @@ def main():
     - --max-retries: Maximum retry attempts for failed queries
     - --max-results: Maximum results per query to prevent timeouts
     """
-    parser = argparse.ArgumentParser(description="Check missing forms in Wikidata using SPARQL service")
+    parser = argparse.ArgumentParser(
+        description="Check missing forms in Wikidata using SPARQL service"
+    )
 
     parser.add_argument(
         "--frequency-threshold",
@@ -485,16 +548,16 @@ def main():
         help="Maximum results per query to prevent timeouts (default: 1000, decrease for complex languages)",
     )
     parser.add_argument(
-        "query_dir", 
-        type=str, 
-        nargs='?',
+        "query_dir",
+        type=str,
+        nargs="?",
         default=None,
-        help="Path to the query directory (optional, defaults to language_data_extraction in wikidata folder)"
+        help="Path to the query directory (optional, defaults to language_data_extraction in wikidata folder)",
     )
 
     args = parser.parse_args()
-    
-    # Use language_data_extraction directory by default
+
+    # Use language_data_extraction directory by default.
     if args.query_dir:
         query_dir = Path(args.query_dir)
         if not query_dir.exists():
@@ -503,20 +566,19 @@ def main():
     else:
         query_dir = LANGUAGE_DATA_EXTRACTION_DIR
         query_dir.mkdir(parents=True, exist_ok=True)
-    
+
     print(f"Query output directory: {query_dir}")
     print("Using SPARQL service approach...")
-    print(f"Frequency threshold: {args.frequency_threshold} (0 = use adaptive thresholds)")
+    print(
+        f"Frequency threshold: {args.frequency_threshold} (0 = use adaptive thresholds)"
+    )
     print(f"Request delay: {args.request_delay}s (increase if getting rate limited)")
     print(f"Max retries: {args.max_retries}")
     print(f"Max results per query: {args.max_results}")
 
-    # Get form combinations from SPARQL service
-    form_combinations = get_features_from_sparql_service(
+    if form_combinations := get_features_from_sparql_service(
         args.frequency_threshold, args.max_results
-    )
-
-    if form_combinations:
+    ):
         print(f"Found form combinations for {len(form_combinations)} languages")
         with open("query_check_sparql_service_features.json", "w") as f:
             json.dump(form_combinations, f, indent=4)
@@ -524,6 +586,7 @@ def main():
 
         process_missing_features(form_combinations, query_dir)
         print("Query generation complete!")
+
     else:
         print("No form combinations found from SPARQL service.")
 
