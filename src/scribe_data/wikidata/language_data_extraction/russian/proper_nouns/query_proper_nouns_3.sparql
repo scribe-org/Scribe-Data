@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Russian (Q7737) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?genitiveSingular
+  ?genitivePlural
+  ?instrumentalSingular
+  ?instrumentalPlural
+  ?prepositionalSingular
+  ?prepositionalPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q7737 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalSingularForm .
+    ?instrumentalSingularForm ontolex:representation ?instrumentalSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalPluralForm .
+    ?instrumentalPluralForm ontolex:representation ?instrumentalPlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?prepositionalSingularForm .
+    ?prepositionalSingularForm ontolex:representation ?prepositionalSingular ;
+      wikibase:grammaticalFeature wd:Q2114906, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?prepositionalPluralForm .
+    ?prepositionalPluralForm ontolex:representation ?prepositionalPlural ;
+      wikibase:grammaticalFeature wd:Q2114906, wd:Q146786 .
+  }
+}

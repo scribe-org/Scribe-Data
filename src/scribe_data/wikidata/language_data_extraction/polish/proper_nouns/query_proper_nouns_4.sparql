@@ -1,0 +1,29 @@
+# tool: scribe-data
+# All Polish (Q809) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?locativeSingular
+  ?locativePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q809 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeSingularForm .
+    ?locativeSingularForm ontolex:representation ?locativeSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativePluralForm .
+    ?locativePluralForm ontolex:representation ?locativePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786 .
+  }
+}

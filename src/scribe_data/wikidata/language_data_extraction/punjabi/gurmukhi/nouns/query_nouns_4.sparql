@@ -1,0 +1,39 @@
+# tool: scribe-data
+# All Punjabi (Q58635) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?ablativeFeminineSingular
+  ?ablativeMasculineSingular
+  ?ablativeMasculinePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pa to remove gurmukhi (pa) words.
+  FILTER(lang(?noun) = "pa")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeFeminineSingularForm .
+    ?ablativeFeminineSingularForm ontolex:representation ?ablativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularForm .
+    ?ablativeMasculineSingularForm ontolex:representation ?ablativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeMasculinePluralForm .
+    ?ablativeMasculinePluralForm ontolex:representation ?ablativeMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q146786 .
+  }
+}

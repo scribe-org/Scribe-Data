@@ -6,17 +6,11 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?passive
 
 WHERE {
   ?lexeme dct:language wd:Q9237 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-    
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?passiveForm .
-    ?passiveForm ontolex:representation ?passive ;
-      wikibase:grammaticalFeature wd:Q1194697 .
-  }
+    FILTER(lang(?verb) = "ms")
 }

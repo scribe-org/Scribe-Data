@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Russian (Q7737) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?neuterPastSingular
+  ?neuterPastSecondPersonSingular
+  ?indicativePastFirstPersonPlural
+  ?indicativePastSecondPersonPlural
+  ?indicativePastThirdPersonPlural
+  ?neuterIndicativePastThirdPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q7737 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterPastSingularForm .
+    ?neuterPastSingularForm ontolex:representation ?neuterPastSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q1994301, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterPastSecondPersonSingularForm .
+    ?neuterPastSecondPersonSingularForm ontolex:representation ?neuterPastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q1994301, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastFirstPersonPluralForm .
+    ?indicativePastFirstPersonPluralForm ontolex:representation ?indicativePastFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastSecondPersonPluralForm .
+    ?indicativePastSecondPersonPluralForm ontolex:representation ?indicativePastSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastThirdPersonPluralForm .
+    ?indicativePastThirdPersonPluralForm ontolex:representation ?indicativePastThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterIndicativePastThirdPersonSingularForm .
+    ?neuterIndicativePastThirdPersonSingularForm ontolex:representation ?neuterIndicativePastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q682111, wd:Q1994301, wd:Q51929074, wd:Q110786 .
+  }
+}

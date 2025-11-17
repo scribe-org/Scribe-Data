@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All English (Q1860) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?present
+  ?presentSubjunctive
+  ?simplePresentSecondPerson
+  ?simplePresentSecondPersonSingular
+  ?simplePresentSecondPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1860 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentSubjunctiveForm .
+    ?presentSubjunctiveForm ontolex:representation ?presentSubjunctive ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePresentSecondPersonForm .
+    ?simplePresentSecondPersonForm ontolex:representation ?simplePresentSecondPerson ;
+      wikibase:grammaticalFeature wd:Q3910936, wd:Q51929049 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePresentSecondPersonSingularForm .
+    ?simplePresentSecondPersonSingularForm ontolex:representation ?simplePresentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q3910936, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePresentSecondPersonPluralForm .
+    ?simplePresentSecondPersonPluralForm ontolex:representation ?simplePresentSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q3910936, wd:Q51929049, wd:Q146786 .
+  }
+}

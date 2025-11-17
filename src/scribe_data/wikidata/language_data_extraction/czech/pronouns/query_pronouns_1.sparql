@@ -6,38 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?instrumental
-  ?locative
-  ?singularVocativeFeminine
-  ?singularVocativeNeuter
+  ?nominative
+  ?genitive
+  ?nominativeSingular
+  ?genitiveSingular
+  ?nominativeMasculineSingular
+  ?genitiveMasculineSingular
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q36224 ;
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?instrumentalForm .
-    ?instrumentalForm ontolex:representation ?instrumental ;
-      wikibase:grammaticalFeature wd:Q192997 .
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?locativeForm .
-    ?locativeForm ontolex:representation ?locative ;
-      wikibase:grammaticalFeature wd:Q202142 .
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularVocativeFeminineForm .
-    ?singularVocativeFeminineForm ontolex:representation ?singularVocativeFeminine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q185077, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularVocativeNeuterForm .
-    ?singularVocativeNeuterForm ontolex:representation ?singularVocativeNeuter ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q185077, wd:Q1775461 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineSingularForm .
+    ?nominativeMasculineSingularForm ontolex:representation ?nominativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularForm .
+    ?genitiveMasculineSingularForm ontolex:representation ?genitiveMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786 .
   }
 }

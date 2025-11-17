@@ -1,0 +1,67 @@
+# tool: scribe-data
+# All Esperanto (Q143) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?volitive
+  ?conditional
+  ?indicativePresent
+  ?indicativePast
+  ?indicativeFuture
+
+WHERE {
+  # MARK: Infinitive
+
+  ?lexeme dct:language wd:Q143 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Volitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?volitiveForm .
+    ?volitiveForm ontolex:representation ?volitive ;
+      wikibase:grammaticalFeature wd:Q2532941 .
+      FILTER(LANG(?volitive) = "eo")
+  }
+
+  # MARK: Conditional
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conditionalForm .
+    ?conditionalForm ontolex:representation ?conditional ;
+      wikibase:grammaticalFeature wd:Q625581 .
+      FILTER(LANG(?conditional) = "eo")
+  }
+
+  # MARK: Present Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePresentForm .
+    ?indicativePresentForm ontolex:representation ?indicativePresent ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q192613 .
+      FILTER(LANG(?indicativePresent) = "eo")
+  }
+
+  # MARK: Past Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastForm .
+    ?indicativePastForm ontolex:representation ?indicativePast ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1994301 .
+      FILTER(LANG(?indicativePast) = "eo")
+  }
+
+  # MARK: Future Tense
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeFutureForm .
+    ?indicativeFutureForm ontolex:representation ?indicativeFuture ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q501405 .
+      FILTER(LANG(?indicativeFuture) = "eo")
+  }
+}

@@ -6,38 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?pluralVocativeFeminine
-  ?pluralVocativeMasculineInanimate
-  ?pluralVocativeMasculineAnimate
-  ?pluralVocativeNeuter
+  ?accusative
+  ?accusativeSingular
+  ?genitiveFeminineSingular
+  ?genitiveFemininePlural
+  ?genitiveFeminineSingularPositive
+  ?genitiveFemininePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q36224 ;
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralVocativeFeminineForm .
-    ?pluralVocativeFeminineForm ontolex:representation ?pluralVocativeFeminine ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q185077, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralVocativeMasculineInanimateForm .
-    ?pluralVocativeMasculineInanimateForm ontolex:representation ?pluralVocativeMasculineInanimate ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q185077, wd:Q52943434 .
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralVocativeMasculineAnimateForm .
-    ?pluralVocativeMasculineAnimateForm ontolex:representation ?pluralVocativeMasculineAnimate ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q185077, wd:Q54020116 .
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularForm .
+    ?genitiveFeminineSingularForm ontolex:representation ?genitiveFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralVocativeNeuterForm .
-    ?pluralVocativeNeuterForm ontolex:representation ?pluralVocativeNeuter ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q185077, wd:Q1775461 .
+    ?lexeme ontolex:lexicalForm ?genitiveFemininePluralForm .
+    ?genitiveFemininePluralForm ontolex:representation ?genitiveFemininePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularPositiveForm .
+    ?genitiveFeminineSingularPositiveForm ontolex:representation ?genitiveFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFemininePluralPositiveForm .
+    ?genitiveFemininePluralPositiveForm ontolex:representation ?genitiveFemininePluralPositive ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q146786, wd:Q3482678 .
   }
 }

@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Polish (Q809) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?accusativeNotMasculinePersonalPlural
+  ?accusativeNotMasculinePersonalPluralComparative
+  ?accusativeNotMasculinePersonalPluralSuperlative
+  ?accusativeNotMasculinePersonalPluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q809 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNotMasculinePersonalPluralForm .
+    ?accusativeNotMasculinePersonalPluralForm ontolex:representation ?accusativeNotMasculinePersonalPlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q54152717, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNotMasculinePersonalPluralComparativeForm .
+    ?accusativeNotMasculinePersonalPluralComparativeForm ontolex:representation ?accusativeNotMasculinePersonalPluralComparative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q54152717, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNotMasculinePersonalPluralSuperlativeForm .
+    ?accusativeNotMasculinePersonalPluralSuperlativeForm ontolex:representation ?accusativeNotMasculinePersonalPluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q54152717, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNotMasculinePersonalPluralPositiveForm .
+    ?accusativeNotMasculinePersonalPluralPositiveForm ontolex:representation ?accusativeNotMasculinePersonalPluralPositive ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q54152717, wd:Q146786, wd:Q3482678 .
+  }
+}

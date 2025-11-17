@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Dagbani (Q32238) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?neuter
+  ?present
+  ?presentContinuous
+  ?past
+  ?simplePast
+  ?comparative
+
+WHERE {
+  ?lexeme dct:language wd:Q32238 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterForm .
+    ?neuterForm ontolex:representation ?neuter ;
+      wikibase:grammaticalFeature wd:Q1775461 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
+    ?presentContinuousForm ontolex:representation ?presentContinuous ;
+      wikibase:grammaticalFeature wd:Q7240943 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastForm .
+    ?simplePastForm ontolex:representation ?simplePast ;
+      wikibase:grammaticalFeature wd:Q1392475 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+}

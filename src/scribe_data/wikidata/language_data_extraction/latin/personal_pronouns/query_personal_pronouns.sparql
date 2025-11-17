@@ -1,14 +1,22 @@
 # tool: scribe-data
-# Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
-# Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
+# All Latin (Q397) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lemma
+  ?lastModified
+  ?personalpronoun
+  ?nominative
 
-WHERE {{
-  ?lexeme a ontolex:LexicalEntry .
+WHERE {
   ?lexeme dct:language wd:Q397 ;
     wikibase:lexicalCategory wd:Q468801 ;
-    wikibase:lemma ?lemma .
-}}
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+}

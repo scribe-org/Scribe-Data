@@ -1,0 +1,55 @@
+# tool: scribe-data
+# All Malayalam (Q36236) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?simplePresent
+  ?presentInfinitive
+  ?simplePast
+  ?simpleFuture
+
+WHERE {
+  ?lexeme dct:language wd:Q36236 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Simple Present
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePresentForm .
+    ?simplePresentForm ontolex:representation ?simplePresent ;
+      wikibase:grammaticalFeature wd:Q3910936 .
+      FILTER(LANG(?simplePresent) = "ml")
+  }
+
+  # MARK: Present Infinitive
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentInfinitiveForm .
+    ?presentInfinitiveForm ontolex:representation ?presentInfinitive ;
+      wikibase:grammaticalFeature wd:Q52434245 .
+      FILTER(LANG(?presentInfinitive) = "ml")
+  }
+
+  # MARK: Simple Past
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastForm .
+    ?simplePastForm ontolex:representation ?simplePast ;
+      wikibase:grammaticalFeature wd:Q1392475 .
+      FILTER(LANG(?simplePast) = "ml")
+  }
+
+  # MARK: Simple Future
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simpleFutureForm .
+    ?simpleFutureForm ontolex:representation ?simpleFuture ;
+      wikibase:grammaticalFeature wd:Q1475560 .
+      FILTER(LANG(?simpleFuture) = "ml")
+  }
+}

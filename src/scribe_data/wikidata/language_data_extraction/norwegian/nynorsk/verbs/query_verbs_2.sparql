@@ -6,55 +6,48 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?presentPassive
-  ?presentActive
-  ?presentPreteritePerfect
-  ?singularCombinedPastParticipleDefinite
-  ?singularNeuterCombinedPastParticipleIndefinite
-  ?singularMasculineFeminineCombinedPastParticipleIndefinite
+  ?infinitive
+  ?present
+  ?preterite
+  ?passivePreterite
+  ?passivePresentPerfect
 
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for nn to remove nynorsk (nn) words.
   FILTER(lang(?verb) = "nn")
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentPassiveForm .
-    ?presentPassiveForm ontolex:representation ?presentPassive ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1194697 .
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentActiveForm .
-    ?presentActiveForm ontolex:representation ?presentActive ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q1317831 .
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?presentPreteritePerfectForm .
-    ?presentPreteritePerfectForm ontolex:representation ?presentPreteritePerfect ;
-      wikibase:grammaticalFeature wd:Q192613, wd:Q442485, wd:Q625420 .
+    ?lexeme ontolex:lexicalForm ?preteriteForm .
+    ?preteriteForm ontolex:representation ?preterite ;
+      wikibase:grammaticalFeature wd:Q442485 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularCombinedPastParticipleDefiniteForm .
-    ?singularCombinedPastParticipleDefiniteForm ontolex:representation ?singularCombinedPastParticipleDefinite ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q12717679, wd:Q53997851 .
+    ?lexeme ontolex:lexicalForm ?passivePreteriteForm .
+    ?passivePreteriteForm ontolex:representation ?passivePreterite ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q442485 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularNeuterCombinedPastParticipleIndefiniteForm .
-    ?singularNeuterCombinedPastParticipleIndefiniteForm ontolex:representation ?singularNeuterCombinedPastParticipleIndefinite ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q1775461, wd:Q12717679, wd:Q53997857 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularMasculineFeminineCombinedPastParticipleIndefiniteForm .
-    ?singularMasculineFeminineCombinedPastParticipleIndefiniteForm ontolex:representation ?singularMasculineFeminineCombinedPastParticipleIndefinite ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q499327, wd:Q1775415, wd:Q12717679, wd:Q53997857 .
+    ?lexeme ontolex:lexicalForm ?passivePresentPerfectForm .
+    ?passivePresentPerfectForm ontolex:representation ?passivePresentPerfect ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q1240211 .
   }
 }

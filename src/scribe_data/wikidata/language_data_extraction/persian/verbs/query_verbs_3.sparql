@@ -1,0 +1,59 @@
+# tool: scribe-data
+# All Persian (Q9168) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?infinitive
+  ?indicativePastFirstPersonSingular
+  ?indicativePastFirstPersonPlural
+  ?indicativePastSecondPersonSingular
+  ?indicativePastSecondPersonPlural
+  ?indicativePastThirdPersonSingular
+  ?indicativePastThirdPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9168;
+    wikibase:lexicalCategory wd:Q24905;
+    wikibase:lemma ?infinitive;
+    schema:dateModified ?lastModified .
+
+  # MARK: Past and Present Indicative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastFirstPersonSingularForm .
+    ?indicativePastFirstPersonSingularForm ontolex:representation ?indicativePastFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastFirstPersonPluralForm .
+    ?indicativePastFirstPersonPluralForm ontolex:representation ?indicativePastFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastSecondPersonSingularForm .
+    ?indicativePastSecondPersonSingularForm ontolex:representation ?indicativePastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastSecondPersonPluralForm .
+    ?indicativePastSecondPersonPluralForm ontolex:representation ?indicativePastSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastThirdPersonSingularForm .
+    ?indicativePastThirdPersonSingularForm ontolex:representation ?indicativePastThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePastThirdPersonPluralForm .
+    ?indicativePastThirdPersonPluralForm ontolex:representation ?indicativePastThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q51929074, wd:Q146786 .
+  }
+}

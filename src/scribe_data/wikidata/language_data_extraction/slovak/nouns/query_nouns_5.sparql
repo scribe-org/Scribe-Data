@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Slovak (Q9058) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?accusativeFeminineSingular
+  ?accusativeFemininePlural
+  ?accusativeMasculineSingular
+  ?accusativeMasculinePlural
+  ?locativeFeminineSingular
+  ?locativeFemininePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularForm .
+    ?accusativeFeminineSingularForm ontolex:representation ?accusativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFemininePluralForm .
+    ?accusativeFemininePluralForm ontolex:representation ?accusativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculineSingularForm .
+    ?accusativeMasculineSingularForm ontolex:representation ?accusativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePluralForm .
+    ?accusativeMasculinePluralForm ontolex:representation ?accusativeMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularForm .
+    ?locativeFeminineSingularForm ontolex:representation ?locativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeFemininePluralForm .
+    ?locativeFemininePluralForm ontolex:representation ?locativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q146786 .
+  }
+}

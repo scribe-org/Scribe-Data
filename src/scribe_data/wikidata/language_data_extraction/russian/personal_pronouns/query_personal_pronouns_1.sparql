@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Russian (Q7737) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?genitive
+  ?genitiveSingular
+  ?genitiveFirstPersonSingular
+  ?genitiveFirstPersonPlural
+  ?genitiveSecondPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q7737 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFirstPersonSingularForm .
+    ?genitiveFirstPersonSingularForm ontolex:representation ?genitiveFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFirstPersonPluralForm .
+    ?genitiveFirstPersonPluralForm ontolex:representation ?genitiveFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSecondPersonSingularForm .
+    ?genitiveSecondPersonSingularForm ontolex:representation ?genitiveSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q51929049, wd:Q110786 .
+  }
+}

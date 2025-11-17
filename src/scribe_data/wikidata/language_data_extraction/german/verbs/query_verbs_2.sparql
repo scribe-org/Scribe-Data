@@ -1,0 +1,81 @@
+# tool: scribe-data
+# All German (Q188) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+# Not SELECT as we want to get verbs with both sein and haben as auxiliaries
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?infinitive
+  ?combinedPastParticiple
+  ?indicativePreteriteFirstPersonSingular
+  ?indicativePreteriteFirstPersonPlural
+  ?indicativePreteriteSecondPersonSingular
+  ?indicativePreteriteSecondPersonPlural
+  ?indicativePreteriteThirdPersonSingular
+  ?indicativePreteriteThirdPersonPlural
+  ?auxiliaryVerb
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Past Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
+    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
+  }
+
+  # MARK: Indicative Preterite
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonSingularForm .
+    ?indicativePreteriteFirstPersonSingularForm ontolex:representation ?indicativePreteriteFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonPluralForm .
+    ?indicativePreteriteFirstPersonPluralForm ontolex:representation ?indicativePreteriteFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonSingularForm .
+    ?indicativePreteriteSecondPersonSingularForm ontolex:representation ?indicativePreteriteSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonPluralForm .
+    ?indicativePreteriteSecondPersonPluralForm ontolex:representation ?indicativePreteriteSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonSingularForm .
+    ?indicativePreteriteThirdPersonSingularForm ontolex:representation ?indicativePreteriteThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonPluralForm .
+    ?indicativePreteriteThirdPersonPluralForm ontolex:representation ?indicativePreteriteThirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q146786 .
+  }
+
+  # MARK: Auxiliary Verb(s)
+
+  OPTIONAL {
+    ?lexeme wdt:P5401 ?auxiliaryVerbFrom .
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?auxiliaryVerbFrom rdfs:label ?auxiliaryVerb .
+  }
+}

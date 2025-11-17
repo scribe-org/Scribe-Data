@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Czech (Q9056) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?vocativeFemininePlural
+  ?instrumentalMasculineInanimateSingularPositive
+  ?instrumentalMasculineInanimatePluralSuperlative
+  ?instrumentalNeuterSingularPositive
+  ?instrumentalNeuterPluralComparative
+  ?vocativeFemininePluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralForm .
+    ?vocativeFemininePluralForm ontolex:representation ?vocativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimateSingularPositiveForm .
+    ?instrumentalMasculineInanimateSingularPositiveForm ontolex:representation ?instrumentalMasculineInanimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineInanimatePluralSuperlativeForm .
+    ?instrumentalMasculineInanimatePluralSuperlativeForm ontolex:representation ?instrumentalMasculineInanimatePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q52943434, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterSingularPositiveForm .
+    ?instrumentalNeuterSingularPositiveForm ontolex:representation ?instrumentalNeuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterPluralComparativeForm .
+    ?instrumentalNeuterPluralComparativeForm ontolex:representation ?instrumentalNeuterPluralComparative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeFemininePluralPositiveForm .
+    ?vocativeFemininePluralPositiveForm ontolex:representation ?vocativeFemininePluralPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775415, wd:Q146786, wd:Q3482678 .
+  }
+}

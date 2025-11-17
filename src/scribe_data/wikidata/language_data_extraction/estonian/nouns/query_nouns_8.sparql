@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Estonian (Q9072) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?adessiveSingular
+  ?adessivePlural
+  ?terminativeSingular
+  ?terminativePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessiveSingularForm .
+    ?adessiveSingularForm ontolex:representation ?adessiveSingular ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessivePluralForm .
+    ?adessivePluralForm ontolex:representation ?adessivePlural ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?terminativeSingularForm .
+    ?terminativeSingularForm ontolex:representation ?terminativeSingular ;
+      wikibase:grammaticalFeature wd:Q747019, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?terminativePluralForm .
+    ?terminativePluralForm ontolex:representation ?terminativePlural ;
+      wikibase:grammaticalFeature wd:Q747019, wd:Q146786 .
+  }
+}

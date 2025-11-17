@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Russian (Q7737) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?instrumental
+  ?instrumentalSingular
+  ?instrumentalFirstPersonSingular
+  ?instrumentalFirstPersonPlural
+  ?instrumentalSecondPersonSingular
+  ?instrumentalSecondPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q7737 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalForm .
+    ?instrumentalForm ontolex:representation ?instrumental ;
+      wikibase:grammaticalFeature wd:Q192997 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalSingularForm .
+    ?instrumentalSingularForm ontolex:representation ?instrumentalSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFirstPersonSingularForm .
+    ?instrumentalFirstPersonSingularForm ontolex:representation ?instrumentalFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFirstPersonPluralForm .
+    ?instrumentalFirstPersonPluralForm ontolex:representation ?instrumentalFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalSecondPersonSingularForm .
+    ?instrumentalSecondPersonSingularForm ontolex:representation ?instrumentalSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalSecondPersonPluralForm .
+    ?instrumentalSecondPersonPluralForm ontolex:representation ?instrumentalSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q51929049, wd:Q146786 .
+  }
+}

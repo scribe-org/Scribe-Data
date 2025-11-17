@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Czech (Q9056) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?accusative
+  ?accusativeSingular
+  ?accusativePlural
+  ?accusativeNeuterSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularForm .
+    ?accusativeNeuterSingularForm ontolex:representation ?accusativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786 .
+  }
+}

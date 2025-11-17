@@ -6,23 +6,21 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?singularGenitive
+  ?genitiveSingular
   ?genitivePlural
-  ?pluralAblativeInanimate
-  ?pluralAblativeAnimate
-  ?pluralAllativeInanimate
-  ?pluralAllativeAnimate
+  ?dativeSingular
+  ?dativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q8752 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularGenitiveForm .
-    ?singularGenitiveForm ontolex:representation ?singularGenitive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146233 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
   }
 
   OPTIONAL {
@@ -32,26 +30,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralAblativeInanimateForm .
-    ?pluralAblativeInanimateForm ontolex:representation ?pluralAblativeInanimate ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q156986, wd:Q51927539 .
+    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
+    ?dativeSingularForm ontolex:representation ?dativeSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralAblativeAnimateForm .
-    ?pluralAblativeAnimateForm ontolex:representation ?pluralAblativeAnimate ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q156986, wd:Q51927507 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralAllativeInanimateForm .
-    ?pluralAllativeInanimateForm ontolex:representation ?pluralAllativeInanimate ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q655020, wd:Q51927539 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralAllativeAnimateForm .
-    ?pluralAllativeAnimateForm ontolex:representation ?pluralAllativeAnimate ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q655020, wd:Q51927507 .
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
   }
 }

@@ -1,0 +1,45 @@
+# tool: scribe-data
+# All Slovak (Q9058) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?instrumentalPluralPositive
+  ?instrumentalFeminineSingularPositive
+  ?instrumentalMasculineSingularPositive
+  ?instrumentalNeuterSingularPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9058;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Instrumental
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalPluralPositiveForm .
+    ?instrumentalPluralPositiveForm ontolex:representation ?instrumentalPluralPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q146786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularPositiveForm .
+    ?instrumentalFeminineSingularPositiveForm ontolex:representation ?instrumentalFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineSingularPositiveForm .
+    ?instrumentalMasculineSingularPositiveForm ontolex:representation ?instrumentalMasculineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalNeuterSingularPositiveForm .
+    ?instrumentalNeuterSingularPositiveForm ontolex:representation ?instrumentalNeuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775461, wd:Q110786, wd:Q3482678 .
+  }
+}

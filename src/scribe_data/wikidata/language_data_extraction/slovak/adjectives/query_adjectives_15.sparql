@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Slovak (Q9058) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?locativePluralComparative
+  ?locativePluralSuperlative
+  ?locativeFeminineSingularComparative
+  ?locativeFeminineSingularSuperlative
+  ?locativeNeuterSingularComparative
+  ?locativeNeuterSingularSuperlative
+
+WHERE {
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativePluralComparativeForm .
+    ?locativePluralComparativeForm ontolex:representation ?locativePluralComparative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativePluralSuperlativeForm .
+    ?locativePluralSuperlativeForm ontolex:representation ?locativePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularComparativeForm .
+    ?locativeFeminineSingularComparativeForm ontolex:representation ?locativeFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularSuperlativeForm .
+    ?locativeFeminineSingularSuperlativeForm ontolex:representation ?locativeFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeNeuterSingularComparativeForm .
+    ?locativeNeuterSingularComparativeForm ontolex:representation ?locativeNeuterSingularComparative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775461, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeNeuterSingularSuperlativeForm .
+    ?locativeNeuterSingularSuperlativeForm ontolex:representation ?locativeNeuterSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775461, wd:Q110786, wd:Q1817208 .
+  }
+}

@@ -6,38 +6,26 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?dativePluralPositive
-  ?singularAccusativeFemininePositive
-  ?singularAccusativeMasculinePositive
-  ?singularAccusativeNeuterPositive
+  ?nominativeSingular
+  ?nominativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
+  # MARK: Nominative
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativePluralPositiveForm .
-    ?dativePluralPositiveForm ontolex:representation ?dativePluralPositive ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q146786, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAccusativeFemininePositiveForm .
-    ?singularAccusativeFemininePositiveForm ontolex:representation ?singularAccusativeFemininePositive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q1775415, wd:Q3482678 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAccusativeMasculinePositiveForm .
-    ?singularAccusativeMasculinePositiveForm ontolex:representation ?singularAccusativeMasculinePositive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q499327, wd:Q3482678 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAccusativeNeuterPositiveForm .
-    ?singularAccusativeNeuterPositiveForm ontolex:representation ?singularAccusativeNeuterPositive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q1775461, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 }

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Dagbani (Q32238) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?simplePresent
+  ?singular
+  ?adverbial
+  ?presentContinuousPlural
+  ?thirdPersonPlural
+  ?singularPhrase
+
+WHERE {
+  ?lexeme dct:language wd:Q32238 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePresentForm .
+    ?simplePresentForm ontolex:representation ?simplePresent ;
+      wikibase:grammaticalFeature wd:Q3910936 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adverbialForm .
+    ?adverbialForm ontolex:representation ?adverbial ;
+      wikibase:grammaticalFeature wd:Q380012 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentContinuousPluralForm .
+    ?presentContinuousPluralForm ontolex:representation ?presentContinuousPlural ;
+      wikibase:grammaticalFeature wd:Q7240943, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonPluralForm .
+    ?thirdPersonPluralForm ontolex:representation ?thirdPersonPlural ;
+      wikibase:grammaticalFeature wd:Q51929074, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPhraseForm .
+    ?singularPhraseForm ontolex:representation ?singularPhrase ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q187931 .
+  }
+}

@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Portuguese (Q5146) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?masculineSingularSuperlative
+  ?masculineSingularPositive
+  ?masculinePluralSuperlative
+  ?masculinePluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q5146 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularSuperlativeForm .
+    ?masculineSingularSuperlativeForm ontolex:representation ?masculineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSingularPositiveForm .
+    ?masculineSingularPositiveForm ontolex:representation ?masculineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralSuperlativeForm .
+    ?masculinePluralSuperlativeForm ontolex:representation ?masculinePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePluralPositiveForm .
+    ?masculinePluralPositiveForm ontolex:representation ?masculinePluralPositive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q146786, wd:Q3482678 .
+  }
+}

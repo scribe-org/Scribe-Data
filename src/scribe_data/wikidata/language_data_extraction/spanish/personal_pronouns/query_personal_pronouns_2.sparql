@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Spanish (Q1321) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?dativeFeminine
+  ?dativeMasculine
+  ?neuterSingular
+  ?neuterPlural
+  ?dativeAccusativeFeminineMasculine
+
+WHERE {
+  ?lexeme dct:language wd:Q1321 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFeminineForm .
+    ?dativeFeminineForm ontolex:representation ?dativeFeminine ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeMasculineForm .
+    ?dativeMasculineForm ontolex:representation ?dativeMasculine ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterSingularForm .
+    ?neuterSingularForm ontolex:representation ?neuterSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterPluralForm .
+    ?neuterPluralForm ontolex:representation ?neuterPlural ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeAccusativeFeminineMasculineForm .
+    ?dativeAccusativeFeminineMasculineForm ontolex:representation ?dativeAccusativeFeminineMasculine ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146078, wd:Q1775415, wd:Q499327 .
+  }
+}

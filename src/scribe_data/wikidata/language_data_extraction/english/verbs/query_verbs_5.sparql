@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All English (Q1860) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?infinitive
+  ?future
+  ?combinedPresentParticiple
+  ?preteriteSubjunctive
+  ?pluralCombinedPresentParticiple
+  ?pluralEnglishPastParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q1860 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureForm .
+    ?futureForm ontolex:representation ?future ;
+      wikibase:grammaticalFeature wd:Q501405 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
+    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?preteriteSubjunctiveForm .
+    ?preteriteSubjunctiveForm ontolex:representation ?preteriteSubjunctive ;
+      wikibase:grammaticalFeature wd:Q442485, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralCombinedPresentParticipleForm .
+    ?pluralCombinedPresentParticipleForm ontolex:representation ?pluralCombinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q10345583 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralEnglishPastParticipleForm .
+    ?pluralEnglishPastParticipleForm ontolex:representation ?pluralEnglishPastParticiple ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1230649 .
+  }
+}

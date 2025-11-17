@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Dagbani (Q32238) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?singular
+  ?singularPlural
+  ?singularPhrase
+  ?singularPluralPhrase
+
+WHERE {
+  ?lexeme dct:language wd:Q32238 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPluralForm .
+    ?singularPluralForm ontolex:representation ?singularPlural ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPhraseForm .
+    ?singularPhraseForm ontolex:representation ?singularPhrase ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q187931 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPluralPhraseForm .
+    ?singularPluralPhraseForm ontolex:representation ?singularPluralPhrase ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146786, wd:Q187931 .
+  }
+}

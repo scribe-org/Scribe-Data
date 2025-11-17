@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Polish (Q809) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?instrumentalFeminineSingular
+  ?instrumentalFeminineSingularComparative
+  ?instrumentalFeminineSingularSuperlative
+  ?instrumentalFeminineSingularPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q809 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularForm .
+    ?instrumentalFeminineSingularForm ontolex:representation ?instrumentalFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularComparativeForm .
+    ?instrumentalFeminineSingularComparativeForm ontolex:representation ?instrumentalFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularSuperlativeForm .
+    ?instrumentalFeminineSingularSuperlativeForm ontolex:representation ?instrumentalFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularPositiveForm .
+    ?instrumentalFeminineSingularPositiveForm ontolex:representation ?instrumentalFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+  }
+}

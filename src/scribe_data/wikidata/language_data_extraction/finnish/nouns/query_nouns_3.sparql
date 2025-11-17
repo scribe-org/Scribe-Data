@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Finnish (Q1412) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?adessiveSingular
+  ?adessivePlural
+  ?translativeSingular
+  ?translativePlural
+  ?essiveSingular
+  ?essivePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessiveSingularForm .
+    ?adessiveSingularForm ontolex:representation ?adessiveSingular ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adessivePluralForm .
+    ?adessivePluralForm ontolex:representation ?adessivePlural ;
+      wikibase:grammaticalFeature wd:Q281954, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?translativeSingularForm .
+    ?translativeSingularForm ontolex:representation ?translativeSingular ;
+      wikibase:grammaticalFeature wd:Q950170, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?translativePluralForm .
+    ?translativePluralForm ontolex:representation ?translativePlural ;
+      wikibase:grammaticalFeature wd:Q950170, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?essiveSingularForm .
+    ?essiveSingularForm ontolex:representation ?essiveSingular ;
+      wikibase:grammaticalFeature wd:Q148465, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?essivePluralForm .
+    ?essivePluralForm ontolex:representation ?essivePlural ;
+      wikibase:grammaticalFeature wd:Q148465, wd:Q146786 .
+  }
+}

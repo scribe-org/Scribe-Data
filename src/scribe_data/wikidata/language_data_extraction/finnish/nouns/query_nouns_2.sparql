@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Finnish (Q1412) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?nominativeSingular
+  ?accusativeSingular
+  ?accusativePlural
+  ?abessiveSingular
+  ?abessivePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?abessiveSingularForm .
+    ?abessiveSingularForm ontolex:representation ?abessiveSingular ;
+      wikibase:grammaticalFeature wd:Q319822, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?abessivePluralForm .
+    ?abessivePluralForm ontolex:representation ?abessivePlural ;
+      wikibase:grammaticalFeature wd:Q319822, wd:Q146786 .
+  }
+}

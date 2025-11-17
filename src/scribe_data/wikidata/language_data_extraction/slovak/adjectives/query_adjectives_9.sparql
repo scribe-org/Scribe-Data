@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Slovak (Q9058) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?dativePluralComparative
+  ?dativePluralSuperlative
+  ?dativeFeminineSingularComparative
+  ?dativeFeminineSingularSuperlative
+  ?accusativeNeuterSingularComparative
+  ?accusativeNeuterSingularSuperlative
+
+WHERE {
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativePluralComparativeForm .
+    ?dativePluralComparativeForm ontolex:representation ?dativePluralComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativePluralSuperlativeForm .
+    ?dativePluralSuperlativeForm ontolex:representation ?dativePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFeminineSingularComparativeForm .
+    ?dativeFeminineSingularComparativeForm ontolex:representation ?dativeFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFeminineSingularSuperlativeForm .
+    ?dativeFeminineSingularSuperlativeForm ontolex:representation ?dativeFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularComparativeForm .
+    ?accusativeNeuterSingularComparativeForm ontolex:representation ?accusativeNeuterSingularComparative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNeuterSingularSuperlativeForm .
+    ?accusativeNeuterSingularSuperlativeForm ontolex:representation ?accusativeNeuterSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775461, wd:Q110786, wd:Q1817208 .
+  }
+}

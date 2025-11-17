@@ -1,5 +1,5 @@
 # tool: scribe-data
-# All Latin (Q397) prepositions (Q4833830) and the given forms.
+# All Latin language (Q397) postpositions (Q4833830) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -14,12 +14,16 @@ WHERE {
     wikibase:lexicalCategory wd:Q4833830 ;
     wikibase:lemma ?preposition ;
     schema:dateModified ?lastModified .
-    
+
+  # MARK: Accusative
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?accusativeForm .
     ?accusativeForm ontolex:representation ?accusative ;
       wikibase:grammaticalFeature wd:Q146078 .
   }
+
+  # MARK: Ablative
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?ablativeForm .

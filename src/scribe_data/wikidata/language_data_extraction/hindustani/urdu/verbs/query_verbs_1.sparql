@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Urdu Hindustani (Q11051) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+# Note: We need to filter for "ur" to remove Hindustani (hi) words.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?direct
+  ?intransitivePhase
+  ?basicPhase
+  ?gerund
+
+WHERE {
+  # MARK: Infinitive
+
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    FILTER(lang(?infinitive) = "ur")
+
+  # MARK: Direct Case
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directForm .
+    ?directForm ontolex:representation ?direct ;
+      wikibase:grammaticalFeature wd:Q1751855 .
+      FILTER(LANG(?direct) = "ur")
+  }
+
+  # MARK: Intransitive Phase
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?intransitivePhaseForm .
+    ?intransitivePhaseForm ontolex:representation ?intransitivePhase ;
+      wikibase:grammaticalFeature wd:Q113330736 .
+      FILTER(LANG(?intransitivePhase) = "ur")
+  }
+
+  # MARK: Basic Phase
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?basicPhaseForm .
+    ?basicPhaseForm ontolex:representation ?basicPhase ;
+      wikibase:grammaticalFeature wd:Q113330960 .
+      FILTER(LANG(?basicPhase) = "ur")
+  }
+
+  # MARK: Gerund
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+      FILTER(LANG(?gerund) = "ur")
+  }
+}

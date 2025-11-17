@@ -1,0 +1,36 @@
+# tool: scribe-data
+# All Czech (Q9056) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?feminineSingularCombinedPastParticiple
+  ?femininePluralCombinedPastParticiple
+  ?feminineNeuterPastTransgressiveSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineSingularCombinedPastParticipleForm .
+    ?feminineSingularCombinedPastParticipleForm ontolex:representation ?feminineSingularCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePluralCombinedPastParticipleForm .
+    ?femininePluralCombinedPastParticipleForm ontolex:representation ?femininePluralCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q146786, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineNeuterPastTransgressiveSingularForm .
+    ?feminineNeuterPastTransgressiveSingularForm ontolex:representation ?feminineNeuterPastTransgressiveSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1775461, wd:Q12750232, wd:Q110786 .
+  }
+}

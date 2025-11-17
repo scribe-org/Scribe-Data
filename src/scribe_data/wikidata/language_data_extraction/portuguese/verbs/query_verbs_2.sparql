@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Portuguese (Q5146) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?infinitive
+  ?pastImperfect
+  ?gerund
+  ?participle
+  ?combinedPastParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q5146 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastImperfectForm .
+    ?pastImperfectForm ontolex:representation ?pastImperfect ;
+      wikibase:grammaticalFeature wd:Q12547192 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?participleForm .
+    ?participleForm ontolex:representation ?participle ;
+      wikibase:grammaticalFeature wd:Q814722 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
+    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
+  }
+}

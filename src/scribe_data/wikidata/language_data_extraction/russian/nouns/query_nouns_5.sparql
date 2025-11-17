@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Russian (Q7737) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?accusativeSingular
+  ?accusativePlural
+  ?accusativeInanimatePlural
+  ?accusativeAnimatePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q7737 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeInanimatePluralForm .
+    ?accusativeInanimatePluralForm ontolex:representation ?accusativeInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q51927539, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeAnimatePluralForm .
+    ?accusativeAnimatePluralForm ontolex:representation ?accusativeAnimatePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q51927507, wd:Q146786 .
+  }
+}

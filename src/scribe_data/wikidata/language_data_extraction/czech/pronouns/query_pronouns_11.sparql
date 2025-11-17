@@ -6,45 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?accusative
-  ?accusativePluralFeminine
-  ?accusativePluralMasculineInanimate
-  ?accusativePluralMasculineAnimate
-  ?accusativePluralNeuter
+  ?nominativeNeuterSingular
+  ?nominativeNeuterPlural
+  ?nominativeNeuterSingularPositive
+  ?nominativeNeuterPluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q36224 ;
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativeForm .
-    ?accusativeForm ontolex:representation ?accusative ;
-      wikibase:grammaticalFeature wd:Q146078 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterSingularForm .
+    ?nominativeNeuterSingularForm ontolex:representation ?nominativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativePluralFeminineForm .
-    ?accusativePluralFeminineForm ontolex:representation ?accusativePluralFeminine ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q146786, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterPluralForm .
+    ?nominativeNeuterPluralForm ontolex:representation ?nominativeNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativePluralMasculineInanimateForm .
-    ?accusativePluralMasculineInanimateForm ontolex:representation ?accusativePluralMasculineInanimate ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q146786, wd:Q52943434 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterSingularPositiveForm .
+    ?nominativeNeuterSingularPositiveForm ontolex:representation ?nominativeNeuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativePluralMasculineAnimateForm .
-    ?accusativePluralMasculineAnimateForm ontolex:representation ?accusativePluralMasculineAnimate ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q146786, wd:Q54020116 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativePluralNeuterForm .
-    ?accusativePluralNeuterForm ontolex:representation ?accusativePluralNeuter ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q146786, wd:Q1775461 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterPluralPositiveForm .
+    ?nominativeNeuterPluralPositiveForm ontolex:representation ?nominativeNeuterPluralPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q146786, wd:Q3482678 .
   }
 }

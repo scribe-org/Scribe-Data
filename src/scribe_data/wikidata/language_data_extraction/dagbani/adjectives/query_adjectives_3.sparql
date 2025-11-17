@@ -1,0 +1,36 @@
+# tool: scribe-data
+# All Dagbani (Q32238) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?phrase
+  ?singularPhrase
+  ?singularPluralPhrase
+
+WHERE {
+  ?lexeme dct:language wd:Q32238 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?phraseForm .
+    ?phraseForm ontolex:representation ?phrase ;
+      wikibase:grammaticalFeature wd:Q187931 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPhraseForm .
+    ?singularPhraseForm ontolex:representation ?singularPhrase ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q187931 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?singularPluralPhraseForm .
+    ?singularPluralPhraseForm ontolex:representation ?singularPluralPhrase ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q146786, wd:Q187931 .
+  }
+}

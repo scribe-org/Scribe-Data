@@ -1,53 +1,40 @@
 # tool: scribe-data
-# All Punjabi (Q58635) proper_nouns (Q147276) and the given forms.
+# All Punjabi Gurmukhi (Q58635) proper nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
+
+# Note: We need to filter for "pa" to select Gurmukhi words.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?propernoun
-  ?singularLocativeMasculine
-  ?singularVocativeMasculine
-  ?singularDirectFeminine
-  ?singularObliqueFeminine
-  ?singularAblativeMasculine
+  ?singular
+  ?plural
+  ?gender
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
-    wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?propernoun ;
+    wikibase:lexicalCategory wd:Q147276;
+    wikibase:lemma ?singular ;
     schema:dateModified ?lastModified .
-    
-  # Note: We need to filter for pa to remove gurmukhi (pa) words.
-  FILTER(lang(?propernoun) = "pa")
-    
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularLocativeMasculineForm .
-    ?singularLocativeMasculineForm ontolex:representation ?singularLocativeMasculine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q499327 .
-  }
+    FILTER(lang(?singular) = "pa")
+
+  # MARK: Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularVocativeMasculineForm .
-    ?singularVocativeMasculineForm ontolex:representation ?singularVocativeMasculine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q185077, wd:Q499327 .
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+      FILTER(lang(?plural) = "pa")
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularDirectFeminineForm .
-    ?singularDirectFeminineForm ontolex:representation ?singularDirectFeminine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q1751855, wd:Q1775415 .
-  }
+  # MARK: Gender(s)
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularObliqueFeminineForm .
-    ?singularObliqueFeminineForm ontolex:representation ?singularObliqueFeminine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q1233197, wd:Q1775415 .
+    ?lexeme wdt:P5185 ?nounGender .
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAblativeMasculineForm .
-    ?singularAblativeMasculineForm ontolex:representation ?singularAblativeMasculine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q156986, wd:Q499327 .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?nounGender rdfs:label ?gender .
   }
 }

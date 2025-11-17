@@ -1,0 +1,42 @@
+# tool: scribe-data
+# All Esperanto (Q143) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?nominativeSingular
+  ?nominativePlural
+  ?accusativeSingular
+  ?accusativePlural
+
+WHERE {
+  # MARK: Nominative
+
+  ?lexeme dct:language wd:Q143 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?nominativeSingular ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  }
+
+  # MARK: Accusative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeSingularForm .
+    ?accusativeSingularForm ontolex:representation ?accusativeSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q110786 .
+  }
+
+  # MARK: Accusative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
+    ?accusativePluralForm ontolex:representation ?accusativePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+  }
+}

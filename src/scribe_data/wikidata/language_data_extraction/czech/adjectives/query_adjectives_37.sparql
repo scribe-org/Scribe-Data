@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Czech (Q9056) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?instrumentalFeminineSingular
+  ?instrumentalFemininePlural
+  ?instrumentalFeminineSingularComparative
+  ?instrumentalFeminineSingularSuperlative
+  ?instrumentalFemininePluralComparative
+  ?instrumentalFemininePluralSuperlative
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularForm .
+    ?instrumentalFeminineSingularForm ontolex:representation ?instrumentalFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFemininePluralForm .
+    ?instrumentalFemininePluralForm ontolex:representation ?instrumentalFemininePlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularComparativeForm .
+    ?instrumentalFeminineSingularComparativeForm ontolex:representation ?instrumentalFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularSuperlativeForm .
+    ?instrumentalFeminineSingularSuperlativeForm ontolex:representation ?instrumentalFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFemininePluralComparativeForm .
+    ?instrumentalFemininePluralComparativeForm ontolex:representation ?instrumentalFemininePluralComparative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFemininePluralSuperlativeForm .
+    ?instrumentalFemininePluralSuperlativeForm ontolex:representation ?instrumentalFemininePluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q146786, wd:Q1817208 .
+  }
+}

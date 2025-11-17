@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Russian (Q7737) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?nominative
+  ?nominativeSingular
+  ?nominativeFirstPersonSingular
+  ?nominativeFirstPersonPlural
+  ?nominativeSecondPersonSingular
+  ?nominativeSecondPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q7737 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFirstPersonSingularForm .
+    ?nominativeFirstPersonSingularForm ontolex:representation ?nominativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeFirstPersonPluralForm .
+    ?nominativeFirstPersonPluralForm ontolex:representation ?nominativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSecondPersonSingularForm .
+    ?nominativeSecondPersonSingularForm ontolex:representation ?nominativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSecondPersonPluralForm .
+    ?nominativeSecondPersonPluralForm ontolex:representation ?nominativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q51929049, wd:Q146786 .
+  }
+}

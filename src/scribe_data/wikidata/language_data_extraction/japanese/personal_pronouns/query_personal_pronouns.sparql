@@ -1,14 +1,29 @@
 # tool: scribe-data
-# Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
-# Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
+# All Japanese (Q5287) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lemma
+  ?lastModified
+  ?personalpronoun
+  ?feminine
+  ?masculine
 
-WHERE {{
-  ?lexeme a ontolex:LexicalEntry .
+WHERE {
   ?lexeme dct:language wd:Q5287 ;
     wikibase:lexicalCategory wd:Q468801 ;
-    wikibase:lemma ?lemma .
-}}
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineForm .
+    ?feminineForm ontolex:representation ?feminine ;
+      wikibase:grammaticalFeature wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineForm .
+    ?masculineForm ontolex:representation ?masculine ;
+      wikibase:grammaticalFeature wd:Q499327 .
+  }
+}

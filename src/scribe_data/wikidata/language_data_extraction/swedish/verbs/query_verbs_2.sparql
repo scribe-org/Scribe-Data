@@ -6,38 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?preteritePassive
-  ?supinePassive
-  ?preteriteActive
-  ?supineActive
+  ?present
+  ?past
+  ?preterite
+  ?subjunctive
+  ?futureSubjunctive
+  ?passivePreteritePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9027 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteritePassiveForm .
-    ?preteritePassiveForm ontolex:representation ?preteritePassive ;
-      wikibase:grammaticalFeature wd:Q442485, wd:Q1194697 .
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?supinePassiveForm .
-    ?supinePassiveForm ontolex:representation ?supinePassive ;
-      wikibase:grammaticalFeature wd:Q548470, wd:Q1194697 .
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteActiveForm .
-    ?preteriteActiveForm ontolex:representation ?preteriteActive ;
-      wikibase:grammaticalFeature wd:Q442485, wd:Q1317831 .
+    ?lexeme ontolex:lexicalForm ?preteriteForm .
+    ?preteriteForm ontolex:representation ?preterite ;
+      wikibase:grammaticalFeature wd:Q442485 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?supineActiveForm .
-    ?supineActiveForm ontolex:representation ?supineActive ;
-      wikibase:grammaticalFeature wd:Q548470, wd:Q1317831 .
+    ?lexeme ontolex:lexicalForm ?subjunctiveForm .
+    ?subjunctiveForm ontolex:representation ?subjunctive ;
+      wikibase:grammaticalFeature wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?futureSubjunctiveForm .
+    ?futureSubjunctiveForm ontolex:representation ?futureSubjunctive ;
+      wikibase:grammaticalFeature wd:Q501405, wd:Q473746 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePreteritePluralForm .
+    ?passivePreteritePluralForm ontolex:representation ?passivePreteritePlural ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q442485, wd:Q146786 .
   }
 }

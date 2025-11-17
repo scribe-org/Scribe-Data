@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Danish (Q9035) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?neuterSingular
+  ?neuterPositive
+  ?neuterIndefiniteSingular
+  ?neuterDefiniteSingularPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterSingularForm .
+    ?neuterSingularForm ontolex:representation ?neuterSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterPositiveForm .
+    ?neuterPositiveForm ontolex:representation ?neuterPositive ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularForm .
+    ?neuterIndefiniteSingularForm ontolex:representation ?neuterIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterDefiniteSingularPositiveForm .
+    ?neuterDefiniteSingularPositiveForm ontolex:representation ?neuterDefiniteSingularPositive ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997851, wd:Q110786, wd:Q3482678 .
+  }
+}

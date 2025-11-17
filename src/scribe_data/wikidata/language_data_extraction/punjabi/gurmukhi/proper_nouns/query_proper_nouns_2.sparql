@@ -6,27 +6,48 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?propernoun
-  ?singularMasculineDirect
-  ?singularMasculineOblique
+  ?masculineSingular
+  ?locativeFeminineSingular
+  ?locativeMasculineSingular
+  ?ablativeFeminineSingular
+  ?ablativeMasculineSingular
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?propernoun ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for pa to remove gurmukhi (pa) words.
   FILTER(lang(?propernoun) = "pa")
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularMasculineDirectForm .
-    ?singularMasculineDirectForm ontolex:representation ?singularMasculineDirect ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q499327, wd:Q1751855 .
+    ?lexeme ontolex:lexicalForm ?masculineSingularForm .
+    ?masculineSingularForm ontolex:representation ?masculineSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularMasculineObliqueForm .
-    ?singularMasculineObliqueForm ontolex:representation ?singularMasculineOblique ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q499327, wd:Q1233197 .
+    ?lexeme ontolex:lexicalForm ?locativeFeminineSingularForm .
+    ?locativeFeminineSingularForm ontolex:representation ?locativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeMasculineSingularForm .
+    ?locativeMasculineSingularForm ontolex:representation ?locativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeFeminineSingularForm .
+    ?ablativeFeminineSingularForm ontolex:representation ?ablativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularForm .
+    ?ablativeMasculineSingularForm ontolex:representation ?ablativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786 .
   }
 }

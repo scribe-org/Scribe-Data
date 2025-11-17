@@ -6,22 +6,34 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?nominativePlural
+  ?nominative
+  ?genitive
+  ?genitiveSingular
   ?genitivePlural
-  ?dativePlural
-  ?accusativePlural
-  ?singularInstrumental
+  ?nominativeNeuterPlural
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
-    ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
   }
 
   OPTIONAL {
@@ -31,20 +43,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativePluralForm .
-    ?dativePluralForm ontolex:representation ?dativePlural ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
-    ?accusativePluralForm ontolex:representation ?accusativePlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularInstrumentalForm .
-    ?singularInstrumentalForm ontolex:representation ?singularInstrumental ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q192997 .
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterPluralForm .
+    ?nominativeNeuterPluralForm ontolex:representation ?nominativeNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q146786 .
   }
 }

@@ -6,17 +6,23 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
+  ?nominativeSingular
   ?nominativePlural
-  ?genitivePlural
-  ?singularTerminative
-  ?singularEssive
+  ?inessiveSingular
+  ?inessivePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory wd:Q36224 ;
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
-    
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+  }
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativePluralForm .
     ?nominativePluralForm ontolex:representation ?nominativePlural ;
@@ -24,20 +30,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
-    ?genitivePluralForm ontolex:representation ?genitivePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?inessiveSingularForm .
+    ?inessiveSingularForm ontolex:representation ?inessiveSingular ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularTerminativeForm .
-    ?singularTerminativeForm ontolex:representation ?singularTerminative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q747019 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularEssiveForm .
-    ?singularEssiveForm ontolex:representation ?singularEssive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q148465 .
+    ?lexeme ontolex:lexicalForm ?inessivePluralForm .
+    ?inessivePluralForm ontolex:representation ?inessivePlural ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q146786 .
   }
 }

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Finnish (Q1412) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?indicativeSecondPersonSingular
+  ?indicativeSecondPersonPlural
+  ?presentFirstPersonSingular
+  ?presentSecondPersonSingular
+  ?pastImperfectFirstPersonSingular
+  ?pastImperfectSecondPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q1412 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSecondPersonSingularForm .
+    ?indicativeSecondPersonSingularForm ontolex:representation ?indicativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSecondPersonPluralForm .
+    ?indicativeSecondPersonPluralForm ontolex:representation ?indicativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentFirstPersonSingularForm .
+    ?presentFirstPersonSingularForm ontolex:representation ?presentFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentSecondPersonSingularForm .
+    ?presentSecondPersonSingularForm ontolex:representation ?presentSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonSingularForm .
+    ?pastImperfectFirstPersonSingularForm ontolex:representation ?pastImperfectFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonSingularForm .
+    ?pastImperfectSecondPersonSingularForm ontolex:representation ?pastImperfectSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q12547192, wd:Q51929049, wd:Q110786 .
+  }
+}

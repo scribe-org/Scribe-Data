@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Punjabi (Q58635) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?oblique
+  ?ablative
+  ?obliqueFirstPersonSingular
+  ?obliqueSecondPersonPlural
+  ?ablativeFirstPersonSingular
+  ?ablativeSecondPersonPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pa to remove gurmukhi (pa) words.
+  FILTER(lang(?personalpronoun) = "pa")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueForm .
+    ?obliqueForm ontolex:representation ?oblique ;
+      wikibase:grammaticalFeature wd:Q1233197 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeForm .
+    ?ablativeForm ontolex:representation ?ablative ;
+      wikibase:grammaticalFeature wd:Q156986 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueFirstPersonSingularForm .
+    ?obliqueFirstPersonSingularForm ontolex:representation ?obliqueFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueSecondPersonPluralForm .
+    ?obliqueSecondPersonPluralForm ontolex:representation ?obliqueSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeFirstPersonSingularForm .
+    ?ablativeFirstPersonSingularForm ontolex:representation ?ablativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeSecondPersonPluralForm .
+    ?ablativeSecondPersonPluralForm ontolex:representation ?ablativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q51929049, wd:Q146786 .
+  }
+}

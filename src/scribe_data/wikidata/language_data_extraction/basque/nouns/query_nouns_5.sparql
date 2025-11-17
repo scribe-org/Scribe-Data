@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Basque (Q8752) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?inessiveSingular
+  ?inessivePlural
+  ?inessiveInanimateSingular
+  ?inessiveInanimatePlural
+  ?inessiveAnimateSingular
+  ?inessiveAnimatePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q8752 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveSingularForm .
+    ?inessiveSingularForm ontolex:representation ?inessiveSingular ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessivePluralForm .
+    ?inessivePluralForm ontolex:representation ?inessivePlural ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveInanimateSingularForm .
+    ?inessiveInanimateSingularForm ontolex:representation ?inessiveInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q51927539, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveInanimatePluralForm .
+    ?inessiveInanimatePluralForm ontolex:representation ?inessiveInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q51927539, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveAnimateSingularForm .
+    ?inessiveAnimateSingularForm ontolex:representation ?inessiveAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q51927507, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveAnimatePluralForm .
+    ?inessiveAnimatePluralForm ontolex:representation ?inessiveAnimatePlural ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q51927507, wd:Q146786 .
+  }
+}

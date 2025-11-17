@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Danish (Q9035) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?oblique
+  ?obliqueFeminine
+  ?obliqueMasculine
+  ?genitiveCommonNeuterPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueForm .
+    ?obliqueForm ontolex:representation ?oblique ;
+      wikibase:grammaticalFeature wd:Q1233197 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueFeminineForm .
+    ?obliqueFeminineForm ontolex:representation ?obliqueFeminine ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueMasculineForm .
+    ?obliqueMasculineForm ontolex:representation ?obliqueMasculine ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveCommonNeuterPluralForm .
+    ?genitiveCommonNeuterPluralForm ontolex:representation ?genitiveCommonNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1305037, wd:Q1775461, wd:Q146786 .
+  }
+}

@@ -1,0 +1,60 @@
+# tool: scribe-data
+# All Punjabi (Q58635) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?directMasculineSingular
+  ?directMasculinePlural
+  ?directMasculineSingularComparative
+  ?directMasculineSingularPositive
+  ?directMasculinePluralComparative
+  ?directMasculinePluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pnb to remove shahmukhi (pnb) words.
+  FILTER(lang(?adjective) = "pnb")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directMasculineSingularForm .
+    ?directMasculineSingularForm ontolex:representation ?directMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directMasculinePluralForm .
+    ?directMasculinePluralForm ontolex:representation ?directMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q499327, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directMasculineSingularComparativeForm .
+    ?directMasculineSingularComparativeForm ontolex:representation ?directMasculineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q499327, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directMasculineSingularPositiveForm .
+    ?directMasculineSingularPositiveForm ontolex:representation ?directMasculineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q499327, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directMasculinePluralComparativeForm .
+    ?directMasculinePluralComparativeForm ontolex:representation ?directMasculinePluralComparative ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q499327, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directMasculinePluralPositiveForm .
+    ?directMasculinePluralPositiveForm ontolex:representation ?directMasculinePluralPositive ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q499327, wd:Q146786, wd:Q3482678 .
+  }
+}

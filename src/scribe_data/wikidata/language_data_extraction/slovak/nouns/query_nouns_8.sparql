@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Slovak (Q9058) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?instrumentalSingular
+  ?instrumentalPlural
+  ?instrumentalFeminineSingular
+  ?instrumentalFemininePlural
+  ?instrumentalMasculineSingular
+  ?instrumentalMasculinePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalSingularForm .
+    ?instrumentalSingularForm ontolex:representation ?instrumentalSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalPluralForm .
+    ?instrumentalPluralForm ontolex:representation ?instrumentalPlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFeminineSingularForm .
+    ?instrumentalFeminineSingularForm ontolex:representation ?instrumentalFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalFemininePluralForm .
+    ?instrumentalFemininePluralForm ontolex:representation ?instrumentalFemininePlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculineSingularForm .
+    ?instrumentalMasculineSingularForm ontolex:representation ?instrumentalMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?instrumentalMasculinePluralForm .
+    ?instrumentalMasculinePluralForm ontolex:representation ?instrumentalMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q192997, wd:Q499327, wd:Q146786 .
+  }
+}

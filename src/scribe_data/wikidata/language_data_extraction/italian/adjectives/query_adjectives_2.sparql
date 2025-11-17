@@ -6,38 +6,45 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?singularFeminine
-  ?singularMasculine
-  ?singularFeminineSuperlative
-  ?singularMasculineSuperlative
+  ?singular
+  ?plural
+  ?superlative
+  ?singularSuperlative
+  ?pluralSuperlative
 
 WHERE {
   ?lexeme dct:language wd:Q652 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularFeminineForm .
-    ?singularFeminineForm ontolex:representation ?singularFeminine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?singularForm .
+    ?singularForm ontolex:representation ?singular ;
+      wikibase:grammaticalFeature wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularMasculineForm .
-    ?singularMasculineForm ontolex:representation ?singularMasculine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q499327 .
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularFeminineSuperlativeForm .
-    ?singularFeminineSuperlativeForm ontolex:representation ?singularFeminineSuperlative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q1775415, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularMasculineSuperlativeForm .
-    ?singularMasculineSuperlativeForm ontolex:representation ?singularMasculineSuperlative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q499327, wd:Q1817208 .
+    ?lexeme ontolex:lexicalForm ?singularSuperlativeForm .
+    ?singularSuperlativeForm ontolex:representation ?singularSuperlative ;
+      wikibase:grammaticalFeature wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralSuperlativeForm .
+    ?pluralSuperlativeForm ontolex:representation ?pluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146786, wd:Q1817208 .
   }
 }

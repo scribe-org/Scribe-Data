@@ -6,24 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?singularInessiveInanimate
-  ?singularInessiveAnimate
+  ?inessiveInanimateSingular
+  ?inessiveInanimatePlural
+  ?inessiveAnimateSingular
+  ?inessiveAnimatePlural
 
 WHERE {
   ?lexeme dct:language wd:Q8752 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularInessiveInanimateForm .
-    ?singularInessiveInanimateForm ontolex:representation ?singularInessiveInanimate ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q282031, wd:Q51927539 .
+    ?lexeme ontolex:lexicalForm ?inessiveInanimateSingularForm .
+    ?inessiveInanimateSingularForm ontolex:representation ?inessiveInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q51927539, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularInessiveAnimateForm .
-    ?singularInessiveAnimateForm ontolex:representation ?singularInessiveAnimate ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q282031, wd:Q51927507 .
+    ?lexeme ontolex:lexicalForm ?inessiveInanimatePluralForm .
+    ?inessiveInanimatePluralForm ontolex:representation ?inessiveInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q51927539, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveAnimateSingularForm .
+    ?inessiveAnimateSingularForm ontolex:representation ?inessiveAnimateSingular ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q51927507, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?inessiveAnimatePluralForm .
+    ?inessiveAnimatePluralForm ontolex:representation ?inessiveAnimatePlural ;
+      wikibase:grammaticalFeature wd:Q282031, wd:Q51927507, wd:Q146786 .
   }
 }

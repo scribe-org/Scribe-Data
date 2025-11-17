@@ -1,14 +1,15 @@
 # tool: scribe-data
-# Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
-# Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
+# All Tamil (Q5885) prepositions (Q4833830) and the given forms.
+# Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lemma
+  ?lastModified
+  ?preposition
 
-WHERE {{
-  ?lexeme a ontolex:LexicalEntry .
+WHERE {
   ?lexeme dct:language wd:Q5885 ;
     wikibase:lexicalCategory wd:Q4833830 ;
-    wikibase:lemma ?lemma .
-}}
+    wikibase:lemma ?preposition ;
+    schema:dateModified ?lastModified .
+}

@@ -1,14 +1,15 @@
 # tool: scribe-data
-# Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
-# Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
+# All Yoruba (Q34311) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lemma
+  ?lastModified
+  ?noun
 
-WHERE {{
-  ?lexeme a ontolex:LexicalEntry .
+WHERE {
   ?lexeme dct:language wd:Q34311 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?lemma .
-}}
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+}

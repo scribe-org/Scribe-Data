@@ -1,0 +1,29 @@
+# tool: scribe-data
+# All Slovak (Q9058) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?locativeMasculineSingularComparative
+  ?locativeMasculineSingularSuperlative
+
+WHERE {
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeMasculineSingularComparativeForm .
+    ?locativeMasculineSingularComparativeForm ontolex:representation ?locativeMasculineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q499327, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeMasculineSingularSuperlativeForm .
+    ?locativeMasculineSingularSuperlativeForm ontolex:representation ?locativeMasculineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q499327, wd:Q110786, wd:Q1817208 .
+  }
+}

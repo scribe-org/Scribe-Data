@@ -1,22 +1,16 @@
 # tool: scribe-data
-# All Malay (Q9237) proper_nouns (Q147276) and the given forms.
+# All Malay (Q9237) proper nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?propernoun
-  ?singular
+  ?properNoun
 
 WHERE {
   ?lexeme dct:language wd:Q9237 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?propernoun ;
+    wikibase:lemma ?properNoun ;
     schema:dateModified ?lastModified .
-    
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm .
-    ?singularForm ontolex:representation ?singular ;
-      wikibase:grammaticalFeature wd:Q110786 .
-  }
+    FILTER(lang(?properNoun) = "ms")
 }

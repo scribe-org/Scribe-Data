@@ -1,0 +1,56 @@
+# tool: scribe-data
+# All Nynorsk Norwegian (Q25164) proper nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+# Note: This query is for Nynorsk (Q25164) rather than Bokmål (Q25167).
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?indefiniteSingular
+  ?indefinitePlural
+  ?definiteSingular
+  ?definitePlural
+  ?gender
+
+WHERE {
+  ?lexeme dct:language wd:Q25164 ;
+    wikibase:lexicalCategory wd:Q147276;
+    wikibase:lemma ?indefiniteSingular ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Indefinite Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indefinitePluralForm .
+    ?indefinitePluralForm ontolex:representation ?indefinitePlural ;
+      wikibase:grammaticalFeature wd:Q53997857, wd:Q146786 .
+  }
+
+  # MARK: Definite Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?  ?definiteSingularForm .
+    ?definiteSingularForm ontolex:representation ?definiteSingular ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q110786 .
+  }
+
+  # MARK: Definite Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?definitePluralForm .
+    ?definitePluralForm ontolex:representation ?definitePlural ;
+      wikibase:grammaticalFeature wd:Q53997851, wd:Q146786 .
+  }
+
+  # MARK: Gender(s)
+
+  OPTIONAL {
+    ?lexeme wdt:P5185 ?nounGender .
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?nounGender rdfs:label ?gender .
+  }
+}

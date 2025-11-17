@@ -6,38 +6,24 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?noun
-  ?genitivePluralIndefinite
-  ?genitivePluralDefinite
-  ?pluralIndefiniteNonGenitive
-  ?pluralDefiniteNonGenitive
+  ?genitive
+  ?genitiveIndefinite
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
     wikibase:lexicalCategory wd:Q1084 ;
     wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralIndefiniteForm .
-    ?genitivePluralIndefiniteForm ontolex:representation ?genitivePluralIndefinite ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q53997857 .
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralDefiniteForm .
-    ?genitivePluralDefiniteForm ontolex:representation ?genitivePluralDefinite ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786, wd:Q53997851 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralIndefiniteNonGenitiveForm .
-    ?pluralIndefiniteNonGenitiveForm ontolex:representation ?pluralIndefiniteNonGenitive ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q53997857, wd:Q98946930 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralDefiniteNonGenitiveForm .
-    ?pluralDefiniteNonGenitiveForm ontolex:representation ?pluralDefiniteNonGenitive ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q53997851, wd:Q98946930 .
+    ?lexeme ontolex:lexicalForm ?genitiveIndefiniteForm .
+    ?genitiveIndefiniteForm ontolex:representation ?genitiveIndefinite ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997857 .
   }
 }
