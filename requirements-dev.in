@@ -8,28 +8,14 @@
 # is important as otherwise we could be running tests with different versions
 # than production.
 
-beautifulsoup4
-certifi
-defusedxml
-emoji
-flax
-iso639-lang
+-r requirements.txt
+
 m2r2
-mwparserfromhell
 mypy
 numpydoc
-packaging
-pandas
 pip-tools
 pre-commit
 pytest
 pytest-cov
-questionary
-regex
-requests
-rich
 ruff
-SPARQLWrapper
 sphinx-rtd-theme
-tqdm
-orjson
