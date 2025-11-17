@@ -96,9 +96,9 @@ def download_wiki(
         Information on the downloaded Wikipedia dump files.
     """
     if file_limit is not None:
-        assert isinstance(
-            file_limit, int
-        ), "The 'file_limit' argument must be 'None' or an integer to subset the available files"
+        assert isinstance(file_limit, int), (
+            "The 'file_limit' argument must be 'None' or an integer to subset the available files"
+        )
     else:
         file_limit = -1
 

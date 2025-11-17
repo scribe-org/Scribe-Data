@@ -216,7 +216,7 @@ def query_data(
                 # Note: Only the first query was ran, so we need to run the second and append the json.
                 for i in range(max_query_interval + 1)[2:]:
                     suffix = f"_{i}"
-                    q = Path(str(q).replace(f"_{i-1}", suffix))
+                    q = Path(str(q).replace(f"_{i - 1}", suffix))
 
                     if q.exists():
                         with open(q, encoding="utf-8") as file:

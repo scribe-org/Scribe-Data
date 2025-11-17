@@ -76,13 +76,13 @@ language_db_dict["translation"]["full_path_to_scribe_android_db"] = (
 
 for language in language_db_dict:
     os.system(
-        f'cp {language_db_dict[language]["db_location"]} {language_db_dict[language]["full_path_to_scribe_ios_db"]}'
+        f"cp {language_db_dict[language]['db_location']} {language_db_dict[language]['full_path_to_scribe_ios_db']}"
     )
     print(
         f"Moved {language} database to Scribe-iOS at {language_db_dict[language]['scribe_ios_db_path']}."
     )
     os.system(
-        f'cp {language_db_dict[language]["db_location"]} {language_db_dict[language]["full_path_to_scribe_android_db"]}'
+        f"cp {language_db_dict[language]['db_location']} {language_db_dict[language]['full_path_to_scribe_android_db']}"
     )
     print(
         f"Moved {language} database to Scribe-Android at {language_db_dict[language]['scribe_android_db_path']}."

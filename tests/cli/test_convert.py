@@ -290,7 +290,7 @@ class TestConvert(unittest.TestCase):
     @patch("scribe_data.cli.convert.Path", autospec=True)
     def test_convert_to_csv_or_tsv_standarddict_to_csv(self, mock_path_class):
         json_data = '{"a": "1", "b": "2"}'
-        expected_csv_output = "preposition,value\n" "a,1\n" "b,2\n"
+        expected_csv_output = "preposition,value\na,1\nb,2\n"
 
         mock_file_obj = StringIO(json_data)
 
@@ -333,7 +333,7 @@ class TestConvert(unittest.TestCase):
     def test_convert_to_csv_or_tsv_standarddict_to_tsv(self, mock_path_class):
         json_data = '{"a": "1", "b": "2"}'
 
-        expected_tsv_output = "preposition\tvalue\n" "a\t1\n" "b\t2\n"
+        expected_tsv_output = "preposition\tvalue\na\t1\nb\t2\n"
 
         mock_file_obj = StringIO(json_data)
 
@@ -376,7 +376,7 @@ class TestConvert(unittest.TestCase):
         json_data = (
             '{"a": {"value1": "1", "value2": "x"}, "b": {"value1": "2", "value2": "y"}}'
         )
-        expected_csv_output = "noun,value1,value2\n" "a,1,x\n" "b,2,y\n"
+        expected_csv_output = "noun,value1,value2\na,1,x\nb,2,y\n"
         mock_file_obj = StringIO(json_data)
 
         mock_input_file_path = MagicMock(spec=Path)
@@ -417,7 +417,7 @@ class TestConvert(unittest.TestCase):
         json_data = (
             '{"a": {"value1": "1", "value2": "x"}, "b": {"value1": "2", "value2": "y"}}'
         )
-        expected_tsv_output = "noun\tvalue1\tvalue2\n" "a\t1\tx\n" "b\t2\ty\n"
+        expected_tsv_output = "noun\tvalue1\tvalue2\na\t1\tx\nb\t2\ty\n"
 
         mock_file_obj = StringIO(json_data)
 
@@ -458,9 +458,7 @@ class TestConvert(unittest.TestCase):
     @patch("scribe_data.cli.convert.Path", autospec=True)
     def test_convert_to_csv_or_tsv_listofdicts_to_csv(self, mock_path_class):
         json_data = '{"a": [{"emoji": "😀", "is_base": true, "rank": 1}, {"emoji": "😅", "is_base": false, "rank": 2}]}'
-        expected_csv_output = (
-            "word,emoji,is_base,rank\n" "a,😀,True,1\n" "a,😅,False,2\n"
-        )
+        expected_csv_output = "word,emoji,is_base,rank\na,😀,True,1\na,😅,False,2\n"
         mock_file_obj = StringIO(json_data)
 
         mock_input_file_path = MagicMock(spec=Path)
@@ -500,7 +498,7 @@ class TestConvert(unittest.TestCase):
     def test_convert_to_csv_or_tsv_listofdicts_to_tsv(self, mock_path_class):
         json_data = '{"a": [{"emoji": "😀", "is_base": true, "rank": 1}, {"emoji": "😅", "is_base": false, "rank": 2}]}'
         expected_tsv_output = (
-            "word\temoji\tis_base\trank\n" "a\t😀\tTrue\t1\n" "a\t😅\tFalse\t2\n"
+            "word\temoji\tis_base\trank\na\t😀\tTrue\t1\na\t😅\tFalse\t2\n"
         )
         mock_file_obj = StringIO(json_data)
 
