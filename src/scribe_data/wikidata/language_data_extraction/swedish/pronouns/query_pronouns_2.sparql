@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Swedish (Q9027) pronouns (Q36224) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?pronoun
+  ?genitive
+  ?oblique
+  ?neuterSingular
+  ?genitiveMasculineSingular
+  ?obliqueMasculineSingular
+  ?neuterDefiniteSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q9027 ;
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveForm .
+    ?genitiveForm ontolex:representation ?genitive ;
+      wikibase:grammaticalFeature wd:Q146233 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueForm .
+    ?obliqueForm ontolex:representation ?oblique ;
+      wikibase:grammaticalFeature wd:Q1233197 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterSingularForm .
+    ?neuterSingularForm ontolex:representation ?neuterSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveMasculineSingularForm .
+    ?genitiveMasculineSingularForm ontolex:representation ?genitiveMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueMasculineSingularForm .
+    ?obliqueMasculineSingularForm ontolex:representation ?obliqueMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterDefiniteSingularForm .
+    ?neuterDefiniteSingularForm ontolex:representation ?neuterDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997851, wd:Q110786 .
+  }
+}

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Danish (Q9035) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?nonGenitiveIndefinite
+  ?nonGenitiveDefinite
+  ?nonGenitiveIndefiniteSingular
+  ?nonGenitiveIndefinitePlural
+  ?nonGenitiveDefiniteSingular
+  ?nonGenitiveDefinitePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveIndefiniteForm .
+    ?nonGenitiveIndefiniteForm ontolex:representation ?nonGenitiveIndefinite ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997857 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveDefiniteForm .
+    ?nonGenitiveDefiniteForm ontolex:representation ?nonGenitiveDefinite ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997851 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveIndefiniteSingularForm .
+    ?nonGenitiveIndefiniteSingularForm ontolex:representation ?nonGenitiveIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveIndefinitePluralForm .
+    ?nonGenitiveIndefinitePluralForm ontolex:representation ?nonGenitiveIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveDefiniteSingularForm .
+    ?nonGenitiveDefiniteSingularForm ontolex:representation ?nonGenitiveDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nonGenitiveDefinitePluralForm .
+    ?nonGenitiveDefinitePluralForm ontolex:representation ?nonGenitiveDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q98946930, wd:Q53997851, wd:Q146786 .
+  }
+}

@@ -1,0 +1,30 @@
+# tool: scribe-data
+# All Greek (Q36510) proper nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?singular
+  ?gender
+
+WHERE {
+  ?lexeme dct:language wd:Q36510;
+    wikibase:lexicalCategory wd:Q147276;
+    wikibase:lemma ?singular ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Gender(s)
+
+  OPTIONAL {
+    ?lexeme wdt:P5185 ?nounGender .
+    FILTER NOT EXISTS {
+      ?lexeme wdt:P31 wd:Q202444
+    }
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?nounGender rdfs:label ?gender .
+  }
+}

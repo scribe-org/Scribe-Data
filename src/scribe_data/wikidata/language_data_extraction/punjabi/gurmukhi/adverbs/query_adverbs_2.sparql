@@ -6,41 +6,48 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adverb
-  ?pluralDirectFeminine
-  ?pluralMasculineDirect
-  ?pluralObliqueFeminine
-  ?pluralMasculineOblique
+  ?direct
+  ?comparative
+  ?directPlural
+  ?directComparative
+  ?directPositive
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
     wikibase:lexicalCategory wd:Q380057 ;
     wikibase:lemma ?adverb ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for pa to remove gurmukhi (pa) words.
   FILTER(lang(?adverb) = "pa")
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralDirectFeminineForm .
-    ?pluralDirectFeminineForm ontolex:representation ?pluralDirectFeminine ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q1751855, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?directForm .
+    ?directForm ontolex:representation ?direct ;
+      wikibase:grammaticalFeature wd:Q1751855 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralMasculineDirectForm .
-    ?pluralMasculineDirectForm ontolex:representation ?pluralMasculineDirect ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q499327, wd:Q1751855 .
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralObliqueFeminineForm .
-    ?pluralObliqueFeminineForm ontolex:representation ?pluralObliqueFeminine ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q1233197, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?directPluralForm .
+    ?directPluralForm ontolex:representation ?directPlural ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralMasculineObliqueForm .
-    ?pluralMasculineObliqueForm ontolex:representation ?pluralMasculineOblique ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q499327, wd:Q1233197 .
+    ?lexeme ontolex:lexicalForm ?directComparativeForm .
+    ?directComparativeForm ontolex:representation ?directComparative ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directPositiveForm .
+    ?directPositiveForm ontolex:representation ?directPositive ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q3482678 .
   }
 }

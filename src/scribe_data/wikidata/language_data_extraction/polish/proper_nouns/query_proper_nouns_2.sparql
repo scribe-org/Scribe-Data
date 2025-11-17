@@ -6,45 +6,45 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?propernoun
-  ?singularGenitive
-  ?singularAccusative
-  ?singularInstrumental
-  ?singularLocative
-  ?singularVocative
+  ?nominativeVocative
+  ?genitiveSingular
+  ?genitivePlural
+  ?dativeSingular
+  ?dativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?propernoun ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularGenitiveForm .
-    ?singularGenitiveForm ontolex:representation ?singularGenitive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146233 .
+    ?lexeme ontolex:lexicalForm ?nominativeVocativeForm .
+    ?nominativeVocativeForm ontolex:representation ?nominativeVocative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q185077 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAccusativeForm .
-    ?singularAccusativeForm ontolex:representation ?singularAccusative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146078 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularInstrumentalForm .
-    ?singularInstrumentalForm ontolex:representation ?singularInstrumental ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q192997 .
+    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
+    ?genitivePluralForm ontolex:representation ?genitivePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularLocativeForm .
-    ?singularLocativeForm ontolex:representation ?singularLocative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q202142 .
+    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
+    ?dativeSingularForm ontolex:representation ?dativeSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularVocativeForm .
-    ?singularVocativeForm ontolex:representation ?singularVocative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q185077 .
+    ?lexeme ontolex:lexicalForm ?dativePluralForm .
+    ?dativePluralForm ontolex:representation ?dativePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
   }
 }

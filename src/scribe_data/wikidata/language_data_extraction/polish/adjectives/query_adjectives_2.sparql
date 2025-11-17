@@ -6,52 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?nominativePluralPositiveMasculinePersonal
-  ?nominativePluralPositiveNotMasculinePersonal
-  ?singularGenitiveFemininePositive
-  ?singularInstrumentalFemininePositive
-  ?singularGenitiveMasculineNeuterPositive
-  ?singularInstrumentalMasculineNeuterPositive
+  ?locative
+  ?vocativePluralPositive
+  ?locativeMasculineInanimateSingularPositive
+  ?locativeMasculineAnimateSingularPositive
+  ?locativeNotMasculinePersonalPluralPositive
+  ?vocativeMasculineAnimateSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q809 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralPositiveMasculinePersonalForm .
-    ?nominativePluralPositiveMasculinePersonalForm ontolex:representation ?nominativePluralPositiveMasculinePersonal ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q3482678, wd:Q27918551 .
+    ?lexeme ontolex:lexicalForm ?locativeForm .
+    ?locativeForm ontolex:representation ?locative ;
+      wikibase:grammaticalFeature wd:Q202142 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralPositiveNotMasculinePersonalForm .
-    ?nominativePluralPositiveNotMasculinePersonalForm ontolex:representation ?nominativePluralPositiveNotMasculinePersonal ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786, wd:Q3482678, wd:Q54152717 .
+    ?lexeme ontolex:lexicalForm ?vocativePluralPositiveForm .
+    ?vocativePluralPositiveForm ontolex:representation ?vocativePluralPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularGenitiveFemininePositiveForm .
-    ?singularGenitiveFemininePositiveForm ontolex:representation ?singularGenitiveFemininePositive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146233, wd:Q1775415, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?locativeMasculineInanimateSingularPositiveForm .
+    ?locativeMasculineInanimateSingularPositiveForm ontolex:representation ?locativeMasculineInanimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q52943434, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularInstrumentalFemininePositiveForm .
-    ?singularInstrumentalFemininePositiveForm ontolex:representation ?singularInstrumentalFemininePositive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q192997, wd:Q1775415, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?locativeMasculineAnimateSingularPositiveForm .
+    ?locativeMasculineAnimateSingularPositiveForm ontolex:representation ?locativeMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q54020116, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularGenitiveMasculineNeuterPositiveForm .
-    ?singularGenitiveMasculineNeuterPositiveForm ontolex:representation ?singularGenitiveMasculineNeuterPositive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146233, wd:Q499327, wd:Q1775461, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?locativeNotMasculinePersonalPluralPositiveForm .
+    ?locativeNotMasculinePersonalPluralPositiveForm ontolex:representation ?locativeNotMasculinePersonalPluralPositive ;
+      wikibase:grammaticalFeature wd:Q202142, wd:Q54152717, wd:Q146786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularInstrumentalMasculineNeuterPositiveForm .
-    ?singularInstrumentalMasculineNeuterPositiveForm ontolex:representation ?singularInstrumentalMasculineNeuterPositive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q192997, wd:Q499327, wd:Q1775461, wd:Q3482678 .
+    ?lexeme ontolex:lexicalForm ?vocativeMasculineAnimateSingularPositiveForm .
+    ?vocativeMasculineAnimateSingularPositiveForm ontolex:representation ?vocativeMasculineAnimateSingularPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q54020116, wd:Q110786, wd:Q3482678 .
   }
 }

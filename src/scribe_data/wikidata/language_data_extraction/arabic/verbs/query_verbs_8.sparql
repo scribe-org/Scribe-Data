@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?feminineIndicativeActiveSecondPersonSingularFiilMudari
+  ?feminineIndicativeActiveSecondPersonPluralFiilMudari
+  ?feminineIndicativeActiveThirdPersonSingularFiilMudari
+  ?feminineIndicativeActiveThirdPersonDualFiilMudari
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeActiveSecondPersonSingularFiilMudariForm .
+    ?feminineIndicativeActiveSecondPersonSingularFiilMudariForm ontolex:representation ?feminineIndicativeActiveSecondPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q1317831, wd:Q51929049, wd:Q110786, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeActiveSecondPersonPluralFiilMudariForm .
+    ?feminineIndicativeActiveSecondPersonPluralFiilMudariForm ontolex:representation ?feminineIndicativeActiveSecondPersonPluralFiilMudari ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q1317831, wd:Q51929049, wd:Q146786, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeActiveThirdPersonSingularFiilMudariForm .
+    ?feminineIndicativeActiveThirdPersonSingularFiilMudariForm ontolex:representation ?feminineIndicativeActiveThirdPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q1317831, wd:Q51929074, wd:Q110786, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeActiveThirdPersonDualFiilMudariForm .
+    ?feminineIndicativeActiveThirdPersonDualFiilMudariForm ontolex:representation ?feminineIndicativeActiveThirdPersonDualFiilMudari ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q1317831, wd:Q51929074, wd:Q110022, wd:Q12230930 .
+  }
+}

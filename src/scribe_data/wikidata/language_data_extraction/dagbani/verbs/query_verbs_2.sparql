@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Dagbani (Q32238) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?simplePast
+  ?simpleFuture
+  ?combinedPastParticiple
+  ?adverbOfManner
+  ?phrase
+  ?comparative
+
+WHERE {
+  ?lexeme dct:language wd:Q32238 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastForm .
+    ?simplePastForm ontolex:representation ?simplePast ;
+      wikibase:grammaticalFeature wd:Q1392475 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simpleFutureForm .
+    ?simpleFutureForm ontolex:representation ?simpleFuture ;
+      wikibase:grammaticalFeature wd:Q1475560 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?combinedPastParticipleForm .
+    ?combinedPastParticipleForm ontolex:representation ?combinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adverbOfMannerForm .
+    ?adverbOfMannerForm ontolex:representation ?adverbOfManner ;
+      wikibase:grammaticalFeature wd:Q113320444 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?phraseForm .
+    ?phraseForm ontolex:representation ?phrase ;
+      wikibase:grammaticalFeature wd:Q187931 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+}

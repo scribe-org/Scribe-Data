@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Czech (Q9056) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?nominativeNeuterPlural
+  ?dativeFemininePlural
+  ?nominativeNeuterPluralComparative
+  ?dativeFemininePluralComparative
+  ?dativeNeuterSingularComparative
+  ?dativeNeuterPluralSuperlative
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterPluralForm .
+    ?nominativeNeuterPluralForm ontolex:representation ?nominativeNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFemininePluralForm .
+    ?dativeFemininePluralForm ontolex:representation ?dativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeNeuterPluralComparativeForm .
+    ?nominativeNeuterPluralComparativeForm ontolex:representation ?nominativeNeuterPluralComparative ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775461, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeFemininePluralComparativeForm .
+    ?dativeFemininePluralComparativeForm ontolex:representation ?dativeFemininePluralComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775415, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeNeuterSingularComparativeForm .
+    ?dativeNeuterSingularComparativeForm ontolex:representation ?dativeNeuterSingularComparative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?dativeNeuterPluralSuperlativeForm .
+    ?dativeNeuterPluralSuperlativeForm ontolex:representation ?dativeNeuterPluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q1775461, wd:Q146786, wd:Q1817208 .
+  }
+}

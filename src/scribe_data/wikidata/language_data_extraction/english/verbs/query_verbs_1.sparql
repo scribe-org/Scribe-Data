@@ -1,0 +1,78 @@
+# tool: scribe-data
+# All English (Q1860) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?infinitive
+  ?simplePresent
+  ?simplePast
+  ?combinedPresentParticiple
+  ?englishPastParticiple
+  ?simplePresentThirdPersonSingular
+
+WHERE {
+  # MARK: Infinitive
+
+  ?lexeme dct:language wd:Q1860 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Simple Present
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePresentForm .
+    ?simplePresentForm ontolex:representation ?simplePresent ;
+      wikibase:grammaticalFeature wd:Q3910936 .
+      FILTER NOT EXISTS { ?simplePresentForm wikibase:grammaticalFeature wd:Q51929074 . }
+      FILTER NOT EXISTS { ?simplePresentForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?simplePresentForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?simplePresent) = "en")
+  }
+
+  # MARK: Simple Past
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastForm .
+    ?simplePastForm ontolex:representation ?simplePast ;
+      wikibase:grammaticalFeature wd:Q1392475 .
+      FILTER NOT EXISTS { ?simplePastForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?simplePastForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?simplePast) = "en")
+  }
+
+  # MARK: Present Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
+    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
+      wikibase:grammaticalFeature wd:Q10345583 .
+      FILTER NOT EXISTS { ?combinedPresentParticipleForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?combinedPresentParticipleForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?combinedPresentParticiple) = "en")
+  }
+
+  # MARK: Past Participle English
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?englishPastParticipleForm .
+    ?englishPastParticipleForm ontolex:representation ?englishPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1230649 .
+      FILTER NOT EXISTS { ?englishPastParticipleForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?englishPastParticipleForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?englishPastParticiple) = "en")
+  }
+
+  # MARK: Third-person Singular
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePresentThirdPersonSingularForm .
+    ?simplePresentThirdPersonSingularForm ontolex:representation ?simplePresentThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q3910936, wd:Q51929074, wd:Q110786 .
+      FILTER NOT EXISTS { ?simplePresentThirdPersonSingularForm wdt:P6191 wd:Q181970 . }
+      FILTER NOT EXISTS { ?simplePresentThirdPersonSingularForm wikibase:grammaticalFeature wd:Q126473 . }
+      FILTER(LANG(?simplePresentThirdPersonSingular) = "en")
+  }
+}

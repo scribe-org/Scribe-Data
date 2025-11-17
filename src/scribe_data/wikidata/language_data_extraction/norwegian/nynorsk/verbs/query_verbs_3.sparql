@@ -6,34 +6,34 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitivePassive
-  ?infinitiveActiveAInfinitive
-  ?infinitiveActiveEInfinitive
+  ?activeInfinitive
+  ?activeInfinitiveAInfinitive
+  ?activeInfinitiveEInfinitive
 
 WHERE {
   ?lexeme dct:language wd:Q25164 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for nn to remove nynorsk (nn) words.
   FILTER(lang(?verb) = "nn")
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitivePassiveForm .
-    ?infinitivePassiveForm ontolex:representation ?infinitivePassive ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q1194697 .
+    ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
+    ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveActiveAInfinitiveForm .
-    ?infinitiveActiveAInfinitiveForm ontolex:representation ?infinitiveActiveAInfinitive ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831, wd:Q115223950 .
+    ?lexeme ontolex:lexicalForm ?activeInfinitiveAInfinitiveForm .
+    ?activeInfinitiveAInfinitiveForm ontolex:representation ?activeInfinitiveAInfinitive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230, wd:Q115223950 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveActiveEInfinitiveForm .
-    ?infinitiveActiveEInfinitiveForm ontolex:representation ?infinitiveActiveEInfinitive ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831, wd:Q115223951 .
+    ?lexeme ontolex:lexicalForm ?activeInfinitiveEInfinitiveForm .
+    ?activeInfinitiveEInfinitiveForm ontolex:representation ?activeInfinitiveEInfinitive ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q179230, wd:Q115223951 .
   }
 }

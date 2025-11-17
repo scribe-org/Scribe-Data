@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Hebrew (Q9288) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?infinitive
+  ?femininePresentSingular
+  ?femininePresentPlural
+  ?masculinePresentSingular
+  ?masculinePresentPlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9288 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive ;
+    schema:dateModified ?lastModified .
+    FILTER(lang(?infinitive) = "he")
+
+  # MARK: Present
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePresentSingularForm .
+    ?femininePresentSingularForm ontolex:representation ?femininePresentSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q192613, wd:Q110786 .
+      FILTER(lang(?femininePresentSingular) = "he")
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?femininePresentPluralForm .
+    ?femininePresentPluralForm ontolex:representation ?femininePresentPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q192613, wd:Q146786 .
+      FILTER(lang(?femininePresentPlural) = "he")
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePresentSingularForm .
+    ?masculinePresentSingularForm ontolex:representation ?masculinePresentSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q192613, wd:Q110786 .
+      FILTER(lang(?masculinePresentSingular) = "he")
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePresentPluralForm .
+    ?masculinePresentPluralForm ontolex:representation ?masculinePresentPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q192613, wd:Q146786 .
+      FILTER(lang(?masculinePresentPlural) = "he")
+  }
+}

@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Dagbani (Q32238) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?masculine
+  ?presentContinuous
+  ?past
+  ?locativeAdverb
+  ?phrase
+  ?comparative
+
+WHERE {
+  ?lexeme dct:language wd:Q32238 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineForm .
+    ?masculineForm ontolex:representation ?masculine ;
+      wikibase:grammaticalFeature wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentContinuousForm .
+    ?presentContinuousForm ontolex:representation ?presentContinuous ;
+      wikibase:grammaticalFeature wd:Q7240943 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastForm .
+    ?pastForm ontolex:representation ?past ;
+      wikibase:grammaticalFeature wd:Q1994301 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?locativeAdverbForm .
+    ?locativeAdverbForm ontolex:representation ?locativeAdverb ;
+      wikibase:grammaticalFeature wd:Q1522423 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?phraseForm .
+    ?phraseForm ontolex:representation ?phrase ;
+      wikibase:grammaticalFeature wd:Q187931 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
+  }
+}

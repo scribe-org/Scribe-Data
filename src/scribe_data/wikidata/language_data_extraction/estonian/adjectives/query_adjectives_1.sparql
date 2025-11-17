@@ -6,52 +6,42 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?pluralAblative
-  ?pluralIllative
-  ?pluralInessive
-  ?pluralAllative
-  ?pluralAdessive
-  ?pluralTranslative
+  ?elativeSingular
+  ?elativePlural
+  ?allativeSingular
+  ?allativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
+  # MARK: Elative
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralAblativeForm .
-    ?pluralAblativeForm ontolex:representation ?pluralAblative ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q156986 .
+    ?lexeme ontolex:lexicalForm ?elativeSingularForm .
+    ?elativeSingularForm ontolex:representation ?elativeSingular ;
+      wikibase:grammaticalFeature wd:Q394253, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralIllativeForm .
-    ?pluralIllativeForm ontolex:representation ?pluralIllative ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q474668 .
+    ?lexeme ontolex:lexicalForm ?elativePluralForm .
+    ?elativePluralForm ontolex:representation ?elativePlural ;
+      wikibase:grammaticalFeature wd:Q394253, wd:Q146786 .
+  }
+
+  # MARK: Allative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?allativeSingularForm .
+    ?allativeSingularForm ontolex:representation ?allativeSingular ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralInessiveForm .
-    ?pluralInessiveForm ontolex:representation ?pluralInessive ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q282031 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralAllativeForm .
-    ?pluralAllativeForm ontolex:representation ?pluralAllative ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q655020 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralAdessiveForm .
-    ?pluralAdessiveForm ontolex:representation ?pluralAdessive ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q281954 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralTranslativeForm .
-    ?pluralTranslativeForm ontolex:representation ?pluralTranslative ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q950170 .
+    ?lexeme ontolex:lexicalForm ?allativePluralForm .
+    ?allativePluralForm ontolex:representation ?allativePlural ;
+      wikibase:grammaticalFeature wd:Q655020, wd:Q146786 .
   }
 }

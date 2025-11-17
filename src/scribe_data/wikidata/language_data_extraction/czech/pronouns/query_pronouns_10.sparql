@@ -6,45 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?singularLocative
-  ?singularLocativeFeminine
-  ?singularLocativeMasculineInanimate
-  ?singularLocativeMasculineAnimate
-  ?singularLocativeNeuter
+  ?nominativeFeminineSingular
+  ?nominativeFemininePlural
+  ?nominativeFeminineSingularPositive
+  ?nominativeFemininePluralPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q36224 ;
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularLocativeForm .
-    ?singularLocativeForm ontolex:representation ?singularLocative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q202142 .
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularForm .
+    ?nominativeFeminineSingularForm ontolex:representation ?nominativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularLocativeFeminineForm .
-    ?singularLocativeFeminineForm ontolex:representation ?singularLocativeFeminine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?nominativeFemininePluralForm .
+    ?nominativeFemininePluralForm ontolex:representation ?nominativeFemininePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularLocativeMasculineInanimateForm .
-    ?singularLocativeMasculineInanimateForm ontolex:representation ?singularLocativeMasculineInanimate ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q52943434 .
+    ?lexeme ontolex:lexicalForm ?nominativeFeminineSingularPositiveForm .
+    ?nominativeFeminineSingularPositiveForm ontolex:representation ?nominativeFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q110786, wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularLocativeMasculineAnimateForm .
-    ?singularLocativeMasculineAnimateForm ontolex:representation ?singularLocativeMasculineAnimate ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q54020116 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularLocativeNeuterForm .
-    ?singularLocativeNeuterForm ontolex:representation ?singularLocativeNeuter ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q202142, wd:Q1775461 .
+    ?lexeme ontolex:lexicalForm ?nominativeFemininePluralPositiveForm .
+    ?nominativeFemininePluralPositiveForm ontolex:representation ?nominativeFemininePluralPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1775415, wd:Q146786, wd:Q3482678 .
   }
 }

@@ -1,31 +1,32 @@
 # tool: scribe-data
-# All Norwegian (Q25167) verbs (Q24905) and the given forms.
+# All Bokmål (Q25167) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?verb
   ?imperative
   ?preterite
   ?presentPerfect
-  ?combinedPresentParticiple
-  ?pluralCombinedPastParticiple
+  ?passiveInfinitive
+  ?passivePresent
+  ?activeInfinitive
+  ?activePresent
 
 WHERE {
   ?lexeme dct:language wd:Q25167 ;
     wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-    
-  # Note: We need to filter for nb to remove bokmål (nb) words.
-  FILTER(lang(?verb) = "nb")
-    
+
+  # MARK: Imperative
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperativeForm .
     ?imperativeForm ontolex:representation ?imperative ;
       wikibase:grammaticalFeature wd:Q22716 .
   }
+
+  # MARK: Preterite
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?preteriteForm .
@@ -33,21 +34,41 @@ WHERE {
       wikibase:grammaticalFeature wd:Q442485 .
   }
 
+  # MARK: Present Perfect
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?presentPerfectForm .
     ?presentPerfectForm ontolex:representation ?presentPerfect ;
       wikibase:grammaticalFeature wd:Q1240211 .
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?combinedPresentParticipleForm .
-    ?combinedPresentParticipleForm ontolex:representation ?combinedPresentParticiple ;
-      wikibase:grammaticalFeature wd:Q10345583 .
-  }
+  # MARK: Passive Infinitive
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralCombinedPastParticipleForm .
-    ?pluralCombinedPastParticipleForm ontolex:representation ?pluralCombinedPastParticiple ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q12717679 .
+    ?lexeme ontolex:lexicalForm ?passiveInfinitiveForm .
+    ?passiveInfinitiveForm ontolex:representation ?passiveInfinitive ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q179230 .
+  }
+
+  # MARK: Passive Present
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passivePresentForm .
+    ?passivePresentForm ontolex:representation ?passivePresent ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q192613 .
+  }
+
+  # MARK: Active Infinitive
+
+  ?lexeme ontolex:lexicalForm ?activeInfinitiveForm .
+  ?activeInfinitiveForm ontolex:representation ?activeInfinitive ;
+    wikibase:grammaticalFeature wd:Q1317831 , wd:Q179230 .
+
+  # MARK: Active Present
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePresentForm .
+    ?activePresentForm ontolex:representation ?activePresent ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q192613 .
   }
 }

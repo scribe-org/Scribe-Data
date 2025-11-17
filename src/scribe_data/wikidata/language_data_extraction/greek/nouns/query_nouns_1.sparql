@@ -5,39 +5,35 @@
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?noun
+  ?singular
   ?nominativePlural
-  ?genitivePlural
-  ?accusativePlural
-  ?pluralVocative
+  ?gender
 
 WHERE {
   ?lexeme dct:language wd:Q36510 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?noun ;
+    wikibase:lemma ?singular ;
     schema:dateModified ?lastModified .
-    
+
+  # MARK: Plural
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?nominativePluralForm .
     ?nominativePluralForm ontolex:representation ?nominativePlural ;
       wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
-    ?genitivePluralForm ontolex:representation ?genitivePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
-  }
+  # MARK: Gender(s)
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
-    ?accusativePluralForm ontolex:representation ?accusativePlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
+    ?lexeme wdt:P5185 ?nounGender .
+    FILTER NOT EXISTS {
+      ?lexeme wdt:P31 wd:Q202444 .
+    }
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralVocativeForm .
-    ?pluralVocativeForm ontolex:representation ?pluralVocative ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q185077 .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?nounGender rdfs:label ?gender .
   }
 }

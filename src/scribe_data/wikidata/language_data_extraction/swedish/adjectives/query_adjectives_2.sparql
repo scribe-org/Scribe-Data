@@ -6,38 +6,52 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?singularPositiveDefinite
-  ?singularMasculinePositiveDefinite
-  ?singularCommonPositiveIndefinite
-  ?singularNeuterPositiveIndefinite
+  ?comparative
+  ?superlative
+  ?positive
+  ?feminineSingular
+  ?nominativeIndefiniteSingular
+  ?nominativeCommonIndefiniteSingularPositive
 
 WHERE {
   ?lexeme dct:language wd:Q9027 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularPositiveDefiniteForm .
-    ?singularPositiveDefiniteForm ontolex:representation ?singularPositiveDefinite ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q3482678, wd:Q53997851 .
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularMasculinePositiveDefiniteForm .
-    ?singularMasculinePositiveDefiniteForm ontolex:representation ?singularMasculinePositiveDefinite ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q499327, wd:Q3482678, wd:Q53997851 .
+    ?lexeme ontolex:lexicalForm ?superlativeForm .
+    ?superlativeForm ontolex:representation ?superlative ;
+      wikibase:grammaticalFeature wd:Q1817208 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularCommonPositiveIndefiniteForm .
-    ?singularCommonPositiveIndefiniteForm ontolex:representation ?singularCommonPositiveIndefinite ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q1305037, wd:Q3482678, wd:Q53997857 .
+    ?lexeme ontolex:lexicalForm ?positiveForm .
+    ?positiveForm ontolex:representation ?positive ;
+      wikibase:grammaticalFeature wd:Q3482678 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularNeuterPositiveIndefiniteForm .
-    ?singularNeuterPositiveIndefiniteForm ontolex:representation ?singularNeuterPositiveIndefinite ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q1775461, wd:Q3482678, wd:Q53997857 .
+    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
+    ?feminineSingularForm ontolex:representation ?feminineSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeIndefiniteSingularForm .
+    ?nominativeIndefiniteSingularForm ontolex:representation ?nominativeIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeCommonIndefiniteSingularPositiveForm .
+    ?nominativeCommonIndefiniteSingularPositiveForm ontolex:representation ?nominativeCommonIndefiniteSingularPositive ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q1305037, wd:Q53997857, wd:Q110786, wd:Q3482678 .
   }
 }

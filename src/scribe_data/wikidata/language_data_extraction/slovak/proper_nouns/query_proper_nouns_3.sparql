@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Slovak (Q9058) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?nominativeSingular
+  ?nominativePlural
+  ?nominativeMasculineInanimateSingular
+  ?nominativeMasculineInanimatePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineInanimateSingularForm .
+    ?nominativeMasculineInanimateSingularForm ontolex:representation ?nominativeMasculineInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q52943434, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeMasculineInanimatePluralForm .
+    ?nominativeMasculineInanimatePluralForm ontolex:representation ?nominativeMasculineInanimatePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q52943434, wd:Q146786 .
+  }
+}

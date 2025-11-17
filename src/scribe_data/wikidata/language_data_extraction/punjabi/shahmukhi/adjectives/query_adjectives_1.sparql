@@ -6,55 +6,55 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?singularVocativeFeminine
-  ?singularVocativeMasculine
-  ?singularDirectFeminine
-  ?singularMasculineDirect
-  ?singularObliqueFeminine
-  ?singularMasculineOblique
+  ?comparative
+  ?vocativePlural
+  ?directSingular
+  ?directPlural
+  ?obliqueSingular
+  ?obliquePlural
 
 WHERE {
   ?lexeme dct:language wd:Q58635 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for pnb to remove shahmukhi (pnb) words.
   FILTER(lang(?adjective) = "pnb")
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularVocativeFeminineForm .
-    ?singularVocativeFeminineForm ontolex:representation ?singularVocativeFeminine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q185077, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?comparativeForm .
+    ?comparativeForm ontolex:representation ?comparative ;
+      wikibase:grammaticalFeature wd:Q14169499 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularVocativeMasculineForm .
-    ?singularVocativeMasculineForm ontolex:representation ?singularVocativeMasculine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q185077, wd:Q499327 .
+    ?lexeme ontolex:lexicalForm ?vocativePluralForm .
+    ?vocativePluralForm ontolex:representation ?vocativePlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularDirectFeminineForm .
-    ?singularDirectFeminineForm ontolex:representation ?singularDirectFeminine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q1751855, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?directSingularForm .
+    ?directSingularForm ontolex:representation ?directSingular ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularMasculineDirectForm .
-    ?singularMasculineDirectForm ontolex:representation ?singularMasculineDirect ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q499327, wd:Q1751855 .
+    ?lexeme ontolex:lexicalForm ?directPluralForm .
+    ?directPluralForm ontolex:representation ?directPlural ;
+      wikibase:grammaticalFeature wd:Q1751855, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularObliqueFeminineForm .
-    ?singularObliqueFeminineForm ontolex:representation ?singularObliqueFeminine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q1233197, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?obliqueSingularForm .
+    ?obliqueSingularForm ontolex:representation ?obliqueSingular ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularMasculineObliqueForm .
-    ?singularMasculineObliqueForm ontolex:representation ?singularMasculineOblique ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q499327, wd:Q1233197 .
+    ?lexeme ontolex:lexicalForm ?obliquePluralForm .
+    ?obliquePluralForm ontolex:representation ?obliquePlural ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q146786 .
   }
 }

@@ -1,0 +1,96 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+
+  ?indicativeFirstPersonSingularFiilMudari
+  ?indicativeFirstPersonPluralFiilMudari
+  ?indicativeSecondPersonDualFiilMudari
+
+  ?feminineIndicativeSecondPersonSingularFiilMudari
+  ?feminineIndicativeSecondPersonPluralFiilMudari
+  ?feminineIndicativeThirdPersonSingularFiilMudari
+  ?feminineIndicativeThirdPersonDualFiilMudari
+
+  ?masculineIndicativeSecondPersonSingularFiilMudari
+  ?masculineIndicativeSecondPersonPluralFiilMudari
+  ?masculineIndicativeThirdPersonSingularFiilMudari
+  ?masculineIndicativeThirdPersonDualFiilMudari
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Indicative Present
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeFirstPersonSingularFiilMudariForm .
+    ?indicativeFirstPersonSingularFiilMudariForm ontolex:representation ?indicativeFirstPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q21714344, wd:Q110786, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeFirstPersonPluralFiilMudariForm .
+    ?indicativeFirstPersonPluralFiilMudariForm ontolex:representation ?indicativeFirstPersonPluralFiilMudari ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q21714344, wd:Q146786, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?indicativeSecondPersonDualFiilMudariForm .
+    ?indicativeSecondPersonDualFiilMudariForm ontolex:representation ?indicativeSecondPersonDualFiilMudari ;
+      wikibase:grammaticalFeature wd:Q682111, wd:Q51929049, wd:Q110022, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeSecondPersonSingularFiilMudariForm .
+    ?feminineIndicativeSecondPersonSingularFiilMudariForm ontolex:representation ?feminineIndicativeSecondPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q51929049, wd:Q110786, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeSecondPersonPluralFiilMudariForm .
+    ?feminineIndicativeSecondPersonPluralFiilMudariForm ontolex:representation ?feminineIndicativeSecondPersonPluralFiilMudari ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q51929049, wd:Q146786, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeThirdPersonSingularFiilMudariForm .
+    ?feminineIndicativeThirdPersonSingularFiilMudariForm ontolex:representation ?feminineIndicativeThirdPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q51929074, wd:Q110786, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineIndicativeThirdPersonDualFiilMudariForm .
+    ?feminineIndicativeThirdPersonDualFiilMudariForm ontolex:representation ?feminineIndicativeThirdPersonDualFiilMudari ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q51929074, wd:Q110022, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeSecondPersonSingularFiilMudariForm .
+    ?masculineIndicativeSecondPersonSingularFiilMudariForm ontolex:representation ?masculineIndicativeSecondPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q51929049, wd:Q110786, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeSecondPersonPluralFiilMudariForm .
+    ?masculineIndicativeSecondPersonPluralFiilMudariForm ontolex:representation ?masculineIndicativeSecondPersonPluralFiilMudari ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q51929049, wd:Q146786, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeThirdPersonSingularFiilMudariForm .
+    ?masculineIndicativeThirdPersonSingularFiilMudariForm ontolex:representation ?masculineIndicativeThirdPersonSingularFiilMudari ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q51929074, wd:Q110786, wd:Q12230930 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineIndicativeThirdPersonDualFiilMudariForm .
+    ?masculineIndicativeThirdPersonDualFiilMudariForm ontolex:representation ?masculineIndicativeThirdPersonDualFiilMudari ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q51929074, wd:Q110022, wd:Q12230930 .
+  }
+}

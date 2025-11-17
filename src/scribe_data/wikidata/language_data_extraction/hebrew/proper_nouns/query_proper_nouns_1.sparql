@@ -1,0 +1,28 @@
+# tool: scribe-data
+# All Hebrew (Q9288) proper nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?gender
+
+WHERE {
+  ?lexeme dct:language wd:Q9288 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+    FILTER(lang(?noun) = "he")
+
+  # MARK: Gender(s)
+
+  OPTIONAL {
+    ?lexeme wdt:P5185 ?nounGender .
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?nounGender rdfs:label ?gender .
+  }
+}

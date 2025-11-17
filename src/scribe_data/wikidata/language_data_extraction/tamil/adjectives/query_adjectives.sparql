@@ -1,14 +1,24 @@
 # tool: scribe-data
-# Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
-# Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
+# All Tamil (Q5885) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lemma
+  ?lastModified
+  ?adjective
+  ?nominative
 
-WHERE {{
-  ?lexeme a ontolex:LexicalEntry .
+WHERE {
   ?lexeme dct:language wd:Q5885 ;
     wikibase:lexicalCategory wd:Q34698 ;
-    wikibase:lemma ?lemma .
-}}
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+    FILTER(lang(?adjective) = "ta")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativeForm .
+    ?nominativeForm ontolex:representation ?nominative ;
+      wikibase:grammaticalFeature wd:Q131105 .
+  }
+
+}

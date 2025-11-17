@@ -1,0 +1,27 @@
+# tool: scribe-data
+# All Estonian (Q9072) postpositions (Q161873) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?preposition
+  ?grammaticalCase
+
+WHERE {
+  ?lexeme dct:language wd:Q9072 ;
+    wikibase:lexicalCategory wd:Q161873 ;
+    wikibase:lemma ?preposition ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Case
+
+  OPTIONAL {
+    ?lexeme wdt:P5713 ?caseForm .
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?caseForm rdfs:label ?grammaticalCase .
+  }
+}

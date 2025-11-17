@@ -1,0 +1,97 @@
+# tool: scribe-data
+# All Arabic (Q13955) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+
+  ?activePerformativeFirstPersonSingular
+  ?activePerformativeFirstPersonPlural
+  ?activePerformativeSecondPersonDual
+
+  ?feminineActivePerformativeSecondPersonSingular
+  ?feminineActivePerformativeSecondPersonPlural
+  ?feminineActivePerformativeThirdPersonSingular
+  ?feminineActivePerformativeThirdPersonDual
+
+  ?masculineActivePerformativeSecondPersonSingular
+  ?masculineActivePerformativeSecondPersonPlural
+  ?masculineActivePerformativeThirdPersonSingular
+  ?masculineActivePerformativeThirdPersonDual
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Performative Past
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePerformativeFirstPersonSingularForm .
+    ?activePerformativeFirstPersonSingularForm ontolex:representation ?activePerformativeFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q124351233, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePerformativeFirstPersonPluralForm .
+    ?activePerformativeFirstPersonPluralForm ontolex:representation ?activePerformativeFirstPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q124351233, wd:Q21714344, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?activePerformativeSecondPersonDualForm .
+    ?activePerformativeSecondPersonDualForm ontolex:representation ?activePerformativeSecondPersonDual ;
+      wikibase:grammaticalFeature wd:Q1317831, wd:Q124351233, wd:Q51929049, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActivePerformativeSecondPersonSingularForm .
+    ?feminineActivePerformativeSecondPersonSingularForm ontolex:representation ?feminineActivePerformativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q124351233, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActivePerformativeSecondPersonPluralForm .
+    ?feminineActivePerformativeSecondPersonPluralForm ontolex:representation ?feminineActivePerformativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q124351233, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActivePerformativeThirdPersonSingularForm .
+    ?feminineActivePerformativeThirdPersonSingularForm ontolex:representation ?feminineActivePerformativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q124351233, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?feminineActivePerformativeThirdPersonDualForm .
+    ?feminineActivePerformativeThirdPersonDualForm ontolex:representation ?feminineActivePerformativeThirdPersonDual ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q1317831, wd:Q124351233, wd:Q51929074, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActivePerformativeSecondPersonSingularForm .
+    ?masculineActivePerformativeSecondPersonSingularForm ontolex:representation ?masculineActivePerformativeSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q124351233, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActivePerformativeSecondPersonPluralForm .
+    ?masculineActivePerformativeSecondPersonPluralForm ontolex:representation ?masculineActivePerformativeSecondPersonPlural ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q124351233, wd:Q51929049, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActivePerformativeThirdPersonSingularForm .
+    ?masculineActivePerformativeThirdPersonSingularForm ontolex:representation ?masculineActivePerformativeThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q124351233, wd:Q51929074, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineActivePerformativeThirdPersonDualForm .
+    ?masculineActivePerformativeThirdPersonDualForm ontolex:representation ?masculineActivePerformativeThirdPersonDual ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1317831, wd:Q124351233, wd:Q51929074, wd:Q110022 .
+  }
+}

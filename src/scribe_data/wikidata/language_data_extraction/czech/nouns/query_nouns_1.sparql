@@ -1,57 +1,43 @@
 # tool: scribe-data
-# All Czech (Q9056) nouns (Q1084) and the given forms.
+# All Czeck (Q9056) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?noun
-  ?singularNominative
-  ?singularGenitive
-  ?singularDative
-  ?singularAccusative
-  ?singularLocative
-  ?singularVocative
+  ?nominativeSingular
+  ?nominativePlural
+  ?gender
 
 WHERE {
   ?lexeme dct:language wd:Q9056 ;
     wikibase:lexicalCategory wd:Q1084 ;
-    wikibase:lemma ?noun ;
     schema:dateModified ?lastModified .
-    
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularNominativeForm .
-    ?singularNominativeForm ontolex:representation ?singularNominative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q131105 .
-  }
+
+  # MARK: Nominative Singular
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularGenitiveForm .
-    ?singularGenitiveForm ontolex:representation ?singularGenitive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146233 .
+    ?lexeme ontolex:lexicalForm ?nominativeSingularForm .
+    ?nominativeSingularForm ontolex:representation ?nominativeSingular ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q110786 .
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularDativeForm .
-    ?singularDativeForm ontolex:representation ?singularDative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q145599 .
-  }
+  # MARK: Nominative Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAccusativeForm .
-    ?singularAccusativeForm ontolex:representation ?singularAccusative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146078 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularLocativeForm .
-    ?singularLocativeForm ontolex:representation ?singularLocative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q202142 .
-  }
+  # MARK: Gender(s)
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularVocativeForm .
-    ?singularVocativeForm ontolex:representation ?singularVocative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q185077 .
+    ?lexeme wdt:P5185 ?nounGender .
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?nounGender rdfs:label ?gender .
   }
 }

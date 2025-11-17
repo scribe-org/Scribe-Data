@@ -1,0 +1,36 @@
+# tool: scribe-data
+# All French (Q150) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?singular
+  ?plural
+  ?gender
+
+WHERE {
+  ?lexeme dct:language wd:Q150 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?singular ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
+  }
+
+  # MARK: Gender(s)
+
+  OPTIONAL {
+    ?lexeme wdt:P5185 ?nounGender .
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?nounGender rdfs:label ?gender .
+  }
+}

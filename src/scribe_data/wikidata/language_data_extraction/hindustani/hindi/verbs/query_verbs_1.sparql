@@ -1,0 +1,110 @@
+# tool: scribe-data
+# All Hindi Hindustani (Q11051) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+# Note: We need to filter for "hi" to remove Urdu (ur) words.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?accusative
+  ?direct
+  ?oblique
+  ?intransitivePhase
+  ?basicPhase
+  ?gerund
+  ?conjunctiveParticiple
+  ?adverbial
+  ?absoluteConstruction
+
+WHERE {
+  # MARK: Infinitive
+
+  ?lexeme dct:language wd:Q11051 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+    FILTER(lang(?infinitive) = "hi")
+
+  # MARK: Accusative
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeForm .
+    ?accusativeForm ontolex:representation ?accusative ;
+      wikibase:grammaticalFeature wd:Q146078 .
+      FILTER(LANG(?accusative) = "hi")
+  }
+
+  # MARK: Direct Case
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?directForm .
+    ?directForm ontolex:representation ?direct ;
+      wikibase:grammaticalFeature wd:Q1751855 .
+      FILTER(LANG(?direct) = "hi")
+  }
+
+  # MARK: Oblique
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueForm .
+    ?obliqueForm ontolex:representation ?oblique ;
+      wikibase:grammaticalFeature wd:Q1233197 .
+      FILTER(LANG(?oblique) = "hi")
+  }
+
+  # MARK: Intransitive Phase
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?intransitivePhaseForm .
+    ?intransitivePhaseForm ontolex:representation ?intransitivePhase ;
+      wikibase:grammaticalFeature wd:Q113330736 .
+      FILTER(LANG(?intransitivePhase) = "hi")
+  }
+
+  # MARK: Basic Phase
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?basicPhaseForm .
+    ?basicPhaseForm ontolex:representation ?basicPhase ;
+      wikibase:grammaticalFeature wd:Q113330960 .
+      FILTER(LANG(?basicPhase) = "hi")
+  }
+
+  # MARK: Gerund
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?gerundForm .
+    ?gerundForm ontolex:representation ?gerund ;
+      wikibase:grammaticalFeature wd:Q1923028 .
+      FILTER(LANG(?gerund) = "hi")
+  }
+
+# MARK: Conjunctive Participle
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?conjunctiveParticipleForm .
+    ?conjunctiveParticipleForm ontolex:representation ?conjunctiveParticiple ;
+      wikibase:grammaticalFeature wd:Q113133303 .
+      FILTER(LANG(?conjunctiveParticiple) = "hi")
+  }
+
+  # MARK: Adverbial
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?adverbialForm .
+    ?adverbialForm ontolex:representation ?adverbial ;
+      wikibase:grammaticalFeature wd:Q380012 .
+      FILTER(LANG(?adverbial) = "hi")
+  }
+
+  # MARK: Absolute Construction
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?absoluteConstructionForm .
+    ?absoluteConstructionForm ontolex:representation ?absoluteConstruction ;
+      wikibase:grammaticalFeature wd:Q4669807 .
+      FILTER(LANG(?absoluteConstruction) = "hi")
+  }
+}

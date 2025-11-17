@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Bengali (Q9610) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?masculine
+  ?masculineComparative
+  ?masculineSuperlative
+  ?masculinePositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9610 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineForm .
+    ?masculineForm ontolex:representation ?masculine ;
+      wikibase:grammaticalFeature wd:Q499327 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineComparativeForm .
+    ?masculineComparativeForm ontolex:representation ?masculineComparative ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSuperlativeForm .
+    ?masculineSuperlativeForm ontolex:representation ?masculineSuperlative ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePositiveForm .
+    ?masculinePositiveForm ontolex:representation ?masculinePositive ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q3482678 .
+  }
+}

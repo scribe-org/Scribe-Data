@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All Czech (Q9056) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?infinitive
+  ?pastTransgressivePlural
+  ?masculinePastTransgressiveSingular
+  ?neuterSingularCombinedPastParticiple
+  ?neuterPluralCombinedPastParticiple
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastTransgressivePluralForm .
+    ?pastTransgressivePluralForm ontolex:representation ?pastTransgressivePlural ;
+      wikibase:grammaticalFeature wd:Q12750232, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePastTransgressiveSingularForm .
+    ?masculinePastTransgressiveSingularForm ontolex:representation ?masculinePastTransgressiveSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q12750232, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterSingularCombinedPastParticipleForm .
+    ?neuterSingularCombinedPastParticipleForm ontolex:representation ?neuterSingularCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q110786, wd:Q12717679 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterPluralCombinedPastParticipleForm .
+    ?neuterPluralCombinedPastParticipleForm ontolex:representation ?neuterPluralCombinedPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q146786, wd:Q12717679 .
+  }
+}

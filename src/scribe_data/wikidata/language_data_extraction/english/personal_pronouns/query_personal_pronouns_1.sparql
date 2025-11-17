@@ -1,0 +1,50 @@
+# tool: scribe-data
+# All English (Q1860) personal_pronouns (Q468801) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?personalpronoun
+  ?oblique
+  ?firstPerson
+  ?secondPerson
+  ?thirdPerson
+  ?obliqueSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q1860 ;
+    wikibase:lexicalCategory wd:Q468801 ;
+    wikibase:lemma ?personalpronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueForm .
+    ?obliqueForm ontolex:representation ?oblique ;
+      wikibase:grammaticalFeature wd:Q1233197 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?firstPersonForm .
+    ?firstPersonForm ontolex:representation ?firstPerson ;
+      wikibase:grammaticalFeature wd:Q21714344 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?secondPersonForm .
+    ?secondPersonForm ontolex:representation ?secondPerson ;
+      wikibase:grammaticalFeature wd:Q51929049 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?thirdPersonForm .
+    ?thirdPersonForm ontolex:representation ?thirdPerson ;
+      wikibase:grammaticalFeature wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueSingularForm .
+    ?obliqueSingularForm ontolex:representation ?obliqueSingular ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q110786 .
+  }
+}

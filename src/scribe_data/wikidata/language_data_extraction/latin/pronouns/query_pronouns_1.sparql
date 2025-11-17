@@ -6,29 +6,29 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?pronoun
-  ?singularGenitive
-  ?singularDative
+  ?genitiveSingular
+  ?dativeSingular
   ?dativePlural
-  ?pluralAblative
-  ?singularAblativeFeminine
-  ?singularAblativeMasculine
+  ?genitiveFemininePlural
+  ?genitiveMasculinePlural
+  ?genitiveNeuterPlural
 
 WHERE {
   ?lexeme dct:language wd:Q397 ;
     wikibase:lexicalCategory wd:Q36224 ;
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularGenitiveForm .
-    ?singularGenitiveForm ontolex:representation ?singularGenitive ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146233 .
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularDativeForm .
-    ?singularDativeForm ontolex:representation ?singularDative ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q145599 .
+    ?lexeme ontolex:lexicalForm ?dativeSingularForm .
+    ?dativeSingularForm ontolex:representation ?dativeSingular ;
+      wikibase:grammaticalFeature wd:Q145599, wd:Q110786 .
   }
 
   OPTIONAL {
@@ -38,20 +38,20 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralAblativeForm .
-    ?pluralAblativeForm ontolex:representation ?pluralAblative ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q156986 .
+    ?lexeme ontolex:lexicalForm ?genitiveFemininePluralForm .
+    ?genitiveFemininePluralForm ontolex:representation ?genitiveFemininePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAblativeFeminineForm .
-    ?singularAblativeFeminineForm ontolex:representation ?singularAblativeFeminine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q156986, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?genitiveMasculinePluralForm .
+    ?genitiveMasculinePluralForm ontolex:representation ?genitiveMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q499327, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAblativeMasculineForm .
-    ?singularAblativeMasculineForm ontolex:representation ?singularAblativeMasculine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q156986, wd:Q499327 .
+    ?lexeme ontolex:lexicalForm ?genitiveNeuterPluralForm .
+    ?genitiveNeuterPluralForm ontolex:representation ?genitiveNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775461, wd:Q146786 .
   }
 }

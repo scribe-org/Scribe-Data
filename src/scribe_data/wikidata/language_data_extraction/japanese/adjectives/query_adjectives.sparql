@@ -8,16 +8,16 @@ SELECT
   ?adjective
   ?negative
   ?conjunctive
-  ?imperfective
   ?attributive
   ?hypothetical
+  ?imperfective
 
 WHERE {
   ?lexeme dct:language wd:Q5287 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?negativeForm .
     ?negativeForm ontolex:representation ?negative ;
@@ -31,12 +31,6 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperfectiveForm .
-    ?imperfectiveForm ontolex:representation ?imperfective ;
-      wikibase:grammaticalFeature wd:Q2898727 .
-  }
-
-  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?attributiveForm .
     ?attributiveForm ontolex:representation ?attributive ;
       wikibase:grammaticalFeature wd:Q53608953 .
@@ -46,5 +40,11 @@ WHERE {
     ?lexeme ontolex:lexicalForm ?hypotheticalForm .
     ?hypotheticalForm ontolex:representation ?hypothetical ;
       wikibase:grammaticalFeature wd:Q53609593 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?imperfectiveForm .
+    ?imperfectiveForm ontolex:representation ?imperfective ;
+      wikibase:grammaticalFeature wd:Q2898727 .
   }
 }

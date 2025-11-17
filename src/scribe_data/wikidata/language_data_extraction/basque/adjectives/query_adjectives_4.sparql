@@ -6,52 +6,31 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?singularAblativeInanimate
-  ?singularAblativeAnimate
-  ?pluralInessiveInanimate
-  ?pluralInessiveAnimate
-  ?singularAllativeInanimate
-  ?singularAllativeAnimate
+  ?absolutiveIndefinite
+  ?absolutiveSingular
+  ?absolutivePlural
 
 WHERE {
   ?lexeme dct:language wd:Q8752 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAblativeInanimateForm .
-    ?singularAblativeInanimateForm ontolex:representation ?singularAblativeInanimate ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q156986, wd:Q51927539 .
+    ?lexeme ontolex:lexicalForm ?absolutiveIndefiniteForm .
+    ?absolutiveIndefiniteForm ontolex:representation ?absolutiveIndefinite ;
+      wikibase:grammaticalFeature wd:Q332734, wd:Q53997857 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAblativeAnimateForm .
-    ?singularAblativeAnimateForm ontolex:representation ?singularAblativeAnimate ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q156986, wd:Q51927507 .
+    ?lexeme ontolex:lexicalForm ?absolutiveSingularForm .
+    ?absolutiveSingularForm ontolex:representation ?absolutiveSingular ;
+      wikibase:grammaticalFeature wd:Q332734, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralInessiveInanimateForm .
-    ?pluralInessiveInanimateForm ontolex:representation ?pluralInessiveInanimate ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q282031, wd:Q51927539 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralInessiveAnimateForm .
-    ?pluralInessiveAnimateForm ontolex:representation ?pluralInessiveAnimate ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q282031, wd:Q51927507 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAllativeInanimateForm .
-    ?singularAllativeInanimateForm ontolex:representation ?singularAllativeInanimate ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q655020, wd:Q51927539 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAllativeAnimateForm .
-    ?singularAllativeAnimateForm ontolex:representation ?singularAllativeAnimate ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q655020, wd:Q51927507 .
+    ?lexeme ontolex:lexicalForm ?absolutivePluralForm .
+    ?absolutivePluralForm ontolex:representation ?absolutivePlural ;
+      wikibase:grammaticalFeature wd:Q332734, wd:Q146786 .
   }
 }

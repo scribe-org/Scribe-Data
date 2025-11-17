@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Arabic (Q13955) proper_nouns (Q147276) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?propernoun
+  ?pausalFeminineSingular
+  ?pausalFeminineDual
+  ?pausalFeminineIndefiniteSingular
+  ?pausalFeminineDefiniteSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q147276 ;
+    wikibase:lemma ?propernoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalFeminineSingularForm .
+    ?pausalFeminineSingularForm ontolex:representation ?pausalFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalFeminineDualForm .
+    ?pausalFeminineDualForm ontolex:representation ?pausalFeminineDual ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415, wd:Q110022 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalFeminineIndefiniteSingularForm .
+    ?pausalFeminineIndefiniteSingularForm ontolex:representation ?pausalFeminineIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pausalFeminineDefiniteSingularForm .
+    ?pausalFeminineDefiniteSingularForm ontolex:representation ?pausalFeminineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q117262361, wd:Q1775415, wd:Q53997851, wd:Q110786 .
+  }
+}

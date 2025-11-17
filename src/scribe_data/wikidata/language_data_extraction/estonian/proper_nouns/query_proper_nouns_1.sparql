@@ -1,57 +1,24 @@
 # tool: scribe-data
-# All Estonian (Q9072) proper_nouns (Q147276) and the given forms.
+# All Estonian (Q9072) proper nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?propernoun
-  ?pluralAblative
-  ?pluralInessive
-  ?pluralElative
-  ?pluralAllative
-  ?pluralAdessive
-  ?pluralTranslative
+  ?singular
+  ?nominativePlural
 
 WHERE {
   ?lexeme dct:language wd:Q9072 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?propernoun ;
+    wikibase:lemma ?singular ;
     schema:dateModified ?lastModified .
-    
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralAblativeForm .
-    ?pluralAblativeForm ontolex:representation ?pluralAblative ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q156986 .
-  }
+
+  # MARK: Plural
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralInessiveForm .
-    ?pluralInessiveForm ontolex:representation ?pluralInessive ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q282031 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralElativeForm .
-    ?pluralElativeForm ontolex:representation ?pluralElative ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q394253 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralAllativeForm .
-    ?pluralAllativeForm ontolex:representation ?pluralAllative ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q655020 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralAdessiveForm .
-    ?pluralAdessiveForm ontolex:representation ?pluralAdessive ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q281954 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralTranslativeForm .
-    ?pluralTranslativeForm ontolex:representation ?pluralTranslative ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q950170 .
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
   }
 }

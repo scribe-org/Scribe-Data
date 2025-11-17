@@ -1,0 +1,43 @@
+# tool: scribe-data
+# All Czech (Q9056) pronouns (Q36224) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?pronoun
+  ?vocativeNeuterSingular
+  ?vocativeNeuterPlural
+  ?vocativeNeuterSingularPositive
+  ?vocativeNeuterPluralPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q36224 ;
+    wikibase:lemma ?pronoun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterSingularForm .
+    ?vocativeNeuterSingularForm ontolex:representation ?vocativeNeuterSingular ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterPluralForm .
+    ?vocativeNeuterPluralForm ontolex:representation ?vocativeNeuterPlural ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterSingularPositiveForm .
+    ?vocativeNeuterSingularPositiveForm ontolex:representation ?vocativeNeuterSingularPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?vocativeNeuterPluralPositiveForm .
+    ?vocativeNeuterPluralPositiveForm ontolex:representation ?vocativeNeuterPluralPositive ;
+      wikibase:grammaticalFeature wd:Q185077, wd:Q1775461, wd:Q146786, wd:Q3482678 .
+  }
+}

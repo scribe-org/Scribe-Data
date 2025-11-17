@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Tamil (Q5885) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?verb
+  ?masculinePresentContinuous
+  ?masculinePresentContinuousThirdPerson
+  ?masculineSimpleFutureThirdPerson
+  ?simplePastFirstPersonSingular
+  ?simplePastSecondPersonSingular
+  ?masculineSimpleFutureThirdPersonSingular
+
+WHERE {
+  ?lexeme dct:language wd:Q5885 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?verb ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePresentContinuousForm .
+    ?masculinePresentContinuousForm ontolex:representation ?masculinePresentContinuous ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q7240943 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculinePresentContinuousThirdPersonForm .
+    ?masculinePresentContinuousThirdPersonForm ontolex:representation ?masculinePresentContinuousThirdPerson ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q7240943, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSimpleFutureThirdPersonForm .
+    ?masculineSimpleFutureThirdPersonForm ontolex:representation ?masculineSimpleFutureThirdPerson ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1475560, wd:Q51929074 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastFirstPersonSingularForm .
+    ?simplePastFirstPersonSingularForm ontolex:representation ?simplePastFirstPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q21714344, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?simplePastSecondPersonSingularForm .
+    ?simplePastSecondPersonSingularForm ontolex:representation ?simplePastSecondPersonSingular ;
+      wikibase:grammaticalFeature wd:Q1392475, wd:Q51929049, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?masculineSimpleFutureThirdPersonSingularForm .
+    ?masculineSimpleFutureThirdPersonSingularForm ontolex:representation ?masculineSimpleFutureThirdPersonSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q1475560, wd:Q51929074, wd:Q110786 .
+  }
+}

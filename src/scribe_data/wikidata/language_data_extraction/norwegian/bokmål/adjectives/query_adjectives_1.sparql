@@ -9,17 +9,18 @@ SELECT
   ?plural
   ?comparative
   ?superlative
-  ?superlativeDefinite
+  ?masculineIndefiniteSingular
+  ?neuterIndefiniteSingular
 
 WHERE {
   ?lexeme dct:language wd:Q25167 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for nb to remove bokmål (nb) words.
   FILTER(lang(?adjective) = "nb")
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pluralForm .
     ?pluralForm ontolex:representation ?plural ;
@@ -39,8 +40,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?superlativeDefiniteForm .
-    ?superlativeDefiniteForm ontolex:representation ?superlativeDefinite ;
-      wikibase:grammaticalFeature wd:Q1817208, wd:Q53997851 .
+    ?lexeme ontolex:lexicalForm ?masculineIndefiniteSingularForm .
+    ?masculineIndefiniteSingularForm ontolex:representation ?masculineIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q499327, wd:Q53997857, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?neuterIndefiniteSingularForm .
+    ?neuterIndefiniteSingularForm ontolex:representation ?neuterIndefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q1775461, wd:Q53997857, wd:Q110786 .
   }
 }

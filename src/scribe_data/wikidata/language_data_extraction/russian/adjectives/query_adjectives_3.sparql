@@ -6,52 +6,38 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?singularGenitiveFeminine
-  ?singularGenitiveMasculine
-  ?singularGenitiveNeuter
-  ?singularDativeFeminine
-  ?singularDativeMasculine
-  ?singularDativeNeuter
+  ?plural
+  ?feminineSingular
+  ?accusativeFeminineSingular
+  ?accusativeFeminineInanimateSingular
 
 WHERE {
   ?lexeme dct:language wd:Q7737 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularGenitiveFeminineForm .
-    ?singularGenitiveFeminineForm ontolex:representation ?singularGenitiveFeminine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146233, wd:Q1775415 .
+    ?lexeme ontolex:lexicalForm ?pluralForm .
+    ?pluralForm ontolex:representation ?plural ;
+      wikibase:grammaticalFeature wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularGenitiveMasculineForm .
-    ?singularGenitiveMasculineForm ontolex:representation ?singularGenitiveMasculine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146233, wd:Q499327 .
+    ?lexeme ontolex:lexicalForm ?feminineSingularForm .
+    ?feminineSingularForm ontolex:representation ?feminineSingular ;
+      wikibase:grammaticalFeature wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularGenitiveNeuterForm .
-    ?singularGenitiveNeuterForm ontolex:representation ?singularGenitiveNeuter ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146233, wd:Q1775461 .
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularForm .
+    ?accusativeFeminineSingularForm ontolex:representation ?accusativeFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularDativeFeminineForm .
-    ?singularDativeFeminineForm ontolex:representation ?singularDativeFeminine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q145599, wd:Q1775415 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularDativeMasculineForm .
-    ?singularDativeMasculineForm ontolex:representation ?singularDativeMasculine ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q145599, wd:Q499327 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularDativeNeuterForm .
-    ?singularDativeNeuterForm ontolex:representation ?singularDativeNeuter ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q145599, wd:Q1775461 .
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineInanimateSingularForm .
+    ?accusativeFeminineInanimateSingularForm ontolex:representation ?accusativeFeminineInanimateSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q51927539, wd:Q110786 .
   }
 }

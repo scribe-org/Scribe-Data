@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Danish (Q9035) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?genitiveCommonIndefinitePlural
+  ?genitiveCommonDefiniteSingular
+  ?genitiveCommonDefinitePlural
+  ?genitiveNeuterIndefinitePlural
+  ?genitiveNeuterDefiniteSingular
+  ?genitiveNeuterDefinitePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q9035 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveCommonIndefinitePluralForm .
+    ?genitiveCommonIndefinitePluralForm ontolex:representation ?genitiveCommonIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1305037, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveCommonDefiniteSingularForm .
+    ?genitiveCommonDefiniteSingularForm ontolex:representation ?genitiveCommonDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1305037, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveCommonDefinitePluralForm .
+    ?genitiveCommonDefinitePluralForm ontolex:representation ?genitiveCommonDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1305037, wd:Q53997851, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveNeuterIndefinitePluralForm .
+    ?genitiveNeuterIndefinitePluralForm ontolex:representation ?genitiveNeuterIndefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775461, wd:Q53997857, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveNeuterDefiniteSingularForm .
+    ?genitiveNeuterDefiniteSingularForm ontolex:representation ?genitiveNeuterDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775461, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveNeuterDefinitePluralForm .
+    ?genitiveNeuterDefinitePluralForm ontolex:representation ?genitiveNeuterDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775461, wd:Q53997851, wd:Q146786 .
+  }
+}

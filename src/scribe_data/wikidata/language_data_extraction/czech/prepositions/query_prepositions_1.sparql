@@ -1,0 +1,28 @@
+# tool: scribe-data
+# All Czech (Q9056) prepositions (Q4833830) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?preposition
+  ?grammaticalCase
+
+WHERE {
+  ?lexeme dct:language wd:Q9056 ;
+    wikibase:lexicalCategory wd:Q4833830 ;
+    wikibase:lemma ?preposition ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Cases
+
+  OPTIONAL {
+    ?lexeme wdt:P5713 ?caseForm .
+  }
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?lemma rdfs:label ?preposition .
+    ?caseForm rdfs:label ?grammaticalCase .
+  }
+}

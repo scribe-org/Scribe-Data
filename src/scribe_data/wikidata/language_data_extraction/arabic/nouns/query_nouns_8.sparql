@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Arabic (Q13955) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?noun
+  ?genitiveSingular
+  ?genitiveDefiniteSingular
+  ?genitiveDefinitePlural
+  ?genitiveSingularConstruct
+  ?accusativeDefiniteSingular
+  ?accusativeDefinitePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q13955 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    wikibase:lemma ?noun ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularForm .
+    ?genitiveSingularForm ontolex:representation ?genitiveSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveDefiniteSingularForm .
+    ?genitiveDefiniteSingularForm ontolex:representation ?genitiveDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveDefinitePluralForm .
+    ?genitiveDefinitePluralForm ontolex:representation ?genitiveDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q53997851, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveSingularConstructForm .
+    ?genitiveSingularConstructForm ontolex:representation ?genitiveSingularConstruct ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q110786, wd:Q1641446 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeDefiniteSingularForm .
+    ?accusativeDefiniteSingularForm ontolex:representation ?accusativeDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q53997851, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeDefinitePluralForm .
+    ?accusativeDefinitePluralForm ontolex:representation ?accusativeDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q53997851, wd:Q146786 .
+  }
+}

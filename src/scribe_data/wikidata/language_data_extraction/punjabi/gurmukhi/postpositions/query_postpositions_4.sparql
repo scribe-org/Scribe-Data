@@ -1,0 +1,53 @@
+# tool: scribe-data
+# All Punjabi (Q58635) postpositions (Q161873) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?postposition
+  ?oblique
+  ?obliqueFeminineSingular
+  ?obliqueFemininePlural
+  ?obliqueMasculineSingular
+  ?obliqueMasculinePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q161873 ;
+    wikibase:lemma ?postposition ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pa to remove gurmukhi (pa) words.
+  FILTER(lang(?postposition) = "pa")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueForm .
+    ?obliqueForm ontolex:representation ?oblique ;
+      wikibase:grammaticalFeature wd:Q1233197 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueFeminineSingularForm .
+    ?obliqueFeminineSingularForm ontolex:representation ?obliqueFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueFemininePluralForm .
+    ?obliqueFemininePluralForm ontolex:representation ?obliqueFemininePlural ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q1775415, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueMasculineSingularForm .
+    ?obliqueMasculineSingularForm ontolex:representation ?obliqueMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?obliqueMasculinePluralForm .
+    ?obliqueMasculinePluralForm ontolex:representation ?obliqueMasculinePlural ;
+      wikibase:grammaticalFeature wd:Q1233197, wd:Q499327, wd:Q146786 .
+  }
+}

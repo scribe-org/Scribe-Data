@@ -1,0 +1,46 @@
+# tool: scribe-data
+# All Punjabi (Q58635) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?ablativePlural
+  ?ablativeMasculineSingular
+  ?ablativeFeminineSingularPositive
+  ?ablativeMasculineSingularPositive
+
+WHERE {
+  ?lexeme dct:language wd:Q58635 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  # Note: We need to filter for pa to remove gurmukhi (pa) words.
+  FILTER(lang(?adjective) = "pa")
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativePluralForm .
+    ?ablativePluralForm ontolex:representation ?ablativePlural ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularForm .
+    ?ablativeMasculineSingularForm ontolex:representation ?ablativeMasculineSingular ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeFeminineSingularPositiveForm .
+    ?ablativeFeminineSingularPositiveForm ontolex:representation ?ablativeFeminineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q1775415, wd:Q110786, wd:Q3482678 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?ablativeMasculineSingularPositiveForm .
+    ?ablativeMasculineSingularPositiveForm ontolex:representation ?ablativeMasculineSingularPositive ;
+      wikibase:grammaticalFeature wd:Q156986, wd:Q499327, wd:Q110786, wd:Q3482678 .
+  }
+}

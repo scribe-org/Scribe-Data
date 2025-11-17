@@ -1,57 +1,27 @@
 # tool: scribe-data
-# All Slovak (Q9058) proper_nouns (Q147276) and the given forms.
+# All Slovak (Q9058) proper nouns (Q147276) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?propernoun
-  ?nominativePlural
-  ?genitivePlural
-  ?dativePlural
-  ?accusativePlural
-  ?pluralInstrumental
-  ?pluralLocative
+  ?properNoun
+  ?gender
 
 WHERE {
   ?lexeme dct:language wd:Q9058 ;
     wikibase:lexicalCategory wd:Q147276 ;
-    wikibase:lemma ?propernoun ;
+    wikibase:lemma ?properNoun ;
     schema:dateModified ?lastModified .
-    
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
-    ?nominativePluralForm ontolex:representation ?nominativePlural ;
-      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
-  }
+
+  # MARK: Gender(s)
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?genitivePluralForm .
-    ?genitivePluralForm ontolex:representation ?genitivePlural ;
-      wikibase:grammaticalFeature wd:Q146233, wd:Q146786 .
+    ?lexeme wdt:P5185 ?nounGender .
   }
 
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?dativePluralForm .
-    ?dativePluralForm ontolex:representation ?dativePlural ;
-      wikibase:grammaticalFeature wd:Q145599, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?accusativePluralForm .
-    ?accusativePluralForm ontolex:representation ?accusativePlural ;
-      wikibase:grammaticalFeature wd:Q146078, wd:Q146786 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralInstrumentalForm .
-    ?pluralInstrumentalForm ontolex:representation ?pluralInstrumental ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q192997 .
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralLocativeForm .
-    ?pluralLocativeForm ontolex:representation ?pluralLocative ;
-      wikibase:grammaticalFeature wd:Q146786, wd:Q202142 .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?nounGender rdfs:label ?gender .
   }
 }

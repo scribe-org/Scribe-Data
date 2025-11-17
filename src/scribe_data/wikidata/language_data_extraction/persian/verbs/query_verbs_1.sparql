@@ -1,0 +1,51 @@
+# tool: scribe-data
+# All Persian (Q9168) verbs (Q24905) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?infinitive
+  ?presentParticiple
+  ?presentWordStem
+  ?pastParticiple
+  ?pastWordStem
+
+WHERE {
+  ?lexeme dct:language wd:Q9168 ;
+    wikibase:lexicalCategory wd:Q24905 ;
+    wikibase:lemma ?infinitive ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Present
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentParticipleForm .
+    ?presentParticipleForm ontolex:representation ?presentParticiple ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q814722 .
+    FILTER(lang(?presentParticiple) = "fa") .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?presentWordStemForm .
+    ?presentWordStemForm ontolex:representation ?presentWordStem ;
+      wikibase:grammaticalFeature wd:Q192613, wd:Q210523 .
+    FILTER(lang(?presentWordStem) = "fa") .
+  }
+
+  # MARK: Past
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastParticipleForm .
+    ?pastParticipleForm ontolex:representation ?pastParticiple ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q814722 .
+    FILTER(lang(?pastParticiple) = "fa") .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastWordStemForm .
+    ?pastWordStemForm ontolex:representation ?pastWordStem ;
+      wikibase:grammaticalFeature wd:Q1994301, wd:Q210523 .
+    FILTER(lang(?pastWordStem) = "fa") .
+  }
+}

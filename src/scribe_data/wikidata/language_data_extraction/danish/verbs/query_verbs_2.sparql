@@ -6,38 +6,45 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?verb
-  ?infinitivePassive
-  ?preteritePassive
-  ?infinitiveActive
-  ?preteriteActive
+  ?infinitive
+  ?present
+  ?preterite
+  ?englishPastParticiple
+  ?passiveActive
 
 WHERE {
   ?lexeme dct:language wd:Q9035 ;
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitivePassiveForm .
-    ?infinitivePassiveForm ontolex:representation ?infinitivePassive ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q1194697 .
+    ?lexeme ontolex:lexicalForm ?infinitiveForm .
+    ?infinitiveForm ontolex:representation ?infinitive ;
+      wikibase:grammaticalFeature wd:Q179230 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteritePassiveForm .
-    ?preteritePassiveForm ontolex:representation ?preteritePassive ;
-      wikibase:grammaticalFeature wd:Q442485, wd:Q1194697 .
+    ?lexeme ontolex:lexicalForm ?presentForm .
+    ?presentForm ontolex:representation ?present ;
+      wikibase:grammaticalFeature wd:Q192613 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?infinitiveActiveForm .
-    ?infinitiveActiveForm ontolex:representation ?infinitiveActive ;
-      wikibase:grammaticalFeature wd:Q179230, wd:Q1317831 .
+    ?lexeme ontolex:lexicalForm ?preteriteForm .
+    ?preteriteForm ontolex:representation ?preterite ;
+      wikibase:grammaticalFeature wd:Q442485 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteActiveForm .
-    ?preteriteActiveForm ontolex:representation ?preteriteActive ;
-      wikibase:grammaticalFeature wd:Q442485, wd:Q1317831 .
+    ?lexeme ontolex:lexicalForm ?englishPastParticipleForm .
+    ?englishPastParticipleForm ontolex:representation ?englishPastParticiple ;
+      wikibase:grammaticalFeature wd:Q1230649 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?passiveActiveForm .
+    ?passiveActiveForm ontolex:representation ?passiveActive ;
+      wikibase:grammaticalFeature wd:Q1194697, wd:Q1317831 .
   }
 }

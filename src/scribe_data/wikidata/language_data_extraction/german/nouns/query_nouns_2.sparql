@@ -1,0 +1,22 @@
+# tool: scribe-data
+# All German (Q188) nouns (Q1084) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?nominativePlural
+
+WHERE {
+  ?lexeme dct:language wd:Q188 ;
+    wikibase:lexicalCategory wd:Q1084 ;
+    schema:dateModified ?lastModified .
+
+  # MARK: Nominative Plural
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?nominativePluralForm .
+    ?nominativePluralForm ontolex:representation ?nominativePlural ;
+      wikibase:grammaticalFeature wd:Q131105, wd:Q146786 .
+  }
+}

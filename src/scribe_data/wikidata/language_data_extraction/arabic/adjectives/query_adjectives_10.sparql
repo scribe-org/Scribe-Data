@@ -6,38 +6,45 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?adjective
-  ?singularAccusativeFeminineIndefinite
-  ?singularAccusativeFeminineDefinite
-  ?singularAccusativeMasculineIndefinite
-  ?singularAccusativeMasculineDefinite
+  ?genitiveFeminineSingular
+  ?genitiveFemininePlural
+  ?genitiveFeminineDefiniteSingular
+  ?genitiveFeminineDefinitePlural
+  ?genitiveFeminineDefiniteDual
 
 WHERE {
   ?lexeme dct:language wd:Q13955 ;
     wikibase:lexicalCategory wd:Q34698 ;
     wikibase:lemma ?adjective ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAccusativeFeminineIndefiniteForm .
-    ?singularAccusativeFeminineIndefiniteForm ontolex:representation ?singularAccusativeFeminineIndefinite ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q1775415, wd:Q53997857 .
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineSingularForm .
+    ?genitiveFeminineSingularForm ontolex:representation ?genitiveFeminineSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAccusativeFeminineDefiniteForm .
-    ?singularAccusativeFeminineDefiniteForm ontolex:representation ?singularAccusativeFeminineDefinite ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q1775415, wd:Q53997851 .
+    ?lexeme ontolex:lexicalForm ?genitiveFemininePluralForm .
+    ?genitiveFemininePluralForm ontolex:representation ?genitiveFemininePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q146786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAccusativeMasculineIndefiniteForm .
-    ?singularAccusativeMasculineIndefiniteForm ontolex:representation ?singularAccusativeMasculineIndefinite ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q499327, wd:Q53997857 .
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineDefiniteSingularForm .
+    ?genitiveFeminineDefiniteSingularForm ontolex:representation ?genitiveFeminineDefiniteSingular ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q53997851, wd:Q110786 .
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularAccusativeMasculineDefiniteForm .
-    ?singularAccusativeMasculineDefiniteForm ontolex:representation ?singularAccusativeMasculineDefinite ;
-      wikibase:grammaticalFeature wd:Q110786, wd:Q146078, wd:Q499327, wd:Q53997851 .
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineDefinitePluralForm .
+    ?genitiveFeminineDefinitePluralForm ontolex:representation ?genitiveFeminineDefinitePlural ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q53997851, wd:Q146786 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?genitiveFeminineDefiniteDualForm .
+    ?genitiveFeminineDefiniteDualForm ontolex:representation ?genitiveFeminineDefiniteDual ;
+      wikibase:grammaticalFeature wd:Q146233, wd:Q1775415, wd:Q53997851, wd:Q110022 .
   }
 }

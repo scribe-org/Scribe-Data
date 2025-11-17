@@ -1,14 +1,16 @@
 # tool: scribe-data
-# Note: The Scribe-Data form combination derivation query failed for this language and data type combination.
-# Note: The following query returns all lexemes and their lemmas for the language and data type for further exploration.
+# All Swahili (Q7838) adverbs (Q380057) and the given forms.
+# Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
-  ?lemma
+  ?lastModified
+  ?adverb
 
-WHERE {{
-  ?lexeme a ontolex:LexicalEntry .
+WHERE {
   ?lexeme dct:language wd:Q7838 ;
     wikibase:lexicalCategory wd:Q380057 ;
-    wikibase:lemma ?lemma .
-}}
+    wikibase:lemma ?adverb ;
+    schema:dateModified ?lastModified .
+    FILTER(lang(?adverb) = "sw")
+}

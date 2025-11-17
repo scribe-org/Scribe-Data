@@ -1,0 +1,57 @@
+# tool: scribe-data
+# All Slovak (Q9058) adjectives (Q34698) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+
+SELECT
+  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  ?lastModified
+  ?adjective
+  ?accusativeFeminineSingularComparative
+  ?accusativeFeminineSingularSuperlative
+  ?accusativeMasculinePersonalPluralComparative
+  ?accusativeMasculinePersonalPluralSuperlative
+  ?accusativeNotMasculinePersonalPluralComparative
+  ?accusativeNotMasculinePersonalPluralSuperlative
+
+WHERE {
+  ?lexeme dct:language wd:Q9058 ;
+    wikibase:lexicalCategory wd:Q34698 ;
+    wikibase:lemma ?adjective ;
+    schema:dateModified ?lastModified .
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularComparativeForm .
+    ?accusativeFeminineSingularComparativeForm ontolex:representation ?accusativeFeminineSingularComparative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeFeminineSingularSuperlativeForm .
+    ?accusativeFeminineSingularSuperlativeForm ontolex:representation ?accusativeFeminineSingularSuperlative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q1775415, wd:Q110786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePersonalPluralComparativeForm .
+    ?accusativeMasculinePersonalPluralComparativeForm ontolex:representation ?accusativeMasculinePersonalPluralComparative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q27918551, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeMasculinePersonalPluralSuperlativeForm .
+    ?accusativeMasculinePersonalPluralSuperlativeForm ontolex:representation ?accusativeMasculinePersonalPluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q27918551, wd:Q146786, wd:Q1817208 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNotMasculinePersonalPluralComparativeForm .
+    ?accusativeNotMasculinePersonalPluralComparativeForm ontolex:representation ?accusativeNotMasculinePersonalPluralComparative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q54152717, wd:Q146786, wd:Q14169499 .
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?accusativeNotMasculinePersonalPluralSuperlativeForm .
+    ?accusativeNotMasculinePersonalPluralSuperlativeForm ontolex:representation ?accusativeNotMasculinePersonalPluralSuperlative ;
+      wikibase:grammaticalFeature wd:Q146078, wd:Q54152717, wd:Q146786, wd:Q1817208 .
+  }
+}
