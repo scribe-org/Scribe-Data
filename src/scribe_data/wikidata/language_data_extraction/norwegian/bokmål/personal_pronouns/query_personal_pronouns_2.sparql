@@ -15,10 +15,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q468801 ;
     wikibase:lemma ?personalpronoun ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for nb to remove bokmål (nb) words.
   FILTER(lang(?personalpronoun) = "nb")
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?obliqueForm .
     ?obliqueForm ontolex:representation ?oblique ;

@@ -101,7 +101,7 @@ def split_group_by_identifier(language_entry, output_dir, sub_lang_iso_code=None
                 group_entry = {lang: {data_type: group}}
 
                 print(
-                    f"Generating query {i+1}/{len(optimized_groups)} for {lang} - {data_type} with {len(group)} features"
+                    f"Generating query {i + 1}/{len(optimized_groups)} for {lang} - {data_type} with {len(group)} features"
                 )
 
                 # Call generate_query with the grouped features.

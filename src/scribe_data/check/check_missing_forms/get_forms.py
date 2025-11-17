@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-Get forms from Wikidata.
+Get forms from Wikidata SPARQL query files.
 """
 
 import re
@@ -12,15 +12,12 @@ from scribe_data.utils import (
 from scribe_data.utils import (
     language_metadata,
 )
-from scribe_data.wikidata.parse_dump import LexemeProcessor
 
 iso_to_qid = {
     lang_data["iso"]: lang_data["qid"]
     for lang, lang_data in language_metadata.items()
     if "iso" in lang_data and "qid" in lang_data
 }
-
-all_forms = defaultdict(lambda: defaultdict(list))
 
 
 def parse_sparql_files():
@@ -38,6 +35,7 @@ def parse_sparql_files():
     Recursively searches through language_data_extraction directory
     for .sparql files and accumulates all form information.
     """
+    all_forms = defaultdict(lambda: defaultdict(list))
     for sub_sub_file in language_data_extraction.rglob("*.sparql"):
         with open(sub_sub_file, "r", encoding="utf-8") as query_text:
             result = parse_sparql_query(query_text.read())
@@ -101,35 +99,3 @@ def parse_sparql_query(query_text):
             result[language][lexical_category].append(feature_list)
 
     return result
-
-
-def extract_dump_forms(
-    languages=None, data_types=None, file_path="latest-lexemes.json.bz2"
-):
-    """
-    Extract unique grammatical features from Wikidata lexeme dump.
-
-    Parameters
-    ----------
-    languages : list of str, optional
-        List of language ISO codes (e.g., ['en', 'fr']).
-
-    data_types : list of str, optional
-        List of lexical categories (e.g., ['nouns', 'verbs']).
-
-    file_path : str, optional
-        Path to the lexeme dump file, by default "latest-lexemes.json.bz2".
-
-    Returns
-    -------
-    dict
-        Dictionary of unique grammatical features per language and lexical category.
-        Format: {language_qid: {data_type_qid: features}}.
-    """
-    processor = LexemeProcessor(
-        target_lang=languages, parse_type=["form"], data_types=data_types
-    )
-
-    processor.process_file(file_path)
-
-    return dict(processor.unique_forms)

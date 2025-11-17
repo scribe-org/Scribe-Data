@@ -16,7 +16,7 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?genitivePresentSingularParticipleForm .
     ?genitivePresentSingularParticipleForm ontolex:representation ?genitivePresentSingularParticiple ;

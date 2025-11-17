@@ -21,7 +21,7 @@ DATA_TYPES = data_type_metadata.keys()
 SUB_DIRECTORIES = {
     k: list(v["sub_languages"].keys())
     for k, v in language_metadata.items()
-    if len(v.keys()) == 1 and "sub_languages" in v.keys()
+    if "sub_languages" in v.keys()
 }
 
 

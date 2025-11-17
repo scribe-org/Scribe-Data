@@ -58,6 +58,7 @@ class TestListFunctions(unittest.TestCase):
             call("==================================="),
             call("adjectives"),
             call("adverbs"),
+            # call("articles"),
             call("conjunctions"),
             call("emoji-keywords"),
             call("nouns"),

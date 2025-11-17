@@ -336,7 +336,7 @@ def convert_to_csv_or_tsv(
                                 else dtype[:-1]
                             ]
                             header += [
-                                f"autosuggestion_{i+1}"
+                                f"autosuggestion_{i + 1}"
                                 for i in range(len(data[first_key]))
                             ]
                             writer.writerow(header)

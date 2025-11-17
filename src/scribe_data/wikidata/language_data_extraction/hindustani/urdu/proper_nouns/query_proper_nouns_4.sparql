@@ -18,10 +18,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q147276 ;
     wikibase:lemma ?propernoun ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for ur to remove urdu (ur) words.
   FILTER(lang(?propernoun) = "ur")
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?obliqueSingularForm .
     ?obliqueSingularForm ontolex:representation ?obliqueSingular ;

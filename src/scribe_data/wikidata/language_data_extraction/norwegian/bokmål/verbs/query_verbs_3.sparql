@@ -18,10 +18,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for nb to remove bokmål (nb) words.
   FILTER(lang(?verb) = "nb")
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?infinitiveForm .
     ?infinitiveForm ontolex:representation ?infinitive ;

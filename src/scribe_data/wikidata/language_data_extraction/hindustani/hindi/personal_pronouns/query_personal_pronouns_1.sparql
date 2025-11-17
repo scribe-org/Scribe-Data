@@ -18,10 +18,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q468801 ;
     wikibase:lemma ?personalpronoun ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for hi to remove hindi (hi) words.
   FILTER(lang(?personalpronoun) = "hi")
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?dativeForm .
     ?dativeForm ontolex:representation ?dative ;

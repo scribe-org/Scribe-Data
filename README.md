@@ -36,13 +36,13 @@ Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organiz
 - [Environment Setup](#environment-setup)
 - [Featured By](#featured-by)
 
-<a id="Process"></a>
+<a id="process"></a>
 
 # Process [`⇧`](#contents)
 
 The CLI commands defined within [scribe_data/cli](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/cli) and the notebooks within the various [scribe_data](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data) directories are used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) once they're active.
 
-The main data update process in triggers [language based SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/language_data_extraction) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The autosuggestion process derives popular words from [Wikipedia](https://www.wikipedia.org/) as well as those words that normally follow them for an effective baseline feature until natural language processing methods are employed. Functions to generate autosuggestions are ran in [gen_autosuggestions.ipynb](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikipedia/gen_autosuggestions.ipynb). Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran via the `scribe-data get -lang LANGUAGE -dt emoji-keywords` command.
+The main data update process in triggers [language based SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/language_data_extraction) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The autosuggestion process derives popular words from [Wikipedia](https://www.wikipedia.org/) as well as those words that normally follow them for an effective baseline feature until natural language processing methods are employed. Functions to generate autosuggestions are ran in [gen_autosuggestions.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikipedia/generate_autosuggestions.py). Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran via the `scribe-data get -lang LANGUAGE -dt emoji-keywords` command.
 
 <a id="installation"></a>
 
@@ -111,7 +111,7 @@ scribe-data total -i
 
 [Wikidata](https://www.wikidata.org/) has lots of [language data](https://www.wikidata.org/wiki/Wikidata:Lexicographical_data) available, but not all of it is useful for all applications. In order to make the functionality of the Scribe-Data `get` requests as simple as possible, we made the decision to always return all data for the given languages and data types. Adding the ability to pass desired forms to the commands seemed cumbersome, and larger Scribe-Data requests should be parsing [Wikidata lexeme dumps](https://dumps.wikimedia.org/wikidatawiki/entities/) as the data source.
 
-Scribe's solution to the get all functionality while preserving the ability to get specific forms is to allow users to filter the resulting data by contracts. The data contracts for Scribe's client applications can be found in the [data_contracts](./data_contracts/) directory. Data contracts are JSON objects where the values that are used in end applications are the keys and the resulting data identifiers based on Wikidata lexeme forms are the values. If the forms for a lexeme change, then the values would also change, but all that's needed is to update the contract for the application to function again.
+Scribe's solution to the get all functionality while preserving the ability to get specific forms is to allow users to filter the resulting data by contracts. The data contracts for Scribe's client applications can be found in the [scribe_data_contracts](./scribe_data_contracts/) directory. Data contracts are JSON objects where the values that are used in end applications are the keys and the resulting data identifiers based on Wikidata lexeme forms are the values. If the forms for a lexeme change, then the values would also change, but all that's needed is to update the contract for the application to function again.
 
 Efficient client application data updates using Scribe-Data follow as such:
 
@@ -275,7 +275,7 @@ See the [contribution guidelines](https://github.com/scribe-org/Scribe-Data/blob
 
 # Featured By [`⇧`](#contents)
 
-Please see the [blog posts page on our website](https://scri.be/docs/about/blog-posts) for a list of articles on Scribe, and feel free to open a pull request to add one that you've written at [scribe-org/scri.be](github.com/scribe-org/scri.be)!
+Please see the [blog posts page on our website](https://scri.be/docs/about/blog-posts) for a list of articles on Scribe, and feel free to open a pull request to add one that you've written at [scribe-org/scri.be](https://github.com/scribe-org/scri.be)!
 
 ### Organizations
 
@@ -308,20 +308,6 @@ Many thanks to all the [Scribe-Data contributors](https://github.com/scribe-org/
 <a href="https://github.com/scribe-org/Scribe-Data/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=scribe-org/Scribe-Data" />
 </a>
-
-### Code and Dependencies
-
-The Scribe community would like to thank all the great software that made Scribe-Data's development possible.
-
-<details><summary><strong>List of referenced posts</strong></summary>
-<p>
-
-- [Building a Recommendation System Using Neural Network Embeddings](https://towardsdatascience.com/building-a-recommendation-system-using-neural-network-embeddings-1ef92e5c80c9) by [WillKoehrsen](https://github.com/WillKoehrsen)
-
-- [Wikipedia Data Science: Working with the World’s Largest Encyclopedia](https://towardsdatascience.com/wikipedia-data-science-working-with-the-worlds-largest-encyclopedia-c08efbac5f5c) by [WillKoehrsen](https://github.com/WillKoehrsen)
-
-</p>
-</details>
 
 ### Wikimedia Communities
 
