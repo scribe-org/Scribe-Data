@@ -70,11 +70,11 @@ class TestDatabaseDeployment:
         }
 
         for language, c in config.items():
-            mock_system(f'cp {c["db_location"]} {c["full_path_to_scribe_ios_db"]}')
+            mock_system(f"cp {c['db_location']} {c['full_path_to_scribe_ios_db']}")
             mock_print(
                 f"Moved {language} database to Scribe-iOS at {c['scribe_ios_db_path']}."
             )
-            mock_system(f'cp {c["db_location"]} {c["full_path_to_scribe_android_db"]}')
+            mock_system(f"cp {c['db_location']} {c['full_path_to_scribe_android_db']}")
             mock_print(
                 f"Moved {language} database to Scribe-Android at {c['scribe_android_db_path']}."
             )

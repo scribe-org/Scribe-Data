@@ -202,7 +202,7 @@ SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?{body_data_type}
-  """ + "\n  ".join(f'?{form["label"]}' for form in forms_query)
+""" + "\n  ".join(f"?{form['label']}" for form in forms_query)
 
     where_clause = f"""
 
@@ -235,8 +235,8 @@ WHERE {{
         qids = ", ".join(f"wd:{qid}" for qid in form["qids"])
         optional_clauses += f"""
   OPTIONAL {{
-    ?lexeme ontolex:lexicalForm ?{form['label']}Form .
-    ?{form['label']}Form ontolex:representation ?{form['label']} ;
+    ?lexeme ontolex:lexicalForm ?{form["label"]}Form .
+    ?{form["label"]}Form ontolex:representation ?{form["label"]} ;
       wikibase:grammaticalFeature {qids} .
   }}
 """
