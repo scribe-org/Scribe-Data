@@ -49,9 +49,11 @@ jobs:
 
           echo "Query directory: ${QUERY_DIR}"
 
-          # Generate the missing features data with all keys processing and automatic dump download.
+          # Generate the missing features data using SPARQL query service approach.
+          # Using default adaptive frequency thresholds (0) and default max results (1000).
+          # Increase request-delay if rate limiting occurs, decrease max-results for complex languages.
           PYTHONPATH=$PYTHONPATH:$(pwd)/src
-          python src/scribe_data/check/check_missing_forms/check_missing_forms.py "${QUERY_DIR}" --download-dump --process-all-keys
+          python src/scribe_data/check/check_missing_forms/check_missing_forms.py "${QUERY_DIR}" --frequency-threshold 0 --request-delay 1.0 --max-retries 3 --max-results 1000
 
       # Debug steps to understand the state.
       # - name: Debug Info
