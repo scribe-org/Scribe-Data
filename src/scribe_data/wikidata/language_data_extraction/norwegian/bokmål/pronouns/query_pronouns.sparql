@@ -13,10 +13,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q36224 ;
     wikibase:lemma ?pronoun ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for nb to remove bokmål (nb) words.
   FILTER(lang(?pronoun) = "nb")
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?feminineMasculineForm .
     ?feminineMasculineForm ontolex:representation ?feminineMasculine ;

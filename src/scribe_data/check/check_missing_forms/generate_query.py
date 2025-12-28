@@ -114,20 +114,33 @@ def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
 
     # Find the language entry by QID.
     language_entry = None
+    parent_language = None
+    sub_language_name = None
+
     for name, data in language_metadata.items():
         if data.get("qid") == language_qid:
             language_entry = (name, data)
+            # If this language has sub-languages and we have a sub_lang_iso_code,
+            # look up the sub-language name via the ISO code.
+            if (
+                sub_lang_iso_code
+                and "sub_languages" in data
+                and sub_lang_iso_code in sub_languages.get(name, {})
+            ):
+                parent_language = name
+                sub_language_name = sub_languages[name][sub_lang_iso_code]["name"]
             break
-        # Check sub-languages if main language not found
+
+        # Check sub-languages if main language not found.
         if "sub_languages" in data:
             for sub_name, sub_data in data["sub_languages"].items():
                 if sub_data.get("qid") == language_qid:
-                    # Use main language name instead of sub_name.
-                    language_entry = (
-                        name,
-                        sub_data,
-                    )
+                    # Keep track of parent and sub-language names.
+                    language_entry = (name, sub_data)
+                    parent_language = name
+                    sub_language_name = sub_name
                     break
+
     if language_entry is None:
         raise ValueError(f"Language with QID {language_qid} not found in metadata")
 
@@ -149,7 +162,7 @@ def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
         nested_qids=missing_features[language_qid][data_type_qid]
     )
 
-    # Keep track of used labels to avoid duplicates
+    # Keep track of used labels to avoid duplicates.
     used_labels = set()
 
     for form_qids in all_form_combinations:
@@ -167,16 +180,29 @@ def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
 
     body_data_type = data_type.replace("_", "")[:-1]  # nouns: noun, s
 
+    # Determine which language name and QID to use in comments.
+    if sub_lang_iso_code and parent_language and sub_language_name:
+        # For sub-languages, use the sub-language name and look up its QID.
+        comment_language_name = sub_language_name
+        # Get the sub-language QID from metadata.
+        comment_language_qid = language_metadata[parent_language]["sub_languages"][
+            sub_language_name
+        ]["qid"]
+
+    else:
+        comment_language_name = language
+        comment_language_qid = language_qid
+
     # Generate a single query for all forms.
     main_body = f"""# tool: scribe-data
-# All {language.capitalize()} ({language_qid}) {data_type} ({data_type_qid}) and the given forms.
+# All {comment_language_name.capitalize()} ({comment_language_qid}) {data_type} ({data_type_qid}) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?{body_data_type}
-  """ + "\n  ".join(f'?{form["label"]}' for form in forms_query)
+""" + "\n  ".join(f"?{form['label']}" for form in forms_query)
 
     where_clause = f"""
 
@@ -185,7 +211,7 @@ WHERE {{
     wikibase:lexicalCategory wd:{data_type_qid} ;
     wikibase:lemma ?{body_data_type} ;
     schema:dateModified ?lastModified .
-    """
+"""
     if sub_lang_iso_code:
         try:
             for data_type_qid in sub_languages[language]:
@@ -209,8 +235,8 @@ WHERE {{
         qids = ", ".join(f"wd:{qid}" for qid in form["qids"])
         optional_clauses += f"""
   OPTIONAL {{
-    ?lexeme ontolex:lexicalForm ?{form['label']}Form .
-    ?{form['label']}Form ontolex:representation ?{form['label']} ;
+    ?lexeme ontolex:lexicalForm ?{form["label"]}Form .
+    ?{form["label"]}Form ontolex:representation ?{form["label"]} ;
       wikibase:grammaticalFeature {qids} .
   }}
 """
@@ -219,13 +245,36 @@ WHERE {{
     final_query = main_body + where_clause + optional_clauses + "}\n"
 
     # Create base filename.
-    if sub_lang_iso_code:
-        base_file_name = f"{query_dir}/{language}/{sub_lang_name}/{data_type}/query_{data_type}.sparql"
+    # If this is a sub-language, place it under parent_language/sub_language/data_type/.
+    # Otherwise, place it directly under language/data_type/.
+    if sub_lang_iso_code and parent_language and sub_language_name:
+        # Sub-language: parent/sub/datatype structure.
+        if query_dir:
+            base_file_name = (
+                Path(query_dir)
+                / parent_language
+                / sub_language_name
+                / data_type
+                / f"query_{data_type}.sparql"
+            )
+
+        else:
+            base_file_name = (
+                Path(language_data_extraction)
+                / parent_language
+                / sub_language_name
+                / data_type
+                / f"query_{data_type}.sparql"
+            )
+
     elif query_dir:
+        # Regular language with query_dir specified.
         base_file_name = (
             Path(query_dir) / language / data_type / f"query_{data_type}.sparql"
         )
+
     else:
+        # Regular language with default directory.
         base_file_name = f"{language_data_extraction}/{language}/{data_type}/query_{data_type}.sparql"
 
     # Get the next available filename.

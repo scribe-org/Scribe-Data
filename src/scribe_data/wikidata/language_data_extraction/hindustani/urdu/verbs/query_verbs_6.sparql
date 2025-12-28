@@ -16,10 +16,10 @@ WHERE {
     wikibase:lexicalCategory wd:Q24905 ;
     wikibase:lemma ?verb ;
     schema:dateModified ?lastModified .
-    
+
   # Note: We need to filter for ur to remove urdu (ur) words.
   FILTER(lang(?verb) = "ur")
-    
+
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?imperativeSecondPersonDefinitePluralForm .
     ?imperativeSecondPersonDefinitePluralForm ontolex:representation ?imperativeSecondPersonDefinitePlural ;
