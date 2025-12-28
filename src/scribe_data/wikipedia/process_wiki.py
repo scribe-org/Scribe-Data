@@ -340,15 +340,16 @@ def gen_autosuggestions(
     words_to_ignore = []
     if isinstance(ignore_words, str):
         words_to_ignore = [ignore_words]
+
     elif ignore_words is None:
         words_to_ignore = []
 
     print("Querying profanities to remove from suggestions.")
-    query_path = (
+    profanity_query_path = (
         Path(__file__).parent.resolve() / ".." / "wikidata" / "query_profanity.sparql"
     )
     # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
-    with open(query_path, encoding="utf-8") as file:
+    with open(profanity_query_path, encoding="utf-8") as file:
         query_lines = file.readlines()
 
     query = "".join(query_lines).replace(
@@ -380,7 +381,7 @@ def gen_autosuggestions(
             f"Queried {len(profanities)} words to be removed from autosuggest options."
         )
 
-    # Precompute bigram frequencies
+    # Precompute bigram frequencies.
     print("Precomputing word relationships (bigrams)...")
     bigram_counter = defaultdict(Counter)
     for text in tqdm(
@@ -389,7 +390,7 @@ def gen_autosuggestions(
         for w1, w2 in zip(text, text[1:]):
             bigram_counter[w1][w2] += 1
 
-    # Build autosuggestions
+    # Build autosuggestions.
     autosuggest_dict = {}
     for w in tqdm(
         top_words, desc="Autosuggestions generated", unit="word", disable=not verbose
@@ -406,7 +407,7 @@ def gen_autosuggestions(
                 and next_word != next_word.upper()  # no upper case suggestions
                 and not next_word.lower().startswith(
                     ("nazi", "наци")
-                )  # Lots of detailed articles on WWII on wikipedia
+                )  # lots of detailed articles on WWII on wikipedia
             ):
                 autosuggestions.append(next_word)
 
