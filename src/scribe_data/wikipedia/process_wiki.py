@@ -6,7 +6,7 @@ Module for cleaning Wikipedia based corpuses for autosuggestion generation.
 import json
 import re
 import warnings
-from collections import Counter
+from collections import Counter, defaultdict
 from itertools import chain
 from pathlib import Path
 from urllib.error import HTTPError
@@ -335,20 +335,21 @@ def gen_autosuggestions(
     """
     counter_obj = Counter(chain.from_iterable(text_corpus))
 
-    top_words = [item[0] for item in counter_obj.most_common()][:num_words]
+    top_words = [item[0] for item in counter_obj.most_common(num_words)]
 
     words_to_ignore = []
     if isinstance(ignore_words, str):
         words_to_ignore = [ignore_words]
+
     elif ignore_words is None:
-        words_to_ignore += []
+        words_to_ignore = []
 
     print("Querying profanities to remove from suggestions.")
+    profanity_query_path = (
+        Path(__file__).parent.resolve() / ".." / "wikidata" / "query_profanity.sparql"
+    )
     # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
-    with open(
-        Path(__file__).parent.resolve() / ".." / "wikidata" / "query_profanity.sparql",
-        encoding="utf-8",
-    ) as file:
+    with open(profanity_query_path, encoding="utf-8") as file:
         query_lines = file.readlines()
 
     query = "".join(query_lines).replace(
@@ -380,30 +381,35 @@ def gen_autosuggestions(
             f"Queried {len(profanities)} words to be removed from autosuggest options."
         )
 
+    # Precompute bigram frequencies.
+    print("Precomputing word relationships (bigrams)...")
+    bigram_counter = defaultdict(Counter)
+    for text in tqdm(
+        text_corpus, desc="Building bigrams", unit="article", disable=not verbose
+    ):
+        for w1, w2 in zip(text, text[1:]):
+            bigram_counter[w1][w2] += 1
+
+    # Build autosuggestions.
     autosuggest_dict = {}
     for w in tqdm(
         top_words, desc="Autosuggestions generated", unit="word", disable=not verbose
     ):
-        words_after_w = [
-            [tup[1] for tup in zip(text, text[1:]) if w == tup[0]]
-            for text in text_corpus
-        ]
-
-        flat_words_after_w = [item for sublist in words_after_w for item in sublist]
-
+        candidates = bigram_counter[w].most_common()
         autosuggestions = []
-        for tup in Counter(flat_words_after_w).most_common():
+
+        for next_word, _ in candidates:
             if (
-                tup[0] != w
-                and tup[0].lower() not in w.lower()
-                and tup[0] not in profanities
-                and tup[0] not in words_to_ignore
-                and tup[0] != tup[0].upper()  # no upper case suggestions
-                # Lots of detailed articles on WWII on Wikipedia.
-                and tup[0].lower()[:4] != "nazi"
-                and tup[0].lower()[:4] != "наци"
+                next_word != w
+                and next_word.lower() not in w.lower()
+                and next_word not in profanities
+                and next_word not in words_to_ignore
+                and next_word != next_word.upper()  # no upper case suggestions
+                and not next_word.lower().startswith(
+                    ("nazi", "наци")
+                )  # lots of detailed articles on WWII on wikipedia
             ):
-                autosuggestions.append(tup[0])
+                autosuggestions.append(next_word)
 
             if len(autosuggestions) == 3:
                 break
