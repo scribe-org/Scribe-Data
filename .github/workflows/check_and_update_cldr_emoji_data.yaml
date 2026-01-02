@@ -66,8 +66,8 @@ jobs:
 
           # Use dynamic language list from previous step.
           for lang in ${{ steps.get-langs.outputs.lang_list }}; do
-            DERIVED_CHANGED="No"
-            FULL_CHANGED="No"
+            DERIVED_CHANGED="No changes"
+            FULL_CHANGED="No changes"
 
             # Download latest data for each language.
             mkdir -p "src/scribe_data/unicode/cldr-annotations-derived-full/annotationsDerived/$lang"
@@ -80,26 +80,26 @@ jobs:
             if [ -f "src/scribe_data/unicode/cldr-annotations-derived-full/annotationsDerived/$lang/annotations.json" ]; then
               if ! cmp -s "new_derived_$lang.json" "src/scribe_data/unicode/cldr-annotations-derived-full/annotationsDerived/$lang/annotations.json"; then
                 CHANGES_EXIST=true
-                DERIVED_CHANGED="Yes"
+                DERIVED_CHANGED="Updated"
               fi
             else
               CHANGES_EXIST=true
-              DERIVED_CHANGED="New"
+              DERIVED_CHANGED="New file"
             fi
 
             # Check full annotations.
             if [ -f "src/scribe_data/unicode/cldr-annotations-full/annotations/$lang/annotations.json" ]; then
               if ! cmp -s "new_full_$lang.json" "src/scribe_data/unicode/cldr-annotations-full/annotations/$lang/annotations.json"; then
                 CHANGES_EXIST=true
-                FULL_CHANGED="Yes"
+                FULL_CHANGED="Updated"
               fi
             else
               CHANGES_EXIST=true
-              FULL_CHANGED="New"
+              FULL_CHANGED="New file"
             fi
 
             # Only add to summary if there are changes.
-            if [ "$DERIVED_CHANGED" != "No" ] || [ "$FULL_CHANGED" != "No" ]; then
+            if [ "$DERIVED_CHANGED" != "No changes" ] || [ "$FULL_CHANGED" != "No changes" ]; then
               CHANGE_SUMMARY="$CHANGE_SUMMARY\n| $lang | $DERIVED_CHANGED | $FULL_CHANGED |"
             fi
           done
@@ -134,9 +134,9 @@ jobs:
             This is an automated PR created by the [Check and Update CLDR Emoji Data](https://github.com/scribe-org/Scribe-Data/blob/main/.github/workflows/check_and_update_cldr_emoji_data.yaml) workflow.
 
             ### Legend:
-            - Yes: File was updated
-            - New: File was newly added
-            - No: No changes to the file
+            - Updated: The file was updated
+            - New file: The file was newly added
+            - No changes: No changes to the file
 
             ## Changes Summary
             ${{ steps.check-updates.outputs.change_summary }}
