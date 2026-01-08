@@ -153,7 +153,7 @@ typing-extensions==4.15.0
     #   orbax-checkpoint
 tzdata==2025.2
     # via pandas
-urllib3==2.6.0
+urllib3==2.6.3
     # via requests
 wcwidth==0.2.14
     # via prompt-toolkit
