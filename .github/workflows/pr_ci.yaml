@@ -1,11 +1,25 @@
 name: CI
 on:
-  push:
-    branches: [main]
   pull_request:
     branches:
       - main
-    types: [opened, reopened, synchronize]
+    types:
+      - opened
+      - reopened
+      - synchronize
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "requirements.txt"
+      - "requirements-dev.txt"
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "requirements.txt"
+      - "requirements-dev.txt"
 
 jobs:
   format_check:

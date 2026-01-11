@@ -4,6 +4,10 @@
 # - pip-compile --rebuild requirements.in
 # - pip-compile --rebuild requirements-dev.in
 #
+# To update dependencies, please run the following in the project root:
+# - pip-compile --upgrade requirements.in
+# - pip-compile --upgrade requirements-dev.in
+#
 # Make sure we use production deps for constraining installed dev packages. This
 # is important as otherwise we could be running tests with different versions
 # than production.
