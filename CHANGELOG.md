@@ -12,6 +12,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 5.x
 
+### ⬆️ Dependencies
+
+- Dependencies were updated given dependabot warnings.
+
 ## Scribe-Data 5.2.0
 
 ### ✨ Features
