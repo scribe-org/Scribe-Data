@@ -8,6 +8,7 @@ version = "5.1.4"
 description = "Wikidata and Wikipedia language data extraction"
 readme = "README.md"
 requires-python = ">=3.11"
+keywords = ["wikidata", "lexemes", "cli", "data", "etl", "elt"]
 authors = [
     { name = "Andrew Tavis McAllister", email = "team@scri.be" },
 ]
@@ -105,6 +106,15 @@ scribe-data = "scribe_data.cli.main:main"
 
 [project.urls]
 Homepage = "https://github.com/scribe-org/Scribe-Data"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"scribe_data.unicode" = ["2021_ranked.tsv"]
 
 [tool.pytest.ini_options]
 pythonpath = "src"
