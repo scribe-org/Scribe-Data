@@ -1,32 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-import os
+from setuptools import find_packages, setup
 
-try:
-    from setuptools import setup
-
-except ImportError:
-    from distutils.core import setup
-
-from setuptools import find_packages
-
-package_directory = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(package_directory, "README.md"), encoding="utf-8") as fh:
-    long_description = fh.read()
-
-with open(
-    os.path.join(package_directory, "requirements.txt"), encoding="utf-8"
-) as req_file:
-    requirements = req_file.readlines()
-
-on_rtd = os.environ.get("READTHEDOCS") == "True"
-if on_rtd:
-    requirements = []
-
-setup_args = dict(
-    name="scribe-data",
-    packages=find_packages(where="src"),
-    package_dir={"": "src"},
+setup(
     version="5.1.4",
     author="Andrew Tavis McAllister",
     author_email="team@scri.be",
@@ -43,12 +19,12 @@ setup_args = dict(
         "Programming Language :: Python :: 3.14",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.9",
-    install_requires=requirements,
+    python_requires=">=3.11",
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
     package_data={"": ["2021_ranked.tsv"]},
     include_package_data=True,
     description="Wikidata and Wikipedia language data extraction",
-    long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/scribe-org/Scribe-Data",
     entry_points={
@@ -57,6 +33,3 @@ setup_args = dict(
         ],
     },
 )
-
-if __name__ == "__main__":
-    setup(**setup_args)
