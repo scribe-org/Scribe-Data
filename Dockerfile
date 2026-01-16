@@ -4,6 +4,9 @@ FROM python:slim
 # Set the working directory inside the container.
 WORKDIR /app
 
+# Install uv.
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
 # Install system dependencies.
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -11,8 +14,11 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy lock file and pyproject.toml.
+COPY uv.lock pyproject.toml /app/
+
+# Install dependencies with uv.
+RUN uv pip install --system --no-build-isolation .
 
 COPY . /app
 

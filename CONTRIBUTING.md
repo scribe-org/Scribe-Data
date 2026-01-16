@@ -145,15 +145,23 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
   venv\Scripts\activate.ps1
   ```
 
+Or Install [uv](https://docs.astral.sh/uv/getting-started/installation/) (fast Rust-based Python installer) and set up the local environment.
+
 After activating the virtual environment, install the required dependencies and set up [pre-commit](https://pre-commit.com/) by running:
 
 ```bash
-pip install --upgrade pip  # make sure that pip is at the latest version
-pip install -r requirements-dev.txt  # install development dependencies
-pip install -e .  # install the local version of Scribe-Data
-pre-commit install  # install pre-commit hooks
-# pre-commit run --all-files  # lint and fix common problems in the codebase
+uv sync                       # create .venv and install all dependencies from uv.lock
+source .venv/bin/activate     # Windows (cmd): .venv\Scripts\activate.bat ; PowerShell: .venv\Scripts\activate.ps1
+pre-commit install
+# uv run pre-commit run --all-files  # lint and fix common problems in the codebase
 ```
+
+> [!NOTE]
+> If you change dependencies in `pyproject.toml`, regenerate the lock file:
+>
+> ```bash
+> uv lock  # refresh uv.lock for reproducible installs
+> ```
 
 > [!NOTE]
 > If you are having issues with pre-commit and want to send along your changes regardless, you can ignore the pre-commit hooks via the following:

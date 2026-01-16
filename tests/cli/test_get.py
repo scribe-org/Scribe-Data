@@ -116,12 +116,16 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.Path.glob", return_value=[])
-    def test_get_data_with_capitalized_language(self, mock_glob, mock_query_data):
+    @patch("scribe_data.cli.get.check_index_exists")
+    def test_get_data_with_capitalized_language(
+        self, mock_check_index, mock_glob, mock_query_data
+    ):
         """
         Test retrieving data with a capitalized language.
 
         Ensures that `query_data` is called properly when a capitalized language is provided.
         """
+        mock_check_index.return_value = False
         get_data(language="German", data_type="nouns")
         mock_query_data.assert_called_once_with(
             languages=["German"],
@@ -424,19 +428,23 @@ class TestGetData(unittest.TestCase):
     # MARK: Error Handling
 
     @patch("scribe_data.cli.get.query_data")
-    def test_json_decode_error_handling(self, mock_query_data):
+    @patch("scribe_data.cli.get.check_index_exists")
+    def test_json_decode_error_handling(self, mock_check_index, mock_query_data):
         """
         Test handling of JSONDecodeError when querying data.
         """
+        mock_check_index.return_value = False
         mock_query_data.side_effect = json.decoder.JSONDecodeError("Msg", "Doc", 0)
 
         get_data(language="German", data_type="verbs")
 
     @patch("scribe_data.cli.get.query_data")
-    def test_http_error_handling(self, mock_query_data):
+    @patch("scribe_data.cli.get.check_index_exists")
+    def test_http_error_handling(self, mock_check_index, mock_query_data):
         """
         Test handling of HTTPError when querying data.
         """
+        mock_check_index.return_value = False
         mock_query_data.side_effect = urllib.error.HTTPError(
             url="test", code=500, msg="error", hdrs={}, fp=None
         )
@@ -444,10 +452,12 @@ class TestGetData(unittest.TestCase):
         get_data(language="German", data_type="verbs")
 
     @patch("scribe_data.cli.get.query_data")
-    def test_endpoint_error_handling(self, mock_query_data):
+    @patch("scribe_data.cli.get.check_index_exists")
+    def test_endpoint_error_handling(self, mock_check_index, mock_query_data):
         """
         Test handling of EndPointInternalError when querying data.
         """
+        mock_check_index.return_value = False
         mock_query_data.side_effect = EndPointInternalError
 
         get_data(language="German", data_type="verbs")
@@ -492,10 +502,12 @@ class TestGetData(unittest.TestCase):
 
     # MARK: Default Output Directory
 
-    def test_default_output_directory_selection(self):
+    @patch("scribe_data.cli.get.check_index_exists")
+    def test_default_output_directory_selection(self, mock_check_index):
         """
         Test that correct default output directory is selected based on output type.
         """
+        mock_check_index.return_value = False
         test_cases = [
             ("csv", "scribe_data_csv_export"),
             ("json", "scribe_data_json_export"),
