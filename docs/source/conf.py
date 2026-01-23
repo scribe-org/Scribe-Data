@@ -53,7 +53,6 @@ autodoc_member_order = "bysource"
 autodoc_mock_imports = [
     "beautifulsoup4",
     "emoji",
-    "flax",
     "langcodes",
     "mwparserfromhell",
     "pandas",

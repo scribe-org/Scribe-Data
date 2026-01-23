@@ -60,14 +60,14 @@ uv pip install scribe-data
 pip install scribe-data
 ```
 
-# For a development build:
+### For Development Build
 
 ```bash
 git clone https://github.com/scribe-org/Scribe-Data.git  # or ideally your fork
 cd Scribe-Data
 
 # With uv (recommended):
-uv sync --extra dev              # Install all dependencies
+uv sync --all-extras             # Install all dependencies
 source .venv/bin/activate        # Activate venv (macOS/Linux)
 # .venv\Scripts\activate         # Activate venv (Windows)
 
@@ -252,44 +252,30 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
   - `origin` (forked repository)
   - `upstream` (Scribe-Data repository)
 
-2. Use [Python venv](https://docs.python.org/3/library/venv.html) to create the local development environment within your Scribe-Data directory:
+2. Create a virtual environment for Scribe-Data (Python `>=3.12`), activate it and install dependencies:
 
-- On Unix or MacOS, run:
-
-  ```bash
-  python3 -m venv venv  # make an environment named venv
-  source venv/bin/activate # activate the environment
-  ```
-
-- On Windows (using Command Prompt), run:
-
-  ```bash
-  python -m venv venv
-  venv\Scripts\activate.bat
-  ```
-
-- On Windows (using PowerShell), run:
-
-  ```bash
-  python -m venv venv
-  venv\Scripts\activate.ps1
-  pip install .
-  ```
-
-Or Install [uv](https://docs.astral.sh/uv/getting-started/installation/) (fast Rust-based Python installer) and set up the local environment.
-
-
-After activating the virtual environment, install the required dependencies and set up [pre-commit](https://pre-commit.com/) by running:
+> [!NOTE]
+> First, install `uv` if you don't already have it by following the [official installation guide](https://docs.astral.sh/uv/getting-started/installation/).
 
 ```bash
-uv sync                       # create .venv and install all dependencies from uv.lock
-source .venv/bin/activate     # Windows (cmd): .venv\Scripts\activate.bat ; PowerShell: .venv\Scripts\activate.ps1
+uv sync --all-extras  # create .venv and install all dependencies from uv.lock
+
+# Unix or macOS:
+source .venv/bin/activate
+
+# Windows:
+.venv\Scripts\activate.bat  # .venv\Scripts\activate.ps1 (PowerShell)
+```
+
+After activating the virtual environment, set up [pre-commit](https://pre-commit.com/) by running:
+
+```bash
 pre-commit install
 # uv run pre-commit run --all-files  # lint and fix common problems in the codebase
 ```
 
 > [!NOTE]
-> If you change dependencies in `pyproject.toml`, regenerate the lock file:
+> If you change dependencies in `pyproject.toml`, regenerate the lock file with the following command:
 >
 > ```bash
 > uv lock  # refresh uv.lock for reproducible installs

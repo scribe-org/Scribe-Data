@@ -122,42 +122,30 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
   - `origin` (forked repository)
   - `upstream` (Scribe-Data repository)
 
-2. Use [Python venv](https://docs.python.org/3/library/venv.html) to create the local development environment within your Scribe-Data directory:
+2. Create a virtual environment for Scribe-Data (Python `>=3.12`), activate it and install dependencies:
 
-- On Unix or MacOS, run:
+> [!NOTE]
+> First, install `uv` if you don't already have it by following the [official installation guide](https://docs.astral.sh/uv/getting-started/installation/).
 
-  ```bash
-  python3 -m venv venv  # make an environment named venv
-  source venv/bin/activate # activate the environment
-  ```
+    ```bash
+    uv sync --all-extras  # create .venv and install all dependencies from uv.lock
 
-- On Windows (using Command Prompt), run:
+    # Unix or macOS:
+    source .venv/bin/activate
 
-  ```bash
-  python -m venv venv
-  venv\Scripts\activate.bat
-  ```
+    # Windows:
+    .venv\Scripts\activate.bat  # .venv\Scripts\activate.ps1 (PowerShell)
+    ```
 
-- On Windows (using PowerShell), run:
-
-  ```bash
-  python -m venv venv
-  venv\Scripts\activate.ps1
-  ```
-
-Or Install [uv](https://docs.astral.sh/uv/getting-started/installation/) (fast Rust-based Python installer) and set up the local environment.
-
-After activating the virtual environment, install the required dependencies and set up [pre-commit](https://pre-commit.com/) by running:
+After activating the virtual environment, set up [pre-commit](https://pre-commit.com/) by running:
 
 ```bash
-uv sync                       # create .venv and install all dependencies from uv.lock
-source .venv/bin/activate     # Windows (cmd): .venv\Scripts\activate.bat ; PowerShell: .venv\Scripts\activate.ps1
 pre-commit install
 # uv run pre-commit run --all-files  # lint and fix common problems in the codebase
 ```
 
 > [!NOTE]
-> If you change dependencies in `pyproject.toml`, regenerate the lock file:
+> If you change dependencies in `pyproject.toml`, regenerate the lock file with the following command:
 >
 > ```bash
 > uv lock  # refresh uv.lock for reproducible installs
@@ -175,16 +163,10 @@ If you face any issues, consider reinstalling Scribe-data by running the followi
 ```bash
 # Install the new version of Scribe-Data:
 pip uninstall scribe-data
-pip install .  # or pip install scribe-data
+pip install -e .  # or pip install scribe-data
 
 # Update the entry_points and console_scripts:
 python setup.py egg_info
-```
-
-Note that you may need to run this command every time you make any change to the code to have them be reflected in the development Scribe-Data:
-
-```bash
-pip install -e .
 ```
 
 > [!NOTE]

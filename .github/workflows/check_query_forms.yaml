@@ -1,4 +1,4 @@
-name: Check Query Forms
+name: check_query_forms
 
 on:
   push:

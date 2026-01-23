@@ -1,4 +1,4 @@
-name: Check Project Structure
+name: check_project_structure
 on:
   push:
     branches: [main]

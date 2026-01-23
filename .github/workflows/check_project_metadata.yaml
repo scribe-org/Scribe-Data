@@ -1,4 +1,4 @@
-name: Check Project Metadata
+name: check_project_metadata
 
 on:
   push:
