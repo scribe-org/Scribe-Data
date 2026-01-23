@@ -46,14 +46,15 @@ dev = [
     "pre-commit>=4.5.1",
     "pytest>=9.0.2",
     "pytest-cov>=7.0.0",
-    "setuptools>=80.10.1",
     "ruff>=0.14.14",
+    "setuptools>=80.10.1",
 ]
 docs = [
     # Keep docs dependencies formatted in this way with ruff to allow for upgrades via VS Code extension.
-    "sphinx-rtd-theme>=3.1.0",
     "m2r2>=0.3.0",
     "numpydoc>=1.10.0",
+    "sphinx-rtd-theme>=3.1.0",
+
 ]
 
 [project.scripts]
