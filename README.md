@@ -48,7 +48,7 @@ The main data update process in triggers [language based SPARQL queries](https:/
 
 # Installation [`⇧`](#contents)
 
-Scribe-Data is available for installation via using [uv](https://docs.astral.sh/uv/) (recommended) or [pip](https://pypi.org/project/scribe-data/).
+Scribe-Data is available for installation via [uv](https://docs.astral.sh/uv/) (recommended) or [pip](https://pypi.org/project/scribe-data/).
 
 ### For Users
 
@@ -67,14 +67,14 @@ git clone https://github.com/scribe-org/Scribe-Data.git  # or ideally your fork
 cd Scribe-Data
 
 # With uv (recommended):
-uv sync --all-extras             # Install all dependencies
-source .venv/bin/activate        # Activate venv (macOS/Linux)
-# .venv\Scripts\activate         # Activate venv (Windows)
+uv sync --all-extras  # Install all dependencies
+source .venv/bin/activate  # Activate venv (macOS/Linux)
+# .venv\Scripts\activate  # Activate venv (Windows)
 
 # Or with pip:
-python -m venv .venv             # Create virtual environment
-source .venv/bin/activate        # Activate venv (macOS/Linux)
-# .venv\Scripts\activate         # Activate venv (Windows)
+python -m venv .venv  # Create virtual environment
+source .venv/bin/activate  # Activate venv (macOS/Linux)
+# .venv\Scripts\activate  # Activate venv (Windows)
 pip install -e .
 ```
 
