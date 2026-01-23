@@ -1,4 +1,4 @@
-name: Check Query Forms
+name: check_query_forms
 
 on:
   push:
@@ -34,17 +34,18 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
       - name: Add project root to PYTHONPATH
         run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
 
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements-dev.txt
+        run: uv sync --frozen
 
       - name: Run check_query_forms.py
         working-directory: ./src/scribe_data/check
-        run: python check_query_forms.py
+        run: uv run python check_query_forms.py
 
       - name: Post-run status
         if: failure()

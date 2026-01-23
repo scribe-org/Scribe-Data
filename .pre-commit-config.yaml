@@ -27,11 +27,11 @@ repos:
     hooks:
       - id: sphinx-lint
 
-  - repo: https://github.com/tcort/markdown-link-check
-    rev: v3.14.1
-    hooks:
-      - id: markdown-link-check
-        args: [-q]
+  # - repo: https://github.com/tcort/markdown-link-check
+  #   rev: v3.14.1
+  #   hooks:
+  #     - id: markdown-link-check
+  #       args: [-q]
 
   - repo: https://github.com/to-sta/spdx-checker-pre-commit
     rev: 0.1.7

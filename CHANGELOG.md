@@ -12,10 +12,6 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## [Upcoming] Scribe-Data 5.x
 
-### ⬆️ Dependencies
-
-- Dependencies were updated given dependabot warnings.
-
 ## Scribe-Data 5.2.0
 
 ### ✨ Features
@@ -32,7 +28,9 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ### ⬆️ Dependencies
 
+- Dependencies were updated given dependabot warnings.
 - All dependencies for the package were updated to the highest feasible level.
+- Dependency management was switched over to using [uv](https://docs.astral.sh/uv/).
 
 ## Scribe-Data 5.1.4
 

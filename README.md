@@ -48,14 +48,33 @@ The main data update process in triggers [language based SPARQL queries](https:/
 
 # Installation [`⇧`](#contents)
 
-Scribe-Data is available for installation via [pip](https://pypi.org/project/scribe-data/):
+Scribe-Data is available for installation via [uv](https://docs.astral.sh/uv/) (recommended) or [pip](https://pypi.org/project/scribe-data/).
+
+### For Users
 
 ```bash
-pip install scribe-data
+# Using uv (recommended - fast, Rust-based installer):
+uv pip install scribe-data
 
-# For a development build:
+# Or using pip:
+pip install scribe-data
+```
+
+### For Development Build
+
+```bash
 git clone https://github.com/scribe-org/Scribe-Data.git  # or ideally your fork
 cd Scribe-Data
+
+# With uv (recommended):
+uv sync --all-extras  # Install all dependencies
+source .venv/bin/activate  # Activate venv (macOS/Linux)
+# .venv\Scripts\activate  # Activate venv (Windows)
+
+# Or with pip:
+python -m venv .venv  # Create virtual environment
+source .venv/bin/activate  # Activate venv (macOS/Linux)
+# .venv\Scripts\activate  # Activate venv (Windows)
 pip install -e .
 ```
 
@@ -233,38 +252,34 @@ git remote add upstream https://github.com/scribe-org/Scribe-Data.git
   - `origin` (forked repository)
   - `upstream` (Scribe-Data repository)
 
-2. Use [Python venv](https://docs.python.org/3/library/venv.html) to create the local development environment within your Scribe-Data directory:
+2. Create a virtual environment for Scribe-Data (Python `>=3.12`), activate it and install dependencies:
 
-- On Unix or MacOS, run:
-
-  ```bash
-  python3 -m venv venv  # make an environment named venv
-  source venv/bin/activate # activate the environment
-  ```
-
-- On Windows (using Command Prompt), run:
-
-  ```bash
-  python -m venv venv
-  venv\Scripts\activate.bat
-  ```
-
-- On Windows (using PowerShell), run:
-
-  ```bash
-  python -m venv venv
-  venv\Scripts\activate.ps1
-  ```
-
-After activating the virtual environment, install the required dependencies and set up [pre-commit](https://pre-commit.com/) by running:
+> [!NOTE]
+> First, install `uv` if you don't already have it by following the [official installation guide](https://docs.astral.sh/uv/getting-started/installation/).
 
 ```bash
-pip install --upgrade pip  # make sure that pip is at the latest version
-pip install -r requirements-dev.txt  # install development dependencies
-pip install -e .  # install the local version of Scribe-Data
-pre-commit install  # install pre-commit hooks
-# pre-commit run --all-files  # lint and fix common problems in the codebase
+uv sync --all-extras  # create .venv and install all dependencies from uv.lock
+
+# Unix or macOS:
+source .venv/bin/activate
+
+# Windows:
+.venv\Scripts\activate.bat  # .venv\Scripts\activate.ps1 (PowerShell)
 ```
+
+After activating the virtual environment, set up [pre-commit](https://pre-commit.com/) by running:
+
+```bash
+pre-commit install
+# uv run pre-commit run --all-files  # lint and fix common problems in the codebase
+```
+
+> [!NOTE]
+> If you change dependencies in `pyproject.toml`, regenerate the lock file with the following command:
+>
+> ```bash
+> uv lock  # refresh uv.lock for reproducible installs
+> ```
 
 See the [contribution guidelines](https://github.com/scribe-org/Scribe-Data/blob/main/CONTRIBUTING.md) for a more detailed explanation and troubleshooting.
 

@@ -1,22 +1,38 @@
-name: Python Package CI
+name: python_package_ci
 
 on:
-  push:
-    branches: [main]
   pull_request:
-    branches: [main]
+    branches:
+      - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "pyproject.toml"
+      - "uv.lock"
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "pyproject.toml"
+      - "uv.lock"
 
 jobs:
   build:
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         os:
           - macos-latest
           - ubuntu-latest
           - windows-latest
         python-version:
-          - "3.11"
+          - "3.12"
 
     runs-on: ${{ matrix.os }}
 
@@ -33,18 +49,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Create Environment and Install Dependencies
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Install dependencies
         run: |
-          python -m venv venv
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            source venv/Scripts/activate
-          else
-            source venv/bin/activate
-          fi
-          echo PATH=$PATH >> $GITHUB_ENV
-          python -m pip install --upgrade pip
-          pip install pylint pytest pytest-cov
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          uv pip install --system .[dev]
+          uv pip install --system pylint
 
       - name: Set up Homebrew
         if: matrix.os == 'macos-latest'
@@ -59,4 +70,4 @@ jobs:
           export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$(brew --prefix)/opt/icu4c/lib/pkgconfig"
 
       - name: Run pytest - Unit Tests
-        run: pytest . --cov=. --cov-report=term-missing --cov-fail-under=70 --cov-config=./pyproject.toml
+        run: uv run pytest . --cov=. --cov-report=term-missing --cov-fail-under=70 --cov-config=./pyproject.toml

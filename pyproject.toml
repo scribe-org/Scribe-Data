@@ -1,3 +1,76 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scribe-data"
+version = "5.1.4"
+description = "Wikidata and Wiktionary language data extraction"
+readme = "README.md"
+requires-python = ">=3.12"
+keywords = ["wikidata", "lexemes", "cli", "data", "etl", "elt"]
+authors = [{ name = "Andrew Tavis McAllister", email = "team@scri.be" }]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "beautifulsoup4==4.14.3",
+    "certifi==2026.1.4",
+    "defusedxml==0.7.1",
+    "emoji==2.15.0",
+    "iso639-lang==2.6.3",
+    "mwparserfromhell==0.7.2",
+    "orjson==3.11.5",
+    "packaging==26.0",
+    "pandas==2.3.3",
+    "questionary==2.1.1",
+    "regex==2026.1.15",
+    "requests==2.32.5",
+    "rich==14.2.0",
+    "sparqlwrapper==2.0.0",
+    "tqdm==4.67.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.19.1",
+    "pre-commit>=4.5.1",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "setuptools>=80.10.1",
+    "ruff>=0.14.14",
+]
+docs = [
+    # Keep docs dependencies formatted in this way with ruff to allow for upgrades via VS Code extension.
+    "sphinx-rtd-theme>=3.1.0",
+    "m2r2>=0.3.0",
+    "numpydoc>=1.10.0",
+]
+
+[project.scripts]
+scribe-data = "scribe_data.cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/scribe-org/Scribe-Data"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"scribe_data.unicode" = ["2021_ranked.tsv"]
+
 [tool.pytest.ini_options]
 pythonpath = "src"
 

@@ -31,20 +31,25 @@ This guide provides step-by-step instructions on how to install the PyICU librar
 
 If you haven't already, You can do this with the following command:
 
-```bash
-# Create a virtual environment named 'venv'
-python -m venv venv
+> [!NOTE]
+> First, install `uv` if you don't already have it by following the [official installation guide](https://docs.astral.sh/uv/getting-started/installation/).
 
-# Activate the virtual environment
-venv\Scripts\activate
+```bash
+uv sync --all-extras  # create .venv and install all dependencies from uv.lock
+
+# Unix or macOS:
+source .venv/bin/activate
+
+# Windows:
+.venv\Scripts\activate.bat  # .venv\Scripts\activate.ps1 (PowerShell)
 ```
 
 ### Install PyICU
 
 ```bash
-# Replace 'PyICU-2.13-cp312-cp312-win_amd64.whl' with the actual filename you downloaded
-pip install PyICU-2.13-cp312-cp312-win_amd64.whl
+# Replace 'PyICU-2.13-cp312-cp312-win_amd64.whl' with the actual filename you downloaded.
+uv pip install PyICU-2.13-cp312-cp312-win_amd64.whl
 
-# Check the installation details of PyICU
-pip show PyICU
+# Check the installation details of PyICU.
+uv pip show PyICU
 ```
