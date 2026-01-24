@@ -59,4 +59,4 @@ jobs:
 
       # - name: Run mypy - Static Type Checking
       #   if: always()
-      #   run: mypy ./src --config-file ./pyproject.toml
+      #   run: uv run mypy ./src --config-file ./pyproject.toml
