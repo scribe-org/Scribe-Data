@@ -44,14 +44,25 @@ Scribe-Data is available for installation via `pip <https://pypi.org/project/scr
 
 .. code-block:: shell
 
+    # Using uv (recommended - fast, Rust-based installer):
+    uv pip install scribe-data
+
+    # Or using pip:
     pip install scribe-data
 
 The latest development version can further be installed the `source code on GitHub <https://github.com/scribe-org/Scribe-Data>`_:
 
 .. code-block:: shell
 
-    git clone https://github.com/scribe-org/Scribe-Data.git
-    cd Scribe-Data
+    # With uv (recommended):
+    uv sync --all-extras  # Install all dependencies
+    source .venv/bin/activate  # Activate venv (macOS/Linux)
+    # .venv\Scripts\activate  # Activate venv (Windows)
+
+    # Or with pip:
+    python -m venv .venv  # Create virtual environment
+    source .venv/bin/activate  # Activate venv (macOS/Linux)
+    # .venv\Scripts\activate  # Activate venv (Windows)
     pip install -e .
 
 To utilize the Scribe-Data CLI, you can execute variations of the following command in your terminal:

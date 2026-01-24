@@ -1,435 +1,436 @@
+=========
 Changelog
 =========
 
-See the releases for Scribe-Data <https://github.com/scribe-org/Scribe-Data/releases>_ for an up to date list of versions and their release dates.
+See the `releases for Scribe-Data <https://github.com/scribe-org/Scribe-Data/releases>`_ for an up to date list of versions and their release dates.
 
-Scribe-Data tries to follow semantic versioning <https://semver.org/>_, a MAJOR.MINOR.PATCH version where increments are made of the:
+Scribe-Data tries to follow `semantic versioning <https://semver.org/>`_, a MAJOR.MINOR.PATCH version where increments are made of the:
 
-- MAJOR version when we make incompatible API changes
-- MINOR version when we add functionality in a backwards compatible manner
-- PATCH version when we make backwards compatible bug fixes
+* MAJOR version when we make incompatible API changes
+* MINOR version when we add functionality in a backwards compatible manner
+* PATCH version when we make backwards compatible bug fixes
 
-Emojis for the following are chosen based on gitmoji <https://gitmoji.dev/>_.
+Emojis for the following are chosen based on `gitmoji <https://gitmoji.dev/>`_.
 
 Scribe-Data 5.1.4
-^^^^^^^^^^^^^^^^^
+-----------------
 
 🐞 Bug Fixes
 ~~~~~~~~~~~~
 
-- Allow the convert parser to accept multiple data types (issue `#634 <https://github.com/scribe-org/Scribe-Data/issues/634>`_).
+* Allow the convert parser to accept multiple data types (`#634 <https://github.com/scribe-org/Scribe-Data/issues/634>`_).
 
 Scribe-Data 5.1.3
-^^^^^^^^^^^^^^^^^
+-----------------
 
 🐞 Bug Fixes
 ~~~~~~~~~~~~
 
-- Fixed data conversion not handling multiple explicitly passed languages and data types (issue `#632 <https://github.com/scribe-org/Scribe-Data/issues/632>`_).
+* Fixed data conversion not handling multiple explicitly passed languages and data types (`#632 <https://github.com/scribe-org/Scribe-Data/issues/632>`_).
 
 Scribe-Data 5.1.2
-^^^^^^^^^^^^^^^^^
+-----------------
 
 🐞 Bug Fixes
 ~~~~~~~~~~~~
 
-- Fixed data conversion not handling multiple explicitly passed languages (issue `#630 <https://github.com/scribe-org/Scribe-Data/issues/630>`_).
+* Fixed data conversion not handling multiple explicitly passed languages (`#630 <https://github.com/scribe-org/Scribe-Data/issues/630>`_).
 
 Scribe-Data 5.1.1
-^^^^^^^^^^^^^^^^^
+-----------------
 
 🐞 Bug Fixes
 ~~~~~~~~~~~~
 
-- The path to the contracts was fixed in data filtration to assure that it's a ``pathlib.Path`` value (issue `#627 <https://github.com/scribe-org/Scribe-Data/issues/627>`_).
+* The path to the contracts was fixed in data filtration to assure that it's a ``pathlib.Path`` value (`#627 <https://github.com/scribe-org/Scribe-Data/issues/627>`_).
 
 ✅ Tests
 ~~~~~~~~
 
-- The upgrade functionality of the CLI is now comprehensively tested (issue `#624 <https://github.com/scribe-org/Scribe-Data/issues/624>`_).
+* The upgrade functionality of the CLI is now comprehensively tested (`#624 <https://github.com/scribe-org/Scribe-Data/issues/624>`_).
 
 ♻️ Code Refactoring
 ~~~~~~~~~~~~~~~~~~~
 
-- The upgrade message instructs the user to use the built in upgrade functionality.
+* The upgrade message instructs the user to use the built in upgrade functionality.
 
 Scribe-Data 5.1.0
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- The upgrade command now upgrades the package via pip rather than bringing down GitHub files and installing them directly.
+* The upgrade command now upgrades the package via pip rather than bringing down GitHub files and installing them directly.
 
 Scribe-Data 5.0.1
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ♻️ Code Refactoring
 ~~~~~~~~~~~~~~~~~~~
 
-- The requirement files have been updated to fix package install errors (issue `#621 <https://github.com/scribe-org/Scribe-Data/issues/621>`_).
+* The requirement files have been updated to fix package install errors (`#621 <https://github.com/scribe-org/Scribe-Data/issues/621>`_).
 
 ⬆️ Dependencies
 ~~~~~~~~~~~~~~~
 
-- Update minimum Python version to 3.11.
+* Update minimum Python version to 3.11.
 
 Scribe-Data 5.0.0
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- Scribe-Data now has the ability to download the most recent or a specific Wikidata lexemes dump (issue `#517 <https://github.com/scribe-org/Scribe-Data/issues/517>`_).
-  - The user is prompted to download a dump for calls for all data (issue `#518 <https://github.com/scribe-org/Scribe-Data/issues/518>`_).
-  - Scribe-Data must now use a lexeme dump to download all Wikidata lexeme data (issue `#519 <https://github.com/scribe-org/Scribe-Data/issues/519>`_).
-  - The total command can be ran against a Wikidata lexeme dump (issue `#520 <https://github.com/scribe-org/Scribe-Data/issues/520>`_, issue `#524 <https://github.com/scribe-org/Scribe-Data/issues/524>`_).
-  - Translations can be parsed from Wikidata dumps (issue `#525 <https://github.com/scribe-org/Scribe-Data/issues/525>`_).
-- Wikidata SPARQL queries are now autogenerated and maintained via Wikidata dumps (issue `#513 <https://github.com/scribe-org/Scribe-Data/issues/513>`_).
-  - Forms are separated into files based on their identifiers while ignoring maintainer set queries (issue `#575 <https://github.com/scribe-org/Scribe-Data/issues/575>`_).
-  - Queries have been expanded for all languages and data forms based on the Wikidata dump process.
-- The date of last modification for Wikidata lexemes has been added to query and dump parsing outputs (issue `#562 <https://github.com/scribe-org/Scribe-Data/issues/562>`_).
-- Interactive mode now functions throughout the CLI functionality where the user is presented with options for data extraction.
-- There is now a top level interactive mode command for accessing all Scribe-Data functionality (issue `#523 <https://github.com/scribe-org/Scribe-Data/issues/523>`_).
-- Repeat forms are combined with vertical bars (``"|"``) as a separator (issue `#544 <https://github.com/scribe-org/Scribe-Data/issues/544>`_, issue `#573 <https://github.com/scribe-org/Scribe-Data/issues/573>`_).
-- A workflow has been created to update the emoji data on a regular basis (issue `#542 <https://github.com/scribe-org/Scribe-Data/issues/542>`_).
-- Resulting data can be filtered based on data contracts (issue `#581 <https://github.com/scribe-org/Scribe-Data/issues/581>`_).
-  - Contracts can be checked against data to assure that they're valid given the data's field names (issue `#561 <https://github.com/scribe-org/Scribe-Data/issues/561>`_).
-- The Wikipedia based autosuggestion functionality is now CLI based instead of using a Jupyter notebook (issue `#206 <https://github.com/scribe-org/Scribe-Data/issues/206>`_).
+* Scribe-Data now has the ability to download the most recent or a specific Wikidata lexemes dump (`#517 <https://github.com/scribe-org/Scribe-Data/issues/517>`_).
+    * The user is prompted to download a dump for calls for all data (`#518 <https://github.com/scribe-org/Scribe-Data/issues/518>`_).
+    * Scribe-Data must now use a lexeme dump to download all Wikidata lexeme data (`#519 <https://github.com/scribe-org/Scribe-Data/issues/519>`_).
+    * The total command can be ran against a Wikidata lexeme dump (`#520 <https://github.com/scribe-org/Scribe-Data/issues/520>`_, `#524 <https://github.com/scribe-org/Scribe-Data/issues/524>`_).
+    * Translations can be parsed from Wikidata dumps (`#525 <https://github.com/scribe-org/Scribe-Data/issues/525>`_).
+* Wikidata SPARQL queries are now autogenerated and maintained via Wikidata dumps (`#513 <https://github.com/scribe-org/Scribe-Data/issues/513>`_).
+    * Forms are separated into files based on their identifiers while ignoring maintainer set queries (`#575 <https://github.com/scribe-org/Scribe-Data/issues/575>`_).
+    * Queries have been expanded for all languages and data forms based on the Wikidata dump process.
+* The date of last modification for Wikidata lexemes has been added to query and dump parsing outputs (`#562 <https://github.com/scribe-org/Scribe-Data/issues/562>`_).
+* Interactive mode now functions throughout the CLI functionality where the user is presented with options for data extraction.
+* The is now a top level interactive mode command for accessing all Scribe-Data functionality (`#523 <https://github.com/scribe-org/Scribe-Data/issues/523>`_).
+* Repeat forms are combined with vertical bars (``"|"``) as a separator (`#544 <https://github.com/scribe-org/Scribe-Data/issues/544>`_, `#573 <https://github.com/scribe-org/Scribe-Data/issues/573>`_).
+* A workflow has been created to update the emoji data on a regular basis (`#542 <https://github.com/scribe-org/Scribe-Data/issues/542>`_).
+* Resulting data can be filtered based on data contracts (`#581 <https://github.com/scribe-org/Scribe-Data/issues/581>`_).
+    * Contracts can be checked against data to assure that they're valid given the data's field names (`#561 <https://github.com/scribe-org/Scribe-Data/issues/561>`_).
+* The Wikipedia based autosuggestion functionality is now CLI based instead of using a Jupyter notebook (`#206 <https://github.com/scribe-org/Scribe-Data/issues/206>`_).
 
 ⚖️ Legal
 ~~~~~~~~
 
-- SPDX license identifiers have been added for all files (issue `#553 <https://github.com/scribe-org/Scribe-Data/issues/553>`_).
+* SPDX license identifiers have been added for all files (`#553 <https://github.com/scribe-org/Scribe-Data/issues/553>`_).
 
 🐞 Bug Fixes
 ~~~~~~~~~~~~
 
-- The version command was fixed to account for cases where the version has a ``v`` before it (issue `#534 <https://github.com/scribe-org/Scribe-Data/issues/534>`_).
-- The functionality to check for current data and prompt its deletion was centralized and messages to the user were made more clear (issue `#336 <https://github.com/scribe-org/Scribe-Data/issues/336>`_).
-- If Wikidata queries can't be completed, Scribe-Data now includes dramatically better error messages and directs the user to leverage commands that use Wikidata dumps (issue `#549 <https://github.com/scribe-org/Scribe-Data/issues/549>`_).
-- General bug fixes for a more fluid developer experience.
+* The version command was fixed to account for cases where the version has a ``v`` before it (`#534 <https://github.com/scribe-org/Scribe-Data/issues/534>`_).
+* The functionality to check for current data and prompt its deletion was centralized and messages to the user were made more clear (`#336 <https://github.com/scribe-org/Scribe-Data/issues/336>`_).
+* If Wikidata queries can't be completed, Scribe-Data now includes dramatically better error messages and directs the user to leverage commands that use Wikidata dumps (`#549 <https://github.com/scribe-org/Scribe-Data/issues/549>`_).
+* General bug fixes for a more fluid developer experience.
 
 ✅ Tests
 ~~~~~~~~
 
-- Tests have been written for all new functionalities (issue `#570 <https://github.com/scribe-org/Scribe-Data/issues/570>`_).
-- CI testing now includes a coverage check that breaks if coverage falls below a given percentage.
+* Tests have been written for all new functionalities (`#570 <https://github.com/scribe-org/Scribe-Data/issues/570>`_).
+* CI testing now includes a coverage check that breaks if coverage falls below a given percentage.
 
 📝 Documentation
 ~~~~~~~~~~~~~~~~
 
-- Documentation has been expanded for all functionalities of the CLI.
+* Documentation has been expanded for all functionalities of the CLI.
 
 ♻️ Code Refactoring
 ~~~~~~~~~~~~~~~~~~~
 
-- All numpydoc docstrings have been fixed and unneeded code has been removed (issue `#547 <https://github.com/scribe-org/Scribe-Data/issues/547>`_).
+* All numpydoc docstrings have been fixed and unneeded code has been removed (`#547 <https://github.com/scribe-org/Scribe-Data/issues/547>`_).
 
 Scribe-Data 4.1.0
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- Queries for noun genders and other properties that require the Wikidata label service now return their English label rather than auto label that was returning just the Wikidata QID.
-- SPARQL queries for English and Portuguese prepositions were added to allow the CLI to query these types of data.
-- The convert functionality once again works for lists of languages and all data types for them.
+* Queries for noun genders and other properties that require the Wikidata label service now return their English label rather than auto label that was returning just the Wikidata QID.
+* SPARQL queries for English and Portuguese prepositions were added to allow the CLI to query these types of data.
+* The convert functionality once again works for lists of languages all data types for them.
 
 🐞 Bug Fixes
 ~~~~~~~~~~~~
 
-- SQLite conversion was fixed for all queries (issue `#527 <https://github.com/scribe-org/Scribe-Data/issues/527>`_).
-- The data conversion process outputs were improved including capitalizing language names and repeat notices to the user were removed.
-- The CLI's ``get`` command now returns all data types if none is passed.
-- The Portuguese verbs query was fixed as it wasn't formatted correctly.
-- The emoji keyword functionality was fixed given the new lexeme ID based form of the data.
-  - Arguments were fixed that were breaking the functionality.
-  - Languages for the user were capitalized.
-- ``case`` has been renamed ``grammaticalCase`` in preposition queries to assure that SQLite reserved keywords are not used.
+* SQLite conversion was fixed for all queries (`#527 <https://github.com/scribe-org/Scribe-Data/issues/527>`_).
+* The data conversion process outputs were improved including capitalizing language names and repeat notices to the user were removed.
+* The CLI's ``get`` command now returns all data types if none is passed.
+* The Portuguese verbs query was fixed as it wasn't formatted correctly.
+* The emoji keyword functionality was fixed given the new lexeme ID based form of the data.
+    * Arguments were fixed that were breaking the functionality.
+    * Languages for the user were capitalized.
+* ``case`` has been renamed ``grammaticalCase`` in preposition queries to assure that SQLite reserved keywords are not used.
 
 Scribe-Data 4.0.0
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- Queries for countless data types for countless languages were expanded and added ❤️
-- Scribe-Data is now a fully functional CLI.
-  - Querying Wikidata lexicographical data can be done via the ``get`` command (issue `#159 <https://github.com/scribe-org/Scribe-Data/issues/159>`_).
-  - The output type of queries can be in JSON, CSV, TSV and SQLite, with converting output types also being possible (issue `#145 <https://github.com/scribe-org/Scribe-Data/issues/145>`_, issue `#146 <https://github.com/scribe-org/Scribe-Data/issues/146>`_).
-  - Output paths can be set for query results (issue `#144 <https://github.com/scribe-org/Scribe-Data/issues/144>`_).
-  - The version of the CLI can be printed to the command line and the CLI can further be used to upgrade itself (issue `#186 <https://github.com/scribe-org/Scribe-Data/issues/186>`_, issue `#157 <https://github.com/scribe-org/Scribe-Data/issues/157>`_).
-  - Total Wikidata lexemes for languages and data types can be derived with the ``total`` command (issue `#147 <https://github.com/scribe-org/Scribe-Data/issues/147>`_).
-  - Interactive and total commands can be used via an interactive mode with the ``--interactive`` argument (issue `#158 <https://github.com/scribe-org/Scribe-Data/issues/158>`_, issue `#203 <https://github.com/scribe-org/Scribe-Data/issues/203>`_).
-  - Outputs were standardized to assure that the CLI experience is consistent
-- The machine translation process has been removed to make way for the Wiktionary based implementation (issue `#292 <https://github.com/scribe-org/Scribe-Data/issues/292>`_).
-- Package metadata files were standardized for languages, data types and Wikidata lexeme forms.
-- CLI commands have an argument check that can suggest correct languages and data types (issue `#341 <https://github.com/scribe-org/Scribe-Data/issues/341>`_).
+* Queries for countless data types for countless languages were expanded and added ❤️
+* Scribe-Data is now a fully functional CLI.
+    * Querying Wikidata lexicographical data can be done via the ``get`` command (`#159 <https://github.com/scribe-org/Scribe-Data/issues/159>`_).
+    * The output type of queries can be in JSON, CSV, TSV and SQLite, with converting output types also being possible (`#145 <https://github.com/scribe-org/Scribe-Data/issues/145>`_, `#146 <https://github.com/scribe-org/Scribe-Data/issues/146>`_)
+    * Output paths can be set for query results (`#144 <https://github.com/scribe-org/Scribe-Data/issues/144>`_).
+    * The version of the CLI can be printed to the command line and the CLI can further be used to upgrade itself (`#186 <https://github.com/scribe-org/Scribe-Data/issues/186>`_, `#157 <https://github.com/scribe-org/Scribe-Data/issues/157>`_).
+    * Total Wikidata lexemes for languages and data types can be derived with the ``total`` command (`#147 <https://github.com/scribe-org/Scribe-Data/issues/147>`_).
+    * Interactive and total commands can be used via an interactive mode with the ``--interactive`` argument (`#158 <https://github.com/scribe-org/Scribe-Data/issues/158>`_, `#203 <https://github.com/scribe-org/Scribe-Data/issues/203>`_).
+    * Outputs were standardized to assure that the CLI experience is consistent
+* The machine translation process has been removed to make way for the Wiktionary based implementation (`#292 <https://github.com/scribe-org/Scribe-Data/issues/292>`_).
+* Package metadata files were standardized for languages, data types and Wikidata lexeme forms.
+* CLI commands have an argument check that can suggest correct languages and data types (`#341 <https://github.com/scribe-org/Scribe-Data/issues/341>`_).
 
 🐞 Bug Fixes
 ~~~~~~~~~~~~
 
-- Wikidata query process stages no longer trigger the tqdm progress bar when they're unsuccessful (issue `#155 <https://github.com/scribe-org/Scribe-Data/issues/155>`_).
+* Wikidata query process stages no longer trigger the tqdm progress bar when they're unsuccessful (`#155 <https://github.com/scribe-org/Scribe-Data/issues/155>`_).
 
 ✅ Tests
 ~~~~~~~~
 
-- Tests have been written for the CLI to assure that it's functionality remains consistent.
-- Workflows were created to assure that the Wikidata queries and project structure are consistent to assure package functionality (issue `#339 <https://github.com/scribe-org/Scribe-Data/issues/339>`_, issue `#357 <https://github.com/scribe-org/Scribe-Data/issues/357>`_)
-  - Project queries and its structure have been updated to match the rules developed for the checks.
+* Tests have been written for the CLI to assure that it's functionality remains consistent.
+* Workflows were created to assure that the Wikidata queries and project structure are consistent to assure package functionality (`#339 <https://github.com/scribe-org/Scribe-Data/issues/339>`_, `#357 <https://github.com/scribe-org/Scribe-Data/issues/357>`_)
+    * Project queries and its structure have been updated to match the rules developed for the checks.
 
 📝 Documentation
 ~~~~~~~~~~~~~~~~
 
-- The CLI's functionality has been fully documented (issue `#152 <https://github.com/scribe-org/Scribe-Data/issues/152>`_, issue `#208 <https://github.com/scribe-org/Scribe-Data/issues/208>`_).
-- Documentation was created to show how to write Scribe-Data queries (issue `#395 <https://github.com/scribe-org/Scribe-Data/issues/395>`_).
+* The CLI's functionality has been fully documented (`#152 <https://github.com/scribe-org/Scribe-Data/issues/152>`_, `#208 <https://github.com/scribe-org/Scribe-Data/issues/208>`_).
+* Documentation was created to show how to write Scribe-Data queries (`#395 <https://github.com/scribe-org/Scribe-Data/issues/395>`_).
 
 ♻️ Code Refactoring
 ~~~~~~~~~~~~~~~~~~~
 
-- ``word_type`` has been switched to ``data_type`` throughout the codebase (issue `#160 <https://github.com/scribe-org/Scribe-Data/issues/160>`_).
-- Case, gender and annotation utility functions were removed as the formatting process that used them has changed.
-- The SPARQLWrapper access method has been extracted to the Wikidata utils and is imported into the files that need it (issue `#164 <https://github.com/scribe-org/Scribe-Data/issues/164>`_).
-- Export data paths have been converted to centrally saved variables to reduce hard coded string repetition.
-- Many files were renamed including ``update_data.py`` being renamed ``query_data.py``
-- Paths within the package have been updated to work for all operating systems via ``pathlib`` (issue `#125 <https://github.com/scribe-org/Scribe-Data/issues/125>`_).
-- The language formatting scripts have been dramatically simplified given changes to export paths all being the same.
-- The ``update_files`` directory was removed in preparation of other means of showing data totals.
-- The ``language_data_extraction`` directory was moved under the Wikidata directory as it's only used for those processes now (issue `#446 <https://github.com/scribe-org/Scribe-Data/issues/446>`_).
-- The emoji keyword process was centralized to simplify project maintenance (issue `#359 <https://github.com/scribe-org/Scribe-Data/issues/359>`_).
-- PyICU was removed as a dependency and a process was made to install it and its needed dependencies given the operating system of the user (issue `#196 <https://github.com/scribe-org/Scribe-Data/issues/196>`_).
-- The data formatting step was centralized such that we only have one for all languages (issue `#142 <https://github.com/scribe-org/Scribe-Data/issues/142>`_).
-- Sub-query processes are now no longer hard coded such that we'd need to maintain the total possible sub-queries within the ``query_data.py`` process.
+* ``word_type`` has been switched to ``data_type`` throughout the codebase (`#160 <https://github.com/scribe-org/Scribe-Data/issues/160>`_).
+* Case, gender and annotation utility functions were removed as the formatting process that used them has changed.
+* The SPARQLWrapper access method has been extracted to the Wikidata utils and is imported into the files that need it (`#164 <https://github.com/scribe-org/Scribe-Data/issues/164>`_).
+* Export data paths have been converted to centrally saved variables to reduce hard coded string repetition.
+* Many files were renamed including ``update_data.py`` being renamed ``query_data.py``
+* Paths within the package have been updated to work for all operating systems via ``pathlib`` (`#125 <https://github.com/scribe-org/Scribe-Data/issues/125>`_).
+* The language formatting scripts have been dramatically simplified given changes to export paths all being the same.
+* The ``update_files`` directory was removed in preparation of other means of showing data totals.
+* The ``language_data_extraction`` directory was moved under the Wikidata directory as it's only used for those processes now (`#446 <https://github.com/scribe-org/Scribe-Data/issues/446>`_).
+* The emoji keyword process was centralized to simplify project maintenance (`#359 <https://github.com/scribe-org/Scribe-Data/issues/359>`_).
+* PyICU was removed as a dependency and a process was made to install it and its needed dependencies given the operating system of the user (`#196 <https://github.com/scribe-org/Scribe-Data/issues/196>`_).
+* The data formatting step was centralized such that we only have one for all languages (`#142 <https://github.com/scribe-org/Scribe-Data/issues/142>`_).
+* Sub-query processes are now no longer hard coded such that we'd need to maintain the total possible sub-queries within the ``query_data.py`` process.
 
 Scribe-Data 3.3.0
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- The translation process has been updated to allow for translations from non-English languages (issue `#72 <https://github.com/scribe-org/Scribe-Data/issues/72>`_, issue `#73 <https://github.com/scribe-org/Scribe-Data/issues/73>`_, issue `#74 <https://github.com/scribe-org/Scribe-Data/issues/74>`_, issue `#75 <https://github.com/scribe-org/Scribe-Data/issues/75>`_, issue `#75 <https://github.com/scribe-org/Scribe-Data/issues/75>`_, issue `#76 <https://github.com/scribe-org/Scribe-Data/issues/76>`_, issue `#77 <https://github.com/scribe-org/Scribe-Data/issues/77>`_, issue `#78 <https://github.com/scribe-org/Scribe-Data/issues/78>`_, issue `#79 <https://github.com/scribe-org/Scribe-Data/issues/79>`_).
+* The translation process has been updated to allow for translations from non-English languages (`#72 <https://github.com/scribe-org/Scribe-Data/issues/72>`_, `#73 <https://github.com/scribe-org/Scribe-Data/issues/73>`_, `#74 <https://github.com/scribe-org/Scribe-Data/issues/74>`_, `#75 <https://github.com/scribe-org/Scribe-Data/issues/75>`_, `#75 <https://github.com/scribe-org/Scribe-Data/issues/75>`_, `#76 <https://github.com/scribe-org/Scribe-Data/issues/76>`_, `#77 <https://github.com/scribe-org/Scribe-Data/issues/77>`_, `#78 <https://github.com/scribe-org/Scribe-Data/issues/78>`_, `#79 <https://github.com/scribe-org/Scribe-Data/issues/79>`_).
 
 🐞 Bug Fixes
 ~~~~~~~~~~~~
 
-- Annotation bugs were removed like repeat or empty values.
-- Perfect tenses of Portuguese verbs were fixed via finding the appropriate PID (issue `#68 <https://github.com/scribe-org/Scribe-Data/issues/68>`_).
-  - Note that the most common past perfect property is not the standard one, so this will need to be fixed.
+* Annotation bugs were removed like repeat or empty values.
+* Perfect tenses of Portuguese verbs were fixed via finding the appropriate PID (`#68 <https://github.com/scribe-org/Scribe-Data/issues/68>`_).
+    * Note that the most common past perfect property is not the standard one, so this will need to be fixed.
 
 📝 Documentation
 ~~~~~~~~~~~~~~~~
 
-- The documentation has been given a new layout with the logo in the top left (issue `#90 <https://github.com/scribe-org/Scribe-Data/issues/90>`_).
-- The documentation now has links to the code at the top of each page (issue `#91 <https://github.com/scribe-org/Scribe-Data/issues/91>`_).
+* The documentation has been given a new layout with the logo in the top left (`#90 <https://github.com/scribe-org/Scribe-Data/issues/90>`_).
+* The documentation now has links to the code at the top of each page (`#91 <https://github.com/scribe-org/Scribe-Data/issues/91>`_).
 
 ♻️ Code Refactoring
 ~~~~~~~~~~~~~~~~~~~
 
-- pre-commit <https://pre-commit.com/>_ have been added to the repo to improve the development experience (issue `#137 <https://github.com/scribe-org/Scribe-Data/issues/137>`_).
-- Code formatting was shifted from black <https://github.com/psf/black>_ to Ruff <https://github.com/astral-sh/ruff>_.
-- A Ruff based GitHub workflow was added to check the code formatting and lint the codebase on each pull request (issue `#109 <https://github.com/scribe-org/Scribe-Data/issues/109>`_).
-- The ``_update_files`` directory was renamed ``update_files`` as these files are used in non-internal manners now (issue `#57 <https://github.com/scribe-org/Scribe-Data/issues/57>`_).
-- A common function has been created to map Wikidata ids to noun genders (issue `#69 <https://github.com/scribe-org/Scribe-Data/issues/69>`_).
-- The project now is installed locally for development and command line usage, so usages of ``sys.path`` have been removed from files (issue `#122 <https://github.com/scribe-org/Scribe-Data/issues/122>`_).
-- The directory structure has been dramatically streamlined and includes folders for future projects where language data could come from other sources like Wiktionary (issue `#139 <https://github.com/scribe-org/Scribe-Data/issues/139>`_).
-  - Translation files are moved to their own directory.
-  - The ``extract_transform`` directory has been removed and all files within it have been moved one level up.
-  - The ``languages`` directory has been renamed ``language_data_extraction``.
-  - All files within ``wikidata/_resources`` have been moved to the ``resources`` directory.
-  - The gender and case annotations for data formatting have now been commonly defined.
-  - All language directory ``formatted_data`` files have been now moved to the ``scribe_data_json_export`` directory to prepare for outputs being required to be directed to a directory outside of the package.
-  - Path computing has been refactored throughout the codebase, and unneeded functions for data transfers have been removed.
+* `pre-commit <https://pre-commit.com/>`_ have been added to the repo to improve the development experience (`#137 <https://github.com/scribe-org/Scribe-Data/issues/137>`_).
+* Code formatting was shifted from `black <https://github.com/psf/black>`_ to `Ruff <https://github.com/astral-sh/ruff>`_.
+* A Ruff based GitHub workflow was added to check the code formatting and lint the codebase on each pull request (`#109 <https://github.com/scribe-org/Scribe-Data/issues/109>`_).
+* The ``_update_files`` directory was renamed ``update_files`` as these files are used in non-internal manners now (`#57 <https://github.com/scribe-org/Scribe-Data/issues/57>`_).
+* A common function has been created to map Wikidata ids to noun genders (`#69 <https://github.com/scribe-org/Scribe-Data/issues/69>`_).
+* The project now is installed locally for development and command line usage, so usages of ``sys.path`` have been removed from files (`#122 <https://github.com/scribe-org/Scribe-Data/issues/122>`_).
+* The directory structure has been dramatically streamlined and includes folders for future projects where language data could come from other sources like Wiktionary (`#139 <https://github.com/scribe-org/Scribe-Data/issues/139>`_).
+    * Translation files are moved to their own directory.
+    * The ``extract_transform`` directory has been removed and all files within it have been moved one level up.
+    * The ``languages`` directory has been renamed ``language_data_extraction``.
+    * All files within ``wikidata/_resources`` have been moved to the ``resources`` directory.
+    * The gender and case annotations for data formatting have now been commonly defined.
+    * All language directory ``formatted_data`` files have been now moved to the ``scribe_data_json_export`` directory to prepare for outputs being required to be directed to a directory outside of the package.
+    * Path computing has been refactored throughout the codebase, and unneeded functions for data transfers have been removed.
 
 Scribe-Data 3.2.2
-^^^^^^^^^^^^^^^^
+-----------------
 
-- Minor fixes to documentation index and file docstrings to fix errors.
-- Revert change to package path definition to hopefully register the resources directory.
+* Minor fixes to documentation index and file docstrings to fix errors.
+* Revert change to package path definition to hopefully register the resources directory.
 
 Scribe-Data 3.2.1
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ♻️ Code Refactoring
 ~~~~~~~~~~~~~~~~~~~
 
-- The docs and tests were grafted into the package using ``MANIFEST.in``.
-- Minor fixes to file and function docstrings and documentation files.
-- ``include_package_data=True`` is used in ``setup.py`` to hopefully include all files in the package distribution.
+* The docs and tests were grafted into the package using ``MANIFEST.in``.
+* Minor fixes to file and function docstrings and documentation files.
+* ``include_package_data=True`` is used in ``setup.py`` to hopefully include all files in the package distribution.
 
 Scribe-Data 3.2.0
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- The data and process needed for an English keyboard has been added (issue `#39 <https://github.com/scribe-org/Scribe-Data/issues/39>`_).
-  - The Wikidata queries for English have been updated to get all nouns and verbs.
-  - Formatting scripts have been written to prepare the queried data and load it into an SQLite database.
-- The data update process has been cleaned up in preparation for future changes to Scribe-Data and to implement better practices.
-- Language data was extracted into a JSON file for more succinct referencing (issue `#52 <https://github.com/scribe-org/Scribe-Data/issues/52>`_).
-- Language codes are now checked with the package langcodes <https://github.com/rspeer/langcodes>_ for easier expansion.
-- A process has been created to check and update words that can be translated for each Scribe language (issue `#44 <https://github.com/scribe-org/Scribe-Data/issues/44>`_).
-- The baseline data returned from Wikidata queries is now removed once a formatted data file is created.
+* The data and process needed for an English keyboard has been added (`#39 <https://github.com/scribe-org/Scribe-Data/issues/39>`_).
+    * The Wikidata queries for English have been updated to get all nouns and verbs.
+    * Formatting scripts have been written to prepare the queried data and load it into an SQLite database.
+* The data update process has been cleaned up in preparation for future changes to Scribe-Data and to implement better practices.
+* Language data was extracted into a JSON file for more succinct referencing (`#52 <https://github.com/scribe-org/Scribe-Data/issues/52>`_).
+* Language codes are now checked with the package `langcodes <https://github.com/rspeer/langcodes>`_ for easier expansion.
+* A process has been created to check and update words that can be translated for each Scribe language (`#44 <https://github.com/scribe-org/Scribe-Data/issues/44>`_).
+* The baseline data returned from Wikidata queries is now removed once a formatted data file is created.
 
 🐞 Bug Fixes
 ~~~~~~~~~~~~
 
-- Tensorflow was removed from the download wiki process to fix build problems on Macs.
+* Tensorflow was removed from the download wiki process to fix build problems on Macs.
 
 ✅ Tests
 ~~~~~~~~
 
-- A full testing suite has been added to run on GitHub Actions (issue `#37 <https://github.com/scribe-org/Scribe-Data/issues/37>`_).
-- Unit tests have been added for Wikidata queries (issue `#48 <https://github.com/scribe-org/Scribe-Data/issues/48>`_) and utility functions (issue `#50 <https://github.com/scribe-org/Scribe-Data/issues/50>`_).
+* A full testing suite has been added to run on GitHub Actions (`#37 <https://github.com/scribe-org/Scribe-Data/issues/37>`_).
+* Unit tests have been added for Wikidata queries (`#48 <https://github.com/scribe-org/Scribe-Data/issues/48>`_) and utility functions (`#50 <https://github.com/scribe-org/Scribe-Data/issues/50>`_).
 
 ♻️ Code Refactoring
 ~~~~~~~~~~~~~~~~~~~
 
-- The Anaconda based virtual environment was removed and documentation was updated to reflect this.
-- Language data processes were moved into the ``src/scribe_data/extract_transform/languages`` directory to clean up the structure.
-- Code formatting processes were defined with common structures based on language and word type variables defined at the top of files.
+* The Anaconda based virtual environment was removed and documentation was updated to reflect this.
+* Language data processes were moved into the ``src/scribe_data/extract_transform/languages`` directory to clean up the structure.
+* Code formatting processes were defined with common structures based on language and word type variables defined at the top of files.
 
 Scribe-Data 3.1.0
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- The word "Scribe" is now added to language database nouns files if it's not already present (issue `#35 <https://github.com/scribe-org/Scribe-Data/issues/35>`_).
-- German contracted prepositions have been added to the German prepositions formatting process (issue `#34 <https://github.com/scribe-org/Scribe-Data/issues/34>`_).
-- Words that are upper case are now better included in the autocomplete lexicon with their lower case equivalents being removed.
-- Words with apostrophes have been removed from the autocomplete lexicon.
+* The word "Scribe" is now added to language database nouns files if it's not already present (`#35 <https://github.com/scribe-org/Scribe-Data/issues/35>`_).
+* German contracted prepositions have been added to the German prepositions formatting process (`#34 <https://github.com/scribe-org/Scribe-Data/issues/34>`_).
+* Words that are upper case are now better included in the autocomplete lexicon with their lower case equivalents being removed.
+* Words with apostrophes have been removed from the autocomplete lexicon.
 
 ♻️ Code Refactoring
 ~~~~~~~~~~~~~~~~~~~
 
-- Database output column names are now zero indexed to better align with Python and other language standards.
+* Database output column names are now zero indexed to better align with Python and other language standards.
 
 Scribe-Data 3.0.0
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- Scribe-Data now has the ability to generate SQLite databases from formatted language data.
-  - ``data_to_sqlite.py`` is used to read available JSON files and input their information into the databases.
-- These databases are now sent to Scribe apps via defined paths.
-  - ``send_dbs_to_scribe.py`` finds all available language databases and copies them.
-  - Separating this step from the data update is in preparation for data import in the future where this will be an individual step.
-- Scribe-Data now also creates autocomplete lexicons for each language within ``data_to_sqlite.py``.
-- JSON data is no longer able to be uploaded to Scribe app directories directly, with the SQLite directories now being exported instead.
-- Emojis of singular nouns are now also linked to their plural counterparts if the plural isn't present in the emoji keyword outputs.
-- The emoji process also now updates a column to the ``data_table.txt`` file for sharing on readmes with ``update_data.py`` maintaining it in the data update process.
+* Scribe-Data now has the ability to generate SQLite databases from formatted language data.
+    * ``data_to_sqlite.py`` is used to read available JSON files and input their information into the databases.
+* These databases are now sent to Scribe apps via defined paths.
+    * ``send_dbs_to_scribe.py`` finds all available language databases and copies them.
+    * Separating this step from the data update is in preparation for data import in the future where this will be an individual step.
+* Scribe-Data now also creates autocomplete lexicons for each language within ``data_to_sqlite.py``.
+* JSON data is no longer able to be uploaded to Scribe app directories directly, with the SQLite directories now being exported instead.
+* Emojis of singular nouns are now also linked to their plural counterparts if the plural isn't present in the emoji keyword outputs.
+* The emoji process also now updates a column to the ``data_table.txt`` file for sharing on readmes with ``update_data.py`` maintaining it in the data update process.
 
 🐞 Bug Fixes
 ~~~~~~~~~~~~
 
-- The statements in translation files have been fixed as they were improperly defined after a file was moved.
+* The statements in translation files have been fixed as they were improperly defined after a file was moved.
 
 ♻️ Code Refactoring
 ~~~~~~~~~~~~~~~~~~~
 
-- The Jupyter notebooks for autosuggestions and emojis as well as ``update_data.py`` were moved to the ``extract_transform`` directory given that they're not used to load data anymore.
-  - Their code was refactored to reflect their new locations.
-- Massive amounts of refactoring happened to achieve the shift in the data export method:
-  - ``format_WORD_TYPE.py`` files export to a ``formatted_data`` directory within ``extract_transform``.
-  - Copies of all data JSONs that were originally in Scribe apps are now in the ``formatted_data`` directories.
-  - Functions in ``update_utils.py`` were switched given that data is no longer uploaded into a ``Data`` directory within the language keyboard directories within Scribe apps.
-  - Lots of functions and variables were renamed to make them more understandable.
-  - Code to derive appropriate export locations within ``format_WORD_TYPE.py`` files was removed in favor of a language ``formatted_data`` directory.
-  - ``regex`` was added as a dependency.
-  - ``pylint`` comments were removed.
-- Verb SPARQL query scripts for Spanish and Italian were simplified to remove unneeded repeat conditions (issue `#7 <https://github.com/scribe-org/Scribe-Data/issues/7>`_).
+* The Jupyter notebooks for autosuggestions and emojis as well as ``update_data.py`` were moved to the ``extract_transform`` directory given that they're not used to load data anymore.
+    * Their code was refactored to reflect their new locations.
+* Massive amounts of refactoring happened to achieve the shift in the data export method:
+    * ``format_WORD_TYPE.py`` files export to a ``formatted_data`` directory within ``extract_transform``.
+    * Copies of all data JSONs that were originally in Scribe apps are now in the ``formatted_data`` directories.
+    * Functions in ``update_utils.py`` were switched given that data is no longer uploaded into a ``Data`` directory within the language keyboard directories within Scribe apps.
+    * Lots of functions and variables were renamed to make them more understandable.
+    * Code to derive appropriate export locations within ``format_WORD_TYPE.py`` files was removed in favor of a language ``formatted_data`` directory.
+    * regex was added as a dependency.
+    * pylint comments were removed.
+* Verb SPARQL query scripts for Spanish and Italian were simplified to remove unneeded repeat conditions (`#7 <https://github.com/scribe-org/Scribe-Data/issues/7>`_).
 
 Scribe-Data 2.2.2
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- An option to remove the ``is_base`` and ``rank`` sub keys was added.
+* An option to remove the ``is_base`` and ``rank`` sub keys was added.
 
 ♻️ Code Refactoring
 ~~~~~~~~~~~~~~~~~~~
 
-- The export filenames for emoji keywords were renamed to reflect their usage in autosuggestions and soon autocompletions as well.
+* The export filenames for emoji keywords were renamed to reflect their usage in autosuggestions and soon autocompletions as well.
 
 Scribe-Data 2.2.1
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- The number of suggested emojis for words can now be limited.
-- The total number of emojis that suggestions can be made for can now be limited.
+* The number of suggested emojis for words can now be limited.
+* The total number of emojis that suggestions can be made for can now be limited.
 
 Scribe-Data 2.2.0
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- Scribe-Data now allows the user to create JSONs of word-emoji key-value pairs (issue `#24 <https://github.com/scribe-org/Scribe-Data/issues/24>`_).
+* Scribe-Data now allows the user to create JSONs of word-emoji key-value pairs (`#24 <https://github.com/scribe-org/Scribe-Data/issues/24>`_).
 
 Scribe-Data 2.1.0
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- Scribe-Data can now split Wikidata queries into multiple stages to break up those that were too large to run (issue `#21 <https://github.com/scribe-org/Scribe-Data/issues/21>`_).
+* Scribe-Data can now split Wikidata queries into multiple stages to break up those that were too large to run (`#21 <https://github.com/scribe-org/Scribe-Data/issues/21>`_).
 
 Scribe-Data 2.0.0
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- Scribe-Data now has the ability to download Wikipedia dumps of any language (issue `#15 <https://github.com/scribe-org/Scribe-Data/issues/15>`_).
-- Functions have been added to parse and clean the above dumps (issue `#15 <https://github.com/scribe-org/Scribe-Data/issues/15>`_).
-- Autosuggestions are generated from the cleaned texts by deriving most common words and those words that most commonly follow them (issue `#15 <https://github.com/scribe-org/Scribe-Data/issues/15>`_).
-- A query for profane words has been added and integrated into the autosuggest flow to make sure that inappropriate words are not included (issue `#16 <https://github.com/scribe-org/Scribe-Data/issues/16>`_).
-  - The adjectives column has been removed from Scribe data tables until support is offered.
+* Scribe-Data now has the ability to download Wikipedia dumps of any language (`#15 <https://github.com/scribe-org/Scribe-Data/issues/15>`_).
+* Functions have been added to parse and clean the above dumps (`#15 <https://github.com/scribe-org/Scribe-Data/issues/15>`_).
+* Autosuggestions are generated from the cleaned texts by deriving most common words and those words that most commonly follow them (`#15 <https://github.com/scribe-org/Scribe-Data/issues/15>`_).
+* A query for profane words has been added and integrated into the autosuggest flow to make sure that inappropriate words are not included (`#16 <https://github.com/scribe-org/Scribe-Data/issues/16>`_).
+    * The adjectives column has been removed from Scribe data tables until support is offered.
 
 ♻️ Code Refactoring
 ~~~~~~~~~~~~~~~~~~~
 
-- The error messages for incorrect args in ``update_data.py`` have been updated.
+* The error messages for incorrect args in update_data.py have been updated.
 
 Scribe-Data 1.0.1
-^^^^^^^^^^^^^^^^^
+-----------------
 
 ✨ Features
 ~~~~~~~~~~~
 
-- ``update_data.py`` now functions using SPARQLWrapper instead of wikidataintegrator.
+* update_data.py now functions using SPARQLWrapper instead of wikidataintegrator.
 
 🐞 Bug Fixes
 ~~~~~~~~~~~~
 
-- The data update process has been fixed to work for all queries.
-- Hard coded strings for Spanish formatting files were fixed.
-- The paths of ``update_data.py`` were changed to match the new package structure.
+* The data update process has been fixed to work for all queries.
+* Hard coded strings for Spanish formatting files were fixed.
+* The paths of update_data.py were changed to match the new package structure.
 
 Scribe-Data 1.0.0
-^^^^^^^^^^^^^^^^^
+-----------------
 
 🚀 Deployment
 ~~~~~~~~~~~~~
 
-- Releasing a Python package so that codes are accessible and the structure is set for future project iterations.
+* Releasing a Python package so that codes are accessible and the structure is set for future project iterations.
 
 ✨ Features
 ~~~~~~~~~~~
 
-- Data updates are done via a single file that loads new formatted data into each Scribe application.
-- This will be expanded on in the future to create language packs that can be downloaded in app.
+* Data updates are done via a single file that loads new formatted data into each Scribe application.
+* This will be expanded on in the future to create language packs that can be downloaded in app.
 
 🗃️ Data
 ~~~~~~~
 
-- Data extraction and formatting scripts for each of Scribe's current languages as well as those with significant data on Wikidata are included.
+* Data extraction and formatting scripts for each of Scribe's current languages as well as those with significant data on Wikidata are included.
 
 Languages include: French, German, Italian, Portuguese, Russian, Spanish, and Swedish.
 Word types include: nouns, verbs, prepositions and translations.
@@ -437,4 +438,4 @@ Word types include: nouns, verbs, prepositions and translations.
 ♻️ Code Refactoring
 ~~~~~~~~~~~~~~~~~~~
 
-- The data update process now updates files in Android and Desktop directories if they're present.
+* The data update process now updates files in Android and Desktop directories if they're present.
