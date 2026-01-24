@@ -12,6 +12,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
 import os
+import shutil
 import sys
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -189,3 +190,11 @@ html_favicon = "_static/ScribeFavicon.ico"
 html_css_files = [
     "custom.css",
 ]
+
+# Copy the license to the source directory during build
+current_dir = os.path.abspath(os.path.dirname(__file__))
+project_root = os.path.join(current_dir, "..", "..")  # Adjust dots as needed
+shutil.copy(
+    os.path.join(project_root, "LICENSE.txt"),
+    os.path.join(current_dir, "_static/LICENSE.txt"),
+)

@@ -1,9 +1,9 @@
 .. include:: _static/CONTRIBUTING.rst
 
+=======
 License
 =======
 
-.. literalinclude:: ../../LICENSE.txt
-    :language: text
+.. literalinclude:: _static/LICENSE.txt
 
 .. include:: _static/CHANGELOG.rst
