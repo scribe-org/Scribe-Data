@@ -67,14 +67,14 @@ git clone https://github.com/scribe-org/Scribe-Data.git  # or ideally your fork
 cd Scribe-Data
 
 # With uv (recommended):
-uv sync --all-extras  # Install all dependencies
-source .venv/bin/activate  # Activate venv (macOS/Linux)
-# .venv\Scripts\activate  # Activate venv (Windows)
+uv sync --all-extras  # install all dependencies
+source .venv/bin/activate  # activate venv (macOS/Linux)
+# .venv\Scripts\activate  # activate venv (Windows)
 
 # Or with pip:
-python -m venv .venv  # Create virtual environment
-source .venv/bin/activate  # Activate venv (macOS/Linux)
-# .venv\Scripts\activate  # Activate venv (Windows)
+python -m venv .venv  # create virtual environment
+source .venv/bin/activate  # activate venv (macOS/Linux)
+# .venv\Scripts\activate  # activate venv (Windows)
 pip install -e .
 ```
 

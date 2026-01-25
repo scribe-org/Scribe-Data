@@ -35,7 +35,7 @@ dependencies = [
     "questionary==2.1.1",
     "regex==2026.1.15",
     "requests==2.32.5",
-    "rich==14.2.0",
+    "rich==14.3.1",
     "sparqlwrapper==2.0.0",
     "tqdm==4.67.1",
 ]
@@ -54,7 +54,6 @@ docs = [
     "m2r2>=0.3.0",
     "numpydoc>=1.10.0",
     "sphinx-rtd-theme>=3.1.0",
-
 ]
 
 [project.scripts]
