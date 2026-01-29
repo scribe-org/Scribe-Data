@@ -191,9 +191,9 @@ html_css_files = [
     "custom.css",
 ]
 
-# Copy the license to the source directory during build
+# Copy the license to the source directory during build.
 current_dir = os.path.abspath(os.path.dirname(__file__))
-project_root = os.path.join(current_dir, "..", "..")  # Adjust dots as needed
+project_root = os.path.join(current_dir, "..", "..")
 shutil.copy(
     os.path.join(project_root, "LICENSE.txt"),
     os.path.join(current_dir, "_static/LICENSE.txt"),
