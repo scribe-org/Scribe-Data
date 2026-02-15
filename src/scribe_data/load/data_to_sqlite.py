@@ -151,10 +151,8 @@ def translations_to_sqlite(
             translations = entry[word]
 
             keys = [lexeme_id, entry["lastModified"], word]
-            # Add translations for each target language
-            for target_lang in target_cols:
-                keys.append(translations.get(target_lang))
-
+            # Add translations for each target language.
+            keys.extend(translations.get(target_lang) for target_lang in target_cols)
             table_insert(cursor, data_type=lang, keys=keys)
 
         try:

@@ -105,12 +105,13 @@ for lang, lang_data in language_metadata.items():
 # Extracts all sub-languages from language metadata.
 for lang_name, lang_data in language_metadata.items():
     if "sub_languages" in lang_data:
-        sub_languages[lang_name] = {}
-        for sub_lang_name, sub_lang_data in lang_data["sub_languages"].items():
-            sub_languages[lang_name][sub_lang_data["iso"]] = {
+        sub_languages[lang_name] = {
+            sub_lang_data["iso"]: {
                 "name": sub_lang_name,
                 "qid": sub_lang_data["qid"],
             }
+            for sub_lang_name, sub_lang_data in lang_data["sub_languages"].items()
+        }
 
 
 def _load_json(package_path: str, file_name: str) -> Any:
@@ -742,9 +743,8 @@ def check_lexeme_dump_prompt_download(output_dir: str):
             if latest_dump:
                 return latest_dump
 
-            else:
-                rprint("[bold red]No valid dumps found.[/bold red]")
-                return None
+            rprint("[bold red]No valid dumps found.[/bold red]")
+            return None
 
         elif user_input == "Download new version":
             # Rename existing latest dump if it exists.
@@ -871,7 +871,8 @@ def get_language_iso_code(qid: str):
             0
         ]["mainsnak"]["datavalue"]["value"]
 
-    except ValueError:
-        raise ValueError("The passed Wikidata QID is not a language.")
+    except ValueError as e:
+        raise ValueError("The passed Wikidata QID is not a language.") from e
+
     except KeyError:
         return KeyError("The ISO code for the language is not available.")

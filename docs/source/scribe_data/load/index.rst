@@ -7,4 +7,3 @@ load/
     :maxdepth: 1
 
     data_to_sqlite
-    send_dbs_to_scribe

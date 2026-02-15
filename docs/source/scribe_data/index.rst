@@ -16,4 +16,3 @@ Scribe-Data
     load/index
     unicode/index
     wikidata/index
-    wikipedia/index
