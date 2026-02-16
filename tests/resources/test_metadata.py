@@ -8,10 +8,10 @@ from unittest import TestCase
 
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
 LANGUAGE_METADATA_PATH = (
-    BASE_DIR / "src" / "scribe_data" / "resources" / "language_metadata.json"
+    BASE_DIR / "src" / "scribe_data" / "resources" / "language_metadata.yaml"
 )
 DATA_TYPE_METADATA_PATH = (
-    BASE_DIR / "src" / "scribe_data" / "resources" / "data_type_metadata.json"
+    BASE_DIR / "src" / "scribe_data" / "resources" / "data_type_metadata.yaml"
 )
 
 
@@ -41,24 +41,24 @@ class TestFileAccessibility(TestCase):
 
     def test_language_metadata_file_exists(self):
         """
-        Check if the language_metadata.json file exists.
+        Check if the language_metadata.yaml file exists.
         """
         self.check_file_exists(LANGUAGE_METADATA_PATH)
 
     def test_language_metadata_file_readable(self):
         """
-        Check if the language_metadata.json file is readable.
+        Check if the language_metadata.yaml file is readable.
         """
         self.check_file_readable(LANGUAGE_METADATA_PATH)
 
     def test_data_type_metadata_file_exists(self):
         """
-        Check if the data_type_metadata.json file exists.
+        Check if the data_type_metadata.yaml file exists.
         """
         self.check_file_exists(DATA_TYPE_METADATA_PATH)
 
     def test_data_type_metadata_file_readable(self):
         """
-        Check if the data_type_metadata.json file is readable.
+        Check if the data_type_metadata.yaml file is readable.
         """
         self.check_file_readable(DATA_TYPE_METADATA_PATH)

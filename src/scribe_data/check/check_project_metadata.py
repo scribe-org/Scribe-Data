@@ -162,9 +162,9 @@ def check_language_metadata():
     -----
     Checks include:
 
-    1. Ensures that all languages listed in `language_data_extraction` are present in `language_metadata.json`, and vice versa.
+    1. Ensures that all languages listed in `language_data_extraction` are present in `language_metadata.yaml`, and vice versa.
 
-    2. Checks if each language in `language_metadata.json` has the required properties:
+    2. Checks if each language in `language_metadata.yaml` has the required properties:
         - 'qid' (a unique identifier)
         - 'iso' (ISO language code)
 
@@ -189,7 +189,7 @@ def check_language_metadata():
     ):
         if missing_languages_extraction:
             print(
-                "There are missing languages or inconsistencies between language_metadata.json and language_data_extraction.\n"
+                "There are missing languages or inconsistencies between language_metadata.yaml and language_data_extraction.\n"
             )
 
         if missing_languages_extraction:
@@ -211,7 +211,7 @@ def check_language_metadata():
         sys.exit(1)
 
     print(
-        "All languages in language_metadata.json are included in Scribe-Data.\nLanguages in language_metadata.json have the correct properties."
+        "All languages in language_metadata.yaml are included in Scribe-Data.\nLanguages in language_metadata.yaml have the correct properties."
     )
 
 

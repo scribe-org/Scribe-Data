@@ -8,15 +8,15 @@ import os
 from pathlib import Path
 from typing import Any, Dict
 
-from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR, get_language_from_iso
+from scribe_data.utils import (
+    DEFAULT_DATA_CONTRACTS_DIR,
+    DEFAULT_FILTERED_JSON_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
+    get_language_from_iso,
+)
 
-scribe_data_contracts = (
-    Path(__file__).parent.parent.parent.parent.parent / "scribe_data_contracts"
-)
-DATA_CONTRACTS_EXPORT_DIR = (
-    Path(__file__).parent.parent.parent.parent.parent
-    / "scribe_data_filtered_json_export"
-)
+scribe_data_contracts = DEFAULT_DATA_CONTRACTS_DIR
+DATA_CONTRACTS_EXPORT_DIR = Path(DEFAULT_FILTERED_JSON_EXPORT_DIR)
 
 
 def filter_contract_metadata(contract_file: Path) -> Dict[str, Any]:

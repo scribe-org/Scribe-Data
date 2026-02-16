@@ -3,11 +3,12 @@
 Tests for the CLI total functionality.
 """
 
-import json
 import unittest
 from http.client import IncompleteRead
 from unittest.mock import MagicMock, call, patch
 from urllib.error import HTTPError
+
+import yaml
 
 from scribe_data.cli.total import (
     get_datatype_list,
@@ -19,10 +20,10 @@ from scribe_data.utils import WIKIDATA_QIDS_PIDS_FILE, check_qid_is_language
 
 try:
     with WIKIDATA_QIDS_PIDS_FILE.open("r", encoding="utf-8") as file:
-        wikidata_qids_pids = json.load(file)
+        wikidata_qids_pids = yaml.safe_load(file)
 
-except (IOError, json.JSONDecodeError) as e:
-    print(f"Error reading language metadata: {e}")
+except (IOError, yaml.YAMLError) as e:
+    print(f"Error reading wikidata QIDs/PIDs metadata: {e}")
 
 
 class TestTotalLexemes(unittest.TestCase):

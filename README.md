@@ -15,7 +15,7 @@
 
 ### Wikidata and Wikipedia language data extraction
 
-**Scribe-Data** is a convenient command-line interface (CLI) for extracting and formatting language data from [Wikidata](https://www.wikidata.org/) and [Wikipedia](https://www.wikipedia.org/). Functionality includes allowing users to list, download, and manage language data directly from the terminal.
+**Scribe-Data** is a convenient command-line interface (CLI) for extracting and formatting language data from [Wikidata](https://www.wikidata.org/). Functionality includes allowing users to list, download, and manage language data directly from the terminal.
 
 > [!NOTE]\
 > The [contributing](#contributing) section has information for those interested, with the articles and presentations in [featured by](#featured-by) also being good resources for learning more about Scribe.
@@ -42,7 +42,7 @@ Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organiz
 
 The CLI commands defined within [scribe_data/cli](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/cli) and the notebooks within the various [scribe_data](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data) directories are used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) once they're active.
 
-The main data update process in triggers [language based SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/language_data_extraction) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The autosuggestion process derives popular words from [Wikipedia](https://www.wikipedia.org/) as well as those words that normally follow them for an effective baseline feature until natural language processing methods are employed. Functions to generate autosuggestions are ran in [gen_autosuggestions.py](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/wikipedia/generate_autosuggestions.py). Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran via the `scribe-data get -lang LANGUAGE -dt emoji-keywords` command.
+The main data update process triggers [language based SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/language_data_extraction) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran via the `scribe-data get -lang LANGUAGE -dt emoji-keywords` command.
 
 <a id="installation"></a>
 

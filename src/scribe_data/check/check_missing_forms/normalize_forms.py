@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-Order QID from a missing_unique_forms based on lexeme_form_metadata.json.
+Order QID from a missing_unique_forms based on lexeme_form_metadata.yaml.
 """
 
 from scribe_data.utils import lexeme_form_metadata
