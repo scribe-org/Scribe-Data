@@ -58,6 +58,7 @@ Homepage = "https://github.com/scribe-org/Scribe-Data"
 
 [tool.setuptools]
 package-dir = { "" = "src" }
+license-files = ["LICENSE.txt"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
