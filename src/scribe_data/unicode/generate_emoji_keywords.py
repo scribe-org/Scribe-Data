@@ -67,7 +67,6 @@ def generate_emoji(language, output_dir: str = None):
             export_formatted_data(
                 dir_path=output_dir,
                 formatted_data=emoji_keywords_dict,
-                query_data_in_use=True,
                 language=language,
                 data_type=DATA_TYPE,
             )

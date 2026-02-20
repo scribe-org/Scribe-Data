@@ -192,7 +192,7 @@ def print_total_lexemes(language: str = None):
         first_row = True
         if language.startswith("Q") and language[1:].isdigit():
             data_types = data_type_metadata
-            for t in ["autosuggestions", "emoji_keywords"]:
+            for t in ["emoji_keywords"]:
                 if t in data_types:
                     del data_types[t]
 

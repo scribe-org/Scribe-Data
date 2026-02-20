@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-Module for processing Unicode based corpuses for autosuggestion and autocompletion generation.
+Module for processing Unicode based corpuses for autocompletion generation.
 """
 
 import csv

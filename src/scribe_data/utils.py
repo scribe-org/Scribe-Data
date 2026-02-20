@@ -341,7 +341,6 @@ def export_formatted_data(
     formatted_data: dict,
     language: str,
     data_type: str,
-    query_data_in_use: bool = False,
 ) -> None:
     """
     Export formatted data to a JSON file for a specific language and data type.
@@ -359,9 +358,6 @@ def export_formatted_data(
 
     data_type : str
         The type of data being exported (e.g. 'nouns', 'verbs').
-
-    query_data_in_use : bool
-        Whether the query_data function is in use.
 
     Returns
     -------

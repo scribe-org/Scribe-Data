@@ -166,7 +166,6 @@ def prompt_for_data_types():
     None
         Data types are added to the configuration or are asked for.
     """
-    config.data_types = [dt for dt in config.data_types if dt != "autosuggestions"]
     data_type_completer = create_word_completer(config.data_types, include_all=True)
     initial_data_type_selection = ", ".join(config.selected_data_types)
 

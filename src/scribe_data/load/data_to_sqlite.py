@@ -323,7 +323,7 @@ def data_to_sqlite(
                 if dt in [
                     key
                     for key in data_type_metadata.keys()
-                    if key not in ["translations", "autosuggestions"]
+                    if key not in ["translations"]
                 ]:
                     cols = ["wdLexemeId"]
 
@@ -355,21 +355,16 @@ def data_to_sqlite(
 
                     connection.commit()
 
-                elif dt in ["autosuggestions", "emoji_keywords"]:
+                elif dt in ["emoji_keywords"]:
                     cols = ["word"] + [f"{dt[:-1]}_{i}" for i in range(3)]
                     create_table(cursor, identifier_case, data_type=dt, cols=cols)
                     cursor.execute(f"DELETE FROM {dt}")  # clear existing data
                     for row in json_data:
                         keys = [row]
-                        if dt == "autosuggestions":
-                            keys += [
-                                json_data[row][i] for i in range(len(json_data[row]))
-                            ]
-                        else:  # emoji_keywords
-                            keys += [
-                                json_data[row][i]["emoji"]
-                                for i in range(len(json_data[row]))
-                            ]
+                        keys += [
+                            json_data[row][i]["emoji"]
+                            for i in range(len(json_data[row]))
+                        ]
                         keys += [""] * (len(cols) - len(keys))
                         table_insert(cursor, data_type=dt, keys=keys)
 
@@ -379,7 +374,6 @@ def data_to_sqlite(
             if (not specific_tables or "autocomplete_lexicon" in specific_tables) and {
                 "nouns",
                 "prepositions",
-                "autosuggestions",
                 "emoji_keywords",
             }.issubset(set(language_data_type_dict[lang] + (specific_tables or []))):
                 print(f"Creating/Updating {lang} autocomplete_lexicon table...")
@@ -408,13 +402,6 @@ def data_to_sqlite(
                         prepositions
                     WHERE
                         LENGTH(preposition) > 2
-                    UNION
-                    SELECT DISTINCT
-                        LOWER(word) AS word
-                    FROM
-                        autosuggestions
-                    WHERE
-                        LENGTH(word) > 2
                     UNION
                     SELECT
                         word AS word

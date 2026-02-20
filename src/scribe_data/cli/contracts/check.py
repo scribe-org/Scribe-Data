@@ -80,13 +80,18 @@ def check_contract_data_completeness(
         languages_to_check = [language]
 
     elif export_dir.exists():
-        languages_to_check = [
-            item.name for item in export_dir.iterdir() if item.is_dir()
-        ]
+        unique_dirs = {}
+        for item in export_dir.iterdir():
+            if item.is_dir():
+                lower_name = item.name.lower()
+                # Prioritize strictly lowercase directory names to avoid checking capitalized duplicates
+                if lower_name not in unique_dirs or item.name == lower_name:
+                    unique_dirs[lower_name] = item.name
+        languages_to_check = list(unique_dirs.values())
 
     else:
         languages_to_check = [
-            Path(f).stem.lower() for f in scribe_data_contracts.glob("*.json")
+            Path(f).stem.lower() for f in scribe_data_contracts.glob("*.yaml")
         ]
 
     languages_to_check = [
@@ -102,7 +107,7 @@ def check_contract_data_completeness(
         # Get ISO code and contract file.
         try:
             iso_code = get_language_iso(lang.lower())
-            contract_file = scribe_data_contracts / f"{iso_code.lower()}.json"
+            contract_file = scribe_data_contracts / f"{iso_code.lower()}.yaml"
 
             if not contract_file.exists():
                 print(f"Warning: No contract file found for {lang}")
@@ -119,10 +124,20 @@ def check_contract_data_completeness(
         # Check missing forms for nouns and verbs.
         lang_missing_forms = {}
         for data_type in ["nouns", "verbs"]:
+            # Determine required forms.
+            required_forms = (
+                contract_metadata["nouns"]["numbers"]
+                + contract_metadata["nouns"]["genders"]
+                if data_type == "nouns"
+                else contract_metadata["verbs"]["conjugations"]
+            )
+
             exported_data_file = export_lang_dir / f"{data_type}.json"
 
             if not exported_data_file.exists():
                 print(f"Warning: No exported data found for {lang} {data_type}")
+                if required_forms:
+                    lang_missing_forms[data_type] = required_forms
                 continue
 
             try:
@@ -131,15 +146,9 @@ def check_contract_data_completeness(
 
             except (json.JSONDecodeError, IOError) as e:
                 print(f"Error reading {exported_data_file}: {e}")
+                if required_forms:
+                    lang_missing_forms[data_type] = required_forms
                 continue
-
-            # Determine required forms.
-            required_forms = (
-                contract_metadata["nouns"]["numbers"]
-                + contract_metadata["nouns"]["genders"]
-                if data_type == "nouns"
-                else contract_metadata["verbs"]["conjugations"]
-            )
 
             # Check for missing forms.
             missing_type_forms = [

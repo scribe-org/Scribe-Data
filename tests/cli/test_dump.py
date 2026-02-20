@@ -229,20 +229,6 @@ def test_export_forms_json(lexeme_processor, tmp_path):
     assert output_file.parent.exists()
 
 
-@patch("scribe_data.wikidata.wikidata_utils.requests.get")
-def test_mediawiki_query(mock_get):
-    """
-    Test the MediaWiki query function.
-    """
-    from scribe_data.wikidata.wikidata_utils import mediawiki_query
-
-    mock_get.return_value.json.return_value = {"query": {"pages": {}}}
-
-    result = mediawiki_query("test")
-    assert isinstance(result, dict)
-    assert "query" in result
-
-
 @pytest.fixture
 def mock_lexeme_data():
     return {
