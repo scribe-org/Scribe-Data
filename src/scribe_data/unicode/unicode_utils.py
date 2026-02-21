@@ -7,7 +7,7 @@ Module for a function to get emojis we want to filter from suggestions.
 # See: https://getemoji.com/
 def get_emojis_to_ignore():
     """
-    Return a list of emojis based on relationships that we want to remove from autosuggestions.
+    Return a list of emojis based on relationships that we want to remove from emoji suggestions.
 
     Returns
     -------
@@ -27,7 +27,7 @@ def get_emojis_to_ignore():
 
 def get_emoji_codes_to_ignore():
     """
-    Return a list of emojis codes based on relationships that we want to remove from autosuggestions.
+    Return a list of emojis codes based on relationships that we want to remove from emoji suggestions.
 
     Returns
     -------

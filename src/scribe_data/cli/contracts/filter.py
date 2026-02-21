@@ -5,18 +5,21 @@ Functions for filtering data by data contracts.
 
 import json
 import os
+import re
 from pathlib import Path
 from typing import Any, Dict
 
-from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR, get_language_from_iso
+import yaml
 
-scribe_data_contracts = (
-    Path(__file__).parent.parent.parent.parent.parent / "scribe_data_contracts"
+from scribe_data.utils import (
+    DEFAULT_DATA_CONTRACTS_DIR,
+    DEFAULT_FILTERED_JSON_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
+    get_language_from_iso,
 )
-DATA_CONTRACTS_EXPORT_DIR = (
-    Path(__file__).parent.parent.parent.parent.parent
-    / "scribe_data_filtered_json_export"
-)
+
+scribe_data_contracts = DEFAULT_DATA_CONTRACTS_DIR
+DATA_CONTRACTS_EXPORT_DIR = Path(DEFAULT_FILTERED_JSON_EXPORT_DIR)
 
 
 def filter_contract_metadata(contract_file: Path) -> Dict[str, Any]:
@@ -26,7 +29,7 @@ def filter_contract_metadata(contract_file: Path) -> Dict[str, Any]:
     Parameters
     ----------
     contract_file : Path
-        Path to the JSON contract file for a specific language.
+        Path to the YAML contract file for a specific language.
 
     Returns
     -------
@@ -37,7 +40,7 @@ def filter_contract_metadata(contract_file: Path) -> Dict[str, Any]:
     """
     try:
         with open(contract_file, "r", encoding="utf-8") as f:
-            contract_data = json.load(f)
+            contract_data = yaml.safe_load(f)
 
         filtered_metadata = {
             "nouns": {"numbers": [], "genders": []},
@@ -99,43 +102,35 @@ def filter_contract_metadata(contract_file: Path) -> Dict[str, Any]:
 
             # Handle nested conjugation structure.
             if isinstance(conjugations, dict):
-                for tense_group in conjugations.values():
-                    if isinstance(tense_group, dict):
-                        for person_group in tense_group.values():
-                            if isinstance(person_group, dict):
-                                for form in person_group.values():
-                                    # Handle both string and list forms.
+                for section in conjugations.values():
+                    if isinstance(section, dict) and "tenses" in section:
+                        for tense in section["tenses"].values():
+                            if isinstance(tense, dict) and "tenseForms" in tense:
+                                for form in tense["tenseForms"].values():
                                     if isinstance(form, str):
-                                        # Remove square brackets and split.
                                         cleaned_forms = [
                                             f.strip()
-                                            for f in form.replace("[", "")
-                                            .replace("]", "")
-                                            .split()
-                                            if not f.startswith("[")
-                                            and not f.endswith("]")
+                                            for f in re.sub(
+                                                r"\[.*?\]", "", form
+                                            ).split()
                                         ]
                                         conj_forms.update(cleaned_forms)
                                     elif isinstance(form, list):
-                                        # Remove square brackets.
                                         cleaned_forms = [
                                             f
                                             for f in form
                                             if not isinstance(f, str)
-                                            or (
-                                                not f.startswith("[")
-                                                and not f.endswith("]")
+                                            or not (
+                                                f.startswith("[") and f.endswith("]")
                                             )
                                         ]
                                         conj_forms.update(cleaned_forms)
 
             # If conjugations is a string, split it.
             elif isinstance(conjugations, str):
-                # Remove square brackets and split.
+                # Remove square brackets and split using regex.
                 cleaned_forms = [
-                    f.strip()
-                    for f in conjugations.replace("[", "").replace("]", "").split()
-                    if not f.startswith("[") and not f.endswith("]")
+                    f.strip() for f in re.sub(r"\[.*?\]", "", conjugations).split()
                 ]
                 conj_forms.update(cleaned_forms)
 
@@ -146,7 +141,8 @@ def filter_contract_metadata(contract_file: Path) -> Dict[str, Any]:
                     f
                     for f in conjugations
                     if not isinstance(f, str)
-                    or (not f.startswith("[") and not f.endswith("]"))
+                    or not f.startswith("[")
+                    or not f.endswith("]")
                 ]
                 conj_forms.update(cleaned_forms)
 
@@ -155,7 +151,7 @@ def filter_contract_metadata(contract_file: Path) -> Dict[str, Any]:
 
         return filtered_metadata
 
-    except (json.JSONDecodeError, IOError) as e:
+    except (yaml.YAMLError, IOError) as e:
         print(f"Error processing {contract_file}: {e}")
         return {}
 
@@ -265,7 +261,7 @@ def export_data_filtered_by_contracts(
     contracts_dir = Path(contracts_dir) if contracts_dir else scribe_data_contracts
 
     for contract_filename in os.listdir(contracts_dir):
-        if not contract_filename.endswith(".json"):
+        if not contract_filename.endswith(".yaml"):
             continue
 
         language_name = os.path.splitext(contract_filename)[0].lower()

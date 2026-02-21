@@ -116,8 +116,9 @@ def test_check_contracts_nonexistent_dir(mock_path):
         assert "does not exist" in mock_print.call_args[0][0]
 
 
-@patch("scribe_data.utils.get_language_iso")
-@patch("scribe_data.cli.contracts.filter.filter_contract_metadata")
+@patch("scribe_data.cli.contracts.check.data_contracts_lang", ["English"])
+@patch("scribe_data.cli.contracts.check.get_language_iso")
+@patch("scribe_data.cli.contracts.check.filter_contract_metadata")
 def test_check_contract_data_completeness_json_error(
     mock_filter_metadata, mock_get_iso, mock_export_dir, mock_contract_metadata
 ):

@@ -6,7 +6,6 @@ Utility functions for accessing data from Wikidata.
 from pathlib import Path
 from typing import List, Union
 
-import requests
 from rich import print as rprint
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
 
@@ -17,28 +16,6 @@ from scribe_data.wikidata.parse_dump import parse_dump
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
 sparql.setReturnFormat(JSON)
 sparql.setMethod(POST)
-
-
-def mediawiki_query(word: str) -> dict:
-    """
-    Query the Wikidata API using a MediaWiki query.
-
-    Parameters
-    ----------
-    word : str
-        The MediaWiki query to execute.
-
-    Returns
-    -------
-    dict
-        The JSON response from the API.
-    """
-    url = (
-        f"https://wikidata.org/w/api.php?"
-        f"action=query&format=json&titles={word}/translations&prop=revisions&rvprop=content"
-    )
-    response = requests.get(url)
-    return response.json()
 
 
 def parse_wd_lexeme_dump(
@@ -98,8 +75,7 @@ def parse_wd_lexeme_dump(
         data_types = [
             dt
             for dt in data_type_metadata.keys()
-            if dt
-            not in ["translations", "emoji_keywords", "articles", "autosuggestions"]
+            if dt not in ["translations", "emoji_keywords", "articles"]
         ]
     if not interactive_mode:
         if isinstance(language, list):

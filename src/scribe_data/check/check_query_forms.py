@@ -403,7 +403,7 @@ def check_docstring(query_text: str) -> bool:
 
 def check_forms_order(query_text):
     """
-    Parse and order variable names from a SPARQL query text based on a lexeme_form_metadata.json.
+    Parse and order variable names from a SPARQL query text based on a lexeme_form_metadata.yaml.
 
     Parameters
     ----------

@@ -3,7 +3,6 @@
 Utility functions for data extraction, formatting and loading.
 """
 
-import ast
 import contextlib
 import json
 import os
@@ -11,10 +10,11 @@ import re
 from datetime import datetime
 from importlib import resources
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 import questionary
 import requests
+import yaml
 from rich import print as rprint
 
 # MARK: Utils Variables
@@ -26,52 +26,53 @@ DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
 DEFAULT_DUMP_EXPORT_DIR = "scribe_data_wikidata_dumps_export"
 DEFAULT_MEDIAWIKI_EXPORT_DIR = "scribe_data_mediawiki_export"
-DEFAULT_DATA_CONTRACTS_DIR = "scribe_data_contracts"
+DEFAULT_DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
+DEFAULT_FILTERED_JSON_EXPORT_DIR = "scribe_data_filtered_json_export"
 
 LANGUAGE_DATA_EXTRACTION_DIR = (
     Path(__file__).parent / "wikidata" / "language_data_extraction"
 )
 
-LANGUAGE_METADATA_FILE = Path(__file__).parent / "resources" / "language_metadata.json"
+LANGUAGE_METADATA_FILE = Path(__file__).parent / "resources" / "language_metadata.yaml"
 DATA_TYPE_METADATA_FILE = (
-    Path(__file__).parent / "resources" / "data_type_metadata.json"
+    Path(__file__).parent / "resources" / "data_type_metadata.yaml"
 )
 LEXEME_FORM_METADATA_FILE = (
-    Path(__file__).parent / "resources" / "lexeme_form_metadata.json"
+    Path(__file__).parent / "resources" / "lexeme_form_metadata.yaml"
 )
 WIKIDATA_QIDS_PIDS_FILE = (
-    Path(__file__).parent / "resources" / "wikidata_qids_pids.json"
+    Path(__file__).parent / "resources" / "wikidata_qids_pids.yaml"
 )
 DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
 
 try:
     with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
-        language_metadata = json.load(file)
+        language_metadata = yaml.safe_load(file)
 
-except (IOError, json.JSONDecodeError) as e:
+except (IOError, yaml.YAMLError) as e:
     print(f"Error reading language metadata: {e}")
 
 
 try:
     with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
-        data_type_metadata = json.load(file)
+        data_type_metadata = yaml.safe_load(file)
 
-except (IOError, json.JSONDecodeError) as e:
+except (IOError, yaml.YAMLError) as e:
     print(f"Error reading data type metadata: {e}")
 
 try:
     with LEXEME_FORM_METADATA_FILE.open("r", encoding="utf-8") as file:
-        lexeme_form_metadata = json.load(file)
+        lexeme_form_metadata = yaml.safe_load(file)
 
-except (IOError, json.JSONDecodeError) as e:
+except (IOError, yaml.YAMLError) as e:
     print(f"Error reading lexeme form metadata: {e}")
 
 try:
     with WIKIDATA_QIDS_PIDS_FILE.open("r", encoding="utf-8") as file:
-        wikidata_qids_pids = json.load(file)
+        wikidata_qids_pids = yaml.safe_load(file)
 
-except (IOError, json.JSONDecodeError) as e:
-    print(f"Error reading language metadata: {e}")
+except (IOError, yaml.YAMLError) as e:
+    print(f"Error reading wikidata QIDs/PIDs metadata: {e}")
 
 
 language_map = {}
@@ -105,17 +106,18 @@ for lang, lang_data in language_metadata.items():
 # Extracts all sub-languages from language metadata.
 for lang_name, lang_data in language_metadata.items():
     if "sub_languages" in lang_data:
-        sub_languages[lang_name] = {}
-        for sub_lang_name, sub_lang_data in lang_data["sub_languages"].items():
-            sub_languages[lang_name][sub_lang_data["iso"]] = {
+        sub_languages[lang_name] = {
+            sub_lang_data["iso"]: {
                 "name": sub_lang_name,
                 "qid": sub_lang_data["qid"],
             }
+            for sub_lang_name, sub_lang_data in lang_data["sub_languages"].items()
+        }
 
 
 def _load_json(package_path: str, file_name: str) -> Any:
     """
-    Load a JSON resource from a package into a python entity.
+    Load a JSON or YAML resource from a package into a python entity.
 
     Parameters
     ----------
@@ -123,20 +125,23 @@ def _load_json(package_path: str, file_name: str) -> Any:
         The fully qualified package that contains the resource.
 
     file_name : str
-        The name of the file (resource) that contains the JSON data.
+        The name of the file (resource) that contains the JSON or YAML data.
 
     Returns
     -------
     Any
-        A python entity representing the JSON content.
+        A python entity representing the file content.
     """
-    json_file = resources.files(package_path).joinpath(file_name)
-    with json_file.open(encoding="utf-8") as in_stream:
+    data_file = resources.files(package_path).joinpath(file_name)
+    with data_file.open(encoding="utf-8") as in_stream:
+        if file_name.endswith((".yaml", ".yml")):
+            return yaml.safe_load(in_stream)
+
         return json.load(in_stream)
 
 
 _languages = _load_json(
-    package_path="scribe_data.resources", file_name="language_metadata.json"
+    package_path="scribe_data.resources", file_name="language_metadata.yaml"
 )
 
 
@@ -336,7 +341,6 @@ def export_formatted_data(
     formatted_data: dict,
     language: str,
     data_type: str,
-    query_data_in_use: bool = False,
 ) -> None:
     """
     Export formatted data to a JSON file for a specific language and data type.
@@ -355,9 +359,6 @@ def export_formatted_data(
     data_type : str
         The type of data being exported (e.g. 'nouns', 'verbs').
 
-    query_data_in_use : bool
-        Whether the query_data function is in use.
-
     Returns
     -------
     None
@@ -375,147 +376,6 @@ def export_formatted_data(
 
     print(
         f"Wrote file {language.lower()}/{data_type.replace('-', '_')}.json with {len(formatted_data):,} {data_type}."
-    )
-
-
-def get_ios_data_path(language: str) -> str:
-    """
-    Return the path to the data json of the iOS app given a language.
-
-    Parameters
-    ----------
-    language : str
-        The language the path should be returned for.
-
-    Returns
-    -------
-    str
-        The path to the language folder for the given language.
-    """
-    return Path("Scribe-iOS") / "Keyboards" / "LanguageKeyboards" / f"{language}"
-
-
-def get_android_data_path() -> str:
-    """
-    Return the path to the data json of the Android app given a language.
-
-    Returns
-    -------
-    str
-        The path to the assets data folder for the application.
-    """
-    return Path("Scribe-Android") / "app" / "src" / "main" / "assets" / "data"
-
-
-def check_command_line_args(
-    file_name: str, passed_values: Any, values_to_check: list[str]
-) -> list[str]:
-    """
-    Check command line arguments passed to Scribe-Data files.
-
-    Parameters
-    ----------
-    file_name : str
-        The name of the file for clear error outputs if necessary.
-
-    passed_values : UNKNOWN (will be checked)
-        An argument to be checked against known values.
-
-    values_to_check : list(str)
-        The values that should be checked against.
-
-    Returns
-    -------
-    args: list(str)
-        The arguments or an error are returned depending on if they're correct.
-    """
-    try:
-        args = ast.literal_eval(passed_values)
-    except ValueError as invalid_arg:
-        raise ValueError(
-            f"""The argument type of '{passed_values}' passed to {file_name} is invalid.
-            Only lists are allowed, and can be passed via:
-            python {file_name} '["comma_separated_args_in_quotes"]'
-            """
-        ) from invalid_arg
-
-    if not isinstance(args, list):
-        raise ValueError(
-            f"""The argument type of '{passed_values}' passed to {file_name} is invalid.
-            Only lists are allowed, and can be passed via:
-            python {file_name} '["comma_separated_args_in_quotes"]'
-            """
-        )
-
-    if set(args).issubset(values_to_check):
-        return args
-
-    args_list = ", ".join(values_to_check)[:-1] + ", or " + values_to_check[-1]
-    raise ValueError(
-        f"""An invalid argument '{passed_values}' was specified.
-            Please choose from {args_list}.
-            Pass arguments via the following:
-            python {file_name} '["comma_separated_args_in_quotes"]'
-            """
-    )
-
-
-def check_and_return_command_line_args(
-    all_args: list[str],
-    first_args_check: list[str] = None,
-    second_args_check: list[str] = None,
-) -> tuple[Optional[list[str]], Optional[list[str]]]:
-    """
-    Check command line arguments passed to Scribe-Data files and returns them if correct.
-
-    Parameters
-    ----------
-    all_args : list[str]
-        The arguments passed to the Scribe-Data file.
-
-    first_args_check : list[str]
-        The values that the first argument should be checked against.
-
-    second_args_check : list[str]
-        The values that the second argument should be checked against.
-
-    Returns
-    -------
-    first_args, second_args: Tuple[Optional[list[str]], Optional[list[str]]]
-        The subset of possible first and second arguments that have been verified as being valid.
-    """
-    if len(all_args) == 1:
-        return None, None
-
-    if len(all_args) == 2:
-        arg_1 = all_args[1]
-        first_args = check_command_line_args(
-            file_name=all_args[0], passed_values=arg_1, values_to_check=first_args_check
-        )
-
-        return first_args, None
-
-    if len(all_args) == 3:
-        arg_1 = all_args[1]
-        arg_2 = all_args[2]
-
-        first_args = check_command_line_args(
-            file_name=all_args[0], passed_values=arg_1, values_to_check=first_args_check
-        )
-        second_args = check_command_line_args(
-            file_name=all_args[0],
-            passed_values=arg_2,
-            values_to_check=second_args_check,
-        )
-
-        return first_args, second_args
-
-    raise ValueError(
-        f"""An invalid number of arguments were specified.
-        At this time only two sets of values can be passed.
-        Pass argument sets via the following:
-        python {all_args[0]} '["comma_separated_sets_in_quotes"]'
-        """
     )
 
 
@@ -742,9 +602,8 @@ def check_lexeme_dump_prompt_download(output_dir: str):
             if latest_dump:
                 return latest_dump
 
-            else:
-                rprint("[bold red]No valid dumps found.[/bold red]")
-                return None
+            rprint("[bold red]No valid dumps found.[/bold red]")
+            return None
 
         elif user_input == "Download new version":
             # Rename existing latest dump if it exists.
@@ -871,7 +730,8 @@ def get_language_iso_code(qid: str):
             0
         ]["mainsnak"]["datavalue"]["value"]
 
-    except ValueError:
-        raise ValueError("The passed Wikidata QID is not a language.")
+    except ValueError as e:
+        raise ValueError("The passed Wikidata QID is not a language.") from e
+
     except KeyError:
         return KeyError("The ISO code for the language is not available.")

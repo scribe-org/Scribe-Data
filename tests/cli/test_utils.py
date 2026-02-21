@@ -17,13 +17,11 @@ from scribe_data.cli.cli_utils import (
 
 class TestCLIUtils(unittest.TestCase):
     def test_correct_data_type(self):
-        self.assertEqual(correct_data_type("autosuggestion"), "autosuggestions")
         self.assertEqual(correct_data_type("emoji_keyword"), "emoji_keywords")
         self.assertEqual(correct_data_type("preposition"), "prepositions")
         self.assertEqual(correct_data_type("invalid"), None)
 
     def test_correct_data_type_with_trailing_s(self):
-        self.assertEqual(correct_data_type("autosuggestions"), "autosuggestions")
         self.assertEqual(correct_data_type("emoji_keywords"), "emoji_keywords")
         self.assertEqual(correct_data_type("prepositions"), "prepositions")
 
@@ -31,13 +29,6 @@ class TestCLIUtils(unittest.TestCase):
         self.assertIsNone(correct_data_type("invalid_data_type"))
         self.assertIsNone(correct_data_type(""))
         self.assertIsNone(correct_data_type(None))
-
-    @patch("builtins.print")
-    def test_print_formatted_data_autosuggestions(self, mock_print):
-        data = {"key1": ["value1", "value2"], "key2": ["value3"]}
-        print_formatted_data(data, "autosuggestions")
-        mock_print.assert_any_call("key1 : value1, value2")
-        mock_print.assert_any_call("key2 : value3")
 
     @patch("builtins.print")
     def test_print_formatted_data_emoji_keywords(self, mock_print):
@@ -62,9 +53,9 @@ class TestCLIUtils(unittest.TestCase):
 
     @patch("builtins.print")
     def test_print_formatted_data_empty_data(self, mock_print):
-        print_formatted_data({}, "autosuggestions")
+        print_formatted_data({}, "emoji_keywords")
         mock_print.assert_called_once_with(
-            "No data available for data type 'autosuggestions'."
+            "No data available for data type 'emoji_keywords'."
         )
 
     @patch("builtins.print")
@@ -88,18 +79,6 @@ class TestCLIUtils(unittest.TestCase):
         print_formatted_data(data, "list_of_dicts")
         mock_print.assert_any_call("key1 : value1")
         mock_print.assert_any_call("key2 : value2")
-
-    @patch("builtins.print")
-    def test_print_formatted_data_autosuggestions_redefined(self, mock_print):
-        data = {"key1": ["value1", "value2"], "key2": ["value3"]}
-        print_formatted_data(data, "autosuggestions")
-
-    def test_print_formatted_data_autosuggestions_with_patch(self):
-        data = {"key1": ["value1", "value2"], "key2": ["value3", "value4"]}
-        with patch("builtins.print") as mock_print:
-            print_formatted_data(data, "autosuggestions")
-            mock_print.assert_any_call("key1 : value1, value2")
-            mock_print.assert_any_call("key2 : value3, value4")
 
     def test_print_formatted_data_prepositions(self):
         data = {"key1": "value1", "key2": "value2"}

@@ -104,11 +104,11 @@ class TestFilterContractMetadata:
 
     def test_filter_contract_metadata_error_handling(self):
         """
-        Test error handling for invalid JSON.
+        Test error handling for invalid YAML.
         """
-        with patch("builtins.open", mock_open(read_data="invalid json")):
+        with patch("builtins.open", mock_open(read_data="[invalid yaml")):
             with patch("builtins.print") as mock_print:
-                result = filter_contract_metadata(Path("fake_path.json"))
+                result = filter_contract_metadata(Path("fake_path.yaml"))
                 assert result == {}
                 mock_print.assert_called_once()
 
@@ -263,8 +263,8 @@ class TestExportContracts:
         Test the export_data_filtered_by_contracts function full workflow.
         """
         mock_listdir.return_value = [
-            "english.json",
-            "spanish.json",
+            "english.yaml",
+            "spanish.yaml",
             "not_a_contract.txt",
         ]
         mock_get_language.side_effect = lambda lang: {
@@ -360,7 +360,7 @@ class TestExportContracts:
         """
         Test handling of contracts with no language match.
         """
-        mock_listdir.return_value = ["unknown.json"]
+        mock_listdir.return_value = ["unknown.yaml"]
         mock_get_language.return_value = None
 
         with patch("builtins.print") as mock_print:
@@ -390,7 +390,7 @@ class TestExportContracts:
         """
         Test handling when input files don't exist.
         """
-        mock_listdir.return_value = ["english.json"]
+        mock_listdir.return_value = ["english.yaml"]
         mock_get_language.return_value = "English"
         mock_exists.return_value = False
         mock_filter_metadata.return_value = {
@@ -415,7 +415,7 @@ class TestExportContracts:
         """
         Test handling when contract metadata is empty.
         """
-        mock_listdir.return_value = ["english.json"]
+        mock_listdir.return_value = ["english.yaml"]
         mock_get_language.return_value = "English"
         mock_filter_metadata.return_value = {}
 

@@ -26,7 +26,6 @@ from scribe_data.utils import (
     DEFAULT_DUMP_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
 )
-from scribe_data.wiktionary.parse_mediaWiki import parse_wiktionary_translations
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
 GET_DESCRIPTION = (
@@ -177,21 +176,6 @@ def main() -> None:
         nargs="?",
         const="",
         help=f"Path to a local Wikidata lexemes dump. Uses default directory (./{DEFAULT_DUMP_EXPORT_DIR}) if no path provided.",
-    )
-    get_parser.add_argument(
-        "-t", "--translation", type=str, help="parse a single word using MediaWiki API"
-    )
-    get_parser.add_argument(
-        "-di",
-        "--dump-id",
-        type=str,
-        help="The id of an explicit Wikipedia dump that the user wants to download.",
-    )
-    get_parser.add_argument(
-        "-fd",
-        "--force-download",
-        action="store_true",
-        help="Force download wikipedia dump",
     )
 
     # MARK: Total
@@ -450,9 +434,6 @@ def main() -> None:
                 start_interactive_mode(operation="get")
                 return
 
-            if args.translation:
-                parse_wiktionary_translations(args.translation, args.output_dir)
-
             else:
                 # Handle multiple languages and data types.
                 languages = None
@@ -485,8 +466,6 @@ def main() -> None:
                                 all_bool=args.all,
                                 identifier_case=args.identifier_case,
                                 wikidata_dump=args.wikidata_dump_path,
-                                dump_id=args.dump_id,
-                                force_download=args.force_download,
                             )
 
                 else:
@@ -501,8 +480,6 @@ def main() -> None:
                         all_bool=args.all,
                         identifier_case=args.identifier_case,
                         wikidata_dump=args.wikidata_dump_path,
-                        dump_id=args.dump_id,
-                        force_download=args.force_download,
                     )
 
         elif args.command in ["total", "t"]:
@@ -573,7 +550,6 @@ def main() -> None:
                     "Check for totals",
                     "Get data",
                     "Get translations",
-                    "Get autosuggestions",
                     "Convert JSON",
                     "Exit",
                 ],
@@ -590,9 +566,6 @@ def main() -> None:
 
             elif action == "Get translations":
                 start_interactive_mode(operation="translations")
-
-            elif action == "Get autosuggestions":
-                start_interactive_mode(operation="autosuggestions")
 
             elif action == "Convert JSON":
                 start_interactive_mode(operation="convert")

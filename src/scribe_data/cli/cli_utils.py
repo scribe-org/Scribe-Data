@@ -58,10 +58,7 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
         max_key_length = max((len(key) for key in data.keys()), default=0)
 
         for key, value in data.items():
-            if data_type == "autosuggestions":
-                print(f"{key:<{max_key_length}} : {', '.join(value)}")
-
-            elif data_type == "emoji_keywords":
+            if data_type == "emoji_keywords":
                 emojis = [item["emoji"] for item in value]
                 print(f"{key:<{max_key_length}} : {' '.join(emojis)}")
 

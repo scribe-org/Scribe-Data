@@ -179,8 +179,8 @@ class TestCheckProjectMetadata(unittest.TestCase):
             check_language_metadata()
             self.assertEqual(
                 out.getvalue(),
-                "All languages in language_metadata.json are included in Scribe-Data.\n"
-                "Languages in language_metadata.json have the correct properties.\n",
+                "All languages in language_metadata.yaml are included in Scribe-Data.\n"
+                "Languages in language_metadata.yaml have the correct properties.\n",
             )
 
     def test_check_language_metadata_raises_error(self):
@@ -217,7 +217,7 @@ class TestCheckProjectMetadata(unittest.TestCase):
             check_language_metadata()
         self.assertEqual(1, cm.exception.code)
         self.assertEqual(
-            "There are missing languages or inconsistencies between language_metadata.json and language_data_extraction.\n\n"
+            "There are missing languages or inconsistencies between language_metadata.yaml and language_data_extraction.\n\n"
             "\nLanguages missing from language_data_extraction:\n"
             "  - Estonian\n"
             "\nLanguages missing the `qid` property:\n"

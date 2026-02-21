@@ -1,0 +1,424 @@
+1_case:
+  1:
+    label: Nominative
+    qid: Q131105
+
+  2:
+    label: Genitive
+    qid: Q146233
+
+  3:
+    label: Dative
+    qid: Q145599
+
+  4:
+    label: Accusative
+    qid: Q146078
+
+  5:
+    label: Instrumental
+    qid: Q192997
+
+  6:
+    label: Prepositional
+    qid: Q2114906
+
+  7:
+    label: Locative
+    qid: Q202142
+
+  8:
+    label: Vocative
+    qid: Q185077
+
+  9:
+    label: Absolutive
+    qid: Q332734
+
+  10:
+    label: Pausal
+    qid: Q117262361
+
+  11:
+    label: Direct
+    qid: Q1751855
+
+  12:
+    label: Oblique
+    qid: Q1233197
+
+  13:
+    label: Volitive
+    qid: Q2532941
+
+  14:
+    label: Ablative
+    qid: Q156986
+
+  15:
+    label: Partitive
+    qid: Q857325
+
+  16:
+    label: Illative
+    qid: Q474668
+
+  17:
+    label: Inessive
+    qid: Q282031
+
+  18:
+    label: Elative
+    qid: Q394253
+
+  19:
+    label: Allative
+    qid: Q655020
+
+  20:
+    label: Adessive
+    qid: Q281954
+
+  21:
+    label: Translative
+    qid: Q950170
+
+  22:
+    label: Terminative
+    qid: Q747019
+
+  23:
+    label: Essive
+    qid: Q148465
+
+  24:
+    label: Abessive
+    qid: Q319822
+
+  25:
+    label: Comitative
+    qid: Q838581
+
+  26:
+    label: NonGenitive
+    qid: Q98946930
+
+2_gender:
+  1:
+    label: Feminine
+    qid: Q1775415
+
+  2:
+    label: Masculine
+    qid: Q499327
+
+  3:
+    label: Inanimate
+    qid: Q51927539
+
+  4:
+    label: Animate
+    qid: Q51927507
+
+  5:
+    label: MasculineInanimate
+    qid: Q52943434
+
+  6:
+    label: MasculineAnimate
+    qid: Q54020116
+
+  7:
+    label: MasculinePersonal
+    qid: Q27918551
+
+  8:
+    label: NotMasculinePersonal
+    qid: Q54152717
+
+  9:
+    label: Common
+    qid: Q1305037
+
+  10:
+    label: Neuter
+    qid: Q1775461
+
+3_mood:
+  1:
+    label: Indicative
+    qid: Q682111
+
+  2:
+    label: Passive
+    qid: Q1194697
+
+  3:
+    label: Active
+    qid: Q1317831
+
+  4:
+    label: Imperative
+    qid: Q22716
+
+  5:
+    label: Performative
+    qid: Q124351233
+
+  6:
+    label: Conditional
+    qid: Q625581
+
+4_tense:
+  1:
+    label: Infinitive
+    qid: Q179230
+
+  2:
+    label: AInfinitive
+    qid: Q115223950
+
+  3:
+    label: EInfinitive
+    qid: Q115223951
+
+  4:
+    label: Present
+    qid: Q192613
+
+  5:
+    label: SimplePresent
+    qid: Q3910936
+
+  6:
+    label: PresentInfinitive
+    qid: Q52434245
+
+  7:
+    label: PresentContinuous
+    qid: Q7240943
+
+  8:
+    label: Past
+    qid: Q1994301
+
+  9:
+    label: SimplePast
+    qid: Q1392475
+
+  10:
+    label: Preterite
+    qid: Q442485
+
+  11:
+    label: Future
+    qid: Q501405
+
+  12:
+    label: SimpleFuture
+    qid: Q1475560
+
+  13:
+    label: Perfect
+    qid: Q625420
+
+  14:
+    label: PresentPerfect
+    qid: Q1240211
+
+  15:
+    label: PresentIndicative
+    qid: Q56682909
+
+  16:
+    label: Imperfect
+    qid: Q108524486
+
+  17:
+    label: PastImperfect
+    qid: Q12547192
+
+  18:
+    label: PastPerfect
+    qid: Q64005357
+
+  19:
+    label: Pluperfect
+    qid: Q623742
+
+  20:
+    label: PastTransgressive
+    qid: Q12750232
+
+5_phase:
+  1:
+    label: IntransitivePhase
+    qid: Q113330736
+
+  2:
+    label: BasicPhase
+    qid: Q113330960
+
+6_person:
+  1:
+    label: FirstPerson
+    qid: Q21714344
+
+  2:
+    label: SecondPerson
+    qid: Q51929049
+
+  3:
+    label: ThirdPerson
+    qid: Q51929074
+
+  4:
+    label: Negative
+    qid: Q15737187
+
+  5:
+    label: Conjunctive
+    qid: Q2888577
+
+  6:
+    label: Imperfective
+    qid: Q2898727
+
+  7:
+    label: Attributive
+    qid: Q53608953
+
+  8:
+    label: Hypothetical
+    qid: Q53609593
+
+  9:
+    label: Aorist
+    qid: Q216497
+
+7_definiteness:
+  1:
+    label: Indefinite
+    qid: Q53997857
+
+  2:
+    label: Definite
+    qid: Q53997851
+
+8_number:
+  1:
+    label: Singular
+    qid: Q110786
+
+  2:
+    label: Plural
+    qid: Q146786
+
+  3:
+    label: Dual
+    qid: Q110022
+
+  4:
+    label: Gerund
+    qid: Q1923028
+
+  5:
+    label: Imperfective
+    qid: Q54556033
+
+  6:
+    label: Nominalized
+    qid: Q74674960
+
+  7:
+    label: Supine
+    qid: Q548470
+
+  8:
+    label: Construct
+    qid: Q1641446
+
+  9:
+    label: Participle
+    qid: Q814722
+
+  10:
+    label: CombinedPresentParticiple
+    qid: Q10345583
+
+  11:
+    label: CombinedPastParticiple
+    qid: Q12717679
+
+  12:
+    label: EnglishPastParticiple
+    qid: Q1230649
+
+  13:
+    label: PassiveParticiple
+    qid: Q72249544
+
+  14:
+    label: ActiveParticiple
+    qid: Q72249355
+
+  15:
+    label: ConjunctiveParticiple
+    qid: Q113133303
+
+  16:
+    label: Adverbial
+    qid: Q380012
+
+  17:
+    label: AdverbialLocation
+    qid: Q5978303
+
+  18:
+    label: AdverbOfManner
+    qid: Q113320444
+
+  19:
+    label: LocativeAdverb
+    qid: Q1522423
+
+  20:
+    label: AbsoluteConstruction
+    qid: Q4669807
+
+  21:
+    label: Phrase
+    qid: Q187931
+
+  22:
+    label: FiilMudari
+    qid: Q12230930
+
+  23:
+    label: Contraction
+    qid: Q126473
+
+  24:
+    label: Short
+    qid: Q4239848
+
+  25:
+    label: WordStem
+    qid: Q210523
+
+9_degree:
+  1:
+    label: Comparative
+    qid: Q14169499
+
+  2:
+    label: Superlative
+    qid: Q1817208
+
+  3:
+    label: Subjunctive
+    qid: Q473746
+
+  4:
+    label: Positive
+    qid: Q3482678
