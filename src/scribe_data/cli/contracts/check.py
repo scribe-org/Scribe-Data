@@ -84,9 +84,10 @@ def check_contract_data_completeness(
         for item in export_dir.iterdir():
             if item.is_dir():
                 lower_name = item.name.lower()
-                # Prioritize strictly lowercase directory names to avoid checking capitalized duplicates
+                # Prioritize strictly lowercase directory names to avoid checking capitalized duplicates.
                 if lower_name not in unique_dirs or item.name == lower_name:
                     unique_dirs[lower_name] = item.name
+
         languages_to_check = list(unique_dirs.values())
 
     else:
@@ -150,17 +151,13 @@ def check_contract_data_completeness(
                     lang_missing_forms[data_type] = required_forms
                 continue
 
-            # Check for missing forms.
-            missing_type_forms = [
+            if missing_type_forms := [
                 form
                 for form in required_forms
-                if not any(
-                    form in lexeme_data for lexeme_data in exported_data.values()
+                if all(
+                    form not in lexeme_data for lexeme_data in exported_data.values()
                 )
-            ]
-
-            # Store missing forms if any.
-            if missing_type_forms:
+            ]:
                 lang_missing_forms[data_type] = missing_type_forms
 
         # Add to overall missing forms if any.

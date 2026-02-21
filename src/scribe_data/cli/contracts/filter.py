@@ -103,55 +103,28 @@ def filter_contract_metadata(contract_file: Path) -> Dict[str, Any]:
             # Handle nested conjugation structure.
             if isinstance(conjugations, dict):
                 for section in conjugations.values():
-                    if isinstance(section, dict):
-                        # Support new YAML format
-                        if "tenses" in section:
-                            for tense in section["tenses"].values():
-                                if isinstance(tense, dict) and "tenseForms" in tense:
-                                    for form in tense["tenseForms"].values():
-                                        if isinstance(form, str):
-                                            cleaned_forms = [
-                                                f.strip()
-                                                for f in re.sub(
-                                                    r"\[.*?\]", "", form
-                                                ).split()
-                                            ]
-                                            conj_forms.update(cleaned_forms)
-                                        elif isinstance(form, list):
-                                            cleaned_forms = [
-                                                f
-                                                for f in form
-                                                if not isinstance(f, str)
-                                                or not (
-                                                    f.startswith("[")
-                                                    and f.endswith("]")
-                                                )
-                                            ]
-                                            conj_forms.update(cleaned_forms)
-                        # Support legacy JSON format fallback
-                        else:
-                            for person_group in section.values():
-                                if isinstance(person_group, dict):
-                                    for form in person_group.values():
-                                        if isinstance(form, str):
-                                            cleaned_forms = [
-                                                f.strip()
-                                                for f in re.sub(
-                                                    r"\[.*?\]", "", form
-                                                ).split()
-                                            ]
-                                            conj_forms.update(cleaned_forms)
-                                        elif isinstance(form, list):
-                                            cleaned_forms = [
-                                                f
-                                                for f in form
-                                                if not isinstance(f, str)
-                                                or not (
-                                                    f.startswith("[")
-                                                    and f.endswith("]")
-                                                )
-                                            ]
-                                            conj_forms.update(cleaned_forms)
+                    if isinstance(section, dict) and "tenses" in section:
+                        for tense in section["tenses"].values():
+                            if isinstance(tense, dict) and "tenseForms" in tense:
+                                for form in tense["tenseForms"].values():
+                                    if isinstance(form, str):
+                                        cleaned_forms = [
+                                            f.strip()
+                                            for f in re.sub(
+                                                r"\[.*?\]", "", form
+                                            ).split()
+                                        ]
+                                        conj_forms.update(cleaned_forms)
+                                    elif isinstance(form, list):
+                                        cleaned_forms = [
+                                            f
+                                            for f in form
+                                            if not isinstance(f, str)
+                                            or not (
+                                                f.startswith("[") and f.endswith("]")
+                                            )
+                                        ]
+                                        conj_forms.update(cleaned_forms)
 
             # If conjugations is a string, split it.
             elif isinstance(conjugations, str):
@@ -168,7 +141,8 @@ def filter_contract_metadata(contract_file: Path) -> Dict[str, Any]:
                     f
                     for f in conjugations
                     if not isinstance(f, str)
-                    or not (f.startswith("[") and f.endswith("]"))
+                    or not f.startswith("[")
+                    or not f.endswith("]")
                 ]
                 conj_forms.update(cleaned_forms)
 
