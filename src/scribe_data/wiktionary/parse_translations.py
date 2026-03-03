@@ -7,7 +7,6 @@ Pure Python with XML and regex/template parsing. No external linguistic tooling.
 """
 
 import bz2
-import os
 import re
 import xml.etree.ElementTree as ET
 from concurrent.futures import ProcessPoolExecutor
