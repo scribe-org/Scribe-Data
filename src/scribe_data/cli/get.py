@@ -40,6 +40,7 @@ def get_data(
     interactive: bool = False,
     identifier_case: str = "camel",
     wikidata_dump: str = None,
+    wiktionary_dump: str = None,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
@@ -75,6 +76,10 @@ def get_data(
 
     wikidata_dump : str
         The local Wikidata lexeme dump that can be used to process data.
+
+    wiktionary_dump : str
+        Path to enwiktionary-*-pages-articles.xml.bz2 for translations.
+        Use "enwiktionary" to search output directory.
 
     Returns
     -------
@@ -180,7 +185,20 @@ def get_data(
     # MARK: Translations
 
     elif data_type == "translations":
-        # If no language specified, use "all".
+        if wiktionary_dump is not None:
+            from scribe_data.wiktionary.parse_translations import (
+                parse_wiktionary_translations,
+            )
+
+            langs = [language] if language else None
+            parse_wiktionary_translations(
+                target_languages=langs,
+                wiktionary_dump_path=wiktionary_dump or "enwiktionary",
+                output_dir=output_dir,
+                overwrite=overwrite,
+            )
+            return
+
         if language is None:
             language = "all"
 

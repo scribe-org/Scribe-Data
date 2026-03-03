@@ -281,3 +281,115 @@ def wd_lexeme_dump_download_wrapper(
 
     except Exception as e:
         rprint(f"[bold red]An error occurred: {e}[/bold red]")
+
+
+def download_wiktionary_dump(
+    output_dir: Optional[str] = None,
+    default: bool = False,
+    language: Optional[str] = None,
+) -> Optional[str]:
+    """
+    Download the latest enwiktionary pages-articles dump.
+
+    Parameters
+    ----------
+    output_dir : str, optional
+        Directory to save the dump. Defaults to DEFAULT_DUMP_EXPORT_DIR.
+    default : bool, default=False
+        If True, skip confirmation prompt.
+
+    Returns
+    -------
+    str or None
+        Path to the downloaded file, or None if aborted/failed.
+    """
+    from scribe_data.utils import list_all_languages, resolve_lang_iso
+
+    if not language:
+        if default:
+            language = "en"
+        else:
+            languages = list_all_languages()
+            choice = questionary.autocomplete(
+                "Which language's Wiktionary dump do you want to download?",
+                choices=languages,
+            ).ask()
+            if not choice:
+                return None
+            language = choice
+
+    iso = resolve_lang_iso(language)
+    if not iso:
+        rprint(
+            f"[bold red]Could not find ISO code for language: '{language}'. Giving up.[/bold red]"
+        )
+        return None
+
+    wiktionary_base = f"{iso}wiktionary"
+    base_url = f"https://dumps.wikimedia.org/{wiktionary_base}"
+
+    date_choice = "latest"
+    if not default:
+        choice = questionary.text(
+            f"Which dump date for {wiktionary_base} do you want to download (e.g. 'latest' or 'YYYYMMDD')?",
+            default="latest",
+        ).ask()
+
+        if not choice:
+            return None
+        date_choice = choice.strip()
+
+    filename = f"{wiktionary_base}-{date_choice}-pages-articles.xml.bz2"
+    download_url = f"{base_url}/{date_choice}/{filename}"
+
+    rprint(f"[bold blue]Checking dump validity at {download_url}...[/bold blue]")
+    try:
+        response = requests.head(download_url, timeout=30)
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        rprint(f"[bold red]Invalid dump date or dump not found: {e}[/bold red]")
+        return None
+
+    output_dir = output_dir or DEFAULT_DUMP_EXPORT_DIR
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    output_path = str(Path(output_dir) / filename)
+
+    if Path(output_path).exists():
+        rprint(f"[bold yellow]File already exists: {output_path}[/bold yellow]")
+        if not default:
+            overwrite = questionary.confirm("Overwrite?", default=False).ask()
+            if not overwrite:
+                rprint(f"[bold green]Keeping existing dump: {output_path}[/bold green]")
+                return output_path
+
+    if not default:
+        proceed = questionary.confirm(
+            f"Download {wiktionary_base} pages-articles dump ({date_choice}) from dumps.wikimedia.org?",
+            default=True,
+        ).ask()
+        if not proceed:
+            return None
+
+    rprint(f"[bold blue]Downloading to {output_path}...[/bold blue]")
+    try:
+        response = requests.get(download_url, stream=True, timeout=30)
+        response.raise_for_status()
+        total_size = int(response.headers.get("content-length", 0))
+
+        with open(output_path, "wb") as f:
+            with tqdm(
+                total=total_size,
+                unit="iB",
+                unit_scale=True,
+                desc=filename,
+            ) as pbar:
+                for chunk in response.iter_content(chunk_size=8192):
+                    if chunk:
+                        f.write(chunk)
+                        pbar.update(len(chunk))
+
+        rprint("[bold green]Wiktionary dump download completed.[/bold green]")
+        return output_path
+    except requests.exceptions.RequestException as e:
+        rprint(f"[bold red]Download failed: {e}[/bold red]")
+        return None

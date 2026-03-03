@@ -6,7 +6,11 @@ Utility functions for the Scribe-Data CLI.
 import difflib
 from typing import List, Union
 
-from scribe_data.utils import data_type_metadata, language_to_qid
+from scribe_data.utils import (
+    data_type_metadata,
+    get_language_from_iso,
+    language_to_qid,
+)
 
 # MARK: Correct Inputs
 
@@ -146,22 +150,27 @@ def validate_language_and_data_type(
         str or None
             An error message if the item is invalid, or None if the item is valid.
         """
-        if (
-            isinstance(item, str)
-            and item.lower().strip() not in valid_options
-            and not item.startswith("Q")
-            and not item[1:].isdigit()
-        ):
-            closest_match = difflib.get_close_matches(item, valid_options, n=1)
-            closest_match_str = (
-                f" The closest matching {item_type} is '{closest_match[0].capitalize()}'."
-                if closest_match
-                else ""
-            )
+        if not isinstance(item, str):
+            return None
+        item_lower = item.lower().strip()
+        if item_lower in valid_options:
+            return None
+        if item.startswith("Q") and len(item) > 1 and item[1:].isdigit():
+            return None
+        if len(item_lower) in (2, 3) and item_lower.isalpha():
+            try:
+                get_language_from_iso(item_lower)
+                return None
+            except ValueError:
+                pass
 
-            return f"Invalid {item_type} '{item}'.{closest_match_str}"
-
-        return None
+        closest_match = difflib.get_close_matches(item, valid_options, n=1)
+        closest_match_str = (
+            f" The closest matching {item_type} is '{closest_match[0].capitalize()}'."
+            if closest_match
+            else ""
+        )
+        return f"Invalid {item_type} '{item}'.{closest_match_str}"
 
     errors = []
 
