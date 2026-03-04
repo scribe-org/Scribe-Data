@@ -59,7 +59,7 @@ def test_generate_emoji_success(mock_pyicu, mock_utils, mock_process_unicode, tm
     mock_check_install.assert_called_once()
     mock_check_installed.assert_called()
     mock_iso.assert_called_once_with(language="en")
-    mock_lexicon.assert_called_once_with(language="en", emojis_per_keyword=3)
+    mock_lexicon.assert_called_once_with(language="en", emojis_per_keyword=9)
     mock_export.assert_called_once()
 
 
