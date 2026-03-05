@@ -14,7 +14,7 @@ from scribe_data.unicode.process_unicode import gen_emoji_lexicon
 from scribe_data.utils import export_formatted_data, get_language_iso
 
 DATA_TYPE = "emoji-keywords"
-EMOJI_KEYWORDS_DICT = 3
+EMOJI_KEYWORDS_DICT = 9
 
 
 def generate_emoji(language, output_dir: str = None):
