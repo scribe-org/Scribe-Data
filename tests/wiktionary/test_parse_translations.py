@@ -167,7 +167,9 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
     <revision></revision>
   </page>
 </mediawiki>"""
-        with tempfile.NamedTemporaryFile(suffix=".xml", delete=False, mode="w") as tmp:
+        with tempfile.NamedTemporaryFile(
+            suffix=".xml", delete=False, mode="w", encoding="utf-8"
+        ) as tmp:
             tmp.write(dummy_xml)
             tmp_path = tmp.name
 
@@ -314,7 +316,9 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
   </page>
 </mediawiki>"""
 
-        with tempfile.NamedTemporaryFile(suffix=".xml", delete=False, mode="w") as tmp:
+        with tempfile.NamedTemporaryFile(
+            suffix=".xml", delete=False, mode="w", encoding="utf-8"
+        ) as tmp:
             tmp.write(dummy_xml_content)
             tmp_path = tmp.name
 
