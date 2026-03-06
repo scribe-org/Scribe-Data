@@ -14,14 +14,13 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
 
 from scribe_data.wiktionary.parse_constants import (
+    HEADER_RE,
     IGNORED_TRANSLATION_PREFIXES,
     IGNORED_TRANSLATION_STRINGS,
-    POS_HEADER_RE,
     T_NAMED_RE,
     T_TEMPLATE_RE,
     TRANS_BOTTOM_RE,
     TRANS_TOP_RE,
-    TRANSLATIONS_HEADER_RE,
     _normalize_pos,
 )
 
@@ -49,30 +48,6 @@ def _extract_source_lang_section(wikitext: str, source_lang_name: str) -> Option
     return wikitext[start:].strip()
 
 
-def _split_pos_sections(content: str) -> List[Tuple[str, str]]:
-    """Split content into (pos_header, section_text) pairs."""
-    sections: List[Tuple[str, str]] = []
-    pos_matches = list(POS_HEADER_RE.finditer(content))
-    for i, m in enumerate(pos_matches):
-        pos_name = m.group(1).strip()
-        start = m.end()
-        end = pos_matches[i + 1].start() if i + 1 < len(pos_matches) else len(content)
-        section_text = content[start:end].strip()
-        sections.append((pos_name, section_text))
-    return sections
-
-
-def _extract_translations_subsection(section_text: str) -> Optional[str]:
-    """Find ====Translations==== and return its content up to next ====."""
-    match = TRANSLATIONS_HEADER_RE.search(section_text)
-    if not match:
-        return None
-    start = match.end()
-    next_eq = re.search(r"\n====+\s", section_text[start:])
-    end = start + next_eq.start() if next_eq else len(section_text)
-    return section_text[start:end].strip()
-
-
 def _parse_trans_blocks(trans_text: str) -> List[Tuple[str, str]]:
     """
     Parse trans-top/trans-bottom blocks. Returns [(description, block_content)].
@@ -88,11 +63,18 @@ def _parse_trans_blocks(trans_text: str) -> List[Tuple[str, str]]:
             desc = re.sub(r"^['\d.]+\s*", "", desc)
             desc = re.sub(r"''+", "", desc).strip()
         content_start = top_m.end()
-        content_end = (
-            TRANS_BOTTOM_RE.search(trans_text[content_start:]).start() + content_start
-            if TRANS_BOTTOM_RE.search(trans_text[content_start:])
-            else len(trans_text)
+        # if a Wiktionary contributor forgot to close the first Translation block with
+        # {{trans-bottom}}, the code will default to the end of the text. This wrongly sucks
+        # in ALL subsequent blocks, causing them to be parsed and duplicated again!
+        bottom_m = TRANS_BOTTOM_RE.search(trans_text, content_start)
+        next_top_start = (
+            top_matches[i + 1].start() if i + 1 < len(top_matches) else len(trans_text)
         )
+        if bottom_m and bottom_m.start() <= next_top_start:
+            content_end = bottom_m.start()
+        else:
+            content_end = next_top_start
+
         block_content = trans_text[content_start:content_end]
         blocks.append((desc, block_content))
     return blocks
@@ -170,25 +152,66 @@ def _parse_page_translations(
     if not lang_section:
         return result
 
-    for pos_header, section_text in _split_pos_sections(lang_section):
-        trans_section = _extract_translations_subsection(section_text)
-        if not trans_section:
-            continue
+    current_pos = "other"
+    pos_sense_tracker: Dict[str, int] = {}
 
-        pos = _normalize_pos(pos_header)
-        blocks = _parse_trans_blocks(trans_section)
-        for sense_idx, (desc, block) in enumerate(blocks, start=1):
-            words_by_lang = _extract_templates_from_block(block, target_langs)
-            for code, words in words_by_lang.items():
-                if words:
-                    if code not in result:
-                        result[code] = {}
-                    if pos not in result[code]:
-                        result[code][pos] = {}
-                    result[code][pos][str(sense_idx)] = {
-                        "description": desc,
-                        "translation": ", ".join(words),
-                    }
+    headers = list(HEADER_RE.finditer(lang_section))
+
+    for i, match in enumerate(headers):
+        # Wiktionary often shifts Part of Speech headers from Level-3 (===Noun===)
+        # to Level-4 (====Noun====) if multiple Etymology sections exist.
+        # The HEADER_RE regex isolates the header string regardless of the number of equals signs,
+        # so this logic seamlessly handles arbitrary Part of Speech header depths.
+        header_text = match.group(2).strip()
+        header_lower = header_text.lower()
+
+        start = match.end()
+        end = headers[i + 1].start() if i + 1 < len(headers) else len(lang_section)
+        content = lang_section[start:end]
+
+        if header_lower == "translations":
+            blocks = _parse_trans_blocks(content)
+
+            if current_pos not in pos_sense_tracker:
+                pos_sense_tracker[current_pos] = 0
+
+            for desc, block in blocks:
+                words_by_lang = _extract_templates_from_block(block, target_langs)
+
+                if any(words for words in words_by_lang.values() if words):
+                    pos_sense_tracker[current_pos] += 1
+                    sense_idx_str = str(pos_sense_tracker[current_pos])
+
+                    for code, words in words_by_lang.items():
+                        if words:
+                            if code not in result:
+                                result[code] = {}
+                            if current_pos not in result[code]:
+                                result[code][current_pos] = {}
+                            result[code][current_pos][sense_idx_str] = {
+                                "description": desc,
+                                "translation": ", ".join(words),
+                            }
+        else:
+            mapped = _normalize_pos(header_text)
+            if mapped != header_lower.replace(" ", "_") or header_lower in [
+                "noun",
+                "verb",
+                "adjective",
+                "adverb",
+                "preposition",
+                "conjunction",
+                "interjection",
+                "pronoun",
+                "determiner",
+                "numeral",
+                "phrase",
+                "symbol",
+                "particle",
+                "proper noun",
+                "proper name",
+            ]:
+                current_pos = mapped
 
     return result
 
@@ -343,6 +366,10 @@ def parse_xml_dump(
             if "translation" not in text and "Translation" not in text:
                 continue
 
+            # Skips pages that mention "translation" in prose but have no actual translation templates.
+            if "{{t" not in text and "{{T" not in text:
+                continue
+
             # Re-map delegated translation subpages back to their base words
             # (e.g., "book/translations" merges seamlessly into "book").
             if word.endswith("/translations"):
@@ -377,7 +404,7 @@ def parse_xml_dump(
     try:
         with ProcessPoolExecutor(max_workers=num_workers) as executor:
             for result in executor.map(
-                _parse_page_worker, _filtered_iterator(), chunksize=100
+                _parse_page_worker, _filtered_iterator(), chunksize=500
             ):
                 if not result:
                     continue

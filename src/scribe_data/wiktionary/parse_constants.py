@@ -7,14 +7,7 @@ import re
 
 # MARK: Regex Settings
 
-# Level-3 headers only (===Noun===), not level-4 (====Translations====).
-# This prevents capturing nested headers mistakenly as POS sections.
-POS_HEADER_RE = re.compile(r"^===(?!=)\s*([^=\n]+?)\s*===\s*$", re.MULTILINE)
-
-# Strictly match the translations header block cleanly.
-TRANSLATIONS_HEADER_RE = re.compile(
-    r"^====+\s*Translations\s*====+\s*$", re.MULTILINE | re.IGNORECASE
-)
+HEADER_RE = re.compile(r"^(=+)\s*([^=\n]+?)\s*\1\s*$", re.MULTILINE)
 
 # Top and bottom blocks defining translation groups inside Wiktionary pages.
 TRANS_TOP_RE = re.compile(r"\{\{trans-top(?:\|[^}]*)?\}\}", re.IGNORECASE)
@@ -24,8 +17,8 @@ TRANS_BOTTOM_RE = re.compile(r"\{\{trans-bottom\}\}", re.IGNORECASE)
 # Capture 1: Language Code | Capture 2: Word | Capture 3: Trailing Grammar Tags
 T_TEMPLATE_RE = re.compile(
     r"\{\{(?:t\+?|t-check|tt|tt\+)\s*"
-    r"(?:\|[^}|]+)*"
-    r"\|\s*([a-zA-Z]{2,3})\s*"
+    r"(?:\|[^}|]+)*?"
+    r"\|\s*([a-zA-Z\-]{2,16})\s*"
     r"\|\s*([^}|]+)"
     r"([^}]*)\}\}",
     re.IGNORECASE,
@@ -34,12 +27,12 @@ T_TEMPLATE_RE = re.compile(
 # Named template extraction like {{t|f=1|1=de|2=Buch|g=n}}.
 # Captures precisely using lazy boundaries to avoid catastrophic backtracking.
 T_NAMED_RE = re.compile(
-    r"\{\{(?:t\+?|t-check|tt|tt\+)\s*"
-    r"(?:\|[^}|]+)*?\|\s*"
-    r"1\s*=\s*([a-zA-Z]{2,3})\s*"
-    r"(?:\|[^}|]+)*?\|\s*"
-    r"2\s*=\s*([^}|]+)"
-    r"([^}]*)\}\}",
+    r"\{\{(?:t\+?|t-check|tt|tt\+)\s*"  # match opening {{ and template name (t, t+, t-check, tt, tt+)
+    r"(?:\|[^}|]+)*?\|\s*"  # lazily skip any pipe-separated params BEFORE '1=', e.g. |f=1
+    r"1\s*=\s*([a-zA-Z\-]{2,16})\s*"  # capture group 1: named param '1=<lang code>', grab 16 char window
+    r"(?:\|[^}|]+)*?\|\s*"  # lazily skip any pipe-separated params BETWEEN '1=' and '2=', e.g. |g=n
+    r"2\s*=\s*([^}|]+)"  # capture group 2: named param '2=<word>'
+    r"([^}]*)\}\}",  # capture group 3: trailing grammar tags, then closing }}
     re.IGNORECASE,
 )
 
