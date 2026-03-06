@@ -101,7 +101,8 @@ def convert_to_json(
 
                 if len(keys) == 1:
                     # Handle Case: { key: None }.
-                    data[first_row[keys[0]]] = None
+                    for row in rows:
+                        data[row[keys[0]]] = None
 
                 elif len(keys) == 2:
                     # Handle Case: { key: value }.
@@ -318,7 +319,9 @@ def convert_to_csv_or_tsv(
                                     ]
 
                                 else:
-                                    writer.writerow(columns)
+                                    columns = [dtype[:-1]] + list(
+                                        data[first_key][0].keys()
+                                    )
                                 writer.writerow(columns)
 
                                 for key, value in data.items():

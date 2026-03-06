@@ -81,6 +81,9 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
                 print(f"{key:<{max_key_length}} : ")
                 for item in value:
                     if isinstance(item, dict):
+                        max_sub_key_length = max(
+                            (len(k) for k in item.keys()), default=0
+                        )
                         for sub_key, sub_value in item.items():
                             print(f"  {sub_key:<{max_sub_key_length}} : {sub_value}")
 
@@ -203,8 +206,9 @@ def validate_language_and_data_type(
         errors.append("Data type must be a string or a list of strings.")
 
     if data_type is not None and isinstance(data_type, list):
+        valid_data_types = set(data_type_metadata.keys()) | {"wiktionary_translations"}
         for dt in data_type:
-            error = validate_single_item(dt, data_type_metadata.keys(), "data-type")
+            error = validate_single_item(dt, valid_data_types, "data-type")
 
             if error:
                 errors.append(error)
