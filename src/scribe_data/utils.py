@@ -276,6 +276,23 @@ def get_language_from_iso(iso: str) -> str:
     raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
 
 
+def resolve_lang_iso(lang_spec: str) -> str:
+    """Resolve language name or ISO to ISO code."""
+    if not lang_spec:
+        return None
+    lang_spec = lang_spec.strip().lower()
+    if len(lang_spec) in (2, 3) and lang_spec.isalpha():
+        try:
+            get_language_from_iso(lang_spec)
+            return lang_spec
+        except ValueError:
+            pass
+    try:
+        return get_language_iso(lang_spec)
+    except ValueError:
+        return None
+
+
 def load_queried_data(
     dir_path: str, language: str, data_type: str
 ) -> tuple[Any, bool, str]:

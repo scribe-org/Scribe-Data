@@ -14,7 +14,10 @@ from scribe_data.cli.cli_utils import validate_language_and_data_type
 from scribe_data.cli.contracts.check import check_contracts
 from scribe_data.cli.contracts.filter import export_data_filtered_by_contracts
 from scribe_data.cli.convert import convert_wrapper
-from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
+from scribe_data.cli.download import (
+    download_wiktionary_dump,
+    wd_lexeme_dump_download_wrapper,
+)
 from scribe_data.cli.get import get_data
 from scribe_data.cli.interactive import start_interactive_mode
 from scribe_data.cli.list import list_wrapper
@@ -177,6 +180,13 @@ def main() -> None:
         const="",
         help=f"Path to a local Wikidata lexemes dump. Uses default directory (./{DEFAULT_DUMP_EXPORT_DIR}) if no path provided.",
     )
+    get_parser.add_argument(
+        "-wtp",
+        "--wiktionary-dump-path",
+        nargs="?",
+        const="enwiktionary",
+        help="Path to enwiktionary-*-pages-articles.xml.bz2 for translations. Use 'enwiktionary' to search output dir.",
+    )
 
     # MARK: Total
 
@@ -318,6 +328,25 @@ def main() -> None:
         "--wikidata-dump-path",
         type=str,
         help=f"The output directory path for the downloaded dump (default: ./{DEFAULT_DUMP_EXPORT_DIR}).",
+    )
+    download_parser.add_argument(
+        "-wtp",
+        "--wiktionary-dump",
+        nargs="?",
+        const=True,
+        help="Download Wiktionary pages-articles dump (~1.5 GB) for translation extraction. Optionally pass a language (e.g. 'german' or 'de').",
+    )
+    download_parser.add_argument(
+        "-lang",
+        "--language",
+        type=str,
+        help="Target language or ISO code for Wiktionary dump.",
+    )
+    download_parser.add_argument(
+        "-o",
+        "--overwrite",
+        action="store_true",
+        help="Whether to overwrite existing files (default: False).",
     )
 
     # MARK: Interactive
@@ -466,6 +495,7 @@ def main() -> None:
                                 all_bool=args.all,
                                 identifier_case=args.identifier_case,
                                 wikidata_dump=args.wikidata_dump_path,
+                                wiktionary_dump=args.wiktionary_dump_path,
                             )
 
                 else:
@@ -480,6 +510,7 @@ def main() -> None:
                         all_bool=args.all,
                         identifier_case=args.identifier_case,
                         wikidata_dump=args.wikidata_dump_path,
+                        wiktionary_dump=args.wiktionary_dump_path,
                     )
 
         elif args.command in ["total", "t"]:
@@ -532,12 +563,29 @@ def main() -> None:
             )
 
         elif args.command in ["download", "d"]:
-            wd_lexeme_dump_download_wrapper(
-                wikidata_dump=args.wikidata_dump_version
-                if args.wikidata_dump_version != "latest"
-                else None,
-                output_dir=args.wikidata_dump_path,
-            )
+            if getattr(args, "wiktionary_dump", False):
+                # prioritize -lang argument if provided, otherwise check -wtp for string
+                lang = (
+                    args.language
+                    if args.language
+                    else (
+                        args.wiktionary_dump
+                        if isinstance(args.wiktionary_dump, str)
+                        else None
+                    )
+                )
+                download_wiktionary_dump(
+                    output_dir=args.wikidata_dump_path,
+                    language=lang,
+                    default=args.overwrite,
+                )
+            else:
+                wd_lexeme_dump_download_wrapper(
+                    wikidata_dump=args.wikidata_dump_version
+                    if args.wikidata_dump_version != "latest"
+                    else None,
+                    output_dir=args.wikidata_dump_path,
+                )
 
         elif args.command in ["interactive", "i"]:
             rprint(
@@ -547,6 +595,7 @@ def main() -> None:
                 "What would you like to do?",
                 choices=[
                     "Download a Wikidata lexemes dump",
+                    "Download a Wiktionary dump",
                     "Check for totals",
                     "Get data",
                     "Get translations",
@@ -557,6 +606,9 @@ def main() -> None:
 
             if action == "Download a Wikidata lexemes dump":
                 wd_lexeme_dump_download_wrapper()
+
+            elif action == "Download a Wiktionary dump":
+                download_wiktionary_dump()
 
             elif action == "Check for totals":
                 start_interactive_mode(operation="total")

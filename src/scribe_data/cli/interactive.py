@@ -513,10 +513,11 @@ def start_interactive_mode(operation: str = None):
         elif choice == "translations":
             prompt_for_languages()
 
-            if wikidata_dump_path := prompt(
-                f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
-            ):
-                wikidata_dump_path = Path(wikidata_dump_path)
+            source_choice = questionary.select(
+                "Extract translations from Wikidata Lexemes or Wiktionary dumps?",
+                choices=["Wiktionary", "Wikidata Lexemes"],
+                default="Wiktionary",
+            ).ask()
 
             if output_dir := prompt(
                 f"Enter output directory (default: {config.output_dir}): "
@@ -529,15 +530,39 @@ def start_interactive_mode(operation: str = None):
             )
             overwrite_bool = overwrite_str.strip().lower() in ("true", "y", "yes")
 
-            parse_wd_lexeme_dump(
-                language=config.selected_languages,
-                wikidata_dump_type=["translations"],
-                data_types=None,
-                type_output_dir=config.output_dir,
-                wikidata_dump_path=wikidata_dump_path,
-                overwrite_all=overwrite_bool,
-                interactive_mode=True,
-            )
+            if source_choice == "Wiktionary":
+                from scribe_data.wiktionary.parse_translations import (
+                    parse_wiktionary_translations,
+                )
+
+                if wiktionary_dump_path := prompt(
+                    "Enter Wiktionary dump path or language prefix (default: search automatically): "
+                ):
+                    wiktionary_dump_path = wiktionary_dump_path.strip()
+                else:
+                    wiktionary_dump_path = ""
+
+                parse_wiktionary_translations(
+                    target_languages=config.selected_languages,
+                    wiktionary_dump_path=wiktionary_dump_path,
+                    output_dir=str(config.output_dir),
+                    overwrite=overwrite_bool,
+                )
+            else:
+                if wikidata_dump_path := prompt(
+                    f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
+                ):
+                    wikidata_dump_path = Path(wikidata_dump_path)
+
+                parse_wd_lexeme_dump(
+                    language=config.selected_languages,
+                    wikidata_dump_type=["translations"],
+                    data_types=None,
+                    type_output_dir=config.output_dir,
+                    wikidata_dump_path=wikidata_dump_path,
+                    overwrite_all=overwrite_bool,
+                    interactive_mode=True,
+                )
 
             break
 
