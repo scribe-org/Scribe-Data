@@ -191,7 +191,7 @@ python setup.py egg_info
 
 ## Testing
 
-In addition to the [prek](https://prek.j178.dev/) pre-commit hooks that are set up during the [development environment section](#dev-env), Scribe-Data also includes a testing suite that should be ran before all pull requests and subsequent commits. Please run the following in the project root:
+In addition to the [prek](https://prek.j178.dev/) pre-commit hooks that are set up during the [development environment section](#development-environment), Scribe-Data also includes a testing suite that should be ran before all pull requests and subsequent commits. Please run the following in the project root:
 
 ```bash
 pytest
