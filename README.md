@@ -1,3 +1,5 @@
+<a id="top"></a>
+
 <div align="center">
   <a href="https://github.com/scribe-org/Scribe-Data"><img src="https://raw.githubusercontent.com/scribe-org/Scribe-Data/main/.github/resources/images/ScribeDataLogo.png" height=150 alt="Scribe-Data Logo"></a>
 </div>
@@ -24,9 +26,7 @@ Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-
 
 Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) for an overview of the organization including our applications, services and processes. It depicts the projects that [Scribe](https://github.com/scribe-org) is developing as well as the relationships between them and the external systems with which they interact. Also check out the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and getting language data from it.
 
-<a id="contents"></a>
-
-# **Contents**
+# Contents
 
 - [Process](#process)
 - [Installation](#installation)
@@ -36,17 +36,15 @@ Check out Scribe's [architecture diagrams](https://github.com/scribe-org/Organiz
 - [Environment Setup](#environment-setup)
 - [Featured By](#featured-by)
 
-<a id="process"></a>
-
-# Process [`⇧`](#contents)
+# Process
 
 The CLI commands defined within [scribe_data/cli](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/cli) and the notebooks within the various [scribe_data](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data) directories are used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) once they're active.
 
 The main data update process triggers [language based SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/language_data_extraction) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran via the `scribe-data get -lang LANGUAGE -dt emoji-keywords` command.
 
-<a id="installation"></a>
+<sub><a href="#top">Back to top.</a></sub>
 
-# Installation [`⇧`](#contents)
+# Installation
 
 Scribe-Data is available for installation via [uv](https://docs.astral.sh/uv/) (recommended) or [pip](https://pypi.org/project/scribe-data/).
 
@@ -78,9 +76,9 @@ source .venv/bin/activate  # activate venv (macOS/Linux)
 pip install -e .
 ```
 
-<a id="cli-usage"></a>
+<sub><a href="#top">Back to top.</a></sub>
 
-# CLI Usage [`⇧`](#contents)
+# CLI Usage
 
 Scribe-Data provides a command-line interface (CLI) for efficient interaction with its language data functionality. Please see the [usage guide](https://github.com/scribe-org/Scribe-Data/blob/main/USAGE.md) or the [official documentation](https://scribe-data.readthedocs.io/) for detailed instructions.
 
@@ -124,9 +122,9 @@ scribe-data get -i
 scribe-data total -i
 ```
 
-<a id="data-contracts"></a>
+<sub><a href="#top">Back to top.</a></sub>
 
-# Data Contracts [`⇧`](#contents)
+# Data Contracts
 
 [Wikidata](https://www.wikidata.org/) has lots of [language data](https://www.wikidata.org/wiki/Wikidata:Lexicographical_data) available, but not all of it is useful for all applications. In order to make the functionality of the Scribe-Data `get` requests as simple as possible, we made the decision to always return all data for the given languages and data types. Adding the ability to pass desired forms to the commands seemed cumbersome, and larger Scribe-Data requests should be parsing [Wikidata lexeme dumps](https://dumps.wikimedia.org/wikidatawiki/entities/) as the data source.
 
@@ -158,9 +156,9 @@ Updating contracts shouldn't be something that Scribe-Data users should have to 
 > [!NOTE]
 > You can learn more about contracts and the process around them in [DATA_CONTRACTS.md](https://github.com/scribe-org/Organization/blob/main/DATA_CONTRACTS.md).
 
-<a id="contributing"></a>
+<sub><a href="#top">Back to top.</a></sub>
 
-# Contributing [`⇧`](#contents)
+# Contributing
 
 <a href="https://matrix.to/#/#scribe_community:matrix.org">
   <img src="https://raw.githubusercontent.com/scribe-org/Organization/main/resources/images/logos/MatrixLogoGrey.png" width="175" alt="Public Matrix Chat" align="right">
@@ -177,30 +175,30 @@ Those interested can further check the [`-next release-`](https://github.com/scr
 
 After your first few pull requests organization members would be happy to discuss granting you further rights as a contributor, with a maintainer role then being possible after continued interest in the project. Scribe seeks to be an inclusive and supportive organization. We'd love to have you on the team!
 
-### Ways to Help [`⇧`](#contents)
+### Ways to Help
 
 - [Reporting bugs](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=bug&template=bug_report.yml) as they're found 🐞
 - Working on [new features](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3Afeature) ✨
 - [Documentation](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3Adocumentation) for onboarding and project cohesion 📝
 - Adding language data to [Scribe-Data](https://github.com/scribe-org/Scribe-Data/issues) via [Wikidata](https://www.wikidata.org/)! 🗃️
 
-### Road Map [`⇧`](#contents)
+### Road Map
 
 The Scribe road map can be followed in the organization's [project board](https://github.com/orgs/scribe-org/projects/1) where we list the most important issues along with their priority, status and an indication of which sub projects they're included in (if applicable).
 
 > [!NOTE]\
 > Consider joining our [bi-weekly developer syncs](https://etherpad.wikimedia.org/p/scribe-dev-sync)!
 
-### Data Edits [`⇧`](#contents)
+### Data Edits
 
 > [!NOTE]\
 > Please see the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and how Scribe uses it.
 
 Scribe does not accept direct edits to the grammar JSON files as they are sourced from [Wikidata](https://www.wikidata.org/). Edits can be discussed and the queries themselves will be changed and ran before an update. If there is a problem with one of the files, then the fix should be made on [Wikidata](https://www.wikidata.org/) and not on Scribe. Feel free to let us know that edits have been made by [opening a data issue](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=data&template=data_wikidata.yml) and we'll be happy to integrate them!
 
-<a id="environment-setup"></a>
+<sub><a href="#top">Back to top.</a></sub>
 
-# Environment Setup [`⇧`](#contents)
+# Environment Setup
 
 > [!IMPORTANT]
 >
@@ -286,9 +284,9 @@ See the [contribution guidelines](https://github.com/scribe-org/Scribe-Data/blob
 > [!NOTE]
 > Feel free to contact the team in the [Data room on Matrix](https://matrix.to/#/#ScribeData:matrix.org) if you're having problems getting your environment setup!
 
-<a id="featured-by"></a>
+<sub><a href="#top">Back to top.</a></sub>
 
-# Featured By [`⇧`](#contents)
+# Featured By
 
 Please see the [blog posts page on our website](https://scri.be/docs/about/blog-posts) for a list of articles on Scribe, and feel free to open a pull request to add one that you've written at [scribe-org/scri.be](https://github.com/scribe-org/scri.be)!
 
@@ -314,7 +312,9 @@ The following organizations have supported the development of Scribe projects th
   <br>
 </div>
 
-# Powered By [`⇧`](#contents)
+<sub><a href="#top">Back to top.</a></sub>
+
+# Powered By
 
 ### Contributors
 

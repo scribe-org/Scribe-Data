@@ -1,12 +1,12 @@
+<a id="top"></a>
+
 # SPARQL Query Writing for Wikidata Lexemes
 
 [Wikidata](https://www.wikidata.org/) is a free and open knowledge base that provides structured data to support a wide range of applications, including linguistic data through lexemes. SPARQL queries enable powerful searches and extraction of specific data from this repository, such as lexeme forms and their grammatical features.
 
 If you're totally new to [Wikidata](https://www.wikidata.org/) and SPARQL, we'd suggest you read the [Scribe community Wikidata Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md). After that you'll be ready to follow along here.
 
-<a id="contents"></a>
-
-## **Contents**
+## Contents
 
 1. [Key Steps](#key-steps)
 2. [Example Process](#example-process)
@@ -16,9 +16,7 @@ If you're totally new to [Wikidata](https://www.wikidata.org/) and SPARQL, we'd 
 3. [Example Query](#example-query)
 4. [Best Practices](#best-practices)
 
-<a id="key-steps"></a>
-
-## Key Steps [`⇧`](#contents)
+## Key Steps
 
 The general steps to creating a SPARQL query of [Wikidata](https://www.wikidata.org/) lexemes for Scribe-Data are:
 
@@ -28,15 +26,15 @@ The general steps to creating a SPARQL query of [Wikidata](https://www.wikidata.
 
 At the end the goal is to have a query that returns unique values for all lexemes for the given language and word type.
 
-<a id="example-process"></a>
+<sub><a href="#top">Back to top.</a></sub>
 
-## Example Process [`⇧`](#contents)
+## Example Process
 
 Let’s consider an example using Spanish adjectives. The base query returns the [Wikidata](https://www.wikidata.org/) lexeme and lemma so we can inspect the forms. Note that you can easily modify this base query to point to another language (e.g [Italian (Q652)](https://www.wikidata.org/wiki/Q652)) or another lexical category (e.g [verb (Q24905)](<](https://www.wikidata.org/wiki/Q652)>)).
 
-<a id="exploration-query"></a>
+<sub><a href="#top">Back to top.</a></sub>
 
-### Exploration Query [`⇧`](#contents)
+### Exploration Query
 
 1. Navigate to the [Wikidata Query Service](https://query.wikidata.org)
 2. Enter and run the following SPARQL query, which returns all Spanish adjectives:
@@ -53,9 +51,9 @@ Let’s consider an example using Spanish adjectives. The base query returns the
    }
    ```
 
-<a id="identify-forms"></a>
+<sub><a href="#top">Back to top.</a></sub>
 
-### Identify Forms [`⇧`](#contents)
+### Identify Forms
 
 Click on the first result (which could be any Spanish adjective) to view the lexeme page. For example, you might land on [wikidata.org/wiki/Lexeme:L55756](https://wikidata.org/wiki/Lexeme:L55756). This lexeme represents the Spanish adjective "español" meaning "Spanish".
 
@@ -66,9 +64,9 @@ On the lexeme page, scroll down to find the various forms associated with Spanis
 
 The forms vary depending on the language and the lexical category. For other languages there could be forms for cases (nominative, accusative, etc) or there could be other genders (neuter, common, etc). Forms may not exist for some languages, but please check a few lexemes before sending along a query that just returns the lexeme ID and the lemma. For this example we'll look into the combination of each of the above two properties.
 
-<a id="select-forms"></a>
+<sub><a href="#top">Back to top.</a></sub>
 
-### Select Forms [`⇧`](#contents)
+### Select Forms
 
 To construct queries for specific forms:
 
@@ -93,9 +91,9 @@ OPTIONAL {
 
 Putting this optional selection in your query and adding `?feminineSingular` to your return statement in the query above will retrieve the given forms for all of the lexemes.
 
-<a id="example-query"></a>
+<sub><a href="#top">Back to top.</a></sub>
 
-## Example Query [`⇧`](#contents)
+## Example Query
 
 The following is an example query for Spanish adjectives. The full query is a bit more complex as there are more forms possible in Spanish adjectives, but this should give you an impression of a query that returns all possible forms for a word type of a language:
 
@@ -146,9 +144,9 @@ WHERE {
 
 We return the `?lexemeID` so that Scribe and other downstream data reusers can easily identify the lexeme that this data came from. From there we also get the given forms so that these can be used for all kinds of language based applications.
 
-<a id="best-practices"></a>
+<sub><a href="#top">Back to top.</a></sub>
 
-## Best Practices [`⇧`](#contents)
+## Best Practices
 
 - **Understand Lexeme Structures**: Study how lexemes and their forms are structured in [Wikidata](https://www.wikidata.org/) for each language
 - **Verify Forms**: Always verify the forms listed on the lexeme page to ensure you're capturing all variations in your query results
@@ -168,3 +166,5 @@ We return the `?lexemeID` so that Scribe and other downstream data reusers can e
 - **Test Your Query**: Ensure that your query runs on the [Wikidata Query Service](https://query.wikidata.org) without errors
 
 Thanks for your interest in expanding Scribe-Data's Wikidata queries! We look forward to working with you :)
+
+<sub><a href="#top">Back to top.</a></sub>
