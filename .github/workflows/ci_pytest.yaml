@@ -1,4 +1,4 @@
-name: python_package_ci
+name: ci_pytest
 
 on:
   pull_request:
