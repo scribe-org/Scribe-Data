@@ -36,7 +36,7 @@ def parse_wd_lexeme_dump(
         The language(s) to parse the data for. Use "all" for all languages.
 
     wikidata_dump_type : List[str]
-        The type(s) of Wikidata lexeme dump to parse (e.g. ["total", "translations", "form"]).
+        The type(s) of Wikidata lexeme dump to parse (e.g. ["total", "form"]).
 
     data_types : List[str]
         The categories to parse when using "form" type (e.g. ["nouns", "adverbs"]).

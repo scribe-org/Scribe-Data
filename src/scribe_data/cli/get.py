@@ -19,10 +19,10 @@ from scribe_data.cli.convert import convert_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
-    DEFAULT_DUMP_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
+    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     check_index_exists,
 )
 from scribe_data.wikidata.query_data import query_data
@@ -193,7 +193,7 @@ def get_data(
             langs = [language] if language else None
             parse_wiktionary_translations(
                 target_languages=langs,
-                wiktionary_dump_path=wiktionary_dump or "enwiktionary",
+                wiktionary_dump_path=wiktionary_dump,
                 output_dir=output_dir,
                 overwrite=overwrite,
             )
@@ -202,21 +202,12 @@ def get_data(
         if language is None:
             language = "all"
 
-        parse_wd_lexeme_dump(
-            language=language,
-            wikidata_dump_type=["translations"],
-            type_output_dir=output_dir,
-            wikidata_dump_path=wikidata_dump,
-            overwrite_all=overwrite,
-        )
-        return
-
     # MARK: Form Dump
 
     elif wikidata_dump is not None:
         # If wikidata_dump is an empty string, use the default path.
         if not wikidata_dump:
-            wikidata_dump = DEFAULT_DUMP_EXPORT_DIR
+            wikidata_dump = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
 
         parse_wd_lexeme_dump(
             language=language,

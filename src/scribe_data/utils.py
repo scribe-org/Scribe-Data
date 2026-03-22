@@ -24,7 +24,8 @@ DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
 DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
 DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
-DEFAULT_DUMP_EXPORT_DIR = "scribe_data_wikidata_dumps_export"
+DEFAULT_WIKIDATA_DUMP_EXPORT_DIR = "scribe_data_wikidata_dumps_export"
+DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR = "scribe_data_wiktionary_dumps_export"
 DEFAULT_MEDIAWIKI_EXPORT_DIR = "scribe_data_mediawiki_export"
 DEFAULT_DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
 DEFAULT_FILTERED_JSON_EXPORT_DIR = "scribe_data_filtered_json_export"
@@ -276,19 +277,29 @@ def get_language_from_iso(iso: str) -> str:
     raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
 
 
-def resolve_lang_iso(lang_spec: str) -> str:
-    """Resolve language name or ISO to ISO code."""
-    if not lang_spec:
-        return None
-    lang_spec = lang_spec.strip().lower()
-    if len(lang_spec) in (2, 3) and lang_spec.isalpha():
-        try:
-            get_language_from_iso(lang_spec)
-            return lang_spec
-        except ValueError:
-            pass
+def resolve_lang_iso(language: str) -> str:
+    """
+    Resolve language name or ISO to ISO code.
+
+    Parameters
+    ----------
+    language : str
+        The language to resolve into its ISO code.
+
+    Returns
+    -------
+    str
+        The ISO code for the given language.
+    """
+    language = language.strip().lower()
+    if len(language) in {2, 3} and language.isalpha():
+        with contextlib.suppress(ValueError):
+            get_language_from_iso(language)
+            return language
+
     try:
-        return get_language_iso(lang_spec)
+        return get_language_iso(language)
+
     except ValueError:
         return None
 

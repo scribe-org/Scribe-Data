@@ -43,7 +43,6 @@ T_NAMED_RE = re.compile(
 # Any string wrapped in {{t|}} like "please add this translation if you can",
 # "literally", "different structure used", or that starts with "see: " is now
 # instantly tossed directly in memory by checking the native Set.
-# Scribe will never accidentally output garbage strings anymore.
 IGNORED_TRANSLATION_STRINGS = {
     "please add this translation if you can",
     "script needed",
@@ -75,9 +74,22 @@ IGNORED_TRANSLATION_PREFIXES = (
 
 
 def _normalize_pos(pos: str) -> str:
-    """Map POS header to normalized form."""
+    """
+    Map part of speech (pos) header to normalized data type form.
+
+    Parameters
+    ----------
+    pos : str
+        The part of speech to normalize.
+
+    Returns
+    -------
+    str
+        The part of speech normalized to a data type supported by Scribe-Data.
+    """
     if not pos:
         return "other"
+
     pos_lower = pos.strip().lower()
     pos_map = {
         "noun": "noun",

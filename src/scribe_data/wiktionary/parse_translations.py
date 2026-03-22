@@ -1,9 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-Parse translations from raw English Wiktionary XML dump.
-
-Extracts translations for a target language from enwiktionary pages-articles dump.
-Pure Python with XML and regex/template parsing. No external linguistic tooling.
+Parse translations for a target language from a Wiktionary pages-articles dump.
 """
 
 import bz2
@@ -24,36 +21,66 @@ from scribe_data.wiktionary.parse_constants import (
     _normalize_pos,
 )
 
+# MARK: Parse Page
+
 
 def _extract_source_lang_section(wikitext: str, source_lang_name: str) -> Optional[str]:
-    """Extract the ==Language== section content."""
+    """
+    Extract the =={Language}== section content.
+
+    Parameters
+    ----------
+    wikitext : str
+        The wikitext for the given Wiktionary page.
+
+    source_lang_name : str
+        The language that is being translated from.
+
+    Returns
+    -------
+    Optional[str]
+        The =={Language}== section of the wikitext page if there is one.
+    """
     header = f"=={source_lang_name}=="
     start = wikitext.find(header)
     if start == -1:
-        # Fallback for spacing deviations "== Language =="
+        # Fallback for spacing deviations "== {Language} ==".
         start = wikitext.find(f"== {source_lang_name} ==")
         if start == -1:
             return None
+
         start += len(source_lang_name) + 6
+
     else:
         start += len(header)
 
     next_header = wikitext.find("\n==", start)
     while next_header != -1:
-        # Check if the next header is a root block like \n==Language== (using exactly 2 equals)
+        # Check if the next header is a root block like \n=={Language}== (using exactly 2 equals).
         if next_header + 3 < len(wikitext) and wikitext[next_header + 3] != "=":
             return wikitext[start:next_header].strip()
+
         next_header = wikitext.find("\n==", next_header + 1)
 
     return wikitext[start:].strip()
 
 
-def _parse_trans_blocks(trans_text: str) -> List[Tuple[str, str]]:
+def _parse_translation_blocks(translation_text: str) -> List[Tuple[str, str]]:
     """
-    Parse trans-top/trans-bottom blocks. Returns [(description, block_content)].
+    Parse trans-top/trans-bottom blocks for descriptions and block content.
+
+    Parameters
+    ----------
+    translation_text : str
+        The translation section of a wikitext page within trans-top/trans-bottom blocks.
+
+    Returns
+    -------
+    List[Tuple[str, str]]
+        A list of (description, block_content) tuples for translations.
     """
     blocks: List[Tuple[str, str]] = []
-    top_matches = list(TRANS_TOP_RE.finditer(trans_text))
+    top_matches = list(TRANS_TOP_RE.finditer(translation_text))
     for i, top_m in enumerate(top_matches):
         desc = ""
         if "|" in top_m.group(0):
@@ -62,31 +89,52 @@ def _parse_trans_blocks(trans_text: str) -> List[Tuple[str, str]]:
             desc = top_m.group(0)[pipe:end_brace].strip()
             desc = re.sub(r"^['\d.]+\s*", "", desc)
             desc = re.sub(r"''+", "", desc).strip()
+
         content_start = top_m.end()
-        # if a Wiktionary contributor forgot to close the first Translation block with
-        # {{trans-bottom}}, the code will default to the end of the text. This wrongly sucks
-        # in ALL subsequent blocks, causing them to be parsed and duplicated again!
-        bottom_m = TRANS_BOTTOM_RE.search(trans_text, content_start)
+
+        # If a Wiktionary contributor forgot to close the first Translation block with
+        # {{trans-bottom}}, the code will default to the end of the text. This wrongly
+        # ingests all subsequent blocks, causing them to be parsed and duplicated again.
+        bottom_m = TRANS_BOTTOM_RE.search(translation_text, content_start)
         next_top_start = (
-            top_matches[i + 1].start() if i + 1 < len(top_matches) else len(trans_text)
+            top_matches[i + 1].start()
+            if i + 1 < len(top_matches)
+            else len(translation_text)
         )
         if bottom_m and bottom_m.start() <= next_top_start:
             content_end = bottom_m.start()
+
         else:
             content_end = next_top_start
 
-        block_content = trans_text[content_start:content_end]
+        block_content = translation_text[content_start:content_end]
         blocks.append((desc, block_content))
+
     return blocks
 
 
 def _extract_templates_from_block(
-    block_content: str, target_langs: Optional[frozenset]
+    translation_block_content: str, target_langs: Optional[frozenset]
 ) -> Dict[str, List[str]]:
-    """Extract translation words from templates. Returns {target_code: [words]}."""
+    """
+    Extract translation words from wikitext templates.
+
+    Parameters
+    ----------
+    translation_block_content : str
+        The unparsed translation block of the wikitext page.
+
+    target_langs : Optional[frozenset]
+        The languages that translations should be returned for.
+
+    Returns
+    -------
+    Dict[str, List[str]]
+        A dictionary of translations for the Wiktionary word ({target_lang_code: [words]}).
+    """
     words_by_lang: Dict[str, List[str]] = {}
     for regex in (T_TEMPLATE_RE, T_NAMED_RE):
-        for m in regex.finditer(block_content):
+        for m in regex.finditer(translation_block_content):
             code = m.group(1).lower()
             word = m.group(2).strip()
             tags_matched = m.group(3)
@@ -115,8 +163,10 @@ def _extract_templates_from_block(
                         t = t.strip()
                         if not t:
                             continue
+
                         if t.startswith(("g=", "g2=", "g3=")):
                             valid_tags.append(t.split("=", 1)[1])
+
                         elif (
                             "=" not in t
                             and t.lower() not in IGNORED_TRANSLATION_STRINGS
@@ -131,24 +181,45 @@ def _extract_templates_from_block(
                     if code not in words_by_lang:
                         words_by_lang[code] = []
                     words_by_lang[code].append(word)
+
     return words_by_lang
 
 
-# MARK: Core Extraction
+# MARK: Extract Translations
 
 
 def _parse_page_translations(
-    wikitext: str,
+    source_lang_name: str,
     target_langs: Optional[frozenset],
+    wikitext: str,
     word: str,
-    source_lang_name: str = "English",
 ) -> Dict[str, Dict[str, Dict[str, Dict[str, str]]]]:
     """
-    Parse a single page's wikitext.
-    Returns {target_code: {pos: {sense_idx: {description, translation}}}}.
+    Parse a single Wiktionary page's wikitext.
+
+    Parameters
+    ----------
+    source_lang_name : str
+        The language that is being translated from.
+
+    target_langs : Optional[frozenset]
+        The languages that translations should be returned for.
+
+    wikitext : str
+        The wikitext for the given Wiktionary page.
+
+    word : str
+        The word in Wiktionary that's being translated.
+
+    Returns
+    -------
+    Dict[str, Dict[str, Dict[str, Dict[str, str]]]]
+        A dictionary of translations for the given word {target_code: {pos: {sense_idx: {description, translation}}}}).
     """
     result: Dict[str, Dict[str, Dict[str, Dict[str, str]]]] = {}
-    lang_section = _extract_source_lang_section(wikitext, source_lang_name)
+    lang_section = _extract_source_lang_section(
+        wikitext=wikitext, source_lang_name=source_lang_name
+    )
     if not lang_section:
         return result
 
@@ -170,7 +241,7 @@ def _parse_page_translations(
         content = lang_section[start:end]
 
         if header_lower == "translations":
-            blocks = _parse_trans_blocks(content)
+            blocks = _parse_translation_blocks(content)
 
             if current_pos not in pos_sense_tracker:
                 pos_sense_tracker[current_pos] = 0
@@ -192,6 +263,7 @@ def _parse_page_translations(
                                 "description": desc,
                                 "translation": ", ".join(words),
                             }
+
         else:
             mapped = _normalize_pos(header_text)
             if mapped != header_lower.replace(" ", "_") or header_lower in [
@@ -216,44 +288,71 @@ def _parse_page_translations(
     return result
 
 
+# MARK: Parse Dump
+
+
 def _parse_page_worker(
     args: Tuple[str, str, Optional[frozenset], str],
 ) -> Optional[Tuple[str, Dict[str, Dict[str, Dict[str, Dict[str, str]]]]]]:
     """
-    Worker function for parsing a single Wiktionary page.
+    Parse a single Wiktionary page via a worker that chunks the page.
 
     Applies the same filtering as the main loop and returns (word, parsed)
     or None if the page should be skipped or has no translations.
+
+    Parameters
+    ----------
+    args : Tuple[str, str, Optional[frozenset], str]
+        The word, wikitext, target languages and source languages for page parsing.
+
+    Returns
+    -------
+    Optional[Tuple[str, Dict[str, Dict[str, Dict[str, Dict[str, str]]]]]]
+        The parsed translations from the given Wiktionary page.
     """
-    word, text, target_langs, source_lang_name = args
-    if not word or not text:
+    word, wikitext, target_langs, source_lang_name = args
+    if not word or not wikitext:
         return None
 
-    parsed = _parse_page_translations(text, target_langs, word, source_lang_name)
-    if not parsed:
-        return None
+    parsed = _parse_page_translations(
+        source_lang_name=source_lang_name,
+        target_langs=target_langs,
+        wikitext=wikitext,
+        word=word,
+    )
 
-    return word, parsed
+    return (word, parsed) if parsed else None
 
 
-def _iter_dump_pages(dump_path: Path):
-    """Yield (title, text) for each page in the XML dump."""
+def _iter_dump_pages(wiktionary_dump_path: Path):
+    """
+    Yield (title, text) for each page in the XML dump.
+
+    Parameters
+    ----------
+    wiktionary_dump_path : Path
+        Path to a *wiktionary-*-pages-articles.xml.bz2 dump file.
+    """
     import shutil
     import subprocess
 
     proc = None
-    if str(dump_path).endswith(".bz2") and shutil.which("bzcat"):
-        proc = subprocess.Popen(["bzcat", str(dump_path)], stdout=subprocess.PIPE)
+    if str(wiktionary_dump_path).endswith(".bz2") and shutil.which("bzcat"):
+        proc = subprocess.Popen(
+            ["bzcat", str(wiktionary_dump_path)], stdout=subprocess.PIPE
+        )
         f = proc.stdout
+
     else:
-        open_fn = bz2.open if str(dump_path).endswith(".bz2") else open
-        f = open_fn(dump_path, "rb")
+        open_fn = bz2.open if str(wiktionary_dump_path).endswith(".bz2") else open
+        f = open_fn(wiktionary_dump_path, "rb")
 
     try:
         context = ET.iterparse(f, events=("start", "end"))
         context = iter(context)
         try:
             _, root = next(context)
+
         except StopIteration:
             return
 
@@ -271,24 +370,27 @@ def _iter_dump_pages(dump_path: Path):
                         text_elem = rev.find(f"{ns}text")
                         if text_elem is not None and text_elem.text:
                             text = text_elem.text
+
                     title = title_elem.text if title_elem is not None else ""
                     yield title, text
 
                     elem.clear()
                     root.clear()
+
     finally:
         if proc:
             proc.terminate()
             proc.wait()
+
         else:
             f.close()
 
 
 def parse_xml_dump(
-    dump_path: Union[str, Path],
+    wiktionary_dump_path: Union[str, Path],
     target_lang_codes: Optional[List[str]],
     *,
-    source_lang_name: str = "English",
+    source_lang_name: str,
     progress: bool = True,
     num_workers: Optional[int] = None,
 ) -> Dict[str, Dict[str, Dict[str, Dict[str, Dict[str, str]]]]]:
@@ -297,21 +399,29 @@ def parse_xml_dump(
 
     Parameters
     ----------
-    dump_path : str or Path
-        Path to enwiktionary-*-pages-articles.xml.bz2
+    wiktionary_dump_path : str or Path
+        Path to a *wiktionary-*-pages-articles.xml.bz2 dump file.
+
     target_lang_codes : list of str or None
         ISO codes of target languages (e.g. ["de", "fr"]). If None, extracts all.
+
+    source_lang_name : str
+        The language that is being translated from.
+
     progress : bool, default=True
-        Show progress bar
+        Whether to show a progress bar.
+
+    num_workers : Optional[int]
+        The number of workers to use for translation parsing.
 
     Returns
     -------
     dict
-        {target_code: {word: {pos: {sense_idx: {description, translation}}}}}
+        Translations for the source language ({target_code: {word: {pos: {sense_idx: {description, translation}}}}}).
     """
     from tqdm import tqdm
 
-    path = Path(dump_path)
+    path = Path(wiktionary_dump_path)
     if not path.exists():
         raise FileNotFoundError(f"Wiktionary dump not found: {path}")
 
@@ -321,21 +431,15 @@ def parse_xml_dump(
     if num_workers is None:
         import os
 
-        env_workers = os.getenv("SCRIBE_WIKTIONARY_WORKERS")
-        if env_workers:
-            try:
-                num_workers = max(1, int(env_workers))
-            except ValueError:
-                num_workers = None
-        if num_workers is None:
-            cpu_count = os.cpu_count() or 1
-            num_workers = max(1, cpu_count - 1)
+        cpu_count = os.cpu_count() or 1
+        num_workers = max(1, cpu_count - 1)
 
     iterator = _iter_dump_pages(path)
 
-    # Calculate estimated total entries (Wiktionary averages ~180 bytes/page compressed)
+    # Calculate estimated total entries (Wiktionary averages ~180 bytes/page compressed).
     try:
         total_entries = path.stat().st_size // 180
+
     except (OSError, AttributeError):
         total_entries = None
 
@@ -351,10 +455,14 @@ def parse_xml_dump(
     )
 
     def _filtered_iterator():
+        """
+        Iterate over a wikitext page.
+        """
         for title, text in iterator:
             if not title or not text:
                 continue
-            # Allow translations subpages safely through the namespace filter
+
+            # Allow translations for subpages safely through the namespace filter.
             if ":" in title and not title.startswith("Appendix:"):
                 continue
 
@@ -377,24 +485,33 @@ def parse_xml_dump(
 
             yield word, text, target_langs_frozenset, source_lang_name
 
-    # Single-process fallback (e.g. for debugging or constrained environments)
+    # Single-process fallback (e.g. for debugging or constrained environments).
     if num_workers == 1:
         try:
             for word, text, tgt_langs, src_lang in _filtered_iterator():
-                parsed = _parse_page_translations(text, tgt_langs, word, src_lang)
+                parsed = _parse_page_translations(
+                    source_lang_name=src_lang,
+                    target_langs=tgt_langs,
+                    wikitext=text,
+                    word=word,
+                )
                 if not parsed:
                     continue
 
                 for code, pos_senses in parsed.items():
                     if code not in output:
                         output[code] = {}
+
                     if word not in output[code]:
                         output[code][word] = {}
+
                     for pos, senses in pos_senses.items():
                         if pos not in output[code][word]:
                             output[code][word][pos] = {}
+
                         for sense_idx, data in senses.items():
                             output[code][word][pos][sense_idx] = data
+
         except KeyboardInterrupt:
             print("\nParsing cleanly interrupted by user. Saving progress...")
 
@@ -408,19 +525,25 @@ def parse_xml_dump(
             ):
                 if not result:
                     continue
+
                 word, parsed = result
                 for code, pos_senses in parsed.items():
                     if code not in output:
                         output[code] = {}
+
                     if word not in output[code]:
                         output[code][word] = {}
+
                     for pos, senses in pos_senses.items():
                         if pos not in output[code][word]:
                             output[code][word][pos] = {}
+
                         for sense_idx, data in senses.items():
                             output[code][word][pos][sense_idx] = data
+
     except KeyboardInterrupt:
         print("\nParsing cleanly interrupted by user. Saving progress...")
+
     except Exception as e:
         print(f"\nParsing encountered an error: {e}. Saving progress...")
 
@@ -437,24 +560,27 @@ def parse_wiktionary_translations(
     overwrite: bool = False,
 ) -> None:
     """
-    Extract translations from enwiktionary XML dump for target languages.
+    Extract translations from a Wiktionary XML dump for target languages.
 
     Parameters
     ----------
     target_languages : str or list of str, optional
         Language(s) to extract (e.g. "de", "german"). If None or "all", extracts all languages.
+
     wiktionary_dump_path : str or Path, optional
-        Path to enwiktionary-*-pages-articles.xml.bz2
+        Path to a *wiktionary-*-pages-articles.xml.bz2 dump file.
+
     output_dir : str, optional
-        Base output directory
+        The directory to save the extracted translations.
+
     overwrite : bool, default=False
-        Overwrite existing files
+        Overwrite existing files.
     """
     import orjson
 
     from scribe_data.utils import (
-        DEFAULT_DUMP_EXPORT_DIR,
         DEFAULT_JSON_EXPORT_DIR,
+        DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
         check_index_exists,
         get_language_from_iso,
         language_metadata,
@@ -469,26 +595,32 @@ def parse_wiktionary_translations(
         for lang_info in language_metadata.values():
             if "iso" in lang_info:
                 target_isos.append(lang_info["iso"])
+
             if "sub_languages" in lang_info:
-                for sub_info in lang_info["sub_languages"].values():
-                    if "iso" in sub_info:
-                        target_isos.append(sub_info["iso"])
+                target_isos.extend(
+                    sub_info["iso"]
+                    for sub_info in lang_info["sub_languages"].values()
+                    if "iso" in sub_info
+                )
+
     else:
         if isinstance(target_languages, str):
             target_languages = [target_languages]
 
         for lang_spec in target_languages:
-            iso = resolve_lang_iso(lang_spec)
+            iso = resolve_lang_iso(language=lang_spec)
             if not iso:
                 print(f"Warning: Unknown language '{lang_spec}', skipping.")
                 continue
+
             target_isos.append(iso)
+
         if not target_isos:
             return
 
     dump_path, source_iso = _resolve_dump_path(
-        wiktionary_dump_path,
-        DEFAULT_DUMP_EXPORT_DIR,
+        wiktionary_dump_path=wiktionary_dump_path,
+        output_dir=DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
     )
     if not dump_path:
         return
@@ -516,47 +648,70 @@ def parse_wiktionary_translations(
         print(f"Exported {iso} translations from {source_iso} to {out_path}")
 
 
-# MARK: Dump Resolution
+# MARK: Output Resolution
 
 
 def _resolve_dump_path(
-    spec: Optional[Union[str, Path]], output_dir: str
+    wiktionary_dump_path: Optional[Union[str, Path]], output_dir: str
 ) -> Tuple[Optional[Path], str]:
-    """Resolve path to wiktionary XML dump and return its source ISO."""
+    """
+    Resolve path to wiktionary XML dump and return its source ISO.
+
+    Parameters
+    ----------
+    wiktionary_dump_path : Optional[Union[str, Path]]
+        Path to a *wiktionary-*-pages-articles.xml.bz2 dump file.
+
+    output_dir : str
+        The directory to save the extracted translations.
+
+    Returns
+    -------
+    Tuple[Optional[Path], str]
+        The path to the dump to parse.
+    """
     from scribe_data.utils import resolve_lang_iso
 
-    iso = "en"
-    if isinstance(spec, str) and not Path(spec).exists():
-        if resolved := resolve_lang_iso(spec):
+    if (
+        isinstance(wiktionary_dump_path, str)
+        and not Path(wiktionary_dump_path).exists()
+    ):
+        if resolved := resolve_lang_iso(wiktionary_dump_path):
             iso = resolved
-        elif spec.endswith("wiktionary"):
-            iso = spec.replace("wiktionary", "")
 
-    prefix = f"{iso}wiktionary"
+        elif wiktionary_dump_path.endswith("wiktionary"):
+            iso = wiktionary_dump_path.replace("wiktionary", "")
+
+    wiktionary = f"{iso}wiktionary"
 
     if (
-        spec is None
-        or spec == ""
-        or (isinstance(spec, str) and not Path(spec).exists())
+        wiktionary_dump_path is None
+        or wiktionary_dump_path == ""
+        or (
+            isinstance(wiktionary_dump_path, str)
+            and not Path(wiktionary_dump_path).exists()
+        )
     ):
-        base = Path(output_dir)
-        candidates = list(base.glob(f"{prefix}-*-pages-articles.xml*"))
-        candidates.extend(Path(".").glob(f"{prefix}-*-pages-articles.xml*"))
+        dump_export_path = Path(output_dir)
+        # Note: The snapshot is not included in the filename so Scribe-Server always looks for one file.
+        candidates = list(dump_export_path.glob(f"{wiktionary}-pages-articles.xml*"))
+        candidates.extend(Path(".").glob(f"{wiktionary}-pages-articles.xml*"))
         if candidates:
             return max(candidates, key=lambda p: p.stat().st_mtime), iso
+
         print(
-            f"No {prefix} dump found. Download from "
-            f"https://dumps.wikimedia.org/{prefix}/ and save to output "
-            f"directory or pass path via --wiktionary-dump-path."
+            f"No {wiktionary} dump found. Download from "
+            f"https://dumps.wikimedia.org/{wiktionary}/ and save to output "
+            f"directory or pass path to the file via --wiktionary-dump-path."
         )
         return None, iso
 
-    # If explicit path matches exactly
-    spec_path = Path(spec)
+    # If explicit path matches exactly.
+    spec_path = Path(wiktionary_dump_path)
     if spec_path.exists():
-        match = re.search(r"^([a-z]{2,3})wiktionary-", spec_path.name)
-        if match:
-            iso = match.group(1)
+        if match := re.search(r"^([a-z]{2,3})wiktionary-", spec_path.name):
+            iso = match[1]
+
         return spec_path.resolve(), iso
 
     print(f"Wiktionary dump not found: {spec_path}")
@@ -564,13 +719,30 @@ def _resolve_dump_path(
 
 
 def _get_output_subdir(lang_name: str, language_metadata: dict) -> str:
-    """Get output subdir (e.g. 'german' or 'chinese/mandarin')."""
+    """
+    Get output subdir (e.g. 'german' or 'chinese/mandarin').
+
+    Parameters
+    ----------
+    lang_name : str
+        A target language that translations are being derived for.
+
+    language_metadata : dict
+        The metadata containing information about main languages and their sub-languages.
+
+    Returns
+    -------
+    str
+        The subdirectory where translations should be saved.
+    """
     lang_lower = lang_name.lower()
     for main_lang, data in language_metadata.items():
         if main_lang.lower() == lang_lower:
             return lang_lower.replace(" ", "_")
+
         if "sub_languages" in data:
             for sub, _ in data["sub_languages"].items():
                 if sub.lower() == lang_lower:
                     return f"{main_lang}/{sub}".replace(" ", "_")
+
     return lang_lower.replace(" ", "_")
