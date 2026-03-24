@@ -90,15 +90,16 @@ def get_data(
     # MARK: Defaults
 
     output_type = output_type or "json"
-    if output_dir is None and data_type == "translations":
-        output_dir = DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
-    else:
-        output_dir = {
-            "csv": DEFAULT_CSV_EXPORT_DIR,
-            "json": DEFAULT_JSON_EXPORT_DIR,
-            "sqlite": DEFAULT_SQLITE_EXPORT_DIR,
-            "tsv": DEFAULT_TSV_EXPORT_DIR,
-        }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
+    if output_dir is None:
+        if data_type == "translations":
+            output_dir = DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
+        else:
+            output_dir = {
+                "csv": DEFAULT_CSV_EXPORT_DIR,
+                "json": DEFAULT_JSON_EXPORT_DIR,
+                "sqlite": DEFAULT_SQLITE_EXPORT_DIR,
+                "tsv": DEFAULT_TSV_EXPORT_DIR,
+            }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
 
     data_types = [data_type] if data_type else None
 
@@ -188,22 +189,18 @@ def get_data(
     # MARK: Translations
 
     elif data_type == "translations":
-        if wiktionary_dump is not None:
-            from scribe_data.wiktionary.parse_translations import (
-                parse_wiktionary_translations,
-            )
+        from scribe_data.wiktionary.parse_translations import (
+            parse_wiktionary_translations,
+        )
 
-            langs = [language] if language else None
-            parse_wiktionary_translations(
-                target_languages=langs,
-                wiktionary_dump_path=wiktionary_dump,
-                output_dir=output_dir,
-                overwrite=overwrite,
-            )
-            return
-
-        if language is None:
-            language = "all"
+        langs = [language] if language else None
+        parse_wiktionary_translations(
+            target_languages=langs,
+            wiktionary_dump_path=wiktionary_dump,
+            output_dir=output_dir,
+            overwrite=overwrite,
+        )
+        return
 
     # MARK: Form Dump
 

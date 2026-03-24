@@ -260,6 +260,7 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
         """
         import tempfile
         from pathlib import Path
+        from unittest.mock import patch
 
         # Explicit existing path
         with tempfile.NamedTemporaryFile(
@@ -271,13 +272,16 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
             path, iso = _resolve_dump_path(tmp_path, ".")
             self.assertEqual(path, Path(tmp_path).resolve())
 
-            # Missing path falls back to None.
-            path, iso = _resolve_dump_path("nonexistent", ".")
-            self.assertIsNone(path)
+            # Mock the interactive questionary prompt specifically to skip the download process
+            with patch("questionary.select") as mock_select:
+                mock_select.return_value.ask.return_value = "No"
+                # Missing path falls back to None.
+                path, iso = _resolve_dump_path("nonexistent", ".")
+                self.assertIsNone(path)
 
-            path, iso = _resolve_dump_path("zhwiktionary", ".")
-            self.assertIsNone(path)
-            self.assertEqual(iso, "zh")
+                path, iso = _resolve_dump_path("zhwiktionary", ".")
+                self.assertIsNone(path)
+                self.assertEqual(iso, "zh")
         finally:
             Path(tmp_path).unlink()
 

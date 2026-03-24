@@ -272,54 +272,40 @@ class TestGetData(unittest.TestCase):
 
     # MARK: Translations
 
-    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
     def test_get_translations_no_language_specified(self, mock_parse):
-        """
-        Test behavior when no language is specified for 'translations'.
-        Expect language="all".
-        """
         get_data(data_type="translations")
         mock_parse.assert_called_once_with(
-            language="all",
-            wikidata_dump_type=["translations"],
-            type_output_dir="scribe_data_json_export",
-            wikidata_dump_path=None,
-            overwrite_all=False,
+            target_languages=None,
+            wiktionary_dump_path=None,
+            output_dir="scribe_data_wiktionary_json_export",
+            overwrite=False,
         )
 
-    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
     def test_get_translations_with_specific_language(self, mock_parse):
-        """
-        Test behavior when a specific language is provided for 'translations'.
-        Expect parse_wd_lexeme_dump to be called with that language.
-        """
         get_data(
             language="Spanish", data_type="translations", output_dir="./test_output"
         )
         mock_parse.assert_called_once_with(
-            language="Spanish",
-            wikidata_dump_type=["translations"],
-            type_output_dir="./test_output",
-            wikidata_dump_path=None,
-            overwrite_all=False,
+            target_languages=["Spanish"],
+            wiktionary_dump_path=None,
+            output_dir="./test_output",
+            overwrite=False,
         )
 
-    @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
+    @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
     def test_get_translations_with_dump(self, mock_parse):
-        """
-        Test behavior when a Wikidata dump path is specified for 'translations'.
-        Even with a language, it should call parse_wd_lexeme_dump
-        passing that dump path.
-        """
         get_data(
-            language="German", data_type="translations", wikidata_dump="./wikidump.json"
+            language="German",
+            data_type="translations",
+            wiktionary_dump="./wikidump.json",
         )
         mock_parse.assert_called_once_with(
-            language="German",
-            wikidata_dump_type=["translations"],
-            type_output_dir="scribe_data_json_export",
-            wikidata_dump_path="./wikidump.json",
-            overwrite_all=False,
+            target_languages=["German"],
+            wiktionary_dump_path="./wikidump.json",
+            output_dir="scribe_data_wiktionary_json_export",
+            overwrite=False,
         )
 
     # MARK: Use QID as language
