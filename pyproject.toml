@@ -24,6 +24,7 @@ classifiers = [
 ]
 dependencies = [
     "emoji==2.15.0",
+    "mwparserfromhell>=0.7.2",
     "orjson==3.11.7",
     "packaging==26.0",
     "pyyaml==6.0.3",
@@ -65,6 +66,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "scribe_data.unicode" = ["2021_ranked.tsv"]
+"scribe_data.resources" = ["*.yaml", "*.json"]
 
 [tool.pytest.ini_options]
 pythonpath = "src"

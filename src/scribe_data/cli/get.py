@@ -23,6 +23,7 @@ from scribe_data.utils import (
     DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
     DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
     check_index_exists,
 )
 from scribe_data.wikidata.query_data import query_data
@@ -89,7 +90,9 @@ def get_data(
     # MARK: Defaults
 
     output_type = output_type or "json"
-    if output_dir is None:
+    if output_dir is None and data_type == "translations":
+        output_dir = DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
+    else:
         output_dir = {
             "csv": DEFAULT_CSV_EXPORT_DIR,
             "json": DEFAULT_JSON_EXPORT_DIR,

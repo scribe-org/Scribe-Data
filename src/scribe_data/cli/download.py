@@ -19,7 +19,7 @@ from scribe_data.utils import (
     DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
     check_lexeme_dump_prompt_download,
-    list_all_languages,
+    resolve_lang_iso,
 )
 
 
@@ -315,10 +315,16 @@ def download_wiktionary_dumps(
     if isinstance(language_isos, str):
         language_isos = [language_isos]
 
-    languages = list_all_languages()
+    resolved_isos = []
+    not_included_isos = []
+    for lang in language_isos:
+        iso = resolve_lang_iso(lang)
+        if iso:
+            resolved_isos.append(iso)
+        else:
+            not_included_isos.append(lang)
 
-    if set(language_isos) <= set(languages):
-        not_included_isos = [i for i in language_isos if i not in languages]
+    if not_included_isos:
         iso_or_isos = "iso" if len(not_included_isos) == 1 else "isos"
         is_or_are = "is" if len(not_included_isos) == 1 else "are"
         rprint(
@@ -326,6 +332,7 @@ def download_wiktionary_dumps(
         )
         return None
 
+    language_isos = resolved_isos
     wiktionaries = [f"{iso}wiktionary" for iso in language_isos]
     wiktionary_urls = [f"https://dumps.wikimedia.org/{w}" for w in wiktionaries]
 

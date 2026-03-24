@@ -29,6 +29,7 @@ DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR = "scribe_data_wiktionary_dumps_export"
 DEFAULT_MEDIAWIKI_EXPORT_DIR = "scribe_data_mediawiki_export"
 DEFAULT_DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
 DEFAULT_FILTERED_JSON_EXPORT_DIR = "scribe_data_filtered_json_export"
+DEFAULT_WIKTIONARY_JSON_EXPORT_DIR = "scribe_data_wiktionary_json_export"
 
 LANGUAGE_DATA_EXTRACTION_DIR = (
     Path(__file__).parent / "wikidata" / "language_data_extraction"

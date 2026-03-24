@@ -385,6 +385,30 @@ wheels = [
 ]
 
 [[package]]
+name = "mwparserfromhell"
+version = "0.7.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/eb/e1/4e4b53fd838b82061243222d6123ddaf6176278b1ad7058382a1312cb7ae/mwparserfromhell-0.7.2.tar.gz", hash = "sha256:f4193072e9ea93b9e88f772f60a02125c0602d32890d0bbdcb275ed58c8b3763", size = 196317, upload-time = "2025-07-01T05:27:09.697Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ff/9a/0188a9d0837999e061176b9bea7cd701c710eb627927d75d0b38fa2b1c27/mwparserfromhell-0.7.2-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:bc75b1de65ce5b05823942398f77265650a29e13cff6495a15d3c3573cbf7b1a", size = 154527, upload-time = "2025-07-01T05:26:38.2Z" },
+    { url = "https://files.pythonhosted.org/packages/46/de/ff83509c5d344c85524cf2497e214d50f6c4b4153bdd7b49aa24e0fc302f/mwparserfromhell-0.7.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:efe6e5255379ff66a08d2102004b26a456692dafbab0cb1e52bed275a43f1c4c", size = 154635, upload-time = "2025-07-01T05:26:39.331Z" },
+    { url = "https://files.pythonhosted.org/packages/18/51/c5892980c6441fc7b06ea7c3130fd608f91f4f2d45118938f6c630647e96/mwparserfromhell-0.7.2-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:680c96019a62d6f815dad4e7c921383284485ba1f69353ed7ead02d3f232edfc", size = 261644, upload-time = "2025-07-01T05:26:40.479Z" },
+    { url = "https://files.pythonhosted.org/packages/79/38/1e058c40d19caa2f0bc5474cf285ad78f6a0e72ef6262a8471534d308091/mwparserfromhell-0.7.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:1c992003d7a053963006c94ce7eeaf509575c02bf132181da8130086c18ad5df", size = 256548, upload-time = "2025-07-01T05:26:41.823Z" },
+    { url = "https://files.pythonhosted.org/packages/79/82/42ae87924cb26f12dacd1dba3804463e13f9059756d68d7346278eadc3e9/mwparserfromhell-0.7.2-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:2a387532607b4d381baba5c8079f75e5a0201da2506ecd0657034c6b40c8d1e1", size = 257482, upload-time = "2025-07-01T05:26:43.033Z" },
+    { url = "https://files.pythonhosted.org/packages/3e/be/b8a6489ddcae1aa85e0b376fff10caa19e8a31cf6e78f363c0e9c956c2fe/mwparserfromhell-0.7.2-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:b34e5bcd5d7c1c80066abe601e39043f86bd43a581b7c6b46299e84e045e1c83", size = 253743, upload-time = "2025-07-01T05:26:44.724Z" },
+    { url = "https://files.pythonhosted.org/packages/cb/7b/149c13c3b04cc7ef953280f4e38ca15a8f14c8d14fac6801ae9253fb1b1f/mwparserfromhell-0.7.2-cp312-cp312-win32.whl", hash = "sha256:33115b533e789935c1efd4f32a4b6082b597198499b176a05dd73a94a37232be", size = 153751, upload-time = "2025-07-01T05:26:45.919Z" },
+    { url = "https://files.pythonhosted.org/packages/13/8b/de18b03f7df8e315682ae33028fb3e10cb895617d061092b9c9e055bf5de/mwparserfromhell-0.7.2-cp312-cp312-win_amd64.whl", hash = "sha256:4bd6e388b5e0f247c3b2484acb2a4bec4f7ba81598fa25956ec93b7abbd17fbe", size = 156405, upload-time = "2025-07-01T05:26:47.397Z" },
+    { url = "https://files.pythonhosted.org/packages/4a/8e/cdbeaee3cdfa3531fb70380aed9ce9619c42b52735496cc1cd5a026986c3/mwparserfromhell-0.7.2-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:6032df04279c38b9eaaa332a608dd8241aa31f6f034d6ecdba1b4582fbb548b9", size = 154511, upload-time = "2025-07-01T05:26:48.633Z" },
+    { url = "https://files.pythonhosted.org/packages/29/d0/2d639f526b1a7e1b0f9cba9957bb32cfac0629fb9069488cb0ae485627e8/mwparserfromhell-0.7.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:6316f6bd1ca8451b312399b44b0b75096981f0fe92fbea108bade29af66bea9b", size = 154618, upload-time = "2025-07-01T05:26:50.122Z" },
+    { url = "https://files.pythonhosted.org/packages/fa/cb/a4f485681f2b981dd17aafa90ba98635e2ba18a17805af464669100a568a/mwparserfromhell-0.7.2-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:535c2e8b9aedf3b00fbbb9942df4a659bc66dfb8feb6fca114e97cef48d64680", size = 262181, upload-time = "2025-07-01T05:26:51.596Z" },
+    { url = "https://files.pythonhosted.org/packages/34/ec/eba98e51b1b9a0a50de5459462ee62843c03a9538ae01602dd2a98207d67/mwparserfromhell-0.7.2-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:b5345e6b42db45d48162c7bad9b2ce71b6a5ba2e2dea3987eb82b991e5cb9918", size = 256919, upload-time = "2025-07-01T05:26:52.809Z" },
+    { url = "https://files.pythonhosted.org/packages/94/85/303293cb0aff73a178584be9c7a6a8022bc93922117df8fc814264e9d319/mwparserfromhell-0.7.2-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:fef24a97b0b08f02646be2e018284884f8e6cb9740eea60a10404b5369c04ef6", size = 257835, upload-time = "2025-07-01T05:26:54.198Z" },
+    { url = "https://files.pythonhosted.org/packages/c1/06/b1cdc1844505fc1894ef1f94674193b9bbf7418b173586800eda8686442d/mwparserfromhell-0.7.2-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:4ed1d61927d0ad618352732dc2a2218f3b14e19a6ee6e490b42a6ed535acc301", size = 254083, upload-time = "2025-07-01T05:26:55.829Z" },
+    { url = "https://files.pythonhosted.org/packages/b2/b2/12810d49d24ea35e38ff008c539de49295137e98384433f6ee43502af94e/mwparserfromhell-0.7.2-cp313-cp313-win32.whl", hash = "sha256:0661642c78f8d13369d09401a5c4240f4c91b5af1317e66d7f6270b8b0aecd85", size = 153746, upload-time = "2025-07-01T05:26:57.002Z" },
+    { url = "https://files.pythonhosted.org/packages/e2/eb/09a2201943390f2491df5a2fc1fe9abc06b0115116bef799e11725c65ced/mwparserfromhell-0.7.2-cp313-cp313-win_amd64.whl", hash = "sha256:52f193b59c1b6109b210ad85536ce3c569861c3bb9da7b1875618d8ba54c396f", size = 156401, upload-time = "2025-07-01T05:26:58.085Z" },
+]
+
+[[package]]
 name = "mypy"
 version = "1.19.1"
 source = { registry = "https://pypi.org/simple" }
@@ -740,6 +764,7 @@ version = "5.1.4"
 source = { editable = "." }
 dependencies = [
     { name = "emoji" },
+    { name = "mwparserfromhell" },
     { name = "orjson" },
     { name = "packaging" },
     { name = "pyyaml" },
@@ -769,6 +794,7 @@ docs = [
 requires-dist = [
     { name = "emoji", specifier = "==2.15.0" },
     { name = "m2r2", marker = "extra == 'docs'", specifier = ">=0.3.4" },
+    { name = "mwparserfromhell", specifier = ">=0.7.2" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.19.1" },
     { name = "numpydoc", marker = "extra == 'docs'", specifier = ">=1.10.0" },
     { name = "orjson", specifier = "==3.11.7" },

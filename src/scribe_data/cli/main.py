@@ -576,9 +576,13 @@ def main() -> None:
         elif args.command in ["download", "d"]:
             if getattr(args, "wiktionary_dump_path", False):
                 download_wiktionary_dumps(
-                    language_isos=args.language,
                     dump_snapshot=args.dump_snapshot,
                     output_dir=args.wiktionary_dump_path,
+                    **(
+                        dict(language_isos=args.language)
+                        if args.language is not None
+                        else {}
+                    ),
                 )
 
             elif getattr(args, "wikidata_dump_path", False):

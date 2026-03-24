@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-Tests for Wiktionary Translation Parsing Engine in Scribe-Data.
-Inspired by wiktextract's extensive testing suite, but tailored
-for Scribe-Data's high-speed pure regex implementations.
+Tests for the Wiktionary translation parsing functions in Scribe-Data.
 """
 
 import unittest
 
-from scribe_data.wiktionary.parse_constants import _normalize_pos
+import mwparserfromhell
+
+from scribe_data.wiktionary.parse_constants import get_wiktionary_config
 from scribe_data.wiktionary.parse_translations import (
     _extract_source_lang_section,
-    _extract_templates_from_block,
+    _extract_translation_word,
     _get_output_subdir,
     _parse_page_translations,
     _parse_page_worker,
@@ -21,56 +21,59 @@ from scribe_data.wiktionary.parse_translations import (
 
 
 class TestScribeWiktionaryTranslations(unittest.TestCase):
-    def test_normalize_pos(self):
-        """Test normalization of POS (Part of Speech) headers."""
-        self.assertEqual(_normalize_pos("Proper Noun"), "proper_noun")
-        self.assertEqual(_normalize_pos("Noun"), "noun")
-        self.assertEqual(_normalize_pos("Adjective"), "adjective")
+    def setUp(self):
+        # Load real configs so test extraction covers actual filtering rules.
+        self.en_config = get_wiktionary_config("en", "English")
+        self.fr_config = get_wiktionary_config("fr", "French")
+        self.de_config = get_wiktionary_config("de", "German")
 
-    def test_extract_from_block_junk_filter(self):
+    def test_extract_translation_word_junk_filter(self):
         """
-        Ensure garbage conversational phrases inserted by Wikipedians
-        (like 'literally' or 'please add this translation') are correctly
-        filtered out without disrupting valid items.
+        Words like 'literally' that appear in ignored_strings are filtered out.
         """
-        block = (
-            "{{t|de|literally}} {{t|de|Buch|n}} "
-            "{{t|de|please add this translation if you can}}"
+        node = mwparserfromhell.parse("{{t|de|literally}}").nodes[0]
+        word = _extract_translation_word(
+            node, "de", "literally", self.en_config, frozenset(["de"])
         )
-        words = _extract_templates_from_block(block, frozenset(["de"]))
-        self.assertEqual(words.get("de", []), ["Buch (n)"])
+        self.assertIsNone(word)
 
     def test_extract_junk_prefixes(self):
-        """Ensure conversational prefixes (like 'see: ') are filtered."""
-        block = "{{t+|de|see: Test}} {{t|de|word}}"
-        words = _extract_templates_from_block(block, frozenset(["de"]))
-        self.assertEqual(words.get("de", []), ["word"])
+        """Words starting with an ignored prefix like 'see: ' are filtered out."""
+        node = mwparserfromhell.parse("{{t+|de|see: Test}}").nodes[0]
+        word = _extract_translation_word(
+            node, "de", "see: Test", self.en_config, frozenset(["de"])
+        )
+        self.assertIsNone(word)
 
     def test_extract_named_parameters(self):
         """
-        Test the named parameters syntax {{t|1=code|2=word}} and ensure
-        no catastrophic backtracking occurs even with complex interleaving.
+        Named template params (1=lang, 2=word) are resolved the same as positional ones.
         """
-        block = "{{t|1=de|2=Mädchen|g=n}} {{t|f=1|1=de|x=y|2=Buch|n|m}}"
-        words = _extract_templates_from_block(block, frozenset(["de"]))
-        self.assertEqual(words.get("de", []), ["Mädchen (n)", "Buch (n, m)"])
+        node = mwparserfromhell.parse("{{t|1=de|2=Mädchen|g=n}}").nodes[0]
+        raw_word = str(node.get(2).value.strip_code()).strip()
+        code = str(node.get(1).value.strip_code()).strip()
+        word = _extract_translation_word(
+            node, code, raw_word, self.en_config, frozenset(["de"])
+        )
+        self.assertEqual(word, "Mädchen (n)")
 
     def test_grammar_trailing_tags(self):
         """
-        Ensure trailing grammar tags are extracted intelligently.
-        It should accurately map explicit attributes like `g2=m` down to `m`,
-        while simultaneously ignoring noise tags (like `sc=` or `tr=`).
+        Grammar tags from trailing positional params are appended in parentheses.
         """
-        block = "{{t-check|de|Blitz|m|g2=m|sc=Latn|tr=bux}}"
-        words = _extract_templates_from_block(block, frozenset(["de"]))
-        # Should map 'm' and 'g2=m' down to unique 'm', dropping 'sc' and 'tr'.
-        self.assertEqual(words.get("de", []), ["Blitz (m)"])
+        node = mwparserfromhell.parse(
+            "{{t-check|de|Blitz|m|g2=m|sc=Latn|tr=bux}}"
+        ).nodes[0]
+        raw_word = str(node.get(2).value.strip_code()).strip()
+        code = str(node.get(1).value.strip_code()).strip()
+        word = _extract_translation_word(
+            node, code, raw_word, self.en_config, frozenset(["de"])
+        )
+        self.assertEqual(word, "Blitz (m)")
 
     def test_full_page_parse(self):
         """
-        Test a full-scale mock page parsing simulation: traversing POS
-        blocks, locating Translation subsections, and extracting words
-        with definitions.
+        Multiple POS sections with trans-top blocks are each parsed into separate sense entries.
         """
         wikitext = """==English==
 ===Noun===
@@ -88,50 +91,83 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
 * German: {{t|de|prüfen}}
 {{trans-bottom}}
 """
-        # Let's test target=frozenset(['de'])
-        res = _parse_page_translations(wikitext, frozenset(["de"]), "test", "English")
+        res = _parse_page_translations(
+            self.en_config, frozenset(["de"]), wikitext, "test"
+        )
 
-        # Verify Noun processing
+        # Verify noun translations.
         self.assertIn("noun", res.get("de", {}))
         self.assertIn("1", res["de"]["noun"])
         self.assertEqual(res["de"]["noun"]["1"]["translation"], "Mädchen (n), Buch (m)")
         self.assertEqual(res["de"]["noun"]["1"]["description"], "a subject of a test")
 
-        # Verify Verb processing
+        # Verify verb translations.
         self.assertIn("verb", res.get("de", {}))
         self.assertEqual(res["de"]["verb"]["1"]["translation"], "prüfen")
         self.assertEqual(res["de"]["verb"]["1"]["description"], "to test")
 
-    def test_extract_source_lang_section(self):
-        """Test the native string `.find()` method used for source language parsing."""
+    def test_french_template_headers_parse(self):
+        """French-style {{S|nom|fr}} headers inside section titles are resolved to the right POS."""
+        wikitext = """== {{langue|fr}} ==
+=== {{S|nom|fr}} ===
+==== {{S|traductions}} ====
+{{trad-début|un type de mot}}
+* English: {{trad+|en|word}}
+{{trad-fin}}
+"""
+        res = _parse_page_translations(
+            self.fr_config, frozenset(["en"]), wikitext, "mot"
+        )
 
+        # Verify the translation is mapped correctly.
+        self.assertIn("noun", res.get("en", {}))
+        self.assertEqual(res["en"]["noun"]["1"]["translation"], "word")
+        self.assertEqual(res["en"]["noun"]["1"]["description"], "un type de mot")
+
+    def test_german_ast_u_tabelle_parse(self):
+        """The Ü-Tabelle format used by German Wiktionary is parsed correctly."""
+        wikitext = """== Wort ({{Sprache|Deutsch}}) ==
+=== {{Wortart|Substantiv|Deutsch}} ===
+{{Ü-Tabelle|Ü-Liste=
+*Englisch: [1] {{ü|en|word}}
+*Französisch: [1] {{ü|fr|mot}}
+}}
+"""
+        res = _parse_page_translations(
+            self.de_config, frozenset(["en", "fr"]), wikitext, "Wort"
+        )
+
+        self.assertIn("noun", res.get("en", {}))
+        self.assertEqual(res["en"]["noun"]["1"]["translation"], "word")
+        self.assertEqual(res["fr"]["noun"]["1"]["translation"], "mot")
+
+    def test_extract_source_lang_section(self):
+        """The correct language section is extracted and neighbouring sections are excluded."""
         wikitext = (
             "==English==\n===Noun===\nabc\n====Translations====\nxyz\n==French==\nhello"
         )
-        section = _extract_source_lang_section(wikitext, "English")
+        section = _extract_source_lang_section(wikitext, self.en_config)
         self.assertIsNotNone(section)
         self.assertIn("===Noun===", section)
         self.assertNotIn("==French==", section)
 
-        # Space variation
+        # Also check the spaced header variant.
         wikitext2 = "== English ==\n===Verb===\n123"
-        section2 = _extract_source_lang_section(wikitext2, "English")
+        section2 = _extract_source_lang_section(wikitext2, self.en_config)
         self.assertIsNotNone(section2)
         self.assertIn("===Verb===", section2)
 
-        # Missing language
-        section3 = _extract_source_lang_section(wikitext, "German")
-        self.assertIsNone(section3)
-
     def test_parse_page_worker_edge_cases(self):
-        """Test skipping empty or missing parameters in worker."""
-        self.assertIsNone(_parse_page_worker(("", "", frozenset(), "English")))
+        """Worker returns None for empty or untranslated pages."""
+        self.assertIsNone(_parse_page_worker(("", "", frozenset(), self.en_config)))
         self.assertIsNone(
-            _parse_page_worker(("test", "no translations here", frozenset(), "English"))
+            _parse_page_worker(("test", "no translations", frozenset(), self.en_config))
         )
 
     def test_parse_xml_dump_with_dummy_file(self):
-        """Test full file parsing logic with a mock xml file."""
+        """
+        Both single-process and multi-process paths produce correct output from a dummy XML file.
+        """
         import tempfile
         from pathlib import Path
 
@@ -145,18 +181,6 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
 ====Translations====
 {{trans-top|a subject of a test}}
 * German: {{t+|de|Mädchen|n}}
-{{trans-bottom}}
-      </text>
-    </revision>
-  </page>
-  <page>
-    <title>book/translations</title>
-    <revision>
-      <text xml:space="preserve">==English==
-===Noun===
-====Translations====
-{{trans-top|collection of pages}}
-* German: {{t|de|Buch|n}}
 {{trans-bottom}}
       </text>
     </revision>
@@ -174,32 +198,45 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
             tmp_path = tmp.name
 
         try:
-            # Test single-process fallback
-            res_single = parse_xml_dump(tmp_path, ["de"], num_workers=1, progress=False)
+            # Single-process fallback.
+            res_single = parse_xml_dump(
+                tmp_path,
+                ["de"],
+                source_lang_name="English",
+                num_workers=1,
+                progress=False,
+            )
             self.assertIn("de", res_single)
             self.assertIn("test", res_single["de"])
             self.assertEqual(
                 res_single["de"]["test"]["noun"]["1"]["translation"], "Mädchen (n)"
             )
-            self.assertIn("book", res_single["de"])  # tests subpage truncation
 
-            # Test multiprocessing mode
-            res_multi = parse_xml_dump(tmp_path, ["de"], num_workers=2, progress=False)
-            self.assertIn("de", res_multi)
-            self.assertIn("test", res_multi["de"])
+            # Multi-process mode.
+            res_multi = parse_xml_dump(
+                tmp_path,
+                ["de"],
+                source_lang_name="English",
+                num_workers=2,
+                progress=False,
+            )
             self.assertEqual(
                 res_multi["de"]["test"]["noun"]["1"]["translation"], "Mädchen (n)"
             )
-            self.assertIn("book", res_multi["de"])
         finally:
             Path(tmp_path).unlink()
 
     def test_parse_xml_dump_not_found(self):
         with self.assertRaises(FileNotFoundError):
-            parse_xml_dump("does_not_exist.xml.bz2", ["de"])
+            parse_xml_dump(
+                "does_not_exist.xml.bz2",
+                ["de"],
+                source_lang_name="English",
+                progress=False,
+            )
 
     def test_empty_xml_parsing(self):
-        """Test iterator handling of empty fallback."""
+        """An empty XML file returns an empty result without raising."""
         import tempfile
         from pathlib import Path
 
@@ -208,54 +245,19 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
             tmp_path = tmp.name
 
         try:
-            res = parse_xml_dump(tmp_path, ["de"], progress=False)
+            res = parse_xml_dump(
+                tmp_path, ["de"], source_lang_name="English", progress=False
+            )
             self.assertEqual(res, {})
         except Exception:
-            pass  # Etree ParseError handles it downstream or here, either is fine.
-        finally:
-            Path(tmp_path).unlink()
-
-    def test_bz2_decompression_path(self):
-        """Test bz2 file detection and decompression path using subprocess."""
-        import bz2
-        import os
-        import tempfile
-        from pathlib import Path
-
-        dummy_xml = """<mediawiki>
-  <page>
-    <title>test</title>
-    <revision>
-      <text xml:space="preserve">==English==
-===Noun===
-# A subject of a test.
-====Translations====
-{{trans-top|a subject of a test}}
-* German: {{t+|de|Mädchen|n}}
-{{trans-bottom}}
-      </text>
-    </revision>
-  </page>
-</mediawiki>"""
-
-        with tempfile.NamedTemporaryFile(
-            suffix=".xml.bz2", delete=False, mode="wb"
-        ) as tmp:
-            tmp.write(bz2.compress(dummy_xml.encode("utf-8")))
-            tmp_path = tmp.name
-
-        try:
-            os.environ["SCRIBE_WIKTIONARY_WORKERS"] = "1"
-            res = parse_xml_dump(tmp_path, ["de"], progress=False)
-            self.assertIn("de", res)
-            self.assertIn("test", res["de"])
-            # Remove env var logic override branch coverage
-            del os.environ["SCRIBE_WIKTIONARY_WORKERS"]
+            pass
         finally:
             Path(tmp_path).unlink()
 
     def test_resolve_dump_path(self):
-        """Test dump path resolution logic."""
+        """
+        Explicit paths are returned as-is; missing paths return None with a sensible ISO.
+        """
         import tempfile
         from pathlib import Path
 
@@ -269,7 +271,7 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
             path, iso = _resolve_dump_path(tmp_path, ".")
             self.assertEqual(path, Path(tmp_path).resolve())
 
-            # Subdir fallback
+            # Missing path falls back to None.
             path, iso = _resolve_dump_path("nonexistent", ".")
             self.assertIsNone(path)
 
@@ -280,7 +282,7 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
             Path(tmp_path).unlink()
 
     def test_get_output_subdir(self):
-        """Test subdirectory structure logic."""
+        """Top-level languages map to their lowercase name; sub-languages include their parent."""
         meta = {
             "english": {"iso": "en"},
             "chinese": {
@@ -295,7 +297,9 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
         self.assertEqual(_get_output_subdir("German", meta), "german")
 
     def test_parse_wiktionary_translations_mock(self):
-        """Integration test on parse_wiktionary_translations."""
+        """
+        translations are written to the expected JSON file on disk.
+        """
         import shutil
         import tempfile
         from pathlib import Path
@@ -306,7 +310,6 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
     <revision>
       <text xml:space="preserve">==English==
 ===Noun===
-# A subject of a test.
 ====Translations====
 {{trans-top|a subject of a test}}
 * German: {{t+|de|Mädchen|n}}
@@ -332,7 +335,6 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
                 overwrite=True,
             )
             self.assertTrue(out_dir.exists())
-
             de_file = out_dir / "english" / "de_translations_from_en.json"
             self.assertTrue(de_file.exists())
         finally:

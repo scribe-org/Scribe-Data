@@ -1,0 +1,201 @@
+en:
+  engine: ast_trans_top
+  translations_header: translations
+  prefilters:
+  - translation
+  - Translation
+  - '{{t'
+  - '{{T'
+  ignored_prefixes:
+  - 'see:'
+  - 'see '
+  - 'use:'
+  - 'use '
+  - 'prefix '
+  - 'suffix '
+  - usually expressed
+  - expressed with
+  - -prefix
+  - -suffix
+  ignored_strings:
+  - please add this translation if you can
+  - script needed
+  - '[script needed]'
+  - literally
+  - lit.
+  - e.g.
+  - cf.
+  - different structure used
+  - no equivalent
+  - not used
+  - not attested
+  pos_map:
+    adj: adjective
+    adv: adverb
+    prep: preposition
+    conj: conjunction
+    intj: interjection
+    pron: pronoun
+    det: determiner
+    num: numeral
+    proper noun: proper_noun
+    proper name: proper_noun
+    name: proper_noun
+  template_top:
+  - trans-top
+  - trans-top-also
+  - checktrans-top
+  template_bottom: trans-bottom
+  template_translation:
+  - t
+  - t+
+  - t-check
+  - tt
+  - tt+
+de:
+  engine: ast_u_tabelle
+  lang_header_pattern: \(\{\{Sprache\|Deutsch\}\}\)
+  translations_header: übersetzungen
+  prefilters:
+  - Ü-Tabelle
+  - '{{Ü|'
+  - '{{Üt|'
+  ignored_prefixes:
+  - 'siehe:'
+  - 'siehe '
+  - 'vergleiche:'
+  - vgl.
+  ignored_strings:
+  - fehlend
+  - bitte ergänzen
+  - –
+  - '-'
+  pos_map:
+    substantiv: noun
+    verb: verb
+    adjektiv: adjective
+    adverb: adverb
+    präposition: preposition
+    konjunktion: conjunction
+    interjektion: interjection
+    pronomen: pronoun
+    artikel: determiner
+    numerale: numeral
+    partikel: particle
+    eigenname: proper_noun
+    redewendung: phrase
+    wortverbindung: phrase
+  template_pos: wortart
+  template_table: ü-tabelle
+  template_list: ü-liste
+  template_translation:
+  - ü
+  - üt
+  - üxx
+  - üt+
+  - üxx+
+fr:
+  engine: ast_trans_top
+  # frwiktionary uses "== {{langue|fr}} ==" not plain "==French=="
+  lang_header_pattern: \{\{langue\|fr\}\}
+  translations_header: traductions
+  prefilters:
+  - trad-début
+  - '{{trad'
+  ignored_prefixes:
+  - 'voir :'
+  - 'voir '
+  - 'cf.'
+  ignored_strings:
+  - manquant
+  - à compléter
+  - à vérifier
+  pos_map:
+    nom: noun
+    verbe: verb
+    adjectif: adjective
+    adverbe: adverb
+    préposition: preposition
+    conjonction: conjunction
+    interjection: interjection
+    pronom: pronoun
+    déterminant: determiner
+    adjectif numéral: numeral
+    nom propre: proper_noun
+    locution: phrase
+  template_top:
+  - trad-début
+  - trad-top
+  template_bottom: trad-fin
+  template_translation:
+  - trad+
+  - trad-
+  - trad
+id:
+  engine: ast_trans_top
+  # idwiktionary uses "=={{bahasa|id}}==" headers
+  lang_header_pattern: \{\{bahasa\|id\}\}
+  translations_header: terjemahan
+  prefilters:
+  - t-atas
+  - trans-top
+  - '{{t|'
+  - '{{t+'
+  ignored_prefixes:
+  - 'lihat '
+  - 'lihat:'
+  ignored_strings:
+  - perlu ditambahkan
+  - belum ada
+  pos_map:
+    adj: adjective
+    adv: adverb
+    prep: preposition
+    conj: conjunction
+    interj: interjection
+    pron: pronoun
+    num: numeral
+    nomina: noun
+    verba: verb
+    -n-: noun
+    -v-: verb
+    -adj-: adjective
+    -adv-: adverb
+  template_top:
+  - t-atas
+  - trans-top
+  - checktrans-top
+  template_bottom: t-bawah
+  template_translation:
+  - t
+  - t+
+  - t-check
+bn:
+  engine: ast_trans_top
+  # bnwiktionary uses '==বাংলা==' (Bangla)
+  lang_header_pattern: বাংলা
+  translations_header: অনুবাদ
+  prefilters:
+  - trans-top
+  - '{{t|'
+  - '{{t+'
+  ignored_prefixes:
+  - 'দেখুন '
+  - 'দেখুন:'
+  ignored_strings:
+  - অজানা
+  pos_map:
+    বিশেষ্য: noun
+    ক্রিয়াপদ: verb
+    বিশেষণ: adjective
+    ক্রিয়া-বিশেষণ: adverb
+    অব্যয়: preposition
+    সর্বনাম: pronoun
+  template_top:
+  - trans-top
+  - checktrans-top
+  template_bottom: trans-bottom
+  template_translation:
+  - t
+  - t+
+  - t-check
