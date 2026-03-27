@@ -226,8 +226,7 @@ def data_to_sqlite(
     for lang in languages:
         lang_dir = Path(input_file) / "/".join(reversed(lang.split()))
         if lang_dir.is_dir():
-            language_data_type_dict[lang] = [
-                f.split(".json")[0]
+            language_data_type_dict[lang] = [                f.split(".json")[0]
                 for f in os.listdir(lang_dir)
                 if f.split(".json")[0] in (specific_tables or data_types)
             ]
@@ -259,14 +258,8 @@ def data_to_sqlite(
         )
         # Remove "translations" from each language's list so we don't create extra language-specific DBs
         for lang in language_data_type_dict:
-            language_data_type_dict[lang] = [
-                dt for dt in language_data_type_dict[lang] if dt != "translations"
+            language_data_type_dict[lang] = [                dt for dt in language_data_type_dict[lang] if dt != "translations"
             ]
-
-    if specific_tables and "autocomplete_lexicon" in specific_tables:
-        for lang in language_data_type_dict:
-            if "autocomplete_lexicon" not in language_data_type_dict[lang]:
-                language_data_type_dict[lang].append("autocomplete_lexicon")
 
     languages_capitalized = [lang.capitalize() for lang in languages]
     print(
@@ -287,7 +280,6 @@ def data_to_sqlite(
                 / f"{get_language_iso(lang).upper()}LanguageData.sqlite"
             )
             if db_file.exists():
-                print("ovarger", overwrite)
                 if not overwrite:
                     answer = questionary.confirm(
                         f"SQLite file {db_file} already exists.\nDo you want to overwrite it?"
@@ -305,9 +297,6 @@ def data_to_sqlite(
             print(f"Database for {lang} {maybe_over}written and connection made.")
 
             for dt in language_data_type_dict[lang]:
-                if dt == "autocomplete_lexicon":
-                    continue  # handled separately
-
                 print(f"Creating/Updating {lang} {dt} table...")
                 json_file_path = Path(input_file) / lang / f"{dt}.json"
 
@@ -320,15 +309,13 @@ def data_to_sqlite(
                 with open(json_file_path, "r", encoding="utf-8") as f:
                     json_data = json.load(f)
 
-                if dt in [
-                    key
+                if dt in [                    key
                     for key in data_type_metadata.keys()
                     if key not in ["translations"]
                 ]:
                     cols = ["wdLexemeId"]
 
-                    all_elem_keys = [
-                        json_data[k].keys() for k in list(json_data.keys())
+                    all_elem_keys = [                        json_data[k].keys() for k in list(json_data.keys())
                     ]
                     all_keys_flat = list({k for ks in all_elem_keys for k in ks})
 
@@ -338,8 +325,7 @@ def data_to_sqlite(
 
                     for row in json_data:
                         keys = [row]
-                        keys += [
-                            json_data[row][col_name]
+                        keys += [                            json_data[row][col_name]
                             if col_name in json_data[row]
                             else None
                             for col_name in cols[1:]
@@ -361,98 +347,13 @@ def data_to_sqlite(
                     cursor.execute(f"DELETE FROM {dt}")  # clear existing data
                     for row in json_data:
                         keys = [row]
-                        keys += [
-                            json_data[row][i]["emoji"]
+                        keys += [                            json_data[row][i]["emoji"]
                             for i in range(len(json_data[row]))
                         ]
                         keys += [""] * (len(cols) - len(keys))
                         table_insert(cursor, data_type=dt, keys=keys)
 
-                connection.commit()
-
-            # Handle autocomplete_lexicon separately.
-            if (not specific_tables or "autocomplete_lexicon" in specific_tables) and {
-                "nouns",
-                "prepositions",
-                "emoji_keywords",
-            }.issubset(set(language_data_type_dict[lang] + (specific_tables or []))):
-                print(f"Creating/Updating {lang} autocomplete_lexicon table...")
-                cols = ["word"]
-                create_table(
-                    cursor, identifier_case, data_type="autocomplete_lexicon", cols=cols
-                )
-                cursor.execute(
-                    "DELETE FROM autocomplete_lexicon"
-                )  # clear existing data
-
-                sql_query = """
-                INSERT INTO
-                    autocomplete_lexicon (word)
-                WITH full_lexicon AS (
-                    SELECT
-                        noun AS word
-                    FROM
-                        nouns
-                    WHERE
-                        LENGTH(noun) > 2
-                    UNION
-                    SELECT
-                        preposition AS word
-                    FROM
-                        prepositions
-                    WHERE
-                        LENGTH(preposition) > 2
-                    UNION
-                    SELECT
-                        word AS word
-                    FROM
-                        emoji_keywords
-                )
-                SELECT DISTINCT
-                    CASE
-                        WHEN
-                            UPPER(SUBSTR(lex.word, 1, 1)) || SUBSTR(lex.word, 2) = nouns_cap.noun
-                        THEN
-                            nouns_cap.noun
-                        WHEN
-                            UPPER(lex.word) = nouns_upper.noun
-                        THEN
-                            nouns_upper.noun
-                        ELSE
-                            lex.word
-                    END
-                FROM
-                    full_lexicon AS lex
-                LEFT JOIN
-                    nouns AS nouns_cap
-                ON
-                    UPPER(SUBSTR(lex.word, 1, 1)) || SUBSTR(lex.word, 2) = nouns_cap.noun
-                LEFT JOIN
-                    nouns AS nouns_upper
-                ON
-                    UPPER(lex.word) = nouns_upper.noun
-                WHERE
-                    LENGTH(lex.word) > 1
-                    AND lex.word NOT LIKE '%-%'
-                    AND lex.word NOT LIKE '%/%'
-                    AND lex.word NOT LIKE '%(%'
-                    AND lex.word NOT LIKE '%)%'
-                    AND lex.word NOT LIKE '%"%'
-                    AND lex.word NOT LIKE '%“%'
-                    AND lex.word NOT LIKE '%„%'
-                    AND lex.word NOT LIKE '%”%'
-                    AND lex.word NOT LIKE "%'%"
-                """
-
-                try:
-                    cursor.execute(sql_query)
                     connection.commit()
-                    print(
-                        f"{lang} autocomplete_lexicon table created/updated successfully."
-                    )
-
-                except sqlite3.Error as e:
-                    print(f"Error creating/updating autocomplete_lexicon table: {e}")
 
             connection.close()
             print(f"{lang.capitalize()} database processing completed.")
