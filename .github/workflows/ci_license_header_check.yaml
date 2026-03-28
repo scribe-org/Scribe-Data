@@ -7,15 +7,9 @@ on:
       - opened
       - reopened
       - synchronize
-    paths:
-      - "src/**"
-      - "tests/**"
   push:
     branches:
       - main
-    paths:
-      - "src/**"
-      - "tests/**"
 
 jobs:
   license_header_check:
