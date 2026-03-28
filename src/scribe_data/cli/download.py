@@ -374,7 +374,7 @@ def download_wiktionary_dumps(
                             pbar.update(len(chunk))
 
             rprint(
-                f"[bold green]{i.upper()}Wiktionary dump download completed.[/bold green]"
+                f"[bold green]{i.upper()}Wiktionary dump download completed successfully![/bold green]"
             )
             return output_path
 

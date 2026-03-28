@@ -11,6 +11,8 @@ from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
 
+from tqdm import tqdm
+
 from scribe_data.wiktionary.parse_constants import get_wiktionary_config
 
 # A single translation entry (e.g., {"description": "...", "translation": "..."})
@@ -86,7 +88,9 @@ def _build_sense_entry(description: str, translation: str) -> Dict[str, str]:
     entry: Dict[str, str] = {}
     if description:
         entry["description"] = description
+
     entry["translation"] = translation
+
     return entry
 
 
@@ -129,8 +133,8 @@ def _extract_translation_word(
 
     ignored_strings = config["ignored_strings"]
     word_lower = raw_word.lower()
-    if word_lower in ignored_strings or word_lower.startswith(
-        config["ignored_prefixes"]
+    if word_lower in ignored_strings or any(
+        word_lower.startswith(prefix) for prefix in config["ignored_prefixes"]
     ):
         return None
 
@@ -231,6 +235,7 @@ def _extract_source_lang_section(wikitext: str, config: dict) -> Optional[str]:
                 next_h2 = re.search(r"^==[^=]", wikitext[start:], re.MULTILINE)
                 end = start + next_h2.start() if next_h2 else len(wikitext)
                 return wikitext[start:end].strip()
+
         return None
 
     # English Wiktionary: exact header name.
@@ -247,6 +252,7 @@ def _extract_source_lang_section(wikitext: str, config: dict) -> Optional[str]:
         if start == -1:
             return None
         start += len(padded)
+
     else:
         start += len(header)
 
@@ -254,6 +260,7 @@ def _extract_source_lang_section(wikitext: str, config: dict) -> Optional[str]:
     while next_header != -1:
         if next_header + 3 < len(wikitext) and wikitext[next_header + 3] != "=":
             return wikitext[start:next_header].strip()
+
         next_header = wikitext.find("\n==", next_header + 1)
 
     return wikitext[start:].strip()
@@ -701,8 +708,6 @@ def parse_xml_dump(
     LanguageToWords
         ``{target_lang_iso: {word: {pos: {sense_idx: {description?, translation}}}}}``.
     """
-    from tqdm import tqdm
-
     path = Path(wiktionary_dump_path)
     if not path.exists():
         raise FileNotFoundError(f"Wiktionary dump not found: {path}")
@@ -717,6 +722,7 @@ def parse_xml_dump(
     # Rough page count estimate for the progress bar (Wiktionary ~180 bytes/page compressed).
     try:
         total_entries = path.stat().st_size // 180
+
     except (OSError, AttributeError):
         total_entries = None
 
@@ -732,7 +738,9 @@ def parse_xml_dump(
     config = get_wiktionary_config(source_iso=source_iso)
 
     def _filtered_iterator():
-        """Yield (word, text, target_langs, config) tuples, skipping pages that can't have translations."""
+        """
+        Yield (word, text, target_langs, config) tuples, skipping pages that can't have translations.
+        """
         for title, text in iterator:
             if not title or not text:
                 continue
@@ -750,7 +758,7 @@ def parse_xml_dump(
             if prefilters and all(f not in text for f in prefilters):
                 continue
 
-            # Normalise delegated subpages back to their base word.
+            # Normalize delegated subpages back to their base word.
             if word.endswith("/translations") or word.endswith("/übersetzungen"):
                 word = word.split("/")[0]
 
@@ -762,6 +770,7 @@ def parse_xml_dump(
             for result in map(_parse_page_worker, _filtered_iterator()):
                 if result:
                     _merge_parsed_into_output(output, *result)
+
         else:
             # Use a process pool for speed on large dumps.
             with ProcessPoolExecutor(max_workers=num_workers) as executor:
@@ -773,6 +782,7 @@ def parse_xml_dump(
 
     except KeyboardInterrupt:
         print("\nParsing cleanly interrupted by user. Saving progress...")
+
     except Exception as e:
         print(f"\nParsing encountered an error: {e}. Saving progress...")
 
@@ -829,6 +839,7 @@ def parse_wiktionary_translations(
             for sub_info in lang_info.get("sub_languages", {}).values():
                 if sub_iso := sub_info.get("iso"):
                     target_isos.append(sub_iso)
+
     else:
         specs = (
             [target_languages]
@@ -872,9 +883,16 @@ def parse_wiktionary_translations(
             continue
 
         with open(out_path, "wb") as f:
-            f.write(orjson.dumps(data, option=orjson.OPT_INDENT_2))
+            f.write(
+                orjson.dumps(
+                    data,
+                    option=orjson.OPT_INDENT_2 | orjson.OPT_SORT_KEYS,
+                )
+            )
 
-        print(f"Exported {iso} translations from {source_iso} to {out_path}")
+        print(
+            f"Exported '{iso}' translations from '{source_iso}' to the file {out_path}"
+        )
 
 
 # MARK: Output Resolution
