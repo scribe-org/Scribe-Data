@@ -207,7 +207,7 @@ class TestScribeDataInteractive(unittest.TestCase):
 
         mock_parse_wiktionary.assert_called_once_with(
             target_languages=["english"],
-            wiktionary_dump_path="/dump/path",
-            output_dir="/output/dir",
+            wiktionary_dump_path=str(Path("/dump/path")),
+            output_dir=str(Path("/output/dir")),
             overwrite=False,
         )
