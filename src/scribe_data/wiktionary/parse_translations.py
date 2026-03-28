@@ -633,6 +633,7 @@ def _iter_dump_pages(wiktionary_dump_path: Path):
             ["bzcat", str(wiktionary_dump_path)], stdout=subprocess.PIPE
         )
         f = proc.stdout
+
     else:
         open_fn = bz2.open if str(wiktionary_dump_path).endswith(".bz2") else open
         f = open_fn(wiktionary_dump_path, "rb")
@@ -641,6 +642,7 @@ def _iter_dump_pages(wiktionary_dump_path: Path):
         context = iter(ET.iterparse(f, events=("start", "end")))
         try:
             _, root = next(context)
+
         except StopIteration:
             return
 
@@ -667,6 +669,7 @@ def _iter_dump_pages(wiktionary_dump_path: Path):
         if proc:
             proc.terminate()
             proc.wait()
+
         else:
             f.close()
 
