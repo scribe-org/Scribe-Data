@@ -158,12 +158,15 @@ def validate_language_and_data_type(
         item_lower = item.lower().strip()
         if item_lower in valid_options:
             return None
+
         if item.startswith("Q") and len(item) > 1 and item[1:].isdigit():
             return None
+
         if len(item_lower) in (2, 3) and item_lower.isalpha():
             try:
                 get_language_from_iso(item_lower)
                 return None
+
             except ValueError:
                 pass
 

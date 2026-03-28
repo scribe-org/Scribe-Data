@@ -321,6 +321,7 @@ def download_wiktionary_dumps(
         iso = resolve_lang_iso(lang)
         if iso:
             resolved_isos.append(iso)
+
         else:
             not_included_isos.append(lang)
 

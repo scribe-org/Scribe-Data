@@ -1,0 +1,36 @@
+engine: ast_trans_top
+# frwiktionary uses "== {{langue|fr}} ==" not plain "==French=="
+lang_header_pattern: \{\{langue\|fr\}\}
+translations_header: traductions
+prefilters:
+- trad-début
+- '{{trad'
+ignored_prefixes:
+- 'voir :'
+- 'voir '
+- 'cf.'
+ignored_strings:
+- manquant
+- à compléter
+- à vérifier
+pos_map:
+  nom: noun
+  verbe: verb
+  adjectif: adjective
+  adverbe: adverb
+  préposition: preposition
+  conjonction: conjunction
+  interjection: interjection
+  pronom: pronoun
+  déterminant: determiner
+  adjectif numéral: numeral
+  nom propre: proper_noun
+  locution: phrase
+template_top:
+- trad-début
+- trad-top
+template_bottom: trad-fin
+template_translation:
+- trad+
+- trad-
+- trad

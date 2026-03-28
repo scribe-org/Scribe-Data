@@ -55,15 +55,15 @@ def _merge_parsed_into_output(
         word_map = output.setdefault(code, {})
         pos_map = word_map.setdefault(word, {})
         for pos, senses in pos_senses.items():
-            sense_map = pos_map.setdefault(pos, {})
-            if not sense_map:
-                sense_map.update(senses)
-            else:
+            if sense_map := pos_map.setdefault(pos, {}):
                 for src_idx, src_data in senses.items():
                     target_idx = src_idx
                     while target_idx in sense_map:
                         target_idx = str(int(target_idx) + 1)
                     sense_map[target_idx] = src_data
+
+            else:
+                sense_map.update(senses)
 
 
 def _build_sense_entry(description: str, translation: str) -> Dict[str, str]:
@@ -137,7 +137,7 @@ def _extract_translation_word(
     valid_tags = []
     for param in node.params:
         pname = str(param.name).strip()
-        if pname in ("1", "2"):
+        if pname in {"1", "2"}:
             continue
 
         pval = str(param.value.strip_code()).strip()
@@ -146,6 +146,7 @@ def _extract_translation_word(
 
         if pname.startswith("g"):
             valid_tags.append(pval)
+
         elif pname.isdigit() and pval.lower() not in ignored_strings:
             valid_tags.append(pval)
 
@@ -323,7 +324,6 @@ def _parse_ast_u_tabelle(
                         else pos_raw
                     )
 
-        # Process translation tables.
         elif isinstance(node, mwparserfromhell.nodes.Template):
             if node.name.strip().lower() != template_table:
                 continue
@@ -356,10 +356,9 @@ def _parse_ast_u_tabelle(
                 code = str(t.get(1).value).strip().lower()
                 raw_word = str(t.get(2).value.strip_code()).strip()
 
-                extracted = _extract_translation_word(
+                if extracted := _extract_translation_word(
                     t, code, raw_word, config, target_langs
-                )
-                if extracted:
+                ):
                     words_by_lang.setdefault(code, []).append(extracted)
 
             _add_translations_to_result(
@@ -730,7 +729,7 @@ def parse_xml_dump(
         frozenset(c.lower() for c in target_lang_codes) if target_lang_codes else None
     )
 
-    config = get_wiktionary_config(source_iso, source_lang_name)
+    config = get_wiktionary_config(source_iso=source_iso)
 
     def _filtered_iterator():
         """Yield (word, text, target_langs, config) tuples, skipping pages that can't have translations."""
@@ -748,7 +747,7 @@ def parse_xml_dump(
 
             # Quick text scan — skip pages with no translation markers at all.
             prefilters = config.get("prefilters", [])
-            if prefilters and not any(f in text for f in prefilters):
+            if prefilters and all(f not in text for f in prefilters):
                 continue
 
             # Normalise delegated subpages back to their base word.

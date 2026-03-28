@@ -1,0 +1,28 @@
+engine: ast_trans_top
+# bnwiktionary uses '==বাংলা==' (Bangla)
+lang_header_pattern: বাংলা
+translations_header: অনুবাদ
+prefilters:
+- trans-top
+- '{{t|'
+- '{{t+'
+ignored_prefixes:
+- 'দেখুন '
+- 'দেখুন:'
+ignored_strings:
+- অজানা
+pos_map:
+  বিশেষ্য: noun
+  ক্রিয়াপদ: verb
+  বিশেষণ: adjective
+  ক্রিয়া-বিশেষণ: adverb
+  অব্যয়: preposition
+  সর্বনাম: pronoun
+template_top:
+- trans-top
+- checktrans-top
+template_bottom: trans-bottom
+template_translation:
+- t
+- t+
+- t-check

@@ -1,0 +1,54 @@
+# ATTN: WIP
+engine: ast_trans_top
+translations_header: translations
+prefilters:
+- translation
+- Translation
+- '{{t'
+- '{{T'
+ignored_prefixes:
+- 'see:'
+- 'see '
+- 'use:'
+- 'use '
+- 'prefix '
+- 'suffix '
+- usually expressed
+- expressed with
+- -prefix
+- -suffix
+ignored_strings:
+- please add this translation if you can
+- script needed
+- '[script needed]'
+- literally
+- lit.
+- e.g.
+- cf.
+- different structure used
+- no equivalent
+- not used
+- not attested
+pos_map:
+  adj: adjective
+  adv: adverb
+  prep: preposition
+  conj: conjunction
+  intj: interjection
+  pron: pronoun
+  det: determiner
+  num: numeral
+  proper noun: proper_noun
+  proper name: proper_noun
+  name: proper_noun
+template_top:
+- trans-top
+- trans-top-also
+- checktrans-top
+template_bottom: trans-bottom
+template_translation:
+- t
+- t+
+- t-check
+- tt
+- tt+

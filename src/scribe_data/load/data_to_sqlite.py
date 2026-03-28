@@ -189,12 +189,16 @@ def wiktionary_translations_to_sqlite(
     ----------
     language : str
         The language whose directory contains the translation JSON files.
+
     identifier_case : str, optional
         Either "camel" or "snake" to determine column naming. Default is "snake".
+
     input_file : str, optional
         The input JSON export directory (default=DEFAULT_JSON_EXPORT_DIR).
+
     output_file : str, optional
         The output SQLite export directory (default=DEFAULT_SQLITE_EXPORT_DIR).
+
     overwrite : bool, optional
         If True, existing SQLite files will be overwritten without prompting.
     """
@@ -286,14 +290,19 @@ def data_to_sqlite(
     ----------
     languages : list of str, optional
         The languages to process. If None, use all available languages.
+
     specific_tables : list of str, optional
         The specific tables to process. If None, process all tables.
+
     identifier_case : str, optional
         Format of the identifiers ("camel" or "snake"). Defaults to "camel".
+
     input_file : str, optional
         The input JSON export directory (default=DEFAULT_JSON_EXPORT_DIR).
+
     output_file : str, optional
         The output SQLite export directory (default=DEFAULT_SQLITE_EXPORT_DIR).
+
     overwrite : bool, optional
         If set to True, existing SQLite files will be overwritten without prompting.
     """

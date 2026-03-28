@@ -23,9 +23,9 @@ from scribe_data.wiktionary.parse_translations import (
 class TestScribeWiktionaryTranslations(unittest.TestCase):
     def setUp(self):
         # Load real configs so test extraction covers actual filtering rules.
-        self.en_config = get_wiktionary_config("en", "English")
-        self.fr_config = get_wiktionary_config("fr", "French")
-        self.de_config = get_wiktionary_config("de", "German")
+        self.en_config = get_wiktionary_config(source_iso="en")
+        self.fr_config = get_wiktionary_config(source_iso="fr")
+        self.de_config = get_wiktionary_config(source_iso="de")
 
     def test_extract_translation_word_junk_filter(self):
         """
@@ -38,7 +38,9 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
         self.assertIsNone(word)
 
     def test_extract_junk_prefixes(self):
-        """Words starting with an ignored prefix like 'see: ' are filtered out."""
+        """
+        Words starting with an ignored prefix like 'see: ' are filtered out.
+        """
         node = mwparserfromhell.parse("{{t+|de|see: Test}}").nodes[0]
         word = _extract_translation_word(
             node, "de", "see: Test", self.en_config, frozenset(["de"])
@@ -107,7 +109,9 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
         self.assertEqual(res["de"]["verb"]["1"]["description"], "to test")
 
     def test_french_template_headers_parse(self):
-        """French-style {{S|nom|fr}} headers inside section titles are resolved to the right POS."""
+        """
+        French-style {{S|nom|fr}} headers inside section titles are resolved to the right POS.
+        """
         wikitext = """== {{langue|fr}} ==
 === {{S|nom|fr}} ===
 ==== {{S|traductions}} ====
@@ -125,7 +129,9 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
         self.assertEqual(res["en"]["noun"]["1"]["description"], "un type de mot")
 
     def test_german_ast_u_tabelle_parse(self):
-        """The Ü-Tabelle format used by German Wiktionary is parsed correctly."""
+        """
+        The Ü-Tabelle format used by German Wiktionary is parsed correctly.
+        """
         wikitext = """== Wort ({{Sprache|Deutsch}}) ==
 === {{Wortart|Substantiv|Deutsch}} ===
 {{Ü-Tabelle|Ü-Liste=
@@ -142,7 +148,9 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
         self.assertEqual(res["fr"]["noun"]["1"]["translation"], "mot")
 
     def test_extract_source_lang_section(self):
-        """The correct language section is extracted and neighbouring sections are excluded."""
+        """
+        The correct language section is extracted and neighbouring sections are excluded.
+        """
         wikitext = (
             "==English==\n===Noun===\nabc\n====Translations====\nxyz\n==French==\nhello"
         )
@@ -158,7 +166,9 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
         self.assertIn("===Verb===", section2)
 
     def test_parse_page_worker_edge_cases(self):
-        """Worker returns None for empty or untranslated pages."""
+        """
+        Worker returns None for empty or untranslated pages.
+        """
         self.assertIsNone(_parse_page_worker(("", "", frozenset(), self.en_config)))
         self.assertIsNone(
             _parse_page_worker(("test", "no translations", frozenset(), self.en_config))
@@ -236,7 +246,9 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
             )
 
     def test_empty_xml_parsing(self):
-        """An empty XML file returns an empty result without raising."""
+        """
+        An empty XML file returns an empty result without raising.
+        """
         import tempfile
         from pathlib import Path
 
@@ -262,7 +274,7 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
         from pathlib import Path
         from unittest.mock import patch
 
-        # Explicit existing path
+        # Explicit existing path.
         with tempfile.NamedTemporaryFile(
             suffix="-pages-articles.xml.bz2", delete=False
         ) as tmp:
@@ -272,7 +284,7 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
             path, iso = _resolve_dump_path(tmp_path, ".")
             self.assertEqual(path, Path(tmp_path).resolve())
 
-            # Mock the interactive questionary prompt specifically to skip the download process
+            # Mock the interactive questionary prompt specifically to skip the download process.
             with patch("questionary.select") as mock_select:
                 mock_select.return_value.ask.return_value = "No"
                 # Missing path falls back to None.
@@ -286,7 +298,9 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
             Path(tmp_path).unlink()
 
     def test_get_output_subdir(self):
-        """Top-level languages map to their lowercase name; sub-languages include their parent."""
+        """
+        Top-level languages map to their lowercase name; sub-languages include their parent.
+        """
         meta = {
             "english": {"iso": "en"},
             "chinese": {
