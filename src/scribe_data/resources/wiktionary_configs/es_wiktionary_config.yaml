@@ -1,22 +1,13 @@
 # ATTN: WIP
 engine: ast_trans_top
-translations_header: translations
+lang_header_pattern: \(\{\{lengua\|es\}\}\)
+translations_header: Traducciones
 prefilters:
-- translation
-- Translation
+- trad-arriba
 - '{{t'
 - '{{T'
 ignored_prefixes:
-- 'see:'
-- 'see '
-- 'use:'
-- 'use '
-- 'prefix '
-- 'suffix '
-- usually expressed
-- expressed with
-- -prefix
-- -suffix
+- 'ver:'
 ignored_strings:
 - please add this translation if you can
 - script needed
@@ -41,11 +32,11 @@ pos_map:
   proper noun: proper_noun
   proper name: proper_noun
   name: proper_noun
+  sustantivo masculino: noun
+  sustantivo feminino: noun
 template_top:
-- trans-top
-- trans-top-also
-- checktrans-top
-template_bottom: trans-bottom
+- trad-arriba
+template_bottom: trad-abajo
 template_translation:
 - t
 - t+
