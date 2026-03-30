@@ -28,7 +28,7 @@ dependencies = [
     "packaging==26.0",
     "pyyaml==6.0.3",
     "questionary==2.1.1",
-    "requests==2.33.0",
+    "requests==2.33.1",
     "rich==14.3.3",
     "sparqlwrapper==2.0.0",
     "tqdm==4.67.3",
