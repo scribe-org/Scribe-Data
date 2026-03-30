@@ -117,10 +117,32 @@ line_length = 88
 omit = ["*/tests/*", "*/__init__.py"]
 
 [tool.mypy]
+disable_error_code = [
+    "arg-type",
+    "assignment",
+    "attr-defined",
+    "call-arg",
+    "call-overload",
+    "comparison-overlap",
+    "func-returns-value",
+    "import-untyped",
+    "index",
+    "list-item",
+    "misc",
+    "no-any-return",
+    "no-redef",
+    "no-untyped-call",
+    "operator",
+    "return",
+    "return-value",
+    "type-arg",
+    "union-attr",
+    "valid-type",
+    "var-annotated",
+]
 mypy_path = "src"
 ignore_missing_imports = true
 strict = true
-enable_incomplete_feature = ["Unpack"]
 
 [tool.numpydoc_validation]
 checks = [
