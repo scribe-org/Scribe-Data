@@ -19,7 +19,7 @@ from scribe_data.utils import (
 )
 
 
-def get_available_filename(base_path:str)->str:
+def get_available_filename(base_path: str) -> str:
     """
     Find the next available filename by incrementing counter if file exists.
 

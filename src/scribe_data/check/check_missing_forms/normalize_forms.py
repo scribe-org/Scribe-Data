@@ -7,7 +7,7 @@ from scribe_data.utils import lexeme_form_metadata
 
 
 # Precompute QID positions mapping only once when the module is imported.
-def sort_qids_in_list(qids_lists: list[list[str]]) ->list[list[str]]:
+def sort_qids_in_list(qids_lists: list[list[str]]) -> list[list[str]]:
     """
     Sort QIDs within each sublist based on their predefined positions.
 
@@ -64,7 +64,7 @@ def sort_qids_by_position(nested_qids: list[list[str]]) -> list[list[str]]:
                 # Category index * 1000 ensures different categories don't overlap
                 qid_positions[item["qid"]] = category_index * 1000 + len(qid_positions)
 
-    def get_sort_key(sublist:list)->list:
+    def get_sort_key(sublist: list) -> list:
         """
         Get a key to sort the forms list.
 

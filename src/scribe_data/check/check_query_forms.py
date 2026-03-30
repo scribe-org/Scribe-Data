@@ -96,7 +96,7 @@ def extract_form_rep_label(form_text: str) -> str | None:
 # MARK: Decompose Label
 
 
-def decompose_label_features(label:str)->list:
+def decompose_label_features(label: str) -> list:
     """
     Decompose a concatenated grammatical label into a list of individual features.
 
@@ -226,7 +226,7 @@ def check_query_formatting(form_text: str) -> bool:
 # MARK: Correct Label
 
 
-def return_correct_form_label(qids: list[str])->str:
+def return_correct_form_label(qids: list[str]) -> str:
     """
     Return the correct label for a lexeme form representation given the QIDs that compose it.
 
@@ -441,7 +441,7 @@ def check_forms_order(query_text: str) -> list | bool | str:
         grouped_columns.setdefault(len(col), []).append(col)
 
     # Sorting function for multi-level component-based sorting.
-    def compare_key(components:list[str])->list[str]:
+    def compare_key(components: list[str]) -> list[str]:
         """
         Get a key to compare via its component parts to see if it's included.
 

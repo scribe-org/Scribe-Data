@@ -25,8 +25,8 @@ def parse_wd_lexeme_dump(
     type_output_dir: str = None,
     wikidata_dump_path: str = None,
     overwrite_all: bool = False,
-    interactive_mode : bool = False,
-)->None:
+    interactive_mode: bool = False,
+) -> None:
     """
     Check for the existence of a Wikidata lexeme dump and parses it if possible.
 

@@ -217,7 +217,9 @@ def print_total_lexemes(language: str | None = None) -> None:
 # MARK: Get Total
 
 
-def get_total_lexemes(language:str, data_type:str, do_print:bool=True) -> int|None:
+def get_total_lexemes(
+    language: str, data_type: str, do_print: bool = True
+) -> int | None:
     """
     Get the total number of lexemes for a given language and data type from Wikidata.
 

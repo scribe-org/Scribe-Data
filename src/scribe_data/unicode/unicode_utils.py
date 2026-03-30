@@ -25,7 +25,7 @@ def get_emojis_to_ignore() -> str:
     """
 
 
-def get_emoji_codes_to_ignore() ->list[bytes]:
+def get_emoji_codes_to_ignore() -> list[bytes]:
     """
     Return a list of emojis codes based on relationships that we want to remove from emoji suggestions.
 

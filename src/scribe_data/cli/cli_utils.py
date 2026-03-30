@@ -128,7 +128,9 @@ def validate_language_and_data_type(
         If any of the languages or data types is invalid, with all errors reported together.
     """
 
-    def validate_single_item(item: str, valid_options: list, item_type: str) -> str | None:
+    def validate_single_item(
+        item: str, valid_options: list, item_type: str
+    ) -> str | None:
         """
         Validate a single item against a list of valid options, providing error messages and suggestions.
 

@@ -466,7 +466,9 @@ def list_all_languages(language_metadata: dict = _languages) -> list[str]:
     return sorted(current_languages)
 
 
-def list_languages_with_metadata_for_data_type(language_metadata: dict = _languages) -> list[dict]:
+def list_languages_with_metadata_for_data_type(
+    language_metadata: dict = _languages,
+) -> list[dict]:
     """
     Return a sorted list of languages and their metadata (name, iso, qid) for a specific data type.
 
@@ -662,7 +664,7 @@ def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
     return False
 
 
-def check_qid_is_language(qid: str)-> str:
+def check_qid_is_language(qid: str) -> str:
     """
     Check to see if a Wikidata QID is a language or not.
 

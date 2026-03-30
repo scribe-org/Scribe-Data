@@ -112,7 +112,9 @@ def download_wheel_file(wheel_url: str, output_dir: str) -> str:
     return wheel_path
 
 
-def find_matching_wheel(wheels: list[tuple[str, str]], python_version: str, architecture: str) -> str | None:
+def find_matching_wheel(
+    wheels: list[tuple[str, str]], python_version: str, architecture: str
+) -> str | None:
     """
     Find the matching wheel file based on Python version and architecture.
 

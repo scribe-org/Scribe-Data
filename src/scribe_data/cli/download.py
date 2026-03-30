@@ -50,7 +50,9 @@ def parse_date(date_string: str) -> str | None:
 
 
 def available_closest_lexeme_dumpfile(
-    target_entity: str, other_old_dumps: list, check_wd_dump_exists: Callable[[str], str | None]
+    target_entity: str,
+    other_old_dumps: list,
+    check_wd_dump_exists: Callable[[str], str | None],
 ) -> str | None:
     """
     Find the closest available dump file based on the target date.
@@ -99,7 +101,7 @@ def available_closest_lexeme_dumpfile(
         return closest_date
 
 
-def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str|None:
+def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str | None:
     """
     Download a Wikimedia lexeme dump based on the specified target entity or date.
 
@@ -119,7 +121,7 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str|None:
     """
     base_url = "https://dumps.wikimedia.org/wikidatawiki/entities"
 
-    def check_wd_dump_exists(target_entity:str)-> str|None:
+    def check_wd_dump_exists(target_entity: str) -> str | None:
         """
         Check if the specified dump file exists for a target entity.
 

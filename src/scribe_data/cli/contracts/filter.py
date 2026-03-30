@@ -226,7 +226,7 @@ def filter_exported_data(
 
 def export_data_filtered_by_contracts(
     contracts_dir: str = None, input_dir: str = None, output_dir: str = None
-) ->None:
+) -> None:
     """
     Export contract-filtered data to a new directory with a standardized structure.
 

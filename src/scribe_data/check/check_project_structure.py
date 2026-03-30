@@ -150,7 +150,7 @@ def check_data_type_folders(
                     )
 
 
-def check_project_structure()->None:
+def check_project_structure() -> None:
     """
     Validate that all directories follow the expected project structure and check for unexpected files and directories.
 

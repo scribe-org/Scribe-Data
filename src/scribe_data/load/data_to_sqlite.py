@@ -23,7 +23,9 @@ from scribe_data.utils import (
 )
 
 
-def create_table(cursor: sqlite3.Cursor, identifier_case: str, data_type: str, cols: list[str]) -> None:
+def create_table(
+    cursor: sqlite3.Cursor, identifier_case: str, data_type: str, cols: list[str]
+) -> None:
     """
     Create a table in the language database.
 

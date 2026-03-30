@@ -96,7 +96,7 @@ def get_data(
 
     # MARK: Get All
 
-    def prompt_user_download_all()->bool:
+    def prompt_user_download_all() -> bool:
         """
         Check with the user if they'd rather use Wikidata lexeme dumps before a download all call.
 

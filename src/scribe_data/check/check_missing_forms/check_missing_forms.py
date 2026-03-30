@@ -427,9 +427,7 @@ def get_features_from_sparql_service(
     return dict(filtered_features) if filtered_features else None
 
 
-def process_missing_features(
-    missing_features: dict, query_dir: str | Path
-) -> None:
+def process_missing_features(missing_features: dict, query_dir: str | Path) -> None:
     """
     Generate SPARQL queries for missing features by language and data type.
 

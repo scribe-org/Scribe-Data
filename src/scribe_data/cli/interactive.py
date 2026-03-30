@@ -49,7 +49,7 @@ class ScribeDataConfig:
     Class for the configuration of the interactive mode.
     """
 
-    def __init__(self) ->None:
+    def __init__(self) -> None:
         """
         Configure the interactive mode.
         """
@@ -72,7 +72,7 @@ config = ScribeDataConfig()
 # MARK: Summary
 
 
-def display_summary()->None:
+def display_summary() -> None:
     """
     Display a summary of the interactive mode request to run.
     """
@@ -124,7 +124,6 @@ def create_word_completer(
 
 
 def prompt_for_languages() -> None:
-
     """
     Request language and data type for lexeme totals.
 
@@ -193,7 +192,6 @@ def prompt_for_data_types() -> None:
 
 
 def configure_settings() -> None:
-
     """
     Configure the settings of the interactive mode request.
 

@@ -149,7 +149,7 @@ def validate_language_properties(languages_dict: dict) -> dict:
     return {"missing_qids": missing_qids, "missing_isos": missing_isos}
 
 
-def check_language_metadata()->None:
+def check_language_metadata() -> None:
     """
     Validate language metadata by performing various checks.
 

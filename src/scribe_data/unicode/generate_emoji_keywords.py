@@ -17,7 +17,7 @@ DATA_TYPE = "emoji-keywords"
 EMOJI_KEYWORDS_DICT = 9
 
 
-def generate_emoji(language:str, output_dir: str = None)->None:
+def generate_emoji(language: str, output_dir: str = None) -> None:
     """
     Generate emoji keywords for a specified language.
 

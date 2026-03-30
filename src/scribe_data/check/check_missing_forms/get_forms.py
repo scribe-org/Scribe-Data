@@ -49,7 +49,7 @@ def parse_sparql_files() -> dict:
     return all_forms
 
 
-def parse_sparql_query(query_text:str)->dict:
+def parse_sparql_query(query_text: str) -> dict:
     """
     Parse a SPARQL query to extract lexical categories and features.
 
