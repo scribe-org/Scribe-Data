@@ -379,7 +379,7 @@ def export_formatted_data(
     )
 
 
-def format_sublanguage_name(lang, language_metadata=_languages):
+def format_sublanguage_name(lang: str, language_metadata: dict = _languages) -> str:
     """
     Format the name of a sub-language by appending its main language in the format 'SUB_LANG MAIN_LANG'.
 
@@ -435,7 +435,7 @@ def format_sublanguage_name(lang, language_metadata=_languages):
     raise ValueError(f"{lang.capitalize()} is not a valid language or sub-language.")
 
 
-def list_all_languages(language_metadata=_languages):
+def list_all_languages(language_metadata: dict = _languages) -> list[str]:
     """
     Return a sorted list of all languages and sub-languages from the provided metadata dictionary.
 
@@ -466,7 +466,7 @@ def list_all_languages(language_metadata=_languages):
     return sorted(current_languages)
 
 
-def list_languages_with_metadata_for_data_type(language_metadata=_languages):
+def list_languages_with_metadata_for_data_type(language_metadata: dict = _languages) -> list[dict]:
     """
     Return a sorted list of languages and their metadata (name, iso, qid) for a specific data type.
 
@@ -536,7 +536,7 @@ def camel_to_snake(name: str) -> str:
 # MARK: Check Dump
 
 
-def check_lexeme_dump_prompt_download(output_dir: str):
+def check_lexeme_dump_prompt_download(output_dir: str) -> bool | Path | None:
     """
     Check to see if a Wikidata lexeme dump exists and prompts the user to download one if not.
 
@@ -662,7 +662,7 @@ def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
     return False
 
 
-def check_qid_is_language(qid: str):
+def check_qid_is_language(qid: str)-> str:
     """
     Check to see if a Wikidata QID is a language or not.
 
@@ -699,7 +699,7 @@ def check_qid_is_language(qid: str):
     raise ValueError("The passed Wikidata QID is not a language.")
 
 
-def get_language_iso_code(qid: str):
+def get_language_iso_code(qid: str) -> str:
     """
     Get the language ISO code from a Wikidata QID identifying a language.
 

@@ -15,7 +15,7 @@ from scribe_data.utils import (
 )
 
 
-def format_data(dir_path: str, language: str, data_type: str):
+def format_data(dir_path: str, language: str, data_type: str) ->None :
     """
     Format data queried from the Wikidata Query Service.
 

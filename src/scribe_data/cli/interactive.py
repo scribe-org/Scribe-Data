@@ -49,7 +49,7 @@ class ScribeDataConfig:
     Class for the configuration of the interactive mode.
     """
 
-    def __init__(self):
+    def __init__(self) ->None:
         """
         Configure the interactive mode.
         """
@@ -72,7 +72,7 @@ config = ScribeDataConfig()
 # MARK: Summary
 
 
-def display_summary():
+def display_summary()->None:
     """
     Display a summary of the interactive mode request to run.
     """
@@ -123,7 +123,8 @@ def create_word_completer(
 # MARK: Language Selection
 
 
-def prompt_for_languages():
+def prompt_for_languages() -> None:
+
     """
     Request language and data type for lexeme totals.
 
@@ -157,7 +158,7 @@ def prompt_for_languages():
 # MARK: Data Type Selection
 
 
-def prompt_for_data_types():
+def prompt_for_data_types() -> None:
     """
     Prompt the user to select data types.
 
@@ -191,7 +192,8 @@ def prompt_for_data_types():
         rprint("[yellow]No data type selected. Please try again.[/yellow]")
 
 
-def configure_settings():
+def configure_settings() -> None:
+
     """
     Configure the settings of the interactive mode request.
 
@@ -242,7 +244,7 @@ def configure_settings():
     display_summary()
 
 
-def run_request():
+def run_request() -> None:
     """
     Execute the interactive mode request based on current configuration.
 
@@ -293,7 +295,7 @@ def run_request():
         rprint("[bold green]Data request completed successfully![/bold green]")
 
 
-def request_total_lexeme_loop():
+def request_total_lexeme_loop() -> None:
     """
     Continuously prompts for lexeme requests until exit.
     """
@@ -371,7 +373,7 @@ def request_total_lexeme_loop():
 # MARK: Start
 
 
-def start_interactive_mode(operation: str = None):
+def start_interactive_mode(operation: str | None = None) -> None:
     """
     Entry point for interactive mode.
 

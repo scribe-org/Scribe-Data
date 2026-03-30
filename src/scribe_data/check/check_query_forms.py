@@ -72,7 +72,7 @@ def extract_forms_from_sparql(file_path: Path) -> str:
 # MARK: Extract Label
 
 
-def extract_form_rep_label(form_text: str):
+def extract_form_rep_label(form_text: str) -> str | None:
     """
     Extract the representation label from an optional query form.
 
@@ -96,7 +96,7 @@ def extract_form_rep_label(form_text: str):
 # MARK: Decompose Label
 
 
-def decompose_label_features(label):
+def decompose_label_features(label:str)->list:
     """
     Decompose a concatenated grammatical label into a list of individual features.
 
@@ -134,7 +134,7 @@ def decompose_label_features(label):
 # MARK: Extract QIDs
 
 
-def extract_form_qids(form_text: str):
+def extract_form_qids(form_text: str) -> list[str] | None:
     """
     Extract all QIDs from an optional query form.
 
@@ -156,7 +156,7 @@ def extract_form_qids(form_text: str):
 # MARK: Check Label
 
 
-def check_form_label(form_text: str):
+def check_form_label(form_text: str) -> bool:
     """
     Check that the label of the form matches the representation label.
 
@@ -198,7 +198,7 @@ def check_form_label(form_text: str):
 # MARK: Check Format
 
 
-def check_query_formatting(form_text: str):
+def check_query_formatting(form_text: str) -> bool:
     """
     Check the formatting of the given SPARQL query text for common formatting issues.
 
@@ -226,7 +226,7 @@ def check_query_formatting(form_text: str):
 # MARK: Correct Label
 
 
-def return_correct_form_label(qids: list):
+def return_correct_form_label(qids: list[str])->str:
     """
     Return the correct label for a lexeme form representation given the QIDs that compose it.
 
@@ -401,7 +401,7 @@ def check_docstring(query_text: str) -> bool:
 # MARK: Variable Order
 
 
-def check_forms_order(query_text):
+def check_forms_order(query_text: str) -> list | bool | str:
     """
     Parse and order variable names from a SPARQL query text based on a lexeme_form_metadata.yaml.
 
@@ -441,7 +441,7 @@ def check_forms_order(query_text):
         grouped_columns.setdefault(len(col), []).append(col)
 
     # Sorting function for multi-level component-based sorting.
-    def compare_key(components):
+    def compare_key(components:list[str])->list[str]:
         """
         Get a key to compare via its component parts to see if it's included.
 

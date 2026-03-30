@@ -25,7 +25,13 @@ SUB_DIRECTORIES = {
 }
 
 
-def check_for_sparql_files(folder_path, data_type, language, subdir, missing_queries):
+def check_for_sparql_files(
+    folder_path: str,
+    data_type: str,
+    language: str,
+    subdir: str | None,
+    missing_queries: list,
+) -> bool:
     """
     Check if a data-type folder contains at least one .sparql file.
 
@@ -64,8 +70,13 @@ def check_for_sparql_files(folder_path, data_type, language, subdir, missing_que
 
 
 def check_data_type_folders(
-    path, language, subdir, errors, missing_folders, missing_queries
-):
+    path: str,
+    language: str,
+    subdir: str | None,
+    errors: list,
+    missing_folders: list,
+    missing_queries: list,
+) -> None:
     """
     Validate the contents of data type folders within a language directory.
 
@@ -139,7 +150,7 @@ def check_data_type_folders(
                     )
 
 
-def check_project_structure():
+def check_project_structure()->None:
     """
     Validate that all directories follow the expected project structure and check for unexpected files and directories.
 

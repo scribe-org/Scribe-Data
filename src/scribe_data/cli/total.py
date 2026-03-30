@@ -21,7 +21,7 @@ from scribe_data.utils import (
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump, sparql
 
 
-def get_qid_by_input(input_str):
+def get_qid_by_input(input_str: str | None) -> str | None:
     """
     Retrieve the QID for a given language or data type input string.
 
@@ -45,7 +45,7 @@ def get_qid_by_input(input_str):
     return None
 
 
-def get_datatype_list(language):
+def get_datatype_list(language: str) -> list | dict:
     """
     Get the data types for a given language based on the project directory structure.
 
@@ -110,7 +110,7 @@ def get_datatype_list(language):
 # MARK: Print
 
 
-def print_total_lexemes(language: str = None):
+def print_total_lexemes(language: str | None = None) -> None:
     """
     Print the total number of available entities for all data types.
 
@@ -217,7 +217,7 @@ def print_total_lexemes(language: str = None):
 # MARK: Get Total
 
 
-def get_total_lexemes(language, data_type, do_print=True):
+def get_total_lexemes(language:str, data_type:str, do_print:bool=True) -> int|None:
     """
     Get the total number of lexemes for a given language and data type from Wikidata.
 

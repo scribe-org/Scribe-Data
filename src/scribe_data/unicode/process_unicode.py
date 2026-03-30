@@ -28,7 +28,7 @@ emoji_codes_to_ignore = get_emoji_codes_to_ignore()
 def gen_emoji_lexicon(
     language: str,
     emojis_per_keyword: int,
-):
+) -> dict[str,list]:
     """
     Generate a dictionary of keywords (keys) and emoji unicode(s) associated with them (values).
 

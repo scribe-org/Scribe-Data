@@ -23,7 +23,7 @@ from scribe_data.utils import (
 )
 
 
-def create_table(cursor, identifier_case, data_type, cols):
+def create_table(cursor: sqlite3.Cursor, identifier_case: str, data_type: str, cols: list[str]) -> None:
     """
     Create a table in the language database.
 
@@ -60,7 +60,7 @@ def create_table(cursor, identifier_case, data_type, cols):
     cursor.execute(sql_statement)
 
 
-def table_insert(cursor, data_type, keys):
+def table_insert(cursor: sqlite3.Cursor, data_type: str, keys: list) -> None:
     """
     Insert a row into a language database table.
 
@@ -79,13 +79,13 @@ def table_insert(cursor, data_type, keys):
 
 
 def translations_to_sqlite(
-    language_data_type_dict,
-    current_languages,
-    identifier_case="snake",
-    input_file=DEFAULT_JSON_EXPORT_DIR,
-    output_file=DEFAULT_SQLITE_EXPORT_DIR,
+    language_data_type_dict: dict,
+    current_languages: list,
+    identifier_case: str = "snake",
+    input_file: str = DEFAULT_JSON_EXPORT_DIR,
+    output_file: str = DEFAULT_SQLITE_EXPORT_DIR,
     overwrite: bool = False,
-):
+) -> None:
     """
     Derive translations to create a TranslationData.sqlite file that contains a table for each language.
 
