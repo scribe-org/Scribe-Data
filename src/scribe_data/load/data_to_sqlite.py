@@ -228,7 +228,8 @@ def data_to_sqlite(
     for lang in languages:
         lang_dir = Path(input_file) / "/".join(reversed(lang.split()))
         if lang_dir.is_dir():
-            language_data_type_dict[lang] = [                f.split(".json")[0]
+            language_data_type_dict[lang] = [
+                f.split(".json")[0]
                 for f in os.listdir(lang_dir)
                 if f.split(".json")[0] in (specific_tables or data_types)
             ]
@@ -260,7 +261,8 @@ def data_to_sqlite(
         )
         # Remove "translations" from each language's list so we don't create extra language-specific DBs
         for lang in language_data_type_dict:
-            language_data_type_dict[lang] = [                dt for dt in language_data_type_dict[lang] if dt != "translations"
+            language_data_type_dict[lang] = [
+                dt for dt in language_data_type_dict[lang] if dt != "translations"
             ]
 
     languages_capitalized = [lang.capitalize() for lang in languages]
@@ -311,13 +313,15 @@ def data_to_sqlite(
                 with open(json_file_path, "r", encoding="utf-8") as f:
                     json_data = json.load(f)
 
-                if dt in [                    key
+                if dt in [
+                    key
                     for key in data_type_metadata.keys()
                     if key not in ["translations"]
                 ]:
                     cols = ["wdLexemeId"]
 
-                    all_elem_keys = [                        json_data[k].keys() for k in list(json_data.keys())
+                    all_elem_keys = [
+                        json_data[k].keys() for k in list(json_data.keys())
                     ]
                     all_keys_flat = list({k for ks in all_elem_keys for k in ks})
 
@@ -327,7 +331,8 @@ def data_to_sqlite(
 
                     for row in json_data:
                         keys = [row]
-                        keys += [                            json_data[row][col_name]
+                        keys += [
+                            json_data[row][col_name]
                             if col_name in json_data[row]
                             else None
                             for col_name in cols[1:]
@@ -349,15 +354,14 @@ def data_to_sqlite(
                     cursor.execute(f"DELETE FROM {dt}")  # clear existing data
                     for row in json_data:
                         keys = [row]
-                        keys += [                            json_data[row][i]["emoji"]
+                        keys += [
+                            json_data[row][i]["emoji"]
                             for i in range(len(json_data[row]))
                         ]
                         keys += [""] * (len(cols) - len(keys))
                         table_insert(cursor, data_type=dt, keys=keys)
 
                 connection.commit()
-
-        
 
             connection.close()
             print(f"{lang.capitalize()} database processing completed.")
