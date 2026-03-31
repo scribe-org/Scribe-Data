@@ -3,7 +3,8 @@
 Tests for the CLI dump functionality.
 """
 
-from unittest.mock import mock_open, patch
+from pathlib import Path
+from unittest.mock import mock_open, patch, MagicMock
 
 import orjson
 import pytest
@@ -52,7 +53,7 @@ Sample_Lexeme_Line = """
 
 
 @pytest.fixture
-def lexeme_processor():
+def lexeme_processor() -> LexemeProcessor:
     return LexemeProcessor(
         target_lang=["english"],
         parse_type=["translations", "form"],
@@ -60,7 +61,7 @@ def lexeme_processor():
     )
 
 
-def test_lexeme_processor_initialization(lexeme_processor):
+def test_lexeme_processor_initialization(lexeme_processor: LexemeProcessor) -> None:
     """
     Test LexemeProcessor initialization with basic parameters.
     """
@@ -72,7 +73,9 @@ def test_lexeme_processor_initialization(lexeme_processor):
 
 @patch("builtins.open", new_callable=mock_open, read_data=Sample_Lexeme_Line)
 @patch("bz2.open")
-def test_process_file(mock_bz2_open, mock_file, lexeme_processor):
+def test_process_file(
+    mock_bz2_open: MagicMock, mock_file: MagicMock, lexeme_processor: LexemeProcessor
+) -> None:
     """
     Test processing a file with sample lexeme data.
     """
@@ -88,7 +91,7 @@ def test_process_file(mock_bz2_open, mock_file, lexeme_processor):
 
 
 @patch("scribe_data.wikidata.parse_dump.LexemeProcessor")
-def test_parse_dump(mock_processor):
+def test_parse_dump(mock_processor: MagicMock) -> None:
     """
     Test the parse_dump function.
     """
@@ -104,7 +107,9 @@ def test_parse_dump(mock_processor):
 @patch("scribe_data.wikidata.wikidata_utils.Path")
 @patch("scribe_data.wikidata.wikidata_utils.wd_lexeme_dump_download_wrapper")
 @patch("scribe_data.wikidata.wikidata_utils.parse_dump")
-def test_parse_wd_lexeme_dump(mock_parse_dump, mock_download, mock_path_class):
+def test_parse_wd_lexeme_dump(
+    mock_parse_dump: MagicMock, mock_download: MagicMock, mock_path_class: MagicMock
+) -> None:
     """
     Test the parse_wd_lexeme_dump function.
     """
@@ -156,7 +161,7 @@ def test_parse_wd_lexeme_dump(mock_parse_dump, mock_download, mock_path_class):
     assert kwargs["data_types"] == ["nouns"]
 
 
-def test_parse_wd_lexeme_dump_no_file():
+def test_parse_wd_lexeme_dump_no_file() -> None:
     """
     Test parse_wd_lexeme_dump when no file is found.
     """
@@ -183,7 +188,7 @@ def test_parse_wd_lexeme_dump_no_file():
         ({"total": True}, True),
     ],
 )
-def test_parse_types(test_input, expected):
+def test_parse_types(test_input: dict[str, bool], expected: bool) -> None:
     """
     Test different parse types.
     """
@@ -196,7 +201,9 @@ def test_parse_types(test_input, expected):
     )
 
 
-def test_export_translations_json(lexeme_processor, tmp_path):
+def test_export_translations_json(
+    lexeme_processor: LexemeProcessor, tmp_path: Path
+) -> None:
     """
     Test exporting translations to JSON.
     """
@@ -213,7 +220,7 @@ def test_export_translations_json(lexeme_processor, tmp_path):
     assert output_file.parent.exists()
 
 
-def test_export_forms_json(lexeme_processor, tmp_path):
+def test_export_forms_json(lexeme_processor: LexemeProcessor, tmp_path: Path) -> None:
     """
     Test exporting forms to JSON.
     """
@@ -230,7 +237,7 @@ def test_export_forms_json(lexeme_processor, tmp_path):
 
 
 @pytest.fixture
-def mock_lexeme_data():
+def mock_lexeme_data() -> dict[str, object]:
     return {
         "id": "L1",
         "lemmas": {"en": {"value": "test", "language": "en"}},
@@ -248,7 +255,7 @@ def mock_lexeme_data():
     }
 
 
-def test_process_lines_invalid_json(lexeme_processor):
+def test_process_lines_invalid_json(lexeme_processor: LexemeProcessor) -> None:
     """
     Test handling of invalid JSON input.
     """
@@ -257,7 +264,7 @@ def test_process_lines_invalid_json(lexeme_processor):
     assert lexeme_processor.stats["processed_entries"] == 0
 
 
-def test_process_lines_invalid_category(lexeme_processor):
+def test_process_lines_invalid_category(lexeme_processor: LexemeProcessor) -> None:
     """
     Test handling of invalid lexical category.
     """
@@ -326,7 +333,9 @@ def test_process_lines_invalid_category(lexeme_processor):
         (["INVALID"], ""),  # Invalid feature
     ],
 )
-def test_form_label_variations(lexeme_processor, features, expected):
+def test_form_label_variations(
+    lexeme_processor: LexemeProcessor, features: list[str], expected: str
+) -> None:
     """
     Test form label generation with diverse feature combinations.
     Covers various grammatical categories like:
@@ -349,7 +358,7 @@ def test_form_label_variations(lexeme_processor, features, expected):
         assert result.lower() == expected.lower(), f"Failed for features {features}"
 
 
-def test_process_batch_empty(lexeme_processor):
+def test_process_batch_empty(lexeme_processor: LexemeProcessor) -> None:
     """
     Test processing an empty batch.
     """
@@ -357,7 +366,9 @@ def test_process_batch_empty(lexeme_processor):
     assert lexeme_processor.stats["processed_entries"] == 0
 
 
-def test_process_forms_multiple_representations(lexeme_processor, mock_lexeme_data):
+def test_process_forms_multiple_representations(
+    lexeme_processor: LexemeProcessor, mock_lexeme_data: dict[str, object]
+) -> None:
     """
     Test processing forms with multiple representations.
     """
@@ -388,7 +399,7 @@ def test_process_forms_multiple_representations(lexeme_processor, mock_lexeme_da
         (["translations", "form", "total"], 3),
     ],
 )
-def test_parse_type_combinations(parse_type, expected_count):
+def test_parse_type_combinations(parse_type: list[str], expected_count: int) -> None:
     """
     Test different combinations of parse types.
     """
@@ -398,7 +409,9 @@ def test_parse_type_combinations(parse_type, expected_count):
     assert len(processor.parse_type) == expected_count
 
 
-def test_export_translations_invalid_language(lexeme_processor, tmp_path):
+def test_export_translations_invalid_language(
+    lexeme_processor: LexemeProcessor, tmp_path: Path
+) -> None:
     """
     Test exporting translations with invalid language.
     """
@@ -407,7 +420,9 @@ def test_export_translations_invalid_language(lexeme_processor, tmp_path):
     assert not output_file.exists()
 
 
-def test_export_forms_empty_data(lexeme_processor, tmp_path):
+def test_export_forms_empty_data(
+    lexeme_processor: LexemeProcessor, tmp_path: Path
+) -> None:
     """
     Test exporting forms when no data exists.
     """
@@ -416,7 +431,7 @@ def test_export_forms_empty_data(lexeme_processor, tmp_path):
     assert not output_file.exists()
 
 
-def test_process_lines_unrecognized_qids(lexeme_processor):
+def test_process_lines_unrecognized_qids(lexeme_processor: LexemeProcessor) -> None:
     """
     Test processing lexeme data with unrecognized QIDs in grammatical features.
     Ensure these forms are skipped without causing errors.
@@ -447,7 +462,7 @@ def test_process_lines_unrecognized_qids(lexeme_processor):
         assert not form_values
 
 
-def test_process_lines_mixed_qids(lexeme_processor):
+def test_process_lines_mixed_qids(lexeme_processor: LexemeProcessor) -> None:
     """
     Test processing lexeme data with a mix of recognized and unrecognized QIDs.
     Ensure only forms with valid QIDs are processed.
@@ -478,7 +493,9 @@ def test_process_lines_mixed_qids(lexeme_processor):
         assert len(form_values) == 1
 
 
-def test_form_label_cache_with_unrecognized_qids(lexeme_processor):
+def test_form_label_cache_with_unrecognized_qids(
+    lexeme_processor: LexemeProcessor,
+) -> None:
     """
     Test that the form label cache works correctly with unrecognized QIDs.
     This ensures that repeated calls don't process invalid QIDs multiple times.
@@ -532,7 +549,7 @@ def test_form_label_cache_with_unrecognized_qids(lexeme_processor):
     )
 
 
-def test_process_lines_empty_line(lexeme_processor):
+def test_process_lines_empty_line(lexeme_processor: LexemeProcessor) -> None:
     """
     Test processing empty lines.
     """
@@ -540,7 +557,9 @@ def test_process_lines_empty_line(lexeme_processor):
     assert lexeme_processor.stats["processed_entries"] == 0
 
 
-def test_process_lines_missing_required_fields(lexeme_processor):
+def test_process_lines_missing_required_fields(
+    lexeme_processor: LexemeProcessor,
+) -> None:
     """
     Test processing lexeme with missing required fields.
     """
@@ -553,7 +572,7 @@ def test_process_lines_missing_required_fields(lexeme_processor):
     assert "L1" not in lexeme_processor.forms_index
 
 
-def test_process_forms_with_duplicate_values(lexeme_processor):
+def test_process_forms_with_duplicate_values(lexeme_processor: LexemeProcessor) -> None:
     """
     Test processing forms with duplicate values.
     """
@@ -586,7 +605,9 @@ def test_process_forms_with_duplicate_values(lexeme_processor):
     assert len(forms["nouns"]) >= 1  # at least one form plus lastModified
 
 
-def test_process_totals_with_data_type_filter(lexeme_processor):
+def test_process_totals_with_data_type_filter(
+    lexeme_processor: LexemeProcessor,
+) -> None:
     """
     Test processing totals with data type filter.
     """

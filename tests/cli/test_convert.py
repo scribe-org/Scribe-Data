@@ -39,7 +39,7 @@ class TestConvert(unittest.TestCase):
     # MARK: JSON
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_empty_language(self, mock_path):
+    def test_convert_to_json_empty_language(self, mock_path: MagicMock) -> None:
         csv_data = "key,value\na,1\nb,2"
         mock_file = StringIO(csv_data)
 
@@ -61,7 +61,7 @@ class TestConvert(unittest.TestCase):
         self.assertIn("Language '' is not recognized.", str(context.exception))
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_with_input_file(self, mock_path):
+    def test_convert_to_json_with_input_file(self, mock_path: MagicMock) -> None:
         csv_data = "key,value\na,1\nb,2"
         mock_file = StringIO(csv_data)
 
@@ -85,7 +85,9 @@ class TestConvert(unittest.TestCase):
         mock_path_obj.open.assert_called_once_with("r", encoding="utf-8")
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_supported_file_extension_csv(self, mock_path_class):
+    def test_convert_to_json_supported_file_extension_csv(
+        self, mock_path_class: MagicMock
+    ) -> None:
         mock_path_instance = MagicMock(spec=Path)
 
         mock_path_class.return_value = mock_path_instance
@@ -103,7 +105,9 @@ class TestConvert(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_supported_file_extension_tsv(self, mock_path_class):
+    def test_convert_to_json_supported_file_extension_tsv(
+        self, mock_path_class: MagicMock
+    ) -> None:
         mock_path_instance = MagicMock(spec=Path)
 
         mock_path_class.return_value = mock_path_instance
@@ -121,7 +125,9 @@ class TestConvert(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_unsupported_file_extension(self, mock_path):
+    def test_convert_to_json_unsupported_file_extension(
+        self, mock_path: MagicMock
+    ) -> None:
         mock_path_obj = MagicMock(spec=Path)
         mock_path.return_value = mock_path_obj
 
@@ -145,7 +151,7 @@ class TestConvert(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_standard_csv(self, mock_path_class):
+    def test_convert_to_json_standard_csv(self, mock_path_class: MagicMock) -> None:
         csv_data = "key,value\na,1\nb,2"
         expected_json = {"a": "1", "b": "2"}
         mock_file_obj = StringIO(csv_data)
@@ -185,7 +191,9 @@ class TestConvert(unittest.TestCase):
         self.assertEqual(json.loads(written_data), expected_json)
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_with_multiple_keys(self, mock_path_class):
+    def test_convert_to_json_with_multiple_keys(
+        self, mock_path_class: MagicMock
+    ) -> None:
         csv_data = "key,value1,value2\na,1,x\nb,2,y\nc,3,z"
         expected_json = {
             "a": {"value1": "1", "value2": "x"},
@@ -224,7 +232,9 @@ class TestConvert(unittest.TestCase):
         self.assertEqual(json.loads(written_data), expected_json)
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_with_complex_structure(self, mock_path_class):
+    def test_convert_to_json_with_complex_structure(
+        self, mock_path_class: MagicMock
+    ) -> None:
         csv_data = "key,emoji,is_base,rank\na,😀,true,1\nb,😅,false,2"
         expected_json = {
             "a": [{"emoji": "😀", "is_base": True, "rank": 1}],
@@ -264,7 +274,7 @@ class TestConvert(unittest.TestCase):
     # MARK: CSV or TSV
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_json_empty_language(self, mock_path):
+    def test_convert_to_csv_or_json_empty_language(self, mock_path: MagicMock) -> None:
         mock_path_obj = MagicMock(spec=Path)
         mock_path.return_value = mock_path_obj
 
@@ -288,7 +298,9 @@ class TestConvert(unittest.TestCase):
         self.assertEqual(str(context.exception), "Language '' is not recognized.")
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_tsv_standarddict_to_csv(self, mock_path_class):
+    def test_convert_to_csv_or_tsv_standarddict_to_csv(
+        self, mock_path_class: MagicMock
+    ) -> None:
         json_data = '{"a": "1", "b": "2"}'
         expected_csv_output = "preposition,value\na,1\nb,2\n"
 
@@ -330,7 +342,9 @@ class TestConvert(unittest.TestCase):
         self.assertEqual(written_data, expected_csv_output)
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_tsv_standarddict_to_tsv(self, mock_path_class):
+    def test_convert_to_csv_or_tsv_standarddict_to_tsv(
+        self, mock_path_class: MagicMock
+    ) -> None:
         json_data = '{"a": "1", "b": "2"}'
 
         expected_tsv_output = "preposition\tvalue\na\t1\nb\t2\n"
@@ -372,7 +386,9 @@ class TestConvert(unittest.TestCase):
         self.assertEqual(written_data, expected_tsv_output)
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_tsv_nesteddict_to_csv(self, mock_path_class):
+    def test_convert_to_csv_or_tsv_nesteddict_to_csv(
+        self, mock_path_class: MagicMock
+    ) -> None:
         json_data = (
             '{"a": {"value1": "1", "value2": "x"}, "b": {"value1": "2", "value2": "y"}}'
         )
@@ -413,7 +429,9 @@ class TestConvert(unittest.TestCase):
         self.assertEqual(written_data, expected_csv_output)
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_tsv_nesteddict_to_tsv(self, mock_path_class):
+    def test_convert_to_csv_or_tsv_nesteddict_to_tsv(
+        self, mock_path_class: MagicMock
+    ) -> None:
         json_data = (
             '{"a": {"value1": "1", "value2": "x"}, "b": {"value1": "2", "value2": "y"}}'
         )
@@ -456,7 +474,9 @@ class TestConvert(unittest.TestCase):
         self.assertEqual(written_data, expected_tsv_output)
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_tsv_listofdicts_to_csv(self, mock_path_class):
+    def test_convert_to_csv_or_tsv_listofdicts_to_csv(
+        self, mock_path_class: MagicMock
+    ) -> None:
         json_data = '{"a": [{"emoji": "😀", "is_base": true, "rank": 1}, {"emoji": "😅", "is_base": false, "rank": 2}]}'
         expected_csv_output = "word,emoji,is_base,rank\na,😀,True,1\na,😅,False,2\n"
         mock_file_obj = StringIO(json_data)
@@ -495,7 +515,9 @@ class TestConvert(unittest.TestCase):
         self.assertEqual(written_data, expected_csv_output)
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_tsv_listofdicts_to_tsv(self, mock_path_class):
+    def test_convert_to_csv_or_tsv_listofdicts_to_tsv(
+        self, mock_path_class: MagicMock
+    ) -> None:
         json_data = '{"a": [{"emoji": "😀", "is_base": true, "rank": 1}, {"emoji": "😅", "is_base": false, "rank": 2}]}'
         expected_tsv_output = (
             "word\temoji\tis_base\trank\na\t😀\tTrue\t1\na\t😅\tFalse\t2\n"
@@ -542,7 +564,12 @@ class TestConvert(unittest.TestCase):
     @patch("scribe_data.cli.convert.Path", autospec=True)
     @patch("scribe_data.cli.convert.data_to_sqlite", autospec=True)
     @patch("shutil.copy")
-    def test_convert_to_sqlite(self, mock_shutil_copy, mock_data_to_sqlite, mock_path):
+    def test_convert_to_sqlite(
+        self,
+        mock_shutil_copy: MagicMock,
+        mock_data_to_sqlite: MagicMock,
+        mock_path: MagicMock,
+    ) -> None:
         mock_path.return_value.exists.return_value = True
 
         convert_wrapper(
@@ -566,7 +593,9 @@ class TestConvert(unittest.TestCase):
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
     @patch("scribe_data.cli.convert.data_to_sqlite", autospec=True)
-    def test_convert_to_sqlite_no_output_dir(self, mock_data_to_sqlite, mock_path):
+    def test_convert_to_sqlite_no_output_dir(
+        self, mock_data_to_sqlite: MagicMock, mock_path: MagicMock
+    ) -> None:
         mock_input_file = MagicMock()
         mock_input_file.exists.return_value = True
 
@@ -595,7 +624,7 @@ class TestConvert(unittest.TestCase):
             overwrite=True,
         )
 
-    def test_convert(self):
+    def test_convert(self) -> None:
         with self.assertRaises(ValueError) as context:
             convert_wrapper(
                 languages="English",

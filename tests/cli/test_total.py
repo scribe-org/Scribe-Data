@@ -29,7 +29,9 @@ except (IOError, yaml.YAMLError) as e:
 class TestTotalLexemes(unittest.TestCase):
     @patch("scribe_data.cli.total.get_qid_by_input")
     @patch("scribe_data.cli.total.sparql.query")
-    def test_get_total_lexemes_valid(self, mock_query, mock_get_qid):
+    def test_get_total_lexemes_valid(
+        self, mock_query: MagicMock, mock_get_qid: MagicMock
+    ) -> None:
         mock_get_qid.side_effect = lambda x: {"english": "Q1860", "nouns": "Q1084"}.get(
             x.lower()
         )
@@ -48,7 +50,9 @@ class TestTotalLexemes(unittest.TestCase):
 
     @patch("scribe_data.cli.total.get_qid_by_input")
     @patch("scribe_data.cli.total.sparql.query")
-    def test_get_total_lexemes_no_results(self, mock_query, mock_get_qid):
+    def test_get_total_lexemes_no_results(
+        self, mock_query: MagicMock, mock_get_qid: MagicMock
+    ) -> None:
         mock_get_qid.side_effect = lambda x: {"english": "Q1860", "nouns": "Q1084"}.get(
             x.lower()
         )
@@ -63,7 +67,9 @@ class TestTotalLexemes(unittest.TestCase):
 
     @patch("scribe_data.cli.total.get_qid_by_input")
     @patch("scribe_data.cli.total.sparql.query")
-    def test_get_total_lexemes_invalid_language(self, mock_query, mock_get_qid):
+    def test_get_total_lexemes_invalid_language(
+        self, mock_query: MagicMock, mock_get_qid: MagicMock
+    ) -> None:
         mock_get_qid.side_effect = lambda x: None
         mock_query.return_value = MagicMock()
 
@@ -74,7 +80,9 @@ class TestTotalLexemes(unittest.TestCase):
 
     @patch("scribe_data.cli.total.get_qid_by_input")
     @patch("scribe_data.cli.total.sparql.query")
-    def test_get_total_lexemes_empty_and_none_inputs(self, mock_query, mock_get_qid):
+    def test_get_total_lexemes_empty_and_none_inputs(
+        self, mock_query: MagicMock, mock_get_qid: MagicMock
+    ) -> None:
         mock_get_qid.return_value = None
         mock_query.return_value = MagicMock()
 
@@ -91,7 +99,9 @@ class TestTotalLexemes(unittest.TestCase):
 
     @patch("scribe_data.cli.total.get_qid_by_input")
     @patch("scribe_data.cli.total.sparql.query")
-    def test_get_total_lexemes_nonexistent_language(self, mock_query, mock_get_qid):
+    def test_get_total_lexemes_nonexistent_language(
+        self, mock_query: MagicMock, mock_get_qid: MagicMock
+    ) -> None:
         mock_get_qid.return_value = None
         mock_query.return_value = MagicMock()
 
@@ -102,7 +112,9 @@ class TestTotalLexemes(unittest.TestCase):
 
     @patch("scribe_data.cli.total.get_qid_by_input")
     @patch("scribe_data.cli.total.sparql.query")
-    def test_get_total_lexemes_various_data_types(self, mock_query, mock_get_qid):
+    def test_get_total_lexemes_various_data_types(
+        self, mock_query: MagicMock, mock_get_qid: MagicMock
+    ) -> None:
         mock_get_qid.side_effect = lambda x: {
             "english": "Q1860",
             "verbs": "Q24905",
@@ -133,7 +145,9 @@ class TestTotalLexemes(unittest.TestCase):
     @patch("scribe_data.cli.total.get_qid_by_input")
     @patch("scribe_data.cli.total.sparql.query")
     @patch("scribe_data.cli.total.LANGUAGE_DATA_EXTRACTION_DIR")
-    def test_get_total_lexemes_sub_languages(self, mock_dir, mock_query, mock_get_qid):
+    def test_get_total_lexemes_sub_languages(
+        self, mock_dir: MagicMock, mock_query: MagicMock, mock_get_qid: MagicMock
+    ) -> None:
         # Setup for sub-languages.
         mock_get_qid.side_effect = lambda x: {
             "bokmål": "Q25167",
@@ -168,7 +182,7 @@ class TestTotalLexemes(unittest.TestCase):
 
 
 class TestGetQidByInput(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.valid_data_types = {
             "english": "Q1860",
             "nouns": "Q1084",
@@ -176,14 +190,14 @@ class TestGetQidByInput(unittest.TestCase):
         }
 
     @patch("scribe_data.cli.total.data_type_metadata", new_callable=dict)
-    def test_get_qid_by_input_valid(self, mock_data_type_metadata):
+    def test_get_qid_by_input_valid(self, mock_data_type_metadata: MagicMock) -> None:
         mock_data_type_metadata.update(self.valid_data_types)
 
         for data_type, expected_qid in self.valid_data_types.items():
             self.assertEqual(get_qid_by_input(data_type), expected_qid)
 
     @patch("scribe_data.cli.total.data_type_metadata", new_callable=dict)
-    def test_get_qid_by_input_invalid(self, mock_data_type_metadata):
+    def test_get_qid_by_input_invalid(self, mock_data_type_metadata: MagicMock) -> None:
         mock_data_type_metadata.update(self.valid_data_types)
 
         self.assertIsNone(get_qid_by_input("invalid_data_type"))
@@ -191,14 +205,14 @@ class TestGetQidByInput(unittest.TestCase):
 
 class TestGetDatatypeList(unittest.TestCase):
     @patch("scribe_data.cli.total.LANGUAGE_DATA_EXTRACTION_DIR")
-    def test_get_datatype_list_invalid_language(self, mock_dir):
+    def test_get_datatype_list_invalid_language(self, mock_dir: MagicMock) -> None:
         mock_dir.__truediv__.return_value.exists.return_value = False
 
         with self.assertRaises(ValueError):
             get_datatype_list("InvalidLanguage")
 
     @patch("scribe_data.cli.total.LANGUAGE_DATA_EXTRACTION_DIR")
-    def test_get_datatype_list_no_data_types(self, mock_dir):
+    def test_get_datatype_list_no_data_types(self, mock_dir: MagicMock) -> None:
         mock_dir.__truediv__.return_value.exists.return_value = True
         mock_dir.__truediv__.return_value.iterdir.return_value = []
 
@@ -208,7 +222,7 @@ class TestGetDatatypeList(unittest.TestCase):
 
 class TestCheckQidIsLanguage(unittest.TestCase):
     @patch("scribe_data.utils.requests.get")
-    def test_check_qid_is_language_valid(self, mock_get):
+    def test_check_qid_is_language_valid(self, mock_get: MagicMock) -> None:
         mock_response = MagicMock()
         mock_response.json.return_value = {
             "statements": {
@@ -225,7 +239,7 @@ class TestCheckQidIsLanguage(unittest.TestCase):
         mock_print.assert_called_once_with("English (Q1860) is a language.\n")
 
     @patch("scribe_data.utils.requests.get")
-    def test_check_qid_is_language_invalid(self, mock_get):
+    def test_check_qid_is_language_invalid(self, mock_get: MagicMock) -> None:
         mock_response = MagicMock()
         mock_response.json.return_value = {
             "statements": {
@@ -241,30 +255,34 @@ class TestCheckQidIsLanguage(unittest.TestCase):
 
 class TestTotalWrapper(unittest.TestCase):
     @patch("scribe_data.cli.total.print_total_lexemes")
-    def test_total_wrapper_all_bool(self, mock_print_total_lexemes):
+    def test_total_wrapper_all_bool(self, mock_print_total_lexemes: MagicMock) -> None:
         total_wrapper(all_bool=True)
         mock_print_total_lexemes.assert_called_once_with()
 
     @patch("scribe_data.cli.total.print_total_lexemes")
-    def test_total_wrapper_language_only(self, mock_print_total_lexemes):
+    def test_total_wrapper_language_only(
+        self, mock_print_total_lexemes: MagicMock
+    ) -> None:
         total_wrapper(language="English")
         mock_print_total_lexemes.assert_called_once_with(language="English")
 
     @patch("scribe_data.cli.total.get_total_lexemes")
-    def test_total_wrapper_language_and_data_type(self, mock_get_total_lexemes):
+    def test_total_wrapper_language_and_data_type(
+        self, mock_get_total_lexemes: MagicMock
+    ) -> None:
         total_wrapper(language="English", data_type="nouns")
         mock_get_total_lexemes.assert_called_once_with(
             language="English", data_type="nouns"
         )
 
-    def test_total_wrapper_invalid_input(self):
+    def test_total_wrapper_invalid_input(self) -> None:
         with self.assertRaises(ValueError):
             total_wrapper()
 
     # MARK: Using Dump
 
     @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
-    def test_total_wrapper_wikidata_dump_flag(self, mock_parse_dump):
+    def test_total_wrapper_wikidata_dump_flag(self, mock_parse_dump: MagicMock) -> None:
         """
         Test when wikidata_dump is True (flag without path).
         """
@@ -277,7 +295,7 @@ class TestTotalWrapper(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
-    def test_total_wrapper_wikidata_dump_path(self, mock_parse_dump):
+    def test_total_wrapper_wikidata_dump_path(self, mock_parse_dump: MagicMock) -> None:
         """
         Test when wikidata_dump is a file path.
         """
@@ -291,7 +309,9 @@ class TestTotalWrapper(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
-    def test_total_wrapper_wikidata_dump_with_all(self, mock_parse_dump):
+    def test_total_wrapper_wikidata_dump_with_all(
+        self, mock_parse_dump: MagicMock
+    ) -> None:
         """
         Test when both wikidata_dump and all_bool are True.
         """
@@ -304,7 +324,9 @@ class TestTotalWrapper(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
-    def test_total_wrapper_wikidata_dump_with_language_and_type(self, mock_parse_dump):
+    def test_total_wrapper_wikidata_dump_with_language_and_type(
+        self, mock_parse_dump: MagicMock
+    ) -> None:
         """
         Test wikidata_dump with specific language and data type.
         """
@@ -322,7 +344,9 @@ class TestTotalWrapper(unittest.TestCase):
 
     @patch("scribe_data.cli.total.check_qid_is_language")
     @patch("scribe_data.cli.total.print_total_lexemes")
-    def test_total_wrapper_with_qid(self, mock_print_total, mock_check_qid):
+    def test_total_wrapper_with_qid(
+        self, mock_print_total: MagicMock, mock_check_qid: MagicMock
+    ) -> None:
         """
         Test when language is provided as a QID.
         """
@@ -332,7 +356,9 @@ class TestTotalWrapper(unittest.TestCase):
 
     @patch("scribe_data.cli.total.check_qid_is_language")
     @patch("scribe_data.cli.total.get_total_lexemes")
-    def test_total_wrapper_with_qid_and_datatype(self, mock_get_total, mock_check_qid):
+    def test_total_wrapper_with_qid_and_datatype(
+        self, mock_get_total: MagicMock, mock_check_qid: MagicMock
+    ) -> None:
         """
         Test when language QID and data type are provided.
         """
@@ -341,7 +367,9 @@ class TestTotalWrapper(unittest.TestCase):
         mock_get_total.assert_called_once_with(language="Q9217", data_type="nouns")
 
     @patch("scribe_data.cli.total.parse_wd_lexeme_dump")
-    def test_total_wrapper_qid_with_wikidata_dump(self, mock_parse_dump):
+    def test_total_wrapper_qid_with_wikidata_dump(
+        self, mock_parse_dump: MagicMock
+    ) -> None:
         """
         Test QID with wikidata dump.
         """
@@ -354,7 +382,7 @@ class TestTotalWrapper(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.total.get_total_lexemes")
-    def test_get_total_lexemes_with_qid(self, mock_get_total):
+    def test_get_total_lexemes_with_qid(self, mock_get_total: MagicMock) -> None:
         """
         Test get_total_lexemes with QID input.
         """
@@ -364,7 +392,7 @@ class TestTotalWrapper(unittest.TestCase):
     # MARK: Multiple Languages and Data Types
 
     @patch("scribe_data.cli.total.get_total_lexemes")
-    def test_total_wrapper_multiple_languages(self, mock_get_total):
+    def test_total_wrapper_multiple_languages(self, mock_get_total: MagicMock) -> None:
         """
         Test retrieving totals for multiple languages.
         """
@@ -380,7 +408,7 @@ class TestTotalWrapper(unittest.TestCase):
         mock_get_total.assert_has_calls(expected_calls)
 
     @patch("scribe_data.cli.total.get_total_lexemes")
-    def test_total_wrapper_multiple_data_types(self, mock_get_total):
+    def test_total_wrapper_multiple_data_types(self, mock_get_total: MagicMock) -> None:
         """
         Test retrieving totals for multiple data types.
         """
@@ -396,7 +424,9 @@ class TestTotalWrapper(unittest.TestCase):
         mock_get_total.assert_has_calls(expected_calls)
 
     @patch("scribe_data.cli.total.get_total_lexemes")
-    def test_total_wrapper_multiple_languages_and_types(self, mock_get_total):
+    def test_total_wrapper_multiple_languages_and_types(
+        self, mock_get_total: MagicMock
+    ) -> None:
         """
         Test retrieving totals for multiple languages and data types.
         """
@@ -416,7 +446,7 @@ class TestTotalWrapper(unittest.TestCase):
     # MARK: Error Handling
 
     @patch("scribe_data.cli.total.sparql.query")
-    def test_get_total_lexemes_http_error(self, mock_query):
+    def test_get_total_lexemes_http_error(self, mock_query: MagicMock) -> None:
         """
         Test handling of HTTPError when querying totals.
         """
@@ -434,7 +464,7 @@ class TestTotalWrapper(unittest.TestCase):
         mock_print.assert_any_call("Query failed after retries.")
 
     @patch("scribe_data.cli.total.sparql.query")
-    def test_get_total_lexemes_incomplete_read(self, mock_query):
+    def test_get_total_lexemes_incomplete_read(self, mock_query: MagicMock) -> None:
         """
         Test handling of IncompleteRead error when querying totals.
         """
@@ -456,8 +486,8 @@ class TestTotalWrapper(unittest.TestCase):
     @patch("scribe_data.cli.total.get_datatype_list")
     @patch("scribe_data.cli.total.get_total_lexemes")
     def test_print_total_lexemes_with_sublanguages(
-        self, mock_get_total, mock_get_datatypes
-    ):
+        self, mock_get_total: MagicMock, mock_get_datatypes: MagicMock
+    ) -> None:
         """
         Test printing totals for a language with sub-languages.
         """
@@ -487,8 +517,11 @@ class TestTotalWrapper(unittest.TestCase):
     @patch("scribe_data.cli.total.list_all_languages")
     @patch("scribe_data.cli.total.LANGUAGE_DATA_EXTRACTION_DIR")
     def test_get_datatype_list_with_sublanguages(
-        self, mock_dir, mock_list_languages, mock_metadata
-    ):
+        self,
+        mock_dir: MagicMock,
+        mock_list_languages: MagicMock,
+        mock_metadata: MagicMock,
+    ) -> None:
         """
         Test getting data type list for a language with sub-languages.
         """
@@ -517,7 +550,7 @@ class TestTotalWrapper(unittest.TestCase):
         mock_verbs.is_dir.return_value = True
 
         # Mock directory structure for both sub-languages.
-        def mock_path_handler(path):
+        def mock_path_handler(path: str) -> MagicMock:
             mock_path = MagicMock()
             mock_path.exists.return_value = True
             mock_path.iterdir.return_value = [mock_nouns, mock_verbs]
@@ -530,7 +563,9 @@ class TestTotalWrapper(unittest.TestCase):
 
     @patch("scribe_data.cli.total.language_metadata")
     @patch("scribe_data.cli.total.LANGUAGE_DATA_EXTRACTION_DIR")
-    def test_get_datatype_list_empty_directory(self, mock_dir, mock_metadata):
+    def test_get_datatype_list_empty_directory(
+        self, mock_dir: MagicMock, mock_metadata: MagicMock
+    ) -> None:
         """
         Test getting data type list from an empty directory.
         """
@@ -544,7 +579,9 @@ class TestTotalWrapper(unittest.TestCase):
             get_datatype_list("English")
 
     @patch("scribe_data.cli.total.get_total_lexemes")
-    def test_total_wrapper_with_invalid_language(self, mock_get_total):
+    def test_total_wrapper_with_invalid_language(
+        self, mock_get_total: MagicMock
+    ) -> None:
         """
         Test total wrapper with invalid language.
         """
@@ -556,7 +593,9 @@ class TestTotalWrapper(unittest.TestCase):
         mock_get_total.assert_called_once()
 
     @patch("scribe_data.cli.total.get_total_lexemes")
-    def test_total_wrapper_with_invalid_data_type(self, mock_get_total):
+    def test_total_wrapper_with_invalid_data_type(
+        self, mock_get_total: MagicMock
+    ) -> None:
         """
         Test total wrapper with invalid data type.
         """

@@ -9,6 +9,7 @@ from http import HTTPStatus
 from pathlib import Path
 from unittest.mock import MagicMock, mock_open, patch
 from urllib.error import HTTPError
+from typing import Any
 
 import pytest
 
@@ -38,49 +39,49 @@ A_PATH = Path(normalize_path(S_PATH))
 
 
 @pytest.fixture
-def a_query():
+def a_query() -> QueryFile:
     return QueryFile(A_PATH)
 
 
 # MARK: Query
 
 
-def test_full_path(a_query):
+def test_full_path(a_query: QueryFile) -> None:
     assert a_query.path == A_PATH
 
 
 @patch("builtins.open", new_callable=mock_open, read_data="QUERY")
-def test_query_load(_, a_query):
+def test_query_load(_: MagicMock, a_query: QueryFile) -> None:
     assert a_query.load(12) == "QUERY\nLIMIT 12\n"
 
 
-def test_query_equals(a_query):
+def test_query_equals(a_query: QueryFile) -> None:
     assert a_query == QueryFile(A_PATH)
 
 
-def test_query_not_equals(a_query):
+def test_query_not_equals(a_query: QueryFile) -> None:
     assert a_query != QueryFile(normalize_path("/root/project/src/Dir/query.sparql"))
 
 
-def test_query_not_equals_object(a_query):
+def test_query_not_equals_object(a_query: QueryFile) -> None:
     assert a_query != object()
 
 
-def test_query_str(a_query):
+def test_query_str(a_query: QueryFile) -> None:
     assert (
         str(a_query)
         == f"QueryFile(path={normalize_path('/root/project/src/dir/query.sparql')})"
     )
 
 
-def test_query_repr(a_query):
+def test_query_repr(a_query: QueryFile) -> None:
     assert (
         repr(a_query)
         == f"QueryFile(path={normalize_path('/root/project/src/dir/query.sparql')})"
     )
 
 
-def test_query_execution_exception(a_query):
+def test_query_execution_exception(a_query: QueryFile) -> None:
     exception = QueryExecutionException("failure", a_query)
     assert str(exception) == f"{S_PATH} : failure"
 
@@ -89,7 +90,7 @@ def test_query_execution_exception(a_query):
 
 
 @patch("urllib.request.urlopen")
-def test_ping_pass(mock_urlopen):
+def test_ping_pass(mock_urlopen: MagicMock) -> None:
     mock_urlopen.return_value.__enter__.return_value.getcode.return_value = (
         HTTPStatus.OK
     )
@@ -97,19 +98,19 @@ def test_ping_pass(mock_urlopen):
 
 
 @patch("urllib.request.urlopen")
-def test_ping_httperror_fail(mock_urlopen):
+def test_ping_httperror_fail(mock_urlopen: MagicMock) -> None:
     mock_urlopen.return_value.__enter__.side_effect = HTTPError
     assert not ping("http://www.python.org", 0)
 
 
 @patch("urllib.request.urlopen")
-def test_ping_exception_fail(mock_urlopen):
+def test_ping_exception_fail(mock_urlopen: MagicMock) -> None:
     mock_urlopen.return_value.__enter__.side_effect = Exception
     assert not ping("http://www.python.org", 0)
 
 
 @patch("urllib.request.urlopen")
-def test_ping_fail(mock_urlopen):
+def test_ping_fail(mock_urlopen: MagicMock) -> None:
     mock_urlopen.return_value.__enter__.return_value.getcode.return_value = (
         HTTPStatus.BAD_REQUEST
     )
@@ -120,12 +121,12 @@ def test_ping_fail(mock_urlopen):
 
 
 @patch.object(Path, "is_file", return_value=True)
-def test_check_sparql_file_exists(_):
+def test_check_sparql_file_exists(_: MagicMock) -> None:
     assert check_sparql_file(S_PATH) == A_PATH
 
 
 @patch.object(Path, "is_file", return_value=False)
-def test_check_sparql_file_not_exists(_):
+def test_check_sparql_file_not_exists(_: MagicMock) -> None:
     with pytest.raises(argparse.ArgumentTypeError) as err:
         _ = check_sparql_file(S_PATH)
 
@@ -133,7 +134,7 @@ def test_check_sparql_file_not_exists(_):
 
 
 @patch.object(Path, "is_file", return_value=True)
-def test_check_sparql_file_not_sparql_extension(_):
+def test_check_sparql_file_not_sparql_extension(_: MagicMock) -> None:
     fpath = Path("/root/query.txt")
     with pytest.raises(argparse.ArgumentTypeError) as err:
         _ = check_sparql_file(fpath)
@@ -161,7 +162,9 @@ def test_check_sparql_file_not_sparql_extension(_):
     ],
 )
 @patch("subprocess.run")
-def test_changed_queries(mock_run, git_status, expected):
+def test_changed_queries(
+    mock_run: MagicMock, git_status: str, expected: list[Any]
+) -> None:
     mock_result = MagicMock()
     mock_result.configure_mock(**{"returncode": 0, "stdout": git_status})
     mock_run.return_value = mock_result
@@ -170,7 +173,9 @@ def test_changed_queries(mock_run, git_status, expected):
 
 
 @patch("subprocess.run")
-def test_changed_queries_failure(mock_run, capsys):
+def test_changed_queries_failure(
+    mock_run: MagicMock, capsys: pytest.CaptureFixture
+) -> None:
     mock_result = MagicMock()
     mock_result.configure_mock(**{"returncode": 1, "stderr": "no git"})
     mock_run.return_value = mock_result
@@ -203,7 +208,7 @@ def test_changed_queries_failure(mock_run, capsys):
         ),
     ],
 )
-def test_all_queries(tree, expected):
+def test_all_queries(tree: list[Any], expected: list[Any]) -> None:
     with patch("os.walk") as mock_walk:
         mock_walk.return_value = tree
 
@@ -211,7 +216,7 @@ def test_all_queries(tree, expected):
 
 
 # MARK: execute
-def test_execute(a_query):
+def test_execute(a_query: QueryFile) -> None:
     with pytest.raises(QueryExecutionException) as err:
         _ = execute(a_query, 1, None, 0)
 
@@ -227,7 +232,7 @@ def test_execute(a_query):
         ("1000", 1000),
     ],
 )
-def test_check_limit_pos(candidate, limit):
+def test_check_limit_pos(candidate: str, limit: int) -> None:
     assert check_limit(candidate) == limit
 
 
@@ -240,7 +245,7 @@ def test_check_limit_pos(candidate, limit):
         "word",
     ],
 )
-def test_check_limit_neg(candidate):
+def test_check_limit_neg(candidate: str) -> None:
     with pytest.raises(argparse.ArgumentTypeError) as err:
         _ = check_limit(candidate)
 
@@ -258,7 +263,7 @@ def test_check_limit_neg(candidate):
         ("8888", 8888),
     ],
 )
-def test_check_timeout_pos(candidate, timeout):
+def test_check_timeout_pos(candidate: str, timeout: int) -> None:
     assert check_timeout(candidate) == timeout
 
 
@@ -271,7 +276,7 @@ def test_check_timeout_pos(candidate, timeout):
         "ten",
     ],
 )
-def test_check_timeout_neg(candidate):
+def test_check_timeout_neg(candidate: str) -> None:
     with pytest.raises(argparse.ArgumentTypeError) as err:
         _ = check_timeout(candidate)
 
@@ -282,7 +287,7 @@ def test_check_timeout_neg(candidate):
 
 
 @pytest.mark.parametrize("arg", ["-h", "--help"])
-def test_main_help(arg):
+def test_main_help(arg: str) -> None:
     with pytest.raises(SystemExit) as err:
         _ = main(arg)
         assert err.code == 0
@@ -299,7 +304,7 @@ def test_main_help(arg):
         ["-c", "-f", "-a"],
     ],
 )
-def test_main_mutex_opts(args):
+def test_main_mutex_opts(args: list[str]) -> None:
     """
     Some options cannot be used together.
     """
@@ -308,7 +313,7 @@ def test_main_mutex_opts(args):
         assert err.code == 2
 
 
-def test_error_report_single(a_query, capsys):
+def test_error_report_single(a_query: QueryFile, capsys: pytest.CaptureFixture) -> None:
     failures = [QueryExecutionException("timeout", a_query)]
     error_report(failures)
     err_out = capsys.readouterr().err
@@ -318,7 +323,9 @@ def test_error_report_single(a_query, capsys):
     )
 
 
-def test_error_report_multiple(a_query, capsys):
+def test_error_report_multiple(
+    a_query: QueryFile, capsys: pytest.CaptureFixture
+) -> None:
     failures = [
         QueryExecutionException("timeout", a_query),
         QueryExecutionException("bad format", a_query),
@@ -332,12 +339,14 @@ def test_error_report_multiple(a_query, capsys):
     )
 
 
-def test_error_report_no_errors(capsys):
+def test_error_report_no_errors(capsys: pytest.CaptureFixture) -> None:
     error_report([])
     assert capsys.readouterr().err == ""
 
 
-def test_success_report_single_display_set(a_query, capsys):
+def test_success_report_single_display_set(
+    a_query: QueryFile, capsys: pytest.CaptureFixture
+) -> None:
     successes = [(a_query, {"a": 23})]
     success_report(successes, display=True)
     out = capsys.readouterr().out
@@ -347,7 +356,7 @@ def test_success_report_single_display_set(a_query, capsys):
     )
 
 
-def test_success_report_no_success_display_set(capsys):
+def test_success_report_no_success_display_set(capsys: pytest.CaptureFixture) -> None:
     success_report([], display=True)
     assert capsys.readouterr().out == ""
 
@@ -356,13 +365,17 @@ def test_success_report_no_success_display_set(capsys):
     "successes",
     [[], [(a_query, {"a": 23})], [(a_query, {"a": 23}), (a_query, {"b": 53})]],
 )
-def test_success_report_display_not_set(successes, capsys):
+def test_success_report_display_not_set(
+    successes: list[Any], capsys: pytest.CaptureFixture
+) -> None:
     success_report(successes, display=False)
     out = capsys.readouterr().out
     assert out == ""
 
 
-def test_success_report_multiple_display_set(a_query, capsys):
+def test_success_report_multiple_display_set(
+    a_query: QueryFile, capsys: pytest.CaptureFixture
+) -> None:
     successes = [(a_query, {"a": 23}), (a_query, {"b": 57})]
     success_report(successes, display=True)
     out = capsys.readouterr().out
@@ -376,14 +389,14 @@ def test_success_report_multiple_display_set(a_query, capsys):
 # MARK: check_query_forms
 
 
-def test_qid_label_dict_not_empty():
+def test_qid_label_dict_not_empty() -> None:
     assert check_query_forms.qid_label_dict, "qid_label_dict should not be empty"
 
 
 # MARK: extract_forms_from_sparql
 
 
-def test_extract_forms_from_sparql_valid_file(tmp_path):
+def test_extract_forms_from_sparql_valid_file(tmp_path: Path) -> None:
     sparql_file = tmp_path / "test.sparql"
     # The pattern r"\s\sOPTIONAL\s*\{([^}]*)\}" requires exactly two spaces before OPTIONAL.
     sparql_file.write_text("  OPTIONAL { form1 }  OPTIONAL { form2 }")
@@ -391,7 +404,7 @@ def test_extract_forms_from_sparql_valid_file(tmp_path):
     assert result == [" form1 ", " form2 "]
 
 
-def test_extract_forms_from_sparql_no_matches(tmp_path):
+def test_extract_forms_from_sparql_no_matches(tmp_path: Path) -> None:
     sparql_file = tmp_path / "test.sparql"
     sparql_file.write_text("SELECT * WHERE { }")
     result = check_query_forms.extract_forms_from_sparql(sparql_file)
@@ -399,7 +412,9 @@ def test_extract_forms_from_sparql_no_matches(tmp_path):
 
 
 @patch("builtins.open", side_effect=Exception("File error"))
-def test_extract_forms_from_sparql_exception(mock_open, capsys):
+def test_extract_forms_from_sparql_exception(
+    mock_open: MagicMock, capsys: pytest.CaptureFixture
+) -> None:
     result = check_query_forms.extract_forms_from_sparql(Path("nonexistent.sparql"))
     assert result is None
     captured = capsys.readouterr()
@@ -409,13 +424,13 @@ def test_extract_forms_from_sparql_exception(mock_open, capsys):
 # MARK: extract_form_rep_label
 
 
-def test_extract_form_rep_label_valid():
+def test_extract_form_rep_label_valid() -> None:
     form_text = "ontolex:representation ?testLabel ;"
     result = check_query_forms.extract_form_rep_label(form_text)
     assert result == "testLabel"
 
 
-def test_extract_form_rep_label_no_match():
+def test_extract_form_rep_label_no_match() -> None:
     form_text = "invalid text"
     result = check_query_forms.extract_form_rep_label(form_text)
     assert result is None
@@ -424,7 +439,7 @@ def test_extract_form_rep_label_no_match():
 # MARK: decompose_label_features
 
 
-def test_decompose_label_features_valid():
+def test_decompose_label_features_valid() -> None:
     label = "nominativeSingular"
     with patch.object(
         check_query_forms, "lexeme_form_labels_order", ["Nominative", "Singular"]
@@ -433,7 +448,7 @@ def test_decompose_label_features_valid():
         assert result == ["Nominative", "Singular"]
 
 
-def test_decompose_label_features_invalid():
+def test_decompose_label_features_invalid() -> None:
     label = "unknownFeature"
     with patch.object(
         check_query_forms, "lexeme_form_labels_order", ["Nominative", "Singular"]
@@ -442,7 +457,7 @@ def test_decompose_label_features_invalid():
         assert result == ["UnknownFeature"]
 
 
-def test_decompose_label_features_empty():
+def test_decompose_label_features_empty() -> None:
     label = ""
     result = check_query_forms.decompose_label_features(label)
     assert result == []
@@ -451,13 +466,13 @@ def test_decompose_label_features_empty():
 # MARK: extract_form_qids
 
 
-def test_extract_form_qids_valid():
+def test_extract_form_qids_valid() -> None:
     form_text = "wikibase:grammaticalFeature wd:Q123, wd:Q456 ."
     result = check_query_forms.extract_form_qids(form_text)
     assert result == ["Q123", "Q456"]
 
 
-def test_extract_form_qids_no_match():
+def test_extract_form_qids_no_match() -> None:
     form_text = "invalid text"
     result = check_query_forms.extract_form_qids(form_text)
     assert result is None
@@ -466,25 +481,25 @@ def test_extract_form_qids_no_match():
 # MARK: check_form_label
 
 
-def test_check_form_label_match():
+def test_check_form_label_match() -> None:
     form_text = "?lexeme ontolex:lexicalForm ?testForm .\n?testForm ontolex:representation ?test ;"
     result = check_query_forms.check_form_label(form_text)
     assert result is True
 
 
-def test_check_form_label_no_form_label():
+def test_check_form_label_no_form_label() -> None:
     form_text = "invalid text"
     result = check_query_forms.check_form_label(form_text)
     assert result is False
 
 
-def test_check_form_label_no_rep_label():
+def test_check_form_label_no_rep_label() -> None:
     form_text = "?lexeme ontolex:lexicalForm ?testForm ."
     result = check_query_forms.check_form_label(form_text)
     assert result is False
 
 
-def test_check_form_label_mismatch():
+def test_check_form_label_mismatch() -> None:
     form_text = "?lexeme ontolex:lexicalForm ?testForm .\n?testForm ontolex:representation ?other ;"
     result = check_query_forms.check_form_label(form_text)
     assert result is False
@@ -493,19 +508,19 @@ def test_check_form_label_mismatch():
 # MARK: check_query_formatting
 
 
-def test_check_query_formatting_valid():
+def test_check_query_formatting_valid() -> None:
     form_text = "valid . text ;"
     result = check_query_forms.check_query_formatting(form_text)
     assert result is True
 
 
-def test_check_query_formatting_space_before_comma():
+def test_check_query_formatting_space_before_comma() -> None:
     form_text = "invalid , text"
     result = check_query_forms.check_query_formatting(form_text)
     assert result is False
 
 
-def test_check_query_formatting_nonspace_before_period():
+def test_check_query_formatting_nonspace_before_period() -> None:
     form_text = "invalid.text"
     result = check_query_forms.check_query_formatting(form_text)
     assert result is False
@@ -514,7 +529,7 @@ def test_check_query_formatting_nonspace_before_period():
 # MARK: return_correct_form_label
 
 
-def test_return_correct_form_label_valid():
+def test_return_correct_form_label_valid() -> None:
     qids = ["Q123"]
     with patch.object(check_query_forms, "lexeme_form_qid_order", ["Q123"]):
         with patch.object(
@@ -526,19 +541,19 @@ def test_return_correct_form_label_valid():
             assert result == "nominative"
 
 
-def test_return_correct_form_label_empty():
+def test_return_correct_form_label_empty() -> None:
     result = check_query_forms.return_correct_form_label([])
     assert result == "Invalid query formatting found"
 
 
-def test_return_correct_form_label_not_included():
+def test_return_correct_form_label_not_included() -> None:
     qids = ["Q999"]
     with patch.object(check_query_forms, "lexeme_form_qid_order", ["Q123"]):
         result = check_query_forms.return_correct_form_label(qids)
         assert result == "QID Q999 not included in lexeme_form.metadata.json"
 
 
-def validate_forms(query_text):
+def validate_forms(query_text: str) -> str:
     errors = []
 
     # Extract SELECT variables
@@ -606,7 +621,7 @@ def validate_forms(query_text):
 
 
 @pytest.mark.skip(reason="Skipping due to unresolved issue with preposition error")
-def test_validate_forms_valid():
+def test_validate_forms_valid() -> None:
     # Ensure all variables in SELECT are defined in WHERE and order matches.
     # Use ontolex:representation to define ?form so it matches forms_pattern.
     query_text = "SELECT ?lexeme ?lexemeID ?lastModified ?form WHERE { ?lexeme wikibase:lemma ?lemma . schema:dateModified ?lastModified . ?lexeme ontolex:lexicalForm ?formLex . ?formLex ontolex:representation ?form . }"
@@ -614,32 +629,32 @@ def test_validate_forms_valid():
     assert result == ""
 
 
-def test_validate_forms_no_select():
+def test_validate_forms_no_select() -> None:
     query_text = "WHERE { }"
     result = check_query_forms.validate_forms(query_text)
     assert result == "Invalid query format: no SELECT match"
 
 
-def test_validate_forms_duplicates():
+def test_validate_forms_duplicates() -> None:
     query_text = "SELECT ?lexeme ?lexemeID ?lastModified ?form ?form WHERE { ?lexeme wikibase:lemma ?lemma . ontolex:lexicalForm ?formLex . ?formLex ontolex:representation ?form . schema:dateModified ?lastModified . }"
     result = check_query_forms.validate_forms(query_text)
     assert "Duplicate forms found in SELECT: form" in result
 
 
-def test_validate_forms_undefined():
+def test_validate_forms_undefined() -> None:
     query_text = "SELECT ?lexeme ?lexemeID ?lastModified ?form WHERE { ?lexeme wikibase:lemma ?lemma . }"
     result = check_query_forms.validate_forms(query_text)
     assert "Undefined forms found in SELECT: form" in result
 
 
-def test_validate_forms_unreturned():
+def test_validate_forms_unreturned() -> None:
     query_text = "SELECT ?lexeme ?lexemeID ?lastModified WHERE { ?lexeme wikibase:lemma ?lemma . ontolex:lexicalForm ?formLex . ?formLex ontolex:representation ?formRep . schema:dateModified ?lastModified . }"
     result = check_query_forms.validate_forms(query_text)
     assert "Defined but unreturned forms found: formRep" in result
 
 
 @pytest.mark.skip(reason="Skipping due to unresolved issue with preposition error")
-def test_validate_forms_order_mismatch():
+def test_validate_forms_order_mismatch() -> None:
     # Ensure variables are defined, then create an order mismatch.
     # Both ?form and ?formRep must be captured by forms_pattern.
     query_text = "SELECT ?lexeme ?lexemeID ?lastModified ?formRep ?form WHERE { ?lexeme wikibase:lemma ?lemma . ?lexeme ontolex:lexicalForm ?formLex . ?formLex ontolex:representation ?form . ?lexeme ontolex:lexicalForm ?formLex2 . ?formLex2 ontolex:representation ?formRep . schema:dateModified ?lastModified . }"
@@ -653,13 +668,13 @@ def test_validate_forms_order_mismatch():
 # MARK: check_docstring
 
 
-def test_check_docstring_valid():
+def test_check_docstring_valid() -> None:
     query_text = "# tool: scribe-data\n# All nouns (Q123) and verbs (Q456) and the given forms.\n# Enter this query at https://query.wikidata.org/.\n"
     result = check_query_forms.check_docstring(query_text)
     assert result is True
 
 
-def test_check_docstring_invalid_line1():
+def test_check_docstring_invalid_line1() -> None:
     query_text = "# wrong tool\n# All nouns (Q123) and verbs (Q456) and the given forms.\n# Enter this query at https://query.wikidata.org/.\n"
     result = check_query_forms.check_docstring(query_text)
     assert result == (False, "Error in line 1: # wrong tool")
@@ -668,7 +683,7 @@ def test_check_docstring_invalid_line1():
 # MARK: check_forms_order
 
 
-def test_check_forms_order_valid():
+def test_check_forms_order_valid() -> None:
     query_text = (
         "SELECT ?lexeme ?lexemeID ?lastModified ?nominative ?singular WHERE { }"
     )
@@ -680,7 +695,7 @@ def test_check_forms_order_valid():
             assert result is True
 
 
-def test_check_forms_order_invalid(capsys):
+def test_check_forms_order_invalid(capsys: pytest.CaptureFixture) -> None:
     query_text = (
         "SELECT ?lexeme ?lexemeID ?lastModified ?singular ?nominative WHERE { }"
     )
@@ -697,7 +712,7 @@ def test_check_forms_order_invalid(capsys):
 # MARK: check_optional_qid_order
 
 
-def test_check_optional_qid_order_valid(tmp_path):
+def test_check_optional_qid_order_valid(tmp_path: Path) -> None:
     sparql_file = tmp_path / "test.sparql"
     sparql_file.write_text(
         "  OPTIONAL { ?lexeme ontolex:lexicalForm ?form . ?form ontolex:representation ?nominative ; wikibase:grammaticalFeature wd:Q123 . }"
@@ -707,7 +722,7 @@ def test_check_optional_qid_order_valid(tmp_path):
         assert result == ""
 
 
-def test_check_optional_qid_order_invalid(tmp_path):
+def test_check_optional_qid_order_invalid(tmp_path: Path) -> None:
     sparql_file = tmp_path / "test.sparql"
     sparql_file.write_text(
         "  OPTIONAL { ?lexeme ontolex:lexicalForm ?form . ?form ontolex:representation ?nominative ; wikibase:grammaticalFeature wd:Q456 . }"
@@ -723,7 +738,9 @@ def test_check_optional_qid_order_invalid(tmp_path):
 
 
 @patch("pathlib.Path.glob", return_value=[])
-def test_check_query_forms_no_files(mock_glob, capsys):
+def test_check_query_forms_no_files(
+    mock_glob: MagicMock, capsys: pytest.CaptureFixture
+) -> None:
     # Mock LANGUAGE_DATA_EXTRACTION_DIR as a Path object with the patched glob.
     with patch(
         "scribe_data.check.check_query_forms.LANGUAGE_DATA_EXTRACTION_DIR", Path()
@@ -735,7 +752,9 @@ def test_check_query_forms_no_files(mock_glob, capsys):
 
 @pytest.mark.skip(reason="Skipping due to TypeError in decompose_label_features")
 @patch("pathlib.Path.glob")
-def test_check_query_forms_with_errors(mock_glob, tmp_path, capsys):
+def test_check_query_forms_with_errors(
+    mock_glob: MagicMock, tmp_path: Path, capsys: pytest.CaptureFixture
+) -> None:
     sparql_file = tmp_path / "test.sparql"
     # Define all SELECT variables and include a formatting error.
     sparql_file.write_text(
