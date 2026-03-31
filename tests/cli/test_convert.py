@@ -155,8 +155,8 @@ class TestConvert(unittest.TestCase):
         mock_input_file_path.exists.return_value = True
         mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
 
-        mock_path_class.side_effect = (
-            lambda x: mock_input_file_path if x == "test.csv" else Path(x)
+        mock_path_class.side_effect = lambda x: (
+            mock_input_file_path if x == "test.csv" else Path(x)
         )
 
         mocked_open = mock_open()
@@ -198,8 +198,8 @@ class TestConvert(unittest.TestCase):
         mock_input_file_path.suffix = ".csv"
         mock_input_file_path.exists.return_value = True
         mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
-        mock_path_class.side_effect = (
-            lambda x: mock_input_file_path if x == "test.csv" else Path(x)
+        mock_path_class.side_effect = lambda x: (
+            mock_input_file_path if x == "test.csv" else Path(x)
         )
 
         mocked_open = mock_open()
@@ -236,8 +236,8 @@ class TestConvert(unittest.TestCase):
         mock_input_file_path.suffix = ".csv"
         mock_input_file_path.exists.return_value = True
         mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
-        mock_path_class.side_effect = (
-            lambda x: mock_input_file_path if x == "test.csv" else Path(x)
+        mock_path_class.side_effect = lambda x: (
+            mock_input_file_path if x == "test.csv" else Path(x)
         )
 
         mocked_open = mock_open()
@@ -298,8 +298,8 @@ class TestConvert(unittest.TestCase):
         mock_input_file_path.suffix = ".json"
         mock_input_file_path.exists.return_value = True
         mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
-        mock_path_class.side_effect = (
-            lambda x: mock_input_file_path if x == "test.json" else Path(x)
+        mock_path_class.side_effect = lambda x: (
+            mock_input_file_path if x == "test.json" else Path(x)
         )
 
         mocked_open = mock_open()
@@ -341,8 +341,8 @@ class TestConvert(unittest.TestCase):
         mock_input_file_path.suffix = ".json"
         mock_input_file_path.exists.return_value = True
         mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
-        mock_path_class.side_effect = (
-            lambda x: mock_input_file_path if x == "test.json" else Path(x)
+        mock_path_class.side_effect = lambda x: (
+            mock_input_file_path if x == "test.json" else Path(x)
         )
 
         mocked_open = mock_open()
@@ -384,8 +384,8 @@ class TestConvert(unittest.TestCase):
         mock_input_file_path.exists.return_value = True
         mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
 
-        mock_path_class.side_effect = (
-            lambda x: mock_input_file_path if x == "test.json" else Path(x)
+        mock_path_class.side_effect = lambda x: (
+            mock_input_file_path if x == "test.json" else Path(x)
         )
 
         mocked_open = mock_open()
@@ -426,8 +426,8 @@ class TestConvert(unittest.TestCase):
         mock_input_file_path.exists.return_value = True
         mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
 
-        mock_path_class.side_effect = (
-            lambda x: mock_input_file_path if x == "test.json" else Path(x)
+        mock_path_class.side_effect = lambda x: (
+            mock_input_file_path if x == "test.json" else Path(x)
         )
 
         mocked_open = mock_open()
@@ -466,8 +466,8 @@ class TestConvert(unittest.TestCase):
         mock_input_file_path.exists.return_value = True
         mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
 
-        mock_path_class.side_effect = (
-            lambda x: mock_input_file_path if x == "test.json" else Path(x)
+        mock_path_class.side_effect = lambda x: (
+            mock_input_file_path if x == "test.json" else Path(x)
         )
 
         mocked_open = mock_open()
@@ -508,8 +508,8 @@ class TestConvert(unittest.TestCase):
         mock_input_file_path.exists.return_value = True
         mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
 
-        mock_path_class.side_effect = (
-            lambda x: mock_input_file_path if x == "test.json" else Path(x)
+        mock_path_class.side_effect = lambda x: (
+            mock_input_file_path if x == "test.json" else Path(x)
         )
 
         mocked_open = mock_open()

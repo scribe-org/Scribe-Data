@@ -28,7 +28,7 @@ from scribe_data.wikidata.check_query.query import QueryExecutionException, Quer
 from scribe_data.wikidata.check_query.sparql import execute
 
 
-def normalize_path(path):
+def normalize_path(path: str) -> str:
     return str(Path(path))
 
 

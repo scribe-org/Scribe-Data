@@ -44,9 +44,9 @@ class TestDownloadCLI(unittest.TestCase):
         Should return the closest date that appears first.
         """
         mock_check_func = MagicMock(
-            side_effect=lambda d: True
-            if d in ["20240101", "20240105", "20240110"]
-            else None
+            side_effect=lambda d: (
+                True if d in ["20240101", "20240105", "20240110"] else None
+            )
         )
         target_date = "20240103"
         other_old_dumps = ["20240101", "20240105", "20240110"]

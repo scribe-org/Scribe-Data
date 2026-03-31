@@ -5,6 +5,7 @@ Test the data_to_sqlite function.
 
 import json
 import sqlite3
+from typing import Any
 from unittest import mock
 
 import pytest
@@ -220,13 +221,13 @@ def test_translations_to_sqlite_missing_json(temp_json_dir, translations_setup, 
 
 
 class MockConnection:
-    def __init__(self, real_conn):
+    def __init__(self, real_conn) -> None:
         self._conn = real_conn
 
-    def commit(self):
+    def commit(self) -> None:
         raise sqlite3.Error("mock commit error")
 
-    def __getattr__(self, name):
+    def __getattr__(self, name) -> Any:
         # Delegate attribute access to the real connection.
         return getattr(self._conn, name)
 
