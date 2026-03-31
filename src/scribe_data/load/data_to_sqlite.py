@@ -355,7 +355,9 @@ def data_to_sqlite(
                         keys += [""] * (len(cols) - len(keys))
                         table_insert(cursor, data_type=dt, keys=keys)
 
-                    connection.commit()
+                connection.commit()
+
+        
 
             connection.close()
             print(f"{lang.capitalize()} database processing completed.")
