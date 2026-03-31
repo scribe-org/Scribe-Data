@@ -18,7 +18,7 @@ import questionary
 import requests
 
 
-def check_if_pyicu_installed():
+def check_if_pyicu_installed() -> bool:
     """
     Check to see if PyICU is installed or not.
 
@@ -36,7 +36,7 @@ def check_if_pyicu_installed():
         return False
 
 
-def get_python_version_and_architecture():
+def get_python_version_and_architecture() -> tuple[str, str]:
     """
     Get the current Python version and architecture.
 
@@ -54,7 +54,7 @@ def get_python_version_and_architecture():
     return python_version, architecture
 
 
-def fetch_wheel_releases():
+def fetch_wheel_releases() -> tuple[list[tuple[str, str]], float]:
     """
     Fetch the release data for PyICU from GitHub with error handling for rate limits.
 
@@ -83,7 +83,7 @@ def fetch_wheel_releases():
     return available_wheels, total_size_mb
 
 
-def download_wheel_file(wheel_url, output_dir):
+def download_wheel_file(wheel_url: str, output_dir: str) -> str:
     """
     Download the wheel file from the given URL.
 
@@ -112,7 +112,9 @@ def download_wheel_file(wheel_url, output_dir):
     return wheel_path
 
 
-def find_matching_wheel(wheels, python_version, architecture):
+def find_matching_wheel(
+    wheels: list[tuple[str, str]], python_version: str, architecture: str
+) -> str | None:
     """
     Find the matching wheel file based on Python version and architecture.
 
@@ -142,7 +144,7 @@ def find_matching_wheel(wheels, python_version, architecture):
     )
 
 
-def check_and_install_pyicu():
+def check_and_install_pyicu() -> bool:
     """
     Check whether PyICU is installed and install it if it's not already.
 

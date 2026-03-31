@@ -20,7 +20,7 @@ iso_to_qid = {
 }
 
 
-def parse_sparql_files():
+def parse_sparql_files() -> dict:
     """
     Read and parse all SPARQL query files to extract form information.
 
@@ -49,7 +49,7 @@ def parse_sparql_files():
     return all_forms
 
 
-def parse_sparql_query(query_text):
+def parse_sparql_query(query_text: str) -> dict:
     """
     Parse a SPARQL query to extract lexical categories and features.
 

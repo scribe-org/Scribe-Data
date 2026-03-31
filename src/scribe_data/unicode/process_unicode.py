@@ -28,7 +28,7 @@ emoji_codes_to_ignore = get_emoji_codes_to_ignore()
 def gen_emoji_lexicon(
     language: str,
     emojis_per_keyword: int,
-):
+) -> dict[str, list]:
     """
     Generate a dictionary of keywords (keys) and emoji unicode(s) associated with them (values).
 
@@ -191,9 +191,9 @@ def gen_emoji_lexicon(
     # Sort by rank after all emojis already found per keyword.
     for emojis in keyword_dict.values():
         emojis.sort(
-            key=lambda suggestion: float("inf")
-            if suggestion["rank"] is None
-            else suggestion["rank"]
+            key=lambda suggestion: (
+                float("inf") if suggestion["rank"] is None else suggestion["rank"]
+            )
         )
 
         # If specified, enforce limit of emojis per keyword.

@@ -19,7 +19,7 @@ from scribe_data.utils import (
 )
 
 
-def get_available_filename(base_path):
+def get_available_filename(base_path: str) -> str:
     """
     Find the next available filename by incrementing counter if file exists.
 
@@ -81,7 +81,11 @@ def get_available_filename(base_path):
     return os.path.join(base_dir, f"{name}_{max_num + 1}{ext}")
 
 
-def generate_query(missing_features, query_dir=None, sub_lang_iso_code=None):
+def generate_query(
+    missing_features: dict,
+    query_dir: str | Path | None = None,
+    sub_lang_iso_code: str | None = None,
+) -> str | None:
     """
     Generate SPARQL queries for missing lexeme forms.
 
