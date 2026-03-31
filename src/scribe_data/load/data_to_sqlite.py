@@ -265,8 +265,6 @@ def data_to_sqlite(
                 dt for dt in language_data_type_dict[lang] if dt != "translations"
             ]
 
-    
-
     languages_capitalized = [lang.capitalize() for lang in languages]
     print(
         f"Creating/Updating SQLite databases for the following languages: {', '.join(languages_capitalized)}"
@@ -286,7 +284,6 @@ def data_to_sqlite(
                 / f"{get_language_iso(lang).upper()}LanguageData.sqlite"
             )
             if db_file.exists():
-                print("ovarger", overwrite)
                 if not overwrite:
                     answer = questionary.confirm(
                         f"SQLite file {db_file} already exists.\nDo you want to overwrite it?"
@@ -304,8 +301,6 @@ def data_to_sqlite(
             print(f"Database for {lang} {maybe_over}written and connection made.")
 
             for dt in language_data_type_dict[lang]:
-                
-
                 print(f"Creating/Updating {lang} {dt} table...")
                 json_file_path = Path(input_file) / lang / f"{dt}.json"
 
@@ -367,8 +362,6 @@ def data_to_sqlite(
                         table_insert(cursor, data_type=dt, keys=keys)
 
                 connection.commit()
-
-        
 
             connection.close()
             print(f"{lang.capitalize()} database processing completed.")
