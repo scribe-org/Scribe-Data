@@ -12,7 +12,7 @@ from scribe_data.utils import (
 )
 
 
-def pr_body(missing_features):
+def pr_body(missing_features: dict) -> str:
     """
     Generate a formatted PR body describing missing features for each language.
 

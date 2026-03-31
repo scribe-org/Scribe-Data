@@ -11,7 +11,7 @@ import os
 from pathlib import Path
 
 
-def check_install_node_modules():
+def check_install_node_modules() -> None:
     """
     Check to see if node modules have been installed in Scribe-Data, and if not installs them.
     """

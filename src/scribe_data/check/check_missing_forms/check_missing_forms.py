@@ -29,7 +29,7 @@ DEFAULT_MODERATE_DATA_TYPE_FREQUENCY = 15
 DEFAULT_SIMPLE_DATA_TYPE_FREQUENCY = 5
 
 
-def load_sparql_template():
+def load_sparql_template() -> str:
     """
     Load the universal SPARQL query template from file.
 
@@ -43,7 +43,7 @@ def load_sparql_template():
         return f.read()
 
 
-def execute_sparql_query(query, max_retries=3):
+def execute_sparql_query(query: str, max_retries: int = 3) -> list | None:
     """
     Execute a SPARQL query against Wikidata with retry logic and rate limiting.
 
@@ -102,8 +102,8 @@ def execute_sparql_query(query, max_retries=3):
 
 
 def generate_fallback_lexeme_query(
-    language_qid, data_type_qid, language_name, data_type_name
-):
+    language_qid: str, data_type_qid: str, language_name: str, data_type_name: str
+) -> Path:
     """
     Generate a simple lexeme exploration query when the feature combination query fails.
 
@@ -159,13 +159,13 @@ WHERE {{{{
 
 
 def get_forms_from_sparql_service(
-    language_qid,
-    data_type_qid,
-    frequency_threshold=0,
-    max_results=1000,
-    language_name=None,
-    data_type_name=None,
-):
+    language_qid: str,
+    data_type_qid: str,
+    frequency_threshold: int = 0,
+    max_results: int = 1000,
+    language_name: str | None = None,
+    data_type_name: str | None = None,
+) -> list | str:
     """
     Get form combinations for a language/data type pair from the Wikidata Query SPARQL service.
 
@@ -275,8 +275,8 @@ def get_forms_from_sparql_service(
 
 
 def get_forms_from_sparql_service_all_languages(
-    frequency_threshold=0, max_results=1000
-):
+    frequency_threshold: int = 0, max_results: int = 1000
+) -> dict:
     """
     Get form combinations for all languages and data types from SPARQL service.
 
@@ -370,7 +370,9 @@ def get_forms_from_sparql_service_all_languages(
     return dict(result_sparql_service)
 
 
-def get_features_from_sparql_service(frequency_threshold=0, max_results=1000):
+def get_features_from_sparql_service(
+    frequency_threshold: int = 0, max_results: int = 1000
+) -> dict | None:
     """
     Get all form combinations from live SPARQL service (new approach).
 
@@ -425,7 +427,7 @@ def get_features_from_sparql_service(frequency_threshold=0, max_results=1000):
     return dict(filtered_features) if filtered_features else None
 
 
-def process_missing_features(missing_features, query_dir):
+def process_missing_features(missing_features: dict, query_dir: str | Path) -> None:
     """
     Generate SPARQL queries for missing features by language and data type.
 
@@ -500,7 +502,7 @@ def process_missing_features(missing_features, query_dir):
             continue
 
 
-def main():
+def main() -> None:
     """
     Main function to check for missing forms in Wikidata using SPARQL service.
 

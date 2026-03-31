@@ -4,11 +4,16 @@ Split forms into groups of up to six forms per query based on identifiers.
 """
 
 from collections import defaultdict
+from pathlib import Path
 
 from scribe_data.check.check_missing_forms.generate_query import generate_query
 
 
-def split_group_by_identifier(language_entry, output_dir, sub_lang_iso_code=None):
+def split_group_by_identifier(
+    language_entry: dict,
+    output_dir: str | Path,
+    sub_lang_iso_code: str | None = None,
+) -> None:
     """
     Split forms into groups of up to six forms per query based on identifiers.
 
