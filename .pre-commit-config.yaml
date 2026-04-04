@@ -41,3 +41,8 @@ repos:
         exclude: ^(?:.*/)?__init__\.py$
         args: [-l, GPL-3.0-or-later, --fix, --continue-on-error]
         types_or: [python]
+
+  - repo: https://github.com/astral-sh/ty
+    rev: 0.0.28
+    hooks:
+        - id: ty

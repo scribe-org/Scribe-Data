@@ -57,6 +57,7 @@ jobs:
         if: always()
         run: uv run ruff check ./src
 
-      - name: Run mypy - Static Type Checking
+      - name: Run ty - Static Type Checking
         if: always()
-        run: uv run mypy ./src --config-file ./pyproject.toml
+        run: uvx ty check
+
