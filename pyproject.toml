@@ -131,7 +131,6 @@ disable_error_code = [
     "misc",
     "no-any-return",
     "no-redef",
-    "no-untyped-call",
     "operator",
     "return",
     "return-value",

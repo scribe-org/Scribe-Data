@@ -20,7 +20,7 @@ from scribe_data.utils import check_lexeme_dump_prompt_download
 
 
 class TestDownloadCLI(unittest.TestCase):
-    def test_parse_date_valid_formats(self):
+    def test_parse_date_valid_formats(self) -> None:
         """
         Test parse_date function with valid date formats.
         """
@@ -28,7 +28,7 @@ class TestDownloadCLI(unittest.TestCase):
         self.assertEqual(parse_date("2024/01/01"), date(2024, 1, 1))
         self.assertEqual(parse_date("2024-01-01"), date(2024, 1, 1))
 
-    def test_parse_date_invalid_format(self):
+    def test_parse_date_invalid_format(self) -> None:
         """
         Test parse_date function with invalid date formats.
         """
@@ -36,7 +36,7 @@ class TestDownloadCLI(unittest.TestCase):
         self.assertIsNone(parse_date("invalid-date"))
 
     @patch("scribe_data.cli.download.requests.get")
-    def test_available_closest_lexeme_dumpfile(self, mock_get):
+    def test_available_closest_lexeme_dumpfile(self, mock_get: MagicMock) -> None:
         """
         Test finding closest available lexeme dump file.
 
@@ -44,9 +44,9 @@ class TestDownloadCLI(unittest.TestCase):
         Should return the closest date that appears first.
         """
         mock_check_func = MagicMock(
-            side_effect=lambda d: True
-            if d in ["20240101", "20240105", "20240110"]
-            else None
+            side_effect=lambda d: (
+                True if d in ["20240101", "20240105", "20240110"] else None
+            )
         )
         target_date = "20240103"
         other_old_dumps = ["20240101", "20240105", "20240110"]
@@ -57,7 +57,9 @@ class TestDownloadCLI(unittest.TestCase):
 
     @patch("scribe_data.cli.download.requests.get")
     @patch("scribe_data.cli.download.re.findall")
-    def test_download_wd_lexeme_dump_latest(self, mock_findall, mock_get):
+    def test_download_wd_lexeme_dump_latest(
+        self, mock_findall: MagicMock, mock_get: MagicMock
+    ) -> None:
         """
         Test downloading latest Wikidata lexeme dump.
         """
@@ -72,7 +74,9 @@ class TestDownloadCLI(unittest.TestCase):
 
     @patch("scribe_data.cli.download.requests.get")
     @patch("scribe_data.cli.download.re.findall")
-    def test_download_wd_lexeme_dump_by_date(self, mock_findall, mock_get):
+    def test_download_wd_lexeme_dump_by_date(
+        self, mock_findall: MagicMock, mock_get: MagicMock
+    ) -> None:
         """
         Test downloading Wikidata lexeme dump for a specific date.
         """
@@ -95,13 +99,13 @@ class TestDownloadCLI(unittest.TestCase):
     @patch("scribe_data.cli.download.questionary.confirm")
     def test_wd_lexeme_dump_download_wrapper_latest(
         self,
-        mock_confirm,
-        mock_makedirs,
-        mock_tqdm,
-        mock_file,
-        mock_check_prompt,
-        mock_get,
-    ):
+        mock_confirm: MagicMock,
+        mock_makedirs: MagicMock,
+        mock_tqdm: MagicMock,
+        mock_file: MagicMock,
+        mock_check_prompt: MagicMock,
+        mock_get: MagicMock,
+    ) -> None:
         """
         Test wrapper function for downloading latest Wikidata lexeme dump.
         """
@@ -127,7 +131,9 @@ class TestDownloadCLI(unittest.TestCase):
         "scribe_data.utils.Path.glob",
         return_value=[Path("dump1.json.bz2"), Path("latest-lexemes.json.bz2")],
     )
-    def test_check_lexeme_dump_prompt_download_existing(self, mock_glob, mock_select):
+    def test_check_lexeme_dump_prompt_download_existing(
+        self, mock_glob: MagicMock, mock_select: MagicMock
+    ) -> None:
         """
         Test prompt for using existing lexeme dump files.
         """
@@ -144,7 +150,9 @@ class TestDownloadCLI(unittest.TestCase):
         "scribe_data.utils.Path.glob",
         return_value=[Path("dump1.json.bz2"), Path("latest-lexemes.json.bz2")],
     )
-    def test_check_lexeme_dump_prompt_download_delete(self, mock_glob, mock_select):
+    def test_check_lexeme_dump_prompt_download_delete(
+        self, mock_glob: MagicMock, mock_select: MagicMock
+    ) -> None:
         """
         Test prompt for deleting existing lexeme dump files.
         """
@@ -163,7 +171,9 @@ class TestDownloadCLI(unittest.TestCase):
 
     @patch("scribe_data.cli.download.requests.get")
     @patch("scribe_data.cli.download.questionary.confirm")
-    def test_download_wd_lexeme_dump_http_error(self, mock_confirm, mock_get):
+    def test_download_wd_lexeme_dump_http_error(
+        self, mock_confirm: MagicMock, mock_get: MagicMock
+    ) -> None:
         """
         Test handling of HTTP errors when downloading Wikidata lexeme dump.
         """
@@ -187,7 +197,9 @@ class TestDownloadCLI(unittest.TestCase):
             )
 
     @patch("scribe_data.cli.download.requests.get")
-    def test_download_wd_lexeme_dump_request_exception(self, mock_get):
+    def test_download_wd_lexeme_dump_request_exception(
+        self, mock_get: MagicMock
+    ) -> None:
         """
         Test handling of general request exceptions when downloading latest dump.
         """
@@ -200,7 +212,9 @@ class TestDownloadCLI(unittest.TestCase):
 
     @patch("scribe_data.cli.download.requests.get")
     @patch("scribe_data.cli.download.questionary.confirm")
-    def test_download_wd_lexeme_dump_find_closest(self, mock_confirm, mock_get):
+    def test_download_wd_lexeme_dump_find_closest(
+        self, mock_confirm: MagicMock, mock_get: MagicMock
+    ) -> None:
         """
         Test finding closest available dump when requested date is not available.
         """
@@ -230,8 +244,8 @@ class TestDownloadCLI(unittest.TestCase):
     @patch("scribe_data.cli.download.requests.get")
     @patch("scribe_data.cli.download.questionary.confirm")
     def test_download_wd_lexeme_dump_user_declines_closest(
-        self, mock_confirm, mock_get
-    ):
+        self, mock_confirm: MagicMock, mock_get: MagicMock
+    ) -> None:
         """
         Test user declining to see closest available dumps.
         """
@@ -248,7 +262,7 @@ class TestDownloadCLI(unittest.TestCase):
         result = download_wd_lexeme_dump("2024-01-01")
         self.assertIsNone(result)
 
-    def test_wd_lexeme_dump_download_wrapper_default_flag(self):
+    def test_wd_lexeme_dump_download_wrapper_default_flag(self) -> None:
         """
         Test wrapper function with default flag set to True.
         """
@@ -259,7 +273,7 @@ class TestDownloadCLI(unittest.TestCase):
             self.assertFalse(result)
 
     @patch("scribe_data.cli.download.requests.get")
-    def test_download_wd_lexeme_dump_invalid_date(self, mock_get):
+    def test_download_wd_lexeme_dump_invalid_date(self, mock_get: MagicMock) -> None:
         """
         Test downloading with invalid date format.
         """

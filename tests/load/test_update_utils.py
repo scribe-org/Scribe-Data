@@ -27,11 +27,11 @@ from scribe_data import utils
         ("bokmål", "Q25167"),
     ],
 )
-def test_get_language_qid_positive(language, qid_code):
+def test_get_language_qid_positive(language: str, qid_code: str) -> None:
     assert utils.get_language_qid(language) == qid_code
 
 
-def test_get_language_qid_negative():
+def test_get_language_qid_negative() -> None:
     with pytest.raises(ValueError) as excp:
         _ = utils.get_language_qid("Newspeak")
 
@@ -55,11 +55,11 @@ def test_get_language_qid_negative():
         ("bokmål", "nb"),
     ],
 )
-def test_get_language_iso_positive(language, iso_code):
+def test_get_language_iso_positive(language: str, iso_code: str) -> None:
     assert utils.get_language_iso(language) == iso_code
 
 
-def test_get_language_iso_negative():
+def test_get_language_iso_negative() -> None:
     with pytest.raises(ValueError) as excp:
         _ = utils.get_language_iso("Gibberish")
 
@@ -83,11 +83,11 @@ def test_get_language_iso_negative():
         ("nb", "Bokmål"),
     ],
 )
-def test_get_language_from_iso_positive(iso_code, language):
+def test_get_language_from_iso_positive(iso_code: str, language: str) -> None:
     assert utils.get_language_from_iso(iso_code) == language
 
 
-def test_get_language_from_iso_negative():
+def test_get_language_from_iso_negative() -> None:
     with pytest.raises(ValueError) as excp:
         _ = utils.get_language_from_iso("ixi")
 
@@ -102,7 +102,7 @@ def test_get_language_from_iso_negative():
         ("english", "english"),
     ],
 )
-def test_format_sublanguage_name_positive(lang, expected_output):
+def test_format_sublanguage_name_positive(lang: str, expected_output: str) -> None:
     assert utils.format_sublanguage_name(lang) == expected_output
 
 
@@ -113,18 +113,18 @@ def test_format_sublanguage_name_positive(lang, expected_output):
         ("Q1860", "Q1860"),
     ],
 )
-def test_format_sublanguage_name_qid_positive(lang, expected_output):
+def test_format_sublanguage_name_qid_positive(lang: str, expected_output: str) -> None:
     assert utils.format_sublanguage_name(lang) == expected_output
 
 
-def test_format_sublanguage_name_negative():
+def test_format_sublanguage_name_negative() -> None:
     with pytest.raises(ValueError) as excp:
         _ = utils.format_sublanguage_name("Newspeak")
 
     assert str(excp.value) == "Newspeak is not a valid language or sub-language."
 
 
-def test_list_all_languages():
+def test_list_all_languages() -> None:
     expected_languages = [
         "arabic",
         "basque",

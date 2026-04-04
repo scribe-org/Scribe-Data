@@ -5,7 +5,7 @@ Tests for the upgrade CLI functionality.
 
 import subprocess
 import sys
-from unittest.mock import call, patch
+from unittest.mock import call, patch, MagicMock
 
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import UNKNOWN_VERSION_NOT_FETCHED
@@ -20,8 +20,11 @@ class TestUpgradeCLI:
     @patch("scribe_data.cli.upgrade.get_latest_version")
     @patch("builtins.print")
     def test_upgrade_cli_unable_to_fetch_latest_version(
-        self, mock_print, mock_get_latest, mock_get_local
-    ):
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+    ) -> None:
         """
         Test upgrade_cli when unable to fetch latest version from GitHub.
         """
@@ -38,8 +41,11 @@ class TestUpgradeCLI:
     @patch("scribe_data.cli.upgrade.get_latest_version")
     @patch("builtins.print")
     def test_upgrade_cli_already_latest_version(
-        self, mock_print, mock_get_latest, mock_get_local
-    ):
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+    ) -> None:
         """
         Test upgrade_cli when already on latest version.
         """
@@ -55,9 +61,12 @@ class TestUpgradeCLI:
     @patch("scribe_data.cli.upgrade.get_local_version")
     @patch("scribe_data.cli.upgrade.get_latest_version")
     @patch("builtins.print")
-    def test_upgrade_cli_local_version_higher(
-        self, mock_print, mock_get_latest, mock_get_local
-    ):
+    def test_upgrade_cli_already_latest_version(
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+    ) -> None:
         """
         Test upgrade_cli when local version is higher than released version.
         """
@@ -78,8 +87,12 @@ class TestUpgradeCLI:
     @patch("scribe_data.cli.upgrade.get_latest_version")
     @patch("builtins.print")
     def test_upgrade_cli_successful_upgrade(
-        self, mock_print, mock_get_latest, mock_get_local, mock_check_call
-    ):
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+        mock_check_call: MagicMock,
+    ) -> None:
         """
         Test upgrade_cli when upgrade is needed and successful.
         """
@@ -105,8 +118,12 @@ class TestUpgradeCLI:
     @patch("scribe_data.cli.upgrade.get_latest_version")
     @patch("builtins.print")
     def test_upgrade_cli_subprocess_error(
-        self, mock_print, mock_get_latest, mock_get_local, mock_check_call
-    ):
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+        mock_check_call: MagicMock,
+    ) -> None:
         """
         Test upgrade_cli when subprocess.check_call fails.
         """
@@ -133,8 +150,11 @@ class TestUpgradeCLI:
     @patch("scribe_data.cli.upgrade.get_latest_version")
     @patch("builtins.print")
     def test_upgrade_cli_version_parsing_edge_cases(
-        self, mock_print, mock_get_latest, mock_get_local
-    ):
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+    ) -> None:
         """
         Test upgrade_cli with version strings containing whitespace.
         """
@@ -151,8 +171,11 @@ class TestUpgradeCLI:
     @patch("scribe_data.cli.upgrade.get_latest_version")
     @patch("builtins.print")
     def test_upgrade_cli_string_comparison_edge_case(
-        self, mock_print, mock_get_latest, mock_get_local
-    ):
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+    ) -> None:
         """
         Test version comparison edge case where semantic versioning works correctly.
         """
@@ -175,8 +198,11 @@ class TestUpgradeCLI:
     @patch("scribe_data.cli.upgrade.get_latest_version")
     @patch("builtins.print")
     def test_upgrade_cli_proper_higher_version_scenario(
-        self, mock_print, mock_get_latest, mock_get_local
-    ):
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+    ) -> None:
         """
         Test upgrade_cli when local version is legitimately higher than released version.
         """
@@ -197,8 +223,11 @@ class TestUpgradeCLI:
     @patch("scribe_data.cli.upgrade.get_latest_version")
     @patch("builtins.print")
     def test_upgrade_cli_different_version_formats(
-        self, mock_print, mock_get_latest, mock_get_local
-    ):
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+    ) -> None:
         """
         Test upgrade_cli with different version string formats.
         """
@@ -215,8 +244,11 @@ class TestUpgradeCLI:
     @patch("scribe_data.cli.upgrade.get_latest_version")
     @patch("builtins.print")
     def test_upgrade_cli_semantic_version_upgrade_needed(
-        self, mock_print, mock_get_latest, mock_get_local
-    ):
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+    ) -> None:
         """
         Test upgrade_cli when semantic version upgrade is needed.
         """
@@ -239,8 +271,11 @@ class TestUpgradeCLI:
     @patch("scribe_data.cli.upgrade.get_latest_version")
     @patch("builtins.print")
     def test_upgrade_cli_with_empty_version_strings(
-        self, mock_print, mock_get_latest, mock_get_local
-    ):
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+    ) -> None:
         """
         Test upgrade_cli with edge case of empty version strings.
         """

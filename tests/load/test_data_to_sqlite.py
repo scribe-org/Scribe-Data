@@ -5,6 +5,8 @@ Test the data_to_sqlite function.
 
 import json
 import sqlite3
+from pathlib import Path
+from typing import Any
 from unittest import mock
 
 import pytest
@@ -18,7 +20,7 @@ from scribe_data.load.data_to_sqlite import (
 
 
 @pytest.fixture
-def temp_db(tmp_path):
+def temp_db(tmp_path: Path) -> Any:
     """
     Create a temporary SQLite database for testing.
     """
@@ -30,7 +32,7 @@ def temp_db(tmp_path):
 
 
 @pytest.fixture
-def temp_json_dir(tmp_path):
+def temp_json_dir(tmp_path: Path) -> Path:
     """
     Create a temporary directory with test JSON files.
     """
@@ -60,7 +62,7 @@ def temp_json_dir(tmp_path):
     return json_dir
 
 
-def test_create_table(temp_db):
+def test_create_table(temp_db: Any) -> None:
     """
     Test creating a table with both snake and camel case identifiers.
     """
@@ -80,7 +82,7 @@ def test_create_table(temp_db):
     assert "another_col" in columns
 
 
-def test_table_insert(temp_db):
+def test_table_insert(temp_db: Any) -> None:
     """
     Test inserting data into a table.
     """
@@ -99,7 +101,7 @@ def test_table_insert(temp_db):
 
 
 @pytest.fixture
-def translations_setup(tmp_path):
+def translations_setup(tmp_path: Path) -> dict[str, Any]:
     """
     Pytest fixture to handle common setup for translations_to_sqlite tests.
     """
@@ -118,7 +120,9 @@ def translations_setup(tmp_path):
     }
 
 
-def test_translations_to_sqlite(temp_json_dir, translations_setup):
+def test_translations_to_sqlite(
+    temp_json_dir: Path, translations_setup: dict[str, Any]
+) -> None:
     """
     Test translations_to_sqlite functionality.
     """
@@ -146,7 +150,9 @@ def test_translations_to_sqlite(temp_json_dir, translations_setup):
     conn.close()
 
 
-def test_overwrite_existing_file_user_confirms(temp_json_dir, translations_setup):
+def test_overwrite_existing_file_user_confirms(
+    temp_json_dir: Path, translations_setup: dict[str, Any]
+) -> None:
     """
     Test when file exists, overwrite=False, and user confirms.
     """
@@ -170,7 +176,9 @@ def test_overwrite_existing_file_user_confirms(temp_json_dir, translations_setup
         mock_remove.assert_called_once_with(translations_setup["expected_db_path"])
 
 
-def test_overwrite_existing_file_user_declines(temp_json_dir, translations_setup):
+def test_overwrite_existing_file_user_declines(
+    temp_json_dir: Path, translations_setup: dict[str, Any]
+) -> None:
     """
     Test when file exists, overwrite=False, and user declines.
     """
@@ -195,7 +203,9 @@ def test_overwrite_existing_file_user_declines(temp_json_dir, translations_setup
         mock_print.assert_called_with("Skipping translation DB creation.")
 
 
-def test_translations_to_sqlite_missing_json(temp_json_dir, translations_setup, capsys):
+def test_translations_to_sqlite_missing_json(
+    temp_json_dir: Path, translations_setup: dict[str, Any], capsys: Any
+) -> None:
     """
     Test translations_to_sqlite skips language table creation if JSON file is missing.
     """
@@ -220,25 +230,27 @@ def test_translations_to_sqlite_missing_json(temp_json_dir, translations_setup, 
 
 
 class MockConnection:
-    def __init__(self, real_conn):
+    def __init__(self, real_conn: sqlite3.Connection) -> None:
         self._conn = real_conn
 
-    def commit(self):
+    def commit(self) -> None:
         raise sqlite3.Error("mock commit error")
 
-    def __getattr__(self, name):
+    def __getattr__(self, name: str) -> Any:
         # Delegate attribute access to the real connection.
         return getattr(self._conn, name)
 
 
-def test_translations_to_sqlite_commit_error(temp_json_dir, translations_setup, capsys):
+def test_translations_to_sqlite_commit_error(
+    temp_json_dir: Path, translations_setup: dict[str, Any], capsys: Any
+) -> None:
     """
     Test that translations_to_sqlite handles sqlite3.Error on commit properly.
     """
 
     original_connect = sqlite3.connect
 
-    def mock_connect(*args, **kwargs):
+    def mock_connect(*args: Any, **kwargs: Any) -> MockConnection:
         real_conn = original_connect(*args, **kwargs)
         return MockConnection(real_conn)
 
@@ -256,7 +268,7 @@ def test_translations_to_sqlite_commit_error(temp_json_dir, translations_setup, 
     assert "mock commit error" in captured.out
 
 
-def test_data_to_sqlite_invalid_language():
+def test_data_to_sqlite_invalid_language() -> None:
     """
     Test data_to_sqlite with invalid language.
     """
@@ -264,7 +276,7 @@ def test_data_to_sqlite_invalid_language():
         data_to_sqlite(languages=["invalid_language"])
 
 
-def test_create_table_duplicate_columns(temp_db):
+def test_create_table_duplicate_columns(temp_db: Any) -> None:
     """
     Test creating a table with duplicate column names.
     """
@@ -281,7 +293,7 @@ def test_create_table_duplicate_columns(temp_db):
     assert len(set(columns)) == 3  # all columns should be unique
 
 
-def test_data_to_sqlite_translations_and_nouns(tmp_path):
+def test_data_to_sqlite_translations_and_nouns(tmp_path: Path) -> None:
     input_dir = tmp_path / "input"
     output_dir = tmp_path / "output"
     input_dir.mkdir()
@@ -339,7 +351,7 @@ def test_data_to_sqlite_translations_and_nouns(tmp_path):
     assert len(scribe_row) == 1
 
 
-def test_data_to_sqlite_skips_missing_json(tmp_path):
+def test_data_to_sqlite_skips_missing_json(tmp_path: Path) -> None:
     input_dir = tmp_path / "input"
     input_dir.mkdir()
     lang_dir = input_dir / "english"

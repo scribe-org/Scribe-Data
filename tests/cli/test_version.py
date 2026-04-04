@@ -5,7 +5,7 @@ Tests for the CLI version functionality.
 
 import importlib.metadata
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 from scribe_data.cli.version import (
     UNKNOWN_VERSION_NOT_FETCHED,
@@ -18,7 +18,7 @@ from scribe_data.cli.version import (
 
 class TestVersionFunctions(unittest.TestCase):
     @patch("scribe_data.cli.version.importlib.metadata.version")
-    def test_get_local_version_installed(self, mock_version):
+    def test_get_local_version_installed(self, mock_version: MagicMock) -> None:
         mock_version.return_value = "1.0.0"
         self.assertEqual(get_local_version(), "1.0.0")
 
@@ -26,17 +26,17 @@ class TestVersionFunctions(unittest.TestCase):
         "scribe_data.cli.version.importlib.metadata.version",
         side_effect=importlib.metadata.PackageNotFoundError,
     )
-    def test_get_local_version_not_installed(self, mock_version):
+    def test_get_local_version_not_installed(self, mock_version: MagicMock) -> None:
         self.assertEqual(get_local_version(), UNKNOWN_VERSION_NOT_PIP)
 
     @patch("requests.get")
-    def test_get_latest_version(self, mock_get):
+    def test_get_latest_version(self, mock_get: MagicMock) -> None:
         mock_get.return_value.status_code = 200
         mock_get.return_value.json.return_value = {"name": "v1.0.1"}
         self.assertEqual(get_latest_version(), "v1.0.1")
 
     @patch("requests.get", side_effect=Exception("Unable to fetch version"))
-    def test_get_latest_version_failure(self, mock_get):
+    def test_get_latest_version_failure(self, mock_get: MagicMock) -> None:
         self.assertEqual(get_latest_version(), UNKNOWN_VERSION_NOT_FETCHED)
 
     @patch("scribe_data.cli.version.get_local_version", return_value="X.Y.Z")
@@ -44,8 +44,8 @@ class TestVersionFunctions(unittest.TestCase):
         "scribe_data.cli.version.get_latest_version", return_value="Scribe-Data X.Y.Z"
     )
     def test_get_version_message_up_to_date(
-        self, mock_latest_version, mock_local_version
-    ):
+        self, mock_latest_version: MagicMock, mock_local_version: MagicMock
+    ) -> None:
         """
         Tests the scenario where the local version is up to date with the latest version.
         """
@@ -56,7 +56,9 @@ class TestVersionFunctions(unittest.TestCase):
     @patch(
         "scribe_data.cli.version.get_latest_version", return_value="Scribe-Data X.Y.Z"
     )
-    def test_upgrade_available(self, mock_latest_version, mock_local_version):
+    def test_upgrade_available(
+        self, mock_latest_version: MagicMock, mock_local_version: MagicMock
+    ) -> None:
         """
         Test case where a newer version is available.
         """
@@ -70,7 +72,9 @@ class TestVersionFunctions(unittest.TestCase):
     @patch(
         "scribe_data.cli.version.get_latest_version", return_value="Scribe-Data X.Y.Z"
     )
-    def test_local_version_unknown(self, mock_latest_version, mock_local_version):
+    def test_local_version_unknown(
+        self, mock_latest_version: MagicMock, mock_local_version: MagicMock
+    ) -> None:
         """
         Test case where the local version is unknown.
         """
@@ -81,7 +85,9 @@ class TestVersionFunctions(unittest.TestCase):
         "scribe_data.cli.version.get_latest_version",
         return_value=UNKNOWN_VERSION_NOT_FETCHED,
     )
-    def test_latest_version_unknown(self, mock_latest_version, mock_local_version):
+    def test_latest_version_unknown(
+        self, mock_latest_version: MagicMock, mock_local_version: MagicMock
+    ) -> None:
         """
         Test case where the latest version cannot be fetched.
         """
