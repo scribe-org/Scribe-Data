@@ -59,5 +59,4 @@ jobs:
 
       - name: Run ty - Static Type Checking
         if: always()
-        run: uvx ty check
-
+        run: uv run ty check

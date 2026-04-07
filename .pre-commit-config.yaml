@@ -27,12 +27,6 @@ repos:
     hooks:
       - id: sphinx-lint
 
-  # - repo: https://github.com/tcort/markdown-link-check
-  #   rev: v3.14.1
-  #   hooks:
-  #     - id: markdown-link-check
-  #       args: [-q]
-
   - repo: https://github.com/to-sta/spdx-checker-pre-commit
     rev: 0.1.7
     hooks:
@@ -42,7 +36,12 @@ repos:
         args: [-l, GPL-3.0-or-later, --fix, --continue-on-error]
         types_or: [python]
 
-  - repo: https://github.com/astral-sh/ty
-    rev: 0.0.28
+  - repo: local
     hooks:
-        - id: ty
+      - id: ty-check
+        name: run ty static type checking
+        files: ^src/
+        entry: uv run ty check
+        language: python
+        types: [python]
+        pass_filenames: false

@@ -22,9 +22,10 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
     "Operating System :: OS Independent",
 ]
+
 dependencies = [
     "emoji==2.15.0",
-    "orjson==3.11.7",
+    "orjson==3.11.8",
     "packaging==26.0",
     "pyyaml==6.0.3",
     "questionary==2.1.1",
@@ -37,10 +38,11 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "prek>=0.3.8",
-    "pytest>=9.0.2",
+    "pytest>=9.0.3",
     "pytest-cov>=7.1.0",
-    "ruff>=0.15.8",
+    "ruff>=0.15.9",
     "setuptools>=82.0.1",
+    "ty>=0.0.29",
 ]
 docs = [
     # Keep docs dependencies formatted in this way with ruff to allow for upgrades via VS Code extension.
@@ -69,6 +71,7 @@ where = ["src"]
 pythonpath = "src"
 
 [tool.ruff]
+# Exclude a variety of commonly ignored directories.
 exclude = [
     "*/tests.py",
     "*/migrations/*.py",
