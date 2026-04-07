@@ -15,6 +15,16 @@ repos:
 
       - id: ruff-format
 
+  - repo: local
+    hooks:
+      - id: ty-check
+        name: run ty static type checking
+        files: ^src/
+        entry: uv run ty check
+        language: python
+        types: [python]
+        pass_filenames: false
+
   - repo: https://github.com/numpy/numpydoc
     rev: v1.8.0
     hooks:
@@ -26,12 +36,6 @@ repos:
     rev: v1.0.0
     hooks:
       - id: sphinx-lint
-
-  # - repo: https://github.com/tcort/markdown-link-check
-  #   rev: v3.14.1
-  #   hooks:
-  #     - id: markdown-link-check
-  #       args: [-q]
 
   - repo: https://github.com/to-sta/spdx-checker-pre-commit
     rev: 0.1.7
