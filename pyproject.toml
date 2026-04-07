@@ -80,7 +80,6 @@ exclude = [
     ".eggs",
     ".git",
     ".git-rewrite",
-    ".mypy_cache",
     ".nox",
     ".pants.d",
     ".pytype",
