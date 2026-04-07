@@ -15,6 +15,16 @@ repos:
 
       - id: ruff-format
 
+  - repo: local
+    hooks:
+      - id: ty-check
+        name: run ty static type checking
+        files: ^src/
+        entry: uv run ty check
+        language: python
+        types: [python]
+        pass_filenames: false
+
   - repo: https://github.com/numpy/numpydoc
     rev: v1.8.0
     hooks:
@@ -35,13 +45,3 @@ repos:
         exclude: ^(?:.*/)?__init__\.py$
         args: [-l, GPL-3.0-or-later, --fix, --continue-on-error]
         types_or: [python]
-
-  - repo: local
-    hooks:
-      - id: ty-check
-        name: run ty static type checking
-        files: ^src/
-        entry: uv run ty check
-        language: python
-        types: [python]
-        pass_filenames: false
