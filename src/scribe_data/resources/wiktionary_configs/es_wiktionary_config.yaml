@@ -1,39 +1,40 @@
-# ATTN: WIP
-engine: ast_trans_top
-lang_header_pattern: \(\{\{lengua\|es\}\}\)
-translations_header: Traducciones
+lang_header_pattern: \{\{lengua\|es\}\}
 prefilters:
 - trad-arriba
 - '{{t'
 - '{{T'
 ignored_prefixes:
 - 'ver:'
+- 'ver '
+- 'véase:'
+- 'véase '
+- 'cfr.'
+- 'cfr '
+- 'comparar:'
+- 'comparar '
 ignored_strings:
-- please add this translation if you can
-- script needed
-- '[script needed]'
-- literally
-- lit.
-- e.g.
-- cf.
-- different structure used
-- no equivalent
-- not used
-- not attested
+- sin equivalente
+- sin traducción
+- falta traducción
+- traducción pendiente
+- por añadir
+- añadir traducción
+- véase
 pos_map:
-  adj: adjective
-  adv: adverb
-  prep: preposition
-  conj: conjunction
-  intj: interjection
-  pron: pronoun
-  det: determiner
-  num: numeral
-  proper noun: proper_noun
-  proper name: proper_noun
-  name: proper_noun
   sustantivo masculino: noun
+  sustantivo femenino: noun
   sustantivo feminino: noun
+  verbo: verb
+  adjetivo: adjective
+  adverbio: adverb
+  preposición: preposition
+  conjunción: conjunction
+  interjección: interjection
+  pronombre: pronoun
+  determinante: determiner
+  artículo: determiner
+  numeral: numeral
+  nombre propio: proper_noun
 template_top:
 - trad-arriba
 template_bottom: trad-abajo

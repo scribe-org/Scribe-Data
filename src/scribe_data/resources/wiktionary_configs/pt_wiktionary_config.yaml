@@ -1,52 +1,43 @@
-# ATTN: WIP
-engine: ast_trans_top
-translations_header: translations
+lang_header_pattern: \{\{-pt-\}\}
+lang_header_level: 1
 prefilters:
-- translation
-- Translation
-- '{{t'
-- '{{T'
+- tradini
+- '{{trad|'
+- '{{t|'
+- '{{T|'
 ignored_prefixes:
-- 'see:'
-- 'see '
-- 'use:'
-- 'use '
-- 'prefix '
-- 'suffix '
-- usually expressed
-- expressed with
-- -prefix
-- -suffix
+- 'ver:'
+- 'ver '
+- 'veja:'
+- 'veja '
+- 'cf.'
+- 'cfr.'
+- 'comparar:'
+- 'comparar '
 ignored_strings:
-- please add this translation if you can
-- script needed
-- '[script needed]'
-- literally
-- lit.
-- e.g.
-- cf.
-- different structure used
-- no equivalent
-- not used
-- not attested
+- sem equivalente
+- falta tradução
+- tradução pendente
 pos_map:
-  adj: adjective
-  adv: adverb
-  prep: preposition
-  conj: conjunction
-  intj: interjection
-  pron: pronoun
-  det: determiner
-  num: numeral
-  proper noun: proper_noun
-  proper name: proper_noun
-  name: proper_noun
+  substantivo: noun
+  verbo: verb
+  adjetivo: adjective
+  advérbio: adverb
+  preposição: preposition
+  conjunção: conjunction
+  interjeição: interjection
+  pronome: pronoun
+  numeral: numeral
+  nome próprio: proper_noun
+  artigo: determiner
+  locução substantiva: phrase
+  locução adjetiva: phrase
+  locução verbal: phrase
 template_top:
-- trans-top
-- trans-top-also
-- checktrans-top
-template_bottom: trans-bottom
+- tradini
+template_bottom: tradfim
 template_translation:
+- trad
 - t
 - t+
 - t-check

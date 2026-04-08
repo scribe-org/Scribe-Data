@@ -1,54 +1,37 @@
-# ATTN: WIP
-engine: ast_trans_top
-translations_header: translations
+engine: ast_wikilink_list
+# itwiktionary marks its own-language block with == {{-it-}} ==
+lang_header_pattern: \{\{-it-\}\}
 prefilters:
-- translation
-- Translation
-- '{{t'
-- '{{T'
+  - '{{-trad-}}'
+  - '{{Trad1'
+  - '{{trad1'
 ignored_prefixes:
-- 'see:'
-- 'see '
-- 'use:'
-- 'use '
-- 'prefix '
-- 'suffix '
-- usually expressed
-- expressed with
-- -prefix
-- -suffix
+  - 'vedi:'
+  - 'vedi '
+  - 'v.:'
+  - 'v. '
+  - 'cf.'
+  - 'cfr.'
+  - 'confronta:'
+  - 'confronta '
 ignored_strings:
-- please add this translation if you can
-- script needed
-- '[script needed]'
-- literally
-- lit.
-- e.g.
-- cf.
-- different structure used
-- no equivalent
-- not used
-- not attested
+  - mancante
+  - da tradurre
+  - senza equivalente
+  - cfr.
 pos_map:
-  adj: adjective
-  adv: adverb
-  prep: preposition
-  conj: conjunction
-  intj: interjection
-  pron: pronoun
-  det: determiner
-  num: numeral
-  proper noun: proper_noun
-  proper name: proper_noun
-  name: proper_noun
+  sostantivo: noun
+  verbo: verb
+  aggettivo: adjective
+  avverbio: adverb
+  preposizione: preposition
+  congiunzione: conjunction
+  interiezione: interjection
+  pronome: pronoun
+  numerale: numeral
+  nome proprio: proper_noun
+  articolo: determiner
+  frase: phrase
 template_top:
-- trans-top
-- trans-top-also
-- checktrans-top
-template_bottom: trans-bottom
-template_translation:
-- t
-- t+
-- t-check
-- tt
-- tt+
+  - trad1
+template_bottom: trad2

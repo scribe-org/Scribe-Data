@@ -1,6 +1,5 @@
 engine: ast_u_tabelle
 lang_header_pattern: \(\{\{Sprache\|Deutsch\}\}\)
-translations_header: übersetzungen
 prefilters:
 - Ü-Tabelle
 - '{{Ü|'

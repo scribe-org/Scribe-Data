@@ -26,6 +26,27 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
         self.en_config = get_wiktionary_config(source_iso="en")
         self.fr_config = get_wiktionary_config(source_iso="fr")
         self.de_config = get_wiktionary_config(source_iso="de")
+        self.es_config = get_wiktionary_config(source_iso="es")
+        self.sv_config = get_wiktionary_config(source_iso="sv")
+        self.pt_config = get_wiktionary_config(source_iso="pt")
+        self.it_config = get_wiktionary_config(source_iso="it")
+        self.ru_config = get_wiktionary_config(source_iso="ru")
+        self.bn_config = get_wiktionary_config(source_iso="bn")
+
+    def test_bangla_lang_header_pattern_matches_vasha_template(self):
+        """
+        bnwiktionary marks the Bangla block with ``== {{ভাষা|bn}} ==``, not ``==বাংলা==``.
+        """
+        wikitext = """== {{ভাষা|bn}} ==
+===বিশেষ্য===
+bn body
+== English ==
+other
+"""
+        section = _extract_source_lang_section(wikitext, self.bn_config)
+        self.assertIsNotNone(section)
+        self.assertIn("বিশেষ্য", section)
+        self.assertNotIn("other", section)
 
     def test_extract_translation_word_junk_filter(self):
         """
@@ -128,6 +149,136 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
         self.assertEqual(res["en"]["noun"]["1"]["translation"], "word")
         self.assertEqual(res["en"]["noun"]["1"]["description"], "un type de mot")
 
+    def test_spanish_eswiktionary_t1_and_pos_heading(self):
+        """
+        eswiktionary uses ``{{lengua|es}}``, POS in template names (``sustantivo masculino``),
+        and ``{{t|lang|t1=…|g1=…}}`` without a positional lemma parameter.
+        """
+        wikitext = """== {{lengua|es}} ==
+==== {{sustantivo masculino|es}} ====
+;1: def
+==== Traducciones ====
+{{trad-arriba}}
+{{t|en|a1=1|t1=book|a2=6|t2=omasum}}
+{{t|de|a1=1|t1=Buch|g1=n}}
+{{trad-abajo}}
+"""
+        res = _parse_page_translations(
+            self.es_config, frozenset(["en", "de"]), wikitext, "libro"
+        )
+        self.assertIn("noun", res.get("en", {}))
+        self.assertIn("noun", res.get("de", {}))
+        self.assertIn("book", res["en"]["noun"]["1"]["translation"])
+        self.assertIn("omasum", res["en"]["noun"]["1"]["translation"])
+        self.assertEqual(res["de"]["noun"]["1"]["translation"], "Buch (n)")
+        self.assertEqual(
+            res["en"]["noun"]["1"]["description"],
+            "",
+            "Bare {{trad-arriba}} has no gloss; description is still emitted empty.",
+        )
+
+    def test_swedish_o_topp_parse(self):
+        """
+        svwiktionary uses ``==Svenska==``, ``{{ö-topp}}`` / ``{{ö-botten}}``, and ``{{ö+|lang|word}}``.
+        """
+        wikitext = """==Svenska==
+===Substantiv===
+====Översättningar====
+{{ö-topp|större mängd text}}
+*engelska: {{ö+|en|book}}
+{{ö-botten}}
+"""
+        res = _parse_page_translations(
+            self.sv_config, frozenset(["en"]), wikitext, "bok"
+        )
+        self.assertIn("noun", res.get("en", {}))
+        self.assertEqual(res["en"]["noun"]["1"]["translation"], "book")
+        self.assertEqual(res["en"]["noun"]["1"]["description"], "större mängd text")
+
+    def test_portuguese_h1_tradini_parse(self):
+        """
+        ptwiktionary uses ``={{-pt-}}=`` (H1) and ``{{tradini}}`` / ``{{tradfim}}`` with ``{{trad|}}`` / ``{{t|}}``.
+        """
+        wikitext = """={{-pt-}}=
+==Substantivo==
+===Tradução===
+{{tradini|objeto}}
+* {{trad|en|book}}
+* {{t|de|Buch|n}}
+{{tradfim}}
+"""
+        res = _parse_page_translations(
+            self.pt_config, frozenset(["en", "de"]), wikitext, "livro"
+        )
+        self.assertIn("noun", res.get("en", {}))
+        self.assertEqual(res["en"]["noun"]["1"]["translation"], "book")
+        self.assertIn("de", res)
+        self.assertEqual(res["de"]["noun"]["1"]["translation"], "Buch (n)")
+
+    def test_italian_trad1_wikilink_format(self):
+        """
+        itwiktionary uses ``Trad1`` / ``Trad2`` blocks where each line is
+        ``:* {{lang_code}}: [[word1]], [[word2]]`` — bare wikilinks, NOT {{t|}} templates.
+        The ``ast_wikilink_list`` engine must extract these correctly.
+        """
+        wikitext = """== {{-it-}} ==
+===Sostantivo===
+{{-trad-}}
+{{Trad1|insieme di pagine rilegate}}
+:* {{en}}: [[book]], [[tome]]
+:* {{de}}: [[Buch]]
+{{Trad2}}
+"""
+        res = _parse_page_translations(
+            self.it_config, frozenset(["en", "de"]), wikitext, "libro"
+        )
+        self.assertIn("noun", res.get("en", {}))
+        self.assertEqual(res["en"]["noun"]["1"]["translation"], "book, tome")
+        self.assertEqual(
+            res["en"]["noun"]["1"]["description"], "insieme di pagine rilegate"
+        )
+        self.assertIn("de", res)
+        self.assertEqual(res["de"]["noun"]["1"]["translation"], "Buch")
+
+    def test_italian_trad1_multi_sense(self):
+        """
+        Multiple Trad1/Trad2 blocks for the same POS produce separate sense indices.
+        """
+        wikitext = """== {{-it-}} ==
+===Sostantivo===
+{{-trad-}}
+{{Trad1|pubblicazione}}
+:* {{en}}: [[book]]
+{{Trad2}}
+{{Trad1|prenotazione}}
+:* {{en}}: [[reservation]], [[booking]]
+{{Trad2}}
+"""
+        res = _parse_page_translations(
+            self.it_config, frozenset(["en"]), wikitext, "libro"
+        )
+        noun_senses = res.get("en", {}).get("noun", {})
+        self.assertIn("1", noun_senses)
+        self.assertIn("2", noun_senses)
+        self.assertEqual(noun_senses["1"]["translation"], "book")
+        self.assertEqual(noun_senses["2"]["translation"], "reservation, booking")
+
+    def test_russian_h1_lang_section_boundary(self):
+        """
+        ruwiktionary language sections start with ``= {{-ru-}} =``; the next H1 closes the section.
+        """
+        wikitext = """= {{-ru-}} =
+=== Значение ===
+inside ru
+= {{-en-}} =
+english side
+"""
+        section = _extract_source_lang_section(wikitext, self.ru_config)
+        self.assertIsNotNone(section)
+        self.assertIn("Значение", section)
+        self.assertIn("inside ru", section)
+        self.assertNotIn("english side", section)
+
     def test_german_ast_u_tabelle_parse(self):
         """
         The Ü-Tabelle format used by German Wiktionary is parsed correctly.
@@ -212,7 +363,6 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
             res_single = parse_xml_dump(
                 tmp_path,
                 ["de"],
-                source_lang_name="English",
                 num_workers=1,
                 progress=False,
             )
@@ -226,7 +376,6 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
             res_multi = parse_xml_dump(
                 tmp_path,
                 ["de"],
-                source_lang_name="English",
                 num_workers=2,
                 progress=False,
             )
@@ -241,7 +390,6 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
             parse_xml_dump(
                 "does_not_exist.xml.bz2",
                 ["de"],
-                source_lang_name="English",
                 progress=False,
             )
 
@@ -257,9 +405,7 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
             tmp_path = tmp.name
 
         try:
-            res = parse_xml_dump(
-                tmp_path, ["de"], source_lang_name="English", progress=False
-            )
+            res = parse_xml_dump(tmp_path, ["de"], progress=False)
             self.assertEqual(res, {})
         except Exception:
             pass

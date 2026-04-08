@@ -1,12 +1,11 @@
-engine: ast_trans_top
 # idwiktionary uses "=={{bahasa|id}}==" headers
 lang_header_pattern: \{\{bahasa\|id\}\}
-translations_header: terjemahan
 prefilters:
 - t-atas
 - trans-top
 - '{{t|'
 - '{{t+'
+- '{{T|'
 ignored_prefixes:
 - 'lihat '
 - 'lihat:'
@@ -14,13 +13,6 @@ ignored_strings:
 - perlu ditambahkan
 - belum ada
 pos_map:
-  adj: adjective
-  adv: adverb
-  prep: preposition
-  conj: conjunction
-  interj: interjection
-  pron: pronoun
-  num: numeral
   nomina: noun
   verba: verb
   -n-: noun

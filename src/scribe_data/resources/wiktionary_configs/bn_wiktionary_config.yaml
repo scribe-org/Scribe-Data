@@ -1,11 +1,10 @@
-engine: ast_trans_top
-# bnwiktionary uses '==বাংলা==' (Bangla)
-lang_header_pattern: বাংলা
-translations_header: অনুবাদ
+# bnwiktionary uses "== {{ভাষা|bn}} ==" (not plain ==বাংলা==)
+lang_header_pattern: \{\{ভাষা\|bn\}\}
 prefilters:
 - trans-top
 - '{{t|'
 - '{{t+'
+- '{{T|'
 ignored_prefixes:
 - 'দেখুন '
 - 'দেখুন:'

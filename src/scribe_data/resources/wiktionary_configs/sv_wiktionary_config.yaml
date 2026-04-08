@@ -1,54 +1,34 @@
-# ATTN: WIP
-engine: ast_trans_top
-translations_header: translations
+# Match ==Svenska== / == Svenska == only.
+lang_header_pattern: ^\s*Svenska\s*$
 prefilters:
-- translation
-- Translation
-- '{{t'
-- '{{T'
+- ö-topp
+- '{{ö|'
+- '{{ö+'
 ignored_prefixes:
-- 'see:'
-- 'see '
-- 'use:'
-- 'use '
-- 'prefix '
-- 'suffix '
-- usually expressed
-- expressed with
-- -prefix
-- -suffix
+- 'se:'
+- 'se '
+- 'jfr:'
+- 'jfr '
+- 'jämför:'
+- 'jämför '
 ignored_strings:
-- please add this translation if you can
-- script needed
-- '[script needed]'
-- literally
-- lit.
-- e.g.
-- cf.
-- different structure used
-- no equivalent
-- not used
-- not attested
+- saknar översättning
+- behöver översättning
 pos_map:
-  adj: adjective
-  adv: adverb
-  prep: preposition
-  conj: conjunction
-  intj: interjection
-  pron: pronoun
-  det: determiner
-  num: numeral
-  proper noun: proper_noun
-  proper name: proper_noun
-  name: proper_noun
+  substantiv: noun
+  verb: verb
+  adjektiv: adjective
+  adverb: adverb
+  preposition: preposition
+  konjunktion: conjunction
+  interjektion: interjection
+  pronomen: pronoun
+  räkneord: numeral
+  egennamn: proper_noun
+  partikel: particle
 template_top:
-- trans-top
-- trans-top-also
-- checktrans-top
-template_bottom: trans-bottom
+- ö-topp
+template_bottom: ö-botten
 template_translation:
-- t
-- t+
-- t-check
-- tt
-- tt+
+- ö
+- ö+

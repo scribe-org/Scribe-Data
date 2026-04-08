@@ -11,6 +11,7 @@ from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Union
 
+import mwparserfromhell
 from tqdm import tqdm
 
 from scribe_data.wiktionary.parse_constants import get_wiktionary_config
@@ -70,12 +71,14 @@ def _merge_parsed_into_output(
 
 def _build_sense_entry(description: str, translation: str) -> Dict[str, str]:
     """
-    Build a sense entry dict, leaving out the description key if it's empty.
+    Build a sense entry dict with stable keys for JSON consumers.
 
     Parameters
     ----------
     description : str
-        Gloss or meaning for the sense.
+        Gloss or meaning for the sense (e.g. ``trans-top`` / ``trad-arriba`` first
+        argument). Empty when the source template has no gloss, which is common on
+        eswiktionary (bare ``{{trad-arriba}}``).
 
     translation : str
         Comma-joined translation word(s).
@@ -83,15 +86,12 @@ def _build_sense_entry(description: str, translation: str) -> Dict[str, str]:
     Returns
     -------
     Dict[str, str]
-        ``{"translation": ...}`` or ``{"description": ..., "translation": ...}``.
+        ``{"description": str, "translation": str}``.
     """
-    entry: Dict[str, str] = {}
-    if description:
-        entry["description"] = description
-
-    entry["translation"] = translation
-
-    return entry
+    return {
+        "description": description.strip() if description else "",
+        "translation": translation,
+    }
 
 
 def _extract_translation_word(
@@ -100,6 +100,7 @@ def _extract_translation_word(
     raw_word: str,
     config: dict,
     target_langs: Optional[frozenset],
+    tag_index: Optional[int] = None,
 ) -> Optional[str]:
     """
     Return a cleaned translation string with grammatical tags appended, or None to skip the word.
@@ -121,6 +122,10 @@ def _extract_translation_word(
     target_langs : Optional[frozenset]
         ISO codes of languages to keep, or None to keep all.
 
+    tag_index : Optional[int]
+        When set (e.g. eswiktionary ``t1`` / ``t2`` rows), only ``g{tag_index}`` is used
+        for grammar tags instead of every ``g*`` on the template.
+
     Returns
     -------
     Optional[str]
@@ -139,20 +144,27 @@ def _extract_translation_word(
         return None
 
     valid_tags = []
-    for param in node.params:
-        pname = str(param.name).strip()
-        if pname in {"1", "2"}:
-            continue
+    if tag_index is not None:
+        g_key = f"g{tag_index}"
+        if node.has(g_key):
+            pval = str(node.get(g_key).value.strip_code()).strip()
+            if pval:
+                valid_tags.append(pval)
+    else:
+        for param in node.params:
+            pname = str(param.name).strip()
+            if pname in {"1", "2"}:
+                continue
 
-        pval = str(param.value.strip_code()).strip()
-        if not pval:
-            continue
+            pval = str(param.value.strip_code()).strip()
+            if not pval:
+                continue
 
-        if pname.startswith("g"):
-            valid_tags.append(pval)
+            if pname.startswith("g"):
+                valid_tags.append(pval)
 
-        elif pname.isdigit() and pval.lower() not in ignored_strings:
-            valid_tags.append(pval)
+            elif pname.isdigit() and pval.lower() not in ignored_strings:
+                valid_tags.append(pval)
 
     if valid_tags:
         valid_tags = list(dict.fromkeys(valid_tags))
@@ -210,8 +222,8 @@ def _extract_source_lang_section(wikitext: str, config: dict) -> Optional[str]:
     """
     Return the wikitext content of the source-language section.
 
-    Handles both English-style ``=={Language}==`` headers and German-style
-    ``== Word ({{Sprache|Deutsch}}) ==`` headers.
+    Uses ``lang_header_pattern`` and ``lang_header_level`` (default 2 for ``== … ==``).
+    For level-1 ``= … =`` (e.g., ptwiktionary / ruwiktionary), set ``lang_header_level: 1``.
 
     Parameters
     ----------
@@ -226,44 +238,23 @@ def _extract_source_lang_section(wikitext: str, config: dict) -> Optional[str]:
     Optional[str]
         The section wikitext, or None if the source-language section is not found.
     """
-    # German Wiktionary uses headers like "== Hallo ({{Sprache|Deutsch}}) ==".
     if config.get("lang_header_pattern"):
         pattern = config["lang_header_pattern"]
-        for line_match in re.finditer(r"^==([^=\n]+)==\s*$", wikitext, re.MULTILINE):
+        level = config.get("lang_header_level", 2)
+        eqs = "=" * level
+
+        # Match lines like exactly `level` '=' signs, text, and `level` '=' signs.
+        heading_regex = re.compile(rf"^{eqs}([^=\n]+){eqs}\s*$", re.MULTILINE)
+        next_heading_regex = re.compile(rf"^{eqs}[^=]", re.MULTILINE)
+
+        for line_match in heading_regex.finditer(wikitext):
             if pattern.search(line_match.group(1)):
                 start = line_match.end()
-                next_h2 = re.search(r"^==[^=]", wikitext[start:], re.MULTILINE)
-                end = start + next_h2.start() if next_h2 else len(wikitext)
+                next_h = next_heading_regex.search(wikitext, start)
+                end = next_h.start() if next_h else len(wikitext)
                 return wikitext[start:end].strip()
 
-        return None
-
-    # English Wiktionary: exact header name.
-    source_lang_name = config.get("lang_header")
-    if not source_lang_name:
-        return None
-
-    header = f"=={source_lang_name}=="
-    start = wikitext.find(header)
-    if start == -1:
-        # Also try the spaced variant "== {Language} ==".
-        padded = f"== {source_lang_name} =="
-        start = wikitext.find(padded)
-        if start == -1:
-            return None
-        start += len(padded)
-
-    else:
-        start += len(header)
-
-    next_header = wikitext.find("\n==", start)
-    while next_header != -1:
-        if next_header + 3 < len(wikitext) and wikitext[next_header + 3] != "=":
-            return wikitext[start:next_header].strip()
-
-        next_header = wikitext.find("\n==", next_header + 1)
-
-    return wikitext[start:].strip()
+    return None
 
 
 # MARK: Engine: ast_u_tabelle
@@ -273,7 +264,7 @@ def _parse_ast_u_tabelle(
     config: dict,
     target_langs: Optional[frozenset],
     wikitext: str,
-    word: str,  # noqa: ARG001  (kept for uniform signature)
+    _word: str,
 ) -> Dict[str, PosToSenses]:
     """
     Parse translations from a single page using the ``Ü-Tabelle`` format (e.g. German Wiktionary).
@@ -297,8 +288,6 @@ def _parse_ast_u_tabelle(
     Dict[str, PosToSenses]
         ``{target_lang_iso: {pos: {sense_idx: {description?, translation}}}}``.
     """
-    import mwparserfromhell
-
     result: Dict[str, PosToSenses] = {}
 
     lang_section = _extract_source_lang_section(wikitext=wikitext, config=config)
@@ -396,17 +385,28 @@ _KNOWN_POS = frozenset(
 )
 
 
-# MARK: Engine: ast_trans_top
+# MARK: Shared Block-Parsing Core
 
 
-def _parse_ast_trans_top(
+def _parse_block_translations(
     config: dict,
     target_langs: Optional[frozenset],
     wikitext: str,
-    word: str,  # noqa: ARG001
+    collect_row,
 ) -> Dict[str, PosToSenses]:
     """
-    Parse translations from a single page using the ``trans-top`` / ``trans-bottom`` format.
+    Shared parsing core for all ``trans-top`` / ``Trad1``-style block engines.
+
+    Handles everything that is common across block-based engines:
+
+    * Extracting the source-language section of the page.
+    * Detecting POS from headings and inline templates.
+    * Opening / closing translation blocks (``template_top`` / ``template_bottom``).
+    * Accumulating per-language words and flushing them into *result*.
+
+    The **only** variation between engines is *how* a single translation row is
+    turned into a list of words for a given language.  That logic is supplied by
+    the caller as the ``collect_row`` callback.
 
     Parameters
     ----------
@@ -414,21 +414,23 @@ def _parse_ast_trans_top(
         Wiktionary config for the source language edition.
 
     target_langs : Optional[frozenset]
-        ISO codes of languages to extract, or None for all.
+        ISO codes of languages to extract, or ``None`` for all.
 
     wikitext : str
         Raw wikitext of the Wiktionary page.
 
-    word : str
-        The source word on the page (unused, kept for a uniform signature).
+    collect_row : Callable[[node, node_idx, all_nodes, tname, target_langs, config,
+                             current_words_by_lang], None]
+        Called once per candidate template node that is *inside* an open
+        translation block and is **not** a ``template_top`` / ``template_bottom``
+        or POS marker.  The callback appends any harvested words directly into
+        *current_words_by_lang*.
 
     Returns
     -------
     Dict[str, PosToSenses]
         ``{target_lang_iso: {pos: {sense_idx: {description?, translation}}}}``.
     """
-    import mwparserfromhell
-
     result: Dict[str, PosToSenses] = {}
 
     lang_section = _extract_source_lang_section(wikitext=wikitext, config=config)
@@ -436,16 +438,11 @@ def _parse_ast_trans_top(
         return result
 
     pos_map: dict = config.get("pos_map", {})
-
-    template_top = frozenset(
-        config.get("template_top", ["trans-top", "trans-top-also", "checktrans-top"])
-    )
+    template_top = frozenset(config.get("template_top", ["trans-top"]))
     template_bottom: str = config.get("template_bottom", "trans-bottom")
-    template_t_list = frozenset(
-        config.get("template_translation", ["t", "t+", "t-check", "tt", "tt+"])
-    )
 
     wikicode = mwparserfromhell.parse(lang_section)
+    all_nodes = list(wikicode.nodes)
 
     current_pos = "other"
     pos_sense_tracker: Dict[str, int] = {}
@@ -471,15 +468,20 @@ def _parse_ast_trans_top(
         current_desc = ""
         in_translation_block = False
 
-    for node in wikicode.nodes:
+    for node_idx, node in enumerate(all_nodes):
         if isinstance(node, mwparserfromhell.nodes.Heading):
             if in_translation_block:
                 _commit_block()
 
             header_text = str(node.title).strip().lower()
 
-            # Some editions (e.g. French) put a template in the heading: `=== {{S|nom|fr}} ===`.
+            # Some editions put a template in the heading (e.g. French `{{S|nom|fr}}`,
+            # Spanish `{{sustantivo masculino|es}}`).
             for t in node.title.filter_templates():
+                tname = t.name.strip().lower()
+                if tname in pos_map:
+                    header_text = tname
+                    break
                 if t.has(1):
                     tval = str(t.get(1).value).strip().lower()
                     if tval in pos_map:
@@ -492,7 +494,7 @@ def _parse_ast_trans_top(
         elif isinstance(node, mwparserfromhell.nodes.Template):
             tname = node.name.strip().lower()
 
-            # Support languages (like Indonesian) that set POS via short templates (e.g., {{-n-}}) instead of Headings.
+            # Inline POS marker (e.g. Indonesian ``{{-n-}}``).
             mapped_tname = pos_map.get(tname, tname.replace(" ", "_"))
             if mapped_tname in _KNOWN_POS or mapped_tname != tname.replace(" ", "_"):
                 if in_translation_block:
@@ -502,38 +504,173 @@ def _parse_ast_trans_top(
             elif tname in template_top:
                 if in_translation_block:
                     _commit_block()
-
                 in_translation_block = True
-
                 if node.has(1):
-                    # strip_code removes mediawiki italics/bold markup.
                     desc = str(node.get(1).value.strip_code()).strip()
-                    desc = re.sub(r"^[\d.]+\s*", "", desc).strip()
-                    current_desc = desc
+                    current_desc = re.sub(r"^[\d.]+\s*", "", desc).strip()
 
             elif tname == template_bottom:
                 _commit_block()
 
-            elif in_translation_block and tname in template_t_list:
-                if not (node.has(1) and node.has(2)):
-                    continue
-
-                code = str(node.get(1).value).strip().lower()
-
-                # strip_code strips wikilinks like [[link]] while keeping the visible text.
-                raw_word = str(node.get(2).value.strip_code()).strip()
-
-                extracted = _extract_translation_word(
-                    node, code, raw_word, config, target_langs
+            elif in_translation_block:
+                # Delegate row parsing to the engine-specific callback.
+                collect_row(
+                    node,
+                    node_idx,
+                    all_nodes,
+                    tname,
+                    target_langs,
+                    config,
+                    current_words_by_lang,
                 )
-                if extracted:
-                    current_words_by_lang.setdefault(code, []).append(extracted)
 
-    # Flush any block that wasn't closed by a trans-bottom.
     if in_translation_block:
         _commit_block()
 
     return result
+
+
+# MARK: Engine: ast_trans_top
+
+
+def _collect_row_template(
+    node,
+    _node_idx,
+    _all_nodes,
+    tname: str,
+    target_langs: Optional[frozenset],
+    config: dict,
+    current_words_by_lang: Dict[str, List[str]],
+) -> None:
+    """
+    Row collector for the ``ast_trans_top`` engine.
+
+    Extracts translation words from ``{{t|lang|word}}``-style templates
+    (including the ``t1=`` / ``t2=`` named-parameter variant used by eswiktionary).
+    """
+    template_t_list = frozenset(
+        config.get("template_translation", ["t", "t+", "t-check", "tt", "tt+"])
+    )
+    if tname not in template_t_list:
+        return
+    if not node.has(1):
+        return
+
+    code = str(node.get(1).value).strip().lower()
+
+    if node.has(2):
+        raw_word = str(node.get(2).value.strip_code()).strip()
+        extracted = _extract_translation_word(
+            node, code, raw_word, config, target_langs
+        )
+        if extracted:
+            current_words_by_lang.setdefault(code, []).append(extracted)
+    else:
+        # eswiktionary: {{t|de|a1=1|t1=Buch|g1=n}} — lemma in t1, t2, …
+        i = 1
+        while node.has(f"t{i}"):
+            raw_word = str(node.get(f"t{i}").value.strip_code()).strip()
+            extracted = _extract_translation_word(
+                node, code, raw_word, config, target_langs, i
+            )
+            if extracted:
+                current_words_by_lang.setdefault(code, []).append(extracted)
+            i += 1
+
+
+def _parse_ast_trans_top(
+    config: dict,
+    target_langs: Optional[frozenset],
+    wikitext: str,
+    _word: str,
+) -> Dict[str, PosToSenses]:
+    """
+    Parse translations using the ``trans-top`` / ``trans-bottom`` block format.
+
+    Used by: enwiktionary, frwiktionary, eswiktionary, svwiktionary, ptwiktionary, …
+
+    Each translation row is a ``{{t|lang|word}}`` (or ``{{t+|…}}``) template.
+    """
+    return _parse_block_translations(
+        config=config,
+        target_langs=target_langs,
+        wikitext=wikitext,
+        collect_row=_collect_row_template,
+    )
+
+
+# MARK: Engine: ast_wikilink_list
+
+
+def _collect_row_wikilink(
+    node,
+    node_idx: int,
+    all_nodes: list,
+    tname: str,
+    target_langs: Optional[frozenset],
+    config: dict,
+    current_words_by_lang: Dict[str, List[str]],
+) -> None:
+    """
+    Row collector for the ``ast_wikilink_list`` engine.
+
+    In itwiktionary each row looks like ``:* {{en}}: [[word1]], [[word2]]``.
+    The template name *is* the ISO code; words are bare ``[[wikilinks]]`` that
+    follow on the same line.
+    """
+    lang_code = tname  # e.g. "en", "de"
+    if target_langs and lang_code not in target_langs:
+        return
+
+    ignored_strings = config.get("ignored_strings", [])
+    ignored_prefixes = config.get("ignored_prefixes", [])
+
+    row_words: List[str] = []
+    for following in all_nodes[node_idx + 1 :]:
+        if isinstance(following, mwparserfromhell.nodes.Text):
+            if "\n" in str(following):
+                break  # end of this line
+        elif isinstance(following, mwparserfromhell.nodes.Wikilink):
+            raw_word = str(following.title).strip()
+            # Piped links: [[word|display]] → use the display (right-hand) text.
+            if "|" in raw_word:
+                raw_word = raw_word.split("|", 1)[1].strip()
+            word_lower = raw_word.lower()
+            if not raw_word:
+                continue
+            if word_lower in ignored_strings or any(
+                word_lower.startswith(p) for p in ignored_prefixes
+            ):
+                continue
+            if len(raw_word) < 200:
+                row_words.append(raw_word)
+        elif isinstance(following, mwparserfromhell.nodes.Template):
+            break  # next language flag or section boundary
+
+    if row_words:
+        current_words_by_lang.setdefault(lang_code, []).extend(row_words)
+
+
+def _parse_ast_wikilink_list(
+    config: dict,
+    target_langs: Optional[frozenset],
+    wikitext: str,
+    _word: str,
+) -> Dict[str, PosToSenses]:
+    """
+    Parse translations using the ``Trad1`` / ``Trad2`` block + wikilink format.
+
+    Used by: itwiktionary.
+
+    Each translation row is ``:* {{lang_code}}: [[word1]], [[word2]]`` — the
+    template name is the ISO code and words are bare ``[[wikilinks]]``.
+    """
+    return _parse_block_translations(
+        config=config,
+        target_langs=target_langs,
+        wikitext=wikitext,
+        collect_row=_collect_row_wikilink,
+    )
 
 
 # MARK: Engine Dispatch
@@ -541,7 +678,7 @@ def _parse_ast_trans_top(
 _ENGINES: Dict[str, callable] = {
     "ast_u_tabelle": _parse_ast_u_tabelle,
     "ast_trans_top": _parse_ast_trans_top,
-    "regex_trans_top": _parse_ast_trans_top,  # kept for backwards compatibility with old configs
+    "ast_wikilink_list": _parse_ast_wikilink_list,
 }
 
 
@@ -576,10 +713,10 @@ def _parse_page_translations(
     engine = config.get("engine", "ast_trans_top")
     parser_fn = _ENGINES.get(engine, _parse_ast_trans_top)
     return parser_fn(
-        config=config,
-        target_langs=target_langs,
-        wikitext=wikitext,
-        word=word,
+        config,
+        target_langs,
+        wikitext,
+        word,
     )
 
 
@@ -615,7 +752,7 @@ def _parse_page_worker(
     return (word, parsed) if parsed else None
 
 
-def _iter_dump_pages(wiktionary_dump_path: Path):
+def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
     """
     Yield ``(title, text)`` for each page in the XML dump.
 
@@ -623,20 +760,75 @@ def _iter_dump_pages(wiktionary_dump_path: Path):
     ----------
     wiktionary_dump_path : Path
         Path to a ``*wiktionary-*-pages-articles.xml.bz2`` dump file.
+
+    pbar : Optional[tqdm]
+        Optional tqdm progress bar to continuously record bytes read.
     """
     import shutil
     import subprocess
+    import threading
+
+    # Simple wrapper to update pbar dynamically behind bz2.open
+    class ProgressFileWrapper:
+        def __init__(self, path, pbar_ref):
+            self.f = open(path, "rb")
+            self.pbar_ref = pbar_ref
+
+        def read(self, size=-1):
+            data = self.f.read(size)
+            if self.pbar_ref and data:
+                self.pbar_ref.update(len(data))
+            return data
+
+        def readinto(self, b):
+            n = self.f.readinto(b)
+            if self.pbar_ref and n:
+                self.pbar_ref.update(n)
+            return n
+
+        def close(self):
+            self.f.close()
 
     proc = None
     if str(wiktionary_dump_path).endswith(".bz2") and shutil.which("bzcat"):
-        proc = subprocess.Popen(
-            ["bzcat", str(wiktionary_dump_path)], stdout=subprocess.PIPE
+        raw_f = open(wiktionary_dump_path, "rb")
+        proc = subprocess.Popen(["bzcat"], stdin=raw_f, stdout=subprocess.PIPE)
+
+        def poll_progress(tracked_f, pbar_ref, process):
+            import time
+
+            while process.poll() is None:
+                if pbar_ref:
+                    try:
+                        current = tracked_f.tell()
+                        diff = current - pbar_ref.n
+                        if diff > 0:
+                            pbar_ref.update(diff)
+                    except (OSError, ValueError):
+                        pass
+                time.sleep(0.5)
+            # Final touch
+            if pbar_ref:
+                try:
+                    diff = tracked_f.tell() - pbar_ref.n
+                    if diff > 0:
+                        pbar_ref.update(diff)
+                except (OSError, ValueError):
+                    pass
+            tracked_f.close()
+
+        t = threading.Thread(
+            target=poll_progress, args=(raw_f, pbar, proc), daemon=True
         )
+        t.start()
         f = proc.stdout
 
     else:
-        open_fn = bz2.open if str(wiktionary_dump_path).endswith(".bz2") else open
-        f = open_fn(wiktionary_dump_path, "rb")
+        raw_f = ProgressFileWrapper(wiktionary_dump_path, pbar)
+        if str(wiktionary_dump_path).endswith(".bz2"):
+            f = bz2.open(raw_f, "rb")
+        else:
+            f = raw_f
 
     try:
         context = iter(ET.iterparse(f, events=("start", "end")))
@@ -677,8 +869,7 @@ def _iter_dump_pages(wiktionary_dump_path: Path):
 def parse_xml_dump(
     wiktionary_dump_path: Union[str, Path],
     target_lang_codes: Optional[List[str]],
-    *,
-    source_lang_name: str,
+    *,  # force keyword-only arguments
     source_iso: str = "en",
     progress: bool = True,
     num_workers: Optional[int] = None,
@@ -693,9 +884,6 @@ def parse_xml_dump(
 
     target_lang_codes : list of str or None
         ISO codes of languages to extract (e.g. ``["de", "fr"]``). ``None`` extracts all.
-
-    source_lang_name : str
-        The language being translated from.
 
     source_iso : str, default ``"en"``
         ISO code of the source Wiktionary edition.
@@ -720,18 +908,19 @@ def parse_xml_dump(
     if num_workers is None:
         num_workers = max(1, (os.cpu_count() or 1) - 1)
 
-    iterator = _iter_dump_pages(path)
-
-    # Rough page count estimate for the progress bar (Wiktionary ~180 bytes/page compressed).
     try:
-        total_entries = path.stat().st_size // 180
-
+        total_size = path.stat().st_size
     except (OSError, AttributeError):
-        total_entries = None
+        total_size = None
 
+    pbar = None
     if progress:
-        iterator = tqdm(
-            iterator, total=total_entries, desc="Parsing Wiktionary", unit="pages"
+        pbar = tqdm(
+            total=total_size,
+            desc="Parsing Wiktionary",
+            unit="B",
+            unit_scale=True,
+            unit_divisor=1024,
         )
 
     target_langs_frozenset = (
@@ -744,7 +933,10 @@ def parse_xml_dump(
         """
         Yield (word, text, target_langs, config) tuples, skipping pages that can't have translations.
         """
-        for title, text in iterator:
+        count = 0
+        for title, text in _iter_dump_pages(path, pbar):
+            count += 1
+
             if not title or not text:
                 continue
 
@@ -767,6 +959,10 @@ def parse_xml_dump(
 
             yield word, text, target_langs_frozenset, config
 
+        if pbar:
+            pbar.refresh()
+            pbar.close()
+
     try:
         if num_workers == 1:
             # Single-process path — handy for debugging or low-memory environments.
@@ -776,9 +972,11 @@ def parse_xml_dump(
 
         else:
             # Use a process pool for speed on large dumps.
+            # We maintain a bounded set of active futures to avoid OOM memory explosion
+            # while keeping the workers busy and the progress bar updating smoothly.
             with ProcessPoolExecutor(max_workers=num_workers) as executor:
                 for result in executor.map(
-                    _parse_page_worker, _filtered_iterator(), chunksize=500
+                    _parse_page_worker, _filtered_iterator(), chunksize=50
                 ):
                     if result:
                         _merge_parsed_into_output(output, *result)
@@ -874,7 +1072,6 @@ def parse_wiktionary_translations(
     data_by_lang = parse_xml_dump(
         dump_path,
         target_isos,
-        source_lang_name=source_lang_name,
         source_iso=source_iso,
     )
 

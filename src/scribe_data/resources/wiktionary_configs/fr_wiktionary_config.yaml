@@ -1,10 +1,9 @@
-engine: ast_trans_top
 # frwiktionary uses "== {{langue|fr}} ==" not plain "==French=="
 lang_header_pattern: \{\{langue\|fr\}\}
-translations_header: traductions
 prefilters:
 - trad-début
 - '{{trad'
+- '{{trad+'
 ignored_prefixes:
 - 'voir :'
 - 'voir '

@@ -1,5 +1,5 @@
-engine: ast_trans_top
-translations_header: translations
+# enwiktionary uses "==English==" headers
+lang_header_pattern: ^\s*English\s*$
 prefilters:
 - translation
 - Translation
@@ -17,6 +17,7 @@ ignored_prefixes:
 - -prefix
 - -suffix
 ignored_strings:
+- t-needed
 - please add this translation if you can
 - script needed
 - '[script needed]'
