@@ -22,7 +22,7 @@ jobs:
       - name: Check SPDX Licenses
         uses: to-sta/spdx-checker-action@v0.0.3
         with:
-          target-license: "AGPL-3.0-or-later"
+          target-license: "GPL-3.0-or-later"
           file-paths: "**/*.py"
           extensions: "py"
           exclude: "dist/,**/*.md,**/*.txt,**/.git/**,**/*__init__.py"
