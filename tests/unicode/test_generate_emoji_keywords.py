@@ -3,15 +3,16 @@
 Tests for generate emoji keywords process.
 """
 
-from unittest.mock import patch
-
+from unittest.mock import patch, MagicMock
+from pathlib import Path
+from typing import Iterator
 import pytest
 
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 
 
 @pytest.fixture
-def mock_pyicu():
+def mock_pyicu() -> Iterator[tuple[MagicMock, MagicMock]]:
     with (
         patch(
             "scribe_data.unicode.generate_emoji_keywords.check_and_install_pyicu"
@@ -24,7 +25,7 @@ def mock_pyicu():
 
 
 @pytest.fixture
-def mock_utils():
+def mock_utils() -> Iterator[tuple[MagicMock, MagicMock]]:
     with (
         patch(
             "scribe_data.unicode.generate_emoji_keywords.get_language_iso"
@@ -37,14 +38,19 @@ def mock_utils():
 
 
 @pytest.fixture
-def mock_process_unicode():
+def mock_process_unicode() -> Iterator[MagicMock]:
     with patch(
         "scribe_data.unicode.generate_emoji_keywords.gen_emoji_lexicon"
     ) as mock_lexicon:
         yield mock_lexicon
 
 
-def test_generate_emoji_success(mock_pyicu, mock_utils, mock_process_unicode, tmp_path):
+def test_generate_emoji_success(
+    mock_pyicu: tuple[MagicMock, MagicMock],
+    mock_utils: tuple[MagicMock, MagicMock],
+    mock_process_unicode: MagicMock,
+    tmp_path: Path,
+) -> None:
     mock_check_install, mock_check_installed = mock_pyicu
     mock_iso, mock_export = mock_utils
     mock_lexicon = mock_process_unicode
@@ -63,7 +69,9 @@ def test_generate_emoji_success(mock_pyicu, mock_utils, mock_process_unicode, tm
     mock_export.assert_called_once()
 
 
-def test_generate_emoji_pyicu_not_installed(mock_pyicu):
+def test_generate_emoji_pyicu_not_installed(
+    mock_pyicu: tuple[MagicMock, MagicMock],
+) -> None:
     mock_check_install, mock_check_installed = mock_pyicu
     mock_check_install.return_value = False
     mock_check_installed.return_value = False
@@ -74,7 +82,11 @@ def test_generate_emoji_pyicu_not_installed(mock_pyicu):
     mock_check_installed.assert_called_once()
 
 
-def test_generate_emoji_unsupported_language(mock_pyicu, mock_utils, tmp_path):
+def test_generate_emoji_unsupported_language(
+    mock_pyicu: tuple[MagicMock, MagicMock],
+    mock_utils: tuple[MagicMock, MagicMock],
+    tmp_path: Path,
+) -> None:
     mock_check_install, mock_check_installed = mock_pyicu
     mock_iso, _ = mock_utils
 
@@ -90,8 +102,11 @@ def test_generate_emoji_unsupported_language(mock_pyicu, mock_utils, tmp_path):
 
 
 def test_generate_emoji_output_dir_handling(
-    mock_pyicu, mock_utils, mock_process_unicode, tmp_path
-):
+    mock_pyicu: tuple[MagicMock, MagicMock],
+    mock_utils: tuple[MagicMock, MagicMock],
+    mock_process_unicode: MagicMock,
+    tmp_path: Path,
+) -> None:
     mock_check_install, mock_check_installed = mock_pyicu
     mock_iso, mock_export = mock_utils
     mock_lexicon = mock_process_unicode

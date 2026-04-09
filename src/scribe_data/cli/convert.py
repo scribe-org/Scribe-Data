@@ -380,7 +380,7 @@ def convert_wrapper(
     overwrite: bool = False,
     identifier_case: str = "camel",
     all: bool = False,
-):
+) -> None:
     """
     Convert data to the specified output type: JSON, CSV/TSV, or SQLite.
 

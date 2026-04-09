@@ -208,7 +208,7 @@ def check_timeout(timeout: str) -> int:
     )
 
 
-def main(argv=None) -> int:
+def main(argv: list[str] | None = None) -> int:
     """
     The main function.
 

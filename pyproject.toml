@@ -22,14 +22,15 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
     "Operating System :: OS Independent",
 ]
+
 dependencies = [
     "emoji==2.15.0",
     "mwparserfromhell>=0.7.2",
-    "orjson==3.11.7",
+    "orjson==3.11.8",
     "packaging==26.0",
     "pyyaml==6.0.3",
     "questionary==2.1.1",
-    "requests==2.33.0",
+    "requests==2.33.1",
     "rich==14.3.3",
     "sparqlwrapper==2.0.0",
     "tqdm==4.67.3",
@@ -37,12 +38,12 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "mypy>=1.19.1",
     "prek>=0.3.8",
-    "pytest>=9.0.2",
+    "pytest>=9.0.3",
     "pytest-cov>=7.1.0",
-    "ruff>=0.15.8",
+    "ruff>=0.15.9",
     "setuptools>=82.0.1",
+    "ty>=0.0.29",
 ]
 docs = [
     # Keep docs dependencies formatted in this way with ruff to allow for upgrades via VS Code extension.
@@ -81,7 +82,6 @@ exclude = [
     ".eggs",
     ".git",
     ".git-rewrite",
-    ".mypy_cache",
     ".nox",
     ".pants.d",
     ".pytype",
@@ -118,34 +118,22 @@ line_length = 88
 [tool.coverage.run]
 omit = ["*/tests/*", "*/__init__.py"]
 
-[tool.mypy]
-disable_error_code = [
-    "arg-type",
-    "assignment",
-    "attr-defined",
-    "call-arg",
-    "call-overload",
-    "comparison-overlap",
-    "func-returns-value",
-    "import-untyped",
-    "index",
-    "list-item",
-    "misc",
-    "no-any-return",
-    "no-redef",
-    "no-untyped-call",
-    "no-untyped-def",
-    "operator",
-    "return",
-    "return-value",
-    "type-arg",
-    "union-attr",
-    "valid-type",
-    "var-annotated",
-]
-mypy_path = "src"
-ignore_missing_imports = true
-strict = true
+[tool.ty]
+[tool.ty.src]
+include = ["src"]
+
+[tool.ty.rules]
+unresolved-import = "warn"
+invalid-parameter-default = "warn"
+invalid-return-type = "warn"
+invalid-argument-type = "warn"
+invalid-assignment = "warn"
+unsupported-operator = "warn"
+unresolved-attribute = "warn"
+missing-argument = "warn"
+unknown-argument = "warn"
+not-subscriptable = "warn"
+possibly-missing-submodule = "warn"
 
 [tool.numpydoc_validation]
 checks = [

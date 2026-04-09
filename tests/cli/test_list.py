@@ -4,7 +4,7 @@ Tests for the CLI list functionality.
 """
 
 import unittest
-from unittest.mock import call, patch
+from unittest.mock import call, patch, MagicMock
 
 from scribe_data.cli.list import (
     get_language_iso,
@@ -22,7 +22,7 @@ from scribe_data.cli.main import main
 
 class TestListFunctions(unittest.TestCase):
     @patch("builtins.print")
-    def test_list_languages(self, mock_print):
+    def test_list_languages(self, mock_print: MagicMock) -> None:
         list_languages()
 
         # Verify the headers
@@ -49,7 +49,7 @@ class TestListFunctions(unittest.TestCase):
         self.assertEqual(mock_print.call_count, len(languages) + 4)
 
     @patch("builtins.print")
-    def test_list_data_types_all_languages(self, mock_print):
+    def test_list_data_types_all_languages(self, mock_print: MagicMock) -> None:
         list_data_types()
         print(mock_print.mock_calls)
         expected_calls = [
@@ -73,7 +73,7 @@ class TestListFunctions(unittest.TestCase):
         mock_print.assert_has_calls(expected_calls)
 
     @patch("builtins.print")
-    def test_list_data_types_specific_language(self, mock_print):
+    def test_list_data_types_specific_language(self, mock_print: MagicMock) -> None:
         list_data_types("english")
 
         expected_calls = [
@@ -93,38 +93,40 @@ class TestListFunctions(unittest.TestCase):
         ]
         mock_print.assert_has_calls(expected_calls)
 
-    def test_list_data_types_invalid_language(self):
+    def test_list_data_types_invalid_language(self) -> None:
         with self.assertRaises(ValueError):
             list_data_types("InvalidLanguage")
 
-    def test_list_data_types_no_data_types(self):
+    def test_list_data_types_no_data_types(self) -> None:
         with self.assertRaises(ValueError):
             list_data_types("Klingon")
 
     @patch("scribe_data.cli.list.list_languages")
     @patch("scribe_data.cli.list.list_data_types")
-    def test_list_all(self, mock_list_data_types, mock_list_languages):
+    def test_list_all(
+        self, mock_list_data_types: MagicMock, mock_list_languages: MagicMock
+    ) -> None:
         list_all()
         mock_list_languages.assert_called_once()
         mock_list_data_types.assert_called_once()
 
     @patch("scribe_data.cli.list.list_all")
-    def test_list_wrapper_all(self, mock_list_all):
+    def test_list_wrapper_all(self, mock_list_all: MagicMock) -> None:
         list_wrapper(all_bool=True)
         mock_list_all.assert_called_once()
 
     @patch("scribe_data.cli.list.list_languages")
-    def test_list_wrapper_languages(self, mock_list_languages):
+    def test_list_wrapper_languages(self, mock_list_languages: MagicMock) -> None:
         list_wrapper(language=True)
         mock_list_languages.assert_called_once()
 
     @patch("scribe_data.cli.list.list_data_types")
-    def test_list_wrapper_data_types(self, mock_list_data_types):
+    def test_list_wrapper_data_types(self, mock_list_data_types: MagicMock) -> None:
         list_wrapper(data_type=True)
         mock_list_data_types.assert_called_once()
 
     @patch("builtins.print")
-    def test_list_wrapper_language_and_data_type(self, mock_print):
+    def test_list_wrapper_language_and_data_type(self, mock_print: MagicMock) -> None:
         list_wrapper(language=True, data_type=True)
         mock_print.assert_called_with(
             "Please specify either a language or a data type."
@@ -132,18 +134,20 @@ class TestListFunctions(unittest.TestCase):
 
     @patch("scribe_data.cli.list.list_languages_for_data_type")
     def test_list_wrapper_languages_for_data_type(
-        self, mock_list_languages_for_data_type
-    ):
+        self, mock_list_languages_for_data_type: MagicMock
+    ) -> None:
         list_wrapper(language=True, data_type="example_data_type")
         mock_list_languages_for_data_type.assert_called_with("example_data_type")
 
     @patch("scribe_data.cli.list.list_data_types")
-    def test_list_wrapper_data_types_for_language(self, mock_list_data_types):
+    def test_list_wrapper_data_types_for_language(
+        self, mock_list_data_types: MagicMock
+    ) -> None:
         list_wrapper(language="English", data_type=True)
         mock_list_data_types.assert_called_with("English")
 
     @patch("builtins.print")
-    def test_list_languages_for_data_type_valid(self, mock_print):
+    def test_list_languages_for_data_type_valid(self, mock_print: MagicMock) -> None:
         # Call the function with a specific data type.
         list_languages_for_data_type("nouns")
 
@@ -181,7 +185,7 @@ class TestListFunctions(unittest.TestCase):
         self.assertEqual(mock_print.call_count, expected_calls)
 
     @patch("scribe_data.cli.list.list_languages")
-    def test_list_languages_command(self, mock_list_languages):
+    def test_list_languages_command(self, mock_list_languages: MagicMock) -> None:
         test_args = ["main.py", "list", "--language"]
         with patch("sys.argv", test_args):
             main()
@@ -189,7 +193,7 @@ class TestListFunctions(unittest.TestCase):
         mock_list_languages.assert_called_once()
 
     @patch("scribe_data.cli.list.list_data_types")
-    def test_list_data_types_command(self, mock_list_data_types):
+    def test_list_data_types_command(self, mock_list_data_types: MagicMock) -> None:
         test_args = ["main.py", "list", "--data-type"]
         with patch("sys.argv", test_args):
             main()
@@ -197,7 +201,7 @@ class TestListFunctions(unittest.TestCase):
         mock_list_data_types.assert_called_once()
 
     @patch("scribe_data.cli.list.list_all")
-    def test_list_all_command(self, mock_list_all):
+    def test_list_all_command(self, mock_list_all: MagicMock) -> None:
         test_args = ["main.py", "list", "--all"]
         with patch("sys.argv", test_args):
             main()

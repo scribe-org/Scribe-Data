@@ -105,7 +105,7 @@ def get_data(
 
     # MARK: Get All
 
-    def prompt_user_download_all():
+    def prompt_user_download_all() -> bool:
         """
         Check with the user if they'd rather use Wikidata lexeme dumps before a download all call.
 
@@ -233,7 +233,7 @@ def get_data(
             print(f"Skipping update for {language.title()} {data_type}.")
             return {"success": False, "skipped": True}
 
-        def print_error_and_suggestions(error_message):
+        def print_error_and_suggestions(error_message: str) -> None:
             """
             Prints an error message and suggestions for the user.
             """

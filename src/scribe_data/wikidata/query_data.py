@@ -23,7 +23,7 @@ from scribe_data.utils import (
 from scribe_data.wikidata.wikidata_utils import sparql
 
 
-def execute_formatting_script(output_dir: str, language: str, data_type: str):
+def execute_formatting_script(output_dir: str, language: str, data_type: str) -> None:
     """
     Execute a formatting script given a filepath and output directory for the process.
 

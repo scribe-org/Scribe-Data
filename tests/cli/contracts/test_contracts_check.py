@@ -4,7 +4,9 @@ Tests for the contract checking functionality in the CLI.
 """
 
 import json
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
+from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -16,7 +18,7 @@ from scribe_data.cli.contracts.check import (
 
 
 @pytest.fixture
-def mock_export_dir(tmp_path):
+def mock_export_dir(tmp_path: Path) -> Path:
     """
     Create a mock export directory structure for testing.
     """
@@ -60,7 +62,7 @@ def mock_export_dir(tmp_path):
 
 
 @pytest.fixture
-def mock_contract_metadata():
+def mock_contract_metadata() -> dict[str, Any]:
     """
     Mock contract metadata with proper structure.
     """
@@ -72,7 +74,9 @@ def mock_contract_metadata():
 
 @patch("scribe_data.cli.contracts.check.check_contract_data_completeness")
 @patch("scribe_data.cli.contracts.check.print_missing_forms")
-def test_check_contracts_with_dir(mock_print, mock_check, mock_export_dir):
+def test_check_contracts_with_dir(
+    mock_print: MagicMock, mock_check: MagicMock, mock_export_dir: Path
+) -> None:
     """
     Test check_contracts with a specified directory.
     """
@@ -86,7 +90,9 @@ def test_check_contracts_with_dir(mock_print, mock_check, mock_export_dir):
 
 @patch("scribe_data.cli.contracts.check.check_contract_data_completeness")
 @patch("scribe_data.cli.contracts.check.print_missing_forms")
-def test_check_contracts_default_dir(mock_print, mock_check):
+def test_check_contracts_default_dir(
+    mock_print: MagicMock, mock_check: MagicMock
+) -> None:
     """
     Test check_contracts with default directory.
     """
@@ -102,7 +108,7 @@ def test_check_contracts_default_dir(mock_print, mock_check):
 
 
 @patch("scribe_data.cli.contracts.check.Path")
-def test_check_contracts_nonexistent_dir(mock_path):
+def test_check_contracts_nonexistent_dir(mock_path: MagicMock) -> None:
     """
     Test check_contracts with a nonexistent directory.
     """
@@ -120,8 +126,11 @@ def test_check_contracts_nonexistent_dir(mock_path):
 @patch("scribe_data.cli.contracts.check.get_language_iso")
 @patch("scribe_data.cli.contracts.check.filter_contract_metadata")
 def test_check_contract_data_completeness_json_error(
-    mock_filter_metadata, mock_get_iso, mock_export_dir, mock_contract_metadata
-):
+    mock_filter_metadata: MagicMock,
+    mock_get_iso: MagicMock,
+    mock_export_dir: Path,
+    mock_contract_metadata: dict[str, Any],
+) -> None:
     """
     Test handling of JSON errors in data files.
     """
@@ -139,7 +148,7 @@ def test_check_contract_data_completeness_json_error(
                 assert "Error reading" in mock_print.call_args[0][0]
 
 
-def test_print_missing_forms_none():
+def test_print_missing_forms_none() -> None:
     """
     Test print_missing_forms with no missing forms.
     """
@@ -152,7 +161,7 @@ def test_print_missing_forms_none():
         )
 
 
-def test_print_missing_forms_with_missing():
+def test_print_missing_forms_with_missing() -> None:
     """
     Test print_missing_forms with missing forms.
     """

@@ -16,7 +16,9 @@ from urllib.error import HTTPError
 class TestQueryData(unittest.TestCase):
     @patch("subprocess.run")
     @patch("sys.executable", return_value="python")
-    def test_execute_formatting_script(self, mock_executable, mock_run):
+    def test_execute_formatting_script(
+        self, mock_executable: MagicMock, mock_run: MagicMock
+    ) -> None:
         """
         Test the execute_formatting_script function.
         """
@@ -53,7 +55,7 @@ class TestQueryData(unittest.TestCase):
                 "/output/dir", "German", "nouns"
             )  # should print error but not raise exceptions
 
-    def test_query_data_multiple_intervals(self):
+    def test_query_data_multiple_intervals(self) -> None:
         """
         Test query_data with multiple query intervals.
         """
@@ -164,7 +166,7 @@ class TestQueryData(unittest.TestCase):
                         out.getvalue(),
                     )
 
-    def test_query_data_single_query_error(self):
+    def test_query_data_single_query_error(self) -> None:
         """
         Test that query_data handles a single query returning None.
         """
@@ -236,7 +238,7 @@ class TestQueryData(unittest.TestCase):
                     # Check that execute_formatting_script is not called.
                     mock_exec.assert_not_called()
 
-    def test_query_data_multiple_intervals_error(self):
+    def test_query_data_multiple_intervals_error(self) -> None:
         """
         Test query_data with multiple query intervals where the second query throws an HTTPError
         and subsequent queries return None.

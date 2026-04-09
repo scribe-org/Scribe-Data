@@ -50,7 +50,7 @@ class LexemeProcessor:
         target_lang: Union[str, List[str]] = None,
         parse_type: List[str] = None,
         data_types: List[str] = None,
-    ):
+    ) -> None:
         """
         Use to derive information on lexeme dump entries.
 
@@ -341,7 +341,7 @@ class LexemeProcessor:
 
             self.forms_counts[lang_iso][dt_name] += len(forms_data)
 
-    def _process_totals(self, lexeme: dict, lang_iso: str, dt_name: str):
+    def _process_totals(self, lexeme: dict, lang_iso: str, dt_name: str) -> None:
         """
         Derive the totals for statistical counting.
 
@@ -372,7 +372,7 @@ class LexemeProcessor:
 
     # MARK: Process File
 
-    def process_file(self, file_path: str, batch_size: int = 50000):
+    def process_file(self, file_path: str, batch_size: int = 50000) -> None:
         """
         Main loop: read lines from file (bz2) in batches, call process_lines on each.
 
@@ -473,7 +473,7 @@ class LexemeProcessor:
             self.process_lines(line)
 
     # MARK: Print Totals
-    def _print_total_summary(self):
+    def _print_total_summary(self) -> None:
         """
         Print stats if parse_type == total.
         """
@@ -498,7 +498,7 @@ class LexemeProcessor:
 
     def export_forms_json(
         self, filepath: str, language_iso: str = None, data_type: str = None
-    ):
+    ) -> None:
         """
         Export grammatical forms to a JSON file with readable feature labels.
 
@@ -599,7 +599,7 @@ def parse_dump(
     file_path: str = "latest-lexemes.json.bz2",
     output_dir: str = None,
     overwrite_all: bool = False,
-):
+) -> None:
     """
     Parse a Wikidata lexeme dump file and extract linguistic data.
 

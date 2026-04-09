@@ -20,7 +20,7 @@ from scribe_data.cli.interactive import (
 
 
 class TestScribeDataInteractive(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         """
         Set up test fixtures before each test method.
         """
@@ -29,7 +29,7 @@ class TestScribeDataInteractive(unittest.TestCase):
         self.config.languages = ["english", "spanish", "french"]
         self.config.data_types = ["nouns", "verbs"]
 
-    def test_scribe_data_config_initialization(self):
+    def test_scribe_data_config_initialization(self) -> None:
         """
         Test ScribeDataConfig initialization.
         """
@@ -42,7 +42,9 @@ class TestScribeDataInteractive(unittest.TestCase):
 
     @patch("scribe_data.cli.interactive.prompt")
     @patch("scribe_data.cli.interactive.rprint")
-    def test_configure_settings_all_languages(self, mock_rprint, mock_prompt):
+    def test_configure_settings_all_languages(
+        self, mock_rprint: MagicMock, mock_prompt: MagicMock
+    ) -> None:
         """
         Test configure_settings with 'All' languages selection.
         """
@@ -69,7 +71,9 @@ class TestScribeDataInteractive(unittest.TestCase):
 
     @patch("scribe_data.cli.interactive.prompt")
     @patch("scribe_data.cli.interactive.rprint")
-    def test_configure_settings_specific_languages(self, mock_rprint, mock_prompt):
+    def test_configure_settings_specific_languages(
+        self, mock_rprint: MagicMock, mock_prompt: MagicMock
+    ) -> None:
         """
         Test configure_settings with specific language selection.
         """
@@ -98,7 +102,9 @@ class TestScribeDataInteractive(unittest.TestCase):
     @patch("scribe_data.cli.interactive.get_data")
     @patch("scribe_data.cli.interactive.tqdm")
     @patch("scribe_data.cli.interactive.logger")
-    def test_run_request(self, mock_logger, mock_tqdm, mock_get_data):
+    def test_run_request(
+        self, mock_logger: MagicMock, mock_tqdm: MagicMock, mock_get_data: MagicMock
+    ) -> None:
         """
         Test run_request functionality.
         """
@@ -124,7 +130,9 @@ class TestScribeDataInteractive(unittest.TestCase):
 
     @patch("scribe_data.cli.interactive.prompt")
     @patch("scribe_data.cli.interactive.rprint")
-    def test_request_total_lexeme(self, mock_rprint, mock_prompt):
+    def test_request_total_lexeme(
+        self, mock_rprint: MagicMock, mock_prompt: MagicMock
+    ) -> None:
         """
         Test request_total_lexeme functionality.
         """
@@ -162,7 +170,7 @@ class TestScribeDataInteractive(unittest.TestCase):
                 mock_prompt.assert_has_calls(expected_calls, any_order=False)
 
     @patch("rich.console.Console.print")
-    def test_display_summary(self, mock_print):
+    def test_display_summary(self, mock_print: MagicMock) -> None:
         """
         Test display_summary functionality.
         """
@@ -174,7 +182,7 @@ class TestScribeDataInteractive(unittest.TestCase):
             display_summary()
             mock_print.assert_called()
 
-    def test_create_word_completer(self):
+    def test_create_word_completer(self) -> None:
         """
         Test create_word_completer functionality.
         """

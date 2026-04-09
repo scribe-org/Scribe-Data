@@ -12,7 +12,7 @@ UNKNOWN_VERSION_NOT_PIP = f"{UNKNOWN_VERSION} (Not installed via pip)"
 UNKNOWN_VERSION_NOT_FETCHED = f"{UNKNOWN_VERSION} (Unable to fetch version)"
 
 
-def get_local_version():
+def get_local_version() -> str:
     """
     Get the version of Scribe-Data that is currently running.
 
@@ -28,7 +28,7 @@ def get_local_version():
         return UNKNOWN_VERSION_NOT_PIP
 
 
-def get_latest_version():
+def get_latest_version() -> str:
     """
     Get the latest version of Scribe-Data from the GitHub repository.
 
@@ -47,7 +47,7 @@ def get_latest_version():
         return UNKNOWN_VERSION_NOT_FETCHED
 
 
-def get_version_message():
+def get_version_message() -> str:
     """
     Return a message about the current and up to date versions of Scribe-Data.
 

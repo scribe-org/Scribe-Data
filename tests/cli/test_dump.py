@@ -3,7 +3,7 @@
 Tests for the CLI dump functionality.
 """
 
-from unittest.mock import mock_open, patch
+from unittest.mock import MagicMock, mock_open, patch
 
 import pytest
 
@@ -50,7 +50,7 @@ Sample_Lexeme_Line = """
 
 
 @pytest.fixture
-def lexeme_processor():
+def lexeme_processor() -> LexemeProcessor:
     return LexemeProcessor(
         target_lang=["english"],
         parse_type=["translations", "form"],
@@ -58,7 +58,7 @@ def lexeme_processor():
     )
 
 
-def test_lexeme_processor_initialization(lexeme_processor):
+def test_lexeme_processor_initialization(lexeme_processor: LexemeProcessor) -> None:
     """
     Test LexemeProcessor initialization with basic parameters.
     """
@@ -70,7 +70,9 @@ def test_lexeme_processor_initialization(lexeme_processor):
 
 @patch("builtins.open", new_callable=mock_open, read_data=Sample_Lexeme_Line)
 @patch("bz2.open")
-def test_process_file(mock_bz2_open, mock_file, lexeme_processor):
+def test_process_file(
+    mock_bz2_open: MagicMock, mock_file: MagicMock, lexeme_processor: LexemeProcessor
+) -> None:
     """
     Test processing a file with sample lexeme data.
     """
@@ -86,7 +88,7 @@ def test_process_file(mock_bz2_open, mock_file, lexeme_processor):
 
 
 @patch("scribe_data.wikidata.parse_dump.LexemeProcessor")
-def test_parse_dump(mock_processor):
+def test_parse_dump(mock_processor: MagicMock) -> None:
     """
     Test the parse_dump function.
     """
@@ -102,7 +104,9 @@ def test_parse_dump(mock_processor):
 @patch("scribe_data.wikidata.wikidata_utils.Path")
 @patch("scribe_data.wikidata.wikidata_utils.wd_lexeme_dump_download_wrapper")
 @patch("scribe_data.wikidata.wikidata_utils.parse_dump")
-def test_parse_wd_lexeme_dump(mock_parse_dump, mock_download, mock_path_class):
+def test_parse_wd_lexeme_dump(
+    mock_parse_dump: MagicMock, mock_download: MagicMock, mock_path_class: MagicMock
+) -> None:
     """
     Test the parse_wd_lexeme_dump function.
     """
@@ -154,7 +158,7 @@ def test_parse_wd_lexeme_dump(mock_parse_dump, mock_download, mock_path_class):
     assert kwargs["data_types"] == ["nouns"]
 
 
-def test_parse_wd_lexeme_dump_no_file():
+def test_parse_wd_lexeme_dump_no_file() -> None:
     """
     Test parse_wd_lexeme_dump when no file is found.
     """
@@ -181,7 +185,7 @@ def test_parse_wd_lexeme_dump_no_file():
         ({"total": True}, True),
     ],
 )
-def test_parse_types(test_input, expected):
+def test_parse_types(test_input: dict[str, bool], expected: bool) -> None:
     """
     Test different parse types.
     """

@@ -6,6 +6,7 @@ Functions for downloading Wikidata lexeme dumps.
 import contextlib
 import os
 import re
+from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -23,7 +24,7 @@ from scribe_data.utils import (
 )
 
 
-def parse_date(date_string):
+def parse_date(date_string: str) -> str | None:
     """
     Parse a date string into a datetime.date object (formats: YYYYMMDD, YYYY/MM/DD, YYYY-MM-DD).
 
@@ -54,8 +55,10 @@ def parse_date(date_string):
 
 
 def available_closest_lexeme_dumpfile(
-    target_entity: str, other_old_dumps: str, check_wd_dump_exists
-):
+    target_entity: str,
+    other_old_dumps: list,
+    check_wd_dump_exists: Callable[[str], str | None],
+) -> str | None:
     """
     Find the closest available dump file based on the target date.
 
@@ -103,7 +106,7 @@ def available_closest_lexeme_dumpfile(
         return closest_date
 
 
-def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
+def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str | None:
     """
     Download a Wikimedia lexeme dump based on the specified target entity or date.
 
@@ -123,7 +126,7 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes"):
     """
     base_url = "https://dumps.wikimedia.org/wikidatawiki/entities"
 
-    def check_wd_dump_exists(target_entity):
+    def check_wd_dump_exists(target_entity: str) -> str | None:
         """
         Check if the specified dump file exists for a target entity.
 
@@ -205,7 +208,7 @@ def wd_lexeme_dump_download_wrapper(
     dump_snapshot: Optional[str] = None,
     output_dir: Optional[str] = None,
     default: bool = False,
-) -> None:
+) -> str | bool | None:
     """
     Download Wikidata lexeme dumps given user preferences.
 

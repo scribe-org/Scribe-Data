@@ -24,7 +24,9 @@ from scribe_data.utils import (
 )
 
 
-def create_table(cursor, identifier_case, data_type, cols):
+def create_table(
+    cursor: sqlite3.Cursor, identifier_case: str, data_type: str, cols: list[str]
+) -> None:
     """
     Create a table in the language database.
 
@@ -63,7 +65,7 @@ def create_table(cursor, identifier_case, data_type, cols):
     cursor.execute(sql_statement)
 
 
-def table_insert(cursor, data_type, keys):
+def table_insert(cursor: sqlite3.Cursor, data_type: str, keys: list) -> None:
     """
     Insert a row into a language database table.
 
@@ -82,13 +84,13 @@ def table_insert(cursor, data_type, keys):
 
 
 def translations_to_sqlite(
-    language_data_type_dict,
-    current_languages,
-    identifier_case="snake",
-    input_file=DEFAULT_JSON_EXPORT_DIR,
-    output_file=DEFAULT_SQLITE_EXPORT_DIR,
+    language_data_type_dict: dict,
+    current_languages: list,
+    identifier_case: str = "snake",
+    input_file: str = DEFAULT_JSON_EXPORT_DIR,
+    output_file: str = DEFAULT_SQLITE_EXPORT_DIR,
     overwrite: bool = False,
-):
+) -> None:
     """
     Derive translations to create a TranslationData.sqlite file that contains a table for each language.
 
@@ -437,9 +439,6 @@ def data_to_sqlite(
             print(f"Database for {lang} {maybe_over}written and connection made.")
 
             for dt in language_data_type_dict[lang]:
-                if dt == "autocomplete_lexicon":
-                    continue  # handled separately
-
                 print(f"Creating/Updating {lang} {dt} table...")
                 json_file_path = Path(input_file) / lang / f"{dt}.json"
 
@@ -501,90 +500,6 @@ def data_to_sqlite(
                         table_insert(cursor, data_type=dt, keys=keys)
 
                 connection.commit()
-
-            # Handle autocomplete_lexicon separately.
-            if (not specific_tables or "autocomplete_lexicon" in specific_tables) and {
-                "nouns",
-                "prepositions",
-                "emoji_keywords",
-            }.issubset(set(language_data_type_dict[lang] + (specific_tables or []))):
-                print(f"Creating/Updating {lang} autocomplete_lexicon table...")
-                cols = ["word"]
-                create_table(
-                    cursor, identifier_case, data_type="autocomplete_lexicon", cols=cols
-                )
-                cursor.execute(
-                    "DELETE FROM autocomplete_lexicon"
-                )  # clear existing data
-
-                sql_query = """
-                INSERT INTO
-                    autocomplete_lexicon (word)
-                WITH full_lexicon AS (
-                    SELECT
-                        noun AS word
-                    FROM
-                        nouns
-                    WHERE
-                        LENGTH(noun) > 2
-                    UNION
-                    SELECT
-                        preposition AS word
-                    FROM
-                        prepositions
-                    WHERE
-                        LENGTH(preposition) > 2
-                    UNION
-                    SELECT
-                        word AS word
-                    FROM
-                        emoji_keywords
-                )
-                SELECT DISTINCT
-                    CASE
-                        WHEN
-                            UPPER(SUBSTR(lex.word, 1, 1)) || SUBSTR(lex.word, 2) = nouns_cap.noun
-                        THEN
-                            nouns_cap.noun
-                        WHEN
-                            UPPER(lex.word) = nouns_upper.noun
-                        THEN
-                            nouns_upper.noun
-                        ELSE
-                            lex.word
-                    END
-                FROM
-                    full_lexicon AS lex
-                LEFT JOIN
-                    nouns AS nouns_cap
-                ON
-                    UPPER(SUBSTR(lex.word, 1, 1)) || SUBSTR(lex.word, 2) = nouns_cap.noun
-                LEFT JOIN
-                    nouns AS nouns_upper
-                ON
-                    UPPER(lex.word) = nouns_upper.noun
-                WHERE
-                    LENGTH(lex.word) > 1
-                    AND lex.word NOT LIKE '%-%'
-                    AND lex.word NOT LIKE '%/%'
-                    AND lex.word NOT LIKE '%(%'
-                    AND lex.word NOT LIKE '%)%'
-                    AND lex.word NOT LIKE '%"%'
-                    AND lex.word NOT LIKE '%“%'
-                    AND lex.word NOT LIKE '%„%'
-                    AND lex.word NOT LIKE '%”%'
-                    AND lex.word NOT LIKE "%'%"
-                """
-
-                try:
-                    cursor.execute(sql_query)
-                    connection.commit()
-                    print(
-                        f"{lang} autocomplete_lexicon table created/updated successfully."
-                    )
-
-                except sqlite3.Error as e:
-                    print(f"Error creating/updating autocomplete_lexicon table: {e}")
 
             connection.close()
             print(f"{lang.capitalize()} database processing completed.")

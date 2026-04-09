@@ -37,10 +37,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -57,6 +57,6 @@ jobs:
         if: always()
         run: uv run ruff check ./src
 
-      - name: Run mypy - Static Type Checking
+      - name: Run ty - Static Type Checking
         if: always()
-        run: uv run mypy ./src --config-file ./pyproject.toml
+        run: uv run ty check

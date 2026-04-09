@@ -15,7 +15,7 @@ from scribe_data.utils import (
 # MARK: Correct Inputs
 
 
-def correct_data_type(data_type: str) -> str:
+def correct_data_type(data_type: str) -> str | None:
     """
     Correct common versions of data type arguments to their standardized form.
 
@@ -112,7 +112,7 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
 def validate_language_and_data_type(
     language: Union[str, List[str], bool, None],
     data_type: Union[str, List[str], bool, None],
-):
+) -> bool:
     """
     Validate that the language and data type QIDs are not None.
 
@@ -135,7 +135,9 @@ def validate_language_and_data_type(
         If any of the languages or data types is invalid, with all errors reported together.
     """
 
-    def validate_single_item(item, valid_options, item_type):
+    def validate_single_item(
+        item: str, valid_options: list, item_type: str
+    ) -> str | None:
         """
         Validate a single item against a list of valid options, providing error messages and suggestions.
 
