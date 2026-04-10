@@ -316,7 +316,7 @@ def data_to_sqlite(
                 if dt in [
                     key
                     for key in data_type_metadata.keys()
-                    if key not in ["translations"]
+                    if key not in ["translations", "emoji_keywords"]
                 ]:
                     cols = ["wdLexemeId"]
 
@@ -356,7 +356,7 @@ def data_to_sqlite(
                         keys = [row]
                         keys += [
                             json_data[row][i]["emoji"]
-                            for i in range(len(json_data[row]))
+                            for i in range(min(len(json_data[row]), len(cols) - 1))
                         ]
                         keys += [""] * (len(cols) - len(keys))
                         table_insert(cursor, data_type=dt, keys=keys)
