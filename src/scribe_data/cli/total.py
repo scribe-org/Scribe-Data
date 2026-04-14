@@ -4,7 +4,6 @@ Functions to check the total language data available on Wikidata.
 """
 
 from http.client import IncompleteRead
-from typing import List, Union
 from urllib.error import HTTPError
 
 from SPARQLWrapper import JSON

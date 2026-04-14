@@ -8,7 +8,6 @@ import os
 import urllib.error
 from http.client import IncompleteRead
 from pathlib import Path
-from typing import List, Union
 from urllib.error import URLError
 
 import questionary

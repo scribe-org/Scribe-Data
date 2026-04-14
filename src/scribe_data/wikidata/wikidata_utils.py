@@ -4,7 +4,6 @@ Utility functions for accessing data from Wikidata.
 """
 
 from pathlib import Path
-from typing import List, Union
 
 from rich import print as rprint
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
