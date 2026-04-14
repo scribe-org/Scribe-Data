@@ -50,7 +50,7 @@ def list_languages() -> None:
     print()
 
 
-def list_data_types(language: str = None) -> None:
+def list_data_types(language: str | None = None) -> None:
     """
     List all data types or those available for a given language.
 
@@ -168,7 +168,7 @@ def list_languages_for_data_type(data_type: str) -> None:
 
 
 def list_wrapper(
-    language: str = None, data_type: str = None, all_bool: bool = False
+    language: str | None = None, data_type: str | None = None, all_bool: bool = False
 ) -> None:
     """
     Conditionally provides the full functionality of the list command.
