@@ -122,7 +122,6 @@ include = ["src"]
 
 [tool.ty.rules]
 unresolved-import = "warn"
-invalid-parameter-default = "warn"
 invalid-return-type = "warn"
 invalid-argument-type = "warn"
 invalid-assignment = "warn"

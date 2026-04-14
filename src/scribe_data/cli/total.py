@@ -350,10 +350,10 @@ def get_total_lexemes(
 
 
 def total_wrapper(
-    language: Union[str, List[str]] = None,
-    data_type: Union[str, List[str]] = None,
+    language: str | list[str] | None = None,
+    data_type: str | list[str] | None = None,
     all_bool: bool = False,
-    wikidata_dump: Union[str, bool] = None,
+    wikidata_dump: str | bool | None = None,
 ) -> None:
     """
     Conditionally provides the full functionality of the total command.

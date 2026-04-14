@@ -25,7 +25,7 @@ def convert_to_json(
     data_type: Union[str, List[str]],
     output_type: str,
     input_file: str,
-    output_dir: str = None,
+    output_dir: str | None = None,
     overwrite: bool = False,
     identifier_case: str = "camel",
 ) -> None:
@@ -180,7 +180,7 @@ def convert_to_csv_or_tsv(
     data_type: Union[str, List[str]],
     output_type: str,
     input_file: str,
-    output_dir: str = None,
+    output_dir: str | None = None,
     overwrite: bool = False,
     identifier_case: str = "camel",
 ) -> None:
@@ -373,7 +373,7 @@ def convert_wrapper(
     data_types: Union[str, List[str]],
     output_type: str,
     input_files: Union[str, List[str]],
-    output_dir: str = None,
+    output_dir: str | None = None,
     overwrite: bool = False,
     identifier_case: str = "camel",
     all: bool = False,
