@@ -19,11 +19,11 @@ sparql.setMethod(POST)
 
 
 def parse_wd_lexeme_dump(
-    language: Union[str, List[str]] = None,
-    wikidata_dump_type: List[str] = None,
-    data_types: List[str] = None,
-    type_output_dir: str = None,
-    wikidata_dump_path: str = None,
+    language: str | list[str] | None = None,
+    wikidata_dump_type: list[str] | None = None,
+    data_types: list[str] | None = None,
+    type_output_dir: str | None = None,
+    wikidata_dump_path: str | None = None,
     overwrite_all: bool = False,
     interactive_mode: bool = False,
 ) -> None:
