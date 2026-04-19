@@ -537,7 +537,7 @@ def start_interactive_mode(operation: str | None = None) -> None:
 
             parse_wiktionary_translations(
                 target_languages=config.selected_languages,
-                wiktionary_dump_path=wiktionary_dump_path,
+                wiktionary_dump_path=str(Path(wiktionary_dump_path)),
                 output_dir=str(config.output_dir),
                 overwrite=overwrite_bool,
             )
