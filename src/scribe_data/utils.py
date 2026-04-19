@@ -682,7 +682,7 @@ def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
         if overwrite_all:
             return False
 
-        print(f"\nIndex file already exists at: {index_path}")
+        print(f"\nFile already exists at: {index_path}")
         choice = questionary.select(
             "Choose an action:",
             choices=["Overwrite existing data", "Skip process"],

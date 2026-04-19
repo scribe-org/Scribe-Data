@@ -16,19 +16,19 @@ from tqdm import tqdm
 
 from scribe_data.wiktionary.parse_constants import get_wiktionary_config
 
-# A single translation entry (e.g., {"description": "...", "translation": "..."})
+# A single translation entry (e.g., {"description": "...", "translation": "..."}).
 TranslationEntry = Dict[str, str]
 
-# Maps a sense index (e.g., "1") to its translation entry
+# Maps a sense index (e.g., "1") to its translation entry.
 SensesToTranslations = Dict[str, TranslationEntry]
 
-# Maps a Part of Speech (e.g., "noun") to its senses
+# Maps a Part of Speech (e.g., "noun") to its senses.
 PosToSenses = Dict[str, SensesToTranslations]
 
-# Maps a source word to its parts of speech
+# Maps a source word to its parts of speech.
 WordToPos = Dict[str, PosToSenses]
 
-# Maps a target language ISO to the translated words
+# Maps a target language ISO to the translated words.
 LanguageToWords = Dict[str, WordToPos]
 
 
@@ -90,7 +90,8 @@ def _build_sense_entry(description: str, translation: str) -> Dict[str, str]:
     """
     return {
         "description": description.strip() if description else "",
-        "translation": translation,
+        # Remove latinized versions of words that are commonly found in parentheses.
+        "translation": re.sub(r"\(.*\)", "", translation).strip().replace(" ,", ","),
     }
 
 
@@ -133,6 +134,7 @@ def _extract_translation_word(
     """
     if not raw_word:
         return None
+
     if target_langs and code not in target_langs:
         return None
 
@@ -147,9 +149,9 @@ def _extract_translation_word(
     if tag_index is not None:
         g_key = f"g{tag_index}"
         if node.has(g_key):
-            pval = str(node.get(g_key).value.strip_code()).strip()
-            if pval:
+            if pval := str(node.get(g_key).value.strip_code()).strip():
                 valid_tags.append(pval)
+
     else:
         for param in node.params:
             pname = str(param.name).strip()
@@ -178,7 +180,7 @@ def _add_translations_to_result(
     current_pos: str,
     pos_sense_tracker: Dict[str, int],
     words_by_lang: Dict[str, List[str]],
-    desc: str,
+    description: str,
 ):
     """
     Write words_by_lang into result under the next sense index for current_pos.
@@ -197,7 +199,7 @@ def _add_translations_to_result(
     words_by_lang : Dict[str, List[str]]
         Collected translations grouped by ISO code.
 
-    desc : str
+    description : str
         The sense description / gloss for the current translation block.
     """
     if not any(words_by_lang.values()):
@@ -210,8 +212,12 @@ def _add_translations_to_result(
     for code, words in words_by_lang.items():
         if not words:
             continue
+
         result.setdefault(code, {}).setdefault(current_pos, {})[sense_idx_str] = (
-            _build_sense_entry(desc, ", ".join(words))
+            _build_sense_entry(
+                description=description,
+                translation=", ".join(words),
+            )
         )
 
 
@@ -309,7 +315,7 @@ def _parse_ast_u_tabelle(
     )
 
     for node in wikicode.nodes:
-        # Update the current POS whenever we hit a heading with a Wortart template.
+        # Update the current POS whenever we hit a heading with a word type template.
         if isinstance(node, mwparserfromhell.nodes.Heading):
             for t in node.title.filter_templates():
                 if t.name.strip().lower() == template_pos:
@@ -337,7 +343,7 @@ def _parse_ast_u_tabelle(
             if not list_param:
                 continue
 
-            desc = str(node.get("G").value).strip() if node.has("G") else ""
+            description = str(node.get("G").value).strip() if node.has("G") else ""
 
             liste_ast = node.get(list_param).value
             words_by_lang: Dict[str, List[str]] = {}
@@ -346,6 +352,7 @@ def _parse_ast_u_tabelle(
                 tname = t.name.strip().lower()
                 if tname not in template_t_list:
                     continue
+
                 if not t.has(1) or not t.has(2):
                     continue
 
@@ -358,7 +365,7 @@ def _parse_ast_u_tabelle(
                     words_by_lang.setdefault(code, []).append(extracted)
 
             _add_translations_to_result(
-                result, current_pos, pos_sense_tracker, words_by_lang, desc
+                result, current_pos, pos_sense_tracker, words_by_lang, description
             )
 
     return result
@@ -458,11 +465,11 @@ def _parse_block_translations(
         nonlocal current_words_by_lang, current_desc, in_translation_block
         if current_words_by_lang:
             _add_translations_to_result(
-                result,
-                current_pos,
-                pos_sense_tracker,
-                current_words_by_lang,
-                current_desc,
+                result=result,
+                current_pos=current_pos,
+                pos_sense_tracker=pos_sense_tracker,
+                words_by_lang=current_words_by_lang,
+                description=current_desc,
             )
         current_words_by_lang = {}
         current_desc = ""
@@ -482,6 +489,7 @@ def _parse_block_translations(
                 if tname in pos_map:
                     header_text = tname
                     break
+
                 if t.has(1):
                     tval = str(t.get(1).value).strip().lower()
                     if tval in pos_map:
@@ -560,20 +568,19 @@ def _collect_row_template(
 
     if node.has(2):
         raw_word = str(node.get(2).value.strip_code()).strip()
-        extracted = _extract_translation_word(
+        if extracted := _extract_translation_word(
             node, code, raw_word, config, target_langs
-        )
-        if extracted:
+        ):
             current_words_by_lang.setdefault(code, []).append(extracted)
+
     else:
         # eswiktionary: {{t|de|a1=1|t1=Buch|g1=n}} — lemma in t1, t2, …
         i = 1
         while node.has(f"t{i}"):
             raw_word = str(node.get(f"t{i}").value.strip_code()).strip()
-            extracted = _extract_translation_word(
+            if extracted := _extract_translation_word(
                 node, code, raw_word, config, target_langs, i
-            )
-            if extracted:
+            ):
                 current_words_by_lang.setdefault(code, []).append(extracted)
             i += 1
 
@@ -630,20 +637,26 @@ def _collect_row_wikilink(
         if isinstance(following, mwparserfromhell.nodes.Text):
             if "\n" in str(following):
                 break  # end of this line
+
         elif isinstance(following, mwparserfromhell.nodes.Wikilink):
             raw_word = str(following.title).strip()
             # Piped links: [[word|display]] → use the display (right-hand) text.
+
             if "|" in raw_word:
                 raw_word = raw_word.split("|", 1)[1].strip()
             word_lower = raw_word.lower()
+
             if not raw_word:
                 continue
+
             if word_lower in ignored_strings or any(
                 word_lower.startswith(p) for p in ignored_prefixes
             ):
                 continue
+
             if len(raw_word) < 200:
                 row_words.append(raw_word)
+
         elif isinstance(following, mwparserfromhell.nodes.Template):
             break  # next language flag or section boundary
 
@@ -804,17 +817,21 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
                         diff = current - pbar_ref.n
                         if diff > 0:
                             pbar_ref.update(diff)
+
                     except (OSError, ValueError):
                         pass
+
                 time.sleep(0.5)
-            # Final touch
+
             if pbar_ref:
                 try:
                     diff = tracked_f.tell() - pbar_ref.n
                     if diff > 0:
                         pbar_ref.update(diff)
+
                 except (OSError, ValueError):
                     pass
+
             tracked_f.close()
 
         t = threading.Thread(
@@ -910,6 +927,7 @@ def parse_xml_dump(
 
     try:
         total_size = path.stat().st_size
+
     except (OSError, AttributeError):
         total_size = None
 
@@ -944,7 +962,7 @@ def parse_xml_dump(
             if ":" in title and not title.startswith("Appendix:"):
                 continue
 
-            word = title.strip().lower()
+            word = title.strip()
             if not word or not word[0].isalnum():
                 continue
 
