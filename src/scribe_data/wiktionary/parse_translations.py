@@ -781,7 +781,7 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
     import subprocess
     import threading
 
-    # Simple wrapper to update pbar dynamically behind bz2.open
+    # Simple wrapper to update pbar dynamically behind bz2.open.
     class ProgressFileWrapper:
         def __init__(self, path, pbar_ref):
             self.f = open(path, "rb")
