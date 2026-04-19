@@ -20,15 +20,17 @@ from rich import print as rprint
 # MARK: Utils Variables
 
 PROJECT_ROOT = "Scribe-Data"
+
 DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
+DEFAULT_FILTERED_JSON_EXPORT_DIR = "scribe_data_filtered_json_export"
 DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
 DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
+
 DEFAULT_WIKIDATA_DUMP_EXPORT_DIR = "scribe_data_wikidata_dumps_export"
 DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR = "scribe_data_wiktionary_dumps_export"
-DEFAULT_MEDIAWIKI_EXPORT_DIR = "scribe_data_mediawiki_export"
+
 DEFAULT_DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
-DEFAULT_FILTERED_JSON_EXPORT_DIR = "scribe_data_filtered_json_export"
 DEFAULT_WIKTIONARY_JSON_EXPORT_DIR = "scribe_data_wiktionary_json_export"
 
 LANGUAGE_DATA_EXTRACTION_DIR = (
