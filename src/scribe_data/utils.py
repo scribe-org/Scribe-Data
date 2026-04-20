@@ -20,14 +20,18 @@ from rich import print as rprint
 # MARK: Utils Variables
 
 PROJECT_ROOT = "Scribe-Data"
+
 DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
+DEFAULT_FILTERED_JSON_EXPORT_DIR = "scribe_data_filtered_json_export"
 DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
 DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
 DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
-DEFAULT_DUMP_EXPORT_DIR = "scribe_data_wikidata_dumps_export"
-DEFAULT_MEDIAWIKI_EXPORT_DIR = "scribe_data_mediawiki_export"
+
+DEFAULT_WIKIDATA_DUMP_EXPORT_DIR = "scribe_data_wikidata_dumps_export"
+DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR = "scribe_data_wiktionary_dumps_export"
+
 DEFAULT_DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
-DEFAULT_FILTERED_JSON_EXPORT_DIR = "scribe_data_filtered_json_export"
+DEFAULT_WIKTIONARY_JSON_EXPORT_DIR = "scribe_data_wiktionary_json_export"
 
 LANGUAGE_DATA_EXTRACTION_DIR = (
     Path(__file__).parent / "wikidata" / "language_data_extraction"
@@ -274,6 +278,33 @@ def get_language_from_iso(iso: str) -> str:
 
     # If no match is found, raise a ValueError.
     raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
+
+
+def resolve_lang_iso(language: str) -> str:
+    """
+    Resolve language name or ISO to ISO code.
+
+    Parameters
+    ----------
+    language : str
+        The language to resolve into its ISO code.
+
+    Returns
+    -------
+    str
+        The ISO code for the given language.
+    """
+    language = language.strip().lower()
+    if len(language) in {2, 3} and language.isalpha():
+        with contextlib.suppress(ValueError):
+            get_language_from_iso(language)
+            return language
+
+    try:
+        return get_language_iso(language)
+
+    except ValueError:
+        return None
 
 
 def load_queried_data(
@@ -651,7 +682,7 @@ def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
         if overwrite_all:
             return False
 
-        print(f"\nIndex file already exists at: {index_path}")
+        print(f"\nFile already exists at: {index_path}")
         choice = questionary.select(
             "Choose an action:",
             choices=["Overwrite existing data", "Skip process"],

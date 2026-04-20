@@ -116,9 +116,10 @@ class TestDownloadCLI(unittest.TestCase):
         mock_get.return_value.headers = {"content-length": "100"}
         mock_get.return_value.iter_content = lambda chunk_size: [b"data"] * 10
 
-        # Mock DEFAULT_DUMP_EXPORT_DIR.
+        # Mock DEFAULT_WIKIDATA_DUMP_EXPORT_DIR.
         with patch(
-            "scribe_data.cli.download.DEFAULT_DUMP_EXPORT_DIR", new="test_export_dir"
+            "scribe_data.cli.download.DEFAULT_WIKIDATA_DUMP_EXPORT_DIR",
+            new="test_export_dir",
         ):
             download_path = wd_lexeme_dump_download_wrapper()
             self.assertIsNotNone(download_path, "Download path should not be None")

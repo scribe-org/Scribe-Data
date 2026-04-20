@@ -1,0 +1,34 @@
+# Match ==Svenska== / == Svenska == only.
+lang_header_pattern: ^\s*Svenska\s*$
+prefilters:
+- ö-topp
+- '{{ö|'
+- '{{ö+'
+ignored_prefixes:
+- 'se:'
+- 'se '
+- 'jfr:'
+- 'jfr '
+- 'jämför:'
+- 'jämför '
+ignored_strings:
+- saknar översättning
+- behöver översättning
+pos_map:
+  substantiv: noun
+  verb: verb
+  adjektiv: adjective
+  adverb: adverb
+  preposition: preposition
+  konjunktion: conjunction
+  interjektion: interjection
+  pronomen: pronoun
+  räkneord: numeral
+  egennamn: proper_noun
+  partikel: particle
+template_top:
+- ö-topp
+template_bottom: ö-botten
+template_translation:
+- ö
+- ö+

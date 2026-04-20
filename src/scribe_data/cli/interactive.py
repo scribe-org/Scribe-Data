@@ -22,9 +22,9 @@ from scribe_data.cli.convert import convert_wrapper
 from scribe_data.cli.get import get_data
 from scribe_data.cli.total import total_wrapper
 from scribe_data.utils import (
-    DEFAULT_DUMP_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
+    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     data_type_metadata,
     language_metadata,
     list_all_languages,
@@ -322,7 +322,7 @@ def request_total_lexeme_loop() -> None:
 
         elif choice == "run_all":
             if wikidata_dump_path := prompt(
-                f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
+                f"Enter Wikidata lexeme dump path (default: {DEFAULT_WIKIDATA_DUMP_EXPORT_DIR}): "
             ):
                 wikidata_dump_path = Path(wikidata_dump_path)
 
@@ -443,12 +443,12 @@ def start_interactive_mode(operation: str | None = None) -> None:
 
         elif choice == "run_all":
             if wikidata_dump_path := prompt(
-                f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
+                f"Enter Wikidata lexeme dump path (default: {DEFAULT_WIKIDATA_DUMP_EXPORT_DIR}): "
             ):
                 wikidata_dump_path = Path(wikidata_dump_path)
 
             else:
-                wikidata_dump_path = Path(DEFAULT_DUMP_EXPORT_DIR)
+                wikidata_dump_path = Path(DEFAULT_WIKIDATA_DUMP_EXPORT_DIR)
 
             parse_wd_lexeme_dump(
                 language=config.selected_languages,
@@ -511,12 +511,11 @@ def start_interactive_mode(operation: str | None = None) -> None:
             break
 
         elif choice == "translations":
-            prompt_for_languages()
+            from scribe_data.wiktionary.parse_translations import (
+                parse_wiktionary_translations,
+            )
 
-            if wikidata_dump_path := prompt(
-                f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
-            ):
-                wikidata_dump_path = Path(wikidata_dump_path)
+            prompt_for_languages()
 
             if output_dir := prompt(
                 f"Enter output directory (default: {config.output_dir}): "
@@ -529,14 +528,18 @@ def start_interactive_mode(operation: str | None = None) -> None:
             )
             overwrite_bool = overwrite_str.strip().lower() in ("true", "y", "yes")
 
-            parse_wd_lexeme_dump(
-                language=config.selected_languages,
-                wikidata_dump_type=["translations"],
-                data_types=None,
-                type_output_dir=config.output_dir,
-                wikidata_dump_path=wikidata_dump_path,
-                overwrite_all=overwrite_bool,
-                interactive_mode=True,
+            if wiktionary_dump_path := prompt(
+                "Enter Wiktionary dump path or language prefix (default: search automatically): "
+            ):
+                wiktionary_dump_path = wiktionary_dump_path.strip()
+            else:
+                wiktionary_dump_path = ""
+
+            parse_wiktionary_translations(
+                target_languages=config.selected_languages,
+                wiktionary_dump_path=str(Path(wiktionary_dump_path)),
+                output_dir=str(config.output_dir),
+                overwrite=overwrite_bool,
             )
 
             break

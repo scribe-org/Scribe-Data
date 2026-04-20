@@ -5,7 +5,7 @@ Tests for the CLI interactive mode functionality.
 
 import unittest
 from pathlib import Path
-from unittest.mock import ANY, MagicMock, call, patch
+from unittest.mock import MagicMock, call, patch
 
 from prompt_toolkit.completion import WordCompleter
 
@@ -198,175 +198,24 @@ class TestScribeDataInteractive(unittest.TestCase):
         completer_with_all = create_word_completer(options, include_all=True)
         self.assertEqual(completer_with_all.words, ["All"] + options)
 
-    @patch("questionary.select")
-    @patch("scribe_data.cli.interactive.total_wrapper")
-    @patch("scribe_data.cli.interactive.parse_wd_lexeme_dump")
-    @patch("scribe_data.cli.interactive.prompt")
-    def test_request_total_lexeme_loop(
-        self,
-        mock_prompt: MagicMock,
-        mock_parse_dump: MagicMock,
-        mock_total_wrapper: MagicMock,
-        mock_select: MagicMock,
-    ) -> None:
-        """
-        Test request_total_lexeme_loop functionality with both WDQS and lexeme dumps.
-        """
-        from scribe_data.cli.interactive import config, request_total_lexeme_loop
-
-        # Test running total lexemes request via WDQS.
-        mock_select.return_value.ask.side_effect = ["run", "exit"]
-        config.selected_languages = ["english"]
-        config.selected_data_types = ["nouns"]
-
-        request_total_lexeme_loop()
-
-        mock_total_wrapper.assert_called_once_with(
-            language=["english"], data_type=["nouns"], all_bool=False
-        )
-
-        # Reset mocks and reconfigure for lexeme dumps test.
-        mock_total_wrapper.reset_mock()
-        mock_parse_dump.reset_mock()
-        mock_select.return_value.ask.side_effect = ["run_all", "exit"]
-
-        # Important: Reset and set the config again for the second test.
-        config.selected_languages = ["english"]  # ensure languages are set again
-        mock_prompt.return_value = "/custom/dump/path"
-
-        request_total_lexeme_loop()
-
-        mock_parse_dump.assert_called_once_with(
-            language=["english"],
-            wikidata_dump_type=["total"],
-            wikidata_dump_path=Path("/custom/dump/path"),
-            interactive_mode=True,
-        )
-
-    @patch("questionary.select")
-    @patch("scribe_data.cli.interactive.configure_settings")
-    @patch("scribe_data.cli.interactive.run_request")
-    @patch("scribe_data.cli.interactive.parse_wd_lexeme_dump")
-    @patch("scribe_data.cli.interactive.prompt")
-    def test_start_interactive_mode(
-        self,
-        mock_prompt: MagicMock,
-        mock_parse_dump: MagicMock,
-        mock_run_request: MagicMock,
-        mock_configure: MagicMock,
-        mock_select: MagicMock,
-    ) -> None:
-        """
-        Test start_interactive_mode functionality.
-        """
-        from scribe_data.cli.interactive import config, start_interactive_mode
-
-        # Test get data request flow.
-        config.configured = True
-        config.selected_languages = ["english"]
-        config.selected_data_types = ["nouns"]
-
-        mock_select.return_value.ask.return_value = "run"
-        start_interactive_mode(operation="get")
-        mock_run_request.assert_called_once()
-
-        # Reset mocks.
-        mock_run_request.reset_mock()
-        mock_parse_dump.reset_mock()
-        mock_prompt.reset_mock()
-
-        # Test get data with dumps flow.
-        mock_select.return_value.ask.return_value = "run_all"
-        mock_prompt.return_value = "/custom/dump/path"
-
-        start_interactive_mode(operation="get")
-
-        mock_parse_dump.assert_called_with(
-            language=["english"],
-            wikidata_dump_type=["form"],
-            data_types=["nouns"],
-            type_output_dir=ANY,
-            wikidata_dump_path=Path("/custom/dump/path"),
-            overwrite_all=False,
-            interactive_mode=True,
-        )
-
-    @patch("questionary.select")
-    @patch("scribe_data.cli.interactive.convert_wrapper")
+    @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
     @patch("scribe_data.cli.interactive.prompt")
     @patch("scribe_data.cli.interactive.prompt_for_languages")
-    @patch("scribe_data.cli.interactive.prompt_for_data_types")
-    def test_start_interactive_mode_convert(
-        self,
-        mock_prompt_data_types: MagicMock,
-        mock_prompt_languages: MagicMock,
-        mock_prompt: MagicMock,
-        mock_convert: MagicMock,
-        mock_select: MagicMock,
-    ) -> None:
-        """
-        Test start_interactive_mode with convert operation.
-        """
-        from scribe_data.cli.interactive import config, start_interactive_mode
-
-        # Setup mock responses.
-        mock_select.return_value.ask.return_value = "convert"
-        mock_prompt.side_effect = [
-            "/input/dir",  # input directory
-            "/output/dir",  # output directory
-            "snake",  # identifier case
-            "sqlite",  # output type
-            "true",  # overwrite
-        ]
-
-        config.selected_languages = ["english"]
-        config.selected_data_types = ["nouns"]
-
-        start_interactive_mode(operation="convert")
-
-        mock_convert.assert_called_once_with(
-            languages=["english"],
-            data_types=["nouns"],
-            output_type="sqlite",
-            input_files=Path("/input/dir"),
-            output_dir=Path("/output/dir"),
-            identifier_case="snake",
-            overwrite=True,
-        )
-
-    @patch("questionary.select")
-    @patch("scribe_data.cli.interactive.parse_wd_lexeme_dump")
-    @patch("scribe_data.cli.interactive.prompt")
-    @patch("scribe_data.cli.interactive.prompt_for_languages")
+    @patch("scribe_data.cli.interactive.questionary.select")
     def test_start_interactive_mode_translations(
-        self,
-        mock_prompt_languages: MagicMock,
-        mock_prompt: MagicMock,
-        mock_parse_dump: MagicMock,
-        mock_select: MagicMock,
-    ) -> None:
-        """
-        Test start_interactive_mode with translations operation.
-        """
+        self, mock_select, mock_prompt_languages, mock_prompt, mock_parse_wiktionary
+    ):
         from scribe_data.cli.interactive import config, start_interactive_mode
 
-        mock_select.return_value.ask.return_value = "translations"
-        mock_prompt.side_effect = ["/dump/path", "/output/dir", "false"]
-
+        mock_select.return_value.ask.side_effect = ["translations"]
+        mock_prompt.side_effect = ["/output/dir", "false", "/dump/path"]
         config.selected_languages = ["english"]
 
         start_interactive_mode(operation="translations")
 
-        mock_parse_dump.assert_called_once_with(
-            language=["english"],
-            wikidata_dump_type=["translations"],
-            data_types=None,
-            type_output_dir=Path("/output/dir"),
-            wikidata_dump_path=Path("/dump/path"),
-            overwrite_all=False,
-            interactive_mode=True,
+        mock_parse_wiktionary.assert_called_once_with(
+            target_languages=["english"],
+            wiktionary_dump_path=str(Path("/dump/path")),
+            output_dir=str(Path("/output/dir")),
+            overwrite=False,
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

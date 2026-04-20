@@ -1,0 +1,39 @@
+lang_header_pattern: \{\{-ru-\}\}
+lang_header_level: 1
+prefilters:
+- перев-блок
+- '{{t|'
+- '{{T|'
+ignored_prefixes:
+- 'см.:'
+- 'см. '
+- 'ср.:'
+- 'ср. '
+- 'сравни:'
+- 'сравни '
+ignored_strings:
+- нет перевода
+- перевод нужен
+- отсутствует
+pos_map:
+  существительное: noun
+  глагол: verb
+  прилагательное: adjective
+  наречие: adverb
+  предлог: preposition
+  союз: conjunction
+  междометие: interjection
+  местоимение: pronoun
+  числительное: numeral
+  имя собственное: proper_noun
+template_top:
+- trans-top
+- trans-top-also
+- checktrans-top
+template_bottom: trans-bottom
+template_translation:
+- t
+- t+
+- t-check
+- tt
+- tt+

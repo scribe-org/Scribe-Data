@@ -16,6 +16,7 @@ from scribe_data.load.data_to_sqlite import (
     data_to_sqlite,
     table_insert,
     translations_to_sqlite,
+    wiktionary_translations_to_sqlite,
 )
 
 
@@ -76,7 +77,7 @@ def test_create_table(temp_db: Any) -> None:
     assert cursor.fetchone() is not None
 
     # Verify column names.
-    cursor.execute("PRAGMA table_info(test_table)")
+    cursor.execute("PRAGMA table_info([test_table])")
     columns = [info[1] for info in cursor.fetchall()]
     assert "test_col" in columns
     assert "another_col" in columns
@@ -95,7 +96,7 @@ def test_table_insert(temp_db: Any) -> None:
     table_insert(cursor, "test_table", ["1", "test_name"])
 
     # Verify insertion.
-    cursor.execute("SELECT * FROM test_table")
+    cursor.execute("SELECT * FROM [test_table]")
     result = cursor.fetchone()
     assert result == ("1", "test_name")
 
@@ -144,7 +145,7 @@ def test_translations_to_sqlite(
     cursor = conn.cursor()
 
     # Verify english table exists and has correct data.
-    cursor.execute("SELECT * FROM english")
+    cursor.execute("SELECT * FROM [english]")
     rows = cursor.fetchall()
     assert len(rows) == 1  # should have 1 entry from our test data
     conn.close()
@@ -285,7 +286,7 @@ def test_create_table_duplicate_columns(temp_db: Any) -> None:
     # Test handling of duplicate column names.
     create_table(cursor, "snake", "test_table", ["Test", "test", "TEST"])
 
-    cursor.execute("PRAGMA table_info(test_table)")
+    cursor.execute("PRAGMA table_info([test_table])")
     columns = [info[1] for info in cursor.fetchall()]
 
     # Verify unique column names were created.
@@ -342,7 +343,7 @@ def test_data_to_sqlite_translations_and_nouns(tmp_path: Path) -> None:
     tables = [row[0] for row in cursor.fetchall()]
     assert "nouns" in tables
 
-    cursor.execute("SELECT * FROM nouns;")
+    cursor.execute("SELECT * FROM [nouns];")
     rows = cursor.fetchall()
     assert len(rows) == 3  # 2 real rows + 1 default "Scribe" row
 
@@ -382,3 +383,229 @@ def test_data_to_sqlite_skips_missing_json(tmp_path: Path) -> None:
     # Confirm that create_table and table_insert were NOT called since file missing.
     assert not mock_create_table.called
     assert not mock_table_insert.called
+
+
+# MARK: Wiktionary translations to SQLite
+
+
+def test_wiktionary_translations_to_sqlite_basic(tmp_path):
+    """
+    Test basic wiktionary_translations_to_sqlite conversion.
+    """
+    input_dir = tmp_path / "input"
+    output_dir = tmp_path / "output"
+    input_dir.mkdir()
+    output_dir.mkdir()
+
+    # Create language directory.
+    lang_dir = input_dir / "english"
+    lang_dir.mkdir()
+
+    # Create a sample Wiktionary translation JSON file.
+    translation_data = {
+        "book": {
+            "noun": {
+                "1": {
+                    "description": "collection of sheets of paper",
+                    "translation": "Buch",
+                },
+                "2": {
+                    "description": "record of betting",
+                    "translation": "Wettliste",
+                },
+            },
+            "verb": {
+                "1": {
+                    "description": "to reserve",
+                    "translation": "buchen",
+                },
+            },
+        },
+        "free": {
+            "adjective": {
+                "1": {
+                    "description": "not imprisoned",
+                    "translation": "frei",
+                },
+            },
+        },
+    }
+    with open(lang_dir / "de_translations_from_en.json", "w", encoding="utf-8") as f:
+        json.dump(translation_data, f)
+
+    wiktionary_translations_to_sqlite(
+        language="english",
+        identifier_case="snake",
+        input_file=str(input_dir),
+        output_file=str(output_dir),
+        overwrite=True,
+    )
+
+    # Verify database was created.
+    db_path = output_dir / "TranslationData.sqlite"
+    assert db_path.exists()
+
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    # Verify table exists.
+    cursor.execute(
+        "SELECT name FROM sqlite_master WHERE type='table' "
+        "AND name='de_translations_from_en'"
+    )
+    assert cursor.fetchone() is not None
+
+    # Verify column names (snake_case).
+    cursor.execute("PRAGMA table_info([de_translations_from_en])")
+    columns = [info[1] for info in cursor.fetchall()]
+    assert columns == ["word", "word_type", "word_order", "description", "translation"]
+
+    # Verify row count: book(noun:2, verb:1) + free(adjective:1) = 4.
+    cursor.execute("SELECT COUNT(*) FROM [de_translations_from_en]")
+    assert cursor.fetchone()[0] == 4
+
+    # Verify specific row.
+    cursor.execute(
+        "SELECT * FROM [de_translations_from_en] WHERE word='book' AND word_type='verb'"
+    )
+    row = cursor.fetchone()
+    assert row == ("book", "verb", "1", "to reserve", "buchen")
+
+    conn.close()
+
+
+def test_wiktionary_translations_to_sqlite_camel_case(tmp_path):
+    """
+    Test wiktionary_translations_to_sqlite with camelCase identifiers.
+    """
+    input_dir = tmp_path / "input"
+    output_dir = tmp_path / "output"
+    input_dir.mkdir()
+    output_dir.mkdir()
+
+    lang_dir = input_dir / "english"
+    lang_dir.mkdir()
+
+    translation_data = {
+        "cat": {
+            "noun": {
+                "1": {"description": "animal", "translation": "Katze"},
+            },
+        },
+    }
+    with open(lang_dir / "de_translations_from_en.json", "w", encoding="utf-8") as f:
+        json.dump(translation_data, f)
+
+    wiktionary_translations_to_sqlite(
+        language="english",
+        identifier_case="camel",
+        input_file=str(input_dir),
+        output_file=str(output_dir),
+        overwrite=True,
+    )
+
+    db_path = output_dir / "TranslationData.sqlite"
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    cursor.execute("PRAGMA table_info([de_translations_from_en])")
+    columns = [info[1] for info in cursor.fetchall()]
+    assert columns == ["word", "wordType", "wordOrder", "description", "translation"]
+
+    conn.close()
+
+
+def test_wiktionary_translations_to_sqlite_missing_dir(tmp_path, capsys):
+    """
+    Test wiktionary_translations_to_sqlite with non-existent language directory.
+    """
+    wiktionary_translations_to_sqlite(
+        language="nonexistent",
+        input_file=str(tmp_path),
+        output_file=str(tmp_path / "output"),
+    )
+
+    captured = capsys.readouterr()
+    assert "Warning" in captured.out
+    assert "Skipping Wiktionary translations" in captured.out
+
+
+def test_wiktionary_translations_to_sqlite_no_translation_files(tmp_path):
+    """
+    Test that no database is created when there are no translation files.
+    """
+    input_dir = tmp_path / "input"
+    lang_dir = input_dir / "english"
+    lang_dir.mkdir(parents=True)
+
+    output_dir = tmp_path / "output"
+    output_dir.mkdir()
+
+    # Create a non-translation JSON file.
+    (lang_dir / "nouns.json").write_text("{}")
+
+    wiktionary_translations_to_sqlite(
+        language="english",
+        input_file=str(input_dir),
+        output_file=str(output_dir),
+    )
+
+    # No TranslationData.sqlite should be created.
+    db_path = output_dir / "TranslationData.sqlite"
+    assert not db_path.exists()
+
+
+def test_wiktionary_translations_to_sqlite_multiple_files(tmp_path):
+    """
+    Test wiktionary_translations_to_sqlite with multiple translation files.
+    """
+    input_dir = tmp_path / "input"
+    output_dir = tmp_path / "output"
+    input_dir.mkdir()
+    output_dir.mkdir()
+
+    lang_dir = input_dir / "english"
+    lang_dir.mkdir()
+
+    # Create two translation files.
+    de_data = {
+        "hello": {"noun": {"1": {"description": "greeting", "translation": "Hallo"}}}
+    }
+    fr_data = {
+        "hello": {"noun": {"1": {"description": "greeting", "translation": "Bonjour"}}}
+    }
+
+    (lang_dir / "de_translations_from_en.json").write_text(json.dumps(de_data))
+    (lang_dir / "fr_translations_from_en.json").write_text(json.dumps(fr_data))
+
+    wiktionary_translations_to_sqlite(
+        language="english",
+        identifier_case="snake",
+        input_file=str(input_dir),
+        output_file=str(output_dir),
+        overwrite=True,
+    )
+
+    db_path = output_dir / "TranslationData.sqlite"
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    # Verify both tables exist.
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")
+    tables = [row[0] for row in cursor.fetchall()]
+    assert "de_translations_from_en" in tables
+    assert "fr_translations_from_en" in tables
+
+    # Verify German data.
+    cursor.execute(
+        "SELECT translation FROM [de_translations_from_en] WHERE word='hello'"
+    )
+    assert cursor.fetchone()[0] == "Hallo"
+
+    # Verify French data.
+    cursor.execute(
+        "SELECT translation FROM [fr_translations_from_en] WHERE word='hello'"
+    )
+    assert cursor.fetchone()[0] == "Bonjour"
+
+    conn.close()

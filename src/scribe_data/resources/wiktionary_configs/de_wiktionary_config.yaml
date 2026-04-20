@@ -1,0 +1,40 @@
+engine: ast_u_tabelle
+lang_header_pattern: \(\{\{Sprache\|Deutsch\}\}\)
+prefilters:
+- Ü-Tabelle
+- '{{Ü|'
+- '{{Üt|'
+ignored_prefixes:
+- 'siehe:'
+- 'siehe '
+- 'vergleiche:'
+- vgl.
+ignored_strings:
+- fehlend
+- bitte ergänzen
+- –
+- '-'
+pos_map:
+  substantiv: noun
+  verb: verb
+  adjektiv: adjective
+  adverb: adverb
+  präposition: preposition
+  konjunktion: conjunction
+  interjektion: interjection
+  pronomen: pronoun
+  artikel: determiner
+  numerale: numeral
+  partikel: particle
+  eigenname: proper_noun
+  redewendung: phrase
+  wortverbindung: phrase
+template_pos: wortart
+template_table: ü-tabelle
+template_list: ü-liste
+template_translation:
+- ü
+- üt
+- üxx
+- üt+
+- üxx+

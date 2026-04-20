@@ -16,7 +16,12 @@ import requests
 from rich import print as rprint
 from tqdm import tqdm
 
-from scribe_data.utils import DEFAULT_DUMP_EXPORT_DIR, check_lexeme_dump_prompt_download
+from scribe_data.utils import (
+    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
+    check_lexeme_dump_prompt_download,
+    resolve_lang_iso,
+)
 
 
 def parse_date(date_string: str) -> str | None:
@@ -200,7 +205,7 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str | None
 
 
 def wd_lexeme_dump_download_wrapper(
-    wikidata_dump: Optional[str] = None,
+    dump_snapshot: Optional[str] = None,
     output_dir: Optional[str] = None,
     default: bool = False,
 ) -> str | bool | None:
@@ -209,7 +214,7 @@ def wd_lexeme_dump_download_wrapper(
 
     Parameters
     ----------
-    wikidata_dump : str
+    dump_snapshot : str
         Optional date string in YYYYMMDD format for specific dumps.
 
     output_dir : str
@@ -228,16 +233,16 @@ def wd_lexeme_dump_download_wrapper(
         - Returns None if the user chooses not to proceed with the download or no valid dump URL is found.
     """
     try:
-        output_dir = output_dir or DEFAULT_DUMP_EXPORT_DIR
+        output_dir = output_dir or DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
 
         os.makedirs(output_dir, exist_ok=True)
 
         # Don't check for lexeme if date given.
-        if not wikidata_dump:
+        if not dump_snapshot:
             if useable_file_dir := check_lexeme_dump_prompt_download(output_dir):
                 return useable_file_dir
 
-        dump_url = download_wd_lexeme_dump(wikidata_dump or "latest-lexemes")
+        dump_url = download_wd_lexeme_dump(dump_snapshot or "latest-lexemes")
 
         if not dump_url:
             rprint("[bold red]No dump URL found.[/bold red]")
@@ -284,3 +289,104 @@ def wd_lexeme_dump_download_wrapper(
 
     except Exception as e:
         rprint(f"[bold red]An error occurred: {e}[/bold red]")
+
+
+def download_wiktionary_dumps(
+    output_dir: Optional[str] = DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
+    language_isos: Optional[list[str]] = ["en"],
+    dump_snapshot: Optional[str] = "latest",
+) -> Optional[str]:
+    """
+    Download the latest Wiktionary pages-articles dump based on passed language isos.
+
+    Parameters
+    ----------
+    output_dir : str, optional, default=DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR
+        Directory to save the dump. Defaults to DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR.
+
+    language_isos : list[str], optional, default=['en']
+        A list of ISO-2 codes for desired Wiktionary dumps.
+
+    dump_snapshot : str, optional, default='latest'
+        The Wiktionary dump snapshot to be downloaded.
+
+    Returns
+    -------
+    str or None
+        Path to the downloaded file, or None if aborted/failed.
+    """
+    if isinstance(language_isos, str):
+        language_isos = [language_isos]
+
+    resolved_isos = []
+    not_included_isos = []
+    for lang in language_isos:
+        iso = resolve_lang_iso(lang)
+        if iso:
+            resolved_isos.append(iso)
+
+        else:
+            not_included_isos.append(lang)
+
+    if not_included_isos:
+        iso_or_isos = "iso" if len(not_included_isos) == 1 else "isos"
+        is_or_are = "is" if len(not_included_isos) == 1 else "are"
+        rprint(
+            f"[bold red]The following {iso_or_isos} {is_or_are} not included: {', '.join(not_included_isos)}[/bold red]"
+        )
+        return None
+
+    language_isos = resolved_isos
+    wiktionaries = [f"{iso}wiktionary" for iso in language_isos]
+    wiktionary_urls = [f"https://dumps.wikimedia.org/{w}" for w in wiktionaries]
+
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    for i, w, u in zip(language_isos, wiktionaries, wiktionary_urls):
+        # Note: Remove the snapshot from the resulting filename so Scribe-Server always looks for one file.
+        filename = f"{w}-pages-articles.xml.bz2"
+        download_filename = f"{w}-{dump_snapshot}-pages-articles.xml.bz2"
+        download_url = f"{u}/{dump_snapshot}/{download_filename}"
+
+        rprint(f"[bold blue]Checking dump validity at {download_url}...[/bold blue]")
+        try:
+            response = requests.head(download_url, timeout=30)
+            response.raise_for_status()
+
+        except requests.exceptions.RequestException as e:
+            rprint(f"[bold red]Invalid dump date or dump not found: {e}[/bold red]")
+            return None
+
+        output_path = str(Path(output_dir) / filename)
+
+        rprint(f"[bold blue]Downloading to {output_path}...[/bold blue]")
+        try:
+            response = requests.get(download_url, stream=True, timeout=30)
+            response.raise_for_status()
+            total_size = int(response.headers.get("content-length", 0))
+
+            with open(output_path, "wb") as f:
+                with tqdm(
+                    total=total_size,
+                    unit="iB",
+                    unit_scale=True,
+                    desc=download_filename,
+                ) as pbar:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+                            pbar.update(len(chunk))
+
+            rprint(
+                f"[bold green]{i.upper()}Wiktionary dump download completed successfully![/bold green]"
+            )
+            return output_path
+
+        except requests.exceptions.RequestException as e:
+            rprint(f"[bold red]Download failed: {e}[/bold red]")
+            return None
+
+    iso_or_isos = "iso" if len(not_included_isos) == 1 else "isos"
+    was_or_were = "was" if len(not_included_isos) == 1 else "were"
+    rprint(
+        f"[bold green]The following {iso_or_isos} {was_or_were} successfully downloaded: {', '.join(not_included_isos)}[/bold green]"
+    )

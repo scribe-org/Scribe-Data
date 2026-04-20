@@ -1,0 +1,27 @@
+# bnwiktionary uses "== {{ভাষা|bn}} ==" (not plain ==বাংলা==)
+lang_header_pattern: \{\{ভাষা\|bn\}\}
+prefilters:
+- trans-top
+- '{{t|'
+- '{{t+'
+- '{{T|'
+ignored_prefixes:
+- 'দেখুন '
+- 'দেখুন:'
+ignored_strings:
+- অজানা
+pos_map:
+  বিশেষ্য: noun
+  ক্রিয়াপদ: verb
+  বিশেষণ: adjective
+  ক্রিয়া-বিশেষণ: adverb
+  অব্যয়: preposition
+  সর্বনাম: pronoun
+template_top:
+- trans-top
+- checktrans-top
+template_bottom: trans-bottom
+template_translation:
+- t
+- t+
+- t-check

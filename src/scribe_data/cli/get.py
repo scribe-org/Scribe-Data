@@ -19,10 +19,11 @@ from scribe_data.cli.convert import convert_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
-    DEFAULT_DUMP_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
+    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
     check_index_exists,
 )
 from scribe_data.wikidata.query_data import query_data
@@ -40,6 +41,7 @@ def get_data(
     interactive: bool = False,
     identifier_case: str = "camel",
     wikidata_dump: str = None,
+    wiktionary_dump: str = None,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
@@ -76,6 +78,10 @@ def get_data(
     wikidata_dump : str
         The local Wikidata lexeme dump that can be used to process data.
 
+    wiktionary_dump : str
+        Path to enwiktionary-*-pages-articles.xml.bz2 for translations.
+        Use "enwiktionary" to search output directory.
+
     Returns
     -------
     None
@@ -85,12 +91,15 @@ def get_data(
 
     output_type = output_type or "json"
     if output_dir is None:
-        output_dir = {
-            "csv": DEFAULT_CSV_EXPORT_DIR,
-            "json": DEFAULT_JSON_EXPORT_DIR,
-            "sqlite": DEFAULT_SQLITE_EXPORT_DIR,
-            "tsv": DEFAULT_TSV_EXPORT_DIR,
-        }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
+        if data_type == "translations":
+            output_dir = DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
+        else:
+            output_dir = {
+                "csv": DEFAULT_CSV_EXPORT_DIR,
+                "json": DEFAULT_JSON_EXPORT_DIR,
+                "sqlite": DEFAULT_SQLITE_EXPORT_DIR,
+                "tsv": DEFAULT_TSV_EXPORT_DIR,
+            }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
 
     data_types = [data_type] if data_type else None
 
@@ -180,16 +189,16 @@ def get_data(
     # MARK: Translations
 
     elif data_type == "translations":
-        # If no language specified, use "all".
-        if language is None:
-            language = "all"
+        from scribe_data.wiktionary.parse_translations import (
+            parse_wiktionary_translations,
+        )
 
-        parse_wd_lexeme_dump(
-            language=language,
-            wikidata_dump_type=["translations"],
-            type_output_dir=output_dir,
-            wikidata_dump_path=wikidata_dump,
-            overwrite_all=overwrite,
+        langs = [language] if language else None
+        parse_wiktionary_translations(
+            target_languages=langs,
+            wiktionary_dump_path=wiktionary_dump,
+            output_dir=output_dir,
+            overwrite=overwrite,
         )
         return
 
@@ -198,7 +207,7 @@ def get_data(
     elif wikidata_dump is not None:
         # If wikidata_dump is an empty string, use the default path.
         if not wikidata_dump:
-            wikidata_dump = DEFAULT_DUMP_EXPORT_DIR
+            wikidata_dump = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
 
         parse_wd_lexeme_dump(
             language=language,
