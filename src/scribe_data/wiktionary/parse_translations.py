@@ -286,7 +286,7 @@ def _parse_ast_u_tabelle(
     wikitext : str
         Raw wikitext of the Wiktionary page.
 
-    word : str
+    _word : str
         The source word on the page (unused, kept for a uniform signature).
 
     Returns
@@ -555,6 +555,30 @@ def _collect_row_template(
 
     Extracts translation words from ``{{t|lang|word}}``-style templates
     (including the ``t1=`` / ``t2=`` named-parameter variant used by eswiktionary).
+
+    Parameters
+    ----------
+    node : mwparserfromhell.nodes.Template
+        Current template node being evaluated inside an open translation block.
+
+    _node_idx : int
+        Unused index of *node* in the full node list (kept for callback signature
+        compatibility).
+
+    _all_nodes : list
+        Unused full node list (kept for callback signature compatibility).
+
+    tname : str
+        Lowercased template name.
+
+    target_langs : Optional[frozenset]
+        ISO language whitelist, or ``None`` to accept all target languages.
+
+    config : dict
+        Source-edition extraction config.
+
+    current_words_by_lang : Dict[str, List[str]]
+        Mutable ``{lang_code: [word, ...]}`` accumulator for the current block.
     """
     template_t_list = frozenset(
         config.get("template_translation", ["t", "t+", "t-check", "tt", "tt+"])
@@ -597,6 +621,25 @@ def _parse_ast_trans_top(
     Used by: enwiktionary, frwiktionary, eswiktionary, svwiktionary, ptwiktionary, …
 
     Each translation row is a ``{{t|lang|word}}`` (or ``{{t+|…}}``) template.
+
+    Parameters
+    ----------
+    config : dict
+        Wiktionary config for the source language edition.
+
+    target_langs : Optional[frozenset]
+        ISO codes of languages to extract, or ``None`` for all.
+
+    wikitext : str
+        Raw wikitext of the Wiktionary page.
+
+    _word : str
+        Source page title (unused by this engine, retained for uniform signature).
+
+    Returns
+    -------
+    Dict[str, PosToSenses]
+        ``{target_lang_iso: {pos: {sense_idx: {description?, translation}}}}``.
     """
     return _parse_block_translations(
         config=config,
@@ -624,6 +667,29 @@ def _collect_row_wikilink(
     In itwiktionary each row looks like ``:* {{en}}: [[word1]], [[word2]]``.
     The template name *is* the ISO code; words are bare ``[[wikilinks]]`` that
     follow on the same line.
+
+    Parameters
+    ----------
+    node : mwparserfromhell.nodes.Template
+        Current language-marker template (its name is the target language code).
+
+    node_idx : int
+        Index of *node* in *all_nodes*.
+
+    all_nodes : list
+        Full linear node sequence for the parsed source-language section.
+
+    tname : str
+        Lowercased template name, interpreted as a language code.
+
+    target_langs : Optional[frozenset]
+        ISO language whitelist, or ``None`` to accept all target languages.
+
+    config : dict
+        Source-edition extraction config.
+
+    current_words_by_lang : Dict[str, List[str]]
+        Mutable ``{lang_code: [word, ...]}`` accumulator for the current block.
     """
     lang_code = tname  # e.g. "en", "de"
     if target_langs and lang_code not in target_langs:
@@ -677,6 +743,25 @@ def _parse_ast_wikilink_list(
 
     Each translation row is ``:* {{lang_code}}: [[word1]], [[word2]]`` — the
     template name is the ISO code and words are bare ``[[wikilinks]]``.
+
+    Parameters
+    ----------
+    config : dict
+        Wiktionary config for the source language edition.
+
+    target_langs : Optional[frozenset]
+        ISO codes of languages to extract, or ``None`` for all.
+
+    wikitext : str
+        Raw wikitext of the Wiktionary page.
+
+    _word : str
+        Source page title (unused by this engine, retained for uniform signature).
+
+    Returns
+    -------
+    Dict[str, PosToSenses]
+        ``{target_lang_iso: {pos: {sense_idx: {description?, translation}}}}``.
     """
     return _parse_block_translations(
         config=config,
@@ -783,23 +868,73 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
 
     # Simple wrapper to update pbar dynamically behind bz2.open.
     class ProgressFileWrapper:
+        """
+        File-like wrapper that updates a progress bar on read operations.
+
+        Parameters
+        ----------
+        path : Path | str
+            File path to open in binary mode.
+
+        pbar_ref : Optional[tqdm]
+            Progress bar to update with consumed byte counts.
+        """
+
         def __init__(self, path, pbar_ref):
+            """
+            Open the wrapped file and store the progress-bar reference.
+
+            Parameters
+            ----------
+            path : Path | str
+                File path to open in binary mode.
+
+            pbar_ref : Optional[tqdm]
+                Progress bar to update with consumed byte counts.
+            """
             self.f = open(path, "rb")
             self.pbar_ref = pbar_ref
 
         def read(self, size=-1):
+            """
+            Read bytes and update progress by the number of bytes returned.
+
+            Parameters
+            ----------
+            size : int, default=-1
+                Maximum number of bytes to read. ``-1`` means read until EOF.
+
+            Returns
+            -------
+            bytes
+                Bytes read from the wrapped file object.
+            """
             data = self.f.read(size)
             if self.pbar_ref and data:
                 self.pbar_ref.update(len(data))
             return data
 
         def readinto(self, b):
+            """
+            Read bytes into ``b`` and increment progress by bytes written.
+
+            Parameters
+            ----------
+            b : writable buffer
+                Destination buffer accepted by ``readinto``.
+
+            Returns
+            -------
+            int
+                Number of bytes read into ``b``.
+            """
             n = self.f.readinto(b)
             if self.pbar_ref and n:
                 self.pbar_ref.update(n)
             return n
 
         def close(self):
+            """Close the wrapped binary file object."""
             self.f.close()
 
     proc = None

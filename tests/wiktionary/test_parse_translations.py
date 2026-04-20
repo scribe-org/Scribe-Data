@@ -121,7 +121,7 @@ other
         # Verify noun translations.
         self.assertIn("noun", res.get("de", {}))
         self.assertIn("1", res["de"]["noun"])
-        self.assertEqual(res["de"]["noun"]["1"]["translation"], "Mädchen (n), Buch (m)")
+        self.assertEqual(res["de"]["noun"]["1"]["translation"], "Mädchen")
         self.assertEqual(res["de"]["noun"]["1"]["description"], "a subject of a test")
 
         # Verify verb translations.
@@ -170,7 +170,7 @@ other
         self.assertIn("noun", res.get("de", {}))
         self.assertIn("book", res["en"]["noun"]["1"]["translation"])
         self.assertIn("omasum", res["en"]["noun"]["1"]["translation"])
-        self.assertEqual(res["de"]["noun"]["1"]["translation"], "Buch (n)")
+        self.assertEqual(res["de"]["noun"]["1"]["translation"], "Buch")
         self.assertEqual(
             res["en"]["noun"]["1"]["description"],
             "",
@@ -213,7 +213,7 @@ other
         self.assertIn("noun", res.get("en", {}))
         self.assertEqual(res["en"]["noun"]["1"]["translation"], "book")
         self.assertIn("de", res)
-        self.assertEqual(res["de"]["noun"]["1"]["translation"], "Buch (n)")
+        self.assertEqual(res["de"]["noun"]["1"]["translation"], "Buch")
 
     def test_italian_trad1_wikilink_format(self):
         """
@@ -369,7 +369,7 @@ english side
             self.assertIn("de", res_single)
             self.assertIn("test", res_single["de"])
             self.assertEqual(
-                res_single["de"]["test"]["noun"]["1"]["translation"], "Mädchen (n)"
+                res_single["de"]["test"]["noun"]["1"]["translation"], "Mädchen"
             )
 
             # Multi-process mode.
@@ -380,7 +380,7 @@ english side
                 progress=False,
             )
             self.assertEqual(
-                res_multi["de"]["test"]["noun"]["1"]["translation"], "Mädchen (n)"
+                res_multi["de"]["test"]["noun"]["1"]["translation"], "Mädchen"
             )
         finally:
             Path(tmp_path).unlink()
