@@ -12,6 +12,7 @@ from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
 from scribe_data.cli.contracts.check import check_contracts
+from scribe_data.cli.contracts.export import export_contracts
 from scribe_data.cli.contracts.filter import export_data_filtered_by_contracts
 from scribe_data.cli.convert import convert_wrapper
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
@@ -330,6 +331,26 @@ def main() -> None:
     )
     interactive_parser._actions[0].help = "Show this help message and exit."
 
+    # MARK: Export Contracts
+
+    export_contracts_parser = subparsers.add_parser(
+        "export_contracts",
+        aliases=["ec"],
+        help="Export Scribe-Data contracts to a local directory.",
+        description="Export Scribe-Data contracts to the current working directory.",
+        epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
+    )
+    export_contracts_parser._actions[0].help = "Show this help message and exit."
+    export_contracts_parser.add_argument(
+        "-od",
+        "--output-dir",
+        type=str,
+        required=False,
+        default=".",
+        help="The directory to export contracts to (default: current directory).",
+    )
+
     # MARK: Check Contracts
 
     check_contracts_parser = subparsers.add_parser(
@@ -572,6 +593,9 @@ def main() -> None:
 
             else:
                 print("Skipping action")
+
+        elif args.command in ["export_contracts", "ec"]:
+            export_contracts(output_dir=args.output_dir)
 
         elif args.command in ["check_contracts", "cc"]:
             check_contracts(output_dir=args.output_dir)
