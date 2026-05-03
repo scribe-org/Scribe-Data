@@ -353,7 +353,7 @@ def total_wrapper(
     language: Union[str, List[str]] = None,
     data_type: Union[str, List[str]] = None,
     all_bool: bool = False,
-    wikidata_dump: Union[str, List[str]] = None,
+    wikidata_dump: Union[str, bool] = None,
 ) -> None:
     """
     Conditionally provides the full functionality of the total command.

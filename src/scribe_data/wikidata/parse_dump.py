@@ -49,8 +49,8 @@ class LexemeProcessor:
     def __init__(
         self,
         target_lang: Union[str, List[str]] = None,
-        parse_type: list[str] = None,
-        data_types: list[str] = None,
+        parse_type: List[str] = None,
+        data_types: List[str] = None,
     ) -> None:
         """
         Use to derive information on lexeme dump entries.
@@ -589,9 +589,7 @@ class LexemeProcessor:
 
     # MARK: Export Translations
 
-    def export_translations_json(
-        self, filepath: str, language_iso: str | None = None
-    ) -> None:
+    def export_translations_json(self, filepath: str, language_iso: str = None) -> None:
         """
         Save translations_index to file, optionally filtering by language_iso.
 
@@ -662,8 +660,8 @@ class LexemeProcessor:
     def export_forms_json(
         self,
         filepath: str,
-        language_iso: str | None = None,
-        data_type: str | None = None,
+        language_iso: str = None,
+        data_type: str = None,
     ) -> None:
         """
         Export grammatical forms to a JSON file with readable feature labels.
@@ -764,11 +762,11 @@ class LexemeProcessor:
 
 
 def parse_dump(
-    language: str | list[str] | None = None,
-    parse_type: list[str] | None = None,
-    data_types: list[str] | None = None,
+    language: Union[str, List[str]] = None,
+    parse_type: List[str] = None,
+    data_types: List[str] = None,
     file_path: str = "latest-lexemes.json.bz2",
-    output_dir: str | None = None,
+    output_dir: str = None,
     overwrite_all: bool = False,
 ) -> None:
     """
