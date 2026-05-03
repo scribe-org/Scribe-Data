@@ -45,7 +45,7 @@ jobs:
       - name: Generate Missing Features Data
         run: |
           # Set up paths
-          QUERY_DIR="$(pwd)/src/scribe_data/wikidata/queries"
+          QUERY_DIR="$(pwd)/src/scribe_data/wikidata/queries_all_data"
 
           echo "Query directory: ${QUERY_DIR}"
 
@@ -64,7 +64,7 @@ jobs:
 
       - name: Make Changes
         run: |
-          git add src/scribe_data/wikidata/queries/**/*.sparql
+          git add src/scribe_data/wikidata/queries_all_data/**/*.sparql
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
