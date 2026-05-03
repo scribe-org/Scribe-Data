@@ -149,7 +149,7 @@ class TestConvert(unittest.TestCase):
         )
 
         output_file = output_dir / "English" / "nouns.json"
-        with open(output_file, "r") as f:
+        with open(output_file, "r", encoding="utf-8") as f:
             actual_content = json.load(f)
 
         assert actual_content == expected_json_output
@@ -177,7 +177,7 @@ class TestConvert(unittest.TestCase):
         )
 
         output_file = output_dir / "English" / "nouns.json"
-        with open(output_file, "r") as f:
+        with open(output_file, "r", encoding="utf-8") as f:
             actual_content = json.load(f)
 
         assert actual_content == expected_json_output
@@ -204,7 +204,7 @@ class TestConvert(unittest.TestCase):
         )
 
         output_file = output_dir / "English" / "nouns.json"
-        with open(output_file, "r") as f:
+        with open(output_file, "r", encoding="utf-8") as f:
             actual_content = json.load(f)
 
         assert actual_content == expected_json_output
