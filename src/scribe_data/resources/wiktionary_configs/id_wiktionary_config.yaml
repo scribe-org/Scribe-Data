@@ -1,0 +1,30 @@
+# idwiktionary uses "=={{bahasa|id}}==" headers
+lang_header_pattern: \{\{bahasa\|id\}\}
+prefilters:
+- t-atas
+- trans-top
+- '{{t|'
+- '{{t+'
+- '{{T|'
+ignored_prefixes:
+- 'lihat '
+- 'lihat:'
+ignored_strings:
+- perlu ditambahkan
+- belum ada
+pos_map:
+  nomina: noun
+  verba: verb
+  -n-: noun
+  -v-: verb
+  -adj-: adjective
+  -adv-: adverb
+template_top:
+- t-atas
+- trans-top
+- checktrans-top
+template_bottom: t-bawah
+template_translation:
+- t
+- t+
+- t-check

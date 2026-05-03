@@ -13,10 +13,11 @@ import sys
 import time
 from collections import defaultdict
 from pathlib import Path
+from typing import Any, Dict, Optional, cast
 
 from scribe_data.check.check_missing_forms.split_query import split_group_by_identifier
 from scribe_data.utils import (
-    LANGUAGE_DATA_EXTRACTION_DIR,
+    WIKIDATA_QUERIES_ALL_DATA_DIR,
     data_type_metadata,
     language_metadata,
     lexeme_form_metadata,
@@ -43,7 +44,7 @@ def load_sparql_template() -> str:
         return f.read()
 
 
-def execute_sparql_query(query: str, max_retries: int = 3) -> list | None:
+def execute_sparql_query(query: str, max_retries: int = 3) -> Optional[list]:
     """
     Execute a SPARQL query against Wikidata with retry logic and rate limiting.
 
@@ -52,8 +53,8 @@ def execute_sparql_query(query: str, max_retries: int = 3) -> list | None:
     query : str
         The SPARQL query to execute.
 
-    max_retries : int, optional
-        Maximum number of retry attempts (default: 3).
+    max_retries : int, optional, default=3
+        Maximum number of retry attempts.
 
     Returns
     -------
@@ -73,7 +74,8 @@ def execute_sparql_query(query: str, max_retries: int = 3) -> list | None:
 
             sparql.setQuery(query)
             results = sparql.query().convert()
-            return results.get("results", {}).get("bindings", [])
+            res_dict = cast(Dict[str, Any], results)
+            return res_dict.get("results", {}).get("bindings", [])
 
         except Exception as e:
             error_msg = str(e)
@@ -145,9 +147,9 @@ WHERE {{{{
     wikibase:lemma ?lemma .
 }}}}
 """
-    # Save to language_data_extraction directory.
+    # Save to queries directory.
     output_path = (
-        LANGUAGE_DATA_EXTRACTION_DIR
+        WIKIDATA_QUERIES_ALL_DATA_DIR
         / language_name
         / data_type_name
         / f"query_{data_type_name}.sparql"
@@ -163,8 +165,8 @@ def get_forms_from_sparql_service(
     data_type_qid: str,
     frequency_threshold: int = 0,
     max_results: int = 1000,
-    language_name: str | None = None,
-    data_type_name: str | None = None,
+    language_name: Optional[str] = "",
+    data_type_name: Optional[str] = "",
 ) -> list | str:
     """
     Get form combinations for a language/data type pair from the Wikidata Query SPARQL service.
@@ -181,8 +183,8 @@ def get_forms_from_sparql_service(
         Minimum frequency threshold for including form combinations.
         Default is 0 (include all combinations).
 
-    max_results : int, optional
-        Maximum number of results to return (default: 1000).
+    max_results : int, optional, default=1000
+        Maximum number of results to return.
         Helps prevent timeout for very large datasets.
 
     language_name : str, optional
@@ -286,8 +288,8 @@ def get_forms_from_sparql_service_all_languages(
         Minimum frequency threshold for including form combinations.
         Default is 0 (include all combinations).
 
-    max_results : int, optional
-        Maximum results per query to prevent timeouts (default: 1000).
+    max_results : int, optional, default=1000
+        Maximum results per query to prevent timeouts.
 
     Returns
     -------
@@ -372,7 +374,7 @@ def get_forms_from_sparql_service_all_languages(
 
 def get_features_from_sparql_service(
     frequency_threshold: int = 0, max_results: int = 1000
-) -> dict | None:
+) -> Optional[dict]:
     """
     Get all form combinations from live SPARQL service (new approach).
 
@@ -382,8 +384,8 @@ def get_features_from_sparql_service(
         Minimum frequency threshold for including form combinations.
         Default is 0 (include all combinations).
 
-    max_results : int, optional
-        Maximum results per query to prevent timeouts (default: 1000).
+    max_results : int, optional, default=1000
+        Maximum results per query to prevent timeouts .
 
     Returns
     -------
@@ -486,14 +488,14 @@ def process_missing_features(missing_features: dict, query_dir: str | Path) -> N
                         )
                         split_group_by_identifier(
                             language_entry,
-                            LANGUAGE_DATA_EXTRACTION_DIR,
+                            WIKIDATA_QUERIES_ALL_DATA_DIR,
                             sub_lang_iso_code,
                         )
                 else:
                     print(f"Generating query for {language_qid} - {data_type_qid}")
                     split_group_by_identifier(
                         language_entry,
-                        LANGUAGE_DATA_EXTRACTION_DIR,
+                        WIKIDATA_QUERIES_ALL_DATA_DIR,
                         sub_lang_iso_code=None,
                     )
 
@@ -551,19 +553,19 @@ def main() -> None:
         type=str,
         nargs="?",
         default=None,
-        help="Path to the query directory (optional, defaults to language_data_extraction in wikidata folder)",
+        help="Path to the query directory (optional, defaults to the queries directory in the wikidata folder)",
     )
 
     args = parser.parse_args()
 
-    # Use language_data_extraction directory by default.
+    # Use queries directory by default.
     if args.query_dir:
         query_dir = Path(args.query_dir)
         if not query_dir.exists():
             print(f"Error: Query directory does not exist: {query_dir}")
             sys.exit(1)
     else:
-        query_dir = LANGUAGE_DATA_EXTRACTION_DIR
+        query_dir = WIKIDATA_QUERIES_ALL_DATA_DIR
         query_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Query output directory: {query_dir}")

@@ -2,14 +2,14 @@ name: check_query_forms
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
     paths:
-      - "src/scribe_data/wikidata/language_data_extraction/**/*.sparql"
+      - "src/scribe_data/wikidata/queries_all_data/**/*.sparql"
   pull_request:
-    branches: [main]
-    types: [opened, reopened, synchronize]
+    branches: [ main ]
+    types: [ opened, reopened, synchronize ]
     paths:
-      - "src/scribe_data/wikidata/language_data_extraction/**/*.sparqll"
+      - "src/scribe_data/wikidata/queries_all_data/**/*.sparqll"
 
 jobs:
   format_check:
@@ -49,4 +49,5 @@ jobs:
 
       - name: Post-run status
         if: failure()
-        run: echo "Project SPARQL query forms check failed. Please fix the reported errors."
+        run: echo "Project SPARQL query forms check failed. Please fix the reported
+          errors."

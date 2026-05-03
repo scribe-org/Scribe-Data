@@ -3,6 +3,8 @@
 Module for a function to get emojis we want to filter from suggestions.
 """
 
+from typing import List
+
 
 # See: https://getemoji.com/
 def get_emojis_to_ignore() -> str:
@@ -25,7 +27,7 @@ def get_emojis_to_ignore() -> str:
     """
 
 
-def get_emoji_codes_to_ignore() -> list[bytes]:
+def get_emoji_codes_to_ignore() -> List[bytes]:
     """
     Return a list of emojis codes based on relationships that we want to remove from emoji suggestions.
 

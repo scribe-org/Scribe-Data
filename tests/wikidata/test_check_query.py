@@ -7,9 +7,9 @@ import argparse
 import re
 from http import HTTPStatus
 from pathlib import Path
+from typing import Any, List
 from unittest.mock import MagicMock, mock_open, patch
 from urllib.error import HTTPError
-from typing import Any
 
 import pytest
 
@@ -163,7 +163,7 @@ def test_check_sparql_file_not_sparql_extension(_: MagicMock) -> None:
 )
 @patch("subprocess.run")
 def test_changed_queries(
-    mock_run: MagicMock, git_status: str, expected: list[Any]
+    mock_run: MagicMock, git_status: str, expected: List[Any]
 ) -> None:
     mock_result = MagicMock()
     mock_result.configure_mock(**{"returncode": 0, "stdout": git_status})
@@ -208,7 +208,7 @@ def test_changed_queries_failure(
         ),
     ],
 )
-def test_all_queries(tree: list[Any], expected: list[Any]) -> None:
+def test_all_queries(tree: List[Any], expected: List[Any]) -> None:
     with patch("os.walk") as mock_walk:
         mock_walk.return_value = tree
 
@@ -304,7 +304,7 @@ def test_main_help(arg: str) -> None:
         ["-c", "-f", "-a"],
     ],
 )
-def test_main_mutex_opts(args: list[str]) -> None:
+def test_main_mutex_opts(args: List[str]) -> None:
     """
     Some options cannot be used together.
     """
@@ -366,7 +366,7 @@ def test_success_report_no_success_display_set(capsys: pytest.CaptureFixture) ->
     [[], [(a_query, {"a": 23})], [(a_query, {"a": 23}), (a_query, {"b": 53})]],
 )
 def test_success_report_display_not_set(
-    successes: list[Any], capsys: pytest.CaptureFixture
+    successes: List[Any], capsys: pytest.CaptureFixture
 ) -> None:
     success_report(successes, display=False)
     out = capsys.readouterr().out
@@ -620,11 +620,22 @@ def validate_forms(query_text: str) -> str:
 # MARK: validate_forms
 
 
-@pytest.mark.skip(reason="Skipping due to unresolved issue with preposition error")
 def test_validate_forms_valid() -> None:
     # Ensure all variables in SELECT are defined in WHERE and order matches.
     # Use ontolex:representation to define ?form so it matches forms_pattern.
-    query_text = "SELECT ?lexeme ?lexemeID ?lastModified ?form WHERE { ?lexeme wikibase:lemma ?lemma . schema:dateModified ?lastModified . ?lexeme ontolex:lexicalForm ?formLex . ?formLex ontolex:representation ?form . }"
+    query_text = """
+SELECT
+    ?lexeme
+    ?lexemeID
+    ?lastModified
+    ?form
+
+WHERE {
+    schema:dateModified ?lastModified .
+    ?lexeme ontolex:lexicalForm ?formLex .
+    ?formLex ontolex:representation ?form .
+}
+"""
     result = check_query_forms.validate_forms(query_text)
     assert result == ""
 
@@ -636,28 +647,77 @@ def test_validate_forms_no_select() -> None:
 
 
 def test_validate_forms_duplicates() -> None:
-    query_text = "SELECT ?lexeme ?lexemeID ?lastModified ?form ?form WHERE { ?lexeme wikibase:lemma ?lemma . ontolex:lexicalForm ?formLex . ?formLex ontolex:representation ?form . schema:dateModified ?lastModified . }"
+    query_text = """
+SELECT
+    ?lexeme
+    ?lexemeID
+    ?lastModified
+    ?form
+    ?form
+
+WHERE {
+    ontolex:lexicalForm ?formLex .
+    ?formLex ontolex:representation ?form .
+    schema:dateModified ?lastModified .
+}
+"""
     result = check_query_forms.validate_forms(query_text)
     assert "Duplicate forms found in SELECT: form" in result
 
 
 def test_validate_forms_undefined() -> None:
-    query_text = "SELECT ?lexeme ?lexemeID ?lastModified ?form WHERE { ?lexeme wikibase:lemma ?lemma . }"
+    query_text = """
+SELECT
+    ?lexeme
+    ?lexemeID
+    ?lastModified
+    ?form
+
+WHERE {
+    ?lexeme wikibase:lemma ?lemma .
+}
+"""
     result = check_query_forms.validate_forms(query_text)
     assert "Undefined forms found in SELECT: form" in result
 
 
 def test_validate_forms_unreturned() -> None:
-    query_text = "SELECT ?lexeme ?lexemeID ?lastModified WHERE { ?lexeme wikibase:lemma ?lemma . ontolex:lexicalForm ?formLex . ?formLex ontolex:representation ?formRep . schema:dateModified ?lastModified . }"
+    query_text = """
+SELECT
+    ?lexeme
+    ?lexemeID
+    ?lastModified
+
+WHERE {
+    ?lexeme wikibase:lemma ?lemma .
+    ontolex:lexicalForm ?formLex .
+    ?formLex ontolex:representation ?formRep .
+    schema:dateModified ?lastModified .
+}
+"""
     result = check_query_forms.validate_forms(query_text)
     assert "Defined but unreturned forms found: formRep" in result
 
 
-@pytest.mark.skip(reason="Skipping due to unresolved issue with preposition error")
 def test_validate_forms_order_mismatch() -> None:
     # Ensure variables are defined, then create an order mismatch.
     # Both ?form and ?formRep must be captured by forms_pattern.
-    query_text = "SELECT ?lexeme ?lexemeID ?lastModified ?formRep ?form WHERE { ?lexeme wikibase:lemma ?lemma . ?lexeme ontolex:lexicalForm ?formLex . ?formLex ontolex:representation ?form . ?lexeme ontolex:lexicalForm ?formLex2 . ?formLex2 ontolex:representation ?formRep . schema:dateModified ?lastModified . }"
+    query_text = """
+SELECT
+    ?lexeme
+    ?lexemeID
+    ?lastModified
+    ?formRep
+    ?form
+
+WHERE {
+    ?lexeme ontolex:lexicalForm ?formLex .
+    ?formLex ontolex:representation ?form .
+    ?lexeme ontolex:lexicalForm ?formLex2 .
+    ?formLex2 ontolex:representation ?formRep .
+    schema:dateModified ?lastModified .
+}
+"""
     result = check_query_forms.validate_forms(query_text)
     assert (
         "The order of variables in the SELECT statement does not match their order in the WHERE clause"
@@ -684,9 +744,17 @@ def test_check_docstring_invalid_line1() -> None:
 
 
 def test_check_forms_order_valid() -> None:
-    query_text = (
-        "SELECT ?lexeme ?lexemeID ?lastModified ?nominative ?singular WHERE { }"
-    )
+    query_text = """
+SELECT
+    ?lexeme
+    ?lexemeID
+    ?lastModified
+    ?nominative
+    ?singular
+
+WHERE { }
+"""
+
     with patch.object(
         check_query_forms, "lexeme_form_labels_order", ["Nominative", "Singular"]
     ):
@@ -696,9 +764,17 @@ def test_check_forms_order_valid() -> None:
 
 
 def test_check_forms_order_invalid(capsys: pytest.CaptureFixture) -> None:
-    query_text = (
-        "SELECT ?lexeme ?lexemeID ?lastModified ?singular ?nominative WHERE { }"
-    )
+    query_text = """
+SELECT
+    ?lexeme
+    ?lexemeID
+    ?lastModified
+    ?singular
+    ?nominative
+
+WHERE { }
+"""
+
     with patch.object(
         check_query_forms, "lexeme_form_labels_order", ["Nominative", "Singular"]
     ):
@@ -741,16 +817,15 @@ def test_check_optional_qid_order_invalid(tmp_path: Path) -> None:
 def test_check_query_forms_no_files(
     mock_glob: MagicMock, capsys: pytest.CaptureFixture
 ) -> None:
-    # Mock LANGUAGE_DATA_EXTRACTION_DIR as a Path object with the patched glob.
+    # Mock WIKIDATA_QUERIES_ALL_DATA_DIR as a Path object with the patched glob.
     with patch(
-        "scribe_data.check.check_query_forms.LANGUAGE_DATA_EXTRACTION_DIR", Path()
+        "scribe_data.check.check_query_forms.WIKIDATA_QUERIES_ALL_DATA_DIR", Path()
     ):
         check_query_forms.check_query_forms()
         captured = capsys.readouterr()
         assert "All query forms are labeled and formatted correctly." in captured.out
 
 
-@pytest.mark.skip(reason="Skipping due to TypeError in decompose_label_features")
 @patch("pathlib.Path.glob")
 def test_check_query_forms_with_errors(
     mock_glob: MagicMock, tmp_path: Path, capsys: pytest.CaptureFixture
@@ -758,20 +833,21 @@ def test_check_query_forms_with_errors(
     sparql_file = tmp_path / "test.sparql"
     # Define all SELECT variables and include a formatting error.
     sparql_file.write_text(
-        "SELECT ?lexeme ?lexemeID ?lastModified ?invalid WHERE { "
-        "?lexeme wikibase:lemma ?lemma . "
-        "schema:dateModified ?lastModified . "
-        "  OPTIONAL { ?lexeme ontolex:lexicalForm ?form . ?form ontolex:representation ?invalid , wikibase:grammaticalFeature wd:Q123 . }"
-        "}"
+        """SELECT ?lexeme ?lexemeID ?lastModified ?invalid WHERE {
+        ?lexeme wikibase:lemma ?lemma .
+        schema:dateModified ?lastModified .
+          OPTIONAL { ?lexeme ontolex:lexicalForm ?form . ?form ontolex:representation ?invalid , wikibase:grammaticalFeature wd:Q123 . }
+        }"""
     )
     mock_glob.return_value = [sparql_file]
     with patch(
-        "scribe_data.check.check_query_forms.LANGUAGE_DATA_EXTRACTION_DIR", Path()
+        "scribe_data.check.check_query_forms.WIKIDATA_QUERIES_ALL_DATA_DIR", Path()
     ):
         with patch.object(check_query_forms, "qid_label_dict", {"Invalid": "Q123"}):
             with patch.object(check_query_forms, "data_type_metadata", {}):
                 with pytest.raises(SystemExit) as exc:
                     check_query_forms.check_query_forms()
+
                 assert exc.value.code == 1
                 captured = capsys.readouterr()
                 assert "Invalid query formatting found" in captured.out

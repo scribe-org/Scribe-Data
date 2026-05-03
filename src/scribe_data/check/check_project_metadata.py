@@ -9,9 +9,10 @@ Examples
 
 import difflib
 import sys
+from typing import List
 
 from scribe_data.utils import (
-    LANGUAGE_DATA_EXTRACTION_DIR,
+    WIKIDATA_QUERIES_ALL_DATA_DIR,
     _languages,
     data_type_metadata,
 )
@@ -19,19 +20,18 @@ from scribe_data.utils import (
 all_data_types = tuple(data_type_metadata.keys())
 
 
-def get_available_languages() -> dict[str, list[str]]:
+def get_available_languages() -> dict[str, List[str]]:
     """
     Get available languages from the data extraction folder.
 
     Returns
     -------
-    dict[str, list[str]]
+    dict[str, List[str]]
         A dictionary with the language name as the key and a list of its sub-languages (if available).
     """
-    extraction_dir = LANGUAGE_DATA_EXTRACTION_DIR
     available_languages = {}
 
-    for lang_folder in extraction_dir.iterdir():
+    for lang_folder in WIKIDATA_QUERIES_ALL_DATA_DIR.iterdir():
         if lang_folder.is_dir():  # check if it's a directory
             lang_name = (
                 lang_folder.name
@@ -65,7 +65,7 @@ def get_available_languages() -> dict[str, list[str]]:
 
 def get_missing_languages(
     reference_languages: dict, target_languages: dict
-) -> list[str]:
+) -> List[str]:
     """
     Compare two language dictionaries and return a list of languages and sub-languages that exist.
 
@@ -79,7 +79,7 @@ def get_missing_languages(
 
     Returns
     -------
-    list[str]
+    List[str]
         A list of languages and sub-languages that are in target_languages but not in reference_languages.
     """
     missing_languages = []
@@ -162,7 +162,7 @@ def check_language_metadata() -> None:
     -----
     Checks include:
 
-    1. Ensures that all languages listed in `language_data_extraction` are present in `language_metadata.yaml`, and vice versa.
+    1. Ensures that all languages listed in `queries` are present in `language_metadata.yaml`, and vice versa.
 
     2. Checks if each language in `language_metadata.yaml` has the required properties:
         - 'qid' (a unique identifier)
@@ -189,11 +189,11 @@ def check_language_metadata() -> None:
     ):
         if missing_languages_extraction:
             print(
-                "There are missing languages or inconsistencies between language_metadata.yaml and language_data_extraction.\n"
+                "There are missing languages or inconsistencies between language_metadata.yaml and the queries directory.\n"
             )
 
         if missing_languages_extraction:
-            print("\nLanguages missing from language_data_extraction:")
+            print("\nLanguages missing from the queries directory:")
             for lang in missing_languages_extraction:
                 print(f"  - {lang.title()}")
 

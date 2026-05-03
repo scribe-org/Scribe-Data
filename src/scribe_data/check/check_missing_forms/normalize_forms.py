@@ -3,11 +3,13 @@
 Order QID from a missing_unique_forms based on lexeme_form_metadata.yaml.
 """
 
+from typing import List
+
 from scribe_data.utils import lexeme_form_metadata
 
 
 # Precompute QID positions mapping only once when the module is imported.
-def sort_qids_in_list(qids_lists: list[list[str]]) -> list[list[str]]:
+def sort_qids_in_list(qids_lists: List[List[str]]) -> List[List[str]]:
     """
     Sort QIDs within each sublist based on their predefined positions.
 
@@ -16,7 +18,7 @@ def sort_qids_in_list(qids_lists: list[list[str]]) -> list[list[str]]:
 
     Parameters
     ----------
-    qids_lists : list[list[str]]
+    qids_lists : List[List[str]]
         A list of lists, where each sublist contains QIDs.
 
     Returns
@@ -37,17 +39,17 @@ def sort_qids_in_list(qids_lists: list[list[str]]) -> list[list[str]]:
     ]
 
 
-def sort_qids_by_position(nested_qids: list[list[str]]) -> list[list[str]]:
+def sort_qids_by_position(nested_qids: List[List[str]]) -> List[List[str]]:
     """
     Sort lists of QIDs based on their predefined positions and sublist length.
 
-    This function sorts the sublists within `nested_qids` based on two criteria:
+    This function sorts the sub-lists within `nested_qids` based on two criteria:
     1. The length of the sublist (shorter lists come first).
     2. The positions of the QIDs within each sublist, as defined in `lexeme_form_metadata`.
 
     Parameters
     ----------
-    nested_qids : list[list[str]]
+    nested_qids : List[List[str]]
         A list of lists, where each sublist contains QIDs.
 
     Returns

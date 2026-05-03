@@ -1,0 +1,37 @@
+engine: ast_wikilink_list
+# itwiktionary marks its own-language block with == {{-it-}} ==
+lang_header_pattern: \{\{-it-\}\}
+prefilters:
+  - '{{-trad-}}'
+  - '{{Trad1'
+  - '{{trad1'
+ignored_prefixes:
+  - 'vedi:'
+  - 'vedi '
+  - 'v.:'
+  - 'v. '
+  - 'cf.'
+  - 'cfr.'
+  - 'confronta:'
+  - 'confronta '
+ignored_strings:
+  - mancante
+  - da tradurre
+  - senza equivalente
+  - cfr.
+pos_map:
+  sostantivo: noun
+  verbo: verb
+  aggettivo: adjective
+  avverbio: adverb
+  preposizione: preposition
+  congiunzione: conjunction
+  interiezione: interjection
+  pronome: pronoun
+  numerale: numeral
+  nome proprio: proper_noun
+  articolo: determiner
+  frase: phrase
+template_top:
+  - trad1
+template_bottom: trad2

@@ -18,9 +18,6 @@ from scribe_data.utils import (
     get_language_from_iso,
 )
 
-scribe_data_contracts = DEFAULT_DATA_CONTRACTS_DIR
-DATA_CONTRACTS_EXPORT_DIR = Path(DEFAULT_FILTERED_JSON_EXPORT_DIR)
-
 
 def filter_contract_metadata(contract_file: Path) -> Dict[str, Any]:
     """
@@ -225,7 +222,7 @@ def filter_exported_data(
 
 
 def export_data_filtered_by_contracts(
-    contracts_dir: str = None, input_dir: str = None, output_dir: str = None
+    contracts_dir: Path, input_dir: Path, output_dir: Path
 ) -> None:
     """
     Export contract-filtered data to a new directory with a standardized structure.
@@ -235,15 +232,15 @@ def export_data_filtered_by_contracts(
 
     Parameters
     ----------
-    contracts_dir : str, optional
+    contracts_dir : Path
         Directory containing the contracts to filter with.
-        Defaults to scribe_data_contracts.
+        Defaults to DEFAULT_DATA_CONTRACTS_DIR.
 
-    input_dir : str, optional
+    input_dir : Path
         Directory containing original JSON export data.
         Defaults to DEFAULT_JSON_EXPORT_DIR.
 
-    output_dir : str, optional
+    output_dir : Path
         Directory to export filtered contract data.
         Defaults to scribe_data_filtered_* based on the data type.
 
@@ -253,12 +250,12 @@ def export_data_filtered_by_contracts(
         Prints information on the data that has been filtered.
     """
     # Use provided output dir or default.
-    export_dir = Path(output_dir) if output_dir else DATA_CONTRACTS_EXPORT_DIR
+    export_dir = Path(output_dir) if output_dir else DEFAULT_FILTERED_JSON_EXPORT_DIR
     export_dir.mkdir(parents=True, exist_ok=True)
 
     input_dir = input_dir or DEFAULT_JSON_EXPORT_DIR
 
-    contracts_dir = Path(contracts_dir) if contracts_dir else scribe_data_contracts
+    contracts_dir = Path(contracts_dir) if contracts_dir else DEFAULT_DATA_CONTRACTS_DIR
 
     for contract_filename in os.listdir(contracts_dir):
         if not contract_filename.endswith(".yaml"):
