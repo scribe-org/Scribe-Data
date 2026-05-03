@@ -17,7 +17,7 @@ DATA_TYPE = "emoji-keywords"
 EMOJI_KEYWORDS_DICT = 9
 
 
-def generate_emoji(language: str, output_dir: str = None) -> None:
+def generate_emoji(language: str, output_dir: Path = Path("")) -> None:
     """
     Generate emoji keywords for a specified language.
 
@@ -56,7 +56,11 @@ def generate_emoji(language: str, output_dir: str = None) -> None:
             )
             return
 
-        updated_path = output_dir[2:] if output_dir.startswith("./") else output_dir
+        updated_path = (
+            Path(str(output_dir)[2:])
+            if str(output_dir).startswith("./")
+            else output_dir
+        )
         export_dir = Path(updated_path) / language.capitalize()
         export_dir.mkdir(parents=True, exist_ok=True)
 

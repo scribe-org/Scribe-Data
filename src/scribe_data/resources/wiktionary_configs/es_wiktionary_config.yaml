@@ -1,0 +1,46 @@
+lang_header_pattern: \{\{lengua\|es\}\}
+prefilters:
+- trad-arriba
+- '{{t'
+- '{{T'
+ignored_prefixes:
+- 'ver:'
+- 'ver '
+- 'véase:'
+- 'véase '
+- 'cfr.'
+- 'cfr '
+- 'comparar:'
+- 'comparar '
+ignored_strings:
+- sin equivalente
+- sin traducción
+- falta traducción
+- traducción pendiente
+- por añadir
+- añadir traducción
+- véase
+pos_map:
+  sustantivo masculino: noun
+  sustantivo femenino: noun
+  sustantivo feminino: noun
+  verbo: verb
+  adjetivo: adjective
+  adverbio: adverb
+  preposición: preposition
+  conjunción: conjunction
+  interjección: interjection
+  pronombre: pronoun
+  determinante: determiner
+  artículo: determiner
+  numeral: numeral
+  nombre propio: proper_noun
+template_top:
+- trad-arriba
+template_bottom: trad-abajo
+template_translation:
+- t
+- t+
+- t-check
+- tt
+- tt+

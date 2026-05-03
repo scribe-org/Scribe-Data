@@ -10,9 +10,10 @@ Examples
 import re
 import sys
 from pathlib import Path
+from typing import Optional
 
 from scribe_data.utils import (
-    LANGUAGE_DATA_EXTRACTION_DIR,
+    WIKIDATA_QUERIES_ALL_DATA_DIR,
     data_type_metadata,
     language_metadata,
 )
@@ -96,7 +97,7 @@ def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
     return data_type_qid == expected_data_type_qid
 
 
-def extract_qid_from_sparql(file_path: Path, pattern: str) -> str:
+def extract_qid_from_sparql(file_path: Path, pattern: str) -> Optional[str]:
     """
     Extract the QID from a SPARQL query file based on the provided pattern.
 
@@ -139,7 +140,7 @@ def check_query_identifiers() -> None:
     incorrect_languages = []
     incorrect_data_types = []
 
-    for query_file in LANGUAGE_DATA_EXTRACTION_DIR.glob("**/*.sparql"):
+    for query_file in WIKIDATA_QUERIES_ALL_DATA_DIR.glob("**/*.sparql"):
         lang_qid = extract_qid_from_sparql(
             file_path=query_file, pattern=language_pattern
         )
@@ -148,10 +149,12 @@ def check_query_identifiers() -> None:
         )
 
         # Validate language QID and data type QID.
-        if not is_valid_language(query_file=query_file, lang_qid=lang_qid):
+        if lang_qid and not is_valid_language(query_file=query_file, lang_qid=lang_qid):
             incorrect_languages.append(query_file)
 
-        if not is_valid_data_type(query_file=query_file, data_type_qid=data_type_qid):
+        if data_type_qid and not is_valid_data_type(
+            query_file=query_file, data_type_qid=data_type_qid
+        ):
             incorrect_data_types.append(query_file)
 
     if incorrect_languages:

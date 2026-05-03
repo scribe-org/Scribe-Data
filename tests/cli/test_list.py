@@ -4,20 +4,22 @@ Tests for the CLI list functionality.
 """
 
 import unittest
-from unittest.mock import call, patch, MagicMock
+from unittest.mock import MagicMock, call, patch
 
 from scribe_data.cli.list import (
     get_language_iso,
     get_language_qid,
     list_all,
-    list_all_languages,
     list_data_types,
     list_languages,
     list_languages_for_data_type,
-    list_languages_with_metadata_for_data_type,
     list_wrapper,
 )
 from scribe_data.cli.main import main
+from scribe_data.utils import (
+    list_all_languages,
+    list_languages_with_metadata_for_data_type,
+)
 
 
 class TestListFunctions(unittest.TestCase):
@@ -25,8 +27,8 @@ class TestListFunctions(unittest.TestCase):
     def test_list_languages(self, mock_print: MagicMock) -> None:
         list_languages()
 
-        # Verify the headers
-        mock_print.assert_any_call("Language            ISO   QID      ")
+        # Verify the headers.
+        mock_print.assert_any_call("\nLanguage           ISO   QID      ")
         mock_print.assert_any_call("=================================")
 
         # Dynamically get the first language from the metadata.
@@ -45,8 +47,8 @@ class TestListFunctions(unittest.TestCase):
         mock_print.assert_any_call(
             f"{first_language.capitalize():<{language_col_width}} {first_iso:<{iso_col_width}} {first_qid:<{qid_col_width}}"
         )
-        # Total print calls: N (languages) + 5 (initial line, header, one separator, final line).
-        self.assertEqual(mock_print.call_count, len(languages) + 4)
+        # Total print calls: N (languages) + 3 (header, one separator, final line).
+        self.assertEqual(mock_print.call_count, len(languages) + 3)
 
     @patch("builtins.print")
     def test_list_data_types_all_languages(self, mock_print: MagicMock) -> None:
@@ -160,9 +162,9 @@ class TestListFunctions(unittest.TestCase):
         qid_col_width = max(len(lang["qid"]) for lang in all_languages) + 2
 
         # Dynamically generate the expected header string.
-        expected_header = f"{'Language':<{language_col_width}} {'ISO':<{iso_col_width}} {'QID':<{qid_col_width}}"
+        expected_header = f"{'\nLanguage':<{language_col_width}} {'ISO':<{iso_col_width}} {'QID':<{qid_col_width}}"
 
-        # Verify the headers dynamically
+        # Verify the headers dynamically.
         mock_print.assert_any_call(expected_header)
         mock_print.assert_any_call(
             "=" * (language_col_width + iso_col_width + qid_col_width)
@@ -180,8 +182,8 @@ class TestListFunctions(unittest.TestCase):
         )
 
         # Check the total number of calls.
-        # Total calls = N (languages) + 5 (initial line, header, one separator, final line)
-        expected_calls = len(all_languages) + 4
+        # Total calls = N (languages) + 3 (header, one separator, final line)
+        expected_calls = len(all_languages) + 3
         self.assertEqual(mock_print.call_count, expected_calls)
 
     @patch("scribe_data.cli.list.list_languages")

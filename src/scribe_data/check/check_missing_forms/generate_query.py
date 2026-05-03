@@ -6,12 +6,11 @@ Generate SPARQL queries for missing lexeme forms.
 import os
 import re
 from pathlib import Path
+from typing import Optional
 
 from scribe_data.check.check_missing_forms.normalize_forms import sort_qids_by_position
 from scribe_data.utils import (
-    LANGUAGE_DATA_EXTRACTION_DIR as language_data_extraction,
-)
-from scribe_data.utils import (
+    WIKIDATA_QUERIES_ALL_DATA_DIR,
     data_type_metadata,
     language_metadata,
     lexeme_form_metadata,
@@ -83,9 +82,9 @@ def get_available_filename(base_path: str) -> str:
 
 def generate_query(
     missing_features: dict,
-    query_dir: str | Path | None = None,
-    sub_lang_iso_code: str | None = None,
-) -> str | None:
+    query_dir: Optional[Path] = WIKIDATA_QUERIES_ALL_DATA_DIR,
+    sub_lang_iso_code: Optional[str] = "",
+) -> Optional[str]:
     """
     Generate SPARQL queries for missing lexeme forms.
 
@@ -97,7 +96,7 @@ def generate_query(
 
     query_dir : str or Path, optional
         Directory where query files should be saved.
-        If None, uses default language_data_extraction directory.
+        If None, uses default queries directory.
 
     sub_lang_iso_code : str
         The ISO-2 code of a sub-language if there is one being provided.
@@ -264,7 +263,7 @@ WHERE {{
 
         else:
             base_file_name = (
-                Path(language_data_extraction)
+                Path(WIKIDATA_QUERIES_ALL_DATA_DIR)
                 / parent_language
                 / sub_language_name
                 / data_type
@@ -279,7 +278,7 @@ WHERE {{
 
     else:
         # Regular language with default directory.
-        base_file_name = f"{language_data_extraction}/{language}/{data_type}/query_{data_type}.sparql"
+        base_file_name = f"{WIKIDATA_QUERIES_ALL_DATA_DIR}/{language}/{data_type}/query_{data_type}.sparql"
 
     # Get the next available filename.
     file_name = get_available_filename(str(base_file_name))

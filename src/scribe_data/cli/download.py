@@ -7,7 +7,7 @@ import contextlib
 import os
 import re
 from collections.abc import Callable
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Optional
 
@@ -16,10 +16,15 @@ import requests
 from rich import print as rprint
 from tqdm import tqdm
 
-from scribe_data.utils import DEFAULT_DUMP_EXPORT_DIR, check_lexeme_dump_prompt_download
+from scribe_data.utils import (
+    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
+    check_lexeme_dump_prompt_download,
+    resolve_lang_iso,
+)
 
 
-def parse_date(date_string: str) -> str | None:
+def parse_date(date_string: str) -> Optional[date]:
     """
     Parse a date string into a datetime.date object (formats: YYYYMMDD, YYYY/MM/DD, YYYY-MM-DD).
 
@@ -53,7 +58,7 @@ def available_closest_lexeme_dumpfile(
     target_entity: str,
     other_old_dumps: list,
     check_wd_dump_exists: Callable[[str], str | None],
-) -> str | None:
+) -> Optional[str]:
     """
     Find the closest available dump file based on the target date.
 
@@ -89,19 +94,22 @@ def available_closest_lexeme_dumpfile(
                 if check_wd_dump_exists(i):
                     available_dates.append(i)
                     current_date = parse_date(i)
-                    diff = abs((current_date - target_date).days)
+                    if current_date and target_date:
+                        diff = abs((current_date - target_date).days)
 
-                    if closest_diff is None or diff < closest_diff:
-                        closest_date = i
-                        closest_diff = diff
+                        if closest_diff is None or diff < closest_diff:
+                            closest_date = i
+                            closest_diff = diff
 
-                    if current_date >= target_date:
-                        break
+                        if current_date >= target_date:
+                            break
 
         return closest_date
 
 
-def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str | None:
+def download_wd_lexeme_dump(
+    target_entity: str = "latest-lexemes",
+) -> Optional[str]:
     """
     Download a Wikimedia lexeme dump based on the specified target entity or date.
 
@@ -121,7 +129,7 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str | None
     """
     base_url = "https://dumps.wikimedia.org/wikidatawiki/entities"
 
-    def check_wd_dump_exists(target_entity: str) -> str | None:
+    def check_wd_dump_exists(target_entity: str) -> Optional[str]:
         """
         Check if the specified dump file exists for a target entity.
 
@@ -171,21 +179,19 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str | None
                 return
 
             if other_old_dumps:
-                closest_date = available_closest_lexeme_dumpfile(
+                if closest_date := available_closest_lexeme_dumpfile(
                     target_entity, other_old_dumps, check_wd_dump_exists
-                )
-                print(
-                    f"\nClosest available older dumps(YYYYMMDD): {parse_date(closest_date)}"
-                )
-                fileurl = f"{closest_date}/wikidata-{closest_date}-lexemes.json.bz2"
+                ):
+                    print(
+                        f"\nClosest available older dumps(YYYYMMDD): {parse_date(closest_date)}"
+                    )
+                    fileurl = f"{closest_date}/wikidata-{closest_date}-lexemes.json.bz2"
 
-                if closest_date:
-                    return f"{base_url}/{fileurl}"
+                    if closest_date:
+                        return f"{base_url}/{fileurl}"
 
-                else:
-                    return
-
-            return other_old_dumps
+                    else:
+                        return
 
     try:
         response = requests.get(base_url, timeout=30)
@@ -200,19 +206,19 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str | None
 
 
 def wd_lexeme_dump_download_wrapper(
-    wikidata_dump: Optional[str] = None,
-    output_dir: Optional[str] = None,
+    dump_snapshot: Optional[str] = None,
+    output_dir: Optional[Path] = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     default: bool = False,
-) -> str | bool | None:
+) -> Optional[Path | bool]:
     """
     Download Wikidata lexeme dumps given user preferences.
 
     Parameters
     ----------
-    wikidata_dump : str
+    dump_snapshot : str
         Optional date string in YYYYMMDD format for specific dumps.
 
-    output_dir : str
+    output_dir : Path
         Optional directory path for the downloaded file.
         Defaults to 'scribe_data_wikidata_dumps_export' directory.
 
@@ -222,29 +228,33 @@ def wd_lexeme_dump_download_wrapper(
 
     Returns
     -------
-    str or None
+    Path or None
         - If successful and a dump is downloaded, returns the file path to the downloaded dump.
         - If an existing usable dump is detected, returns the path to the existing dump.
         - Returns None if the user chooses not to proceed with the download or no valid dump URL is found.
     """
     try:
-        output_dir = output_dir or DEFAULT_DUMP_EXPORT_DIR
+        output_dir = output_dir or DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
 
         os.makedirs(output_dir, exist_ok=True)
 
         # Don't check for lexeme if date given.
-        if not wikidata_dump:
+        if not dump_snapshot:
             if useable_file_dir := check_lexeme_dump_prompt_download(output_dir):
                 return useable_file_dir
 
-        dump_url = download_wd_lexeme_dump(wikidata_dump or "latest-lexemes")
+        dump_url = download_wd_lexeme_dump(dump_snapshot or "latest-lexemes")
 
         if not dump_url:
             rprint("[bold red]No dump URL found.[/bold red]")
-            return False
+            return None
 
         filename = dump_url.split("/")[-1]
-        output_path = str(Path(output_dir) / filename)
+        output_path = (
+            output_dir / filename
+            if output_dir
+            else DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR / filename
+        )
 
         # Use default parameter to bypass user confirmation.
         user_response = (
@@ -284,3 +294,104 @@ def wd_lexeme_dump_download_wrapper(
 
     except Exception as e:
         rprint(f"[bold red]An error occurred: {e}[/bold red]")
+
+
+def download_wiktionary_dumps(
+    output_dir: Path = DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
+    language_isos: list[str] = ["en"],
+    dump_snapshot: Optional[str] = "latest",
+) -> Optional[Path]:
+    """
+    Download the latest Wiktionary pages-articles dump based on passed language isos.
+
+    Parameters
+    ----------
+    output_dir : Path, optional, default=DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR
+        Directory to save the dump. Defaults to DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR.
+
+    language_isos : list[str], optional, default=['en']
+        A list of ISO-2 codes for desired Wiktionary dumps.
+
+    dump_snapshot : str, optional, default='latest'
+        The Wiktionary dump snapshot to be downloaded.
+
+    Returns
+    -------
+    Path
+        Path to the downloaded file, or None if aborted/failed.
+    """
+    if isinstance(language_isos, str):
+        language_isos = [language_isos]
+
+    resolved_isos = []
+    not_included_isos = []
+    for lang in language_isos:
+        iso = resolve_lang_iso(lang)
+        if iso:
+            resolved_isos.append(iso)
+
+        else:
+            not_included_isos.append(lang)
+
+    if not_included_isos:
+        iso_or_isos = "iso" if len(not_included_isos) == 1 else "isos"
+        is_or_are = "is" if len(not_included_isos) == 1 else "are"
+        rprint(
+            f"[bold red]The following {iso_or_isos} {is_or_are} not included: {', '.join(not_included_isos)}[/bold red]"
+        )
+        return None
+
+    language_isos = resolved_isos
+    wiktionaries = [f"{iso}wiktionary" for iso in language_isos]
+    wiktionary_urls = [f"https://dumps.wikimedia.org/{w}" for w in wiktionaries]
+
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    for i, w, u in zip(language_isos, wiktionaries, wiktionary_urls):
+        # Note: Remove the snapshot from the resulting filename so Scribe-Server always looks for one file.
+        filename = f"{w}-pages-articles.xml.bz2"
+        download_filename = f"{w}-{dump_snapshot}-pages-articles.xml.bz2"
+        download_url = f"{u}/{dump_snapshot}/{download_filename}"
+
+        rprint(f"[bold blue]Checking dump validity at {download_url}...[/bold blue]")
+        try:
+            response = requests.head(download_url, timeout=30)
+            response.raise_for_status()
+
+        except requests.exceptions.RequestException as e:
+            rprint(f"[bold red]Invalid dump date or dump not found: {e}[/bold red]")
+            return None
+
+        output_path = output_dir / filename
+
+        rprint(f"[bold blue]Downloading to {output_path}...[/bold blue]")
+        try:
+            response = requests.get(download_url, stream=True, timeout=30)
+            response.raise_for_status()
+            total_size = int(response.headers.get("content-length", 0))
+
+            with open(output_path, "wb") as f:
+                with tqdm(
+                    total=total_size,
+                    unit="iB",
+                    unit_scale=True,
+                    desc=download_filename,
+                ) as pbar:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+                            pbar.update(len(chunk))
+
+            rprint(
+                f"[bold green]{i.upper()}Wiktionary dump download completed successfully![/bold green]"
+            )
+            return output_path
+
+        except requests.exceptions.RequestException as e:
+            rprint(f"[bold red]Download failed: {e}[/bold red]")
+            return None
+
+    iso_or_isos = "iso" if len(not_included_isos) == 1 else "isos"
+    was_or_were = "was" if len(not_included_isos) == 1 else "were"
+    rprint(
+        f"[bold green]The following {iso_or_isos} {was_or_were} successfully downloaded: {', '.join(not_included_isos)}[/bold green]"
+    )
