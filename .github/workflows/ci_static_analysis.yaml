@@ -60,3 +60,7 @@ jobs:
       - name: Run ty - Static Type Checking
         if: always()
         run: uv run ty check
+
+      - name: Run numpydoc Documentation Check
+        if: always()
+        run: uv run numpydoc lint ./src/**/*.py

@@ -9,9 +9,10 @@ Examples
 
 import re
 from pathlib import Path
+from typing import Any, List, Literal, Optional
 
 from scribe_data.utils import (
-    LANGUAGE_DATA_EXTRACTION_DIR,
+    WIKIDATA_QUERIES_ALL_DATA_DIR,
     data_type_metadata,
     lexeme_form_metadata,
 )
@@ -34,7 +35,7 @@ qid_label_dict = dict(zip(lexeme_form_labels_order, lexeme_form_qid_order))
 # MARK: Extract Forms
 
 
-def extract_forms_from_sparql(file_path: Path) -> str:
+def extract_forms_from_sparql(file_path: Path) -> Optional[List[str | Any]]:
     """
     Extract the QID from a SPARQL query file based on the provided pattern.
 
@@ -72,7 +73,7 @@ def extract_forms_from_sparql(file_path: Path) -> str:
 # MARK: Extract Label
 
 
-def extract_form_rep_label(form_text: str) -> str | None:
+def extract_form_rep_label(form_text: str) -> Optional[str]:
     """
     Extract the representation label from an optional query form.
 
@@ -134,7 +135,7 @@ def decompose_label_features(label: str) -> list:
 # MARK: Extract QIDs
 
 
-def extract_form_qids(form_text: str) -> list[str] | None:
+def extract_form_qids(form_text: str) -> Optional[list[str]]:
     """
     Extract all QIDs from an optional query form.
 
@@ -217,10 +218,7 @@ def check_query_formatting(form_text: str) -> bool:
         return False
 
     # Check for non space characters before periods and semicolons that should not exist.
-    if re.search(r"\S[.;]", form_text):
-        return False
-
-    return True
+    return not re.search(r"\S[.;]", form_text)
 
 
 # MARK: Correct Label
@@ -359,7 +357,7 @@ def validate_forms(query_text: str) -> str:
 # MARK: Docstring Format
 
 
-def check_docstring(query_text: str) -> bool:
+def check_docstring(query_text: str) -> tuple[Literal[False], str] | Literal[True]:
     """
     Check the docstring of a SPARQL query text to ensure it follows the standard format.
 
@@ -388,6 +386,7 @@ def check_docstring(query_text: str) -> bool:
             "Error in line 3:",
         ),
     ]
+
     return next(
         (
             (False, f"{error_line_number} {query_lines[i].strip()}")
@@ -419,6 +418,7 @@ def check_forms_order(query_text: str) -> list | bool | str:
     select_pattern = r"SELECT\s+(.*?)\s+WHERE"
 
     # Extracting the variables from the SELECT statement.
+    select_vars = []
     if select_match := re.search(select_pattern, query_text, flags=re.DOTALL):
         select_vars = re.findall(r"\?(\w+)", select_match[1])
 
@@ -441,7 +441,7 @@ def check_forms_order(query_text: str) -> list | bool | str:
         grouped_columns.setdefault(len(col), []).append(col)
 
     # Sorting function for multi-level component-based sorting.
-    def compare_key(components: list[str]) -> list[str]:
+    def compare_key(components: List[str]) -> List[str | int | float]:
         """
         Get a key to compare via its component parts to see if it's included.
 
@@ -455,7 +455,7 @@ def check_forms_order(query_text: str) -> list | bool | str:
         list[str]
             The list of component parts to compare against.
         """
-        return [order_map.get(comp, float("inf")) for comp in components]
+        return [order_map.get(c, float("inf")) for c in components]
 
     # Sort and reassemble columns.
     sorted_columns = []
@@ -492,13 +492,13 @@ def check_forms_order(query_text: str) -> list | bool | str:
 # MARK: Optional Validation
 
 
-def check_optional_qid_order(query_file: str) -> str:
+def check_optional_qid_order(query_file: Path) -> str:
     """
     Check the order of QIDs in optional statements within a SPARQL query file to ensure they align with the expected sequence based on label features.
 
     Parameters
     ----------
-    query_file : str
+    query_file : Path
         The path to the SPARQL query file to be checked.
 
     Returns
@@ -507,27 +507,31 @@ def check_optional_qid_order(query_file: str) -> str:
         A formatted string with details on any order mismatches in the QIDs, or an empty
         string if all QIDs are correctly ordered.
     """
-    forms = extract_forms_from_sparql(query_file)
+    forms = extract_forms_from_sparql(query_file) or []
     error_messages = []
     for form_text in forms:
         if "ontolex:lexicalForm" in form_text and "ontolex:representation" in form_text:
-            # Extract the actual QIDs and label for the current form.
-            actual_qids = extract_form_qids(form_text=form_text)
-            form_label = extract_form_rep_label(form_text)
-            label_components = decompose_label_features(form_label)
-            expected_qids = [qid_label_dict[key] for key in label_components]
+            if actual_qids := extract_form_qids(form_text=form_text):
+                if form_label := extract_form_rep_label(form_text):
+                    label_components = decompose_label_features(form_label)
+                    expected_qids = [qid_label_dict[key] for key in label_components]
 
-            # Keep combinedPastParticiple and imperfective QIDs as is in the query since we have duplicate qids for it.
-            for i in ["Q12717679", "Q1230649", "Q2898727", "Q54556033"]:
-                if i in actual_qids and i not in expected_qids:
-                    expected_qids[actual_qids.index(i)] = i
+                    # Keep combinedPastParticiple and imperfective QIDs as is in the query since we have duplicate qids for it.
+                    for i in ["Q12717679", "Q1230649", "Q2898727", "Q54556033"]:
+                        if i in actual_qids and i not in expected_qids:
+                            expected_qids[actual_qids.index(i)] = i
 
-            # Check if the actual QIDs match the expected order.
-            if len(actual_qids) == len(expected_qids) and actual_qids != expected_qids:
-                formatted_qids = ", ".join(f"wd:{qid}" for qid in expected_qids) + " ."
-                error_messages.append(
-                    f"\nThe QIDs in optional statement for {form_label} should be ordered:\n{formatted_qids}"
-                )
+                    # Check if the actual QIDs match the expected order.
+                    if (
+                        len(actual_qids) == len(expected_qids)
+                        and actual_qids != expected_qids
+                    ):
+                        formatted_qids = (
+                            ", ".join(f"wd:{qid}" for qid in expected_qids) + " ."
+                        )
+                        error_messages.append(
+                            f"\nThe QIDs in optional statement for {form_label} should be ordered:\n{formatted_qids}"
+                        )
 
     return "\n".join(error_messages) if error_messages else ""
 
@@ -541,7 +545,7 @@ def check_query_forms() -> None:
     """
     error_output = ""
     index = 0
-    for query_file in LANGUAGE_DATA_EXTRACTION_DIR.glob("**/*.sparql"):
+    for query_file in WIKIDATA_QUERIES_ALL_DATA_DIR.glob("**/*.sparql"):
         query_file_str = str(query_file)
         with open(query_file, "r", encoding="utf-8") as file:
             query_text = file.read()
@@ -565,13 +569,13 @@ def check_query_forms() -> None:
             index += 1
 
         # Check that all variables in the OPTIONAL clauses have their QIDs in the correct order.
-        if labels_qids_order_check := check_optional_qid_order(query_file_str):
+        if labels_qids_order_check := check_optional_qid_order(query_file=query_file):
             error_output += f"\n{index}. {query_file_str}:\n{labels_qids_order_check}\n"
             index += 1
 
-        if extract_forms_from_sparql(query_file):
+        if sparql_forms := extract_forms_from_sparql(file_path=query_file):
             query_form_check_dict = {}
-            for form_text in extract_forms_from_sparql(query_file):
+            for form_text in sparql_forms:
                 if (
                     "ontolex:lexicalForm" in form_text
                     and "ontolex:representation" in form_text
@@ -580,7 +584,7 @@ def check_query_forms() -> None:
                     form_rep_label = extract_form_rep_label(form_text=form_text)
                     check = check_form_label(form_text=form_text)
                     qids = extract_form_qids(form_text=form_text)
-                    correct_form_rep_label = return_correct_form_label(qids=qids)
+                    correct_form_rep_label = return_correct_form_label(qids=qids or [])
 
                     query_form_check_dict[form_rep_label] = {
                         "form_rep_match": check,

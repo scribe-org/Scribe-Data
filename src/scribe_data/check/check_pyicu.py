@@ -13,6 +13,7 @@ import platform
 import subprocess
 import sys
 from pathlib import Path
+from typing import Optional
 
 import questionary
 import requests
@@ -83,7 +84,7 @@ def fetch_wheel_releases() -> tuple[list[tuple[str, str]], float]:
     return available_wheels, total_size_mb
 
 
-def download_wheel_file(wheel_url: str, output_dir: str) -> str:
+def download_wheel_file(wheel_url: str, output_dir: Path) -> str:
     """
     Download the wheel file from the given URL.
 
@@ -92,7 +93,7 @@ def download_wheel_file(wheel_url: str, output_dir: str) -> str:
     wheel_url : str
         The URL of the wheel file to download.
 
-    output_dir : str
+    output_dir : Path
         The directory to save the downloaded file.
 
     Returns
@@ -114,7 +115,7 @@ def download_wheel_file(wheel_url: str, output_dir: str) -> str:
 
 def find_matching_wheel(
     wheels: list[tuple[str, str]], python_version: str, architecture: str
-) -> str | None:
+) -> Optional[str]:
     """
     Find the matching wheel file based on Python version and architecture.
 

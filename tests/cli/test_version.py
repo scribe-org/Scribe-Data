@@ -5,7 +5,7 @@ Tests for the CLI version functionality.
 
 import importlib.metadata
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 from scribe_data.cli.version import (
     UNKNOWN_VERSION_NOT_FETCHED,
