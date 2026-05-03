@@ -122,18 +122,6 @@ omit = ["*/tests/*", "*/__init__.py"]
 [tool.ty.src]
 include = ["src"]
 
-[tool.ty.rules]
-unresolved-import = "warn"
-invalid-return-type = "warn"
-invalid-argument-type = "warn"
-invalid-assignment = "warn"
-unsupported-operator = "warn"
-unresolved-attribute = "warn"
-missing-argument = "warn"
-unknown-argument = "warn"
-not-subscriptable = "warn"
-possibly-missing-submodule = "warn"
-
 [tool.numpydoc_validation]
 checks = [
     "all",  # report on all checks, except the below
