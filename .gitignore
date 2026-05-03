@@ -36,6 +36,8 @@ package-lock.json
 
 # MARK: Output Files
 
+scribe_data_contracts/*
+
 scribe_data_csv_export/*
 scribe_data_json_export/*
 scribe_data_wiktionary_json_export
