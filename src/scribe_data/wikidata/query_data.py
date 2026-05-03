@@ -9,6 +9,7 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+from typing import List
 from urllib.error import HTTPError
 
 from tqdm.auto import tqdm
@@ -79,9 +80,9 @@ def execute_formatting_script(output_dir: str, language: str, data_type: str) ->
 
 
 def query_data(
-    languages: list[str] | None = None,
-    data_type: list[str] | None = None,
-    output_dir: str | None = None,
+    languages: List[str] = None,
+    data_type: List[str] = None,
+    output_dir: str = None,
     overwrite: bool = False,
     interactive: bool = False,
 ) -> None:

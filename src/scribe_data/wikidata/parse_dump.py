@@ -7,6 +7,7 @@ import bz2
 import time
 from collections import Counter, defaultdict
 from pathlib import Path
+from typing import List, Union
 
 import orjson
 import questionary
@@ -47,10 +48,9 @@ class LexemeProcessor:
 
     def __init__(
         self,
-        target_lang: str | list[str] | None = None,
-        parse_type: list[str] | None = None,
-        data_types: list[str] | None = None,
-
+        target_lang: Union[str, List[str]] = None,
+        parse_type: list[str] = None,
+        data_types: list[str] = None,
     ) -> None:
         """
         Use to derive information on lexeme dump entries.
@@ -589,7 +589,9 @@ class LexemeProcessor:
 
     # MARK: Export Translations
 
-    def export_translations_json(self, filepath: str, language_iso: str | None = None) -> None:
+    def export_translations_json(
+        self, filepath: str, language_iso: str | None = None
+    ) -> None:
         """
         Save translations_index to file, optionally filtering by language_iso.
 
@@ -658,7 +660,10 @@ class LexemeProcessor:
     # MARK: Export Forms
 
     def export_forms_json(
-            self, filepath: str, language_iso: str | None = None, data_type: str | None = None
+        self,
+        filepath: str,
+        language_iso: str | None = None,
+        data_type: str | None = None,
     ) -> None:
         """
         Export grammatical forms to a JSON file with readable feature labels.

@@ -4,6 +4,7 @@ Functions to check the total language data available on Wikidata.
 """
 
 from http.client import IncompleteRead
+from typing import List, Union
 from urllib.error import HTTPError
 
 from SPARQLWrapper import JSON
@@ -349,10 +350,10 @@ def get_total_lexemes(
 
 
 def total_wrapper(
-    language: str | list[str] | None = None,
-    data_type: str | list[str] | None = None,
+    language: Union[str, List[str]] = None,
+    data_type: Union[str, List[str]] = None,
     all_bool: bool = False,
-    wikidata_dump: str | bool | None = None,
+    wikidata_dump: Union[str, List[str]] = None,
 ) -> None:
     """
     Conditionally provides the full functionality of the total command.

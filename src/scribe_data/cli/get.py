@@ -8,6 +8,7 @@ import os
 import urllib.error
 from http.client import IncompleteRead
 from pathlib import Path
+from typing import List, Union
 from urllib.error import URLError
 
 import questionary
@@ -29,16 +30,16 @@ from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 
 
 def get_data(
-    language: str | None = None,
-    data_type: str | list[str] | None = None,
-    output_type: str | None = None,
-    output_dir: str | None = None,
+    language: str = None,
+    data_type: Union[str, List[str]] = None,
+    output_type: str = None,
+    output_dir: str = None,
     overwrite: bool = False,
-    outputs_per_entry: int | None = None,
+    outputs_per_entry: int = None,
     all_bool: bool = False,
     interactive: bool = False,
     identifier_case: str = "camel",
-    wikidata_dump: str | None = None,
+    wikidata_dump: str = None,
 ) -> None:
     """
     Function for controlling the data get process for the CLI.
