@@ -397,13 +397,13 @@ def convert_wrapper(
     output_type : str
         The desired output format. Can be 'json', 'csv', 'tsv', or 'sqlite'.
 
-    overwrite : bool, optional (default=False)
+    overwrite : bool, optional, default=False
         Whether to overwrite existing output files.
 
-    identifier_case : str, optional (default='camel')
+    identifier_case : str, optional, default='camel'
         The case format for identifiers.
 
-    all : bool, optional (default=False)
+    all : bool, optional, default=False
         Convert all languages and data types.
 
     Returns

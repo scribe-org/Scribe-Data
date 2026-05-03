@@ -34,10 +34,10 @@ def gen_emoji_lexicon(
 
     Parameters
     ----------
-    language : str (default=None)
+    language : str
         The language keywords are being generated for.
 
-    emojis_per_keyword : int (default=None)
+    emojis_per_keyword : int
         The limit for number of emoji keywords that should be generated per keyword.
 
     Returns

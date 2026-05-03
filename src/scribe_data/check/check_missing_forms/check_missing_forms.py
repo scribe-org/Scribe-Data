@@ -53,8 +53,8 @@ def execute_sparql_query(query: str, max_retries: int = 3) -> Optional[list]:
     query : str
         The SPARQL query to execute.
 
-    max_retries : int, optional
-        Maximum number of retry attempts (default: 3).
+    max_retries : int, optional, default=3
+        Maximum number of retry attempts.
 
     Returns
     -------
@@ -183,8 +183,8 @@ def get_forms_from_sparql_service(
         Minimum frequency threshold for including form combinations.
         Default is 0 (include all combinations).
 
-    max_results : int, optional
-        Maximum number of results to return (default: 1000).
+    max_results : int, optional, default=1000
+        Maximum number of results to return.
         Helps prevent timeout for very large datasets.
 
     language_name : str, optional
@@ -288,8 +288,8 @@ def get_forms_from_sparql_service_all_languages(
         Minimum frequency threshold for including form combinations.
         Default is 0 (include all combinations).
 
-    max_results : int, optional
-        Maximum results per query to prevent timeouts (default: 1000).
+    max_results : int, optional, default=1000
+        Maximum results per query to prevent timeouts.
 
     Returns
     -------
@@ -384,8 +384,8 @@ def get_features_from_sparql_service(
         Minimum frequency threshold for including form combinations.
         Default is 0 (include all combinations).
 
-    max_results : int, optional
-        Maximum results per query to prevent timeouts (default: 1000).
+    max_results : int, optional, default=1000
+        Maximum results per query to prevent timeouts .
 
     Returns
     -------

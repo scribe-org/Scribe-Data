@@ -58,7 +58,7 @@ def get_datatype_list(language: str) -> list | dict:
 
     Returns
     -------
-    list[str]
+    list | dict
         A list of the corresponding data types.
     """
     language_key = language.strip().lower()  # normalize input

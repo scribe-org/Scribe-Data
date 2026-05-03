@@ -92,16 +92,16 @@ def query_data(
 
     Parameters
     ----------
-    languages : list[str]
+    languages : List[str]
         The language(s) to get.
 
-    data_types : list[str]
+    data_types : List[str]
         The data type(s) to get.
 
     output_dir : Path
         The output directory path for results.
 
-    overwrite : bool (default: False)
+    overwrite : bool, default: False
         Whether to overwrite existing files.
 
     interactive : bool, default=False

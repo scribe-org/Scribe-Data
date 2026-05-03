@@ -135,7 +135,7 @@ def decompose_label_features(label: str) -> list:
 # MARK: Extract QIDs
 
 
-def extract_form_qids(form_text: str) -> Optional[list[str]]:
+def extract_form_qids(form_text: str) -> Optional[List[str]]:
     """
     Extract all QIDs from an optional query form.
 
@@ -146,7 +146,7 @@ def extract_form_qids(form_text: str) -> Optional[list[str]]:
 
     Returns
     -------
-    list[str]
+    Optional[List[str]]
         All QIDS that make up the form.
     """
     qids_pattern = r"wikibase:grammaticalFeature .+ \."
@@ -224,13 +224,13 @@ def check_query_formatting(form_text: str) -> bool:
 # MARK: Correct Label
 
 
-def return_correct_form_label(qids: list[str]) -> str:
+def return_correct_form_label(qids: List[str]) -> str:
     """
     Return the correct label for a lexeme form representation given the QIDs that compose it.
 
     Parameters
     ----------
-    qids : list[str]
+    qids : List[str]
         All QIDS that make up the form.
 
     Returns
@@ -447,12 +447,12 @@ def check_forms_order(query_text: str) -> list | bool | str:
 
         Parameters
         ----------
-        components : list[str]
+        components : List[str]
             The components that can make up the form identifier.
 
         Returns
         -------
-        list[str]
+        List[str | int | float]
             The list of component parts to compare against.
         """
         return [order_map.get(c, float("inf")) for c in components]

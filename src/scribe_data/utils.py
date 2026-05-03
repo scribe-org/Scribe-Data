@@ -10,7 +10,7 @@ import re
 from datetime import datetime
 from importlib import resources
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, List, Optional
 
 import questionary
 import requests
@@ -466,7 +466,7 @@ def format_sublanguage_name(lang: str, language_metadata: dict = _languages) -> 
     raise ValueError(f"{lang.capitalize()} is not a valid language or sub-language.")
 
 
-def list_all_languages(language_metadata: dict = _languages) -> list[str]:
+def list_all_languages(language_metadata: dict = _languages) -> List[str]:
     """
     Return a sorted list of all languages and sub-languages from the provided metadata dictionary.
 
@@ -499,7 +499,7 @@ def list_all_languages(language_metadata: dict = _languages) -> list[str]:
 
 def list_languages_with_metadata_for_data_type(
     language_metadata: dict = _languages,
-) -> list[dict]:
+) -> List[dict]:
     """
     Return a sorted list of languages and their metadata (name, iso, qid) for a specific data type.
 
@@ -665,7 +665,7 @@ def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
     index_path : pathlib.Path
         The path to check.
 
-    overwrite_all : cool (default=False)
+    overwrite_all : cool, default=False
         If True, automatically overwrite without prompting.
 
     Returns
