@@ -32,7 +32,9 @@ DEFAULT_WIKIDATA_DUMP_EXPORT_DIR = Path("scribe_data_wikidata_dumps_export")
 DEFAULT_WIKTIONARY_JSON_EXPORT_DIR = Path("scribe_data_wiktionary_json_export")
 DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR = Path("scribe_data_wiktionary_dumps_export")
 
+DEFAULT_CONTRACTS_EXPORT_DIR = Path("scribe_data_contracts")
 DEFAULT_DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
+
 WIKIDATA_QUERIES_ALL_DATA_DIR = Path(__file__).parent / "wikidata" / "queries_all_data"
 WIKIDATA_QUERIES_SCRIBE_APPS_DIR = (
     Path(__file__).parent / "wikidata" / "queries_scribe_apps"

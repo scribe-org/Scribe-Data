@@ -26,6 +26,7 @@ from scribe_data.cli.total import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
 from scribe_data.utils import (
+    DEFAULT_CONTRACTS_EXPORT_DIR,
     DEFAULT_CSV_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
@@ -387,8 +388,8 @@ def main() -> None:
         "--output-dir",
         type=str,
         required=False,
-        default=".",
-        help="The directory to export contracts to (default: current directory).",
+        default=DEFAULT_CONTRACTS_EXPORT_DIR,
+        help="The directory to export contracts to (default: current scribe_data_contracts).",
     )
 
     # MARK: Check Contracts
