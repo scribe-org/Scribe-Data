@@ -5,7 +5,7 @@ Interactive mode functionality for the Scribe-Data CLI to allow users to select 
 
 import logging
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 import questionary
 from prompt_toolkit import prompt
@@ -22,9 +22,9 @@ from scribe_data.cli.convert import convert_wrapper
 from scribe_data.cli.get import get_data
 from scribe_data.cli.total import total_wrapper
 from scribe_data.utils import (
-    DEFAULT_DUMP_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_SQLITE_EXPORT_DIR,
+    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     data_type_metadata,
     language_metadata,
     list_all_languages,
@@ -58,12 +58,12 @@ class ScribeDataConfig:
         self.selected_languages: List[str] = []
         self.selected_data_types: List[str] = []
         self.output_type: str = "json"
-        self.output_dir: Path = Path(DEFAULT_JSON_EXPORT_DIR)
+        self.output_dir: Path = DEFAULT_JSON_EXPORT_DIR
         self.overwrite: bool = False
         self.configured: bool = False
         self.identifier_case: str = "camel"
-        self.input_dir: Path = Path(DEFAULT_JSON_EXPORT_DIR)
-        self.output_dir_sqlite: Path = Path(DEFAULT_SQLITE_EXPORT_DIR)
+        self.input_dir: Path = DEFAULT_JSON_EXPORT_DIR
+        self.output_dir_sqlite: Path = DEFAULT_SQLITE_EXPORT_DIR
 
 
 config = ScribeDataConfig()
@@ -271,10 +271,10 @@ def run_request() -> None:
 
                 try:
                     get_data(
-                        language=language,
-                        data_type=data_type,
+                        languages=[language],
+                        data_types=[data_type],
                         output_type=config.output_type,
-                        output_dir=str(config.output_dir),
+                        output_dir=config.output_dir,
                         overwrite=config.overwrite,
                         interactive=True,
                     )
@@ -312,8 +312,8 @@ def request_total_lexeme_loop() -> None:
 
         if choice == "run":
             total_wrapper(
-                language=config.selected_languages,
-                data_type=config.selected_data_types,
+                languages=config.selected_languages,
+                data_types=config.selected_data_types,
                 all_bool=False,
             )
             config.selected_languages, config.selected_data_types = [], []
@@ -322,14 +322,17 @@ def request_total_lexeme_loop() -> None:
 
         elif choice == "run_all":
             if wikidata_dump_path := prompt(
-                f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
+                f"Enter Wikidata lexeme dump path (default: {str(DEFAULT_WIKIDATA_DUMP_EXPORT_DIR)}): "
             ):
                 wikidata_dump_path = Path(wikidata_dump_path)
 
+            else:
+                wikidata_dump_path = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
+
             parse_wd_lexeme_dump(
-                language=config.selected_languages,
-                wikidata_dump_type=["total"],
+                languages=config.selected_languages,
                 wikidata_dump_path=wikidata_dump_path,
+                wikidata_dump_type=["total"],
                 interactive_mode=True,
             )
             break
@@ -371,7 +374,7 @@ def request_total_lexeme_loop() -> None:
 # MARK: Start
 
 
-def start_interactive_mode(operation: str | None = None) -> None:
+def start_interactive_mode(operation: Optional[str] = None) -> None:
     """
     Entry point for interactive mode.
 
@@ -443,18 +446,18 @@ def start_interactive_mode(operation: str | None = None) -> None:
 
         elif choice == "run_all":
             if wikidata_dump_path := prompt(
-                f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
+                f"Enter Wikidata lexeme dump path (default: {str(DEFAULT_WIKIDATA_DUMP_EXPORT_DIR)}): "
             ):
                 wikidata_dump_path = Path(wikidata_dump_path)
 
             else:
-                wikidata_dump_path = Path(DEFAULT_DUMP_EXPORT_DIR)
+                wikidata_dump_path = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
 
             parse_wd_lexeme_dump(
-                language=config.selected_languages,
-                wikidata_dump_type=["form"],
+                languages=config.selected_languages,
                 data_types=config.selected_data_types,
-                type_output_dir=config.output_dir,
+                wikidata_dump_type=["form"],
+                output_dir=config.output_dir,
                 wikidata_dump_path=wikidata_dump_path,
                 overwrite_all=config.overwrite,
                 interactive_mode=True,
@@ -477,14 +480,14 @@ def start_interactive_mode(operation: str | None = None) -> None:
                 f"Enter input directory (default: {config.input_dir}): ",
                 default=str(config.input_dir),
             )
-            config.input_dir = Path(
-                user_input_dir
-            )  # Update the configuration with the user's input.
+            config.input_dir = Path(user_input_dir)
+
             user_output_dir = prompt(
                 f"Enter output directory (default: {config.output_dir_sqlite}): ",
                 default=str(config.output_dir_sqlite),
             )
             config.output_dir_sqlite = Path(user_output_dir)
+
             identifier_case = prompt(
                 "Enter identifier case (default: camel): ",
                 default="camel",
@@ -502,21 +505,20 @@ def start_interactive_mode(operation: str | None = None) -> None:
             convert_wrapper(
                 languages=config.selected_languages,
                 data_types=config.selected_data_types,
-                output_type=output_type,
-                input_files=config.input_dir,  # Use the updated configuration value.
+                input_path=config.input_dir,  # Use the updated configuration value
                 output_dir=config.output_dir_sqlite,
+                output_type=output_type,
                 identifier_case=identifier_case,
                 overwrite=overwrite_bool,
             )
             break
 
         elif choice == "translations":
-            prompt_for_languages()
+            from scribe_data.wiktionary.parse_translations import (
+                parse_wiktionary_translations,
+            )
 
-            if wikidata_dump_path := prompt(
-                f"Enter Wikidata lexeme dump path (default: {DEFAULT_DUMP_EXPORT_DIR}): "
-            ):
-                wikidata_dump_path = Path(wikidata_dump_path)
+            prompt_for_languages()
 
             if output_dir := prompt(
                 f"Enter output directory (default: {config.output_dir}): "
@@ -529,14 +531,19 @@ def start_interactive_mode(operation: str | None = None) -> None:
             )
             overwrite_bool = overwrite_str.strip().lower() in ("true", "y", "yes")
 
-            parse_wd_lexeme_dump(
-                language=config.selected_languages,
-                wikidata_dump_type=["translations"],
-                data_types=None,
-                type_output_dir=config.output_dir,
-                wikidata_dump_path=wikidata_dump_path,
-                overwrite_all=overwrite_bool,
-                interactive_mode=True,
+            if wiktionary_dump_path := prompt(
+                "Enter Wiktionary dump path or language prefix (default: search automatically): "
+            ):
+                wiktionary_dump_path = wiktionary_dump_path.strip()
+
+            else:
+                wiktionary_dump_path = ""
+
+            parse_wiktionary_translations(
+                target_languages=config.selected_languages,
+                wiktionary_dump_path=Path(wiktionary_dump_path),
+                output_dir=config.output_dir,
+                overwrite=overwrite_bool,
             )
 
             break

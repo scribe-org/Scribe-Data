@@ -19,7 +19,7 @@ class TestCheckProjectMetadata(unittest.TestCase):
     def test_get_available_languages(self) -> None:
         """
         Tests that get_available_languages returns a dictionary with
-        languages from LANGUAGE_DATA_EXTRACTION_DIR.
+        languages from WIKIDATA_QUERIES_ALL_DATA_DIR.
         """
         available_languages = get_available_languages()
         desired_dict = {
@@ -217,8 +217,8 @@ class TestCheckProjectMetadata(unittest.TestCase):
             check_language_metadata()
         self.assertEqual(1, cm.exception.code)
         self.assertEqual(
-            "There are missing languages or inconsistencies between language_metadata.yaml and language_data_extraction.\n\n"
-            "\nLanguages missing from language_data_extraction:\n"
+            "There are missing languages or inconsistencies between language_metadata.yaml and the queries directory.\n\n"
+            "\nLanguages missing from the queries directory:\n"
             "  - Estonian\n"
             "\nLanguages missing the `qid` property:\n"
             "  - Norwegian/Nynorsk\n"

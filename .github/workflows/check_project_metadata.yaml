@@ -2,12 +2,12 @@ name: check_project_metadata
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
     paths:
       - "src/scribe_data/resources/**/*.json"
   pull_request:
-    branches: [main]
-    types: [opened, reopened, synchronize]
+    branches: [ main ]
+    types: [ opened, reopened, synchronize ]
     paths:
       - "src/scribe_data/resources/**/*.json"
 

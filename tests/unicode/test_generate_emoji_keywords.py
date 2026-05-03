@@ -3,9 +3,10 @@
 Tests for generate emoji keywords process.
 """
 
-from unittest.mock import patch, MagicMock
 from pathlib import Path
 from typing import Iterator
+from unittest.mock import MagicMock, patch
+
 import pytest
 
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji

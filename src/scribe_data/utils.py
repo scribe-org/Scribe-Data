@@ -10,7 +10,7 @@ import re
 from datetime import datetime
 from importlib import resources
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 import questionary
 import requests
@@ -20,17 +20,22 @@ from rich import print as rprint
 # MARK: Utils Variables
 
 PROJECT_ROOT = "Scribe-Data"
-DEFAULT_JSON_EXPORT_DIR = "scribe_data_json_export"
-DEFAULT_CSV_EXPORT_DIR = "scribe_data_csv_export"
-DEFAULT_TSV_EXPORT_DIR = "scribe_data_tsv_export"
-DEFAULT_SQLITE_EXPORT_DIR = "scribe_data_sqlite_export"
-DEFAULT_DUMP_EXPORT_DIR = "scribe_data_wikidata_dumps_export"
-DEFAULT_MEDIAWIKI_EXPORT_DIR = "scribe_data_mediawiki_export"
-DEFAULT_DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
-DEFAULT_FILTERED_JSON_EXPORT_DIR = "scribe_data_filtered_json_export"
 
-LANGUAGE_DATA_EXTRACTION_DIR = (
-    Path(__file__).parent / "wikidata" / "language_data_extraction"
+DEFAULT_JSON_EXPORT_DIR = Path("scribe_data_json_export")
+DEFAULT_FILTERED_JSON_EXPORT_DIR = Path("scribe_data_filtered_json_export")
+DEFAULT_CSV_EXPORT_DIR = Path("scribe_data_csv_export")
+DEFAULT_TSV_EXPORT_DIR = Path("scribe_data_tsv_export")
+DEFAULT_SQLITE_EXPORT_DIR = Path("scribe_data_sqlite_export")
+
+DEFAULT_WIKIDATA_DUMP_EXPORT_DIR = Path("scribe_data_wikidata_dumps_export")
+
+DEFAULT_WIKTIONARY_JSON_EXPORT_DIR = Path("scribe_data_wiktionary_json_export")
+DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR = Path("scribe_data_wiktionary_dumps_export")
+
+DEFAULT_DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
+WIKIDATA_QUERIES_ALL_DATA_DIR = Path(__file__).parent / "wikidata" / "queries_all_data"
+WIKIDATA_QUERIES_SCRIBE_APPS_DIR = (
+    Path(__file__).parent / "wikidata" / "queries_scribe_apps"
 )
 
 LANGUAGE_METADATA_FILE = Path(__file__).parent / "resources" / "language_metadata.yaml"
@@ -43,7 +48,6 @@ LEXEME_FORM_METADATA_FILE = (
 WIKIDATA_QIDS_PIDS_FILE = (
     Path(__file__).parent / "resources" / "wikidata_qids_pids.yaml"
 )
-DATA_DIR = Path(DEFAULT_JSON_EXPORT_DIR)
 
 try:
     with LANGUAGE_METADATA_FILE.open("r", encoding="utf-8") as file:
@@ -276,15 +280,42 @@ def get_language_from_iso(iso: str) -> str:
     raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
 
 
+def resolve_lang_iso(language: str) -> Optional[str]:
+    """
+    Resolve language name or ISO to ISO code.
+
+    Parameters
+    ----------
+    language : str
+        The language to resolve into its ISO code.
+
+    Returns
+    -------
+    str
+        The ISO code for the given language.
+    """
+    language = language.strip().lower()
+    if len(language) in {2, 3} and language.isalpha():
+        with contextlib.suppress(ValueError):
+            get_language_from_iso(language)
+            return language
+
+    try:
+        return get_language_iso(language)
+
+    except ValueError:
+        return None
+
+
 def load_queried_data(
-    dir_path: str, language: str, data_type: str
-) -> tuple[Any, bool, str]:
+    dir_path: Path, language: str, data_type: str
+) -> tuple[Any, Path]:
     """
     Load queried data from a JSON file for a specific language and data type.
 
     Parameters
     ----------
-    dir_path : str
+    dir_path : Path
         The path to the directory containing the queried data.
 
     language : str
@@ -295,7 +326,7 @@ def load_queried_data(
 
     Returns
     -------
-    tuple(Any, str)
+    tuple(Any, Path)
         A tuple containing the loaded data and the path to the data file.
     """
     data_path = (
@@ -306,13 +337,13 @@ def load_queried_data(
         return json.load(f), data_path
 
 
-def remove_queried_data(dir_path: str, language: str, data_type: str) -> None:
+def remove_queried_data(dir_path: Path, language: str, data_type: str) -> None:
     """
     Remove queried data for a specific language and data type as a new formatted file has been generated.
 
     Parameters
     ----------
-    dir_path : str
+    dir_path : Path
         The path to the directory containing the queried data.
 
     language : str
@@ -337,7 +368,7 @@ def remove_queried_data(dir_path: str, language: str, data_type: str) -> None:
 
 
 def export_formatted_data(
-    dir_path: str,
+    dir_path: Path,
     formatted_data: dict,
     language: str,
     data_type: str,
@@ -538,13 +569,13 @@ def camel_to_snake(name: str) -> str:
 # MARK: Check Dump
 
 
-def check_lexeme_dump_prompt_download(output_dir: str) -> bool | Path | None:
+def check_lexeme_dump_prompt_download(output_dir: Path) -> Optional[bool | Path]:
     """
     Check to see if a Wikidata lexeme dump exists and prompts the user to download one if not.
 
     Parameters
     ----------
-    output_dir : str
+    output_dir : Path
         The directory to check for the existence of a Wikidata lexeme dump.
 
     Returns
@@ -651,7 +682,7 @@ def check_index_exists(index_path: Path, overwrite_all: bool = False) -> bool:
         if overwrite_all:
             return False
 
-        print(f"\nIndex file already exists at: {index_path}")
+        print(f"\nFile already exists at: {index_path}")
         choice = questionary.select(
             "Choose an action:",
             choices=["Overwrite existing data", "Skip process"],
@@ -735,5 +766,5 @@ def get_language_iso_code(qid: str) -> str:
     except ValueError as e:
         raise ValueError("The passed Wikidata QID is not a language.") from e
 
-    except KeyError:
-        return KeyError("The ISO code for the language is not available.")
+    except KeyError as e:
+        raise KeyError("The ISO code for the language is not available.") from e

@@ -6,16 +6,14 @@ Functions for listing languages and data types for the Scribe-Data CLI.
 import os
 from pathlib import Path
 
-from scribe_data.cli.cli_utils import correct_data_type
 from scribe_data.utils import (
-    LANGUAGE_DATA_EXTRACTION_DIR,
+    WIKIDATA_QUERIES_ALL_DATA_DIR,
     format_sublanguage_name,
     get_language_iso,
     get_language_qid,
     language_map,
     language_metadata,
     list_all_languages,
-    list_languages_with_metadata_for_data_type,
 )
 
 
@@ -36,9 +34,8 @@ def list_languages() -> None:
 
     table_line_length = language_col_width + iso_col_width + qid_col_width
 
-    print()
     print(
-        f"{'Language':<{language_col_width}} {'ISO':<{iso_col_width}} {'QID':<{qid_col_width}}"
+        f"{'\nLanguage':<{language_col_width}} {'ISO':<{iso_col_width}} {'QID':<{qid_col_width}}"
     )
     print("=" * table_line_length)
 
@@ -50,7 +47,7 @@ def list_languages() -> None:
     print()
 
 
-def list_data_types(language: str = None) -> None:
+def list_data_types(language: str = "") -> None:
     """
     List all data types or those available for a given language.
 
@@ -63,7 +60,7 @@ def list_data_types(language: str = None) -> None:
     if language:
         language = format_sublanguage_name(language, language_metadata)
         language_data = language_map.get(language.lower())
-        language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language.lower()
+        language_dir = WIKIDATA_QUERIES_ALL_DATA_DIR / language.lower()
 
         if not language_data:
             raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
@@ -91,7 +88,7 @@ def list_data_types(language: str = None) -> None:
     else:
         data_types = set()
         for lang in languages:
-            language_dir = LANGUAGE_DATA_EXTRACTION_DIR / format_sublanguage_name(
+            language_dir = WIKIDATA_QUERIES_ALL_DATA_DIR / format_sublanguage_name(
                 lang, language_metadata
             )
             if language_dir.is_dir():
@@ -141,34 +138,34 @@ def list_languages_for_data_type(data_type: str) -> None:
     None
         A list of languages for data types is printed to the terminal.
     """
-    data_type = correct_data_type(data_type=data_type)
-    all_languages = list_languages_with_metadata_for_data_type(language_metadata)
+    list_languages()
+    # corrected_data_type = correct_data_type(data_type=data_type)
+    # all_languages = list_languages_with_metadata_for_data_type(language_metadata)
 
-    # Set column widths for consistent formatting.
-    language_col_width = max(len(lang["name"]) for lang in all_languages) + 2
-    iso_col_width = max(len(lang["iso"]) for lang in all_languages) + 2
-    qid_col_width = max(len(lang["qid"]) for lang in all_languages) + 2
+    # # Set column widths for consistent formatting.
+    # language_col_width = max(len(lang["name"]) for lang in all_languages) + 2
+    # iso_col_width = max(len(lang["iso"]) for lang in all_languages) + 2
+    # qid_col_width = max(len(lang["qid"]) for lang in all_languages) + 2
 
-    table_line_length = language_col_width + iso_col_width + qid_col_width
+    # table_line_length = language_col_width + iso_col_width + qid_col_width
 
-    # Print table header.
-    print()
-    print(
-        f"{'Language':<{language_col_width}} {'ISO':<{iso_col_width}} {'QID':<{qid_col_width}}"
-    )
-    print("=" * table_line_length)
+    # # Print table header.
+    # print(
+    #     f"{'\nLanguage':<{language_col_width}} {'ISO':<{iso_col_width}} {'QID':<{qid_col_width}}"
+    # )
+    # print("=" * table_line_length)
 
-    # Iterate through the list of languages and format each row.
-    for lang in all_languages:
-        print(
-            f"{lang['name'].capitalize():<{language_col_width}} {lang['iso']:<{iso_col_width}} {lang['qid']:<{qid_col_width}}"
-        )
+    # # Iterate through the list of languages and format each row.
+    # for lang in all_languages:
+    #     print(
+    #         f"{lang['name'].capitalize():<{language_col_width}} {lang['iso']:<{iso_col_width}} {lang['qid']:<{qid_col_width}}"
+    #     )
 
-    print()
+    # print()
 
 
 def list_wrapper(
-    language: str = None, data_type: str = None, all_bool: bool = False
+    language: str = "", data_type: str = "", all_bool: bool = False
 ) -> None:
     """
     Conditionally provides the full functionality of the list command.

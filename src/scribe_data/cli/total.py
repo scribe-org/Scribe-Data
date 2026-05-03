@@ -4,13 +4,15 @@ Functions to check the total language data available on Wikidata.
 """
 
 from http.client import IncompleteRead
-from typing import List, Union
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union, cast
 from urllib.error import HTTPError
 
 from SPARQLWrapper import JSON
 
 from scribe_data.utils import (
-    LANGUAGE_DATA_EXTRACTION_DIR,
+    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    WIKIDATA_QUERIES_ALL_DATA_DIR,
     check_qid_is_language,
     data_type_metadata,
     format_sublanguage_name,
@@ -21,7 +23,7 @@ from scribe_data.utils import (
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump, sparql
 
 
-def get_qid_by_input(input_str: str | None) -> str | None:
+def get_qid_by_input(input_str: Optional[str]) -> Optional[str]:
     """
     Retrieve the QID for a given language or data type input string.
 
@@ -75,7 +77,7 @@ def get_datatype_list(language: str) -> list | dict:
 
             for sub_lang_key in sub_languages:
                 sub_lang_dir = (
-                    LANGUAGE_DATA_EXTRACTION_DIR / sub_languages[sub_lang_key]["iso"]
+                    WIKIDATA_QUERIES_ALL_DATA_DIR / sub_languages[sub_lang_key]["iso"]
                 )
                 if sub_lang_dir.exists():
                     data_types.extend(
@@ -90,7 +92,7 @@ def get_datatype_list(language: str) -> list | dict:
             return sorted(set(data_types))  # remove duplicates and sort
 
         else:
-            language_dir = LANGUAGE_DATA_EXTRACTION_DIR / language_key
+            language_dir = WIKIDATA_QUERIES_ALL_DATA_DIR / language_key
             if not language_dir.exists():
                 raise ValueError(f"Directory '{language_dir}' does not exist.")
 
@@ -110,7 +112,7 @@ def get_datatype_list(language: str) -> list | dict:
 # MARK: Print
 
 
-def print_total_lexemes(language: str | None = None) -> None:
+def print_total_lexemes(language: Optional[str] = None) -> None:
     """
     Print the total number of available entities for all data types.
 
@@ -140,7 +142,7 @@ def print_total_lexemes(language: str | None = None) -> None:
     else:
         print(f"Returning total counts for {language.capitalize()} data types...\n")
 
-    def print_total_header(language: str, dt: str, total_lexemes: int) -> None:
+    def print_total_header(language: str, dt: str, total_lexemes: str) -> None:
         """
         Print the header of the total command output.
 
@@ -152,8 +154,8 @@ def print_total_lexemes(language: str | None = None) -> None:
         dt : str
             The data type (e.g., "nouns", "verbs") for which to count lexemes.
 
-        total_lexemes : int
-            The total number of lexemes derived.
+        total_lexemes : str
+            The total number of lexemes derived formatted as a string.
 
         Returns
         -------
@@ -219,7 +221,7 @@ def print_total_lexemes(language: str | None = None) -> None:
 
 def get_total_lexemes(
     language: str, data_type: str, do_print: bool = True
-) -> int | None:
+) -> Optional[int]:
     """
     Get the total number of lexemes for a given language and data type from Wikidata.
 
@@ -321,12 +323,15 @@ def get_total_lexemes(
         print("Total number of lexemes: Not found")
         return None
 
+    res_dict = cast(Dict[str, Any], results)
     if (
-        "results" in results
-        and "bindings" in results["results"]
-        and len(results["results"]["bindings"]) > 0
+        "results" in res_dict
+        and "bindings" in res_dict["results"]
+        and len(res_dict["results"]["bindings"]) > 0
     ):
-        total_lexemes = int(results["results"]["bindings"][0]["total"]["value"])
+        total_lexemes = int(
+            res_dict.get("results", {}).get("bindings", [])[0]["total"]["value"]
+        )
 
         output_template = ""
         if language:
@@ -341,35 +346,34 @@ def get_total_lexemes(
 
         return total_lexemes
 
-    else:
-        print("Total number of lexemes: Not found")
-        return None
+    print("Total number of lexemes: Not found")
+    return None
 
 
 # MARK: Wrapper
 
 
 def total_wrapper(
-    language: Union[str, List[str]] = None,
-    data_type: Union[str, List[str]] = None,
+    languages: Optional[List[str]] = None,
+    data_types: Optional[List[str]] = None,
     all_bool: bool = False,
-    wikidata_dump: Union[str, bool] = None,
+    wikidata_dump: Optional[Union[Path, bool]] = None,
 ) -> None:
     """
     Conditionally provides the full functionality of the total command.
 
     Parameters
     ----------
-    language : Union[str, List[str]]
+    languages : List[str]
         The language(s) to potentially total data types for.
 
-    data_type : Union[str, List[str]]
+    data_types : List[str]
         The data type(s) to check for.
 
     all_bool : bool
         Whether all languages and data types should be listed.
 
-    wikidata_dump : Union[str, bool]
+    wikidata_dump : Optional[Union[Path, bool]]
         The local Wikidata lexeme dump path that can be used to process data.
         If True, indicates the flag was used without a path.
 
@@ -377,68 +381,66 @@ def total_wrapper(
     -----
     Now accepts lists for language and data type to output a table of total lexemes.
     """
-    # Handle --all flag
-    if all_bool and wikidata_dump:
-        if data_type is None:
-            data_type = "all"
-        if language is None:
-            language = "all"
-
-    if wikidata_dump is True:  # flag without a wikidata lexeme dump path
+    # Note: Handle --all flag via 'or ["all"]' assignments.
+    # Flag without a wikidata lexeme dump path.
+    if wikidata_dump is True:
         parse_wd_lexeme_dump(
-            language=language,
-            data_types=data_type,
+            languages=languages or ["all"],
+            data_types=data_types or ["all"],
             wikidata_dump_type=["total"],
-            wikidata_dump_path=None,
+            wikidata_dump_path=DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
         )
         return
 
-    if isinstance(wikidata_dump, str):  # if user provided a wikidata lexeme dump path
+    # If user provided a wikidata lexeme dump path.
+    if isinstance(wikidata_dump, Path):
         parse_wd_lexeme_dump(
-            language=language,
-            data_types=[data_type],
+            languages=languages or ["all"],
+            data_types=data_types or ["all"],
             wikidata_dump_type=["total"],
             wikidata_dump_path=wikidata_dump,
         )
         return
 
-    if (not language and not data_type) and all_bool:
+    language = languages[0] if languages else None  # in case only one is passed
+    data_type = data_types[0] if data_types else None  # in case only one is passed
+
+    if (not languages and not data_types) and all_bool:
         print_total_lexemes()
 
-    elif isinstance(language, list) or isinstance(data_type, list):
-        languages = language if isinstance(language, list) else [language]
-        data_types = data_type if isinstance(data_type, list) else [data_type]
-
-        print(f"{'Language':<20} {'Data Type':<25} {'Total Lexemes':<25}")
+    elif languages and data_types and (len(languages) > 1 or len(data_types) > 1):
+        print(f"{'Language':<20} {'Data Type':<25} {'Total Wikidata Lexemes':<25}")
         print("=" * 70)
 
         for lang in languages:
-            first_row = (
-                True  # flag to check if it's the first data type for the language
-            )
+            # Flag to check if it's the first data type for the language.
+            first_row = True
+
             for dt in data_types:
                 total_lexemes = get_total_lexemes(
                     language=lang, data_type=dt, do_print=False
                 )
                 total_lexemes = (
-                    f"{total_lexemes:,}" if total_lexemes is not None else "N/A"
+                    f"{int(total_lexemes):,}" if total_lexemes is not None else "N/A"
                 )
                 if first_row:
                     print(f"{lang:<20} {dt:<25} {total_lexemes:<25}")
                     first_row = False
+
                 else:
                     print(
                         f"{'':<20} {dt:<25} {total_lexemes:<25}"
                     )  # print empty space for language
+
             print()
 
     elif language is not None and data_type is None:
         print_total_lexemes(language=language)
 
-    elif language is not None and not all_bool:
+    elif language is not None and data_type is not None and not all_bool:
         get_total_lexemes(language=language, data_type=data_type)
 
-    elif language is not None:
+    elif language is not None and data_type is not None:
         print(
             f"You have already specified language {language.capitalize()} and data type {data_type} - no need to specify --all."
         )
