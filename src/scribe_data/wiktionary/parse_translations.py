@@ -4,16 +4,27 @@ Parse translations for a target language from a Wiktionary pages-articles dump.
 """
 
 import bz2
+import collections
+import io
 import os
 import re
 import xml.etree.ElementTree as ET
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
+from typing import BinaryIO, Dict, List, Optional, Tuple, Union, cast
 
 import mwparserfromhell
+import orjson
 from tqdm import tqdm
 
+from scribe_data.utils import (
+    DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
+    DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
+    check_index_exists,
+    get_language_from_iso,
+    language_metadata,
+    resolve_lang_iso,
+)
 from scribe_data.wiktionary.parse_constants import get_wiktionary_config
 
 # A single translation entry (e.g., {"description": "...", "translation": "..."}).
@@ -773,7 +784,7 @@ def _parse_ast_wikilink_list(
 
 # MARK: Engine Dispatch
 
-_ENGINES: Dict[str, callable] = {
+_ENGINES: Dict[str, collections.abc.Callable] = {
     "ast_u_tabelle": _parse_ast_u_tabelle,
     "ast_trans_top": _parse_ast_trans_top,
     "ast_wikilink_list": _parse_ast_wikilink_list,
@@ -867,7 +878,7 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
     import threading
 
     # Simple wrapper to update pbar dynamically behind bz2.open.
-    class ProgressFileWrapper:
+    class ProgressFileWrapper(io.RawIOBase):
         """
         File-like wrapper that updates a progress bar on read operations.
 
@@ -934,7 +945,9 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
             return n
 
         def close(self):
-            """Close the wrapped binary file object."""
+            """
+            Close the wrapped binary file object.
+            """
             self.f.close()
 
     proc = None
@@ -979,11 +992,12 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
         raw_f = ProgressFileWrapper(wiktionary_dump_path, pbar)
         if str(wiktionary_dump_path).endswith(".bz2"):
             f = bz2.open(raw_f, "rb")
+
         else:
             f = raw_f
 
     try:
-        context = iter(ET.iterparse(f, events=("start", "end")))
+        context = iter(ET.iterparse(cast(BinaryIO, f), events=("start", "end")))
         try:
             _, root = next(context)
 
@@ -1014,7 +1028,7 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
             proc.terminate()
             proc.wait()
 
-        else:
+        elif f is not None:
             f.close()
 
 
@@ -1149,7 +1163,7 @@ def parse_xml_dump(
 def parse_wiktionary_translations(
     target_languages: Optional[Union[str, List[str]]] = None,
     wiktionary_dump_path: Optional[Union[str, Path]] = None,
-    output_dir: Optional[str] = None,
+    output_dir: Optional[Path] = DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
     overwrite: bool = False,
 ) -> None:
     """
@@ -1164,23 +1178,12 @@ def parse_wiktionary_translations(
     wiktionary_dump_path : str or Path, optional
         Path to a ``*wiktionary-*-pages-articles.xml.bz2`` dump file.
 
-    output_dir : str, optional
+    output_dir : Path, optional (default=DEFAULT_WIKTIONARY_JSON_EXPORT_DIR)
         Directory where JSON files are saved.
 
     overwrite : bool, default ``False``
         Whether to overwrite existing output files.
     """
-    import orjson
-
-    from scribe_data.utils import (
-        DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
-        DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
-        check_index_exists,
-        get_language_from_iso,
-        language_metadata,
-        resolve_lang_iso,
-    )
-
     output_dir = output_dir or DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
@@ -1219,7 +1222,7 @@ def parse_wiktionary_translations(
 
     source_lang_name = get_language_from_iso(source_iso)
     out_subdir = _get_output_subdir(source_lang_name, language_metadata)
-    base_out_path = Path(output_dir) / out_subdir
+    base_out_path = output_dir / out_subdir
     base_out_path.mkdir(parents=True, exist_ok=True)
 
     data_by_lang = parse_xml_dump(
@@ -1252,7 +1255,7 @@ def parse_wiktionary_translations(
 
 
 def _resolve_dump_path(
-    wiktionary_dump_path: Optional[Union[str, Path]], output_dir: str
+    wiktionary_dump_path: Optional[Union[str, Path]], output_dir: Path
 ) -> Tuple[Optional[Path], str]:
     """
     Resolve a Wiktionary dump path and return the dump path together with the source ISO.

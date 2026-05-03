@@ -3,8 +3,9 @@
 Utility functions for the Scribe-Data CLI.
 """
 
+import contextlib
 import difflib
-from typing import List, Union
+from typing import List, Optional, Set, Union
 
 from scribe_data.utils import (
     data_type_metadata,
@@ -15,7 +16,7 @@ from scribe_data.utils import (
 # MARK: Correct Inputs
 
 
-def correct_data_type(data_type: str) -> str | None:
+def correct_data_type(data_type: str) -> Optional[str]:
     """
     Correct common versions of data type arguments to their standardized form.
 
@@ -110,8 +111,8 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
 
 
 def validate_language_and_data_type(
-    language: Union[str, List[str], bool, None],
-    data_type: Union[str, List[str], bool, None],
+    language: Optional[str | List[str] | bool],
+    data_type: Optional[str | List[str] | bool],
 ) -> bool:
     """
     Validate that the language and data type QIDs are not None.
@@ -136,8 +137,8 @@ def validate_language_and_data_type(
     """
 
     def validate_single_item(
-        item: str, valid_options: list, item_type: str
-    ) -> str | None:
+        item: str, valid_options: Set[str], item_type: str
+    ) -> Optional[str]:
         """
         Validate a single item against a list of valid options, providing error messages and suggestions.
 
@@ -145,8 +146,10 @@ def validate_language_and_data_type(
         ----------
         item : str
             The item to validate.
+
         valid_options : list
             A list of valid options against which the item will be validated.
+
         item_type : str
             A description of the item type (e.g., "language", "data-type") used in error messages.
 
@@ -164,13 +167,10 @@ def validate_language_and_data_type(
         if item.startswith("Q") and len(item) > 1 and item[1:].isdigit():
             return None
 
-        if len(item_lower) in (2, 3) and item_lower.isalpha():
-            try:
+        if len(item_lower) in {2, 3} and item_lower.isalpha():
+            with contextlib.suppress(ValueError):
                 get_language_from_iso(item_lower)
                 return None
-
-            except ValueError:
-                pass
 
         closest_match = difflib.get_close_matches(item, valid_options, n=1)
         closest_match_str = (
@@ -195,7 +195,11 @@ def validate_language_and_data_type(
     if language is not None and isinstance(language, list):
         for lang in language:
             lang = lang.split(" ")[0]
-            error = validate_single_item(lang, language_to_qid.keys(), "language")
+            error = validate_single_item(
+                item=lang,
+                valid_options=set(language_to_qid.keys()),
+                item_type="language",
+            )
 
             if error:
                 errors.append(error)
@@ -213,7 +217,9 @@ def validate_language_and_data_type(
     if data_type is not None and isinstance(data_type, list):
         valid_data_types = set(data_type_metadata.keys()) | {"wiktionary_translations"}
         for dt in data_type:
-            error = validate_single_item(dt, valid_data_types, "data-type")
+            error = validate_single_item(
+                item=dt, valid_options=valid_data_types, item_type="data-type"
+            )
 
             if error:
                 errors.append(error)

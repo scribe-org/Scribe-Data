@@ -8,7 +8,7 @@ import os
 import re
 import sqlite3
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import questionary
 from tqdm.auto import tqdm
@@ -87,8 +87,8 @@ def translations_to_sqlite(
     language_data_type_dict: dict,
     current_languages: list,
     identifier_case: str = "snake",
-    input_file: str = DEFAULT_JSON_EXPORT_DIR,
-    output_file: str = DEFAULT_SQLITE_EXPORT_DIR,
+    input_file: Path = DEFAULT_JSON_EXPORT_DIR,
+    output_file: Path = DEFAULT_SQLITE_EXPORT_DIR,
     overwrite: bool = False,
 ) -> None:
     """
@@ -279,10 +279,10 @@ def wiktionary_translations_to_sqlite(
 
 def data_to_sqlite(
     languages: Optional[List[str]] = None,
-    specific_tables: Optional[List[str]] = None,
+    specific_tables: Optional[Union[str, List[str]]] = None,
     identifier_case: str = "camel",
-    input_file: str = DEFAULT_JSON_EXPORT_DIR,
-    output_file: str = DEFAULT_SQLITE_EXPORT_DIR,
+    input_file: Path = DEFAULT_JSON_EXPORT_DIR,
+    output_file: Path = DEFAULT_SQLITE_EXPORT_DIR,
     overwrite: bool = False,
 ) -> None:
     """
@@ -290,13 +290,13 @@ def data_to_sqlite(
 
     Parameters
     ----------
-    languages : list of str, optional
+    languages : Optional[List[str]]
         The languages to process. If None, use all available languages.
 
-    specific_tables : list of str, optional
+    specific_tables : Optional[Union[str, List[str]]]
         The specific tables to process. If None, process all tables.
 
-    identifier_case : str, optional
+    identifier_case : str, optional (default='camel')
         Format of the identifiers ("camel" or "snake"). Defaults to "camel".
 
     input_file : str, optional
@@ -308,11 +308,11 @@ def data_to_sqlite(
     overwrite : bool, optional
         If set to True, existing SQLite files will be overwritten without prompting.
     """
-    # Ensure valid directories are used even if None is passed
-    if input_file is None:
-        input_file = DEFAULT_JSON_EXPORT_DIR
-    if output_file is None:
-        output_file = DEFAULT_SQLITE_EXPORT_DIR
+    specific_tables = (
+        [specific_tables]
+        if specific_tables and isinstance(specific_tables, str)
+        else specific_tables
+    )
 
     # Ensure the SQLite export directory exists before creating the database.
     sqlite_export_dir = Path(output_file)

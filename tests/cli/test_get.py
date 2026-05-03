@@ -13,6 +13,13 @@ import pytest
 from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
 from scribe_data.cli.get import get_data
+from scribe_data.utils import (
+    DEFAULT_CSV_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_SQLITE_EXPORT_DIR,
+    DEFAULT_TSV_EXPORT_DIR,
+    DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
+)
 
 
 class TestGetData(unittest.TestCase):
@@ -32,11 +39,13 @@ class TestGetData(unittest.TestCase):
         This test ensures that when thee `data_type` is `emoji_keywords`, the `generate_emoji` function is called with the correct arguments.
         """
         get_data(
-            language="English", data_type="emoji_keywords", output_dir="./test_output"
+            languages=["English"],
+            data_types=["emoji_keywords"],
+            output_dir=Path("./test_output"),
         )
         generate_emoji.assert_called_once_with(
             language="English",
-            output_dir="./test_output",
+            output_dir=Path("./test_output"),
         )
 
     # MARK: Invalid Arguments
@@ -67,13 +76,13 @@ class TestGetData(unittest.TestCase):
         """
         mock_questionary_confirm.return_value.ask.return_value = False
 
-        get_data(all_bool=True, language="English")
+        get_data(all_bool=True, languages=["English"])
 
         mock_parse.assert_called_once_with(
-            language="English",
+            languages=["English"],
+            data_types=["all"],
             wikidata_dump_type=["form"],
-            data_types="all",  # because if only language given, data_types is None
-            type_output_dir="scribe_data_json_export",  # default for JSON
+            output_dir=DEFAULT_JSON_EXPORT_DIR,
             wikidata_dump_path=None,  # explicitly set to None
             overwrite_all=False,
         )
@@ -89,10 +98,10 @@ class TestGetData(unittest.TestCase):
         get_data(all_bool=True)
 
         mock_parse.assert_called_once_with(
-            language="all",
+            languages=["all"],
+            data_types=["all"],
             wikidata_dump_type=["form", "translations"],
-            data_types="all",
-            type_output_dir="scribe_data_json_export",
+            output_dir=DEFAULT_JSON_EXPORT_DIR,
             wikidata_dump_path=None,
             overwrite_all=False,
         )
@@ -108,11 +117,13 @@ class TestGetData(unittest.TestCase):
 
         Ensures that `query_data` is called properly when a specific language and data type are provided.
         """
-        get_data(language="german", data_type="nouns", output_dir="./test_output")
+        get_data(
+            languages=["german"], data_types=["nouns"], output_dir=Path("./test_output")
+        )
         mock_query_data.assert_called_once_with(
             languages=["german"],
-            data_type=["nouns"],
-            output_dir="./test_output",
+            data_types=["nouns"],
+            output_dir=Path("./test_output"),
             overwrite=False,
             interactive=False,
         )
@@ -134,11 +145,11 @@ class TestGetData(unittest.TestCase):
         Ensures that `query_data` is called properly when a capitalized language is provided.
         """
         mock_check_index.return_value = False
-        get_data(language="German", data_type="nouns")
+        get_data(languages=["German"], data_types=["nouns"])
         mock_query_data.assert_called_once_with(
             languages=["German"],
-            data_type=["nouns"],
-            output_dir="scribe_data_json_export",
+            data_types=["nouns"],
+            output_dir=DEFAULT_JSON_EXPORT_DIR,
             overwrite=False,
             interactive=False,
         )
@@ -159,11 +170,11 @@ class TestGetData(unittest.TestCase):
 
         Ensures that `query_data` is called properly when a lowercase language is provided.
         """
-        get_data(language="german", data_type="nouns")
+        get_data(languages=["german"], data_types=["nouns"])
         mock_query_data.assert_called_once_with(
             languages=["german"],
-            data_type=["nouns"],
-            output_dir="scribe_data_json_export",
+            data_types=["nouns"],
+            output_dir=DEFAULT_JSON_EXPORT_DIR,
             overwrite=False,
             interactive=False,
         )
@@ -180,12 +191,14 @@ class TestGetData(unittest.TestCase):
         Ensures that `query_data` is called properly when a different output directory is provided.
         """
         get_data(
-            language="german", data_type="nouns", output_dir="./custom_output_test"
+            languages=["german"],
+            data_types=["nouns"],
+            output_dir=Path("./custom_output_test"),
         )
         mock_query_data.assert_called_once_with(
             languages=["german"],
-            data_type=["nouns"],
-            output_dir="./custom_output_test",
+            data_types=["nouns"],
+            output_dir=Path("./custom_output_test"),
             overwrite=False,
             interactive=False,
         )
@@ -202,11 +215,11 @@ class TestGetData(unittest.TestCase):
 
         Ensures that `query_data` is called properly when the overwrite flag is set to True.
         """
-        get_data(language="English", data_type="verbs", overwrite=True)
+        get_data(languages=["English"], data_types=["verbs"], overwrite=True)
         mock_query_data.assert_called_once_with(
             languages=["English"],
-            data_type=["verbs"],
-            output_dir="scribe_data_json_export",
+            data_types=["verbs"],
+            output_dir=DEFAULT_JSON_EXPORT_DIR,
             overwrite=True,
             interactive=False,
         )
@@ -216,16 +229,16 @@ class TestGetData(unittest.TestCase):
     @patch("scribe_data.cli.get.query_data")
     def test_get_data_with_overwrite_false(self, mock_query_data: MagicMock) -> None:
         get_data(
-            language="English",
-            data_type="verbs",
+            languages=["English"],
+            data_types=["verbs"],
             overwrite=False,
-            output_dir="./custom_output_test",
+            output_dir=Path("./custom_output_test"),
             interactive=False,
         )
         mock_query_data.assert_called_once_with(
             languages=["English"],
-            data_type=["verbs"],
-            output_dir="./custom_output_test",
+            data_types=["verbs"],
+            output_dir=Path("./custom_output_test"),
             overwrite=False,
             interactive=False,
         )
@@ -255,7 +268,9 @@ class TestGetData(unittest.TestCase):
         mock_check_index.return_value = True
 
         result = get_data(
-            language="English", data_type="nouns", output_dir="./test_output"
+            languages=["English"],
+            data_types=["nouns"],
+            output_dir=Path("./test_output"),
         )
 
         # Validate the skip result.
@@ -282,12 +297,15 @@ class TestGetData(unittest.TestCase):
         Ensures that the file is overwritten and the function returns the correct result.
         """
         mock_questionary_confirm.return_value.ask.return_value = True
-        get_data(language="English", data_type="nouns", output_dir="./test_output")
-
+        get_data(
+            languages=["English"],
+            data_types=["nouns"],
+            output_dir=Path("./test_output"),
+        )
         mock_query_data.assert_called_once_with(
             languages=["English"],
-            data_type=["nouns"],
-            output_dir="./test_output",
+            data_types=["nouns"],
+            output_dir=Path("./test_output"),
             overwrite=False,
             interactive=False,
         )
@@ -296,37 +314,39 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
     def test_get_translations_no_language_specified(self, mock_parse):
-        get_data(data_type="translations")
+        get_data(data_types=["translations"])
         mock_parse.assert_called_once_with(
             target_languages=None,
             wiktionary_dump_path=None,
-            output_dir="scribe_data_wiktionary_json_export",
+            output_dir=DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
             overwrite=False,
         )
 
     @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
     def test_get_translations_with_specific_language(self, mock_parse):
         get_data(
-            language="Spanish", data_type="translations", output_dir="./test_output"
+            languages=["Spanish"],
+            data_types=["translations"],
+            output_dir=Path("./test_output"),
         )
         mock_parse.assert_called_once_with(
             target_languages=["Spanish"],
             wiktionary_dump_path=None,
-            output_dir="./test_output",
+            output_dir=Path("./test_output"),
             overwrite=False,
         )
 
     @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
     def test_get_translations_with_dump(self, mock_parse):
         get_data(
-            language="German",
-            data_type="translations",
-            wiktionary_dump="./wikidump.json",
+            languages=["German"],
+            data_types=["translations"],
+            wiktionary_dump=Path("./wikidump.json"),
         )
         mock_parse.assert_called_once_with(
             target_languages=["German"],
-            wiktionary_dump_path="./wikidump.json",
-            output_dir="scribe_data_wiktionary_json_export",
+            wiktionary_dump_path=Path("./wikidump.json"),
+            output_dir=DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
             overwrite=False,
         )
 
@@ -347,17 +367,17 @@ class TestGetData(unittest.TestCase):
         mock_questionary_confirm.return_value.ask.return_value = False
 
         get_data(
-            language="Q9217",
-            wikidata_dump="scribe",
-            output_dir="exported_json",
+            languages=["Q9217"],
+            output_dir=Path("exported_json"),
+            wikidata_dump_path=Path("scribe"),
             all_bool=True,
         )
         mock_parse.assert_called_once_with(
-            language="Q9217",
+            languages=["Q9217"],
+            data_types=["all"],
             wikidata_dump_type=["form"],
-            data_types="all",
-            type_output_dir="exported_json",
-            wikidata_dump_path="scribe",
+            output_dir=Path("exported_json"),
+            wikidata_dump_path=Path("scribe"),
             overwrite_all=False,
         )
 
@@ -372,17 +392,17 @@ class TestGetData(unittest.TestCase):
         when a Wikidata identifier and specific data type are used.
         """
         get_data(
-            language="Q9217",
-            data_type="nouns",
-            wikidata_dump="scribe",
-            output_dir="exported_json",
+            languages=["Q9217"],
+            data_types=["nouns"],
+            output_dir=Path("exported_json"),
+            wikidata_dump_path=Path("scribe"),
         )
         mock_parse.assert_called_once_with(
-            language="Q9217",
+            languages=["Q9217"],
             wikidata_dump_type=["form"],
             data_types=["nouns"],
-            type_output_dir="exported_json",
-            wikidata_dump_path="scribe",
+            output_dir=Path("exported_json"),
+            wikidata_dump_path=Path("scribe"),
             overwrite_all=False,
         )
 
@@ -401,13 +421,12 @@ class TestGetData(unittest.TestCase):
         # Mock user choosing to use lexeme dump instead of querying Wikidata.
         mock_questionary_confirm.return_value.ask.return_value = False
 
-        get_data(all_bool=True, data_type="verbs", output_dir="test")
-
+        get_data(all_bool=True, data_types=["verbs"], output_dir=Path("test"))
         mock_parse.assert_called_once_with(
-            language="all",
-            wikidata_dump_type=["form"],
+            languages=["all"],
             data_types=["verbs"],
-            type_output_dir="test",
+            wikidata_dump_type=["form"],
+            output_dir=Path("test"),
             wikidata_dump_path=None,
             overwrite_all=False,
         )
@@ -426,12 +445,11 @@ class TestGetData(unittest.TestCase):
         # Mock user choosing to query Wikidata directly.
         mock_questionary_confirm.return_value.ask.return_value = True
 
-        get_data(all_bool=True, data_type="verbs", output_dir="test")
-
+        get_data(all_bool=True, data_types=["verbs"], output_dir=Path("test"))
         mock_query_data.assert_called_once_with(
-            languages=None,
-            data_type=["verbs"],
-            output_dir="test",
+            languages=["all"],
+            data_types=["verbs"],
+            output_dir=Path("test"),
             overwrite=False,
         )
 
@@ -448,7 +466,7 @@ class TestGetData(unittest.TestCase):
         mock_check_index.return_value = False
         mock_query_data.side_effect = json.decoder.JSONDecodeError("Msg", "Doc", 0)
 
-        get_data(language="German", data_type="verbs")
+        get_data(languages=["German"], data_types=["verbs"])
 
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.check_index_exists")
@@ -463,7 +481,7 @@ class TestGetData(unittest.TestCase):
             url="test", code=500, msg="error", hdrs={}, fp=None
         )
 
-        get_data(language="German", data_type="verbs")
+        get_data(languages=["German"], data_types=["verbs"])
 
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.check_index_exists")
@@ -476,7 +494,7 @@ class TestGetData(unittest.TestCase):
         mock_check_index.return_value = False
         mock_query_data.side_effect = EndPointInternalError
 
-        get_data(language="German", data_type="verbs")
+        get_data(languages=["German"], data_types=["verbs"])
 
     # MARK: Output Type Handling
 
@@ -500,22 +518,22 @@ class TestGetData(unittest.TestCase):
         mock_check_index.return_value = False
 
         get_data(
-            language="German",
-            data_type="verbs",
+            languages=["German"],
+            data_types=["verbs"],
             output_type="csv",
-            output_dir="test_dir",
+            output_dir=Path("test_dir"),
             identifier_case="snake",
         )
 
         # Use Path to create platform-appropriate path.
-        expected_input_file = str(Path("test_dir/German/verbs.json"))
+        expected_input_file = Path("test_dir/German/verbs.json")
 
         mock_convert.assert_called_once_with(
-            language="German",
-            data_type="verbs",
+            languages=["German"],
+            data_types=["verbs"],
+            input_path=expected_input_file,
+            output_dir=Path("test_dir"),
             output_type="csv",
-            input_file=expected_input_file,
-            output_dir="test_dir",
             overwrite=False,
             identifier_case="snake",
         )
@@ -532,18 +550,20 @@ class TestGetData(unittest.TestCase):
         """
         mock_check_index.return_value = False
         test_cases = [
-            ("csv", "scribe_data_csv_export"),
-            ("json", "scribe_data_json_export"),
-            ("sqlite", "scribe_data_sqlite_export"),
-            ("tsv", "scribe_data_tsv_export"),
+            ("csv", DEFAULT_CSV_EXPORT_DIR),
+            ("json", DEFAULT_JSON_EXPORT_DIR),
+            ("sqlite", DEFAULT_SQLITE_EXPORT_DIR),
+            ("tsv", DEFAULT_TSV_EXPORT_DIR),
         ]
 
         for output_type, expected_dir in test_cases:
             with patch("scribe_data.cli.get.query_data") as mock_query:
-                get_data(language="German", data_type="verbs", output_type=output_type)
+                get_data(
+                    languages=["German"], data_types=["verbs"], output_type=output_type
+                )
                 mock_query.assert_called_with(
                     languages=["German"],
-                    data_type=["verbs"],
+                    data_types=["verbs"],
                     output_dir=expected_dir,
                     overwrite=False,
                     interactive=False,
@@ -559,12 +579,11 @@ class TestGetData(unittest.TestCase):
         """
         mock_check_exists.return_value = False
 
-        get_data(language="English", data_type="nouns", interactive=True)
-
+        get_data(languages=["English"], data_types=["nouns"], interactive=True)
         mock_query_data.assert_called_once_with(
             languages=["English"],
-            data_type=["nouns"],
-            output_dir="scribe_data_json_export",
+            data_types=["nouns"],
+            output_dir=DEFAULT_JSON_EXPORT_DIR,
             overwrite=False,
             interactive=True,
         )
@@ -574,14 +593,15 @@ class TestGetData(unittest.TestCase):
         """
         Test retrieving data with a custom Wikidata dump path.
         """
-        custom_path = "./custom/dump/path.json"
-        get_data(language="English", data_type="nouns", wikidata_dump=custom_path)
-
+        custom_path = Path("./custom/dump/path.json")
+        get_data(
+            languages=["English"], data_types=["nouns"], wikidata_dump_path=custom_path
+        )
         mock_parse.assert_called_once_with(
-            language="English",
+            languages=["English"],
             wikidata_dump_type=["form"],
             data_types=["nouns"],
-            type_output_dir="scribe_data_json_export",
+            output_dir=DEFAULT_JSON_EXPORT_DIR,
             wikidata_dump_path=custom_path,
             overwrite_all=False,
         )
@@ -596,15 +616,15 @@ class TestGetData(unittest.TestCase):
 
         # Test with a single string containing multiple languages.
         get_data(
-            language="English Spanish",  # Space-separated languages
-            data_type="nouns",
+            languages=["English Spanish"],  # Space-separated languages
+            data_types=["nouns"],
         )
 
         # Verify query_data was called with first language only (per get.py implementation).
         mock_query_data.assert_called_once_with(
             languages=["English"],  # only first language is used
-            data_type=["nouns"],
-            output_dir="scribe_data_json_export",
+            data_types=["nouns"],
+            output_dir=DEFAULT_JSON_EXPORT_DIR,
             overwrite=False,
             interactive=False,
         )
@@ -617,7 +637,7 @@ class TestGetData(unittest.TestCase):
         mock_query_data.side_effect = ValueError("Invalid parameter")
 
         with pytest.raises(ValueError):
-            get_data(language="Invalid", data_type="nouns")
+            get_data(languages=["Invalid"], data_types=["nouns"])
 
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
     @patch("scribe_data.cli.get.questionary.confirm")
@@ -629,13 +649,12 @@ class TestGetData(unittest.TestCase):
         """
         mock_questionary.return_value.ask.return_value = False
 
-        get_data(all_bool=True, data_type="nouns")
-
+        get_data(all_bool=True, data_types=["nouns"])
         mock_parse.assert_called_once_with(
-            language="all",
+            languages=["all"],
             wikidata_dump_type=["form"],
             data_types=["nouns"],
-            type_output_dir="scribe_data_json_export",
+            output_dir=DEFAULT_JSON_EXPORT_DIR,
             wikidata_dump_path=None,
             overwrite_all=False,
         )
@@ -650,12 +669,11 @@ class TestGetData(unittest.TestCase):
         """
         mock_check_exists.return_value = False
 
-        get_data(language="English", data_type="NOUNS")
-
+        get_data(languages=["English"], data_types=["NOUNS"])
         mock_query_data.assert_called_once_with(
             languages=["English"],
-            data_type=["NOUNS"],
-            output_dir="scribe_data_json_export",
+            data_types=["NOUNS"],
+            output_dir=DEFAULT_JSON_EXPORT_DIR,
             overwrite=False,
             interactive=False,
         )

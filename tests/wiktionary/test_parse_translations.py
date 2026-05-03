@@ -489,20 +489,21 @@ english side
             tmp.write(dummy_xml_content)
             tmp_path = tmp.name
 
-        out_dir = Path(tempfile.mkdtemp())
+        output_dir = Path(tempfile.mkdtemp())
 
         try:
             parse_wiktionary_translations(
                 target_languages=["de"],
                 wiktionary_dump_path=tmp_path,
-                output_dir=str(out_dir),
+                output_dir=output_dir,
                 overwrite=True,
             )
-            self.assertTrue(out_dir.exists())
-            de_file = out_dir / "english" / "de_translations_from_en.json"
+            self.assertTrue(output_dir.exists())
+            de_file = output_dir / "english" / "de_translations_from_en.json"
             self.assertTrue(de_file.exists())
+
         finally:
-            shutil.rmtree(out_dir)
+            shutil.rmtree(output_dir)
             Path(tmp_path).unlink()
 
 

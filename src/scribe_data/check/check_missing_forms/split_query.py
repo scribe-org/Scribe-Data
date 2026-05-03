@@ -5,14 +5,15 @@ Split forms into groups of up to six forms per query based on identifiers.
 
 from collections import defaultdict
 from pathlib import Path
+from typing import Optional
 
 from scribe_data.check.check_missing_forms.generate_query import generate_query
 
 
 def split_group_by_identifier(
     language_entry: dict,
-    output_dir: str | Path,
-    sub_lang_iso_code: str | None = None,
+    output_dir: Path,
+    sub_lang_iso_code: Optional[str] = None,
 ) -> None:
     """
     Split forms into groups of up to six forms per query based on identifiers.
@@ -23,7 +24,7 @@ def split_group_by_identifier(
         Dictionary containing language data with missing features.
         Format: {language_qid: {data_type_qid: [features]}}.
 
-    output_dir : str or Path
+    output_dir : Path
         Directory where generated query files should be saved.
 
     sub_lang_iso_code : str, optional
@@ -111,7 +112,7 @@ def split_group_by_identifier(
 
                 # Call generate_query with the grouped features.
                 generate_query(
-                    group_entry,
-                    output_dir,
+                    missing_features=group_entry,
+                    query_dir=output_dir,
                     sub_lang_iso_code=sub_lang_iso_code,
                 )

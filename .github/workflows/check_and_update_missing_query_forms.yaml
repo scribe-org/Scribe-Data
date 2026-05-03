@@ -3,7 +3,7 @@ on:
   schedule:
     # Runs at 00:00 UTC on the first day of every month.
     - cron: "0 0 1 * *"
-  workflow_dispatch: # allow manual trigger
+  workflow_dispatch:
 
 jobs:
   check-repository:
@@ -45,7 +45,7 @@ jobs:
       - name: Generate Missing Features Data
         run: |
           # Set up paths
-          QUERY_DIR="$(pwd)/src/scribe_data/wikidata/language_data_extraction"
+          QUERY_DIR="$(pwd)/src/scribe_data/wikidata/queries"
 
           echo "Query directory: ${QUERY_DIR}"
 
@@ -64,7 +64,7 @@ jobs:
 
       - name: Make Changes
         run: |
-          git add src/scribe_data/wikidata/language_data_extraction/**/*.sparql
+          git add src/scribe_data/wikidata/queries/**/*.sparql
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
@@ -87,7 +87,8 @@ jobs:
 
       - name: Post-run Status
         if: failure()
-        run: echo "Generated SPARQL query forms or identifiers check failed. Please fix the reported errors."
+        run: echo "Generated SPARQL query forms or identifiers check failed. Please fix
+          the reported errors."
 
       - name: Generate PR Body
         id: pr-body
@@ -127,7 +128,6 @@ jobs:
           commit-message: "Chore: Update missing Wikidata query forms"
           committer: GitHub <noreply@github.com>
           author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-
       # # Debug step to verify PR creation attempt.
       # - name: Check PR Creation
       #   run: |

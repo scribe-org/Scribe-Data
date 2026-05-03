@@ -7,7 +7,7 @@ import bz2
 import time
 from collections import Counter, defaultdict
 from pathlib import Path
-from typing import List, Union
+from typing import Any, Dict, List, Optional, Union
 
 import orjson
 import questionary
@@ -47,9 +47,9 @@ class LexemeProcessor:
 
     def __init__(
         self,
-        target_lang: Union[str, List[str]] = None,
-        parse_type: List[str] = None,
-        data_types: List[str] = None,
+        target_lang: Union[str, List[str]] = "",
+        parse_type: List[str] = [""],
+        data_types: Union[str, List[str]] = [""],
     ) -> None:
         """
         Use to derive information on lexeme dump entries.
@@ -83,20 +83,24 @@ class LexemeProcessor:
         self.valid_iso_codes = set(self.iso_to_name.keys())
 
         # Separate data structures.
-        self.forms_index = defaultdict(lambda: defaultdict(list))
+        self.forms_index: Dict[str, Dict[str, Dict[str, Any]]] = defaultdict(
+            lambda: defaultdict(list)
+        )
 
         # Stats.
-        self.stats = {"processed_entries": 0, "processing_time": 0}
+        self.stats = {"processed_entries": 0, "processing_time": 0.0}
 
         # For "total" usage.
         self.lexical_category_counts = defaultdict(Counter)
-        self.forms_counts = defaultdict(Counter)
+        self.forms_counts: Dict[str, Counter] = defaultdict(Counter)
 
         # For "unique_forms" usage.
-        self.unique_forms = defaultdict(lambda: defaultdict(list))
+        self.unique_forms: Dict[str, Dict[str, List[Any]]] = defaultdict(
+            lambda: defaultdict(list)
+        )
 
         # Cache for feature labels.
-        self._feature_label_cache = {}
+        self._feature_label_cache: Dict[str, tuple[str, str]] = {}
         for category, items in lexeme_form_metadata.items():
             for item_data in items.values():
                 self._feature_label_cache[item_data["qid"]] = (
@@ -105,7 +109,7 @@ class LexemeProcessor:
                 )
 
         # Add a cache for form labels to reduce repeated function calls.
-        self._form_label_cache = {}
+        self._form_label_cache: Dict[tuple[str, ...], str] = {}
 
     # MARK: Build ISO Mapping
 
@@ -411,6 +415,7 @@ class LexemeProcessor:
                         if len(batch) >= batch_size:
                             self._process_batch(batch)
                             batch.clear()  # more efficient than creating new list
+
                         self.stats["processed_entries"] += 1
 
                 # Process remaining items.
@@ -435,14 +440,17 @@ class LexemeProcessor:
 
                     if new_file_path := wd_lexeme_dump_download_wrapper(
                         dump_snapshot="latest-lexemes",
-                        output_dir=str(Path(file_path).parent),
+                        output_dir=Path(file_path).parent,
                         default=True,
                     ):
-                        rprint(
-                            "[bold green]Successfully redownloaded the dump file.[/bold green]"
-                        )
-                        rprint("[bold blue]Retrying with the new file...[/bold blue]")
-                        return self.process_file(new_file_path, batch_size)
+                        if isinstance(new_file_path, str):
+                            rprint(
+                                "[bold green]Successfully redownloaded the dump file.[/bold green]"
+                            )
+                            rprint(
+                                "[bold blue]Retrying with the new file...[/bold blue]"
+                            )
+                            return self.process_file(new_file_path, batch_size)
 
             except Exception as e:
                 rprint(f"[bold red]Error during redownload: {e}[/bold red]")
@@ -477,7 +485,7 @@ class LexemeProcessor:
         """
         Print stats if parse_type == total.
         """
-        print(f"{'Language':<20} {'Data Type':<25} {'Total Lexemes':<25}")
+        print(f"{'Language':<20} {'Data Type':<25} {'Total Wikidata Lexemes':<25}")
         print("=" * 90)
         for lang, counts in self.lexical_category_counts.items():
             lang_name = self.iso_to_name[lang]
@@ -497,7 +505,10 @@ class LexemeProcessor:
     # MARK: Export Forms
 
     def export_forms_json(
-        self, filepath: str, language_iso: str = None, data_type: str = None
+        self,
+        filepath: str,
+        language_iso: str = "",
+        data_type: str = "",
     ) -> None:
         """
         Export grammatical forms to a JSON file with readable feature labels.
@@ -593,11 +604,11 @@ class LexemeProcessor:
 
 
 def parse_dump(
-    language: Union[str, List[str]] = None,
-    parse_type: List[str] = None,
-    data_types: List[str] = None,
-    file_path: str = "latest-lexemes.json.bz2",
-    output_dir: str = None,
+    languages: Union[str, List[str]] = "",
+    parse_type: List[str] = [""],
+    data_types: Optional[List[str]] = None,
+    file_path: Path = Path("latest-lexemes.json.bz2"),
+    output_dir: Optional[Path] = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     overwrite_all: bool = False,
 ) -> None:
     """
@@ -605,7 +616,7 @@ def parse_dump(
 
     Parameters
     ----------
-    language : str or list of str, optional
+    languages : str or list of str, optional
         Language(s) to parse data for. Must match language names in language_metadata.
 
     parse_type : list of str, optional
@@ -640,7 +651,6 @@ def parse_dump(
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     # Convert single strings to lists.
-    languages = [language] if isinstance(language, str) else language
     parse_type = parse_type or []
     data_types = data_types or []
 
@@ -660,6 +670,7 @@ def parse_dump(
                             if sub_lang == lang:
                                 main_lang = lang_name
                                 break
+
                     if main_lang:
                         break
 
@@ -700,7 +711,7 @@ def parse_dump(
     processor = LexemeProcessor(
         target_lang=languages, parse_type=parse_type, data_types=data_types
     )
-    processor.process_file(file_path)
+    processor.process_file(str(file_path))
 
     # MARK: Handle JSON Exports
 

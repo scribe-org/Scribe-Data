@@ -476,7 +476,7 @@ def main() -> None:
 
             else:
                 # Handle multiple languages and data types.
-                languages = None
+                languages = ""
                 if args.language is not None:
                     languages = (
                         [lang.lower() for lang in args.language]
@@ -484,7 +484,7 @@ def main() -> None:
                         else [args.language.lower()]
                     )
 
-                data_types = None
+                data_types = ""
                 if args.data_type is not None:
                     data_types = (
                         [dt.lower() for dt in args.data_type]
@@ -497,30 +497,30 @@ def main() -> None:
                     for language in languages:
                         for data_type in data_types:
                             get_data(
-                                language=language,
-                                data_type=data_type,
+                                languages=[language],
+                                data_types=[data_type],
                                 output_type=args.output_type,
                                 output_dir=args.output_dir,
                                 outputs_per_entry=args.outputs_per_entry,
                                 overwrite=args.overwrite,
                                 all_bool=args.all,
                                 identifier_case=args.identifier_case,
-                                wikidata_dump=args.wikidata_dump_path,
+                                wikidata_dump_path=args.wikidata_dump_path,
                                 wiktionary_dump=args.wiktionary_dump_path,
                             )
 
                 else:
                     # Handle case where only language or data_type is provided.
                     get_data(
-                        language=languages[0] if languages else None,
-                        data_type=data_types[0] if data_types else None,
+                        languages=languages or [""],
+                        data_types=data_types or [""],
                         output_type=args.output_type,
                         output_dir=args.output_dir,
                         outputs_per_entry=args.outputs_per_entry,
                         overwrite=args.overwrite,
                         all_bool=args.all,
                         identifier_case=args.identifier_case,
-                        wikidata_dump=args.wikidata_dump_path,
+                        wikidata_dump_path=args.wikidata_dump_path,
                         wiktionary_dump=args.wiktionary_dump_path,
                     )
 
@@ -530,12 +530,12 @@ def main() -> None:
 
             else:
                 total_wrapper(
-                    language=args.language.lower()
+                    languages=args.language.lower()
                     if args.language is not None
-                    else None,
-                    data_type=args.data_type.lower()
+                    else ["all"],
+                    data_types=args.data_type.lower()
                     if args.data_type is not None
-                    else None,
+                    else ["all"],
                     all_bool=args.all,
                     wikidata_dump=args.wikidata_dump_path,
                 )
@@ -565,9 +565,9 @@ def main() -> None:
             convert_wrapper(
                 languages=languages,
                 data_types=data_types,
-                output_type=args.output_type,
-                input_files=args.input_file,
+                input_path=args.input_file,
                 output_dir=args.output_dir,
+                output_type=args.output_type,
                 overwrite=args.overwrite,
                 identifier_case=args.identifier_case,
                 all=args.all,

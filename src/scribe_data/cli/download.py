@@ -7,7 +7,7 @@ import contextlib
 import os
 import re
 from collections.abc import Callable
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Optional
 
@@ -24,7 +24,7 @@ from scribe_data.utils import (
 )
 
 
-def parse_date(date_string: str) -> str | None:
+def parse_date(date_string: str) -> Optional[date]:
     """
     Parse a date string into a datetime.date object (formats: YYYYMMDD, YYYY/MM/DD, YYYY-MM-DD).
 
@@ -58,7 +58,7 @@ def available_closest_lexeme_dumpfile(
     target_entity: str,
     other_old_dumps: list,
     check_wd_dump_exists: Callable[[str], str | None],
-) -> str | None:
+) -> Optional[str]:
     """
     Find the closest available dump file based on the target date.
 
@@ -94,19 +94,22 @@ def available_closest_lexeme_dumpfile(
                 if check_wd_dump_exists(i):
                     available_dates.append(i)
                     current_date = parse_date(i)
-                    diff = abs((current_date - target_date).days)
+                    if current_date and target_date:
+                        diff = abs((current_date - target_date).days)
 
-                    if closest_diff is None or diff < closest_diff:
-                        closest_date = i
-                        closest_diff = diff
+                        if closest_diff is None or diff < closest_diff:
+                            closest_date = i
+                            closest_diff = diff
 
-                    if current_date >= target_date:
-                        break
+                        if current_date >= target_date:
+                            break
 
         return closest_date
 
 
-def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str | None:
+def download_wd_lexeme_dump(
+    target_entity: str = "latest-lexemes",
+) -> Optional[str]:
     """
     Download a Wikimedia lexeme dump based on the specified target entity or date.
 
@@ -126,7 +129,7 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str | None
     """
     base_url = "https://dumps.wikimedia.org/wikidatawiki/entities"
 
-    def check_wd_dump_exists(target_entity: str) -> str | None:
+    def check_wd_dump_exists(target_entity: str) -> Optional[str]:
         """
         Check if the specified dump file exists for a target entity.
 
@@ -176,21 +179,19 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str | None
                 return
 
             if other_old_dumps:
-                closest_date = available_closest_lexeme_dumpfile(
+                if closest_date := available_closest_lexeme_dumpfile(
                     target_entity, other_old_dumps, check_wd_dump_exists
-                )
-                print(
-                    f"\nClosest available older dumps(YYYYMMDD): {parse_date(closest_date)}"
-                )
-                fileurl = f"{closest_date}/wikidata-{closest_date}-lexemes.json.bz2"
+                ):
+                    print(
+                        f"\nClosest available older dumps(YYYYMMDD): {parse_date(closest_date)}"
+                    )
+                    fileurl = f"{closest_date}/wikidata-{closest_date}-lexemes.json.bz2"
 
-                if closest_date:
-                    return f"{base_url}/{fileurl}"
+                    if closest_date:
+                        return f"{base_url}/{fileurl}"
 
-                else:
-                    return
-
-            return other_old_dumps
+                    else:
+                        return
 
     try:
         response = requests.get(base_url, timeout=30)
@@ -206,9 +207,9 @@ def download_wd_lexeme_dump(target_entity: str = "latest-lexemes") -> str | None
 
 def wd_lexeme_dump_download_wrapper(
     dump_snapshot: Optional[str] = None,
-    output_dir: Optional[str] = None,
+    output_dir: Optional[Path] = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     default: bool = False,
-) -> str | bool | None:
+) -> Optional[Path | bool]:
     """
     Download Wikidata lexeme dumps given user preferences.
 
@@ -217,7 +218,7 @@ def wd_lexeme_dump_download_wrapper(
     dump_snapshot : str
         Optional date string in YYYYMMDD format for specific dumps.
 
-    output_dir : str
+    output_dir : Path
         Optional directory path for the downloaded file.
         Defaults to 'scribe_data_wikidata_dumps_export' directory.
 
@@ -227,7 +228,7 @@ def wd_lexeme_dump_download_wrapper(
 
     Returns
     -------
-    str or None
+    Path or None
         - If successful and a dump is downloaded, returns the file path to the downloaded dump.
         - If an existing usable dump is detected, returns the path to the existing dump.
         - Returns None if the user chooses not to proceed with the download or no valid dump URL is found.
@@ -246,10 +247,14 @@ def wd_lexeme_dump_download_wrapper(
 
         if not dump_url:
             rprint("[bold red]No dump URL found.[/bold red]")
-            return False
+            return None
 
         filename = dump_url.split("/")[-1]
-        output_path = str(Path(output_dir) / filename)
+        output_path = (
+            output_dir / filename
+            if output_dir
+            else DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR / filename
+        )
 
         # Use default parameter to bypass user confirmation.
         user_response = (
@@ -292,16 +297,16 @@ def wd_lexeme_dump_download_wrapper(
 
 
 def download_wiktionary_dumps(
-    output_dir: Optional[str] = DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
-    language_isos: Optional[list[str]] = ["en"],
+    output_dir: Path = DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
+    language_isos: list[str] = ["en"],
     dump_snapshot: Optional[str] = "latest",
-) -> Optional[str]:
+) -> Optional[Path]:
     """
     Download the latest Wiktionary pages-articles dump based on passed language isos.
 
     Parameters
     ----------
-    output_dir : str, optional, default=DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR
+    output_dir : Path, optional, default=DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR
         Directory to save the dump. Defaults to DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR.
 
     language_isos : list[str], optional, default=['en']
@@ -312,7 +317,7 @@ def download_wiktionary_dumps(
 
     Returns
     -------
-    str or None
+    Path
         Path to the downloaded file, or None if aborted/failed.
     """
     if isinstance(language_isos, str):
@@ -356,7 +361,7 @@ def download_wiktionary_dumps(
             rprint(f"[bold red]Invalid dump date or dump not found: {e}[/bold red]")
             return None
 
-        output_path = str(Path(output_dir) / filename)
+        output_path = output_dir / filename
 
         rprint(f"[bold blue]Downloading to {output_path}...[/bold blue]")
         try:

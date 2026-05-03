@@ -6,7 +6,7 @@ Functions to convert data returned from the Scribe-Data CLI to other file types.
 import csv
 import json
 from pathlib import Path
-from typing import List, Union
+from typing import List, Optional, Union
 
 from scribe_data.load.data_to_sqlite import data_to_sqlite
 from scribe_data.utils import (
@@ -22,10 +22,10 @@ from scribe_data.utils import (
 
 def convert_to_json(
     language: str,
-    data_type: Union[str, List[str]],
+    data_types: Union[str, List[str]],
+    input_file: Path,
+    output_dir: Path,
     output_type: str,
-    input_file: str,
-    output_dir: str = None,
     overwrite: bool = False,
     identifier_case: str = "camel",
 ) -> None:
@@ -37,17 +37,17 @@ def convert_to_json(
     language : str
         The language of the file to convert.
 
-    data_type : Union[str, List[str]]
+    data_types : Union[str, List[str]]
         The data type of the file to convert.
 
-    output_type : str
-        The output format, should be "json".
-
-    input_file : str
+    input_file : Path
         The input CSV/TSV file path.
 
     output_dir : Path
         The output directory path for results.
+
+    output_type : str
+        The output format, should be "json".
 
     overwrite : bool
         Whether to overwrite existing files.
@@ -63,7 +63,7 @@ def convert_to_json(
     if not language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
-    data_types = [data_type] if isinstance(data_type, str) else data_type
+    data_types = [data_types] if isinstance(data_types, str) else data_types
 
     if output_dir is None:
         output_dir = DEFAULT_JSON_EXPORT_DIR
@@ -72,26 +72,24 @@ def convert_to_json(
     json_output_dir.mkdir(parents=True, exist_ok=True)
 
     for dtype in data_types:
-        input_file_path = Path(input_file)
-
-        if not input_file_path.exists():
-            print(f"No data found for {dtype} conversion at '{input_file_path}'.")
+        if not input_file.exists():
+            print(f"No data found for {dtype} conversion at '{input_file}'.")
             continue
 
-        delimiter = {".csv": ",", ".tsv": "\t"}.get(input_file_path.suffix.lower())
+        delimiter = {".csv": ",", ".tsv": "\t"}.get(input_file.suffix.lower())
 
         if not delimiter:
             raise ValueError(
-                f"Unsupported file extension '{input_file_path.suffix}' for {input_file}. Please provide a '.csv' or '.tsv' file."
+                f"Unsupported file extension '{input_file.suffix}' for {str(input_file)}. Please provide a '.csv' or '.tsv' file."
             )
 
         try:
-            with input_file_path.open("r", encoding="utf-8") as file:
+            with input_file.open("r", encoding="utf-8") as file:
                 reader = csv.DictReader(file, delimiter=delimiter)
                 rows = list(reader)
 
                 if not rows:
-                    print(f"No data found in '{input_file_path}'.")
+                    print(f"No data found in '{input_file}'.")
                     continue
 
                 # Use the first row to inspect column headers.
@@ -119,11 +117,13 @@ def convert_to_json(
                     if all(col in first_row for col in ["emoji", "is_base", "rank"]):
                         # Handle Case: { key: [ { emoji: ..., is_base: ..., rank: ... }, { emoji: ..., is_base: ..., rank: ... } ] }.
                         for row in rows:
-                            if identifier_case == "snake":
-                                key = camel_to_snake(row.get(reader.fieldnames[0]))
+                            if reader.fieldnames and len(reader.fieldnames) > 0:
+                                if identifier_case == "snake":
+                                    raw_value = row.get(reader.fieldnames[0])
+                                    key = camel_to_snake(raw_value or "")
 
-                            else:
-                                key = row.get(reader.fieldnames[0])
+                                else:
+                                    key = row.get(reader.fieldnames[0])
 
                             emoji = row.get("emoji", "").strip()
                             is_base = (
@@ -152,7 +152,7 @@ def convert_to_json(
                             }
 
         except (IOError, csv.Error) as e:
-            print(f"Error reading '{input_file_path}': {e}")
+            print(f"Error reading '{input_file}': {e}")
             continue
 
         # Define output file path
@@ -178,10 +178,10 @@ def convert_to_json(
 
 def convert_to_csv_or_tsv(
     language: str,
-    data_type: Union[str, List[str]],
+    data_types: Union[str, List[str]],
+    input_file: Path,
+    output_dir: Path,
     output_type: str,
-    input_file: str,
-    output_dir: str = None,
     overwrite: bool = False,
     identifier_case: str = "camel",
 ) -> None:
@@ -193,17 +193,17 @@ def convert_to_csv_or_tsv(
     language : str
         The language of the file to convert.
 
-    data_type : Union[str, List[str]]
+    data_types : Union[str, List[str]]
         The data type of the file to convert.
+
+    input_file : Path
+        The input JSON file path.
+
+    output_dir : Path
+        The output directory path for results.
 
     output_type : str
         The output format, should be "csv" or "tsv".
-
-    input_file : str
-        The input JSON file path.
-
-    output_dir : str
-        The output directory path for results.
 
     overwrite : bool
         Whether to overwrite existing files.
@@ -219,17 +219,12 @@ def convert_to_csv_or_tsv(
     if not language:
         raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
 
-    if isinstance(data_type, str):
-        data_types = [data_type.strip()]
-
-    else:
-        data_types = [dtype.strip() for dtype in data_type]
+    data_types = [data_types] if isinstance(data_types, str) else data_types
 
     # Modify input file path to use the provided input_file or default JSON export path.
     input_file_path = (
-        Path(input_file)
-        if input_file
-        else Path(DEFAULT_JSON_EXPORT_DIR) / language.lower() / f"{data_types[0]}.json"
+        input_file
+        or DEFAULT_JSON_EXPORT_DIR / language.lower() / f"{data_types[0]}.json"
     )
 
     for dtype in data_types:
@@ -255,7 +250,7 @@ def convert_to_csv_or_tsv(
                 else DEFAULT_TSV_EXPORT_DIR
             )
 
-        final_output_dir = Path(output_dir) / language.capitalize()
+        final_output_dir = output_dir / language.capitalize()
         final_output_dir.mkdir(parents=True, exist_ok=True)
 
         output_file = final_output_dir / f"{dtype}.{output_type}"
@@ -267,14 +262,15 @@ def convert_to_csv_or_tsv(
         try:
             with output_file.open("w", newline="", encoding="utf-8") as file:
                 writer = csv.writer(file, delimiter=delimiter)
-                # Handle different JSON structures based on the format.
 
+                # Handle different JSON structures based on the format.
                 if isinstance(data, dict):
                     first_key = list(data.keys())[0]
 
-                    if isinstance(data[first_key], dict):
+                    first_val = next(iter(data.values())) if data else None
+                    if isinstance(first_val, dict):
                         # Handle case: { key: { value1: ..., value2: ... } }.
-                        columns = sorted(next(iter(data.values())).keys())
+                        columns = sorted(first_val.keys())
                         header = [
                             camel_to_snake(dtype[:-1])
                             if identifier_case == "snake"
@@ -372,11 +368,11 @@ def convert_to_csv_or_tsv(
 
 
 def convert_wrapper(
-    languages: Union[str, List[str]],
-    data_types: Union[str, List[str]],
+    languages: Optional[List[str]],
+    data_types: Optional[List[str]],
+    input_path: Path,
+    output_dir: Path,
     output_type: str,
-    input_files: Union[str, List[str]],
-    output_dir: str = None,
     overwrite: bool = False,
     identifier_case: str = "camel",
     all: bool = False,
@@ -386,28 +382,28 @@ def convert_wrapper(
 
     Parameters
     ----------
-    languages : Union[str, List[str]]
+    languages : Optional[List[str]]
         The language(s) of the data to convert.
 
-    data_types : Union[str, List[str]]
+    data_types : Optional[List[str]]
         The data type(s) of the data to convert.
+
+    input_path : Path
+        The path to the input file or directory.
+
+    output_dir : Path
+        The output directory where converted files will be stored.
 
     output_type : str
         The desired output format. Can be 'json', 'csv', 'tsv', or 'sqlite'.
 
-    input_files : Union[str, List[str]]
-        The path(s) to the input file(s).
-
-    output_dir : str
-        The output directory where converted files will be stored.
-
-    overwrite : bool, optional
+    overwrite : bool, optional (default=False)
         Whether to overwrite existing output files.
 
-    identifier_case : str, optional
-        The case format for identifiers. Default is "camel".
+    identifier_case : str, optional (default='camel')
+        The case format for identifiers.
 
-    all : bool, optional
+    all : bool, optional (default=False)
         Convert all languages and data types.
 
     Returns
@@ -415,26 +411,25 @@ def convert_wrapper(
     None
         This function does not return any value; it performs a conversion operation.
     """
-
     # Route the function call to the correct conversion function.
-    if output_type == "json":
+    if output_type == "json" and languages and data_types:
         convert_to_json(
-            language=languages,
-            data_type=data_types,
-            output_type=output_type,
-            input_file=input_files,
+            language=languages[0],  # only one language possible
+            data_types=data_types,
+            input_file=input_path,
             output_dir=output_dir,
+            output_type=output_type,
             overwrite=overwrite,
             identifier_case=identifier_case,
         )
 
-    elif output_type in {"csv", "tsv"}:
+    elif output_type in {"csv", "tsv"} and languages and data_types:
         convert_to_csv_or_tsv(
-            language=languages,
-            data_type=data_types,
-            output_type=output_type,
-            input_file=input_files,
+            language=languages[0],  # only one language possible
+            data_types=data_types,
+            input_file=input_path,
             output_dir=output_dir,
+            output_type=output_type,
             overwrite=overwrite,
             identifier_case=identifier_case,
         )
@@ -444,7 +439,7 @@ def convert_wrapper(
             languages=languages,
             specific_tables=data_types,
             identifier_case=identifier_case,
-            input_file=input_files,
+            input_file=input_path,
             output_file=output_dir,
             overwrite=overwrite,
         )

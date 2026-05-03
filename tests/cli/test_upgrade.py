@@ -5,7 +5,7 @@ Tests for the upgrade CLI functionality.
 
 import subprocess
 import sys
-from unittest.mock import call, patch, MagicMock
+from unittest.mock import MagicMock, call, patch
 
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import UNKNOWN_VERSION_NOT_FETCHED
@@ -61,7 +61,7 @@ class TestUpgradeCLI:
     @patch("scribe_data.cli.upgrade.get_local_version")
     @patch("scribe_data.cli.upgrade.get_latest_version")
     @patch("builtins.print")
-    def test_upgrade_cli_already_latest_version(
+    def test_upgrade_cli_suggest_latest_version(
         self,
         mock_print: MagicMock,
         mock_get_latest: MagicMock,

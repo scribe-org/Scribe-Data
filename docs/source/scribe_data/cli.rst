@@ -171,7 +171,7 @@ If we want to retrieve data using lexeme dumps, we can use the following command
 .. code-block:: text
 
     Languages to process: German
-    Data types to process: ['nouns']
+    Data types to process: nouns
     Existing dump files found:
       - scribe_data_wikidata_dumps_export/latest-lexemes.json.bz2
     ? Do you want to: (Use arrow keys)
@@ -287,9 +287,9 @@ Examples:
 
     $ scribe-data total --all
     Total lexemes for all languages and data types:
-    ==============================================
-    Language     Data Type     Total Lexemes
-    ==============================================
+    =================================================
+    Language     Data Type     Total Wikidata Lexemes
+    =================================================
     English      nouns         123,456
                  verbs         234,567
     ...
@@ -570,8 +570,8 @@ If user selects ``Configure total lexemes request``:
     Select languages (comma-separated or 'All'): english,basque
     Select data types (comma-separated or 'All'): nouns,adjectives
 
-    Language             Data Type                 Total Lexemes
-    ======================================================================
+    Language             Data Type                 Total Wikidata Lexemes
+    =====================================================================
     english              nouns                     123,456
                          adjectives                234,567
 
@@ -590,7 +590,7 @@ The command ``scribe-data total -lang english -wdp`` retrieves total lexeme and 
     ? Do you want to: Use existing latest dump
     We'll use the following lexeme dump scribe_data_wikidata_dumps_export/latest-lexemes.json.bz2
     Processing entries:  100%|████████████████████████████████████████████████████| 1406276/1406276 [15:25<00:14, 1495.97it/s]
-    Language             Data Type                 Total Lexemes             Total Translations
+    Language             Data Type                 Total Wikidata Lexemes    Total Translations
     ==========================================================================================
     english              nouns                     123,456                   12,345
                          adjectives                345,678                   2,345

@@ -118,13 +118,15 @@ class TestDownloadCLI(unittest.TestCase):
 
         # Mock DEFAULT_WIKIDATA_DUMP_EXPORT_DIR.
         with patch(
-            "scribe_data.cli.download.DEFAULT_WIKIDATA_DUMP_EXPORT_DIR",
-            new="test_export_dir",
+            "scribe_data.utils.DEFAULT_WIKIDATA_DUMP_EXPORT_DIR",
+            new=Path("test_export_dir"),
         ):
-            download_path = wd_lexeme_dump_download_wrapper()
+            download_path = wd_lexeme_dump_download_wrapper(
+                output_dir=Path("test_export_dir")
+            )
             self.assertIsNotNone(download_path, "Download path should not be None")
-            self.assertIn("latest-lexemes.json.bz2", download_path)
-            mock_makedirs.assert_called_with("test_export_dir", exist_ok=True)
+            self.assertIn("latest-lexemes.json.bz2", str(download_path))
+            mock_makedirs.assert_called_with(Path("test_export_dir"), exist_ok=True)
             mock_confirm.assert_called_once()
 
     @patch("scribe_data.utils.questionary.select")

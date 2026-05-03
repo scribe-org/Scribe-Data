@@ -7,7 +7,9 @@ import json
 import unittest
 from io import StringIO
 from pathlib import Path
-from unittest.mock import MagicMock, mock_open, patch
+from unittest.mock import MagicMock, patch
+
+import pytest
 
 from scribe_data.cli.convert import (
     convert_to_csv_or_tsv,
@@ -17,7 +19,7 @@ from scribe_data.cli.convert import (
 
 
 class TestConvert(unittest.TestCase):
-    # MARK: Helper Function
+    # MARK: Helper Functions
 
     def normalize_line_endings(self, data: str) -> str:
         """
@@ -36,6 +38,10 @@ class TestConvert(unittest.TestCase):
         """
         return data.replace("\r\n", "\n").replace("\r", "\n")
 
+    @pytest.fixture(autouse=True)
+    def _setup_fixtures(self, tmp_path):
+        self.tmp_path = tmp_path
+
     # MARK: JSON
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
@@ -52,37 +58,13 @@ class TestConvert(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             convert_to_json(
                 language="",
-                data_type="nouns",
+                data_types="nouns",
+                input_file=Path("input.csv"),
+                output_dir=Path("/output_dir"),
                 output_type="json",
-                input_file="input.csv",
-                output_dir="/output_dir",
                 overwrite=True,
             )
         self.assertIn("Language '' is not recognized.", str(context.exception))
-
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_with_input_file(self, mock_path: MagicMock) -> None:
-        csv_data = "key,value\na,1\nb,2"
-        mock_file = StringIO(csv_data)
-
-        mock_path_obj = MagicMock(spec=Path)
-        mock_path.return_value = mock_path_obj
-        mock_path_obj.suffix = ".csv"
-        mock_path_obj.exists.return_value = True
-        mock_path_obj.open.return_value.__enter__.return_value = mock_file
-
-        convert_to_json(
-            language="English",
-            data_type="nouns",
-            output_type="json",
-            input_file="test.csv",
-            output_dir="/output_dir",
-            overwrite=True,
-        )
-
-        mock_path_obj.exists.assert_called_once()
-
-        mock_path_obj.open.assert_called_once_with("r", encoding="utf-8")
 
     @patch("scribe_data.cli.convert.Path", autospec=True)
     def test_convert_to_json_supported_file_extension_csv(
@@ -97,10 +79,10 @@ class TestConvert(unittest.TestCase):
 
         convert_to_json(
             language="English",
-            data_type="nouns",
+            data_types="nouns",
+            input_file=Path("test.csv"),
+            output_dir=Path("/output_dir"),
             output_type="json",
-            input_file="test.csv",
-            output_dir="/output_dir",
             overwrite=True,
         )
 
@@ -117,447 +99,275 @@ class TestConvert(unittest.TestCase):
 
         convert_to_json(
             language="English",
-            data_type="nouns",
+            data_types="nouns",
+            input_file=Path("test.tsv"),
+            output_dir=Path("/output_dir"),
             output_type="json",
-            input_file="test.tsv",
-            output_dir="/output_dir",
             overwrite=True,
         )
 
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_unsupported_file_extension(
-        self, mock_path: MagicMock
-    ) -> None:
-        mock_path_obj = MagicMock(spec=Path)
-        mock_path.return_value = mock_path_obj
-
-        mock_path_obj.suffix = ".txt"
-        mock_path_obj.exists.return_value = True
+    def test_convert_to_json_unsupported_file_extension(self) -> None:
+        input_file = self.tmp_path / "test.txt"
+        input_file.write_text("Hello, world!", encoding="utf-8")
+        output_dir = self.tmp_path / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
 
         with self.assertRaises(ValueError) as context:
             convert_to_json(
                 language="English",
-                data_type="nouns",
+                data_types="nouns",
+                input_file=input_file,
+                output_dir=output_dir,
                 output_type="json",
-                input_file="test.txt",
-                output_dir="/output_dir",
                 overwrite=True,
             )
 
         self.assertIn("Unsupported file extension", str(context.exception))
         self.assertEqual(
             str(context.exception),
-            "Unsupported file extension '.txt' for test.txt. Please provide a '.csv' or '.tsv' file.",
+            f"Unsupported file extension '.txt' for {input_file}. Please provide a '.csv' or '.tsv' file.",
         )
 
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_standard_csv(self, mock_path_class: MagicMock) -> None:
+    # MARK: JSON
+
+    def test_convert_to_json_standard_csv(self) -> None:
         csv_data = "key,value\na,1\nb,2"
-        expected_json = {"a": "1", "b": "2"}
-        mock_file_obj = StringIO(csv_data)
+        expected_json_output = {"a": "1", "b": "2"}
 
-        mock_input_file_path = MagicMock(spec=Path)
-        mock_input_file_path.suffix = ".csv"
-        mock_input_file_path.exists.return_value = True
-        mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
+        input_file = self.tmp_path / "test.csv"
+        input_file.write_text(csv_data, encoding="utf-8")
+        output_dir = self.tmp_path / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-        mock_path_class.side_effect = lambda x: (
-            mock_input_file_path if x == "test.csv" else Path(x)
+        convert_to_json(
+            language="English",
+            data_types="nouns",
+            input_file=input_file,
+            output_dir=output_dir,
+            output_type="json",
+            overwrite=True,
         )
 
-        mocked_open = mock_open()
+        output_file = output_dir / "English" / "nouns.json"
+        with open(output_file, "r") as f:
+            actual_content = json.load(f)
 
-        with (
-            patch("pathlib.Path.open", mocked_open),
-            patch("pathlib.Path.mkdir") as mock_mkdir,
-        ):
-            mock_mkdir.return_value = None
-            convert_to_json(
-                language="English",
-                data_type="nouns",
-                output_type="json",
-                input_file="test.csv",
-                output_dir="/output_dir",
-                overwrite=True,
-            )
+        assert actual_content == expected_json_output
 
-        mocked_open.assert_called_once_with("w", encoding="utf-8")
-
-        mock_file_handle = mocked_open()
-        written_data = "".join(
-            call.args[0] for call in mock_file_handle.write.call_args_list
-        )
-
-        self.assertEqual(json.loads(written_data), expected_json)
-
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_with_multiple_keys(
-        self, mock_path_class: MagicMock
-    ) -> None:
+    def test_convert_to_json_with_multiple_keys(self) -> None:
         csv_data = "key,value1,value2\na,1,x\nb,2,y\nc,3,z"
-        expected_json = {
+        expected_json_output = {
             "a": {"value1": "1", "value2": "x"},
             "b": {"value1": "2", "value2": "y"},
             "c": {"value1": "3", "value2": "z"},
         }
-        mock_file_obj = StringIO(csv_data)
 
-        mock_input_file_path = MagicMock(spec=Path)
-        mock_input_file_path.suffix = ".csv"
-        mock_input_file_path.exists.return_value = True
-        mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
-        mock_path_class.side_effect = lambda x: (
-            mock_input_file_path if x == "test.csv" else Path(x)
+        input_file = self.tmp_path / "test.csv"
+        input_file.write_text(csv_data, encoding="utf-8")
+        output_dir = self.tmp_path / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        convert_to_json(
+            language="English",
+            data_types="nouns",
+            input_file=input_file,
+            output_dir=output_dir,
+            output_type="json",
+            overwrite=True,
         )
 
-        mocked_open = mock_open()
-        with (
-            patch("pathlib.Path.open", mocked_open),
-            patch("pathlib.Path.mkdir") as mock_mkdir,
-        ):
-            mock_mkdir.return_value = None
-            convert_to_json(
-                language="English",
-                data_type="nouns",
-                output_type="json",
-                input_file="test.csv",
-                output_dir="/output_dir",
-                overwrite=True,
-            )
+        output_file = output_dir / "English" / "nouns.json"
+        with open(output_file, "r") as f:
+            actual_content = json.load(f)
 
-        mock_file_handle = mocked_open()
-        written_data = "".join(
-            call.args[0] for call in mock_file_handle.write.call_args_list
-        )
-        self.assertEqual(json.loads(written_data), expected_json)
+        assert actual_content == expected_json_output
 
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_with_complex_structure(
-        self, mock_path_class: MagicMock
-    ) -> None:
+    def test_convert_to_json_with_complex_structure(self) -> None:
         csv_data = "key,emoji,is_base,rank\na,😀,true,1\nb,😅,false,2"
-        expected_json = {
+        expected_json_output = {
             "a": [{"emoji": "😀", "is_base": True, "rank": 1}],
             "b": [{"emoji": "😅", "is_base": False, "rank": 2}],
         }
-        mock_file_obj = StringIO(csv_data)
 
-        mock_input_file_path = MagicMock(spec=Path)
-        mock_input_file_path.suffix = ".csv"
-        mock_input_file_path.exists.return_value = True
-        mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
-        mock_path_class.side_effect = lambda x: (
-            mock_input_file_path if x == "test.csv" else Path(x)
+        input_file = self.tmp_path / "test.csv"
+        input_file.write_text(csv_data, encoding="utf-8")
+        output_dir = self.tmp_path / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        convert_to_json(
+            language="English",
+            data_types="nouns",
+            input_file=input_file,
+            output_dir=output_dir,
+            output_type="json",
+            overwrite=True,
         )
 
-        mocked_open = mock_open()
-        with (
-            patch("pathlib.Path.open", mocked_open),
-            patch("pathlib.Path.mkdir") as mock_mkdir,
-        ):
-            mock_mkdir.return_value = None
-            convert_to_json(
-                language="English",
-                data_type="nouns",
-                output_type="json",
-                input_file="test.csv",
-                output_dir="/output",
-                overwrite=True,
-            )
+        output_file = output_dir / "English" / "nouns.json"
+        with open(output_file, "r") as f:
+            actual_content = json.load(f)
 
-        mock_file_handle = mocked_open()
-        written_data = "".join(
-            call.args[0] for call in mock_file_handle.write.call_args_list
-        )
-        self.assertEqual(json.loads(written_data), expected_json)
+        assert actual_content == expected_json_output
 
     # MARK: CSV or TSV
 
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_json_empty_language(self, mock_path: MagicMock) -> None:
-        mock_path_obj = MagicMock(spec=Path)
-        mock_path.return_value = mock_path_obj
+    def test_convert_to_csv_or_json_empty_language(self) -> None:
+        json_data = '{"key1": "value1", "key2": "value2"}'
 
-        mock_path_obj.suffix = ".json"
-        mock_path_obj.exists.return_value = True
-
-        mock_json_data = json.dumps({"key1": "value1", "key2": "value2"})
-        mock_open_function = mock_open(read_data=mock_json_data)
-        mock_path_obj.open = mock_open_function
+        input_file = self.tmp_path / "test.json"
+        input_file.write_text(json_data, encoding="utf-8")
+        output_dir = self.tmp_path / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
 
         with self.assertRaises(ValueError) as context:
             convert_to_csv_or_tsv(
                 language="",
-                data_type="nouns",
+                data_types="nouns",
+                input_file=input_file,
+                output_dir=output_dir,
                 output_type="csv",
-                input_file="input.json",
-                output_dir="/output_dir",
                 overwrite=True,
             )
 
         self.assertEqual(str(context.exception), "Language '' is not recognized.")
 
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_tsv_standarddict_to_csv(
-        self, mock_path_class: MagicMock
-    ) -> None:
+    def test_convert_to_csv_or_tsv_standard_dict_to_csv(self) -> None:
         json_data = '{"a": "1", "b": "2"}'
         expected_csv_output = "preposition,value\na,1\nb,2\n"
 
-        mock_file_obj = StringIO(json_data)
+        input_file = self.tmp_path / "test.json"
+        input_file.write_text(json_data, encoding="utf-8")
+        output_dir = self.tmp_path / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-        mock_input_file_path = MagicMock(spec=Path)
-        mock_input_file_path.suffix = ".json"
-        mock_input_file_path.exists.return_value = True
-        mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
-        mock_path_class.side_effect = lambda x: (
-            mock_input_file_path if x == "test.json" else Path(x)
+        convert_to_csv_or_tsv(
+            language="English",
+            data_types="prepositions",
+            input_file=input_file,
+            output_dir=output_dir,
+            output_type="csv",
+            overwrite=True,
         )
 
-        mocked_open = mock_open()
+        output_file = output_dir / "English" / "prepositions.csv"
+        actual_content = output_file.read_text(encoding="utf-8")
+        assert actual_content == expected_csv_output
 
-        with (
-            patch("pathlib.Path.open", mocked_open),
-            patch("pathlib.Path.mkdir") as mock_mkdir,
-        ):
-            mock_mkdir.return_value = None
-
-            convert_to_csv_or_tsv(
-                language="English",
-                data_type="prepositions",
-                output_type="csv",
-                input_file="test.json",
-                output_dir="/output_dir",
-                overwrite=True,
-            )
-
-        mock_file_handle = mocked_open()
-        written_data = "".join(
-            call.args[0] for call in mock_file_handle.write.call_args_list
-        )
-
-        written_data = self.normalize_line_endings(written_data)
-        expected_csv_output = self.normalize_line_endings(expected_csv_output)
-
-        self.assertEqual(written_data, expected_csv_output)
-
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_tsv_standarddict_to_tsv(
-        self, mock_path_class: MagicMock
-    ) -> None:
+    def test_convert_to_csv_or_tsv_standard_dict_to_tsv(self) -> None:
         json_data = '{"a": "1", "b": "2"}'
-
         expected_tsv_output = "preposition\tvalue\na\t1\nb\t2\n"
 
-        mock_file_obj = StringIO(json_data)
+        input_file = self.tmp_path / "test.json"
+        input_file.write_text(json_data, encoding="utf-8")
+        output_dir = self.tmp_path / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-        mock_input_file_path = MagicMock(spec=Path)
-        mock_input_file_path.suffix = ".json"
-        mock_input_file_path.exists.return_value = True
-        mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
-        mock_path_class.side_effect = lambda x: (
-            mock_input_file_path if x == "test.json" else Path(x)
+        convert_to_csv_or_tsv(
+            language="English",
+            data_types="prepositions",
+            input_file=input_file,
+            output_dir=output_dir,
+            output_type="tsv",
+            overwrite=True,
         )
 
-        mocked_open = mock_open()
+        output_file = output_dir / "English" / "prepositions.tsv"
+        actual_content = output_file.read_text(encoding="utf-8")
+        assert actual_content == expected_tsv_output
 
-        with (
-            patch("pathlib.Path.open", mocked_open),
-            patch("pathlib.Path.mkdir") as mock_mkdir,
-        ):
-            mock_mkdir.return_value = None
-            convert_to_csv_or_tsv(
-                language="English",
-                data_type="prepositions",
-                output_type="tsv",
-                input_file="test.json",
-                output_dir="/output_dir",
-                overwrite=True,
-            )
-
-        mock_file_handle = mocked_open()
-        written_data = "".join(
-            call.args[0] for call in mock_file_handle.write.call_args_list
-        )
-
-        written_data = self.normalize_line_endings(written_data)
-        expected_tsv_output = self.normalize_line_endings(expected_tsv_output)
-
-        self.assertEqual(written_data, expected_tsv_output)
-
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_tsv_nesteddict_to_csv(
-        self, mock_path_class: MagicMock
-    ) -> None:
+    def test_convert_to_csv_or_tsv_nested_dict_to_csv(self) -> None:
         json_data = (
             '{"a": {"value1": "1", "value2": "x"}, "b": {"value1": "2", "value2": "y"}}'
         )
         expected_csv_output = "noun,value1,value2\na,1,x\nb,2,y\n"
-        mock_file_obj = StringIO(json_data)
 
-        mock_input_file_path = MagicMock(spec=Path)
-        mock_input_file_path.suffix = ".json"
-        mock_input_file_path.exists.return_value = True
-        mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
+        input_file = self.tmp_path / "test.json"
+        input_file.write_text(json_data, encoding="utf-8")
+        output_dir = self.tmp_path / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-        mock_path_class.side_effect = lambda x: (
-            mock_input_file_path if x == "test.json" else Path(x)
+        convert_to_csv_or_tsv(
+            language="English",
+            data_types="nouns",
+            input_file=input_file,
+            output_dir=output_dir,
+            output_type="csv",
+            overwrite=True,
         )
 
-        mocked_open = mock_open()
-        with (
-            patch("pathlib.Path.open", mocked_open),
-            patch("pathlib.Path.mkdir") as mock_mkdir,
-        ):
-            mock_mkdir.return_value = None
-            convert_to_csv_or_tsv(
-                language="English",
-                data_type="nouns",
-                output_type="csv",
-                input_file="test.json",
-                output_dir="/output_dir",
-                overwrite=True,
-            )
+        output_file = output_dir / "English" / "nouns.csv"
+        actual_content = output_file.read_text(encoding="utf-8")
+        assert actual_content == expected_csv_output
 
-        mock_file_handle = mocked_open()
-        written_data = "".join(
-            call.args[0] for call in mock_file_handle.write.call_args_list
-        )
-
-        written_data = self.normalize_line_endings(written_data)
-        expected_csv_output = self.normalize_line_endings(expected_csv_output)
-        self.assertEqual(written_data, expected_csv_output)
-
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_tsv_nesteddict_to_tsv(
-        self, mock_path_class: MagicMock
-    ) -> None:
+    def test_convert_to_csv_or_tsv_nested_dict_to_tsv(self) -> None:
         json_data = (
             '{"a": {"value1": "1", "value2": "x"}, "b": {"value1": "2", "value2": "y"}}'
         )
         expected_tsv_output = "noun\tvalue1\tvalue2\na\t1\tx\nb\t2\ty\n"
 
-        mock_file_obj = StringIO(json_data)
+        input_file = self.tmp_path / "test.json"
+        input_file.write_text(json_data, encoding="utf-8")
+        output_dir = self.tmp_path / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-        mock_input_file_path = MagicMock(spec=Path)
-        mock_input_file_path.suffix = ".json"
-        mock_input_file_path.exists.return_value = True
-        mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
-
-        mock_path_class.side_effect = lambda x: (
-            mock_input_file_path if x == "test.json" else Path(x)
+        convert_to_csv_or_tsv(
+            language="English",
+            data_types="nouns",
+            input_file=input_file,
+            output_dir=output_dir,
+            output_type="tsv",
+            overwrite=True,
         )
 
-        mocked_open = mock_open()
-        with (
-            patch("pathlib.Path.open", mocked_open),
-            patch("pathlib.Path.mkdir") as mock_mkdir,
-        ):
-            mock_mkdir.return_value = None
-            convert_to_csv_or_tsv(
-                language="English",
-                data_type="nouns",
-                output_type="tsv",
-                input_file="test.json",
-                output_dir="/output_dir",
-                overwrite=True,
-            )
+        output_file = output_dir / "English" / "nouns.tsv"
+        actual_content = output_file.read_text(encoding="utf-8")
+        assert actual_content == expected_tsv_output
 
-        mock_file_handle = mocked_open()
-        written_data = "".join(
-            call.args[0] for call in mock_file_handle.write.call_args_list
-        )
-
-        written_data = self.normalize_line_endings(written_data)
-        expected_tsv_output = self.normalize_line_endings(expected_tsv_output)
-
-        self.assertEqual(written_data, expected_tsv_output)
-
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_tsv_listofdicts_to_csv(
-        self, mock_path_class: MagicMock
-    ) -> None:
+    def test_convert_to_csv_or_tsv_list_of_dicts_to_csv(self) -> None:
         json_data = '{"a": [{"emoji": "😀", "is_base": true, "rank": 1}, {"emoji": "😅", "is_base": false, "rank": 2}]}'
         expected_csv_output = "word,emoji,is_base,rank\na,😀,True,1\na,😅,False,2\n"
-        mock_file_obj = StringIO(json_data)
 
-        mock_input_file_path = MagicMock(spec=Path)
-        mock_input_file_path.suffix = ".json"
-        mock_input_file_path.exists.return_value = True
-        mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
+        input_file = self.tmp_path / "test.json"
+        input_file.write_text(json_data, encoding="utf-8")
+        output_dir = self.tmp_path / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-        mock_path_class.side_effect = lambda x: (
-            mock_input_file_path if x == "test.json" else Path(x)
+        convert_to_csv_or_tsv(
+            language="English",
+            data_types="emoji-keywords",
+            input_file=input_file,
+            output_dir=output_dir,
+            output_type="csv",
+            overwrite=True,
         )
 
-        mocked_open = mock_open()
-        with (
-            patch("pathlib.Path.open", mocked_open),
-            patch("pathlib.Path.mkdir") as mock_mkdir,
-        ):
-            mock_mkdir.return_value = None
-            convert_to_csv_or_tsv(
-                language="English",
-                data_type="emoji-keywords",
-                output_type="csv",
-                input_file="test.json",
-                output_dir="/output_dir",
-                overwrite=True,
-            )
+        output_file = output_dir / "English" / "emoji-keywords.csv"
+        actual_content = output_file.read_text(encoding="utf-8")
+        assert actual_content == expected_csv_output
 
-        mock_file_handle = mocked_open()
-        written_data = "".join(
-            call.args[0] for call in mock_file_handle.write.call_args_list
-        )
-
-        written_data = self.normalize_line_endings(written_data)
-        expected_csv_output = self.normalize_line_endings(expected_csv_output)
-        self.assertEqual(written_data, expected_csv_output)
-
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_csv_or_tsv_listofdicts_to_tsv(
-        self, mock_path_class: MagicMock
-    ) -> None:
+    def test_convert_to_csv_or_tsv_list_of_dicts_to_tsv(self) -> None:
         json_data = '{"a": [{"emoji": "😀", "is_base": true, "rank": 1}, {"emoji": "😅", "is_base": false, "rank": 2}]}'
         expected_tsv_output = (
             "word\temoji\tis_base\trank\na\t😀\tTrue\t1\na\t😅\tFalse\t2\n"
         )
-        mock_file_obj = StringIO(json_data)
 
-        # Mock input file path.
-        mock_input_file_path = MagicMock(spec=Path)
-        mock_input_file_path.suffix = ".json"
-        mock_input_file_path.exists.return_value = True
-        mock_input_file_path.open.return_value.__enter__.return_value = mock_file_obj
+        input_file = self.tmp_path / "test.json"
+        input_file.write_text(json_data, encoding="utf-8")
+        output_dir = self.tmp_path / "output"
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-        mock_path_class.side_effect = lambda x: (
-            mock_input_file_path if x == "test.json" else Path(x)
+        convert_to_csv_or_tsv(
+            language="English",
+            data_types="emoji-keywords",
+            input_file=input_file,
+            output_dir=output_dir,
+            output_type="tsv",
+            overwrite=True,
         )
 
-        mocked_open = mock_open()
-        with (
-            patch("pathlib.Path.open", mocked_open),
-            patch("pathlib.Path.mkdir") as mock_mkdir,
-        ):
-            # Prevent actual directory creation
-            mock_mkdir.return_value = None
-            convert_to_csv_or_tsv(
-                language="English",
-                data_type="emoji-keywords",
-                output_type="tsv",
-                input_file="test.json",
-                output_dir="/output_dir",
-                overwrite=True,
-            )
-
-        mock_file_handle = mocked_open()
-        written_data = "".join(
-            call.args[0] for call in mock_file_handle.write.call_args_list
-        )
-
-        written_data = self.normalize_line_endings(written_data)
-        expected_tsv_output = self.normalize_line_endings(expected_tsv_output)
-        self.assertEqual(written_data, expected_tsv_output)
+        output_file = output_dir / "English" / "emoji-keywords.tsv"
+        actual_content = output_file.read_text(encoding="utf-8")
+        assert actual_content == expected_tsv_output
 
     # MARK: SQLITE
 
@@ -573,21 +383,21 @@ class TestConvert(unittest.TestCase):
         mock_path.return_value.exists.return_value = True
 
         convert_wrapper(
-            languages="english",
-            data_types="nouns",
-            input_files="file",
+            languages=["english"],
+            data_types=["nouns"],
+            input_path=Path("file"),
+            output_dir=Path("/output"),
             output_type="sqlite",
-            output_dir="/output",
             overwrite=True,
             identifier_case="camel",
         )
 
         mock_data_to_sqlite.assert_called_with(
-            languages="english",
-            specific_tables="nouns",
+            languages=["english"],
+            specific_tables=["nouns"],
             identifier_case="camel",
-            input_file="file",
-            output_file="/output",
+            input_file=Path("file"),
+            output_file=Path("/output"),
             overwrite=True,
         )
 
@@ -608,9 +418,9 @@ class TestConvert(unittest.TestCase):
         convert_wrapper(
             languages=["english"],
             data_types=["nouns"],
-            input_files=mock_input_file,
-            output_type="sqlite",
+            input_path=Path(mock_input_file),
             output_dir=None,
+            output_type="sqlite",
             overwrite=True,
             identifier_case="camel",
         )
@@ -619,7 +429,7 @@ class TestConvert(unittest.TestCase):
             languages=["english"],
             specific_tables=["nouns"],
             identifier_case="camel",
-            input_file=mock_input_file,
+            input_file=Path(mock_input_file),
             output_file=None,
             overwrite=True,
         )
@@ -627,11 +437,11 @@ class TestConvert(unittest.TestCase):
     def test_convert(self) -> None:
         with self.assertRaises(ValueError) as context:
             convert_wrapper(
-                languages="English",
-                data_types="nouns",
+                languages=["English"],
+                data_types=["nouns"],
+                input_path=Path("Data/ecode.csv"),
+                output_dir=Path("/output_dir"),
                 output_type="parquet",
-                input_files="Data/ecode.csv",
-                output_dir="/output_dir",
                 overwrite=True,
             )
 

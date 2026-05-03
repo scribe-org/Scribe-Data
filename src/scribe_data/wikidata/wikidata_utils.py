@@ -4,13 +4,17 @@ Utility functions for accessing data from Wikidata.
 """
 
 from pathlib import Path
-from typing import List, Union
+from typing import List, Optional
 
 from rich import print as rprint
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
 
 from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
-from scribe_data.utils import data_type_metadata, language_metadata
+from scribe_data.utils import (
+    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    data_type_metadata,
+    language_metadata,
+)
 from scribe_data.wikidata.parse_dump import parse_dump
 
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
@@ -19,11 +23,11 @@ sparql.setMethod(POST)
 
 
 def parse_wd_lexeme_dump(
-    language: Union[str, List[str]] = None,
-    wikidata_dump_type: List[str] = None,
-    data_types: List[str] = None,
-    type_output_dir: str = None,
-    wikidata_dump_path: str = None,
+    languages: List[str],
+    data_types: Optional[List[str]] = None,
+    wikidata_dump_type: List[str] = [""],
+    output_dir: Optional[Path] = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    wikidata_dump_path: Optional[Path] = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     overwrite_all: bool = False,
     interactive_mode: bool = False,
 ) -> None:
@@ -32,19 +36,19 @@ def parse_wd_lexeme_dump(
 
     Parameters
     ----------
-    language : Union[str, List[str]]
+    languages : Union[str, List[str]]
         The language(s) to parse the data for. Use "all" for all languages.
-
-    wikidata_dump_type : List[str]
-        The type(s) of Wikidata lexeme dump to parse (e.g. ["total", "form"]).
 
     data_types : List[str]
         The categories to parse when using "form" type (e.g. ["nouns", "adverbs"]).
 
-    type_output_dir : str, optional
+    wikidata_dump_type : List[str]
+        The type(s) of Wikidata lexeme dump to parse (e.g. ["total", "form"]).
+
+    output_dir : str, optional
         The directory to save the parsed JSON data. If None, uses default directory.
 
-    wikidata_dump_path : str, optional
+    wikidata_dump_path : Path
         The local Wikidata lexeme dump directory that should be used to get data.
 
     overwrite_all : bool, default=False
@@ -59,7 +63,7 @@ def parse_wd_lexeme_dump(
         A parsed Wikidata lexeme dump.
     """
     # Convert "all" to list of all languages including sub-languages.
-    if isinstance(language, str) and language.lower() == "all":
+    if languages == ["all"]:
         languages = []
         for main_lang, lang_data in language_metadata.items():
             # Add main language
@@ -68,10 +72,8 @@ def parse_wd_lexeme_dump(
             if "sub_languages" in lang_data:
                 languages.extend(iter(lang_data["sub_languages"]))
 
-        language = languages
-
     # For processing: exclude translations and emoji-keywords.
-    if isinstance(data_types, str) and data_types.lower() == "all":
+    if data_types == ["all"]:
         data_types = [
             dt
             for dt in data_type_metadata.keys()
@@ -79,15 +81,22 @@ def parse_wd_lexeme_dump(
         ]
 
     if not interactive_mode:
-        if isinstance(language, list):
-            print(f"Languages to process: {[lang.capitalize() for lang in language]}")
+        if isinstance(languages, list):
+            print(
+                f"Languages to process: {', '.join([lang.capitalize() for lang in languages])}"
+            )
 
         else:
-            print(f"Languages to process: {language.capitalize()}")
+            print(f"Language to process: {languages.capitalize()}")
 
-        print(f"Data types to process: {data_types}")
+        print(
+            f"Data types to process: {', '.join([d.capitalize() for d in data_types or []])}"
+        )
 
-    file_path = wd_lexeme_dump_download_wrapper(None, wikidata_dump_path)
+    file_path = wd_lexeme_dump_download_wrapper(
+        dump_snapshot=None,
+        output_dir=wikidata_dump_path,
+    )
 
     if isinstance(file_path, (str, Path)):
         path = Path(file_path)
@@ -97,11 +106,11 @@ def parse_wd_lexeme_dump(
                 file_path,
             )
             parse_dump(
-                language=language,
+                languages=languages,
                 parse_type=wikidata_dump_type,
                 data_types=data_types,
                 file_path=file_path,
-                output_dir=type_output_dir,
+                output_dir=output_dir,
                 overwrite_all=overwrite_all,
             )
             return

@@ -120,10 +120,10 @@ class TestScribeDataInteractive(unittest.TestCase):
             run_request()
 
             mock_get_data.assert_called_once_with(
-                language="english",
-                data_type="nouns",
+                languages=["english"],
+                data_types=["nouns"],
                 output_type=self.config.output_type,
-                output_dir=str(self.config.output_dir),
+                output_dir=self.config.output_dir,
                 overwrite=self.config.overwrite,
                 interactive=True,
             )
@@ -215,7 +215,7 @@ class TestScribeDataInteractive(unittest.TestCase):
 
         mock_parse_wiktionary.assert_called_once_with(
             target_languages=["english"],
-            wiktionary_dump_path=str(Path("/dump/path")),
-            output_dir=str(Path("/output/dir")),
+            wiktionary_dump_path=Path("/dump/path"),
+            output_dir=Path("/output/dir"),
             overwrite=False,
         )

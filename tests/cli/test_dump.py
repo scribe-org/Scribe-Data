@@ -7,6 +7,7 @@ from unittest.mock import MagicMock, mock_open, patch
 
 import pytest
 
+from scribe_data.utils import DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
 from scribe_data.wikidata.parse_dump import LexemeProcessor, parse_dump
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 
@@ -93,7 +94,7 @@ def test_parse_dump(mock_processor: MagicMock) -> None:
     Test the parse_dump function.
     """
     parse_dump(
-        language="english",
+        languages="english",
         parse_type=["translations"],
         data_types=["nouns"],
         file_path="test.json.bz2",
@@ -121,19 +122,19 @@ def test_parse_wd_lexeme_dump(
 
     # Test with specific language.
     parse_wd_lexeme_dump(
-        language="english",
-        wikidata_dump_type=["translations"],
+        languages=["english"],
         data_types=["nouns"],
+        wikidata_dump_type=["translations"],
         interactive_mode=False,
     )
 
     # Verify parse_dump was called with correct arguments.
     mock_parse_dump.assert_called_once_with(
-        language="english",
+        languages=["english"],
         parse_type=["translations"],
         data_types=["nouns"],
         file_path=str(test_file_path),
-        output_dir=None,
+        output_dir=DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
         overwrite_all=False,
     )
 
@@ -143,17 +144,17 @@ def test_parse_wd_lexeme_dump(
     mock_path_instance.exists.return_value = True
 
     parse_wd_lexeme_dump(
-        language="all",
-        wikidata_dump_type=["translations"],
+        languages=["all"],
         data_types=["nouns"],
+        wikidata_dump_type=["translations"],
         interactive_mode=False,
     )
 
     # Verify parse_dump was called with expanded language list.
     mock_parse_dump.assert_called_once()
     args, kwargs = mock_parse_dump.call_args
-    assert isinstance(kwargs["language"], list)
-    assert len(kwargs["language"]) > 0
+    assert isinstance(kwargs["languages"], list)
+    assert len(kwargs["languages"]) > 0
     assert kwargs["parse_type"] == ["translations"]
     assert kwargs["data_types"] == ["nouns"]
 
@@ -169,9 +170,9 @@ def test_parse_wd_lexeme_dump_no_file() -> None:
 
         # Should not raise an exception but return without calling parse_dump.
         result = parse_wd_lexeme_dump(
-            language="english",
-            wikidata_dump_type=["translations"],
+            languages=["english"],
             data_types=["nouns"],
+            wikidata_dump_type=["translations"],
         )
 
         assert result is None
