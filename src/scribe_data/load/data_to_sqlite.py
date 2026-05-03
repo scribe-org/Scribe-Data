@@ -25,7 +25,7 @@ from scribe_data.utils import (
 
 
 def create_table(
-    cursor: sqlite3.Cursor, identifier_case: str, data_type: str, cols: list[str]
+    cursor: sqlite3.Cursor, identifier_case: str, data_type: str, cols: List[str]
 ) -> None:
     """
     Create a table in the language database.
@@ -102,10 +102,10 @@ def translations_to_sqlite(
         A list of current languages.
     identifier_case : str, optional
         The identifier case. Default is "snake".
-    input_file : str, optional
-        The input JSON export directory (default=DEFAULT_JSON_EXPORT_DIR).
-    output_file : str, optional
-        The output SQLite export directory (default=DEFAULT_SQLITE_EXPORT_DIR).
+    input_file : str, optional, default=DEFAULT_JSON_EXPORT_DIR
+        The input JSON export directory.
+    output_file : str, optional, default=DEFAULT_SQLITE_EXPORT_DIR
+        The output SQLite export directory.
     overwrite : bool, optional
         If True, existing SQLite files will be overwritten without prompting.
     """
@@ -195,11 +195,11 @@ def wiktionary_translations_to_sqlite(
     identifier_case : str, optional
         Either "camel" or "snake" to determine column naming. Default is "snake".
 
-    input_file : str, optional
-        The input JSON export directory (default=DEFAULT_JSON_EXPORT_DIR).
+    input_file : str, optional, default=DEFAULT_JSON_EXPORT_DIR
+        The input JSON export directory.
 
-    output_file : str, optional
-        The output SQLite export directory (default=DEFAULT_SQLITE_EXPORT_DIR).
+    output_file : str, optional, default=DEFAULT_SQLITE_EXPORT_DIR
+        The output SQLite export directory.
 
     overwrite : bool, optional
         If True, existing SQLite files will be overwritten without prompting.
@@ -296,14 +296,14 @@ def data_to_sqlite(
     specific_tables : Optional[Union[str, List[str]]]
         The specific tables to process. If None, process all tables.
 
-    identifier_case : str, optional (default='camel')
+    identifier_case : str, optional, default='camel'
         Format of the identifiers ("camel" or "snake"). Defaults to "camel".
 
-    input_file : str, optional
-        The input JSON export directory (default=DEFAULT_JSON_EXPORT_DIR).
+    input_file : str, optional, default=DEFAULT_JSON_EXPORT_DIR
+        The input JSON export directory.
 
-    output_file : str, optional
-        The output SQLite export directory (default=DEFAULT_SQLITE_EXPORT_DIR).
+    output_file : str, optional, default=DEFAULT_SQLITE_EXPORT_DIR
+        The output SQLite export directory.
 
     overwrite : bool, optional
         If set to True, existing SQLite files will be overwritten without prompting.

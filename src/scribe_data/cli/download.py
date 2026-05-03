@@ -9,7 +9,7 @@ import re
 from collections.abc import Callable
 from datetime import date, datetime
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 import questionary
 import requests
@@ -298,7 +298,7 @@ def wd_lexeme_dump_download_wrapper(
 
 def download_wiktionary_dumps(
     output_dir: Path = DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
-    language_isos: list[str] = ["en"],
+    language_isos: List[str] = ["en"],
     dump_snapshot: Optional[str] = "latest",
 ) -> Optional[Path]:
     """
@@ -309,7 +309,7 @@ def download_wiktionary_dumps(
     output_dir : Path, optional, default=DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR
         Directory to save the dump. Defaults to DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR.
 
-    language_isos : list[str], optional, default=['en']
+    language_isos : List[str], optional, default=['en']
         A list of ISO-2 codes for desired Wiktionary dumps.
 
     dump_snapshot : str, optional, default='latest'

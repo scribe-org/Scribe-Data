@@ -1178,7 +1178,7 @@ def parse_wiktionary_translations(
     wiktionary_dump_path : str or Path, optional
         Path to a ``*wiktionary-*-pages-articles.xml.bz2`` dump file.
 
-    output_dir : Path, optional (default=DEFAULT_WIKTIONARY_JSON_EXPORT_DIR)
+    output_dir : Path, optional, default=DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
         Directory where JSON files are saved.
 
     overwrite : bool, default ``False``

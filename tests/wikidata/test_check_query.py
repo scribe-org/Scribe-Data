@@ -7,7 +7,7 @@ import argparse
 import re
 from http import HTTPStatus
 from pathlib import Path
-from typing import Any
+from typing import Any, List
 from unittest.mock import MagicMock, mock_open, patch
 from urllib.error import HTTPError
 
@@ -163,7 +163,7 @@ def test_check_sparql_file_not_sparql_extension(_: MagicMock) -> None:
 )
 @patch("subprocess.run")
 def test_changed_queries(
-    mock_run: MagicMock, git_status: str, expected: list[Any]
+    mock_run: MagicMock, git_status: str, expected: List[Any]
 ) -> None:
     mock_result = MagicMock()
     mock_result.configure_mock(**{"returncode": 0, "stdout": git_status})
@@ -208,7 +208,7 @@ def test_changed_queries_failure(
         ),
     ],
 )
-def test_all_queries(tree: list[Any], expected: list[Any]) -> None:
+def test_all_queries(tree: List[Any], expected: List[Any]) -> None:
     with patch("os.walk") as mock_walk:
         mock_walk.return_value = tree
 
@@ -304,7 +304,7 @@ def test_main_help(arg: str) -> None:
         ["-c", "-f", "-a"],
     ],
 )
-def test_main_mutex_opts(args: list[str]) -> None:
+def test_main_mutex_opts(args: List[str]) -> None:
     """
     Some options cannot be used together.
     """
@@ -366,7 +366,7 @@ def test_success_report_no_success_display_set(capsys: pytest.CaptureFixture) ->
     [[], [(a_query, {"a": 23})], [(a_query, {"a": 23}), (a_query, {"b": 53})]],
 )
 def test_success_report_display_not_set(
-    successes: list[Any], capsys: pytest.CaptureFixture
+    successes: List[Any], capsys: pytest.CaptureFixture
 ) -> None:
     success_report(successes, display=False)
     out = capsys.readouterr().out

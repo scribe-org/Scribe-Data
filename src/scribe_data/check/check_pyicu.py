@@ -13,7 +13,7 @@ import platform
 import subprocess
 import sys
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 import questionary
 import requests
@@ -55,7 +55,7 @@ def get_python_version_and_architecture() -> tuple[str, str]:
     return python_version, architecture
 
 
-def fetch_wheel_releases() -> tuple[list[tuple[str, str]], float]:
+def fetch_wheel_releases() -> tuple[List[tuple[str, str]], float]:
     """
     Fetch the release data for PyICU from GitHub with error handling for rate limits.
 
@@ -114,7 +114,7 @@ def download_wheel_file(wheel_url: str, output_dir: Path) -> str:
 
 
 def find_matching_wheel(
-    wheels: list[tuple[str, str]], python_version: str, architecture: str
+    wheels: List[tuple[str, str]], python_version: str, architecture: str
 ) -> Optional[str]:
     """
     Find the matching wheel file based on Python version and architecture.

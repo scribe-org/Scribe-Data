@@ -48,10 +48,10 @@ def get_data(
 
     Parameters
     ----------
-    languages : list[str]
+    languages : List[str]
         The language(s) to get.
 
-    data_types : list[str]
+    data_types : List[str]
         The data type(s) to get.
 
     output_type : str
@@ -60,7 +60,7 @@ def get_data(
     output_dir : Path
         The output directory path for results.
 
-    overwrite : bool (default: False)
+    overwrite : bool, default=False
         Whether to overwrite existing files.
 
     outputs_per_entry : str
@@ -69,7 +69,7 @@ def get_data(
     all_bool : bool
         Get all languages and data types.
 
-    interactive : bool (default: False)
+    interactive : bool, default: False
         Whether it's running in interactive mode.
 
     identifier_case : str

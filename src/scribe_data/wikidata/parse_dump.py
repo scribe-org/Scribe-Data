@@ -33,15 +33,15 @@ class LexemeProcessor:
 
         Parameters
         ----------
-        target_lang : str, list[str]
+        target_lang : str, List[str]
             The language or languages to process lexemes for.
 
-        parse_type : list[str]
+        parse_type : List[str]
             Can be any combination of:
                 - 'form'
                 - 'total'
 
-        data_types : list[str]
+        data_types : List[str]
             A list of categories (e.g., ["nouns", "adverbs"]) for forms.
     """
 
@@ -56,15 +56,15 @@ class LexemeProcessor:
 
         Parameters
         ----------
-        target_lang : str, list[str]
+        target_lang : str, List[str]
             The language or languages to process lexemes for.
 
-        parse_type : list[str]
+        parse_type : List[str]
             Can be any combination of:
                 - 'form'
                 - 'total'
 
-        data_types : list[str]
+        data_types : List[str]
             A list of categories (e.g., ["nouns", "adverbs"]) for forms.
         """
         # Pre-compute sets for faster lookups.
