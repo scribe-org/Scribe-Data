@@ -430,7 +430,7 @@ class TestConvert(unittest.TestCase):
             specific_tables=["nouns"],
             identifier_case="camel",
             input_file=Path(mock_input_file),
-            output_file=None,
+            output_file=Path("scribe_data_sqlite_export"),
             overwrite=True,
         )
 
