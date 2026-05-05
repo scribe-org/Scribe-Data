@@ -15,8 +15,10 @@ from scribe_data.utils import export_formatted_data, get_language_iso
 
 DATA_TYPE = "emoji-keywords"
 EMOJI_KEYWORDS_DICT = 9
+
+
 def generate_emoji(language: str, output_dir: Path = Path("")) -> None:
- """
+    """
     Generate emoji keywords for a specified language.
 
     This function first checks and installs the PyICU package, which is necessary for the script to run.
@@ -54,7 +56,11 @@ def generate_emoji(language: str, output_dir: Path = Path("")) -> None:
             )
             return
 
-        updated_path = output_dir[2:] if output_dir.startswith("./") else output_dir
+        updated_path = (
+            Path(str(output_dir)[2:])
+            if str(output_dir).startswith("./")
+            else output_dir
+        )
         export_dir = Path(updated_path) / language.capitalize()
         export_dir.mkdir(parents=True, exist_ok=True)
 
