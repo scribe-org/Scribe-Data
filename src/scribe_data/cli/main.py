@@ -270,6 +270,7 @@ def main() -> None:
         "--input-file",
         type=Path,
         required=False,
+        default=None,
         help="The path to the input file to convert.",
     )
     convert_parser.add_argument(
@@ -284,6 +285,7 @@ def main() -> None:
         "-od",
         "--output-dir",
         type=str,
+        default=None,
         help="The directory where the output file will be saved.",
     )
     convert_parser.add_argument(
