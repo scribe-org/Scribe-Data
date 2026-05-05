@@ -7,9 +7,7 @@ import re
 from collections import defaultdict
 
 from scribe_data.utils import (
-    LANGUAGE_DATA_EXTRACTION_DIR as language_data_extraction,
-)
-from scribe_data.utils import (
+    WIKIDATA_QUERIES_ALL_DATA_DIR,
     language_metadata,
 )
 
@@ -32,11 +30,11 @@ def parse_sparql_files() -> dict:
 
     Notes
     -----
-    Recursively searches through language_data_extraction directory
+    Recursively searches through WIKIDATA_QUERIES_ALL_DATA_DIR directory
     for .sparql files and accumulates all form information.
     """
     all_forms = defaultdict(lambda: defaultdict(list))
-    for sub_sub_file in language_data_extraction.rglob("*.sparql"):
+    for sub_sub_file in WIKIDATA_QUERIES_ALL_DATA_DIR.rglob("*.sparql"):
         with open(sub_sub_file, "r", encoding="utf-8") as query_text:
             result = parse_sparql_query(query_text.read())
 

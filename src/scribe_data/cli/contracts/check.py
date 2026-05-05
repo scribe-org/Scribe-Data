@@ -8,18 +8,18 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from scribe_data.cli.contracts.filter import (
+    DEFAULT_DATA_CONTRACTS_DIR,
     DEFAULT_JSON_EXPORT_DIR,
     filter_contract_metadata,
-    scribe_data_contracts,
 )
 from scribe_data.utils import get_language_from_iso, get_language_iso
 
-data_contracts_lang = [
-    f.stem for f in Path(scribe_data_contracts).iterdir() if f.is_file()
+data_contracts_langs = [
+    f.stem for f in DEFAULT_DATA_CONTRACTS_DIR.iterdir() if f.is_file()
 ]
 
-for i in range(len(data_contracts_lang)):
-    data_contracts_lang[i] = get_language_from_iso(data_contracts_lang[i])
+for i in range(len(data_contracts_langs)):
+    data_contracts_langs[i] = get_language_from_iso(data_contracts_langs[i])
 
 
 def check_contracts(output_dir: Optional[str] = None) -> None:
@@ -92,13 +92,13 @@ def check_contract_data_completeness(
 
     else:
         languages_to_check = [
-            Path(f).stem.lower() for f in scribe_data_contracts.glob("*.yaml")
+            Path(f).stem.lower() for f in DEFAULT_DATA_CONTRACTS_DIR.glob("*.yaml")
         ]
 
     languages_to_check = [
         lang
         for lang in languages_to_check
-        if lang.lower() in [lang_item.lower() for lang_item in data_contracts_lang]
+        if lang.lower() in [lang_item.lower() for lang_item in data_contracts_langs]
     ]
 
     missing_forms = {}
@@ -108,7 +108,7 @@ def check_contract_data_completeness(
         # Get ISO code and contract file.
         try:
             iso_code = get_language_iso(lang.lower())
-            contract_file = scribe_data_contracts / f"{iso_code.lower()}.yaml"
+            contract_file = DEFAULT_DATA_CONTRACTS_DIR / f"{iso_code.lower()}.yaml"
 
             if not contract_file.exists():
                 print(f"Warning: No contract file found for {lang}")

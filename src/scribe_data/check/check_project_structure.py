@@ -8,9 +8,10 @@ Examples
 """
 
 import os
+from typing import Optional
 
 from scribe_data.utils import (
-    LANGUAGE_DATA_EXTRACTION_DIR,
+    WIKIDATA_QUERIES_ALL_DATA_DIR,
     data_type_metadata,
     language_metadata,
 )
@@ -29,7 +30,7 @@ def check_for_sparql_files(
     folder_path: str,
     data_type: str,
     language: str,
-    subdir: str | None,
+    subdir: Optional[str],
     missing_queries: list,
 ) -> bool:
     """
@@ -72,7 +73,7 @@ def check_for_sparql_files(
 def check_data_type_folders(
     path: str,
     language: str,
-    subdir: str | None,
+    subdir: Optional[str],
     errors: list,
     missing_folders: list,
     missing_queries: list,
@@ -162,21 +163,21 @@ def check_project_structure() -> None:
     missing_folders = []
     missing_queries = []
 
-    if not os.path.exists(LANGUAGE_DATA_EXTRACTION_DIR):
-        print(f"Error: Base directory '{LANGUAGE_DATA_EXTRACTION_DIR}' does not exist.")
+    if not os.path.exists(WIKIDATA_QUERIES_ALL_DATA_DIR):
+        print(
+            f"Error: Base directory '{WIKIDATA_QUERIES_ALL_DATA_DIR}' does not exist."
+        )
         exit(1)
 
-    # Check for unexpected files in LANGUAGE_DATA_EXTRACTION_DIR.
-    for item in os.listdir(LANGUAGE_DATA_EXTRACTION_DIR):
-        item_path = os.path.join(LANGUAGE_DATA_EXTRACTION_DIR, item)
+    # Check for unexpected files in WIKIDATA_QUERIES_ALL_DATA_DIR.
+    for item in os.listdir(WIKIDATA_QUERIES_ALL_DATA_DIR):
+        item_path = os.path.join(WIKIDATA_QUERIES_ALL_DATA_DIR, item)
         if os.path.isfile(item_path) and item != "__init__.py":
-            errors.append(
-                f"Unexpected file found in the 'language_data_extraction' files: {item}"
-            )
+            errors.append(f"Unexpected file found in the 'queries' files: {item}")
 
     # Iterate through the language directories.
-    for language in os.listdir(LANGUAGE_DATA_EXTRACTION_DIR):
-        language_path = os.path.join(LANGUAGE_DATA_EXTRACTION_DIR, language)
+    for language in os.listdir(WIKIDATA_QUERIES_ALL_DATA_DIR):
+        language_path = os.path.join(WIKIDATA_QUERIES_ALL_DATA_DIR, language)
 
         if not os.path.isdir(language_path) or language == "__init__.py":
             continue

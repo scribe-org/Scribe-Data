@@ -1,0 +1,45 @@
+lang_header_pattern: \{\{-pt-\}\}
+lang_header_level: 1
+prefilters:
+- tradini
+- '{{trad|'
+- '{{t|'
+- '{{T|'
+ignored_prefixes:
+- 'ver:'
+- 'ver '
+- 'veja:'
+- 'veja '
+- 'cf.'
+- 'cfr.'
+- 'comparar:'
+- 'comparar '
+ignored_strings:
+- sem equivalente
+- falta tradução
+- tradução pendente
+pos_map:
+  substantivo: noun
+  verbo: verb
+  adjetivo: adjective
+  advérbio: adverb
+  preposição: preposition
+  conjunção: conjunction
+  interjeição: interjection
+  pronome: pronoun
+  numeral: numeral
+  nome próprio: proper_noun
+  artigo: determiner
+  locução substantiva: phrase
+  locução adjetiva: phrase
+  locução verbal: phrase
+template_top:
+- tradini
+template_bottom: tradfim
+template_translation:
+- trad
+- t
+- t+
+- t-check
+- tt
+- tt+

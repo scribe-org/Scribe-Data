@@ -15,9 +15,11 @@ from scribe_data.utils import export_formatted_data, get_language_iso
 
 DATA_TYPE = "emoji-keywords"
 EMOJI_KEYWORDS_DICT = 9
-
-
-def generate_emoji(language: str, output_dir: str | None = None) -> None:
+<<<<<<< HEAD
+def generate_emoji(language: str, output_dir: Path = Path("")) -> None:
+=======
+def generate_emoji(language: str, output_dir: Path = Path("")) -> None:
+>>>>>>> upstream/main
     """
     Generate emoji keywords for a specified language.
 

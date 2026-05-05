@@ -5,6 +5,7 @@ Functions for running SPARQL queries within the query check process.
 
 import math
 import time
+from typing import Any
 from urllib.error import HTTPError
 
 import SPARQLWrapper as SPARQL
@@ -38,7 +39,7 @@ def sparql_context(url: str) -> SPARQL.SPARQLWrapper:
 
 def execute(
     query: QueryFile, limit: int, context: SPARQL.SPARQLWrapper, tries: int = 3
-) -> dict:
+) -> Any:
     """
     Execute a SPARQL query in a given context.
 

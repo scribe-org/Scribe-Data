@@ -4,9 +4,9 @@ Tests for the contract checking functionality in the CLI.
 """
 
 import json
-from unittest.mock import patch, MagicMock
 from pathlib import Path
 from typing import Any
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -122,7 +122,7 @@ def test_check_contracts_nonexistent_dir(mock_path: MagicMock) -> None:
         assert "does not exist" in mock_print.call_args[0][0]
 
 
-@patch("scribe_data.cli.contracts.check.data_contracts_lang", ["English"])
+@patch("scribe_data.cli.contracts.check.data_contracts_langs", ["English"])
 @patch("scribe_data.cli.contracts.check.get_language_iso")
 @patch("scribe_data.cli.contracts.check.filter_contract_metadata")
 def test_check_contract_data_completeness_json_error(

@@ -4,12 +4,18 @@ Tests for the contract filter functionality in the CLI.
 """
 
 from pathlib import Path
-from unittest.mock import call, mock_open, patch, MagicMock
+from typing import List
+from unittest.mock import MagicMock, call, mock_open, patch
 
 from scribe_data.cli.contracts.filter import (
     export_data_filtered_by_contracts,
     filter_contract_metadata,
     filter_exported_data,
+)
+from scribe_data.utils import (
+    DEFAULT_DATA_CONTRACTS_DIR,
+    DEFAULT_FILTERED_JSON_EXPORT_DIR,
+    DEFAULT_JSON_EXPORT_DIR,
 )
 
 
@@ -301,7 +307,7 @@ class TestExportContracts:
             mock_filtered_verbs,
         ] * 2  # for both languages
 
-        def mock_path_glob(self: Path, pattern: str) -> list[Path]:
+        def mock_path_glob(self: Path, pattern: str) -> List[Path]:
             """
             Mock glob method that returns files based on the path.
             """
@@ -323,7 +329,9 @@ class TestExportContracts:
         with patch.object(Path, "glob", mock_path_glob):
             # Call the function.
             export_data_filtered_by_contracts(
-                input_dir="test_input", output_dir="test_output"
+                contracts_dir=DEFAULT_DATA_CONTRACTS_DIR,
+                input_dir="test_input",
+                output_dir="test_output",
             )
 
         assert mock_mkdir.call_count >= 3  # main dir + 2 language dirs
@@ -368,7 +376,11 @@ class TestExportContracts:
         mock_get_language.return_value = None
 
         with patch("builtins.print") as mock_print:
-            export_data_filtered_by_contracts()
+            export_data_filtered_by_contracts(
+                contracts_dir=DEFAULT_DATA_CONTRACTS_DIR,
+                input_dir=DEFAULT_JSON_EXPORT_DIR,
+                output_dir=DEFAULT_FILTERED_JSON_EXPORT_DIR,
+            )
 
             # Verify warning was printed.
             mock_print.assert_called_with(
@@ -403,7 +415,11 @@ class TestExportContracts:
         }
 
         with patch("builtins.print") as mock_print:
-            export_data_filtered_by_contracts()
+            export_data_filtered_by_contracts(
+                contracts_dir=DEFAULT_DATA_CONTRACTS_DIR,
+                input_dir=DEFAULT_JSON_EXPORT_DIR,
+                output_dir=DEFAULT_FILTERED_JSON_EXPORT_DIR,
+            )
 
             # Verify warning was printed - expects "No input directory found for English".
             assert mock_print.call_count >= 1
@@ -427,7 +443,11 @@ class TestExportContracts:
         mock_get_language.return_value = "English"
         mock_filter_metadata.return_value = {}
 
-        export_data_filtered_by_contracts()
+        export_data_filtered_by_contracts(
+            contracts_dir=DEFAULT_DATA_CONTRACTS_DIR,
+            input_dir=DEFAULT_JSON_EXPORT_DIR,
+            output_dir=DEFAULT_FILTERED_JSON_EXPORT_DIR,
+        )
 
         # Verify no further processing happens when metadata is empty.
         mock_filter_metadata.assert_called_once()
