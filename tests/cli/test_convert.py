@@ -430,8 +430,57 @@ class TestConvert(unittest.TestCase):
             specific_tables=["nouns"],
             identifier_case="camel",
             input_file=Path(mock_input_file),
-            output_file=None,
+            output_file=Path("scribe_data_sqlite_export"),
             overwrite=True,
+        )
+
+    @patch("scribe_data.cli.convert.data_to_sqlite", autospec=True)
+    def test_convert_wrapper_german_wiktionary_translations_sqlite(
+        self, mock_data_to_sqlite: MagicMock
+    ) -> None:
+        convert_wrapper(
+            languages=["german"],
+            data_types=["wiktionary_translations"],
+            input_path=Path("/input"),
+            output_dir=Path("/output"),
+            output_type="sqlite",
+            overwrite=False,
+            identifier_case="camel",
+        )
+
+        mock_data_to_sqlite.assert_called_once_with(
+            languages=["german"],
+            specific_tables=["wiktionary_translations"],
+            identifier_case="camel",
+            input_file=Path("/input"),
+            output_file=Path("/output"),
+            overwrite=False,
+        )
+
+    @patch(
+        "scribe_data.cli.convert.DEFAULT_WIKTIONARY_JSON_EXPORT_DIR",
+        new=Path("/mock_wiktionary_dir"),
+    )
+    @patch("scribe_data.cli.convert.data_to_sqlite", autospec=True)
+    def test_convert_wrapper_wiktionary_no_input_path_uses_wiktionary_default(
+        self, mock_data_to_sqlite: MagicMock
+    ) -> None:
+        convert_wrapper(
+            languages=["german"],
+            data_types=["wiktionary_translations"],
+            input_path=None,
+            output_dir=Path("/output"),
+            output_type="sqlite",
+            overwrite=False,
+        )
+
+        mock_data_to_sqlite.assert_called_once_with(
+            languages=["german"],
+            specific_tables=["wiktionary_translations"],
+            identifier_case="camel",
+            input_file=Path("/mock_wiktionary_dir"),
+            output_file=Path("/output"),
+            overwrite=False,
         )
 
     def test_convert(self) -> None:
