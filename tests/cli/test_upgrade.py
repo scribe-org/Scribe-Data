@@ -135,7 +135,6 @@ class TestUpgradeCLI:
 
         upgrade_cli()
 
-        # Verify error message is printed.
         error_calls = [
             call
             for call in mock_print.call_args_list
@@ -179,14 +178,11 @@ class TestUpgradeCLI:
         """
         Test version comparison edge case where semantic versioning works correctly.
         """
-        # This tests proper semantic version comparison.abs.
-        # Semantically: 5.10.0 > 5.2.0 (5.10.0 is the 10th minor version).
         mock_get_local.return_value = "5.10.0"
         mock_get_latest.return_value = "Scribe-Data v5.2.0"
 
         upgrade_cli()
 
-        # With proper semantic versioning, 5.10.0 > 5.2.0 so it shows higher version message.
         expected_message = (
             "Scribe-Data v5.10.0 is higher than the currently released version Scribe-Data v5.2.0. "
             "Hopefully this is a development build, and if so, thanks for your work on Scribe-Data! "
@@ -206,7 +202,6 @@ class TestUpgradeCLI:
         """
         Test upgrade_cli when local version is legitimately higher than released version.
         """
-        # Test with a version that's clearly higher to trigger the "higher version" message.
         mock_get_local.return_value = "6.0.0"
         mock_get_latest.return_value = "Scribe-Data v5.1.0"
 
@@ -286,7 +281,6 @@ class TestUpgradeCLI:
             mock_check_call.return_value = None
             upgrade_cli()
 
-            # Should attempt upgrade with empty local version.
             expected_calls = [
                 call("Current version: "),
                 call("Latest version: 5.1.0"),
@@ -294,7 +288,54 @@ class TestUpgradeCLI:
             ]
             mock_print.assert_has_calls(expected_calls)
 
-            # Verify subprocess was called.
             mock_check_call.assert_called_once_with(
                 [sys.executable, "-m", "pip", "install", "--upgrade", "scribe-data"]
             )
+
+    @patch("scribe_data.cli.upgrade.get_local_version")
+    @patch("scribe_data.cli.upgrade.get_latest_version")
+    @patch("builtins.print")
+    def test_upgrade_cli_invalid_local_version(
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+    ) -> None:
+        """
+        Test upgrade_cli when local version string is invalid.
+        """
+        mock_get_local.return_value = "invalid-version"
+        mock_get_latest.return_value = "Scribe-Data v5.1.0"
+
+        with patch("scribe_data.cli.upgrade.subprocess.check_call") as mock_check_call:
+            mock_check_call.return_value = None
+            upgrade_cli()
+
+            expected_calls = [
+                call("Current version: invalid-version"),
+                call("Latest version: 5.1.0"),
+                call("Updating Scribe-Data with pip..."),
+            ]
+            mock_print.assert_has_calls(expected_calls)
+            mock_check_call.assert_called_once()
+
+    @patch("scribe_data.cli.upgrade.get_local_version")
+    @patch("scribe_data.cli.upgrade.get_latest_version")
+    @patch("builtins.print")
+    def test_upgrade_cli_invalid_latest_version(
+        self,
+        mock_print: MagicMock,
+        mock_get_latest: MagicMock,
+        mock_get_local: MagicMock,
+    ) -> None:
+        """
+        Test upgrade_cli when latest version string cannot be parsed.
+        """
+        mock_get_local.return_value = "5.0.0"
+        mock_get_latest.return_value = "invalid-latest-version"
+
+        upgrade_cli()
+
+        mock_print.assert_called_once_with(
+            "Unable to parse the latest version. Please check the GitHub repository."
+        )
