@@ -164,7 +164,8 @@ def download_wd_lexeme_dump(
 
         except requests.exceptions.HTTPError as http_err:
             print(
-                f"HTTP error occurred: {http_err} Status code: {http_err.response.status_code}"
+                f"HTTP error occurred: {http_err} Status code: "
+                f"{http_err.response.status_code if http_err.response else 'N/A'}"
             )
             print("We could not find your requested Wikidata lexeme dump.")
 
