@@ -363,6 +363,19 @@ def download_wiktionary_dumps(
 
         output_path = output_dir / filename
 
+        if output_path.exists():
+            rprint(f"[bold yellow]Dump already exists: {output_path}[/bold yellow]")
+            user_input = questionary.select(
+                "Do you want to:",
+                choices=[
+                    "Skip download",
+                    "Download and overwrite",
+                ],
+            ).ask()
+            if user_input == "Skip download":
+                rprint("[bold green]Skipping download.[/bold green]")
+                return output_path
+
         rprint(f"[bold blue]Downloading to {output_path}...[/bold blue]")
         try:
             response = requests.get(download_url, stream=True, timeout=30)

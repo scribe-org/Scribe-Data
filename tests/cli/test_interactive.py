@@ -3,6 +3,7 @@
 Tests for the CLI interactive mode functionality.
 """
 
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, call, patch
@@ -182,6 +183,30 @@ class TestScribeDataInteractive(unittest.TestCase):
             display_summary()
             mock_print.assert_called()
 
+    def test_resolve_wiktionary_dump_path_from_subdirectory(self) -> None:
+        """
+        Find dumps when cwd is not the project root.
+        """
+        from scribe_data.cli.interactive import resolve_wiktionary_dump_path
+
+        with patch("os.getcwd") as mock_getcwd:
+            with tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                dump_dir = root / "scribe_data_wiktionary_dumps_export"
+                json_dir = root / "scribe_data_json_export"
+                dump_dir.mkdir()
+                json_dir.mkdir()
+                dump_file = dump_dir / "dewiktionary-pages-articles.xml.bz2"
+                dump_file.write_bytes(b"x")
+
+                mock_getcwd.return_value = str(json_dir)
+                resolved = resolve_wiktionary_dump_path(
+                    "german",
+                    "scribe_data_wiktionary_dumps_export",
+                )
+
+                self.assertEqual(resolved, dump_file.resolve())
+
     def test_create_word_completer(self) -> None:
         """
         Test create_word_completer functionality.
@@ -198,17 +223,31 @@ class TestScribeDataInteractive(unittest.TestCase):
         completer_with_all = create_word_completer(options, include_all=True)
         self.assertEqual(completer_with_all.words, ["All"] + options)
 
+    @patch(
+        "scribe_data.cli.interactive.resolve_wiktionary_dump_path",
+        return_value=Path("/dump/path"),
+    )
     @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
     @patch("scribe_data.cli.interactive.prompt")
     @patch("scribe_data.cli.interactive.prompt_for_languages")
     @patch("scribe_data.cli.interactive.questionary.select")
     def test_start_interactive_mode_translations(
-        self, mock_select, mock_prompt_languages, mock_prompt, mock_parse_wiktionary
+        self,
+        mock_select,
+        mock_prompt_languages,
+        mock_prompt,
+        mock_parse_wiktionary,
+        mock_resolve_dump,
     ):
         from scribe_data.cli.interactive import config, start_interactive_mode
 
         mock_select.return_value.ask.side_effect = ["translations"]
-        mock_prompt.side_effect = ["/output/dir", "false", "/dump/path"]
+        mock_prompt.side_effect = [
+            "german",
+            "/dump/path",
+            "scribe_data_wiktionary_json_export",
+            "false",
+        ]
         config.selected_languages = ["english"]
 
         start_interactive_mode(operation="translations")
@@ -216,6 +255,6 @@ class TestScribeDataInteractive(unittest.TestCase):
         mock_parse_wiktionary.assert_called_once_with(
             target_languages=["english"],
             wiktionary_dump_path=Path("/dump/path"),
-            output_dir=Path("/output/dir"),
+            output_dir=Path("scribe_data_wiktionary_json_export"),
             overwrite=False,
         )

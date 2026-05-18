@@ -7,7 +7,7 @@ Setup and commands for the Scribe-Data command line interface.
 import argparse
 from pathlib import Path
 
-from questionary import select
+from questionary import select, text
 from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
@@ -641,7 +641,12 @@ def main() -> None:
                 wd_lexeme_dump_download_wrapper()
 
             elif action == "Download a Wiktionary dump":
-                download_wiktionary_dumps()
+                lang = text(
+                    "Which language dump do you want to download?",
+                    default="de",
+                ).ask()
+                if lang:
+                    download_wiktionary_dumps(language_isos=[lang])
 
             elif action == "Check for totals":
                 start_interactive_mode(operation="total")
