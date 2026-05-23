@@ -39,7 +39,7 @@ Thank you for your interest in contributing to Scribe-Data! We look forward to w
     * The `General <https://matrix.to/#/!yQJjLmluvlkWttNhKo:matrix.org?via=matrix.org>`_ and `Data <https://matrix.to/#/#ScribeData:matrix.org>`_ channels would be great places to start!
     * Feel free to introduce yourself and tell us what your interests are if you're comfortable :)
 * Read through this contributing guide for all the information you need to contribute
-* Look into issues marked `good first issue label <https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22>`_ and the `Projects board <https://github.com/orgs/scribe-org/projects/1>`_ to get a better understanding of what you can work on
+* Look into issues marked `good first issue <https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22>`_ and the `Projects board <https://github.com/orgs/scribe-org/projects/1>`_ to get a better understanding of what you can work on
 * Check out our `public designs on Figma <https://www.figma.com/file/c8945w2iyoPYVhsqW7vRn6/scribe_public_designs?type=design&node-id=405-464&mode=design&t=E3ccS9Z8MDVSizQ4-0>`_ to understand Scribe's goals and direction
 * Consider joining our `bi-weekly developer sync <https://etherpad.wikimedia.org/p/scribe-dev-sync>`_!
 
@@ -279,7 +279,7 @@ Scribe does not accept direct edits to the grammar JSON files as they are source
 Documentation
 -------------
 
-The documentation for Scribe-Data can be found at `scribe-data.readthedocs.io <https://scribe-data.readthedocs.io/en/latest/>`_. Documentation is an invaluable way to contribute to coding projects as it allows others to more easily understand the project structure and contribute. Issues related to documentation are marked with the `documentation label <https://github.com/scribe-org/Scribe-Data/labels/documentation>`_ label.
+The documentation for Scribe-Data can be found at `scribe-data.readthedocs.io <https://scribe-data.readthedocs.io/en/latest/>`_. Documentation is an invaluable way to contribute to coding projects as it allows others to more easily understand the project structure and contribute. Issues related to documentation are marked with the `documentation <https://github.com/scribe-org/Scribe-Data/labels/documentation>`_ label.
 
 Function Docstrings
 ~~~~~~~~~~~~~~~~~~~
