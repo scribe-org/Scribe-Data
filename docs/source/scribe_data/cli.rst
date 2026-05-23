@@ -31,6 +31,7 @@ The Scribe-Data CLI supports the following commands:
 3. ``total`` (alias: ``t``)
 4. ``convert`` (alias: ``c``)
 5. ``download`` (alias: ``d``)
+6. ``interactive`` (alias: ``i``)
 
 Note: For all language arguments, if the language is more than one word then the argument value needs to be passed with double quotes around it.
 
@@ -44,22 +45,24 @@ For example:
 List Command
 ~~~~~~~~~~~~
 
-Description: List languages, data types and combinations of each that Scribe-Data can be used for.
+List languages, data types and combinations of each that Scribe-Data can be used for.
 
-Usage:
+Usage
+^^^^^
 
 .. code-block:: bash
 
     scribe-data list [arguments]
 
-Options:
-^^^^^^^^
+Options
+^^^^^^^
 
 - ``-lang, --language [LANGUAGE]``: List options for all or given languages.
 - ``-dt, --data-type [DATA_TYPE]``: List options for all or given data types.
 - ``-a, --all ALL``: List all languages and data types.
 
-Example output:
+Example output
+^^^^^^^^^^^^^^
 
 The scribe-data list command (also accessible via ``scribe-data list -a``) displays both the available languages and data types.
 
@@ -76,15 +79,15 @@ The scribe-data list command (also accessible via ``scribe-data list -a``) displ
     ===================================
     adjectives
     adverbs
+    conjunctions
     emoji-keywords
     nouns
     personal-pronouns
     postpositions
     prepositions
+    pronouns
     proper-nouns
     verbs
-
-
 
 
 .. code-block:: text
@@ -105,27 +108,31 @@ The scribe-data list command (also accessible via ``scribe-data list -a``) displ
     ===================================
     adjectives
     adverbs
+    conjunctions
     emoji-keywords
     nouns
     personal-pronouns
     postpositions
     prepositions
+    pronouns
     proper-nouns
     verbs
+
 
 Get Command
 ~~~~~~~~~~~
 
-Description: Get data from Wikidata for the given languages and data types.
+Get data from Wikidata or Wiktionary for the given languages and data types.
 
-Usage:
+Usage
+^^^^^
 
 .. code-block:: bash
 
     scribe-data get [arguments]
 
-Options:
-^^^^^^^^
+Options
+^^^^^^^
 
 - ``-lang, --language LANGUAGE``: The language(s) to get.
 - ``-dt, --data-type DATA_TYPE``: The data type(s) to get.
@@ -136,8 +143,10 @@ Options:
 - ``-a, --all``: Get all languages and data types. Can be combined with `-dt` to get all languages for a specific data type, or with `-lang` to get all data types for a specific language.
 - ``-i, --interactive``: Run in interactive mode.
 - ``-ic, --identifier-case``: The case format for identifiers in the output data (default: camel).
+- ``-wtp, --wiktionary-project WIKTIONARY_PROJECT``: The Wiktionary project to extract translations from (e.g. ``enwiktionary`` for English Wiktionary).
 
-Examples:
+Examples
+^^^^^^^^
 
 .. code-block:: bash
 
@@ -159,6 +168,18 @@ Examples:
     $ scribe-data get -l English --data-type verbs -od ~/path/for/output
     Getting and formatting English verbs
     Data updated: 100%|████████████████████████| 1/1 [00:XY<00:00, XY.Zs/process]
+
+To extract Wiktionary translations for a specific language:
+
+.. code-block:: bash
+
+    $ scribe-data get -dt translations -lang de -wtp enwiktionary
+
+To extract Wiktionary translations for all supported languages:
+
+.. code-block:: bash
+
+    $ scribe-data get -dt translations -wtp enwiktionary
 
 If we want to retrieve data using lexeme dumps, we can use the following command:
 
@@ -209,8 +230,8 @@ If we want to retrieve data using lexeme dumps, we can use the following command
         scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2: 100%|███████████████████| 370M/370M [04:20<00:00, 1.42MiB/s]
         Wikidata lexeme dump download completed successfully!
 
-Behavior and Output:
-^^^^^^^^^^^^^^^^^^^^
+Behavior and Output
+^^^^^^^^^^^^^^^^^^^
 
 1. The command will first check for existing data:
 
@@ -246,8 +267,8 @@ Behavior and Output:
         No data found for language 'english' and data type '['verbs']'.
         Warning: No data file found for 'English' ['verbs']. The command must not have worked.
 
-Notes:
-^^^^^^
+Notes
+^^^^^
 
 1. The data type can be specified with ``--data-type`` or ``-dt``.
 2. The command creates timestamped JSON files by default, even if no data is found.
@@ -264,22 +285,24 @@ Troubleshooting:
 Total Command
 ~~~~~~~~~~~~~
 
-Description: Check Wikidata for the total available data for the given languages and data types.
+Check Wikidata for the total available data for the given languages and data types.
 
-Usage:
+Usage
+^^^^^
 
 .. code-block:: bash
 
     scribe-data total [arguments]
 
-Options:
-^^^^^^^^
+Options
+^^^^^^^
 
 - ``-lang, --language LANGUAGE``: The language(s) to check totals for. Can be a language name or QID.
 - ``-dt, --data-type DATA_TYPE``: The data type(s) to check totals for.
 - ``-a, --all``: Get totals for all languages and data types.
 
-Examples:
+Examples
+^^^^^^^^
 
 1. Get totals for all languages and data types:
 
@@ -346,14 +369,39 @@ Examples:
 
 Download Command
 ~~~~~~~~~~~~~~~~
-Usage:
+
+Download Wikidata lexeme dumps or Wiktionary dumps for offline data extraction.
+
+Usage
+^^^^^
 
 .. code-block:: bash
 
     scribe-data download
 
-Behavior and Output:
-^^^^^^^^^^^^^^^^^^^^
+Options
+^^^^^^^
+
+- ``--wiktionary-dump``: Download a Wiktionary dump instead of a Wikidata lexeme dump.
+- ``-lang, --language LANGUAGE``: The language edition of Wiktionary to download (e.g. ``de`` for German Wiktionary). Defaults to English Wiktionary (``enwiktionary``) when omitted.
+
+Examples
+^^^^^^^^
+
+Download the English Wiktionary dump:
+
+.. code-block:: bash
+
+    scribe-data download --wiktionary-dump
+
+Download a specific language's Wiktionary dump:
+
+.. code-block:: bash
+
+    scribe-data download --wiktionary-dump --language de
+
+Behavior and Output
+^^^^^^^^^^^^^^^^^^^
 
 - **If Existing Dump Files Are Found:**
 
@@ -388,16 +436,17 @@ Behavior and Output:
 Convert Command
 ~~~~~~~~~~~~~~~
 
-Description: Convert data returned by Scribe-Data to different file types, including SQLite databases for multiple languages and data types.
+Convert data returned by Scribe-Data to different file types, including SQLite databases for multiple languages and data types.
 
-Usage:
+Usage
+^^^^^
 
 .. code-block:: bash
 
     scribe-data convert [arguments]
 
-Options:
-^^^^^^^^
+Options
+^^^^^^^
 
 - ``-f, --file FILE``: The file to convert to a new type.
 - ``-lang, --language LANGUAGE``: The language(s) to convert (for SQLite conversion).
@@ -405,8 +454,8 @@ Options:
 - ``-ko, --keep-original``: Whether to keep the file to be converted (default: True).
 - ``-ot, --output-type {json,csv,tsv,sqlite}``: The output file type.
 
-Examples:
-^^^^^^^^^
+Examples
+^^^^^^^^
 
 1. **Convert multiple languages and data types to SQLite:**
 
@@ -432,14 +481,20 @@ Examples:
     Databases created: 100%|████████████████████████████████████████████████████| 2/2 [00:07<00:00,  3.61s/dbs]
     Database creation/update process completed.
 
-2. **Convert a single file to CSV:**
+2. **Convert Wiktionary translations to SQLite:**
+
+.. code-block:: bash
+
+    $ scribe-data convert -lang english -dt wiktionary_translations -ot sqlite
+
+3. **Convert a single file to CSV:**
 
 .. code-block:: bash
 
     $ scribe-data convert -f path/to/data.json -ot csv
 
-Behavior and Output:
-^^^^^^^^^^^^^^^^^^^^
+Behavior and Output
+^^^^^^^^^^^^^^^^^^^
 
 **SQLite Conversion:**
 
@@ -470,8 +525,8 @@ Behavior and Output:
 - When using the `-f` option, the command converts individual files to the specified output type.
 - The original file is kept by default unless `--keep-original` is set to False.
 
-Notes:
-^^^^^^
+Notes
+^^^^^
 
 1. **SQLite Output:** SQLite databases are created in the `scribe_data_sqlite_export/` directory.
 2. **Multiple Languages:** You can specify multiple languages separated by spaces.
@@ -484,15 +539,17 @@ Interactive Mode
 
 The interactive mode provides a user-friendly interface for interacting with Scribe-Data commands.
 
-Usage:
+Usage
+^^^^^
 
 .. code-block:: bash
 
+    scribe-data interactive
     scribe-data get -i
     scribe-data total -i
 
-Get Command Interactive Example:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Get Command Interactive Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: text
 
@@ -551,8 +608,8 @@ Get Command Interactive Example:
     Data request completed successfully!
     Thank you for using Scribe-Data!
 
-Total Command Interactive Example:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Total Command Interactive Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: text
 
@@ -621,13 +678,24 @@ The interactive mode is particularly useful for:
 - Viewing available options without memorizing commands.
 
 Root Interactive Command
-~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Launch the root interactive menu to access all Scribe-Data operations from a single prompt.
+
+Usage
+^^^^^
+
 .. code-block:: bash
 
+    scribe-data interactive
+
+.. code-block:: text
+
     $ scribe-data interactive
-    Welcome to Scribe-Data v4.1.0 interactive mode!
+    Welcome to Scribe-Data vX.Y.Z interactive mode!
     ? What would you like to do? (Use arrow keys)
      » Download a Wikidata lexemes dump
+       Download a Wiktionary dump
        Check for totals
        Get data
        Get translations

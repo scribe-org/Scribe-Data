@@ -233,6 +233,10 @@ def wiktionary_translations_to_sqlite(
 
         print(f"Creating/Updating {language} {table_name} table...")
 
+        if json_path.stat().st_size == 0:
+            print(f"Warning: {json_path.name} is empty. Skipping.")
+            continue
+
         with open(json_path, "r", encoding="utf-8") as f:
             json_data = json.load(f)
 

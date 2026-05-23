@@ -109,13 +109,13 @@ def check_data_type_folders(
     a format Python file, and a queried JSON file for each data type.
 
     The function checks for the following valid files in each data type folder:
-        - Files starting with 'query_' and ending with '.sparql'
-        - A 'format_{data_type}.py' file
-        - A '{data_type}_queried.json' file
+        - Files starting with ``query_`` and ending with ``.sparql``
+        - A ``format_{data_type}.py`` file
+        - A ``{data_type}_queried.json`` file
 
-    It skips validation for the 'emoji_keywords' data type folder.
+    It skips validation for ``emoji_keywords`` data type folder.
 
-    Any files not matching these patterns (except '__init__.py') are reported as unexpected.
+    Any files not matching these patterns (except ``__init__.py``) are reported as unexpected.
     """
     existing_data_types = set(os.listdir(path)) - {"__init__.py"}
     missing_data_types = DATA_TYPES - existing_data_types - {"emoji_keywords"}

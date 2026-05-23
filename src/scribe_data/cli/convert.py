@@ -12,7 +12,9 @@ from scribe_data.load.data_to_sqlite import data_to_sqlite
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
+    DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
     camel_to_snake,
     check_index_exists,
 )
@@ -412,6 +414,25 @@ def convert_wrapper(
         This function does not return any value; it performs a conversion operation.
     """
     # Route the function call to the correct conversion function.
+    if output_dir is None:
+        output_dir = {
+            "json": DEFAULT_JSON_EXPORT_DIR,
+            "csv": DEFAULT_CSV_EXPORT_DIR,
+            "tsv": DEFAULT_TSV_EXPORT_DIR,
+            "sqlite": DEFAULT_SQLITE_EXPORT_DIR,
+        }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
+
+    if input_path is None and data_types:
+        is_wiktionary = any(
+            isinstance(dt, str) and dt.startswith("wiktionary")
+            for dt in (data_types if isinstance(data_types, list) else [data_types])
+        )
+        input_path = (
+            DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
+            if is_wiktionary
+            else DEFAULT_JSON_EXPORT_DIR
+        )
+
     if output_type == "json" and languages and data_types:
         convert_to_json(
             language=languages[0],  # only one language possible

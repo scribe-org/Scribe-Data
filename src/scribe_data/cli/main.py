@@ -270,6 +270,7 @@ def main() -> None:
         "--input-file",
         type=Path,
         required=False,
+        default=None,
         help="The path to the input file to convert.",
     )
     convert_parser.add_argument(
@@ -284,6 +285,7 @@ def main() -> None:
         "-od",
         "--output-dir",
         type=str,
+        default=None,
         help="The directory where the output file will be saved.",
     )
     convert_parser.add_argument(
@@ -534,8 +536,8 @@ def main() -> None:
                 else:
                     # Handle case where only language or data_type is provided.
                     get_data(
-                        languages=languages or [""],
-                        data_types=data_types or [""],
+                        languages=languages or None,
+                        data_types=data_types or None,
                         output_type=args.output_type,
                         output_dir=args.output_dir,
                         outputs_per_entry=args.outputs_per_entry,
