@@ -643,7 +643,7 @@ def main() -> None:
             elif action == "Download a Wiktionary dump":
                 lang = text(
                     "Which language dump do you want to download?",
-                    default="de",
+                    default="en",
                 ).ask()
                 if lang:
                     download_wiktionary_dumps(language_isos=[lang])

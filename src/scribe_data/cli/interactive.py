@@ -161,9 +161,7 @@ def prompt_for_wiktionary_dump_language() -> str:
     """
     Ask which Wiktionary edition to use as the translation source.
 
-    The choice selects which dump to load (e.g. ``german`` → ``dewiktionary``)
-    and which language sections in that dump are parsed. Re-prompts until the
-    input matches a name from :data:`language_metadata`.
+    The choice selects which dump to load (e.g. ``german`` → ``dewiktionary``).
 
     Returns
     -------
@@ -174,7 +172,7 @@ def prompt_for_wiktionary_dump_language() -> str:
     while True:
         selected = prompt(
             "Select Wiktionary dump source language: ",
-            default="german",
+            default="english",
             completer=language_completer,
         ).strip()
         if selected in config.languages:
@@ -206,7 +204,7 @@ def _wiktionary_dump_search_dirs(location: Path) -> List[Path]:
 
     Returns
     -------
-    list of Path
+    list[Path]
         Unique directories, in the order above.
     """
     dirs: List[Path] = []
