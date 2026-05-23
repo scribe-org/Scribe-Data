@@ -157,44 +157,20 @@ def prompt_for_languages() -> None:
         return prompt_for_languages()
 
 
-def prompt_for_wiktionary_dump_language() -> str:
-    """
-    Ask which Wiktionary edition to use as the translation source.
-
-    The choice selects which dump to load (e.g. ``german`` → ``dewiktionary``).
-
-    Returns
-    -------
-    str
-        Canonical language name (e.g. ``"german"``, ``"english"``).
-    """
-    language_completer = create_word_completer(config.languages)
-    while True:
-        selected = prompt(
-            "Select Wiktionary dump source language: ",
-            default="english",
-            completer=language_completer,
-        ).strip()
-        if selected in config.languages:
-            return selected
-        rprint(f"[bold red]Error: {selected} is not a valid language.[/bold red]")
-
-
 def _wiktionary_dump_search_dirs(location: Path) -> List[Path]:
     """
     Build an ordered list of directories to search for Wiktionary dumps.
 
-    Each candidate is resolved and included only if it exists as a directory.
-    Duplicates are skipped. Search order:
+    Each candidate directory is resolved and included only if it exists.
+    Duplicate paths are omitted while preserving the following search order:
 
-    1. ``location`` (and ``cwd / location`` if relative)
-    2. :data:`~scribe_data.utils.DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR` under
-       ``cwd``
-    3. That same default export dir under every ancestor of ``cwd``
+    1. The provided ``location`` directory.
+    2. The default export directory (:data:`~scribe_data.utils.DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR`).
+    3. The default export directory under every ancestor of the current working directory.
+    4. The current working directory itself.
 
-    Step 3 lets dumps in ``scribe_data_wiktionary_dumps_export`` be found when
-    interactive mode is started from a nested folder (e.g.
-    ``scribe_data_wiktionary_json_export/spanish``).
+    Searching ancestor directories allows dumps to be found when the interactive mode
+    is started from a nested folder (e.g., ``scribe_data_wiktionary_json_export/spanish``).
 
     Parameters
     ----------
@@ -205,34 +181,16 @@ def _wiktionary_dump_search_dirs(location: Path) -> List[Path]:
     Returns
     -------
     list[Path]
-        Unique directories, in the order above.
+        A deduplicated list of existing directories to search.
     """
-    dirs: List[Path] = []
-    seen: set[Path] = set()
-
-    def add(candidate: Path) -> None:
-        """
-        Append a resolved directory to the search list.
-
-        Parameters
-        ----------
-        candidate : Path
-            Directory path to resolve and add if it exists.
-        """
-        resolved = candidate.expanduser().resolve()
-        if resolved.is_dir() and resolved not in seen:
-            seen.add(resolved)
-            dirs.append(resolved)
-
-    add(location)
-    add(Path.cwd() / location)
-    add(DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR)
-    add(Path.cwd() / DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR)
-
-    for parent in Path.cwd().parents:
-        add(parent / DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR)
-
-    return dirs
+    candidates = [
+        location,
+        DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
+        *(parent / DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR for parent in Path.cwd().parents),
+        Path.cwd(),
+    ]
+    resolved_paths = [path.expanduser().resolve() for path in candidates]
+    return list(dict.fromkeys(path for path in resolved_paths if path.is_dir()))
 
 
 def resolve_wiktionary_dump_path(
@@ -241,43 +199,42 @@ def resolve_wiktionary_dump_path(
     """
     Resolve a Wiktionary dump file for the given source language.
 
+    Locates the newest Wiktionary XML dump for the specified language.
+    If the ``location`` argument points directly to a file, that file is returned.
+    Otherwise, it searches through a prioritized list of directories for dumps
+    matching the ``{iso}wiktionary*pages-articles.xml*`` pattern.
+
     Parameters
     ----------
     language : str
         Source language name (e.g. ``german``).
 
     location : str or Path
-        Path to a dump file, or a directory to search for ``{iso}wiktionary*`` dumps.
+        Path to a specific dump file, or a base directory to begin searching from.
 
     Returns
     -------
     Path or None
-        Newest matching dump in a directory, the file itself if ``location`` is a file,
-        or ``None`` if nothing matches.
+        The path to the newest matching dump file, the explicit file if ``location``
+        is a file, or ``None`` if no matching dump is found.
     """
-    path = Path(location).expanduser()
-    file_candidates = [path, Path.cwd() / path]
-    for file_path in file_candidates:
-        if file_path.is_file():
-            return file_path.resolve()
+    path = Path(location).expanduser().resolve()
+    if path.is_file():
+        return path
 
-    iso = resolve_lang_iso(language)
-    if not iso:
+    if not (iso := resolve_lang_iso(language)):
         return None
 
-    wiktionary = f"{iso}wiktionary"
-    pattern = f"{wiktionary}*pages-articles.xml*"
-    dump_candidates: List[Path] = []
-
-    for directory in _wiktionary_dump_search_dirs(path):
-        dump_candidates.extend(directory.glob(pattern))
-
-    dump_candidates.extend(Path.cwd().glob(pattern))
-
-    if not dump_candidates:
-        return None
-
-    return max(dump_candidates, key=lambda p: p.stat().st_mtime).resolve()
+    dumps = [
+        dump_path
+        for search_dir in _wiktionary_dump_search_dirs(path)
+        for dump_path in search_dir.glob(f"{iso}wiktionary*pages-articles.xml*")
+    ]
+    return (
+        max(dumps, key=lambda dump_path: dump_path.stat().st_mtime).resolve()
+        if dumps
+        else None
+    )
 
 
 # MARK: Data Type Selection
@@ -644,7 +601,17 @@ def start_interactive_mode(operation: Optional[str] = None) -> None:
                 parse_wiktionary_translations,
             )
 
-            wiktionary_dump_language = prompt_for_wiktionary_dump_language()
+            while True:
+                wiktionary_dump_language = prompt(
+                    "Select Wiktionary dump source language: ",
+                    default="english",
+                    completer=create_word_completer(config.languages),
+                ).strip()
+                if wiktionary_dump_language in config.languages:
+                    break
+                rprint(
+                    f"[bold red]Error: {wiktionary_dump_language} is not a valid language.[/bold red]"
+                )
 
             dump_location = prompt(
                 "Enter Wiktionary dump directory or file path "
