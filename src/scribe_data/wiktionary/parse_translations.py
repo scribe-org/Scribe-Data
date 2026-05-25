@@ -948,7 +948,8 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
             """
             Close the wrapped binary file object.
             """
-            self.f.close()
+            if hasattr(self, "f"):
+                self.f.close()
 
     proc = None
     if str(wiktionary_dump_path).endswith(".bz2") and shutil.which("bzcat"):
@@ -1335,6 +1336,7 @@ def _resolve_dump_path(
     if spec_path.exists():
         if match := re.search(r"^([a-z]{2,3})wiktionary-", spec_path.name):
             iso = match[1]
+
         return spec_path.resolve(), iso
 
     print(f"Wiktionary dump not found: {spec_path}")
