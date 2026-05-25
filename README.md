@@ -6,6 +6,8 @@
 
 [![platform](https://img.shields.io/badge/Wikidata-990000.svg?logo=wikidata&logoColor=ffffff)](https://github.com/scribe-org/Scribe-Data)
 [![rtd](https://img.shields.io/readthedocs/scribe-data.svg?label=%20&logo=read-the-docs&logoColor=ffffff)](http://scribe-data.readthedocs.io/en/latest/)
+[![ci_static_analysis](https://img.shields.io/github/actions/workflow/status/scribe-org/Scribe-Data/ci_static_analysis.yaml?branch=main&label=%20&logo=ruff&logoColor=ffffff)](https://github.com/scribe-org/Scribe-Data/actions/workflows/ci_static_analysis.yaml)
+[![ci_pytest](https://img.shields.io/github/actions/workflow/status/scribe-org/Scribe-Data/ci_pytest.yaml?branch=main&label=%20&logo=pytest&logoColor=ffffff)](https://github.com/scribe-org/Scribe-Data/actions/workflows/ci_pytest.yaml)
 [![issues](https://img.shields.io/github/issues/scribe-org/Scribe-Data?label=%20&logo=github)](https://github.com/scribe-org/Scribe-Data/issues)
 [![language](https://img.shields.io/badge/Python%203-306998.svg?logo=python&logoColor=ffffff)](https://github.com/scribe-org/Scribe-Data/blob/main/CONTRIBUTING.md)
 [![pypi](https://img.shields.io/pypi/v/scribe-data.svg?label=%20&color=4B8BBE)](https://pypi.org/project/scribe-data/)
