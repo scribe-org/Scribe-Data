@@ -4,7 +4,6 @@ Utility functions for accessing data from Wikidata.
 """
 
 from pathlib import Path
-from typing import List, Optional
 
 from rich import print as rprint
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
@@ -23,11 +22,11 @@ sparql.setMethod(POST)
 
 
 def parse_wd_lexeme_dump(
-    languages: List[str],
-    data_types: Optional[List[str]] = None,
-    wikidata_dump_type: List[str] = [""],
-    output_dir: Optional[Path] = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
-    wikidata_dump_path: Optional[Path] = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    languages: str | None,
+    data_types: list[str] | None = None,
+    wikidata_dump_type: str | None = [""],
+    output_dir: Path | None = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    wikidata_dump_path: Path | None = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     overwrite_all: bool = False,
     interactive_mode: bool = False,
 ) -> None:

@@ -6,7 +6,6 @@ Functions to convert data returned from the Scribe-Data CLI to other file types.
 import csv
 import json
 from pathlib import Path
-from typing import List, Optional, Union
 
 from scribe_data.load.data_to_sqlite import data_to_sqlite
 from scribe_data.utils import (
@@ -24,7 +23,7 @@ from scribe_data.utils import (
 
 def convert_to_json(
     language: str,
-    data_types: Union[str, List[str]],
+    data_types: str | list[str] | None,
     input_file: Path,
     output_dir: Path,
     output_type: str,
@@ -180,7 +179,7 @@ def convert_to_json(
 
 def convert_to_csv_or_tsv(
     language: str,
-    data_types: Union[str, List[str]],
+    data_types: str | list[str],
     input_file: Path,
     output_dir: Path,
     output_type: str,
@@ -370,8 +369,8 @@ def convert_to_csv_or_tsv(
 
 
 def convert_wrapper(
-    languages: Optional[List[str]],
-    data_types: Optional[List[str]],
+    languages: list[str] | None,
+    data_types: list | None,
     input_path: Path,
     output_dir: Path,
     output_type: str,

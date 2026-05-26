@@ -5,7 +5,6 @@ Interactive mode functionality for the Scribe-Data CLI to allow users to select 
 
 import logging
 from pathlib import Path
-from typing import List, Optional, Union
 
 import questionary
 from prompt_toolkit import prompt
@@ -58,8 +57,8 @@ class ScribeDataConfig:
         """
         self.languages = list_all_languages(language_metadata)
         self.data_types = list(data_type_metadata.keys())
-        self.selected_languages: List[str] = []
-        self.selected_data_types: List[str] = []
+        self.selected_languages: list[str] = []
+        self.selected_data_types: list[str] = []
         self.output_type: str = "json"
         self.output_dir: Path = DEFAULT_JSON_EXPORT_DIR
         self.overwrite: bool = False
@@ -99,7 +98,7 @@ def display_summary() -> None:
 
 # Helper function to create a WordCompleter.
 def create_word_completer(
-    options: List[str], include_all: bool = False
+    options: list[str], include_all: bool = False
 ) -> WordCompleter:
     """
     Return a word completer object of the given options.
@@ -157,7 +156,7 @@ def prompt_for_languages() -> None:
         return prompt_for_languages()
 
 
-def _wiktionary_dump_search_dirs(location: Path) -> List[Path]:
+def _wiktionary_dump_search_dirs(location: Path) -> list[Path]:
     """
     Build an ordered list of directories to search for Wiktionary dumps.
 
@@ -193,9 +192,7 @@ def _wiktionary_dump_search_dirs(location: Path) -> List[Path]:
     return list(dict.fromkeys(path for path in resolved_paths if path.is_dir()))
 
 
-def resolve_wiktionary_dump_path(
-    language: str, location: Union[str, Path]
-) -> Optional[Path]:
+def resolve_wiktionary_dump_path(language: str, location: str | Path) -> Path | None:
     """
     Resolve a Wiktionary dump file for the given source language.
 
@@ -457,7 +454,7 @@ def request_total_lexeme_loop() -> None:
 # MARK: Start
 
 
-def start_interactive_mode(operation: Optional[str] = None) -> None:
+def start_interactive_mode(operation: str | None = None) -> None:
     """
     Entry point for interactive mode.
 

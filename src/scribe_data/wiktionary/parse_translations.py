@@ -11,7 +11,7 @@ import re
 import xml.etree.ElementTree as ET
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
-from typing import BinaryIO, Dict, List, Optional, Tuple, Union, cast
+from typing import BinaryIO, cast
 
 import mwparserfromhell
 import orjson
@@ -28,19 +28,19 @@ from scribe_data.utils import (
 from scribe_data.wiktionary.parse_constants import get_wiktionary_config
 
 # A single translation entry (e.g., {"description": "...", "translation": "..."}).
-TranslationEntry = Dict[str, str]
+TranslationEntry = dict[str, str]
 
 # Maps a sense index (e.g., "1") to its translation entry.
-SensesToTranslations = Dict[str, TranslationEntry]
+SensesToTranslations = dict[str, TranslationEntry]
 
 # Maps a Part of Speech (e.g., "noun") to its senses.
-PosToSenses = Dict[str, SensesToTranslations]
+PosToSenses = dict[str, SensesToTranslations]
 
 # Maps a source word to its parts of speech.
-WordToPos = Dict[str, PosToSenses]
+WordToPos = dict[str, PosToSenses]
 
 # Maps a target language ISO to the translated words.
-LanguageToWords = Dict[str, WordToPos]
+LanguageToWords = dict[str, WordToPos]
 
 
 # MARK: Shared Helpers
@@ -49,7 +49,7 @@ LanguageToWords = Dict[str, WordToPos]
 def _merge_parsed_into_output(
     output: LanguageToWords,
     word: str,
-    parsed: Dict[str, PosToSenses],
+    parsed: dict[str, PosToSenses],
 ) -> None:
     """
     Merge a single page's parsed translations into the cumulative output dict.
@@ -62,7 +62,7 @@ def _merge_parsed_into_output(
     word : str
         The source word whose translations are being merged.
 
-    parsed : Dict[str, PosToSenses]
+    parsed : dict[str, PosToSenses]
         Translations returned by one of the ``_parse_page_translations_*`` functions.
     """
     for code, pos_senses in parsed.items():
@@ -80,7 +80,7 @@ def _merge_parsed_into_output(
                 sense_map.update(senses)
 
 
-def _build_sense_entry(description: str, translation: str) -> Dict[str, str]:
+def _build_sense_entry(description: str, translation: str) -> dict[str, str]:
     """
     Build a sense entry dict with stable keys for JSON consumers.
 
@@ -96,7 +96,7 @@ def _build_sense_entry(description: str, translation: str) -> Dict[str, str]:
 
     Returns
     -------
-    Dict[str, str]
+    dict[str, str]
         ``{"description": str, "translation": str}``.
     """
     return {
@@ -111,9 +111,9 @@ def _extract_translation_word(
     code: str,
     raw_word: str,
     config: dict,
-    target_langs: Optional[frozenset],
-    tag_index: Optional[int] = None,
-) -> Optional[str]:
+    target_langs: frozenset | None,
+    tag_index: int | None = None,
+) -> str | None:
     """
     Return a cleaned translation string with grammatical tags appended, or None to skip the word.
 
@@ -187,10 +187,10 @@ def _extract_translation_word(
 
 
 def _add_translations_to_result(
-    result: Dict[str, PosToSenses],
+    result: dict[str, PosToSenses],
     current_pos: str,
-    pos_sense_tracker: Dict[str, int],
-    words_by_lang: Dict[str, List[str]],
+    pos_sense_tracker: dict[str, int],
+    words_by_lang: dict[str, list[str]],
     description: str,
 ):
     """
@@ -198,16 +198,16 @@ def _add_translations_to_result(
 
     Parameters
     ----------
-    result : Dict[str, PosToSenses]
+    result : dict[str, PosToSenses]
         The per-language output dict being built up.
 
     current_pos : str
         The current part-of-speech label.
 
-    pos_sense_tracker : Dict[str, int]
+    pos_sense_tracker : dict[str, int]
         Tracks the sense count per POS so each block gets a unique index.
 
-    words_by_lang : Dict[str, List[str]]
+    words_by_lang : dict[str, list[str]]
         Collected translations grouped by ISO code.
 
     description : str
@@ -235,7 +235,7 @@ def _add_translations_to_result(
 # MARK: Parse Page
 
 
-def _extract_source_lang_section(wikitext: str, config: dict) -> Optional[str]:
+def _extract_source_lang_section(wikitext: str, config: dict) -> str | None:
     """
     Return the wikitext content of the source-language section.
 
@@ -279,10 +279,10 @@ def _extract_source_lang_section(wikitext: str, config: dict) -> Optional[str]:
 
 def _parse_ast_u_tabelle(
     config: dict,
-    target_langs: Optional[frozenset],
+    target_langs: frozenset | None,
     wikitext: str,
     _word: str,
-) -> Dict[str, PosToSenses]:
+) -> dict[str, PosToSenses]:
     """
     Parse translations from a single page using the ``Ü-Tabelle`` format (e.g. German Wiktionary).
 
@@ -302,10 +302,10 @@ def _parse_ast_u_tabelle(
 
     Returns
     -------
-    Dict[str, PosToSenses]
+    dict[str, PosToSenses]
         ``{target_lang_iso: {pos: {sense_idx: {description?, translation}}}}``.
     """
-    result: Dict[str, PosToSenses] = {}
+    result: dict[str, PosToSenses] = {}
 
     lang_section = _extract_source_lang_section(wikitext=wikitext, config=config)
     if not lang_section:
@@ -316,7 +316,7 @@ def _parse_ast_u_tabelle(
     wikicode = mwparserfromhell.parse(lang_section)
 
     current_pos = "other"
-    pos_sense_tracker: Dict[str, int] = {}
+    pos_sense_tracker: dict[str, int] = {}
 
     template_pos: str = config.get("template_pos", "wortart")
     template_table: str = config.get("template_table", "ü-tabelle")
@@ -357,7 +357,7 @@ def _parse_ast_u_tabelle(
             description = str(node.get("G").value).strip() if node.has("G") else ""
 
             liste_ast = node.get(list_param).value
-            words_by_lang: Dict[str, List[str]] = {}
+            words_by_lang: dict[str, list[str]] = {}
 
             for t in liste_ast.filter_templates():
                 tname = t.name.strip().lower()
@@ -408,10 +408,10 @@ _KNOWN_POS = frozenset(
 
 def _parse_block_translations(
     config: dict,
-    target_langs: Optional[frozenset],
+    target_langs: frozenset | None,
     wikitext: str,
     collect_row,
-) -> Dict[str, PosToSenses]:
+) -> dict[str, PosToSenses]:
     """
     Shared parsing core for all ``trans-top`` / ``Trad1``-style block engines.
 
@@ -446,10 +446,10 @@ def _parse_block_translations(
 
     Returns
     -------
-    Dict[str, PosToSenses]
+    dict[str, PosToSenses]
         ``{target_lang_iso: {pos: {sense_idx: {description?, translation}}}}``.
     """
-    result: Dict[str, PosToSenses] = {}
+    result: dict[str, PosToSenses] = {}
 
     lang_section = _extract_source_lang_section(wikitext=wikitext, config=config)
     if not lang_section:
@@ -463,11 +463,11 @@ def _parse_block_translations(
     all_nodes = list(wikicode.nodes)
 
     current_pos = "other"
-    pos_sense_tracker: Dict[str, int] = {}
+    pos_sense_tracker: dict[str, int] = {}
 
     in_translation_block = False
     current_desc = ""
-    current_words_by_lang: Dict[str, List[str]] = {}
+    current_words_by_lang: dict[str, list[str]] = {}
 
     def _commit_block():
         """
@@ -557,9 +557,9 @@ def _collect_row_template(
     _node_idx,
     _all_nodes,
     tname: str,
-    target_langs: Optional[frozenset],
+    target_langs: frozenset | None,
     config: dict,
-    current_words_by_lang: Dict[str, List[str]],
+    current_words_by_lang: dict[str, list[str]],
 ) -> None:
     """
     Row collector for the ``ast_trans_top`` engine.
@@ -588,7 +588,7 @@ def _collect_row_template(
     config : dict
         Source-edition extraction config.
 
-    current_words_by_lang : Dict[str, List[str]]
+    current_words_by_lang : dict[str, list[str]]
         Mutable ``{lang_code: [word, ...]}`` accumulator for the current block.
     """
     template_t_list = frozenset(
@@ -622,10 +622,10 @@ def _collect_row_template(
 
 def _parse_ast_trans_top(
     config: dict,
-    target_langs: Optional[frozenset],
+    target_langs: frozenset | None,
     wikitext: str,
     _word: str,
-) -> Dict[str, PosToSenses]:
+) -> dict[str, PosToSenses]:
     """
     Parse translations using the ``trans-top`` / ``trans-bottom`` block format.
 
@@ -649,7 +649,7 @@ def _parse_ast_trans_top(
 
     Returns
     -------
-    Dict[str, PosToSenses]
+    dict[str, PosToSenses]
         ``{target_lang_iso: {pos: {sense_idx: {description?, translation}}}}``.
     """
     return _parse_block_translations(
@@ -668,9 +668,9 @@ def _collect_row_wikilink(
     node_idx: int,
     all_nodes: list,
     tname: str,
-    target_langs: Optional[frozenset],
+    target_langs: frozenset | None,
     config: dict,
-    current_words_by_lang: Dict[str, List[str]],
+    current_words_by_lang: dict[str, list[str]],
 ) -> None:
     """
     Row collector for the ``ast_wikilink_list`` engine.
@@ -699,7 +699,7 @@ def _collect_row_wikilink(
     config : dict
         Source-edition extraction config.
 
-    current_words_by_lang : Dict[str, List[str]]
+    current_words_by_lang : dict[str, list[str]]
         Mutable ``{lang_code: [word, ...]}`` accumulator for the current block.
     """
     lang_code = tname  # e.g. "en", "de"
@@ -709,7 +709,7 @@ def _collect_row_wikilink(
     ignored_strings = config.get("ignored_strings", [])
     ignored_prefixes = config.get("ignored_prefixes", [])
 
-    row_words: List[str] = []
+    row_words: list[str] = []
     for following in all_nodes[node_idx + 1 :]:
         if isinstance(following, mwparserfromhell.nodes.Text):
             if "\n" in str(following):
@@ -743,10 +743,10 @@ def _collect_row_wikilink(
 
 def _parse_ast_wikilink_list(
     config: dict,
-    target_langs: Optional[frozenset],
+    target_langs: frozenset | None,
     wikitext: str,
     _word: str,
-) -> Dict[str, PosToSenses]:
+) -> dict[str, PosToSenses]:
     """
     Parse translations using the ``Trad1`` / ``Trad2`` block + wikilink format.
 
@@ -771,7 +771,7 @@ def _parse_ast_wikilink_list(
 
     Returns
     -------
-    Dict[str, PosToSenses]
+    dict[str, PosToSenses]
         ``{target_lang_iso: {pos: {sense_idx: {description?, translation}}}}``.
     """
     return _parse_block_translations(
@@ -784,7 +784,7 @@ def _parse_ast_wikilink_list(
 
 # MARK: Engine Dispatch
 
-_ENGINES: Dict[str, collections.abc.Callable] = {
+_ENGINES: dict[str, collections.abc.Callable] = {
     "ast_u_tabelle": _parse_ast_u_tabelle,
     "ast_trans_top": _parse_ast_trans_top,
     "ast_wikilink_list": _parse_ast_wikilink_list,
@@ -793,10 +793,10 @@ _ENGINES: Dict[str, collections.abc.Callable] = {
 
 def _parse_page_translations(
     config: dict,
-    target_langs: Optional[frozenset],
+    target_langs: frozenset | None,
     wikitext: str,
     word: str,
-) -> Dict[str, PosToSenses]:
+) -> dict[str, PosToSenses]:
     """
     Route to the right engine and parse a single Wiktionary page.
 
@@ -816,7 +816,7 @@ def _parse_page_translations(
 
     Returns
     -------
-    Dict[str, PosToSenses]
+    dict[str, PosToSenses]
         ``{target_lang_iso: {pos: {sense_idx: {description?, translation}}}}``.
     """
     engine = config.get("engine", "ast_trans_top")
@@ -833,19 +833,19 @@ def _parse_page_translations(
 
 
 def _parse_page_worker(
-    args: Tuple[str, str, Optional[frozenset], dict],
-) -> Optional[Tuple[str, Dict[str, PosToSenses]]]:
+    args: tuple[str, str, frozenset | None, dict],
+) -> tuple[str, dict[str, PosToSenses]] | None:
     """
     Parse a single Wiktionary page, designed to be called from a worker process.
 
     Parameters
     ----------
-    args : Tuple[str, str, Optional[frozenset], dict]
+    args : tuple[str, str, frozenset | None, dict]
         Packed tuple of (word, wikitext, target_langs, config).
 
     Returns
     -------
-    Optional[Tuple[str, Dict[str, PosToSenses]]]
+    tuple[str, dict[str, PosToSenses]] | None
         ``(word, parsed)`` or ``None`` if the page has no translations.
     """
     word, wikitext, target_langs, config = args
@@ -1034,12 +1034,12 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
 
 
 def parse_xml_dump(
-    wiktionary_dump_path: Union[str, Path],
-    target_lang_codes: Optional[List[str]],
+    wiktionary_dump_path: str | Path,
+    target_lang_codes: list[str] | None,
     *,  # force keyword-only arguments
     source_iso: str = "en",
     progress: bool = True,
-    num_workers: Optional[int] = None,
+    num_workers: int | None = None,
 ) -> LanguageToWords:
     """
     Parse a Wiktionary XML dump and return translations for the requested languages.
@@ -1162,9 +1162,9 @@ def parse_xml_dump(
 
 
 def parse_wiktionary_translations(
-    target_languages: Optional[Union[str, List[str]]] = None,
-    wiktionary_dump_path: Optional[Union[str, Path]] = None,
-    output_dir: Optional[Path] = DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
+    target_languages: str | list[str] | None = None,
+    wiktionary_dump_path: str | Path = None,
+    output_dir: Path | None = DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
     overwrite: bool = False,
 ) -> None:
     """
@@ -1188,7 +1188,7 @@ def parse_wiktionary_translations(
     output_dir = output_dir or DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
-    target_isos: List[str] = []
+    target_isos: list[str] = []
     if not target_languages or target_languages == "all" or target_languages == ["all"]:
         # Collect ISO codes for every language and sub-language we know about.
         for lang_info in language_metadata.values():
@@ -1256,8 +1256,8 @@ def parse_wiktionary_translations(
 
 
 def _resolve_dump_path(
-    wiktionary_dump_path: Optional[Union[str, Path]], output_dir: Path
-) -> Tuple[Optional[Path], str]:
+    wiktionary_dump_path: str | Path | None, output_dir: Path
+) -> tuple[Path | None, str]:
     """
     Resolve a Wiktionary dump path and return the dump path together with the source ISO.
 

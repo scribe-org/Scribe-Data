@@ -13,7 +13,7 @@ import sys
 import time
 from collections import defaultdict
 from pathlib import Path
-from typing import Any, Dict, Optional, cast
+from typing import Any, cast
 
 from scribe_data.check.check_missing_forms.split_query import split_group_by_identifier
 from scribe_data.utils import (
@@ -44,7 +44,7 @@ def load_sparql_template() -> str:
         return f.read()
 
 
-def execute_sparql_query(query: str, max_retries: int = 3) -> Optional[list]:
+def execute_sparql_query(query: str, max_retries: int = 3) -> list | None:
     """
     Execute a SPARQL query against Wikidata with retry logic and rate limiting.
 
@@ -58,7 +58,7 @@ def execute_sparql_query(query: str, max_retries: int = 3) -> Optional[list]:
 
     Returns
     -------
-    list or None
+    list | None
         List of query results on success, None if query fails after all retries.
     """
     RETRY_DELAY = 2
@@ -74,7 +74,7 @@ def execute_sparql_query(query: str, max_retries: int = 3) -> Optional[list]:
 
             sparql.setQuery(query)
             results = sparql.query().convert()
-            res_dict = cast(Dict[str, Any], results)
+            res_dict = cast(dict[str, Any], results)
             return res_dict.get("results", {}).get("bindings", [])
 
         except Exception as e:
@@ -165,8 +165,8 @@ def get_forms_from_sparql_service(
     data_type_qid: str,
     frequency_threshold: int = 0,
     max_results: int = 1000,
-    language_name: Optional[str] = "",
-    data_type_name: Optional[str] = "",
+    language_name: str | None = "",
+    data_type_name: str | None = "",
 ) -> list | str:
     """
     Get form combinations for a language/data type pair from the Wikidata Query SPARQL service.
@@ -374,7 +374,7 @@ def get_forms_from_sparql_service_all_languages(
 
 def get_features_from_sparql_service(
     frequency_threshold: int = 0, max_results: int = 1000
-) -> Optional[dict]:
+) -> dict | None:
     """
     Get all form combinations from live SPARQL service (new approach).
 

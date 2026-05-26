@@ -11,7 +11,6 @@ import sys
 import urllib.request
 from http import HTTPStatus
 from pathlib import Path
-from typing import List, Optional
 from urllib.error import HTTPError
 
 from tqdm.auto import tqdm
@@ -50,20 +49,20 @@ def ping(url: str, timeout: int) -> bool:
     return False
 
 
-def all_queries() -> List[QueryFile]:
+def all_queries() -> list[QueryFile]:
     """
     All the SPARQL queries in, and below, 'Scribe-Data/'.
 
     Returns
     -------
-    List[QueryFile]
+    list[QueryFile]
         List of SPARQL query files.
     """
     parts = Path(__file__).resolve().parts
     prj_root_idx = parts.index(PROJECT_ROOT)
     prj_root = str(Path(*parts[: prj_root_idx + 1]))
 
-    queries: List[QueryFile] = []
+    queries: list[QueryFile] = []
 
     for root, _, files in os.walk(prj_root):
         for f in files:
@@ -74,7 +73,7 @@ def all_queries() -> List[QueryFile]:
     return queries
 
 
-def changed_queries() -> Optional[List[QueryFile]]:
+def changed_queries() -> list[QueryFile] | None:
     """
     Find all the SPARQL queries that have changed.
 
@@ -82,7 +81,7 @@ def changed_queries() -> Optional[List[QueryFile]]:
 
     Returns
     -------
-    Optional[List[QueryFile]]
+    list[QueryFile] | None
         List of changed/new SPARQL queries, or None if there's an error.
     """
     result = subprocess.run(
@@ -208,13 +207,13 @@ def check_timeout(timeout: str) -> int:
     )
 
 
-def main(argv: Optional[List[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     """
     The main function.
 
     Parameters
     ----------
-    argv : Optional[List[str]], default=None
+    argv : Optional[list[str]], default=None
         If set to None then argparse will use sys.argv as the arguments.
 
     Returns
@@ -339,13 +338,13 @@ def main(argv: Optional[List[str]] = None) -> int:
     return EXIT_FAILURE if failures else EXIT_SUCCESS
 
 
-def error_report(failures: List[QueryExecutionException]) -> None:
+def error_report(failures: list[QueryExecutionException]) -> None:
     """
     Report failed queries.
 
     Parameters
     ----------
-    failures : List[QueryExecutionException]
+    failures : list[QueryExecutionException]
         Failed queries.
     """
     if not failures:
@@ -357,13 +356,13 @@ def error_report(failures: List[QueryExecutionException]) -> None:
         print(failed_query, file=sys.stderr)
 
 
-def success_report(successes: List[tuple[QueryFile, dict]], display: bool) -> None:
+def success_report(successes: list[tuple[QueryFile, dict]], display: bool) -> None:
     """
     Report successful queries.
 
     Parameters
     ----------
-    successes : List[tuple[QueryFile, dict]]
+    successes : list[tuple[QueryFile, dict]]
         Successful queries.
 
     display : bool

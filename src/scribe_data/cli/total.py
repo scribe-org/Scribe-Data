@@ -5,7 +5,7 @@ Functions to check the total language data available on Wikidata.
 
 from http.client import IncompleteRead
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, cast
 from urllib.error import HTTPError
 
 from SPARQLWrapper import JSON
@@ -23,18 +23,18 @@ from scribe_data.utils import (
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump, sparql
 
 
-def get_qid_by_input(input_str: Optional[str]) -> Optional[str]:
+def get_qid_by_input(input_str: str | None) -> str | None:
     """
     Retrieve the QID for a given language or data type input string.
 
     Parameters
     ----------
-    input_str : str
+    input_str : str, optional
         The input string representing a language or data type.
 
     Returns
     -------
-    str or None
+    str | None
         The QID corresponding to the input string, or- None if not found.
     """
     if input_str:
@@ -112,7 +112,7 @@ def get_datatype_list(language: str) -> list | dict:
 # MARK: Print
 
 
-def print_total_lexemes(language: Optional[str] = None) -> None:
+def print_total_lexemes(language: str | None = None) -> None:
     """
     Print the total number of available entities for all data types.
 
@@ -221,7 +221,7 @@ def print_total_lexemes(language: Optional[str] = None) -> None:
 
 def get_total_lexemes(
     language: str, data_type: str, do_print: bool = True
-) -> Optional[int]:
+) -> int | None:
     """
     Get the total number of lexemes for a given language and data type from Wikidata.
 
@@ -323,7 +323,7 @@ def get_total_lexemes(
         print("Total number of lexemes: Not found")
         return None
 
-    res_dict = cast(Dict[str, Any], results)
+    res_dict = cast(dict[str, Any], results)
     if (
         "results" in res_dict
         and "bindings" in res_dict["results"]
@@ -354,10 +354,10 @@ def get_total_lexemes(
 
 
 def total_wrapper(
-    languages: Optional[List[str]] = None,
-    data_types: Optional[List[str]] = None,
+    languages: list[str] | None = None,
+    data_types: list[str] | None = None,
     all_bool: bool = False,
-    wikidata_dump: Optional[Union[Path, bool]] = None,
+    wikidata_dump: Path | bool | None = None,
 ) -> None:
     """
     Conditionally provides the full functionality of the total command.

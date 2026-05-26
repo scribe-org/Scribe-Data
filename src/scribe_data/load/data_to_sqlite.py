@@ -8,7 +8,6 @@ import os
 import re
 import sqlite3
 from pathlib import Path
-from typing import List, Optional, Union
 
 import questionary
 from tqdm.auto import tqdm
@@ -25,7 +24,7 @@ from scribe_data.utils import (
 
 
 def create_table(
-    cursor: sqlite3.Cursor, identifier_case: str, data_type: str, cols: List[str]
+    cursor: sqlite3.Cursor, identifier_case: str, data_type: str, cols: list[str]
 ) -> None:
     """
     Create a table in the language database.
@@ -282,8 +281,8 @@ def wiktionary_translations_to_sqlite(
 
 
 def data_to_sqlite(
-    languages: Optional[List[str]] = None,
-    specific_tables: Optional[Union[str, List[str]]] = None,
+    languages: list[str] | None = None,
+    specific_tables: str | list[str] | None = None,
     identifier_case: str = "camel",
     input_file: Path = DEFAULT_JSON_EXPORT_DIR,
     output_file: Path = DEFAULT_SQLITE_EXPORT_DIR,

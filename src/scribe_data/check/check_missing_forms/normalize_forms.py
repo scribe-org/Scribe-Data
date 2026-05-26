@@ -3,13 +3,11 @@
 Order QID from a missing_unique_forms based on lexeme_form_metadata.yaml.
 """
 
-from typing import List
-
 from scribe_data.utils import lexeme_form_metadata
 
 
 # Precompute QID positions mapping only once when the module is imported.
-def sort_qids_in_list(qids_lists: List[List[str]]) -> List[List[str]]:
+def sort_qids_in_list(qids_lists: list[list[str]]) -> list[list[str]]:
     """
     Sort QIDs within each sublist based on their predefined positions.
 
@@ -39,7 +37,7 @@ def sort_qids_in_list(qids_lists: List[List[str]]) -> List[List[str]]:
     ]
 
 
-def sort_qids_by_position(nested_qids: List[List[str]]) -> List[List[str]]:
+def sort_qids_by_position(nested_qids: list[list[str]]) -> list[list[str]]:
     """
     Sort lists of QIDs based on their predefined positions and sublist length.
 

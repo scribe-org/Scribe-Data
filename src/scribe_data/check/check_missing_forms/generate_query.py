@@ -6,7 +6,6 @@ Generate SPARQL queries for missing lexeme forms.
 import os
 import re
 from pathlib import Path
-from typing import Optional
 
 from scribe_data.check.check_missing_forms.normalize_forms import sort_qids_by_position
 from scribe_data.utils import (
@@ -82,9 +81,9 @@ def get_available_filename(base_path: str) -> str:
 
 def generate_query(
     missing_features: dict,
-    query_dir: Optional[Path] = WIKIDATA_QUERIES_ALL_DATA_DIR,
-    sub_lang_iso_code: Optional[str] = "",
-) -> Optional[str]:
+    query_dir: Path | None = WIKIDATA_QUERIES_ALL_DATA_DIR,
+    sub_lang_iso_code: str | None = "",
+) -> str | None:
     """
     Generate SPARQL queries for missing lexeme forms.
 
@@ -94,16 +93,16 @@ def generate_query(
         Dictionary containing missing features by language and data type.
         Format: {language_qid: {data_type_qid: [[form_qids]]}}.
 
-    query_dir : str or Path, optional
+    query_dir : Path, optional
         Directory where query files should be saved.
         If None, uses default queries directory.
 
-    sub_lang_iso_code : str
+    sub_lang_iso_code : str, optional
         The ISO-2 code of a sub-language if there is one being provided.
 
     Returns
     -------
-    str
+    str | None
         Path to the generated query file.
 
     Notes
