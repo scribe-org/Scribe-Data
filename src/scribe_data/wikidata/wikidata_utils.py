@@ -22,9 +22,9 @@ sparql.setMethod(POST)
 
 
 def parse_wd_lexeme_dump(
-    languages: str | None,
+    languages: str | list[str] | None,
     data_types: list[str] | None = None,
-    wikidata_dump_type: str | None = [""],
+    wikidata_dump_type: str | list[str] | None = None,
     output_dir: Path | None = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     wikidata_dump_path: Path | None = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     overwrite_all: bool = False,
@@ -86,7 +86,8 @@ def parse_wd_lexeme_dump(
             )
 
         else:
-            print(f"Language to process: {languages.capitalize()}")
+            if isinstance(languages, str):
+                print(f"Language to process: {languages.capitalize()}")
 
         print(
             f"Data types to process: {', '.join([d.capitalize() for d in data_types or []])}"
@@ -104,12 +105,21 @@ def parse_wd_lexeme_dump(
                 "[bold green]We'll use the following lexeme dump[/bold green]",
                 file_path,
             )
+            normalized_languages = languages or ""
+            if isinstance(wikidata_dump_type, str):
+                normalized_dump_type = [wikidata_dump_type]
+            elif wikidata_dump_type is None:
+                normalized_dump_type = []
+            else:
+                normalized_dump_type = wikidata_dump_type
+
             parse_dump(
-                languages=languages,
-                parse_type=wikidata_dump_type,
+                languages=normalized_languages,
+                parse_type=normalized_dump_type,
                 data_types=data_types,
                 file_path=file_path,
                 output_dir=output_dir,
                 overwrite_all=overwrite_all,
             )
-            return
+
+        return

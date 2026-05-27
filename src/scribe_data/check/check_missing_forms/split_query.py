@@ -37,7 +37,7 @@ def split_group_by_identifier(
     for lang, data in language_entry.items():
         for data_type, missing_features_list in data.items():
             # Group features by their first identifier.
-            identifier_groups = defaultdict(list)
+            identifier_groups: defaultdict[str, list] = defaultdict(list)
 
             # First try to group by the first identifier in each feature list.
             for feature_list in missing_features_list:
@@ -47,7 +47,7 @@ def split_group_by_identifier(
                     identifier_groups[key].append(feature_list)
 
             # Now check if any groups have more than 6 features.
-            final_groups = []
+            final_groups: list[list] = []
 
             for features in identifier_groups.values():
                 if len(features) <= 6:
@@ -56,7 +56,7 @@ def split_group_by_identifier(
 
                 else:
                     # This group is too large so it needs to split further by the second identifier.
-                    second_level_groups = defaultdict(list)
+                    second_level_groups: defaultdict[str, list] = defaultdict(list)
 
                     for feature_list in features:
                         if len(feature_list) > 1:
@@ -78,8 +78,8 @@ def split_group_by_identifier(
                             final_groups.append(chunk)
 
             # Now combine small groups if possible to reduce query files.
-            optimized_groups = []
-            current_group = []
+            optimized_groups: list[list] = []
+            current_group: list = []
 
             # Sort groups by size to try combining smaller ones first.
             final_groups.sort(key=len)

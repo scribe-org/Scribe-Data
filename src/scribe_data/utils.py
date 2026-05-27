@@ -571,7 +571,7 @@ def camel_to_snake(name: str) -> str:
 # MARK: Check Dump
 
 
-def check_lexeme_dump_prompt_download(output_dir: Path) -> Optional[bool | Path]:
+def check_lexeme_dump_prompt_download(output_dir: Path) -> bool | Path | None:
     """
     Check to see if a Wikidata lexeme dump exists and prompts the user to download one if not.
 

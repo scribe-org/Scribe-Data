@@ -19,7 +19,7 @@ from scribe_data.utils import (
 all_data_types = tuple(data_type_metadata.keys())
 
 
-def get_available_languages() -> dict[str, list[str]]:
+def get_available_languages() -> dict[str, dict[str, list[str]]]:
     """
     Get available languages from the data extraction folder.
 
