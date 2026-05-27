@@ -1163,7 +1163,7 @@ def parse_xml_dump(
 
 def parse_wiktionary_translations(
     target_languages: str | list[str] | None = None,
-    wiktionary_dump_path: str | Path = None,
+    wiktionary_dump_path: str | Path | None = None,
     output_dir: Path | None = DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
     overwrite: bool = False,
 ) -> None:
