@@ -64,3 +64,7 @@ jobs:
       - name: Run numpydoc Documentation Check
         if: always()
         run: uv run numpydoc lint ./src/**/*.py
+
+      - name: Run complexipy - Cognitive Complexity Check
+        if: always()
+        run: uv run complexipy src/scribe_data/ --max-complexity-allowed 15
