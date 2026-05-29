@@ -44,6 +44,7 @@ dev = [
     "ruff>=0.15.14",
     "setuptools>=82.0.1",
     "ty>=0.0.39",
+    "complexipy>=4.2.0",
 ]
 docs = [
     # Keep docs dependencies formatted in this way with ruff to allow for upgrades via VS Code extension.
@@ -129,9 +130,15 @@ checks = [
     "EX01",
     "SA01",
 ]
-
 exclude = [
     "^.*\\.Meta$",    # Meta classes
     "^.*\\.__str__$", # __str__ methods
     "^__init__$",     # __init__ files
 ]
+
+[tool.complexipy]
+max_complexity = 15
+details = "low"
+sort = "desc"
+exclude = []
+
