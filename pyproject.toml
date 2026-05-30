@@ -138,7 +138,5 @@ exclude = [
 ]
 
 [tool.complexipy]
-max_complexity = 15
-details = "low"
+max-complexity-allowed = 15
 sort = "desc"
-exclude = []
