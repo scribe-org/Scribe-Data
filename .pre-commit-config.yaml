@@ -45,3 +45,10 @@ repos:
         exclude: ^(?:.*/)?__init__\.py$
         args: [-l, GPL-3.0-or-later, --fix, --continue-on-error]
         types_or: [python]
+
+  - repo: https://github.com/rohaquinlop/complexipy-pre-commit
+    rev: v4.2.0
+    hooks:
+      - id: complexipy
+        files: ^src/
+        types_or: [ python, pyi ]
