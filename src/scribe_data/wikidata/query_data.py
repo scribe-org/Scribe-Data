@@ -9,7 +9,7 @@ import re
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, cast
 from urllib.error import HTTPError
 
 from tqdm.auto import tqdm
@@ -81,12 +81,12 @@ def execute_formatting_script(output_dir: Path, language: str, data_type: str) -
 
 
 def query_data(
-    languages: List[str] = [""],
-    data_types: List[str] = [""],
-    output_dir: Optional[Path] = None,
+    languages: list[str] = [""],
+    data_types: list[str] = [""],
+    output_dir: Path | None = None,
     overwrite: bool = False,
     interactive: bool = False,
-) -> Optional[Dict[str, bool]]:
+) -> dict[str, bool] | None:
     """
     Query language data from the Wikidata lexicographical data.
 
@@ -200,7 +200,7 @@ def query_data(
 
         else:
             # Subset the returned JSON and the individual results before saving.
-            res_dict = cast(Dict[str, Any], results)
+            res_dict = cast(dict[str, Any], results)
             query_results = res_dict.get("results", {}).get("bindings", [])
 
             results_final = []
@@ -244,7 +244,7 @@ def query_data(
 
                             else:
                                 # Subset the returned JSON and the individual results before saving.
-                                res_dict = cast(Dict[str, Any], results)
+                                res_dict = cast(dict[str, Any], results)
                                 query_results = res_dict.get("results", {}).get(
                                     "bindings", []
                                 )

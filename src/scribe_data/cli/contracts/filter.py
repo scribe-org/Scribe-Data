@@ -7,7 +7,7 @@ import json
 import os
 import re
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 import yaml
 
@@ -19,7 +19,7 @@ from scribe_data.utils import (
 )
 
 
-def filter_contract_metadata(contract_file: Path) -> Dict[str, Any]:
+def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
     """
     Extract and filter metadata from a language-specific data contract file.
 
@@ -154,8 +154,8 @@ def filter_contract_metadata(contract_file: Path) -> Dict[str, Any]:
 
 
 def filter_exported_data(
-    input_file: Path, contract_metadata: Dict[str, Any], data_type: str
-) -> Dict[str, Any]:
+    input_file: Path, contract_metadata: dict[str, Any], data_type: str
+) -> dict[str, Any]:
     """
     Filter exported language data based on contract metadata requirements.
 

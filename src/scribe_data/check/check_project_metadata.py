@@ -9,7 +9,6 @@ Examples
 
 import difflib
 import sys
-from typing import List
 
 from scribe_data.utils import (
     WIKIDATA_QUERIES_ALL_DATA_DIR,
@@ -20,7 +19,7 @@ from scribe_data.utils import (
 all_data_types = tuple(data_type_metadata.keys())
 
 
-def get_available_languages() -> dict[str, List[str]]:
+def get_available_languages() -> dict[str, dict[str, list[str]]]:
     """
     Get available languages from the data extraction folder.
 
@@ -65,7 +64,7 @@ def get_available_languages() -> dict[str, List[str]]:
 
 def get_missing_languages(
     reference_languages: dict, target_languages: dict
-) -> List[str]:
+) -> list[str]:
     """
     Compare two language dictionaries and return a list of languages and sub-languages that exist.
 

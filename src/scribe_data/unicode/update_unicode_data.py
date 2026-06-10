@@ -7,7 +7,7 @@ Examples
 >>> python3 src/scribe_data/unicode/update_unicode_data.py
 """
 
-import os
+import subprocess
 from pathlib import Path
 
 
@@ -19,14 +19,19 @@ def check_install_node_modules() -> None:
         print(
             "\nInstalling necessary Node modules to allow for emoji keyword extraction.\n"
         )
-        os.system("npm install")
+        subprocess.run(["npm", "install"], check=True)
 
     print("Moving Unicode files to appropriate location within Scribe-Data.")
-    os.system("mv node_modules/cldr-annotations-derived-full src/scribe_data/unicode")
-    os.system("mv node_modules/cldr-annotations-full src/scribe_data/unicode")
-
+    subprocess.run(
+        ["mv", "node_modules/cldr-annotations-derived-full", "src/scribe_data/unicode"],
+        check=True,
+    )
+    subprocess.run(
+        ["mv", "node_modules/cldr-annotations-full", "src/scribe_data/unicode"],
+        check=True,
+    )
     print("Removing `node_modules` from the current working directory.")
-    os.system("rm -rf node_modules")
+    subprocess.run(["rm", "-rf", "node_modules"], check=True)
 
 
 if __name__ == "__main__":

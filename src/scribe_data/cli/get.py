@@ -8,7 +8,6 @@ import os
 import urllib.error
 from http.client import IncompleteRead
 from pathlib import Path
-from typing import Dict, List, Optional
 from urllib.error import URLError
 
 import questionary
@@ -31,27 +30,27 @@ from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 
 
 def get_data(
-    languages: Optional[List[str]] = None,
-    data_types: Optional[List[str]] = None,
+    languages: list[str] | None = None,
+    data_types: list[str] | None = None,
     output_type: str = "json",
-    output_dir: Optional[Path] = None,
+    output_dir: Path | None = None,
     overwrite: bool = False,
     outputs_per_entry: int = 0,
     all_bool: bool = False,
     interactive: bool = False,
     identifier_case: str = "camel",
-    wikidata_dump_path: Optional[Path] = None,
-    wiktionary_dump: Optional[str] = None,
-) -> Optional[Dict[str, bool]]:
+    wikidata_dump_path: Path | None = None,
+    wiktionary_dump: str | None = None,
+) -> dict[str, bool] | None:
     """
     Function for controlling the data get process for the CLI.
 
     Parameters
     ----------
-    languages : List[str]
+    languages : list[str]
         The language(s) to get.
 
-    data_types : List[str]
+    data_types : list[str]
         The data type(s) to get.
 
     output_type : str
@@ -84,7 +83,7 @@ def get_data(
 
     Returns
     -------
-    Optional[Dict[str, bool]]
+    Dict[str, bool] | None
         The requested data saved locally given file type and location arguments.
     """
     # MARK: Defaults

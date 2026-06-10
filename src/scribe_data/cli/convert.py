@@ -6,7 +6,6 @@ Functions to convert data returned from the Scribe-Data CLI to other file types.
 import csv
 import json
 from pathlib import Path
-from typing import List, Optional, Union
 
 from scribe_data.load.data_to_sqlite import data_to_sqlite
 from scribe_data.utils import (
@@ -24,7 +23,7 @@ from scribe_data.utils import (
 
 def convert_to_json(
     language: str,
-    data_types: Union[str, List[str]],
+    data_types: str | list[str] | None,
     input_file: Path,
     output_dir: Path,
     output_type: str,
@@ -67,6 +66,9 @@ def convert_to_json(
 
     data_types = [data_types] if isinstance(data_types, str) else data_types
 
+    if not data_types:
+        return
+
     if output_dir is None:
         output_dir = DEFAULT_JSON_EXPORT_DIR
 
@@ -97,7 +99,7 @@ def convert_to_json(
                 # Use the first row to inspect column headers.
                 first_row = rows[0]
                 keys = list(first_row.keys())
-                data = {}
+                data: dict = {}
 
                 if len(keys) == 1:
                     # Handle Case: { key: None }.
@@ -136,10 +138,10 @@ def convert_to_json(
 
                             entry = {"emoji": emoji, "is_base": is_base, "rank": rank}
 
-                            if key not in data:
-                                data[key] = []
+                            if key is None:
+                                continue
 
-                            data[key].append(entry)
+                            data.setdefault(key, []).append(entry)
 
                     else:
                         # Handle Case: { key: { value1: ..., value2: ... } }.
@@ -180,7 +182,7 @@ def convert_to_json(
 
 def convert_to_csv_or_tsv(
     language: str,
-    data_types: Union[str, List[str]],
+    data_types: str | list[str],
     input_file: Path,
     output_dir: Path,
     output_type: str,
@@ -370,8 +372,8 @@ def convert_to_csv_or_tsv(
 
 
 def convert_wrapper(
-    languages: Optional[List[str]],
-    data_types: Optional[List[str]],
+    languages: list[str] | None,
+    data_types: list | None,
     input_path: Path,
     output_dir: Path,
     output_type: str,

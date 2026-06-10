@@ -10,7 +10,7 @@ import re
 from datetime import datetime
 from importlib import resources
 from pathlib import Path
-from typing import Any, List, Optional
+from typing import Any
 
 import questionary
 import requests
@@ -282,7 +282,7 @@ def get_language_from_iso(iso: str) -> str:
     raise ValueError(f"{iso.upper()} is currently not a supported ISO language.")
 
 
-def resolve_lang_iso(language: str) -> Optional[str]:
+def resolve_lang_iso(language: str) -> str | None:
     """
     Resolve language name or ISO to ISO code.
 
@@ -293,7 +293,7 @@ def resolve_lang_iso(language: str) -> Optional[str]:
 
     Returns
     -------
-    str
+    str | None
         The ISO code for the given language.
     """
     language = language.strip().lower()
@@ -468,7 +468,7 @@ def format_sublanguage_name(lang: str, language_metadata: dict = _languages) -> 
     raise ValueError(f"{lang.capitalize()} is not a valid language or sub-language.")
 
 
-def list_all_languages(language_metadata: dict = _languages) -> List[str]:
+def list_all_languages(language_metadata: dict = _languages) -> list[str]:
     """
     Return a sorted list of all languages and sub-languages from the provided metadata dictionary.
 
@@ -501,7 +501,7 @@ def list_all_languages(language_metadata: dict = _languages) -> List[str]:
 
 def list_languages_with_metadata_for_data_type(
     language_metadata: dict = _languages,
-) -> List[dict]:
+) -> list[dict]:
     """
     Return a sorted list of languages and their metadata (name, iso, qid) for a specific data type.
 
@@ -571,7 +571,7 @@ def camel_to_snake(name: str) -> str:
 # MARK: Check Dump
 
 
-def check_lexeme_dump_prompt_download(output_dir: Path) -> Optional[bool | Path]:
+def check_lexeme_dump_prompt_download(output_dir: Path) -> bool | Path | None:
     """
     Check to see if a Wikidata lexeme dump exists and prompts the user to download one if not.
 

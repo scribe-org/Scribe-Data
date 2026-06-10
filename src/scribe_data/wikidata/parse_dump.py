@@ -7,7 +7,7 @@ import bz2
 import time
 from collections import Counter, defaultdict
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any
 
 import orjson
 import questionary
@@ -33,38 +33,38 @@ class LexemeProcessor:
 
         Parameters
         ----------
-        target_lang : str, List[str]
+        target_lang : str, list[str]
             The language or languages to process lexemes for.
 
-        parse_type : List[str]
+        parse_type : list[str]
             Can be any combination of:
                 - 'form'
                 - 'total'
 
-        data_types : List[str]
+        data_types : list[str]
             A list of categories (e.g., ["nouns", "adverbs"]) for forms.
     """
 
     def __init__(
         self,
-        target_lang: Union[str, List[str]] = "",
-        parse_type: List[str] = [""],
-        data_types: Union[str, List[str]] = [""],
+        target_lang: str | list[str] = "",
+        parse_type: list[str] = [""],
+        data_types: str | list[str] = [""],
     ) -> None:
         """
         Use to derive information on lexeme dump entries.
 
         Parameters
         ----------
-        target_lang : str, List[str]
+        target_lang : str, list[str]
             The language or languages to process lexemes for.
 
-        parse_type : List[str]
+        parse_type : list[str]
             Can be any combination of:
                 - 'form'
                 - 'total'
 
-        data_types : List[str]
+        data_types : list[str]
             A list of categories (e.g., ["nouns", "adverbs"]) for forms.
         """
         # Pre-compute sets for faster lookups.
@@ -83,7 +83,7 @@ class LexemeProcessor:
         self.valid_iso_codes = set(self.iso_to_name.keys())
 
         # Separate data structures.
-        self.forms_index: Dict[str, Dict[str, Dict[str, Any]]] = defaultdict(
+        self.forms_index: dict[str, dict[str, dict[str, Any]]] = defaultdict(
             lambda: defaultdict(list)
         )
 
@@ -92,15 +92,15 @@ class LexemeProcessor:
 
         # For "total" usage.
         self.lexical_category_counts = defaultdict(Counter)
-        self.forms_counts: Dict[str, Counter] = defaultdict(Counter)
+        self.forms_counts: dict[str, Counter] = defaultdict(Counter)
 
         # For "unique_forms" usage.
-        self.unique_forms: Dict[str, Dict[str, List[Any]]] = defaultdict(
+        self.unique_forms: dict[str, dict[str, list[Any]]] = defaultdict(
             lambda: defaultdict(list)
         )
 
         # Cache for feature labels.
-        self._feature_label_cache: Dict[str, tuple[str, str]] = {}
+        self._feature_label_cache: dict[str, tuple[str, str]] = {}
         for category, items in lexeme_form_metadata.items():
             for item_data in items.values():
                 self._feature_label_cache[item_data["qid"]] = (
@@ -109,7 +109,7 @@ class LexemeProcessor:
                 )
 
         # Add a cache for form labels to reduce repeated function calls.
-        self._form_label_cache: Dict[tuple[str, ...], str] = {}
+        self._form_label_cache: dict[tuple[str, ...], str] = {}
 
     # MARK: Build ISO Mapping
 
@@ -604,11 +604,11 @@ class LexemeProcessor:
 
 
 def parse_dump(
-    languages: Union[str, List[str]] = "",
-    parse_type: List[str] = [""],
-    data_types: Optional[List[str]] = None,
+    languages: str | list[str] = "",
+    parse_type: list[str] = [""],
+    data_types: list[str] | None = None,
     file_path: Path = Path("latest-lexemes.json.bz2"),
-    output_dir: Optional[Path] = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    output_dir: Path | None = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     overwrite_all: bool = False,
 ) -> None:
     """

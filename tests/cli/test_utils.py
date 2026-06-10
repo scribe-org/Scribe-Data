@@ -4,7 +4,6 @@ Tests for the CLI utils functionality.
 """
 
 import unittest
-from typing import Optional
 from unittest.mock import MagicMock, patch
 
 from scribe_data.cli.cli_utils import (
@@ -123,7 +122,7 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
             "verbs": "Q24905",
         }
 
-    def mock_get_qid(self, input_value: str) -> Optional[str]:
+    def mock_get_qid(self, input_value: str) -> str | None:
         """
         Returns QID based on the input language or data type.
         """

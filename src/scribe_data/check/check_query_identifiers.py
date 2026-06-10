@@ -10,7 +10,6 @@ Examples
 import re
 import sys
 from pathlib import Path
-from typing import Optional
 
 from scribe_data.utils import (
     WIKIDATA_QUERIES_ALL_DATA_DIR,
@@ -97,7 +96,7 @@ def is_valid_data_type(query_file: Path, data_type_qid: str) -> bool:
     return data_type_qid == expected_data_type_qid
 
 
-def extract_qid_from_sparql(file_path: Path, pattern: str) -> Optional[str]:
+def extract_qid_from_sparql(file_path: Path, pattern: str) -> str | None:
     """
     Extract the QID from a SPARQL query file based on the provided pattern.
 
@@ -111,7 +110,7 @@ def extract_qid_from_sparql(file_path: Path, pattern: str) -> Optional[str]:
 
     Returns
     -------
-    str
+    str | None
         The extracted QID if found, otherwise None.
 
     Raises

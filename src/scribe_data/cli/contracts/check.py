@@ -5,7 +5,6 @@ Functions for checking data exports against their contracts.
 
 import json
 from pathlib import Path
-from typing import Dict, List, Optional
 
 from scribe_data.cli.contracts.filter import (
     DEFAULT_DATA_CONTRACTS_DIR,
@@ -22,7 +21,7 @@ for i in range(len(data_contracts_langs)):
     data_contracts_langs[i] = get_language_from_iso(data_contracts_langs[i])
 
 
-def check_contracts(output_dir: Optional[str] = None) -> None:
+def check_contracts(output_dir: str | None = None) -> None:
     """
     Check data contracts in the specified or default output directory to ensure data completeness.
 
@@ -45,8 +44,8 @@ def check_contracts(output_dir: Optional[str] = None) -> None:
 
 
 def check_contract_data_completeness(
-    export_dir: Path, language: Optional[str] = None
-) -> Dict[str, Dict[str, List[str]]]:
+    export_dir: Path, language: str | None = None
+) -> dict[str, dict[str, list[str]]]:
     """
     Validate exported data contracts against their metadata requirements.
 
@@ -167,7 +166,7 @@ def check_contract_data_completeness(
     return missing_forms
 
 
-def print_missing_forms(missing_forms: Dict[str, Dict[str, List[str]]]) -> None:
+def print_missing_forms(missing_forms: dict[str, dict[str, list[str]]]) -> None:
     """
     Print missing forms from data contracts.
 

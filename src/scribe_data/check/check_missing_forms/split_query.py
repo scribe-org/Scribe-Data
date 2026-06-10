@@ -5,7 +5,6 @@ Split forms into groups of up to six forms per query based on identifiers.
 
 from collections import defaultdict
 from pathlib import Path
-from typing import Optional
 
 from scribe_data.check.check_missing_forms.generate_query import generate_query
 
@@ -13,7 +12,7 @@ from scribe_data.check.check_missing_forms.generate_query import generate_query
 def split_group_by_identifier(
     language_entry: dict,
     output_dir: Path,
-    sub_lang_iso_code: Optional[str] = None,
+    sub_lang_iso_code: str | None = None,
 ) -> None:
     """
     Split forms into groups of up to six forms per query based on identifiers.
@@ -38,7 +37,7 @@ def split_group_by_identifier(
     for lang, data in language_entry.items():
         for data_type, missing_features_list in data.items():
             # Group features by their first identifier.
-            identifier_groups = defaultdict(list)
+            identifier_groups: defaultdict[str, list] = defaultdict(list)
 
             # First try to group by the first identifier in each feature list.
             for feature_list in missing_features_list:
@@ -48,7 +47,7 @@ def split_group_by_identifier(
                     identifier_groups[key].append(feature_list)
 
             # Now check if any groups have more than 6 features.
-            final_groups = []
+            final_groups: list[list] = []
 
             for features in identifier_groups.values():
                 if len(features) <= 6:
@@ -57,7 +56,7 @@ def split_group_by_identifier(
 
                 else:
                     # This group is too large so it needs to split further by the second identifier.
-                    second_level_groups = defaultdict(list)
+                    second_level_groups: defaultdict[str, list] = defaultdict(list)
 
                     for feature_list in features:
                         if len(feature_list) > 1:
@@ -79,8 +78,8 @@ def split_group_by_identifier(
                             final_groups.append(chunk)
 
             # Now combine small groups if possible to reduce query files.
-            optimized_groups = []
-            current_group = []
+            optimized_groups: list[list] = []
+            current_group: list = []
 
             # Sort groups by size to try combining smaller ones first.
             final_groups.sort(key=len)

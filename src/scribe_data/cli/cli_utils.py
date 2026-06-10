@@ -5,7 +5,6 @@ Utility functions for the Scribe-Data CLI.
 
 import contextlib
 import difflib
-from typing import List, Optional, Set, Union
 
 from scribe_data.utils import (
     data_type_metadata,
@@ -16,7 +15,7 @@ from scribe_data.utils import (
 # MARK: Correct Inputs
 
 
-def correct_data_type(data_type: str) -> Optional[str]:
+def correct_data_type(data_type: str) -> str | None:
     """
     Correct common versions of data type arguments to their standardized form.
 
@@ -43,13 +42,13 @@ def correct_data_type(data_type: str) -> Optional[str]:
 # MARK: Print Formatted
 
 
-def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
+def print_formatted_data(data: dict | list, data_type: str) -> None:
     """
     Print formatted output from the Scribe-Data CLI.
 
     Parameters
     ----------
-    data : Union[dict, list]
+    data : dict | list
         The data to format and print.
 
     data_type : str
@@ -111,8 +110,8 @@ def print_formatted_data(data: Union[dict, list], data_type: str) -> None:
 
 
 def validate_language_and_data_type(
-    language: Optional[str | List[str] | bool],
-    data_type: Optional[str | List[str] | bool],
+    language: str | list[str] | bool | None,
+    data_type: str | list[str] | bool | None,
 ) -> bool:
     """
     Validate that the language and data type QIDs are not None.
@@ -137,8 +136,8 @@ def validate_language_and_data_type(
     """
 
     def validate_single_item(
-        item: str, valid_options: Set[str], item_type: str
-    ) -> Optional[str]:
+        item: str, valid_options: set[str], item_type: str
+    ) -> str | None:
         """
         Validate a single item against a list of valid options, providing error messages and suggestions.
 

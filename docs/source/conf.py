@@ -18,7 +18,6 @@ import sys
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-
 sys.path.insert(0, os.path.abspath("../../src"))
 
 # -- Project information -----------------------------------------------------
@@ -30,19 +29,20 @@ author = "Scribe-Data developers"
 # The full version, including alpha/beta/rc tags
 release = "5.1.4"
 
-
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx.ext.autodoc",
+    "myst_parser",
     "numpydoc",
+    "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "sphinx.ext.imgmath",
 ]
 
+myst_heading_anchors = 4
 numpydoc_show_inherited_class_members = False
 numpydoc_show_class_members = False
 
@@ -79,13 +79,11 @@ exclude_patterns = []
 # source_suffix = ['.rst', '.md']
 source_suffix = ".rst"
 
-
 # The master toctree document.
 master_doc = "index"
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "sphinx"
-
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -114,12 +112,10 @@ html_sidebars = {
     "**": ["relations.html", "searchbox.html"]
 }  # needs 'show_related': True theme option to display
 
-
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = "Scribe-Data_doc"
-
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -151,13 +147,11 @@ latex_documents = [
     )
 ]
 
-
 # -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [(master_doc, "Scribe-Data", "Scribe-Data Documentation", [author], 1)]
-
 
 # -- Options for Texinfo output -------------------------------------------
 

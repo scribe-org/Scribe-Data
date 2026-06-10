@@ -3,13 +3,19 @@
     :align: center
     :target: https://github.com/scribe-org/Scribe-Data
 
-|platform| |rtd| |issues| |language| |pypi| |pypistatus| |license| |coc| |mastodon| |matrix|
+|platform| |rtd| |ci_static_analysis| |ci_pytest| |issues| |language| |pypi| |pypistatus| |license| |coc| |mastodon| |matrix|
 
 .. |platform| image:: https://img.shields.io/badge/Wikidata-990000.svg?logo=wikidata&logoColor=ffffff
     :target: https://github.com/scribe-org/Scribe-Data
 
 .. |rtd| image:: https://img.shields.io/readthedocs/scribe-data.svg?label=%20&logo=read-the-docs&logoColor=ffffff
     :target: http://scribe-data.readthedocs.io/en/latest/
+
+.. |ci_static_analysis| image:: https://img.shields.io/github/actions/workflow/status/scribe-org/Scribe-Data/ci_static_analysis.yaml?branch=main&label=%20&logo=ruff&logoColor=ffffff
+    :target: https://github.com/scribe-org/Scribe-Data/actions/workflows/ci_static_analysis.yaml
+
+.. |ci_pytest| image:: https://img.shields.io/github/actions/workflow/status/scribe-org/Scribe-Data/ci_pytest.yaml?branch=main&label=%20&logo=pytest&logoColor=ffffff
+    :target: https://github.com/scribe-org/Scribe-Data/actions/workflows/ci_pytest.yaml
 
 .. |issues| image:: https://img.shields.io/github/issues/scribe-org/Scribe-Data?label=%20&logo=github
     :target: https://github.com/scribe-org/Scribe-Data/issues

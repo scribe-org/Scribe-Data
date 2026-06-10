@@ -4,7 +4,6 @@ Tests for the contract filter functionality in the CLI.
 """
 
 from pathlib import Path
-from typing import List
 from unittest.mock import MagicMock, call, mock_open, patch
 
 from scribe_data.cli.contracts.filter import (
@@ -307,7 +306,7 @@ class TestExportContracts:
             mock_filtered_verbs,
         ] * 2  # for both languages
 
-        def mock_path_glob(self: Path, pattern: str) -> List[Path]:
+        def mock_path_glob(self: Path, pattern: str) -> list[Path]:
             """
             Mock glob method that returns files based on the path.
             """

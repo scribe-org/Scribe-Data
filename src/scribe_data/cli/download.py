@@ -9,7 +9,6 @@ import re
 from collections.abc import Callable
 from datetime import date, datetime
 from pathlib import Path
-from typing import List, Optional
 
 import questionary
 import requests
@@ -24,7 +23,7 @@ from scribe_data.utils import (
 )
 
 
-def parse_date(date_string: str) -> Optional[date]:
+def parse_date(date_string: str) -> date | None:
     """
     Parse a date string into a datetime.date object (formats: YYYYMMDD, YYYY/MM/DD, YYYY-MM-DD).
 
@@ -58,7 +57,7 @@ def available_closest_lexeme_dumpfile(
     target_entity: str,
     other_old_dumps: list,
     check_wd_dump_exists: Callable[[str], str | None],
-) -> Optional[str]:
+) -> str | None:
     """
     Find the closest available dump file based on the target date.
 
@@ -109,7 +108,7 @@ def available_closest_lexeme_dumpfile(
 
 def download_wd_lexeme_dump(
     target_entity: str = "latest-lexemes",
-) -> Optional[str]:
+) -> str | None:
     """
     Download a Wikimedia lexeme dump based on the specified target entity or date.
 
@@ -129,7 +128,7 @@ def download_wd_lexeme_dump(
     """
     base_url = "https://dumps.wikimedia.org/wikidatawiki/entities"
 
-    def check_wd_dump_exists(target_entity: str) -> Optional[str]:
+    def check_wd_dump_exists(target_entity: str) -> str | None:
         """
         Check if the specified dump file exists for a target entity.
 
@@ -207,10 +206,10 @@ def download_wd_lexeme_dump(
 
 
 def wd_lexeme_dump_download_wrapper(
-    dump_snapshot: Optional[str] = None,
-    output_dir: Optional[Path] = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    dump_snapshot: str | None = None,
+    output_dir: Path | None = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     default: bool = False,
-) -> Optional[Path | bool]:
+) -> Path | bool | None:
     """
     Download Wikidata lexeme dumps given user preferences.
 
@@ -299,9 +298,9 @@ def wd_lexeme_dump_download_wrapper(
 
 def download_wiktionary_dumps(
     output_dir: Path = DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
-    language_isos: List[str] = ["en"],
-    dump_snapshot: Optional[str] = "latest",
-) -> Optional[Path]:
+    language_isos: list[str] = ["en"],
+    dump_snapshot: str | None = "latest",
+) -> Path | None:
     """
     Download the latest Wiktionary pages-articles dump based on passed language isos.
 
@@ -363,6 +362,19 @@ def download_wiktionary_dumps(
             return None
 
         output_path = output_dir / filename
+
+        if output_path.exists():
+            rprint(f"[bold yellow]Dump already exists: {output_path}[/bold yellow]")
+            user_input = questionary.select(
+                "Do you want to:",
+                choices=[
+                    "Skip download",
+                    "Download and overwrite",
+                ],
+            ).ask()
+            if user_input == "Skip download":
+                rprint("[bold green]Skipping download.[/bold green]")
+                return output_path
 
         rprint(f"[bold blue]Downloading to {output_path}...[/bold blue]")
         try:

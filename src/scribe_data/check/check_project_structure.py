@@ -8,7 +8,6 @@ Examples
 """
 
 import os
-from typing import Optional
 
 from scribe_data.utils import (
     WIKIDATA_QUERIES_ALL_DATA_DIR,
@@ -30,7 +29,7 @@ def check_for_sparql_files(
     folder_path: str,
     data_type: str,
     language: str,
-    subdir: Optional[str],
+    subdir: str | None,
     missing_queries: list,
 ) -> bool:
     """
@@ -73,7 +72,7 @@ def check_for_sparql_files(
 def check_data_type_folders(
     path: str,
     language: str,
-    subdir: Optional[str],
+    subdir: str | None,
     errors: list,
     missing_folders: list,
     missing_queries: list,

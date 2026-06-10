@@ -9,7 +9,7 @@ Examples
 
 import re
 from pathlib import Path
-from typing import Any, List, Literal, Optional
+from typing import Any, Literal
 
 from scribe_data.utils import (
     WIKIDATA_QUERIES_ALL_DATA_DIR,
@@ -35,7 +35,7 @@ qid_label_dict = dict(zip(lexeme_form_labels_order, lexeme_form_qid_order))
 # MARK: Extract Forms
 
 
-def extract_forms_from_sparql(file_path: Path) -> Optional[List[str | Any]]:
+def extract_forms_from_sparql(file_path: Path) -> list[str | Any] | None:
     """
     Extract the QID from a SPARQL query file based on the provided pattern.
 
@@ -46,7 +46,7 @@ def extract_forms_from_sparql(file_path: Path) -> Optional[List[str | Any]]:
 
     Returns
     -------
-    dict
+    list[str | Any] | None
         The file path with form labels of the query and their respective QIDs.
 
     Raises
@@ -73,7 +73,7 @@ def extract_forms_from_sparql(file_path: Path) -> Optional[List[str | Any]]:
 # MARK: Extract Label
 
 
-def extract_form_rep_label(form_text: str) -> Optional[str]:
+def extract_form_rep_label(form_text: str) -> str | None:
     """
     Extract the representation label from an optional query form.
 
@@ -84,7 +84,7 @@ def extract_form_rep_label(form_text: str) -> Optional[str]:
 
     Returns
     -------
-    str
+    str | None
         The label of the form representation.
     """
     onto_rep_pattern = r"ontolex:representation .* ;"
@@ -135,7 +135,7 @@ def decompose_label_features(label: str) -> list:
 # MARK: Extract QIDs
 
 
-def extract_form_qids(form_text: str) -> Optional[List[str]]:
+def extract_form_qids(form_text: str) -> list[str] | None:
     """
     Extract all QIDs from an optional query form.
 
@@ -146,7 +146,7 @@ def extract_form_qids(form_text: str) -> Optional[List[str]]:
 
     Returns
     -------
-    Optional[List[str]]
+    List[str] | None
         All QIDS that make up the form.
     """
     qids_pattern = r"wikibase:grammaticalFeature .+ \."
@@ -224,7 +224,7 @@ def check_query_formatting(form_text: str) -> bool:
 # MARK: Correct Label
 
 
-def return_correct_form_label(qids: List[str]) -> str:
+def return_correct_form_label(qids: list[str]) -> str:
     """
     Return the correct label for a lexeme form representation given the QIDs that compose it.
 
@@ -441,7 +441,7 @@ def check_forms_order(query_text: str) -> list | bool | str:
         grouped_columns.setdefault(len(col), []).append(col)
 
     # Sorting function for multi-level component-based sorting.
-    def compare_key(components: List[str]) -> List[str | int | float]:
+    def compare_key(components: list[str]) -> list[str | int | float]:
         """
         Get a key to compare via its component parts to see if it's included.
 

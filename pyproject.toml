@@ -43,11 +43,12 @@ dev = [
     "pytest-cov>=7.1.0",
     "ruff>=0.15.14",
     "setuptools>=82.0.1",
-    "ty>=0.0.38",
+    "ty>=0.0.39",
+    "complexipy>=4.2.0",
 ]
 docs = [
     # Keep docs dependencies formatted in this way with ruff to allow for upgrades via VS Code extension.
-    "m2r2>=0.3.4",
+    "myst-parser>=5.1.0",
     "numpydoc>=1.10.0",
     "sphinx-rtd-theme>=3.1.0",
 ]
@@ -135,3 +136,7 @@ exclude = [
     "^.*\\.__str__$", # __str__ methods
     "^__init__$",     # __init__ files
 ]
+
+[tool.complexipy]
+max-complexity-allowed = 15
+sort = "desc"

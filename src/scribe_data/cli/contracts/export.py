@@ -27,9 +27,9 @@ def export_contracts(output_dir: Path = DEFAULT_CONTRACTS_EXPORT_DIR) -> None:
         Path(__file__).parent.parent.parent / "resources" / "data_contracts"
     )
 
-    assert contracts_source.exists(), (
-        f"Contracts source directory not found at {contracts_source}."
-    )
+    assert (
+        contracts_source.exists()
+    ), f"Contracts source directory not found at {contracts_source}."
 
     if output_dir.exists():
         response = (

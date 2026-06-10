@@ -4,7 +4,6 @@ Utility functions for accessing data from Wikidata.
 """
 
 from pathlib import Path
-from typing import List, Optional
 
 from rich import print as rprint
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
@@ -23,11 +22,11 @@ sparql.setMethod(POST)
 
 
 def parse_wd_lexeme_dump(
-    languages: List[str],
-    data_types: Optional[List[str]] = None,
-    wikidata_dump_type: List[str] = [""],
-    output_dir: Optional[Path] = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
-    wikidata_dump_path: Optional[Path] = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    languages: str | list[str] | None,
+    data_types: list[str] | None = None,
+    wikidata_dump_type: str | list[str] | None = None,
+    output_dir: Path | None = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    wikidata_dump_path: Path | None = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     overwrite_all: bool = False,
     interactive_mode: bool = False,
 ) -> None:
@@ -87,7 +86,8 @@ def parse_wd_lexeme_dump(
             )
 
         else:
-            print(f"Language to process: {languages.capitalize()}")
+            if isinstance(languages, str):
+                print(f"Language to process: {languages.capitalize()}")
 
         print(
             f"Data types to process: {', '.join([d.capitalize() for d in data_types or []])}"
@@ -105,12 +105,21 @@ def parse_wd_lexeme_dump(
                 "[bold green]We'll use the following lexeme dump[/bold green]",
                 file_path,
             )
+            normalized_languages = languages or ""
+            if isinstance(wikidata_dump_type, str):
+                normalized_dump_type = [wikidata_dump_type]
+            elif wikidata_dump_type is None:
+                normalized_dump_type = []
+            else:
+                normalized_dump_type = wikidata_dump_type
+
             parse_dump(
-                languages=languages,
-                parse_type=wikidata_dump_type,
+                languages=normalized_languages,
+                parse_type=normalized_dump_type,
                 data_types=data_types,
                 file_path=file_path,
                 output_dir=output_dir,
                 overwrite_all=overwrite_all,
             )
-            return
+
+        return
