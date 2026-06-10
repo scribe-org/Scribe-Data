@@ -757,10 +757,8 @@ dependencies = [
 ]
 
 [package.dev-dependencies]
-complexity = [
-    { name = "complexipy" },
-]
 dev = [
+    { name = "complexipy" },
     { name = "prek" },
     { name = "pytest" },
     { name = "pytest-cov" },
@@ -789,8 +787,8 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-complexity = [{ name = "complexipy", specifier = ">=5.5.0" }]
 dev = [
+    { name = "complexipy", specifier = ">=5.5.0" },
     { name = "prek", specifier = ">=0.4.4" },
     { name = "pytest", specifier = ">=9.0.3" },
     { name = "pytest-cov", specifier = ">=7.1.0" },

@@ -38,6 +38,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "complexipy>=5.5.0",
     "prek>=0.4.4",
     "pytest>=9.0.3",
     "pytest-cov>=7.1.0",
@@ -50,10 +51,6 @@ docs = [
     "myst-parser>=5.1.0",
     "numpydoc>=1.10.0",
     "sphinx-rtd-theme>=3.1.0",
-]
-complexity = [
-    # Keep docs dependencies formatted in this way with ruff to allow for upgrades via VS Code extension.
-    "complexipy>=5.5.0",
 ]
 
 [project.scripts]
