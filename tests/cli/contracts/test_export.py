@@ -1,4 +1,3 @@
-# SPDX-FileCopyrightText: 2024 Scribe-Data contributors
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 """
@@ -25,9 +24,7 @@ def contracts_source(tmp_path: Path) -> Path:
     return source
 
 
-def test_export_contracts_fresh_export(
-    tmp_path: Path, contracts_source: Path
-) -> None:
+def test_export_contracts_fresh_export(tmp_path: Path, contracts_source: Path) -> None:
     """
     Test fresh export when no existing contracts folder.
     """
@@ -72,10 +69,13 @@ def test_export_contracts_overwrite_confirmed(
     output_dir.mkdir(parents=True)
     (output_dir / "old.yaml").write_text("old data")
 
-    with patch(
-        "scribe_data.cli.contracts.export.Path.__truediv__",
-        return_value=contracts_source,
-    ), patch("builtins.input", return_value="y"):
+    with (
+        patch(
+            "scribe_data.cli.contracts.export.Path.__truediv__",
+            return_value=contracts_source,
+        ),
+        patch("builtins.input", return_value="y"),
+    ):
         export_contracts(output_dir=output_dir)
 
     assert (output_dir / "en.yaml").exists()
@@ -92,10 +92,13 @@ def test_export_contracts_overwrite_declined(
     output_dir.mkdir(parents=True)
     (output_dir / "old.yaml").write_text("old data")
 
-    with patch(
-        "scribe_data.cli.contracts.export.Path.__truediv__",
-        return_value=contracts_source,
-    ), patch("builtins.input", return_value="n"):
+    with (
+        patch(
+            "scribe_data.cli.contracts.export.Path.__truediv__",
+            return_value=contracts_source,
+        ),
+        patch("builtins.input", return_value="n"),
+    ):
         export_contracts(output_dir=output_dir)
 
     captured = capsys.readouterr()
@@ -118,9 +121,7 @@ def test_export_contracts_source_not_found(tmp_path: Path) -> None:
             export_contracts(output_dir=output_dir)
 
 
-def test_export_contracts_files_content(
-    tmp_path: Path, contracts_source: Path
-) -> None:
+def test_export_contracts_files_content(tmp_path: Path, contracts_source: Path) -> None:
     """
     Test that exported files have correct content.
     """
@@ -145,10 +146,13 @@ def test_export_contracts_overwrite_default_declined(
     output_dir = tmp_path / "output" / "contracts"
     output_dir.mkdir(parents=True)
 
-    with patch(
-        "scribe_data.cli.contracts.export.Path.__truediv__",
-        return_value=contracts_source,
-    ), patch("builtins.input", return_value=""):
+    with (
+        patch(
+            "scribe_data.cli.contracts.export.Path.__truediv__",
+            return_value=contracts_source,
+        ),
+        patch("builtins.input", return_value=""),
+    ):
         export_contracts(output_dir=output_dir)
 
     captured = capsys.readouterr()

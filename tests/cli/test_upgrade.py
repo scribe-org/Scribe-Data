@@ -135,6 +135,7 @@ class TestUpgradeCLI:
 
         upgrade_cli()
 
+        # Verify error message is printed.
         error_calls = [
             call
             for call in mock_print.call_args_list
@@ -177,6 +178,9 @@ class TestUpgradeCLI:
     ) -> None:
         """
         Test version comparison edge case where semantic versioning works correctly.
+
+        This tests proper semantic version comparison.abs.
+        Semantically: 5.10.0 > 5.2.0 (5.10.0 is the 10th minor version).
         """
         mock_get_local.return_value = "5.10.0"
         mock_get_latest.return_value = "Scribe-Data v5.2.0"
