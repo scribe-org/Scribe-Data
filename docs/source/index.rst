@@ -61,7 +61,7 @@ The latest development version can further be installed the `source code on GitH
 .. code-block:: shell
 
     # With uv (recommended):
-    uv sync --all-extras  # install all dependencies
+    uv sync --all-groups  # install all dependencies
     source .venv/bin/activate  # activate venv (macOS/Linux)
     # .venv\Scripts\activate  # activate venv (Windows)
 
