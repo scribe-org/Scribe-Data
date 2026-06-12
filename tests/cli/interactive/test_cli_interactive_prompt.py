@@ -29,8 +29,8 @@ class TestScribeDataCLIInteractivePrompt(unittest.TestCase):
         self.config.languages = ["english", "spanish", "french"]
         self.config.data_types = ["nouns", "verbs"]
 
-    @patch("scribe_data.cli.interactive.prompt")
-    @patch("scribe_data.cli.interactive.rprint")
+    @patch("scribe_data.cli.interactive.prompt.prompt")
+    @patch("scribe_data.cli.interactive.prompt.rprint")
     def test_cli_interactive_request_total_lexeme(
         self, mock_rprint: MagicMock, mock_prompt: MagicMock
     ) -> None:
@@ -43,9 +43,11 @@ class TestScribeDataCLIInteractivePrompt(unittest.TestCase):
             "nouns",  # first call for data types
         ]
 
-        with patch("scribe_data.cli.interactive.config", self.config):
+        with patch(
+            "scribe_data.cli.interactive.config.interactive_mode_config", self.config
+        ):
             with patch(
-                "scribe_data.cli.interactive.list_all_languages",
+                "scribe_data.cli.interactive.config.list_all_languages",
                 return_value=["english", "french"],
             ):
                 prompt_for_languages()

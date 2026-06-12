@@ -22,7 +22,7 @@ class TestScribeDataCLIInteractiveRun(unittest.TestCase):
         self.config.data_types = ["nouns", "verbs"]
 
     @patch(
-        "scribe_data.cli.interactive.resolve_wiktionary_dump_path",
+        "scribe_data.cli.interactive.run.resolve_wiktionary_dump_path",
         return_value=Path("/dump/path"),
     )
     @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")

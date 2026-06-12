@@ -23,9 +23,9 @@ class TestScribeDataCLIInteractiveExecute(unittest.TestCase):
         self.config.languages = ["english", "spanish", "french"]
         self.config.data_types = ["nouns", "verbs"]
 
-    @patch("scribe_data.cli.interactive.get_data")
-    @patch("scribe_data.cli.interactive.tqdm")
-    @patch("scribe_data.cli.interactive.logger")
+    @patch("scribe_data.cli.interactive.execute.get_data")
+    @patch("scribe_data.cli.interactive.execute.tqdm")
+    @patch("scribe_data.cli.interactive.execute.logger")
     def test_cli_interactive_execute_request(
         self, mock_logger: MagicMock, mock_tqdm: MagicMock, mock_get_data: MagicMock
     ) -> None:
@@ -40,7 +40,9 @@ class TestScribeDataCLIInteractiveExecute(unittest.TestCase):
         mock_progress = MagicMock()
         mock_tqdm.return_value.__enter__.return_value = mock_progress
 
-        with patch("scribe_data.cli.interactive.config", self.config):
+        with patch(
+            "scribe_data.cli.interactive.config.interactive_mode_config", self.config
+        ):
             execute_request()
 
             mock_get_data.assert_called_once_with(
@@ -61,6 +63,8 @@ class TestScribeDataCLIInteractiveExecute(unittest.TestCase):
         self.config.selected_data_types = ["nouns"]
         self.config.output_type = "json"
 
-        with patch("scribe_data.cli.interactive.config", self.config):
+        with patch(
+            "scribe_data.cli.interactive.config.interactive_mode_config", self.config
+        ):
             display_summary()
             mock_print.assert_called()

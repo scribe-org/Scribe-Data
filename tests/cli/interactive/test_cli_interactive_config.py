@@ -32,8 +32,8 @@ class TestScribeDataCLIInteractiveConfig(unittest.TestCase):
         self.assertFalse(self.config.overwrite)
         self.assertFalse(self.config.configured)
 
-    @patch("scribe_data.cli.interactive.config.prompt")
-    @patch("scribe_data.cli.interactive.config.rprint")
+    @patch("scribe_data.cli.interactive.run.prompt")
+    @patch("scribe_data.cli.interactive.run.rprint")
     def test_cli_interactive_configure_settings_all_languages(
         self, mock_rprint: MagicMock, mock_prompt: MagicMock
     ) -> None:
@@ -52,8 +52,10 @@ class TestScribeDataCLIInteractiveConfig(unittest.TestCase):
         )
         mock_prompt.side_effect = lambda *args, **kwargs: next(responses)
 
-        with patch("scribe_data.cli.interactive.config.config", self.config):
-            with patch("scribe_data.cli.interactive.config.display_summary"):
+        with patch(
+            "scribe_data.cli.interactive.config.interactive_mode_config", self.config
+        ):
+            with patch("scribe_data.cli.interactive.run.display_summary"):
                 configure_settings()
 
                 self.assertEqual(self.config.selected_languages, self.config.languages)
@@ -61,8 +63,8 @@ class TestScribeDataCLIInteractiveConfig(unittest.TestCase):
                 self.assertEqual(self.config.output_type, "json")
                 self.assertTrue(self.config.configured)
 
-    @patch("scribe_data.cli.interactive.config.prompt")
-    @patch("scribe_data.cli.interactive.config.rprint")
+    @patch("scribe_data.cli.interactive.run.prompt")
+    @patch("scribe_data.cli.interactive.run.rprint")
     def test_cli_interactive_configure_settings_specific_languages(
         self, mock_rprint: MagicMock, mock_prompt: MagicMock
     ) -> None:
@@ -81,8 +83,10 @@ class TestScribeDataCLIInteractiveConfig(unittest.TestCase):
         )
         mock_prompt.side_effect = lambda *args, **kwargs: next(responses)
 
-        with patch("scribe_data.cli.interactive.config.config", self.config):
-            with patch("scribe_data.cli.interactive.config.display_summary"):
+        with patch(
+            "scribe_data.cli.interactive.config.interactive_mode_config", self.config
+        ):
+            with patch("scribe_data.cli.interactive.run.display_summary"):
                 configure_settings()
 
                 self.assertEqual(self.config.selected_languages, ["english", "spanish"])

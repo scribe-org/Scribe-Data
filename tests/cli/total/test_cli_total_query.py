@@ -185,14 +185,14 @@ class TestGetQidByInput(unittest.TestCase):
             "verbs": "Q24905",
         }
 
-    @patch("scribe_data.cli.total.data_type_metadata", new_callable=dict)
+    @patch("scribe_data.cli.total.query.data_type_metadata", new_callable=dict)
     def test_get_qid_by_input_valid(self, mock_data_type_metadata: MagicMock) -> None:
         mock_data_type_metadata.update(self.valid_data_types)
 
         for data_type, expected_qid in self.valid_data_types.items():
             self.assertEqual(get_qid_by_input(data_type), expected_qid)
 
-    @patch("scribe_data.cli.total.data_type_metadata", new_callable=dict)
+    @patch("scribe_data.cli.total.query.data_type_metadata", new_callable=dict)
     def test_get_qid_by_input_invalid(self, mock_data_type_metadata: MagicMock) -> None:
         mock_data_type_metadata.update(self.valid_data_types)
 

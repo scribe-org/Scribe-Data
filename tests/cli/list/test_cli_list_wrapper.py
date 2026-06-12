@@ -20,7 +20,7 @@ class TestCLIListWrapper(unittest.TestCase):
         mock_list_languages.assert_called_once()
         mock_list_data_types.assert_called_once()
 
-    @patch("scribe_data.cli.list.list_all")
+    @patch("scribe_data.cli.list.wrapper.list_all")
     def test_cli_list_wrapper_all(self, mock_list_all: MagicMock) -> None:
         list_wrapper(all_bool=True)
         mock_list_all.assert_called_once()
@@ -58,7 +58,7 @@ class TestCLIListWrapper(unittest.TestCase):
         list_wrapper(language="English", data_type=True)
         mock_list_data_types.assert_called_with("English")
 
-    @patch("scribe_data.cli.list.list_all")
+    @patch("scribe_data.cli.list.wrapper.list_all")
     def test_cli_list_wrapper_list_all_command(self, mock_list_all: MagicMock) -> None:
         test_cli_list_wrapper_args = ["main.py", "list", "--all"]
         with patch("sys.argv", test_cli_list_wrapper_args):
