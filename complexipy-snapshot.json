@@ -1,0 +1,412 @@
+[
+  {
+    "path": "Scribe-Data/src/scribe_data/check/check_missing_forms/check_missing_forms.py",
+    "file_name": "check_missing_forms.py",
+    "functions": [
+      {
+        "name": "get_features_from_sparql_service",
+        "complexity": 18
+      },
+      {
+        "name": "get_forms_from_sparql_service",
+        "complexity": 23
+      },
+      {
+        "name": "execute_sparql_query",
+        "complexity": 24
+      },
+      {
+        "name": "process_missing_features",
+        "complexity": 27
+      },
+      {
+        "name": "get_forms_from_sparql_service_all_languages",
+        "complexity": 38
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/check/check_missing_forms/generate_query.py",
+    "file_name": "generate_query.py",
+    "functions": [
+      {
+        "name": "generate_query",
+        "complexity": 43
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/check/check_missing_forms/pr_body.py",
+    "file_name": "pr_body.py",
+    "functions": [
+      {
+        "name": "pr_body",
+        "complexity": 27
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/check/check_missing_forms/split_query.py",
+    "file_name": "split_query.py",
+    "functions": [
+      {
+        "name": "split_group_by_identifier",
+        "complexity": 60
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/check/check_project_metadata.py",
+    "file_name": "check_project_metadata.py",
+    "functions": [
+      {
+        "name": "check_language_metadata",
+        "complexity": 19
+      },
+      {
+        "name": "get_available_languages",
+        "complexity": 19
+      },
+      {
+        "name": "validate_language_properties",
+        "complexity": 21
+      },
+      {
+        "name": "get_missing_languages",
+        "complexity": 24
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/check/check_project_structure.py",
+    "file_name": "check_project_structure.py",
+    "functions": [
+      {
+        "name": "check_data_type_folders",
+        "complexity": 18
+      },
+      {
+        "name": "check_project_structure",
+        "complexity": 40
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/check/check_query_forms.py",
+    "file_name": "check_query_forms.py",
+    "functions": [
+      {
+        "name": "check_optional_qid_order",
+        "complexity": 31
+      },
+      {
+        "name": "check_query_forms",
+        "complexity": 39
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/check/check_query_identifiers.py",
+    "file_name": "check_query_identifiers.py",
+    "functions": [
+      {
+        "name": "check_query_identifiers",
+        "complexity": 16
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/cli_utils.py",
+    "file_name": "cli_utils.py",
+    "functions": [
+      {
+        "name": "validate_language_and_data_type",
+        "complexity": 36
+      },
+      {
+        "name": "print_formatted_data",
+        "complexity": 43
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/contracts/check.py",
+    "file_name": "check.py",
+    "functions": [
+      {
+        "name": "check_contract_data_completeness",
+        "complexity": 40
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/contracts/filter.py",
+    "file_name": "filter.py",
+    "functions": [
+      {
+        "name": "filter_exported_data",
+        "complexity": 17
+      },
+      {
+        "name": "export_data_filtered_by_contracts",
+        "complexity": 20
+      },
+      {
+        "name": "filter_contract_metadata",
+        "complexity": 81
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/convert/to_csv_or_tsv.py",
+    "file_name": "to_csv_or_tsv.py",
+    "functions": [
+      {
+        "name": "convert_to_csv_or_tsv",
+        "complexity": 123
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/convert/to_json.py",
+    "file_name": "to_json.py",
+    "functions": [
+      {
+        "name": "convert_to_json",
+        "complexity": 90
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/convert/to_sqlite.py",
+    "file_name": "to_sqlite.py",
+    "functions": [
+      {
+        "name": "wiktionary_translations_to_sqlite",
+        "complexity": 17
+      },
+      {
+        "name": "convert_to_sqlite",
+        "complexity": 75
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/download/wikidata_lexeme_dump.py",
+    "file_name": "wikidata_lexeme_dump.py",
+    "functions": [
+      {
+        "name": "download_wd_lexeme_dump",
+        "complexity": 26
+      },
+      {
+        "name": "wd_lexeme_dump_download_wrapper",
+        "complexity": 28
+      },
+      {
+        "name": "available_closest_lexeme_dump_file",
+        "complexity": 29
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/download/wiktionary_dump.py",
+    "file_name": "wiktionary_dump.py",
+    "functions": [
+      {
+        "name": "download_wiktionary_dumps",
+        "complexity": 31
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/get.py",
+    "file_name": "get.py",
+    "functions": [
+      {
+        "name": "get_data",
+        "complexity": 48
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/interactive/run.py",
+    "file_name": "run.py",
+    "functions": [
+      {
+        "name": "run_interactive_mode",
+        "complexity": 36
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/main.py",
+    "file_name": "main.py",
+    "functions": [
+      {
+        "name": "main",
+        "complexity": 104
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/total/print_values.py",
+    "file_name": "print_values.py",
+    "functions": [
+      {
+        "name": "get_datatype_list",
+        "complexity": 21
+      },
+      {
+        "name": "print_total_lexemes",
+        "complexity": 35
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/total/query.py",
+    "file_name": "query.py",
+    "functions": [
+      {
+        "name": "query_total_lexemes",
+        "complexity": 29
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/cli/total/wrapper.py",
+    "file_name": "wrapper.py",
+    "functions": [
+      {
+        "name": "total_wrapper",
+        "complexity": 30
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/unicode/process_unicode.py",
+    "file_name": "process_unicode.py",
+    "functions": [
+      {
+        "name": "gen_emoji_lexicon",
+        "complexity": 45
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/utils.py",
+    "file_name": "utils.py",
+    "functions": [
+      {
+        "name": "_find",
+        "complexity": 22
+      },
+      {
+        "name": "check_lexeme_dump_prompt_download",
+        "complexity": 35
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/wikidata/format_data.py",
+    "file_name": "format_data.py",
+    "functions": [
+      {
+        "name": "format_data",
+        "complexity": 32
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/wikidata/parse_dump.py",
+    "file_name": "parse_dump.py",
+    "functions": [
+      {
+        "name": "LexemeProcessor::_build_iso_mapping",
+        "complexity": 27
+      },
+      {
+        "name": "LexemeProcessor::process_lines",
+        "complexity": 27
+      },
+      {
+        "name": "LexemeProcessor::process_file",
+        "complexity": 34
+      },
+      {
+        "name": "LexemeProcessor::export_forms_json",
+        "complexity": 52
+      },
+      {
+        "name": "parse_dump",
+        "complexity": 78
+      },
+      {
+        "name": "LexemeProcessor::_process_forms",
+        "complexity": 101
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/wikidata/query_data.py",
+    "file_name": "query_data.py",
+    "functions": [
+      {
+        "name": "query_data",
+        "complexity": 73
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/wikidata/wikidata_utils.py",
+    "file_name": "wikidata_utils.py",
+    "functions": [
+      {
+        "name": "parse_wd_lexeme_dump",
+        "complexity": 23
+      }
+    ]
+  },
+  {
+    "path": "Scribe-Data/src/scribe_data/wiktionary/parse_translations.py",
+    "file_name": "parse_translations.py",
+    "functions": [
+      {
+        "name": "_merge_parsed_into_output",
+        "complexity": 16
+      },
+      {
+        "name": "_resolve_dump_path",
+        "complexity": 19
+      },
+      {
+        "name": "_collect_row_wikilink",
+        "complexity": 24
+      },
+      {
+        "name": "_extract_translation_word",
+        "complexity": 27
+      },
+      {
+        "name": "parse_wiktionary_translations",
+        "complexity": 30
+      },
+      {
+        "name": "_iter_dump_pages",
+        "complexity": 47
+      },
+      {
+        "name": "_parse_ast_u_tabelle",
+        "complexity": 47
+      },
+      {
+        "name": "_parse_block_translations",
+        "complexity": 50
+      },
+      {
+        "name": "parse_xml_dump",
+        "complexity": 50
+      }
+    ]
+  }
+]

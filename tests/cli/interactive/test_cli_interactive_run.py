@@ -26,9 +26,9 @@ class TestScribeDataCLIInteractiveRun(unittest.TestCase):
         return_value=Path("/dump/path"),
     )
     @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
-    @patch("scribe_data.cli.interactive.prompt")
-    @patch("scribe_data.cli.interactive.prompt_for_languages")
-    @patch("scribe_data.cli.interactive.questionary.select")
+    @patch("scribe_data.cli.interactive.run.prompt")
+    @patch("scribe_data.cli.interactive.run.prompt_for_languages")
+    @patch("scribe_data.cli.interactive.run.questionary.select")
     def test_cli_interactive_run_mode_translations(
         self,
         mock_select,

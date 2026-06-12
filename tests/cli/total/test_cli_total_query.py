@@ -140,7 +140,7 @@ class TestCLITotalQuery(unittest.TestCase):
 
     @patch("scribe_data.cli.total.query.get_qid_by_input")
     @patch("scribe_data.cli.total.query.sparql.query")
-    @patch("scribe_data.cli.total.WIKIDATA_QUERIES_ALL_DATA_DIR")
+    @patch("scribe_data.cli.total.print_values.WIKIDATA_QUERIES_ALL_DATA_DIR")
     def test_cli_total_query_lexemes_sub_languages(
         self, mock_dir: MagicMock, mock_query: MagicMock, mock_get_qid: MagicMock
     ) -> None:
@@ -200,14 +200,14 @@ class TestGetQidByInput(unittest.TestCase):
 
 
 class TestGetDatatypeList(unittest.TestCase):
-    @patch("scribe_data.cli.total.WIKIDATA_QUERIES_ALL_DATA_DIR")
+    @patch("scribe_data.cli.total.print_values.WIKIDATA_QUERIES_ALL_DATA_DIR")
     def test_get_datatype_list_invalid_language(self, mock_dir: MagicMock) -> None:
         mock_dir.__truediv__.return_value.exists.return_value = False
 
         with self.assertRaises(ValueError):
             get_datatype_list("InvalidLanguage")
 
-    @patch("scribe_data.cli.total.WIKIDATA_QUERIES_ALL_DATA_DIR")
+    @patch("scribe_data.cli.total.print_values.WIKIDATA_QUERIES_ALL_DATA_DIR")
     def test_get_datatype_list_no_data_types(self, mock_dir: MagicMock) -> None:
         mock_dir.__truediv__.return_value.exists.return_value = True
         mock_dir.__truediv__.return_value.iterdir.return_value = []
