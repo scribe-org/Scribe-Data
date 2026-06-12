@@ -5,6 +5,22 @@ cli/
 
 Scribe-Data provides a command-line interface (CLI) for efficient interaction with its language data functionality.
 
+.. toctree::
+    :maxdepth: 2
+
+    contracts/index
+    convert/index
+    download/index
+    interactive/index
+    list/index
+    total/index
+
+.. toctree::
+    :maxdepth: 1
+
+    cli_utils
+    get
+
 Usage
 -----
 

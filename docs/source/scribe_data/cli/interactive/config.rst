@@ -1,0 +1,8 @@
+config.py
+=========
+
+`View code on Github <https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/cli/interactive/config.py>`_
+
+.. automodule:: scribe_data.cli.interactive.config
+    :members:
+    :private-members:
