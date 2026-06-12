@@ -33,10 +33,13 @@ def create_table(
     ----------
     cursor : sqlite3.Cursor
         A sqlite3 cursor.
+
     identifier_case : str
         Either "camel" or "snake" to determine column naming.
+
     data_type : str
         The name of the table to be created.
+
     cols : list of str
         The names of columns for the new table.
     """
@@ -72,8 +75,10 @@ def table_insert(cursor: sqlite3.Cursor, data_type: str, keys: list) -> None:
     ----------
     cursor : sqlite3.Cursor
         A sqlite3 cursor.
+
     data_type : str
         The name of the table to be inserted into.
+
     keys : list of any
         The values to be inserted into the table row.
     """
@@ -97,14 +102,19 @@ def translations_to_sqlite(
     ----------
     language_data_type_dict : dict
         A dictionary specifying the data types for each language.
+
     current_languages : list
         A list of current languages.
+
     identifier_case : str, optional
         The identifier case. Default is "snake".
+
     input_file : str, optional, default=DEFAULT_JSON_EXPORT_DIR
         The input JSON export directory.
+
     output_file : str, optional, default=DEFAULT_SQLITE_EXPORT_DIR
         The output SQLite export directory.
+
     overwrite : bool, optional
         If True, existing SQLite files will be overwritten without prompting.
     """
@@ -280,7 +290,7 @@ def wiktionary_translations_to_sqlite(
     print(f"Wiktionary translation tables for {language} processed successfully.\n")
 
 
-def data_to_sqlite(
+def convert_to_sqlite(
     languages: list[str] | None = None,
     specific_tables: str | list[str] | None = None,
     identifier_case: str = "camel",

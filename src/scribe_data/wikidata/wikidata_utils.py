@@ -8,7 +8,9 @@ from pathlib import Path
 from rich import print as rprint
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
 
-from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
+from scribe_data.cli.download.wikidata_lexeme_dump import (
+    wd_lexeme_dump_download_wrapper,
+)
 from scribe_data.utils import (
     DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     data_type_metadata,

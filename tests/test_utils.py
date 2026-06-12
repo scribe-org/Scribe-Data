@@ -8,9 +8,15 @@ from pathlib import Path
 
 import pytest
 
-sys.path.append(Path(__file__).parent.parent.parent)
+sys.path.append(Path(__file__).parent.parent)
 
-from scribe_data import utils
+from scribe_data.utils import (
+    format_sublanguage_name,
+    get_language_from_iso,
+    get_language_iso,
+    get_language_qid,
+    list_all_languages,
+)
 
 
 @pytest.mark.parametrize(
@@ -28,12 +34,12 @@ from scribe_data import utils
     ],
 )
 def test_get_language_qid_positive(language: str, qid_code: str) -> None:
-    assert utils.get_language_qid(language) == qid_code
+    assert get_language_qid(language) == qid_code
 
 
 def test_get_language_qid_negative() -> None:
     with pytest.raises(ValueError) as excp:
-        _ = utils.get_language_qid("Newspeak")
+        _ = get_language_qid("Newspeak")
 
     assert (
         str(excp.value)
@@ -56,12 +62,12 @@ def test_get_language_qid_negative() -> None:
     ],
 )
 def test_get_language_iso_positive(language: str, iso_code: str) -> None:
-    assert utils.get_language_iso(language) == iso_code
+    assert get_language_iso(language) == iso_code
 
 
 def test_get_language_iso_negative() -> None:
     with pytest.raises(ValueError) as excp:
-        _ = utils.get_language_iso("Gibberish")
+        _ = get_language_iso("Gibberish")
 
     assert (
         str(excp.value)
@@ -84,12 +90,12 @@ def test_get_language_iso_negative() -> None:
     ],
 )
 def test_get_language_from_iso_positive(iso_code: str, language: str) -> None:
-    assert utils.get_language_from_iso(iso_code) == language
+    assert get_language_from_iso(iso_code) == language
 
 
 def test_get_language_from_iso_negative() -> None:
     with pytest.raises(ValueError) as excp:
-        _ = utils.get_language_from_iso("ixi")
+        _ = get_language_from_iso("ixi")
 
     assert str(excp.value) == "IXI is currently not a supported ISO language."
 
@@ -103,7 +109,7 @@ def test_get_language_from_iso_negative() -> None:
     ],
 )
 def test_format_sublanguage_name_positive(lang: str, expected_output: str) -> None:
-    assert utils.format_sublanguage_name(lang) == expected_output
+    assert format_sublanguage_name(lang) == expected_output
 
 
 @pytest.mark.parametrize(
@@ -114,12 +120,12 @@ def test_format_sublanguage_name_positive(lang: str, expected_output: str) -> No
     ],
 )
 def test_format_sublanguage_name_qid_positive(lang: str, expected_output: str) -> None:
-    assert utils.format_sublanguage_name(lang) == expected_output
+    assert format_sublanguage_name(lang) == expected_output
 
 
 def test_format_sublanguage_name_negative() -> None:
     with pytest.raises(ValueError) as excp:
-        _ = utils.format_sublanguage_name("Newspeak")
+        _ = format_sublanguage_name("Newspeak")
 
     assert str(excp.value) == "Newspeak is not a valid language or sub-language."
 
@@ -174,4 +180,4 @@ def test_list_all_languages() -> None:
         "yoruba",
     ]
 
-    assert utils.list_all_languages() == expected_languages
+    assert list_all_languages() == expected_languages

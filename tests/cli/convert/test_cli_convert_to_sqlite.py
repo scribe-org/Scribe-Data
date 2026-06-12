@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-Test the data_to_sqlite function.
+Test the convert_to_sqlite function.
 """
 
 import json
@@ -11,9 +11,9 @@ from unittest import mock
 
 import pytest
 
-from scribe_data.load.data_to_sqlite import (
+from scribe_data.cli.convert.to_sqlite import (
+    convert_to_sqlite,
     create_table,
-    data_to_sqlite,
     table_insert,
     translations_to_sqlite,
     wiktionary_translations_to_sqlite,
@@ -61,6 +61,9 @@ def temp_json_dir(tmp_path: Path) -> Path:
         json.dump(translations_data, f)
 
     return json_dir
+
+
+# MARK: Operations
 
 
 def test_create_table(temp_db: Any) -> None:
@@ -119,6 +122,9 @@ def translations_setup(tmp_path: Path) -> dict[str, Any]:
         "current_languages": current_languages,
         "expected_db_path": expected_db_path,
     }
+
+
+# MARK: Conversions
 
 
 def test_translations_to_sqlite(
@@ -269,12 +275,12 @@ def test_translations_to_sqlite_commit_error(
     assert "mock commit error" in captured.out
 
 
-def test_data_to_sqlite_invalid_language() -> None:
+def test_convert_to_sqlite_invalid_language() -> None:
     """
-    Test data_to_sqlite with invalid language.
+    Test convert_to_sqlite with invalid language.
     """
     with pytest.raises(ValueError):
-        data_to_sqlite(languages=["invalid_language"])
+        convert_to_sqlite(languages=["invalid_language"])
 
 
 def test_create_table_duplicate_columns(temp_db: Any) -> None:
@@ -294,7 +300,7 @@ def test_create_table_duplicate_columns(temp_db: Any) -> None:
     assert len(set(columns)) == 3  # all columns should be unique
 
 
-def test_data_to_sqlite_translations_and_nouns(tmp_path: Path) -> None:
+def test_convert_to_sqlite_translations_and_nouns(tmp_path: Path) -> None:
     input_dir = tmp_path / "input"
     output_dir = tmp_path / "output"
     input_dir.mkdir()
@@ -320,7 +326,7 @@ def test_data_to_sqlite_translations_and_nouns(tmp_path: Path) -> None:
     }
     (english_dir / "nouns.json").write_text(json.dumps(nouns_data))
 
-    data_to_sqlite(
+    convert_to_sqlite(
         languages=["english"],
         specific_tables=None,
         input_file=str(input_dir),
@@ -352,7 +358,7 @@ def test_data_to_sqlite_translations_and_nouns(tmp_path: Path) -> None:
     assert len(scribe_row) == 1
 
 
-def test_data_to_sqlite_skips_missing_json(tmp_path: Path) -> None:
+def test_convert_to_sqlite_skips_missing_json(tmp_path: Path) -> None:
     input_dir = tmp_path / "input"
     input_dir.mkdir()
     lang_dir = input_dir / "english"
@@ -364,15 +370,19 @@ def test_data_to_sqlite_skips_missing_json(tmp_path: Path) -> None:
         mock.patch("scribe_data.utils.data_type_metadata", {"nouns": None}),
         mock.patch("scribe_data.utils.language_metadata", {"english": {}}),
         mock.patch("scribe_data.utils.list_all_languages", return_value=["english"]),
-        mock.patch("scribe_data.load.data_to_sqlite.create_table") as mock_create_table,
-        mock.patch("scribe_data.load.data_to_sqlite.table_insert") as mock_table_insert,
+        mock.patch(
+            "scribe_data.load.convert_to_sqlite.create_table"
+        ) as mock_create_table,
+        mock.patch(
+            "scribe_data.load.convert_to_sqlite.table_insert"
+        ) as mock_table_insert,
         mock.patch(
             "scribe_data.utils.get_language_iso",
             side_effect=lambda lang: lang[:2].upper(),
         ),
     ):
-        # Run data_to_sqlite for 'nouns' only, but JSON file missing.
-        data_to_sqlite(
+        # Run convert_to_sqlite for 'nouns' only, but JSON file missing.
+        convert_to_sqlite(
             languages=["english"],
             specific_tables=["nouns"],
             input_file=str(input_dir),

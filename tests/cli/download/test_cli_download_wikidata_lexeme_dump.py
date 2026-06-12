@@ -10,8 +10,8 @@ from unittest.mock import MagicMock, mock_open, patch
 
 import requests
 
-from scribe_data.cli.download import (
-    available_closest_lexeme_dumpfile,
+from scribe_data.cli.download.wikidata_lexeme_dump import (
+    available_closest_lexeme_dump_file,
     download_wd_lexeme_dump,
     parse_date,
     wd_lexeme_dump_download_wrapper,
@@ -36,7 +36,7 @@ class TestDownloadCLI(unittest.TestCase):
         self.assertIsNone(parse_date("invalid-date"))
 
     @patch("scribe_data.cli.download.requests.get")
-    def test_available_closest_lexeme_dumpfile(self, mock_get: MagicMock) -> None:
+    def test_available_closest_lexeme_dump_file(self, mock_get: MagicMock) -> None:
         """
         Test finding closest available lexeme dump file.
 
@@ -50,7 +50,7 @@ class TestDownloadCLI(unittest.TestCase):
         )
         target_date = "20240103"
         other_old_dumps = ["20240101", "20240105", "20240110"]
-        closest = available_closest_lexeme_dumpfile(
+        closest = available_closest_lexeme_dump_file(
             target_date, other_old_dumps, mock_check_func
         )
         self.assertEqual(closest, "20240101")

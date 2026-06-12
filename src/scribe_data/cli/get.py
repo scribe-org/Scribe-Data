@@ -14,7 +14,7 @@ import questionary
 from rich import print as rprint
 from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
-from scribe_data.cli.convert import convert_wrapper
+from scribe_data.cli.convert.wrapper import convert_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,

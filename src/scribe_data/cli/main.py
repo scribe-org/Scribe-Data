@@ -14,15 +14,17 @@ from scribe_data.cli.cli_utils import validate_language_and_data_type
 from scribe_data.cli.contracts.check import check_contracts
 from scribe_data.cli.contracts.export import export_contracts
 from scribe_data.cli.contracts.filter import export_data_filtered_by_contracts
-from scribe_data.cli.convert import convert_wrapper
-from scribe_data.cli.download import (
-    download_wiktionary_dumps,
+from scribe_data.cli.convert.wrapper import convert_wrapper
+from scribe_data.cli.download.wikidata_lexeme_dump import (
     wd_lexeme_dump_download_wrapper,
 )
+from scribe_data.cli.download.wiktionary_dump import (
+    download_wiktionary_dumps,
+)
 from scribe_data.cli.get import get_data
-from scribe_data.cli.interactive import start_interactive_mode
-from scribe_data.cli.list import list_wrapper
-from scribe_data.cli.total import total_wrapper
+from scribe_data.cli.interactive.run import run_interactive_mode
+from scribe_data.cli.list.wrapper import list_wrapper
+from scribe_data.cli.total.wrapper import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
 from scribe_data.utils import (
@@ -495,7 +497,7 @@ def main() -> None:
 
         elif args.command in ["get", "g"]:
             if args.interactive:
-                start_interactive_mode(operation="get")
+                run_interactive_mode(operation="get")
                 return
 
             else:
@@ -550,7 +552,7 @@ def main() -> None:
 
         elif args.command in ["total", "t"]:
             if args.interactive:
-                start_interactive_mode(operation="total")
+                run_interactive_mode(operation="total")
 
             else:
                 total_wrapper(
@@ -566,7 +568,7 @@ def main() -> None:
 
         elif args.command in ["convert", "c"]:
             if args.interactive:
-                start_interactive_mode(operation="convert")
+                run_interactive_mode(operation="convert")
                 return
 
             # Handle language(s) - could be string or list.
@@ -649,16 +651,16 @@ def main() -> None:
                     download_wiktionary_dumps(language_isos=[lang])
 
             elif action == "Check for totals":
-                start_interactive_mode(operation="total")
+                run_interactive_mode(operation="total")
 
             elif action == "Get data":
-                start_interactive_mode(operation="get")
+                run_interactive_mode(operation="get")
 
             elif action == "Get translations":
-                start_interactive_mode(operation="translations")
+                run_interactive_mode(operation="translations")
 
             elif action == "Convert JSON":
-                start_interactive_mode(operation="convert")
+                run_interactive_mode(operation="convert")
 
             else:
                 print("Skipping action")
