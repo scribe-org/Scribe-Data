@@ -4,10 +4,8 @@ Interactive mode execution for the Scribe-Data CLI to allow users to select requ
 """
 
 import logging
-from pathlib import Path
 
 import questionary
-from prompt_toolkit import prompt
 from rich import print as rprint
 from rich.console import Console
 from rich.logging import RichHandler
@@ -24,7 +22,6 @@ from scribe_data.cli.interactive.prompt import (
     prompt_for_languages,
 )
 from scribe_data.cli.total.wrapper import total_wrapper
-from scribe_data.utils import DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 
 # MARK: Logging
@@ -126,17 +123,8 @@ def request_total_lexeme_loop() -> None:
             break
 
         elif choice == "run_all":
-            if wikidata_dump_path := prompt(
-                f"Enter Wikidata lexeme dump path (default: {str(DEFAULT_WIKIDATA_DUMP_EXPORT_DIR)}): "
-            ):
-                wikidata_dump_path = Path(wikidata_dump_path)
-
-            else:
-                wikidata_dump_path = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
-
             parse_wd_lexeme_dump(
                 languages=interactive_mode_config.selected_languages,
-                wikidata_dump_path=wikidata_dump_path,
                 wikidata_dump_type=["total"],
                 interactive_mode=True,
             )
@@ -173,7 +161,6 @@ def display_summary() -> None:
         ", ".join(interactive_mode_config.selected_data_types) or "None",
     )
     table.add_row("Output Type", interactive_mode_config.output_type)
-    table.add_row("Output Directory", str(interactive_mode_config.output_dir))
     table.add_row("Overwrite", "Yes" if interactive_mode_config.overwrite else "No")
 
     console.print("\n")

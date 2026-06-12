@@ -10,7 +10,7 @@ from prompt_toolkit.completion import WordCompleter
 from rich import print as rprint
 
 from scribe_data.cli.interactive.config import interactive_mode_config
-from scribe_data.utils import DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR, resolve_lang_iso
+from scribe_data.utils import DEFAULT_WIKTIONARY_DUMP_DIR, resolve_lang_iso
 
 # MARK: Word Completion
 
@@ -128,7 +128,7 @@ def _wiktionary_dump_search_dirs() -> list[Path]:
     Duplicate paths are omitted while preserving the following search order:
 
     1. The provided ``location`` directory.
-    2. The default export directory (:data:`~scribe_data.utils.DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR`).
+    2. The default export directory (:data:`~scribe_data.utils.DEFAULT_WIKTIONARY_DUMP_DIR`).
     3. The default export directory under every ancestor of the current working directory.
     4. The current working directory itself.
 
@@ -141,8 +141,8 @@ def _wiktionary_dump_search_dirs() -> list[Path]:
         A deduplicated list of existing directories to search.
     """
     candidates = [
-        DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
-        *(parent / DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR for parent in Path.cwd().parents),
+        DEFAULT_WIKTIONARY_DUMP_DIR,
+        *(parent / DEFAULT_WIKTIONARY_DUMP_DIR for parent in Path.cwd().parents),
         Path.cwd(),
     ]
     resolved_paths = [path.expanduser().resolve() for path in candidates]

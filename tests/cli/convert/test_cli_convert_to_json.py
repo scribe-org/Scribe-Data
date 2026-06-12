@@ -12,7 +12,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from scribe_data.cli.convert.to_json import convert_to_json
-from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR
+from scribe_data.utils import DEFAULT_JSON_DIR
 
 # MARK: JSON
 
@@ -22,7 +22,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
     def _setup_fixtures(self, tmp_path):
         self.tmp_path = tmp_path
 
-    @patch("scribe_data.cli.convert.Path", autospec=True)
+    @patch("pathlib.Path", autospec=True)
     def test_cli_convert_to_json_empty_language(self, mock_path: MagicMock) -> None:
         csv_data = "key,value\na,1\nb,2"
         mock_file = StringIO(csv_data)
@@ -43,7 +43,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
             )
         self.assertIn("Language '' is not recognized.", str(context.exception))
 
-    @patch("scribe_data.cli.convert.Path", autospec=True)
+    @patch("pathlib.Path", autospec=True)
     def test_cli_convert_to_json_supported_file_extension_csv(
         self, mock_path_class: MagicMock
     ) -> None:
@@ -62,7 +62,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
             overwrite=True,
         )
 
-    @patch("scribe_data.cli.convert.Path", autospec=True)
+    @patch("pathlib.Path", autospec=True)
     def test_cli_convert_to_json_supported_file_extension_tsv(
         self, mock_path_class: MagicMock
     ) -> None:
@@ -115,7 +115,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
             overwrite=True,
         )
 
-        output_file = DEFAULT_JSON_EXPORT_DIR / "English" / "nouns.json"
+        output_file = DEFAULT_JSON_DIR / "English" / "nouns.json"
         with open(output_file, "r", encoding="utf-8") as f:
             actual_content = json.load(f)
 
@@ -140,7 +140,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
             overwrite=True,
         )
 
-        output_file = DEFAULT_JSON_EXPORT_DIR / "English" / "nouns.json"
+        output_file = DEFAULT_JSON_DIR / "English" / "nouns.json"
         with open(output_file, "r", encoding="utf-8") as f:
             actual_content = json.load(f)
 
@@ -164,7 +164,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
             overwrite=True,
         )
 
-        output_file = DEFAULT_JSON_EXPORT_DIR / "English" / "nouns.json"
+        output_file = DEFAULT_JSON_DIR / "English" / "nouns.json"
         with open(output_file, "r", encoding="utf-8") as f:
             actual_content = json.load(f)
 

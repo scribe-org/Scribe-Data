@@ -16,7 +16,8 @@ from tqdm import tqdm
 
 from scribe_data.check.check_query_forms import return_correct_form_label
 from scribe_data.utils import (
-    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    DEFAULT_JSON_DIR,
+    DEFAULT_WIKIDATA_DUMP_DIR,
     check_index_exists,
     check_qid_is_language,
     data_type_metadata,
@@ -608,7 +609,6 @@ def parse_dump(
     parse_type: list[str] = [""],
     data_types: list[str] | None = None,
     file_path: Path = Path("latest-lexemes.json.bz2"),
-    output_dir: Path | None = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     overwrite_all: bool = False,
 ) -> None:
     """
@@ -631,9 +631,6 @@ def parse_dump(
     file_path : str, default="latest-lexemes.json.bz2"
         Path to the lexeme dump file.
 
-    output_dir : str, optional
-        Directory to save output files. If None, uses DEFAULT_WIKIDATA_DUMP_EXPORT_DIR.
-
     overwrite_all : bool, default=False
         If True, automatically overwrite existing files without prompting.
 
@@ -647,8 +644,7 @@ def parse_dump(
     will be skipped.
     """
     # Prepare environment - Use default if output_dir is None.
-    output_dir = output_dir or DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    Path(DEFAULT_JSON_DIR).mkdir(parents=True, exist_ok=True)
 
     # Convert single strings to lists.
     parse_type = parse_type or []
@@ -678,11 +674,16 @@ def parse_dump(
                     # Create appropriate path based on whether it's a sub-language.
                     if main_lang:
                         index_path = (
-                            Path(output_dir) / main_lang / lang / f"{data_type}.json"
+                            DEFAULT_WIKIDATA_DUMP_DIR
+                            / main_lang
+                            / lang
+                            / f"{data_type}.json"
                         )
 
                     else:
-                        index_path = Path(output_dir) / lang / f"{data_type}.json"
+                        index_path = (
+                            DEFAULT_WIKIDATA_DUMP_DIR / lang / f"{data_type}.json"
+                        )
 
                     if not check_index_exists(index_path, overwrite_all):
                         needs_processing = True
@@ -719,7 +720,7 @@ def parse_dump(
     if "form" in parse_type:
         # For each data_type, we create a separate file, e.g. nouns.json.
         for dt in data_types:
-            index_path = Path(output_dir) / f"{dt}.json"
+            index_path = DEFAULT_WIKIDATA_DUMP_DIR / f"{dt}.json"
             iso_codes = set()
             for word_data in processor.forms_index.values():
                 iso_codes.update(word_data.keys())

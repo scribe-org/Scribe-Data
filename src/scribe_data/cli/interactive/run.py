@@ -25,11 +25,7 @@ from scribe_data.cli.interactive.prompt import (
     prompt_for_languages,
     resolve_wiktionary_dump_path,
 )
-from scribe_data.utils import (
-    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
-    DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
-    DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
-)
+from scribe_data.utils import DEFAULT_WIKTIONARY_DUMP_DIR
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 
 # MARK: Configure
@@ -162,20 +158,10 @@ def run_interactive_mode(operation: str | None = None) -> None:
             configure_settings()
 
         elif choice == "run_all":
-            if wikidata_dump_path := prompt(
-                f"Enter Wikidata lexeme dump path (default: {str(DEFAULT_WIKIDATA_DUMP_EXPORT_DIR)}): "
-            ):
-                wikidata_dump_path = Path(wikidata_dump_path)
-
-            else:
-                wikidata_dump_path = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
-
             parse_wd_lexeme_dump(
                 languages=interactive_mode_config.selected_languages,
                 data_types=interactive_mode_config.selected_data_types,
                 wikidata_dump_type=["form"],
-                output_dir=interactive_mode_config.output_dir,
-                wikidata_dump_path=wikidata_dump_path,
                 overwrite_all=interactive_mode_config.overwrite,
                 interactive_mode=True,
             )
@@ -198,12 +184,6 @@ def run_interactive_mode(operation: str | None = None) -> None:
                 default=str(interactive_mode_config.input_dir),
             )
             interactive_mode_config.input_dir = Path(user_input_dir)
-
-            user_output_dir = prompt(
-                f"Enter output directory (default: {interactive_mode_config.output_dir_sqlite}): ",
-                default=str(interactive_mode_config.output_dir_sqlite),
-            )
-            interactive_mode_config.output_dir_sqlite = Path(user_output_dir)
 
             identifier_case = prompt(
                 "Enter identifier case (default: camel): ",
@@ -246,29 +226,18 @@ def run_interactive_mode(operation: str | None = None) -> None:
                     f"[bold red]Error: {wiktionary_dump_language} is not a valid language.[/bold red]"
                 )
 
-            dump_location = prompt(
-                "Enter Wiktionary dump directory or file path "
-                f"(default: {DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR}): ",
-                default=str(DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR),
-            )
             wiktionary_dump_path = resolve_wiktionary_dump_path(
                 wiktionary_dump_language,
-                dump_location,
+                DEFAULT_WIKTIONARY_DUMP_DIR,
             )
             if not wiktionary_dump_path:
                 rprint(
                     f"[bold red]No {wiktionary_dump_language} Wiktionary dump found at "
-                    f"{dump_location}.[/bold red]"
+                    f"{DEFAULT_WIKTIONARY_DUMP_DIR}.[/bold red]"
                 )
                 break
 
             prompt_for_languages()
-
-            translations_output_dir = prompt(
-                "Enter output directory "
-                f"(default: {DEFAULT_WIKTIONARY_JSON_EXPORT_DIR}): ",
-                default=str(DEFAULT_WIKTIONARY_JSON_EXPORT_DIR),
-            )
 
             overwrite_str = prompt(
                 "Overwrite existing files? (default: False): ",
@@ -279,7 +248,6 @@ def run_interactive_mode(operation: str | None = None) -> None:
             parse_wiktionary_translations(
                 target_languages=interactive_mode_config.selected_languages,
                 wiktionary_dump_path=Path(wiktionary_dump_path),
-                output_dir=Path(translations_output_dir),
                 overwrite=overwrite_bool,
             )
 

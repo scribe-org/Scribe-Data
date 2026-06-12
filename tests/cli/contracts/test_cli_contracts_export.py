@@ -8,6 +8,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
+from conftest import cleanup_default_directories
 
 from scribe_data.cli.contracts.export import export_contracts
 from scribe_data.utils import DEFAULT_CONTRACTS_EXPORT_DIR
@@ -25,11 +26,9 @@ def contracts_source(tmp_path: Path) -> Path:
     return source
 
 
-def test_cli_contracts_export_fresh_export(
-    tmp_path: Path, contracts_source: Path
-) -> None:
+def test_cli_contracts_export_new_dir(tmp_path: Path, contracts_source: Path) -> None:
     """
-    Test fresh export when no existing contracts folder.
+    Test export when no existing contracts folder.
     """
     with patch(
         "scribe_data.cli.contracts.export.Path.__truediv__",
@@ -48,6 +47,7 @@ def test_cli_contracts_export_success_message(
     """
     Test success message after fresh export.
     """
+    cleanup_default_directories()
     with patch(
         "scribe_data.cli.contracts.export.Path.__truediv__",
         return_value=contracts_source,
@@ -121,6 +121,7 @@ def test_cli_contracts_export_files_content(
     """
     Test that exported files have correct content.
     """
+    cleanup_default_directories()
     with patch(
         "scribe_data.cli.contracts.export.Path.__truediv__",
         return_value=contracts_source,

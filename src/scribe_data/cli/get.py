@@ -17,12 +17,8 @@ from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 from scribe_data.cli.convert.wrapper import convert_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
-    DEFAULT_CSV_EXPORT_DIR,
-    DEFAULT_JSON_EXPORT_DIR,
-    DEFAULT_SQLITE_EXPORT_DIR,
-    DEFAULT_TSV_EXPORT_DIR,
-    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
-    DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
+    DEFAULT_JSON_DIR,
+    DEFAULT_WIKIDATA_DUMP_DIR,
     check_index_exists,
 )
 from scribe_data.wikidata.query_data import query_data
@@ -82,19 +78,6 @@ def get_data(
     Dict[str, bool] | None
         The requested data saved locally given file type and location arguments.
     """
-    # MARK: Defaults
-
-    if data_types == ["translations"]:
-        output_dir = DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
-
-    else:
-        output_dir = {
-            "csv": DEFAULT_CSV_EXPORT_DIR,
-            "json": DEFAULT_JSON_EXPORT_DIR,
-            "sqlite": DEFAULT_SQLITE_EXPORT_DIR,
-            "tsv": DEFAULT_TSV_EXPORT_DIR,
-        }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
-
     language_or_languages = (
         "language" if languages and len(languages) == 1 else "languages"
     )
@@ -125,7 +108,6 @@ def get_data(
                 query_data(
                     languages=[language_or_sub_language],
                     data_types=["all"],
-                    output_dir=output_dir,
                     overwrite=overwrite,
                 )
                 print(
@@ -137,8 +119,6 @@ def get_data(
                     languages=languages,
                     data_types=["all"],
                     wikidata_dump_type=["form"],
-                    output_dir=output_dir,
-                    wikidata_dump_path=wikidata_dump_path,
                     overwrite_all=overwrite,
                 )
 
@@ -149,7 +129,6 @@ def get_data(
                 query_data(
                     languages=["all"],
                     data_types=data_types,
-                    output_dir=output_dir,
                     overwrite=overwrite,
                 )
                 print(f"Query completed for all languages for data type: {data_type}")
@@ -159,8 +138,6 @@ def get_data(
                     languages=["all"],
                     data_types=data_types,
                     wikidata_dump_type=["form"],
-                    output_dir=output_dir,
-                    wikidata_dump_path=wikidata_dump_path,
                     overwrite_all=overwrite,
                 )
 
@@ -173,8 +150,6 @@ def get_data(
                 languages=["all"],
                 data_types=["all"],
                 wikidata_dump_type=["form", "translations"],
-                output_dir=output_dir,
-                wikidata_dump_path=wikidata_dump_path,
                 overwrite_all=overwrite,
             )
 
@@ -186,10 +161,7 @@ def get_data(
         and len(data_types) == 1
         and data_types[0] in {"emoji-keywords", "emoji_keywords"}
     ):
-        generate_emoji(
-            language=languages[0],  # only one possible
-            output_dir=output_dir,
-        )
+        generate_emoji(language=languages[0])  # only one possible
 
     # MARK: Translations
 
@@ -201,7 +173,6 @@ def get_data(
         parse_wiktionary_translations(
             target_languages=languages,
             wiktionary_dump_path=wiktionary_dump,
-            output_dir=output_dir,
             overwrite=overwrite,
         )
         return
@@ -211,14 +182,12 @@ def get_data(
     elif wikidata_dump_path is not None:
         # If wikidata_dump is an empty string, use the default path.
         if not wikidata_dump_path:
-            wikidata_dump_path = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
+            wikidata_dump_path = DEFAULT_WIKIDATA_DUMP_DIR
 
         parse_wd_lexeme_dump(
             languages=languages or ["all"],
             data_types=data_types,
             wikidata_dump_type=["form"],
-            output_dir=output_dir,
-            wikidata_dump_path=wikidata_dump_path,
             overwrite_all=overwrite,
         )
         return
@@ -233,7 +202,9 @@ def get_data(
             f"{', '.join([t.capitalize() for t in data_types])}"
         )
 
-        json_path = Path(output_dir) / language_or_sub_language / f"{data_type}.json"
+        json_path = (
+            Path(DEFAULT_JSON_DIR) / language_or_sub_language / f"{data_type}.json"
+        )
         if not overwrite and check_index_exists(json_path):
             print(
                 f"Skipping update for {language_or_sub_language.title()} {data_type}."
@@ -257,14 +228,13 @@ def get_data(
             query_data(
                 languages=[language_or_sub_language],
                 data_types=data_types,
-                output_dir=output_dir,
                 overwrite=overwrite,
                 interactive=interactive,
             )
 
             # Only print this line if no exception was raised.
             if not all_bool:
-                print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
+                print(f"Updated data was saved in: {Path(DEFAULT_JSON_DIR).resolve()}.")
 
         except json.decoder.JSONDecodeError:
             print_error_and_suggestions(
@@ -292,7 +262,7 @@ def get_data(
         # MARK: Output Conversion
 
         json_input_path = (
-            Path(output_dir) / f"{language_or_sub_language}/{data_type}.json"
+            Path(DEFAULT_JSON_DIR) / f"{language_or_sub_language}/{data_type}.json"
         )
 
         if output_type and output_type != "json" and json_input_path.exists():

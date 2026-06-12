@@ -13,8 +13,8 @@ import yaml
 
 from scribe_data.utils import (
     DEFAULT_DATA_CONTRACTS_DIR,
-    DEFAULT_FILTERED_JSON_EXPORT_DIR,
-    DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_FILTERED_JSON_DIR,
+    DEFAULT_JSON_DIR,
     get_language_from_iso,
 )
 
@@ -245,7 +245,7 @@ def export_data_filtered_by_contracts(contracts_dir: Path) -> None:
     contracts_dir = Path(contracts_dir) if contracts_dir else DEFAULT_DATA_CONTRACTS_DIR
 
     # Use provided output dir or default.
-    DEFAULT_FILTERED_JSON_EXPORT_DIR.mkdir(parents=True, exist_ok=True)
+    DEFAULT_FILTERED_JSON_DIR.mkdir(parents=True, exist_ok=True)
 
     for contract_filename in os.listdir(contracts_dir):
         if not contract_filename.endswith(".yaml"):
@@ -267,15 +267,14 @@ def export_data_filtered_by_contracts(contracts_dir: Path) -> None:
             continue
 
         # Create language directory in export path.
-        lang_export_dir = (
-            DEFAULT_FILTERED_JSON_EXPORT_DIR
-            / matched_language.lower().replace(" ", "_")
+        lang_export_dir = DEFAULT_FILTERED_JSON_DIR / matched_language.lower().replace(
+            " ", "_"
         )
         lang_export_dir.mkdir(parents=True, exist_ok=True)
 
-        lang_input_dir = Path(
-            DEFAULT_JSON_EXPORT_DIR
-        ) / matched_language.lower().replace(" ", "_")
+        lang_input_dir = Path(DEFAULT_JSON_DIR) / matched_language.lower().replace(
+            " ", "_"
+        )
         if not lang_input_dir.exists():
             print(f"No input directory found for {matched_language}")
             continue
@@ -289,7 +288,7 @@ def export_data_filtered_by_contracts(contracts_dir: Path) -> None:
             # Skip unsupported types if needed.
             if data_type not in contract_metadata:
                 output_file = (
-                    DEFAULT_FILTERED_JSON_EXPORT_DIR
+                    DEFAULT_FILTERED_JSON_DIR
                     / matched_language.lower().replace(" ", "_")
                     / f"{data_type}.json"
                 )
@@ -308,7 +307,7 @@ def export_data_filtered_by_contracts(contracts_dir: Path) -> None:
                 input_file, contract_metadata, data_type
             ):
                 output_file = (
-                    DEFAULT_FILTERED_JSON_EXPORT_DIR
+                    DEFAULT_FILTERED_JSON_DIR
                     / matched_language.lower().replace(" ", "_")
                     / f"{data_type}.json"
                 )

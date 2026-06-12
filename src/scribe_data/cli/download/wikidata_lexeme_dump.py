@@ -16,8 +16,8 @@ from rich import print as rprint
 from tqdm import tqdm
 
 from scribe_data.utils import (
-    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
-    DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
+    DEFAULT_WIKIDATA_DUMP_DIR,
+    DEFAULT_WIKTIONARY_DUMP_DIR,
     check_lexeme_dump_prompt_download,
 )
 
@@ -230,12 +230,12 @@ def wd_lexeme_dump_download_wrapper(
         - Returns None if the user chooses not to proceed with the download or no valid dump URL is found.
     """
     try:
-        os.makedirs(DEFAULT_WIKIDATA_DUMP_EXPORT_DIR, exist_ok=True)
+        os.makedirs(DEFAULT_WIKIDATA_DUMP_DIR, exist_ok=True)
 
         # Don't check for lexeme if date given.
         if not dump_snapshot:
             if useable_file_dir := check_lexeme_dump_prompt_download(
-                DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
+                DEFAULT_WIKIDATA_DUMP_DIR
             ):
                 return useable_file_dir
 
@@ -246,7 +246,7 @@ def wd_lexeme_dump_download_wrapper(
             return None
 
         filename = dump_url.split("/")[-1]
-        output_path = DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR / filename
+        output_path = DEFAULT_WIKTIONARY_DUMP_DIR / filename
 
         # Use default parameter to bypass user confirmation.
         user_response = (

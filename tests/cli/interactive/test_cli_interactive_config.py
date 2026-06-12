@@ -52,8 +52,10 @@ class TestScribeDataCLIInteractiveConfig(unittest.TestCase):
         )
         mock_prompt.side_effect = lambda *args, **kwargs: next(responses)
 
-        with patch("scribe_data.cli.interactive.config", self.config):
-            with patch("scribe_data.cli.interactive.display_summary"):
+        with patch(
+            "scribe_data.cli.interactive.config.interactive_mode_config", self.config
+        ):
+            with patch("scribe_data.cli.interactive.execute.display_summary"):
                 configure_settings()
 
                 self.assertEqual(self.config.selected_languages, self.config.languages)
@@ -81,8 +83,10 @@ class TestScribeDataCLIInteractiveConfig(unittest.TestCase):
         )
         mock_prompt.side_effect = lambda *args, **kwargs: next(responses)
 
-        with patch("scribe_data.cli.interactive.config", self.config):
-            with patch("scribe_data.cli.interactive.display_summary"):
+        with patch(
+            "scribe_data.cli.interactive.config.interactive_mode_config", self.config
+        ):
+            with patch("scribe_data.cli.interactive.execute.display_summary"):
                 configure_settings()
 
                 self.assertEqual(self.config.selected_languages, ["english", "spanish"])

@@ -15,7 +15,7 @@ from urllib.error import HTTPError
 from tqdm.auto import tqdm
 
 from scribe_data.utils import (
-    DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_JSON_DIR,
     WIKIDATA_QUERIES_ALL_DATA_DIR,
     format_sublanguage_name,
     language_metadata,
@@ -167,7 +167,7 @@ def query_data(
             if str(output_dir).startswith("./")
             else output_dir
         )
-        export_dir = (updated_path or DEFAULT_JSON_EXPORT_DIR) / lang.replace(" ", "_")
+        export_dir = (updated_path or DEFAULT_JSON_DIR) / lang.replace(" ", "_")
         export_dir.mkdir(parents=True, exist_ok=True)
 
         file_name = f"{target_type}.json"
@@ -281,7 +281,7 @@ def query_data(
 
             # Call the formatting script.
             execute_formatting_script(
-                output_dir=output_dir or DEFAULT_JSON_EXPORT_DIR,
+                output_dir=output_dir or DEFAULT_JSON_DIR,
                 language=lang,
                 data_type=target_type,
             )

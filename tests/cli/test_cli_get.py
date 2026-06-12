@@ -14,10 +14,10 @@ from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
 from scribe_data.cli.get import get_data
 from scribe_data.utils import (
-    DEFAULT_CSV_EXPORT_DIR,
-    DEFAULT_JSON_EXPORT_DIR,
-    DEFAULT_SQLITE_EXPORT_DIR,
-    DEFAULT_TSV_EXPORT_DIR,
+    DEFAULT_CSV_DIR,
+    DEFAULT_JSON_DIR,
+    DEFAULT_SQLITE_DIR,
+    DEFAULT_TSV_DIR,
 )
 
 
@@ -497,10 +497,10 @@ class TestCLIGetData(unittest.TestCase):
         """
         mock_check_index.return_value = False
         test_cases = [
-            ("csv", DEFAULT_CSV_EXPORT_DIR),
-            ("json", DEFAULT_JSON_EXPORT_DIR),
-            ("sqlite", DEFAULT_SQLITE_EXPORT_DIR),
-            ("tsv", DEFAULT_TSV_EXPORT_DIR),
+            ("csv", DEFAULT_CSV_DIR),
+            ("json", DEFAULT_JSON_DIR),
+            ("sqlite", DEFAULT_SQLITE_DIR),
+            ("tsv", DEFAULT_TSV_DIR),
         ]
 
         for output_type, expected_dir in test_cases:

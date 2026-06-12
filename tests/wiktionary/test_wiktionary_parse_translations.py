@@ -7,6 +7,7 @@ import unittest
 
 import mwparserfromhell
 
+from scribe_data.utils import DEFAULT_JSON_DIR
 from scribe_data.wiktionary.parse_constants import get_wiktionary_config
 from scribe_data.wiktionary.parse_translations import (
     _extract_source_lang_section,
@@ -464,7 +465,6 @@ english side
         """
         translations are written to the expected JSON file on disk.
         """
-        import shutil
         import tempfile
         from pathlib import Path
 
@@ -489,21 +489,17 @@ english side
             tmp.write(dummy_xml_content)
             tmp_path = tmp.name
 
-        output_dir = Path(tempfile.mkdtemp())
-
         try:
             parse_wiktionary_translations(
                 target_languages=["de"],
                 wiktionary_dump_path=tmp_path,
-                output_dir=output_dir,
                 overwrite=True,
             )
-            self.assertTrue(output_dir.exists())
-            de_file = output_dir / "english" / "de_translations_from_en.json"
+            self.assertTrue(DEFAULT_JSON_DIR.exists())
+            de_file = DEFAULT_JSON_DIR / "english" / "de_translations_from_en.json"
             self.assertTrue(de_file.exists())
 
         finally:
-            shutil.rmtree(output_dir)
             Path(tmp_path).unlink()
 
 

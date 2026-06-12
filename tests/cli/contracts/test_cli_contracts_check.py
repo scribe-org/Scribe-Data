@@ -104,7 +104,7 @@ def test_cli_contracts_check_default_dir(
         mock_print.assert_called_once_with({})
 
 
-@patch("scribe_data.cli.contracts.check.Path")
+@patch("pathlib.Path")
 def test_cli_contracts_check_nonexistent_dir(mock_path: MagicMock) -> None:
     """
     Test check_contracts with a nonexistent directory.
@@ -112,7 +112,7 @@ def test_cli_contracts_check_nonexistent_dir(mock_path: MagicMock) -> None:
     mock_path.return_value.exists.return_value = False
 
     with patch("builtins.print") as mock_print:
-        check_contract_data_print_missing(contracts_dir=DEFAULT_DATA_CONTRACTS_DIR)
+        check_contract_data_print_missing(contracts_dir="nonexistent_dir")
 
         mock_print.assert_called_once()
         assert "Error: Directory" in mock_print.call_args[0][0]
@@ -135,14 +135,20 @@ def test_cli_contracts_check_data_completeness_json_error(
     mock_filter_metadata.return_value = mock_contract_metadata
 
     # Execute with patched open to cause JSON error.
-    with patch("pathlib.Path.exists") as mock_exists:
-        mock_exists.return_value = True  # make paths exist
-        with patch("builtins.open", side_effect=json.JSONDecodeError("Error", "", 0)):
-            with patch("builtins.print") as mock_print:
-                check_contract_data_completeness(mock_export_dir)
+    with patch("pathlib.Path.exists") as mock_exists_1:
+        mock_exists_1.return_value = True
+        with patch("pathlib.Path.exists") as mock_exists_2:
+            mock_exists_2.return_value = True  # make paths exist
+            with patch(
+                "builtins.open", side_effect=json.JSONDecodeError("Error", "", 0)
+            ):
+                with patch("builtins.print") as mock_print:
+                    check_contract_data_completeness(
+                        contracts_dir=DEFAULT_DATA_CONTRACTS_DIR
+                    )
 
-                mock_print.assert_called()
-                assert "Error reading" in mock_print.call_args[0][0]
+                    mock_print.assert_called()
+                    assert "Error reading" in mock_print.call_args[0][0]
 
 
 def test_cli_contracts_print_missing_forms_none() -> None:

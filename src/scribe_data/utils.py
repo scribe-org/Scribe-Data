@@ -21,16 +21,15 @@ from rich import print as rprint
 
 PROJECT_ROOT = "Scribe-Data"
 
-DEFAULT_JSON_EXPORT_DIR = Path("scribe_data_json_export")
-DEFAULT_FILTERED_JSON_EXPORT_DIR = Path("scribe_data_filtered_json_export")
-DEFAULT_CSV_EXPORT_DIR = Path("scribe_data_csv_export")
-DEFAULT_TSV_EXPORT_DIR = Path("scribe_data_tsv_export")
-DEFAULT_SQLITE_EXPORT_DIR = Path("scribe_data_sqlite_export")
+DEFAULT_JSON_DIR = Path("scribe_data_json")
+DEFAULT_FILTERED_JSON_DIR = Path("scribe_data_filtered_json")
+DEFAULT_CSV_DIR = Path("scribe_data_csv")
+DEFAULT_TSV_DIR = Path("scribe_data_tsv")
+DEFAULT_SQLITE_DIR = Path("scribe_data_sqlite")
 
-DEFAULT_WIKIDATA_DUMP_EXPORT_DIR = Path("scribe_data_wikidata_dumps_export")
-
-DEFAULT_WIKTIONARY_JSON_EXPORT_DIR = Path("scribe_data_wiktionary_json_export")
-DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR = Path("scribe_data_wiktionary_dumps_export")
+DEFAULT_WIKIDATA_DUMP_DIR = Path("scribe_data_wikidata_dumps")
+DEFAULT_WIKTIONARY_DUMP_DIR = Path("scribe_data_wiktionary_dumps")
+DEFAULT_WIKTIONARY_JSON_DIR = Path("scribe_data_wiktionary_json")
 
 DEFAULT_CONTRACTS_EXPORT_DIR = Path("scribe_data_contracts")
 DEFAULT_DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"

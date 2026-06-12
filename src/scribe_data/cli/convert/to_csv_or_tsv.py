@@ -8,9 +8,9 @@ import json
 from pathlib import Path
 
 from scribe_data.utils import (
-    DEFAULT_CSV_EXPORT_DIR,
-    DEFAULT_JSON_EXPORT_DIR,
-    DEFAULT_TSV_EXPORT_DIR,
+    DEFAULT_CSV_DIR,
+    DEFAULT_JSON_DIR,
+    DEFAULT_TSV_DIR,
     camel_to_snake,
     check_index_exists,
 )
@@ -61,8 +61,7 @@ def convert_to_csv_or_tsv(
 
     # Modify input file path to use the provided input_file or default JSON export path.
     input_file_path = (
-        input_file
-        or DEFAULT_JSON_EXPORT_DIR / language.lower() / f"{data_types[0]}.json"
+        input_file or DEFAULT_JSON_DIR / language.lower() / f"{data_types[0]}.json"
     )
 
     for dtype in data_types:
@@ -81,9 +80,7 @@ def convert_to_csv_or_tsv(
         # Determine the delimiter based on output type.
         delimiter = "," if output_type == "csv" else "\t"
 
-        output_dir = (
-            DEFAULT_CSV_EXPORT_DIR if output_type == "csv" else DEFAULT_TSV_EXPORT_DIR
-        )
+        output_dir = DEFAULT_CSV_DIR if output_type == "csv" else DEFAULT_TSV_DIR
 
         final_output_dir = output_dir / language.capitalize()
         final_output_dir.mkdir(parents=True, exist_ok=True)

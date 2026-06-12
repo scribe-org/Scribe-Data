@@ -13,8 +13,8 @@ import questionary
 from tqdm.auto import tqdm
 
 from scribe_data.utils import (
-    DEFAULT_JSON_EXPORT_DIR,
-    DEFAULT_SQLITE_EXPORT_DIR,
+    DEFAULT_JSON_DIR,
+    DEFAULT_SQLITE_DIR,
     camel_to_snake,
     data_type_metadata,
     get_language_iso,
@@ -97,7 +97,7 @@ def translations_to_sqlite(
     language_data_type_dict: dict,
     current_languages: list,
     identifier_case: str = "snake",
-    input_file: Path = DEFAULT_JSON_EXPORT_DIR,
+    input_file: Path = DEFAULT_JSON_DIR,
     overwrite: bool = False,
 ) -> None:
     """
@@ -114,14 +114,14 @@ def translations_to_sqlite(
     identifier_case : str, optional
         The identifier case. Default is "snake".
 
-    input_file : str, optional, default=DEFAULT_JSON_EXPORT_DIR
+    input_file : str, optional, default=DEFAULT_JSON_DIR
         The input JSON export directory.
 
     overwrite : bool, optional
         If True, existing SQLite files will be overwritten without prompting.
     """
     maybe_over = ""
-    translation_db_path = Path(DEFAULT_SQLITE_EXPORT_DIR) / "TranslationData.sqlite"
+    translation_db_path = Path(DEFAULT_SQLITE_DIR) / "TranslationData.sqlite"
     if translation_db_path.exists():
         if not overwrite:
             answer = questionary.confirm(
@@ -188,7 +188,7 @@ def translations_to_sqlite(
 def wiktionary_translations_to_sqlite(
     language,
     identifier_case="snake",
-    input_file=DEFAULT_JSON_EXPORT_DIR,
+    input_file=DEFAULT_JSON_DIR,
     overwrite: bool = False,
 ):
     """
@@ -208,7 +208,7 @@ def wiktionary_translations_to_sqlite(
     identifier_case : str, optional
         Either "camel" or "snake" to determine column naming. Default is "snake".
 
-    input_file : str, optional, default=DEFAULT_JSON_EXPORT_DIR
+    input_file : str, optional, default=DEFAULT_JSON_DIR
         The input JSON export directory.
 
     overwrite : bool, optional
@@ -232,7 +232,7 @@ def wiktionary_translations_to_sqlite(
     if not translation_files:
         return
 
-    db_path = Path(DEFAULT_SQLITE_EXPORT_DIR) / "TranslationData.sqlite"
+    db_path = Path(DEFAULT_SQLITE_DIR) / "TranslationData.sqlite"
     db_path.parent.mkdir(parents=True, exist_ok=True)
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
@@ -298,7 +298,7 @@ def convert_to_sqlite(
     languages: list[str] | None = None,
     specific_tables: str | list[str] | None = None,
     identifier_case: str = "camel",
-    input_file: Path = DEFAULT_JSON_EXPORT_DIR,
+    input_file: Path = DEFAULT_JSON_DIR,
     overwrite: bool = False,
 ) -> None:
     """
@@ -315,7 +315,7 @@ def convert_to_sqlite(
     identifier_case : str, optional, default='camel'
         Format of the identifiers ("camel" or "snake"). Defaults to "camel".
 
-    input_file : str, optional, default=DEFAULT_JSON_EXPORT_DIR
+    input_file : str, optional, default=DEFAULT_JSON_DIR
         The input JSON export directory.
 
     overwrite : bool, optional
@@ -328,7 +328,7 @@ def convert_to_sqlite(
     )
 
     # Ensure the SQLite export directory exists before creating the database.
-    DEFAULT_SQLITE_EXPORT_DIR.mkdir(parents=True, exist_ok=True)
+    DEFAULT_SQLITE_DIR.mkdir(parents=True, exist_ok=True)
 
     current_language_data = language_metadata
     data_types = data_type_metadata
@@ -428,7 +428,7 @@ def convert_to_sqlite(
         if language_data_type_dict[lang] != []:
             maybe_over = ""
             db_file = (
-                Path(DEFAULT_SQLITE_EXPORT_DIR)
+                Path(DEFAULT_SQLITE_DIR)
                 / f"{get_language_iso(lang).upper()}LanguageData.sqlite"
             )
             if db_file.exists():

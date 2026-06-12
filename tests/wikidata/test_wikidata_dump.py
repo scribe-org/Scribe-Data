@@ -7,7 +7,7 @@ from unittest.mock import MagicMock, mock_open, patch
 
 import pytest
 
-from scribe_data.utils import DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
+from scribe_data.utils import DEFAULT_WIKIDATA_DUMP_DIR
 from scribe_data.wikidata.parse_dump import LexemeProcessor, parse_dump
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 
@@ -136,7 +136,7 @@ def test_wikidata_parse_wd_lexeme_dump(
         parse_type=["translations"],
         data_types=["nouns"],
         file_path=str(test_file_path),
-        output_dir=DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+        output_dir=DEFAULT_WIKIDATA_DUMP_DIR,
         overwrite_all=False,
     )
 

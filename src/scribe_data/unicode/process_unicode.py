@@ -20,7 +20,7 @@ except ImportError:
 from tqdm.auto import tqdm
 
 from scribe_data.unicode.unicode_utils import get_emoji_codes_to_ignore
-from scribe_data.utils import DEFAULT_JSON_EXPORT_DIR, get_language_iso
+from scribe_data.utils import DEFAULT_JSON_DIR, get_language_iso
 
 emoji_codes_to_ignore = get_emoji_codes_to_ignore()
 
@@ -149,7 +149,7 @@ def gen_emoji_lexicon(
                             )
 
     # Check nouns files for plurals and update their data with the emojis for their singular forms.
-    language_nouns_path = DEFAULT_JSON_EXPORT_DIR / f"{language}" / "nouns.json"
+    language_nouns_path = DEFAULT_JSON_DIR / f"{language}" / "nouns.json"
     if not language_nouns_path.is_file():
         print(
             "\nNote: Getting a language's nouns before emoji keywords allows for plurals to be linked to the emojis for their singulars.\n"

@@ -11,11 +11,7 @@ from SPARQLWrapper import JSON, POST, SPARQLWrapper
 from scribe_data.cli.download.wikidata_lexeme_dump import (
     wd_lexeme_dump_download_wrapper,
 )
-from scribe_data.utils import (
-    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
-    data_type_metadata,
-    language_metadata,
-)
+from scribe_data.utils import data_type_metadata, language_metadata
 from scribe_data.wikidata.parse_dump import parse_dump
 
 sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
@@ -27,8 +23,6 @@ def parse_wd_lexeme_dump(
     languages: str | list[str] | None,
     data_types: list[str] | None = None,
     wikidata_dump_type: str | list[str] | None = None,
-    output_dir: Path | None = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
-    wikidata_dump_path: Path | None = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     overwrite_all: bool = False,
     interactive_mode: bool = False,
 ) -> None:
@@ -45,12 +39,6 @@ def parse_wd_lexeme_dump(
 
     wikidata_dump_type : List[str]
         The type(s) of Wikidata lexeme dump to parse (e.g. ["total", "form"]).
-
-    output_dir : str, optional
-        The directory to save the parsed JSON data. If None, uses default directory.
-
-    wikidata_dump_path : Path
-        The local Wikidata lexeme dump directory that should be used to get data.
 
     overwrite_all : bool, default=False
         If True, automatically overwrite existing files without prompting.
@@ -117,7 +105,6 @@ def parse_wd_lexeme_dump(
                 parse_type=normalized_dump_type,
                 data_types=data_types,
                 file_path=file_path,
-                output_dir=output_dir,
                 overwrite_all=overwrite_all,
             )
 

@@ -8,7 +8,7 @@ import unittest
 import pytest
 
 from scribe_data.cli.convert.to_csv_or_tsv import convert_to_csv_or_tsv
-from scribe_data.utils import DEFAULT_CSV_EXPORT_DIR, DEFAULT_TSV_EXPORT_DIR
+from scribe_data.utils import DEFAULT_CSV_DIR, DEFAULT_TSV_DIR
 
 # MARK: CSV or TSV
 
@@ -50,7 +50,7 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
             overwrite=True,
         )
 
-        output_file = DEFAULT_CSV_EXPORT_DIR / "English" / "prepositions.csv"
+        output_file = DEFAULT_CSV_DIR / "English" / "prepositions.csv"
         actual_content = output_file.read_text(encoding="utf-8")
         assert actual_content == expected_csv_output
 
@@ -69,7 +69,7 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
             overwrite=True,
         )
 
-        output_file = DEFAULT_TSV_EXPORT_DIR / "English" / "prepositions.tsv"
+        output_file = DEFAULT_TSV_DIR / "English" / "prepositions.tsv"
         actual_content = output_file.read_text(encoding="utf-8")
         assert actual_content == expected_tsv_output
 
@@ -90,7 +90,7 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
             overwrite=True,
         )
 
-        output_file = DEFAULT_CSV_EXPORT_DIR / "English" / "nouns.csv"
+        output_file = DEFAULT_CSV_DIR / "English" / "nouns.csv"
         actual_content = output_file.read_text(encoding="utf-8")
         assert actual_content == expected_csv_output
 
@@ -111,7 +111,7 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
             overwrite=True,
         )
 
-        output_file = DEFAULT_TSV_EXPORT_DIR / "English" / "nouns.tsv"
+        output_file = DEFAULT_TSV_DIR / "English" / "nouns.tsv"
         actual_content = output_file.read_text(encoding="utf-8")
         assert actual_content == expected_tsv_output
 
@@ -130,7 +130,7 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
             overwrite=True,
         )
 
-        output_file = DEFAULT_CSV_EXPORT_DIR / "English" / "emoji-keywords.csv"
+        output_file = DEFAULT_CSV_DIR / "English" / "emoji-keywords.csv"
         actual_content = output_file.read_text(encoding="utf-8")
         assert actual_content == expected_csv_output
 
@@ -151,6 +151,6 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
             overwrite=True,
         )
 
-        output_file = DEFAULT_TSV_EXPORT_DIR / "English" / "emoji-keywords.tsv"
+        output_file = DEFAULT_TSV_DIR / "English" / "emoji-keywords.tsv"
         actual_content = output_file.read_text(encoding="utf-8")
         assert actual_content == expected_tsv_output

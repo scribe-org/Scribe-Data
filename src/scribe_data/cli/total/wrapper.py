@@ -7,7 +7,6 @@ from pathlib import Path
 
 from scribe_data.cli.total.print_values import print_total_lexemes
 from scribe_data.cli.total.query import query_total_lexemes
-from scribe_data.utils import DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
 
 # MARK: Wrapper
@@ -48,7 +47,6 @@ def total_wrapper(
             languages=languages or ["all"],
             data_types=data_types or ["all"],
             wikidata_dump_type=["total"],
-            wikidata_dump_path=DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
         )
         return
 
@@ -58,7 +56,6 @@ def total_wrapper(
             languages=languages or ["all"],
             data_types=data_types or ["all"],
             wikidata_dump_type=["total"],
-            wikidata_dump_path=wikidata_dump,
         )
         return
 

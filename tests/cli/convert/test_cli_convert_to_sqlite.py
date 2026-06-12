@@ -18,7 +18,7 @@ from scribe_data.cli.convert.to_sqlite import (
     translations_to_sqlite,
     wiktionary_translations_to_sqlite,
 )
-from scribe_data.utils import DEFAULT_SQLITE_EXPORT_DIR
+from scribe_data.utils import DEFAULT_SQLITE_DIR
 
 
 @pytest.fixture
@@ -112,7 +112,7 @@ def translations_setup(tmp_path: Path) -> dict[str, Any]:
     """
     lang_data_type_dict = {"english": ["translations"]}
     current_languages = ["english", "german", "french"]
-    expected_db_path = DEFAULT_SQLITE_EXPORT_DIR / "TranslationData.sqlite"
+    expected_db_path = DEFAULT_SQLITE_DIR / "TranslationData.sqlite"
 
     return {
         "lang_data_type_dict": lang_data_type_dict,
@@ -139,7 +139,7 @@ def test_cli_convert_translations_to_sqlite(
     )
 
     # Verify database creation.
-    db_path = DEFAULT_SQLITE_EXPORT_DIR / "TranslationData.sqlite"
+    db_path = DEFAULT_SQLITE_DIR / "TranslationData.sqlite"
     assert db_path.exists()
 
     # Check database contents.
@@ -324,11 +324,11 @@ def test_cli_convert_convert_to_sqlite_translations_and_nouns(tmp_path: Path) ->
     )
 
     # Assert TranslationData.sqlite exists.
-    translation_db = DEFAULT_SQLITE_EXPORT_DIR / "TranslationData.sqlite"
+    translation_db = DEFAULT_SQLITE_DIR / "TranslationData.sqlite"
     assert translation_db.exists()
 
     # Assert ENLanguageData.sqlite (for other tables) exists.
-    noun_db = DEFAULT_SQLITE_EXPORT_DIR / "ENLanguageData.sqlite"
+    noun_db = DEFAULT_SQLITE_DIR / "ENLanguageData.sqlite"
     assert noun_db.exists()
 
     # Check nouns table created and has data.
@@ -434,7 +434,7 @@ def test_cli_convert_wiktionary_translations_to_sqlite_basic(tmp_path):
     )
 
     # Verify database was created.
-    db_path = DEFAULT_SQLITE_EXPORT_DIR / "TranslationData.sqlite"
+    db_path = DEFAULT_SQLITE_DIR / "TranslationData.sqlite"
     assert db_path.exists()
 
     conn = sqlite3.connect(db_path)
@@ -493,7 +493,7 @@ def test_cli_convert_wiktionary_translations_to_sqlite_camel_case(tmp_path):
         overwrite=True,
     )
 
-    db_path = DEFAULT_SQLITE_EXPORT_DIR / "TranslationData.sqlite"
+    db_path = DEFAULT_SQLITE_DIR / "TranslationData.sqlite"
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
@@ -529,7 +529,7 @@ def test_wiktionary_translations_to_sqlite_no_translation_files(tmp_path):
     wiktionary_translations_to_sqlite(language="english", input_file=str(input_dir))
 
     # No TranslationData.sqlite should be created.
-    db_path = DEFAULT_SQLITE_EXPORT_DIR / "TranslationData.sqlite"
+    db_path = DEFAULT_SQLITE_DIR / "TranslationData.sqlite"
     assert not db_path.exists()
 
 
@@ -561,7 +561,7 @@ def test_wiktionary_translations_to_sqlite_multiple_files(tmp_path):
         overwrite=True,
     )
 
-    db_path = DEFAULT_SQLITE_EXPORT_DIR / "TranslationData.sqlite"
+    db_path = DEFAULT_SQLITE_DIR / "TranslationData.sqlite"
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 

@@ -43,9 +43,11 @@ class TestScribeDataCLIInteractivePrompt(unittest.TestCase):
             "nouns",  # first call for data types
         ]
 
-        with patch("scribe_data.cli.interactive.config", self.config):
+        with patch(
+            "scribe_data.cli.interactive.config.interactive_mode_config", self.config
+        ):
             with patch(
-                "scribe_data.cli.interactive.list_all_languages",
+                "scribe_data.utils.list_all_languages",
                 return_value=["english", "french"],
             ):
                 prompt_for_languages()

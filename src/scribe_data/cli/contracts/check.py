@@ -8,7 +8,7 @@ from pathlib import Path
 
 from scribe_data.cli.contracts.filter import (
     DEFAULT_DATA_CONTRACTS_DIR,
-    DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_JSON_DIR,
     filter_contract_metadata,
 )
 from scribe_data.utils import get_language_from_iso, get_language_iso
@@ -25,7 +25,7 @@ for i in range(len(data_contracts_langs)):
 
 
 def check_contract_data_completeness(
-    contracts_dir: Path,
+    contracts_dir: Path = DEFAULT_DATA_CONTRACTS_DIR,
 ) -> dict[str, dict[str, list[str]]]:
     """
     Validate exported data contracts against their metadata requirements.
@@ -54,7 +54,10 @@ def check_contract_data_completeness(
         The above is the expected structure.
     """
     # Determine languages to check.
-    languages_to_check = [Path(f).stem.lower() for f in contracts_dir.glob("*.yaml")]
+    languages_to_check = [
+        get_language_from_iso(iso=Path(f).stem.lower())
+        for f in contracts_dir.glob("*.yaml")
+    ]
     languages_to_check = [
         lang
         for lang in languages_to_check
@@ -80,7 +83,7 @@ def check_contract_data_completeness(
 
         # Get contract metadata.
         contract_metadata = filter_contract_metadata(contract_file)
-        export_lang_dir = DEFAULT_JSON_EXPORT_DIR / lang_dir_name
+        export_lang_dir = DEFAULT_JSON_DIR / lang_dir_name
 
         # Check missing forms for nouns and verbs.
         lang_missing_forms = {}
@@ -166,9 +169,9 @@ def check_contract_data_print_missing(contracts_dir: Path) -> None:
 
     contracts_dir = Path(contracts_dir) if contracts_dir else DEFAULT_DATA_CONTRACTS_DIR
 
-    if not DEFAULT_JSON_EXPORT_DIR.exists():
+    if not contracts_dir.exists():
         print(
-            f"Error: Directory {DEFAULT_JSON_EXPORT_DIR} does not exist.\nPlease use export JSON first."
+            f"Error: Directory {contracts_dir} does not exist.\nPlease provide a valid path to the data contracts or don't pass an argument to use the default contracts."
         )
         return
 

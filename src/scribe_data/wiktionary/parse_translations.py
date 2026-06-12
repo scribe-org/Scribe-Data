@@ -18,8 +18,8 @@ import orjson
 from tqdm import tqdm
 
 from scribe_data.utils import (
-    DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
-    DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
+    DEFAULT_WIKTIONARY_DUMP_DIR,
+    DEFAULT_WIKTIONARY_JSON_DIR,
     check_index_exists,
     get_language_from_iso,
     language_metadata,
@@ -1164,7 +1164,6 @@ def parse_xml_dump(
 def parse_wiktionary_translations(
     target_languages: str | list[str] | None = None,
     wiktionary_dump_path: str | Path | None = None,
-    output_dir: Path | None = DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
     overwrite: bool = False,
 ) -> None:
     """
@@ -1179,14 +1178,10 @@ def parse_wiktionary_translations(
     wiktionary_dump_path : str or Path, optional
         Path to a ``*wiktionary-*-pages-articles.xml.bz2`` dump file.
 
-    output_dir : Path, optional, default=DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
-        Directory where JSON files are saved.
-
     overwrite : bool, default ``False``
         Whether to overwrite existing output files.
     """
-    output_dir = output_dir or DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    Path(DEFAULT_WIKTIONARY_JSON_DIR).mkdir(parents=True, exist_ok=True)
 
     target_isos: list[str] = []
     if not target_languages or target_languages == "all" or target_languages == ["all"]:
@@ -1216,14 +1211,14 @@ def parse_wiktionary_translations(
 
     dump_path, source_iso = _resolve_dump_path(
         wiktionary_dump_path=wiktionary_dump_path,
-        output_dir=DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
+        output_dir=DEFAULT_WIKTIONARY_DUMP_DIR,
     )
     if not dump_path:
         return
 
     source_lang_name = get_language_from_iso(source_iso)
     out_subdir = _get_output_subdir(source_lang_name, language_metadata)
-    base_out_path = output_dir / out_subdir
+    base_out_path = DEFAULT_WIKTIONARY_JSON_DIR / out_subdir
     base_out_path.mkdir(parents=True, exist_ok=True)
 
     data_by_lang = parse_xml_dump(

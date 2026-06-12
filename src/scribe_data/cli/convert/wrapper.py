@@ -9,8 +9,8 @@ from scribe_data.cli.convert.to_csv_or_tsv import convert_to_csv_or_tsv
 from scribe_data.cli.convert.to_json import convert_to_json
 from scribe_data.cli.convert.to_sqlite import convert_to_sqlite
 from scribe_data.utils import (
-    DEFAULT_JSON_EXPORT_DIR,
-    DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
+    DEFAULT_JSON_DIR,
+    DEFAULT_WIKTIONARY_JSON_DIR,
 )
 
 # MARK: Convert Wrapper
@@ -61,11 +61,7 @@ def convert_wrapper(
             isinstance(dt, str) and dt.startswith("wiktionary")
             for dt in (data_types if isinstance(data_types, list) else [data_types])
         )
-        input_path = (
-            DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
-            if is_wiktionary
-            else DEFAULT_JSON_EXPORT_DIR
-        )
+        input_path = DEFAULT_WIKTIONARY_JSON_DIR if is_wiktionary else DEFAULT_JSON_DIR
 
     if output_type == "json" and languages and data_types:
         convert_to_json(

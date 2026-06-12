@@ -90,12 +90,10 @@ class TestDownloadCLI(unittest.TestCase):
         )
 
     @patch("requests.get")
-    @patch(
-        "scribe_data.cli.download.check_lexeme_dump_prompt_download", return_value=False
-    )
-    @patch("scribe_data.cli.download.open", new_callable=mock_open)
-    @patch("scribe_data.cli.download.tqdm")
-    @patch("scribe_data.cli.download.os.makedirs")
+    @patch("scribe_data.utils.check_lexeme_dump_prompt_download", return_value=False)
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.open", new_callable=mock_open)
+    @patch("tqdm.tqdm")
+    @patch("os.makedirs")
     @patch("questionary.confirm")
     def test_cli_download_wd_lexeme_dump_wrapper_latest(
         self,
@@ -116,14 +114,12 @@ class TestDownloadCLI(unittest.TestCase):
         mock_get.return_value.headers = {"content-length": "100"}
         mock_get.return_value.iter_content = lambda chunk_size: [b"data"] * 10
 
-        # Mock DEFAULT_WIKIDATA_DUMP_EXPORT_DIR.
+        # Mock DEFAULT_WIKIDATA_DUMP_DIR.
         with patch(
-            "scribe_data.utils.DEFAULT_WIKIDATA_DUMP_EXPORT_DIR",
+            "scribe_data.utils.DEFAULT_WIKIDATA_DUMP_DIR",
             new=Path("test_export_dir"),
         ):
-            download_path = wd_lexeme_dump_download_wrapper(
-                output_dir=Path("test_export_dir")
-            )
+            download_path = wd_lexeme_dump_download_wrapper()
             self.assertIsNotNone(download_path, "Download path should not be None")
             self.assertIn("latest-lexemes.json.bz2", str(download_path))
             mock_makedirs.assert_called_with(Path("test_export_dir"), exist_ok=True)
@@ -269,7 +265,9 @@ class TestDownloadCLI(unittest.TestCase):
         """
         Test wrapper function with default flag set to True.
         """
-        with patch("scribe_data.cli.download.download_wd_lexeme_dump") as mock_download:
+        with patch(
+            "scribe_data.cli.download.wikidata_lexeme_dump.download_wd_lexeme_dump"
+        ) as mock_download:
             mock_download.return_value = None
 
             result = wd_lexeme_dump_download_wrapper(default=True)

@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 
 from scribe_data.utils import (
-    DEFAULT_JSON_EXPORT_DIR,
+    DEFAULT_JSON_DIR,
     camel_to_snake,
     check_index_exists,
 )
@@ -60,7 +60,7 @@ def convert_to_json(
     if not data_types:
         return
 
-    json_output_dir = Path(DEFAULT_JSON_EXPORT_DIR) / language.capitalize()
+    json_output_dir = Path(DEFAULT_JSON_DIR) / language.capitalize()
     json_output_dir.mkdir(parents=True, exist_ok=True)
 
     for dtype in data_types:

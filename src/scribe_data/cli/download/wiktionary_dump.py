@@ -11,7 +11,7 @@ from rich import print as rprint
 from tqdm import tqdm
 
 from scribe_data.utils import (
-    DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
+    DEFAULT_WIKTIONARY_DUMP_DIR,
     resolve_lang_iso,
 )
 
@@ -59,7 +59,7 @@ def download_wiktionary_dumps(
     wiktionaries = [f"{iso}wiktionary" for iso in language_isos]
     wiktionary_urls = [f"https://dumps.wikimedia.org/{w}" for w in wiktionaries]
 
-    Path(DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR).mkdir(parents=True, exist_ok=True)
+    Path(DEFAULT_WIKTIONARY_DUMP_DIR).mkdir(parents=True, exist_ok=True)
     for i, w, u in zip(language_isos, wiktionaries, wiktionary_urls):
         # Note: Remove the snapshot from the resulting filename so Scribe-Server always looks for one file.
         filename = f"{w}-pages-articles.xml.bz2"
@@ -75,7 +75,7 @@ def download_wiktionary_dumps(
             rprint(f"[bold red]Invalid dump date or dump not found: {e}[/bold red]")
             return None
 
-        output_path = DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR / filename
+        output_path = DEFAULT_WIKTIONARY_DUMP_DIR / filename
 
         if output_path.exists():
             rprint(f"[bold yellow]Dump already exists: {output_path}[/bold yellow]")
