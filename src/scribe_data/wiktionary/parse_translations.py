@@ -1305,7 +1305,7 @@ def _resolve_dump_path(
 
         import questionary
 
-        from scribe_data.cli.download import download_wiktionary_dumps
+        from scribe_data.cli.download.wiktionary_dump import download_wiktionary_dumps
 
         print(f"\nNo {wiktionary} dump found locally.")
         should_download = questionary.select(
@@ -1316,9 +1316,7 @@ def _resolve_dump_path(
 
         if should_download == "Yes":
             downloaded_path = download_wiktionary_dumps(
-                output_dir=output_dir,
-                language_isos=[iso],
-                dump_snapshot="latest",
+                language_isos=[iso], dump_snapshot="latest"
             )
 
             if downloaded_path and Path(downloaded_path).exists():

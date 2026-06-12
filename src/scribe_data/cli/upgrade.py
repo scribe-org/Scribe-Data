@@ -15,6 +15,8 @@ from scribe_data.cli.version import (
     get_local_version,
 )
 
+# MARK: Upgrade
+
 
 def upgrade_cli() -> None:
     """

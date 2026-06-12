@@ -21,30 +21,11 @@ for i in range(len(data_contracts_langs)):
     data_contracts_langs[i] = get_language_from_iso(data_contracts_langs[i])
 
 
-def check_contracts(output_dir: str | None = None) -> None:
-    """
-    Check data contracts in the specified or default output directory to ensure data completeness.
-
-    Parameters
-    ----------
-    output_dir : Optional[str], optional
-        Directory containing exported contract data.
-        If None, uses the default DEFAULT_JSON_EXPORT_DIR.
-    """
-    export_dir = Path(output_dir or DEFAULT_JSON_EXPORT_DIR)
-
-    if not export_dir.exists():
-        print(
-            f"Error: Directory {export_dir} does not exist.\nPlease use export JSON first."
-        )
-        return
-
-    missing_forms = check_contract_data_completeness(export_dir)
-    print_missing_forms(missing_forms)
+# MARK: Check Contracts
 
 
 def check_contract_data_completeness(
-    export_dir: Path, language: str | None = None
+    contracts_dir: Path,
 ) -> dict[str, dict[str, list[str]]]:
     """
     Validate exported data contracts against their metadata requirements.
@@ -54,11 +35,9 @@ def check_contract_data_completeness(
 
     Parameters
     ----------
-    export_dir : Path
-        Directory containing exported contract data.
-
-    language : Optional[str], optional
-        Specific language to check. If None, checks all languages in the directory.
+    contracts_dir : Path
+        Directory containing the contracts to filter with.
+        Defaults to DEFAULT_DATA_CONTRACTS_DIR.
 
     Returns
     -------
@@ -75,25 +54,7 @@ def check_contract_data_completeness(
         The above is the expected structure.
     """
     # Determine languages to check.
-    if language:
-        languages_to_check = [language]
-
-    elif export_dir.exists():
-        unique_dirs = {}
-        for item in export_dir.iterdir():
-            if item.is_dir():
-                lower_name = item.name.lower()
-                # Prioritize strictly lowercase directory names to avoid checking capitalized duplicates.
-                if lower_name not in unique_dirs or item.name == lower_name:
-                    unique_dirs[lower_name] = item.name
-
-        languages_to_check = list(unique_dirs.values())
-
-    else:
-        languages_to_check = [
-            Path(f).stem.lower() for f in DEFAULT_DATA_CONTRACTS_DIR.glob("*.yaml")
-        ]
-
+    languages_to_check = [Path(f).stem.lower() for f in contracts_dir.glob("*.yaml")]
     languages_to_check = [
         lang
         for lang in languages_to_check
@@ -107,7 +68,7 @@ def check_contract_data_completeness(
         # Get ISO code and contract file.
         try:
             iso_code = get_language_iso(lang.lower())
-            contract_file = DEFAULT_DATA_CONTRACTS_DIR / f"{iso_code.lower()}.yaml"
+            contract_file = contracts_dir / f"{iso_code.lower()}.yaml"
 
             if not contract_file.exists():
                 print(f"Warning: No contract file found for {lang}")
@@ -119,7 +80,7 @@ def check_contract_data_completeness(
 
         # Get contract metadata.
         contract_metadata = filter_contract_metadata(contract_file)
-        export_lang_dir = export_dir / lang_dir_name
+        export_lang_dir = DEFAULT_JSON_EXPORT_DIR / lang_dir_name
 
         # Check missing forms for nouns and verbs.
         lang_missing_forms = {}
@@ -166,6 +127,9 @@ def check_contract_data_completeness(
     return missing_forms
 
 
+# MARK: Print Missing
+
+
 def print_missing_forms(missing_forms: dict[str, dict[str, list[str]]]) -> None:
     """
     Print missing forms from data contracts.
@@ -187,3 +151,26 @@ def print_missing_forms(missing_forms: dict[str, dict[str, list[str]]]) -> None:
             print(f"  {data_type.capitalize()}:")
             for form in forms:
                 print(f"    - {form}")
+
+
+def check_contract_data_print_missing(contracts_dir: Path) -> None:
+    """
+    Check data contracts in the specified or default output directory to ensure data completeness.
+
+    Parameters
+    ----------
+    contracts_dir : Path
+        Directory containing the contracts to filter with.
+        Defaults to DEFAULT_DATA_CONTRACTS_DIR.
+    """
+
+    contracts_dir = Path(contracts_dir) if contracts_dir else DEFAULT_DATA_CONTRACTS_DIR
+
+    if not DEFAULT_JSON_EXPORT_DIR.exists():
+        print(
+            f"Error: Directory {DEFAULT_JSON_EXPORT_DIR} does not exist.\nPlease use export JSON first."
+        )
+        return
+
+    missing_forms = check_contract_data_completeness(contracts_dir=contracts_dir)
+    print_missing_forms(missing_forms)

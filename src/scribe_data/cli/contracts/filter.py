@@ -18,6 +18,8 @@ from scribe_data.utils import (
     get_language_from_iso,
 )
 
+# MARK: Filter Metadata
+
 
 def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
     """
@@ -44,7 +46,6 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
             "verbs": {"conjugations": []},
         }
 
-        # Filter Numbers
         if "numbers" in contract_data:
             numbers = contract_data["numbers"]
             # Handle different possible structures of numbers.
@@ -53,7 +54,7 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
             # Case 1: Simple key-value pair like {"singular": "plural"}.
             if isinstance(numbers, dict):
                 for key, value in numbers.items():
-                    # Ignore empty strings
+                    # Ignore empty strings.
                     if key:
                         filtered_numbers.append(key)
 
@@ -63,7 +64,6 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
 
             # Case 2: List of number types.
             elif isinstance(numbers, list):
-                # Filter out empty strings
                 filtered_numbers = [n for n in numbers if n]
 
             # Case 3: String of number types.
@@ -71,7 +71,7 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
                 # Split and filter out empty strings.
                 filtered_numbers = [n for n in numbers.split() if n]
 
-            # Remove duplicates and store
+            # Remove duplicates and store.
             filtered_metadata["nouns"]["numbers"] = list(set(filtered_numbers))
 
         # Filter Genders.
@@ -92,10 +92,8 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
 
         # Filter Conjugations.
         if "conjugations" in contract_data:
-            conjugations = contract_data["conjugations"]
-
-            # Collect all conjugation forms.
             conj_forms = set()
+            conjugations = contract_data["conjugations"]
 
             # Handle nested conjugation structure.
             if isinstance(conjugations, dict):
@@ -112,6 +110,7 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
                                             ).split()
                                         ]
                                         conj_forms.update(cleaned_forms)
+
                                     elif isinstance(form, list):
                                         cleaned_forms = [
                                             f
@@ -123,7 +122,6 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
                                         ]
                                         conj_forms.update(cleaned_forms)
 
-            # If conjugations is a string, split it.
             elif isinstance(conjugations, str):
                 # Remove square brackets and split using regex.
                 cleaned_forms = [
@@ -131,7 +129,6 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
                 ]
                 conj_forms.update(cleaned_forms)
 
-            # If conjugations is a list, use it directly.
             elif isinstance(conjugations, list):
                 # Remove square bracketed items.
                 cleaned_forms = [
@@ -151,6 +148,9 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
     except (yaml.YAMLError, IOError) as e:
         print(f"Error processing {contract_file}: {e}")
         return {}
+
+
+# MARK: Filter Export Data
 
 
 def filter_exported_data(
@@ -221,9 +221,10 @@ def filter_exported_data(
         return {}
 
 
-def export_data_filtered_by_contracts(
-    contracts_dir: Path, input_dir: Path, output_dir: Path
-) -> None:
+# MARK: Export Filtered Data
+
+
+def export_data_filtered_by_contracts(contracts_dir: Path) -> None:
     """
     Export contract-filtered data to a new directory with a standardized structure.
 
@@ -236,26 +237,15 @@ def export_data_filtered_by_contracts(
         Directory containing the contracts to filter with.
         Defaults to DEFAULT_DATA_CONTRACTS_DIR.
 
-    input_dir : Path
-        Directory containing original JSON export data.
-        Defaults to DEFAULT_JSON_EXPORT_DIR.
-
-    output_dir : Path
-        Directory to export filtered contract data.
-        Defaults to scribe_data_filtered_* based on the data type.
-
     Returns
     -------
     None
         Prints information on the data that has been filtered.
     """
-    # Use provided output dir or default.
-    export_dir = Path(output_dir) if output_dir else DEFAULT_FILTERED_JSON_EXPORT_DIR
-    export_dir.mkdir(parents=True, exist_ok=True)
-
-    input_dir = input_dir or DEFAULT_JSON_EXPORT_DIR
-
     contracts_dir = Path(contracts_dir) if contracts_dir else DEFAULT_DATA_CONTRACTS_DIR
+
+    # Use provided output dir or default.
+    DEFAULT_FILTERED_JSON_EXPORT_DIR.mkdir(parents=True, exist_ok=True)
 
     for contract_filename in os.listdir(contracts_dir):
         if not contract_filename.endswith(".yaml"):
@@ -277,10 +267,15 @@ def export_data_filtered_by_contracts(
             continue
 
         # Create language directory in export path.
-        lang_export_dir = export_dir / matched_language.lower().replace(" ", "_")
+        lang_export_dir = (
+            DEFAULT_FILTERED_JSON_EXPORT_DIR
+            / matched_language.lower().replace(" ", "_")
+        )
         lang_export_dir.mkdir(parents=True, exist_ok=True)
 
-        lang_input_dir = Path(input_dir) / matched_language.lower().replace(" ", "_")
+        lang_input_dir = Path(
+            DEFAULT_JSON_EXPORT_DIR
+        ) / matched_language.lower().replace(" ", "_")
         if not lang_input_dir.exists():
             print(f"No input directory found for {matched_language}")
             continue
@@ -294,7 +289,7 @@ def export_data_filtered_by_contracts(
             # Skip unsupported types if needed.
             if data_type not in contract_metadata:
                 output_file = (
-                    export_dir
+                    DEFAULT_FILTERED_JSON_EXPORT_DIR
                     / matched_language.lower().replace(" ", "_")
                     / f"{data_type}.json"
                 )
@@ -313,7 +308,7 @@ def export_data_filtered_by_contracts(
                 input_file, contract_metadata, data_type
             ):
                 output_file = (
-                    export_dir
+                    DEFAULT_FILTERED_JSON_EXPORT_DIR
                     / matched_language.lower().replace(" ", "_")
                     / f"{data_type}.json"
                 )

@@ -436,12 +436,12 @@ class LexemeProcessor:
                     "Would you like to automatically re-download the dump file?",
                     default=True,
                 ).ask():
-                    from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
+                    from scribe_data.cli.download.wikidata_lexeme_dump import (
+                        wd_lexeme_dump_download_wrapper,
+                    )
 
                     if new_file_path := wd_lexeme_dump_download_wrapper(
-                        dump_snapshot="latest-lexemes",
-                        output_dir=Path(file_path).parent,
-                        default=True,
+                        dump_snapshot="latest-lexemes", default=True
                     ):
                         if isinstance(new_file_path, str):
                             rprint(

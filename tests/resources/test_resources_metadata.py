@@ -1,0 +1,64 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+"""
+Tests for the accessibility of resources.
+"""
+
+import pathlib
+from unittest import TestCase
+
+BASE_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
+LANGUAGE_METADATA_PATH = (
+    BASE_DIR / "src" / "scribe_data" / "resources" / "language_metadata.yaml"
+)
+DATA_TYPE_METADATA_PATH = (
+    BASE_DIR / "src" / "scribe_data" / "resources" / "data_type_metadata.yaml"
+)
+
+
+class TestResourcesMetadataFileAccessibility(TestCase):
+    def check_file_exists(self, file_path: pathlib.Path) -> None:
+        """
+        Helper method to check if a file exists.
+        """
+        if not file_path.is_file():
+            self.fail(f"Error: {file_path} is missing. Check the file location.")
+
+    def check_file_readable(self, file_path: pathlib.Path) -> None:
+        """
+        Helper method to check if a file is readable.
+        """
+        if not file_path.is_file():
+            self.fail(f"Error: {file_path} is missing.")
+
+        try:
+            with open(file_path, "r") as f:
+                content = f.read()
+            if not content:
+                self.fail(f"Error: {file_path} is empty.")
+        except Exception as e:
+            # Catching any other file reading error
+            self.fail(f"Failed to read {file_path}: {str(e)}")
+
+    def test_resources_language_metadata_file_exists(self) -> None:
+        """
+        Check if the language_metadata.yaml file exists.
+        """
+        self.check_file_exists(LANGUAGE_METADATA_PATH)
+
+    def test_resources_language_metadata_file_readable(self) -> None:
+        """
+        Check if the language_metadata.yaml file is readable.
+        """
+        self.check_file_readable(LANGUAGE_METADATA_PATH)
+
+    def test_resources_data_type_metadata_file_exists(self) -> None:
+        """
+        Check if the data_type_metadata.yaml file exists.
+        """
+        self.check_file_exists(DATA_TYPE_METADATA_PATH)
+
+    def test_resources_data_type_metadata_file_readable(self) -> None:
+        """
+        Check if the data_type_metadata.yaml file is readable.
+        """
+        self.check_file_readable(DATA_TYPE_METADATA_PATH)

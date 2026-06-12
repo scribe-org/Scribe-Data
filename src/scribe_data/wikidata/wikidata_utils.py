@@ -8,7 +8,9 @@ from pathlib import Path
 from rich import print as rprint
 from SPARQLWrapper import JSON, POST, SPARQLWrapper
 
-from scribe_data.cli.download import wd_lexeme_dump_download_wrapper
+from scribe_data.cli.download.wikidata_lexeme_dump import (
+    wd_lexeme_dump_download_wrapper,
+)
 from scribe_data.utils import (
     DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     data_type_metadata,
@@ -93,10 +95,7 @@ def parse_wd_lexeme_dump(
             f"Data types to process: {', '.join([d.capitalize() for d in data_types or []])}"
         )
 
-    file_path = wd_lexeme_dump_download_wrapper(
-        dump_snapshot=None,
-        output_dir=wikidata_dump_path,
-    )
+    file_path = wd_lexeme_dump_download_wrapper(dump_snapshot=None)
 
     if isinstance(file_path, (str, Path)):
         path = Path(file_path)

@@ -14,7 +14,7 @@ import questionary
 from rich import print as rprint
 from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
-from scribe_data.cli.convert import convert_wrapper
+from scribe_data.cli.convert.wrapper import convert_wrapper
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
@@ -33,7 +33,6 @@ def get_data(
     languages: list[str] | None = None,
     data_types: list[str] | None = None,
     output_type: str = "json",
-    output_dir: Path | None = None,
     overwrite: bool = False,
     outputs_per_entry: int = 0,
     all_bool: bool = False,
@@ -55,9 +54,6 @@ def get_data(
 
     output_type : str
         The output file type.
-
-    output_dir : Path
-        The output directory path for results.
 
     overwrite : bool, default=False
         Whether to overwrite existing files.
@@ -88,17 +84,16 @@ def get_data(
     """
     # MARK: Defaults
 
-    if output_dir is None:
-        if data_types == ["translations"]:
-            output_dir = DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
+    if data_types == ["translations"]:
+        output_dir = DEFAULT_WIKTIONARY_JSON_EXPORT_DIR
 
-        else:
-            output_dir = {
-                "csv": DEFAULT_CSV_EXPORT_DIR,
-                "json": DEFAULT_JSON_EXPORT_DIR,
-                "sqlite": DEFAULT_SQLITE_EXPORT_DIR,
-                "tsv": DEFAULT_TSV_EXPORT_DIR,
-            }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
+    else:
+        output_dir = {
+            "csv": DEFAULT_CSV_EXPORT_DIR,
+            "json": DEFAULT_JSON_EXPORT_DIR,
+            "sqlite": DEFAULT_SQLITE_EXPORT_DIR,
+            "tsv": DEFAULT_TSV_EXPORT_DIR,
+        }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
 
     language_or_languages = (
         "language" if languages and len(languages) == 1 else "languages"
@@ -305,7 +300,6 @@ def get_data(
                 languages=[language_or_sub_language],
                 data_types=data_types,
                 input_path=json_input_path,
-                output_dir=output_dir,
                 output_type=output_type,
                 overwrite=overwrite,
                 identifier_case=identifier_case,

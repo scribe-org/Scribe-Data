@@ -11,6 +11,8 @@ UNKNOWN_VERSION = "Unknown Scribe-Data version"
 UNKNOWN_VERSION_NOT_PIP = f"{UNKNOWN_VERSION} (Not installed via pip)"
 UNKNOWN_VERSION_NOT_FETCHED = f"{UNKNOWN_VERSION} (Unable to fetch version)"
 
+# MARK: Local
+
 
 def get_local_version() -> str:
     """
@@ -26,6 +28,9 @@ def get_local_version() -> str:
 
     except importlib.metadata.PackageNotFoundError:
         return UNKNOWN_VERSION_NOT_PIP
+
+
+# MARK: Latest
 
 
 def get_latest_version() -> str:
@@ -45,6 +50,9 @@ def get_latest_version() -> str:
 
     except Exception:
         return UNKNOWN_VERSION_NOT_FETCHED
+
+
+# MARK: Check Version
 
 
 def get_version_message() -> str:

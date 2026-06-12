@@ -16,7 +16,7 @@ from scribe_data.check.check_project_metadata import (
 
 
 class TestCheckProjectMetadata(unittest.TestCase):
-    def test_get_available_languages(self) -> None:
+    def test_check_get_available_languages(self) -> None:
         """
         Tests that get_available_languages returns a dictionary with
         languages from WIKIDATA_QUERIES_ALL_DATA_DIR.
@@ -75,7 +75,7 @@ class TestCheckProjectMetadata(unittest.TestCase):
 
         self.assertEqual(len(available_languages), len(desired_dict))
 
-    def test_get_missing_languages(self) -> None:
+    def test_check_get_missing_languages(self) -> None:
         """
         Tests that get_missing_languages returns a list of languages missing given
         a target language dictionary to check for and a reference language
@@ -120,7 +120,7 @@ class TestCheckProjectMetadata(unittest.TestCase):
             ["estonian/sub_estonian", "arabic", "chinese/mandarin"],
         )
 
-    def test_validate_language_properties(self) -> None:
+    def test_check_validate_language_properties(self) -> None:
         """
         Tests that validate_language_properties identifies languages missing an 'iso' and/or
         'qid' field from a dictionary of languages.

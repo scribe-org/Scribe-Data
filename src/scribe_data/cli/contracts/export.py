@@ -8,20 +8,17 @@ from pathlib import Path
 
 from scribe_data.utils import DEFAULT_CONTRACTS_EXPORT_DIR
 
+# MARK: Export Contracts
 
-def export_contracts(output_dir: Path = DEFAULT_CONTRACTS_EXPORT_DIR) -> None:
+
+def export_contracts() -> None:
     """
-    Export Scribe-Data contracts to the given directory.
-
-    Parameters
-    ----------
-    output_dir : str, default=DEFAULT_CONTRACTS_EXPORT_DIR
-        The directory to export contracts to.
+    Export Scribe-Data contracts to the default contract export directory.
 
     Returns
     -------
     None
-        Contracts are exported to the given directory.
+        Contracts are exported to the default contract export directory.
     """
     contracts_source = (
         Path(__file__).parent.parent.parent / "resources" / "data_contracts"
@@ -31,10 +28,10 @@ def export_contracts(output_dir: Path = DEFAULT_CONTRACTS_EXPORT_DIR) -> None:
         f"Contracts source directory not found at {contracts_source}."
     )
 
-    if output_dir.exists():
+    if DEFAULT_CONTRACTS_EXPORT_DIR.exists():
         response = (
             input(
-                f"A '{output_dir}' folder already exists with the Scribe-Data contracts. "
+                f"A '{DEFAULT_CONTRACTS_EXPORT_DIR}' folder already exists with the Scribe-Data contracts. "
                 "Do you want to overwrite it? (y/[n]): "
             )
             .strip()
@@ -45,7 +42,7 @@ def export_contracts(output_dir: Path = DEFAULT_CONTRACTS_EXPORT_DIR) -> None:
             print("Export cancelled.")
             return
 
-        shutil.rmtree(output_dir)
+        shutil.rmtree(DEFAULT_CONTRACTS_EXPORT_DIR)
 
-    shutil.copytree(contracts_source, output_dir)
-    print(f"Contracts successfully exported to {output_dir}.")
+    shutil.copytree(contracts_source, DEFAULT_CONTRACTS_EXPORT_DIR)
+    print(f"Contracts successfully exported to {DEFAULT_CONTRACTS_EXPORT_DIR}.")

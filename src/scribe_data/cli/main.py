@@ -5,41 +5,28 @@ Setup and commands for the Scribe-Data command line interface.
 
 #!/usr/bin/env python3
 import argparse
-from pathlib import Path
 
 from questionary import select, text
 from rich import print as rprint
 
 from scribe_data.cli.cli_utils import validate_language_and_data_type
-from scribe_data.cli.contracts.check import check_contracts
+from scribe_data.cli.contracts.check import check_contract_data_print_missing
 from scribe_data.cli.contracts.export import export_contracts
 from scribe_data.cli.contracts.filter import export_data_filtered_by_contracts
-from scribe_data.cli.convert import convert_wrapper
-from scribe_data.cli.download import (
-    download_wiktionary_dumps,
+from scribe_data.cli.convert.wrapper import convert_wrapper
+from scribe_data.cli.download.wikidata_lexeme_dump import (
     wd_lexeme_dump_download_wrapper,
 )
+from scribe_data.cli.download.wiktionary_dump import download_wiktionary_dumps
 from scribe_data.cli.get import get_data
-from scribe_data.cli.interactive import start_interactive_mode
-from scribe_data.cli.list import list_wrapper
-from scribe_data.cli.total import total_wrapper
+from scribe_data.cli.interactive.run import run_interactive_mode
+from scribe_data.cli.list.wrapper import list_wrapper
+from scribe_data.cli.total.wrapper import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
-from scribe_data.utils import (
-    DEFAULT_CONTRACTS_EXPORT_DIR,
-    DEFAULT_CSV_EXPORT_DIR,
-    DEFAULT_JSON_EXPORT_DIR,
-    DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
-    DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
-)
 
-LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
-GET_DESCRIPTION = (
-    "Get data from Wikidata and other sources for the given languages and data types."
-)
-TOTAL_DESCRIPTION = "Check Wikidata for the total available data for the given languages and data types."
-CONVERT_DESCRIPTION = "Convert data returned by Scribe-Data to different file types."
 CLI_EPILOG = "Visit the codebase at https://github.com/scribe-org/Scribe-Data and documentation at https://scribe-data.readthedocs.io to learn more!"
+CLI_HELP_MSG = "Show this help message and exit."
 
 
 def main() -> None:
@@ -54,13 +41,13 @@ def main() -> None:
     # MARK: CLI Base
 
     parser = argparse.ArgumentParser(
-        description="The Scribe-Data CLI is a tool for extracting language data from Wikidata and other sources.",
+        description="The Scribe-Data CLI is a tool for extracting language data from Wikidata, Wiktionary and other sources.",
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=30),
     )
     subparsers = parser.add_subparsers(dest="command")
 
-    parser._actions[0].help = "Show this help message and exit."
+    parser._actions[0].help = CLI_HELP_MSG
 
     parser.add_argument(
         "-v",
@@ -76,7 +63,9 @@ def main() -> None:
         help="Upgrade the Scribe-Data CLI to the latest version.",
     )
 
-    # MARK: List
+    # MARK: List Args
+
+    LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
 
     list_parser = subparsers.add_parser(
         "list",
@@ -87,20 +76,20 @@ def main() -> None:
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
 
-    list_parser._actions[0].help = "Show this help message and exit."
+    list_parser._actions[0].help = CLI_HELP_MSG
 
     list_parser.add_argument(
         "-lang",
         "--language",
-        nargs="?",
         const=True,
+        nargs="?",
         help="List options for all or given languages.",
     )
     list_parser.add_argument(
         "-dt",
         "--data-type",
-        nargs="?",
         const=True,
+        nargs="?",
         help="List options for all or given data types (e.g., nouns, verbs).",
     )
     list_parser.add_argument(
@@ -110,7 +99,9 @@ def main() -> None:
         help="List all languages and data types.",
     )
 
-    # MARK: Get
+    # MARK: Get Args
+
+    GET_DESCRIPTION = "Get data from Wikidata, Wiktionary and other sources for the given languages and data types."
 
     get_parser = subparsers.add_parser(
         "get",
@@ -121,7 +112,7 @@ def main() -> None:
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
 
-    get_parser._actions[0].help = "Show this help message and exit."
+    get_parser._actions[0].help = CLI_HELP_MSG
 
     get_parser.add_argument(
         "-lang",
@@ -145,12 +136,6 @@ def main() -> None:
         help="The output file type.",
     )
     get_parser.add_argument(
-        "-od",
-        "--output-dir",
-        type=str,
-        help=f"The output directory path for results. Default: ./{DEFAULT_JSON_EXPORT_DIR} for JSON; ./{DEFAULT_CSV_EXPORT_DIR} for CSV, etc.",
-    )
-    get_parser.add_argument(
         "-ope",
         "--outputs-per-entry",
         type=int,
@@ -161,6 +146,14 @@ def main() -> None:
         "--overwrite",
         action="store_true",
         help="Whether to overwrite existing files (default: False).",
+    )
+    get_parser.add_argument(
+        "-ic",
+        "--identifier-case",
+        type=str,
+        choices=["camel", "snake"],
+        default="camel",
+        help="The case format for identifiers in the output data (default: camel).",
     )
     get_parser.add_argument(
         "-a",
@@ -174,30 +167,10 @@ def main() -> None:
         action="store_true",
         help="Run Scribe-Data in interactive mode to choose your commands from an helpful terminal interface",
     )
-    get_parser.add_argument(
-        "-ic",
-        "--identifier-case",
-        type=str,
-        choices=["camel", "snake"],
-        default="camel",
-        help="The case format for identifiers in the output data (default: camel).",
-    )
-    get_parser.add_argument(
-        "-wdp",
-        "--wikidata-dump-path",
-        nargs="?",
-        const=DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
-        help=f"The output directory path for the downloaded Wikidata dump. Uses default directory ./{DEFAULT_WIKIDATA_DUMP_EXPORT_DIR} if no path provided.",
-    )
-    get_parser.add_argument(
-        "-wtp",
-        "--wiktionary-dump-path",
-        nargs="?",
-        const=DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
-        help=f"Path to download *wiktionary-*-pages-articles.xml.bz2 Wiktionary dumps for translations. Uses default directory ./{DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR} if no path provided.",
-    )
 
-    # MARK: Total
+    # MARK: Total Args
+
+    TOTAL_DESCRIPTION = "Check Wikidata for the total available data for the given languages and data types."
 
     total_parser = subparsers.add_parser(
         "total",
@@ -208,7 +181,7 @@ def main() -> None:
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
 
-    total_parser._actions[0].help = "Show this help message and exit."
+    total_parser._actions[0].help = CLI_HELP_MSG
 
     total_parser.add_argument(
         "-lang", "--language", type=str, help="The language(s) to check totals for."
@@ -223,20 +196,17 @@ def main() -> None:
         "-a",
         "--all",
         action=argparse.BooleanOptionalAction,
-        help="Check for all languages and data types.",
+        help="Check totals for all languages and data types.",
     )
     total_parser.add_argument(
         "-i", "--interactive", action="store_true", help="Run in interactive mode"
     )
-    total_parser.add_argument(
-        "-wdp",
-        "--wikidata-dump-path",
-        nargs="?",
-        const=True,
-        help=f"Path to a local Wikidata lexemes dump for running with '--all'. Uses default directory ./{DEFAULT_WIKIDATA_DUMP_EXPORT_DIR} if no path provided.",
-    )
 
-    # MARK: Convert
+    # MARK: Convert Args
+
+    CONVERT_DESCRIPTION = (
+        "Convert data returned by Scribe-Data to different file types."
+    )
 
     convert_parser = subparsers.add_parser(
         "convert",
@@ -247,7 +217,7 @@ def main() -> None:
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
 
-    convert_parser._actions[0].help = "Show this help message and exit."
+    convert_parser._actions[0].help = CLI_HELP_MSG
 
     convert_parser.add_argument(
         "-lang",
@@ -255,7 +225,7 @@ def main() -> None:
         type=str,
         required=False,
         nargs="+",
-        help="The language of the file to convert.",
+        help="The language(s) of the file to convert.",
     )
     convert_parser.add_argument(
         "-dt",
@@ -266,27 +236,12 @@ def main() -> None:
         help="The data type(s) of the file to convert (e.g., nouns, verbs).",
     )
     convert_parser.add_argument(
-        "-if",
-        "--input-file",
-        type=Path,
-        required=False,
-        default=None,
-        help="The path to the input file to convert.",
-    )
-    convert_parser.add_argument(
         "-ot",
         "--output-type",
         type=str,
         choices=["json", "csv", "tsv", "sqlite"],
         default="False",
         help="The output file type.",
-    )
-    convert_parser.add_argument(
-        "-od",
-        "--output-dir",
-        type=str,
-        default=None,
-        help="The directory where the output file will be saved.",
     )
     convert_parser.add_argument(
         "-o",
@@ -319,51 +274,40 @@ def main() -> None:
         "-i", "--interactive", action="store_true", help="Run in interactive mode"
     )
 
-    # MARK: Download
+    # MARK: Download Args
+
+    DOWNLOAD_DESCRIPTION = (
+        "Download Wikidata lexeme or Wiktionary dumps from dumps.wikimedia.org."
+    )
 
     download_parser = subparsers.add_parser(
         "download",
         aliases=["d"],
-        help="Download Wikidata lexeme or Wiktionary dumps.",
-        description="Download Wikidata lexeme or Wiktionary dumps from dumps.wikimedia.org.",
+        help=DOWNLOAD_DESCRIPTION,
+        description=DOWNLOAD_DESCRIPTION,
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
 
-    download_parser._actions[0].help = "Show this help message and exit."
+    download_parser._actions[0].help = CLI_HELP_MSG
 
     download_parser.add_argument(
         "-lang",
         "--language",
         type=str,
-        help="Target language or ISO code for Wiktionary dumps to download.",
         nargs="+",
-    )
-    download_parser.add_argument(
-        "-wdp",
-        "--wikidata-dump-path",
-        type=str,
-        nargs="?",
-        const=DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
-        help=f"The output directory path for the downloaded Wikidata dump. Uses default directory ./{DEFAULT_WIKIDATA_DUMP_EXPORT_DIR} if no path provided.",
-    )
-    download_parser.add_argument(
-        "-wtp",
-        "--wiktionary-dump-path",
-        nargs="?",
-        const=DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
-        help=f"Path to download *wiktionary-*-pages-articles.xml.bz2 Wiktionary dumps for translations. Uses default directory ./{DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR} if no path provided.",
+        help="Target language or ISO code for the Wiktionary dump(s) to download.",
     )
     download_parser.add_argument(
         "-ds",
         "--dump-snapshot",
         type=str,
-        nargs="?",
         default="latest",
+        nargs="?",
         help="The desired snapshot of a Wikidata or Wiktionary dump (default 'latest'). Optionally specify date in YYYYMMDD format.",
     )
 
-    # MARK: Interactive
+    # MARK: Interactive Args
 
     interactive_parser = subparsers.add_parser(
         "interactive",
@@ -372,86 +316,49 @@ def main() -> None:
         description="Run in interactive mode.",
     )
 
-    interactive_parser._actions[0].help = "Show this help message and exit."
+    interactive_parser._actions[0].help = CLI_HELP_MSG
 
-    # MARK: Export Contracts
+    # MARK: Contract Args
+
+    EXPORT_CONTRACTS_DESCRIPTION = (
+        "Export Scribe-Data contracts to the current working directory."
+    )
 
     export_contracts_parser = subparsers.add_parser(
         "export_contracts",
         aliases=["ec"],
-        help="Export Scribe-Data contracts to a local directory.",
-        description="Export Scribe-Data contracts to the current working directory.",
+        help=EXPORT_CONTRACTS_DESCRIPTION,
+        description=EXPORT_CONTRACTS_DESCRIPTION,
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
-    export_contracts_parser._actions[0].help = "Show this help message and exit."
-    export_contracts_parser.add_argument(
-        "-od",
-        "--output-dir",
-        type=str,
-        required=False,
-        default=DEFAULT_CONTRACTS_EXPORT_DIR,
-        help="The directory to export contracts to (default: current scribe_data_contracts).",
-    )
+    export_contracts_parser._actions[0].help = CLI_HELP_MSG
 
-    # MARK: Check Contracts
+    CHECK_CONTRACTS_DESCRIPTION = "Check the data in a Scribe-Data export directory against data contracts to see that all needed language data is included."
 
     check_contracts_parser = subparsers.add_parser(
         "check_contracts",
         aliases=["cc"],
-        help="Check the data in a Scribe-Data export directory to see that all needed language data is included.",
-        description="Check if data exports match their corresponding data contracts.",
+        help=CHECK_CONTRACTS_DESCRIPTION,
+        description=CHECK_CONTRACTS_DESCRIPTION,
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
-    check_contracts_parser._actions[0].help = "Show this help message and exit."
-    check_contracts_parser.add_argument(
-        "-cd",
-        "--contracts-dir",
-        type=str,
-        required=False,
-        help="The directory where the contracts are saved.",
-    )
-    check_contracts_parser.add_argument(
-        "-od",
-        "--output-dir",
-        type=str,
-        required=False,
-        help="The directory with the data that the contracts should be checked against.",
-    )
+    check_contracts_parser._actions[0].help = CLI_HELP_MSG
 
-    # MARK: Filter by Contracts
+    FILTER_BY_CONTRACTS_DESCRIPTION = (
+        "Filter exported Scribe-Data data based on provided data contracts."
+    )
 
     filter_data_parser = subparsers.add_parser(
         "filter_data",
         aliases=["fd"],
-        help="Filter exported Scribe-Data data based on provided data contract values.",
-        description="Convert exported data into a dataset that only includes data within contract values.",
+        help=FILTER_BY_CONTRACTS_DESCRIPTION,
+        description=FILTER_BY_CONTRACTS_DESCRIPTION,
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
-    filter_data_parser._actions[0].help = "Show this help message and exit."
-    filter_data_parser.add_argument(
-        "-cd",
-        "--contracts-dir",
-        type=str,
-        required=False,
-        help="The directory where the data contracts are saved.",
-    )
-    filter_data_parser.add_argument(
-        "-id",
-        "--input-dir",
-        type=str,
-        required=False,
-        help="The directory with the data that should be filtered.",
-    )
-    filter_data_parser.add_argument(
-        "-od",
-        "--output-dir",
-        type=str,
-        required=False,
-        help="The directory to export data filtered by contracts to.",
-    )
+    filter_data_parser._actions[0].help = CLI_HELP_MSG
 
     # MARK: Setup CLI
 
@@ -488,14 +395,18 @@ def main() -> None:
                     print(f"Input validation failed with error: {e}")
                     return
 
+        # MARK: List
+
         if args.command in ["list", "l"]:
             list_wrapper(
                 language=args.language, data_type=args.data_type, all_bool=args.all
             )
 
+        # MARK: Get
+
         elif args.command in ["get", "g"]:
             if args.interactive:
-                start_interactive_mode(operation="get")
+                run_interactive_mode(operation="get")
                 return
 
             else:
@@ -524,7 +435,6 @@ def main() -> None:
                                 languages=[language],
                                 data_types=[data_type],
                                 output_type=args.output_type,
-                                output_dir=args.output_dir,
                                 outputs_per_entry=args.outputs_per_entry,
                                 overwrite=args.overwrite,
                                 all_bool=args.all,
@@ -539,7 +449,6 @@ def main() -> None:
                         languages=languages or None,
                         data_types=data_types or None,
                         output_type=args.output_type,
-                        output_dir=args.output_dir,
                         outputs_per_entry=args.outputs_per_entry,
                         overwrite=args.overwrite,
                         all_bool=args.all,
@@ -548,9 +457,11 @@ def main() -> None:
                         wiktionary_dump=args.wiktionary_dump_path,
                     )
 
+        # MARK: Total
+
         elif args.command in ["total", "t"]:
             if args.interactive:
-                start_interactive_mode(operation="total")
+                run_interactive_mode(operation="total")
 
             else:
                 total_wrapper(
@@ -564,9 +475,11 @@ def main() -> None:
                     wikidata_dump=args.wikidata_dump_path,
                 )
 
+        # MARK: Convert
+
         elif args.command in ["convert", "c"]:
             if args.interactive:
-                start_interactive_mode(operation="convert")
+                run_interactive_mode(operation="convert")
                 return
 
             # Handle language(s) - could be string or list.
@@ -590,18 +503,18 @@ def main() -> None:
                 languages=languages,
                 data_types=data_types,
                 input_path=args.input_file,
-                output_dir=args.output_dir,
                 output_type=args.output_type,
                 overwrite=args.overwrite,
                 identifier_case=args.identifier_case,
                 all=args.all,
             )
 
+        # MARK: Download
+
         elif args.command in ["download", "d"]:
             if getattr(args, "wiktionary_dump_path", False):
                 download_wiktionary_dumps(
                     dump_snapshot=args.dump_snapshot,
-                    output_dir=args.wiktionary_dump_path,
                     **(
                         dict(language_isos=args.language)
                         if args.language is not None
@@ -612,13 +525,14 @@ def main() -> None:
             elif getattr(args, "wikidata_dump_path", False):
                 wd_lexeme_dump_download_wrapper(
                     dump_snapshot=args.dump_snapshot,
-                    output_dir=args.wikidata_dump_path,
                 )
 
             else:
                 rprint(
                     "[bold red]Please indicate if a Wikidata or Wiktionary dump should be downloaded by passing the -wdp or -wtp arguments respectively.[/bold red]"
                 )
+
+        # MARK: Interactive
 
         elif args.command in ["interactive", "i"]:
             rprint(
@@ -641,40 +555,37 @@ def main() -> None:
                 wd_lexeme_dump_download_wrapper()
 
             elif action == "Download a Wiktionary dump":
-                lang = text(
+                if lang := text(
                     "Which language dump do you want to download?",
                     default="en",
-                ).ask()
-                if lang:
+                ).ask():
                     download_wiktionary_dumps(language_isos=[lang])
 
             elif action == "Check for totals":
-                start_interactive_mode(operation="total")
+                run_interactive_mode(operation="total")
 
             elif action == "Get data":
-                start_interactive_mode(operation="get")
+                run_interactive_mode(operation="get")
 
             elif action == "Get translations":
-                start_interactive_mode(operation="translations")
+                run_interactive_mode(operation="translations")
 
             elif action == "Convert JSON":
-                start_interactive_mode(operation="convert")
+                run_interactive_mode(operation="convert")
 
             else:
                 print("Skipping action")
 
+        # MARK: Contracts
+
         elif args.command in ["export_contracts", "ec"]:
-            export_contracts(output_dir=args.output_dir)
+            export_contracts()
 
         elif args.command in ["check_contracts", "cc"]:
-            check_contracts(output_dir=args.output_dir)
+            check_contract_data_print_missing(contracts_dir=args.contracts_dir)
 
         elif args.command in ["filter_data", "fd"]:
-            export_data_filtered_by_contracts(
-                contracts_dir=args.contracts_dir,
-                input_dir=args.input_dir,
-                output_dir=args.output_dir,
-            )
+            export_data_filtered_by_contracts(contracts_dir=args.contracts_dir)
 
         else:
             parser.print_help()
