@@ -29,7 +29,7 @@ class TestScribeDataCLIInteractiveRun(unittest.TestCase):
     @patch("scribe_data.cli.interactive.prompt")
     @patch("scribe_data.cli.interactive.prompt_for_languages")
     @patch("scribe_data.cli.interactive.questionary.select")
-    def test_run_interactive_mode_translations(
+    def test_cli_interactive_run_mode_translations(
         self,
         mock_select,
         mock_prompt_languages,

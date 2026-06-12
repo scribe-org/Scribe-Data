@@ -39,13 +39,13 @@ class TestFileAccessibility(TestCase):
             # Catching any other file reading error
             self.fail(f"Failed to read {file_path}: {str(e)}")
 
-    def test_language_metadata_file_exists(self) -> None:
+    def test_resources_language_metadata_file_exists(self) -> None:
         """
         Check if the language_metadata.yaml file exists.
         """
         self.check_file_exists(LANGUAGE_METADATA_PATH)
 
-    def test_language_metadata_file_readable(self) -> None:
+    def test_resources_language_metadata_file_readable(self) -> None:
         """
         Check if the language_metadata.yaml file is readable.
         """

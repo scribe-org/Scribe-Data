@@ -19,7 +19,7 @@ from scribe_data.utils import (
 
 
 class TestFilterContractMetadata:
-    def test_filter_contract_metadata_empty_file(self) -> None:
+    def test_cli_contracts_filter_metadata_empty_file(self) -> None:
         """
         Test filtering with an empty contract file.
         """
@@ -31,7 +31,7 @@ class TestFilterContractMetadata:
                 "verbs": {"conjugations": []},
             }
 
-    def test_filter_contract_metadata_numbers_dict(self) -> None:
+    def test_cli_contracts_filter_metadata_numbers_dict(self) -> None:
         """
         Test filtering numbers as a dictionary.
         """
@@ -48,7 +48,7 @@ class TestFilterContractMetadata:
             assert "" not in result["nouns"]["numbers"]
             assert "collective" in result["nouns"]["numbers"]
 
-    def test_filter_contract_metadata_numbers_list(self) -> None:
+    def test_cli_contracts_filter_metadata_numbers_list(self) -> None:
         """
         Test filtering numbers as a list.
         """
@@ -61,7 +61,7 @@ class TestFilterContractMetadata:
             result = filter_contract_metadata(Path("fake_path.json"))
             assert set(result["nouns"]["numbers"]) == {"singular", "plural", "dual"}
 
-    def test_filter_contract_metadata_numbers_string(self) -> None:
+    def test_cli_contracts_filter_metadata_numbers_string(self) -> None:
         """
         Test filtering numbers as a string.
         """
@@ -74,7 +74,7 @@ class TestFilterContractMetadata:
             result = filter_contract_metadata(Path("fake_path.json"))
             assert set(result["nouns"]["numbers"]) == {"singular", "plural", "dual"}
 
-    def test_filter_contract_metadata_genders(self) -> None:
+    def test_cli_contracts_filter_metadata_genders(self) -> None:
         """
         Test filtering genders.
         """
@@ -93,7 +93,7 @@ class TestFilterContractMetadata:
             assert "NOT_INCLUDED" not in result["nouns"]["genders"]
             assert "" not in result["nouns"]["genders"]
 
-    def test_filter_contract_metadata_conjugations_list(self) -> None:
+    def test_cli_contracts_filter_metadata_conjugations_list(self) -> None:
         """
         Test filtering conjugations as a list.
         """
@@ -107,7 +107,7 @@ class TestFilterContractMetadata:
             assert set(result["verbs"]["conjugations"]) == {"run", "runs", "ran"}
             assert "[running]" not in result["verbs"]["conjugations"]
 
-    def test_filter_contract_metadata_error_handling(self) -> None:
+    def test_cli_contracts_filter_metadata_error_handling(self) -> None:
         """
         Test error handling for invalid YAML.
         """
@@ -119,7 +119,7 @@ class TestFilterContractMetadata:
 
 
 class TestFilterExportedData:
-    def test_filter_exported_data_nouns(self) -> None:
+    def test_cli_contracts_filter_exported_data_nouns(self) -> None:
         """
         Test filtering exported noun data.
         """
@@ -169,7 +169,7 @@ class TestFilterExportedData:
             assert result["L2"]["singular"] == "dog"
             assert "irrelevant" not in result["L2"]
 
-    def test_filter_exported_data_verbs(self) -> None:
+    def test_cli_contracts_filter_exported_data_verbs(self) -> None:
         """
         Test filtering exported verb data.
         """
@@ -211,7 +211,7 @@ class TestFilterExportedData:
             # L4 should not be included as it doesn't have enough valid fields.
             assert "L4" not in result
 
-    def test_filter_exported_data_unsupported_type(self) -> None:
+    def test_cli_contracts_filter_exported_data_unsupported_type(self) -> None:
         """
         Test filtering with unsupported data type.
         """
@@ -226,7 +226,7 @@ class TestFilterExportedData:
             )
             assert result == {}
 
-    def test_filter_exported_data_error_handling(self) -> None:
+    def test_cli_contracts_filter_exported_data_error_handling(self) -> None:
         """
         Test error handling for invalid JSON.
         """
@@ -253,7 +253,7 @@ class TestExportContracts:
     @patch("pathlib.Path.exists")
     @patch("builtins.open", new_callable=mock_open)
     @patch("json.dump")
-    def test_export_data_filtered_by_contracts(
+    def test_cli_contracts_export_data_filtered(
         self,
         mock_json_dump: MagicMock,
         mock_file_open: MagicMock,
@@ -361,7 +361,7 @@ class TestExportContracts:
     @patch("scribe_data.cli.contracts.filter.get_language_from_iso")
     @patch("os.listdir")
     @patch("pathlib.Path.mkdir")
-    def test_export_data_filtered_by_contracts_no_language_match(
+    def test_cli_contracts_export_data_filtered_no_language_match(
         self,
         mock_mkdir: MagicMock,
         mock_listdir: MagicMock,
@@ -394,7 +394,7 @@ class TestExportContracts:
     @patch("os.listdir")
     @patch("pathlib.Path.mkdir")
     @patch("pathlib.Path.exists")
-    def test_export_data_filtered_by_contracts_no_input_file(
+    def test_cli_contracts_export_data_filtered_no_input_file(
         self,
         mock_exists: MagicMock,
         mock_mkdir: MagicMock,
@@ -428,7 +428,7 @@ class TestExportContracts:
     @patch("scribe_data.cli.contracts.filter.get_language_from_iso")
     @patch("os.listdir")
     @patch("pathlib.Path.mkdir")
-    def test_export_data_filtered_by_contracts_empty_metadata(
+    def test_cli_contracts_export_data_filtered_empty_metadata(
         self,
         mock_mkdir: MagicMock,
         mock_listdir: MagicMock,

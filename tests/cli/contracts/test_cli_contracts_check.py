@@ -74,7 +74,7 @@ def mock_contract_metadata() -> dict[str, Any]:
 
 @patch("scribe_data.cli.contracts.check.check_contract_data_completeness")
 @patch("scribe_data.cli.contracts.check.print_missing_forms")
-def test_check_contracts_with_dir(
+def test_cli_contracts_with_dir(
     mock_print: MagicMock, mock_check: MagicMock, mock_export_dir: Path
 ) -> None:
     """
@@ -90,7 +90,7 @@ def test_check_contracts_with_dir(
 
 @patch("scribe_data.cli.contracts.check.check_contract_data_completeness")
 @patch("scribe_data.cli.contracts.check.print_missing_forms")
-def test_check_contracts_default_dir(
+def test_cli_contracts_default_dir(
     mock_print: MagicMock, mock_check: MagicMock
 ) -> None:
     """
@@ -108,7 +108,7 @@ def test_check_contracts_default_dir(
 
 
 @patch("scribe_data.cli.contracts.check.Path")
-def test_check_contracts_nonexistent_dir(mock_path: MagicMock) -> None:
+def test_cli_contracts_nonexistent_dir(mock_path: MagicMock) -> None:
     """
     Test check_contracts with a nonexistent directory.
     """
@@ -125,7 +125,7 @@ def test_check_contracts_nonexistent_dir(mock_path: MagicMock) -> None:
 @patch("scribe_data.cli.contracts.check.data_contracts_langs", ["English"])
 @patch("scribe_data.cli.contracts.check.get_language_iso")
 @patch("scribe_data.cli.contracts.check.filter_contract_metadata")
-def test_check_contract_data_completeness_json_error(
+def test_cli_contracts_data_completeness_json_error(
     mock_filter_metadata: MagicMock,
     mock_get_iso: MagicMock,
     mock_export_dir: Path,
@@ -148,7 +148,7 @@ def test_check_contract_data_completeness_json_error(
                 assert "Error reading" in mock_print.call_args[0][0]
 
 
-def test_print_missing_forms_none() -> None:
+def test_cli_contracts_print_missing_forms_none() -> None:
     """
     Test print_missing_forms with no missing forms.
     """
@@ -161,7 +161,7 @@ def test_print_missing_forms_none() -> None:
         )
 
 
-def test_print_missing_forms_with_missing() -> None:
+def test_cli_contracts_print_missing_forms_with_missing() -> None:
     """
     Test print_missing_forms with missing forms.
     """

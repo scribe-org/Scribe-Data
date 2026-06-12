@@ -21,7 +21,7 @@ class TestScribeDataCLIInteractiveConfig(unittest.TestCase):
         self.config.languages = ["english", "spanish", "french"]
         self.config.data_types = ["nouns", "verbs"]
 
-    def test_scribe_data_config_initialization(self) -> None:
+    def test_cli_interactive_config_initialization(self) -> None:
         """
         Test ScribeDataConfig initialization.
         """
@@ -32,9 +32,9 @@ class TestScribeDataCLIInteractiveConfig(unittest.TestCase):
         self.assertFalse(self.config.overwrite)
         self.assertFalse(self.config.configured)
 
-    @patch("scribe_data.cli.interactive.prompt")
-    @patch("scribe_data.cli.interactive.rprint")
-    def test_configure_settings_all_languages(
+    @patch("scribe_data.cli.interactive.config.prompt")
+    @patch("scribe_data.cli.interactive.config.rprint")
+    def test_cli_interactive_configure_settings_all_languages(
         self, mock_rprint: MagicMock, mock_prompt: MagicMock
     ) -> None:
         """
@@ -52,8 +52,8 @@ class TestScribeDataCLIInteractiveConfig(unittest.TestCase):
         )
         mock_prompt.side_effect = lambda *args, **kwargs: next(responses)
 
-        with patch("scribe_data.cli.interactive.config", self.config):
-            with patch("scribe_data.cli.interactive.display_summary"):
+        with patch("scribe_data.cli.interactive.config.config", self.config):
+            with patch("scribe_data.cli.interactive.config.display_summary"):
                 configure_settings()
 
                 self.assertEqual(self.config.selected_languages, self.config.languages)
@@ -61,9 +61,9 @@ class TestScribeDataCLIInteractiveConfig(unittest.TestCase):
                 self.assertEqual(self.config.output_type, "json")
                 self.assertTrue(self.config.configured)
 
-    @patch("scribe_data.cli.interactive.prompt")
-    @patch("scribe_data.cli.interactive.rprint")
-    def test_configure_settings_specific_languages(
+    @patch("scribe_data.cli.interactive.config.prompt")
+    @patch("scribe_data.cli.interactive.config.rprint")
+    def test_cli_interactive_configure_settings_specific_languages(
         self, mock_rprint: MagicMock, mock_prompt: MagicMock
     ) -> None:
         """
@@ -81,8 +81,8 @@ class TestScribeDataCLIInteractiveConfig(unittest.TestCase):
         )
         mock_prompt.side_effect = lambda *args, **kwargs: next(responses)
 
-        with patch("scribe_data.cli.interactive.config", self.config):
-            with patch("scribe_data.cli.interactive.display_summary"):
+        with patch("scribe_data.cli.interactive.config.config", self.config):
+            with patch("scribe_data.cli.interactive.config.display_summary"):
                 configure_settings()
 
                 self.assertEqual(self.config.selected_languages, ["english", "spanish"])

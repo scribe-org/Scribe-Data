@@ -21,8 +21,8 @@ class TestCLIConvertToJSON(unittest.TestCase):
     def _setup_fixtures(self, tmp_path):
         self.tmp_path = tmp_path
 
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_empty_language(self, mock_path: MagicMock) -> None:
+    @patch("scribe_data.cli.convert.to_json.Path", autospec=True)
+    def test_cli_convert_to_json_empty_language(self, mock_path: MagicMock) -> None:
         csv_data = "key,value\na,1\nb,2"
         mock_file = StringIO(csv_data)
 
@@ -43,8 +43,8 @@ class TestCLIConvertToJSON(unittest.TestCase):
             )
         self.assertIn("Language '' is not recognized.", str(context.exception))
 
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_supported_file_extension_csv(
+    @patch("scribe_data.cli.convert.to_json.Path", autospec=True)
+    def test_cli_convert_to_json_supported_file_extension_csv(
         self, mock_path_class: MagicMock
     ) -> None:
         mock_path_instance = MagicMock(spec=Path)
@@ -63,8 +63,8 @@ class TestCLIConvertToJSON(unittest.TestCase):
             overwrite=True,
         )
 
-    @patch("scribe_data.cli.convert.Path", autospec=True)
-    def test_convert_to_json_supported_file_extension_tsv(
+    @patch("scribe_data.cli.convert.to_json.Path", autospec=True)
+    def test_cli_convert_to_json_supported_file_extension_tsv(
         self, mock_path_class: MagicMock
     ) -> None:
         mock_path_instance = MagicMock(spec=Path)
@@ -83,7 +83,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
             overwrite=True,
         )
 
-    def test_convert_to_json_unsupported_file_extension(self) -> None:
+    def test_cli_convert_to_json_unsupported_file_extension(self) -> None:
         input_file = self.tmp_path / "test.txt"
         input_file.write_text("Hello, world!", encoding="utf-8")
         output_dir = self.tmp_path / "output"
@@ -105,7 +105,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
             f"Unsupported file extension '.txt' for {input_file}. Please provide a '.csv' or '.tsv' file.",
         )
 
-    def test_convert_to_json_standard_csv(self) -> None:
+    def test_cli_convert_to_json_standard_csv(self) -> None:
         csv_data = "key,value\na,1\nb,2"
         expected_json_output = {"a": "1", "b": "2"}
 
@@ -129,7 +129,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
 
         assert actual_content == expected_json_output
 
-    def test_convert_to_json_with_multiple_keys(self) -> None:
+    def test_cli_convert_to_json_with_multiple_keys(self) -> None:
         csv_data = "key,value1,value2\na,1,x\nb,2,y\nc,3,z"
         expected_json_output = {
             "a": {"value1": "1", "value2": "x"},
@@ -157,7 +157,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
 
         assert actual_content == expected_json_output
 
-    def test_convert_to_json_with_complex_structure(self) -> None:
+    def test_cli_convert_to_json_with_complex_structure(self) -> None:
         csv_data = "key,emoji,is_base,rank\na,😀,true,1\nb,😅,false,2"
         expected_json_output = {
             "a": [{"emoji": "😀", "is_base": True, "rank": 1}],

@@ -66,7 +66,7 @@ def temp_json_dir(tmp_path: Path) -> Path:
 # MARK: Operations
 
 
-def test_create_table(temp_db: Any) -> None:
+def test_cli_convert_to_sqlite_create_table(temp_db: Any) -> None:
     """
     Test creating a table with both snake and camel case identifiers.
     """
@@ -86,7 +86,7 @@ def test_create_table(temp_db: Any) -> None:
     assert "another_col" in columns
 
 
-def test_table_insert(temp_db: Any) -> None:
+def test_cli_convert_to_sqlite_table_insert(temp_db: Any) -> None:
     """
     Test inserting data into a table.
     """
@@ -127,7 +127,7 @@ def translations_setup(tmp_path: Path) -> dict[str, Any]:
 # MARK: Conversions
 
 
-def test_translations_to_sqlite(
+def test_cli_convert_to_sqlite_translations(
     temp_json_dir: Path, translations_setup: dict[str, Any]
 ) -> None:
     """
@@ -157,7 +157,7 @@ def test_translations_to_sqlite(
     conn.close()
 
 
-def test_overwrite_existing_file_user_confirms(
+def test_cli_convert_to_sqlite_overwrite_existing_file_user_confirms(
     temp_json_dir: Path, translations_setup: dict[str, Any]
 ) -> None:
     """
@@ -183,7 +183,7 @@ def test_overwrite_existing_file_user_confirms(
         mock_remove.assert_called_once_with(translations_setup["expected_db_path"])
 
 
-def test_overwrite_existing_file_user_declines(
+def test_cli_convert_to_sqlite_overwrite_existing_file_user_declines(
     temp_json_dir: Path, translations_setup: dict[str, Any]
 ) -> None:
     """
@@ -210,7 +210,7 @@ def test_overwrite_existing_file_user_declines(
         mock_print.assert_called_with("Skipping translation DB creation.")
 
 
-def test_translations_to_sqlite_missing_json(
+def test_cli_convert_to_sqlite_translations_to_sqlite_missing_json(
     temp_json_dir: Path, translations_setup: dict[str, Any], capsys: Any
 ) -> None:
     """
@@ -248,7 +248,7 @@ class MockConnection:
         return getattr(self._conn, name)
 
 
-def test_translations_to_sqlite_commit_error(
+def test_cli_convert_to_sqlite_translations_commit_error(
     temp_json_dir: Path, translations_setup: dict[str, Any], capsys: Any
 ) -> None:
     """
@@ -275,7 +275,7 @@ def test_translations_to_sqlite_commit_error(
     assert "mock commit error" in captured.out
 
 
-def test_convert_to_sqlite_invalid_language() -> None:
+def test_cli_convert_to_sqlite_convert_invalid_language() -> None:
     """
     Test convert_to_sqlite with invalid language.
     """
@@ -283,7 +283,7 @@ def test_convert_to_sqlite_invalid_language() -> None:
         convert_to_sqlite(languages=["invalid_language"])
 
 
-def test_create_table_duplicate_columns(temp_db: Any) -> None:
+def test_cli_convert_to_sqlite_create_table_duplicate_columns(temp_db: Any) -> None:
     """
     Test creating a table with duplicate column names.
     """
@@ -300,7 +300,7 @@ def test_create_table_duplicate_columns(temp_db: Any) -> None:
     assert len(set(columns)) == 3  # all columns should be unique
 
 
-def test_convert_to_sqlite_translations_and_nouns(tmp_path: Path) -> None:
+def test_cli_convert_to_sqlite_translations_and_nouns(tmp_path: Path) -> None:
     input_dir = tmp_path / "input"
     output_dir = tmp_path / "output"
     input_dir.mkdir()
@@ -358,7 +358,7 @@ def test_convert_to_sqlite_translations_and_nouns(tmp_path: Path) -> None:
     assert len(scribe_row) == 1
 
 
-def test_convert_to_sqlite_skips_missing_json(tmp_path: Path) -> None:
+def test_cli_convert_to_sqlite_skips_missing_json(tmp_path: Path) -> None:
     input_dir = tmp_path / "input"
     input_dir.mkdir()
     lang_dir = input_dir / "english"
@@ -371,10 +371,10 @@ def test_convert_to_sqlite_skips_missing_json(tmp_path: Path) -> None:
         mock.patch("scribe_data.utils.language_metadata", {"english": {}}),
         mock.patch("scribe_data.utils.list_all_languages", return_value=["english"]),
         mock.patch(
-            "scribe_data.load.convert_to_sqlite.create_table"
+            "scribe_data.cli.convert.to_sqlite.create_table"
         ) as mock_create_table,
         mock.patch(
-            "scribe_data.load.convert_to_sqlite.table_insert"
+            "scribe_data.cli.convert.to_sqlite.table_insert"
         ) as mock_table_insert,
         mock.patch(
             "scribe_data.utils.get_language_iso",
@@ -398,7 +398,7 @@ def test_convert_to_sqlite_skips_missing_json(tmp_path: Path) -> None:
 # MARK: Wiktionary translations to SQLite
 
 
-def test_wiktionary_translations_to_sqlite_basic(tmp_path):
+def test_cli_convert_to_sqlite_wiktionary_translations_basic(tmp_path):
     """
     Test basic wiktionary_translations_to_sqlite conversion.
     """
@@ -484,7 +484,7 @@ def test_wiktionary_translations_to_sqlite_basic(tmp_path):
     conn.close()
 
 
-def test_wiktionary_translations_to_sqlite_camel_case(tmp_path):
+def test_cli_convert_to_sqlite_wiktionary_translations_camel_case(tmp_path):
     """
     Test wiktionary_translations_to_sqlite with camelCase identifiers.
     """
@@ -525,7 +525,7 @@ def test_wiktionary_translations_to_sqlite_camel_case(tmp_path):
     conn.close()
 
 
-def test_wiktionary_translations_to_sqlite_missing_dir(tmp_path, capsys):
+def test_cli_convert_to_sqlite_wiktionary_translations_missing_dir(tmp_path, capsys):
     """
     Test wiktionary_translations_to_sqlite with non-existent language directory.
     """
@@ -540,7 +540,7 @@ def test_wiktionary_translations_to_sqlite_missing_dir(tmp_path, capsys):
     assert "Skipping Wiktionary translations" in captured.out
 
 
-def test_wiktionary_translations_to_sqlite_no_translation_files(tmp_path):
+def test_cli_convert_to_sqlite_wiktionary_translations_no_files(tmp_path):
     """
     Test that no database is created when there are no translation files.
     """
@@ -565,7 +565,7 @@ def test_wiktionary_translations_to_sqlite_no_translation_files(tmp_path):
     assert not db_path.exists()
 
 
-def test_wiktionary_translations_to_sqlite_multiple_files(tmp_path):
+def test_cli_convert_to_sqlite_wiktionary_translations_multiple_files(tmp_path):
     """
     Test wiktionary_translations_to_sqlite with multiple translation files.
     """

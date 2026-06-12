@@ -24,7 +24,7 @@ def contracts_source(tmp_path: Path) -> Path:
     return source
 
 
-def test_export_contracts_fresh_export(tmp_path: Path, contracts_source: Path) -> None:
+def test_cli_contracts_export_new(tmp_path: Path, contracts_source: Path) -> None:
     """
     Test fresh export when no existing contracts folder.
     """
@@ -41,7 +41,7 @@ def test_export_contracts_fresh_export(tmp_path: Path, contracts_source: Path) -
     assert (output_dir / "de.yaml").exists()
 
 
-def test_export_contracts_success_message(
+def test_cli_contracts_export_success(
     tmp_path: Path, contracts_source: Path, capsys
 ) -> None:
     """
@@ -59,7 +59,7 @@ def test_export_contracts_success_message(
     assert "successfully exported" in captured.out.lower()
 
 
-def test_export_contracts_overwrite_confirmed(
+def test_cli_contracts_export_overwrite_confirmed(
     tmp_path: Path, contracts_source: Path
 ) -> None:
     """
@@ -82,7 +82,7 @@ def test_export_contracts_overwrite_confirmed(
     assert not (output_dir / "old.yaml").exists()
 
 
-def test_export_contracts_overwrite_declined(
+def test_cli_contracts_export_overwrite_declined(
     tmp_path: Path, contracts_source: Path, capsys
 ) -> None:
     """
@@ -106,7 +106,7 @@ def test_export_contracts_overwrite_declined(
     assert (output_dir / "old.yaml").exists()
 
 
-def test_export_contracts_source_not_found(tmp_path: Path) -> None:
+def test_cli_contracts_export_source_not_found(tmp_path: Path) -> None:
     """
     Test assertion error when source directory not found.
     """
@@ -121,7 +121,9 @@ def test_export_contracts_source_not_found(tmp_path: Path) -> None:
             export_contracts(output_dir=output_dir)
 
 
-def test_export_contracts_files_content(tmp_path: Path, contracts_source: Path) -> None:
+def test_cli_contracts_export_files_content(
+    tmp_path: Path, contracts_source: Path
+) -> None:
     """
     Test that exported files have correct content.
     """
@@ -137,7 +139,7 @@ def test_export_contracts_files_content(tmp_path: Path, contracts_source: Path) 
     assert (output_dir / "de.yaml").read_text() == "language: german\n"
 
 
-def test_export_contracts_overwrite_default_declined(
+def test_cli_contracts_export_overwrite_default_declined(
     tmp_path: Path, contracts_source: Path, capsys
 ) -> None:
     """

@@ -46,7 +46,7 @@ def mock_process_unicode() -> Iterator[MagicMock]:
         yield mock_lexicon
 
 
-def test_generate_emoji_success(
+def test_unicode_generate_emoji_success(
     mock_pyicu: tuple[MagicMock, MagicMock],
     mock_utils: tuple[MagicMock, MagicMock],
     mock_process_unicode: MagicMock,
@@ -70,7 +70,7 @@ def test_generate_emoji_success(
     mock_export.assert_called_once()
 
 
-def test_generate_emoji_pyicu_not_installed(
+def test_unicode_generate_emoji_pyicu_not_installed(
     mock_pyicu: tuple[MagicMock, MagicMock],
 ) -> None:
     mock_check_install, mock_check_installed = mock_pyicu
@@ -83,7 +83,7 @@ def test_generate_emoji_pyicu_not_installed(
     mock_check_installed.assert_called_once()
 
 
-def test_generate_emoji_unsupported_language(
+def test_unicode_generate_emoji_unsupported_language(
     mock_pyicu: tuple[MagicMock, MagicMock],
     mock_utils: tuple[MagicMock, MagicMock],
     tmp_path: Path,
@@ -102,7 +102,7 @@ def test_generate_emoji_unsupported_language(
     mock_iso.assert_called_once_with(language="xx")
 
 
-def test_generate_emoji_output_dir_handling(
+def test_unicode_generate_emoji_output_dir_handling(
     mock_pyicu: tuple[MagicMock, MagicMock],
     mock_utils: tuple[MagicMock, MagicMock],
     mock_process_unicode: MagicMock,

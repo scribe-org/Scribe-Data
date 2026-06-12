@@ -59,7 +59,9 @@ def lexeme_processor() -> LexemeProcessor:
     )
 
 
-def test_lexeme_processor_initialization(lexeme_processor: LexemeProcessor) -> None:
+def test_wikidata_lexeme_processor_initialization(
+    lexeme_processor: LexemeProcessor,
+) -> None:
     """
     Test LexemeProcessor initialization with basic parameters.
     """
@@ -71,7 +73,7 @@ def test_lexeme_processor_initialization(lexeme_processor: LexemeProcessor) -> N
 
 @patch("builtins.open", new_callable=mock_open, read_data=Sample_Lexeme_Line)
 @patch("bz2.open")
-def test_process_file(
+def test_wikidata_process_file(
     mock_bz2_open: MagicMock, mock_file: MagicMock, lexeme_processor: LexemeProcessor
 ) -> None:
     """
@@ -89,7 +91,7 @@ def test_process_file(
 
 
 @patch("scribe_data.wikidata.parse_dump.LexemeProcessor")
-def test_parse_dump(mock_processor: MagicMock) -> None:
+def test_wikidata_parse_dump(mock_processor: MagicMock) -> None:
     """
     Test the parse_dump function.
     """
@@ -105,7 +107,7 @@ def test_parse_dump(mock_processor: MagicMock) -> None:
 @patch("scribe_data.wikidata.wikidata_utils.Path")
 @patch("scribe_data.wikidata.wikidata_utils.wd_lexeme_dump_download_wrapper")
 @patch("scribe_data.wikidata.wikidata_utils.parse_dump")
-def test_parse_wd_lexeme_dump(
+def test_wikidata_parse_wd_lexeme_dump(
     mock_parse_dump: MagicMock, mock_download: MagicMock, mock_path_class: MagicMock
 ) -> None:
     """
@@ -159,7 +161,7 @@ def test_parse_wd_lexeme_dump(
     assert kwargs["data_types"] == ["nouns"]
 
 
-def test_parse_wd_lexeme_dump_no_file() -> None:
+def test_wikidata_parse_wd_lexeme_dump_no_file() -> None:
     """
     Test parse_wd_lexeme_dump when no file is found.
     """
@@ -186,7 +188,7 @@ def test_parse_wd_lexeme_dump_no_file() -> None:
         ({"total": True}, True),
     ],
 )
-def test_parse_types(test_input: dict[str, bool], expected: bool) -> None:
+def test_wikidata_parse_types(test_input: dict[str, bool], expected: bool) -> None:
     """
     Test different parse types.
     """

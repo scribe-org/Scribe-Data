@@ -31,7 +31,7 @@ class TestScribeDataCLIInteractivePrompt(unittest.TestCase):
 
     @patch("scribe_data.cli.interactive.prompt")
     @patch("scribe_data.cli.interactive.rprint")
-    def test_request_total_lexeme(
+    def test_cli_interactive_request_total_lexeme(
         self, mock_rprint: MagicMock, mock_prompt: MagicMock
     ) -> None:
         """
@@ -92,7 +92,7 @@ class TestScribeDataCLIInteractivePrompt(unittest.TestCase):
 
                 self.assertEqual(resolved, dump_file.resolve())
 
-    def test_create_word_completer(self) -> None:
+    def test_cli_interactive_create_word_completer(self) -> None:
         """
         Test create_word_completer functionality.
         """

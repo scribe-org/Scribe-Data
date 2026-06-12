@@ -33,7 +33,7 @@ class TestScribeWiktionaryTranslations(unittest.TestCase):
         self.ru_config = get_wiktionary_config(source_iso="ru")
         self.bn_config = get_wiktionary_config(source_iso="bn")
 
-    def test_bangla_lang_header_pattern_matches_vasha_template(self):
+    def test_wiktionary_bangla_lang_header_pattern_matches_vasha_template(self):
         """
         bnwiktionary marks the Bangla block with ``== {{ভাষা|bn}} ==``, not ``==বাংলা==``.
         """
@@ -48,7 +48,7 @@ other
         self.assertIn("বিশেষ্য", section)
         self.assertNotIn("other", section)
 
-    def test_extract_translation_word_junk_filter(self):
+    def test_wiktionary_extract_translation_word_junk_filter(self):
         """
         Words like 'literally' that appear in ignored_strings are filtered out.
         """
@@ -58,7 +58,7 @@ other
         )
         self.assertIsNone(word)
 
-    def test_extract_junk_prefixes(self):
+    def test_wiktionary_extract_junk_prefixes(self):
         """
         Words starting with an ignored prefix like 'see: ' are filtered out.
         """
@@ -68,7 +68,7 @@ other
         )
         self.assertIsNone(word)
 
-    def test_extract_named_parameters(self):
+    def test_wiktionary_extract_named_parameters(self):
         """
         Named template params (1=lang, 2=word) are resolved the same as positional ones.
         """
@@ -80,7 +80,7 @@ other
         )
         self.assertEqual(word, "Mädchen (n)")
 
-    def test_grammar_trailing_tags(self):
+    def test_wiktionary_grammar_trailing_tags(self):
         """
         Grammar tags from trailing positional params are appended in parentheses.
         """
@@ -94,7 +94,7 @@ other
         )
         self.assertEqual(word, "Blitz (m)")
 
-    def test_full_page_parse(self):
+    def test_wiktionary_full_page_parse(self):
         """
         Multiple POS sections with trans-top blocks are each parsed into separate sense entries.
         """
@@ -129,7 +129,7 @@ other
         self.assertEqual(res["de"]["verb"]["1"]["translation"], "prüfen")
         self.assertEqual(res["de"]["verb"]["1"]["description"], "to test")
 
-    def test_french_template_headers_parse(self):
+    def test_wiktionary_french_template_headers_parse(self):
         """
         French-style {{S|nom|fr}} headers inside section titles are resolved to the right POS.
         """
@@ -149,7 +149,7 @@ other
         self.assertEqual(res["en"]["noun"]["1"]["translation"], "word")
         self.assertEqual(res["en"]["noun"]["1"]["description"], "un type de mot")
 
-    def test_spanish_eswiktionary_t1_and_pos_heading(self):
+    def test_wiktionary_spanish_eswiktionary_t1_and_pos_heading(self):
         """
         eswiktionary uses ``{{lengua|es}}``, POS in template names (``sustantivo masculino``),
         and ``{{t|lang|t1=…|g1=…}}`` without a positional lemma parameter.
@@ -177,7 +177,7 @@ other
             "Bare {{trad-arriba}} has no gloss; description is still emitted empty.",
         )
 
-    def test_swedish_o_topp_parse(self):
+    def test_wiktionary_swedish_o_topp_parse(self):
         """
         svwiktionary uses ``==Svenska==``, ``{{ö-topp}}`` / ``{{ö-botten}}``, and ``{{ö+|lang|word}}``.
         """
@@ -195,7 +195,7 @@ other
         self.assertEqual(res["en"]["noun"]["1"]["translation"], "book")
         self.assertEqual(res["en"]["noun"]["1"]["description"], "större mängd text")
 
-    def test_portuguese_h1_tradini_parse(self):
+    def test_wiktionary_portuguese_h1_tradini_parse(self):
         """
         ptwiktionary uses ``={{-pt-}}=`` (H1) and ``{{tradini}}`` / ``{{tradfim}}`` with ``{{trad|}}`` / ``{{t|}}``.
         """
@@ -215,7 +215,7 @@ other
         self.assertIn("de", res)
         self.assertEqual(res["de"]["noun"]["1"]["translation"], "Buch")
 
-    def test_italian_trad1_wikilink_format(self):
+    def test_wiktionary_italian_trad1_wikilink_format(self):
         """
         itwiktionary uses ``Trad1`` / ``Trad2`` blocks where each line is
         ``:* {{lang_code}}: [[word1]], [[word2]]`` — bare wikilinks, NOT {{t|}} templates.
@@ -240,7 +240,7 @@ other
         self.assertIn("de", res)
         self.assertEqual(res["de"]["noun"]["1"]["translation"], "Buch")
 
-    def test_italian_trad1_multi_sense(self):
+    def test_wiktionary_italian_trad1_multi_sense(self):
         """
         Multiple Trad1/Trad2 blocks for the same POS produce separate sense indices.
         """
@@ -263,7 +263,7 @@ other
         self.assertEqual(noun_senses["1"]["translation"], "book")
         self.assertEqual(noun_senses["2"]["translation"], "reservation, booking")
 
-    def test_russian_h1_lang_section_boundary(self):
+    def test_wiktionary_russian_h1_lang_section_boundary(self):
         """
         ruwiktionary language sections start with ``= {{-ru-}} =``; the next H1 closes the section.
         """
@@ -279,7 +279,7 @@ english side
         self.assertIn("inside ru", section)
         self.assertNotIn("english side", section)
 
-    def test_german_ast_u_tabelle_parse(self):
+    def test_wiktionary_german_ast_u_tabelle_parse(self):
         """
         The Ü-Tabelle format used by German Wiktionary is parsed correctly.
         """
@@ -298,7 +298,7 @@ english side
         self.assertEqual(res["en"]["noun"]["1"]["translation"], "word")
         self.assertEqual(res["fr"]["noun"]["1"]["translation"], "mot")
 
-    def test_extract_source_lang_section(self):
+    def test_wiktionary_extract_source_lang_section(self):
         """
         The correct language section is extracted and neighbouring sections are excluded.
         """
@@ -316,7 +316,7 @@ english side
         self.assertIsNotNone(section2)
         self.assertIn("===Verb===", section2)
 
-    def test_parse_page_worker_edge_cases(self):
+    def test_wiktionary_parse_page_worker_edge_cases(self):
         """
         Worker returns None for empty or untranslated pages.
         """
@@ -325,7 +325,7 @@ english side
             _parse_page_worker(("test", "no translations", frozenset(), self.en_config))
         )
 
-    def test_parse_xml_dump_with_dummy_file(self):
+    def test_wiktionary_parse_xml_dump_with_dummy_file(self):
         """
         Both single-process and multi-process paths produce correct output from a dummy XML file.
         """
@@ -385,7 +385,7 @@ english side
         finally:
             Path(tmp_path).unlink()
 
-    def test_parse_xml_dump_not_found(self):
+    def test_wiktionary_parse_xml_dump_not_found(self):
         with self.assertRaises(FileNotFoundError):
             parse_xml_dump(
                 "does_not_exist.xml.bz2",
@@ -393,7 +393,7 @@ english side
                 progress=False,
             )
 
-    def test_empty_xml_parsing(self):
+    def test_wiktionary_empty_xml_parsing(self):
         """
         An empty XML file returns an empty result without raising.
         """
@@ -412,7 +412,7 @@ english side
         finally:
             Path(tmp_path).unlink()
 
-    def test_resolve_dump_path(self):
+    def test_wiktionary_resolve_dump_path(self):
         """
         Explicit paths are returned as-is; missing paths return None with a sensible ISO.
         """
@@ -443,7 +443,7 @@ english side
         finally:
             Path(tmp_path).unlink()
 
-    def test_get_output_subdir(self):
+    def test_wiktionary_get_output_subdir(self):
         """
         Top-level languages map to their lowercase name; sub-languages include their parent.
         """
@@ -460,7 +460,7 @@ english side
         self.assertEqual(_get_output_subdir("Mandarin", meta), "chinese/mandarin")
         self.assertEqual(_get_output_subdir("German", meta), "german")
 
-    def test_parse_wiktionary_translations_mock(self):
+    def test_wiktionary_parse_wiktionary_translations_mock(self):
         """
         translations are written to the expected JSON file on disk.
         """

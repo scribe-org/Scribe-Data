@@ -18,7 +18,7 @@ from scribe_data.utils import (
 
 class TestCLIListLanguages(unittest.TestCase):
     @patch("builtins.print")
-    def test_list_languages(self, mock_print: MagicMock) -> None:
+    def test_cli_list_languages(self, mock_print: MagicMock) -> None:
         list_languages()
 
         # Verify the headers.
@@ -45,7 +45,9 @@ class TestCLIListLanguages(unittest.TestCase):
         self.assertEqual(mock_print.call_count, len(languages) + 3)
 
     @patch("builtins.print")
-    def test_list_languages_for_data_type_valid(self, mock_print: MagicMock) -> None:
+    def test_cli_list_languages_for_data_type_valid(
+        self, mock_print: MagicMock
+    ) -> None:
         # Call the function with a specific data type.
         list_languages_for_data_type("nouns")
 
@@ -83,7 +85,7 @@ class TestCLIListLanguages(unittest.TestCase):
         self.assertEqual(mock_print.call_count, expected_calls)
 
     @patch("scribe_data.cli.list.languages.list_languages")
-    def test_list_languages_command(self, mock_list_languages: MagicMock) -> None:
+    def test_cli_list_languages_command(self, mock_list_languages: MagicMock) -> None:
         test_args = ["main.py", "list", "--language"]
         with patch("sys.argv", test_args):
             main()

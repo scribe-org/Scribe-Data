@@ -35,7 +35,7 @@ class TestDownloadCLI(unittest.TestCase):
         self.assertIsNone(parse_date("99-16-77"))
         self.assertIsNone(parse_date("invalid-date"))
 
-    @patch("scribe_data.cli.download.requests.get")
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.requests.get")
     def test_available_closest_lexeme_dump_file(self, mock_get: MagicMock) -> None:
         """
         Test finding closest available lexeme dump file.
@@ -55,9 +55,9 @@ class TestDownloadCLI(unittest.TestCase):
         )
         self.assertEqual(closest, "20240101")
 
-    @patch("scribe_data.cli.download.requests.get")
-    @patch("scribe_data.cli.download.re.findall")
-    def test_download_wd_lexeme_dump_latest(
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.requests.get")
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.re.findall")
+    def test_cli_download_wd_lexeme_dump_latest(
         self, mock_findall: MagicMock, mock_get: MagicMock
     ) -> None:
         """
@@ -72,9 +72,9 @@ class TestDownloadCLI(unittest.TestCase):
             "https://dumps.wikimedia.org/wikidatawiki/entities/latest-lexemes.json.bz2",
         )
 
-    @patch("scribe_data.cli.download.requests.get")
-    @patch("scribe_data.cli.download.re.findall")
-    def test_download_wd_lexeme_dump_by_date(
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.requests.get")
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.re.findall")
+    def test_cli_download_wd_lexeme_dump_by_date(
         self, mock_findall: MagicMock, mock_get: MagicMock
     ) -> None:
         """
@@ -89,14 +89,15 @@ class TestDownloadCLI(unittest.TestCase):
             "https://dumps.wikimedia.org/wikidatawiki/entities/20241127/wikidata-20241127-lexemes.json.bz2",
         )
 
-    @patch("scribe_data.cli.download.requests.get")
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.requests.get")
     @patch(
-        "scribe_data.cli.download.check_lexeme_dump_prompt_download", return_value=False
+        "scribe_data.cli.download.wikidata_lexeme_dump.check_lexeme_dump_prompt_download",
+        return_value=False,
     )
-    @patch("scribe_data.cli.download.open", new_callable=mock_open)
-    @patch("scribe_data.cli.download.tqdm")
-    @patch("scribe_data.cli.download.os.makedirs")
-    @patch("scribe_data.cli.download.questionary.confirm")
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.open", new_callable=mock_open)
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.tqdm")
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.os.makedirs")
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.questionary.confirm")
     def test_wd_lexeme_dump_download_wrapper_latest(
         self,
         mock_confirm: MagicMock,
@@ -172,9 +173,9 @@ class TestDownloadCLI(unittest.TestCase):
             self.assertTrue(mock_unlink.called)
             self.assertTrue(result)
 
-    @patch("scribe_data.cli.download.requests.get")
-    @patch("scribe_data.cli.download.questionary.confirm")
-    def test_download_wd_lexeme_dump_http_error(
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.requests.get")
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.questionary.confirm")
+    def test_cli_download_wd_lexeme_dump_http_error(
         self, mock_confirm: MagicMock, mock_get: MagicMock
     ) -> None:
         """
@@ -199,8 +200,8 @@ class TestDownloadCLI(unittest.TestCase):
                 "We could not find your requested Wikidata lexeme dump."
             )
 
-    @patch("scribe_data.cli.download.requests.get")
-    def test_download_wd_lexeme_dump_request_exception(
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.requests.get")
+    def test_cli_download_wd_lexeme_dump_request_exception(
         self, mock_get: MagicMock
     ) -> None:
         """
@@ -213,9 +214,9 @@ class TestDownloadCLI(unittest.TestCase):
             self.assertIsNone(result)
             mock_print.assert_called_with("An error occurred: Connection error")
 
-    @patch("scribe_data.cli.download.requests.get")
-    @patch("scribe_data.cli.download.questionary.confirm")
-    def test_download_wd_lexeme_dump_find_closest(
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.requests.get")
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.questionary.confirm")
+    def test_cli_download_wd_lexeme_dump_find_closest(
         self, mock_confirm: MagicMock, mock_get: MagicMock
     ) -> None:
         """
@@ -244,9 +245,9 @@ class TestDownloadCLI(unittest.TestCase):
         self.assertIsNotNone(result)
         self.assertIn("20240101", result)
 
-    @patch("scribe_data.cli.download.requests.get")
-    @patch("scribe_data.cli.download.questionary.confirm")
-    def test_download_wd_lexeme_dump_user_declines_closest(
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.requests.get")
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.questionary.confirm")
+    def test_cli_download_wd_lexeme_dump_user_declines_closest(
         self, mock_confirm: MagicMock, mock_get: MagicMock
     ) -> None:
         """
@@ -269,14 +270,18 @@ class TestDownloadCLI(unittest.TestCase):
         """
         Test wrapper function with default flag set to True.
         """
-        with patch("scribe_data.cli.download.download_wd_lexeme_dump") as mock_download:
+        with patch(
+            "scribe_data.cli.download.wikidata_lexeme_dump.download_wd_lexeme_dump"
+        ) as mock_download:
             mock_download.return_value = None
 
             result = wd_lexeme_dump_download_wrapper(default=True)
             self.assertFalse(result)
 
-    @patch("scribe_data.cli.download.requests.get")
-    def test_download_wd_lexeme_dump_invalid_date(self, mock_get: MagicMock) -> None:
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.requests.get")
+    def test_cli_download_wd_lexeme_dump_invalid_date(
+        self, mock_get: MagicMock
+    ) -> None:
         """
         Test downloading with invalid date format.
         """

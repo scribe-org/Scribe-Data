@@ -26,7 +26,7 @@ class TestScribeDataCLIInteractiveExecute(unittest.TestCase):
     @patch("scribe_data.cli.interactive.get_data")
     @patch("scribe_data.cli.interactive.tqdm")
     @patch("scribe_data.cli.interactive.logger")
-    def test_execute_request(
+    def test_cli_interactive_execute_request(
         self, mock_logger: MagicMock, mock_tqdm: MagicMock, mock_get_data: MagicMock
     ) -> None:
         """
@@ -53,7 +53,7 @@ class TestScribeDataCLIInteractiveExecute(unittest.TestCase):
             )
 
     @patch("rich.console.Console.print")
-    def test_display_summary(self, mock_print: MagicMock) -> None:
+    def test_cli_interactive_display_summary(self, mock_print: MagicMock) -> None:
         """
         Test display_summary functionality.
         """

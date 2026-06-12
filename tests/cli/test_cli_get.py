@@ -32,7 +32,7 @@ class TestGetData(unittest.TestCase):
     # MARK: Subprocess Patching
 
     @patch("scribe_data.cli.get.generate_emoji")
-    def test_get_emoji_keywords(self, generate_emoji: MagicMock) -> None:
+    def test_cli_get_emoji_keywords(self, generate_emoji: MagicMock) -> None:
         """
         Test the generation of emoji keywords.
 
@@ -62,7 +62,7 @@ class TestGetData(unittest.TestCase):
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
     @patch("scribe_data.cli.get.questionary.confirm")
-    def test_get_all_data_types_for_language_user_says_no(
+    def test_cli_get_all_data_types_for_language_user_says_no(
         self,
         mock_questionary_confirm: MagicMock,
         mock_parse: MagicMock,
@@ -89,7 +89,7 @@ class TestGetData(unittest.TestCase):
         mock_query_data.assert_not_called()
 
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
-    def test_get_all_languages_and_data_types(self, mock_parse: MagicMock) -> None:
+    def test_cli_get_all_languages_and_data_types(self, mock_parse: MagicMock) -> None:
         """
         Test retrieving all languages for a specific data type.
 
@@ -109,7 +109,7 @@ class TestGetData(unittest.TestCase):
     # MARK: Language and Data Type
 
     @patch("scribe_data.cli.get.query_data")
-    def test_get_specific_language_and_data_type(
+    def test_cli_get_specific_language_and_data_type(
         self, mock_query_data: MagicMock
     ) -> None:
         """
@@ -133,7 +133,7 @@ class TestGetData(unittest.TestCase):
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.Path.glob", return_value=[])
     @patch("scribe_data.cli.get.check_index_exists")
-    def test_get_data_with_capitalized_language(
+    def test_cli_get_data_with_capitalized_language(
         self,
         mock_check_index: MagicMock,
         mock_glob: MagicMock,
@@ -159,7 +159,7 @@ class TestGetData(unittest.TestCase):
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.Path.glob", return_value=[])
     @patch("scribe_data.cli.get.check_index_exists", return_value=False)
-    def test_get_data_with_lowercase_language(
+    def test_cli_get_data_with_lowercase_language(
         self,
         mock_check_index: MagicMock,
         mock_glob: MagicMock,
@@ -182,7 +182,7 @@ class TestGetData(unittest.TestCase):
     # MARK: Output Directory
 
     @patch("scribe_data.cli.get.query_data")
-    def test_get_data_with_different_output_directory(
+    def test_cli_get_data_with_different_output_directory(
         self, mock_query_data: MagicMock
     ) -> None:
         """
@@ -207,7 +207,7 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.Path.glob", return_value=[])
-    def test_get_data_with_overwrite_true(
+    def test_cli_get_data_with_overwrite_true(
         self, mock_glob: MagicMock, mock_query_data: MagicMock
     ) -> None:
         """
@@ -227,7 +227,9 @@ class TestGetData(unittest.TestCase):
     # MARK: Overwrite is False
 
     @patch("scribe_data.cli.get.query_data")
-    def test_get_data_with_overwrite_false(self, mock_query_data: MagicMock) -> None:
+    def test_cli_get_data_with_overwrite_false(
+        self, mock_query_data: MagicMock
+    ) -> None:
         get_data(
             languages=["English"],
             data_types=["verbs"],
@@ -313,7 +315,7 @@ class TestGetData(unittest.TestCase):
     # MARK: Translations
 
     @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
-    def test_get_translations_no_language_specified(self, mock_parse):
+    def test_cli_get_translations_no_language_specified(self, mock_parse):
         get_data(data_types=["translations"])
         mock_parse.assert_called_once_with(
             target_languages=None,
@@ -323,7 +325,7 @@ class TestGetData(unittest.TestCase):
         )
 
     @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
-    def test_get_translations_with_specific_language(self, mock_parse):
+    def test_cli_get_translations_with_specific_language(self, mock_parse):
         get_data(
             languages=["Spanish"],
             data_types=["translations"],
@@ -337,7 +339,7 @@ class TestGetData(unittest.TestCase):
         )
 
     @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
-    def test_get_translations_with_dump(self, mock_parse):
+    def test_cli_get_translations_with_dump(self, mock_parse):
         get_data(
             languages=["German"],
             data_types=["translations"],
@@ -354,7 +356,7 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
     @patch("scribe_data.cli.get.questionary.confirm")
-    def test_get_data_with_wikidata_identifier(
+    def test_cli_get_data_with_wikidata_identifier(
         self, mock_questionary_confirm: MagicMock, mock_parse: MagicMock
     ) -> None:
         """
@@ -382,7 +384,7 @@ class TestGetData(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
-    def test_get_data_with_wikidata_identifier_and_data_type(
+    def test_cli_get_data_with_wikidata_identifier_and_data_type(
         self, mock_parse: MagicMock
     ) -> None:
         """
@@ -409,7 +411,7 @@ class TestGetData(unittest.TestCase):
     # MARK: All Languages for Data Type
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
     @patch("scribe_data.cli.get.questionary.confirm")
-    def test_get_all_languages_for_data_type_user_says_no(
+    def test_cli_get_all_languages_for_data_type_user_says_no(
         self, mock_questionary_confirm: MagicMock, mock_parse: MagicMock
     ) -> None:
         """
@@ -433,7 +435,7 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.questionary.confirm")
-    def test_get_all_languages_for_data_type_user_says_yes(
+    def test_cli_get_all_languages_for_data_type_user_says_yes(
         self, mock_questionary_confirm: MagicMock, mock_query_data: MagicMock
     ) -> None:
         """
@@ -571,7 +573,7 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.check_index_exists")
-    def test_get_data_with_interactive_mode(
+    def test_cli_get_data_with_interactive_mode(
         self, mock_check_exists: MagicMock, mock_query_data: MagicMock
     ) -> None:
         """
@@ -589,7 +591,7 @@ class TestGetData(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
-    def test_get_data_with_custom_dump_path(self, mock_parse: MagicMock) -> None:
+    def test_cli_get_data_with_custom_dump_path(self, mock_parse: MagicMock) -> None:
         """
         Test retrieving data with a custom Wikidata dump path.
         """
@@ -607,7 +609,9 @@ class TestGetData(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.get.query_data")
-    def test_get_data_with_multiple_languages(self, mock_query_data: MagicMock) -> None:
+    def test_cli_get_data_with_multiple_languages(
+        self, mock_query_data: MagicMock
+    ) -> None:
         """
         Test retrieving data for multiple languages.
         """
@@ -641,7 +645,7 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.parse_wd_lexeme_dump")
     @patch("scribe_data.cli.get.questionary.confirm")
-    def test_get_data_with_all_and_specific_type(
+    def test_cli_get_data_with_all_and_specific_type(
         self, mock_questionary: MagicMock, mock_parse: MagicMock
     ) -> None:
         """
@@ -661,7 +665,7 @@ class TestGetData(unittest.TestCase):
 
     @patch("scribe_data.cli.get.query_data")
     @patch("scribe_data.cli.get.check_index_exists")
-    def test_get_data_case_insensitive_type(
+    def test_cli_get_data_case_insensitive_type(
         self, mock_check_exists: MagicMock, mock_query_data: MagicMock
     ) -> None:
         """
