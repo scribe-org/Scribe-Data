@@ -41,7 +41,7 @@ class TestScribeDataCLIInteractiveExecute(unittest.TestCase):
         mock_tqdm.return_value.__enter__.return_value = mock_progress
 
         with patch(
-            "scribe_data.cli.interactive.config.interactive_mode_config", self.config
+            "scribe_data.cli.interactive.execute.interactive_mode_config", self.config
         ):
             execute_request()
 
@@ -64,7 +64,7 @@ class TestScribeDataCLIInteractiveExecute(unittest.TestCase):
         self.config.output_type = "json"
 
         with patch(
-            "scribe_data.cli.interactive.config.interactive_mode_config", self.config
+            "scribe_data.cli.interactive.execute.interactive_mode_config", self.config
         ):
             display_summary()
             mock_print.assert_called()

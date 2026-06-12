@@ -20,7 +20,7 @@ class TestCLIConvertWrapper(unittest.TestCase):
         self.tmp_path = tmp_path
 
     @patch("scribe_data.cli.convert.wrapper.Path", autospec=True)
-    @patch("scribe_data.cli.convert.to_sqlite.convert_to_sqlite", autospec=True)
+    @patch("scribe_data.cli.convert.wrapper.convert_to_sqlite", autospec=True)
     @patch("shutil.copy")
     def test_convert_wrapper_to_sqlite(
         self,
@@ -50,7 +50,7 @@ class TestCLIConvertWrapper(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.convert.wrapper.Path", autospec=True)
-    @patch("scribe_data.cli.convert.to_sqlite.convert_to_sqlite", autospec=True)
+    @patch("scribe_data.cli.convert.wrapper.convert_to_sqlite", autospec=True)
     def test_convert_wrapper_to_sqlite_no_output_dir(
         self, mock_convert_to_sqlite: MagicMock, mock_path: MagicMock
     ) -> None:
@@ -82,7 +82,7 @@ class TestCLIConvertWrapper(unittest.TestCase):
             overwrite=True,
         )
 
-    @patch("scribe_data.cli.convert.to_sqlite.convert_to_sqlite", autospec=True)
+    @patch("scribe_data.cli.convert.wrapper.convert_to_sqlite", autospec=True)
     def test_convert_wrapper_german_wiktionary_translations_sqlite(
         self, mock_convert_to_sqlite: MagicMock
     ) -> None:
@@ -109,7 +109,7 @@ class TestCLIConvertWrapper(unittest.TestCase):
         "scribe_data.cli.convert.wrapper.DEFAULT_WIKTIONARY_JSON_EXPORT_DIR",
         new=Path("/mock_wiktionary_dir"),
     )
-    @patch("scribe_data.cli.convert.to_sqlite.convert_to_sqlite", autospec=True)
+    @patch("scribe_data.cli.convert.wrapper.convert_to_sqlite", autospec=True)
     def test_convert_wrapper_wiktionary_no_input_path_uses_wiktionary_default(
         self, mock_convert_to_sqlite: MagicMock
     ) -> None:

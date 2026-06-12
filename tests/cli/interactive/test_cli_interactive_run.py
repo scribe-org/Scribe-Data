@@ -25,7 +25,7 @@ class TestScribeDataCLIInteractiveRun(unittest.TestCase):
         "scribe_data.cli.interactive.run.resolve_wiktionary_dump_path",
         return_value=Path("/dump/path"),
     )
-    @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
+    @patch("scribe_data.cli.interactive.run.parse_wiktionary_translations")
     @patch("scribe_data.cli.interactive.run.prompt")
     @patch("scribe_data.cli.interactive.run.prompt_for_languages")
     @patch("scribe_data.cli.interactive.run.questionary.select")

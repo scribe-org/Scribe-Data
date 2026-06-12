@@ -84,7 +84,7 @@ class TestCLIListLanguages(unittest.TestCase):
         expected_calls = len(all_languages) + 3
         self.assertEqual(mock_print.call_count, expected_calls)
 
-    @patch("scribe_data.cli.list.languages.list_languages")
+    @patch("scribe_data.cli.list.wrapper.list_languages")
     def test_cli_list_languages_command(self, mock_list_languages: MagicMock) -> None:
         test_args = ["main.py", "list", "--language"]
         with patch("sys.argv", test_args):

@@ -35,8 +35,13 @@ class TestCLIListDataTypes(unittest.TestCase):
         ]
         mock_print.assert_has_calls(expected_calls)
 
+    @patch("scribe_data.cli.list.data_types.os.listdir")
     @patch("builtins.print")
-    def test_cli_list_data_types_specific_language(self, mock_print: MagicMock) -> None:
+    def test_cli_list_data_types_specific_language(
+        self, mock_print: MagicMock, mock_listdir: MagicMock
+    ) -> None:
+        mock_listdir.return_value = ["en"]
+
         list_data_types("english")
 
         expected_calls = [
@@ -64,7 +69,7 @@ class TestCLIListDataTypes(unittest.TestCase):
         with self.assertRaises(ValueError):
             list_data_types("Klingon")
 
-    @patch("scribe_data.cli.list.data_types.list_data_types")
+    @patch("scribe_data.cli.list.wrapper.list_data_types")
     def test_cli_list_data_types_command(self, mock_list_data_types: MagicMock) -> None:
         test_args = ["main.py", "list", "--data-type"]
         with patch("sys.argv", test_args):

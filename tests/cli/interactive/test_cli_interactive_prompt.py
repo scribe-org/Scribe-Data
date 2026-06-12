@@ -44,7 +44,7 @@ class TestScribeDataCLIInteractivePrompt(unittest.TestCase):
         ]
 
         with patch(
-            "scribe_data.cli.interactive.config.interactive_mode_config", self.config
+            "scribe_data.cli.interactive.prompt.interactive_mode_config", self.config
         ):
             with patch(
                 "scribe_data.cli.interactive.config.list_all_languages",
