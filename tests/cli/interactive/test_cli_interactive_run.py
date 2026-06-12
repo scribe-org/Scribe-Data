@@ -8,7 +8,6 @@ from pathlib import Path
 from unittest.mock import patch
 
 from scribe_data.cli.interactive.config import ScribeDataConfig
-from scribe_data.cli.interactive.run import run_interactive_mode
 
 
 class TestScribeDataCLIInteractiveRun(unittest.TestCase):
@@ -25,7 +24,7 @@ class TestScribeDataCLIInteractiveRun(unittest.TestCase):
         "scribe_data.cli.interactive.run.resolve_wiktionary_dump_path",
         return_value=Path("/dump/path"),
     )
-    @patch("scribe_data.cli.interactive.run.parse_wiktionary_translations")
+    @patch("scribe_data.wiktionary.parse_translations.parse_wiktionary_translations")
     @patch("scribe_data.cli.interactive.run.prompt")
     @patch("scribe_data.cli.interactive.run.prompt_for_languages")
     @patch("scribe_data.cli.interactive.run.questionary.select")
@@ -37,6 +36,11 @@ class TestScribeDataCLIInteractiveRun(unittest.TestCase):
         mock_parse_wiktionary,
         mock_resolve_dump,
     ):
+        from scribe_data.cli.interactive.run import (
+            interactive_mode_config,
+            run_interactive_mode,
+        )
+
         mock_select.return_value.ask.side_effect = ["translations"]
         mock_prompt.side_effect = [
             "german",
@@ -44,7 +48,7 @@ class TestScribeDataCLIInteractiveRun(unittest.TestCase):
             "scribe_data_wiktionary_json_export",
             "false",
         ]
-        self.config.selected_languages = ["english"]
+        interactive_mode_config.selected_languages = ["english"]
 
         run_interactive_mode(operation="translations")
 

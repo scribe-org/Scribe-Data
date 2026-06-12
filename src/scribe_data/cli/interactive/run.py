@@ -31,7 +31,6 @@ from scribe_data.utils import (
     DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
 )
 from scribe_data.wikidata.wikidata_utils import parse_wd_lexeme_dump
-from scribe_data.wiktionary.parse_translations import parse_wiktionary_translations
 
 # MARK: Configure
 
@@ -238,6 +237,10 @@ def run_interactive_mode(operation: str | None = None) -> None:
             break
 
         elif choice == "translations":
+            from scribe_data.wiktionary.parse_translations import (
+                parse_wiktionary_translations,
+            )
+
             while True:
                 wiktionary_dump_language = prompt(
                     "Select Wiktionary dump source language: ",
