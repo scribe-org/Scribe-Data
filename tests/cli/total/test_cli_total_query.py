@@ -24,7 +24,7 @@ except (IOError, yaml.YAMLError) as e:
 
 class TestCLITotalQuery(unittest.TestCase):
     @patch("scribe_data.cli.total.query.get_qid_by_input")
-    @patch("scribe_data.cli.total.sparql.query")
+    @patch("scribe_data.cli.total.query.sparql.query")
     def test_cli_total_query_lexemes_valid(
         self, mock_query: MagicMock, mock_get_qid: MagicMock
     ) -> None:
@@ -45,7 +45,7 @@ class TestCLITotalQuery(unittest.TestCase):
         )
 
     @patch("scribe_data.cli.total.query.get_qid_by_input")
-    @patch("scribe_data.cli.total.sparql.query")
+    @patch("scribe_data.cli.total.query.sparql.query")
     def test_cli_total_query_lexemes_no_results(
         self, mock_query: MagicMock, mock_get_qid: MagicMock
     ) -> None:
@@ -62,7 +62,7 @@ class TestCLITotalQuery(unittest.TestCase):
         mock_print.assert_called_once_with("Total number of lexemes: Not found")
 
     @patch("scribe_data.cli.total.query.get_qid_by_input")
-    @patch("scribe_data.cli.total.sparql.query")
+    @patch("scribe_data.cli.total.query.sparql.query")
     def test_cli_total_query_lexemes_invalid_language(
         self, mock_query: MagicMock, mock_get_qid: MagicMock
     ) -> None:
@@ -75,7 +75,7 @@ class TestCLITotalQuery(unittest.TestCase):
         mock_print.assert_called_once_with("Total number of lexemes: Not found")
 
     @patch("scribe_data.cli.total.query.get_qid_by_input")
-    @patch("scribe_data.cli.total.sparql.query")
+    @patch("scribe_data.cli.total.query.sparql.query")
     def test_cli_total_query_lexemes_empty_and_none_inputs(
         self, mock_query: MagicMock, mock_get_qid: MagicMock
     ) -> None:
@@ -94,7 +94,7 @@ class TestCLITotalQuery(unittest.TestCase):
         mock_print.assert_has_calls(expected_calls, any_order=True)
 
     @patch("scribe_data.cli.total.query.get_qid_by_input")
-    @patch("scribe_data.cli.total.sparql.query")
+    @patch("scribe_data.cli.total.query.sparql.query")
     def test_cli_total_query_lexemes_nonexistent_language(
         self, mock_query: MagicMock, mock_get_qid: MagicMock
     ) -> None:
@@ -107,7 +107,7 @@ class TestCLITotalQuery(unittest.TestCase):
         mock_print.assert_called_once_with("Total number of lexemes: Not found")
 
     @patch("scribe_data.cli.total.query.get_qid_by_input")
-    @patch("scribe_data.cli.total.sparql.query")
+    @patch("scribe_data.cli.total.query.sparql.query")
     def test_cli_total_query_lexemes_various_data_types(
         self, mock_query: MagicMock, mock_get_qid: MagicMock
     ) -> None:
@@ -139,7 +139,7 @@ class TestCLITotalQuery(unittest.TestCase):
         mock_print.assert_has_calls(expected_calls)
 
     @patch("scribe_data.cli.total.query.get_qid_by_input")
-    @patch("scribe_data.cli.total.sparql.query")
+    @patch("scribe_data.cli.total.query.sparql.query")
     @patch("scribe_data.cli.total.WIKIDATA_QUERIES_ALL_DATA_DIR")
     def test_cli_total_query_lexemes_sub_languages(
         self, mock_dir: MagicMock, mock_query: MagicMock, mock_get_qid: MagicMock
