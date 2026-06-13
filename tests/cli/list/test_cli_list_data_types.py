@@ -35,13 +35,10 @@ class TestCLIListDataTypes(unittest.TestCase):
         ]
         mock_print.assert_has_calls(expected_calls)
 
-    @patch("scribe_data.cli.list.data_types.os.listdir")
     @patch("builtins.print")
     def test_cli_list_data_types_specific_language(
-        self, mock_print: MagicMock, mock_listdir: MagicMock
+        self, mock_print: MagicMock
     ) -> None:
-        mock_listdir.return_value = ["en"]
-
         list_data_types("english")
 
         expected_calls = [

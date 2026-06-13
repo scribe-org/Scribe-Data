@@ -41,7 +41,7 @@ def list_data_types(language: str = "") -> None:
         # Add emoji keywords if available.
         iso = get_language_iso(language=language)
         path_to_cldr_annotations = (
-            Path(__file__).parent.parent
+            Path(__file__).parent.parent.parent
             / "unicode"
             / "cldr-annotations-full"
             / "annotations"
