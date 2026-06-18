@@ -81,10 +81,15 @@ To utilize the Scribe-Data CLI, you can execute variations of the following comm
 Available Commands
 ==================
 
-- ``list`` (``l``): Enumerate available languages, data types and their combinations.
-- ``get`` (``g``): Retrieve data from Wikidata for specified languages and data types.
-- ``total`` (``t``): Display the total available data for given languages and data types.
-- ``convert`` (``c``): Transform data returned by Scribe-Data into different file formats.
+- ``list`` (``l``): List languages, data types and combinations of each that Scribe-Data can be used for.
+- ``get`` (``g``): Get data from Wikidata and other sources for the given languages and data types.
+- ``total`` (``t``): Check Wikidata for the total available data for the given languages and data types.
+- ``convert`` (``c``): Convert data returned by Scribe-Data to different file types.
+- ``download`` (``d``): Download Wikidata lexeme or Wiktionary dumps.
+- ``interactive`` (``i``): Run in interactive mode.
+- ``export_contracts`` (``ec``): Export Scribe-Data contracts to a local directory.
+- ``check_contracts`` (``cc``): Check the data in a Scribe-Data export directory to see that all needed language data is included.
+- ``filter_data`` (``fd``): Filter exported Scribe-Data data based on provided data contract values.
 
 Contents
 ========

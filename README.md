@@ -19,7 +19,7 @@
 
 ### Wikidata and Wiktionary language data extraction
 
-**Scribe-Data** is a convenient command-line interface (CLI) for extracting and formatting language data from [Wikidata](https://www.wikidata.org/). Functionality includes allowing users to list, download, and manage language data directly from the terminal.
+**Scribe-Data** is a command-line interface (CLI) for extracting and formatting language data from [Wikidata](https://www.wikidata.org/) and other supported sources. It helps users list, download, manage, convert, and filter language data directly from the terminal.
 
 > [!NOTE]\
 > The [contributing](#contributing) section has information for those interested, with the articles and presentations in [featured by](#featured-by) also being good resources for learning more about Scribe.
@@ -95,10 +95,15 @@ scribe-data [command] [arguments]
 
 ### Available Commands
 
-- `list` (`l`): Enumerate available languages, data types and their combinations.
-- `get` (`g`): Retrieve data from Wikidata for specified languages and data types.
-- `total` (`t`): Display the total available data for given languages and data types.
-- `convert` (`c`): Transform data returned by Scribe-Data into different file formats.
+- `list` (`l`): List languages, data types and combinations of each that Scribe-Data can be used for.
+- `get` (`g`): Get data from Wikidata and other sources for the given languages and data types.
+- `total` (`t`): Check Wikidata for the total available data for the given languages and data types.
+- `convert` (`c`): Convert data returned by Scribe-Data to different file types.
+- `download` (`d`): Download Wikidata lexeme or Wiktionary dumps.
+- `interactive` (`i`): Run in interactive mode.
+- `export_contracts` (`ec`): Export Scribe-Data contracts to a local directory.
+- `check_contracts` (`cc`): Check the data in a Scribe-Data export directory to see that all needed language data is included.
+- `filter_data` (`fd`): Filter exported Scribe-Data data based on provided data contract values.
 
 ### Command Examples
 
@@ -108,9 +113,10 @@ scribe-data [command] [arguments]
 
 ```bash
 # Commands used in the above GIF:
+scribe-data list
 scribe-data list --language
 scribe-data list --data-type
-scribe-data get --language English --data-type verbs -od ./scribe-data
+scribe-data get --language English --data-type verbs --output-dir ./scribe-data
 scribe-data total --language English
 ```
 
@@ -120,8 +126,8 @@ scribe-data total --language English
 
 ```bash
 # Commands used in the above GIF:
-scribe-data get -i
-scribe-data total -i
+scribe-data get --interactive
+scribe-data total --interactive
 ```
 
 <sub><a href="#top">Back to top.</a></sub>
@@ -177,7 +183,7 @@ Those interested can further check the [`-next release-`](https://github.com/scr
 
 After your first few pull requests organization members would be happy to discuss granting you further rights as a contributor, with a maintainer role then being possible after continued interest in the project. Scribe seeks to be an inclusive and supportive organization. We'd love to have you on the team!
 
-### Ways to Help
+## Ways to Help
 
 - [Reporting bugs](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=bug&template=bug_report.yml) as they're found 🐞
 - Working on [new features](https://github.com/scribe-org/Scribe-Data/issues?q=is%3Aissue+is%3Aopen+label%3Afeature) ✨
