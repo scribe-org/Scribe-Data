@@ -124,7 +124,8 @@ def download_wiktionary_dumps(
             return None
 
     iso_or_isos = "iso" if len(not_included_isos) == 1 else "isos"
-    was_or_were = "was" if len(not_included_isos) == 1 else "were"
+    iso_or_isos = "iso" if len(language_isos) == 1 else "isos"
+    was_or_were = "was" if len(language_isos) == 1 else "were"
     rprint(
-        f"[bold green]The following {iso_or_isos} {was_or_were} successfully downloaded: {', '.join(not_included_isos)}[/bold green]"
+        f"[bold green]The following {iso_or_isos} {was_or_were} successfully downloaded: {', '.join(language_isos)}[/bold green]"
     )
