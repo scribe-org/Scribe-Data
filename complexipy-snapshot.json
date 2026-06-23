@@ -215,7 +215,7 @@
     "functions": [
       {
         "name": "download_wiktionary_dumps",
-        "complexity": 31
+        "complexity": 32
       }
     ]
   },
