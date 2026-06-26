@@ -1,6 +1,16 @@
+<a id="top"></a>
+
 # Scribe-Data CLI Usage
 
 Scribe-Data provides a command-line interface (CLI) for extracting language data from Wikidata and other sources.
+
+## Contents
+
+- [Installation](#installation)
+- [Development Build](#development-build)
+- [Basic Usage](#basic-usage)
+- [Command Examples](#command-examples)
+- [Additional Help](#additional-help)
 
 ## Installation
 
@@ -16,7 +26,9 @@ uv pip install scribe-data
 pip install scribe-data
 ```
 
-## Development build
+<sub><a href="#top">Back to top.</a></sub>
+
+## Development Build
 
 ```bash
 git clone https://github.com/scribe-org/Scribe-Data.git  # or your fork
@@ -34,6 +46,8 @@ source .venv/bin/activate  # macOS/Linux
 pip install -e .
 ```
 
+<sub><a href="#top">Back to top.</a></sub>
+
 ## Basic Usage
 
 ```bash
@@ -41,7 +55,7 @@ scribe-data -h
 scribe-data [command] [arguments]
 ```
 
-## Available Commands
+### Available Commands
 
 - `list` (`l`): List the languages, data types, and combinations available in Scribe-Data.
 - `get` (`g`): Get data from Wikidata and other sources for the selected languages and data types.
@@ -53,7 +67,7 @@ scribe-data [command] [arguments]
 - `check_contracts (`cc`): Check that an export directory contains the language data needed by the contracts.
 - `filter_data` (`fd`): Filter exported Scribe-Data data based on contract values.
 
-## Available Arguments
+### Available Arguments
 
 The following arguments can be passed to commands where applicable:
 
@@ -64,7 +78,9 @@ The following arguments can be passed to commands where applicable:
 - `--output-type` (`-ot`): The file type that the command should output.
 - `--outputs-per-entry` (`-ope`): How many outputs should be generated per data entry.
 - `--all` (`-a`): Get all results from the command.
-- `--interactive` (`-i)`: Run in interactive mode where supported.
+- `--interactive` (`-i`): Run in interactive mode where supported.
+
+<sub><a href="#top">Back to top.</a></sub>
 
 ## Command Examples
 
@@ -99,7 +115,7 @@ scribe-data get --language English --data-type verbs --output-dir ./output_data 
 scribe-data get --language English --data-type verbs --output-dir ./output_data --output-type tsv
 ```
 
-### Interactive mode
+### Interactive Mode
 
 ```bash
 scribe-data interactive
@@ -107,7 +123,9 @@ scribe-data get --interactive
 scribe-data total --interactive
 ```
 
-## Additional help
+<sub><a href="#top">Back to top.</a></sub>
+
+## Additional Help
 
 For detailed information on any command, use:
 
@@ -124,3 +142,5 @@ scribe-data -u
 ```
 
 For more information, see the [official documentation](https://scribe-data.readthedocs.io/).
+
+<sub><a href="#top">Back to top.</a></sub>
