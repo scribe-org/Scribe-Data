@@ -1,33 +1,75 @@
+<a id="top"></a>
+
 # Scribe-Data CLI Usage
 
-Scribe-Data provides a command-line interface (CLI) for efficient interaction with its language data functionality.
+Scribe-Data provides a command-line interface (CLI) for extracting language data from Wikidata and other sources.
 
-## Basic Usage
+## Contents
 
-To utilize the Scribe-Data CLI, you can execute the following command in your terminal:
+- [Installation](#installation)
+- [Development Build](#development-build)
+- [Basic Usage](#basic-usage)
+- [Command Examples](#command-examples)
+- [Additional Help](#additional-help)
+
+## Installation
+
+### Using uv (recommended)
+
+```bash
+uv pip install scribe-data
+```
+
+### Using pip
 
 ```bash
 pip install scribe-data
+```
 
-# For a development build:
-git clone https://github.com/scribe-org/Scribe-Data.git  # or ideally your fork
+<sub><a href="#top">Back to top.</a></sub>
+
+## Development Build
+
+```bash
+git clone https://github.com/scribe-org/Scribe-Data.git  # or your fork
 cd Scribe-Data
-pip install -e .
 
-scribe-data -h  # view the cli options
+# With uv (recommended)
+uv sync --all-groups
+source .venv/bin/activate  # macOS/Linux
+# .venv\Scripts\activate   # Windows
+
+# Or with pip
+python -m venv .venv
+source .venv/bin/activate  # macOS/Linux
+# .venv\Scripts\activate   # Windows
+pip install -e .
+```
+
+<sub><a href="#top">Back to top.</a></sub>
+
+## Basic Usage
+
+```bash
+scribe-data -h
 scribe-data [command] [arguments]
 ```
 
-## Available Commands
+### Available Commands
 
-- `list` (`l`): Enumerate available languages, data types and their combinations.
-- `get` (`g`): Retrieve data from Wikidata for specified languages and data types.
-- `total` (`t`): Display the total available data for given languages and data types.
-- `convert` (`c`): Transform data returned by Scribe-Data into different file formats.
+- `list` (`l`): List the languages, data types, and combinations available in Scribe-Data.
+- `get` (`g`): Get data from Wikidata and other sources for the selected languages and data types.
+- `total` (`t`): Show the total available data for selected languages and data types.
+- `convert` (`c`): Convert Scribe-Data output into different file types.
+- `download` (`d`): Download Wikidata lexeme or Wiktionary dumps.
+- `interactive` (`i`): Run Scribe-Data in interactive mode.
+- `export_contracts` (`ec`): Export Scribe-Data contracts to a local directory.
+- `check_contracts (`cc`): Check that an export directory contains the language data needed by the contracts.
+- `filter_data` (`fd`): Filter exported Scribe-Data data based on contract values.
 
-## Available Arguments
+### Available Arguments
 
-The following arguments can be passed to the Scribe-Data commands whenever sensible:
+The following arguments can be passed to commands where applicable:
 
 - `--language` (`-lang`): The language to run the command for.
 - `--data-type` (`-dt`): The data type to run the command for.
@@ -36,107 +78,69 @@ The following arguments can be passed to the Scribe-Data commands whenever sensi
 - `--output-type` (`-ot`): The file type that the command should output.
 - `--outputs-per-entry` (`-ope`): How many outputs should be generated per data entry.
 - `--all` (`-a`): Get all results from the command.
+- `--interactive` (`-i`): Run in interactive mode where supported.
+
+<sub><a href="#top">Back to top.</a></sub>
 
 ## Command Examples
 
-### List Command
-
-1. Display all available options:
-
-   ```bash
-   scribe-data list # -a --all
-   ```
-
-2. Display available languages:
-
-   ```bash
-   scribe-data list -lang # --language
-   ```
-
-3. Display available data types:
-
-   ```bash
-   scribe-data list -dt # --data-type
-   ```
-
-### Total Command
-
-1. Display total available data for a specific data type (e.g. nouns):
-
-   ```bash
-   scribe-data total -dt nouns
-   ```
-
-2. Display total available data for a specific language (e.g. English):
-
-   ```bash
-   scribe-data total -lang English
-   ```
-
-3. Display total available data for both language and data type (e.g. English nouns):
-
-   ```bash
-   scribe-data total -lang English -dt nouns
-   ```
-
-### Get Command
-
-1. Get all available languages and data types:
-
-   ```bash
-   scribe-data get -a # --all
-   ```
-
-2. Get specific language and data type (e.g. German nouns):
-
-   ```bash
-   scribe-data get -lang German -dt nouns
-   ```
-
-### Convert Command
-
-1. Retrieve data for both language and data type (e.g. English nouns) in CSV format:
-
-   ```bash
-   scribe-data get -lang english -dt verbs -od ./output_data -ot csv
-   ```
-
-2. Retrieve data for both language and data type (e.g. English nouns) in TSV format:
-
-   ```bash
-   scribe-data get -lang english -dt verbs -od ./output_data -ot tsv
-   ```
-
-### Interactive Get Mode
-
-The CLI also offers an interactive get mode, which can be initiated with the following command:
+### List
 
 ```bash
-scribe-data get -i # --interactive
+scribe-data list
+scribe-data list --language
+scribe-data list --data-type
 ```
 
-This mode guides users through the data retrieval process with a series of prompts:
-
-1. Language selection: Users can choose from a list of available languages or select all.
-2. Data type selection: Users can specify which types of data to get.
-3. Output configuration: Users can set the file format, export directory, and overwrite preferences.
-
-The interactive mode is particularly useful for users who prefer a guided approach or are exploring the available data options.
-
-## Additional Assistance
-
-For more detailed information on each command and its options, append the `--help` flag:
+### Total
 
 ```bash
-scribe-data -h # --help
+scribe-data total --data-type nouns
+scribe-data total --language English
+scribe-data total --language English --data-type nouns
+```
+
+### Get
+
+```bash
+scribe-data get --all
+scribe-data get --language German --data-type nouns
+```
+
+### Convert
+
+```bash
+scribe-data get --language English --data-type verbs --output-dir ./output_data --output-type csv
+
+scribe-data get --language English --data-type verbs --output-dir ./output_data --output-type tsv
+```
+
+### Interactive Mode
+
+```bash
+scribe-data interactive
+scribe-data get --interactive
+scribe-data total --interactive
+```
+
+<sub><a href="#top">Back to top.</a></sub>
+
+## Additional Help
+
+For detailed information on any command, use:
+
+```bash
+scribe-data -h
 scribe-data [command] -h
 ```
 
-The CLI also has functions to check the version and upgrade the package if necessary.
+Version and upgrade commands are also available:
 
 ```bash
-scribe-data -v # --version
-scribe-data -u # --upgrade
+scribe-data -v
+scribe-data -u
 ```
 
-For comprehensive usage instructions and examples, please refer to the [official documentation](https://scribe-data.readthedocs.io/).
+For more information, see the [official documentation](https://scribe-data.readthedocs.io/).
+
+<sub><a href="#top">Back to top.</a></sub>

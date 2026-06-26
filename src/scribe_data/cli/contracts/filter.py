@@ -18,6 +18,8 @@ from scribe_data.utils import (
     get_language_from_iso,
 )
 
+# MARK: Filter Metadata
+
 
 def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
     """
@@ -63,7 +65,6 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
 
             # Case 2: List of number types.
             elif isinstance(numbers, list):
-                # Filter out empty strings
                 filtered_numbers = [n for n in numbers if n]
 
             # Case 3: String of number types.
@@ -71,7 +72,7 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
                 # Split and filter out empty strings.
                 filtered_numbers = [n for n in numbers.split() if n]
 
-            # Remove duplicates and store
+            # Remove duplicates and store.
             filtered_metadata["nouns"]["numbers"] = list(set(filtered_numbers))
 
         # Filter Genders.
@@ -112,6 +113,7 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
                                             ).split()
                                         ]
                                         conj_forms.update(cleaned_forms)
+
                                     elif isinstance(form, list):
                                         cleaned_forms = [
                                             f
@@ -151,6 +153,9 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
     except (yaml.YAMLError, IOError) as e:
         print(f"Error processing {contract_file}: {e}")
         return {}
+
+
+# MARK: Filter Export Data
 
 
 def filter_exported_data(
@@ -219,6 +224,9 @@ def filter_exported_data(
     except (json.JSONDecodeError, IOError) as e:
         print(f"Error processing {input_file}: {e}")
         return {}
+
+
+# MARK: Export Filtered Data
 
 
 def export_data_filtered_by_contracts(
@@ -305,6 +313,7 @@ def export_data_filtered_by_contracts(
                     open(output_file, "w", encoding="utf-8") as dst,
                 ):
                     dst.write(src.read())
+
                 print(f"Copied unfiltered {data_type} for {matched_language}")
                 continue
 
@@ -319,6 +328,7 @@ def export_data_filtered_by_contracts(
                 )
                 with open(output_file, "w", encoding="utf-8") as f:
                     json.dump(filtered_data, f, ensure_ascii=False, indent=2)
+
                 print(
                     f"Exported {matched_language} {data_type} with {len(filtered_data)} entries"
                 )

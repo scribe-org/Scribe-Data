@@ -158,13 +158,9 @@
     ]
   },
   {
-    "path": "scribe_data/cli/convert.py",
-    "file_name": "convert.py",
+    "path": "scribe_data/cli/convert/to_csv_or_tsv.py",
+    "file_name": "to_csv_or_tsv.py",
     "functions": [
-      {
-        "name": "convert_to_json",
-        "complexity": 90
-      },
       {
         "name": "convert_to_csv_or_tsv",
         "complexity": 123
@@ -172,8 +168,32 @@
     ]
   },
   {
-    "path": "scribe_data/cli/download.py",
-    "file_name": "download.py",
+    "path": "scribe_data/cli/convert/to_json.py",
+    "file_name": "to_json.py",
+    "functions": [
+      {
+        "name": "convert_to_json",
+        "complexity": 90
+      }
+    ]
+  },
+  {
+    "path": "scribe_data/cli/convert/to_sqlite.py",
+    "file_name": "to_sqlite.py",
+    "functions": [
+      {
+        "name": "wiktionary_translations_to_sqlite",
+        "complexity": 17
+      },
+      {
+        "name": "convert_to_sqlite",
+        "complexity": 75
+      }
+    ]
+  },
+  {
+    "path": "scribe_data/cli/download/wikidata_lexeme_dump.py",
+    "file_name": "wikidata_lexeme_dump.py",
     "functions": [
       {
         "name": "download_wd_lexeme_dump",
@@ -184,12 +204,18 @@
         "complexity": 28
       },
       {
-        "name": "available_closest_lexeme_dumpfile",
+        "name": "available_closest_lexeme_dump_file",
         "complexity": 29
-      },
+      }
+    ]
+  },
+  {
+    "path": "scribe_data/cli/download/wiktionary_dump.py",
+    "file_name": "wiktionary_dump.py",
+    "functions": [
       {
         "name": "download_wiktionary_dumps",
-        "complexity": 31
+        "complexity": 32
       }
     ]
   },
@@ -204,11 +230,11 @@
     ]
   },
   {
-    "path": "scribe_data/cli/interactive.py",
-    "file_name": "interactive.py",
+    "path": "scribe_data/cli/interactive/run.py",
+    "file_name": "run.py",
     "functions": [
       {
-        "name": "start_interactive_mode",
+        "name": "run_interactive_mode",
         "complexity": 36
       }
     ]
@@ -224,20 +250,12 @@
     ]
   },
   {
-    "path": "scribe_data/cli/total.py",
-    "file_name": "total.py",
+    "path": "scribe_data/cli/total/print_values.py",
+    "file_name": "print_values.py",
     "functions": [
       {
         "name": "get_datatype_list",
         "complexity": 21
-      },
-      {
-        "name": "get_total_lexemes",
-        "complexity": 29
-      },
-      {
-        "name": "total_wrapper",
-        "complexity": 30
       },
       {
         "name": "print_total_lexemes",
@@ -246,16 +264,22 @@
     ]
   },
   {
-    "path": "scribe_data/load/data_to_sqlite.py",
-    "file_name": "data_to_sqlite.py",
+    "path": "scribe_data/cli/total/query.py",
+    "file_name": "query.py",
     "functions": [
       {
-        "name": "wiktionary_translations_to_sqlite",
-        "complexity": 17
-      },
+        "name": "query_total_lexemes",
+        "complexity": 29
+      }
+    ]
+  },
+  {
+    "path": "scribe_data/cli/total/wrapper.py",
+    "file_name": "wrapper.py",
+    "functions": [
       {
-        "name": "data_to_sqlite",
-        "complexity": 75
+        "name": "total_wrapper",
+        "complexity": 30
       }
     ]
   },

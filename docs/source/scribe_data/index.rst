@@ -6,13 +6,13 @@ Scribe-Data
 .. toctree::
     :maxdepth: 1
 
-    cli
     utils
 
 .. toctree::
     :maxdepth: 2
 
     check/index
-    load/index
+    cli/index
     unicode/index
     wikidata/index
+    wiktionary/index

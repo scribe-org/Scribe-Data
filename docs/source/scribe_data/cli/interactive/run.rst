@@ -1,0 +1,8 @@
+run.py
+======
+
+`View code on Github <https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/cli/interactive/run.py>`_
+
+.. automodule:: scribe_data.cli.interactive.run
+    :members:
+    :private-members:
