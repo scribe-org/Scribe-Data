@@ -1,5 +1,6 @@
 name: ci_static_analysis
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - main
