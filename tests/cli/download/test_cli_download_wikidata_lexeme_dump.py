@@ -16,7 +16,7 @@ from scribe_data.cli.download.wikidata_lexeme_dump import (
     parse_date,
     wd_lexeme_dump_download_wrapper,
 )
-from scribe_data.utils import check_lexeme_dump_prompt_download
+from scribe_data.utils import WMF_HEADERS, check_lexeme_dump_prompt_download
 
 
 class TestDownloadCLI(unittest.TestCase):
@@ -70,6 +70,11 @@ class TestDownloadCLI(unittest.TestCase):
         self.assertEqual(
             url,
             "https://dumps.wikimedia.org/wikidatawiki/entities/latest-lexemes.json.bz2",
+        )
+        mock_get.assert_called_with(
+            "https://dumps.wikimedia.org/wikidatawiki/entities",
+            headers=WMF_HEADERS,
+            timeout=30,
         )
 
     @patch("scribe_data.cli.download.wikidata_lexeme_dump.requests.get")
@@ -129,6 +134,16 @@ class TestDownloadCLI(unittest.TestCase):
             self.assertIn("latest-lexemes.json.bz2", str(download_path))
             mock_makedirs.assert_called_with(Path("test_export_dir"), exist_ok=True)
             mock_confirm.assert_called_once()
+
+            # tqdm desc must be str; PosixPath is not subscriptable and breaks the bar.
+            mock_tqdm.assert_called()
+            tqdm_kwargs = mock_tqdm.call_args.kwargs
+            self.assertEqual(tqdm_kwargs["desc"], "latest-lexemes.json.bz2")
+            self.assertIsInstance(tqdm_kwargs["desc"], str)
+
+            # Wikimedia dumps require a User-Agent header.
+            for call in mock_get.call_args_list:
+                self.assertEqual(call.kwargs.get("headers"), WMF_HEADERS)
 
     @patch("scribe_data.utils.questionary.select")
     @patch(
