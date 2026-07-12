@@ -1,6 +1,6 @@
 [
   {
-    "path": "Scribe-Data/src/scribe_data/check/check_missing_forms/check_missing_forms.py",
+    "path": "scribe_data/check/check_missing_forms/check_missing_forms.py",
     "file_name": "check_missing_forms.py",
     "functions": [
       {
@@ -26,7 +26,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/check/check_missing_forms/generate_query.py",
+    "path": "scribe_data/check/check_missing_forms/generate_query.py",
     "file_name": "generate_query.py",
     "functions": [
       {
@@ -36,7 +36,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/check/check_missing_forms/pr_body.py",
+    "path": "scribe_data/check/check_missing_forms/pr_body.py",
     "file_name": "pr_body.py",
     "functions": [
       {
@@ -46,7 +46,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/check/check_missing_forms/split_query.py",
+    "path": "scribe_data/check/check_missing_forms/split_query.py",
     "file_name": "split_query.py",
     "functions": [
       {
@@ -56,7 +56,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/check/check_project_metadata.py",
+    "path": "scribe_data/check/check_project_metadata.py",
     "file_name": "check_project_metadata.py",
     "functions": [
       {
@@ -78,7 +78,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/check/check_project_structure.py",
+    "path": "scribe_data/check/check_project_structure.py",
     "file_name": "check_project_structure.py",
     "functions": [
       {
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/check/check_pyicu.py",
+    "path": "scribe_data/check/check_pyicu.py",
     "file_name": "check_pyicu.py",
     "functions": [
       {
@@ -102,7 +102,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/check/check_query_forms.py",
+    "path": "scribe_data/check/check_query_forms.py",
     "file_name": "check_query_forms.py",
     "functions": [
       {
@@ -128,7 +128,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/check/check_query_identifiers.py",
+    "path": "scribe_data/check/check_query_identifiers.py",
     "file_name": "check_query_identifiers.py",
     "functions": [
       {
@@ -138,7 +138,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/cli_utils.py",
+    "path": "scribe_data/cli/cli_utils.py",
     "file_name": "cli_utils.py",
     "functions": [
       {
@@ -152,7 +152,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/contracts/check.py",
+    "path": "scribe_data/cli/contracts/check.py",
     "file_name": "check.py",
     "functions": [
       {
@@ -162,7 +162,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/contracts/filter.py",
+    "path": "scribe_data/cli/contracts/filter.py",
     "file_name": "filter.py",
     "functions": [
       {
@@ -176,7 +176,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/convert/to_csv_or_tsv.py",
+    "path": "scribe_data/cli/convert/to_csv_or_tsv.py",
     "file_name": "to_csv_or_tsv.py",
     "functions": [
       {
@@ -186,7 +186,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/convert/to_json.py",
+    "path": "scribe_data/cli/convert/to_json.py",
     "file_name": "to_json.py",
     "functions": [
       {
@@ -196,7 +196,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/convert/to_sqlite.py",
+    "path": "scribe_data/cli/convert/to_sqlite.py",
     "file_name": "to_sqlite.py",
     "functions": [
       {
@@ -214,7 +214,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/convert/wrapper.py",
+    "path": "scribe_data/cli/convert/wrapper.py",
     "file_name": "wrapper.py",
     "functions": [
       {
@@ -224,7 +224,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/download/wikidata_lexeme_dump.py",
+    "path": "scribe_data/cli/download/wikidata_lexeme_dump.py",
     "file_name": "wikidata_lexeme_dump.py",
     "functions": [
       {
@@ -242,7 +242,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/download/wiktionary_dump.py",
+    "path": "scribe_data/cli/download/wiktionary_dump.py",
     "file_name": "wiktionary_dump.py",
     "functions": [
       {
@@ -252,7 +252,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/get.py",
+    "path": "scribe_data/cli/get.py",
     "file_name": "get.py",
     "functions": [
       {
@@ -262,7 +262,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/interactive/run.py",
+    "path": "scribe_data/cli/interactive/run.py",
     "file_name": "run.py",
     "functions": [
       {
@@ -272,7 +272,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/list/data_types.py",
+    "path": "scribe_data/cli/list/data_types.py",
     "file_name": "data_types.py",
     "functions": [
       {
@@ -282,7 +282,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/main.py",
+    "path": "scribe_data/cli/main.py",
     "file_name": "main.py",
     "functions": [
       {
@@ -292,7 +292,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/total/print_values.py",
+    "path": "scribe_data/cli/total/print_values.py",
     "file_name": "print_values.py",
     "functions": [
       {
@@ -306,7 +306,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/total/query.py",
+    "path": "scribe_data/cli/total/query.py",
     "file_name": "query.py",
     "functions": [
       {
@@ -316,7 +316,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/cli/total/wrapper.py",
+    "path": "scribe_data/cli/total/wrapper.py",
     "file_name": "wrapper.py",
     "functions": [
       {
@@ -326,7 +326,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/unicode/process_unicode.py",
+    "path": "scribe_data/unicode/process_unicode.py",
     "file_name": "process_unicode.py",
     "functions": [
       {
@@ -336,7 +336,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/utils.py",
+    "path": "scribe_data/utils.py",
     "file_name": "utils.py",
     "functions": [
       {
@@ -350,7 +350,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/wikidata/format_data.py",
+    "path": "scribe_data/wikidata/format_data.py",
     "file_name": "format_data.py",
     "functions": [
       {
@@ -360,7 +360,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/wikidata/parse_dump.py",
+    "path": "scribe_data/wikidata/parse_dump.py",
     "file_name": "parse_dump.py",
     "functions": [
       {
@@ -390,7 +390,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/wikidata/query_data.py",
+    "path": "scribe_data/wikidata/query_data.py",
     "file_name": "query_data.py",
     "functions": [
       {
@@ -400,7 +400,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/wikidata/wikidata_utils.py",
+    "path": "scribe_data/wikidata/wikidata_utils.py",
     "file_name": "wikidata_utils.py",
     "functions": [
       {
@@ -410,7 +410,7 @@
     ]
   },
   {
-    "path": "Scribe-Data/src/scribe_data/wiktionary/parse_translations.py",
+    "path": "scribe_data/wiktionary/parse_translations.py",
     "file_name": "parse_translations.py",
     "functions": [
       {
@@ -448,16 +448,6 @@
       {
         "name": "_parse_ast_u_tabelle",
         "complexity": 51
-      }
-    ]
-  },
-  {
-    "path": "Scribe-Data/tests/wikidata/test_wikidata_check_query.py",
-    "file_name": "test_wikidata_check_query.py",
-    "functions": [
-      {
-        "name": "validate_forms",
-        "complexity": 20
       }
     ]
   }
