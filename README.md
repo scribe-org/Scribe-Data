@@ -340,8 +340,8 @@ Many thanks to all the [Scribe-Data contributors](https://github.com/scribe-org/
       <img width="240" src="https://raw.githubusercontent.com/scribe-org/Organization/main/resources/images/logos/WikidataLogo.png" alt="Wikidata logo">
     </a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="https://www.wikipedia.org/">
-      <img width="160" src="https://raw.githubusercontent.com/scribe-org/Organization/main/resources/images/logos/WikipediaLogo.png" alt="Wikipedia logo">
+    <a href="https://www.wiktionary.org/">
+      <img width="160" src="https://raw.githubusercontent.com/scribe-org/Organization/main/resources/images/logos/WiktionaryLogo.png" alt="Wiktionary logo">
     </a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <br>
