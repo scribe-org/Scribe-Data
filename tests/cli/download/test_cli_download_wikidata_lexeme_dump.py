@@ -145,6 +145,45 @@ class TestDownloadCLI(unittest.TestCase):
             for call in mock_get.call_args_list:
                 self.assertEqual(call.kwargs.get("headers"), WMF_HEADERS)
 
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.requests.get")
+    @patch(
+        "scribe_data.cli.download.wikidata_lexeme_dump.check_lexeme_dump_prompt_download",
+        return_value=False,
+    )
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.open", new_callable=mock_open)
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.tqdm")
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.os.makedirs")
+    @patch("scribe_data.cli.download.wikidata_lexeme_dump.questionary.confirm")
+    def test_wd_lexeme_dump_download_wrapper_accepts_str_output_dir(
+        self,
+        mock_confirm: MagicMock,
+        mock_makedirs: MagicMock,
+        mock_tqdm: MagicMock,
+        mock_file: MagicMock,
+        mock_check_prompt: MagicMock,
+        mock_get: MagicMock,
+    ) -> None:
+        """
+        CLI passes -wdp as str; Path join must not raise TypeError.
+        """
+        mock_confirm.return_value.ask.return_value = True
+        mock_get.return_value.text = 'href="latest-all.json.bz2"'
+        mock_get.return_value.raise_for_status = MagicMock()
+        mock_get.return_value.headers = {"content-length": "100"}
+        mock_get.return_value.iter_content = lambda chunk_size: [b"data"] * 10
+
+        download_path = wd_lexeme_dump_download_wrapper(
+            output_dir="./scribe_data_wikidata_dumps_export"
+        )
+        self.assertIsNotNone(download_path)
+        self.assertEqual(
+            download_path,
+            Path("scribe_data_wikidata_dumps_export") / "latest-lexemes.json.bz2",
+        )
+        mock_makedirs.assert_called_with(
+            Path("scribe_data_wikidata_dumps_export"), exist_ok=True
+        )
+
     @patch("scribe_data.utils.questionary.select")
     @patch(
         "scribe_data.utils.Path.glob",

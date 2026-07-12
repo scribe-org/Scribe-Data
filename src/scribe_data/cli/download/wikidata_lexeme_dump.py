@@ -234,7 +234,7 @@ def wd_lexeme_dump_download_wrapper(
         - Returns None if the user chooses not to proceed with the download or no valid dump URL is found.
     """
     try:
-        output_dir = output_dir or DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
+        output_dir = Path(output_dir or DEFAULT_WIKIDATA_DUMP_EXPORT_DIR)
 
         os.makedirs(output_dir, exist_ok=True)
 

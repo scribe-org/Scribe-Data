@@ -66,7 +66,8 @@ def download_wiktionary_dumps(
     wiktionaries = [f"{iso}wiktionary" for iso in language_isos]
     wiktionary_urls = [f"https://dumps.wikimedia.org/{w}" for w in wiktionaries]
 
-    Path(output_dir).mkdir(parents=True, exist_ok=True)
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
     for i, w, u in zip(language_isos, wiktionaries, wiktionary_urls):
         # Note: Remove the snapshot from the resulting filename so Scribe-Server always looks for one file.
         filename = f"{w}-pages-articles.xml.bz2"
