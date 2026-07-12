@@ -8,7 +8,7 @@ import json
 import os
 import re
 from datetime import datetime
-from importlib import resources
+from importlib import metadata, resources
 from pathlib import Path
 from typing import Any
 
@@ -34,6 +34,9 @@ DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR = Path("scribe_data_wiktionary_dumps_export")
 
 DEFAULT_CONTRACTS_EXPORT_DIR = Path("scribe_data_contracts")
 DEFAULT_DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
+
+project_homepage = metadata.metadata("scribe-data").get("Home-page")
+WMF_HEADERS = {"User-Agent": f"{PROJECT_ROOT} ({project_homepage})"}
 
 WIKIDATA_QUERIES_ALL_DATA_DIR = Path(__file__).parent / "wikidata" / "queries_all_data"
 WIKIDATA_QUERIES_SCRIBE_APPS_DIR = (

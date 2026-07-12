@@ -18,6 +18,7 @@ from tqdm import tqdm
 from scribe_data.utils import (
     DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
+    WMF_HEADERS,
     check_lexeme_dump_prompt_download,
 )
 
@@ -145,7 +146,7 @@ def download_wd_lexeme_dump(
             If the dump file does not exist.
         """
         entity_url = f"{base_url}/{target_entity}/"
-        entity_response = requests.get(entity_url, timeout=30)
+        entity_response = requests.get(entity_url, headers=WMF_HEADERS, timeout=30)
         entity_response.raise_for_status()
         dump_filenames = re.findall(r'href="([^"]+)"', entity_response.text)
 
@@ -167,7 +168,7 @@ def download_wd_lexeme_dump(
             )
             print("We could not find your requested Wikidata lexeme dump.")
 
-            response = requests.get(base_url, timeout=30)
+            response = requests.get(base_url, headers=WMF_HEADERS, timeout=30)
             other_old_dumps = re.findall(r'href="([^"]+)/"', response.text)
 
             user_response = questionary.confirm(
@@ -193,7 +194,7 @@ def download_wd_lexeme_dump(
                         return
 
     try:
-        response = requests.get(base_url, timeout=30)
+        response = requests.get(base_url, headers=WMF_HEADERS, timeout=30)
         response.raise_for_status()
         latest_dump = re.findall(r'href="([^"]+)"', response.text)
         if "latest-all.json.bz2" in latest_dump:
@@ -267,12 +268,14 @@ def wd_lexeme_dump_download_wrapper(
         if user_response:
             rprint(f"[bold blue]Downloading dump to {output_path}...[/bold blue]")
 
-            response = requests.get(dump_url, stream=True, timeout=30)
+            response = requests.get(
+                dump_url, headers=WMF_HEADERS, stream=True, timeout=30
+            )
             total_size = int(response.headers.get("content-length", 0))
 
             with open(output_path, "wb") as f:
                 with tqdm(
-                    total=total_size, unit="iB", unit_scale=True, desc=output_path
+                    total=total_size, unit="iB", unit_scale=True, desc=filename
                 ) as pbar:
                     for chunk in response.iter_content(chunk_size=8192):
                         if chunk:

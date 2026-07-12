@@ -387,34 +387,49 @@ Download Command
 ~~~~~~~~~~~~~~~~
 
 Download Wikidata lexeme dumps or Wiktionary dumps for offline data extraction.
+Pass ``-wdp`` for a Wikidata dump or ``-wtp`` for a Wiktionary dump.
 
 Usage
 ^^^^^
 
 .. code-block:: bash
 
-    scribe-data download
+    scribe-data download [arguments]
 
 Options
 ^^^^^^^
 
-- ``--wiktionary-dump``: Download a Wiktionary dump instead of a Wikidata lexeme dump.
-- ``-lang, --language LANGUAGE``: The language edition of Wiktionary to download (e.g. ``de`` for German Wiktionary). Defaults to English Wiktionary (``enwiktionary``) when omitted.
+- ``-wdp, --wikidata-dump-path [PATH]``: Download a Wikidata lexeme dump. Uses ``./scribe_data_wikidata_dumps_export`` if no path is provided.
+- ``-wtp, --wiktionary-dump-path [PATH]``: Download a Wiktionary dump. Uses ``./scribe_data_wiktionary_dumps_export`` if no path is provided.
+- ``-ds, --dump-snapshot [SNAPSHOT]``: The dump snapshot to download. For Wikidata use ``latest-lexemes`` or a date in ``YYYYMMDD`` format. For Wiktionary defaults to ``latest``.
+- ``-lang, --language LANGUAGE``: The language or ISO code for Wiktionary dumps (e.g. ``de`` for German Wiktionary). Defaults to English (``en``) when omitted.
 
 Examples
 ^^^^^^^^
+
+Download the latest Wikidata lexeme dump:
+
+.. code-block:: bash
+
+    scribe-data download -wdp --dump-snapshot latest-lexemes
+
+Download a Wikidata lexeme dump for a specific date:
+
+.. code-block:: bash
+
+    scribe-data download -wdp --dump-snapshot 20240101
 
 Download the English Wiktionary dump:
 
 .. code-block:: bash
 
-    scribe-data download --wiktionary-dump
+    scribe-data download -wtp
 
 Download a specific language's Wiktionary dump:
 
 .. code-block:: bash
 
-    scribe-data download --wiktionary-dump --language de
+    scribe-data download -wtp --language de
 
 Behavior and Output
 ^^^^^^^^^^^^^^^^^^^
@@ -444,8 +459,8 @@ Behavior and Output
 
     .. code-block:: text
 
-        Downloading dump to scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2...
-        scribe_data_wikidata_dumps_export\latest-lexemes.json.bz2: 100%|███████████████████| 370M/370M [04:20<00:00, 1.42MiB/s]
+        Downloading dump to scribe_data_wikidata_dumps_export/latest-lexemes.json.bz2...
+        scribe_data_wikidata_dumps_export/latest-lexemes.json.bz2: 100%|███████████████████| 370M/370M [04:20<00:00, 1.42MiB/s]
         Wikidata lexeme dump download completed successfully!
 
 
