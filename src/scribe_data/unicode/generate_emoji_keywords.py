@@ -56,14 +56,6 @@ def generate_emoji(language: str, output_dir: Path = Path("")) -> None:
             )
             return
 
-        updated_path = (
-            Path(str(output_dir)[2:])
-            if str(output_dir).startswith("./")
-            else output_dir
-        )
-        export_dir = Path(updated_path) / language.capitalize()
-        export_dir.mkdir(parents=True, exist_ok=True)
-
         if emoji_keywords_dict := gen_emoji_lexicon(
             language=language,
             emojis_per_keyword=EMOJI_KEYWORDS_DICT,

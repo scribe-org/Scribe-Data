@@ -405,6 +405,7 @@ def export_formatted_data(
         / language.lower().replace(" ", "_")
         / f"{data_type.replace('-', '_')}.json"
     )
+    export_path.parent.mkdir(parents=True, exist_ok=True)
 
     with open(export_path, "w", encoding="utf-8") as file:
         json.dump(formatted_data, file, ensure_ascii=False, indent=0)
