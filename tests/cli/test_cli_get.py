@@ -681,3 +681,79 @@ class TestGetData(unittest.TestCase):
             overwrite=False,
             interactive=False,
         )
+
+
+class TestGetCommandDumpBatching(unittest.TestCase):
+    """
+    Unit tests for CLI get routing when using a Wikidata dump path.
+    """
+
+    @patch("scribe_data.cli.main.get_data")
+    @patch("scribe_data.cli.main.validate_language_and_data_type")
+    def test_wdp_batches_languages_and_data_types(
+        self, mock_validate: MagicMock, mock_get_data: MagicMock
+    ) -> None:
+        """
+        -wdp should parse all languages/types in a single get_data call.
+        """
+        from scribe_data.cli.main import main
+
+        test_args = [
+            "main.py",
+            "get",
+            "-lang",
+            "english",
+            "french",
+            "-dt",
+            "nouns",
+            "verbs",
+            "-wdp",
+            "-o",
+        ]
+        with patch("sys.argv", test_args):
+            main()
+
+        mock_get_data.assert_called_once()
+        _, kwargs = mock_get_data.call_args
+        self.assertEqual(kwargs["languages"], ["english", "french"])
+        self.assertEqual(kwargs["data_types"], ["nouns", "verbs"])
+        self.assertIsNotNone(kwargs["wikidata_dump_path"])
+        self.assertTrue(kwargs["overwrite"])
+
+    @patch("scribe_data.cli.main.get_data")
+    @patch("scribe_data.cli.main.validate_language_and_data_type")
+    def test_query_path_still_loops_pairs(
+        self, mock_validate: MagicMock, mock_get_data: MagicMock
+    ) -> None:
+        """
+        Without -wdp, keep one SPARQL get_data call per language-datatype pair.
+        """
+        from scribe_data.cli.main import main
+
+        test_args = [
+            "main.py",
+            "get",
+            "-lang",
+            "english",
+            "french",
+            "-dt",
+            "nouns",
+            "verbs",
+        ]
+        with patch("sys.argv", test_args):
+            main()
+
+        self.assertEqual(mock_get_data.call_count, 4)
+        pairs = [
+            (call.kwargs["languages"], call.kwargs["data_types"])
+            for call in mock_get_data.call_args_list
+        ]
+        self.assertEqual(
+            pairs,
+            [
+                (["english"], ["nouns"]),
+                (["english"], ["verbs"]),
+                (["french"], ["nouns"]),
+                (["french"], ["verbs"]),
+            ],
+        )

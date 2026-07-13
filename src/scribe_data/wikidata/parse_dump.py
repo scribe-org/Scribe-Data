@@ -394,33 +394,50 @@ class LexemeProcessor:
             The file is processed and a summary is printed.
         """
         try:
-            # Use context manager for better resource handling.
-            with bz2.open(file_path, "rt", encoding="utf-8") as bzfile:
-                # Skip header if present.
-                first_line = bzfile.readline()
-                if not first_line.strip().startswith("["):
-                    bzfile.seek(0)
+            # Progress by compressed bytes read
+            compressed_size = Path(file_path).stat().st_size
+            with open(file_path, "rb") as raw:
+                with bz2.open(raw, "rt", encoding="utf-8") as bzfile:
+                    # Skip header if present.
+                    first_line = bzfile.readline()
+                    if not first_line.strip().startswith("["):
+                        bzfile.seek(0)
 
-                # Process in larger batches for better performance.
-                batch = []
-                start_time = time.time()
-                total_entries = int(Path(file_path).stat().st_size / 263)
+                    # Process in larger batches for better performance.
+                    batch = []
+                    start_time = time.time()
+                    last_pos = raw.tell()
 
-                for line in tqdm(
-                    bzfile, total=total_entries, desc="Processing entries"
-                ):
-                    if line.strip() not in ["[", "]", ",", ""]:
-                        batch.append(line)
+                    with tqdm(
+                        total=compressed_size,
+                        unit="B",
+                        unit_scale=True,
+                        desc="Processing entries",
+                    ) as pbar:
+                        if last_pos:
+                            pbar.update(last_pos)
 
-                        if len(batch) >= batch_size:
-                            self._process_batch(batch)
-                            batch.clear()  # more efficient than creating new list
+                        for line in bzfile:
+                            if line.strip() not in ["[", "]", ",", ""]:
+                                batch.append(line)
 
-                        self.stats["processed_entries"] += 1
+                                if len(batch) >= batch_size:
+                                    self._process_batch(batch)
+                                    batch.clear()
 
-                # Process remaining items.
-                if batch:
-                    self._process_batch(batch)
+                                self.stats["processed_entries"] += 1
+
+                            pos = raw.tell()
+                            if pos > last_pos:
+                                pbar.update(pos - last_pos)
+                                last_pos = pos
+
+                        if pbar.n < pbar.total:
+                            pbar.update(pbar.total - pbar.n)
+
+                    # Process remaining items.
+                    if batch:
+                        self._process_batch(batch)
 
         except EOFError:
             rprint(

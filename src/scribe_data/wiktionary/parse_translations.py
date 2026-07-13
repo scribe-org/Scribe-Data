@@ -978,6 +978,9 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
                     if diff > 0:
                         pbar_ref.update(diff)
 
+                    if pbar_ref.total is not None and pbar_ref.n < pbar_ref.total:
+                        pbar_ref.update(pbar_ref.total - pbar_ref.n)
+
                 except (OSError, ValueError):
                     pass
 
@@ -1128,6 +1131,8 @@ def parse_xml_dump(
             yield word, text, target_langs_frozenset, config
 
         if pbar:
+            if pbar.total is not None and pbar.n < pbar.total:
+                pbar.update(pbar.total - pbar.n)
             pbar.refresh()
             pbar.close()
 

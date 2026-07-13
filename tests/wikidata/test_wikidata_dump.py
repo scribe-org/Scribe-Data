@@ -3,7 +3,7 @@
 Tests for the CLI dump functionality.
 """
 
-from unittest.mock import MagicMock, mock_open, patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -71,23 +71,35 @@ def test_wikidata_lexeme_processor_initialization(
     assert "nouns" in lexeme_processor.data_types
 
 
-@patch("builtins.open", new_callable=mock_open, read_data=Sample_Lexeme_Line)
-@patch("bz2.open")
+@patch("scribe_data.wikidata.parse_dump.tqdm")
 def test_wikidata_process_file(
-    mock_bz2_open: MagicMock, mock_file: MagicMock, lexeme_processor: LexemeProcessor
+    mock_tqdm: MagicMock, lexeme_processor: LexemeProcessor, tmp_path
 ) -> None:
     """
-    Test processing a file with sample lexeme data.
+    Test processing a bz2 dump; progress total is compressed file size.
     """
-    mock_bz2_open.return_value.__enter__.return_value = mock_file()
+    import bz2
 
-    # Mock Path.stat() to return a size.
-    with patch("pathlib.Path.stat") as mock_stat:
-        mock_stat.return_value.st_size = 1000
-        lexeme_processor.process_file("test.json.bz2")
+    dump_path = tmp_path / "test.json.bz2"
+    with bz2.open(dump_path, "wt", encoding="utf-8") as f:
+        f.write("[\n")
+        f.write(Sample_Lexeme_Line.strip() + "\n")
+        f.write("]\n")
 
-    # Verify that stats were updated.
+    compressed_size = dump_path.stat().st_size
+    pbar = MagicMock()
+    pbar.n = 0
+    pbar.total = compressed_size
+    pbar.update.side_effect = lambda n=1: setattr(pbar, "n", pbar.n + n)
+    mock_tqdm.return_value.__enter__.return_value = pbar
+    mock_tqdm.return_value.__exit__.return_value = False
+
+    lexeme_processor.process_file(str(dump_path))
+
     assert lexeme_processor.stats["processed_entries"] > 0
+    mock_tqdm.assert_called_once()
+    assert mock_tqdm.call_args.kwargs["total"] == compressed_size
+    assert pbar.n == compressed_size
 
 
 @patch("scribe_data.wikidata.parse_dump.LexemeProcessor")
