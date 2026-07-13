@@ -520,20 +520,36 @@ def main() -> None:
 
                 # Process each language-datatype combination.
                 if languages and data_types:
-                    for language in languages:
-                        for data_type in data_types:
-                            get_data(
-                                languages=[language],
-                                data_types=[data_type],
-                                output_type=args.output_type,
-                                output_dir=args.output_dir,
-                                outputs_per_entry=args.outputs_per_entry,
-                                overwrite=args.overwrite,
-                                all_bool=args.all,
-                                identifier_case=args.identifier_case,
-                                wikidata_dump_path=args.wikidata_dump_path,
-                                wiktionary_dump=args.wiktionary_dump_path,
-                            )
+                    # Dump parse already handles multi lang/type in one pass.
+                    if args.wikidata_dump_path is not None:
+                        get_data(
+                            languages=languages,
+                            data_types=data_types,
+                            output_type=args.output_type,
+                            output_dir=args.output_dir,
+                            outputs_per_entry=args.outputs_per_entry,
+                            overwrite=args.overwrite,
+                            all_bool=args.all,
+                            identifier_case=args.identifier_case,
+                            wikidata_dump_path=args.wikidata_dump_path,
+                            wiktionary_dump=args.wiktionary_dump_path,
+                        )
+
+                    else:
+                        for language in languages:
+                            for data_type in data_types:
+                                get_data(
+                                    languages=[language],
+                                    data_types=[data_type],
+                                    output_type=args.output_type,
+                                    output_dir=args.output_dir,
+                                    outputs_per_entry=args.outputs_per_entry,
+                                    overwrite=args.overwrite,
+                                    all_bool=args.all,
+                                    identifier_case=args.identifier_case,
+                                    wikidata_dump_path=args.wikidata_dump_path,
+                                    wiktionary_dump=args.wiktionary_dump_path,
+                                )
 
                 else:
                     # Handle case where only language or data_type is provided.
