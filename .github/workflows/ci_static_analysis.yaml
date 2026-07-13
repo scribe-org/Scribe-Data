@@ -24,7 +24,6 @@ on:
 
 jobs:
   format_check:
-    if: github.repository == 'scribe-org/Scribe-Data'
     strategy:
       fail-fast: false
       matrix:

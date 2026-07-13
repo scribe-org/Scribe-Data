@@ -287,7 +287,7 @@
     "functions": [
       {
         "name": "main",
-        "complexity": 103
+        "complexity": 110
       }
     ]
   },
@@ -369,7 +369,7 @@
       },
       {
         "name": "LexemeProcessor::process_file",
-        "complexity": 22
+        "complexity": 26
       },
       {
         "name": "LexemeProcessor::_build_iso_mapping",
@@ -435,11 +435,11 @@
       },
       {
         "name": "_iter_dump_pages",
-        "complexity": 44
+        "complexity": 48
       },
       {
         "name": "parse_xml_dump",
-        "complexity": 45
+        "complexity": 49
       },
       {
         "name": "_parse_block_translations",

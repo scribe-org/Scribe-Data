@@ -394,7 +394,7 @@ class LexemeProcessor:
             The file is processed and a summary is printed.
         """
         try:
-            # Progress by compressed bytes read
+            # Progress by compressed bytes read.
             compressed_size = Path(file_path).stat().st_size
             with open(file_path, "rb") as raw:
                 with bz2.open(raw, "rt", encoding="utf-8") as bzfile:
