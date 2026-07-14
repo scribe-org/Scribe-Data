@@ -33,18 +33,18 @@ dependencies = [
     "requests==2.34.2",
     "rich==15.0.0",
     "sparqlwrapper==2.0.0",
-    "tqdm==4.68.3",
+    "tqdm==4.68.4",
 ]
 
 [dependency-groups]
 dev = [
     "complexipy>=6.0.1",
-    "prek>=0.4.6",
+    "prek>=0.4.9",
     "pytest>=9.1.1",
     "pytest-cov>=7.1.0",
-    "ruff>=0.15.20",
-    "setuptools>=82.0.1",
-    "ty>=0.0.56",
+    "ruff>=0.15.21",
+    "setuptools>=83.0.0",
+    "ty>=0.0.59",
 ]
 docs = [
     # Keep docs dependencies formatted in this way with ruff to allow for upgrades via VS Code extension.
