@@ -31,6 +31,8 @@ def export_contracts(output_dir: Path = DEFAULT_CONTRACTS_EXPORT_DIR) -> None:
         f"Contracts source directory not found at {contracts_source}."
     )
 
+    output_dir = Path(output_dir)
+
     if output_dir.exists():
         response = (
             input(
