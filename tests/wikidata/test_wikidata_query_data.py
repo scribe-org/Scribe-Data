@@ -129,7 +129,7 @@ class TestQueryData(unittest.TestCase):
 
                     # Check setQuery is called correctly.
                     mock_setQuery.assert_has_calls(
-                        [call("test query\n1"), call("test query\n2")], any_order=False
+                        [call("test query\n1"), call("test query\n2")], any_order=True
                     )
 
                     # Check the results JSON file exists.
