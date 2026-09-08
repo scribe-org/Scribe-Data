@@ -28,6 +28,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - Testing for various parts of the CLI was expanded ([#623](https://github.com/scribe-org/Scribe-Data/issues/623)).
 - Local pre-commit hooks are now ran with [prek](https://prek.j178.dev/) instead of `pre-commit`.
 
+### 📝 Documentation
+
+- An [architecture diagram](./ARCHITECTURE.md) was created to detail the various functionalities of the CLI ([#712](https://github.com/scribe-org/Scribe-Data/issues/712)).
+
 ### ♻️ Code Refactoring
 
 - Various refactors of the code happened to improve quality in regards to the changes above.
