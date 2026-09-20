@@ -11,9 +11,9 @@ WHERE {
     ontolex:sense ?sense.
 
   VALUES ?filter {
-    wd:Q545779
-    wd:Q1521634
-    wd:Q184439
+    wd:Q545779  # pejorative
+    wd:Q1521634  # vulgar
+    wd:Q184439  # profanity
   }.
 
   FILTER EXISTS {?sense wdt:P6191 ?filter.}.

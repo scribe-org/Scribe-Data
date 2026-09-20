@@ -196,6 +196,8 @@ def get_data(
             output_dir=output_dir,
         )
 
+    # MARK: Profanity
+
     # MARK: Translations
 
     elif data_types == ["translations"]:
