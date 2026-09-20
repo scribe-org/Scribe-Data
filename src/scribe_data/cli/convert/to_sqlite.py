@@ -91,7 +91,7 @@ def translations_to_sqlite(
     language_data_type_dict: dict,
     current_languages: list,
     identifier_case: str = "snake",
-    input_file: Path = DEFAULT_JSON_EXPORT_DIR,
+    input_path: Path = DEFAULT_JSON_EXPORT_DIR,
     output_file: Path = DEFAULT_SQLITE_EXPORT_DIR,
     overwrite: bool = False,
 ) -> None:
@@ -109,7 +109,7 @@ def translations_to_sqlite(
     identifier_case : str, optional
         The identifier case. Default is "snake".
 
-    input_file : str, optional, default=DEFAULT_JSON_EXPORT_DIR
+    input_path : str, optional, default=DEFAULT_JSON_EXPORT_DIR
         The input JSON export directory.
 
     output_file : str, optional, default=DEFAULT_SQLITE_EXPORT_DIR
@@ -134,7 +134,7 @@ def translations_to_sqlite(
     connection = sqlite3.connect(translation_db_path)
     cursor = connection.cursor()
 
-    print(f"Database for translations {maybe_over}written and connection made.")
+    print(f"\nDatabase for translations {maybe_over}written and connection made.")
 
     for lang in tqdm(
         language_data_type_dict,
@@ -142,7 +142,7 @@ def translations_to_sqlite(
         unit="tables",
     ):
         print(f"Creating/Updating {lang} translations table...")
-        json_file_path = Path(input_file) / lang / "translations.json"
+        json_file_path = Path(input_path) / lang / "translations.json"
 
         if not json_file_path.exists():
             print(
@@ -183,7 +183,7 @@ def translations_to_sqlite(
 def wiktionary_translations_to_sqlite(
     language,
     identifier_case="snake",
-    input_file=DEFAULT_JSON_EXPORT_DIR,
+    input_path=DEFAULT_JSON_EXPORT_DIR,
     output_file=DEFAULT_SQLITE_EXPORT_DIR,
     overwrite: bool = False,
 ):
@@ -204,7 +204,7 @@ def wiktionary_translations_to_sqlite(
     identifier_case : str, optional
         Either "camel" or "snake" to determine column naming. Default is "snake".
 
-    input_file : str, optional, default=DEFAULT_JSON_EXPORT_DIR
+    input_path : str, optional, default=DEFAULT_JSON_EXPORT_DIR
         The input JSON export directory.
 
     output_file : str, optional, default=DEFAULT_SQLITE_EXPORT_DIR
@@ -213,7 +213,7 @@ def wiktionary_translations_to_sqlite(
     overwrite : bool, optional
         If True, existing SQLite files will be overwritten without prompting.
     """
-    lang_dir = Path(input_file) / "/".join(reversed(language.split()))
+    lang_dir = Path(input_path) / "/".join(reversed(language.split()))
     if not lang_dir.is_dir():
         print(
             f"Warning: Directory '{lang_dir}' does not exist. "
@@ -294,7 +294,7 @@ def convert_to_sqlite(
     languages: list[str] | None = None,
     specific_tables: str | list[str] | None = None,
     identifier_case: str = "camel",
-    input_file: Path = DEFAULT_JSON_EXPORT_DIR,
+    input_path: Path = DEFAULT_JSON_EXPORT_DIR,
     output_file: Path = DEFAULT_SQLITE_EXPORT_DIR,
     overwrite: bool = False,
 ) -> None:
@@ -312,7 +312,7 @@ def convert_to_sqlite(
     identifier_case : str, optional, default='camel'
         Format of the identifiers ("camel" or "snake"). Defaults to "camel".
 
-    input_file : str, optional, default=DEFAULT_JSON_EXPORT_DIR
+    input_path : str, optional, default=DEFAULT_JSON_EXPORT_DIR
         The input JSON export directory.
 
     output_file : str, optional, default=DEFAULT_SQLITE_EXPORT_DIR
@@ -353,7 +353,7 @@ def convert_to_sqlite(
     # Prepare data types to process.
     language_data_type_dict = {}
     for lang in languages:
-        lang_dir = Path(input_file) / "/".join(reversed(lang.split()))
+        lang_dir = Path(input_path) / "/".join(reversed(lang.split()))
         if lang_dir.is_dir():
             language_data_type_dict[lang] = [
                 f.split(".json")[0]
@@ -385,7 +385,7 @@ def convert_to_sqlite(
             language_data_type_dict,
             current_languages,
             identifier_case=identifier_case,
-            input_file=input_file,
+            input_path=input_path,
             output_file=output_file,
             overwrite=overwrite,
         )
@@ -401,7 +401,7 @@ def convert_to_sqlite(
             wiktionary_translations_to_sqlite(
                 language=lang,
                 identifier_case=identifier_case,
-                input_file=input_file,
+                input_path=input_path,
                 output_file=output_file,
                 overwrite=overwrite,
             )
@@ -449,11 +449,11 @@ def convert_to_sqlite(
 
             connection = sqlite3.connect(db_file)
             cursor = connection.cursor()
-            print(f"Database for {lang} {maybe_over}written and connection made.")
+            print(f"\nDatabase for {lang} {maybe_over}written and connection made.")
 
             for dt in language_data_type_dict[lang]:
                 print(f"Creating/Updating {lang} {dt} table...")
-                json_file_path = Path(input_file) / lang / f"{dt}.json"
+                json_file_path = Path(input_path) / lang / f"{dt}.json"
 
                 if not json_file_path.exists():
                     print(

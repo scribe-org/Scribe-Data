@@ -142,8 +142,8 @@
     "file_name": "cli_utils.py",
     "functions": [
       {
-        "name": "validate_language_and_data_type",
-        "complexity": 36
+        "name": "validate_languages_and_data_types",
+        "complexity": 38
       },
       {
         "name": "print_formatted_data",
@@ -395,7 +395,7 @@
     "functions": [
       {
         "name": "query_data",
-        "complexity": 95
+        "complexity": 102
       }
     ]
   },

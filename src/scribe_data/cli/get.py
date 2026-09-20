@@ -196,8 +196,6 @@ def get_data(
             output_dir=output_dir,
         )
 
-    # MARK: Profanity
-
     # MARK: Translations
 
     elif data_types == ["translations"]:
@@ -232,12 +230,13 @@ def get_data(
 
     # MARK: Query Data
 
+    # Note: Includes profanity queries.
     elif languages and data_types:
         language_or_sub_language = languages[0].split(" ")[0]
         data_type = data_types[0] if isinstance(data_types, list) else data_types
         print(
             f"Getting data for {language_or_languages}: {language_or_sub_language.title()}; data {type_or_types}: "
-            f"{', '.join([t.capitalize() for t in data_types])}"
+            f"{', '.join(data_types)}"
         )
 
         json_path = Path(output_dir) / language_or_sub_language / f"{data_type}.json"

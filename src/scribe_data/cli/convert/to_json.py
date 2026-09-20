@@ -19,7 +19,7 @@ from scribe_data.utils import (
 def convert_to_json(
     language: str,
     data_types: str | list[str] | None,
-    input_file: Path,
+    input_path: Path,
     output_dir: Path,
     output_type: str,
     overwrite: bool = False,
@@ -36,7 +36,7 @@ def convert_to_json(
     data_types : Union[str, List[str]]
         The data type of the file to convert.
 
-    input_file : Path
+    input_path : Path
         The input CSV/TSV file path.
 
     output_dir : Path
@@ -71,24 +71,24 @@ def convert_to_json(
     json_output_dir.mkdir(parents=True, exist_ok=True)
 
     for dtype in data_types:
-        if not input_file.exists():
-            print(f"No data found for {dtype} conversion at '{input_file}'.")
+        if not input_path.exists():
+            print(f"No data found for {dtype} conversion at '{input_path}'.")
             continue
 
-        delimiter = {".csv": ",", ".tsv": "\t"}.get(input_file.suffix.lower())
+        delimiter = {".csv": ",", ".tsv": "\t"}.get(input_path.suffix.lower())
 
         if not delimiter:
             raise ValueError(
-                f"Unsupported file extension '{input_file.suffix}' for {str(input_file)}. Please provide a '.csv' or '.tsv' file."
+                f"Unsupported file extension '{input_path.suffix}' for {str(input_path)}. Please provide a '.csv' or '.tsv' file."
             )
 
         try:
-            with input_file.open("r", encoding="utf-8") as file:
+            with input_path.open("r", encoding="utf-8") as file:
                 reader = csv.DictReader(file, delimiter=delimiter)
                 rows = list(reader)
 
                 if not rows:
-                    print(f"No data found in '{input_file}'.")
+                    print(f"No data found in '{input_path}'.")
                     continue
 
                 # Use the first row to inspect column headers.
@@ -151,7 +151,7 @@ def convert_to_json(
                             }
 
         except (IOError, csv.Error) as e:
-            print(f"Error reading '{input_file}': {e}")
+            print(f"Error reading '{input_path}': {e}")
             continue
 
         # Define output file path

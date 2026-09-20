@@ -16,8 +16,11 @@ from tqdm.auto import tqdm
 
 from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
+    WIKIDATA_DIR,
     WIKIDATA_QUERIES_ALL_DATA_DIR,
+    WIKIDATA_QUERY_PROFANITY_FILE,
     format_sublanguage_name,
+    get_language_qid,
     language_metadata,
     list_all_languages,
 )
@@ -113,32 +116,39 @@ def query_data(
         Formatted data from Wikidata saved in the output directory.
     """
     current_languages = list_all_languages(language_metadata)
-    current_data_type = ["nouns", "verbs", "prepositions"]
+    current_data_types = ["nouns", "verbs", "prepositions", "profanity"]
 
     # Assign current_languages and current_data_type if no arguments have been passed.
     languages_update = current_languages if languages is None else languages
     languages_update = list(languages_update)
-    data_type_update = current_data_type if data_types is None else data_types
+    data_types_update = current_data_types if data_types is None else data_types
 
-    all_WIKIDATA_QUERIES_ALL_DATA_DIR_files = [
+    ALL_WIKIDATA_QUERIES_ALL_DATA_DIR_files = [
         path
         for path in Path(WIKIDATA_QUERIES_ALL_DATA_DIR).rglob("*")
         if path.is_file()
     ]
 
-    WIKIDATA_QUERIES_ALL_DATA_DIR_files_in_use = [
+    WIKIDATA_QUERIES_ALL_DATA_DIR_IN_USE = [
         path
-        for path in all_WIKIDATA_QUERIES_ALL_DATA_DIR_files
-        if path.parent.name in data_type_update
+        for path in ALL_WIKIDATA_QUERIES_ALL_DATA_DIR_files
+        if path.parent.name in data_types_update
         and path.parent.parent.name in languages_update
         and path.name != "__init__.py"
     ]
+
+    # Note: Create language - profanity query pairs for use in the process below (there's only one query).
+    if "profanity" in data_types_update:
+        WIKIDATA_QUERIES_ALL_DATA_DIR_IN_USE += [
+            WIKIDATA_DIR / lang / "profanity" / "query_profanity.sparql"
+            for lang in languages_update
+        ]
 
     # Derive the maximum query interval for use in looping through all queries.
     query_intervals = []
     query_intervals.extend(
         int(match[1])
-        for f in WIKIDATA_QUERIES_ALL_DATA_DIR_files_in_use
+        for f in WIKIDATA_QUERIES_ALL_DATA_DIR_IN_USE
         if (match := re.search(r"_(\d+)\.", f.name)) and f.name.endswith(".sparql")
     )
 
@@ -146,7 +156,7 @@ def query_data(
 
     queries_to_run = {
         Path(re.sub(r"_\d+.sparql", ".sparql", str(f)))
-        for f in WIKIDATA_QUERIES_ALL_DATA_DIR_files_in_use
+        for f in WIKIDATA_QUERIES_ALL_DATA_DIR_IN_USE
         if f.name.endswith(".sparql")
     }
     queries_to_run = sorted(queries_to_run)
@@ -173,18 +183,26 @@ def query_data(
         file_name = f"{target_type}.json"
         file_path = export_dir / file_name
 
-        print(f"Querying and formatting {lang.title()} {target_type}")
+        print(f"\nQuerying and formatting {lang.title()} {target_type}")
 
-        # Mark the query as the first in a set of queries if needed.
-        if not q.exists():
-            q = Path(str(q).replace(".sparql", "_1.sparql"))
+        # Note: We just use one query for profanity for all languages.
+        if target_type == "profanity":
+            with open(WIKIDATA_QUERY_PROFANITY_FILE, encoding="utf-8") as file:
+                query_lines = file.readlines()
+                query_str = "".join(query_lines).replace(
+                    "LANGUAGE_QID", get_language_qid(lang)
+                )
 
-        # First format the lines into a multi-line string and then pass this to SPARQLWrapper.
-        with open(q, encoding="utf-8") as file:
-            query_lines = file.readlines()
+        else:
+            # Mark the query as the first in a set of queries if needed.
+            if not q.exists():
+                q = Path(str(q).replace(".sparql", "_1.sparql"))
 
-        sparql.setQuery("".join(query_lines))
+            with open(q, encoding="utf-8") as file:
+                query_lines = file.readlines()
+                query_str = "".join(query_lines)
 
+        sparql.setQuery(query_str)
         results = sparql.query().convert()
 
         if results is None:

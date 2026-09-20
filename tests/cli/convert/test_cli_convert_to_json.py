@@ -36,7 +36,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
             convert_to_json(
                 language="",
                 data_types="nouns",
-                input_file=Path("input.csv"),
+                input_path=Path("input.csv"),
                 output_dir=Path("/output_dir"),
                 output_type="json",
                 overwrite=True,
@@ -57,7 +57,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
         convert_to_json(
             language="English",
             data_types="nouns",
-            input_file=Path("test.csv"),
+            input_path=Path("test.csv"),
             output_dir=Path("/output_dir"),
             output_type="json",
             overwrite=True,
@@ -77,15 +77,15 @@ class TestCLIConvertToJSON(unittest.TestCase):
         convert_to_json(
             language="English",
             data_types="nouns",
-            input_file=Path("test.tsv"),
+            input_path=Path("test.tsv"),
             output_dir=Path("/output_dir"),
             output_type="json",
             overwrite=True,
         )
 
     def test_cli_convert_to_json_unsupported_file_extension(self) -> None:
-        input_file = self.tmp_path / "test.txt"
-        input_file.write_text("Hello, world!", encoding="utf-8")
+        input_path = self.tmp_path / "test.txt"
+        input_path.write_text("Hello, world!", encoding="utf-8")
         output_dir = self.tmp_path / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -93,7 +93,7 @@ class TestCLIConvertToJSON(unittest.TestCase):
             convert_to_json(
                 language="English",
                 data_types="nouns",
-                input_file=input_file,
+                input_path=input_path,
                 output_dir=output_dir,
                 output_type="json",
                 overwrite=True,
@@ -102,22 +102,22 @@ class TestCLIConvertToJSON(unittest.TestCase):
         self.assertIn("Unsupported file extension", str(context.exception))
         self.assertEqual(
             str(context.exception),
-            f"Unsupported file extension '.txt' for {input_file}. Please provide a '.csv' or '.tsv' file.",
+            f"Unsupported file extension '.txt' for {input_path}. Please provide a '.csv' or '.tsv' file.",
         )
 
     def test_cli_convert_to_json_standard_csv(self) -> None:
         csv_data = "key,value\na,1\nb,2"
         expected_json_output = {"a": "1", "b": "2"}
 
-        input_file = self.tmp_path / "test.csv"
-        input_file.write_text(csv_data, encoding="utf-8")
+        input_path = self.tmp_path / "test.csv"
+        input_path.write_text(csv_data, encoding="utf-8")
         output_dir = self.tmp_path / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         convert_to_json(
             language="English",
             data_types="nouns",
-            input_file=input_file,
+            input_path=input_path,
             output_dir=output_dir,
             output_type="json",
             overwrite=True,
@@ -137,15 +137,15 @@ class TestCLIConvertToJSON(unittest.TestCase):
             "c": {"value1": "3", "value2": "z"},
         }
 
-        input_file = self.tmp_path / "test.csv"
-        input_file.write_text(csv_data, encoding="utf-8")
+        input_path = self.tmp_path / "test.csv"
+        input_path.write_text(csv_data, encoding="utf-8")
         output_dir = self.tmp_path / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         convert_to_json(
             language="English",
             data_types="nouns",
-            input_file=input_file,
+            input_path=input_path,
             output_dir=output_dir,
             output_type="json",
             overwrite=True,
@@ -164,15 +164,15 @@ class TestCLIConvertToJSON(unittest.TestCase):
             "b": [{"emoji": "😅", "is_base": False, "rank": 2}],
         }
 
-        input_file = self.tmp_path / "test.csv"
-        input_file.write_text(csv_data, encoding="utf-8")
+        input_path = self.tmp_path / "test.csv"
+        input_path.write_text(csv_data, encoding="utf-8")
         output_dir = self.tmp_path / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         convert_to_json(
             language="English",
             data_types="nouns",
-            input_file=input_file,
+            input_path=input_path,
             output_dir=output_dir,
             output_type="json",
             overwrite=True,

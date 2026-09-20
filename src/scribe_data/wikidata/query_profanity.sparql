@@ -1,14 +1,19 @@
 # tool: scribe-data
-# Queries all profane words from a given language to be removed from autosuggest options.
-# Enter this query at https://query.wikidata.org/.
+# Queries all profane words for a given language.
+# These words can then be removed from autosuggest and autocomplete options in client applications.
+# Enter this query at https://query.wikidata.org/ and replace LANGUAGE_QID with the desired language.
 
 SELECT DISTINCT
-  ?lemma
+  ?lexemeID
+  ?lastModified
+  ?profanity
 
 WHERE {
-  ?lexemeId dct:language wd:LANGUAGE_QID; # replace language qid here
-    wikibase:lemma ?lemma;
-    ontolex:sense ?sense.
+  ?lexemeID dct:language wd:LANGUAGE_QID;  # replace language qid here
+    wikibase:lemma ?profanity;
+    ontolex:sense ?sense;
+    schema:dateModified ?lastModified.
+
 
   VALUES ?filter {
     wd:Q545779  # pejorative
@@ -20,4 +25,4 @@ WHERE {
 }
 
 ORDER BY
-  lcase(?lemma)
+  lcase(?profanity)

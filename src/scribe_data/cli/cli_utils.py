@@ -109,20 +109,20 @@ def print_formatted_data(data: dict | list, data_type: str) -> None:
 # MARK: Validate
 
 
-def validate_language_and_data_type(
-    language: str | list[str] | bool | None,
-    data_type: str | list[str] | bool | None,
+def validate_languages_and_data_types(
+    languages: list[str] | bool | None,
+    data_types: list[str] | bool | None,
 ) -> bool:
     """
     Validate that the language and data type QIDs are not None.
 
     Parameters
     ----------
-    language : str or list
-        The language(s) to validate.
+    languages : list
+        The languages to validate.
 
-    data_type : str or list
-        The data type(s) to validate.
+    data_types : list
+        The data types to validate.
 
     Returns
     -------
@@ -135,7 +135,7 @@ def validate_language_and_data_type(
         If any of the languages or data types is invalid, with all errors reported together.
     """
 
-    def validate_single_item(
+    def validate_single_language_or_data_type(
         item: str, valid_options: set[str], item_type: str
     ) -> str | None:
         """
@@ -159,6 +159,7 @@ def validate_language_and_data_type(
         """
         if not isinstance(item, str):
             return None
+
         item_lower = item.lower().strip()
         if item_lower in valid_options:
             return None
@@ -172,8 +173,14 @@ def validate_language_and_data_type(
                 return None
 
         closest_match = difflib.get_close_matches(item, valid_options, n=1)
+        if closest_match and item_type == "language":
+            closest_match = closest_match[0].capitalize()
+
+        elif closest_match:
+            closest_match = closest_match[0]
+
         closest_match_str = (
-            f" The closest matching {item_type} is '{closest_match[0].capitalize()}'."
+            f" The closest matching {item_type} is '{closest_match}'."
             if closest_match
             else ""
         )
@@ -182,19 +189,16 @@ def validate_language_and_data_type(
     errors = []
 
     # Handle language validation.
-    if language is None or isinstance(language, bool):
+    if languages is None or isinstance(languages, bool):
         pass
 
-    elif isinstance(language, str):
-        language = [language]
+    elif not isinstance(languages, list):
+        errors.append("Language must be a list of strings.")
 
-    elif not isinstance(language, list):
-        errors.append("Language must be a string or a list of strings.")
-
-    if language is not None and isinstance(language, list):
-        for lang in language:
+    if languages is not None and not isinstance(languages, bool):
+        for lang in languages:
             lang = lang.split(" ")[0]
-            error = validate_single_item(
+            error = validate_single_language_or_data_type(
                 item=lang,
                 valid_options=set(language_to_qid.keys()),
                 item_type="language",
@@ -204,19 +208,16 @@ def validate_language_and_data_type(
                 errors.append(error)
 
     # Handle data type validation.
-    if data_type is None or isinstance(data_type, bool):
+    if data_types is None or isinstance(data_types, bool):
         pass
 
-    elif isinstance(data_type, str):
-        data_type = [data_type]
-
-    elif not isinstance(data_type, list):
+    elif not isinstance(data_types, list):
         errors.append("Data type must be a string or a list of strings.")
 
-    if data_type is not None and isinstance(data_type, list):
+    if data_types is not None and not isinstance(data_types, bool):
         valid_data_types = set(data_type_metadata.keys()) | {"wiktionary_translations"}
-        for dt in data_type:
-            error = validate_single_item(
+        for dt in data_types:
+            error = validate_single_language_or_data_type(
                 item=dt, valid_options=valid_data_types, item_type="data-type"
             )
 

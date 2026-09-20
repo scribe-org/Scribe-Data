@@ -21,7 +21,7 @@ from scribe_data.utils import (
 def convert_to_csv_or_tsv(
     language: str,
     data_types: str | list[str],
-    input_file: Path,
+    input_path: Path,
     output_dir: Path,
     output_type: str,
     overwrite: bool = False,
@@ -38,7 +38,7 @@ def convert_to_csv_or_tsv(
     data_types : Union[str, List[str]]
         The data type of the file to convert.
 
-    input_file : Path
+    input_path : Path
         The input JSON file path.
 
     output_dir : Path
@@ -65,7 +65,7 @@ def convert_to_csv_or_tsv(
 
     # Modify input file path to use the provided input_file or default JSON export path.
     input_file_path = (
-        input_file
+        input_path
         or DEFAULT_JSON_EXPORT_DIR / language.lower() / f"{data_types[0]}.json"
     )
 
@@ -92,7 +92,7 @@ def convert_to_csv_or_tsv(
                 else DEFAULT_TSV_EXPORT_DIR
             )
 
-        final_output_dir = output_dir / language.capitalize()
+        final_output_dir = output_dir / language
         final_output_dir.mkdir(parents=True, exist_ok=True)
 
         output_file = final_output_dir / f"{dtype}.{output_type}"

@@ -689,7 +689,7 @@ class TestGetCommandDumpBatching(unittest.TestCase):
     """
 
     @patch("scribe_data.cli.main.get_data")
-    @patch("scribe_data.cli.main.validate_language_and_data_type")
+    @patch("scribe_data.cli.main.validate_languages_and_data_types")
     def test_wdp_batches_languages_and_data_types(
         self, mock_validate: MagicMock, mock_get_data: MagicMock
     ) -> None:
@@ -721,7 +721,7 @@ class TestGetCommandDumpBatching(unittest.TestCase):
         self.assertTrue(kwargs["overwrite"])
 
     @patch("scribe_data.cli.main.get_data")
-    @patch("scribe_data.cli.main.validate_language_and_data_type")
+    @patch("scribe_data.cli.main.validate_languages_and_data_types")
     def test_query_path_still_loops_pairs(
         self, mock_validate: MagicMock, mock_get_data: MagicMock
     ) -> None:

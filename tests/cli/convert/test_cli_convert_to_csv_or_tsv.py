@@ -20,8 +20,8 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
     def test_cli_convert_to_csv_or_json_empty_language(self) -> None:
         json_data = '{"key1": "value1", "key2": "value2"}'
 
-        input_file = self.tmp_path / "test.json"
-        input_file.write_text(json_data, encoding="utf-8")
+        input_path = self.tmp_path / "test.json"
+        input_path.write_text(json_data, encoding="utf-8")
         output_dir = self.tmp_path / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -29,7 +29,7 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
             convert_to_csv_or_tsv(
                 language="",
                 data_types="nouns",
-                input_file=input_file,
+                input_path=input_path,
                 output_dir=output_dir,
                 output_type="csv",
                 overwrite=True,
@@ -41,15 +41,15 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
         json_data = '{"a": "1", "b": "2"}'
         expected_csv_output = "preposition,value\na,1\nb,2\n"
 
-        input_file = self.tmp_path / "test.json"
-        input_file.write_text(json_data, encoding="utf-8")
+        input_path = self.tmp_path / "test.json"
+        input_path.write_text(json_data, encoding="utf-8")
         output_dir = self.tmp_path / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         convert_to_csv_or_tsv(
             language="English",
             data_types="prepositions",
-            input_file=input_file,
+            input_path=input_path,
             output_dir=output_dir,
             output_type="csv",
             overwrite=True,
@@ -63,15 +63,15 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
         json_data = '{"a": "1", "b": "2"}'
         expected_tsv_output = "preposition\tvalue\na\t1\nb\t2\n"
 
-        input_file = self.tmp_path / "test.json"
-        input_file.write_text(json_data, encoding="utf-8")
+        input_path = self.tmp_path / "test.json"
+        input_path.write_text(json_data, encoding="utf-8")
         output_dir = self.tmp_path / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         convert_to_csv_or_tsv(
             language="English",
             data_types="prepositions",
-            input_file=input_file,
+            input_path=input_path,
             output_dir=output_dir,
             output_type="tsv",
             overwrite=True,
@@ -87,15 +87,15 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
         )
         expected_csv_output = "noun,value1,value2\na,1,x\nb,2,y\n"
 
-        input_file = self.tmp_path / "test.json"
-        input_file.write_text(json_data, encoding="utf-8")
+        input_path = self.tmp_path / "test.json"
+        input_path.write_text(json_data, encoding="utf-8")
         output_dir = self.tmp_path / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         convert_to_csv_or_tsv(
             language="English",
             data_types="nouns",
-            input_file=input_file,
+            input_path=input_path,
             output_dir=output_dir,
             output_type="csv",
             overwrite=True,
@@ -111,15 +111,15 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
         )
         expected_tsv_output = "noun\tvalue1\tvalue2\na\t1\tx\nb\t2\ty\n"
 
-        input_file = self.tmp_path / "test.json"
-        input_file.write_text(json_data, encoding="utf-8")
+        input_path = self.tmp_path / "test.json"
+        input_path.write_text(json_data, encoding="utf-8")
         output_dir = self.tmp_path / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         convert_to_csv_or_tsv(
             language="English",
             data_types="nouns",
-            input_file=input_file,
+            input_path=input_path,
             output_dir=output_dir,
             output_type="tsv",
             overwrite=True,
@@ -133,15 +133,15 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
         json_data = '{"a": [{"emoji": "😀", "is_base": true, "rank": 1}, {"emoji": "😅", "is_base": false, "rank": 2}]}'
         expected_csv_output = "word,emoji,is_base,rank\na,😀,True,1\na,😅,False,2\n"
 
-        input_file = self.tmp_path / "test.json"
-        input_file.write_text(json_data, encoding="utf-8")
+        input_path = self.tmp_path / "test.json"
+        input_path.write_text(json_data, encoding="utf-8")
         output_dir = self.tmp_path / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         convert_to_csv_or_tsv(
             language="English",
             data_types="emoji-keywords",
-            input_file=input_file,
+            input_path=input_path,
             output_dir=output_dir,
             output_type="csv",
             overwrite=True,
@@ -157,15 +157,15 @@ class TestCLIConvertToCSVorTSV(unittest.TestCase):
             "word\temoji\tis_base\trank\na\t😀\tTrue\t1\na\t😅\tFalse\t2\n"
         )
 
-        input_file = self.tmp_path / "test.json"
-        input_file.write_text(json_data, encoding="utf-8")
+        input_path = self.tmp_path / "test.json"
+        input_path.write_text(json_data, encoding="utf-8")
         output_dir = self.tmp_path / "output"
         output_dir.mkdir(parents=True, exist_ok=True)
 
         convert_to_csv_or_tsv(
             language="English",
             data_types="emoji-keywords",
-            input_file=input_file,
+            input_path=input_path,
             output_dir=output_dir,
             output_type="tsv",
             overwrite=True,
