@@ -9,7 +9,7 @@ from unittest.mock import MagicMock, patch
 from scribe_data.cli.cli_utils import (
     correct_data_type,
     print_formatted_data,
-    validate_language_and_data_type,
+    validate_languages_and_data_types,
 )
 
 # MARK: Utils
@@ -133,64 +133,66 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
         return self.qid_mapping.get(input_value.lower())
 
     @patch("scribe_data.cli.total.query.get_qid_by_input")
-    def test_utils_validate_language_and_data_type_valid(
+    def test_utils_validate_languages_and_data_types_valid(
         self, mock_get_qid: MagicMock
     ) -> None:
         mock_get_qid.side_effect = self.mock_get_qid
 
-        language_qid = mock_get_qid("English")
-        data_type_qid = mock_get_qid("nouns")
+        language_qids = [mock_get_qid("English")]
+        data_type_qids = [mock_get_qid("nouns")]
 
         try:
-            validate_language_and_data_type(language_qid, data_type_qid)
+            validate_languages_and_data_types(language_qids, data_type_qids)
 
         except ValueError:
-            self.fail("validate_language_and_data_type raised ValueError unexpectedly!")
+            self.fail(
+                "validate_languages_and_data_types raised ValueError unexpectedly!"
+            )
 
     @patch("scribe_data.cli.total.query.get_qid_by_input")
-    def test_utils_validate_language_and_data_type_invalid_language(
+    def test_utils_validate_languages_and_data_types_invalid_language(
         self, mock_get_qid: MagicMock
     ) -> None:
         mock_get_qid.side_effect = self.mock_get_qid
 
-        language_qid = "InvalidLanguage"
-        data_type_qid = "nouns"
+        language_qid = ["InvalidLanguage"]
+        data_type_qid = ["nouns"]
 
         with self.assertRaises(ValueError) as context:
-            validate_language_and_data_type(
-                language=language_qid, data_type=data_type_qid
+            validate_languages_and_data_types(
+                languages=language_qid, data_types=data_type_qid
             )
 
         self.assertEqual(str(context.exception), "Invalid language 'InvalidLanguage'.")
 
     @patch("scribe_data.cli.total.query.get_qid_by_input")
-    def test_utils_validate_language_and_data_type_invalid_data_type(
+    def test_utils_validate_languages_and_data_types_invalid_data_type(
         self, mock_get_qid: MagicMock
     ) -> None:
         mock_get_qid.side_effect = self.mock_get_qid
 
-        language_qid = "English"
-        data_type_qid = "InvalidDataType"
+        language_qid = ["English"]
+        data_type_qid = ["InvalidDataType"]
 
         with self.assertRaises(ValueError) as context:
-            validate_language_and_data_type(
-                language=language_qid, data_type=data_type_qid
+            validate_languages_and_data_types(
+                languages=language_qid, data_types=data_type_qid
             )
 
         self.assertEqual(str(context.exception), "Invalid data-type 'InvalidDataType'.")
 
     @patch("scribe_data.cli.total.query.get_qid_by_input")
-    def test_utils_validate_language_and_data_type_both_invalid(
+    def test_utils_validate_languages_and_data_types_both_invalid(
         self, mock_get_qid: MagicMock
     ) -> None:
         mock_get_qid.side_effect = lambda x: None  # Simulate invalid inputs
 
-        language_qid = "InvalidLanguage"
-        data_type_qid = "InvalidDataType"
+        languages = ["InvalidLanguage"]
+        data_types = ["InvalidDataType"]
 
         with self.assertRaises(ValueError) as context:
-            validate_language_and_data_type(
-                language=language_qid, data_type=data_type_qid
+            validate_languages_and_data_types(
+                languages=languages, data_types=data_types
             )
 
         self.assertEqual(
@@ -198,33 +200,38 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
             "Invalid language 'InvalidLanguage'.\nInvalid data-type 'InvalidDataType'.",
         )
 
-    def test_utils_validate_language_and_data_type_with_list(self) -> None:
+    def test_utils_validate_languages_and_data_types_with_list(self) -> None:
         """
         Test validation with lists of languages and data types.
         """
         languages = ["English", "Spanish"]
         data_types = ["nouns", "verbs"]
         try:
-            validate_language_and_data_type(languages, data_types)
-        except ValueError:
-            self.fail(
-                "validate_language_and_data_type raised ValueError unexpectedly with valid lists!"
+            validate_languages_and_data_types(
+                languages=languages, data_types=data_types
             )
 
-    def test_utils_validate_language_and_data_type_with_qids(self) -> None:
+        except ValueError:
+            self.fail(
+                "validate_languages_and_data_types raised ValueError unexpectedly with valid lists!"
+            )
+
+    def test_utils_validate_languages_and_data_types_with_qids(self) -> None:
         """
         Test validation directly with QIDs.
         """
-        language_qid = "Q1860"  # QID for English
-        data_type_qid = "Q1084"  # QID for nouns
+        language_qids = ["Q1860"]  # QID for English
+        data_type_qids = ["Q1084"]  # QID for nouns
         try:
-            validate_language_and_data_type(language_qid, data_type_qid)
+            validate_languages_and_data_types(
+                languages=language_qids, data_types=data_type_qids
+            )
         except ValueError:
             self.fail(
-                "validate_language_and_data_type raised ValueError unexpectedly with valid QIDs!"
+                "validate_languages_and_data_types raised ValueError unexpectedly with valid QIDs!"
             )
 
-    def test_utils_validate_language_and_data_type_mixed_validity_in_lists(
+    def test_utils_validate_languages_and_data_types_mixed_validity_in_lists(
         self,
     ) -> None:
         """
@@ -232,7 +239,11 @@ class TestValidateLanguageAndDataType(unittest.TestCase):
         """
         languages = ["English", "InvalidLanguage"]
         data_types = ["nouns", "InvalidDataType"]
+
         with self.assertRaises(ValueError) as context:
-            validate_language_and_data_type(languages, data_types)
+            validate_languages_and_data_types(
+                languages=languages, data_types=data_types
+            )
+
         self.assertIn("Invalid language 'InvalidLanguage'", str(context.exception))
         self.assertIn("Invalid data-type 'InvalidDataType'", str(context.exception))

@@ -87,7 +87,7 @@ def convert_wrapper(
         convert_to_json(
             language=languages[0],  # only one language possible
             data_types=data_types,
-            input_file=input_path,
+            input_path=input_path,
             output_dir=output_dir,
             output_type=output_type,
             overwrite=overwrite,
@@ -98,7 +98,7 @@ def convert_wrapper(
         convert_to_csv_or_tsv(
             language=languages[0],  # only one language possible
             data_types=data_types,
-            input_file=input_path,
+            input_path=input_path,
             output_dir=output_dir,
             output_type=output_type,
             overwrite=overwrite,
@@ -110,7 +110,7 @@ def convert_wrapper(
             languages=languages,
             specific_tables=data_types,
             identifier_case=identifier_case,
-            input_file=input_path,
+            input_path=input_path,
             output_file=output_dir,
             overwrite=overwrite,
         )

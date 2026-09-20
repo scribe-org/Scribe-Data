@@ -38,10 +38,10 @@ DEFAULT_DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contrac
 project_homepage = metadata.metadata("scribe-data").get("Home-page")
 WMF_HEADERS = {"User-Agent": f"{PROJECT_ROOT} ({project_homepage})"}
 
-WIKIDATA_QUERIES_ALL_DATA_DIR = Path(__file__).parent / "wikidata" / "queries_all_data"
-WIKIDATA_QUERIES_SCRIBE_APPS_DIR = (
-    Path(__file__).parent / "wikidata" / "queries_scribe_apps"
-)
+WIKIDATA_DIR = Path(__file__).parent / "wikidata"
+WIKIDATA_QUERIES_ALL_DATA_DIR = WIKIDATA_DIR / "queries_all_data"
+WIKIDATA_QUERIES_SCRIBE_APPS_DIR = WIKIDATA_DIR / "queries_scribe_apps"
+WIKIDATA_QUERY_PROFANITY_FILE = WIKIDATA_DIR / "query_profanity.sparql"
 
 LANGUAGE_METADATA_FILE = Path(__file__).parent / "resources" / "language_metadata.yaml"
 DATA_TYPE_METADATA_FILE = (

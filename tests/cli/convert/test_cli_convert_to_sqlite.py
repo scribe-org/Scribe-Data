@@ -137,7 +137,7 @@ def test_cli_convert_to_sqlite_translations(
     translations_to_sqlite(
         translations_setup["lang_data_type_dict"],
         translations_setup["current_languages"],
-        input_file=str(temp_json_dir),
+        input_path=str(temp_json_dir),
         output_file=str(translations_setup["output_dir"]),
         overwrite=True,
     )
@@ -173,7 +173,7 @@ def test_cli_convert_to_sqlite_overwrite_existing_file_user_confirms(
         translations_to_sqlite(
             translations_setup["lang_data_type_dict"],
             translations_setup["current_languages"],
-            input_file=str(temp_json_dir),
+            input_path=str(temp_json_dir),
             output_file=str(translations_setup["output_dir"]),
             overwrite=False,
         )
@@ -200,7 +200,7 @@ def test_cli_convert_to_sqlite_overwrite_existing_file_user_declines(
         translations_to_sqlite(
             translations_setup["lang_data_type_dict"],
             translations_setup["current_languages"],
-            input_file=str(temp_json_dir),
+            input_path=str(temp_json_dir),
             output_file=str(translations_setup["output_dir"]),
             overwrite=False,
         )
@@ -222,7 +222,7 @@ def test_cli_convert_to_sqlite_translations_to_sqlite_missing_json(
     translations_to_sqlite(
         lang_data_type_dict,
         current_languages,
-        input_file=str(
+        input_path=str(
             temp_json_dir
         ),  # temp_json_dir won't have 'nonexistent_lang/translations.json'
         output_file=str(translations_setup["output_dir"]),
@@ -265,7 +265,7 @@ def test_cli_convert_to_sqlite_translations_commit_error(
         translations_to_sqlite(
             translations_setup["lang_data_type_dict"],
             translations_setup["current_languages"],
-            input_file=str(temp_json_dir),
+            input_path=str(temp_json_dir),
             output_file=str(translations_setup["output_dir"]),
             overwrite=True,
         )
@@ -329,7 +329,7 @@ def test_cli_convert_to_sqlite_translations_and_nouns(tmp_path: Path) -> None:
     convert_to_sqlite(
         languages=["english"],
         specific_tables=None,
-        input_file=str(input_dir),
+        input_path=str(input_dir),
         output_file=str(output_dir),
         overwrite=True,
     )
@@ -385,7 +385,7 @@ def test_cli_convert_to_sqlite_skips_missing_json(tmp_path: Path) -> None:
         convert_to_sqlite(
             languages=["english"],
             specific_tables=["nouns"],
-            input_file=str(input_dir),
+            input_path=str(input_dir),
             output_file=str(tmp_path / "output"),
             overwrite=True,
         )
@@ -446,7 +446,7 @@ def test_cli_convert_to_sqlite_wiktionary_translations_basic(tmp_path):
     wiktionary_translations_to_sqlite(
         language="english",
         identifier_case="snake",
-        input_file=str(input_dir),
+        input_path=str(input_dir),
         output_file=str(output_dir),
         overwrite=True,
     )
@@ -509,7 +509,7 @@ def test_cli_convert_to_sqlite_wiktionary_translations_camel_case(tmp_path):
     wiktionary_translations_to_sqlite(
         language="english",
         identifier_case="camel",
-        input_file=str(input_dir),
+        input_path=str(input_dir),
         output_file=str(output_dir),
         overwrite=True,
     )
@@ -531,7 +531,7 @@ def test_cli_convert_to_sqlite_wiktionary_translations_missing_dir(tmp_path, cap
     """
     wiktionary_translations_to_sqlite(
         language="nonexistent",
-        input_file=str(tmp_path),
+        input_path=str(tmp_path),
         output_file=str(tmp_path / "output"),
     )
 
@@ -556,7 +556,7 @@ def test_cli_convert_to_sqlite_wiktionary_translations_no_files(tmp_path):
 
     wiktionary_translations_to_sqlite(
         language="english",
-        input_file=str(input_dir),
+        input_path=str(input_dir),
         output_file=str(output_dir),
     )
 
@@ -591,7 +591,7 @@ def test_cli_convert_to_sqlite_wiktionary_translations_multiple_files(tmp_path):
     wiktionary_translations_to_sqlite(
         language="english",
         identifier_case="snake",
-        input_file=str(input_dir),
+        input_path=str(input_dir),
         output_file=str(output_dir),
         overwrite=True,
     )

@@ -10,7 +10,7 @@ from pathlib import Path
 from questionary import select, text
 from rich import print as rprint
 
-from scribe_data.cli.cli_utils import validate_language_and_data_type
+from scribe_data.cli.cli_utils import validate_languages_and_data_types
 from scribe_data.cli.contracts.check import check_contracts
 from scribe_data.cli.contracts.export import export_contracts
 from scribe_data.cli.contracts.filter import export_data_filtered_by_contracts
@@ -479,9 +479,9 @@ def main() -> None:
 
             if hasattr(args, "language") or hasattr(args, "data_type"):
                 try:
-                    validate_language_and_data_type(
-                        language=args.language if hasattr(args, "language") else None,
-                        data_type=args.data_type
+                    validate_languages_and_data_types(
+                        languages=args.language if hasattr(args, "language") else None,
+                        data_types=args.data_type
                         if hasattr(args, "data_type")
                         else None,
                     )
