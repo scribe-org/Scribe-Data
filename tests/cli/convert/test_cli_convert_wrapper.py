@@ -130,11 +130,9 @@ class TestCLIConvertWrapper(unittest.TestCase):
             output_file=Path("/output"),
             overwrite=False,
         )
-    # testing convert_to_json
+
     @patch("scribe_data.cli.convert.wrapper.Path", autospec=True)
     @patch("scribe_data.cli.convert.wrapper.convert_to_json", autospec=True)
-
-    # testing language
     def test_convert_wrapper_to_json(
         self,
         mock_convert_to_json: MagicMock,
@@ -143,7 +141,7 @@ class TestCLIConvertWrapper(unittest.TestCase):
         mock_path.return_value.exists.return_value = True
 
         convert_wrapper(
-            languages=["english","german","spanish"],
+            languages=["english", "german", "spanish"],
             data_types=["nouns"],
             input_path=Path("file"),
             output_dir=Path("/output"),
@@ -159,20 +157,19 @@ class TestCLIConvertWrapper(unittest.TestCase):
             output_dir=Path("/output"),
             output_type="json",
             overwrite=True,
-            identifier_case="camel"
+            identifier_case="camel",
         )
 
     # testing convert json with output dir = None
     @patch(
-    "scribe_data.cli.convert.wrapper.DEFAULT_JSON_EXPORT_DIR",
-    new=Path("/mock_json_export")
+        "scribe_data.cli.convert.wrapper.DEFAULT_JSON_EXPORT_DIR",
+        new=Path("/mock_json_export"),
     )
     @patch("scribe_data.cli.convert.wrapper.Path", autospec=True)
     @patch("scribe_data.cli.convert.wrapper.convert_to_json", autospec=True)
     def test_convert_wrapper_to_json_no_output_dir(
         self, mock_convert_to_json: MagicMock, mock_path: MagicMock
     ) -> None:
-    
         convert_wrapper(
             languages=["spanish"],
             data_types=["nouns"],
@@ -190,10 +187,9 @@ class TestCLIConvertWrapper(unittest.TestCase):
             output_dir=Path("/mock_json_export"),
             output_type="json",
             overwrite=True,
-            identifier_case="camel"
+            identifier_case="camel",
         )
 
-    # testing json with input = None and is_wiktionary
     @patch(
         "scribe_data.cli.convert.wrapper.DEFAULT_WIKTIONARY_JSON_EXPORT_DIR",
         new=Path("/mock_wiktionary_dir"),
@@ -209,7 +205,7 @@ class TestCLIConvertWrapper(unittest.TestCase):
             output_dir=Path("/output"),
             output_type="json",
             overwrite=False,
-            identifier_case="camel"
+            identifier_case="camel",
         )
 
         mock_convert_to_json.assert_called_once_with(
@@ -219,10 +215,9 @@ class TestCLIConvertWrapper(unittest.TestCase):
             output_dir=Path("/output"),
             output_type="json",
             overwrite=False,
-            identifier_case="camel"
+            identifier_case="camel",
         )
 
-    # testing json with input = None and is_wiktionary = false
     @patch(
         "scribe_data.cli.convert.wrapper.DEFAULT_JSON_EXPORT_DIR",
         new=Path("/mock_json_dir"),
@@ -238,7 +233,7 @@ class TestCLIConvertWrapper(unittest.TestCase):
             output_dir=Path("/output"),
             output_type="json",
             overwrite=False,
-            identifier_case="camel"
+            identifier_case="camel",
         )
 
         mock_convert_to_json.assert_called_once_with(
@@ -248,7 +243,7 @@ class TestCLIConvertWrapper(unittest.TestCase):
             output_dir=Path("/output"),
             output_type="json",
             overwrite=False,
-            identifier_case="camel"
+            identifier_case="camel",
         )
 
     def test_convert_wrapper(self) -> None:
