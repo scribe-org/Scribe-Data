@@ -60,7 +60,7 @@ jobs:
 
       - name: Set up Homebrew
         if: matrix.os == 'macos-latest'
-        uses: Homebrew/actions/setup-homebrew@master
+        uses: Homebrew/actions/setup-homebrew@main
 
       - name: Install PyICU dependencies
         if: matrix.os == 'macos-latest'
