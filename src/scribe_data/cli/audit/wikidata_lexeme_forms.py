@@ -1,10 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-Check for missing forms in Wikidata using live SPARQL service.
-
-Examples
---------
->>> python3 src/scribe_data/check/check_missing_forms/check_missing_forms.py
+Functions to audit Wikidata lexeme forms.
 """
 
 import argparse
@@ -15,15 +11,32 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any, cast
 
-from scribe_data.check.check_missing_forms.split_query import split_group_by_identifier
 from scribe_data.utils import (
-    WIKIDATA_QUERIES_ALL_DATA_DIR,
+    WIKIDATA_QUERIES_DIR,
     data_type_metadata,
     language_metadata,
     lexeme_form_metadata,
-    sub_languages,
 )
 from scribe_data.wikidata.wikidata_utils import sparql
+
+# Note: Audit is split into sections on what is included in the current queries and what's not.
+# We'd have the number of instances of form combination included in each section.
+
+
+def audit_wikidata_lexeme_forms(language: str, data_types: list | None = None) -> None:
+    """
+    Audit Wikidata to see the available forms for the given language and data type(s).
+
+    Parameters
+    ----------
+    language : str
+        The language to Audit Wikidata for.
+
+    data_types : list[str], optional
+        The data type(s) to Audit Wikidata for.
+    """
+    return
+
 
 DEFAULT_COMPLEX_DATA_TYPE_FREQUENCY = 50
 DEFAULT_MODERATE_DATA_TYPE_FREQUENCY = 15
@@ -39,7 +52,7 @@ def load_sparql_template() -> str:
     str
         The template string with placeholders for LANGUAGE_QID and DATA_TYPE_QID.
     """
-    template_path = Path(__file__).parent / "query_form_combinations.sparql"
+    template_path = Path(__file__).parent / "lexeme_form_combinations.sparql"
     with open(template_path, "r", encoding="utf-8") as f:
         return f.read()
 
@@ -149,7 +162,7 @@ WHERE {{{{
 """
     # Save to queries directory.
     output_path = (
-        WIKIDATA_QUERIES_ALL_DATA_DIR
+        WIKIDATA_QUERIES_DIR
         / language_name
         / data_type_name
         / f"query_{data_type_name}.sparql"
@@ -429,81 +442,6 @@ def get_features_from_sparql_service(
     return dict(filtered_features) if filtered_features else None
 
 
-def process_missing_features(missing_features: dict, query_dir: str | Path) -> None:
-    """
-    Generate SPARQL queries for missing features by language and data type.
-
-    Parameters
-    ----------
-    missing_features : dict
-        Dictionary of missing features by language and data type.
-        Format: {language: {data_type: [features] or "FALLBACK_GENERATED"}}.
-
-    query_dir : str or Path
-        Directory where generated query files should be saved.
-
-    Notes
-    -----
-    Generates separate queries for each data type within each language.
-    Skips combinations where fallback queries were already generated.
-    """
-    if not missing_features:
-        return
-
-    # Map parent language QID to list of sub-language ISO codes.
-    # For example: Q11051 (Hindustani) -> ["hi", "ur"].
-    parent_qid_to_iso_codes = {}
-    for parent_lang_name, sub_langs in sub_languages.items():
-        if parent_qid := language_metadata.get(parent_lang_name, {}).get("qid"):
-            parent_qid_to_iso_codes[parent_qid] = list(sub_langs.keys())
-
-    for language_qid, data_types_qid in missing_features.items():
-        try:
-            print(f"Processing language: {language_qid}")
-            print(f"Data types: {list(data_types_qid.keys())}")
-
-            # Create a separate entry for each data type.
-            for data_type_qid, features in data_types_qid.items():
-                # Skip if fallback was generated (data quality issue).
-                if features == "FALLBACK_GENERATED":
-                    print(
-                        f"Skipping {language_qid} - {data_type_qid} (fallback query already generated due to data quality)"
-                    )
-                    continue
-
-                # Skip if no features found.
-                if not features:
-                    print(
-                        f"Skipping {language_qid} - {data_type_qid} (no features found)"
-                    )
-                    continue
-
-                language_entry = {language_qid: {data_type_qid: features}}
-                if language_qid in parent_qid_to_iso_codes:
-                    # For macro-languages, generate a separate set of files
-                    # for each sub-language, each with a specific filter.
-                    for sub_lang_iso_code in parent_qid_to_iso_codes[language_qid]:
-                        print(
-                            f"Generating query for {language_qid} - {data_type_qid} - {sub_lang_iso_code}"
-                        )
-                        split_group_by_identifier(
-                            language_entry,
-                            WIKIDATA_QUERIES_ALL_DATA_DIR,
-                            sub_lang_iso_code,
-                        )
-                else:
-                    print(f"Generating query for {language_qid} - {data_type_qid}")
-                    split_group_by_identifier(
-                        language_entry,
-                        WIKIDATA_QUERIES_ALL_DATA_DIR,
-                        sub_lang_iso_code=None,
-                    )
-
-        except (ValueError, KeyError) as e:
-            print(f"Skipping language {language_qid} due to error: {e}")
-            continue
-
-
 def main() -> None:
     """
     Main function to check for missing forms in Wikidata using SPARQL service.
@@ -565,7 +503,7 @@ def main() -> None:
             print(f"Error: Query directory does not exist: {query_dir}")
             sys.exit(1)
     else:
-        query_dir = WIKIDATA_QUERIES_ALL_DATA_DIR
+        query_dir = WIKIDATA_QUERIES_DIR
         query_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Query output directory: {query_dir}")
@@ -585,7 +523,7 @@ def main() -> None:
             json.dump(form_combinations, f, indent=4)
         print("Form combinations saved to query_check_sparql_service_features.json")
 
-        process_missing_features(form_combinations, query_dir)
+        # process_missing_features(form_combinations, query_dir)
         print("Query generation complete!")
 
     else:

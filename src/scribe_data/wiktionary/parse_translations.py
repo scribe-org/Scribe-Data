@@ -131,16 +131,16 @@ def _extract_translation_word(
     config : dict
         Wiktionary config for the source language edition.
 
-    target_langs : Optional[frozenset]
+    target_langs : frozenset | None, optional
         ISO codes of languages to keep, or None to keep all.
 
-    tag_index : Optional[int]
+    tag_index : int
         When set (e.g. eswiktionary ``t1`` / ``t2`` rows), only ``g{tag_index}`` is used
         for grammar tags instead of every ``g*`` on the template.
 
     Returns
     -------
-    Optional[str]
+    str | None
         The cleaned word (with tags) or None if it should be skipped.
     """
     if not raw_word:
@@ -252,7 +252,7 @@ def _extract_source_lang_section(wikitext: str, config: dict) -> str | None:
 
     Returns
     -------
-    Optional[str]
+    str | None
         The section wikitext, or None if the source-language section is not found.
     """
     if config.get("lang_header_pattern"):
@@ -291,7 +291,7 @@ def _parse_ast_u_tabelle(
     config : dict
         Wiktionary config for the source language edition.
 
-    target_langs : Optional[frozenset]
+    target_langs : frozenset, optional
         ISO codes of languages to extract, or None for all.
 
     wikitext : str
@@ -431,7 +431,7 @@ def _parse_block_translations(
     config : dict
         Wiktionary config for the source language edition.
 
-    target_langs : Optional[frozenset]
+    target_langs : frozenset, optional
         ISO codes of languages to extract, or ``None`` for all.
 
     wikitext : str
@@ -582,7 +582,7 @@ def _collect_row_template(
     tname : str
         Lowercased template name.
 
-    target_langs : Optional[frozenset]
+    target_langs : frozenset, optional
         ISO language whitelist, or ``None`` to accept all target languages.
 
     config : dict
@@ -638,7 +638,7 @@ def _parse_ast_trans_top(
     config : dict
         Wiktionary config for the source language edition.
 
-    target_langs : Optional[frozenset]
+    target_langs : frozenset, optional
         ISO codes of languages to extract, or ``None`` for all.
 
     wikitext : str
@@ -693,7 +693,7 @@ def _collect_row_wikilink(
     tname : str
         Lowercased template name, interpreted as a language code.
 
-    target_langs : Optional[frozenset]
+    target_langs : frozenset, optional
         ISO language whitelist, or ``None`` to accept all target languages.
 
     config : dict
@@ -760,7 +760,7 @@ def _parse_ast_wikilink_list(
     config : dict
         Wiktionary config for the source language edition.
 
-    target_langs : Optional[frozenset]
+    target_langs : frozenset, optional
         ISO codes of languages to extract, or ``None`` for all.
 
     wikitext : str
@@ -805,7 +805,7 @@ def _parse_page_translations(
     config : dict
         Wiktionary config for the source language edition.
 
-    target_langs : Optional[frozenset]
+    target_langs : frozenset, optional
         ISO codes of languages to extract translations for.
 
     wikitext : str
@@ -870,7 +870,7 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
     wiktionary_dump_path : Path
         Path to a ``*wiktionary-*-pages-articles.xml.bz2`` dump file.
 
-    pbar : Optional[tqdm]
+    pbar : tqdm, optional
         Optional tqdm progress bar to continuously record bytes read.
     """
     import shutil
@@ -887,7 +887,7 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
         path : Path | str
             File path to open in binary mode.
 
-        pbar_ref : Optional[tqdm]
+        pbar_ref : tqdm, optional
             Progress bar to update with consumed byte counts.
         """
 
@@ -900,7 +900,7 @@ def _iter_dump_pages(wiktionary_dump_path: Path, pbar=None):
             path : Path | str
                 File path to open in binary mode.
 
-            pbar_ref : Optional[tqdm]
+            pbar_ref : tqdm, optional
                 Progress bar to update with consumed byte counts.
             """
             self.f = open(path, "rb")
@@ -1061,7 +1061,7 @@ def parse_xml_dump(
     progress : bool, default ``True``
         Whether to show a progress bar.
 
-    num_workers : Optional[int]
+    num_workers : int | None, optional
         Number of worker processes. Defaults to cpu_count - 1.
 
     Returns
@@ -1268,7 +1268,7 @@ def _resolve_dump_path(
 
     Parameters
     ----------
-    wiktionary_dump_path : Optional[Union[str, Path]]
+    wiktionary_dump_path : str | Path, optional
         Explicit dump path, or a language name / ISO used to search for one.
 
     output_dir : str
@@ -1276,7 +1276,7 @@ def _resolve_dump_path(
 
     Returns
     -------
-    Tuple[Optional[Path], str]
+    Tuple[Path, optional, str]
         ``(resolved_path, source_iso)`` where path is ``None`` if nothing was found.
     """
     from scribe_data.utils import resolve_lang_iso

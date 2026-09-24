@@ -15,6 +15,7 @@ from rich import print as rprint
 from SPARQLWrapper.SPARQLExceptions import EndPointInternalError
 
 from scribe_data.cli.convert.wrapper import convert_wrapper
+from scribe_data.cli.get.get_utils import print_get_execution_error_and_suggestions
 from scribe_data.unicode.generate_emoji_keywords import generate_emoji
 from scribe_data.utils import (
     DEFAULT_CSV_EXPORT_DIR,
@@ -83,7 +84,7 @@ def get_data(
 
     Returns
     -------
-    Dict[str, bool] | None
+    dict[str, bool] | None
         The requested data saved locally given file type and location arguments.
     """
     # MARK: Defaults
@@ -246,19 +247,6 @@ def get_data(
             )
             return {"success": False, "skipped": True}
 
-        def print_error_and_suggestions(error_message: str) -> None:
-            """
-            Prints an error message and suggestions for the user.
-            """
-            rprint(error_message)
-            rprint("\n[bold yellow]Suggestions:[/bold yellow]")
-            rprint(
-                "[yellow]1. Try again in a few minutes\n"
-                "2. Consider using a Wikidata dump with --wikidata-dump-path (-wdp)\n"
-                "3. Try querying a smaller subset of data\n"
-                "4. Check your network connection[/yellow]"
-            )
-
         try:
             query_data(
                 languages=[language_or_sub_language],
@@ -273,7 +261,7 @@ def get_data(
                 print(f"Updated data was saved in: {Path(output_dir).resolve()}.")
 
         except json.decoder.JSONDecodeError:
-            print_error_and_suggestions(
+            print_get_execution_error_and_suggestions(
                 "[bold red]Error: Invalid response from Wikidata query service. The query may be too large or the service is unavailable.[/bold red]"
             )
 
@@ -283,15 +271,15 @@ def get_data(
                 if 400 <= e.code < 500
                 else "[bold red]Error: A server error occurred. Please try again later.[/bold red]"
             )
-            print_error_and_suggestions(error_msg)
+            print_get_execution_error_and_suggestions(error_msg)
 
         except EndPointInternalError:
-            print_error_and_suggestions(
+            print_get_execution_error_and_suggestions(
                 "[bold red]Error: The Wikidata endpoint encountered an internal error.[/bold red]"
             )
 
         except (IncompleteRead, URLError) as e:
-            print_error_and_suggestions(
+            print_get_execution_error_and_suggestions(
                 f"[bold red]Error: Network or data transfer issue occurred: {str(e)}[/bold red]"
             )
 

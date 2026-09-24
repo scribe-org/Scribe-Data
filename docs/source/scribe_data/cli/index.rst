@@ -8,9 +8,12 @@ Scribe-Data provides a command-line interface (CLI) for efficient interaction wi
 .. toctree::
     :maxdepth: 2
 
+    audit/index
     contracts/index
     convert/index
     download/index
+    generate/index
+    get/index
     interactive/index
     list/index
     total/index

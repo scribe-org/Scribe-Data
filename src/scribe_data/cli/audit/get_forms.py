@@ -7,7 +7,7 @@ import re
 from collections import defaultdict
 
 from scribe_data.utils import (
-    WIKIDATA_QUERIES_ALL_DATA_DIR,
+    WIKIDATA_QUERIES_DIR,
     language_metadata,
 )
 
@@ -16,35 +16,6 @@ iso_to_qid = {
     for lang, lang_data in language_metadata.items()
     if "iso" in lang_data and "qid" in lang_data
 }
-
-
-def parse_sparql_files() -> dict:
-    """
-    Read and parse all SPARQL query files to extract form information.
-
-    Returns
-    -------
-    dict
-        Accumulated forms for each language and lexical category.
-        Format: {language: {lexical_category: [forms]}}.
-
-    Notes
-    -----
-    Recursively searches through WIKIDATA_QUERIES_ALL_DATA_DIR directory
-    for .sparql files and accumulates all form information.
-    """
-    all_forms = defaultdict(lambda: defaultdict(list))
-    for sub_sub_file in WIKIDATA_QUERIES_ALL_DATA_DIR.rglob("*.sparql"):
-        with open(sub_sub_file, "r", encoding="utf-8") as query_text:
-            result = parse_sparql_query(query_text.read())
-
-            # Accumulate forms for each language and lexical category.
-            for lang, categories in result.items():
-                for category, forms in categories.items():
-                    if forms:
-                        all_forms[lang][category].extend(forms)
-
-    return all_forms
 
 
 def parse_sparql_query(query_text: str) -> dict:
@@ -97,3 +68,32 @@ def parse_sparql_query(query_text: str) -> dict:
             result[language][lexical_category].append(feature_list)
 
     return result
+
+
+def parse_sparql_files() -> dict:
+    """
+    Read and parse all SPARQL query files to extract form information.
+
+    Returns
+    -------
+    dict
+        Accumulated forms for each language and lexical category.
+        Format: {language: {lexical_category: [forms]}}.
+
+    Notes
+    -----
+    Recursively searches through WIKIDATA_QUERIES_DIR directory
+    for .sparql files and accumulates all form information.
+    """
+    all_forms = defaultdict(lambda: defaultdict(list))
+    for sub_sub_file in WIKIDATA_QUERIES_DIR.rglob("*.sparql"):
+        with open(sub_sub_file, "r", encoding="utf-8") as query_text:
+            result = parse_sparql_query(query_text.read())
+
+            # Accumulate forms for each language and lexical category.
+            for lang, categories in result.items():
+                for category, forms in categories.items():
+                    if forms:
+                        all_forms[lang][category].extend(forms)
+
+    return all_forms

@@ -213,7 +213,7 @@ def main(argv: list[str] | None = None) -> int:
 
     Parameters
     ----------
-    argv : Optional[list[str]], default=None
+    argv : list[str], optional, default=None
         If set to None then argparse will use sys.argv as the arguments.
 
     Returns

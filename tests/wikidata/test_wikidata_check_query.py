@@ -821,10 +821,8 @@ def test_wikidata_check_optional_qid_order_invalid(tmp_path: Path) -> None:
 def test_wikidata_check_query_forms_no_files(
     mock_glob: MagicMock, capsys: pytest.CaptureFixture
 ) -> None:
-    # Mock WIKIDATA_QUERIES_ALL_DATA_DIR as a Path object with the patched glob.
-    with patch(
-        "scribe_data.check.check_query_forms.WIKIDATA_QUERIES_ALL_DATA_DIR", Path()
-    ):
+    # Mock WIKIDATA_QUERIES_DIR as a Path object with the patched glob.
+    with patch("scribe_data.check.check_query_forms.WIKIDATA_QUERIES_DIR", Path()):
         check_query_forms.check_query_forms()
         captured = capsys.readouterr()
         assert "All query forms are labeled and formatted correctly." in captured.out
@@ -844,9 +842,7 @@ def test_wikidata_check_query_forms_with_errors(
         }"""
     )
     mock_glob.return_value = [sparql_file]
-    with patch(
-        "scribe_data.check.check_query_forms.WIKIDATA_QUERIES_ALL_DATA_DIR", Path()
-    ):
+    with patch("scribe_data.check.check_query_forms.WIKIDATA_QUERIES_DIR", Path()):
         with patch.object(check_query_forms, "qid_label_dict", {"Invalid": "Q123"}):
             with patch.object(check_query_forms, "data_type_metadata", {}):
                 with pytest.raises(SystemExit) as exc:

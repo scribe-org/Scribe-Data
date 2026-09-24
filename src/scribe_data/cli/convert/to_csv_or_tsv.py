@@ -35,7 +35,7 @@ def convert_to_csv_or_tsv(
     language : str
         The language of the file to convert.
 
-    data_types : Union[str, List[str]]
+    data_types : str | list[str]
         The data type of the file to convert.
 
     input_path : Path

@@ -11,8 +11,12 @@ from scribe_data.utils import (
     language_metadata,
 )
 
+# Run the audit.
+# Open an issue with forms that are missing.
+# Include the output of the audit in the workflow and direct the community to it in the issue.
 
-def pr_body(missing_features: dict) -> str:
+
+def issue_body(missing_features: dict) -> str:
     """
     Generate a formatted PR body describing missing features for each language.
 
@@ -35,7 +39,7 @@ def pr_body(missing_features: dict) -> str:
     - A table showing languages and their missing feature types
     - Features are grouped by language for better readability
     """
-    pr_body_content = (
+    issue_body_content = (
         "## Automated PR: Missing Lexeme Forms\n\n"
         + "This is an automated PR created by the [Check and Update Missing Query Forms](https://github.com/scribe-org/Scribe-Data/blob/main/.github/workflows/check_and_update_missing_query_forms.yaml) workflow.\n\n"
         + "### Missing Forms Summary\n"
@@ -81,17 +85,17 @@ def pr_body(missing_features: dict) -> str:
     # Add grouped features to the PR body.
     for language, features in sorted(grouped_features.items()):
         form_list = ", ".join(sorted(features))
-        pr_body_content += f"| **{language}** | {form_list} |\n"
+        issue_body_content += f"| **{language}** | {form_list} |\n"
 
-    pr_body_content += "\nPlease review the changes and provide feedback.\n"
+    issue_body_content += "\nPlease review the changes and provide feedback.\n"
 
-    print(pr_body_content)
+    print(issue_body_content)
 
-    return pr_body_content
+    return issue_body_content
 
 
 if __name__ == "__main__":
     with open(sys.argv[1], "r") as f:
         missing_features = json.load(f)
 
-    pr_body(missing_features)
+    issue_body(missing_features)

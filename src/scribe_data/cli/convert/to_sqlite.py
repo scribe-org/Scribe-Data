@@ -303,14 +303,14 @@ def convert_to_sqlite(
 
     Parameters
     ----------
-    languages : Optional[List[str]]
+    languages : list[str]
         The languages to process. If None, use all available languages.
 
-    specific_tables : Optional[Union[str, List[str]]]
+    specific_tables : str | list[str], optional
         The specific tables to process. If None, process all tables.
 
     identifier_case : str, optional, default='camel'
-        Format of the identifiers ("camel" or "snake"). Defaults to "camel".
+        Format of the identifiers ("camel" or "snake").
 
     input_path : str, optional, default=DEFAULT_JSON_EXPORT_DIR
         The input JSON export directory.

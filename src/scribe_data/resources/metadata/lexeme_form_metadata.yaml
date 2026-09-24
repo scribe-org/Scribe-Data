@@ -105,42 +105,46 @@
 
 2_gender:
   1:
+    label: Gender
+    qid: P5185
+
+  2:
     label: Feminine
     qid: Q1775415
 
-  2:
+  3:
     label: Masculine
     qid: Q499327
 
-  3:
+  4:
     label: Inanimate
     qid: Q51927539
 
-  4:
+  5:
     label: Animate
     qid: Q51927507
 
-  5:
+  6:
     label: MasculineInanimate
     qid: Q52943434
 
-  6:
+  7:
     label: MasculineAnimate
     qid: Q54020116
 
-  7:
+  8:
     label: MasculinePersonal
     qid: Q27918551
 
-  8:
+  9:
     label: NotMasculinePersonal
     qid: Q54152717
 
-  9:
+  10:
     label: Common
     qid: Q1305037
 
-  10:
+  11:
     label: Neuter
     qid: Q1775461
 

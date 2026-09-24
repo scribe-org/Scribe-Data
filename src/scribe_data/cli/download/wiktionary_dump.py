@@ -30,7 +30,7 @@ def download_wiktionary_dumps(
     output_dir : Path, optional, default=DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR
         Directory to save the dump. Defaults to DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR.
 
-    language_isos : List[str], optional, default=['en']
+    language_isos : list[str], optional, default=['en']
         A list of ISO-2 codes for desired Wiktionary dumps.
 
     dump_snapshot : str, optional, default='latest'

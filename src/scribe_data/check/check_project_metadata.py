@@ -11,7 +11,7 @@ import difflib
 import sys
 
 from scribe_data.utils import (
-    WIKIDATA_QUERIES_ALL_DATA_DIR,
+    WIKIDATA_QUERIES_DIR,
     _languages,
     data_type_metadata,
 )
@@ -25,12 +25,12 @@ def get_available_languages() -> dict[str, dict[str, list[str]]]:
 
     Returns
     -------
-    dict[str, List[str]]
+    dict[str, list[str]]
         A dictionary with the language name as the key and a list of its sub-languages (if available).
     """
     available_languages = {}
 
-    for lang_folder in WIKIDATA_QUERIES_ALL_DATA_DIR.iterdir():
+    for lang_folder in WIKIDATA_QUERIES_DIR.iterdir():
         if lang_folder.is_dir():  # check if it's a directory
             lang_name = (
                 lang_folder.name
@@ -56,6 +56,7 @@ def get_available_languages() -> dict[str, dict[str, list[str]]]:
             # If we found sub-languages, add them to available_languages.s
             if sub_languages:
                 available_languages[lang_name] = {"sub_languages": sub_languages}
+
             else:
                 available_languages[lang_name] = {}
 
@@ -78,7 +79,7 @@ def get_missing_languages(
 
     Returns
     -------
-    List[str]
+    list[str]
         A list of languages and sub-languages that are in target_languages but not in reference_languages.
     """
     missing_languages = []
@@ -169,7 +170,7 @@ def check_language_metadata() -> None:
 
     This function helps identify missing languages or missing properties, ensuring data consistency across both sources.
     """
-    languages_in_metadata = {key: value for key, value in _languages.items()}
+    languages_in_metadata = dict(_languages.items())
 
     languages_in_directory = get_available_languages()
 

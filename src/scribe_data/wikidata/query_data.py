@@ -17,8 +17,8 @@ from tqdm.auto import tqdm
 from scribe_data.utils import (
     DEFAULT_JSON_EXPORT_DIR,
     WIKIDATA_DIR,
-    WIKIDATA_QUERIES_ALL_DATA_DIR,
-    WIKIDATA_QUERY_PROFANITY_FILE,
+    WIKIDATA_QUERIES_DIR,
+    WIKIDATA_QUERY_PROFANITY_SPARQL_FILE,
     format_sublanguage_name,
     get_language_qid,
     language_metadata,
@@ -95,10 +95,10 @@ def query_data(
 
     Parameters
     ----------
-    languages : List[str]
+    languages : list[str]
         The language(s) to get.
 
-    data_types : List[str]
+    data_types : list[str]
         The data type(s) to get.
 
     output_dir : Path
@@ -123,15 +123,13 @@ def query_data(
     languages_update = list(languages_update)
     data_types_update = current_data_types if data_types is None else data_types
 
-    ALL_WIKIDATA_QUERIES_ALL_DATA_DIR_files = [
-        path
-        for path in Path(WIKIDATA_QUERIES_ALL_DATA_DIR).rglob("*")
-        if path.is_file()
+    ALL_WIKIDATA_QUERIES_DIR_files = [
+        path for path in Path(WIKIDATA_QUERIES_DIR).rglob("*") if path.is_file()
     ]
 
-    WIKIDATA_QUERIES_ALL_DATA_DIR_IN_USE = [
+    WIKIDATA_QUERIES_DIR_IN_USE = [
         path
-        for path in ALL_WIKIDATA_QUERIES_ALL_DATA_DIR_files
+        for path in ALL_WIKIDATA_QUERIES_DIR_files
         if path.parent.name in data_types_update
         and path.parent.parent.name in languages_update
         and path.name != "__init__.py"
@@ -139,7 +137,7 @@ def query_data(
 
     # Note: Create language - profanity query pairs for use in the process below (there's only one query).
     if "profanity" in data_types_update:
-        WIKIDATA_QUERIES_ALL_DATA_DIR_IN_USE += [
+        WIKIDATA_QUERIES_DIR_IN_USE += [
             WIKIDATA_DIR / lang / "profanity" / "query_profanity.sparql"
             for lang in languages_update
         ]
@@ -148,7 +146,7 @@ def query_data(
     query_intervals = []
     query_intervals.extend(
         int(match[1])
-        for f in WIKIDATA_QUERIES_ALL_DATA_DIR_IN_USE
+        for f in WIKIDATA_QUERIES_DIR_IN_USE
         if (match := re.search(r"_(\d+)\.", f.name)) and f.name.endswith(".sparql")
     )
 
@@ -156,7 +154,7 @@ def query_data(
 
     queries_to_run = {
         Path(re.sub(r"_\d+.sparql", ".sparql", str(f)))
-        for f in WIKIDATA_QUERIES_ALL_DATA_DIR_IN_USE
+        for f in WIKIDATA_QUERIES_DIR_IN_USE
         if f.name.endswith(".sparql")
     }
     queries_to_run = sorted(queries_to_run)
@@ -187,7 +185,7 @@ def query_data(
 
         # Note: We just use one query for profanity for all languages.
         if target_type == "profanity":
-            with open(WIKIDATA_QUERY_PROFANITY_FILE, encoding="utf-8") as file:
+            with open(WIKIDATA_QUERY_PROFANITY_SPARQL_FILE, encoding="utf-8") as file:
                 query_lines = file.readlines()
                 query_str = "".join(query_lines).replace(
                     "LANGUAGE_QID", get_language_qid(lang)

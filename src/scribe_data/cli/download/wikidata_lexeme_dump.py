@@ -114,8 +114,8 @@ def download_wd_lexeme_dump(
 
     Parameters
     ----------
-    target_entity : str, optional
-        The target dump to download. Defaults to "latest-lexemes".
+    target_entity : str, optional, default="latest-lexemes"
+        The target dump to download.
         - If "latest-lexemes", downloads the latest dump.
         - If a valid date (e.g., YYYYMMDD), attempts to download the dump for that date.
 
@@ -218,13 +218,11 @@ def wd_lexeme_dump_download_wrapper(
     dump_snapshot : str
         Optional date string in YYYYMMDD format for specific dumps.
 
-    output_dir : Path
+    output_dir : Path, optional, default=DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
         Optional directory path for the downloaded file.
-        Defaults to 'scribe_data_wikidata_dumps_export' directory.
 
-    default : bool, optional
+    default : bool, optional, default=False
         If True, skips the user confirmation prompt.
-        Defaults to False.
 
     Returns
     -------

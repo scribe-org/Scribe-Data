@@ -4,7 +4,8 @@
 # Placeholders: {LANGUAGE_QID}, {DATA_TYPE_QID}, {MIN_FREQUENCY}, and {MAX_RESULTS} should be replaced with actual values.
 
 SELECT
-  ?comboQIDs (COUNT(?form) AS ?formsWithThisCombo)
+  ?comboQIDs
+  (COUNT(?form) AS ?formsWithThisCombo)
 
 WHERE {
   {

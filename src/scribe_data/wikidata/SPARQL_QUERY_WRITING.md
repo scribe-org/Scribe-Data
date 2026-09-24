@@ -39,7 +39,7 @@ Let’s consider an example using Spanish adjectives. The base query returns the
 1. Navigate to the [Wikidata Query Service](https://query.wikidata.org)
 2. Enter and run the following SPARQL query, which returns all Spanish adjectives:
 
-   ```sparql
+   ```sql
    SELECT
      ?lexeme  # unique ID for the data entry
      ?adjective  # lemma or label of the ID
@@ -78,7 +78,7 @@ To construct queries for specific forms:
 
 For example, if you wanted to retrieve form for feminine singular, you could use the following optional selection:
 
-```sparql
+```sql
 OPTIONAL {
   # A unique identifier for the form defined below.
   ?lexeme ontolex:lexicalForm ?feminineSingularForm .
@@ -97,7 +97,7 @@ Putting this optional selection in your query and adding `?feminineSingular` to 
 
 The following is an example query for Spanish adjectives. The full query is a bit more complex as there are more forms possible in Spanish adjectives, but this should give you an impression of a query that returns all possible forms for a word type of a language:
 
-```sparql
+```sql
 SELECT
   (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified

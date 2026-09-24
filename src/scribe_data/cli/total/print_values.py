@@ -5,7 +5,7 @@ Functions to display the total language data available on Wikidata.
 
 from scribe_data.cli.total.query import query_total_lexemes
 from scribe_data.utils import (
-    WIKIDATA_QUERIES_ALL_DATA_DIR,
+    WIKIDATA_QUERIES_DIR,
     check_qid_is_language,
     data_type_metadata,
     format_sublanguage_name,
@@ -45,9 +45,7 @@ def get_datatype_list(language: str) -> list | dict:
             data_types = []
 
             for sub_lang_key in sub_languages:
-                sub_lang_dir = (
-                    WIKIDATA_QUERIES_ALL_DATA_DIR / sub_languages[sub_lang_key]["iso"]
-                )
+                sub_lang_dir = WIKIDATA_QUERIES_DIR / sub_languages[sub_lang_key]["iso"]
                 if sub_lang_dir.exists():
                     data_types.extend(
                         [f.name for f in sub_lang_dir.iterdir() if f.is_dir()]
@@ -61,7 +59,7 @@ def get_datatype_list(language: str) -> list | dict:
             return sorted(set(data_types))  # remove duplicates and sort
 
         else:
-            language_dir = WIKIDATA_QUERIES_ALL_DATA_DIR / language_key
+            language_dir = WIKIDATA_QUERIES_DIR / language_key
             if not language_dir.exists():
                 raise ValueError(f"Directory '{language_dir}' does not exist.")
 

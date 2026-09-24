@@ -19,7 +19,7 @@ class TestCheckProjectMetadata(unittest.TestCase):
     def test_get_available_languages(self) -> None:
         """
         Tests that get_available_languages returns a dictionary with
-        languages from WIKIDATA_QUERIES_ALL_DATA_DIR.
+        languages from WIKIDATA_QUERIES_DIR.
         """
         available_languages = get_available_languages()
         desired_dict = {

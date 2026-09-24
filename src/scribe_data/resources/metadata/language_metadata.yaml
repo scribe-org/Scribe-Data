@@ -132,6 +132,7 @@ persian:
   qid: Q9168
 
 pidgin:
+  qid: Q33831
   sub_languages:
     nigerian:
       iso: pi

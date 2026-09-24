@@ -37,13 +37,13 @@ def parse_wd_lexeme_dump(
 
     Parameters
     ----------
-    languages : Union[str, List[str]]
+    languages : str | list[str]
         The language(s) to parse the data for. Use "all" for all languages.
 
-    data_types : List[str]
+    data_types : list[str]
         The categories to parse when using "form" type (e.g. ["nouns", "adverbs"]).
 
-    wikidata_dump_type : List[str]
+    wikidata_dump_type : list[str]
         The type(s) of Wikidata lexeme dump to parse (e.g. ["total", "form"]).
 
     output_dir : str, optional

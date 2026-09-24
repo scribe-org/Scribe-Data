@@ -75,7 +75,7 @@ class TestQueryData(unittest.TestCase):
                 # Patch functions so temporary files are used.
                 with (
                     patch(
-                        "scribe_data.wikidata.query_data.WIKIDATA_QUERIES_ALL_DATA_DIR",
+                        "scribe_data.wikidata.query_data.WIKIDATA_QUERIES_DIR",
                         lang_data_extraction_dir,
                     ),
                     patch(
@@ -186,7 +186,7 @@ class TestQueryData(unittest.TestCase):
                 # Patch functions so temporary files are used.
                 with (
                     patch(
-                        "scribe_data.wikidata.query_data.WIKIDATA_QUERIES_ALL_DATA_DIR",
+                        "scribe_data.wikidata.query_data.WIKIDATA_QUERIES_DIR",
                         lang_data_extraction_dir,
                     ),
                     patch(
@@ -265,7 +265,7 @@ class TestQueryData(unittest.TestCase):
                 # Patch functions so temporary files are used.
                 with (
                     patch(
-                        "scribe_data.wikidata.query_data.WIKIDATA_QUERIES_ALL_DATA_DIR",
+                        "scribe_data.wikidata.query_data.WIKIDATA_QUERIES_DIR",
                         lang_data_extraction_dir,
                     ),
                     patch(

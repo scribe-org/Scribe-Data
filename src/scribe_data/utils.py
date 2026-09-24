@@ -8,7 +8,7 @@ import json
 import os
 import re
 from datetime import datetime
-from importlib import metadata, resources
+from importlib import metadata
 from pathlib import Path
 from typing import Any
 
@@ -32,23 +32,24 @@ DEFAULT_WIKIDATA_DUMP_EXPORT_DIR = Path("scribe_data_wikidata_dumps_export")
 DEFAULT_WIKTIONARY_JSON_EXPORT_DIR = Path("scribe_data_wiktionary_json_export")
 DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR = Path("scribe_data_wiktionary_dumps_export")
 
+DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
 DEFAULT_CONTRACTS_EXPORT_DIR = Path("scribe_data_contracts")
-DEFAULT_DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
 
 project_homepage = metadata.metadata("scribe-data").get("Home-page")
 WMF_HEADERS = {"User-Agent": f"{PROJECT_ROOT} ({project_homepage})"}
 
 WIKIDATA_DIR = Path(__file__).parent / "wikidata"
-WIKIDATA_QUERIES_ALL_DATA_DIR = WIKIDATA_DIR / "queries_all_data"
-WIKIDATA_QUERIES_SCRIBE_APPS_DIR = WIKIDATA_DIR / "queries_scribe_apps"
-WIKIDATA_QUERY_PROFANITY_FILE = WIKIDATA_DIR / "query_profanity.sparql"
+WIKIDATA_QUERIES_DIR = WIKIDATA_DIR / "queries"
+WIKIDATA_QUERY_PROFANITY_SPARQL_FILE = WIKIDATA_DIR / "query_profanity.sparql"
 
-LANGUAGE_METADATA_FILE = Path(__file__).parent / "resources" / "language_metadata.yaml"
+LANGUAGE_METADATA_FILE = (
+    Path(__file__).parent / "resources" / "metadata" / "language_metadata.yaml"
+)
 DATA_TYPE_METADATA_FILE = (
-    Path(__file__).parent / "resources" / "data_type_metadata.yaml"
+    Path(__file__).parent / "resources" / "metadata" / "data_type_metadata.yaml"
 )
 LEXEME_FORM_METADATA_FILE = (
-    Path(__file__).parent / "resources" / "lexeme_form_metadata.yaml"
+    Path(__file__).parent / "resources" / "metadata" / "lexeme_form_metadata.yaml"
 )
 WIKIDATA_QIDS_PIDS_FILE = (
     Path(__file__).parent / "resources" / "wikidata_qids_pids.yaml"
@@ -60,7 +61,6 @@ try:
 
 except (IOError, yaml.YAMLError) as e:
     print(f"Error reading language metadata: {e}")
-
 
 try:
     with DATA_TYPE_METADATA_FILE.open("r", encoding="utf-8") as file:
@@ -124,36 +124,6 @@ for lang_name, lang_data in language_metadata.items():
         }
 
 
-def _load_json(package_path: str, file_name: str) -> Any:
-    """
-    Load a JSON or YAML resource from a package into a python entity.
-
-    Parameters
-    ----------
-    package_path : str
-        The fully qualified package that contains the resource.
-
-    file_name : str
-        The name of the file (resource) that contains the JSON or YAML data.
-
-    Returns
-    -------
-    Any
-        A python entity representing the file content.
-    """
-    data_file = resources.files(package_path).joinpath(file_name)
-    with data_file.open(encoding="utf-8") as in_stream:
-        if file_name.endswith((".yaml", ".yml")):
-            return yaml.safe_load(in_stream)
-
-        return json.load(in_stream)
-
-
-_languages = _load_json(
-    package_path="scribe_data.resources", file_name="language_metadata.yaml"
-)
-
-
 def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -> Any:
     """
     Find a target value based on a source key/value pair from the language metadata.
@@ -187,7 +157,7 @@ def _find(source_key: str, source_value: str, target_key: str, error_msg: str) -
     # Check if we're searching by language name.
     if source_key == "language":
         # First, check the main language entries (e.g., mandarin, french, etc.).
-        for language, entry in _languages.items():
+        for language, entry in language_metadata.items():
             # If the language name matches the top-level key, return the target value.
             if language == source_value:
                 if "sub_languages" in entry:
@@ -270,7 +240,7 @@ def get_language_from_iso(iso: str) -> str:
         The name for the language which has an ISO value of iso.
     """
     # Iterate over the languages and their properties.
-    for language, properties in _languages.items():
+    for language, properties in language_metadata.items():
         # Check if the current language's ISO matches the provided ISO.
         if properties.get("iso") == iso:
             return language.capitalize()
@@ -416,7 +386,9 @@ def export_formatted_data(
     )
 
 
-def format_sublanguage_name(lang: str, language_metadata: dict = _languages) -> str:
+def format_sublanguage_name(
+    lang: str, language_metadata: dict = language_metadata
+) -> str:
     """
     Format the name of a sub-language by appending its main language in the format 'SUB_LANG MAIN_LANG'.
 
@@ -472,7 +444,7 @@ def format_sublanguage_name(lang: str, language_metadata: dict = _languages) -> 
     raise ValueError(f"{lang.capitalize()} is not a valid language or sub-language.")
 
 
-def list_all_languages(language_metadata: dict = _languages) -> list[str]:
+def list_all_languages(language_metadata: dict = language_metadata) -> list[str]:
     """
     Return a sorted list of all languages and sub-languages from the provided metadata dictionary.
 
@@ -504,7 +476,7 @@ def list_all_languages(language_metadata: dict = _languages) -> list[str]:
 
 
 def list_languages_with_metadata_for_data_type(
-    language_metadata: dict = _languages,
+    language_metadata: dict = language_metadata,
 ) -> list[dict]:
     """
     Return a sorted list of languages and their metadata (name, iso, qid) for a specific data type.

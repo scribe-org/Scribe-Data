@@ -23,7 +23,7 @@ def create_word_completer(
 
     Parameters
     ----------
-    options : List[str]
+    options : list[str]
         The options that could complete the current input.
 
     include_all : bool
