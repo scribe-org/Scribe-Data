@@ -1,6 +1,8 @@
 # Database column mappings that are read by Scribe applications to structure how data is displayed to the user.
 # Includes interface titles and the order that values should be presented (chronological or alphabetical).
 # Contracts are also how Scribe-Data generates queries. All data type end values are query lexeme forms.
+# - If the nodes have "value" as a key, then all values for this key are used in query generation
+# - If the nodes don't have "value" as a key, then all end values are used in query generation
 
 # MARK: Nouns
 
