@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scribe-data"
-version = "5.1.4"
+version = "6.0.0"
 description = "Wikidata and Wiktionary language data extraction"
 readme = "README.md"
 requires-python = ">=3.12"
