@@ -22,6 +22,8 @@ data_contracts_langs = [
 for i in range(len(data_contracts_langs)):
     data_contracts_langs[i] = get_language_from_iso(data_contracts_langs[i])
 
+# MARK: Check Contracts
+
 
 def check_contracts(
     contracts_dir: Path | None = None, output_dir: str | None = None
@@ -48,6 +50,9 @@ def check_contracts(
 
     missing_forms = check_contract_data_completeness(export_dir)
     print_missing_forms(missing_forms)
+
+
+# MARK: Check Data
 
 
 def check_contract_data_completeness(

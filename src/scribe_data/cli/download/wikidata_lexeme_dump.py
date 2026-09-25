@@ -22,6 +22,8 @@ from scribe_data.utils import (
     check_lexeme_dump_prompt_download,
 )
 
+# MARK: Parse Data
+
 
 def parse_date(date_string: str) -> date | None:
     """
@@ -51,6 +53,9 @@ def parse_date(date_string: str) -> date | None:
         f"Invalid date format: {date_string}. Expected formats: YYYYMMDD, YYYY/MM/DD, or YYYY-MM-DD."
     )
     return None
+
+
+# MARK: Dump File
 
 
 def available_closest_lexeme_dump_file(
@@ -104,6 +109,9 @@ def available_closest_lexeme_dump_file(
                             break
 
         return closest_date
+
+
+# MARK: Download
 
 
 def download_wd_lexeme_dump(
@@ -203,6 +211,9 @@ def download_wd_lexeme_dump(
 
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
+
+
+# MARK: Wrapper
 
 
 def wd_lexeme_dump_download_wrapper(

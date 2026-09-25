@@ -16,6 +16,8 @@ from scribe_data.utils import (
     resolve_lang_iso,
 )
 
+# MARK: Download Dump
+
 
 def download_wiktionary_dumps(
     output_dir: Path = DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
