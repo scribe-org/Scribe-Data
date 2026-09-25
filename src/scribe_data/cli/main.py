@@ -407,7 +407,7 @@ def main() -> None:
 
     audit_wd_lexeme_forms_parser = subparsers.add_parser(
         "audit_wd_lexeme_forms",
-        aliases=["awlf"],
+        aliases=["awdlf"],
         help=AUDIT_WIKIDATA_LEXEME_FORMS_DESCRIPTION,
         description=AUDIT_WIKIDATA_LEXEME_FORMS_DESCRIPTION,
         epilog=CLI_EPILOG,
@@ -443,18 +443,18 @@ def main() -> None:
         required=False,
         help="The maximum results to include in the audit.",
     )
-    audit_wd_lexeme_forms_parser.add_argument(
-        "-i",
-        "--interactive",
-        action="store_true",
-        help="Run the audit-wikidata-lexeme-forms command in interactive mode.",
-    )
+    # audit_wd_lexeme_forms_parser.add_argument(
+    #     "-i",
+    #     "--interactive",
+    #     action="store_true",
+    #     help="Run the audit-wikidata-lexeme-forms command in interactive mode.",
+    # )
 
     # MARK: Generate Queries
 
     generate_wd_lexeme_queries_parser = subparsers.add_parser(
         "generate_wd_lexeme_queries",
-        aliases=["gwlq"],
+        aliases=["gwdlq"],
         help=GENERATE_WIKIDATA_LEXEME_QUERIES_DESCRIPTION,
         description=GENERATE_WIKIDATA_LEXEME_QUERIES_DESCRIPTION,
         epilog=CLI_EPILOG,
@@ -805,21 +805,20 @@ def main() -> None:
 
         # MARK: Run Audit
 
-        elif args.command in ["audit_wd_lexeme_forms", "awlf"]:
-            if args.interactive:
-                run_interactive_mode(operation="audit")
+        elif args.command in ["audit_wd_lexeme_forms", "awdlf"]:
+            # if args.interactive:
+            #     run_interactive_mode(operation="audit")
 
-            else:
-                audit_wikidata_lexeme_forms(
-                    language=args.language.lower(),
-                    data_types=args.data_type.lower()
-                    if args.data_type is not None
-                    else ["all"],
-                )
+            audit_wikidata_lexeme_forms(
+                language=args.language.lower(),
+                data_types=args.data_type.lower()
+                if args.data_type is not None
+                else ["all"],
+            )
 
         # MARK: Run Query Gen
 
-        elif args.command in ["generate_wd_lexeme_queries", "gwlq"]:
+        elif args.command in ["generate_wd_lexeme_queries", "gwdlq"]:
             lang = args.language.lower() if args.language else None
             data_type = args.data_type.lower() if args.data_type else None
             generate_wikidata_lexeme_queries(

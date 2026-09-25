@@ -1,4 +1,4 @@
-name: check_query_forms
+name: ci_check_query_identifiers
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
     branches: [main]
     types: [opened, reopened, synchronize]
     paths:
-      - "src/scribe_data/wikidata/queries/**/*.sparqll"
+      - "src/scribe_data/wikidata/queries/**/*.sparql"
 
 jobs:
   format_check:
@@ -23,7 +23,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    name: Run Check Query Forms
+    name: Run Check Query Identifiers
 
     steps:
       - name: Checkout repository
@@ -43,12 +43,10 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen
 
-      - name: Run check_query_forms.py
+      - name: Run check_query_identifiers.py
         working-directory: ./src/scribe_data/check
-        run: uv run python check_query_forms.py
+        run: uv run python check_query_identifiers.py
 
       - name: Post-run status
         if: failure()
-        run:
-          echo "Project SPARQL query forms check failed. Please fix the reported
-          errors."
+        run: echo "Project SPARQL queries check failed. Please fix the reported errors."

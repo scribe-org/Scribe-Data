@@ -26,6 +26,8 @@ from scribe_data.utils import (
 )
 from scribe_data.wikidata.wikidata_utils import sparql
 
+# MARK: Execute Formatting
+
 
 def execute_formatting_script(output_dir: Path, language: str, data_type: str) -> None:
     """
@@ -81,6 +83,9 @@ def execute_formatting_script(output_dir: Path, language: str, data_type: str) -
 
     except subprocess.CalledProcessError as e:
         print(f"Error: The formatting script failed with exit status {e.returncode}.")
+
+
+# MARK: Query Data
 
 
 def query_data(
