@@ -513,7 +513,7 @@
     "functions": [
       {
         "name": "generate_wikidata_lexeme_queries",
-        "complexity": 85
+        "complexity": 91
       }
     ]
   },

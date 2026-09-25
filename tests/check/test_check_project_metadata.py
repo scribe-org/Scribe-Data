@@ -198,7 +198,7 @@ class TestCheckProjectMetadata(unittest.TestCase):
                 },
             ),
             patch.dict(
-                "scribe_data.utils._languages",
+                "scribe_data.utils.language_metadata",
                 {
                     "estonian": {"iso": "et", "qid": "Q9072"},
                     "indonesian": {"iso": "id", "qid": "Q9240"},
