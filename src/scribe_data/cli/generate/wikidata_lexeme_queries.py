@@ -125,11 +125,11 @@ def generate_wikidata_lexeme_queries(
 
         # Determine which language name and QID to use in comments.
         if sub_lang_name:
-            comment_language_name = sub_lang_name
+            comment_language_name = sub_lang_name.capitalize() if sub_lang_name else ""
             comment_language_qid = sub_lang_qid
 
         else:
-            comment_language_name = language
+            comment_language_name = language.capitalize() if language else ""
             comment_language_qid = lang_qid
 
         for dt, contract_values in contract_values_dict.items():
@@ -170,7 +170,7 @@ def generate_wikidata_lexeme_queries(
             # MARK: Generate Query
 
             main_body = f"""# tool: scribe-data
-# All {comment_language_name.capitalize()} ({comment_language_qid}) {dt} ({dt_qid}) and the given forms.
+# All {comment_language_name} ({comment_language_qid}) {dt} ({dt_qid}) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
@@ -239,14 +239,14 @@ WHERE {{
                 Path(WIKIDATA_QUERIES_DIR)
                 / parent_language
                 / sub_lang_name
-                / data_type
+                / dt
                 / f"query_{data_type}.sparql"
             )
 
         elif output_dir:
             # Regular language with query_dir specified.
             base_file_name = (
-                output_dir / language / data_type / f"query_{data_type}.sparql"
+                output_dir / comment_language_name / dt / f"query_{data_type}.sparql"
             )
 
         else:

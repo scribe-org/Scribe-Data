@@ -60,12 +60,12 @@
     "file_name": "check_project_metadata.py",
     "functions": [
       {
-        "name": "get_available_languages",
+        "name": "check_language_metadata",
         "complexity": 19
       },
       {
-        "name": "check_language_metadata",
-        "complexity": 20
+        "name": "get_available_languages",
+        "complexity": 19
       },
       {
         "name": "validate_language_properties",
@@ -87,7 +87,7 @@
       },
       {
         "name": "check_project_structure",
-        "complexity": 44
+        "complexity": 41
       }
     ]
   },
@@ -287,7 +287,7 @@
     "functions": [
       {
         "name": "main",
-        "complexity": 110
+        "complexity": 119
       }
     ]
   },
@@ -458,6 +458,72 @@
       {
         "name": "validate_forms",
         "complexity": 20
+      }
+    ]
+  },
+  {
+    "path": "src/scribe_data/cli/audit/issue_body.py",
+    "file_name": "issue_body.py",
+    "functions": [
+      {
+        "name": "issue_body",
+        "complexity": 31
+      }
+    ]
+  },
+  {
+    "path": "src/scribe_data/cli/audit/wikidata_lexeme_forms.py",
+    "file_name": "wikidata_lexeme_forms.py",
+    "functions": [
+      {
+        "name": "get_features_from_sparql_service",
+        "complexity": 22
+      },
+      {
+        "name": "execute_sparql_query",
+        "complexity": 24
+      },
+      {
+        "name": "get_forms_from_sparql_service",
+        "complexity": 27
+      },
+      {
+        "name": "get_forms_from_sparql_service_all_languages",
+        "complexity": 41
+      }
+    ]
+  },
+  {
+    "path": "src/scribe_data/cli/generate/generate_utils.py",
+    "file_name": "generate_utils.py",
+    "functions": [
+      {
+        "name": "_extract_specific_key_values",
+        "complexity": 16
+      },
+      {
+        "name": "split_lexeme_forms_by_identifier",
+        "complexity": 57
+      }
+    ]
+  },
+  {
+    "path": "src/scribe_data/cli/generate/wikidata_lexeme_queries.py",
+    "file_name": "wikidata_lexeme_queries.py",
+    "functions": [
+      {
+        "name": "generate_wikidata_lexeme_queries",
+        "complexity": 85
+      }
+    ]
+  },
+  {
+    "path": "src/scribe_data/cli/get/data.py",
+    "file_name": "data.py",
+    "functions": [
+      {
+        "name": "get_data",
+        "complexity": 51
       }
     ]
   }

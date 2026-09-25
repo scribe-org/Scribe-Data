@@ -12,8 +12,8 @@ import sys
 
 from scribe_data.utils import (
     WIKIDATA_QUERIES_DIR,
-    _languages,
     data_type_metadata,
+    language_metadata,
 )
 
 all_data_types = tuple(data_type_metadata.keys())
@@ -92,6 +92,7 @@ def get_missing_languages(
             if "sub_languages" in details:
                 for sub_lang in details["sub_languages"]:
                     missing_languages.append(f"{lang}/{sub_lang}")
+
             else:
                 # Individual language, append directly.
                 missing_languages.append(lang)
@@ -170,7 +171,7 @@ def check_language_metadata() -> None:
 
     This function helps identify missing languages or missing properties, ensuring data consistency across both sources.
     """
-    languages_in_metadata = dict(_languages.items())
+    languages_in_metadata = dict(language_metadata.items())
 
     languages_in_directory = get_available_languages()
 
