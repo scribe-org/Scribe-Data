@@ -3,6 +3,7 @@
 # Contracts are also how Scribe-Data generates queries. All data type end values are query lexeme forms.
 # - If the nodes have "value" as a key, then all values for this key are used in query generation
 # - If the nodes don't have "value" as a key, then all end values are used in query generation
+# Note that {lexemeForm} values are included but [word] values are not.
 
 # MARK: Nouns
 

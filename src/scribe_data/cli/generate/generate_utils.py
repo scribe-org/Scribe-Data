@@ -7,7 +7,6 @@ import os
 import re
 import string
 from collections import defaultdict
-from pathlib import Path
 
 from scribe_data.utils import lexeme_form_metadata
 
@@ -46,7 +45,7 @@ def _has_key(data: dict | list, target_key: str) -> bool:
 
 def _extract_specific_key_values(data: dict | list, target_key: str) -> list:
     """
-    Walks the structure and only extracts values assigned to the target_key.
+    Walk the structure and only extracts values assigned to the target_key.
 
     Parameters
     ----------
@@ -84,12 +83,17 @@ def _extract_specific_key_values(data: dict | list, target_key: str) -> list:
 
 def _extract_all_leaves(data: dict | list) -> list:
     """
-    Walks the structure and extracts all end values (leaf nodes).
+    Walk the structure and extracts all end values (leaf nodes).
 
     Parameters
     ----------
     data : dict | list
         The data to extract all leaf node values for.
+
+    Returns
+    -------
+    list
+        All leaf node values of the contract.
     """
     values = []
     if isinstance(data, dict):
@@ -130,9 +134,12 @@ def extract_data_contract_values(contract_entry: dict) -> list:
 
     final_contract_values = set()
     for cv in contract_values:
+        cv_no_ignored_words = re.sub(
+            r"\[.*?\]", "", cv
+        )  # we don't include [word] values but do include {lexemeForm} values
         cv_split_and_no_punctuation = [
             v.translate(str.maketrans("", "", string.punctuation))
-            for v in cv.split(" ")
+            for v in cv_no_ignored_words.split(" ")
         ]
         for v in cv_split_and_no_punctuation:
             final_contract_values.add(v)
@@ -208,25 +215,20 @@ def get_next_query_filename(base_path: str) -> str:
 # MARK: Split Forms
 
 
-def split_lexeme_forms_by_identifier(
-    language_entry: dict,
-    output_dir: Path,
-    sub_lang_iso_code: str | None = None,
-) -> None:
+def split_lexeme_forms_by_identifier(language_entry: dict) -> list:
     """
     Split forms into groups of up to six forms per query based on identifiers.
 
     Parameters
     ----------
     language_entry : dict
-        Dictionary containing language data with missing features.
+        Dictionary containing language data that should be used to generate queries.
         Format: {language_qid: {data_type_qid: [features]}}.
 
-    output_dir : Path
-        Directory where generated query files should be saved.
-
-    sub_lang_iso_code : str, optional
-        ISO code for sub-language if applicable.
+    Returns
+    -------
+    list
+        The optimized query groups for query generation.
 
     Notes
     -----
@@ -240,7 +242,7 @@ def split_lexeme_forms_by_identifier(
 
             # First try to group by the first identifier in each feature list.
             for feature_list in missing_features_list:
-                if feature_list:  # skip empty lists
+                if feature_list:
                     # Use the first identifier as the grouping key.
                     key = feature_list[0]
                     identifier_groups[key].append(feature_list)
@@ -292,11 +294,14 @@ def split_lexeme_forms_by_identifier(
                     # Current group is full, so start a new one.
                     if current_group:
                         optimized_groups.append(current_group)
+
                     current_group = group
 
             # Add the last group if not empty.
             if current_group:
                 optimized_groups.append(current_group)
+
+    return optimized_groups
 
 
 # MARK: Sort QIDs

@@ -7,60 +7,14 @@ Examples
 >>> python3 src/scribe_data/check/check_project_metadata.py
 """
 
-import difflib
 import sys
 
 from scribe_data.utils import (
-    WIKIDATA_QUERIES_DIR,
     data_type_metadata,
     language_metadata,
 )
 
 all_data_types = tuple(data_type_metadata.keys())
-
-
-def get_available_languages() -> dict[str, dict[str, list[str]]]:
-    """
-    Get available languages from the data extraction folder.
-
-    Returns
-    -------
-    dict[str, list[str]]
-        A dictionary with the language name as the key and a list of its sub-languages (if available).
-    """
-    available_languages = {}
-
-    for lang_folder in WIKIDATA_QUERIES_DIR.iterdir():
-        if lang_folder.is_dir():  # check if it's a directory
-            lang_name = (
-                lang_folder.name
-            )  # normalize keys to lowercase for case-insensitive comparison
-            sub_languages = []
-
-            # Check if lang_folder contains subdirectories.
-            for sub_folder in lang_folder.iterdir():
-                if sub_folder.is_dir():
-                    sub_lang_name = (
-                        sub_folder.name
-                    )  # normalize to lowercase for case-insensitive comparison.
-
-                    # Check for almost similar keys using difflib.
-                    close_matches = difflib.get_close_matches(  # verb, noun, etc.
-                        sub_lang_name, all_data_types, n=1, cutoff=0.8
-                    )
-
-                    # Append sub-language name if no close match found (not a data type).
-                    if not close_matches:
-                        sub_languages.append(sub_lang_name)
-
-            # If we found sub-languages, add them to available_languages.s
-            if sub_languages:
-                available_languages[lang_name] = {"sub_languages": sub_languages}
-
-            else:
-                available_languages[lang_name] = {}
-
-    return available_languages
 
 
 def get_missing_languages(
@@ -173,31 +127,14 @@ def check_language_metadata() -> None:
     """
     languages_in_metadata = dict(language_metadata.items())
 
-    languages_in_directory = get_available_languages()
-
-    missing_languages_extraction = get_missing_languages(
-        languages_in_directory, languages_in_metadata
-    )
-
     languages_with_missing_properties = validate_language_properties(
-        languages_in_metadata
+        languages_dict=languages_in_metadata
     )
 
     if (
-        missing_languages_extraction
-        or languages_with_missing_properties["missing_qids"]
+        languages_with_missing_properties["missing_qids"]
         or languages_with_missing_properties["missing_isos"]
     ):
-        if missing_languages_extraction:
-            print(
-                "There are missing languages or inconsistencies between language_metadata.yaml and the queries directory.\n"
-            )
-
-        if missing_languages_extraction:
-            print("\nLanguages missing from the queries directory:")
-            for lang in missing_languages_extraction:
-                print(f"  - {lang.title()}")
-
         if languages_with_missing_properties["missing_qids"]:
             print("\nLanguages missing the `qid` property:")
             for lang in languages_with_missing_properties["missing_qids"]:
@@ -212,7 +149,7 @@ def check_language_metadata() -> None:
         sys.exit(1)
 
     print(
-        "All languages in language_metadata.yaml are included in Scribe-Data.\nLanguages in language_metadata.yaml have the correct properties."
+        "All languages in Scribe-Data are included in the language_metadata.yaml.\nLanguages in language_metadata.yaml have the correct properties."
     )
 
 

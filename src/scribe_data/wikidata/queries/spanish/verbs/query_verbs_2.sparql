@@ -1,58 +1,57 @@
 # tool: scribe-data
-# All Spanish (Q1321) verbs (Q24905) and the given forms.
+# All  (Q1321) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
 SELECT
-  (REPLACE(STR(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
+  (replace(str(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
-  ?infinitive
-  ?preteriteFirstPersonSingular
-  ?preteriteFirstPersonPlural
-  ?preteriteSecondPersonSingular
-  ?preteriteSecondPersonPlural
-  ?preteriteThirdPersonSingular
-  ?preteriteThirdPersonPlural
+  ?verb
+  ?pastImperfectFirstPersonSingular
+  ?pastImperfectFirstPersonPlural
+  ?pastImperfectSecondPersonSingular
+  ?pastImperfectSecondPersonPlural
+  ?pastImperfectThirdPersonSingular
+  ?pastImperfectThirdPersonPlural
 
 WHERE {
-  ?lexeme dct:language wd:Q1321 ;
-    wikibase:lexicalCategory wd:Q24905 ;
-    wikibase:lemma ?infinitive ;
-    schema:dateModified ?lastModified .
-
-  # MARK: Preterite
+  ?lexeme dct:language wd:Q1321;
+    wikibase:lexicalCategory wd:Q24905;
+    wikibase:lemma ?verb;
+    schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteFirstPersonSingularForm .
-    ?preteriteFirstPersonSingularForm ontolex:representation ?preteriteFirstPersonSingular ;
-      wikibase:grammaticalFeature wd:Q442485, wd:Q21714344, wd:Q110786 .
-  }
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteFirstPersonPluralForm .
-    ?preteriteFirstPersonPluralForm ontolex:representation ?preteriteFirstPersonPlural ;
-      wikibase:grammaticalFeature wd:Q442485, wd:Q21714344, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonSingularForm.
+    ?pastImperfectFirstPersonSingularForm ontolex:representation ?pastImperfectFirstPersonSingular;
+    wikibase:grammaticalFeature wd:Q1994301, wd:Q108524486, wd:Q21714344, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteSecondPersonSingularForm .
-    ?preteriteSecondPersonSingularForm ontolex:representation ?preteriteSecondPersonSingular ;
-      wikibase:grammaticalFeature wd:Q442485, wd:Q51929049, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pastImperfectFirstPersonPluralForm.
+    ?pastImperfectFirstPersonPluralForm ontolex:representation ?pastImperfectFirstPersonPlural;
+    wikibase:grammaticalFeature wd:Q1994301, wd:Q108524486, wd:Q21714344, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteSecondPersonPluralForm .
-    ?preteriteSecondPersonPluralForm ontolex:representation ?preteriteSecondPersonPlural ;
-      wikibase:grammaticalFeature wd:Q442485, wd:Q51929049, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonSingularForm.
+    ?pastImperfectSecondPersonSingularForm ontolex:representation ?pastImperfectSecondPersonSingular;
+    wikibase:grammaticalFeature wd:Q1994301, wd:Q108524486, wd:Q51929049, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonSingularForm .
-    ?preteriteThirdPersonSingularForm ontolex:representation ?preteriteThirdPersonSingular ;
-      wikibase:grammaticalFeature wd:Q442485, wd:Q51929074, wd:Q110786 .
+    ?lexeme ontolex:lexicalForm ?pastImperfectSecondPersonPluralForm.
+    ?pastImperfectSecondPersonPluralForm ontolex:representation ?pastImperfectSecondPersonPlural;
+    wikibase:grammaticalFeature wd:Q1994301, wd:Q108524486, wd:Q51929049, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonPluralForm .
-    ?preteriteThirdPersonPluralForm ontolex:representation ?preteriteThirdPersonPlural ;
-      wikibase:grammaticalFeature wd:Q442485, wd:Q51929074, wd:Q146786 .
+    ?lexeme ontolex:lexicalForm ?pastImperfectThirdPersonSingularForm.
+    ?pastImperfectThirdPersonSingularForm ontolex:representation ?pastImperfectThirdPersonSingular;
+    wikibase:grammaticalFeature wd:Q1994301, wd:Q108524486, wd:Q51929074, wd:Q110786.
+  }
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pastImperfectThirdPersonPluralForm.
+    ?pastImperfectThirdPersonPluralForm ontolex:representation ?pastImperfectThirdPersonPlural;
+    wikibase:grammaticalFeature wd:Q1994301, wd:Q108524486, wd:Q51929074, wd:Q146786.
   }
 }

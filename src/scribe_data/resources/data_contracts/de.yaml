@@ -3,6 +3,7 @@
 # Contracts are also how Scribe-Data generates queries. All data type end values are query lexeme forms.
 # - If the nodes have "value" as a key, then all values for this key are used in query generation
 # - If the nodes don't have "value" as a key, then all end values are used in query generation
+# Note that {lexemeForm} values are included but [word] values are not.
 
 # MARK: Nouns
 
@@ -85,22 +86,22 @@ verbs:
           tenseForms:
             1:
               label: ich
-              value: "[indicativePresentFirstPersonSingular auxiliaryVerb] pastParticiple"
+              value: "{indicativePresentFirstPersonSingular auxiliaryVerb} pastParticiple"
             2:
               label: du
-              value: "[indicativePresentSecondPersonSingular auxiliaryVerb] pastParticiple"
+              value: "{indicativePresentSecondPersonSingular auxiliaryVerb} pastParticiple"
             3:
               label: er/sie/es
-              value: "[indicativePresentThirdPersonSingular auxiliaryVerb] pastParticiple"
+              value: "{indicativePresentThirdPersonSingular auxiliaryVerb} pastParticiple"
             4:
               label: wir
-              value: "[indicativePresentFirstPersonPlural auxiliaryVerb] pastParticiple"
+              value: "{indicativePresentFirstPersonPlural auxiliaryVerb} pastParticiple"
             5:
               label: ihr
-              value: "[indicativePresentSecondPersonPlural auxiliaryVerb] pastParticiple"
+              value: "{indicativePresentSecondPersonPlural auxiliaryVerb} pastParticiple"
             6:
               label: sie/Sie
-              value: "[indicativePresentThirdPersonPlural auxiliaryVerb] pastParticiple"
+              value: "{indicativePresentThirdPersonPlural auxiliaryVerb} pastParticiple"
 
 # MARK: Translations
 

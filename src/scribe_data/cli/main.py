@@ -798,10 +798,12 @@ def main() -> None:
             else:
                 print("Skipping action")
 
-        # MARK: Contract Commands
+        # MARK: Run Contracts Export
 
         elif args.command in ["export_contracts", "ec"]:
             export_contracts(output_dir=args.output_dir)
+
+        # MARK: Run Audit
 
         elif args.command in ["audit_wd_lexeme_forms", "awlf"]:
             if args.interactive:
@@ -815,6 +817,8 @@ def main() -> None:
                     else ["all"],
                 )
 
+        # MARK: Run Query Gen
+
         elif args.command in ["generate_wd_lexeme_queries", "gwlq"]:
             lang = args.language.lower() if args.language else None
             data_type = args.data_type.lower() if args.data_type else None
@@ -822,10 +826,14 @@ def main() -> None:
                 language=lang, data_type=data_type, contracts_dir=args.contracts_dir
             )
 
+        # MARK: Run Check Contracts
+
         elif args.command in ["check_contracts", "cc"]:
             check_contracts(
                 contracts_dir=args.contracts_dir, output_dir=args.output_dir
             )
+
+        # MARK: Run Filter Data
 
         elif args.command in ["filter_data", "fd"]:
             export_data_filtered_by_contracts(

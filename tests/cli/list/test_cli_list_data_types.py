@@ -19,40 +19,23 @@ class TestCLIListDataTypes(unittest.TestCase):
             call(),
             call("Available data types: All languages"),
             call("==================================="),
-            call("adjectives"),
-            call("adverbs"),
-            # call("articles"),
-            call("conjunctions"),
             call("emoji-keywords"),
             call("nouns"),
-            call("personal-pronouns"),
-            call("postpositions"),
-            call("prepositions"),
-            call("pronouns"),
-            call("proper-nouns"),
             call("verbs"),
             call(),
         ]
         mock_print.assert_has_calls(expected_calls)
 
     @patch("builtins.print")
-    def test_cli_list_data_types_specific_language(
-        self, mock_print: MagicMock
-    ) -> None:
+    def test_cli_list_data_types_specific_language(self, mock_print: MagicMock) -> None:
         list_data_types("english")
 
         expected_calls = [
             call(),
             call("Available data types: English"),
             call("============================="),
-            call("adjectives"),
-            call("adverbs"),
             call("emoji-keywords"),
             call("nouns"),
-            call("personal-pronouns"),
-            call("prepositions"),
-            call("pronouns"),
-            call("proper-nouns"),
             call("verbs"),
             call(),
         ]

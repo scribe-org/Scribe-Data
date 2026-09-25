@@ -13,6 +13,7 @@ from scribe_data.cli.generate.generate_utils import (
     extract_data_contract_values,
     get_next_query_filename,
     sort_qids_by_position,
+    split_lexeme_forms_by_identifier,
 )
 from scribe_data.utils import (
     DATA_CONTRACTS_DIR,
@@ -73,6 +74,8 @@ def generate_wikidata_lexeme_queries(
                 if f.is_file() and str(f).endswith(".yaml")
             ]
         )
+
+    print(language_isos)
 
     sub_language_isos = []
     for v in sub_languages.values():
@@ -144,32 +147,40 @@ def generate_wikidata_lexeme_queries(
                 for element in category.values():
                     label_to_qid[element["label"]] = element["qid"]
 
+            grouped_form_labels = split_lexeme_forms_by_identifier(
+                language_entry={lang_qid: {dt_qid: contract_values}}
+            )
+
             # Convert contracts to their Wikidata QIDs.
             contract_values_to_qids = []
-            for cv in contract_values:
-                cv = cv[0].upper() + cv[1:]
-                for lbl, qid in label_to_qid.items():
-                    cv = cv.replace(lbl, qid)
+            grouped_and_ordered_form_labels = []
+            for lbls in grouped_form_labels:
+                sub_list = []
+                for cv in lbls:
+                    cv = cv[0].upper() + cv[1:]
+                    for lbl, qid in label_to_qid.items():
+                        cv = cv.replace(lbl, qid)
 
-                contract_values_to_qids.append(re.findall(r"Q[^Q]+", cv))
+                    sub_list.append(re.findall(r"Q[^Q]+", cv))
 
-            # Process all forms at once.
-            all_form_combinations = sort_qids_by_position(
-                nested_qids=contract_values_to_qids
-            )
-            new_indices = [
-                contract_values_to_qids.index(item) for item in all_form_combinations
-            ]
-            ordered_form_labels = [contract_values_dict[dt][i] for i in new_indices]
+                sorted_qids = sort_qids_by_position(nested_qids=sub_list)
+                contract_values_to_qids.append(sorted_qids)
+                grouped_and_ordered_form_labels.append(
+                    [lbls[i] for i in [sub_list.index(q) for q in sorted_qids]]
+                )
 
-            forms_for_query = [
-                {"label": ordered_form_labels[i], "qids": form_qids}
-                for i, form_qids in enumerate(all_form_combinations)
-            ]
+            for j in range(len(grouped_and_ordered_form_labels)):
+                forms_for_query = [
+                    {
+                        "label": grouped_and_ordered_form_labels[j][k],
+                        "qids": contract_values_to_qids[j][k],
+                    }
+                    for k in range(len(grouped_and_ordered_form_labels[j]))
+                ]
 
-            # MARK: Generate Query
+                # MARK: Generate Query
 
-            main_body = f"""# tool: scribe-data
+                main_body = f"""# tool: scribe-data
 # All {comment_language_name} ({comment_language_qid}) {dt} ({dt_qid}) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
@@ -177,39 +188,39 @@ SELECT
   (replace(str(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?{query_dt_label}
-  """ + "\n  ".join(f"?{form}" for form in ordered_form_labels)
+  """ + "\n  ".join(f"?{form}" for form in grouped_and_ordered_form_labels[j])
 
-            where_clause = f"""\n
+                where_clause = f"""\n
 WHERE {{
   ?lexeme dct:language wd:{lang_qid};
     wikibase:lexicalCategory wd:{dt_qid};
     wikibase:lemma ?{query_dt_label};
     schema:dateModified ?lastModified.
-        """
+"""
 
-            if sub_lang_name:
-                where_clause += f"""
-  # Note: We need to filter for {lang_iso} to remove {sub_lang_name} ({lang_iso}) words.
-  FILTER(lang(?{query_dt_label}) = "{lang_iso}")
-            """
+                if sub_lang_name:
+                    where_clause += f"""
+# Note: We need to filter for {lang_iso} to remove {sub_lang_name} ({lang_iso}) words.
+FILTER(lang(?{query_dt_label}) = "{lang_iso}")
+"""
 
-            # Generate OPTIONAL clauses for all forms in one query.
-            optional_clauses = ""
+                # Generate OPTIONAL clauses for all forms in one query.
+                optional_clauses = ""
 
-            # Note: We add gender explicitly for nouns as it's a property (PID).
-            if "gender" in contract_values:
-                forms_for_query = [
-                    f for f in forms_for_query if "gender" not in f.values()
-                ]
-                optional_clauses += """
+                # Note: We add gender explicitly for nouns as it's a property (PID).
+                if "gender" in contract_values:
+                    forms_for_query = [
+                        f for f in forms_for_query if "gender" not in f.values()
+                    ]
+                    optional_clauses += """
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender.
   }
 """
 
-            for form in forms_for_query:
-                qids = ", ".join(f"wd:{qid}" for qid in form["qids"])
-                optional_clauses += f"""
+                for form in forms_for_query:
+                    qids = ", ".join(f"wd:{qid}" for qid in form["qids"])
+                    optional_clauses += f"""
   OPTIONAL {{
     ?lexeme ontolex:lexicalForm ?{form["label"]}Form.
     ?{form["label"]}Form ontolex:representation ?{form["label"]};
@@ -217,50 +228,66 @@ WHERE {{
   }}
 """
 
-            if "gender" in contract_values:
-                optional_clauses += """
+                if "gender" in contract_values:
+                    optional_clauses += """
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en".
     ?nounGender rdfs:label ?gender.
   }
 """
 
-        # Concatenate the complete query.
-        final_query = main_body + where_clause + optional_clauses + "}\n"
-        # print(final_query)
+                # Concatenate the complete query.
+                final_query = main_body + where_clause + optional_clauses + "}\n"
+                # print(final_query)
 
-        # MARK: Save Query
+                # MARK: Save Query
 
-        # Create base filename.
-        # If this is a sub-language, place it under parent_language/sub_language/data_type/.
-        # Otherwise, place it directly under language/data_type/.
-        if sub_lang_name:
-            base_file_name = (
-                Path(WIKIDATA_QUERIES_DIR)
-                / parent_language
-                / sub_lang_name
-                / dt
-                / f"query_{data_type}.sparql"
-            )
+                # Create base filename.
+                # If this is a sub-language, place it under parent_language/sub_language/data_type/.
+                # Otherwise, place it directly under language/data_type/.
+                if sub_lang_name:
+                    if output_dir:
+                        base_file_name = (
+                            output_dir
+                            / parent_language.lower()
+                            / sub_lang_name.lower()
+                            / dt
+                            / f"query_{dt}.sparql"
+                        )
 
-        elif output_dir:
-            # Regular language with query_dir specified.
-            base_file_name = (
-                output_dir / comment_language_name / dt / f"query_{data_type}.sparql"
-            )
+                    else:
+                        base_file_name = (
+                            Path(WIKIDATA_QUERIES_DIR)
+                            / parent_language.lower()
+                            / sub_lang_name.lower()
+                            / dt
+                            / f"query_{dt}.sparql"
+                        )
 
-        else:
-            # Regular language with default directory.
-            base_file_name = f"{WIKIDATA_QUERIES_DIR}/{language}/{data_type}/query_{data_type}.sparql"
+                else:
+                    if output_dir:
+                        # Regular language with query_dir specified.
+                        base_file_name = (
+                            output_dir / lang_name / dt / f"query_{dt}.sparql"
+                        )
 
-        # Get the next available filename.
-        file_to_save_name = get_next_query_filename(str(base_file_name))
+                    else:
+                        # Regular language with default directory.
+                        base_file_name = (
+                            Path(WIKIDATA_QUERIES_DIR)
+                            / lang_name
+                            / dt
+                            / f"query_{dt}.sparql"
+                        )
 
-        # Create directory if it doesn't exist.
-        os.makedirs(os.path.dirname(file_to_save_name), exist_ok=True)
+                # Get the next available filename.
+                file_to_save_name = get_next_query_filename(str(base_file_name))
 
-        # Write query to file.
-        with open(file_to_save_name, "w") as file:
-            file.write(final_query)
+                # Create directory if it doesn't exist.
+                os.makedirs(os.path.dirname(file_to_save_name), exist_ok=True)
 
-        print(f"Query file created: {file_to_save_name}")
+                # Write query to file.
+                with open(file_to_save_name, "w") as file:
+                    file.write(final_query)
+
+                print(f"Query file created: {file_to_save_name}")

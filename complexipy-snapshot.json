@@ -60,14 +60,6 @@
     "file_name": "check_project_metadata.py",
     "functions": [
       {
-        "name": "check_language_metadata",
-        "complexity": 19
-      },
-      {
-        "name": "get_available_languages",
-        "complexity": 19
-      },
-      {
         "name": "validate_language_properties",
         "complexity": 21
       },
@@ -513,7 +505,7 @@
     "functions": [
       {
         "name": "generate_wikidata_lexeme_queries",
-        "complexity": 91
+        "complexity": 121
       }
     ]
   },
