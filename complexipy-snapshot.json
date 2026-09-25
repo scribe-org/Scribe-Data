@@ -279,7 +279,7 @@
     "functions": [
       {
         "name": "main",
-        "complexity": 119
+        "complexity": 116
       }
     ]
   },
@@ -505,7 +505,7 @@
     "functions": [
       {
         "name": "generate_wikidata_lexeme_queries",
-        "complexity": 121
+        "complexity": 135
       }
     ]
   },

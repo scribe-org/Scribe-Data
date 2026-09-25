@@ -208,13 +208,23 @@ FILTER(lang(?{query_dt_label}) = "{lang_iso}")
                 optional_clauses = ""
 
                 # Note: We add gender explicitly for nouns as it's a property (PID).
-                if "gender" in contract_values:
+                if "gender" in grouped_and_ordered_form_labels[j]:
                     forms_for_query = [
                         f for f in forms_for_query if "gender" not in f.values()
                     ]
                     optional_clauses += """
   OPTIONAL {
     ?lexeme wdt:P5185 ?nounGender.
+  }
+"""
+
+                if "auxiliaryVerb" in grouped_and_ordered_form_labels[j]:
+                    forms_for_query = [
+                        f for f in forms_for_query if "auxiliaryVerb" not in f.values()
+                    ]
+                    optional_clauses += """
+  OPTIONAL {
+    ?lexeme wdt:P5401 ?auxiliaryVerbFrom .
   }
 """
 
@@ -228,11 +238,19 @@ FILTER(lang(?{query_dt_label}) = "{lang_iso}")
   }}
 """
 
-                if "gender" in contract_values:
+                if "gender" in grouped_and_ordered_form_labels[j]:
                     optional_clauses += """
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en".
     ?nounGender rdfs:label ?gender.
+  }
+"""
+
+                if "auxiliaryVerb" in grouped_and_ordered_form_labels[j]:
+                    optional_clauses += """
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+    ?auxiliaryVerbFrom rdfs:label ?auxiliaryVerb .
   }
 """
 

@@ -7,6 +7,4 @@ audit/
 .. toctree::
     :maxdepth: 1
 
-    get_forms
-    issue_body
     wikidata_lexeme_forms
