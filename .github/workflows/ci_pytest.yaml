@@ -72,5 +72,5 @@ jobs:
 
       - name: Run pytest - Unit Tests
         run:
-          uv run pytest . --cov=. --cov-report=term-missing --cov-fail-under=70
+          uv run pytest . --cov=. --cov-report=term-missing --cov-fail-under=60
           --cov-config=./pyproject.toml

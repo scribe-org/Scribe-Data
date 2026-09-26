@@ -22,6 +22,8 @@ from scribe_data.utils import (
     list_all_languages,
 )
 
+# MARK: Create Table
+
 
 def create_table(
     cursor: sqlite3.Cursor, identifier_case: str, data_type: str, cols: list[str]
@@ -67,6 +69,9 @@ def create_table(
     cursor.execute(sql_statement)
 
 
+# MARK: Table Insert
+
+
 def table_insert(cursor: sqlite3.Cursor, data_type: str, keys: list) -> None:
     """
     Insert a row into a language database table.
@@ -85,6 +90,9 @@ def table_insert(cursor: sqlite3.Cursor, data_type: str, keys: list) -> None:
     insert_placeholders = ", ".join(["?"] * len(keys))
     sql_statement = f"INSERT OR IGNORE INTO [{data_type}] VALUES({insert_placeholders})"
     cursor.execute(sql_statement, keys)
+
+
+# MARK: Translations
 
 
 def translations_to_sqlite(
@@ -290,6 +298,9 @@ def wiktionary_translations_to_sqlite(
     print(f"Wiktionary translation tables for {language} processed successfully.\n")
 
 
+# MARK: Convert to SQLite
+
+
 def convert_to_sqlite(
     languages: list[str] | None = None,
     specific_tables: str | list[str] | None = None,
@@ -303,14 +314,14 @@ def convert_to_sqlite(
 
     Parameters
     ----------
-    languages : Optional[List[str]]
+    languages : list[str]
         The languages to process. If None, use all available languages.
 
-    specific_tables : Optional[Union[str, List[str]]]
+    specific_tables : str | list[str], optional
         The specific tables to process. If None, process all tables.
 
     identifier_case : str, optional, default='camel'
-        Format of the identifiers ("camel" or "snake"). Defaults to "camel".
+        Format of the identifiers ("camel" or "snake").
 
     input_path : str, optional, default=DEFAULT_JSON_EXPORT_DIR
         The input JSON export directory.

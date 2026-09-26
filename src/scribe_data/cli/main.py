@@ -10,6 +10,7 @@ from pathlib import Path
 from questionary import select, text
 from rich import print as rprint
 
+from scribe_data.cli.audit.wikidata_lexeme_forms import audit_wikidata_lexeme_forms
 from scribe_data.cli.cli_utils import validate_languages_and_data_types
 from scribe_data.cli.contracts.check import check_contracts
 from scribe_data.cli.contracts.export import export_contracts
@@ -21,18 +22,23 @@ from scribe_data.cli.download.wikidata_lexeme_dump import (
 from scribe_data.cli.download.wiktionary_dump import (
     download_wiktionary_dumps,
 )
-from scribe_data.cli.get import get_data
+from scribe_data.cli.generate.wikidata_lexeme_queries import (
+    generate_wikidata_lexeme_queries,
+)
+from scribe_data.cli.get.data import get_data
 from scribe_data.cli.interactive.run import run_interactive_mode
 from scribe_data.cli.list.wrapper import list_wrapper
 from scribe_data.cli.total.wrapper import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
 from scribe_data.utils import (
+    DATA_CONTRACTS_DIR,
     DEFAULT_CONTRACTS_EXPORT_DIR,
     DEFAULT_CSV_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
     DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
+    WIKIDATA_QUERIES_DIR,
 )
 
 LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
@@ -40,6 +46,12 @@ GET_DESCRIPTION = (
     "Get data from Wikidata and other sources for the given languages and data types."
 )
 TOTAL_DESCRIPTION = "Check Wikidata for the total available data for the given languages and data types."
+AUDIT_WIKIDATA_LEXEME_FORMS_DESCRIPTION = (
+    "Audit Wikidata for the available forms for the given languages and data types."
+)
+GENERATE_WIKIDATA_LEXEME_QUERIES_DESCRIPTION = (
+    "Generate Wikidata lexeme queries from the provided data contracts."
+)
 CONVERT_DESCRIPTION = "Convert data returned by Scribe-Data to different file types."
 CLI_EPILOG = "Visit the codebase at https://github.com/scribe-org/Scribe-Data and documentation at https://scribe-data.readthedocs.io to learn more!"
 
@@ -58,7 +70,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="The Scribe-Data CLI is a tool for extracting language data from Wikidata and other sources.",
         epilog=CLI_EPILOG,
-        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=30),
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=40),
     )
     subparsers = parser.add_subparsers(dest="command")
 
@@ -174,7 +186,7 @@ def main() -> None:
         "-i",
         "--interactive",
         action="store_true",
-        help="Run Scribe-Data in interactive mode to choose your commands from an helpful terminal interface",
+        help="Run the get command in interactive mode.",
     )
     get_parser.add_argument(
         "-ic",
@@ -228,7 +240,10 @@ def main() -> None:
         help="Check for all languages and data types.",
     )
     total_parser.add_argument(
-        "-i", "--interactive", action="store_true", help="Run in interactive mode"
+        "-i",
+        "--interactive",
+        action="store_true",
+        help="Run the total command in interactive mode.",
     )
     total_parser.add_argument(
         "-wdp",
@@ -318,7 +333,10 @@ def main() -> None:
         help="Convert all languages and data types.",
     )
     convert_parser.add_argument(
-        "-i", "--interactive", action="store_true", help="Run in interactive mode"
+        "-i",
+        "--interactive",
+        action="store_true",
+        help="Run the convert command in interactive mode.",
     )
 
     # MARK: Download
@@ -365,17 +383,6 @@ def main() -> None:
         help="The desired snapshot of a Wikidata or Wiktionary dump (default 'latest'). Optionally specify date in YYYYMMDD format.",
     )
 
-    # MARK: Interactive
-
-    interactive_parser = subparsers.add_parser(
-        "interactive",
-        aliases=["i"],
-        help="Run in interactive mode.",
-        description="Run in interactive mode.",
-    )
-
-    interactive_parser._actions[0].help = "Show this help message and exit."
-
     # MARK: Export Contracts
 
     export_contracts_parser = subparsers.add_parser(
@@ -394,6 +401,98 @@ def main() -> None:
         required=False,
         default=DEFAULT_CONTRACTS_EXPORT_DIR,
         help="The directory to export contracts to (default: current scribe_data_contracts).",
+    )
+
+    # MARK: Audit Wikidata
+
+    audit_wd_lexeme_forms_parser = subparsers.add_parser(
+        "audit_wd_lexeme_forms",
+        aliases=["awdlf"],
+        help=AUDIT_WIKIDATA_LEXEME_FORMS_DESCRIPTION,
+        description=AUDIT_WIKIDATA_LEXEME_FORMS_DESCRIPTION,
+        epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
+    )
+
+    audit_wd_lexeme_forms_parser._actions[0].help = "Show this help message and exit."
+
+    audit_wd_lexeme_forms_parser.add_argument(
+        "-lang",
+        "--language",
+        type=str,
+        required=True,
+        help="The language to audit lexeme forms for.",
+    )
+    audit_wd_lexeme_forms_parser.add_argument(
+        "-dt",
+        "--data-type",
+        type=str,
+        help="The data type(s) to audit lexeme forms for (e.g., nouns, verbs).",
+    )
+    audit_wd_lexeme_forms_parser.add_argument(
+        "-min",
+        "--min-frequency",
+        type=int,
+        required=False,
+        help="The minimum frequency that a lexeme form combination should appear to be included in the audit.",
+    )
+    audit_wd_lexeme_forms_parser.add_argument(
+        "-max",
+        "--max-results",
+        type=int,
+        required=False,
+        help="The maximum results to include in the audit.",
+    )
+    # audit_wd_lexeme_forms_parser.add_argument(
+    #     "-i",
+    #     "--interactive",
+    #     action="store_true",
+    #     help="Run the audit-wikidata-lexeme-forms command in interactive mode.",
+    # )
+
+    # MARK: Generate Queries
+
+    generate_wd_lexeme_queries_parser = subparsers.add_parser(
+        "generate_wd_lexeme_queries",
+        aliases=["gwdlq"],
+        help=GENERATE_WIKIDATA_LEXEME_QUERIES_DESCRIPTION,
+        description=GENERATE_WIKIDATA_LEXEME_QUERIES_DESCRIPTION,
+        epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
+    )
+
+    generate_wd_lexeme_queries_parser._actions[
+        0
+    ].help = "Show this help message and exit."
+
+    generate_wd_lexeme_queries_parser.add_argument(
+        "-lang",
+        "--language",
+        type=str,
+        required=False,
+        help="The language to generate queries for.",
+    )
+    generate_wd_lexeme_queries_parser.add_argument(
+        "-dt",
+        "--data-type",
+        type=str,
+        help="The data type to generate queries for (e.g., nouns, verbs).",
+    )
+    generate_wd_lexeme_queries_parser.add_argument(
+        "-cd",
+        "--contracts-dir",
+        type=str,
+        required=False,
+        default=DATA_CONTRACTS_DIR,
+        help="The directory where the contracts are saved.",
+    )
+    generate_wd_lexeme_queries_parser.add_argument(
+        "-od",
+        "--output-dir",
+        type=str,
+        required=False,
+        default=WIKIDATA_QUERIES_DIR,
+        help="The directory to save generated queries to (default: scribe_data/wikidata/queries).",
     )
 
     # MARK: Check Contracts
@@ -455,6 +554,17 @@ def main() -> None:
         help="The directory to export data filtered by contracts to.",
     )
 
+    # MARK: Interactive
+
+    interactive_parser = subparsers.add_parser(
+        "interactive",
+        aliases=["i"],
+        help="Run in interactive mode.",
+        description="Run in interactive mode.",
+    )
+
+    interactive_parser._actions[0].help = "Show this help message and exit."
+
     # MARK: Setup CLI
 
     args = parser.parse_args()
@@ -490,10 +600,14 @@ def main() -> None:
                     print(f"Input validation failed with error: {e}")
                     return
 
+        # MARK: Run List
+
         if args.command in ["list", "l"]:
             list_wrapper(
                 language=args.language, data_type=args.data_type, all_bool=args.all
             )
+
+        # MARK: Run Get
 
         elif args.command in ["get", "g"]:
             if args.interactive:
@@ -566,21 +680,25 @@ def main() -> None:
                         wiktionary_dump=args.wiktionary_dump_path,
                     )
 
+        # MARK: Run Total
+
         elif args.command in ["total", "t"]:
             if args.interactive:
                 run_interactive_mode(operation="total")
 
             else:
                 total_wrapper(
-                    languages=args.language.lower()
+                    languages=[args.language.lower()]
                     if args.language is not None
                     else ["all"],
-                    data_types=args.data_type.lower()
+                    data_types=[args.data_type.lower()]
                     if args.data_type is not None
                     else ["all"],
                     all_bool=args.all,
                     wikidata_dump=args.wikidata_dump_path,
                 )
+
+        # MARK: Run Convert
 
         elif args.command in ["convert", "c"]:
             if args.interactive:
@@ -659,11 +777,10 @@ def main() -> None:
                 wd_lexeme_dump_download_wrapper()
 
             elif action == "Download a Wiktionary dump":
-                lang = text(
+                if lang := text(
                     "Which language dump do you want to download?",
                     default="en",
-                ).ask()
-                if lang:
+                ).ask():
                     download_wiktionary_dumps(language_isos=[lang])
 
             elif action == "Check for totals":
@@ -681,11 +798,41 @@ def main() -> None:
             else:
                 print("Skipping action")
 
+        # MARK: Run Contracts Export
+
         elif args.command in ["export_contracts", "ec"]:
             export_contracts(output_dir=args.output_dir)
 
+        # MARK: Run Audit
+
+        elif args.command in ["audit_wd_lexeme_forms", "awdlf"]:
+            # if args.interactive:
+            #     run_interactive_mode(operation="audit")
+
+            audit_wikidata_lexeme_forms(
+                language=args.language.lower(),
+                data_types=args.data_type.lower()
+                if args.data_type is not None
+                else ["all"],
+            )
+
+        # MARK: Run Query Gen
+
+        elif args.command in ["generate_wd_lexeme_queries", "gwdlq"]:
+            lang = args.language.lower() if args.language else None
+            data_type = args.data_type.lower() if args.data_type else None
+            generate_wikidata_lexeme_queries(
+                language=lang, data_type=data_type, contracts_dir=args.contracts_dir
+            )
+
+        # MARK: Run Check Contracts
+
         elif args.command in ["check_contracts", "cc"]:
-            check_contracts(output_dir=args.output_dir)
+            check_contracts(
+                contracts_dir=args.contracts_dir, output_dir=args.output_dir
+            )
+
+        # MARK: Run Filter Data
 
         elif args.command in ["filter_data", "fd"]:
             export_data_filtered_by_contracts(

@@ -15,6 +15,8 @@ from scribe_data.utils import (
     remove_queried_data,
 )
 
+# MARK: Format Data
+
 
 def format_data(dir_path: Path, language: str, data_type: str) -> None:
     """

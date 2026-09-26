@@ -8,6 +8,8 @@ from pathlib import Path
 
 from scribe_data.utils import DEFAULT_CONTRACTS_EXPORT_DIR
 
+# MARK: Export Contracts
+
 
 def export_contracts(output_dir: Path = DEFAULT_CONTRACTS_EXPORT_DIR) -> None:
     """

@@ -6,9 +6,7 @@ wikidata/
 .. toctree::
     :maxdepth: 2
 
-    check_query/index
-    queries_all_data/index
-    queries_scribe_apps/index
+    queries/index
 
 .. toctree::
     :maxdepth: 1

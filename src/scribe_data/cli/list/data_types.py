@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 
 from scribe_data.utils import (
-    WIKIDATA_QUERIES_ALL_DATA_DIR,
+    WIKIDATA_QUERIES_DIR,
     format_sublanguage_name,
     get_language_iso,
     language_map,
@@ -31,7 +31,7 @@ def list_data_types(language: str = "") -> None:
     if language:
         language = format_sublanguage_name(language, language_metadata)
         language_data = language_map.get(language.lower())
-        language_dir = WIKIDATA_QUERIES_ALL_DATA_DIR / language.lower()
+        language_dir = WIKIDATA_QUERIES_DIR / language.lower()
 
         if not language_data:
             raise ValueError(f"Language '{language.capitalize()}' is not recognized.")
@@ -59,7 +59,7 @@ def list_data_types(language: str = "") -> None:
     else:
         data_types = set()
         for lang in languages:
-            language_dir = WIKIDATA_QUERIES_ALL_DATA_DIR / format_sublanguage_name(
+            language_dir = WIKIDATA_QUERIES_DIR / format_sublanguage_name(
                 lang, language_metadata
             )
             if language_dir.is_dir():

@@ -70,8 +70,8 @@ engine: ast_u_tabelle
 lang_header_pattern: \(\{\{Sprache\|Deutsch\}\}\)
 prefilters:
   - Ü-Tabelle
-  - '{{Ü|'
-  - '{{Üt|'
+  - "{{Ü|"
+  - "{{Üt|"
 template_pos: wortart
 template_table: ü-tabelle
 template_list: ü-liste
@@ -129,7 +129,7 @@ Config snippet:
 lang_header_pattern: ^\s*English\s*$
 prefilters:
   - translation
-  - '{{t'
+  - "{{t"
 template_top:
   - trans-top
 template_bottom: trans-bottom
@@ -177,7 +177,7 @@ Why this mapping:
 
 - `== {{-it-}} ==` -> `lang_header_pattern`
 - Italian pages use the `Trad1`/`Trad2` block wrapper with raw wikilinks for the words -> `engine: ast_wikilink_list` + `template_top` / `template_bottom`.
-- `template_translation` is not needed because the `ast_wikilink_list` engine assumes the templates found at the start of bullets inside the block *are* the ISO language codes (e.g., `{{en}}`).
+- `template_translation` is not needed because the `ast_wikilink_list` engine assumes the templates found at the start of bullets inside the block _are_ the ISO language codes (e.g., `{{en}}`).
 
 ### 4) Build the POS normalization map
 
@@ -215,19 +215,19 @@ These `{{t-needed|...}}` entries are placeholders — editors added the language
 ignored_strings:
   - t-needed
   - please add this translation if you can
-  - '[script needed]'
+  - "[script needed]"
   - no equivalent
 
 ignored_prefixes:
-  - 'use:'
-  - 'use '
-  - 'see:'
-  - 'see '
+  - "use:"
+  - "use "
+  - "see:"
+  - "see "
 ```
 
 By adding these rules, Scribe will automatically drop these notes instead of assuming they are foreign vocabulary!
 
-*(Reference: [`en_wiktionary_config.yaml`](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/resources/wiktionary_configs/en_wiktionary_config.yaml) ignores)*
+_(Reference: [`en_wiktionary_config.yaml`](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/resources/wiktionary_configs/en_wiktionary_config.yaml) ignores)_
 
 ### 6) Validate with multiple German words
 

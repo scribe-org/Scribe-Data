@@ -22,6 +22,8 @@ from scribe_data.utils import (
     check_lexeme_dump_prompt_download,
 )
 
+# MARK: Parse Data
+
 
 def parse_date(date_string: str) -> date | None:
     """
@@ -51,6 +53,9 @@ def parse_date(date_string: str) -> date | None:
         f"Invalid date format: {date_string}. Expected formats: YYYYMMDD, YYYY/MM/DD, or YYYY-MM-DD."
     )
     return None
+
+
+# MARK: Dump File
 
 
 def available_closest_lexeme_dump_file(
@@ -106,6 +111,9 @@ def available_closest_lexeme_dump_file(
         return closest_date
 
 
+# MARK: Download
+
+
 def download_wd_lexeme_dump(
     target_entity: str = "latest-lexemes",
 ) -> str | None:
@@ -114,8 +122,8 @@ def download_wd_lexeme_dump(
 
     Parameters
     ----------
-    target_entity : str, optional
-        The target dump to download. Defaults to "latest-lexemes".
+    target_entity : str, optional, default="latest-lexemes"
+        The target dump to download.
         - If "latest-lexemes", downloads the latest dump.
         - If a valid date (e.g., YYYYMMDD), attempts to download the dump for that date.
 
@@ -205,6 +213,9 @@ def download_wd_lexeme_dump(
         print(f"An error occurred: {e}")
 
 
+# MARK: Wrapper
+
+
 def wd_lexeme_dump_download_wrapper(
     dump_snapshot: str | None = None,
     output_dir: Path | None = DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
@@ -218,13 +229,11 @@ def wd_lexeme_dump_download_wrapper(
     dump_snapshot : str
         Optional date string in YYYYMMDD format for specific dumps.
 
-    output_dir : Path
+    output_dir : Path, optional, default=DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
         Optional directory path for the downloaded file.
-        Defaults to 'scribe_data_wikidata_dumps_export' directory.
 
-    default : bool, optional
+    default : bool, optional, default=False
         If True, skips the user confirmation prompt.
-        Defaults to False.
 
     Returns
     -------

@@ -12,7 +12,7 @@ from typing import Any
 import yaml
 
 from scribe_data.utils import (
-    DEFAULT_DATA_CONTRACTS_DIR,
+    DATA_CONTRACTS_DIR,
     DEFAULT_FILTERED_JSON_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
     get_language_from_iso,
@@ -32,7 +32,7 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
 
     Returns
     -------
-    Dict[str, Any]
+    dict[str, Any]
         A structured dictionary containing filtered metadata with keys:
         - 'nouns': {'numbers': [...], 'genders': [...]}
         - 'verbs': {'conjugations': [...]}
@@ -172,7 +172,7 @@ def filter_exported_data(
     input_file : Path
         Path to the input JSON file with exported language data.
 
-    contract_metadata : Dict[str, Any]
+    contract_metadata : dict[str, Any]
         Metadata from the language's contract file.
 
     data_type : str
@@ -180,7 +180,7 @@ def filter_exported_data(
 
     Returns
     -------
-    Dict[str, Any]
+    dict[str, Any]
         Filtered dictionary of lexemes, containing only specified forms.
         Preserves 'lastModified' and 'lexemeID' for each lexeme.
     """
@@ -240,17 +240,14 @@ def export_data_filtered_by_contracts(
 
     Parameters
     ----------
-    contracts_dir : Path
+    contracts_dir : Path, optional, default=DATA_CONTRACTS_DIR
         Directory containing the contracts to filter with.
-        Defaults to DEFAULT_DATA_CONTRACTS_DIR.
 
-    input_dir : Path
+    input_dir : Path, optional, default=DEFAULT_JSON_EXPORT_DIR
         Directory containing original JSON export data.
-        Defaults to DEFAULT_JSON_EXPORT_DIR.
 
-    output_dir : Path
+    output_dir : Path, optional, default=DEFAULT_FILTERED_JSON_EXPORT_DIR
         Directory to export filtered contract data.
-        Defaults to scribe_data_filtered_* based on the data type.
 
     Returns
     -------
@@ -263,7 +260,7 @@ def export_data_filtered_by_contracts(
 
     input_dir = input_dir or DEFAULT_JSON_EXPORT_DIR
 
-    contracts_dir = Path(contracts_dir) if contracts_dir else DEFAULT_DATA_CONTRACTS_DIR
+    contracts_dir = Path(contracts_dir) if contracts_dir else DATA_CONTRACTS_DIR
 
     for contract_filename in os.listdir(contracts_dir):
         if not contract_filename.endswith(".yaml"):
