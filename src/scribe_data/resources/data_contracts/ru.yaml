@@ -121,6 +121,11 @@ translations:
       displayValue: глагол
       sectionTitle: Выберите инфинитив глагола
 
+# MARK: Prepositions
+
+prepositions:
+  case: grammaticalCase
+
 # MARK: Declensions
 
 # Map of pronoun declensions given cases.

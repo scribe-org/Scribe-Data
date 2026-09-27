@@ -75,8 +75,6 @@ def generate_wikidata_lexeme_queries(
             ]
         )
 
-    print(language_isos)
-
     sub_language_isos = []
     for v in sub_languages.values():
         sub_language_isos.extend(iter(v.keys()))
@@ -84,15 +82,16 @@ def generate_wikidata_lexeme_queries(
     # Filter for those data types that we get from Wikidata and thus have a QID.
     all_data_types = [dt for dt in data_type_metadata.keys() if data_type_metadata[dt]]
 
-    contract_values_dict = {}
+    # MARK: Load Contracts
+
     for lang_iso in language_isos:
-        # MARK: Load Contracts
+        contract_values_dict = {}
 
         with open(DATA_CONTRACTS_DIR / f"{lang_iso}.yaml", "r") as file:
             contract_text = yaml.safe_load(file)
 
         if data_type:
-            all_data_types = [data_type]  # replace for now
+            all_data_types = [data_type]
             assert data_type in all_data_types, (
                 f"{data_type} is not a valid Scribe-Data data type."
             )
@@ -102,7 +101,7 @@ def generate_wikidata_lexeme_queries(
 
         else:
             for d in all_data_types:
-                if not data_type and d in contract_text:
+                if d in contract_text:
                     contract_values_dict[d] = extract_data_contract_values(
                         contract_entry=contract_text[d]
                     )
@@ -132,7 +131,7 @@ def generate_wikidata_lexeme_queries(
             comment_language_qid = sub_lang_qid
 
         else:
-            comment_language_name = language.capitalize() if language else ""
+            comment_language_name = lang_name.capitalize() if lang_name else ""
             comment_language_qid = lang_qid
 
         for dt, contract_values in contract_values_dict.items():
@@ -228,6 +227,18 @@ FILTER(lang(?{query_dt_label}) = "{lang_iso}")
   }
 """
 
+                if "grammaticalCase" in grouped_and_ordered_form_labels[j]:
+                    forms_for_query = [
+                        f
+                        for f in forms_for_query
+                        if "grammaticalCase" not in f.values()
+                    ]
+                    optional_clauses += """
+  OPTIONAL {
+    ?lexeme wdt:P5713 ?caseForm.
+  }
+"""
+
                 for form in forms_for_query:
                     qids = ", ".join(f"wd:{qid}" for qid in form["qids"])
                     optional_clauses += f"""
@@ -254,9 +265,17 @@ FILTER(lang(?{query_dt_label}) = "{lang_iso}")
   }
 """
 
+                if "grammaticalCase" in grouped_and_ordered_form_labels[j]:
+                    optional_clauses += """
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en".
+    ?lemma rdfs:label ?preposition.
+    ?caseForm rdfs:label ?grammaticalCase.
+  }
+"""
+
                 # Concatenate the complete query.
                 final_query = main_body + where_clause + optional_clauses + "}\n"
-                # print(final_query)
 
                 # MARK: Save Query
 

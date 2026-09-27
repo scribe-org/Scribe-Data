@@ -21,6 +21,7 @@ class TestCLIListDataTypes(unittest.TestCase):
             call("==================================="),
             call("emoji-keywords"),
             call("nouns"),
+            call("prepositions"),
             call("verbs"),
             call(),
         ]

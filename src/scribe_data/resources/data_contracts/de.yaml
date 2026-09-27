@@ -152,6 +152,11 @@ translations:
       displayValue: Verb
       sectionTitle: Verb Übersetzung auswählen
 
+# MARK: Prepositions
+
+prepositions:
+  case: grammaticalCase
+
 # MARK: Declensions
 
 # Map of pronoun declensions given cases.
