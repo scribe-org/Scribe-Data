@@ -468,20 +468,8 @@
     "file_name": "wikidata_lexeme_forms.py",
     "functions": [
       {
-        "name": "get_features_from_sparql_service",
-        "complexity": 22
-      },
-      {
         "name": "execute_sparql_query",
         "complexity": 24
-      },
-      {
-        "name": "get_forms_from_sparql_service",
-        "complexity": 27
-      },
-      {
-        "name": "get_forms_from_sparql_service_all_languages",
-        "complexity": 41
       }
     ]
   },
@@ -505,7 +493,7 @@
     "functions": [
       {
         "name": "generate_wikidata_lexeme_queries",
-        "complexity": 135
+        "complexity": 148
       }
     ]
   },

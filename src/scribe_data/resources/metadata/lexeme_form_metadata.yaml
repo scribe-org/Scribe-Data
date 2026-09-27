@@ -103,6 +103,10 @@
     label: NonGenitive
     qid: Q98946930
 
+  27:
+    label: Predicative
+    qid: Q1931259
+
 2_gender:
   1:
     label: Gender

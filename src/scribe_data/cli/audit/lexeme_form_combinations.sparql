@@ -1,21 +1,21 @@
 # tool: scribe-data
 # Universal query to find grammatical feature combinations for a given language and data type.
 # This query identifies form combinations that exist in Wikidata for the specified language/data type.
-# Placeholders: {LANGUAGE_QID}, {DATA_TYPE_QID}, {MIN_FREQUENCY}, and {MAX_RESULTS} should be replaced with actual values.
+# Placeholders: LANGUAGE_QID, DATA_TYPE_QID, MIN_FREQUENCY, and MAX_RESULTS are replaced by actual values.
 
 SELECT
-  ?comboQIDs
-  (COUNT(?form) AS ?formsWithThisCombo)
+  ?formQIDs
+  (count(?form) AS ?totalForms)
 
 WHERE {
   {
     SELECT
       ?form
-      (GROUP_CONCAT(DISTINCT REPLACE(STR(?feature), "^.*/(Q\\d+)$", "$1")) AS ?comboQIDs)
+      (group_concat(DISTINCT replace(str(?feature), "^.*/(Q\\d+)$", "$1")) AS ?formQIDs)
 
     WHERE {
-      ?lexeme dct:language wd:{LANGUAGE_QID};
-        wikibase:lexicalCategory wd:{DATA_TYPE_QID};
+      ?lexeme dct:language wd:LANGUAGE_QID;
+        wikibase:lexicalCategory wd:DATA_TYPE_QID;
         ontolex:lexicalForm ?form.
       ?form wikibase:grammaticalFeature ?feature.
     }
@@ -23,16 +23,16 @@ WHERE {
       ?form
 
     LIMIT
-      {MAX_RESULTS}
+      MAX_RESULTS
   }
-  FILTER(?comboQIDs != "")
+  filter(?formQIDs != "")
 }
 
 GROUP BY
-  ?comboQIDs
+  ?formQIDs
 
 HAVING
-  (COUNT(?form) >= {MIN_FREQUENCY})
+  (count(?form) >= MIN_FREQUENCY)
 
 ORDER BY
-  DESC(?formsWithThisCombo)
+  desc(?totalForms)

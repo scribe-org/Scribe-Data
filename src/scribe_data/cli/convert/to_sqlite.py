@@ -455,6 +455,7 @@ def convert_to_sqlite(
                             f"Skipping {lang} database creation/update as user chose not to overwrite."
                         )
                         continue
+
                 os.remove(db_file)
                 maybe_over = "over"
 

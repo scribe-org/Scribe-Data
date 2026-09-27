@@ -317,7 +317,7 @@ def sort_qids_by_position(nested_qids: list[list[str]]) -> list[list[str]]:
 
     Parameters
     ----------
-    nested_qids : List[List[str]]
+    nested_qids : list[list[str]]
         A list of lists, where each sublist contains QIDs.
 
     Returns
@@ -331,7 +331,7 @@ def sort_qids_by_position(nested_qids: list[list[str]]) -> list[list[str]]:
     ):
         for item in category.values():
             if "qid" in item:
-                # Category index * 1000 ensures different categories don't overlap
+                # Category index * 1000 ensures different categories don't overlap.
                 qid_positions[item["qid"]] = category_index * 1000 + len(qid_positions)
 
     def get_sort_key(sublist: list) -> list:

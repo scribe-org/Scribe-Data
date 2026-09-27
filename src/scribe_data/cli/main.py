@@ -427,21 +427,29 @@ def main() -> None:
         "-dt",
         "--data-type",
         type=str,
-        help="The data type(s) to audit lexeme forms for (e.g., nouns, verbs).",
+        required=True,
+        help="The data type to audit lexeme forms for (e.g., nouns, verbs).",
     )
     audit_wd_lexeme_forms_parser.add_argument(
-        "-min",
+        "-mf",
         "--min-frequency",
         type=int,
-        required=False,
+        default=0,
         help="The minimum frequency that a lexeme form combination should appear to be included in the audit.",
     )
     audit_wd_lexeme_forms_parser.add_argument(
-        "-max",
+        "-mr",
         "--max-results",
         type=int,
-        required=False,
+        default=1000,
         help="The maximum results to include in the audit.",
+    )
+    audit_wd_lexeme_forms_parser.add_argument(
+        "-ma",
+        "--max-attempts",
+        type=int,
+        default=2,
+        help="Maximum query attempts for failed queries (default: 2).",
     )
     # audit_wd_lexeme_forms_parser.add_argument(
     #     "-i",
@@ -811,9 +819,10 @@ def main() -> None:
 
             audit_wikidata_lexeme_forms(
                 language=args.language.lower(),
-                data_types=args.data_type.lower()
-                if args.data_type is not None
-                else ["all"],
+                data_type=args.data_type.lower(),
+                min_frequency=args.min_frequency,
+                max_results=args.max_results,
+                max_attempts=args.max_attempts,
             )
 
         # MARK: Run Query Gen
