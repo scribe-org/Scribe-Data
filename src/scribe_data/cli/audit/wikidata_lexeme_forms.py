@@ -257,7 +257,7 @@ def audit_wikidata_lexeme_forms(
         }
 
     audit_file = (
-        DEFAULT_AUDIT_RESULTS_DIR / language / data_type / "lexeme_forms_audit.yaml"
+        DEFAULT_AUDIT_RESULTS_DIR / language / f"{data_type}_lexeme_forms_audit.yaml"
     )
     audit_file.parent.mkdir(parents=True, exist_ok=True)
     with open(audit_file, "w") as file:

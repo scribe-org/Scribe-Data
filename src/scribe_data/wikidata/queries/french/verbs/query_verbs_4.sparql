@@ -22,36 +22,36 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureFirstPersonSingularForm.
     ?indicativeSimpleFutureFirstPersonSingularForm ontolex:representation ?indicativeSimpleFutureFirstPersonSingular;
-    wikibase:grammaticalFeature wd:Q682111Simple, wd:Q501405, wd:Q21714344, wd:Q110786.
+    wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q21714344, wd:Q110786.
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureFirstPersonPluralForm.
     ?indicativeSimpleFutureFirstPersonPluralForm ontolex:representation ?indicativeSimpleFutureFirstPersonPlural;
-    wikibase:grammaticalFeature wd:Q682111Simple, wd:Q501405, wd:Q21714344, wd:Q146786.
+    wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q21714344, wd:Q146786.
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureSecondPersonSingularForm.
     ?indicativeSimpleFutureSecondPersonSingularForm ontolex:representation ?indicativeSimpleFutureSecondPersonSingular;
-    wikibase:grammaticalFeature wd:Q682111Simple, wd:Q501405, wd:Q51929049, wd:Q110786.
+    wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q51929049, wd:Q110786.
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureSecondPersonPluralForm.
     ?indicativeSimpleFutureSecondPersonPluralForm ontolex:representation ?indicativeSimpleFutureSecondPersonPlural;
-    wikibase:grammaticalFeature wd:Q682111Simple, wd:Q501405, wd:Q51929049, wd:Q146786.
+    wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q51929049, wd:Q146786.
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureThirdPersonSingularForm.
     ?indicativeSimpleFutureThirdPersonSingularForm ontolex:representation ?indicativeSimpleFutureThirdPersonSingular;
-    wikibase:grammaticalFeature wd:Q682111Simple, wd:Q501405, wd:Q51929074, wd:Q110786.
+    wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q51929074, wd:Q110786.
   }
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?indicativeSimpleFutureThirdPersonPluralForm.
     ?indicativeSimpleFutureThirdPersonPluralForm ontolex:representation ?indicativeSimpleFutureThirdPersonPlural;
-    wikibase:grammaticalFeature wd:Q682111Simple, wd:Q501405, wd:Q51929074, wd:Q146786.
+    wikibase:grammaticalFeature wd:Q682111, wd:Q1475560, wd:Q51929074, wd:Q146786.
   }
 }

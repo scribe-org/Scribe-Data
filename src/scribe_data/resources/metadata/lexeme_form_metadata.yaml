@@ -191,40 +191,40 @@
     qid: Q115223951
 
   4:
-    label: Present
-    qid: Q192613
-
-  5:
     label: SimplePresent
     qid: Q3910936
 
-  6:
+  5:
     label: PresentInfinitive
     qid: Q52434245
 
-  7:
+  6:
     label: PresentContinuous
     qid: Q7240943
 
-  8:
-    label: Past
-    qid: Q1994301
+  7:
+    label: Present
+    qid: Q192613
 
-  9:
+  8:
     label: SimplePast
     qid: Q1392475
+
+  9:
+    label: Past
+    qid: Q1994301
 
   10:
     label: Preterite
     qid: Q442485
 
   11:
-    label: Future
-    qid: Q501405
-
-  12:
     label: SimpleFuture
     qid: Q1475560
+
+  12:
+    label: Future
+    qid: Q501405
 
   13:
     label: Perfect

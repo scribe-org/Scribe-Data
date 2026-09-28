@@ -160,12 +160,20 @@ def generate_wikidata_lexeme_queries(
                     for lbl, qid in label_to_qid.items():
                         cv = cv.replace(lbl, qid)
 
-                    sub_list.append(re.findall(r"Q[^Q]+", cv))
+                    sub_list.append(re.findall(r"Q\d+", cv))
 
                 sorted_qids = sort_qids_by_position(nested_qids=sub_list)
                 contract_values_to_qids.append(sorted_qids)
+
+                sorted_indices = []
+                for q in sorted_qids:
+                    for i, orig_q in enumerate(sub_list):
+                        if set(orig_q) == set(q) and i not in sorted_indices:
+                            sorted_indices.append(i)
+                            break
+
                 grouped_and_ordered_form_labels.append(
-                    [lbls[i] for i in [sub_list.index(q) for q in sorted_qids]]
+                    [lbls[i] for i in sorted_indices]
                 )
 
             for j in range(len(grouped_and_ordered_form_labels)):

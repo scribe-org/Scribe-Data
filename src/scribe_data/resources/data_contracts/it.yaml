@@ -36,22 +36,22 @@ verbs:
           tenseForms:
             1:
               label: io
-              value: presentIndicativeFirstPersonSingular
+              value: indicativePresentFirstPersonSingular
             2:
               label: tu
-              value: presentIndicativeSecondPersonSingular
+              value: indicativePresentSecondPersonSingular
             3:
               label: lei/lui
-              value: presentIndicativeThirdPersonSingular
+              value: indicativePresentThirdPersonSingular
             4:
               label: noi
-              value: presentIndicativeFirstPersonPlural
+              value: indicativePresentFirstPersonPlural
             5:
               label: voi
-              value: presentIndicativeSecondPersonPlural
+              value: indicativePresentSecondPersonPlural
             6:
               label: loro
-              value: presentIndicativeThirdPersonPlural
+              value: indicativePresentThirdPersonPlural
 
     2:
       sectionTitle: Preterito

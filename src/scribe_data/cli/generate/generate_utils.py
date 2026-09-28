@@ -334,6 +334,12 @@ def sort_qids_by_position(nested_qids: list[list[str]]) -> list[list[str]]:
                 # Category index * 1000 ensures different categories don't overlap.
                 qid_positions[item["qid"]] = category_index * 1000 + len(qid_positions)
 
+    # Sort the QIDs inside each sublist so they are in the correct order.
+    internally_sorted_nested_qids = [
+        sorted(sublist, key=lambda q: qid_positions.get(q, float("inf")))
+        for sublist in nested_qids
+    ]
+
     def get_sort_key(sublist: list) -> list:
         """
         Get a key to sort the forms list.
@@ -348,18 +354,14 @@ def sort_qids_by_position(nested_qids: list[list[str]]) -> list[list[str]]:
         list
             A list of keys by which sorting will occur.
         """
-        # First priority: length of sublist.
         length_priority = len(sublist) * 1000000
 
-        # Sort QIDs within the sublist by their positions.
-        sorted_positions = sorted(
-            qid_positions.get(qid, float("inf")) for qid in sublist
-        )
+        # The sublist is already sorted internally, so we use its current positions.
+        positions = [qid_positions.get(qid, float("inf")) for qid in sublist]
 
-        # Pad with infinity for consistent comparison.
-        while len(sorted_positions) < 5:
-            sorted_positions.append(float("inf"))
+        while len(positions) < 5:
+            positions.append(float("inf"))
 
-        return [length_priority] + sorted_positions
+        return [length_priority] + positions
 
-    return sorted(nested_qids, key=get_sort_key)
+    return sorted(internally_sorted_nested_qids, key=get_sort_key)
