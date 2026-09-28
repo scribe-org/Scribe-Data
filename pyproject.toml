@@ -24,7 +24,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "emoji==2.15.0",
+    "emoji==2.16.0",
     "mwparserfromhell==0.7.2",
     "orjson==3.12.0",
     "packaging==26.3",
@@ -33,18 +33,18 @@ dependencies = [
     "requests==2.34.2",
     "rich==15.0.0",
     "sparqlwrapper==2.0.0",
-    "tqdm==4.70.0",
+    "tqdm==4.70.1",
 ]
 
 [dependency-groups]
 dev = [
-    "complexipy>=7.0.1",
-    "prek>=0.4.14",
+    "complexipy>=8.0.1",
+    "prek>=0.5.4",
     "pytest>=9.1.1",
     "pytest-cov>=7.1.0",
-    "ruff>=0.16.4",
+    "ruff>=0.16.9",
     "setuptools>=84.0.0",
-    "ty>=0.0.74",
+    "ty>=0.0.84",
 ]
 docs = [
     # Keep docs dependencies formatted in this way with ruff to allow for upgrades via VS Code extension.
