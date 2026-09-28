@@ -1,6 +1,7 @@
 name: ci_check_query_identifiers
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:

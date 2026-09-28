@@ -1,15 +1,16 @@
 name: ci_check_project_metadata
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
-      - "src/scribe_data/resources/**/*.json"
+      - "src/scribe_data/resources/**/*.yaml"
   pull_request:
     branches: [main]
     types: [opened, reopened, synchronize]
     paths:
-      - "src/scribe_data/resources/**/*.json"
+      - "src/scribe_data/resources/**/*.yaml"
 
 jobs:
   structure-check:
