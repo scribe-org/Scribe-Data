@@ -214,11 +214,7 @@ def check_query_formatting(form_text: str) -> bool:
         Whether there are formatting errors with the query.
     """
     # Check for spaces before commas that should not exist.
-    if re.search(r"\s,", form_text):
-        return False
-
-    # Check for non space characters before periods and semicolons that should not exist.
-    return not re.search(r"\S[.;]", form_text)
+    return not re.search(r"\s,", form_text)
 
 
 # MARK: Correct Label
@@ -600,7 +596,7 @@ def check_query_forms() -> None:
                         incorrect_query_labels.append(
                             (
                                 k,
-                                "Invalid query formatting found - please put spaces before all periods and semicolons and also remove spaces before commas.",
+                                "Invalid query formatting found - please remove spaces before commas.",
                             )
                         )
 
