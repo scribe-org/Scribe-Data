@@ -19,14 +19,14 @@
 
 ### Wikidata and Wiktionary language data extraction
 
-**Scribe-Data** is a command-line interface (CLI) for extracting and formatting language data from [Wikidata](https://www.wikidata.org/) and other supported sources. It helps users list, download, manage, convert, and filter language data directly from the terminal.
+**Scribe-Data** is a command-line interface (CLI) for extracting and formatting language data from [Wikidata](https://www.wikidata.org/), [Wiktionary](https://www.wiktionary.org/) and [Unicode](https://home.unicode.org/) for Scribe applications. Written in a way that other projects can adopt it for their language data needs, Scribe-Data helps users list, download, manage, convert, and filter language data directly from the terminal.
 
 > [!NOTE]\
 > The [contributing](#contributing) section has information for those interested, with the articles and presentations in [featured by](#featured-by) also being good resources for learning more about Scribe.
 
 Scribe applications are available on [iOS](https://github.com/scribe-org/Scribe-iOS), [Android](https://github.com/scribe-org/Scribe-Android) (WIP) and [Desktop](https://github.com/scribe-org/Scribe-Desktop) (planned).
 
-Check out [Scribe-Data's architecture diagram](./ARCHITECTURE.md) and [Scribe's architecture diagram](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) for an overview of the organization including our applications, services and processes. It depicts the projects that [Scribe](https://github.com/scribe-org) is developing as well as the relationships between them and the external systems with which they interact. Also check out the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and getting language data from it.
+Check out [Scribe-Data's architecture diagram](./ARCHITECTURE.md) for an overview of the data process. Also see and [Scribe's architecture diagram](https://github.com/scribe-org/Organization/blob/main/ARCHITECTURE.md) to learn about our organization including our applications, services and processes. It depicts the projects that [Scribe](https://github.com/scribe-org) is developing as well as the relationships between them and the external systems with which they interact. Also check out the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and getting language data from it.
 
 ## Contents
 
@@ -40,9 +40,9 @@ Check out [Scribe-Data's architecture diagram](./ARCHITECTURE.md) and [Scribe's 
 
 ## Process
 
-The CLI commands defined within [scribe_data/cli](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/cli) and the notebooks within the various [scribe_data](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data) directories are used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS), with this functionality later being expanded to update [Scribe-Android](https://github.com/scribe-org/Scribe-Android) and [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop) once they're active.
+The CLI commands defined within [scribe_data/cli](https://github.com/scribe-org/Scribe-Data/blob/main/src/scribe_data/cli) are used to update all data for [Scribe-iOS](https://github.com/scribe-org/Scribe-iOS) and [Scribe-Android](https://github.com/scribe-org/Scribe-Android), with this functionality later being expanded to update [Scribe-Desktop](https://github.com/scribe-org/Scribe-Desktop).
 
-The main data update process triggers [language based SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/queries) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran via the `scribe-data get -lang LANGUAGE -dt emoji-keywords` command.
+The main data update process triggers [language based SPARQL queries](https://github.com/scribe-org/Scribe-Data/tree/main/src/scribe_data/wikidata/queries) to query language data from [Wikidata](https://www.wikidata.org/) using [SPARQLWrapper](https://github.com/RDFLib/sparqlwrapper) as a URI. The base command for getting data from [Wikidata](https://www.wikidata.org/) is `scribe-data get -lang LANGUAGE -dt DESIRED_DATA`, with `DESIRED_DATA` being replaced by data types like nouns, verbs, etc. Emojis are further sourced from [Unicode CLDR](https://github.com/unicode-org/cldr), with this process being ran via the `scribe-data get -lang LANGUAGE -dt emoji-keywords` command.
 
 <sub><a href="#top">Back to top.</a></sub>
 
@@ -82,11 +82,11 @@ pip install -e .
 
 ## CLI Usage
 
-Scribe-Data provides a command-line interface (CLI) for efficient interaction with its language data functionality. Please see the [usage guide](https://github.com/scribe-org/Scribe-Data/blob/main/USAGE.md) or the [official documentation](https://scribe-data.readthedocs.io/) for detailed instructions.
+Scribe-Data provides a command-line interface (CLI) for efficient interaction with its language data functionalities. Please see the [usage guide](https://github.com/scribe-org/Scribe-Data/blob/main/USAGE.md) or the [official documentation](https://scribe-data.readthedocs.io/) for detailed instructions.
 
 ### Basic Usage
 
-To utilize the Scribe-Data CLI, you can execute variations of the following command in your terminal:
+To utilize the Scribe-Data CLI, you can execute variations of the following commands in your terminal:
 
 ```bash
 scribe-data -h  # view the cli options
@@ -100,19 +100,19 @@ scribe-data [command] [arguments]
 - `total` (`t`): Check Wikidata for the total available data for the given languages and data types.
 - `convert` (`c`): Convert data returned by Scribe-Data to different file types.
 - `download` (`d`): Download Wikidata lexeme or Wiktionary dumps.
-- `interactive` (`i`): Run in interactive mode.
 - `export_contracts` (`ec`): Export Scribe-Data contracts to a local directory.
-- `check_contracts` (`cc`): Check the data in a Scribe-Data export directory to see that all needed language data is included.
+- `audit_wd_lexeme_forms` (`awdlf`): Run an audit of the available language data forms on Wikidata.
+- `generate_wd_lexeme_queries` (`gwdlq`): Generate Wikidata language data queries from contracts.
+- `check_contracts` (`cc`): Check the data in a Scribe-Data export directory to see that all needed language data is included to fulfill data contracts.
 - `filter_data` (`fd`): Filter exported Scribe-Data data based on provided data contract values.
+- `interactive` (`i`): Run in interactive mode.
+
+> [!NOTE]
+> The commands above default to files and directories that generate data for the needs of the Scribe community. If you want to use Scribe-Data for your own purposes, then you can write your own [data contracts](./src/scribe_data/resources/data_contracts/) and use an external queries directory.
 
 ### Command Examples
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/653941a7-68bb-4d72-a0f1-3e29c75c5a16" alt="List, Total and Get GIF" width="500" height="300">
-</p>
-
 ```bash
-# Commands used in the above GIF:
 scribe-data list
 scribe-data list --language
 scribe-data list --data-type
@@ -120,12 +120,7 @@ scribe-data get --language English --data-type verbs --output-dir ./scribe-data
 scribe-data total --language English
 ```
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/4cbb85ed-d853-4008-8db9-b77ffcbe2e84" alt="Interactive GIF" width="500" height="300">
-</p>
-
 ```bash
-# Commands used in the above GIF:
 scribe-data get --interactive
 scribe-data total --interactive
 ```
@@ -134,18 +129,23 @@ scribe-data total --interactive
 
 ## Data Contracts
 
-[Wikidata](https://www.wikidata.org/) has lots of [language data](https://www.wikidata.org/wiki/Wikidata:Lexicographical_data) available, but not all of it is useful for all applications. In order to make the functionality of the Scribe-Data `get` requests as simple as possible, we made the decision to always return all data for the given languages and data types. Adding the ability to pass desired forms to the commands seemed cumbersome, and larger Scribe-Data requests should be parsing [Wikidata lexeme dumps](https://dumps.wikimedia.org/wikidatawiki/entities/) as the data source.
+[Wikidata](https://www.wikidata.org/) has lots of [language data](https://www.wikidata.org/wiki/Wikidata:Lexicographical_data) available, but not all of it is useful for all applications. By default the Scribe-Data `get` requests returns only the data for the given languages and data types that is needed for Scribe applications. Larger Scribe-Data requests should be parsing [Wikidata lexeme dumps](https://dumps.wikimedia.org/wikidatawiki/entities/) as the data source.
 
-Scribe's solution to the get all functionality while preserving the ability to get specific forms is to allow users to filter the resulting data by contracts. The data contracts for Scribe's client applications can be found in the [scribe_data_contracts](./src/scribe_data/resources/data_contracts/) directory. Data contracts are JSON objects where the values that are used in end applications are the keys and the resulting data identifiers based on Wikidata lexeme forms are the values. If the forms for a lexeme change, then the values would also change, but all that's needed is to update the contract for the application to function again.
+Scribe's solution for the modularity of Wikidata's data is data contracts. The data contracts for Scribe's client applications can be found in the [scribe_data_contracts](./src/scribe_data/resources/data_contracts/) directory. Data contracts are YAML objects where the values that are used in end applications are the keys and the resulting data identifiers based on Wikidata lexeme forms are the values. If the forms for a lexeme change, then the values would also change, but all that's needed is to update the contract for the application to function again.
 
 Efficient client application data updates using Scribe-Data follow as such:
 
-- New data is derived via the Scribe-Data CLI
+- Wikidata is audited by the Scribe community to see if new data exists
 - Contracts are written to map the data values to keys that are used in the application
-- Scribe-Data is ran again to get new data in the future
+- Scribe-Data queries are regenerated based on the new contracts and these queries are ran to get new data
+
+```bash
+scribe-data gwdlq
+```
+
 - The contracts are checked to make sure that all contract values still exist within the resulting data
-- The question is whether a form was added or removed from a data point such that its identifier has changed
-- This is done via the following command:
+  - The question is whether a form was added or removed from a data point such that its identifier has changed
+  - This is done via the following command:
 
 ```bash
 scribe-data cc -cd DATA_CONTRACTS_DIRECTORY  # default data path is used
@@ -153,13 +153,13 @@ scribe-data cc -cd DATA_CONTRACTS_DIRECTORY  # default data path is used
 
 - If the check above passes, then new data can be added to the client applications
 - If the check fails, then the contract values should be updated given the directions from the CLI and then new data can be loaded
-- Getting just the data that's in the client application is done via the following command:
+- If contracts are updated and a user wants to filter a current dataset for the new contract values, then this can be done via the following:
 
 ```bash
 scribe-data fd -cd DATA_CONTRACTS_DIRECTORY  # default data paths are used
 ```
 
-Updating contracts shouldn't be something that Scribe-Data users should have to do often if they're using stable data from [Wikidata](https://www.wikidata.org/). We provide this functionality given the wiki nature of the underlying data so that the Scribe community and others can easily react to potential changes in the lexeme data.
+Updating contracts shouldn't be something that Scribe-Data users should have to do often if they're using stable data from [Wikidata](https://www.wikidata.org/). We provide this functionality given the wiki nature of the underlying data so that the Scribe community and others can easily react to potential changes in the lexeme data. The base structure of your YAML objects should be consistent, and the final values can be updated such that new data can easily be loaded into applications simply by fulfilling the contracts.
 
 > [!NOTE]
 > You can learn more about contracts and the process around them in [DATA_CONTRACTS.md](https://github.com/scribe-org/Organization/blob/main/DATA_CONTRACTS.md).
@@ -200,9 +200,9 @@ The Scribe road map can be followed in the organization's [project board](https:
 ### Data Edits
 
 > [!NOTE]\
-> Please see the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) for an overview of [Wikidata](https://www.wikidata.org/) and how Scribe uses it.
+> Please see the [Wikidata and Scribe Guide](https://github.com/scribe-org/Organization/blob/main/WIKIDATAGUIDE.md) and the [data contracts guide](https://github.com/scribe-org/Organization/blob/main/DATA_CONTRACTS.md) and [Wikidata](https://www.wikidata.org/) for an overview of [Wikidata](https://www.wikidata.org/) and how Scribe uses it.
 
-Scribe does not accept direct edits to the grammar JSON files as they are sourced from [Wikidata](https://www.wikidata.org/). Edits can be discussed and the queries themselves will be changed and ran before an update. If there is a problem with one of the files, then the fix should be made on [Wikidata](https://www.wikidata.org/) and not on Scribe. Feel free to let us know that edits have been made by [opening a data issue](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=data&template=data_wikidata.yml) and we'll be happy to integrate them!
+Scribe does not accept direct edits to the queries or any resulting Scribe-Data data files as they are sourced from [data contracts](https://github.com/scribe-org/Organization/blob/main/DATA_CONTRACTS.md) and [Wikidata](https://www.wikidata.org/). Edits can be discussed and the contracts themselves will be changed used to generate queries before an update. If there is a problem with data in Scribe applications, then the fix should be made on [Wikidata](https://www.wikidata.org/) and not on Scribe. Feel free to let us know that edits have been made by [opening a data issue](https://github.com/scribe-org/Scribe-Data/issues/new?assignees=&labels=data&template=data_wikidata.yml) and we'll be happy to integrate them!
 
 <sub><a href="#top">Back to top.</a></sub>
 

@@ -437,8 +437,9 @@ def _parse_block_translations(
     wikitext : str
         Raw wikitext of the Wiktionary page.
 
-    collect_row : Callable[[node, node_idx, all_nodes, tname, target_langs, config,
-                             current_words_by_lang], None]
+    collect_row : Callable[
+            [node, node_idx, all_nodes, tname, target_langs, config, current_words_by_lang], None
+        ]
         Called once per candidate template node that is *inside* an open
         translation block and is **not** a ``template_top`` / ``template_bottom``
         or POS marker.  The callback appends any harvested words directly into
