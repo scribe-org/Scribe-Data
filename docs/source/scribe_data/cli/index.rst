@@ -26,6 +26,8 @@ Scribe-Data provides a command-line interface (CLI) for efficient interaction wi
     upgrade
     version
 
+.. MARK: Usage
+
 Usage
 -----
 
@@ -52,7 +54,12 @@ The Scribe-Data CLI supports the following commands:
 3. ``total`` (alias: ``t``)
 4. ``convert`` (alias: ``c``)
 5. ``download`` (alias: ``d``)
-6. ``interactive`` (alias: ``i``)
+6. ``export_contracts`` (alias: ``ec``)
+7. ``audit_wd_lexeme_forms`` (alias: ``awdlf``)
+8. ``generate_wd_lexeme_queries`` (alias: ``gwdlq``)
+9. ``check_contracts`` (alias: ``cc``)
+10. ``filter_data`` (alias: ``fd``)
+11. ``interactive`` (alias: ``i``)
 
 Note: For all language arguments, if the language is more than one word then the argument value needs to be passed with double quotes around it.
 
@@ -62,6 +69,8 @@ For example:
 
     scribe-data total --language German --data-type nouns
     scribe-data total --language "Hindi Hindustani" --data-type nouns
+
+.. MARK: List
 
 List Command
 ~~~~~~~~~~~~
@@ -139,6 +148,7 @@ The scribe-data list command (also accessible via ``scribe-data list -a``) displ
     proper-nouns
     verbs
 
+.. MARK: Get
 
 Get Command
 ~~~~~~~~~~~
@@ -155,16 +165,18 @@ Usage
 Options
 ^^^^^^^
 
-- ``-lang, --language LANGUAGE``: The language(s) to get.
-- ``-dt, --data-type DATA_TYPE``: The data type(s) to get.
-- ``-od, --output-dir OUTPUT_DIR``: The output directory path for results.
-- ``-ot, --output-type {json,csv,tsv}``: The output file type.
+- ``-lang, --language LANGUAGE [LANGUAGE ...]``: The language(s) to get data for.
+- ``-dt, --data-type DATA_TYPE [DATA_TYPE ...]``: The data type(s) to get data for (e.g., ``nouns``, ``verbs``).
+- ``-ot, --output-type {json,csv,tsv,sqlite}``: The output file type.
+- ``-od, --output-dir OUTPUT_DIR``: The output directory path for results. Default: ``./scribe_data_json_export`` for JSON; ``./scribe_data_csv_export`` for CSV, etc.
 - ``-ope, --outputs-per-entry OUTPUTS_PER_ENTRY``: How many outputs should be generated per data entry.
 - ``-o, --overwrite``: Whether to overwrite existing files (default: False).
-- ``-a, --all``: Get all languages and data types. Can be combined with `-dt` to get all languages for a specific data type, or with `-lang` to get all data types for a specific language.
-- ``-i, --interactive``: Run in interactive mode.
-- ``-ic, --identifier-case``: The case format for identifiers in the output data (default: camel).
-- ``-wtp, --wiktionary-project WIKTIONARY_PROJECT``: The Wiktionary project to extract translations from (e.g. ``enwiktionary`` for English Wiktionary).
+- ``-a, --all, --no-all``: Get all languages and data types.
+- ``-i, --interactive``: Run the get command in interactive mode.
+- ``-ic, --identifier-case {camel,snake}``: The case format for identifiers in the output data (default: camel).
+- ``-wdqdp, --wikidata-query-dir-path [WIKIDATA_QUERY_DIR_PATH]``: The directory where Scribe-Data compatible Wikidata queries are saved. Uses default directory ``./[ROOT]/Scribe-Data/src/scribe_data/wikidata/queries`` if no path provided.
+- ``-wdp, --wikidata-dump-path [WIKIDATA_DUMP_PATH]``: The output directory path for the downloaded Wikidata dump. Uses default directory ``./scribe_data_wikidata_dumps_export`` if no path provided.
+- ``-wtp, --wiktionary-dump-path [WIKTIONARY_DUMP_PATH]``: Path to download ``*wiktionary-*-pages-articles.xml.bz2`` Wiktionary dumps for translations. Uses default directory ``./scribe_data_wiktionary_dumps_export`` if no path provided.
 
 Examples
 ^^^^^^^^
@@ -303,6 +315,8 @@ Troubleshooting:
 - If you're having issues with file paths, remember to use quotes around paths with spaces.
 - If the command seems to hang at 0% or 100%, be patient as the process can take several minutes depending on the dataset size and your internet connection.
 
+.. MARK: Total
+
 Total Command
 ~~~~~~~~~~~~~
 
@@ -318,9 +332,11 @@ Usage
 Options
 ^^^^^^^
 
-- ``-lang, --language LANGUAGE``: The language(s) to check totals for. Can be a language name or QID.
-- ``-dt, --data-type DATA_TYPE``: The data type(s) to check totals for.
-- ``-a, --all``: Get totals for all languages and data types.
+- ``-lang, --language LANGUAGE``: The language(s) to check totals for.
+- ``-dt, --data-type DATA_TYPE``: The data type(s) to check totals for (e.g., ``nouns``, ``verbs``).
+- ``-a, --all, --no-all``: Check for all languages and data types.
+- ``-i, --interactive``: Run the total command in interactive mode.
+- ``-wdp, --wikidata-dump-path [WIKIDATA_DUMP_PATH]``: Path to a local Wikidata lexemes dump for running with ``--all``. Uses default directory ``./scribe_data_wikidata_dumps_export`` if no path provided.
 
 Examples
 ^^^^^^^^
@@ -387,6 +403,7 @@ Examples
     Data type: verbs
     Total number of lexemes: 23,456
 
+.. MARK: Download
 
 Download Command
 ~~~~~~~~~~~~~~~~
@@ -404,10 +421,10 @@ Usage
 Options
 ^^^^^^^
 
-- ``-wdp, --wikidata-dump-path [PATH]``: Download a Wikidata lexeme dump. Uses ``./scribe_data_wikidata_dumps_export`` if no path is provided.
-- ``-wtp, --wiktionary-dump-path [PATH]``: Download a Wiktionary dump. Uses ``./scribe_data_wiktionary_dumps_export`` if no path is provided.
-- ``-ds, --dump-snapshot [SNAPSHOT]``: The dump snapshot to download. For Wikidata use ``latest-lexemes`` or a date in ``YYYYMMDD`` format. For Wiktionary defaults to ``latest``.
-- ``-lang, --language LANGUAGE``: The language or ISO code for Wiktionary dumps (e.g. ``de`` for German Wiktionary). Defaults to English (``en``) when omitted.
+- ``-lang, --language LANGUAGE [LANGUAGE ...]``: Target language or ISO code for Wiktionary dumps to download.
+- ``-wdp, --wikidata-dump-path [WIKIDATA_DUMP_PATH]``: The output directory path for the downloaded Wikidata dump. Uses default directory ``./scribe_data_wikidata_dumps_export`` if no path provided.
+- ``-wtp, --wiktionary-dump-path [WIKTIONARY_DUMP_PATH]``:  Path to download ``*wiktionary-*-pages-articles.xml.bz2`` Wiktionary dumps for translations. Uses default directory ``./scribe_data_wiktionary_dumps_export`` if no path provided.
+- ``-ds, --dump-snapshot [DUMP_SNAPSHOT]``: The desired snapshot of a Wikidata or Wiktionary dump (default 'latest'). Optionally specify date in ``YYYYMMDD`` format.
 
 Examples
 ^^^^^^^^
@@ -468,6 +485,7 @@ Behavior and Output
         scribe_data_wikidata_dumps_export/latest-lexemes.json.bz2: 100%|███████████████████| 370M/370M [04:20<00:00, 1.42MiB/s]
         Wikidata lexeme dump download completed successfully!
 
+.. MARK: Convert
 
 Convert Command
 ~~~~~~~~~~~~~~~
@@ -484,11 +502,16 @@ Usage
 Options
 ^^^^^^^
 
-- ``-f, --file FILE``: The file to convert to a new type.
-- ``-lang, --language LANGUAGE``: The language(s) to convert (for SQLite conversion).
-- ``-dt, --data-type DATA_TYPE``: The data type(s) to convert (for SQLite conversion).
-- ``-ko, --keep-original``: Whether to keep the file to be converted (default: True).
+- ``-lang, --language LANGUAGE [LANGUAGE ...]``: The language of the file to convert.
+- ``-dt, --data-type DATA_TYPE [DATA_TYPE ...]``: The data type(s) of the file to convert (e.g., ``nouns``, ``verbs``).
+- ``-if, --input-file INPUT_FILE``: The path to the input file to convert.
 - ``-ot, --output-type {json,csv,tsv,sqlite}``: The output file type.
+- ``-od, --output-dir OUTPUT_DIR``: The directory where the output file will be saved.
+- ``-o, --overwrite``: Whether to overwrite existing files (default: ``False``).
+- ``-ko, --keep-original``: Whether to keep the original file to be converted (default: ``True``).
+- ``-ic, --identifier-case {camel,snake}``: The case format for identifiers in the output data (default: ``camel``).
+- ``-a, --all, --no-all``: Convert all languages and data types.
+- ``-i, --interactive``: Run the convert command in interactive mode.
 
 Examples
 ^^^^^^^^
@@ -534,7 +557,7 @@ Behavior and Output
 
 **SQLite Conversion:**
 
-1. **Database Creation:** When converting to SQLite format, the command creates separate database files for each language in the `scribe_data_sqlite_export/` directory with the naming pattern `{LANGUAGE_CODE}LanguageData.sqlite`.
+1. **Database Creation:** When converting to SQLite format, the command creates separate database files for each language in the ``scribe_data_sqlite_export/`` directory with the naming pattern ``{LANGUAGE_CODE}LanguageData.sqlite``.
 
 2. **Interactive Overwrite Prompts:** If existing SQLite files are found, you'll be prompted to choose whether to overwrite them:
 
@@ -558,17 +581,194 @@ Behavior and Output
 
 **File Conversion:**
 
-- When using the `-f` option, the command converts individual files to the specified output type.
-- The original file is kept by default unless `--keep-original` is set to False.
+- When using the ``-f`` option, the command converts individual files to the specified output type.
+- The original file is kept by default unless ``--keep-original`` is set to False.
 
 Notes
 ^^^^^
 
-1. **SQLite Output:** SQLite databases are created in the `scribe_data_sqlite_export/` directory.
+1. **SQLite Output:** SQLite databases are created in the ``scribe_data_sqlite_export/`` directory.
 2. **Multiple Languages:** You can specify multiple languages separated by spaces.
 3. **Multiple Data Types:** You can specify multiple data types separated by spaces.
-4. **Database Naming:** SQLite files follow the pattern `{LANGUAGE_CODE}LanguageData.sqlite` (e.g., `ENLanguageData.sqlite`, `FRLanguageData.sqlite`).
+4. **Database Naming:** SQLite files follow the pattern ``{LANGUAGE_CODE}LanguageData.sqlite`` (e.g., ``ENLanguageData.sqlite``, ``FRLanguageData.sqlite``).
 5. **Table Structure:** Each data type becomes a separate table within the language database.
+
+.. MARK: Export Contracts
+
+Export Contracts Command
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Export Scribe-Data contracts to the current working directory.
+
+Usage
+^^^^^
+
+.. code-block:: bash
+
+    scribe-data export_contracts [arguments]
+
+Options
+^^^^^^^
+
+-  ``-od, --output-dir OUTPUT_DIR``: The directory to export contracts to (default: ``scribe_data_contracts``).
+
+Examples
+^^^^^^^^
+
+1. **Export the current Scribe-Data contracts:**
+
+.. code-block:: bash
+
+    $ scribe-data export_contracts --output-dir ./contracts
+    Contracts successfully exported to contracts.
+
+.. MARK: Audit Wikidata
+
+Audit Wikidata Command
+~~~~~~~~~~~~~~~~~~~~~~
+
+Audit Wikidata for the available forms for the given languages and data types.
+
+Usage
+^^^^^
+
+.. code-block:: bash
+
+    scribe-data audit_wd_lexeme_forms [arguments]
+
+Options
+^^^^^^^
+
+- ``-lang, --language LANGUAGE``: The language to audit lexeme forms for.
+- ``-dt, --data-type DATA_TYPE``: The data type to audit lexeme forms for (e.g., ``nouns``, ``verbs``).
+- ``-mf, --min-frequency MIN_FREQUENCY``: The minimum frequency that a lexeme form combination should appear to be included in the audit.
+- ``-mr, --max-results MAX_RESULTS``: The maximum results to include in the audit.
+- ``-ma, --max-attempts MAX_ATTEMPTS``: Maximum query attempts for failed queries (default: ``2``).
+
+Examples
+^^^^^^^^
+
+1. **Audit Wikidata lexemes for a specific language and data type:**
+
+.. code-block:: bash
+
+    $ scribe-data audit_wd_lexeme_forms --lang German --data-type adjectives
+    Auditing Wikidata lexeme forms for German adjectives.
+    Wikidata lexeme form audit results saved to scribe_data_wikidata_audit/german/adjectives_lexeme_forms_audit.yaml.
+
+.. MARK: Generate Queries
+
+Generate Queries Command
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Generate Wikidata lexeme queries from the provided data contracts.
+
+Usage
+^^^^^
+
+.. code-block:: bash
+
+    scribe-data generate_wd_lexeme_queries [arguments]
+
+Options
+^^^^^^^
+
+- ``-lang, --language LANGUAGE``: The language to generate queries for.
+- ``-dt, --data-type DATA_TYPE``: The data type to generate queries for (e.g., ``nouns``, ``verbs``).
+- ``-cd, --contracts-dir CONTRACTS_DIR``: The directory where the contracts are saved.
+- ``-od, --output-dir OUTPUT_DIR``: The directory to save generated queries to (default: ``scribe_data/wikidata/queries``).
+
+Examples
+^^^^^^^^
+
+1. **Generate Wikidata lexeme queries from the default Scribe-Data contracts:**
+
+.. code-block:: bash
+
+    $ scribe-data generate_wd_lexeme_queries
+    Query file created: ./[ROOT]/scribe_data/wikidata/queries/german/nouns/query_nouns.sparql
+    ...
+
+1. **Generate Wikidata lexeme queries from custom contracts in an custom directory:**
+
+.. code-block:: bash
+
+    $ scribe-data generate_wd_lexeme_queries --contracts-dir ./contracts --output-dir ./queries
+    Query file created: ./queries/german/nouns/query_nouns.sparql
+    ...
+
+.. MARK: Check Contracts
+
+Check Contracts Command
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Check if data exports match their corresponding data contracts.
+
+Usage
+^^^^^
+
+.. code-block:: bash
+
+    scribe-data check_contracts [arguments]
+
+Options
+^^^^^^^
+
+- ``-cd, --contracts-dir CONTRACTS_DIR``: The directory where the contracts are saved.
+- ``-od, --output-dir OUTPUT_DIR``: The directory with the data that the contracts should be checked against.
+
+Examples
+^^^^^^^^
+
+1. **Check default JSON outputs against the default Scribe-Data contracts:**
+
+.. code-block:: bash
+
+    $ scribe-data check_contracts
+
+2. **Check JSON outputs in a custom directory against custom Scribe-Data contracts:**
+
+.. code-block:: bash
+
+    $ scribe-data check_contracts --contracts-dir ./contracts --output-dir ./data
+
+.. MARK: Filter Data
+
+Filter Data Command
+~~~~~~~~~~~~~~~~~~~
+
+Convert exported data into a dataset that only includes data within contract values.
+
+Usage
+^^^^^
+
+.. code-block:: bash
+
+    scribe-data filter_data [arguments]
+
+Options
+^^^^^^^
+
+- ``-cd, --contracts-dir CONTRACTS_DIR``: The directory where the data contracts are saved.
+- ``-id, --input-dir INPUT_DIR``: The directory with the data that should be filtered.
+- ``-od, --output-dir OUTPUT_DIR``: The directory to export data filtered by contracts to.
+
+Examples
+^^^^^^^^
+
+1. **Filter the default JSON outputs and export to the default directory:**
+
+.. code-block:: bash
+
+    $ scribe-data filter_data
+
+2. **Filter the JSON outputs in a custom directory using custom contracts and export to a custom directory:**
+
+.. code-block:: bash
+
+    $ scribe-data filter_data --contracts-dir ./contracts --input-dir ./data --output-dir ./filtered_data
+
+.. MARK: Interactive
 
 Interactive Mode
 ----------------

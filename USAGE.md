@@ -11,8 +11,8 @@ Scribe-Data provides a command-line interface (CLI) for extracting language data
 - [Basic Usage](#basic-usage)
 - [Command Examples](#command-examples)
   - [List](#list)
-  - [Total](#total)
   - [Get](#get)
+  - [Total](#total)
   - [Convert](#convert)
   - [Export Contracts](#export-contracts)
   - [Audit Wikidata](#audit-wikidata)
@@ -109,6 +109,15 @@ scribe-data list --language
 scribe-data list --data-type
 ```
 
+### Get
+
+Get data from Wikidata and Wiktionary dumps.
+
+```bash
+scribe-data get --all
+scribe-data get --language German --data-type nouns
+```
+
 ### Total
 
 Get the total data on Wikidata for the given languages and data types.
@@ -117,15 +126,6 @@ Get the total data on Wikidata for the given languages and data types.
 scribe-data total --data-type nouns
 scribe-data total --language English
 scribe-data total --language English --data-type nouns
-```
-
-### Get
-
-Get data from Wikidata and Wiktionary dumps.
-
-```bash
-scribe-data get --all
-scribe-data get --language German --data-type nouns
 ```
 
 ### Convert

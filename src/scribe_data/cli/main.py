@@ -407,7 +407,7 @@ def main() -> None:
         type=str,
         required=False,
         default=DEFAULT_CONTRACTS_EXPORT_DIR,
-        help="The directory to export contracts to (default: current scribe_data_contracts).",
+        help="The directory to export contracts to (default: scribe_data_contracts).",
     )
 
     # MARK: Audit Wikidata
