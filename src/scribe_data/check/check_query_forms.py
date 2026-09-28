@@ -11,11 +11,7 @@ import re
 from pathlib import Path
 from typing import Any, Literal
 
-from scribe_data.utils import (
-    WIKIDATA_QUERIES_DIR,
-    data_type_metadata,
-    lexeme_form_metadata,
-)
+from scribe_data.utils import WIKIDATA_QUERIES_DIR, lexeme_form_metadata
 
 lexeme_form_qid_order = []
 lexeme_form_labels_order = []
@@ -149,9 +145,9 @@ def extract_form_qids(form_text: str) -> list[str] | None:
     list[str] | None
         All QIDS that make up the form.
     """
-    qids_pattern = r"wikibase:grammaticalFeature .+ \."
+    qids_pattern = r"wikibase:grammaticalFeature .+\."
     if match := re.search(pattern=qids_pattern, string=form_text):
-        return [q.split("wd:")[1].split(" .")[0] for q in match[0].split(", ")]
+        return [q.split("wd:")[1].split(".")[0] for q in match[0].split(", ")]
 
 
 # MARK: Check Label
@@ -393,98 +389,6 @@ def check_docstring(query_text: str) -> tuple[Literal[False], str] | Literal[Tru
     )
 
 
-# MARK: Variable Order
-
-
-def check_forms_order(query_text: str) -> list | bool | str:
-    """
-    Parse and order variable names from a SPARQL query text based on a lexeme_form_metadata.yaml.
-
-    Parameters
-    ----------
-    query_text : str
-        The SPARQL query text containing the SELECT statement with variables.
-
-    Returns
-    -------
-    list or bool
-        A sorted list of variables if the ordering differs from the original,
-        otherwise a boolean indicating that the order matches.
-    """
-    select_pattern = r"SELECT\s+(.*?)\s+WHERE"
-
-    # Extracting the variables from the SELECT statement.
-    select_vars = []
-    if select_match := re.search(select_pattern, query_text, flags=re.DOTALL):
-        select_vars = re.findall(r"\?(\w+)", select_match[1])
-
-    # Hardcoded labels provided by the labeling service.
-    labeling_service_cols = ["case", "gender", "auxiliaryVerb"]
-    select_vars = select_vars[3:]
-
-    # Split each column label into components.
-    split_vars = []
-    for col in set(select_vars) - set(labeling_service_cols):
-        valid_components = decompose_label_features(col)
-        split_vars.append(valid_components)
-
-    # Create a map for fast component position lookup.
-    order_map = {item: index for index, item in enumerate(lexeme_form_labels_order)}
-
-    # Group columns by component length for sorting.
-    grouped_columns = {}
-    for col in split_vars:
-        grouped_columns.setdefault(len(col), []).append(col)
-
-    # Sorting function for multi-level component-based sorting.
-    def compare_key(components: list[str]) -> list[str | int | float]:
-        """
-        Get a key to compare via its component parts to see if it's included.
-
-        Parameters
-        ----------
-        components : list[str]
-            The components that can make up the form identifier.
-
-        Returns
-        -------
-        list[str | int | float]
-            The list of component parts to compare against.
-        """
-        return [order_map.get(c, float("inf")) for c in components]
-
-    # Sort and reassemble columns.
-    sorted_columns = []
-    for length in sorted(grouped_columns.keys()):
-        sorted_group = sorted(grouped_columns[length], key=compare_key)
-        sorted_columns.extend("".join(col) for col in sorted_group)
-
-    # Append labeling service columns to the end.
-    sorted_columns.extend(
-        col.lower() for col in labeling_service_cols if col in select_vars
-    )
-
-    # Ensure specific types appear at the start if in select_vars.
-    data_types = [
-        re.sub(r"[^a-zA-Z]", "", key).lower() for key in data_type_metadata.keys()
-    ]
-    for dt in data_types:
-        base_dt = dt[:-1]
-        if base_dt in select_vars:
-            sorted_columns.remove(base_dt.capitalize())
-            sorted_columns.insert(0, base_dt)
-
-    # Return sorted columns or validate if it matches select_vars.
-    sorted_lower = [i.lower() for i in sorted_columns]
-    select_lower = [i.lower() for i in select_vars]
-
-    if select_lower != sorted_lower:
-        print(f"Invalid sorting:\n{select_lower}\n{sorted_lower}")
-        return ", ".join([i[0].lower() + i[1:] for i in sorted_columns])
-
-    return sorted_lower == select_lower
-
-
 # MARK: Optional Validation
 
 
@@ -553,11 +457,6 @@ def check_query_forms() -> None:
                 f"\n{index}. {query_file_str}:\n  - {docstring_check_result}\n"
             )
             index += 1
-        # Check forms ordering.
-        forms_order_result = check_forms_order(query_text)
-        if forms_order_result is not True:
-            error_output += f"\n{index}. {query_file_str}:\n  Form ordering for the above file should be:\n- {forms_order_result}\n"
-            index += 1
 
         # Check that all variables in the WHERE and SELECT clauses are ordered, defined and returned.
         if forms_order_and_definition_check := validate_forms(query_text):
@@ -590,6 +489,7 @@ def check_query_forms() -> None:
                     }
 
             if query_form_check_dict:
+                print(query_form_check_dict)
                 incorrect_query_labels = []
                 for k, v in query_form_check_dict.items():
                     if k != v["correct_formatting"] is False:
