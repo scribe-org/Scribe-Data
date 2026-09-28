@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 from scribe_data.utils import (
-    WIKIDATA_QUERIES_ALL_DATA_DIR,
+    WIKIDATA_QUERIES_DIR,
     data_type_metadata,
     language_metadata,
 )
@@ -139,7 +139,7 @@ def check_query_identifiers() -> None:
     incorrect_languages = []
     incorrect_data_types = []
 
-    for query_file in WIKIDATA_QUERIES_ALL_DATA_DIR.glob("**/*.sparql"):
+    for query_file in WIKIDATA_QUERIES_DIR.glob("**/*.sparql"):
         lang_qid = extract_qid_from_sparql(
             file_path=query_file, pattern=language_pattern
         )

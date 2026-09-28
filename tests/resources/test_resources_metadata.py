@@ -8,10 +8,20 @@ from unittest import TestCase
 
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
 LANGUAGE_METADATA_PATH = (
-    BASE_DIR / "src" / "scribe_data" / "resources" / "language_metadata.yaml"
+    BASE_DIR
+    / "src"
+    / "scribe_data"
+    / "resources"
+    / "metadata"
+    / "language_metadata.yaml"
 )
 DATA_TYPE_METADATA_PATH = (
-    BASE_DIR / "src" / "scribe_data" / "resources" / "data_type_metadata.yaml"
+    BASE_DIR
+    / "src"
+    / "scribe_data"
+    / "resources"
+    / "metadata"
+    / "data_type_metadata.yaml"
 )
 
 

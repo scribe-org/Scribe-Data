@@ -12,7 +12,7 @@ from scribe_data.cli.contracts.filter import (
     filter_exported_data,
 )
 from scribe_data.utils import (
-    DEFAULT_DATA_CONTRACTS_DIR,
+    DATA_CONTRACTS_DIR,
     DEFAULT_FILTERED_JSON_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
 )
@@ -328,7 +328,7 @@ class TestExportContracts:
         with patch.object(Path, "glob", mock_path_glob):
             # Call the function.
             export_data_filtered_by_contracts(
-                contracts_dir=DEFAULT_DATA_CONTRACTS_DIR,
+                contracts_dir=DATA_CONTRACTS_DIR,
                 input_dir="test_input",
                 output_dir="test_output",
             )
@@ -376,7 +376,7 @@ class TestExportContracts:
 
         with patch("builtins.print") as mock_print:
             export_data_filtered_by_contracts(
-                contracts_dir=DEFAULT_DATA_CONTRACTS_DIR,
+                contracts_dir=DATA_CONTRACTS_DIR,
                 input_dir=DEFAULT_JSON_EXPORT_DIR,
                 output_dir=DEFAULT_FILTERED_JSON_EXPORT_DIR,
             )
@@ -415,7 +415,7 @@ class TestExportContracts:
 
         with patch("builtins.print") as mock_print:
             export_data_filtered_by_contracts(
-                contracts_dir=DEFAULT_DATA_CONTRACTS_DIR,
+                contracts_dir=DATA_CONTRACTS_DIR,
                 input_dir=DEFAULT_JSON_EXPORT_DIR,
                 output_dir=DEFAULT_FILTERED_JSON_EXPORT_DIR,
             )
@@ -443,7 +443,7 @@ class TestExportContracts:
         mock_filter_metadata.return_value = {}
 
         export_data_filtered_by_contracts(
-            contracts_dir=DEFAULT_DATA_CONTRACTS_DIR,
+            contracts_dir=DATA_CONTRACTS_DIR,
             input_dir=DEFAULT_JSON_EXPORT_DIR,
             output_dir=DEFAULT_FILTERED_JSON_EXPORT_DIR,
         )

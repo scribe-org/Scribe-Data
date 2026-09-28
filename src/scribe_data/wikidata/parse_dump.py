@@ -26,6 +26,8 @@ from scribe_data.utils import (
     wikidata_qids_pids,
 )
 
+# MARK: LexemeProcessor
+
 
 class LexemeProcessor:
     """

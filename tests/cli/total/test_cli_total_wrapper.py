@@ -260,7 +260,7 @@ class TestCLITotalWrapper(unittest.TestCase):
 
     @patch("scribe_data.cli.total.print_values.language_metadata")
     @patch("scribe_data.cli.total.print_values.list_all_languages")
-    @patch("scribe_data.cli.total.print_values.WIKIDATA_QUERIES_ALL_DATA_DIR")
+    @patch("scribe_data.cli.total.print_values.WIKIDATA_QUERIES_DIR")
     def test_get_datatype_list_with_sublanguages(
         self,
         mock_dir: MagicMock,
@@ -307,7 +307,7 @@ class TestCLITotalWrapper(unittest.TestCase):
         self.assertEqual(sorted(result), ["nouns", "verbs"])
 
     @patch("scribe_data.cli.total.print_values.language_metadata")
-    @patch("scribe_data.cli.total.print_values.WIKIDATA_QUERIES_ALL_DATA_DIR")
+    @patch("scribe_data.cli.total.print_values.WIKIDATA_QUERIES_DIR")
     def test_get_datatype_list_empty_directory(
         self, mock_dir: MagicMock, mock_metadata: MagicMock
     ) -> None:

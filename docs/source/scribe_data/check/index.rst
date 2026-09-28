@@ -12,8 +12,3 @@ check/
     check_pyicu
     check_query_forms
     check_query_identifiers
-
-.. toctree::
-    :maxdepth: 2
-
-    check_missing_forms/index

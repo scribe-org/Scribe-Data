@@ -52,6 +52,9 @@ scribe_data_filtered_tsv_export/*
 scribe_data_wikidata_dumps_export/*
 scribe_data_wiktionary_dumps_export/*
 
+scribe_data_user_queries/*
+scribe_data_wikidata_audit/*
+
 # MARK: Wiki Dumps
 
 *.json.bz2

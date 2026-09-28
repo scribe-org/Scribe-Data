@@ -1,0 +1,38 @@
+# tool: scribe-data
+# Universal query to find grammatical feature combinations for a given language and data type.
+# This query identifies form combinations that exist in Wikidata for the specified language/data type.
+# Placeholders: LANGUAGE_QID, DATA_TYPE_QID, MIN_FREQUENCY, and MAX_RESULTS are replaced by actual values.
+
+SELECT
+  ?formQIDs
+  (count(?form) AS ?totalForms)
+
+WHERE {
+  {
+    SELECT
+      ?form
+      (group_concat(DISTINCT replace(str(?feature), "^.*/(Q\\d+)$", "$1")) AS ?formQIDs)
+
+    WHERE {
+      ?lexeme dct:language wd:LANGUAGE_QID;
+        wikibase:lexicalCategory wd:DATA_TYPE_QID;
+        ontolex:lexicalForm ?form.
+      ?form wikibase:grammaticalFeature ?feature.
+    }
+    GROUP BY
+      ?form
+
+    LIMIT
+      MAX_RESULTS
+  }
+  filter(?formQIDs != "")
+}
+
+GROUP BY
+  ?formQIDs
+
+HAVING
+  (count(?form) >= MIN_FREQUENCY)
+
+ORDER BY
+  desc(?totalForms)

@@ -10,7 +10,7 @@ Examples
 import os
 
 from scribe_data.utils import (
-    WIKIDATA_QUERIES_ALL_DATA_DIR,
+    WIKIDATA_QUERIES_DIR,
     data_type_metadata,
     language_metadata,
 )
@@ -162,21 +162,19 @@ def check_project_structure() -> None:
     missing_folders = []
     missing_queries = []
 
-    if not os.path.exists(WIKIDATA_QUERIES_ALL_DATA_DIR):
-        print(
-            f"Error: Base directory '{WIKIDATA_QUERIES_ALL_DATA_DIR}' does not exist."
-        )
+    if not os.path.exists(WIKIDATA_QUERIES_DIR):
+        print(f"Error: Base directory '{WIKIDATA_QUERIES_DIR}' does not exist.")
         exit(1)
 
-    # Check for unexpected files in WIKIDATA_QUERIES_ALL_DATA_DIR.
-    for item in os.listdir(WIKIDATA_QUERIES_ALL_DATA_DIR):
-        item_path = os.path.join(WIKIDATA_QUERIES_ALL_DATA_DIR, item)
+    # Check for unexpected files in WIKIDATA_QUERIES_DIR.
+    for item in os.listdir(WIKIDATA_QUERIES_DIR):
+        item_path = os.path.join(WIKIDATA_QUERIES_DIR, item)
         if os.path.isfile(item_path) and item != "__init__.py":
             errors.append(f"Unexpected file found in the 'queries' files: {item}")
 
     # Iterate through the language directories.
-    for language in os.listdir(WIKIDATA_QUERIES_ALL_DATA_DIR):
-        language_path = os.path.join(WIKIDATA_QUERIES_ALL_DATA_DIR, language)
+    for language in os.listdir(WIKIDATA_QUERIES_DIR):
+        language_path = os.path.join(WIKIDATA_QUERIES_DIR, language)
 
         if not os.path.isdir(language_path) or language == "__init__.py":
             continue
@@ -232,10 +230,9 @@ def check_project_structure() -> None:
 
     # Attn: Removed for now.
     if errors:  # or missing_folders or missing_queries
-        if errors:
-            print("Errors found:")
-            for error in errors:
-                print(f" - {error}")
+        print("Errors found:")
+        for error in errors:
+            print(f" - {error}")
 
         # if missing_folders:
         #     print("\nMissing data type folders:")

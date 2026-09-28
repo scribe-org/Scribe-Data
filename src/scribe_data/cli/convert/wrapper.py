@@ -34,10 +34,10 @@ def convert_wrapper(
 
     Parameters
     ----------
-    languages : Optional[List[str]]
+    languages : list[str]
         The language(s) of the data to convert.
 
-    data_types : Optional[List[str]]
+    data_types : list[str]
         The data type(s) of the data to convert.
 
     input_path : Path

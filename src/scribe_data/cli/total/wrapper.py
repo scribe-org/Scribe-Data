@@ -24,16 +24,16 @@ def total_wrapper(
 
     Parameters
     ----------
-    languages : List[str]
+    languages : list[str]
         The language(s) to potentially total data types for.
 
-    data_types : List[str]
+    data_types : list[str]
         The data type(s) to check for.
 
     all_bool : bool
         Whether all languages and data types should be listed.
 
-    wikidata_dump : Optional[Union[Path, bool]]
+    wikidata_dump : Path | bool, optional
         The local Wikidata lexeme dump path that can be used to process data.
         If True, indicates the flag was used without a path.
 

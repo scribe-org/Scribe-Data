@@ -15,7 +15,7 @@ from rich.table import Table
 from tqdm import tqdm
 
 # from scribe_data.cli.list import list_wrapper
-from scribe_data.cli.get import get_data
+from scribe_data.cli.get.data import get_data
 from scribe_data.cli.interactive.config import (
     THANK_YOU_MESSAGE,
     interactive_mode_config,

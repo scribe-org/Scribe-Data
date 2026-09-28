@@ -86,10 +86,12 @@ Available Commands
 - ``total`` (``t``): Check Wikidata for the total available data for the given languages and data types.
 - ``convert`` (``c``): Convert data returned by Scribe-Data to different file types.
 - ``download`` (``d``): Download Wikidata lexeme or Wiktionary dumps.
-- ``interactive`` (``i``): Run in interactive mode.
 - ``export_contracts`` (``ec``): Export Scribe-Data contracts to a local directory.
-- ``check_contracts`` (``cc``): Check the data in a Scribe-Data export directory to see that all needed language data is included.
+- ``audit_wd_lexeme_forms`` (``awdlf``): Run an audit of the available language data forms on Wikidata.
+- ``generate_wd_lexeme_queries`` (``gwdlq``): Generate Wikidata language data queries from contracts.
+- ``check_contracts`` (``cc``): Check the data in a Scribe-Data export directory to see that all needed language data is included to fulfill data contracts.
 - ``filter_data`` (``fd``): Filter exported Scribe-Data data based on provided data contract values.
+- ``interactive`` (``i``): Run in interactive mode.
 
 Contents
 ========

@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from scribe_data.utils import (
-    WIKIDATA_QUERIES_ALL_DATA_DIR,
+    WIKIDATA_QUERIES_DIR,
     data_type_metadata,
     lexeme_form_metadata,
 )
@@ -146,7 +146,7 @@ def extract_form_qids(form_text: str) -> list[str] | None:
 
     Returns
     -------
-    List[str] | None
+    list[str] | None
         All QIDS that make up the form.
     """
     qids_pattern = r"wikibase:grammaticalFeature .+ \."
@@ -230,7 +230,7 @@ def return_correct_form_label(qids: list[str]) -> str:
 
     Parameters
     ----------
-    qids : List[str]
+    qids : list[str]
         All QIDS that make up the form.
 
     Returns
@@ -447,12 +447,12 @@ def check_forms_order(query_text: str) -> list | bool | str:
 
         Parameters
         ----------
-        components : List[str]
+        components : list[str]
             The components that can make up the form identifier.
 
         Returns
         -------
-        List[str | int | float]
+        list[str | int | float]
             The list of component parts to compare against.
         """
         return [order_map.get(c, float("inf")) for c in components]
@@ -545,7 +545,7 @@ def check_query_forms() -> None:
     """
     error_output = ""
     index = 0
-    for query_file in WIKIDATA_QUERIES_ALL_DATA_DIR.glob("**/*.sparql"):
+    for query_file in WIKIDATA_QUERIES_DIR.glob("**/*.sparql"):
         query_file_str = str(query_file)
         with open(query_file, "r", encoding="utf-8") as file:
             query_text = file.read()

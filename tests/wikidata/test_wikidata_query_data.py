@@ -75,7 +75,7 @@ class TestQueryData(unittest.TestCase):
                 # Patch functions so temporary files are used.
                 with (
                     patch(
-                        "scribe_data.wikidata.query_data.WIKIDATA_QUERIES_ALL_DATA_DIR",
+                        "scribe_data.wikidata.query_data.WIKIDATA_QUERIES_DIR",
                         lang_data_extraction_dir,
                     ),
                     patch(
@@ -125,7 +125,12 @@ class TestQueryData(unittest.TestCase):
                     output_dir = Path(temp_dir) / "output"
 
                     # Call query_data.
-                    query_data(["German"], ["verbs"], output_dir)
+                    query_data(
+                        languages=["German"],
+                        data_types=["verbs"],
+                        output_dir=output_dir,
+                        queries_dir=None,
+                    )
 
                     # Check setQuery is called correctly.
                     mock_setQuery.assert_has_calls(
@@ -186,7 +191,7 @@ class TestQueryData(unittest.TestCase):
                 # Patch functions so temporary files are used.
                 with (
                     patch(
-                        "scribe_data.wikidata.query_data.WIKIDATA_QUERIES_ALL_DATA_DIR",
+                        "scribe_data.wikidata.query_data.WIKIDATA_QUERIES_DIR",
                         lang_data_extraction_dir,
                     ),
                     patch(
@@ -213,6 +218,7 @@ class TestQueryData(unittest.TestCase):
                         languages=["German"],
                         data_types=["verbs"],
                         output_dir=output_dir,
+                        queries_dir=None,
                     )
 
                     # Check the error return values are returned.
@@ -265,7 +271,7 @@ class TestQueryData(unittest.TestCase):
                 # Patch functions so temporary files are used.
                 with (
                     patch(
-                        "scribe_data.wikidata.query_data.WIKIDATA_QUERIES_ALL_DATA_DIR",
+                        "scribe_data.wikidata.query_data.WIKIDATA_QUERIES_DIR",
                         lang_data_extraction_dir,
                     ),
                     patch(
@@ -307,7 +313,12 @@ class TestQueryData(unittest.TestCase):
                     output_dir = Path(temp_dir) / "output"
 
                     # Call query_data.
-                    error = query_data(["German"], ["verbs"], output_dir)
+                    error = query_data(
+                        languages=["German"],
+                        data_types=["verbs"],
+                        output_dir=output_dir,
+                        queries_dir=None,
+                    )
 
                     # Check the error return values are returned.
                     self.assertFalse(error["success"])

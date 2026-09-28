@@ -1,0 +1,45 @@
+name: ci_check_project_structure
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize]
+
+jobs:
+  structure-check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        python-version:
+          - "3.11"
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Add project root to PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Run check_project_structure.py
+        working-directory: ./src/scribe_data/check
+        run: uv run python check_project_structure.py
+
+      - name: Post-run status
+        if: failure()
+        run: echo "Project structure check failed. Please fix the reported errors."

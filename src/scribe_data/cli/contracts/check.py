@@ -7,27 +7,36 @@ import json
 from pathlib import Path
 
 from scribe_data.cli.contracts.filter import (
-    DEFAULT_DATA_CONTRACTS_DIR,
+    DATA_CONTRACTS_DIR,
     DEFAULT_JSON_EXPORT_DIR,
     filter_contract_metadata,
 )
 from scribe_data.utils import get_language_from_iso, get_language_iso
 
 data_contracts_langs = [
-    f.stem for f in DEFAULT_DATA_CONTRACTS_DIR.iterdir() if f.is_file()
+    f.stem
+    for f in DATA_CONTRACTS_DIR.iterdir()
+    if f.is_file() and str(f).endswith(".yaml")
 ]
 
 for i in range(len(data_contracts_langs)):
     data_contracts_langs[i] = get_language_from_iso(data_contracts_langs[i])
 
+# MARK: Check Contracts
 
-def check_contracts(output_dir: str | None = None) -> None:
+
+def check_contracts(
+    contracts_dir: Path | None = None, output_dir: str | None = None
+) -> None:
     """
     Check data contracts in the specified or default output directory to ensure data completeness.
 
     Parameters
     ----------
-    output_dir : Optional[str], optional
+    contracts_dir : Path, optional, default=DATA_CONTRACTS_DIR
+        Directory containing the contracts to check data against.
+
+    output_dir : str, optional
         Directory containing exported contract data.
         If None, uses the default DEFAULT_JSON_EXPORT_DIR.
     """
@@ -41,6 +50,9 @@ def check_contracts(output_dir: str | None = None) -> None:
 
     missing_forms = check_contract_data_completeness(export_dir)
     print_missing_forms(missing_forms)
+
+
+# MARK: Check Data
 
 
 def check_contract_data_completeness(
@@ -57,12 +69,12 @@ def check_contract_data_completeness(
     export_dir : Path
         Directory containing exported contract data.
 
-    language : Optional[str], optional
+    language : str, optional
         Specific language to check. If None, checks all languages in the directory.
 
     Returns
     -------
-    Dict[str, Dict[str, List[str]]]
+    dict[str, dict[str, list[str]]]
         A nested dictionary containing missing forms by language and data type.
 
         {
@@ -91,7 +103,7 @@ def check_contract_data_completeness(
 
     else:
         languages_to_check = [
-            Path(f).stem.lower() for f in DEFAULT_DATA_CONTRACTS_DIR.glob("*.yaml")
+            Path(f).stem.lower() for f in DATA_CONTRACTS_DIR.glob("*.yaml")
         ]
 
     languages_to_check = [
@@ -107,7 +119,7 @@ def check_contract_data_completeness(
         # Get ISO code and contract file.
         try:
             iso_code = get_language_iso(lang.lower())
-            contract_file = DEFAULT_DATA_CONTRACTS_DIR / f"{iso_code.lower()}.yaml"
+            contract_file = DATA_CONTRACTS_DIR / f"{iso_code.lower()}.yaml"
 
             if not contract_file.exists():
                 print(f"Warning: No contract file found for {lang}")
@@ -172,7 +184,7 @@ def print_missing_forms(missing_forms: dict[str, dict[str, list[str]]]) -> None:
 
     Parameters
     ----------
-    missing_forms : Dict[str, Dict[str, List[str]]]
+    missing_forms : dict[str, dict[str, list[str]]]
         A dictionary of missing forms, structured as returned by
         check_contract_data_completeness().
     """
