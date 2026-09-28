@@ -13,6 +13,7 @@ Scribe-Data
 
     check/index
     cli/index
+    resources/index
     unicode/index
     wikidata/index
     wiktionary/index

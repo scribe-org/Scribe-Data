@@ -22,7 +22,9 @@ Scribe-Data provides a command-line interface (CLI) for efficient interaction wi
     :maxdepth: 1
 
     cli_utils
-    get
+    main
+    upgrade
+    version
 
 Usage
 -----
