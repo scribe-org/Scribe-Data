@@ -24,6 +24,7 @@ from scribe_data.utils import (
     DEFAULT_TSV_EXPORT_DIR,
     DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
     DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
+    WIKIDATA_QUERIES_DIR,
     check_index_exists,
 )
 from scribe_data.wikidata.query_data import query_data
@@ -40,8 +41,9 @@ def get_data(
     all_bool: bool = False,
     interactive: bool = False,
     identifier_case: str = "camel",
+    wikidata_query_dir_path: Path | None = None,
     wikidata_dump_path: Path | None = None,
-    wiktionary_dump: str | None = None,
+    wiktionary_dump_path: Path | None = None,
 ) -> dict[str, bool] | None:
     """
     Function for controlling the data get process for the CLI.
@@ -75,11 +77,14 @@ def get_data(
     identifier_case : str
         The case format for identifiers. Default is "camel".
 
-    wikidata_dump_path : Path
+    wikidata_query_dir_path : Path, default=WIKIDATA_QUERIES_DIR
+        The directory where Scribe-Data compatible Wikidata queries are saved.
+
+    wikidata_dump_path : Path, default=DEFAULT_WIKIDATA_DUMP_EXPORT_DIR
         The local Wikidata lexeme dump that can be used to process data.
 
-    wiktionary_dump : str
-        Path to enwiktionary-*-pages-articles.xml.bz2 for translations.
+    wiktionary_dump_path : str, default=DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR
+        Path to *wiktionary-*-pages-articles.xml.bz2 for translations.
         Use "enwiktionary" to search output directory.
 
     Returns
@@ -100,6 +105,9 @@ def get_data(
                 "sqlite": DEFAULT_SQLITE_EXPORT_DIR,
                 "tsv": DEFAULT_TSV_EXPORT_DIR,
             }.get(output_type, DEFAULT_JSON_EXPORT_DIR)
+
+    if not wikidata_query_dir_path:
+        wikidata_query_dir_path = WIKIDATA_QUERIES_DIR
 
     language_or_languages = (
         "language" if languages and len(languages) == 1 else "languages"
@@ -132,6 +140,7 @@ def get_data(
                     languages=[language_or_sub_language],
                     data_types=["all"],
                     output_dir=output_dir,
+                    queries_dir=wikidata_query_dir_path,
                     overwrite=overwrite,
                 )
                 print(
@@ -156,6 +165,7 @@ def get_data(
                     languages=["all"],
                     data_types=data_types,
                     output_dir=output_dir,
+                    queries_dir=wikidata_query_dir_path,
                     overwrite=overwrite,
                 )
                 print(f"Query completed for all languages for data type: {data_type}")
@@ -206,7 +216,7 @@ def get_data(
 
         parse_wiktionary_translations(
             target_languages=languages,
-            wiktionary_dump_path=wiktionary_dump,
+            wiktionary_dump_path=wiktionary_dump_path,
             output_dir=output_dir,
             overwrite=overwrite,
         )
@@ -252,6 +262,7 @@ def get_data(
                 languages=[language_or_sub_language],
                 data_types=data_types,
                 output_dir=output_dir,
+                queries_dir=wikidata_query_dir_path,
                 overwrite=overwrite,
                 interactive=interactive,
             )

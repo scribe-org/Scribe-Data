@@ -197,6 +197,13 @@ def main() -> None:
         help="The case format for identifiers in the output data (default: camel).",
     )
     get_parser.add_argument(
+        "-wdqdp",
+        "--wikidata-query-dir-path",
+        nargs="?",
+        const=WIKIDATA_QUERIES_DIR,
+        help=f"The directory where Scribe-Data compatible Wikidata queries are saved. Uses default directory ./{WIKIDATA_QUERIES_DIR} if no path provided.",
+    )
+    get_parser.add_argument(
         "-wdp",
         "--wikidata-dump-path",
         nargs="?",
@@ -653,8 +660,9 @@ def main() -> None:
                             overwrite=args.overwrite,
                             all_bool=args.all,
                             identifier_case=args.identifier_case,
+                            wikidata_query_dir_path=args.wikidata_query_dir_path,
                             wikidata_dump_path=args.wikidata_dump_path,
-                            wiktionary_dump=args.wiktionary_dump_path,
+                            wiktionary_dump_path=args.wiktionary_dump_path,
                         )
 
                     else:
@@ -669,8 +677,9 @@ def main() -> None:
                                     overwrite=args.overwrite,
                                     all_bool=args.all,
                                     identifier_case=args.identifier_case,
+                                    wikidata_query_dir_path=args.wikidata_query_dir_path,
                                     wikidata_dump_path=args.wikidata_dump_path,
-                                    wiktionary_dump=args.wiktionary_dump_path,
+                                    wiktionary_dump_path=args.wiktionary_dump_path,
                                 )
 
                 else:
@@ -684,8 +693,9 @@ def main() -> None:
                         overwrite=args.overwrite,
                         all_bool=args.all,
                         identifier_case=args.identifier_case,
+                        wikidata_query_dir_path=args.wikidata_query_dir_path,
                         wikidata_dump_path=args.wikidata_dump_path,
-                        wiktionary_dump=args.wiktionary_dump_path,
+                        wiktionary_dump_path=args.wiktionary_dump_path,
                     )
 
         # MARK: Run Total
@@ -831,7 +841,10 @@ def main() -> None:
             lang = args.language.lower() if args.language else None
             data_type = args.data_type.lower() if args.data_type else None
             generate_wikidata_lexeme_queries(
-                language=lang, data_type=data_type, contracts_dir=args.contracts_dir
+                language=lang,
+                data_type=data_type,
+                contracts_dir=args.contracts_dir,
+                output_dir=args.output_dir,
             )
 
         # MARK: Run Check Contracts

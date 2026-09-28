@@ -387,7 +387,7 @@
     "functions": [
       {
         "name": "query_data",
-        "complexity": 102
+        "complexity": 103
       }
     ]
   },
@@ -503,7 +503,7 @@
     "functions": [
       {
         "name": "get_data",
-        "complexity": 51
+        "complexity": 52
       }
     ]
   }

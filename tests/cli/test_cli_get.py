@@ -19,6 +19,7 @@ from scribe_data.utils import (
     DEFAULT_SQLITE_EXPORT_DIR,
     DEFAULT_TSV_EXPORT_DIR,
     DEFAULT_WIKTIONARY_JSON_EXPORT_DIR,
+    WIKIDATA_QUERIES_DIR,
 )
 
 
@@ -36,7 +37,7 @@ class TestGetData(unittest.TestCase):
         """
         Test the generation of emoji keywords.
 
-        This test ensures that when thee `data_type` is `emoji_keywords`, the `generate_emoji` function is called with the correct arguments.
+        This test ensures that when the `data_type` is `emoji_keywords`, the `generate_emoji` function is called with the correct arguments.
         """
         get_data(
             languages=["English"],
@@ -124,6 +125,7 @@ class TestGetData(unittest.TestCase):
             languages=["german"],
             data_types=["nouns"],
             output_dir=Path("./test_output"),
+            queries_dir=WIKIDATA_QUERIES_DIR,
             overwrite=False,
             interactive=False,
         )
@@ -150,6 +152,7 @@ class TestGetData(unittest.TestCase):
             languages=["German"],
             data_types=["nouns"],
             output_dir=DEFAULT_JSON_EXPORT_DIR,
+            queries_dir=WIKIDATA_QUERIES_DIR,
             overwrite=False,
             interactive=False,
         )
@@ -175,6 +178,7 @@ class TestGetData(unittest.TestCase):
             languages=["german"],
             data_types=["nouns"],
             output_dir=DEFAULT_JSON_EXPORT_DIR,
+            queries_dir=WIKIDATA_QUERIES_DIR,
             overwrite=False,
             interactive=False,
         )
@@ -199,6 +203,7 @@ class TestGetData(unittest.TestCase):
             languages=["german"],
             data_types=["nouns"],
             output_dir=Path("./custom_output_test"),
+            queries_dir=WIKIDATA_QUERIES_DIR,
             overwrite=False,
             interactive=False,
         )
@@ -220,6 +225,7 @@ class TestGetData(unittest.TestCase):
             languages=["English"],
             data_types=["verbs"],
             output_dir=DEFAULT_JSON_EXPORT_DIR,
+            queries_dir=WIKIDATA_QUERIES_DIR,
             overwrite=True,
             interactive=False,
         )
@@ -233,14 +239,15 @@ class TestGetData(unittest.TestCase):
         get_data(
             languages=["English"],
             data_types=["verbs"],
-            overwrite=False,
             output_dir=Path("./custom_output_test"),
+            overwrite=False,
             interactive=False,
         )
         mock_query_data.assert_called_once_with(
             languages=["English"],
             data_types=["verbs"],
             output_dir=Path("./custom_output_test"),
+            queries_dir=WIKIDATA_QUERIES_DIR,
             overwrite=False,
             interactive=False,
         )
@@ -308,6 +315,7 @@ class TestGetData(unittest.TestCase):
             languages=["English"],
             data_types=["nouns"],
             output_dir=Path("./test_output"),
+            queries_dir=WIKIDATA_QUERIES_DIR,
             overwrite=False,
             interactive=False,
         )
@@ -343,7 +351,7 @@ class TestGetData(unittest.TestCase):
         get_data(
             languages=["German"],
             data_types=["translations"],
-            wiktionary_dump=Path("./wikidump.json"),
+            wiktionary_dump_path=Path("./wikidump.json"),
         )
         mock_parse.assert_called_once_with(
             target_languages=["German"],
@@ -452,6 +460,7 @@ class TestGetData(unittest.TestCase):
             languages=["all"],
             data_types=["verbs"],
             output_dir=Path("test"),
+            queries_dir=WIKIDATA_QUERIES_DIR,
             overwrite=False,
         )
 
@@ -559,14 +568,15 @@ class TestGetData(unittest.TestCase):
         ]
 
         for output_type, expected_dir in test_cases:
-            with patch("scribe_data.cli.get.data.query_data") as mock_query:
+            with patch("scribe_data.cli.get.data.query_data") as mock_query_data:
                 get_data(
                     languages=["German"], data_types=["verbs"], output_type=output_type
                 )
-                mock_query.assert_called_with(
+                mock_query_data.assert_called_with(
                     languages=["German"],
                     data_types=["verbs"],
                     output_dir=expected_dir,
+                    queries_dir=WIKIDATA_QUERIES_DIR,
                     overwrite=False,
                     interactive=False,
                 )
@@ -586,6 +596,7 @@ class TestGetData(unittest.TestCase):
             languages=["English"],
             data_types=["nouns"],
             output_dir=DEFAULT_JSON_EXPORT_DIR,
+            queries_dir=WIKIDATA_QUERIES_DIR,
             overwrite=False,
             interactive=True,
         )
@@ -629,6 +640,7 @@ class TestGetData(unittest.TestCase):
             languages=["English"],  # only first language is used
             data_types=["nouns"],
             output_dir=DEFAULT_JSON_EXPORT_DIR,
+            queries_dir=WIKIDATA_QUERIES_DIR,
             overwrite=False,
             interactive=False,
         )
@@ -678,6 +690,7 @@ class TestGetData(unittest.TestCase):
             languages=["English"],
             data_types=["NOUNS"],
             output_dir=DEFAULT_JSON_EXPORT_DIR,
+            queries_dir=WIKIDATA_QUERIES_DIR,
             overwrite=False,
             interactive=False,
         )

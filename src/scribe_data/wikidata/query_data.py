@@ -92,6 +92,7 @@ def query_data(
     languages: list[str] = [""],
     data_types: list[str] = [""],
     output_dir: Path | None = None,
+    queries_dir: Path | None = WIKIDATA_QUERIES_DIR,
     overwrite: bool = False,
     interactive: bool = False,
 ) -> dict[str, bool] | None:
@@ -108,6 +109,9 @@ def query_data(
 
     output_dir : Path
         The output directory path for results.
+
+    queries_dir : Path, default=WIKIDATA_QUERIES_DIR
+        The directory where Scribe-Data compatible Wikidata queries are saved.
 
     overwrite : bool, default: False
         Whether to overwrite existing files.
@@ -128,8 +132,11 @@ def query_data(
     languages_update = list(languages_update)
     data_types_update = current_data_types if data_types is None else data_types
 
+    if not queries_dir:
+        queries_dir = WIKIDATA_QUERIES_DIR
+
     ALL_WIKIDATA_QUERIES_DIR_files = [
-        path for path in Path(WIKIDATA_QUERIES_DIR).rglob("*") if path.is_file()
+        path for path in Path(queries_dir).rglob("*") if path.is_file()
     ]
 
     WIKIDATA_QUERIES_DIR_IN_USE = [

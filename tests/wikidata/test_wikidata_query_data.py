@@ -125,7 +125,12 @@ class TestQueryData(unittest.TestCase):
                     output_dir = Path(temp_dir) / "output"
 
                     # Call query_data.
-                    query_data(["German"], ["verbs"], output_dir)
+                    query_data(
+                        languages=["German"],
+                        data_types=["verbs"],
+                        output_dir=output_dir,
+                        queries_dir=None,
+                    )
 
                     # Check setQuery is called correctly.
                     mock_setQuery.assert_has_calls(
@@ -213,6 +218,7 @@ class TestQueryData(unittest.TestCase):
                         languages=["German"],
                         data_types=["verbs"],
                         output_dir=output_dir,
+                        queries_dir=None,
                     )
 
                     # Check the error return values are returned.
@@ -307,7 +313,12 @@ class TestQueryData(unittest.TestCase):
                     output_dir = Path(temp_dir) / "output"
 
                     # Call query_data.
-                    error = query_data(["German"], ["verbs"], output_dir)
+                    error = query_data(
+                        languages=["German"],
+                        data_types=["verbs"],
+                        output_dir=output_dir,
+                        queries_dir=None,
+                    )
 
                     # Check the error return values are returned.
                     self.assertFalse(error["success"])
