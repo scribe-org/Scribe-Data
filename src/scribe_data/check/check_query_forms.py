@@ -83,7 +83,7 @@ def extract_form_rep_label(form_text: str) -> str | None:
     str | None
         The label of the form representation.
     """
-    onto_rep_pattern = r"ontolex:representation .* ;"
+    onto_rep_pattern = r"ontolex:representation .*;"
     if line_match := re.search(pattern=onto_rep_pattern, string=form_text):
         rep_label_pattern = r".*\?(.*);"
         if label_match := re.search(pattern=rep_label_pattern, string=line_match[0]):
@@ -167,7 +167,7 @@ def check_form_label(form_text: str) -> bool:
     bool
         Whether the form and its current representation label match (repForm and rep).
     """
-    form_label_line_pattern = r"\?lexeme ontolex:lexicalForm .* \."
+    form_label_line_pattern = r"\?lexeme ontolex:lexicalForm .*\."
 
     if line_match := re.search(pattern=form_label_line_pattern, string=form_text):
         form_label_pattern = r".*\?(.*)\."
@@ -178,7 +178,7 @@ def check_form_label(form_text: str) -> bool:
     if not line_match:
         return False
 
-    onto_rep_pattern = r"{form_label} ontolex:representation .* ;".format(
+    onto_rep_pattern = r"{form_label} ontolex:representation .*;".format(
         form_label=form_label
     )
 
@@ -489,7 +489,6 @@ def check_query_forms() -> None:
                     }
 
             if query_form_check_dict:
-                print(query_form_check_dict)
                 incorrect_query_labels = []
                 for k, v in query_form_check_dict.items():
                     if k != v["correct_formatting"] is False:
