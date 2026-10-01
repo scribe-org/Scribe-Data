@@ -10,6 +10,13 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+## Scribe-Data 6.0.2
+
+### 🐞 Bug Fixes
+
+- Filtering data by contracts and checking data against contracts now read the nested data type sections of the contracts, as previously all noun and verb data was removed when filtering and all contract checks passed.
+- Contract values that include `[word]` values no longer result in an empty field being required by the contract.
+
 ## Scribe-Data 6.0.1
 
 ### ✨ Features
