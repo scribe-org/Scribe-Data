@@ -67,8 +67,8 @@ def mock_contract_metadata() -> dict[str, Any]:
     Mock contract metadata with proper structure.
     """
     return {
-        "nouns": {"numbers": ["singular", "plural"], "genders": []},
-        "verbs": {"conjugations": ["infinitive", "present", "past", "future"]},
+        "nouns": ["singular", "plural"],
+        "verbs": ["infinitive", "present", "past", "future"],
     }
 
 
@@ -146,6 +146,30 @@ def test_cli_contracts_data_completeness_json_error(
 
                 mock_print.assert_called()
                 assert "Error reading" in mock_print.call_args[0][0]
+
+
+@patch("scribe_data.cli.contracts.check.data_contracts_langs", ["English", "Spanish"])
+@patch("scribe_data.cli.contracts.check.get_language_iso")
+@patch("scribe_data.cli.contracts.check.filter_contract_metadata")
+def test_cli_contracts_data_completeness_missing_forms(
+    mock_filter_metadata: MagicMock,
+    mock_get_iso: MagicMock,
+    mock_export_dir: Path,
+    mock_contract_metadata: dict[str, Any],
+) -> None:
+    """
+    Test that forms in the contract that are missing from the exported data are reported.
+    """
+    mock_get_iso.side_effect = lambda lang: {"english": "en", "spanish": "es"}[lang]
+    mock_filter_metadata.return_value = mock_contract_metadata
+
+    with patch("builtins.print"):
+        missing_forms = check_contract_data_completeness(mock_export_dir)
+
+    assert missing_forms == {
+        "English": {"verbs": ["future"]},
+        "Spanish": {"verbs": ["infinitive", "present", "past", "future"]},
+    }
 
 
 def test_cli_contracts_print_missing_forms_none() -> None:

@@ -23,89 +23,102 @@ class TestFilterContractMetadata:
         """
         Test filtering with an empty contract file.
         """
-        mock_contract = "{}"
+        with patch("builtins.open", mock_open(read_data="")):
+            result = filter_contract_metadata(Path("fake_path.yaml"))
+            assert result == {}
+
+    def test_cli_contracts_filter_metadata_nested_data_types(self) -> None:
+        """
+        Test that fields are extracted from the data type sections of a contract.
+        """
+        mock_contract = """
+        nouns:
+          genders:
+            canonical: [gender]
+            feminines: []
+          numbers:
+            1:
+              singular: nominativeSingular
+              plural: nominativePlural
+        verbs:
+          conjugations:
+            1:
+              sectionTitle: Present
+              tenses:
+                1:
+                  tenseTitle: Present
+                  tenseForms:
+                    1:
+                      label: I
+                      value: presentFirstPersonSingular
+                    2:
+                      label: they
+                      value: presentThirdPersonPlural
+        prepositions:
+          case: grammaticalCase
+        """
         with patch("builtins.open", mock_open(read_data=mock_contract)):
-            result = filter_contract_metadata(Path("fake_path.json"))
+            result = filter_contract_metadata(Path("fake_path.yaml"))
             assert result == {
-                "nouns": {"numbers": [], "genders": []},
-                "verbs": {"conjugations": []},
+                "nouns": ["gender", "nominativePlural", "nominativeSingular"],
+                "verbs": ["presentFirstPersonSingular", "presentThirdPersonPlural"],
+                "prepositions": ["grammaticalCase"],
             }
 
-    def test_cli_contracts_filter_metadata_numbers_dict(self) -> None:
+    def test_cli_contracts_filter_metadata_ignores_non_lexeme_sections(self) -> None:
         """
-        Test filtering numbers as a dictionary.
+        Test that sections that aren't lexeme data types are not treated as fields.
         """
         mock_contract = """
-        {
-            "numbers": {"singular": "plural", "dual": "", "": "collective"}
-        }
+        nouns:
+          numbers:
+            1:
+              singular: nominativeSingular
+              plural: nominativePlural
+        translations:
+          sectionTitle: Translate
+          wordTypes: [Noun, Verb]
+        declensions:
+          1:
+            sectionTitle: Pronouns
+            declensionForms:
+              1:
+                label: M
+                value: den
         """
         with patch("builtins.open", mock_open(read_data=mock_contract)):
-            result = filter_contract_metadata(Path("fake_path.json"))
-            assert "singular" in result["nouns"]["numbers"]
-            assert "plural" in result["nouns"]["numbers"]
-            assert "dual" in result["nouns"]["numbers"]
-            assert "" not in result["nouns"]["numbers"]
-            assert "collective" in result["nouns"]["numbers"]
+            result = filter_contract_metadata(Path("fake_path.yaml"))
+            assert result == {"nouns": ["nominativePlural", "nominativeSingular"]}
 
-    def test_cli_contracts_filter_metadata_numbers_list(self) -> None:
+    def test_cli_contracts_filter_metadata_excludes_bracketed_values(self) -> None:
         """
-        Test filtering numbers as a list.
+        Test that [word] values are not included as fields.
         """
         mock_contract = """
-        {
-            "numbers": ["singular", "plural", "", "dual"]
-        }
+        verbs:
+          conjugations:
+            1:
+              tenseForms:
+                1:
+                  label: I
+                  value: "[have] pastParticiple"
         """
         with patch("builtins.open", mock_open(read_data=mock_contract)):
-            result = filter_contract_metadata(Path("fake_path.json"))
-            assert set(result["nouns"]["numbers"]) == {"singular", "plural", "dual"}
+            result = filter_contract_metadata(Path("fake_path.yaml"))
+            assert result == {"verbs": ["pastParticiple"]}
 
-    def test_cli_contracts_filter_metadata_numbers_string(self) -> None:
+    def test_cli_contracts_filter_metadata_real_contracts(self) -> None:
         """
-        Test filtering numbers as a string.
+        Test that all data contracts include fields for nouns and verbs.
         """
-        mock_contract = """
-        {
-            "numbers": "singular plural  dual "
-        }
-        """
-        with patch("builtins.open", mock_open(read_data=mock_contract)):
-            result = filter_contract_metadata(Path("fake_path.json"))
-            assert set(result["nouns"]["numbers"]) == {"singular", "plural", "dual"}
+        for contract_file in DATA_CONTRACTS_DIR.glob("*.yaml"):
+            result = filter_contract_metadata(contract_file)
+            assert result.get("nouns"), f"No noun fields found in {contract_file.name}"
+            assert result.get("verbs"), f"No verb fields found in {contract_file.name}"
 
-    def test_cli_contracts_filter_metadata_genders(self) -> None:
-        """
-        Test filtering genders.
-        """
-        mock_contract = """
-        {
-            "genders": {
-                "masculine": ["m", "masc"],
-                "feminine": ["f", "fem", "NOT_INCLUDED"],
-                "neuter": ["n", ""]
-            }
-        }
-        """
-        with patch("builtins.open", mock_open(read_data=mock_contract)):
-            result = filter_contract_metadata(Path("fake_path.json"))
-            assert set(result["nouns"]["genders"]) == {"m", "masc", "f", "fem", "n"}
-            assert "NOT_INCLUDED" not in result["nouns"]["genders"]
-            assert "" not in result["nouns"]["genders"]
-
-    def test_cli_contracts_filter_metadata_conjugations_list(self) -> None:
-        """
-        Test filtering conjugations as a list.
-        """
-        mock_contract = """
-        {
-            "conjugations": ["run", "runs", "[running]", "ran"]
-        }
-        """
-        with patch("builtins.open", mock_open(read_data=mock_contract)):
-            result = filter_contract_metadata(Path("fake_path.json"))
-            assert set(result["verbs"]["conjugations"]) == {"run", "runs", "ran"}
-            assert "[running]" not in result["verbs"]["conjugations"]
+        result = filter_contract_metadata(DATA_CONTRACTS_DIR / "de.yaml")
+        assert result["nouns"] == ["gender", "nominativePlural", "nominativeSingular"]
+        assert result["prepositions"] == ["grammaticalCase"]
 
     def test_cli_contracts_filter_metadata_error_handling(self) -> None:
         """
@@ -124,11 +137,8 @@ class TestFilterExportedData:
         Test filtering exported noun data.
         """
         contract_metadata = {
-            "nouns": {
-                "numbers": ["singular", "plural"],
-                "genders": ["masculine", "feminine"],
-            },
-            "verbs": {"conjugations": []},
+            "nouns": ["singular", "plural", "masculine", "feminine"],
+            "verbs": [],
         }
 
         mock_exported_data = """
@@ -174,8 +184,8 @@ class TestFilterExportedData:
         Test filtering exported verb data.
         """
         contract_metadata = {
-            "nouns": {"numbers": [], "genders": []},
-            "verbs": {"conjugations": ["infinitive", "present", "past"]},
+            "nouns": [],
+            "verbs": ["infinitive", "present", "past"],
         }
 
         mock_exported_data = """
@@ -215,10 +225,7 @@ class TestFilterExportedData:
         """
         Test filtering with unsupported data type.
         """
-        contract_metadata = {
-            "nouns": {"numbers": [], "genders": []},
-            "verbs": {"conjugations": []},
-        }
+        contract_metadata = {"nouns": [], "verbs": []}
 
         with patch("builtins.open", mock_open(read_data="{}")):
             result = filter_exported_data(
@@ -230,10 +237,7 @@ class TestFilterExportedData:
         """
         Test error handling for invalid JSON.
         """
-        contract_metadata = {
-            "nouns": {"numbers": [], "genders": []},
-            "verbs": {"conjugations": []},
-        }
+        contract_metadata = {"nouns": [], "verbs": []}
 
         with patch("builtins.open", mock_open(read_data="invalid json")):
             with patch("builtins.print") as mock_print:
@@ -286,11 +290,8 @@ class TestExportContracts:
 
         # Mock filtered metadata.
         mock_contract_metadata = {
-            "nouns": {
-                "numbers": ["singular", "plural"],
-                "genders": ["masculine", "feminine"],
-            },
-            "verbs": {"conjugations": ["infinitive", "present", "past"]},
+            "nouns": ["singular", "plural", "masculine", "feminine"],
+            "verbs": ["infinitive", "present", "past"],
         }
         mock_filter_metadata.return_value = mock_contract_metadata
 
@@ -408,10 +409,7 @@ class TestExportContracts:
         mock_listdir.return_value = ["english.yaml"]
         mock_get_language.return_value = "English"
         mock_exists.return_value = False
-        mock_filter_metadata.return_value = {
-            "nouns": {"numbers": [], "genders": []},
-            "verbs": {"conjugations": []},
-        }
+        mock_filter_metadata.return_value = {"nouns": [], "verbs": []}
 
         with patch("builtins.print") as mock_print:
             export_data_filtered_by_contracts(
