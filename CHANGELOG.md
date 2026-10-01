@@ -12,10 +12,16 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## Scribe-Data 6.0.2
 
+### ✨ Features
+
+- An overwrite flag has been added to the `generate_wd_lexeme_queries` CLI argument.
+- The Spanish future verb tense was added.
+
 ### 🐞 Bug Fixes
 
 - Filtering data by contracts and checking data against contracts now read the nested data type sections of the contracts, as previously all noun and verb data was removed when filtering and all contract checks passed ([#720](https://github.com/scribe-org/Scribe-Data/issues/720)).
 - Contract values that include `[word]` values no longer result in an empty field being required by the contract.
+- The Spanish contract was updated for the imperfect verb tense and the Italian contract was updated for imperfect and preterite verb tenses.
 
 ## Scribe-Data 6.0.1
 

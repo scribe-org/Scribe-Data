@@ -36,22 +36,22 @@ verbs:
           tenseForms:
             1:
               label: io
-              value: indicativePresentFirstPersonSingular
+              value: presentIndicativeFirstPersonSingular
             2:
               label: tu
-              value: indicativePresentSecondPersonSingular
+              value: presentIndicativeSecondPersonSingular
             3:
               label: lei/lui
-              value: indicativePresentThirdPersonSingular
+              value: presentIndicativeThirdPersonSingular
             4:
               label: noi
-              value: indicativePresentFirstPersonPlural
+              value: presentIndicativeFirstPersonPlural
             5:
               label: voi
-              value: indicativePresentSecondPersonPlural
+              value: presentIndicativeSecondPersonPlural
             6:
               label: loro
-              value: indicativePresentThirdPersonPlural
+              value: presentIndicativeThirdPersonPlural
 
     2:
       sectionTitle: Preterito
@@ -61,22 +61,22 @@ verbs:
           tenseForms:
             1:
               label: io
-              value: preteriteFirstPersonSingular
+              value: indicativePreteriteFirstPersonSingular
             2:
               label: tu
-              value: preteriteSecondPersonSingular
+              value: indicativePreteriteSecondPersonSingular
             3:
               label: lei/lui
-              value: preteriteThirdPersonSingular
+              value: indicativePreteriteThirdPersonSingular
             4:
               label: noi
-              value: preteriteFirstPersonPlural
+              value: indicativePreteriteFirstPersonPlural
             5:
               label: voi
-              value: preteriteSecondPersonPlural
+              value: indicativePreteriteSecondPersonPlural
             6:
               label: loro
-              value: preteriteThirdPersonPlural
+              value: indicativePreteriteThirdPersonPlural
 
     3:
       sectionTitle: Imperfetto
@@ -86,22 +86,22 @@ verbs:
           tenseForms:
             1:
               label: io
-              value: pastImperfectFirstPersonSingular
+              value: indicativeImperfectFirstPersonSingular
             2:
               label: tu
-              value: pastImperfectSecondPersonSingular
+              value: indicativeImperfectSecondPersonSingular
             3:
               label: lei/lui
-              value: pastImperfectThirdPersonSingular
+              value: indicativeImperfectThirdPersonSingular
             4:
               label: noi
-              value: pastImperfectFirstPersonPlural
+              value: indicativeImperfectFirstPersonPlural
             5:
               label: voi
-              value: pastImperfectSecondPersonPlural
+              value: indicativeImperfectSecondPersonPlural
             6:
               label: loro
-              value: pastImperfectThirdPersonPlural
+              value: indicativeImperfectThirdPersonPlural
 
 # MARK: Translations
 

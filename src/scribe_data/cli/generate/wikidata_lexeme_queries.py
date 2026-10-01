@@ -5,6 +5,7 @@ Functions to generate Wikidata lexeme queries based on Scribe-Data data contract
 
 import os
 import re
+import shutil
 from pathlib import Path
 
 import yaml
@@ -32,6 +33,7 @@ def generate_wikidata_lexeme_queries(
     data_type: str | None = None,
     contracts_dir: Path | None = DATA_CONTRACTS_DIR,
     output_dir: Path | None = WIKIDATA_QUERIES_DIR,
+    overwrite: bool = False,
 ) -> str | None:
     """
     Generate Wikidata SPARQL queries to derive data based on Scribe-Data data contract values.
@@ -49,6 +51,9 @@ def generate_wikidata_lexeme_queries(
 
     output_dir : Path, optional, default=WIKIDATA_QUERIES_DIR
         The directory to save the downloaded file.
+
+    overwrite : bool
+        Whether to overwrite existing query files.
 
     Returns
     -------
@@ -81,6 +86,33 @@ def generate_wikidata_lexeme_queries(
 
     # Filter for those data types that we get from Wikidata and thus have a QID.
     all_data_types = [dt for dt in data_type_metadata.keys() if data_type_metadata[dt]]
+
+    if not output_dir:
+        output_dir = WIKIDATA_QUERIES_DIR
+
+    if os.path.isdir(output_dir):
+        if overwrite:
+            print(f"{output_dir} queries directory removed for overwrite.")
+            shutil.rmtree(output_dir)
+
+        else:
+            response = (
+                input(
+                    f"Note that the {output_dir} queries directory already exists, so generated queries may be repeated. "
+                    "Do you want to overwrite it? (y/[n]): "
+                )
+                .strip()
+                .lower()
+            )
+
+            if response == "y":
+                print(f"{output_dir} queries directory removed for overwrite.")
+                shutil.rmtree(output_dir)
+
+            else:
+                print(
+                    f"{output_dir} queries directory retained. Queries may be repeated."
+                )
 
     # MARK: Load Contracts
 
@@ -291,39 +323,16 @@ FILTER(lang(?{query_dt_label}) = "{lang_iso}")
                 # If this is a sub-language, place it under parent_language/sub_language/data_type/.
                 # Otherwise, place it directly under language/data_type/.
                 if sub_lang_name:
-                    if output_dir:
-                        base_file_name = (
-                            output_dir
-                            / parent_language.lower()
-                            / sub_lang_name.lower()
-                            / dt
-                            / f"query_{dt}.sparql"
-                        )
-
-                    else:
-                        base_file_name = (
-                            Path(WIKIDATA_QUERIES_DIR)
-                            / parent_language.lower()
-                            / sub_lang_name.lower()
-                            / dt
-                            / f"query_{dt}.sparql"
-                        )
+                    base_file_name = (
+                        output_dir
+                        / parent_language.lower()
+                        / sub_lang_name.lower()
+                        / dt
+                        / f"query_{dt}.sparql"
+                    )
 
                 else:
-                    if output_dir:
-                        # Regular language with query_dir specified.
-                        base_file_name = (
-                            output_dir / lang_name / dt / f"query_{dt}.sparql"
-                        )
-
-                    else:
-                        # Regular language with default directory.
-                        base_file_name = (
-                            Path(WIKIDATA_QUERIES_DIR)
-                            / lang_name
-                            / dt
-                            / f"query_{dt}.sparql"
-                        )
+                    base_file_name = output_dir / lang_name / dt / f"query_{dt}.sparql"
 
                 # Get the next available filename.
                 file_to_save_name = get_next_query_filename(str(base_file_name))

@@ -509,6 +509,12 @@ def main() -> None:
         default=WIKIDATA_QUERIES_DIR,
         help="The directory to save generated queries to (default: scribe_data/wikidata/queries).",
     )
+    generate_wd_lexeme_queries_parser.add_argument(
+        "-o",
+        "--overwrite",
+        action="store_true",
+        help="Whether to overwrite existing queries (default: False).",
+    )
 
     # MARK: Check Contracts
 
@@ -845,6 +851,7 @@ def main() -> None:
                 data_type=data_type,
                 contracts_dir=args.contracts_dir,
                 output_dir=args.output_dir,
+                overwrite=args.overwrite,
             )
 
         # MARK: Run Check Contracts

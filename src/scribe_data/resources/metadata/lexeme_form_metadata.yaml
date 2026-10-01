@@ -199,44 +199,44 @@
     qid: Q52434245
 
   6:
+    label: PresentIndicative
+    qid: Q56682909
+
+  7:
     label: PresentContinuous
     qid: Q7240943
 
-  7:
+  8:
     label: Present
     qid: Q192613
 
-  8:
+  9:
     label: SimplePast
     qid: Q1392475
 
-  9:
+  10:
     label: Past
     qid: Q1994301
 
-  10:
+  11:
     label: Preterite
     qid: Q442485
 
-  11:
+  12:
     label: SimpleFuture
     qid: Q1475560
 
-  12:
+  13:
     label: Future
     qid: Q501405
 
-  13:
+  14:
     label: Perfect
     qid: Q625420
 
-  14:
+  15:
     label: PresentPerfect
     qid: Q1240211
-
-  15:
-    label: PresentIndicative
-    qid: Q56682909
 
   16:
     label: Imperfect

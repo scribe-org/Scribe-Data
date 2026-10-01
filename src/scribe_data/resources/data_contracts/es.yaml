@@ -89,22 +89,47 @@ verbs:
           tenseForms:
             1:
               label: yo
-              value: pastImperfectFirstPersonSingular
+              value: imperfectFirstPersonSingular
             2:
               label: tú
-              value: pastImperfectSecondPersonSingular
+              value: imperfectSecondPersonSingular
             3:
               label: él/ella/Ud.
-              value: pastImperfectThirdPersonSingular
+              value: imperfectThirdPersonSingular
             4:
               label: nosotros
-              value: pastImperfectFirstPersonPlural
+              value: imperfectFirstPersonPlural
             5:
               label: vosotros
-              value: pastImperfectSecondPersonPlural
+              value: imperfectSecondPersonPlural
             6:
               label: ellos/ellas/Uds.
-              value: pastImperfectThirdPersonPlural
+              value: imperfectThirdPersonPlural
+
+    4:
+      sectionTitle: Futuro
+      tenses:
+        1:
+          tenseTitle: Futuro
+          tenseForms:
+            1:
+              label: yo
+              value: indicativeFutureFirstPersonSingular
+            2:
+              label: tú
+              value: indicativeFutureSecondPersonSingular
+            3:
+              label: él/ella/Ud.
+              value: indicativeFutureThirdPersonSingular
+            4:
+              label: nosotros
+              value: indicativeFutureFirstPersonPlural
+            5:
+              label: vosotros
+              value: indicativeFutureSecondPersonPlural
+            6:
+              label: ellos/ellas/Uds.
+              value: indicativeFutureThirdPersonPlural
 
 # MARK: Translations
 
