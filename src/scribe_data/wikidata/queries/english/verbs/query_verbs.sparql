@@ -14,8 +14,8 @@ SELECT
   ?verb
   ?infinitive
   ?simplePresent
-  ?simplePast
   ?presentParticiple
+  ?simplePast
   ?pastParticiple
   ?simplePresentThirdPersonSingular
 
@@ -38,6 +38,12 @@ WHERE {
   }
 
   OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pPForm.
+    ?pPForm ontolex:representation ?presentParticiple;
+    wikibase:grammaticalFeature wd:Q10345583.
+  }
+
+  OPTIONAL {
     ?lexeme ontolex:lexicalForm ?sPForm.
     ?sPForm ontolex:representation ?simplePast;
     wikibase:grammaticalFeature wd:Q1392475.
@@ -45,14 +51,8 @@ WHERE {
 
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pPForm.
-    ?pPForm ontolex:representation ?presentParticiple;
-    wikibase:grammaticalFeature wd:Q192613, wd:Q814722.
-  }
-
-  OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pPForm.
     ?pPForm ontolex:representation ?pastParticiple;
-    wikibase:grammaticalFeature wd:Q1994301, wd:Q814722.
+    wikibase:grammaticalFeature wd:Q12717679.
   }
 
   OPTIONAL {

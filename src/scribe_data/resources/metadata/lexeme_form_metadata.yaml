@@ -207,54 +207,62 @@
     qid: Q7240943
 
   8:
+    label: PresentParticiple
+    qid: Q10345583
+
+  9:
     label: Present
     qid: Q192613
 
-  9:
+  10:
     label: SimplePast
     qid: Q1392475
 
-  10:
+  11:
+    label: PastParticiple
+    qid: Q12717679
+
+  12:
     label: Past
     qid: Q1994301
 
-  11:
+  13:
     label: Preterite
     qid: Q442485
 
-  12:
+  14:
     label: SimpleFuture
     qid: Q1475560
 
-  13:
+  15:
     label: Future
     qid: Q501405
 
-  14:
+  16:
     label: Perfect
     qid: Q625420
 
-  15:
+  17:
     label: PresentPerfect
     qid: Q1240211
 
-  16:
+  18:
     label: Imperfect
     qid: Q108524486
 
-  17:
+  19:
     label: PastImperfect
     qid: Q12547192
 
-  18:
+  20:
     label: PastPerfect
     qid: Q64005357
 
-  19:
+  21:
     label: Pluperfect
     qid: Q623742
 
-  20:
+  22:
     label: PastTransgressive
     qid: Q12750232
 
@@ -351,66 +359,58 @@
     qid: Q814722
 
   10:
-    label: CombinedPresentParticiple
-    qid: Q10345583
-
-  11:
-    label: CombinedPastParticiple
-    qid: Q12717679
-
-  12:
     label: EnglishPastParticiple
     qid: Q1230649
 
-  13:
+  11:
     label: PassiveParticiple
     qid: Q72249544
 
-  14:
+  12:
     label: ActiveParticiple
     qid: Q72249355
 
-  15:
+  13:
     label: ConjunctiveParticiple
     qid: Q113133303
 
-  16:
+  14:
     label: Adverbial
     qid: Q380012
 
-  17:
+  15:
     label: AdverbialLocation
     qid: Q5978303
 
-  18:
+  16:
     label: AdverbOfManner
     qid: Q113320444
 
-  19:
+  17:
     label: LocativeAdverb
     qid: Q1522423
 
-  20:
+  18:
     label: AbsoluteConstruction
     qid: Q4669807
 
-  21:
+  19:
     label: Phrase
     qid: Q187931
 
-  22:
+  20:
     label: FiilMudari
     qid: Q12230930
 
-  23:
+  21:
     label: Contraction
     qid: Q126473
 
-  24:
+  22:
     label: Short
     qid: Q4239848
 
-  25:
+  23:
     label: WordStem
     qid: Q210523
 

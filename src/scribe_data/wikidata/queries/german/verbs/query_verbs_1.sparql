@@ -30,7 +30,7 @@ WHERE {
   OPTIONAL {
     ?lexeme ontolex:lexicalForm ?pPForm.
     ?pPForm ontolex:representation ?pastParticiple;
-    wikibase:grammaticalFeature wd:Q1994301, wd:Q814722.
+    wikibase:grammaticalFeature wd:Q12717679.
   }
 
   SERVICE wikibase:label {
