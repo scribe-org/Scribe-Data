@@ -485,7 +485,7 @@
     "functions": [
       {
         "name": "generate_wikidata_lexeme_queries",
-        "complexity": 157
+        "complexity": 185
       }
     ]
   },
