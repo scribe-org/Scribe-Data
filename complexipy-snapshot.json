@@ -102,10 +102,6 @@
         "complexity": 16
       },
       {
-        "name": "check_forms_order",
-        "complexity": 20
-      },
-      {
         "name": "validate_forms",
         "complexity": 22
       },
@@ -115,7 +111,7 @@
       },
       {
         "name": "check_query_forms",
-        "complexity": 44
+        "complexity": 42
       }
     ]
   },
@@ -149,7 +145,7 @@
     "functions": [
       {
         "name": "check_contract_data_completeness",
-        "complexity": 50
+        "complexity": 47
       }
     ]
   },
@@ -160,10 +156,6 @@
       {
         "name": "export_data_filtered_by_contracts",
         "complexity": 20
-      },
-      {
-        "name": "filter_contract_metadata",
-        "complexity": 109
       }
     ]
   },
@@ -493,7 +485,7 @@
     "functions": [
       {
         "name": "generate_wikidata_lexeme_queries",
-        "complexity": 160
+        "complexity": 157
       }
     ]
   },
