@@ -2,6 +2,12 @@
 # All Spanish (Q1321) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+PREFIX schema: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
 SELECT
   (replace(str(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
@@ -20,38 +26,38 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteFirstPersonSingularForm.
-    ?preteriteFirstPersonSingularForm ontolex:representation ?preteriteFirstPersonSingular;
+    ?lexeme ontolex:lexicalForm ?pFPSForm.
+    ?pFPSForm ontolex:representation ?preteriteFirstPersonSingular;
     wikibase:grammaticalFeature wd:Q442485, wd:Q21714344, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteFirstPersonPluralForm.
-    ?preteriteFirstPersonPluralForm ontolex:representation ?preteriteFirstPersonPlural;
+    ?lexeme ontolex:lexicalForm ?pFPPForm.
+    ?pFPPForm ontolex:representation ?preteriteFirstPersonPlural;
     wikibase:grammaticalFeature wd:Q442485, wd:Q21714344, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteSecondPersonSingularForm.
-    ?preteriteSecondPersonSingularForm ontolex:representation ?preteriteSecondPersonSingular;
+    ?lexeme ontolex:lexicalForm ?pSPSForm.
+    ?pSPSForm ontolex:representation ?preteriteSecondPersonSingular;
     wikibase:grammaticalFeature wd:Q442485, wd:Q51929049, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteSecondPersonPluralForm.
-    ?preteriteSecondPersonPluralForm ontolex:representation ?preteriteSecondPersonPlural;
+    ?lexeme ontolex:lexicalForm ?pSPPForm.
+    ?pSPPForm ontolex:representation ?preteriteSecondPersonPlural;
     wikibase:grammaticalFeature wd:Q442485, wd:Q51929049, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonSingularForm.
-    ?preteriteThirdPersonSingularForm ontolex:representation ?preteriteThirdPersonSingular;
+    ?lexeme ontolex:lexicalForm ?pTPSForm.
+    ?pTPSForm ontolex:representation ?preteriteThirdPersonSingular;
     wikibase:grammaticalFeature wd:Q442485, wd:Q51929074, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?preteriteThirdPersonPluralForm.
-    ?preteriteThirdPersonPluralForm ontolex:representation ?preteriteThirdPersonPlural;
+    ?lexeme ontolex:lexicalForm ?pTPPForm.
+    ?pTPPForm ontolex:representation ?preteriteThirdPersonPlural;
     wikibase:grammaticalFeature wd:Q442485, wd:Q51929074, wd:Q146786.
   }
 }

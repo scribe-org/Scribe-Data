@@ -2,6 +2,12 @@
 # All Russian (Q7737) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+PREFIX schema: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
 SELECT
   (replace(str(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
@@ -18,26 +24,26 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?feminineIndicativePastForm.
-    ?feminineIndicativePastForm ontolex:representation ?feminineIndicativePast;
+    ?lexeme ontolex:lexicalForm ?fIPForm.
+    ?fIPForm ontolex:representation ?feminineIndicativePast;
     wikibase:grammaticalFeature wd:Q1775415, wd:Q682111, wd:Q1994301.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?masculineIndicativePastForm.
-    ?masculineIndicativePastForm ontolex:representation ?masculineIndicativePast;
+    ?lexeme ontolex:lexicalForm ?mIPForm.
+    ?mIPForm ontolex:representation ?masculineIndicativePast;
     wikibase:grammaticalFeature wd:Q499327, wd:Q682111, wd:Q1994301.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?neuterIndicativePastForm.
-    ?neuterIndicativePastForm ontolex:representation ?neuterIndicativePast;
+    ?lexeme ontolex:lexicalForm ?nIPForm.
+    ?nIPForm ontolex:representation ?neuterIndicativePast;
     wikibase:grammaticalFeature wd:Q1775461, wd:Q682111, wd:Q1994301.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePresentThirdPersonSingularForm.
-    ?indicativePresentThirdPersonSingularForm ontolex:representation ?indicativePresentThirdPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iPTPSForm.
+    ?iPTPSForm ontolex:representation ?indicativePresentThirdPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q192613, wd:Q51929074, wd:Q110786.
   }
 }

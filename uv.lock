@@ -737,7 +737,7 @@ wheels = [
 
 [[package]]
 name = "scribe-data"
-version = "6.0.3"
+version = "6.0.4"
 source = { editable = "." }
 dependencies = [
     { name = "emoji" },

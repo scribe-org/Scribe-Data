@@ -2,6 +2,14 @@
 # All Portuguese (Q5146) nouns (Q1084) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
 SELECT
   (replace(str(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
@@ -21,14 +29,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?singularForm.
-    ?singularForm ontolex:representation ?singular;
+    ?lexeme ontolex:lexicalForm ?sForm.
+    ?sForm ontolex:representation ?singular;
     wikibase:grammaticalFeature wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pluralForm.
-    ?pluralForm ontolex:representation ?plural;
+    ?lexeme ontolex:lexicalForm ?pForm.
+    ?pForm ontolex:representation ?plural;
     wikibase:grammaticalFeature wd:Q146786.
   }
 

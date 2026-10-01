@@ -2,6 +2,12 @@
 # All Portuguese (Q5146) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+PREFIX schema: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
 SELECT
   (replace(str(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
@@ -20,38 +26,38 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePastImperfectFirstPersonSingularForm.
-    ?indicativePastImperfectFirstPersonSingularForm ontolex:representation ?indicativePastImperfectFirstPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iPIFPSForm.
+    ?iPIFPSForm ontolex:representation ?indicativePastImperfectFirstPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q108524486, wd:Q21714344, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePastImperfectFirstPersonPluralForm.
-    ?indicativePastImperfectFirstPersonPluralForm ontolex:representation ?indicativePastImperfectFirstPersonPlural;
+    ?lexeme ontolex:lexicalForm ?iPIFPPForm.
+    ?iPIFPPForm ontolex:representation ?indicativePastImperfectFirstPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q108524486, wd:Q21714344, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePastImperfectSecondPersonSingularForm.
-    ?indicativePastImperfectSecondPersonSingularForm ontolex:representation ?indicativePastImperfectSecondPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iPISPSForm.
+    ?iPISPSForm ontolex:representation ?indicativePastImperfectSecondPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q108524486, wd:Q51929049, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePastImperfectSecondPersonPluralForm.
-    ?indicativePastImperfectSecondPersonPluralForm ontolex:representation ?indicativePastImperfectSecondPersonPlural;
+    ?lexeme ontolex:lexicalForm ?iPISPPForm.
+    ?iPISPPForm ontolex:representation ?indicativePastImperfectSecondPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q108524486, wd:Q51929049, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePastImperfectThirdPersonSingularForm.
-    ?indicativePastImperfectThirdPersonSingularForm ontolex:representation ?indicativePastImperfectThirdPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iPITPSForm.
+    ?iPITPSForm ontolex:representation ?indicativePastImperfectThirdPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q108524486, wd:Q51929074, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePastImperfectThirdPersonPluralForm.
-    ?indicativePastImperfectThirdPersonPluralForm ontolex:representation ?indicativePastImperfectThirdPersonPlural;
+    ?lexeme ontolex:lexicalForm ?iPITPPForm.
+    ?iPITPPForm ontolex:representation ?indicativePastImperfectThirdPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q108524486, wd:Q51929074, wd:Q146786.
   }
 }

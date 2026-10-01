@@ -2,6 +2,12 @@
 # All Portuguese (Q5146) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+PREFIX schema: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
 SELECT
   (replace(str(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
@@ -20,38 +26,38 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePluperfectFirstPersonSingularForm.
-    ?indicativePluperfectFirstPersonSingularForm ontolex:representation ?indicativePluperfectFirstPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iPFPSForm.
+    ?iPFPSForm ontolex:representation ?indicativePluperfectFirstPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q21714344, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePluperfectFirstPersonPluralForm.
-    ?indicativePluperfectFirstPersonPluralForm ontolex:representation ?indicativePluperfectFirstPersonPlural;
+    ?lexeme ontolex:lexicalForm ?iPFPPForm.
+    ?iPFPPForm ontolex:representation ?indicativePluperfectFirstPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q21714344, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePluperfectSecondPersonSingularForm.
-    ?indicativePluperfectSecondPersonSingularForm ontolex:representation ?indicativePluperfectSecondPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iPSPSForm.
+    ?iPSPSForm ontolex:representation ?indicativePluperfectSecondPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q51929049, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePluperfectSecondPersonPluralForm.
-    ?indicativePluperfectSecondPersonPluralForm ontolex:representation ?indicativePluperfectSecondPersonPlural;
+    ?lexeme ontolex:lexicalForm ?iPSPPForm.
+    ?iPSPPForm ontolex:representation ?indicativePluperfectSecondPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q51929049, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePluperfectThirdPersonSingularForm.
-    ?indicativePluperfectThirdPersonSingularForm ontolex:representation ?indicativePluperfectThirdPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iPTPSForm.
+    ?iPTPSForm ontolex:representation ?indicativePluperfectThirdPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q51929074, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePluperfectThirdPersonPluralForm.
-    ?indicativePluperfectThirdPersonPluralForm ontolex:representation ?indicativePluperfectThirdPersonPlural;
+    ?lexeme ontolex:lexicalForm ?iPTPPForm.
+    ?iPTPPForm ontolex:representation ?indicativePluperfectThirdPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q51929074, wd:Q146786.
   }
 }

@@ -2,6 +2,12 @@
 # All Swedish (Q9027) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+PREFIX schema: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
 SELECT
   (replace(str(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
@@ -18,26 +24,26 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeInfinitiveForm.
-    ?activeInfinitiveForm ontolex:representation ?activeInfinitive;
+    ?lexeme ontolex:lexicalForm ?aIForm.
+    ?aIForm ontolex:representation ?activeInfinitive;
     wikibase:grammaticalFeature wd:Q1317831, wd:Q179230.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePresentForm.
-    ?activePresentForm ontolex:representation ?activePresent;
+    ?lexeme ontolex:lexicalForm ?aPForm.
+    ?aPForm ontolex:representation ?activePresent;
     wikibase:grammaticalFeature wd:Q1317831, wd:Q192613.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activePreteriteForm.
-    ?activePreteriteForm ontolex:representation ?activePreterite;
+    ?lexeme ontolex:lexicalForm ?aPForm.
+    ?aPForm ontolex:representation ?activePreterite;
     wikibase:grammaticalFeature wd:Q1317831, wd:Q442485.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?activeSupineForm.
-    ?activeSupineForm ontolex:representation ?activeSupine;
+    ?lexeme ontolex:lexicalForm ?aSForm.
+    ?aSForm ontolex:representation ?activeSupine;
     wikibase:grammaticalFeature wd:Q1317831, wd:Q548470.
   }
 }

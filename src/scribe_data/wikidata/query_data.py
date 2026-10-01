@@ -222,6 +222,7 @@ def query_data(
             if queries_to_run.count(q) < 3:
                 print("The query will be retried.")
                 queries_to_run.append(q)
+
             else:
                 print("Max retries reached. Skipping this query.")
                 return {"success": False, "skipped": False}

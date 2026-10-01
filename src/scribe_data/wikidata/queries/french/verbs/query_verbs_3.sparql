@@ -2,6 +2,12 @@
 # All French (Q150) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+PREFIX schema: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
 SELECT
   (replace(str(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
@@ -20,38 +26,38 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonSingularForm.
-    ?indicativePreteriteFirstPersonSingularForm ontolex:representation ?indicativePreteriteFirstPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iPFPSForm.
+    ?iPFPSForm ontolex:representation ?indicativePreteriteFirstPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePreteriteFirstPersonPluralForm.
-    ?indicativePreteriteFirstPersonPluralForm ontolex:representation ?indicativePreteriteFirstPersonPlural;
+    ?lexeme ontolex:lexicalForm ?iPFPPForm.
+    ?iPFPPForm ontolex:representation ?indicativePreteriteFirstPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q21714344, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonSingularForm.
-    ?indicativePreteriteSecondPersonSingularForm ontolex:representation ?indicativePreteriteSecondPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iPSPSForm.
+    ?iPSPSForm ontolex:representation ?indicativePreteriteSecondPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePreteriteSecondPersonPluralForm.
-    ?indicativePreteriteSecondPersonPluralForm ontolex:representation ?indicativePreteriteSecondPersonPlural;
+    ?lexeme ontolex:lexicalForm ?iPSPPForm.
+    ?iPSPPForm ontolex:representation ?indicativePreteriteSecondPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929049, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonSingularForm.
-    ?indicativePreteriteThirdPersonSingularForm ontolex:representation ?indicativePreteriteThirdPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iPTPSForm.
+    ?iPTPSForm ontolex:representation ?indicativePreteriteThirdPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?indicativePreteriteThirdPersonPluralForm.
-    ?indicativePreteriteThirdPersonPluralForm ontolex:representation ?indicativePreteriteThirdPersonPlural;
+    ?lexeme ontolex:lexicalForm ?iPTPPForm.
+    ?iPTPPForm ontolex:representation ?indicativePreteriteThirdPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q442485, wd:Q51929074, wd:Q146786.
   }
 }

@@ -20,7 +20,8 @@ from scribe_data.utils import (
 from scribe_data.wikidata.parse_dump import parse_dump
 
 sparql = SPARQLWrapper(
-    endpoint="https://query.wikidata.org/sparql", agent=USER_AGENT_HEADER["User-Agent"]
+    endpoint="https://query.wikidata.org/sparql",
+    agent=USER_AGENT_HEADER["User-Agent"],
 )
 sparql.setReturnFormat(JSON)
 sparql.setMethod(POST)

@@ -10,6 +10,20 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+## Scribe-Data 6.0.4
+
+### ✨ Features
+
+- Work was done to prepare Scribe-Data for the QLever Wikidata Query Service endpoint.
+  - Changes needed for the label service are saved and commented out.
+- SPARQL prefixes were added to all queries.
+- HTTP error codes are shown to the user so reasons for queries not working are more clear.
+
+### ♻️ Code Refactoring
+
+- Intermediary form labels in queries were switched to abbreviations.
+- All queries were regenerated to account for the above changes.
+
 ## Scribe-Data 6.0.3
 
 ### 🐞 Bug Fixes

@@ -219,10 +219,7 @@ def generate_wikidata_lexeme_queries(
 
                 # MARK: Generate Query
 
-                main_body = f"""# tool: scribe-data
-# All {comment_language_name} ({comment_language_qid}) {dt} ({dt_qid}) and the given forms.
-# Enter this query at https://query.wikidata.org/.
-
+                select_statement = f"""
 SELECT
   (replace(str(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
@@ -256,6 +253,15 @@ FILTER(lang(?{query_dt_label}) = "{lang_iso}")
     ?lexeme wdt:P5185 ?nounGender.
   }
 """
+                    # optional_clauses += """
+                    #   OPTIONAL {
+                    #     ?lexeme wdt:P5185 ?nounGender.
+                    #     OPTIONAL {
+                    #       ?nounGender rdfs:label ?gender.
+                    #       filter(lang(?gender) = "en")
+                    #     }
+                    #   }
+                    # """
 
                 if "auxiliaryVerb" in grouped_and_ordered_form_labels[j]:
                     forms_for_query = [
@@ -266,6 +272,15 @@ FILTER(lang(?{query_dt_label}) = "{lang_iso}")
     ?lexeme wdt:P5401 ?auxiliaryVerbFrom .
   }
 """
+                    # optional_clauses += """
+                    #   OPTIONAL {
+                    #     ?lexeme wdt:P5401 ?auxiliaryVerbFrom.
+                    #     OPTIONAL {
+                    #       ?auxiliaryVerbFrom rdfs:label ?auxiliaryVerb .
+                    #       filter(lang(?auxiliaryVerb) = "en")
+                    #     }
+                    #   }
+                    # """
 
                 if "grammaticalCase" in grouped_and_ordered_form_labels[j]:
                     forms_for_query = [
@@ -278,13 +293,25 @@ FILTER(lang(?{query_dt_label}) = "{lang_iso}")
     ?lexeme wdt:P5713 ?caseForm.
   }
 """
+                    # optional_clauses += """
+                    #   OPTIONAL {
+                    #     ?lexeme wdt:P5713 ?caseForm.
+                    #     OPTIONAL {
+                    #         ?caseForm rdfs:label ?grammaticalCase.
+                    #         filter(lang(?grammaticalCase) = "en")
+                    #     }
+                    #   }
+                    # """
 
                 for form in forms_for_query:
                     qids = ", ".join(f"wd:{qid}" for qid in form["qids"])
+                    form_abbreviation = form["label"][0] + "".join(
+                        c for c in form["label"][1:] if c.isupper()
+                    )
                     optional_clauses += f"""
   OPTIONAL {{
-    ?lexeme ontolex:lexicalForm ?{form["label"]}Form.
-    ?{form["label"]}Form ontolex:representation ?{form["label"]};
+    ?lexeme ontolex:lexicalForm ?{form_abbreviation}Form.
+    ?{form_abbreviation}Form ontolex:representation ?{form["label"]};
     wikibase:grammaticalFeature {qids}.
   }}
 """
@@ -313,9 +340,36 @@ FILTER(lang(?{query_dt_label}) = "{lang_iso}")
     ?caseForm rdfs:label ?grammaticalCase.
   }
 """
+                query_text = select_statement + where_clause + optional_clauses + "}\n"
+
+                query_header = f"""# tool: scribe-data
+# All {comment_language_name} ({comment_language_qid}) {dt} ({dt_qid}) and the given forms.
+# Enter this query at https://query.wikidata.org/.
+"""
+
+                if "dct:" in query_text:
+                    query_header += "\nPREFIX dct: <http://purl.org/dc/terms/>"
+                if "ontolex:" in query_text:
+                    query_header += (
+                        "\nPREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>"
+                    )
+                if "rdfs:" in query_text:
+                    query_header += (
+                        "\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                    )
+                if "schema:" in query_text:
+                    query_header += "\nPREFIX schema: <http://schema.org/>"
+                if "wd:" in query_text:
+                    query_header += "\nPREFIX wd: <http://www.wikidata.org/entity/>"
+                if "wdt:" in query_text:
+                    query_header += (
+                        "\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>"
+                    )
+                if "wikibase:" in query_text:
+                    query_header += "\nPREFIX wikibase: <http://wikiba.se/ontology#>"
 
                 # Concatenate the complete query.
-                final_query = main_body + where_clause + optional_clauses + "}\n"
+                final_query = query_header + "\n" + query_text
 
                 # MARK: Save Query
 

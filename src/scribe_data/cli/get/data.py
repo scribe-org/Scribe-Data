@@ -278,9 +278,9 @@ def get_data(
 
         except urllib.error.HTTPError as e:
             error_msg = (
-                "[bold red]Error: A client error occurred. Check your request.[/bold red]"
+                f"[bold red]Error: A {e.code} client error occurred. Check your request.[/bold red]"
                 if 400 <= e.code < 500
-                else "[bold red]Error: A server error occurred. Please try again later.[/bold red]"
+                else f"[bold red]Error: A {e.code} server error occurred. Please try again later.[/bold red]"
             )
             print_get_execution_error_and_suggestions(error_msg)
 

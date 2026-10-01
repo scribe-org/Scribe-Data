@@ -2,6 +2,12 @@
 # All Spanish (Q1321) verbs (Q24905) and the given forms.
 # Enter this query at https://query.wikidata.org/.
 
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+PREFIX schema: <http://schema.org/>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
 SELECT
   (replace(str(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
@@ -20,38 +26,38 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperfectFirstPersonSingularForm.
-    ?imperfectFirstPersonSingularForm ontolex:representation ?imperfectFirstPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iFPSForm.
+    ?iFPSForm ontolex:representation ?imperfectFirstPersonSingular;
     wikibase:grammaticalFeature wd:Q108524486, wd:Q21714344, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperfectFirstPersonPluralForm.
-    ?imperfectFirstPersonPluralForm ontolex:representation ?imperfectFirstPersonPlural;
+    ?lexeme ontolex:lexicalForm ?iFPPForm.
+    ?iFPPForm ontolex:representation ?imperfectFirstPersonPlural;
     wikibase:grammaticalFeature wd:Q108524486, wd:Q21714344, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperfectSecondPersonSingularForm.
-    ?imperfectSecondPersonSingularForm ontolex:representation ?imperfectSecondPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iSPSForm.
+    ?iSPSForm ontolex:representation ?imperfectSecondPersonSingular;
     wikibase:grammaticalFeature wd:Q108524486, wd:Q51929049, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperfectSecondPersonPluralForm.
-    ?imperfectSecondPersonPluralForm ontolex:representation ?imperfectSecondPersonPlural;
+    ?lexeme ontolex:lexicalForm ?iSPPForm.
+    ?iSPPForm ontolex:representation ?imperfectSecondPersonPlural;
     wikibase:grammaticalFeature wd:Q108524486, wd:Q51929049, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperfectThirdPersonSingularForm.
-    ?imperfectThirdPersonSingularForm ontolex:representation ?imperfectThirdPersonSingular;
+    ?lexeme ontolex:lexicalForm ?iTPSForm.
+    ?iTPSForm ontolex:representation ?imperfectThirdPersonSingular;
     wikibase:grammaticalFeature wd:Q108524486, wd:Q51929074, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?imperfectThirdPersonPluralForm.
-    ?imperfectThirdPersonPluralForm ontolex:representation ?imperfectThirdPersonPlural;
+    ?lexeme ontolex:lexicalForm ?iTPPForm.
+    ?iTPPForm ontolex:representation ?imperfectThirdPersonPlural;
     wikibase:grammaticalFeature wd:Q108524486, wd:Q51929074, wd:Q146786.
   }
 }
