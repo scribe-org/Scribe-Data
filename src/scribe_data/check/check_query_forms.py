@@ -499,10 +499,11 @@ def check_query_forms() -> None:
                             )
                         )
 
-                    elif k != query_form_check_dict[k]["correct_form_rep_label"]:
-                        incorrect_query_labels.append(
-                            (k, query_form_check_dict[k]["correct_form_rep_label"])
-                        )
+                    # Note: We can't do this as sometimes query forms are reversed versions or composites.
+                    # elif k != query_form_check_dict[k]["correct_form_rep_label"]:
+                    #     incorrect_query_labels.append(
+                    #         (k, query_form_check_dict[k]["correct_form_rep_label"])
+                    #     )
 
                     elif query_form_check_dict[k]["form_rep_match"] is False:
                         incorrect_query_labels.append(
