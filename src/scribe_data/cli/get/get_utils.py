@@ -8,7 +8,12 @@ from rich import print as rprint
 
 def print_get_execution_error_and_suggestions(error_message: str) -> None:
     """
-    Prints an error message and suggestions for the user.
+    Print an error message and suggestions for the user.
+
+    Parameters
+    ----------
+    error_message : str
+        The error message to print along with suggestions for the user.
     """
     rprint(error_message)
     rprint("\n[bold yellow]Suggestions:[/bold yellow]")
