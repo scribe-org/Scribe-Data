@@ -9,13 +9,19 @@ Please see the [installation guide for PyICU](https://gitlab.pyicu.org/main/pyic
 Note that some of the commands in the installation guide may be incorrect. On macOS you may need to do the following:
 
 ```bash
-# Instead of:
+# Try this first:
 export PATH="$(brew --prefix)/opt/icu4c/bin:$(brew --prefix)/opt/icu4c/sbin:$PATH"
 export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$(brew --prefix)/opt/icu4c/lib/pkgconfig"
 
-# Run:
+# If it doesn't work, run:
 echo "/opt/homebrew/opt/icu4c/bin:/opt/homebrew/opt/icu4c/sbin:$PATH"
 echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/homebrew/opt/icu4c/lib/pkgconfig"
+```
+
+And when using [uv] for dependency management, please run the following to install PyICU:
+
+```bash
+uv pip install --no-binary pyicu pyicu
 ```
 
 ## Windows Support
