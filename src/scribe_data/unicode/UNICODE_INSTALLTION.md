@@ -18,7 +18,7 @@ echo "/opt/homebrew/opt/icu4c/bin:/opt/homebrew/opt/icu4c/sbin:$PATH"
 echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/homebrew/opt/icu4c/lib/pkgconfig"
 ```
 
-And when using [uv] for dependency management, please run the following to install PyICU:
+And when using [uv](https://docs.astral.sh/uv/) for dependency management, please run the following to install PyICU:
 
 ```bash
 uv pip install --no-binary pyicu pyicu
