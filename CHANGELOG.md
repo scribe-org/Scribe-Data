@@ -10,6 +10,16 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+## Scribe-Data 6.0.3
+
+### 🐞 Bug Fixes
+
+- The user agent for the project is now properly set via a hard coded repo URL. A custom user agent is also set in SPARQLWrapper for Wikidata queries.
+
+### ⬆️ Dependencies
+
+- Development dependencies were updated.
+
 ## Scribe-Data 6.0.2
 
 ### ✨ Features

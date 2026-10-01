@@ -13,12 +13,15 @@ from scribe_data.cli.download.wikidata_lexeme_dump import (
 )
 from scribe_data.utils import (
     DEFAULT_WIKIDATA_DUMP_EXPORT_DIR,
+    USER_AGENT_HEADER,
     data_type_metadata,
     language_metadata,
 )
 from scribe_data.wikidata.parse_dump import parse_dump
 
-sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
+sparql = SPARQLWrapper(
+    endpoint="https://query.wikidata.org/sparql", agent=USER_AGENT_HEADER["User-Agent"]
+)
 sparql.setReturnFormat(JSON)
 sparql.setMethod(POST)
 

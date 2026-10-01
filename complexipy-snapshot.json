@@ -111,7 +111,7 @@
       },
       {
         "name": "check_query_forms",
-        "complexity": 42
+        "complexity": 41
       }
     ]
   },

@@ -16,7 +16,7 @@ from scribe_data.cli.download.wikidata_lexeme_dump import (
     parse_date,
     wd_lexeme_dump_download_wrapper,
 )
-from scribe_data.utils import WMF_HEADERS, check_lexeme_dump_prompt_download
+from scribe_data.utils import USER_AGENT_HEADER, check_lexeme_dump_prompt_download
 
 
 class TestDownloadCLI(unittest.TestCase):
@@ -73,7 +73,7 @@ class TestDownloadCLI(unittest.TestCase):
         )
         mock_get.assert_called_with(
             "https://dumps.wikimedia.org/wikidatawiki/entities",
-            headers=WMF_HEADERS,
+            headers=USER_AGENT_HEADER,
             timeout=30,
         )
 
@@ -143,7 +143,7 @@ class TestDownloadCLI(unittest.TestCase):
 
             # Wikimedia dumps require a User-Agent header.
             for call in mock_get.call_args_list:
-                self.assertEqual(call.kwargs.get("headers"), WMF_HEADERS)
+                self.assertEqual(call.kwargs.get("headers"), USER_AGENT_HEADER)
 
     @patch("scribe_data.cli.download.wikidata_lexeme_dump.requests.get")
     @patch(

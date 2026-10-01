@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 from scribe_data.utils import (
     DEFAULT_WIKTIONARY_DUMP_EXPORT_DIR,
-    WMF_HEADERS,
+    USER_AGENT_HEADER,
     resolve_lang_iso,
 )
 
@@ -78,7 +78,9 @@ def download_wiktionary_dumps(
 
         rprint(f"[bold blue]Checking dump validity at {download_url}...[/bold blue]")
         try:
-            response = requests.head(download_url, headers=WMF_HEADERS, timeout=30)
+            response = requests.head(
+                download_url, headers=USER_AGENT_HEADER, timeout=30
+            )
             response.raise_for_status()
 
         except requests.exceptions.RequestException as e:
@@ -103,7 +105,7 @@ def download_wiktionary_dumps(
         rprint(f"[bold blue]Downloading to {output_path}...[/bold blue]")
         try:
             response = requests.get(
-                download_url, headers=WMF_HEADERS, stream=True, timeout=30
+                download_url, headers=USER_AGENT_HEADER, stream=True, timeout=30
             )
             response.raise_for_status()
             total_size = int(response.headers.get("content-length", 0))

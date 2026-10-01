@@ -8,7 +8,6 @@ import json
 import os
 import re
 from datetime import datetime
-from importlib import metadata
 from pathlib import Path
 from typing import Any
 
@@ -18,8 +17,6 @@ import yaml
 from rich import print as rprint
 
 # MARK: Utils Variables
-
-PROJECT_ROOT = "Scribe-Data"
 
 DEFAULT_JSON_EXPORT_DIR = Path("scribe_data_json_export")
 DEFAULT_FILTERED_JSON_EXPORT_DIR = Path("scribe_data_filtered_json_export")
@@ -38,8 +35,8 @@ DEFAULT_AUDIT_RESULTS_DIR = Path("scribe_data_wikidata_audit")
 DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
 DEFAULT_CONTRACTS_EXPORT_DIR = Path("scribe_data_contracts")
 
-project_homepage = metadata.metadata("scribe-data").get("Home-page")
-WMF_HEADERS = {"User-Agent": f"{PROJECT_ROOT} ({project_homepage})"}
+PROJECT_HOMEPAGE = "https://github.com/scribe-org/Scribe-Data"
+USER_AGENT_HEADER = {"User-Agent": f"Scribe-Data ({PROJECT_HOMEPAGE})"}
 
 WIKIDATA_DIR = Path(__file__).parent / "wikidata"
 WIKIDATA_QUERIES_DIR = WIKIDATA_DIR / "queries"
