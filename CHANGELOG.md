@@ -10,6 +10,16 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+## Scribe-Data 6.0.1
+
+### ✨ Features
+
+- Unicode CLDR data was updated for the project.
+
+### ⬆️ Dependencies
+
+- Dependencies were updated given vulnerabilities.
+
 ## Scribe-Data 6.0.0
 
 ### ✨ Features
