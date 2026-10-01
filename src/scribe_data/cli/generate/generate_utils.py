@@ -142,7 +142,8 @@ def extract_data_contract_values(contract_entry: dict) -> list:
             for v in cv_no_ignored_words.split(" ")
         ]
         for v in cv_split_and_no_punctuation:
-            final_contract_values.add(v)
+            if v:  # removing [word] values can leave empty strings
+                final_contract_values.add(v)
 
     return sorted(list(final_contract_values))
 
