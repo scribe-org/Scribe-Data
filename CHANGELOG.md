@@ -19,6 +19,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - SPARQL prefixes were added to all queries.
 - HTTP error codes are shown to the user so reasons for queries not working are more clear.
 
+### 🐞 Bug Fixes
+
+- English and German participles in verb queries were fixed via adjustments to the lexeme form metadata.
+
 ### ♻️ Code Refactoring
 
 - Intermediary form labels in queries were switched to abbreviations.
