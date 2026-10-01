@@ -5,25 +5,26 @@ Functions for filtering data by data contracts.
 
 import json
 import os
-import re
 from pathlib import Path
 from typing import Any
 
 import yaml
 
+from scribe_data.cli.generate.generate_utils import extract_data_contract_values
 from scribe_data.utils import (
     DATA_CONTRACTS_DIR,
     DEFAULT_FILTERED_JSON_EXPORT_DIR,
     DEFAULT_JSON_EXPORT_DIR,
+    data_type_metadata,
     get_language_from_iso,
 )
 
 # MARK: Filter Metadata
 
 
-def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
+def filter_contract_metadata(contract_file: Path) -> dict[str, list[str]]:
     """
-    Extract and filter metadata from a language-specific data contract file.
+    Extract the data fields required by a language-specific data contract file.
 
     Parameters
     ----------
@@ -32,123 +33,23 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
 
     Returns
     -------
-    dict[str, Any]
-        A structured dictionary containing filtered metadata with keys:
-        - 'nouns': {'numbers': [...], 'genders': [...]}
-        - 'verbs': {'conjugations': [...]}
+    dict[str, list[str]]
+        A dictionary mapping each lexeme data type in the contract to the fields it requires.
+
+        {
+            'nouns': ['gender', 'nominativePlural', 'nominativeSingular'],
+            'verbs': ['indicativePresentFirstPersonSingular', ...],
+        }.
     """
     try:
         with open(contract_file, "r", encoding="utf-8") as f:
-            contract_data = yaml.safe_load(f)
+            contract_data = yaml.safe_load(f) or {}
 
-        filtered_metadata = {
-            "nouns": {"numbers": [], "genders": []},
-            "verbs": {"conjugations": []},
+        return {
+            data_type: extract_data_contract_values(contract_entry=contract_entry)
+            for data_type, contract_entry in contract_data.items()
+            if data_type_metadata.get(data_type) and isinstance(contract_entry, dict)
         }
-
-        # Filter Numbers
-        if "numbers" in contract_data:
-            numbers = contract_data["numbers"]
-            # Handle different possible structures of numbers.
-            filtered_numbers = []
-
-            # Case 1: Simple key-value pair like {"singular": "plural"}.
-            if isinstance(numbers, dict):
-                for key, value in numbers.items():
-                    # Ignore empty strings
-                    if key:
-                        filtered_numbers.append(key)
-
-                    # If value is a non-empty string, include it too.
-                    if isinstance(value, str) and value:
-                        filtered_numbers.append(value)
-
-            # Case 2: List of number types.
-            elif isinstance(numbers, list):
-                filtered_numbers = [n for n in numbers if n]
-
-            # Case 3: String of number types.
-            elif isinstance(numbers, str):
-                # Split and filter out empty strings.
-                filtered_numbers = [n for n in numbers.split() if n]
-
-            # Remove duplicates and store.
-            filtered_metadata["nouns"]["numbers"] = list(set(filtered_numbers))
-
-        # Filter Genders.
-        if "genders" in contract_data:
-            genders = contract_data["genders"]
-
-            # Collect gender-related keys from all gender lists.
-            gender_keys = []
-            for gender_list in genders.values():
-                if isinstance(gender_list, list):
-                    # Filter out empty strings and "NOT_INCLUDED".
-                    gender_keys.extend(
-                        [g for g in gender_list if g and g != "NOT_INCLUDED"]
-                    )
-
-            # Remove duplicates and filter.
-            filtered_metadata["nouns"]["genders"] = list(set(gender_keys))
-
-        # Filter Conjugations.
-        if "conjugations" in contract_data:
-            conjugations = contract_data["conjugations"]
-
-            # Collect all conjugation forms.
-            conj_forms = set()
-
-            # Handle nested conjugation structure.
-            if isinstance(conjugations, dict):
-                for section in conjugations.values():
-                    if isinstance(section, dict) and "tenses" in section:
-                        for tense in section["tenses"].values():
-                            if isinstance(tense, dict) and "tenseForms" in tense:
-                                for form in tense["tenseForms"].values():
-                                    if isinstance(form, str):
-                                        cleaned_forms = [
-                                            f.strip()
-                                            for f in re.sub(
-                                                r"\[.*?\]", "", form
-                                            ).split()
-                                        ]
-                                        conj_forms.update(cleaned_forms)
-
-                                    elif isinstance(form, list):
-                                        cleaned_forms = [
-                                            f
-                                            for f in form
-                                            if not isinstance(f, str)
-                                            or not (
-                                                f.startswith("[") and f.endswith("]")
-                                            )
-                                        ]
-                                        conj_forms.update(cleaned_forms)
-
-            # If conjugations is a string, split it.
-            elif isinstance(conjugations, str):
-                # Remove square brackets and split using regex.
-                cleaned_forms = [
-                    f.strip() for f in re.sub(r"\[.*?\]", "", conjugations).split()
-                ]
-                conj_forms.update(cleaned_forms)
-
-            # If conjugations is a list, use it directly.
-            elif isinstance(conjugations, list):
-                # Remove square bracketed items.
-                cleaned_forms = [
-                    f
-                    for f in conjugations
-                    if not isinstance(f, str)
-                    or not f.startswith("[")
-                    or not f.endswith("]")
-                ]
-                conj_forms.update(cleaned_forms)
-
-            # Store unique conjugation forms.
-            filtered_metadata["verbs"]["conjugations"] = list(conj_forms)
-
-        return filtered_metadata
 
     except (yaml.YAMLError, IOError) as e:
         print(f"Error processing {contract_file}: {e}")
@@ -159,7 +60,7 @@ def filter_contract_metadata(contract_file: Path) -> dict[str, Any]:
 
 
 def filter_exported_data(
-    input_file: Path, contract_metadata: dict[str, Any], data_type: str
+    input_file: Path, contract_metadata: dict[str, list[str]], data_type: str
 ) -> dict[str, Any]:
     """
     Filter exported language data based on contract metadata requirements.
@@ -172,11 +73,11 @@ def filter_exported_data(
     input_file : Path
         Path to the input JSON file with exported language data.
 
-    contract_metadata : dict[str, Any]
-        Metadata from the language's contract file.
+    contract_metadata : dict[str, list[str]]
+        The fields required by each data type as returned by filter_contract_metadata().
 
     data_type : str
-        Type of data to filter ('nouns' or 'verbs').
+        Type of data to filter (e.g. 'nouns', 'verbs' or 'prepositions').
 
     Returns
     -------
@@ -191,16 +92,8 @@ def filter_exported_data(
         filtered_data = {}
 
         # Determine which columns to keep based on contract metadata.
-        if data_type == "nouns":
-            columns_to_keep = (
-                contract_metadata["nouns"]["numbers"]
-                + contract_metadata["nouns"]["genders"]
-            )
-
-        elif data_type == "verbs":
-            columns_to_keep = contract_metadata["verbs"]["conjugations"]
-
-        else:
+        columns_to_keep = contract_metadata.get(data_type)
+        if not columns_to_keep:
             return {}
 
         # Filter each lexeme's data.

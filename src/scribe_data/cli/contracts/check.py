@@ -133,17 +133,9 @@ def check_contract_data_completeness(
         contract_metadata = filter_contract_metadata(contract_file)
         export_lang_dir = export_dir / lang_dir_name
 
-        # Check missing forms for nouns and verbs.
+        # Check missing forms for all data types in the contract.
         lang_missing_forms = {}
-        for data_type in ["nouns", "verbs"]:
-            # Determine required forms.
-            required_forms = (
-                contract_metadata["nouns"]["numbers"]
-                + contract_metadata["nouns"]["genders"]
-                if data_type == "nouns"
-                else contract_metadata["verbs"]["conjugations"]
-            )
-
+        for data_type, required_forms in contract_metadata.items():
             exported_data_file = export_lang_dir / f"{data_type}.json"
 
             if not exported_data_file.exists():
