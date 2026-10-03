@@ -24,26 +24,26 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pIForm.
-    ?pIForm ontolex:representation ?passiveInfinitive;
+    ?lexeme ontolex:lexicalForm ?pasInfForm.
+    ?pasInfForm ontolex:representation ?passiveInfinitive;
     wikibase:grammaticalFeature wd:Q1194697, wd:Q179230.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pPForm.
-    ?pPForm ontolex:representation ?passivePresent;
+    ?lexeme ontolex:lexicalForm ?pasPreForm.
+    ?pasPreForm ontolex:representation ?passivePresent;
     wikibase:grammaticalFeature wd:Q1194697, wd:Q192613.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pPForm.
-    ?pPForm ontolex:representation ?passivePreterite;
+    ?lexeme ontolex:lexicalForm ?pasPreForm.
+    ?pasPreForm ontolex:representation ?passivePreterite;
     wikibase:grammaticalFeature wd:Q1194697, wd:Q442485.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pSForm.
-    ?pSForm ontolex:representation ?passiveSupine;
+    ?lexeme ontolex:lexicalForm ?pasSupForm.
+    ?pasSupForm ontolex:representation ?passiveSupine;
     wikibase:grammaticalFeature wd:Q1194697, wd:Q548470.
   }
 }

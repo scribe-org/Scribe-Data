@@ -219,50 +219,54 @@
     qid: Q1392475
 
   11:
-    label: PastParticiple
+    label: EnglishPastParticiple
     qid: Q12717679
 
   12:
+    label: PastParticiple
+    qid: Q12717679
+
+  13:
     label: Past
     qid: Q1994301
 
-  13:
+  14:
     label: Preterite
     qid: Q442485
 
-  14:
+  15:
     label: SimpleFuture
     qid: Q1475560
 
-  15:
+  16:
     label: Future
     qid: Q501405
 
-  16:
+  17:
     label: Perfect
     qid: Q625420
 
-  17:
+  18:
     label: PresentPerfect
     qid: Q1240211
 
-  18:
+  19:
     label: Imperfect
     qid: Q108524486
 
-  19:
+  20:
     label: PastImperfect
     qid: Q12547192
 
-  20:
+  21:
     label: PastPerfect
     qid: Q64005357
 
-  21:
+  22:
     label: Pluperfect
     qid: Q623742
 
-  22:
+  23:
     label: PastTransgressive
     qid: Q12750232
 

@@ -29,14 +29,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?sForm.
-    ?sForm ontolex:representation ?singular;
+    ?lexeme ontolex:lexicalForm ?sinForm.
+    ?sinForm ontolex:representation ?singular;
     wikibase:grammaticalFeature wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pForm.
-    ?pForm ontolex:representation ?plural;
+    ?lexeme ontolex:lexicalForm ?pluForm.
+    ?pluForm ontolex:representation ?plural;
     wikibase:grammaticalFeature wd:Q146786.
   }
 

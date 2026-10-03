@@ -26,38 +26,38 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iPFPSForm.
-    ?iPFPSForm ontolex:representation ?indicativePluperfectFirstPersonSingular;
+    ?lexeme ontolex:lexicalForm ?indPluFirPerSinForm.
+    ?indPluFirPerSinForm ontolex:representation ?indicativePluperfectFirstPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q21714344, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iPFPPForm.
-    ?iPFPPForm ontolex:representation ?indicativePluperfectFirstPersonPlural;
+    ?lexeme ontolex:lexicalForm ?indPluFirPerPluForm.
+    ?indPluFirPerPluForm ontolex:representation ?indicativePluperfectFirstPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q21714344, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iPSPSForm.
-    ?iPSPSForm ontolex:representation ?indicativePluperfectSecondPersonSingular;
+    ?lexeme ontolex:lexicalForm ?indPluSecPerSinForm.
+    ?indPluSecPerSinForm ontolex:representation ?indicativePluperfectSecondPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q51929049, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iPSPPForm.
-    ?iPSPPForm ontolex:representation ?indicativePluperfectSecondPersonPlural;
+    ?lexeme ontolex:lexicalForm ?indPluSecPerPluForm.
+    ?indPluSecPerPluForm ontolex:representation ?indicativePluperfectSecondPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q51929049, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iPTPSForm.
-    ?iPTPSForm ontolex:representation ?indicativePluperfectThirdPersonSingular;
+    ?lexeme ontolex:lexicalForm ?indPluThiPerSinForm.
+    ?indPluThiPerSinForm ontolex:representation ?indicativePluperfectThirdPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q51929074, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iPTPPForm.
-    ?iPTPPForm ontolex:representation ?indicativePluperfectThirdPersonPlural;
+    ?lexeme ontolex:lexicalForm ?indPluThiPerPluForm.
+    ?indPluThiPerPluForm ontolex:representation ?indicativePluperfectThirdPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q623742, wd:Q51929074, wd:Q146786.
   }
 }

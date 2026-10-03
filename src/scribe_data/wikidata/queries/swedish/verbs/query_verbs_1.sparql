@@ -24,26 +24,26 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?aIForm.
-    ?aIForm ontolex:representation ?activeInfinitive;
+    ?lexeme ontolex:lexicalForm ?actInfForm.
+    ?actInfForm ontolex:representation ?activeInfinitive;
     wikibase:grammaticalFeature wd:Q1317831, wd:Q179230.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?aPForm.
-    ?aPForm ontolex:representation ?activePresent;
+    ?lexeme ontolex:lexicalForm ?actPreForm.
+    ?actPreForm ontolex:representation ?activePresent;
     wikibase:grammaticalFeature wd:Q1317831, wd:Q192613.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?aPForm.
-    ?aPForm ontolex:representation ?activePreterite;
+    ?lexeme ontolex:lexicalForm ?actPreForm.
+    ?actPreForm ontolex:representation ?activePreterite;
     wikibase:grammaticalFeature wd:Q1317831, wd:Q442485.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?aSForm.
-    ?aSForm ontolex:representation ?activeSupine;
+    ?lexeme ontolex:lexicalForm ?actSupForm.
+    ?actSupForm ontolex:representation ?activeSupine;
     wikibase:grammaticalFeature wd:Q1317831, wd:Q548470.
   }
 }

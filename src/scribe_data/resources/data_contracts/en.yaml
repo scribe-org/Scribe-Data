@@ -46,10 +46,10 @@ verbs:
           tenseForms:
             1:
               label: I/you/plural
-              value: "[have] pastParticiple"
+              value: "[have] englishPastParticiple"
             2:
               label: he/she/it
-              value: "[has] pastParticiple"
+              value: "[has] englishPastParticiple"
 
         3:
           tenseTitle: Pr. Continuous
@@ -89,7 +89,7 @@ verbs:
           tenseForms:
             1:
               label: all
-              value: "[had] pastParticiple"
+              value: "[had] englishPastParticiple"
 
         3:
           tenseTitle: Past Continuous
@@ -123,7 +123,7 @@ verbs:
           tenseForms:
             1:
               label: all
-              value: "[will have] pastParticiple"
+              value: "[will have] englishPastParticiple"
 
         3:
           tenseTitle: Fut. Continuous
@@ -154,7 +154,7 @@ verbs:
           tenseForms:
             1:
               label: all
-              value: "[would have] pastParticiple"
+              value: "[would have] englishPastParticiple"
 
         3:
           tenseTitle: Cond. Continuous

@@ -10,6 +10,17 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+## Scribe-Data 6.0.5
+
+### 🐞 Bug Fixes
+
+- Form abbreviations in queries are now based on three letter combinations of the lexeme component label instead of one to avoid repeat forms.
+- The past participle verb form in English was fixed to be `Q1230649` instead of `Q12717679`, which is used in other languages.
+
+### ♻️ Code Refactoring
+
+- An unneeded check on generated Wikidata lexeme queries was removed from CI.
+
 ## Scribe-Data 6.0.4
 
 ### ✨ Features

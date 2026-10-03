@@ -26,38 +26,38 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iFPSForm.
-    ?iFPSForm ontolex:representation ?imperfectFirstPersonSingular;
+    ?lexeme ontolex:lexicalForm ?impFirPerSinForm.
+    ?impFirPerSinForm ontolex:representation ?imperfectFirstPersonSingular;
     wikibase:grammaticalFeature wd:Q108524486, wd:Q21714344, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iFPPForm.
-    ?iFPPForm ontolex:representation ?imperfectFirstPersonPlural;
+    ?lexeme ontolex:lexicalForm ?impFirPerPluForm.
+    ?impFirPerPluForm ontolex:representation ?imperfectFirstPersonPlural;
     wikibase:grammaticalFeature wd:Q108524486, wd:Q21714344, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iSPSForm.
-    ?iSPSForm ontolex:representation ?imperfectSecondPersonSingular;
+    ?lexeme ontolex:lexicalForm ?impSecPerSinForm.
+    ?impSecPerSinForm ontolex:representation ?imperfectSecondPersonSingular;
     wikibase:grammaticalFeature wd:Q108524486, wd:Q51929049, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iSPPForm.
-    ?iSPPForm ontolex:representation ?imperfectSecondPersonPlural;
+    ?lexeme ontolex:lexicalForm ?impSecPerPluForm.
+    ?impSecPerPluForm ontolex:representation ?imperfectSecondPersonPlural;
     wikibase:grammaticalFeature wd:Q108524486, wd:Q51929049, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iTPSForm.
-    ?iTPSForm ontolex:representation ?imperfectThirdPersonSingular;
+    ?lexeme ontolex:lexicalForm ?impThiPerSinForm.
+    ?impThiPerSinForm ontolex:representation ?imperfectThirdPersonSingular;
     wikibase:grammaticalFeature wd:Q108524486, wd:Q51929074, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iTPPForm.
-    ?iTPPForm ontolex:representation ?imperfectThirdPersonPlural;
+    ?lexeme ontolex:lexicalForm ?impThiPerPluForm.
+    ?impThiPerPluForm ontolex:representation ?imperfectThirdPersonPlural;
     wikibase:grammaticalFeature wd:Q108524486, wd:Q51929074, wd:Q146786.
   }
 }

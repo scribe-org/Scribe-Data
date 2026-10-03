@@ -28,8 +28,8 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pPForm.
-    ?pPForm ontolex:representation ?pastParticiple;
+    ?lexeme ontolex:lexicalForm ?pasParForm.
+    ?pasParForm ontolex:representation ?pastParticiple;
     wikibase:grammaticalFeature wd:Q12717679.
   }
 

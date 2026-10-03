@@ -29,14 +29,14 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nSForm.
-    ?nSForm ontolex:representation ?nominativeSingular;
+    ?lexeme ontolex:lexicalForm ?nomSinForm.
+    ?nomSinForm ontolex:representation ?nominativeSingular;
     wikibase:grammaticalFeature wd:Q131105, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nPForm.
-    ?nPForm ontolex:representation ?nominativePlural;
+    ?lexeme ontolex:lexicalForm ?nomPluForm.
+    ?nomPluForm ontolex:representation ?nominativePlural;
     wikibase:grammaticalFeature wd:Q131105, wd:Q146786.
   }
 

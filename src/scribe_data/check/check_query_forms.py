@@ -188,8 +188,13 @@ def check_form_label(form_text: str) -> bool:
     rep_label_pattern = r".*\?(.*);"
     if label_match := re.search(pattern=rep_label_pattern, string=line_match[0]):
         form_rep_label = label_match[1].strip()
+        abbr_form_rep_label = form_rep_label[:3] + "".join(
+            c + form_rep_label[3:][i + 1 : i + 3]
+            for i, c in enumerate(form_rep_label[3:])
+            if c.isupper()
+        )
 
-    return form_rep_label == current_form_rep_label
+    return abbr_form_rep_label == current_form_rep_label
 
 
 # MARK: Check Format
@@ -479,13 +484,13 @@ def check_query_forms() -> None:
                     form_rep_label = extract_form_rep_label(form_text=form_text)
                     check = check_form_label(form_text=form_text)
                     qids = extract_form_qids(form_text=form_text)
-                    correct_form_rep_label = return_correct_form_label(qids=qids or [])
+                    # correct_form_rep_label = return_correct_form_label(qids=qids or [])
 
                     query_form_check_dict[form_rep_label] = {
                         "form_rep_match": check,
                         "correct_formatting": correct_formatting,
                         "qids": qids,
-                        "correct_form_rep_label": correct_form_rep_label,
+                        # "correct_form_rep_label": correct_form_rep_label,
                     }
 
             if query_form_check_dict:

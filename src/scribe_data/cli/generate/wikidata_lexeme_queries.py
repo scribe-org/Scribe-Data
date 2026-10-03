@@ -305,8 +305,10 @@ FILTER(lang(?{query_dt_label}) = "{lang_iso}")
 
                 for form in forms_for_query:
                     qids = ", ".join(f"wd:{qid}" for qid in form["qids"])
-                    form_abbreviation = form["label"][0] + "".join(
-                        c for c in form["label"][1:] if c.isupper()
+                    form_abbreviation = str(form["label"][:3]) + "".join(
+                        c + str(form["label"][3:][i + 1 : i + 3])
+                        for i, c in enumerate(form["label"][3:])
+                        if c.isupper()
                     )
                     optional_clauses += f"""
   OPTIONAL {{

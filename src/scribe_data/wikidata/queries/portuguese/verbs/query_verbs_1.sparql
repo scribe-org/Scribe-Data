@@ -26,38 +26,38 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iPIFPSForm.
-    ?iPIFPSForm ontolex:representation ?indicativePastImperfectFirstPersonSingular;
+    ?lexeme ontolex:lexicalForm ?indPasImpFirPerSinForm.
+    ?indPasImpFirPerSinForm ontolex:representation ?indicativePastImperfectFirstPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q108524486, wd:Q21714344, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iPIFPPForm.
-    ?iPIFPPForm ontolex:representation ?indicativePastImperfectFirstPersonPlural;
+    ?lexeme ontolex:lexicalForm ?indPasImpFirPerPluForm.
+    ?indPasImpFirPerPluForm ontolex:representation ?indicativePastImperfectFirstPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q108524486, wd:Q21714344, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iPISPSForm.
-    ?iPISPSForm ontolex:representation ?indicativePastImperfectSecondPersonSingular;
+    ?lexeme ontolex:lexicalForm ?indPasImpSecPerSinForm.
+    ?indPasImpSecPerSinForm ontolex:representation ?indicativePastImperfectSecondPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q108524486, wd:Q51929049, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iPISPPForm.
-    ?iPISPPForm ontolex:representation ?indicativePastImperfectSecondPersonPlural;
+    ?lexeme ontolex:lexicalForm ?indPasImpSecPerPluForm.
+    ?indPasImpSecPerPluForm ontolex:representation ?indicativePastImperfectSecondPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q108524486, wd:Q51929049, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iPITPSForm.
-    ?iPITPSForm ontolex:representation ?indicativePastImperfectThirdPersonSingular;
+    ?lexeme ontolex:lexicalForm ?indPasImpThiPerSinForm.
+    ?indPasImpThiPerSinForm ontolex:representation ?indicativePastImperfectThirdPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q108524486, wd:Q51929074, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iPITPPForm.
-    ?iPITPPForm ontolex:representation ?indicativePastImperfectThirdPersonPlural;
+    ?lexeme ontolex:lexicalForm ?indPasImpThiPerPluForm.
+    ?indPasImpThiPerPluForm ontolex:representation ?indicativePastImperfectThirdPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q1994301, wd:Q108524486, wd:Q51929074, wd:Q146786.
   }
 }

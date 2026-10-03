@@ -31,26 +31,26 @@ WHERE {
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nISForm.
-    ?nISForm ontolex:representation ?nominativeIndefiniteSingular;
+    ?lexeme ontolex:lexicalForm ?nomIndSinForm.
+    ?nomIndSinForm ontolex:representation ?nominativeIndefiniteSingular;
     wikibase:grammaticalFeature wd:Q131105, wd:Q53997857, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nIPForm.
-    ?nIPForm ontolex:representation ?nominativeIndefinitePlural;
+    ?lexeme ontolex:lexicalForm ?nomIndPluForm.
+    ?nomIndPluForm ontolex:representation ?nominativeIndefinitePlural;
     wikibase:grammaticalFeature wd:Q131105, wd:Q53997857, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nDSForm.
-    ?nDSForm ontolex:representation ?nominativeDefiniteSingular;
+    ?lexeme ontolex:lexicalForm ?nomDefSinForm.
+    ?nomDefSinForm ontolex:representation ?nominativeDefiniteSingular;
     wikibase:grammaticalFeature wd:Q131105, wd:Q53997851, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?nDPForm.
-    ?nDPForm ontolex:representation ?nominativeDefinitePlural;
+    ?lexeme ontolex:lexicalForm ?nomDefPluForm.
+    ?nomDefPluForm ontolex:representation ?nominativeDefinitePlural;
     wikibase:grammaticalFeature wd:Q131105, wd:Q53997851, wd:Q146786.
   }
 

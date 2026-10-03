@@ -16,7 +16,7 @@ SELECT
   ?simplePresent
   ?presentParticiple
   ?simplePast
-  ?pastParticiple
+  ?englishPastParticiple
   ?simplePresentThirdPersonSingular
 
 WHERE {
@@ -26,38 +26,38 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iForm.
-    ?iForm ontolex:representation ?infinitive;
+    ?lexeme ontolex:lexicalForm ?infForm.
+    ?infForm ontolex:representation ?infinitive;
     wikibase:grammaticalFeature wd:Q179230.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?sPForm.
-    ?sPForm ontolex:representation ?simplePresent;
+    ?lexeme ontolex:lexicalForm ?simPreForm.
+    ?simPreForm ontolex:representation ?simplePresent;
     wikibase:grammaticalFeature wd:Q3910936.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pPForm.
-    ?pPForm ontolex:representation ?presentParticiple;
+    ?lexeme ontolex:lexicalForm ?preParForm.
+    ?preParForm ontolex:representation ?presentParticiple;
     wikibase:grammaticalFeature wd:Q10345583.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?sPForm.
-    ?sPForm ontolex:representation ?simplePast;
+    ?lexeme ontolex:lexicalForm ?simPasForm.
+    ?simPasForm ontolex:representation ?simplePast;
     wikibase:grammaticalFeature wd:Q1392475.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pPForm.
-    ?pPForm ontolex:representation ?pastParticiple;
-    wikibase:grammaticalFeature wd:Q12717679.
+    ?lexeme ontolex:lexicalForm ?engPasParForm.
+    ?engPasParForm ontolex:representation ?englishPastParticiple;
+    wikibase:grammaticalFeature wd:Q1230649.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?sPTPSForm.
-    ?sPTPSForm ontolex:representation ?simplePresentThirdPersonSingular;
+    ?lexeme ontolex:lexicalForm ?simPreThiPerSinForm.
+    ?simPreThiPerSinForm ontolex:representation ?simplePresentThirdPersonSingular;
     wikibase:grammaticalFeature wd:Q3910936, wd:Q51929074, wd:Q110786.
   }
 }

@@ -24,26 +24,26 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?fSForm.
-    ?fSForm ontolex:representation ?feminineSingular;
+    ?lexeme ontolex:lexicalForm ?femSinForm.
+    ?femSinForm ontolex:representation ?feminineSingular;
     wikibase:grammaticalFeature wd:Q1775415, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?fPForm.
-    ?fPForm ontolex:representation ?femininePlural;
+    ?lexeme ontolex:lexicalForm ?femPluForm.
+    ?femPluForm ontolex:representation ?femininePlural;
     wikibase:grammaticalFeature wd:Q1775415, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?mSForm.
-    ?mSForm ontolex:representation ?masculineSingular;
+    ?lexeme ontolex:lexicalForm ?masSinForm.
+    ?masSinForm ontolex:representation ?masculineSingular;
     wikibase:grammaticalFeature wd:Q499327, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?mPForm.
-    ?mPForm ontolex:representation ?masculinePlural;
+    ?lexeme ontolex:lexicalForm ?masPluForm.
+    ?masPluForm ontolex:representation ?masculinePlural;
     wikibase:grammaticalFeature wd:Q499327, wd:Q146786.
   }
 }

@@ -26,38 +26,38 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pFPSForm.
-    ?pFPSForm ontolex:representation ?preteriteFirstPersonSingular;
+    ?lexeme ontolex:lexicalForm ?preFirPerSinForm.
+    ?preFirPerSinForm ontolex:representation ?preteriteFirstPersonSingular;
     wikibase:grammaticalFeature wd:Q442485, wd:Q21714344, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pFPPForm.
-    ?pFPPForm ontolex:representation ?preteriteFirstPersonPlural;
+    ?lexeme ontolex:lexicalForm ?preFirPerPluForm.
+    ?preFirPerPluForm ontolex:representation ?preteriteFirstPersonPlural;
     wikibase:grammaticalFeature wd:Q442485, wd:Q21714344, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pSPSForm.
-    ?pSPSForm ontolex:representation ?preteriteSecondPersonSingular;
+    ?lexeme ontolex:lexicalForm ?preSecPerSinForm.
+    ?preSecPerSinForm ontolex:representation ?preteriteSecondPersonSingular;
     wikibase:grammaticalFeature wd:Q442485, wd:Q51929049, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pSPPForm.
-    ?pSPPForm ontolex:representation ?preteriteSecondPersonPlural;
+    ?lexeme ontolex:lexicalForm ?preSecPerPluForm.
+    ?preSecPerPluForm ontolex:representation ?preteriteSecondPersonPlural;
     wikibase:grammaticalFeature wd:Q442485, wd:Q51929049, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pTPSForm.
-    ?pTPSForm ontolex:representation ?preteriteThirdPersonSingular;
+    ?lexeme ontolex:lexicalForm ?preThiPerSinForm.
+    ?preThiPerSinForm ontolex:representation ?preteriteThirdPersonSingular;
     wikibase:grammaticalFeature wd:Q442485, wd:Q51929074, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?pTPPForm.
-    ?pTPPForm ontolex:representation ?preteriteThirdPersonPlural;
+    ?lexeme ontolex:lexicalForm ?preThiPerPluForm.
+    ?preThiPerPluForm ontolex:representation ?preteriteThirdPersonPlural;
     wikibase:grammaticalFeature wd:Q442485, wd:Q51929074, wd:Q146786.
   }
 }

@@ -26,38 +26,38 @@ WHERE {
     schema:dateModified ?lastModified.
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iFFPSForm.
-    ?iFFPSForm ontolex:representation ?indicativeFutureFirstPersonSingular;
+    ?lexeme ontolex:lexicalForm ?indFutFirPerSinForm.
+    ?indFutFirPerSinForm ontolex:representation ?indicativeFutureFirstPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q21714344, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iFFPPForm.
-    ?iFFPPForm ontolex:representation ?indicativeFutureFirstPersonPlural;
+    ?lexeme ontolex:lexicalForm ?indFutFirPerPluForm.
+    ?indFutFirPerPluForm ontolex:representation ?indicativeFutureFirstPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q21714344, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iFSPSForm.
-    ?iFSPSForm ontolex:representation ?indicativeFutureSecondPersonSingular;
+    ?lexeme ontolex:lexicalForm ?indFutSecPerSinForm.
+    ?indFutSecPerSinForm ontolex:representation ?indicativeFutureSecondPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q51929049, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iFSPPForm.
-    ?iFSPPForm ontolex:representation ?indicativeFutureSecondPersonPlural;
+    ?lexeme ontolex:lexicalForm ?indFutSecPerPluForm.
+    ?indFutSecPerPluForm ontolex:representation ?indicativeFutureSecondPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q51929049, wd:Q146786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iFTPSForm.
-    ?iFTPSForm ontolex:representation ?indicativeFutureThirdPersonSingular;
+    ?lexeme ontolex:lexicalForm ?indFutThiPerSinForm.
+    ?indFutThiPerSinForm ontolex:representation ?indicativeFutureThirdPersonSingular;
     wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q51929074, wd:Q110786.
   }
 
   OPTIONAL {
-    ?lexeme ontolex:lexicalForm ?iFTPPForm.
-    ?iFTPPForm ontolex:representation ?indicativeFutureThirdPersonPlural;
+    ?lexeme ontolex:lexicalForm ?indFutThiPerPluForm.
+    ?indFutThiPerPluForm ontolex:representation ?indicativeFutureThirdPersonPlural;
     wikibase:grammaticalFeature wd:Q682111, wd:Q501405, wd:Q51929074, wd:Q146786.
   }
 }
