@@ -89,6 +89,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 - Testing for various parts of the CLI was expanded ([#623](https://github.com/scribe-org/Scribe-Data/issues/623)).
 - Local pre-commit hooks are now ran with [prek](https://prek.j178.dev/) instead of `pre-commit`.
+- Tests have been added for checking the project structure.
 
 ### 📝 Documentation
 
