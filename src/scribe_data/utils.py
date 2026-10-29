@@ -563,9 +563,11 @@ def check_lexeme_dump_prompt_download(output_dir: Path) -> bool | Path | None:
     """
     existing_dumps = list(Path(output_dir).glob("*.json.bz2"))
     if existing_dumps:
-        rprint("[bold yellow]Existing dump files found:[/bold yellow]")
+        rprint("\n[bold yellow]Existing dump files found:[/bold yellow]")
         for dump in existing_dumps:
             rprint(f"  - {Path(output_dir)}/{dump.name}")
+
+        print("\n")
 
         user_input = questionary.select(
             "Do you want to:",

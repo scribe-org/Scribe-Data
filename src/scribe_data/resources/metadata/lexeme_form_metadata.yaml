@@ -179,16 +179,16 @@
 
 4_tense:
   1:
-    label: Infinitive
-    qid: Q179230
-
-  2:
     label: AInfinitive
     qid: Q115223950
 
-  3:
+  2:
     label: EInfinitive
     qid: Q115223951
+
+  3:
+    label: Infinitive
+    qid: Q179230
 
   4:
     label: SimplePresent

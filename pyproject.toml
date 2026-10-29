@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scribe-data"
-version = "6.0.5"
+version = "6.0.6"
 description = "Wikidata and Wiktionary language data extraction"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -40,11 +40,11 @@ dependencies = [
 dev = [
     "complexipy>=8.3.0",
     "prek>=0.5.7",
-    "pytest>=9.1.1",
+    "pytest>=9.2.0",
     "pytest-cov>=7.1.0",
     "ruff>=0.17.3",
     "setuptools>=84.2.1",
-    "ty>=0.0.92",
+    "ty>=0.0.94",
 ]
 docs = [
     # Keep docs dependencies formatted in this way with ruff to allow for upgrades via VS Code extension.

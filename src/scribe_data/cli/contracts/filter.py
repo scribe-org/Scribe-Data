@@ -96,6 +96,11 @@ def filter_exported_data(
         if not columns_to_keep:
             return {}
 
+        # Note: We don't have infinitive in the contracts, but need it to search for verbs in client applications.
+        # In Wikidata query generation the infinitive comes from the verb field that is the lexeme label.
+        if data_type == "verbs" and "infinitive" not in columns_to_keep:
+            columns_to_keep.append("infinitive")
+
         # Filter each lexeme's data.
         for lexeme_id, lexeme_data in exported_data.items():
             filtered_lexeme = {
@@ -209,7 +214,9 @@ def export_data_filtered_by_contracts(
 
             # Filter if contract metadata exists.
             if filtered_data := filter_exported_data(
-                input_file, contract_metadata, data_type
+                input_file=input_file,
+                contract_metadata=contract_metadata,
+                data_type=data_type,
             ):
                 output_file = (
                     export_dir
