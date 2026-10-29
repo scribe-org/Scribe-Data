@@ -99,7 +99,7 @@ def filter_exported_data(
         # Note: We don't have infinitive in the contracts, but need it to search for verbs in client applications.
         # In Wikidata query generation the infinitive comes from the verb field that is the lexeme label.
         if data_type == "verbs" and "infinitive" not in columns_to_keep:
-            columns_to_keep.append("infinitive")
+            columns_to_keep.insert(0, "infinitive")
 
         # Filter each lexeme's data.
         for lexeme_id, lexeme_data in exported_data.items():
