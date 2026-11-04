@@ -502,6 +502,7 @@ class LexemeProcessor:
             self.process_lines(line)
 
     # MARK: Print Totals
+
     def _print_total_summary(self) -> None:
         """
         Print stats if parse_type == total.
@@ -595,6 +596,7 @@ class LexemeProcessor:
             # If it's a sub-language, create path like: parent/chinese/mandarin/.
             if main_lang:
                 output_path = Path(filepath).parent / main_lang / lang_name
+
             else:
                 output_path = Path(filepath).parent / lang_name
 

@@ -344,16 +344,24 @@ class TestExportContracts:
         # Check filter_exported_data calls.
         expected_calls = [
             call(
-                Path("test_input/english/nouns.json"), mock_contract_metadata, "nouns"
+                input_file=Path("test_input/english/nouns.json"),
+                contract_metadata=mock_contract_metadata,
+                data_type="nouns",
             ),
             call(
-                Path("test_input/english/verbs.json"), mock_contract_metadata, "verbs"
+                input_file=Path("test_input/english/verbs.json"),
+                contract_metadata=mock_contract_metadata,
+                data_type="verbs",
             ),
             call(
-                Path("test_input/spanish/nouns.json"), mock_contract_metadata, "nouns"
+                input_file=Path("test_input/spanish/nouns.json"),
+                contract_metadata=mock_contract_metadata,
+                data_type="nouns",
             ),
             call(
-                Path("test_input/spanish/verbs.json"), mock_contract_metadata, "verbs"
+                input_file=Path("test_input/spanish/verbs.json"),
+                contract_metadata=mock_contract_metadata,
+                data_type="verbs",
             ),
         ]
         mock_filter_data.assert_has_calls(expected_calls, any_order=True)

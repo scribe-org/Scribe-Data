@@ -4,22 +4,28 @@
 # Enter this query at https://query.wikidata.org/ and replace LANGUAGE_QID with the desired language.
 
 SELECT DISTINCT
-  ?lexemeID
+  (replace(str(?lexeme), "http://www.wikidata.org/entity/", "") AS ?lexemeID)
   ?lastModified
   ?profanity
+  ?plural
 
 WHERE {
-  ?lexemeID dct:language wd:LANGUAGE_QID;  # replace language qid here
+  ?lexeme dct:language wd:LANGUAGE_QID;  # replace language qid here
     wikibase:lemma ?profanity;
     ontolex:sense ?sense;
     schema:dateModified ?lastModified.
 
-
   VALUES ?filter {
-    wd:Q545779  # pejorative
+    wd:Q545779   # pejorative
     wd:Q1521634  # vulgar
-    wd:Q184439  # profanity
+    wd:Q184439   # profanity
   }.
+
+  OPTIONAL {
+    ?lexeme ontolex:lexicalForm ?pluForm.
+    ?pluForm ontolex:representation ?plural;
+    wikibase:grammaticalFeature wd:Q146786.
+  }
 
   FILTER EXISTS {?sense wdt:P6191 ?filter.}.
 }

@@ -10,6 +10,23 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+## Scribe-Data 6.0.7
+
+### ✨ Features
+
+- Emoji data was updated with the latest CLDR emoji annotations ([#729](https://github.com/scribe-org/Scribe-Data/pull/729)).
+- Plurals of profane words are also returned from Wikidata for use in filtering autosuggestions and autocompletions ([#730](https://github.com/scribe-org/Scribe-Data/pull/730)).
+
+## Scribe-Data 6.0.6
+
+### 🐞 Bug Fixes
+
+- Verb infinitives are now always included in verb outputs of Wikidata dump parses to match the functionality of generated queries ([#725](https://github.com/scribe-org/Scribe-Data/issues/725)).
+
+### ⬆️ Dependencies
+
+- All dependencies for the project were updated.
+
 ## Scribe-Data 6.0.5
 
 ### 🐞 Bug Fixes
