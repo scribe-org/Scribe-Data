@@ -17,6 +17,10 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - Emoji data was updated with the latest CLDR emoji annotations ([#729](https://github.com/scribe-org/Scribe-Data/pull/729)).
 - Plurals of profane words are also returned from Wikidata for use in filtering autosuggestions and autocompletions ([#730](https://github.com/scribe-org/Scribe-Data/pull/730)).
 
+### ✅ Tests
+
+- Tests have been added to check the project structure.
+
 ## Scribe-Data 6.0.6
 
 ### 🐞 Bug Fixes
