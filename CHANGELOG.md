@@ -10,6 +10,14 @@ Scribe-Data tries to follow [semantic versioning](https://semver.org/), a MAJOR.
 
 Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
+## Scribe-Data 6.1.0
+
+- The Scribe-Data contracts were updated and the `generate-log-file` (`glf`) and `compare-log-files` (`clf`) commands were added to check and compare the total data from runs of Scribe-Data ([#728](https://github.com/scribe-org/Scribe-Data/pull/728)).
+
+### ⬆️ Dependencies
+
+- All development dependencies were updated.
+
 ## Scribe-Data 6.0.7
 
 ### ✨ Features

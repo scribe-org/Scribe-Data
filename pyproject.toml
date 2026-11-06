@@ -39,12 +39,12 @@ dependencies = [
 [dependency-groups]
 dev = [
     "complexipy>=8.3.0",
-    "prek>=0.5.7",
+    "prek>=0.5.10",
     "pytest>=9.2.0",
     "pytest-cov>=7.1.0",
-    "ruff>=0.17.3",
+    "ruff>=0.17.4",
     "setuptools>=84.2.1",
-    "ty>=0.0.94",
+    "ty>=0.0.99",
 ]
 docs = [
     # Keep docs dependencies formatted in this way with ruff to allow for upgrades via VS Code extension.
