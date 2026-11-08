@@ -35,6 +35,8 @@ DEFAULT_AUDIT_RESULTS_DIR = Path("scribe_data_wikidata_audit")
 DATA_CONTRACTS_DIR = Path(__file__).parent / "resources" / "data_contracts"
 DEFAULT_CONTRACTS_EXPORT_DIR = Path("scribe_data_contracts")
 
+DEFAULT_LOG_FILES_EXPORT_DIR = Path("scribe_data_log_files")
+
 PROJECT_HOMEPAGE = "https://github.com/scribe-org/Scribe-Data"
 USER_AGENT_HEADER = {"User-Agent": f"Scribe-Data ({PROJECT_HOMEPAGE})"}
 
