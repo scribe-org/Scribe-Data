@@ -1,64 +1,12 @@
 [
   {
-    "path": "src/scribe_data/check/check_missing_forms/check_missing_forms.py",
-    "file_name": "check_missing_forms.py",
-    "functions": [
-      {
-        "name": "get_features_from_sparql_service",
-        "complexity": 22
-      },
-      {
-        "name": "process_missing_features",
-        "complexity": 23
-      },
-      {
-        "name": "execute_sparql_query",
-        "complexity": 24
-      },
-      {
-        "name": "get_forms_from_sparql_service",
-        "complexity": 27
-      },
-      {
-        "name": "get_forms_from_sparql_service_all_languages",
-        "complexity": 41
-      }
-    ]
-  },
-  {
-    "path": "src/scribe_data/check/check_missing_forms/generate_query.py",
-    "file_name": "generate_query.py",
-    "functions": [
-      {
-        "name": "generate_query",
-        "complexity": 48
-      }
-    ]
-  },
-  {
-    "path": "src/scribe_data/check/check_missing_forms/pr_body.py",
-    "file_name": "pr_body.py",
-    "functions": [
-      {
-        "name": "pr_body",
-        "complexity": 31
-      }
-    ]
-  },
-  {
-    "path": "src/scribe_data/check/check_missing_forms/split_query.py",
-    "file_name": "split_query.py",
-    "functions": [
-      {
-        "name": "split_group_by_identifier",
-        "complexity": 60
-      }
-    ]
-  },
-  {
     "path": "src/scribe_data/check/check_project_metadata.py",
     "file_name": "check_project_metadata.py",
     "functions": [
+      {
+        "name": "check_language_metadata",
+        "complexity": 12
+      },
       {
         "name": "validate_language_properties",
         "complexity": 21
@@ -120,6 +68,10 @@
     "file_name": "check_query_identifiers.py",
     "functions": [
       {
+        "name": "is_valid_language",
+        "complexity": 14
+      },
+      {
         "name": "check_query_identifiers",
         "complexity": 16
       }
@@ -153,6 +105,10 @@
     "path": "src/scribe_data/cli/contracts/filter.py",
     "file_name": "filter.py",
     "functions": [
+      {
+        "name": "filter_exported_data",
+        "complexity": 12
+      },
       {
         "name": "export_data_filtered_by_contracts",
         "complexity": 20
@@ -236,16 +192,6 @@
     ]
   },
   {
-    "path": "src/scribe_data/cli/get.py",
-    "file_name": "get.py",
-    "functions": [
-      {
-        "name": "get_data",
-        "complexity": 51
-      }
-    ]
-  },
-  {
     "path": "src/scribe_data/cli/interactive/run.py",
     "file_name": "run.py",
     "functions": [
@@ -271,7 +217,7 @@
     "functions": [
       {
         "name": "main",
-        "complexity": 116
+        "complexity": 118
       }
     ]
   },
@@ -323,6 +269,14 @@
     "path": "src/scribe_data/utils.py",
     "file_name": "utils.py",
     "functions": [
+      {
+        "name": "get_language_from_iso",
+        "complexity": 12
+      },
+      {
+        "name": "format_sublanguage_name",
+        "complexity": 15
+      },
       {
         "name": "_find",
         "complexity": 27
@@ -398,6 +352,14 @@
     "file_name": "parse_translations.py",
     "functions": [
       {
+        "name": "_collect_row_template",
+        "complexity": 11
+      },
+      {
+        "name": "_get_output_subdir",
+        "complexity": 12
+      },
+      {
         "name": "_merge_parsed_into_output",
         "complexity": 16
       },
@@ -436,29 +398,13 @@
     ]
   },
   {
-    "path": "tests/wikidata/test_wikidata_check_query.py",
-    "file_name": "test_wikidata_check_query.py",
-    "functions": [
-      {
-        "name": "validate_forms",
-        "complexity": 20
-      }
-    ]
-  },
-  {
-    "path": "src/scribe_data/cli/audit/issue_body.py",
-    "file_name": "issue_body.py",
-    "functions": [
-      {
-        "name": "issue_body",
-        "complexity": 31
-      }
-    ]
-  },
-  {
     "path": "src/scribe_data/cli/audit/wikidata_lexeme_forms.py",
     "file_name": "wikidata_lexeme_forms.py",
     "functions": [
+      {
+        "name": "audit_wikidata_lexeme_forms",
+        "complexity": 15
+      },
       {
         "name": "execute_sparql_query",
         "complexity": 24
@@ -469,6 +415,10 @@
     "path": "src/scribe_data/cli/generate/generate_utils.py",
     "file_name": "generate_utils.py",
     "functions": [
+      {
+        "name": "sort_qids_by_position",
+        "complexity": 11
+      },
       {
         "name": "_extract_specific_key_values",
         "complexity": 16
@@ -496,6 +446,56 @@
       {
         "name": "get_data",
         "complexity": 52
+      }
+    ]
+  },
+  {
+    "path": "src/scribe_data/cli/interactive/prompt.py",
+    "file_name": "prompt.py",
+    "functions": [
+      {
+        "name": "prompt_for_data_types",
+        "complexity": 11
+      }
+    ]
+  },
+  {
+    "path": "src/scribe_data/cli/list/wrapper.py",
+    "file_name": "wrapper.py",
+    "functions": [
+      {
+        "name": "list_wrapper",
+        "complexity": 13
+      }
+    ]
+  },
+  {
+    "path": "src/scribe_data/cli/log_file/compare.py",
+    "file_name": "compare.py",
+    "functions": [
+      {
+        "name": "compare_log_files",
+        "complexity": 113
+      }
+    ]
+  },
+  {
+    "path": "src/scribe_data/cli/log_file/generate.py",
+    "file_name": "generate.py",
+    "functions": [
+      {
+        "name": "generate_log_file",
+        "complexity": 28
+      }
+    ]
+  },
+  {
+    "path": "tests/cli/contracts/test_cli_contracts_check.py",
+    "file_name": "test_cli_contracts_check.py",
+    "functions": [
+      {
+        "name": "test_cli_contracts_print_missing_forms_with_missing",
+        "complexity": 11
       }
     ]
   }
