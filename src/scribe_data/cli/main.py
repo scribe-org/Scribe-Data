@@ -28,6 +28,8 @@ from scribe_data.cli.generate.wikidata_lexeme_queries import (
 from scribe_data.cli.get.data import get_data
 from scribe_data.cli.interactive.run import run_interactive_mode
 from scribe_data.cli.list.wrapper import list_wrapper
+from scribe_data.cli.log_file.compare import compare_log_files
+from scribe_data.cli.log_file.generate import generate_log_file
 from scribe_data.cli.total.wrapper import total_wrapper
 from scribe_data.cli.upgrade import upgrade_cli
 from scribe_data.cli.version import get_version_message
@@ -41,18 +43,6 @@ from scribe_data.utils import (
     WIKIDATA_QUERIES_DIR,
 )
 
-LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
-GET_DESCRIPTION = (
-    "Get data from Wikidata and other sources for the given languages and data types."
-)
-TOTAL_DESCRIPTION = "Check Wikidata for the total available data for the given languages and data types."
-AUDIT_WIKIDATA_LEXEME_FORMS_DESCRIPTION = (
-    "Audit Wikidata for the available forms for the given languages and data types."
-)
-GENERATE_WIKIDATA_LEXEME_QUERIES_DESCRIPTION = (
-    "Generate Wikidata lexeme queries from the provided data contracts."
-)
-CONVERT_DESCRIPTION = "Convert data returned by Scribe-Data to different file types."
 CLI_EPILOG = "Visit the codebase at https://github.com/scribe-org/Scribe-Data and documentation at https://scribe-data.readthedocs.io to learn more!"
 
 
@@ -92,6 +82,8 @@ def main() -> None:
 
     # MARK: List
 
+    LIST_DESCRIPTION = "List languages, data types and combinations of each that Scribe-Data can be used for."
+
     list_parser = subparsers.add_parser(
         "list",
         aliases=["l"],
@@ -125,6 +117,8 @@ def main() -> None:
     )
 
     # MARK: Get
+
+    GET_DESCRIPTION = "Get data from Wikidata and other sources for the given languages and data types."
 
     get_parser = subparsers.add_parser(
         "get",
@@ -162,7 +156,7 @@ def main() -> None:
         "-od",
         "--output-dir",
         type=str,
-        help=f"The output directory path for results. Default: ./{DEFAULT_JSON_EXPORT_DIR} for JSON; ./{DEFAULT_CSV_EXPORT_DIR} for CSV, etc.",
+        help=f"The output directory path for results (default: ./{DEFAULT_JSON_EXPORT_DIR} for JSON; ./{DEFAULT_CSV_EXPORT_DIR} for CSV, etc).",
     )
     get_parser.add_argument(
         "-ope",
@@ -220,6 +214,8 @@ def main() -> None:
 
     # MARK: Total
 
+    TOTAL_DESCRIPTION = "Check Wikidata for the total available data for the given languages and data types."
+
     total_parser = subparsers.add_parser(
         "total",
         aliases=["t"],
@@ -261,6 +257,10 @@ def main() -> None:
     )
 
     # MARK: Convert
+
+    CONVERT_DESCRIPTION = (
+        "Convert data returned by Scribe-Data to different file types."
+    )
 
     convert_parser = subparsers.add_parser(
         "convert",
@@ -348,11 +348,15 @@ def main() -> None:
 
     # MARK: Download
 
+    DOWNLOAD_DESCRIPTION = (
+        "Download Wikidata lexeme or Wiktionary dumps from dumps.wikimedia.org."
+    )
+
     download_parser = subparsers.add_parser(
         "download",
         aliases=["d"],
-        help="Download Wikidata lexeme or Wiktionary dumps.",
-        description="Download Wikidata lexeme or Wiktionary dumps from dumps.wikimedia.org.",
+        help=DOWNLOAD_DESCRIPTION,
+        description=DOWNLOAD_DESCRIPTION,
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
@@ -392,11 +396,15 @@ def main() -> None:
 
     # MARK: Export Contracts
 
+    EXPORT_CONTRACTS_DESCRIPTION = (
+        "Export Scribe-Data data contracts to a local directory."
+    )
+
     export_contracts_parser = subparsers.add_parser(
         "export_contracts",
         aliases=["ec"],
-        help="Export Scribe-Data contracts to a local directory.",
-        description="Export Scribe-Data contracts to the current working directory.",
+        help=EXPORT_CONTRACTS_DESCRIPTION,
+        description=EXPORT_CONTRACTS_DESCRIPTION,
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
@@ -407,10 +415,14 @@ def main() -> None:
         type=str,
         required=False,
         default=DEFAULT_CONTRACTS_EXPORT_DIR,
-        help="The directory to export contracts to (default: scribe_data_contracts).",
+        help=f"The directory to export contracts to (default: ./{DEFAULT_CONTRACTS_EXPORT_DIR}).",
     )
 
     # MARK: Audit Wikidata
+
+    AUDIT_WIKIDATA_LEXEME_FORMS_DESCRIPTION = (
+        "Audit Wikidata for the available forms for the given languages and data types."
+    )
 
     audit_wd_lexeme_forms_parser = subparsers.add_parser(
         "audit_wd_lexeme_forms",
@@ -467,6 +479,10 @@ def main() -> None:
 
     # MARK: Generate Queries
 
+    GENERATE_WIKIDATA_LEXEME_QUERIES_DESCRIPTION = (
+        "Generate Wikidata lexeme queries from the provided data contracts."
+    )
+
     generate_wd_lexeme_queries_parser = subparsers.add_parser(
         "generate_wd_lexeme_queries",
         aliases=["gwdlq"],
@@ -518,11 +534,13 @@ def main() -> None:
 
     # MARK: Check Contracts
 
+    CHECK_CONTRACTS_DESCRIPTION = "Check a Scribe-Data export directory for if all needed language data for data contracts is included."
+
     check_contracts_parser = subparsers.add_parser(
         "check_contracts",
         aliases=["cc"],
-        help="Check the data in a Scribe-Data export directory to see that all needed language data is included.",
-        description="Check if data exports match their corresponding data contracts.",
+        help=CHECK_CONTRACTS_DESCRIPTION,
+        description=CHECK_CONTRACTS_DESCRIPTION,
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
@@ -544,11 +562,15 @@ def main() -> None:
 
     # MARK: Filter by Contracts
 
+    FILTER_BY_CONTRACTS_DESCRIPTION = (
+        "Filter exported Scribe-Data data based on provided data contract values."
+    )
+
     filter_data_parser = subparsers.add_parser(
         "filter_data",
         aliases=["fd"],
-        help="Filter exported Scribe-Data data based on provided data contract values.",
-        description="Convert exported data into a dataset that only includes data within contract values.",
+        help=FILTER_BY_CONTRACTS_DESCRIPTION,
+        description=FILTER_BY_CONTRACTS_DESCRIPTION,
         epilog=CLI_EPILOG,
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
     )
@@ -575,13 +597,88 @@ def main() -> None:
         help="The directory to export data filtered by contracts to.",
     )
 
+    # MARK: Gen Log File
+
+    GENERATE_LOG_FILE_DESCRIPTION = "Generate a log file with totals of all data in the Scribe-Data JSON export directory."
+
+    generate_log_file_parser = subparsers.add_parser(
+        "generate_log_file",
+        aliases=["glf"],
+        help=GENERATE_LOG_FILE_DESCRIPTION,
+        description=GENERATE_LOG_FILE_DESCRIPTION,
+        epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
+    )
+    generate_log_file_parser._actions[0].help = "Show this help message and exit."
+    generate_log_file_parser.add_argument(
+        "-od",
+        "--output-dir",
+        type=str,
+        help=f"The output directory path to generate a log file for (default: ./{DEFAULT_JSON_EXPORT_DIR}).",
+    )
+    generate_log_file_parser.add_argument(
+        "-if",
+        "--include-fields",
+        action="store_true",
+        help="Whether to include data type fields rather than just data types (default: False).",
+    )
+
+    # MARK: Compare Log Files
+
+    COMPARE_LOG_FILES_DESCRIPTION = "Compare two Scribe-Data log files and output the change in total data in the later log file."
+
+    compare_log_files_parser = subparsers.add_parser(
+        "compare_log_files",
+        aliases=["clf"],
+        help=COMPARE_LOG_FILES_DESCRIPTION,
+        description=COMPARE_LOG_FILES_DESCRIPTION,
+        epilog=CLI_EPILOG,
+        formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=60),
+    )
+    compare_log_files_parser._actions[0].help = "Show this help message and exit."
+    compare_log_files_parser.add_argument(
+        "-if",
+        "--include-fields",
+        action="store_true",
+        help="Whether to compare total data type field log files rather than just data types (default: False).",
+    )
+    compare_log_files_parser.add_argument(
+        "-et",
+        "--earlier-timestamp",
+        type=int,
+        required=False,
+        help="The timestamp of the earlier logfile to compare.",
+    )
+    compare_log_files_parser.add_argument(
+        "-lt",
+        "--later-timestamp",
+        type=int,
+        required=False,
+        help="The timestamp of the later logfile to compare.",
+    )
+    compare_log_files_parser.add_argument(
+        "-fu",
+        "--fail-under",
+        type=int,
+        required=False,
+        help="A threshold under which to fail the comparison such that data updates can be canceled.",
+    )
+    compare_log_files_parser.add_argument(
+        "-op",
+        "--only-positive",
+        action="store_true",
+        help="Only include positive increases in data in the output for use in social posts (default: False).",
+    )
+
     # MARK: Interactive
+
+    INTERACTIVE_DESCRIPTION = "Run in interactive mode."
 
     interactive_parser = subparsers.add_parser(
         "interactive",
         aliases=["i"],
-        help="Run in interactive mode.",
-        description="Run in interactive mode.",
+        help=INTERACTIVE_DESCRIPTION,
+        description=INTERACTIVE_DESCRIPTION,
     )
 
     interactive_parser._actions[0].help = "Show this help message and exit."
@@ -868,6 +965,23 @@ def main() -> None:
                 contracts_dir=args.contracts_dir,
                 input_dir=args.input_dir,
                 output_dir=args.output_dir,
+            )
+
+        # MARK: Run Log File
+
+        elif args.command in ["generate_log_file", "glf"]:
+            generate_log_file(
+                output_dir=args.output_dir,
+                include_fields=args.include_fields,
+            )
+
+        elif args.command in ["compare_log_files", "clf"]:
+            compare_log_files(
+                include_fields=args.include_fields,
+                earlier_timestamp=args.earlier_timestamp,
+                later_timestamp=args.later_timestamp,
+                fail_under=args.fail_under,
+                only_positive=args.only_positive,
             )
 
         else:

@@ -12,22 +12,24 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 
 ## Scribe-Data 6.1.0
 
-- The Scribe-Data contracts were updated and the `generate-log-file` (`glf`) and `compare-log-files` (`clf`) commands were added to check and compare the total data from runs of Scribe-Data ([#728](https://github.com/scribe-org/Scribe-Data/pull/728)).
-
-### ⬆️ Dependencies
-
-- All development dependencies were updated.
-
-## Scribe-Data 6.0.7
-
 ### ✨ Features
 
 - Emoji data was updated with the latest CLDR emoji annotations ([#729](https://github.com/scribe-org/Scribe-Data/pull/729)).
 - Plurals of profane words are also returned from Wikidata for use in filtering autosuggestions and autocompletions ([#730](https://github.com/scribe-org/Scribe-Data/pull/730)).
+- The Scribe-Data contracts were updated ([#728](https://github.com/scribe-org/Scribe-Data/pull/728)).
+- The `generate-log-file` (`glf`) and `compare-log-files` (`clf`) commands were added to check and compare the total data from runs of Scribe-Data ([#728](https://github.com/scribe-org/Scribe-Data/pull/728)).
 
 ### ✅ Tests
 
 - Tests have been added to check the project structure.
+
+### ♻️ Code Refactoring
+
+- The CLI command descriptions were standardized.
+
+### ⬆️ Dependencies
+
+- All development dependencies were updated.
 
 ## Scribe-Data 6.0.6
 
