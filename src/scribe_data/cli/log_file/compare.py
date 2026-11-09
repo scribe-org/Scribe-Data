@@ -82,7 +82,7 @@ def compare_log_files(
     # MARK: Most Recent
 
     else:
-        log_files_to_compare = sorted(all_log_files_of_desired_type)[:2]
+        log_files_to_compare = sorted(all_log_files_of_desired_type)[-2:]
         earlier_log_to_compare = log_files_to_compare[0]
         later_log_to_compare = log_files_to_compare[1]
 
