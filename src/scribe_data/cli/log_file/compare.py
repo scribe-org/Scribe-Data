@@ -218,8 +218,11 @@ def compare_log_files(
 
     else:
         compare_str = (
-            f"The difference in total data recorded in the {later_log_to_compare.name} ({later_date}) and {earlier_log_to_compare.name} ({earlier_date}) log files is:"
+            "Files compared:"
+            + f"\n- Later log: {later_log_to_compare.name} ({later_date})"
+            + f"\n- Earlier log: {earlier_log_to_compare.name} ({earlier_date})"
             + "\n"
+            + "\nDifference in total data:"
             + comparison_fields
             + "\n"
         )
