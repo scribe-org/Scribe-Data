@@ -22,6 +22,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 ### ✅ Tests
 
 - Tests have been added to check the project structure.
+- Tests were added for Unicode data updates ([#733](https://github.com/scribe-org/Scribe-Data/pull/733)).
 
 ### ♻️ Code Refactoring
 
