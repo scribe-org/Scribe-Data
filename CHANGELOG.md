@@ -18,6 +18,7 @@ Emojis for the following are chosen based on [gitmoji](https://gitmoji.dev/).
 - Plurals of profane words are also returned from Wikidata for use in filtering autosuggestions and autocompletions ([#730](https://github.com/scribe-org/Scribe-Data/pull/730)).
 - The Scribe-Data contracts were updated ([#728](https://github.com/scribe-org/Scribe-Data/pull/728)).
 - The `generate-log-file` (`glf`) and `compare-log-files` (`clf`) commands were added to check and compare the total data from runs of Scribe-Data ([#728](https://github.com/scribe-org/Scribe-Data/pull/728)).
+- `.yaml`, `.sparql` and `cldr-annotations` files were included in the package data to assure that they're accessible when the package is installed rather than cloned.
 
 ### ✅ Tests
 

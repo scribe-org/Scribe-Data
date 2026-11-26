@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scribe-data"
-version = "6.0.6"
+version = "6.1.0"
 description = "Wikidata and Wiktionary language data extraction"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -27,8 +27,8 @@ dependencies = [
     "emoji==2.16.0",
     "mwparserfromhell==0.7.2",
     "orjson==3.13.0",
-    "packaging==26.3",
-    "pyyaml==6.0.3",
+    "packaging==26.4",
+    "pyyaml==6.0.4",
     "questionary==2.1.1",
     "requests==2.34.2",
     "rich==15.0.0",
@@ -38,17 +38,17 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "complexipy>=8.3.0",
-    "prek>=0.5.10",
+    "complexipy>=9.0.0",
+    "prek>=0.5.11",
     "pytest>=9.2.0",
     "pytest-cov>=7.1.0",
-    "ruff>=0.17.4",
+    "ruff>=0.17.6",
     "setuptools>=84.2.1",
-    "ty>=0.0.99",
+    "ty>=0.0.111",
 ]
 docs = [
     # Keep docs dependencies formatted in this way with ruff to allow for upgrades via VS Code extension.
-    "myst-parser>=5.1.0",
+    "myst-parser>=5.2.0",
     "numpydoc>=1.11.0",
     "sphinx-rtd-theme>=3.1.0",
 ]
@@ -67,8 +67,14 @@ license-files = ["LICENSE.txt"]
 where = ["src"]
 
 [tool.setuptools.package-data]
-"scribe_data.unicode" = ["2021_ranked.tsv"]
-"scribe_data.resources" = ["*.yaml"]
+"scribe_data.unicode" = [
+    "2021_ranked.tsv",
+    "cldr-annotations-full/**/*",
+    "cldr-annotations-derived-full/**/*",
+]
+"scribe_data.resources" = ["**/*.yaml"]
+"scribe_data.wikidata" = ["*.sparql", "queries/**/*.sparql"]
+"scribe_data.cli.audit" = ["*.sparql"]
 
 [tool.pytest.ini_options]
 pythonpath = "src"
