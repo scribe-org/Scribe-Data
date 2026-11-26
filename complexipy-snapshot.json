@@ -27,7 +27,7 @@
       },
       {
         "name": "check_project_structure",
-        "complexity": 41
+        "complexity": 38
       }
     ]
   },
@@ -47,19 +47,19 @@
     "functions": [
       {
         "name": "return_correct_form_label",
-        "complexity": 16
+        "complexity": 14
       },
       {
         "name": "validate_forms",
-        "complexity": 22
+        "complexity": 15
       },
       {
         "name": "check_optional_qid_order",
-        "complexity": 36
+        "complexity": 31
       },
       {
         "name": "check_query_forms",
-        "complexity": 41
+        "complexity": 36
       }
     ]
   },
@@ -87,7 +87,7 @@
       },
       {
         "name": "print_formatted_data",
-        "complexity": 59
+        "complexity": 43
       }
     ]
   },
@@ -97,7 +97,7 @@
     "functions": [
       {
         "name": "check_contract_data_completeness",
-        "complexity": 47
+        "complexity": 39
       }
     ]
   },
@@ -121,7 +121,7 @@
     "functions": [
       {
         "name": "convert_to_csv_or_tsv",
-        "complexity": 134
+        "complexity": 109
       }
     ]
   },
@@ -131,7 +131,7 @@
     "functions": [
       {
         "name": "convert_to_json",
-        "complexity": 82
+        "complexity": 73
       }
     ]
   },
@@ -141,15 +141,15 @@
     "functions": [
       {
         "name": "translations_to_sqlite",
-        "complexity": 22
+        "complexity": 13
       },
       {
         "name": "wiktionary_translations_to_sqlite",
-        "complexity": 23
+        "complexity": 19
       },
       {
         "name": "convert_to_sqlite",
-        "complexity": 126
+        "complexity": 82
       }
     ]
   },
@@ -159,7 +159,7 @@
     "functions": [
       {
         "name": "convert_wrapper",
-        "complexity": 16
+        "complexity": 14
       }
     ]
   },
@@ -177,7 +177,7 @@
       },
       {
         "name": "download_wd_lexeme_dump",
-        "complexity": 25
+        "complexity": 28
       }
     ]
   },
@@ -187,7 +187,7 @@
     "functions": [
       {
         "name": "download_wiktionary_dumps",
-        "complexity": 30
+        "complexity": 28
       }
     ]
   },
@@ -207,7 +207,7 @@
     "functions": [
       {
         "name": "list_data_types",
-        "complexity": 23
+        "complexity": 14
       }
     ]
   },
@@ -217,7 +217,7 @@
     "functions": [
       {
         "name": "main",
-        "complexity": 118
+        "complexity": 117
       }
     ]
   },
@@ -227,7 +227,7 @@
     "functions": [
       {
         "name": "get_datatype_list",
-        "complexity": 31
+        "complexity": 21
       },
       {
         "name": "print_total_lexemes",
@@ -241,7 +241,7 @@
     "functions": [
       {
         "name": "query_total_lexemes",
-        "complexity": 31
+        "complexity": 33
       }
     ]
   },
@@ -251,7 +251,7 @@
     "functions": [
       {
         "name": "total_wrapper",
-        "complexity": 30
+        "complexity": 34
       }
     ]
   },
@@ -261,7 +261,7 @@
     "functions": [
       {
         "name": "gen_emoji_lexicon",
-        "complexity": 54
+        "complexity": 49
       }
     ]
   },
@@ -279,11 +279,11 @@
       },
       {
         "name": "_find",
-        "complexity": 27
+        "complexity": 22
       },
       {
         "name": "check_lexeme_dump_prompt_download",
-        "complexity": 43
+        "complexity": 40
       }
     ]
   },
@@ -293,7 +293,7 @@
     "functions": [
       {
         "name": "format_data",
-        "complexity": 36
+        "complexity": 32
       }
     ]
   },
@@ -303,14 +303,14 @@
     "functions": [
       {
         "name": "LexemeProcessor::process_lines",
-        "complexity": 18
-      },
-      {
-        "name": "LexemeProcessor::process_file",
-        "complexity": 26
+        "complexity": 17
       },
       {
         "name": "LexemeProcessor::_build_iso_mapping",
+        "complexity": 27
+      },
+      {
+        "name": "LexemeProcessor::process_file",
         "complexity": 27
       },
       {
@@ -333,7 +333,7 @@
     "functions": [
       {
         "name": "query_data",
-        "complexity": 103
+        "complexity": 83
       }
     ]
   },
@@ -343,7 +343,7 @@
     "functions": [
       {
         "name": "parse_wd_lexeme_dump",
-        "complexity": 26
+        "complexity": 24
       }
     ]
   },
@@ -380,20 +380,20 @@
         "complexity": 30
       },
       {
-        "name": "_iter_dump_pages",
-        "complexity": 48
+        "name": "_parse_ast_u_tabelle",
+        "complexity": 47
       },
       {
         "name": "parse_xml_dump",
-        "complexity": 49
+        "complexity": 48
       },
       {
         "name": "_parse_block_translations",
         "complexity": 50
       },
       {
-        "name": "_parse_ast_u_tabelle",
-        "complexity": 51
+        "name": "_iter_dump_pages",
+        "complexity": 59
       }
     ]
   },
@@ -416,10 +416,6 @@
     "file_name": "generate_utils.py",
     "functions": [
       {
-        "name": "sort_qids_by_position",
-        "complexity": 11
-      },
-      {
         "name": "_extract_specific_key_values",
         "complexity": 16
       },
@@ -435,7 +431,7 @@
     "functions": [
       {
         "name": "generate_wikidata_lexeme_queries",
-        "complexity": 185
+        "complexity": 149
       }
     ]
   },
@@ -445,17 +441,7 @@
     "functions": [
       {
         "name": "get_data",
-        "complexity": 52
-      }
-    ]
-  },
-  {
-    "path": "src/scribe_data/cli/interactive/prompt.py",
-    "file_name": "prompt.py",
-    "functions": [
-      {
-        "name": "prompt_for_data_types",
-        "complexity": 11
+        "complexity": 53
       }
     ]
   },
@@ -475,7 +461,7 @@
     "functions": [
       {
         "name": "compare_log_files",
-        "complexity": 113
+        "complexity": 104
       }
     ]
   },
@@ -486,16 +472,6 @@
       {
         "name": "generate_log_file",
         "complexity": 28
-      }
-    ]
-  },
-  {
-    "path": "tests/cli/contracts/test_cli_contracts_check.py",
-    "file_name": "test_cli_contracts_check.py",
-    "functions": [
-      {
-        "name": "test_cli_contracts_print_missing_forms_with_missing",
-        "complexity": 11
       }
     ]
   }
